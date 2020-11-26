@@ -8,8 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "lbh-frontend-react": "^0.5.7",
     "next": "10.0.3",
-    "react": "17.0.1",
+    "react": ">=16",
     "react-dom": "17.0.1"
   },
   "devDependencies": {
