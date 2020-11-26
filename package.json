@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@testing-library/react": "^11.2.2",
+    "govuk-frontend": "^3.10.0",
     "lbh-frontend-react": "^0.5.7",
     "next": "10.0.3",
     "react": ">=16",
