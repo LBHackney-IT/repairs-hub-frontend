@@ -1,0 +1,15 @@
+.govuk-button {
+  background-color: repairs-hub-colour('housing-2') !important;
+  &:hover {
+    background-color: #10767c !important;
+  }
+  &:focus {
+    opacity: 0.9 !important;
+    background-color: repairs-hub-colour('housing-2') !important;
+    background-color: repairs-hub-colour('housing-2') !important;
+    border-color: repairs-hub-colour('housing-2') !important;
+  }
+  &:focus, &:hover {
+    box-shadow: none !important;
+  }
+}
