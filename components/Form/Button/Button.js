@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const Button = ({ onClick, label, type, ...otherProps }) => (
   <div className="govuk-form-group">
     <button
@@ -10,6 +12,12 @@ const Button = ({ onClick, label, type, ...otherProps }) => (
       {label}
     </button>
   </div>
-);
+)
+
+Button.propTypes = {
+  onClick: PropTypes.func,
+  label: PropTypes.node.isRequired,
+  type: PropTypes.string
+}
 
 export default Button

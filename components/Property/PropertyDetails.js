@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+
 const PropertyDetails = ({ propertyReference, address, hierarchyType }) => (
   <div>
     <h1 className="govuk-heading-l">
@@ -30,7 +32,13 @@ const PropertyDetails = ({ propertyReference, address, hierarchyType }) => (
         </p>
       </div>
     </div>
-   </div>
+  </div>
 )
+
+PropertyDetails.propTypes = {
+  propertyReference: PropTypes.string.isRequired,
+  address: PropTypes.object.isRequired,
+  hierarchyType: PropTypes.object.isRequired,
+}
 
 export default PropertyDetails

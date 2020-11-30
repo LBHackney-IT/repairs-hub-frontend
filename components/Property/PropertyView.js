@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from 'components/Spinner/Spinner'
@@ -48,6 +49,10 @@ const PropertyView = ({ propertyReference }) => {
       )}
     </>
   )
+}
+
+PropertyView.propTypes = {
+  propertyReference: PropTypes.string.isRequired,
 }
 
 export default PropertyView

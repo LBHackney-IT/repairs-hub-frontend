@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Link from 'next/link'
 
 const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
@@ -12,5 +13,11 @@ const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
     <td className="govuk-table__cell">{propertyReference}</td>
   </tr>
 )
+
+PropertyRow.propTypes = {
+  propertyReference: PropTypes.string.isRequired,
+  address: PropTypes.object.isRequired,
+  hierarchyType: PropTypes.object.isRequired,
+}
 
 export default PropertyRow

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import PropertyRow from 'components/Property/PropertyRow'
 
 const PropertiesTable = ({ properties, query }) => (
@@ -23,5 +24,16 @@ const PropertiesTable = ({ properties, query }) => (
     </table>
   </div>
 )
+
+PropertiesTable.propTypes = {
+  properties: PropTypes.arrayOf(
+    PropTypes.shape({
+      propertyReference: PropTypes.string,
+      address: PropTypes.object.isRequired,
+      hierarchyType: PropTypes.object.isRequired
+    })
+  ).isRequired,
+  query: PropTypes.string.isRequired
+}
 
 export default PropertiesTable
