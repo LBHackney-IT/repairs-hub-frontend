@@ -1,7 +1,7 @@
 import { getProperties, getProperty } from './properties'
 import mockAxios from './__mocks__/axios'
 
-const { ENDPOINT_API } = process.env
+const { NEXT_PUBLIC_ENDPOINT_API } = process.env
 
 describe('getProperties', () => {
   it('fetches successfully data from an API', async () => {
@@ -47,7 +47,7 @@ describe('getProperties', () => {
     expect(response).toEqual(properties)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/properties/?q=E9 6PT`
+      `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`
     )
   })
 })
@@ -78,7 +78,7 @@ describe('getProperty', () => {
     expect(response).toEqual(property)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${ENDPOINT_API}/properties/00012345`
+      `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`
     )
   })
 })
