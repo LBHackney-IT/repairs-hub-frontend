@@ -1,0 +1,17 @@
+$repairs-hub-colours: (
+  "housing-1": #005f61,
+  "housing-2": #009ca6,
+  "housing-3": #2dccd3
+);
+
+@function repairs-hub-colour($colour) {
+  @return map-get($repairs-hub-colours, quote($colour));
+}
+
+.focus-colour:focus {
+  outline: 3px solid repairs-hub-colour('housing-3') !important;
+}
+
+.text-green {
+  color: repairs-hub-colour("housing-2");
+}
