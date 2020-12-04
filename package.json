@@ -14,12 +14,12 @@
     "lbh-frontend-react": "^0.5.7",
     "next": "10.0.3",
     "react": ">=16",
-    "react-dom": "17.0.1",
-    "sass": "^1.29.0"
+    "react-dom": "17.0.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
-    "jest": "^26.6.3"
+    "jest": "^26.6.3",
+    "sass": "^1.29.0"
   }
 }
