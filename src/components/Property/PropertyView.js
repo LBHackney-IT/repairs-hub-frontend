@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
-import Spinner from 'components/Spinner/Spinner'
-import ErrorMessage from 'components/Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from 'utils/api/properties'
+import Spinner from '../Spinner/Spinner'
+import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import { getProperty } from '../../utils/api/properties'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})

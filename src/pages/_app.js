@@ -1,5 +1,5 @@
 import App from 'next/app'
-import Layout from 'components/Layout'
+import Layout from '../Components/Layout'
 
 import './stylesheets/all.scss'
 

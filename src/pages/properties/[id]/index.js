@@ -1,4 +1,4 @@
-import PropertyView from 'components/Property/PropertyView'
+import PropertyView from '../../../Components/Property/PropertyView'
 
 const PropertyPage = ({ query }) => {
   return (

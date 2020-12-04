@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from 'react'
 import { useRouter } from 'next/router'
-import PropertiesTable from 'components/Properties/PropertiesTable'
-import Button from 'components/Form/Button/Button'
-import Spinner from 'components/Spinner/Spinner'
-import ErrorMessage from 'components/Errors/ErrorMessage/ErrorMessage'
-import { getProperties } from 'utils/api/properties'
+import PropertiesTable from '../Properties/PropertiesTable'
+import Button from '../Form/Button/Button'
+import Spinner from '../Spinner/Spinner'
+import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import { getProperties } from '../../utils/api/properties'
 
 const Search = ({ query }) => {
   const [searchParams, setSearchParams] = useState('')
