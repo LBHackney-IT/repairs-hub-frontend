@@ -1,7 +1,6 @@
+import '../styles/all.scss'
 import App from 'next/app'
 import Layout from '../Components/Layout'
-
-import './stylesheets/all.scss'
 
 class MyApp extends App {
   render() {
