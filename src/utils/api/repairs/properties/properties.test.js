@@ -1,5 +1,6 @@
+import AuthHeader from '../../../../utils/AuthHeader'
 import { getProperties, getProperty } from './properties'
-import mockAxios from './__mocks__/axios'
+import mockAxios from '../__mocks__/axios'
 
 const { NEXT_PUBLIC_ENDPOINT_API } = process.env
 
@@ -47,7 +48,8 @@ describe('getProperties', () => {
     expect(response).toEqual(properties)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`
+      `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`,
+      { headers: AuthHeader() }
     )
   })
 })
@@ -78,7 +80,8 @@ describe('getProperty', () => {
     expect(response).toEqual(property)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`
+      `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`,
+      { headers: AuthHeader() }
     )
   })
 })

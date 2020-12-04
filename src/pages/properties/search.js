@@ -1,4 +1,4 @@
-import Search from 'components/Search/Search'
+import Search from '../../Components/Search/Search'
 
 const SearchPage = ({ query }) => {
   return (

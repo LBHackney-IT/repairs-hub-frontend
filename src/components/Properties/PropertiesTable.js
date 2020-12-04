@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import PropertyRow from 'components/Property/PropertyRow'
+import PropertyRow from '../Property/PropertyRow'
 
 const PropertiesTable = ({ properties, query }) => (
   <div>
