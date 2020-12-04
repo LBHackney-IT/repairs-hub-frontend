@@ -1,5 +1,5 @@
 import { getProperties, getProperty } from './properties'
-import mockAxios from './__mocks__/axios'
+import mockAxios from '../__mocks__/axios'
 
 const { NEXT_PUBLIC_ENDPOINT_API } = process.env
 
