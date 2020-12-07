@@ -8,7 +8,8 @@
     "prettier:fix": "npx prettier --write .",
     "prettier:test": "npx prettier -c .",
     "start": "next start -p $PORT",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'"
   },
   "dependencies": {
     "axios": "^0.21.0",
