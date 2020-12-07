@@ -1,4 +1,4 @@
-import Search from '../Components/Search/Search'
+import Search from '../components/Search/Search'
 import SearchPage from './properties/search'
 
 const Home = () => {
