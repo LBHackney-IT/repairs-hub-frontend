@@ -14,7 +14,7 @@ exports[`PropertyDetails component should render properly 1`] = `
       <div
         class="govuk-grid-column-one-half"
       >
-        <p
+        <div
           class="govuk-body-s"
         >
           <span
@@ -41,7 +41,25 @@ exports[`PropertyDetails component should render properly 1`] = `
             E9 6PT
           </span>
           <br />
-        </p>
+          <div
+            class="hackney-property-alerts"
+          >
+            <ul
+              class="govuk-tag bg-orange"
+            >
+              Address alerts: 
+              <li>
+                Property Under Disrepair (
+                <span
+                  class="govuk-!-font-weight-bold"
+                >
+                  DIS
+                </span>
+                )
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   </div>
