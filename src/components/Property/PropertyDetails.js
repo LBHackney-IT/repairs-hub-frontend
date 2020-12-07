@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-const PropertyDetails = ({ propertyReference, address, hierarchyType }) => (
+const PropertyDetails = ({ address, hierarchyType }) => (
   <div>
     <h1 className="govuk-heading-l">
       {hierarchyType.subTypeDescription}: {address.addressLine}

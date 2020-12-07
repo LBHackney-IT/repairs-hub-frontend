@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import PropertiesTable from '../Properties/PropertiesTable'
 import Button from '../Form/Button/Button'
