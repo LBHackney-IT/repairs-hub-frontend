@@ -19,7 +19,9 @@ const PropertyView = ({ propertyReference }) => {
     } catch (e) {
       setProperty(null)
       console.log('An error has occured:', e.response)
-      setError(`Oops an error occurred with error status: ${e.response?.status}`)
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status}`
+      )
     }
 
     setLoading(false)
@@ -37,13 +39,13 @@ const PropertyView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
-          {property && property.address && property.hierarchyType &&
+          {property && property.address && property.hierarchyType && (
             <PropertyDetails
               propertyReference={propertyReference}
               address={property.address}
               hierarchyType={property.hierarchyType}
             />
-          }
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}

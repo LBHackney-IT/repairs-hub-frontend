@@ -9,7 +9,8 @@
     background-color: repairs-hub-colour('housing-2') !important;
     border-color: repairs-hub-colour('housing-2') !important;
   }
-  &:focus, &:hover {
+  &:focus,
+  &:hover {
     box-shadow: none !important;
   }
 }

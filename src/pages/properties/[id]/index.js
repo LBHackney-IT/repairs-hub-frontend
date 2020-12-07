@@ -1,9 +1,7 @@
 import PropertyView from '../../../components/Property/PropertyView'
 
 const PropertyPage = ({ query }) => {
-  return (
-    <PropertyView propertyReference={query.id} />
-  )
+  return <PropertyView propertyReference={query.id} />
 }
 
 export const getServerSideProps = async (ctx) => {
@@ -11,8 +9,8 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      query
-    }
+      query,
+    },
   }
 }
 

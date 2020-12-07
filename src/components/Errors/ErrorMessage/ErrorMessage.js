@@ -7,7 +7,7 @@ const ErrorMessage = ({ label }) => (
 )
 
 ErrorMessage.propTypes = {
-  label: PropTypes.node.isRequired
+  label: PropTypes.node.isRequired,
 }
 
 export default ErrorMessage

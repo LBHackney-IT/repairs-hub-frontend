@@ -8,38 +8,38 @@ describe('getProperties', () => {
   it('fetches successfully data from an API', async () => {
     const properties = [
       {
-        "propertyReference": "00012345",
-        "address": {
-          "shortAddress": "16 Pitcairn House  St Thomass Square",
-          "postalCode": "E9 6PT",
-          "addressLine": "16 Pitcairn House",
-          "streetSuffix": "St Thomass Square"
+        propertyReference: '00012345',
+        address: {
+          shortAddress: '16 Pitcairn House  St Thomass Square',
+          postalCode: 'E9 6PT',
+          addressLine: '16 Pitcairn House',
+          streetSuffix: 'St Thomass Square',
         },
-        "hierarchyType": {
-          "levelCode": "7",
-          "subTypeCode": "DWE",
-          "subTypeDescription": "Dwelling"
-        }
+        hierarchyType: {
+          levelCode: '7',
+          subTypeCode: 'DWE',
+          subTypeDescription: 'Dwelling',
+        },
       },
       {
-        "propertyReference": "00012346",
-        "address": {
-          "shortAddress": "1 Pitcairn House  St Thomass Square",
-          "postalCode": "E9 6PT",
-          "addressLine": "1 Pitcairn House",
-          "streetSuffix": "St Thomass Square"
+        propertyReference: '00012346',
+        address: {
+          shortAddress: '1 Pitcairn House  St Thomass Square',
+          postalCode: 'E9 6PT',
+          addressLine: '1 Pitcairn House',
+          streetSuffix: 'St Thomass Square',
         },
-        "hierarchyType": {
-          "levelCode": "7",
-          "subTypeCode": "DWE",
-          "subTypeDescription": "Dwelling"
-        }
-      }
+        hierarchyType: {
+          levelCode: '7',
+          subTypeCode: 'DWE',
+          subTypeDescription: 'Dwelling',
+        },
+      },
     ]
 
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
-        data: properties
+        data: properties,
       })
     )
 
@@ -49,7 +49,9 @@ describe('getProperties', () => {
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
       `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`,
-      { headers: AuthHeader() }
+      {
+        headers: AuthHeader(),
+      }
     )
   })
 })
@@ -57,21 +59,21 @@ describe('getProperties', () => {
 describe('getProperty', () => {
   it('fetches successfully data from an API', async () => {
     const property = {
-      "propertyReference": "00012345",
-      "address": {
-        "shortAddress": "16 Pitcairn House  St Thomass Square",
-        "postalCode": "E9 6PT"
+      propertyReference: '00012345',
+      address: {
+        shortAddress: '16 Pitcairn House  St Thomass Square',
+        postalCode: 'E9 6PT',
       },
-      "hierarchyType": {
-        "levelCode": "7",
-        "subTypeCode": "DWE",
-        "subTypeDescription": "Dwelling"
-      }
+      hierarchyType: {
+        levelCode: '7',
+        subTypeCode: 'DWE',
+        subTypeDescription: 'Dwelling',
+      },
     }
 
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
-        data: property
+        data: property,
       })
     )
 
@@ -81,7 +83,9 @@ describe('getProperty', () => {
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
       `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`,
-      { headers: AuthHeader() }
+      {
+        headers: AuthHeader(),
+      }
     )
   })
 })
