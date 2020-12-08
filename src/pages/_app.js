@@ -23,9 +23,10 @@ if (NEXT_PUBLIC_ALLOWED_IP_ADDRESSES) {
     let shouldBlockAccess = true
 
     // Specify IP's to whitelist
-    var allowedIps = NEXT_PUBLIC_ALLOWED_IP_ADDRESSES.split(",")
+    var allowedIps = NEXT_PUBLIC_ALLOWED_IP_ADDRESSES.split(',')
     // Read the request objects headers to find out ip address
-    var ip = ctx.req.headers['x-forwarded-for'] || ctx.req.connection.remoteAddress
+    var ip =
+      ctx.req.headers['x-forwarded-for'] || ctx.req.connection.remoteAddress
 
     if (allowedIps.includes(ip)) {
       shouldBlockAccess = false
