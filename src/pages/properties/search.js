@@ -1,9 +1,7 @@
 import Search from '../../components/Search/Search'
 
 const SearchPage = ({ query }) => {
-  return (
-    <Search query={query} />
-  )
+  return <Search query={query} />
 }
 
 export const getServerSideProps = async (ctx) => {
@@ -11,8 +9,8 @@ export const getServerSideProps = async (ctx) => {
 
   return {
     props: {
-      query
-    }
+      query,
+    },
   }
 }
 
