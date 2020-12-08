@@ -3,7 +3,7 @@ import Document, { Html, Head, Main, NextScript } from 'next/document'
 class AppDocument extends Document {
   render() {
     return (
-      <Html className="govuk-template lbh-template">
+      <Html lang="en" className="govuk-template lbh-template">
         <Head>
           <link rel="icon" href="/favicon.ico" />
         </Head>
