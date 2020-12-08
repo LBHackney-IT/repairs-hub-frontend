@@ -1,0 +1,16 @@
+.hackney-property-alerts {
+  width: 60%;
+  padding: 0;
+
+  li {
+    font-family: Arial, Helvetica, sans-serif !important;
+    text-transform: capitalize;
+    margin-bottom: 5px;
+    padding: 4px 8px;
+    font-weight: normal;
+  }
+}
+
+.bg-orange {
+  background-color: repairs-hub-colour('bg-orange') !important;
+}
