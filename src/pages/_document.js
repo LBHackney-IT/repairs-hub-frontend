@@ -6,7 +6,6 @@ class AppDocument extends Document {
       <Html lang="en" className="govuk-template lbh-template">
         <Head>
           <link rel="icon" href="/favicon.ico" />
-          <title>Hackney Repairs Hub</title>
         </Head>
         <body className="govuk-template__body lbh-template__body js-enabled">
           <Main />

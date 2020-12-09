@@ -1,6 +1,7 @@
 import '../styles/all.scss'
 import App from 'next/app'
 import Layout from '../components/Layout'
+import Head from 'next/head'
 
 const { NEXT_PUBLIC_ALLOWED_IP_ADDRESSES } = process.env
 
@@ -10,6 +11,9 @@ class MyApp extends App {
     return (
       <>
         <Layout>
+          <Head>
+            <title>Hackney Repairs Hub</title>
+          </Head>
           <Component {...pageProps} />
         </Layout>
       </>
