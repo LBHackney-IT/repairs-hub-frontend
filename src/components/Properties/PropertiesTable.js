@@ -21,9 +21,6 @@ const PropertiesTable = ({ properties, query }) => (
           <th scope="col" className="govuk-table__header">
             Property type
           </th>
-          <th scope="col" className="govuk-table__header">
-            Property reference
-          </th>
         </tr>
       </thead>
       <tbody className="govuk-table__body">

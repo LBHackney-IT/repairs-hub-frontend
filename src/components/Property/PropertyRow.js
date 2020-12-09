@@ -10,7 +10,6 @@ const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
     </td>
     <td className="govuk-table__cell">{address.postalCode}</td>
     <td className="govuk-table__cell">{hierarchyType.subTypeDescription}</td>
-    <td className="govuk-table__cell">{propertyReference}</td>
   </tr>
 )
 
