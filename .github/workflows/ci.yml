@@ -10,12 +10,28 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v2
 
-      - name: Install Yarn
-        uses: borales/actions-yarn@v2.0.0
-        with:
-          cmd: install
+      - name: Install dependencies
+        run: |
+          yarn
+          yarn build
+
+      - name: Run linter
+        run: |
+          yarn lint
 
       - name: Run tests
         uses: borales/actions-yarn@v2.0.0
         with:
           cmd: test
+
+      - name: Run E2E
+        env:
+          NEXT_PUBLIC_ENDPOINT_API: ${{ secrets.ENDPOINT_API }}
+        run: |
+          yarn e2e
+
+      - uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
