@@ -56,10 +56,6 @@ exports[`PropertyDetails component should render properly 1`] = `
                 )
               </li>
             </ul>
-          </div>
-          <div
-            class="hackney-property-alerts"
-          >
             <ul
               class="govuk-tag bg-orange"
             >

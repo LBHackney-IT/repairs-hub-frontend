@@ -20,13 +20,7 @@ const PersonAlerts = ({ personAlerts }) => {
     }
   }
 
-  return (
-    <>
-      <div className="hackney-property-alerts">
-        {alertsToShow(personAlerts)}
-      </div>
-    </>
-  )
+  return <>{alertsToShow(personAlerts)}</>
 }
 
 PersonAlerts.propTypes = {

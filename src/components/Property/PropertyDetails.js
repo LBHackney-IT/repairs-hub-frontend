@@ -32,8 +32,10 @@ const PropertyDetails = ({
           )}
           <span className="govuk-body-xs text-green">{address.postalCode}</span>
           <br></br>
-          <LocationAlerts locationAlerts={locationAlerts} />
-          <PersonAlerts personAlerts={personAlerts} />
+          <div className="hackney-property-alerts">
+            <LocationAlerts locationAlerts={locationAlerts} />
+            <PersonAlerts personAlerts={personAlerts} />
+          </div>
         </div>
       </div>
     </div>

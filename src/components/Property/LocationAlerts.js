@@ -20,13 +20,7 @@ const LocationAlerts = ({ locationAlerts }) => {
     }
   }
 
-  return (
-    <>
-      <div className="hackney-property-alerts">
-        {alertsToShow(locationAlerts)}
-      </div>
-    </>
-  )
+  return <>{alertsToShow(locationAlerts)}</>
 }
 
 LocationAlerts.propTypes = {
