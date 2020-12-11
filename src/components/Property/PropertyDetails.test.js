@@ -26,6 +26,14 @@ describe('PropertyDetails component', () => {
           endDate: null,
         },
       ],
+      personAlert: [
+        {
+          alertCode: 'DIS',
+          description: 'Property Under Disrepair',
+          startDate: '2011-08-16',
+          endDate: null,
+        },
+      ],
     },
   }
 
@@ -36,6 +44,7 @@ describe('PropertyDetails component', () => {
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}
         locationAlerts={props.alerts.locationAlert}
+        personAlerts={props.alerts.personAlert}
       />
     )
     expect(asFragment()).toMatchSnapshot()

@@ -21,6 +21,14 @@
         "startDate": "2011-02-16",
         "endDate": null
       }
+    ],
+    "personAlert": [
+      {
+        "code": "DIS",
+        "comments": "Property Under Disrepair",
+        "startDate": "2011-02-16",
+        "endDate": null
+      }
     ]
   }
 }

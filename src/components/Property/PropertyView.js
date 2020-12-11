@@ -8,6 +8,7 @@ import { getProperty } from '../../utils/api/repairs/properties/properties'
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
+  const [personAlerts, setPersonAlerts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
@@ -18,6 +19,7 @@ const PropertyView = ({ propertyReference }) => {
       const data = await getProperty(propertyReference)
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
+      setPersonAlerts(data.alerts.personAlert)
     } catch (e) {
       setProperty(null)
       console.log('An error has occured:', e.response)
@@ -44,12 +46,14 @@ const PropertyView = ({ propertyReference }) => {
           {property &&
             property.address &&
             property.hierarchyType &&
-            locationAlerts && (
+            locationAlerts &&
+            personAlerts && (
               <PropertyDetails
                 propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
                 locationAlerts={locationAlerts}
+                personAlerts={personAlerts}
               />
             )}
           {error && <ErrorMessage label={error} />}
