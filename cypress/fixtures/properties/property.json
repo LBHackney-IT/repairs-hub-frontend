@@ -13,12 +13,14 @@
       "subTypeDescription": "Dwelling"
     }
   },
-  "cautionaryAlerts": [
-    {
-      "alertCode": "DIS",
-      "description": "Property Under Disrepair",
-      "startDate": "2011-02-16",
-      "endDate": null
-    }
-  ]
+  "alerts": {
+    "locationAlert": [
+      {
+        "code": "DIS",
+        "comments": "Property Under Disrepair",
+        "startDate": "2011-02-16",
+        "endDate": null
+      }
+    ]
+  }
 }

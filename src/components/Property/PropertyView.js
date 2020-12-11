@@ -7,7 +7,7 @@ import { getProperty } from '../../utils/api/repairs/properties/properties'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
-  const [addressAlerts, setAddressAlerts] = useState([])
+  const [locationAlerts, setLocationAlerts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
@@ -17,7 +17,7 @@ const PropertyView = ({ propertyReference }) => {
     try {
       const data = await getProperty(propertyReference)
       setProperty(data.property)
-      setAddressAlerts(data.cautionaryAlerts)
+      setLocationAlerts(data.alerts.locationAlert)
     } catch (e) {
       setProperty(null)
       console.log('An error has occured:', e.response)
@@ -44,12 +44,12 @@ const PropertyView = ({ propertyReference }) => {
           {property &&
             property.address &&
             property.hierarchyType &&
-            addressAlerts && (
+            locationAlerts && (
               <PropertyDetails
                 propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
-                cautionaryAlerts={addressAlerts}
+                locationAlerts={locationAlerts}
               />
             )}
           {error && <ErrorMessage label={error} />}

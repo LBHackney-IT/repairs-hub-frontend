@@ -49,12 +49,10 @@ exports[`PropertyDetails component should render properly 1`] = `
             >
               Address alerts: 
               <li>
-                Property Under Disrepair (
+                 (
                 <span
                   class="govuk-!-font-weight-bold"
-                >
-                  DIS
-                </span>
+                />
                 )
               </li>
             </ul>

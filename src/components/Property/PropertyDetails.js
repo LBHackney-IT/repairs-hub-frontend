@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import AddressAlerts from './AddressAlerts'
+import LocationAlerts from './LocationAlerts'
 
-const PropertyDetails = ({ address, hierarchyType, cautionaryAlerts }) => (
+const PropertyDetails = ({ address, hierarchyType, locationAlerts }) => (
   <div>
     <h1 className="govuk-heading-l">
       {hierarchyType.subTypeDescription}: {address.addressLine}
@@ -26,7 +26,7 @@ const PropertyDetails = ({ address, hierarchyType, cautionaryAlerts }) => (
           )}
           <span className="govuk-body-xs text-green">{address.postalCode}</span>
           <br></br>
-          <AddressAlerts cautionaryAlerts={cautionaryAlerts} />
+          <LocationAlerts locationAlerts={locationAlerts} />
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@ PropertyDetails.propTypes = {
   propertyReference: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
-  cautionaryAlerts: PropTypes.array.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
 }
 
 export default PropertyDetails
