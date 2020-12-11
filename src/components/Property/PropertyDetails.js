@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import LocationAlerts from './LocationAlerts'
 import PersonAlerts from './PersonAlerts'
+import Tenure from './Tenure'
 
 const PropertyDetails = ({
   address,
   hierarchyType,
   locationAlerts,
   personAlerts,
+  tenure,
 }) => (
   <div>
     <h1 className="govuk-heading-l">
@@ -35,6 +37,7 @@ const PropertyDetails = ({
           <div className="hackney-property-alerts">
             <LocationAlerts locationAlerts={locationAlerts} />
             <PersonAlerts personAlerts={personAlerts} />
+            <Tenure tenure={tenure} />
           </div>
         </div>
       </div>
@@ -48,6 +51,7 @@ PropertyDetails.propTypes = {
   hierarchyType: PropTypes.object.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
+  tenure: PropTypes.object.isRequired,
 }
 
 export default PropertyDetails

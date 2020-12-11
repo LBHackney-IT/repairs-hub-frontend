@@ -35,6 +35,10 @@ describe('PropertyDetails component', () => {
         },
       ],
     },
+    tenure: {
+      typeCode: 'SEC',
+      typeDescription: 'Secure',
+    },
   }
 
   it('should render properly', () => {
@@ -45,6 +49,7 @@ describe('PropertyDetails component', () => {
         hierarchyType={props.property.hierarchyType}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
+        tenure={props.tenure}
       />
     )
     expect(asFragment()).toMatchSnapshot()

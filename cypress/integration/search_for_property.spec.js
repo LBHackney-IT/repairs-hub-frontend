@@ -59,6 +59,11 @@ describe('Search for property', () => {
       cy.contains('Property Under Disrepair')
       cy.contains('(DIS)')
     })
+
+    // Tenure
+    cy.get('.hackney-property-alerts').within(() => {
+      cy.contains('Secure')
+    })
   })
 
   it('Search for property by address', () => {

@@ -68,6 +68,13 @@ exports[`PropertyDetails component should render properly 1`] = `
                 )
               </li>
             </ul>
+            <ul
+              class="govuk-tag bg-turquoise"
+            >
+              <li>
+                Tenure: Secure
+              </li>
+            </ul>
           </div>
         </div>
       </div>
