@@ -1,22 +1,20 @@
 /// <reference types="cypress" />
 
 beforeEach(() => {
-  cy.fixture('properties/properties.json').as('propertiesList')
-  cy.server()
+  cy.visit('/')
 })
 
 describe('Search for property', () => {
   it('Search for property by postcode', () => {
-    cy.fixture('properties/property.json').as('property')
-
     // Stub request for search on properties by postcode
-    cy.route('GET', 'api/v2/properties/?q=e9 6pt', '@propertiesList')
+    cy.intercept('GET', '/api/v2/properties/?q=e9%206pt', {
+      fixture: 'properties/properties.json',
+    })
 
     // Search by postcode
-    cy.visit('/')
     cy.get('.govuk-input').clear().type('e9 6pt')
     cy.get('[type="submit"]').contains('Search').click()
-    cy.url().should('contains', 'properties/search?q')
+    cy.url().should('contains', 'properties/search?q=e9%25206pt')
 
     cy.get('.govuk-heading-s').contains(
       'We found 2 matching results for: e9 6pt'
@@ -30,7 +28,9 @@ describe('Search for property', () => {
     })
 
     // Stub request for property response
-    cy.route('GET', 'api/v2/properties/00012345', '@property')
+    cy.intercept('GET', '/api/v2/properties/00012345', {
+      fixture: 'properties/property.json',
+    })
 
     // Click property with reference 00012345
     cy.get('.govuk-table__cell a').first().click()
@@ -56,10 +56,11 @@ describe('Search for property', () => {
 
   it('Search for property by address', () => {
     // Stub request for search on properties by address
-    cy.route('GET', 'api/v2/properties/?q=pitcairn', '@propertiesList')
+    cy.intercept('GET', '/api/v2/properties/?q=pitcairn', {
+      fixture: 'properties/properties.json',
+    })
 
     // Search by address
-    cy.get('.lbh-header__title-link').click()
     cy.get('.govuk-input').type('pitcairn')
     cy.get('[type="submit"]').contains('Search').click()
 
