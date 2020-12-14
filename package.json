@@ -11,8 +11,8 @@
     "start": "next start -p $PORT",
     "test": "jest",
     "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'",
-    "e2e": "PORT=5000 server-test start 5000 cy:run",
-    "interactive:e2e": "PORT=5000 server-test start 5000 cy:open",
+    "e2e": "PORT=5001 server-test start 5001 cy:run",
+    "interactive:e2e": "PORT=5001 server-test start 5001 cy:open",
     "cy:run": "cypress run",
     "cy:open": "cypress open"
   },
