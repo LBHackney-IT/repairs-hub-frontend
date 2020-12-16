@@ -5,16 +5,13 @@ const PersonAlerts = ({ personAlerts }) => {
     if (prsnAlerts.length != 0) {
       let alertsHtml = prsnAlerts.map((alert, index) => {
         return (
-          <li key={index}>
-            {alert.comments} (
-            <span className="govuk-!-font-weight-bold">{alert.code}</span>)
+          <li className="bg-orange" key={index}>
+            Contact Alert: {alert.comments} (<strong>{alert.type}</strong>)
           </li>
         )
       })
 
-      return (
-        <ul className="govuk-tag bg-orange">Person alerts: {alertsHtml}</ul>
-      )
+      return <>{alertsHtml}</>
     } else {
       return ''
     }

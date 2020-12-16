@@ -16,7 +16,7 @@
   "alerts": {
     "locationAlert": [
       {
-        "code": "DIS",
+        "type": "DIS",
         "comments": "Property Under Disrepair",
         "startDate": "2011-02-16",
         "endDate": null
@@ -24,15 +24,22 @@
     ],
     "personAlert": [
       {
-        "code": "DIS",
-        "comments": "Property Under Disrepair",
-        "startDate": "2011-02-16",
+        "type": "CV",
+        "comments": "No Lone Visits",
+        "startDate": "2013-03-16",
+        "endDate": null
+      },
+      {
+        "type": "VA",
+        "comments": "Verbal Abuse or Threat of",
+        "startDate": "2014-02-10",
         "endDate": null
       }
     ]
   },
   "tenure": {
     "typeCode": "SEC",
-    "typeDescription": "Secure"
+    "typeDescription": "Secure",
+    "canRaiseRepair": true
   }
 }

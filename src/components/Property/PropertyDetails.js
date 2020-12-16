@@ -18,27 +18,31 @@ const PropertyDetails = ({
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-one-half">
         <div className="govuk-body-s">
-          <span className="govuk-body-xs">Property details</span>
-          <br></br>
-          <span className="govuk-!-font-weight-bold text-green">
-            {address.addressLine}
-          </span>
-          <br></br>
-          {address.streetSuffix && (
-            <>
-              <span className="govuk-!-font-weight-bold text-green">
-                {address.streetSuffix}
-              </span>
-              <br></br>
-            </>
-          )}
-          <span className="govuk-body-xs text-green">{address.postalCode}</span>
-          <br></br>
-          <div className="hackney-property-alerts">
+          <div className="property-details-main-section">
+            <span className="govuk-body-xs">Property details</span>
+            <br></br>
+            <span className="govuk-!-font-weight-bold text-green">
+              {address.addressLine}
+            </span>
+            <br></br>
+            {address.streetSuffix && (
+              <>
+                <span className="govuk-!-font-weight-bold text-green">
+                  {address.streetSuffix}
+                </span>
+                <br></br>
+              </>
+            )}
+            <span className="govuk-body-xs text-green">
+              {address.postalCode}
+            </span>
+          </div>
+
+          <ul className="hackney-property-alerts">
+            <Tenure tenure={tenure} />
             <LocationAlerts locationAlerts={locationAlerts} />
             <PersonAlerts personAlerts={personAlerts} />
-            <Tenure tenure={tenure} />
-          </div>
+          </ul>
         </div>
       </div>
     </div>

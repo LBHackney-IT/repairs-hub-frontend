@@ -3,6 +3,7 @@
 beforeEach(() => {
   cy.fixture('properties/properties.json').as('propertiesList')
   cy.server()
+  cy.visit('/')
 })
 
 describe('Search for property', () => {
@@ -13,10 +14,9 @@ describe('Search for property', () => {
     cy.route('GET', 'api/v2/properties/?q=e9 6pt', '@propertiesList')
 
     // Search by postcode
-    cy.visit('/')
     cy.get('.govuk-input').clear().type('e9 6pt')
     cy.get('[type="submit"]').contains('Search').click()
-    cy.url().should('contains', 'properties/search?q')
+    cy.url().should('contains', 'properties/search?q=e9%25206pt')
 
     cy.get('.govuk-heading-s').contains(
       'We found 2 matching results for: e9 6pt'
@@ -46,23 +46,19 @@ describe('Search for property', () => {
       cy.contains('E9 6PT')
     })
 
-    // Location alerts
-    cy.get('.hackney-property-alerts').within(() => {
-      cy.contains('Address alerts:')
-      cy.contains('Property Under Disrepair')
-      cy.contains('(DIS)')
+    // Tenure (raisable repair)
+    cy.get('.hackney-property-alerts li.bg-turquoise').within(() => {
+      cy.contains('Tenure: Secure')
     })
 
-    // Person alerts
+    // Alerts
     cy.get('.hackney-property-alerts').within(() => {
-      cy.contains('Person alerts:')
-      cy.contains('Property Under Disrepair')
-      cy.contains('(DIS)')
-    })
+      // Location alerts
+      cy.contains('Address Alert: Property Under Disrepair (DIS)')
 
-    // Tenure
-    cy.get('.hackney-property-alerts').within(() => {
-      cy.contains('Secure')
+      // Person alerts
+      cy.contains('Contact Alert: No Lone Visits (CV)')
+      cy.contains('Contact Alert: Verbal Abuse or Threat of (VA)')
     })
   })
 
@@ -71,12 +67,25 @@ describe('Search for property', () => {
     cy.route('GET', 'api/v2/properties/?q=pitcairn', '@propertiesList')
 
     // Search by address
-    cy.get('.lbh-header__title-link').click()
     cy.get('.govuk-input').type('pitcairn')
     cy.get('[type="submit"]').contains('Search').click()
 
     cy.get('.govuk-heading-s').contains(
       'We found 2 matching results for: pitcairn'
     )
+  })
+
+  it('Search for property with unraisable repair', () => {
+    cy.fixture('properties/property_repair_not_raisable.json').as('property')
+
+    // Stub request for property with unraisable tenure code
+    cy.route('GET', 'api/v2/properties/00012345', '@property')
+
+    cy.visit('properties/00012345')
+
+    // Tenure (not raisable repair)
+    cy.get('.hackney-property-alerts li.bg-orange').within(() => {
+      cy.contains('Tenure: Leasehold (RTB)')
+    })
   })
 })
