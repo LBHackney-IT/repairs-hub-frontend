@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import 'cypress-audit/commands'
+
 beforeEach(() => {
   cy.server()
 })
@@ -39,6 +41,9 @@ describe('Show property', () => {
       cy.contains('Contact Alert: No Lone Visits (CV)')
       cy.contains('Contact Alert: Verbal Abuse or Threat of (VA)')
     })
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 
   it('Displays property with a tenure type that does not permit raising a repair', () => {
@@ -56,6 +61,9 @@ describe('Show property', () => {
     cy.get('.hackney-property-alerts li.bg-orange').within(() => {
       cy.contains('Tenure: Leasehold (RTB)')
     })
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 
   it('Display property with no tenure type', () => {

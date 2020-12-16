@@ -36,18 +36,20 @@ jobs:
             - ./.next/cache
             - /home/circleci/.cache/Cypress
       - run:
-          name: Run linter
+          name: Run Linter
           command: yarn lint
       - run:
-          name: Run tests
+          name: Run Tests
           command: yarn test
       - run:
           name: Run E2E
           command: NEXT_PUBLIC_ENDPOINT_API=${ENDPOINT_API} yarn e2e
       - store_artifacts:
-          path: ~/repo/cypress/screenshots
+          path: cypress/screenshots
       - store_artifacts:
-          path: ~/repo/cypress/videos
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/reports
 
       - persist_to_workspace:
           root: *workspace_root

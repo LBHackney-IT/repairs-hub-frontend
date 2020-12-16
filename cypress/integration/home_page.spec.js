@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import 'cypress-audit/commands'
+
 describe('Home page', () => {
   it('Displays all necessary components on the home page', () => {
     cy.visit('/')
@@ -11,5 +13,8 @@ describe('Home page', () => {
     // Search for property component
     cy.get('.govuk-heading-m').contains('Find property')
     cy.get('.govuk-label').contains('Search by postcode or address')
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 })
