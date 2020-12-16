@@ -48,7 +48,7 @@ exports[`PropertyDetails component should render properly 1`] = `
             class="hackney-property-alerts"
           >
             <li
-              class="bg-orange"
+              class="bg-turquoise"
             >
               Tenure: Secure
             </li>

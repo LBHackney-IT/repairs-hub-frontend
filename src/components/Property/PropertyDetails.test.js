@@ -38,6 +38,7 @@ describe('PropertyDetails component', () => {
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      canRaiseRepair: true,
     },
   }
 
