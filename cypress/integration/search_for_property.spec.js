@@ -46,11 +46,23 @@ describe('Search for property', () => {
       cy.contains('E9 6PT')
     })
 
-    // Address alerts
+    // Location alerts
     cy.get('.hackney-property-alerts').within(() => {
       cy.contains('Address alerts:')
       cy.contains('Property Under Disrepair')
       cy.contains('(DIS)')
+    })
+
+    // Person alerts
+    cy.get('.hackney-property-alerts').within(() => {
+      cy.contains('Person alerts:')
+      cy.contains('Property Under Disrepair')
+      cy.contains('(DIS)')
+    })
+
+    // Tenure
+    cy.get('.hackney-property-alerts').within(() => {
+      cy.contains('Secure')
     })
   })
 

@@ -49,13 +49,30 @@ exports[`PropertyDetails component should render properly 1`] = `
             >
               Address alerts: 
               <li>
-                Property Under Disrepair (
+                 (
                 <span
                   class="govuk-!-font-weight-bold"
-                >
-                  DIS
-                </span>
+                />
                 )
+              </li>
+            </ul>
+            <ul
+              class="govuk-tag bg-orange"
+            >
+              Person alerts: 
+              <li>
+                 (
+                <span
+                  class="govuk-!-font-weight-bold"
+                />
+                )
+              </li>
+            </ul>
+            <ul
+              class="govuk-tag bg-turquoise"
+            >
+              <li>
+                Tenure: Secure
               </li>
             </ul>
           </div>

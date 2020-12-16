@@ -16,17 +16,28 @@ describe('PropertyDetails component', () => {
         subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
-      cautionaryAlerts: {
-        propertyReference: '00012345',
-        alerts: [
-          {
-            alertCode: 'DIS',
-            description: 'Property Under Disrepair',
-            startDate: '2011-02-16',
-            endDate: null,
-          },
-        ],
-      },
+    },
+    alerts: {
+      locationAlert: [
+        {
+          alertCode: 'DIS',
+          description: 'Property Under Disrepair',
+          startDate: '2011-02-16',
+          endDate: null,
+        },
+      ],
+      personAlert: [
+        {
+          alertCode: 'DIS',
+          description: 'Property Under Disrepair',
+          startDate: '2011-08-16',
+          endDate: null,
+        },
+      ],
+    },
+    tenure: {
+      typeCode: 'SEC',
+      typeDescription: 'Secure',
     },
   }
 
@@ -36,7 +47,9 @@ describe('PropertyDetails component', () => {
         propertyReference={props.property.propertyReference}
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}
-        cautionaryAlerts={props.property.cautionaryAlerts.alerts}
+        locationAlerts={props.alerts.locationAlert}
+        personAlerts={props.alerts.personAlert}
+        tenure={props.tenure}
       />
     )
     expect(asFragment()).toMatchSnapshot()
