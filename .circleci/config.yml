@@ -18,10 +18,10 @@ jobs:
             - ./.next/cache
             - /home/circleci/.cache/Cypress
       - run:
-          name: Run linter
+          name: Run Linter
           command: yarn lint
       - run:
-          name: Run tests
+          name: Run Tests
           command: yarn test
       - run:
           name: Run E2E
@@ -30,3 +30,10 @@ jobs:
           path: ~/repo/cypress/screenshots
       - store_artifacts:
           path: ~/repo/cypress/videos
+
+      # Automate Lightouse
+      - run: sudo npm install -g @lhci/cli@0.3.x
+      - run:
+          name: Run Lighthouse Report
+          command: |
+            lhci autorun
