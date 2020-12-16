@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 5000",
     "build": "next build",
+    "deploy": "sls deploy",
     "prettier:fix": "npx prettier --write .",
     "prettier:test": "npx prettier -c .",
     "prestart": "next build",
@@ -21,9 +22,13 @@
     "govuk-frontend": "^3.10.0",
     "lbh-frontend-react": "^0.5.7",
     "next": "10.0.3",
+    "path": "^0.12.7",
     "react": ">=16",
     "react-dom": "17.0.1",
-    "sass": "^1.29.0"
+    "restana": "^4.8.0",
+    "sass": "^1.29.0",
+    "serve-static": "^1.14.1",
+    "serverless-http": "^2.6.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.6",
