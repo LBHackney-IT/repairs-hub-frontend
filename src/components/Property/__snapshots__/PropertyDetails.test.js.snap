@@ -4,10 +4,19 @@ exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <h1
-      class="govuk-heading-l"
+      class="govuk-heading-l govuk-!-margin-bottom-2"
     >
       Dwelling: 16 Pitcairn House
     </h1>
+    <div>
+      <span
+        class="govuk-heading-m text-green"
+      >
+        <strong>
+          Raise a repair on this dwelling
+        </strong>
+      </span>
+    </div>
     <div
       class="govuk-grid-row"
     >
