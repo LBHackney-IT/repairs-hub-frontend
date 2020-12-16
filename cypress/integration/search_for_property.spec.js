@@ -88,4 +88,16 @@ describe('Search for property', () => {
       cy.contains('Tenure: Leasehold (RTB)')
     })
   })
+
+  it('Search for property with no tenure information', () => {
+    cy.fixture('properties/property_no_tenure.json').as('property')
+
+    // Stub request for property with unraisable tenure code
+    cy.route('GET', 'api/v2/properties/00012345', '@property')
+
+    cy.visit('properties/00012345')
+
+    cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
+    cy.contains('Tenure').should('not.exist')
+  })
 })

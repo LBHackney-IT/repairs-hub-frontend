@@ -21,7 +21,7 @@ const PropertyView = ({ propertyReference }) => {
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)
-      setTenure(data.tenure)
+      setTenure(data.tenure || {})
     } catch (e) {
       setProperty(null)
       console.log('An error has occured:', e.response)
@@ -48,16 +48,16 @@ const PropertyView = ({ propertyReference }) => {
           {property &&
             property.address &&
             property.hierarchyType &&
+            tenure &&
             locationAlerts &&
-            personAlerts &&
-            tenure && (
+            personAlerts && (
               <PropertyDetails
                 propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
+                tenure={tenure}
                 locationAlerts={locationAlerts}
                 personAlerts={personAlerts}
-                tenure={tenure}
               />
             )}
           {error && <ErrorMessage label={error} />}
