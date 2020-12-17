@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const Tenure = ({ tenure }) => {
   let tenureToShow = (tenure) => {
-    if (tenure?.typeCode) {
+    if (tenure?.typeDescription) {
       return (
         <li className={`bg-${tenure.canRaiseRepair ? 'turquoise' : 'orange'}`}>
           Tenure: {tenure.typeDescription}

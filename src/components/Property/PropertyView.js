@@ -21,7 +21,7 @@ const PropertyView = ({ propertyReference }) => {
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)
-      setTenure(data.tenure || {})
+      if (data.tenure) setTenure(data.tenure)
     } catch (e) {
       setProperty(null)
       console.log('An error has occured:', e.response)

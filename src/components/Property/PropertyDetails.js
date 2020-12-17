@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
-import LocationAlerts from './LocationAlerts'
-import PersonAlerts from './PersonAlerts'
+import Alerts from './Alerts'
 import Tenure from './Tenure'
 
 const PropertyDetails = ({
@@ -38,11 +37,17 @@ const PropertyDetails = ({
             </span>
           </div>
 
-          <ul className="hackney-property-alerts">
-            <Tenure tenure={tenure} />
-            <LocationAlerts locationAlerts={locationAlerts} />
-            <PersonAlerts personAlerts={personAlerts} />
-          </ul>
+          {(Object.keys(tenure).length > 0 ||
+            locationAlerts.length > 0 ||
+            personAlerts.length > 0) && (
+            <>
+              <ul className="hackney-property-alerts">
+                <Tenure tenure={tenure} />
+                <Alerts alerts={locationAlerts} alertType="Address" />
+                <Alerts alerts={personAlerts} alertType="Contact" />
+              </ul>
+            </>
+          )}
         </div>
       </div>
     </div>
