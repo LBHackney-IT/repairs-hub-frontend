@@ -69,6 +69,29 @@ describe('getProperty', () => {
         subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
+      alerts: {
+        locationAlert: [
+          {
+            type: 'VA',
+            comments: 'Verbal Abuse or Threat of',
+            startDate: '2016-07-27',
+            endDate: null,
+          },
+        ],
+        personAlert: [
+          {
+            type: 'CV',
+            comments: 'No Lone Visits',
+            startDate: '2013-03-16',
+            endDate: null,
+          },
+        ],
+      },
+      tenure: {
+        typeCode: 'SEC',
+        typeDescription: 'Secure',
+        canRaiseRepair: true,
+      },
     }
 
     mockAxios.get.mockImplementationOnce(() =>

@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 
 const Tenure = ({ tenure }) => {
   let tenureToShow = (tenure) => {
-    if (tenure) {
+    if (tenure?.typeCode) {
       return (
-        <ul className="govuk-tag bg-turquoise">
-          <li>Tenure: {tenure.typeDescription}</li>
-        </ul>
+        <li className={`bg-${tenure.canRaiseRepair ? 'turquoise' : 'orange'}`}>
+          Tenure: {tenure.typeDescription}
+        </li>
       )
     } else {
       return ''

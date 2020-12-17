@@ -5,16 +5,13 @@ const LocationAlerts = ({ locationAlerts }) => {
     if (lctAlerts.length != 0) {
       let alertsHtml = lctAlerts.map((alert, index) => {
         return (
-          <li key={index}>
-            {alert.comments} (
-            <span className="govuk-!-font-weight-bold">{alert.code}</span>)
+          <li className="bg-orange" key={index}>
+            Address Alert: {alert.comments} (<strong>{alert.type}</strong>)
           </li>
         )
       })
 
-      return (
-        <ul className="govuk-tag bg-orange">Address alerts: {alertsHtml}</ul>
-      )
+      return <>{alertsHtml}</>
     } else {
       return ''
     }

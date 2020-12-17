@@ -17,65 +17,56 @@ exports[`PropertyDetails component should render properly 1`] = `
         <div
           class="govuk-body-s"
         >
-          <span
-            class="govuk-body-xs"
-          >
-            Property details
-          </span>
-          <br />
-          <span
-            class="govuk-!-font-weight-bold text-green"
-          >
-            16 Pitcairn House
-          </span>
-          <br />
-          <span
-            class="govuk-!-font-weight-bold text-green"
-          >
-            St Thomass Square
-          </span>
-          <br />
-          <span
-            class="govuk-body-xs text-green"
-          >
-            E9 6PT
-          </span>
-          <br />
           <div
+            class="property-details-main-section"
+          >
+            <span
+              class="govuk-body-xs"
+            >
+              Property details
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-weight-bold text-green"
+            >
+              16 Pitcairn House
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-weight-bold text-green"
+            >
+              St Thomass Square
+            </span>
+            <br />
+            <span
+              class="govuk-body-xs text-green"
+            >
+              E9 6PT
+            </span>
+          </div>
+          <ul
             class="hackney-property-alerts"
           >
-            <ul
-              class="govuk-tag bg-orange"
+            <li
+              class="bg-turquoise"
             >
-              Address alerts: 
-              <li>
-                 (
-                <span
-                  class="govuk-!-font-weight-bold"
-                />
-                )
-              </li>
-            </ul>
-            <ul
-              class="govuk-tag bg-orange"
+              Tenure: Secure
+            </li>
+            <li
+              class="bg-orange"
             >
-              Person alerts: 
-              <li>
-                 (
-                <span
-                  class="govuk-!-font-weight-bold"
-                />
-                )
-              </li>
-            </ul>
-            <ul
-              class="govuk-tag bg-turquoise"
+              Address Alert:  (
+              <strong />
+              )
+            </li>
+            <li
+              class="bg-orange"
             >
-              <li>
-                Tenure: Secure
-              </li>
-            </ul>
-          </div>
+              Contact Alert:  (
+              <strong />
+              )
+            </li>
+          </ul>
         </div>
       </div>
     </div>

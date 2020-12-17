@@ -38,6 +38,7 @@ describe('PropertyDetails component', () => {
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      canRaiseRepair: true,
     },
   }
 
@@ -47,9 +48,9 @@ describe('PropertyDetails component', () => {
         propertyReference={props.property.propertyReference}
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}
+        tenure={props.tenure}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
-        tenure={props.tenure}
       />
     )
     expect(asFragment()).toMatchSnapshot()
