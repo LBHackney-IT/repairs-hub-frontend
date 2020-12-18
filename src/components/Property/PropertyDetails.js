@@ -11,20 +11,17 @@ const PropertyDetails = ({
   personAlerts,
   tenure,
 }) => {
-  let labelToShow = (canRaiseRepair, subTypeDescription) => {
-    if (canRaiseRepair) {
-      return <RaiseRepairLink description={subTypeDescription} />
-    } else {
-      return <RepairUnavailableText />
-    }
-  }
   return (
     <div>
       <h1 className="govuk-heading-l govuk-!-margin-bottom-2">
         {hierarchyType.subTypeDescription}: {address.addressLine}
       </h1>
       <div>
-        {labelToShow(tenure.canRaiseRepair, hierarchyType.subTypeDescription)}
+        {tenure.canRaiseRepair ? (
+          <RaiseRepairLink description={hierarchyType.subTypeDescription} />
+        ) : (
+          <RepairUnavailableText />
+        )}
       </div>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
