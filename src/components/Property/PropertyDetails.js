@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import Alerts from './Alerts'
 import Tenure from './Tenure'
-import RaiseRepairLink from './RaiseRepairLink'
-import RepairUnavailableText from './RepairUnavailableText'
+import RaiseRepairStatus from './RaiseRepairStatus'
 
 const PropertyDetails = ({
   address,
@@ -17,11 +16,10 @@ const PropertyDetails = ({
         {hierarchyType.subTypeDescription}: {address.addressLine}
       </h1>
       <div>
-        {tenure.canRaiseRepair ? (
-          <RaiseRepairLink description={hierarchyType.subTypeDescription} />
-        ) : (
-          <RepairUnavailableText />
-        )}
+        <RaiseRepairStatus
+          canRaiseRepair={tenure.canRaiseRepair}
+          description={hierarchyType.subTypeDescription}
+        />
       </div>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-one-half">
