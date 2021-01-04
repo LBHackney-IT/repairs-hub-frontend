@@ -15,7 +15,7 @@
 /**
  * @type {Cypress.PluginConfig}
  */
-const { lighthouse, pa11y, prepareAudit } = require('cypress-audit')
+const { lighthouse, prepareAudit } = require('cypress-audit')
 const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
@@ -24,7 +24,7 @@ const storeData = async (data, filepath) => {
   try {
     await mkdirp(path.dirname(filepath))
     // Paste JSON file into https://googlechrome.github.io/lighthouse/viewer/
-    // for Lighthouse Report Viewer
+    // for Lighthouse Report
     fs.writeFile(filepath, JSON.stringify(data))
   } catch (error) {
     console.error(error)
@@ -34,9 +34,18 @@ const storeData = async (data, filepath) => {
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  let testTitle
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
     prepareAudit(launchOptions)
+  })
+
+  on('task', {
+    getTestTitle(message) {
+      testTitle = message
+
+      return null
+    },
   })
 
   on('task', {
@@ -44,8 +53,9 @@ module.exports = (on, config) => {
       const requestedUrl = report.lhr.requestedUrl.replace(config.baseUrl, '')
       const filepath = path.resolve(
         'cypress',
-        `reports/lighthouse/${requestedUrl || 'home-page'}.json`
+        `reports/lighthouse/${requestedUrl || 'home-page'} (${testTitle}).json`
       )
+
       storeData(report, filepath)
     }),
   })

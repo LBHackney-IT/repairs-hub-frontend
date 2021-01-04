@@ -50,5 +50,8 @@ describe('Search for property', () => {
     cy.get('.govuk-heading-s').contains(
       'We found 2 matching results for: pitcairn'
     )
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 })

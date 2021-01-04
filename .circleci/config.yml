@@ -42,8 +42,8 @@ jobs:
           name: Run Tests
           command: yarn test
       - run:
-          name: Run E2E
-          command: NEXT_PUBLIC_ENDPOINT_API=${ENDPOINT_API} yarn e2e
+          name: Run E2E With Lighthouse Audit
+          command: NEXT_PUBLIC_ENDPOINT_API=${ENDPOINT_API} yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:

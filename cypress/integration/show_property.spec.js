@@ -75,5 +75,8 @@ describe('Show property', () => {
     cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
     cy.get('.hackney-property-alerts').should('not.exist')
     cy.contains('Tenure').should('not.exist')
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 })
