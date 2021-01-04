@@ -22,7 +22,9 @@
   },
   "dependencies": {
     "axios": "^0.21.0",
+    "cookie": "^0.4.1",
     "govuk-frontend": "^3.10.0",
+    "jsonwebtoken": "^8.5.1",
     "lbh-frontend-react": "^0.5.7",
     "next": "10.0.3",
     "path": "^0.12.7",
