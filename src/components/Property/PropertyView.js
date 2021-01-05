@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from '../../utils/api/repairs/properties/properties'
+import ApiRequestsCacher from '../../utils/api/repairs/ApiRequestsCacher'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -12,12 +12,15 @@ const PropertyView = ({ propertyReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const apiRequester = useMemo(() => {
+    return new ApiRequestsCacher()
+  }, [])
 
   const getPropertyView = async (propertyReference) => {
     setError(null)
 
     try {
-      const data = await getProperty(propertyReference)
+      const data = await apiRequester.getProperty(propertyReference)
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)

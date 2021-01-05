@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import PropertiesTable from '../Properties/PropertiesTable'
 import Button from '../Form/Button/Button'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getProperties } from '../../utils/api/repairs/properties/properties'
+import ApiRequestsCacher from '../../utils/api/repairs/ApiRequestsCacher'
 
 const Search = ({ query }) => {
   const [searchParams, setSearchParams] = useState('')
@@ -14,6 +14,9 @@ const Search = ({ query }) => {
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState()
   const router = useRouter()
+  const apiRequester = useMemo(() => {
+    return new ApiRequestsCacher()
+  }, [])
 
   useEffect(() => {
     if (query) {
@@ -29,7 +32,7 @@ const Search = ({ query }) => {
     setError(null)
 
     try {
-      const data = await getProperties(newSearchQuery)
+      const data = await apiRequester.getProperties(newSearchQuery)
       setProperties(data)
     } catch (e) {
       setProperties(null)

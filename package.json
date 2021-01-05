@@ -23,6 +23,7 @@
     "axios": "^0.21.0",
     "govuk-frontend": "^3.10.0",
     "lbh-frontend-react": "^0.5.7",
+    "lru-cache": "^6.0.0",
     "next": "10.0.3",
     "path": "^0.12.7",
     "react": ">=16",

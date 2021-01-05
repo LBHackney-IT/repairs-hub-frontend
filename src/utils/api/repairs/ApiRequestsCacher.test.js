@@ -1,6 +1,6 @@
-import AuthHeader from '../../../../utils/AuthHeader'
-import { getProperties, getProperty } from './properties'
-import mockAxios from '../__mocks__/axios'
+import AuthHeader from '../../../utils/AuthHeader'
+import ApiRequestsCacher from './ApiRequestsCacher'
+import mockAxios from '__mocks__/axios'
 
 const { NEXT_PUBLIC_ENDPOINT_API } = process.env
 
@@ -43,9 +43,15 @@ describe('getProperties', () => {
       })
     )
 
-    const response = await getProperties('E9 6PT')
-
+    let apiCache = new ApiRequestsCacher()
+    const response = await apiCache.getProperties('E9 6PT')
     expect(response).toEqual(properties)
+
+    const cachedResponse = await apiCache.getProperties('E9 6PT')
+    expect(cachedResponse).toEqual(properties)
+
+    // axios.get should have been called only the first time, the second
+    // time ApiRequestsCacher should have returned the cached response
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
       `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`,
@@ -100,9 +106,14 @@ describe('getProperty', () => {
       })
     )
 
-    const response = await getProperty('00012345')
-
+    let apiCache = new ApiRequestsCacher()
+    const response = await apiCache.getProperty('00012345')
     expect(response).toEqual(property)
+    const cachedResponse = await apiCache.getProperty('00012345')
+    expect(cachedResponse).toEqual(property)
+
+    // axios.get should have been called only the first time, the second
+    // time ApiRequestsCacher should have returned the cached response
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
       `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`,
