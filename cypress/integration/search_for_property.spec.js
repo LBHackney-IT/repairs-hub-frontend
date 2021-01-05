@@ -1,5 +1,7 @@
 /// <reference types="cypress" />
 
+import 'cypress-audit/commands'
+
 beforeEach(() => {
   cy.fixture('properties/properties.json').as('propertiesList')
   cy.server()
@@ -32,6 +34,9 @@ describe('Search for property', () => {
       'href',
       '/properties/00012345'
     )
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 
   it('Search for property by address', () => {
@@ -45,5 +50,8 @@ describe('Search for property', () => {
     cy.get('.govuk-heading-s').contains(
       'We found 2 matching results for: pitcairn'
     )
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 })
