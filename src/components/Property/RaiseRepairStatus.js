@@ -15,7 +15,7 @@ const RaiseRepairStatus = ({ canRaiseRepair, description }) => {
         </span>
         <strong className="govuk-warning-text__text">
           <span className="govuk-warning-text__assistive">Warning</span>
-          Cannot raise a repair on this property due to tenancy status
+          Cannot raise a repair on this property due to tenure type
         </strong>
       </div>
     )

@@ -54,9 +54,7 @@ describe('Show property', () => {
 
     // Tenure (not raisable repair)
     cy.get('.govuk-warning-text').within(() => {
-      cy.contains(
-        'Cannot raise a repair on this property due to tenancy status'
-      )
+      cy.contains('Cannot raise a repair on this property due to tenure type')
     })
     cy.get('.hackney-property-alerts li.bg-orange').within(() => {
       cy.contains('Tenure: Leasehold (RTB)')
