@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import Alerts from './Alerts'
-import Tenure from './Tenure'
 import RaiseRepairStatus from './RaiseRepairStatus'
+import TenureAlertDetails from './TenureAlertDetails'
+import BackButton from '../Layout/BackButton/BackButton'
 
 const PropertyDetails = ({
+  propertyReference,
   address,
   hierarchyType,
   locationAlerts,
@@ -12,6 +13,7 @@ const PropertyDetails = ({
 }) => {
   return (
     <div>
+      <BackButton />
       <h1 className="govuk-heading-l govuk-!-margin-bottom-2">
         {hierarchyType.subTypeDescription}: {address.addressLine}
       </h1>
@@ -19,6 +21,7 @@ const PropertyDetails = ({
         <RaiseRepairStatus
           canRaiseRepair={tenure.canRaiseRepair}
           description={hierarchyType.subTypeDescription}
+          propertyReference={propertyReference}
         />
       </div>
       <div className="govuk-grid-row">
@@ -43,17 +46,12 @@ const PropertyDetails = ({
                 {address.postalCode}
               </span>
             </div>
-            {(Object.keys(tenure).length > 0 ||
-              locationAlerts.length > 0 ||
-              personAlerts.length > 0) && (
-              <>
-                <ul className="hackney-property-alerts">
-                  <Tenure tenure={tenure} />
-                  <Alerts alerts={locationAlerts} alertType="Address" />
-                  <Alerts alerts={personAlerts} alertType="Contact" />
-                </ul>
-              </>
-            )}
+
+            <TenureAlertDetails
+              tenure={tenure}
+              locationAlerts={locationAlerts}
+              personAlerts={personAlerts}
+            />
           </div>
         </div>
       </div>

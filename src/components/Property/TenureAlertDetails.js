@@ -1,0 +1,29 @@
+import PropTypes from 'prop-types'
+import Alerts from './Alerts'
+import Tenure from './Tenure'
+
+const TenureAlertDetails = ({ tenure, locationAlerts, personAlerts }) => {
+  if (
+    Object.keys(tenure).length > 0 ||
+    locationAlerts.length > 0 ||
+    personAlerts.length > 0
+  ) {
+    return (
+      <ul className="hackney-property-alerts">
+        <Tenure tenure={tenure} />
+        <Alerts alerts={locationAlerts} alertType="Address" />
+        <Alerts alerts={personAlerts} alertType="Contact" />
+      </ul>
+    )
+  } else {
+    return ''
+  }
+}
+
+TenureAlertDetails.propTypes = {
+  tenure: PropTypes.object.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
+  personAlerts: PropTypes.array.isRequired,
+}
+
+export default TenureAlertDetails

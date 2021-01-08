@@ -18,6 +18,7 @@ const PropertyView = ({ propertyReference }) => {
 
     try {
       const data = await getProperty(propertyReference)
+
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)
