@@ -8,6 +8,10 @@ const HeaderComponent = ({ serviceName }) => (
       isServiceNameShort={false}
       homepageUrl="/"
     />
+
+    <a href="/logout" className="govuk-link">
+      Logout
+    </a>
   </div>
 )
 
