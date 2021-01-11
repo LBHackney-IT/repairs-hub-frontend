@@ -1,5 +1,5 @@
-const { NEXT_PUBLIC_TOKEN } = process.env
+const { REPAIRS_SERVICE_API_TOKEN } = process.env
 
 export default function AuthHeader() {
-  return { Authorization: `Bearer ${NEXT_PUBLIC_TOKEN}` }
+  return { Authorization: `Bearer ${REPAIRS_SERVICE_API_TOKEN}` }
 }

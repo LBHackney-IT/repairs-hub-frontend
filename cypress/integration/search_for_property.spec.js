@@ -11,7 +11,7 @@ beforeEach(() => {
 describe('Search for property', () => {
   it('Search for property by postcode', () => {
     // Stub request for search on properties by postcode
-    cy.route('GET', 'api/v2/properties/?q=e9 6pt', '@propertiesList')
+    cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
 
     // Search by postcode
     cy.get('.govuk-input').clear().type('e9 6pt')
@@ -41,7 +41,7 @@ describe('Search for property', () => {
 
   it('Search for property by address', () => {
     // Stub request for search on properties by address
-    cy.route('GET', 'api/v2/properties/?q=pitcairn', '@propertiesList')
+    cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
 
     // Search by address
     cy.get('.govuk-input').type('pitcairn')

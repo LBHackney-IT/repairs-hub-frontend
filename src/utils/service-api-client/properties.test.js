@@ -1,8 +1,8 @@
-import AuthHeader from '../../../../utils/AuthHeader'
+import AuthHeader from '../AuthHeader'
 import { getProperties, getProperty } from './properties'
 import mockAxios from '../__mocks__/axios'
 
-const { NEXT_PUBLIC_ENDPOINT_API } = process.env
+const { REPAIRS_SERVICE_API_URL } = process.env
 
 describe('getProperties', () => {
   it('fetches successfully data from an API', async () => {
@@ -39,17 +39,21 @@ describe('getProperties', () => {
 
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
+        status: 200,
         data: properties,
       })
     )
 
-    const response = await getProperties('E9 6PT')
+    const { status, data } = await getProperties({ q: 'E9 6PT' })
 
-    expect(response).toEqual(properties)
+    expect(status).toEqual(200)
+    expect(data).toEqual(properties)
+
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${NEXT_PUBLIC_ENDPOINT_API}/properties/?q=E9 6PT`,
+      `${REPAIRS_SERVICE_API_URL}/properties`,
       {
+        params: { q: 'E9 6PT' },
         headers: AuthHeader(),
       }
     )
@@ -96,16 +100,19 @@ describe('getProperty', () => {
 
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
+        status: 200,
         data: property,
       })
     )
 
-    const response = await getProperty('00012345')
+    const { status, data } = await getProperty('00012345')
 
-    expect(response).toEqual(property)
+    expect(status).toEqual(200)
+    expect(data).toEqual(property)
+
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith(
-      `${NEXT_PUBLIC_ENDPOINT_API}/properties/00012345`,
+      `${REPAIRS_SERVICE_API_URL}/properties/00012345`,
       {
         headers: AuthHeader(),
       }
