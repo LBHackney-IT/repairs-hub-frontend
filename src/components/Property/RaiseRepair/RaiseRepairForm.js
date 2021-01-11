@@ -26,6 +26,7 @@ const RaiseRepairForm = ({
   const onSubmit = async (formData) => {
     console.log(formData)
     const raiseRepairFormData = buildRaiseRepairFormData(formData)
+
     onFormSubmit(raiseRepairFormData)
   }
 

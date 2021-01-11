@@ -1,0 +1,186 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RaiseRepairForm component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-width-container"
+  >
+    <a
+      class="govuk-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-two-thirds"
+      >
+        <span
+          class="govuk-caption-l"
+        >
+          New repair
+        </span>
+        <h1
+          class="govuk-heading-l govuk-!-margin-bottom-2"
+        >
+          Dwelling: 16 Pitcairn House
+        </h1>
+        <div
+          class="govuk-body-s"
+        >
+          <ul
+            class="hackney-property-alerts"
+          >
+            <li
+              class="bg-turquoise"
+            >
+              Tenure: Secure
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Address Alert:  (
+              <strong />
+              )
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Contact Alert:  (
+              <strong />
+              )
+            </li>
+          </ul>
+        </div>
+        <h2
+          class="govuk-heading-m govuk-!-margin-top-6"
+        >
+          Repair task details
+        </h2>
+        <form
+          id="repair-request-form"
+          role="form"
+        >
+          <div
+            class="govuk-form-group"
+            id="sorCode-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="sorCode"
+            >
+              SOR Code
+            </label>
+            <select
+              class="govuk-select govuk-!-width-full"
+              id="sorCode"
+              name="sorCode"
+            >
+              <option
+                value=""
+              />
+              <option
+                value="DES5R003"
+              >
+                DES5R003
+              </option>
+              <option
+                value="DES5R004"
+              >
+                DES5R004
+              </option>
+            </select>
+          </div>
+          <input
+            id="sorCodeDescription"
+            label="sorCodeDescription"
+            name="sorCodeDescription"
+            type="hidden"
+            value=""
+          />
+          <div
+            class="govuk-form-group"
+            id="priorityDescription-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="priorityDescription"
+            >
+              Task priority
+            </label>
+            <select
+              class="govuk-select govuk-!-width-full"
+              id="priorityDescription"
+              name="priorityDescription"
+            >
+              <option
+                value=""
+              />
+              <option
+                value="I - Immediate (2 hours)"
+              >
+                I - Immediate (2 hours)
+              </option>
+              <option
+                value="E - Emergency (24 hours)"
+              >
+                E - Emergency (24 hours)
+              </option>
+            </select>
+          </div>
+          <input
+            id="priorityCode"
+            label="priorityCode"
+            name="priorityCode"
+            type="hidden"
+            value=""
+          />
+          <div
+            class="govuk-form-group"
+            id="descriptionOfWork-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="descriptionOfWork"
+            >
+              Repair description
+            </label>
+            <textarea
+              aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
+              class="govuk-textarea"
+              id="descriptionOfWork"
+              name="descriptionOfWork"
+              rows="4"
+            />
+          </div>
+          <span
+            class="govuk-hint govuk-!-margin-bottom-6"
+          >
+            You have 
+            <span
+              data-maximum-length="250"
+              id="character-count"
+            >
+              250
+            </span>
+             characters remaining.
+          </span>
+          <div
+            class="govuk-form-group"
+          >
+            <button
+              class="govuk-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Create works order
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
