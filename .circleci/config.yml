@@ -109,14 +109,14 @@ workflows:
             - install-dependencies-and-test
           filters:
             branches:
-              only: main
+              only: temp-api-test
       - build-deploy-staging:
           requires:
             - install-dependencies-and-test
             - assume-role-staging
           filters:
             branches:
-              only: main
+              only: temp-api-test
       # - permit-deploy-production:
       #     type: approval
       #     requires:
