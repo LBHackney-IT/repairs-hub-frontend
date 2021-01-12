@@ -19,11 +19,11 @@ const { lighthouse, prepareAudit } = require('cypress-audit')
 const dotenvPlugin = require('cypress-dotenv')
 const fs = require('fs')
 const path = require('path')
-const mkdirp = require('mkdirp')
 
 const storeData = async (data, filepath) => {
   try {
-    await mkdirp(path.dirname(filepath))
+    dirpath = path.dirname(filepath)
+    await fs.promises.mkdir(dirpath, { recursive: true })
     // Paste JSON file into https://googlechrome.github.io/lighthouse/viewer/
     // for Lighthouse Report
     fs.writeFile(filepath, JSON.stringify(data))
