@@ -3,6 +3,14 @@
 import 'cypress-audit/commands'
 
 beforeEach(() => {
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
+  cy.getCookie('hackneyToken').should(
+    'have.property',
+    'value',
+    Cypress.env('GSSO_TEST_KEY')
+  )
+  cy.visit(Cypress.env('HOST'))
   cy.server()
 })
 
@@ -11,7 +19,7 @@ describe('Show property', () => {
     // Stub request with property response
     cy.fixture('properties/property.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.visit('properties/00012345')
+    cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
 
     // can raise a repair
     cy.get('.govuk-heading-m').within(() => {
@@ -50,7 +58,7 @@ describe('Show property', () => {
     // Stub request with property response
     cy.fixture('properties/property_repair_not_raisable.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.visit('properties/00012345')
+    cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
 
     // Tenure (not raisable repair)
     cy.get('.govuk-warning-text').within(() => {
@@ -68,7 +76,7 @@ describe('Show property', () => {
     // Stub request with property response
     cy.fixture('properties/property_no_tenure.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.visit('properties/00012345')
+    cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
 
     cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
     cy.get('.hackney-property-alerts').should('not.exist')

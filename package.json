@@ -23,6 +23,7 @@
   "dependencies": {
     "axios": "^0.21.0",
     "cookie": "^0.4.1",
+    "dotenv": "^8.2.0",
     "govuk-frontend": "^3.10.0",
     "jsonwebtoken": "^8.5.1",
     "lbh-frontend-react": "^0.5.7",
@@ -42,6 +43,7 @@
     "babel-jest": "^26.6.3",
     "cypress": "^6.1.0",
     "cypress-audit": "^0.2.3",
+    "cypress-dotenv": "^1.2.2",
     "eslint": "^7.14.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-cypress": "^2.11.2",
