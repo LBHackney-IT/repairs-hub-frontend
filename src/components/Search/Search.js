@@ -4,7 +4,7 @@ import PropertiesTable from '../Properties/PropertiesTable'
 import Button from '../Form/Button/Button'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getProperties } from '../../utils/api/repairs/properties/properties'
+import { getProperties } from '../../utils/frontend-api-client/properties'
 
 const Search = ({ query }) => {
   const [searchParams, setSearchParams] = useState('')

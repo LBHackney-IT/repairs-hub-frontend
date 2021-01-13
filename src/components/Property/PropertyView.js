@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from '../../utils/api/repairs/properties/properties'
+import { getProperty } from '../../utils/frontend-api-client/properties'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})

@@ -10,7 +10,7 @@ describe('Show property', () => {
   it('Displays property details, tenure, alerts and permit to raise a repair', () => {
     // Stub request with property response
     cy.fixture('properties/property.json').as('property')
-    cy.route('GET', 'api/v2/properties/00012345', '@property')
+    cy.route('GET', 'api/properties/00012345', '@property')
     cy.visit('properties/00012345')
 
     // can raise a repair
@@ -49,7 +49,7 @@ describe('Show property', () => {
   it('Displays property with a tenure type that does not permit raising a repair', () => {
     // Stub request with property response
     cy.fixture('properties/property_repair_not_raisable.json').as('property')
-    cy.route('GET', 'api/v2/properties/00012345', '@property')
+    cy.route('GET', 'api/properties/00012345', '@property')
     cy.visit('properties/00012345')
 
     // Tenure (not raisable repair)
@@ -67,7 +67,7 @@ describe('Show property', () => {
   it('Display property with no tenure type', () => {
     // Stub request with property response
     cy.fixture('properties/property_no_tenure.json').as('property')
-    cy.route('GET', 'api/v2/properties/00012345', '@property')
+    cy.route('GET', 'api/properties/00012345', '@property')
     cy.visit('properties/00012345')
 
     cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
