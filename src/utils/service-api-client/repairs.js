@@ -16,3 +16,14 @@ export const postRepair = async (formData) => {
 
   return data
 }
+
+export const getRepairs = async () => {
+  const { status, data } = await axios.get(
+    `${REPAIRS_SERVICE_API_URL}/repairs`,
+    {
+      headers: { 'x-api-key': REPAIRS_SERVICE_API_KEY },
+    }
+  )
+
+  return { status, data }
+}
