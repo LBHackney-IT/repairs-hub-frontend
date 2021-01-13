@@ -56,7 +56,7 @@ jobs:
       - *attach_workspace
       - run:
           name: Run E2E With Lighthouse Audit
-          command: REPAIRS_SERVICE_API_URL=${ENDPOINT_API} yarn e2e:audit
+          command: yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -70,7 +70,7 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: REPAIRS_SERVICE_API_TOKEN=$STAGING_TOKEN REPAIRS_SERVICE_API_URL=$STAGING_ENDPOINT_API yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   # build-deploy-production:
   #   executor: aws-cli/default
