@@ -5,3 +5,9 @@ export const postRepair = async (formData) => {
 
   return data
 }
+
+export const getRepairs = async () => {
+  const { data } = await axios.get('/api/repairs')
+
+  return data
+}

@@ -4,6 +4,7 @@ $repairs-hub-colours: (
   'housing-3': #2dccd3,
   'warning': #ffa300,
   'white': govuk-colour('white'),
+  'grey': grey,
 );
 
 @function repairs-hub-colour($colour) {
