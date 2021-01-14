@@ -32,6 +32,9 @@ functions:
     vpc:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
+    environment:
+      REPAIRS_SERVICE_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-url}
+      REPAIRS_SERVICE_API_TOKEN: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-token}
 
 resources:
   Resources:
