@@ -4,24 +4,21 @@ import axios from 'axios'
 const { REPAIRS_SERVICE_API_URL } = process.env
 
 export const getProperties = async (params) => {
-  const { status, data } = await axios.get(
-    `${REPAIRS_SERVICE_API_URL}/properties`,
-    {
-      params,
-      headers: AuthHeader(),
-    }
-  )
+  const { data } = await axios.get(`${REPAIRS_SERVICE_API_URL}/properties`, {
+    params,
+    headers: AuthHeader(),
+  })
 
-  return { status, data }
+  return data
 }
 
 export const getProperty = async (propertyReference) => {
-  const { status, data } = await axios.get(
+  const { data } = await axios.get(
     `${REPAIRS_SERVICE_API_URL}/properties/${propertyReference}`,
     {
       headers: AuthHeader(),
     }
   )
 
-  return { status, data }
+  return data
 }
