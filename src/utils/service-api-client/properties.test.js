@@ -1,8 +1,9 @@
-import AuthHeader from '../AuthHeader'
 import { getProperties, getProperty } from './properties'
 import mockAxios from '../__mocks__/axios'
 
-const { REPAIRS_SERVICE_API_URL } = process.env
+const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_TOKEN } = process.env
+
+const headers = { Authorization: `Bearer ${REPAIRS_SERVICE_API_TOKEN}` }
 
 describe('repairs APIs', () => {
   describe('getProperties', () => {
@@ -53,7 +54,7 @@ describe('repairs APIs', () => {
         `${REPAIRS_SERVICE_API_URL}/properties`,
         {
           params: { q: 'E9 6PT' },
-          headers: AuthHeader(),
+          headers,
         }
       )
     })
@@ -111,7 +112,7 @@ describe('repairs APIs', () => {
       expect(mockAxios.get).toHaveBeenCalledWith(
         `${REPAIRS_SERVICE_API_URL}/properties/00012345`,
         {
-          headers: AuthHeader(),
+          headers,
         }
       )
     })
