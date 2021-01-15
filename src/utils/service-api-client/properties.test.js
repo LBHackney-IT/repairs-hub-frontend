@@ -1,9 +1,9 @@
 import { getProperties, getProperty } from './properties'
 import mockAxios from '../__mocks__/axios'
 
-const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_TOKEN } = process.env
+const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
 
-const headers = { Authorization: `Bearer ${REPAIRS_SERVICE_API_TOKEN}` }
+const headers = { 'x-api-key': REPAIRS_SERVICE_API_KEY }
 
 describe('repairs APIs', () => {
   describe('getProperties', () => {
