@@ -5,7 +5,14 @@ import 'cypress-audit/commands'
 beforeEach(() => {
   cy.fixture('properties/properties.json').as('propertiesList')
   cy.server()
-  cy.visit('/')
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
+  cy.getCookie('hackneyToken').should(
+    'have.property',
+    'value',
+    Cypress.env('GSSO_TEST_KEY')
+  )
+  cy.visit(Cypress.env('HOST'))
 })
 
 describe('Search for property', () => {

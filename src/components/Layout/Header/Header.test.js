@@ -1,11 +1,36 @@
-import Header from './Header'
 import { render } from '@testing-library/react'
+import Header from './Header'
+import UserContext from '../../UserContext/UserContext'
 
 describe('Header', () => {
-  it('renders a Header with serviceName props', () => {
-    const serviceName = 'This is the Header'
-    const { getByText } = render(<Header serviceName={serviceName} />)
-    const header = getByText(serviceName)
-    expect(header).toBeInTheDocument()
+  const serviceName = 'Hackney Header'
+
+  it('should render service name with logout link', () => {
+    const { getByText } = render(
+      <UserContext.Provider
+        value={{
+          user: { name: 'bar' },
+        }}
+      >
+        <Header serviceName={serviceName} />
+      </UserContext.Provider>
+    )
+
+    expect(getByText(serviceName)).toBeInTheDocument()
+    expect(getByText('Logout')).toBeInTheDocument()
+  })
+  it('should render service name without logout link', () => {
+    const { getByText, queryByText } = render(
+      <UserContext.Provider
+        value={{
+          user: null,
+        }}
+      >
+        <Header serviceName={serviceName} />
+      </UserContext.Provider>
+    )
+
+    expect(getByText(serviceName)).toBeInTheDocument()
+    expect(queryByText('Logout')).not.toBeInTheDocument()
   })
 })

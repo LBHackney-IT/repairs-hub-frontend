@@ -1,27 +1,25 @@
-import AuthHeader from '../AuthHeader'
 import axios from 'axios'
 
-const { REPAIRS_SERVICE_API_URL } = process.env
+const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_TOKEN } = process.env
+
+const headers = { Authorization: `Bearer ${REPAIRS_SERVICE_API_TOKEN}` }
 
 export const getProperties = async (params) => {
-  const { status, data } = await axios.get(
-    `${REPAIRS_SERVICE_API_URL}/properties`,
-    {
-      params,
-      headers: AuthHeader(),
-    }
-  )
+  const { data } = await axios.get(`${REPAIRS_SERVICE_API_URL}/properties`, {
+    params,
+    headers,
+  })
 
-  return { status, data }
+  return data
 }
 
 export const getProperty = async (propertyReference) => {
-  const { status, data } = await axios.get(
+  const { data } = await axios.get(
     `${REPAIRS_SERVICE_API_URL}/properties/${propertyReference}`,
     {
-      headers: AuthHeader(),
+      headers,
     }
   )
 
-  return { status, data }
+  return data
 }

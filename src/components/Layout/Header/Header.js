@@ -1,15 +1,23 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Header } from 'lbh-frontend-react'
+import UserContext from '../../UserContext/UserContext'
 
-const HeaderComponent = ({ serviceName }) => (
-  <div>
-    <Header
-      serviceName={serviceName}
-      isServiceNameShort={false}
-      homepageUrl="/"
-    />
-  </div>
-)
+const HeaderComponent = ({ serviceName }) => {
+  const { user } = useContext(UserContext)
+
+  return (
+    <>
+      <Header
+        serviceName={serviceName}
+        isServiceNameShort={false}
+        homepageUrl="/"
+      >
+        {user && <a href="/logout">Logout</a>}
+      </Header>
+    </>
+  )
+}
 
 HeaderComponent.propTypes = {
   serviceName: PropTypes.string.isRequired,

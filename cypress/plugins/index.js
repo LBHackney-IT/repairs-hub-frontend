@@ -16,6 +16,7 @@
  * @type {Cypress.PluginConfig}
  */
 const { lighthouse, prepareAudit } = require('cypress-audit')
+const dotenvPlugin = require('cypress-dotenv')
 const fs = require('fs')
 const path = require('path')
 const mkdirp = require('mkdirp')
@@ -59,4 +60,7 @@ module.exports = (on, config) => {
       storeData(report, filepath)
     }),
   })
+
+  config = dotenvPlugin(config)
+  return config
 }

@@ -3,6 +3,9 @@ import App from 'next/app'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 
+import { isAuthorised, AUTH_WHITELIST } from '../utils/GoogleAuth'
+import UserContext from '../components/UserContext/UserContext'
+
 const { NEXT_PUBLIC_ALLOWED_IP_ADDRESSES } = process.env
 
 class MyApp extends App {
@@ -10,19 +13,29 @@ class MyApp extends App {
     const { Component, pageProps } = this.props
     return (
       <>
-        <Layout>
-          <Head>
-            <title>Hackney Repairs Hub</title>
-          </Head>
-          <Component {...pageProps} />
-        </Layout>
+        <UserContext.Provider value={{ user: this.props.userDetails }}>
+          <Layout>
+            <Head>
+              <title>Hackney Repairs Hub</title>
+            </Head>
+            <Component {...pageProps} userDetails={this.props.userDetails} />
+          </Layout>
+        </UserContext.Provider>
       </>
     )
   }
 }
 
-if (NEXT_PUBLIC_ALLOWED_IP_ADDRESSES) {
-  MyApp.getInitialProps = async ({ ctx }) => {
+MyApp.getInitialProps = async ({ ctx }) => {
+  const WITH_REDIRECT = true
+
+  if (AUTH_WHITELIST.includes(ctx.pathname)) {
+    return {}
+  }
+
+  const userDetails = isAuthorised(ctx, WITH_REDIRECT)
+
+  if (NEXT_PUBLIC_ALLOWED_IP_ADDRESSES) {
     // Block access by default
     let shouldBlockAccess = true
 
@@ -43,7 +56,9 @@ if (NEXT_PUBLIC_ALLOWED_IP_ADDRESSES) {
       return
     }
 
-    return { shouldBlockAccess, ip }
+    return { userDetails, shouldBlockAccess, ip }
+  } else {
+    return { userDetails }
   }
 }
 
