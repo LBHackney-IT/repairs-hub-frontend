@@ -3,7 +3,7 @@ import mockAxios from '../__mocks__/axios'
 
 const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_TOKEN } = process.env
 
-const headers = { Authorization: `Bearer ${REPAIRS_SERVICE_API_TOKEN}` }
+const headers = { 'x-api-key': REPAIRS_SERVICE_API_TOKEN }
 
 describe('repairs APIs', () => {
   describe('getProperties', () => {
