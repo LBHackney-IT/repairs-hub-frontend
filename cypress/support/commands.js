@@ -25,3 +25,13 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import 'cypress-audit/commands'
+
+Cypress.Commands.add('login', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY')
+  const host = Cypress.env('HOST')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.visit(host)
+})

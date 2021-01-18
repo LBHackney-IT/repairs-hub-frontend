@@ -4,14 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Home page', () => {
   beforeEach(() => {
-    cy.getCookies().should('be.empty')
-    cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
-    cy.getCookie('hackneyToken').should(
-      'have.property',
-      'value',
-      Cypress.env('GSSO_TEST_KEY')
-    )
-    cy.visit(Cypress.env('HOST'))
+    cy.login()
   })
 
   it('Displays all necessary components on the home page', () => {
