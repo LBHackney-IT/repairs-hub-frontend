@@ -3,6 +3,12 @@
 exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div>
+    <a
+      class="govuk-back-link"
+      role="button"
+    >
+      Back
+    </a>
     <h1
       class="govuk-heading-l govuk-!-margin-bottom-2"
     >
@@ -12,9 +18,13 @@ exports[`PropertyDetails component should render properly 1`] = `
       <span
         class="govuk-heading-m text-green"
       >
-        <strong>
-          Raise a repair on this dwelling
-        </strong>
+        <a
+          href="/properties/00012345/raise-repair/new"
+        >
+          <strong>
+            Raise a repair on this dwelling
+          </strong>
+        </a>
       </span>
     </div>
     <div

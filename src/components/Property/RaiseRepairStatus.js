@@ -1,10 +1,19 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-const RaiseRepairStatus = ({ canRaiseRepair, description }) => {
+const RaiseRepairStatus = ({
+  canRaiseRepair,
+  description,
+  propertyReference,
+}) => {
   if (canRaiseRepair) {
     return (
       <span className="govuk-heading-m text-green">
-        <strong>Raise a repair on this {description.toLowerCase()}</strong>
+        <Link href={`/properties/${propertyReference}/raise-repair/new`}>
+          <a>
+            <strong>Raise a repair on this {description.toLowerCase()}</strong>
+          </a>
+        </Link>
       </span>
     )
   } else {
@@ -25,6 +34,7 @@ const RaiseRepairStatus = ({ canRaiseRepair, description }) => {
 RaiseRepairStatus.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
+  propertyReference: PropTypes.string.isRequired,
 }
 
 export default RaiseRepairStatus

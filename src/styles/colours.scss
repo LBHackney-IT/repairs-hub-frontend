@@ -3,6 +3,7 @@ $repairs-hub-colours: (
   'housing-2': #009ca6,
   'housing-3': #2dccd3,
   'warning': #ffa300,
+  'white': govuk-colour('white'),
 );
 
 @function repairs-hub-colour($colour) {
@@ -15,4 +16,11 @@ $repairs-hub-colours: (
 
 .text-green {
   color: repairs-hub-colour('housing-2');
+}
+.text-white {
+  color: repairs-hub-colour('white');
+}
+
+.background-green {
+  background: repairs-hub-colour('housing-2');
 }

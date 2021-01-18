@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RaiseRepairFormSuccess component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-green"
+    >
+      <h1
+        class="govuk-heading-xl text-white"
+      >
+        Repair work order created
+      </h1>
+      <div
+        class="govuk-panel__body"
+      >
+        Work order number
+        <br />
+        <strong
+          class="govuk-!-font-size-48"
+        >
+          10000000
+        </strong>
+      </div>
+    </div>
+    <ul
+      class="govuk-list govuk-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/properties/00012345"
+        >
+          <strong>
+            Back to 16 Pitcairn House  St Thomass Square
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Start a new search
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

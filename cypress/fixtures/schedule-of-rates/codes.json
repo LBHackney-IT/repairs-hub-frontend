@@ -1,0 +1,68 @@
+{
+  "result": [
+    {
+      "customCode": "DES5R003",
+      "customName": "Immediate call outs",
+      "priority": {
+        "priorityCode": 1,
+        "description": "I - Immediate (2 hours)"
+      },
+      "sorContractor": {
+        "reference": "H01"
+      }
+    },
+    {
+      "customCode": "DES5R004",
+      "customName": "Emergency call out",
+      "priority": {
+        "priorityCode": 2,
+        "description": "E - Emergency (24 hours)"
+      },
+      "sorContractor": {
+        "reference": "H01"
+      }
+    },
+    {
+      "customCode": "DES5R006",
+      "customName": "Urgent call outs",
+      "priority": {
+        "priorityCode": 3,
+        "description": "U - Urgent (5 Working days)"
+      },
+      "sorContractor": {
+        "reference": "H01"
+      }
+    },
+    {
+      "customCode": "DES5R005",
+      "customName": "Normal call outs",
+      "priority": {
+        "priorityCode": 4,
+        "description": "N - Normal (21 working days)"
+      },
+      "sorContractor": {
+        "reference": "H01"
+      }
+    },
+    {
+      "customCode": "DES5R013",
+      "customName": "Inspect additional sec entrance",
+      "priority": {
+        "priorityCode": 5,
+        "description": "Inspection"
+      },
+      "sorContractor": {
+        "reference": "H01"
+      }
+    }
+  ],
+  "id": 8,
+  "exception": null,
+  "status": 5,
+  "isCanceled": false,
+  "isCompleted": true,
+  "isCompletedSuccessfully": true,
+  "creationOptions": 0,
+  "asyncState": null,
+  "isFaulted": false
+}
