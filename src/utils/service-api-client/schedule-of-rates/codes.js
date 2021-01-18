@@ -2,13 +2,15 @@ import axios from 'axios'
 
 const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
 
+const headers = { 'x-api-key': REPAIRS_SERVICE_API_KEY }
+
 export const getSorCodes = async () => {
-  const { status, data } = await axios.get(
+  const { data } = await axios.get(
     `${REPAIRS_SERVICE_API_URL}/schedule-of-rates/codes`,
     {
-      headers: { 'x-api-key': REPAIRS_SERVICE_API_KEY },
+      headers,
     }
   )
 
-  return { status, data }
+  return data
 }

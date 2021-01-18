@@ -2,8 +2,8 @@ import axios from 'axios'
 
 const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
 
-export const postRaiseRepairForm = async (formData) => {
-  const { status, data } = await axios.post(
+export const postRepair = async (formData) => {
+  const { data } = await axios.post(
     `${REPAIRS_SERVICE_API_URL}/repairs`,
     formData,
     {
@@ -14,5 +14,5 @@ export const postRaiseRepairForm = async (formData) => {
     }
   )
 
-  return { status, data }
+  return data
 }

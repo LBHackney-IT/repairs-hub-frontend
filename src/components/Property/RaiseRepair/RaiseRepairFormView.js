@@ -5,8 +5,8 @@ import RaiseRepairFormSuccess from './RaiseRepairFormSuccess'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
-import { getSorCodes } from '../../../utils/frontend-api-client/sor-codes'
-import { postRaiseRepairForm } from '../../../utils/frontend-api-client/raise-repair'
+import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
+import { postRepair } from '../../../utils/frontend-api-client/repairs'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -23,7 +23,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const ref = await postRaiseRepairForm(formData)
+      const ref = await postRepair(formData)
 
       setWorkOrderReference(ref)
       setFormSuccess(true)

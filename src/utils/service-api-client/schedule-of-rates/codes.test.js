@@ -1,9 +1,9 @@
-import { getSorCodes } from './sor-codes'
-import mockAxios from '../__mocks__/axios'
+import { getSorCodes } from './codes'
+import mockAxios from '../../__mocks__/axios'
 
 const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
 
-describe('postRepair', () => {
+describe('getSorCodes', () => {
   it('fetches successfully data from an API', async () => {
     const sorCodes = {
       result: [
@@ -34,14 +34,12 @@ describe('postRepair', () => {
 
     mockAxios.get.mockImplementationOnce(() =>
       Promise.resolve({
-        status: 200,
         data: sorCodes,
       })
     )
 
-    const { status, data } = await getSorCodes()
+    const data = await getSorCodes()
 
-    expect(status).toEqual(200)
     expect(data).toEqual(sorCodes)
 
     expect(mockAxios.get).toHaveBeenCalledTimes(1)

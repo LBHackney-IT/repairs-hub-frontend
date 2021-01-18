@@ -1,9 +1,9 @@
-import { postRaiseRepairForm } from './raise-repair'
+import { postRepair } from './repairs'
 import mockAxios from '../__mocks__/axios'
 
 const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
 
-describe('postRaiseRepairForm', () => {
+describe('postRepair', () => {
   it('posts data successfully to the repairs service API', async () => {
     const raiseRepairFormData = {
       descriptionOfWork: 'This is an urgent test description',
@@ -25,12 +25,15 @@ describe('postRaiseRepairForm', () => {
     }
 
     mockAxios.post.mockImplementationOnce(() =>
-      Promise.resolve({ status: 200 })
+      Promise.resolve({
+        data: 12345678,
+      })
     )
 
-    const { status } = await postRaiseRepairForm(raiseRepairFormData)
+    const data = await postRepair(raiseRepairFormData)
 
-    expect(status).toEqual(200)
+    expect(data).toEqual(12345678)
+
     expect(mockAxios.post).toHaveBeenCalledTimes(1)
     expect(mockAxios.post).toHaveBeenCalledWith(
       `${REPAIRS_SERVICE_API_URL}/repairs`,

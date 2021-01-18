@@ -1,5 +1,5 @@
-import { getSorCodes } from './sor-codes'
-import mockAxios from '../__mocks__/axios'
+import { getSorCodes } from './codes'
+import mockAxios from '../../__mocks__/axios'
 
 describe('getSorCodes`', () => {
   it('calls the Next JS API', async () => {
@@ -15,6 +15,6 @@ describe('getSorCodes`', () => {
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/sor-codes')
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/schedule-of-rates/codes')
   })
 })
