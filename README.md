@@ -52,6 +52,12 @@ yarn test
 yarn e2e
 ```
 
+Individual Cypress end to end spec file using headlessly in the Electron default browser can be run using the following command:
+
+```
+yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
+```
+
 ### Run the development server:
 
 ```bash
