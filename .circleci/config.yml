@@ -7,7 +7,7 @@ orbs:
 executors:
   node-executor:
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: circleci/node:12.19.0-browsers
   docker-python:
     docker:
       - image: circleci/python:3.7
@@ -48,7 +48,7 @@ jobs:
           command: yarn lint
       - run:
           name: Run Tests
-          command: yarn test
+          command: yarn test:unit
 
   e2e:
     executor: node-executor

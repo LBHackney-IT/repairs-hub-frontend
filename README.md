@@ -45,11 +45,28 @@ Lastly, create your `.env` file from `.env.sample`. You will need to grab some s
 
 ### Tests
 
-It uses Jest, `react-testing-library` and cypress for tests. Run them with:
+This application is using Jest, `react-testing-library`, for unit tests and can be run using the following command:
 
 ```
-yarn test
-yarn e2e
+yarn test:unit
+```
+
+This application is using cypress, for end-to-end and integration tests and can be run using the following command:
+
+```
+yarn test:e2e
+```
+
+The full test suite including unit tests and system tests can be run using following command:
+
+```
+yarn tests
+```
+
+Individual Cypress end to end spec file using headlessly in the Electron default browser can be run using the following command:
+
+```
+yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
 ### Run the development server:

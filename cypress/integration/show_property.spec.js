@@ -2,19 +2,12 @@
 
 import 'cypress-audit/commands'
 
-beforeEach(() => {
-  cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
-  cy.getCookie('hackneyToken').should(
-    'have.property',
-    'value',
-    Cypress.env('GSSO_TEST_KEY')
-  )
-  cy.visit(Cypress.env('HOST'))
-  cy.server()
-})
-
 describe('Show property', () => {
+  beforeEach(() => {
+    cy.login()
+    cy.server()
+  })
+
   it('Displays property details, tenure, alerts and permit to raise a repair', () => {
     // Stub request with property response
     cy.fixture('properties/property.json').as('property')

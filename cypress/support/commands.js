@@ -25,3 +25,22 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 import 'cypress-audit/commands'
+
+const host = Cypress.env('HOST')
+
+Cypress.Commands.add('login', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.visit(host)
+})
+
+Cypress.Commands.add('logout', () => {
+  cy.get('.govuk-link--no-visited-state').contains('Logout')
+  cy.clearCookie('hackneyToken')
+
+  cy.getCookies().should('be.empty')
+  cy.visit(host)
+})

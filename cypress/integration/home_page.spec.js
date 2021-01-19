@@ -3,27 +3,61 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
-  beforeEach(() => {
-    cy.getCookies().should('be.empty')
-    cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
-    cy.getCookie('hackneyToken').should(
-      'have.property',
-      'value',
-      Cypress.env('GSSO_TEST_KEY')
-    )
-    cy.visit(Cypress.env('HOST'))
+  context('When user is logged in', () => {
+    beforeEach(() => {
+      cy.login()
+    })
+
+    it('Displays all necessary components on the home page', () => {
+      // Header component
+      cy.get('.lbh-header__service-name').contains('Repairs Hub')
+      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+
+      // Logout component
+      cy.get('.govuk-link--no-visited-state').contains('Logout')
+      cy.get('.govuk-link--no-visited-state').should(
+        'have.attr',
+        'href',
+        '/logout'
+      )
+
+      // Search for property component
+      cy.get('.govuk-heading-m').contains('Find property')
+      cy.get('.govuk-label').contains('Search by postcode or address')
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+
+    it('Redirects to login page once logout is clicked and the cookies are cleared', () => {
+      cy.logout()
+
+      // UserLogin component
+      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.govuk-body').contains(
+        'Please log in with your Hackney email account.'
+      )
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
   })
 
-  it('Displays all necessary components on the home page', () => {
-    // Header component
-    cy.get('.lbh-header__service-name').contains('Repairs Hub')
-    cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+  context('When user is not logged in', () => {
+    it('Redirects on the login page', () => {
+      cy.visit(Cypress.env('HOST'))
+      // Header component
+      cy.get('.lbh-header__service-name').contains('Repairs Hub')
+      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-    // Search for property component
-    cy.get('.govuk-heading-m').contains('Find property')
-    cy.get('.govuk-label').contains('Search by postcode or address')
+      // UserLogin component
+      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.govuk-body').contains(
+        'Please log in with your Hackney email account.'
+      )
 
-    // Run lighthouse audit for accessibility report
-    cy.audit()
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
   })
 })

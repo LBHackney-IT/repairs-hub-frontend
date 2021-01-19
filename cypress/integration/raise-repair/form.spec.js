@@ -2,31 +2,24 @@
 
 import 'cypress-audit/commands'
 
-beforeEach(() => {
-  cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', Cypress.env('GSSO_TEST_KEY'))
-  cy.getCookie('hackneyToken').should(
-    'have.property',
-    'value',
-    Cypress.env('GSSO_TEST_KEY')
-  )
-  cy.visit(Cypress.env('HOST'))
-
-  cy.server()
-  // Stub request for raise a repair form page
-  cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-  cy.fixture('properties/property.json').as('property')
-  cy.route('GET', 'api/properties/00012345', '@property')
-  cy.route('GET', 'api/schedule-of-rates/codes', '@property')
-  cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
-  cy.route({
-    method: 'POST',
-    url: '/api/repairs',
-    response: '10102030',
-  }).as('apiCheck')
-})
-
 describe('Raise repair form', () => {
+  beforeEach(() => {
+    cy.login()
+
+    cy.server()
+    // Stub request for raise a repair form page
+    cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
+    cy.fixture('properties/property.json').as('property')
+    cy.route('GET', 'api/properties/00012345', '@property')
+    cy.route('GET', 'api/schedule-of-rates/codes', '@property')
+    cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
+    cy.route({
+      method: 'POST',
+      url: '/api/repairs',
+      response: '10102030',
+    }).as('apiCheck')
+  })
+
   it('Fill out repair task details form to raise a repair', () => {
     // Click link to raise a repair
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
