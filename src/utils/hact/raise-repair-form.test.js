@@ -9,6 +9,7 @@ describe('buildRaiseRepairFormData', () => {
     const formData = {
       sorCode: 'DES5R006',
       sorCodeDescription: 'Urgent call outs',
+      quantity: '1',
       priorityDescription: 'U - Urgent (5 Working days)',
       priorityCode: '3',
       descriptionOfWork: 'This is an urgent test description',
@@ -27,7 +28,11 @@ describe('buildRaiseRepairFormData', () => {
       workElement: [
         {
           rateScheduleItem: [
-            { customCode: 'DES5R006', customName: 'Urgent call outs' },
+            {
+              customCode: 'DES5R006',
+              customName: 'Urgent call outs',
+              quantity: { amount: 1 },
+            },
           ],
         },
       ],

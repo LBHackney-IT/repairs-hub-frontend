@@ -64,42 +64,70 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           role="form"
         >
           <div
-            class="govuk-form-group"
-            id="sorCode-form-group"
+            class="govuk-grid-row"
           >
-            <label
-              class="govuk-label"
-              for="sorCode"
+            <div
+              class="govuk-grid-column-two-thirds"
             >
-              SOR Code
-            </label>
-            <select
-              class="govuk-select govuk-!-width-full"
-              id="sorCode"
-              name="sorCode"
-            >
-              <option
+              <div
+                class="govuk-form-group"
+                id="sorCode-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="sorCode"
+                >
+                  SOR Code
+                </label>
+                <select
+                  class="govuk-select govuk-!-width-full"
+                  id="sorCode"
+                  name="sorCode"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="DES5R003"
+                  >
+                    DES5R003
+                  </option>
+                  <option
+                    value="DES5R004"
+                  >
+                    DES5R004
+                  </option>
+                </select>
+              </div>
+              <input
+                id="sorCodeDescription"
+                name="sorCodeDescription"
+                type="hidden"
                 value=""
               />
-              <option
-                value="DES5R003"
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group"
+                id="quantity-form-group"
               >
-                DES5R003
-              </option>
-              <option
-                value="DES5R004"
-              >
-                DES5R004
-              </option>
-            </select>
+                <label
+                  class="govuk-label"
+                  for="quantity"
+                >
+                  Quantity
+                </label>
+                <input
+                  class="govuk-input govuk-!-width-full"
+                  id="quantity"
+                  name="quantity"
+                  type="text"
+                />
+              </div>
+            </div>
           </div>
-          <input
-            id="sorCodeDescription"
-            label="sorCodeDescription"
-            name="sorCodeDescription"
-            type="hidden"
-            value=""
-          />
           <div
             class="govuk-form-group"
             id="priorityDescription-form-group"
