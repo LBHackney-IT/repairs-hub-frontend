@@ -10,7 +10,7 @@ const UserLogin = ({ gssoUrl, submitText }) => {
           Please log in with your Hackney email account.
         </p>
 
-        <a href={gssoUrl}>
+        <a className="govuk-link" href={gssoUrl}>
           <button className="govuk-button">{submitText}</button>
         </a>
       </section>

@@ -13,7 +13,11 @@ const HeaderComponent = ({ serviceName }) => {
         isServiceNameShort={false}
         homepageUrl="/"
       >
-        {user && <a href="/logout">Logout</a>}
+        {user && (
+          <a className="govuk-link govuk-link--no-visited-state" href="/logout">
+            Logout
+          </a>
+        )}
       </Header>
     </>
   )
