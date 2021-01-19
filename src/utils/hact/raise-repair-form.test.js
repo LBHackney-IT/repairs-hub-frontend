@@ -31,7 +31,7 @@ describe('buildRaiseRepairFormData', () => {
             {
               customCode: 'DES5R006',
               customName: 'Urgent call outs',
-              quantity: { amount: 1 },
+              quantity: { amount: [1] },
             },
           ],
         },
