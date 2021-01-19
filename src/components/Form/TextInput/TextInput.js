@@ -10,6 +10,7 @@ const TextInput = ({
   error,
   type = 'text',
   widthClass,
+  required,
   ...otherProps
 }) => (
   <div
@@ -19,7 +20,7 @@ const TextInput = ({
     })}
   >
     <label className="govuk-label" htmlFor={name}>
-      {label}
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">

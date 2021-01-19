@@ -120,6 +120,7 @@ const RaiseRepairForm = ({
                   label="SOR Code"
                   options={sorCodesList}
                   onChange={onSorCodeSelect}
+                  required={true}
                   register={register({
                     required: 'Please select an SOR code',
                     validate: (value) =>
@@ -142,6 +143,7 @@ const RaiseRepairForm = ({
                   label="Quantity"
                   error={errors && errors.quantity}
                   widthClass="govuk-!-width-full"
+                  required={true}
                   register={register({
                     required: 'Please enter a quantity',
                     valueAsNumber: true,
@@ -166,6 +168,7 @@ const RaiseRepairForm = ({
               label="Task priority"
               options={priorityList}
               onChange={onPrioritySelect}
+              required={true}
               register={register({
                 required: 'Please select a priority',
                 validate: (value) =>
@@ -186,6 +189,7 @@ const RaiseRepairForm = ({
               name="descriptionOfWork"
               label="Repair description"
               onKeyUp={characterCount}
+              required={true}
               register={register({
                 required: 'Please enter a repair description',
                 maxLength: {

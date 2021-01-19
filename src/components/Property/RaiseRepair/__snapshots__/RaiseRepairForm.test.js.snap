@@ -77,7 +77,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   class="govuk-label"
                   for="sorCode"
                 >
-                  SOR Code
+                  SOR Code 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
                 </label>
                 <select
                   class="govuk-select govuk-!-width-full"
@@ -118,7 +123,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   class="govuk-label"
                   for="quantity"
                 >
-                  Quantity
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
                 </label>
                 <input
                   class="govuk-input govuk-!-width-full"
@@ -137,7 +147,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               class="govuk-label"
               for="priorityDescription"
             >
-              Task priority
+              Task priority 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
             </label>
             <select
               class="govuk-select govuk-!-width-full"
@@ -175,7 +190,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               class="govuk-label"
               for="descriptionOfWork"
             >
-              Repair description
+              Repair description 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
             </label>
             <textarea
               aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
