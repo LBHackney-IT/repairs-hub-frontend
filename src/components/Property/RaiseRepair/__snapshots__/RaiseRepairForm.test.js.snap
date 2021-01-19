@@ -217,6 +217,20 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             </span>
              characters remaining.
           </span>
+          <input
+            id="propertyReference"
+            label="propertyReference"
+            name="propertyReference"
+            type="hidden"
+            value="00012345"
+          />
+          <input
+            id="shortAddress"
+            label="shortAddress"
+            name="shortAddress"
+            type="hidden"
+            value="16 Pitcairn House  St Thomass Square"
+          />
           <div
             class="govuk-form-group"
           >

@@ -1,8 +1,18 @@
 import { render } from '@testing-library/react'
-import RaiseRepairForm from './RaiseRepairForm'
+import WorkOrderDetails from './WorkOrderDetails'
 
-describe('RaiseRepairForm component', () => {
+describe('WorkOrderDetails component', () => {
   const props = {
+    workOrder: {
+      reference: 10000012,
+      dateRaised: '2021-01-18T15:28:57.17811',
+      lastUpdated: null,
+      priority: 'U - Urgent (5 Working days)',
+      property: '',
+      owner: '',
+      description: 'This is an urgent repair description',
+      propertyReference: '00014888',
+    },
     property: {
       propertyReference: '00012345',
       address: {
@@ -40,44 +50,20 @@ describe('RaiseRepairForm component', () => {
       typeCode: 'SEC',
       typeDescription: 'Secure',
     },
-    sorCodes: [
-      {
-        customCode: 'DES5R003',
-        customName: 'Immediate call outs',
-        priority: {
-          priorityCode: 1,
-          description: 'I - Immediate (2 hours)',
-        },
-        sorContractor: {
-          reference: 'H01',
-        },
-      },
-      {
-        customCode: 'DES5R004',
-        customName: 'Emergency call outs',
-        priority: {
-          priorityCode: 2,
-          description: 'E - Emergency (24 hours)',
-        },
-        sorContractor: {
-          reference: 'H01',
-        },
-      },
-    ],
-    onFormSubmit: jest.fn(),
   }
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <RaiseRepairForm
+      <WorkOrderDetails
         propertyReference={props.property.propertyReference}
+        workOrder={props.workOrder}
         address={props.property.address}
-        hierarchyType={props.property.hierarchyType}
-        canRaiseRepair={props.property.canRaiseRepair}
+        subTypeDescription={props.property.hierarchyType.subTypeDescription}
         tenure={props.tenure}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
-        sorCodes={props.sorCodes}
+        hasLinkToProperty={true}
+        canRaiseRepair={props.property.canRaiseRepair}
       />
     )
     expect(asFragment()).toMatchSnapshot()

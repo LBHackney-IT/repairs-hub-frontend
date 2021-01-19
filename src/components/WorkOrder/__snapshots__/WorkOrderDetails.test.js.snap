@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkOrderDetails component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="govuk-heading-l"
+    >
+      Works order: 10000012
+    </h1>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="govuk-body-s"
+        >
+          <div
+            class="property-details-main-section"
+          >
+            <span
+              class="govuk-body-xs"
+            >
+              Dwelling
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-weight-bold text-green"
+            >
+              <a
+                href="/properties/00012345"
+              >
+                16 Pitcairn House
+              </a>
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-weight-bold text-green"
+            >
+              <a
+                href="/properties/00012345"
+              >
+                St Thomass Square
+              </a>
+            </span>
+            <br />
+            <span
+              class="govuk-body-xs text-green"
+            >
+              E9 6PT
+            </span>
+          </div>
+          <ul
+            class="hackney-property-alerts"
+          >
+            <li
+              class="bg-turquoise"
+            >
+              Tenure: Secure
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Address Alert:  (
+              <strong />
+              )
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Contact Alert:  (
+              <strong />
+              )
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

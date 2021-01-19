@@ -21,6 +21,14 @@ const RaiseRepairFormSuccess = ({
 
       <ul className="govuk-list govuk-!-margin-top-9">
         <li>
+          <Link href={`/work-orders/${workOrderReference}`}>
+            <a>
+              <strong>View work order</strong>
+            </a>
+          </Link>
+        </li>
+
+        <li>
           <Link href={`/properties/${propertyReference}`}>
             <a>
               <strong>Back to {shortAddress}</strong>

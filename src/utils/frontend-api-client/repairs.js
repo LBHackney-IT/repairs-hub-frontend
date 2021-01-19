@@ -11,3 +11,9 @@ export const getRepairs = async () => {
 
   return data
 }
+
+export const getRepair = async (workOrderReference) => {
+  const { data } = await axios.get(`/api/repairs/${workOrderReference}`)
+
+  return data
+}

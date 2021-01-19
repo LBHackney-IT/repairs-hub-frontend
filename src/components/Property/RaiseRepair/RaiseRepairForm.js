@@ -8,6 +8,7 @@ import { buildRaiseRepairFormData } from '../../../utils/hact/raise-repair-form'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 
 const RaiseRepairForm = ({
+  propertyReference,
   address,
   hierarchyType,
   canRaiseRepair,
@@ -26,7 +27,6 @@ const RaiseRepairForm = ({
   ]
 
   const onSubmit = async (formData) => {
-    console.log(formData)
     const raiseRepairFormData = buildRaiseRepairFormData(formData)
 
     onFormSubmit(raiseRepairFormData)
@@ -206,6 +206,22 @@ const RaiseRepairForm = ({
               </span>{' '}
               characters remaining.
             </span>
+            <input
+              id="propertyReference"
+              name="propertyReference"
+              label="propertyReference"
+              type="hidden"
+              value={propertyReference}
+              ref={register}
+            />
+            <input
+              id="shortAddress"
+              name="shortAddress"
+              label="shortAddress"
+              type="hidden"
+              value={address.shortAddress}
+              ref={register}
+            />
             <Button label="Create works order" type="submit" />
           </form>
         </div>
@@ -215,6 +231,7 @@ const RaiseRepairForm = ({
 }
 
 RaiseRepairForm.propTypes = {
+  propertyReference: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,

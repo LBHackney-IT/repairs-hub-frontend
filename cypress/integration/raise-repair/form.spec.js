@@ -170,7 +170,12 @@ describe('Raise repair form', () => {
         'href',
         '/properties/00012345'
       )
-      cy.contains('Start a new search')
+      cy.contains('Start a new search').should('have.attr', 'href', '/')
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10102030'
+      )
     })
 
     // Run lighthouse audit for accessibility report
