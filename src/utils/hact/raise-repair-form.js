@@ -23,6 +23,9 @@ export const buildRaiseRepairFormData = (formData) => {
           {
             customCode: formData.sorCode,
             customName: formData.sorCodeDescription,
+            quantity: {
+              amount: Number.parseInt(formData.quantity),
+            },
           },
         ],
       },

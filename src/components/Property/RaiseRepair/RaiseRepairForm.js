@@ -3,8 +3,9 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
-import { Select, Button, TextArea } from '../../Form'
+import { Select, Button, TextArea, TextInput } from '../../Form'
 import { buildRaiseRepairFormData } from '../../../utils/hact/raise-repair-form'
+import { GridRow, GridColumn } from '../../Layout/Grid'
 
 const RaiseRepairForm = ({
   address,
@@ -110,27 +111,54 @@ const RaiseRepairForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <Select
-              name="sorCode"
-              label="SOR Code"
-              options={sorCodesList}
-              onChange={onSorCodeSelect}
-              register={register({
-                required: 'Please select an SOR code',
-                validate: (value) =>
-                  sorCodesList.includes(value) || 'SOR code is not valid',
-              })}
-              error={errors && errors.sorCode}
-              widthClass="govuk-!-width-full"
-            />
-            <input
-              id="sorCodeDescription"
-              name="sorCodeDescription"
-              label="sorCodeDescription"
-              type="hidden"
-              value={sorCodeDescription}
-              ref={register}
-            />
+            <GridRow>
+              <GridColumn width="two-thirds">
+                <Select
+                  name="sorCode"
+                  label="SOR Code"
+                  options={sorCodesList}
+                  onChange={onSorCodeSelect}
+                  register={register({
+                    required: 'Please select an SOR code',
+                    validate: (value) =>
+                      sorCodesList.includes(value) || 'SOR code is not valid',
+                  })}
+                  error={errors && errors.sorCode}
+                  widthClass="govuk-!-width-full"
+                />
+                <input
+                  id="sorCodeDescription"
+                  name="sorCodeDescription"
+                  type="hidden"
+                  value={sorCodeDescription}
+                  ref={register}
+                />
+              </GridColumn>
+              <GridColumn width="one-third">
+                <TextInput
+                  name="quantity"
+                  label="Quantity"
+                  error={errors && errors.quantity}
+                  widthClass="govuk-!-width-full"
+                  register={register({
+                    required: 'Please enter a quantity',
+                    valueAsNumber: true,
+                    validate: (value) => {
+                      if (!Number.isInteger(value)) {
+                        return 'Quantity must be a whole number'
+                      }
+                      if (value < 1) {
+                        return 'Quantity must be 1 or more'
+                      } else if (value > 50) {
+                        return 'Quantity must be 50 or less'
+                      } else {
+                        return true
+                      }
+                    },
+                  })}
+                />
+              </GridColumn>
+            </GridRow>
             <Select
               name="priorityDescription"
               label="Task priority"

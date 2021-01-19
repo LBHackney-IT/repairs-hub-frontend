@@ -101,6 +101,39 @@ describe('Raise repair form', () => {
 
       cy.get('#sorCode').select('DES5R004')
 
+      // Enter a blank quantity
+      cy.get('#quantity').clear()
+      cy.get('#quantity-form-group .govuk-error-message').within(() => {
+        cy.contains('Please enter a quantity')
+      })
+
+      // Enter a non-number quantity
+      cy.get('#quantity').clear().type('x')
+      cy.get('#quantity-form-group .govuk-error-message').within(() => {
+        cy.contains('Quantity must be a whole number')
+      })
+
+      // Enter a non-integer quantity
+      cy.get('#quantity').clear().type('1.5')
+      cy.get('#quantity-form-group .govuk-error-message').within(() => {
+        cy.contains('Quantity must be a whole number')
+      })
+
+      // Enter a quantity less than the minimum
+      cy.get('#quantity').clear().type('0')
+      cy.get('#quantity-form-group .govuk-error-message').within(() => {
+        cy.contains('Quantity must be 1 or more')
+      })
+
+      // Enter a quantity more than the maximum
+      cy.get('#quantity').clear().type('51')
+      cy.get('#quantity-form-group .govuk-error-message').within(() => {
+        cy.contains('Quantity must be 50 or less')
+      })
+
+      // Enter a valid quantity
+      cy.get('#quantity').clear().type('1')
+
       // Go over the Repair description character limit
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('x'.repeat(251))
       cy.get('#descriptionOfWork-form-group .govuk-error-message').within(
