@@ -14,9 +14,10 @@
     "prettier:test": "npx prettier -c .",
     "prestart": "next build",
     "start": "next start -p $PORT",
-    "test": "jest",
+    "tests": "jest && yarn test:e2e",
+    "test:unit": "jest",
     "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'",
-    "e2e": "PORT=5001 start-test 5001 cy:run",
+    "test:e2e": "PORT=5001 start-test 5001 cy:run",
     "e2e:audit": "PORT=5001 start-test 5001 cy:run:audit",
     "e2e:interactive": "PORT=5001 start-test 5001 cy:open",
     "e2e:server": "PORT=5001 start-test 5001",
@@ -66,7 +67,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test"
+      "pre-commit": "lint-staged && yarn test:unit"
     }
   },
   "lint-staged": {
