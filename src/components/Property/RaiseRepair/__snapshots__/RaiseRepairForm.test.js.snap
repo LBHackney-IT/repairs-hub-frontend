@@ -81,6 +81,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 </label>
                 <select
                   class="govuk-select govuk-!-width-full"
+                  data-testid="sorCode"
                   id="sorCode"
                   name="sorCode"
                 >
@@ -140,6 +141,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             </label>
             <select
               class="govuk-select govuk-!-width-full"
+              data-testid="priorityDescription"
               id="priorityDescription"
               name="priorityDescription"
             >

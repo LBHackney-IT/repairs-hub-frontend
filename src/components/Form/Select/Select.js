@@ -37,6 +37,7 @@ const Select = ({
       className={`govuk-select ${widthClass}`}
       id={name}
       name={name}
+      data-testid={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
       onChange={(e) => onChange && onChange(e.target.value)}
