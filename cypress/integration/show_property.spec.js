@@ -2,12 +2,12 @@
 
 import 'cypress-audit/commands'
 
-beforeEach(() => {
-  cy.login()
-  cy.server()
-})
-
 describe('Show property', () => {
+  beforeEach(() => {
+    cy.login()
+    cy.server()
+  })
+
   it('Displays property details, tenure, alerts and permit to raise a repair', () => {
     // Stub request with property response
     cy.fixture('properties/property.json').as('property')

@@ -2,13 +2,13 @@
 
 import 'cypress-audit/commands'
 
-beforeEach(() => {
-  cy.login()
-  cy.fixture('properties/properties.json').as('propertiesList')
-  cy.server()
-})
-
 describe('Search for property', () => {
+  beforeEach(() => {
+    cy.login()
+    cy.fixture('properties/properties.json').as('propertiesList')
+    cy.server()
+  })
+
   it('Search for property by postcode', () => {
     // Stub request for search on properties by postcode
     cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
