@@ -2,12 +2,12 @@
 
 exports[`JobRow component should render properly 1`] = `
 <DocumentFragment>
-  0001234512 Jan 2021
+  00012345Jan 12, 2021
   <div
     class="work-order-hours"
   >
     4:24 PM
   </div>
-  13 Jan 2021E - Emergency (24 hours)1 Pitcairn House St Thomass SquareALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
+  Jan 13, 2021E - Emergency (24 hours)1 Pitcairn House St Thomass SquareALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
 </DocumentFragment>
 `;
