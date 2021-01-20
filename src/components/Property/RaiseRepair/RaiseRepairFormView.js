@@ -48,7 +48,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)
-      setSorCodes(sorCodes.result)
+      setSorCodes(sorCodes)
     } catch (e) {
       setProperty(null)
       setSorCodes(null)
