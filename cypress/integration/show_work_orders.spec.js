@@ -23,8 +23,8 @@ describe('Show all work orders', () => {
     //can see reference number/ date raised, last updated, priority, property address, description
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('00012345')
-      cy.contains('Jan 13, 2021')
-      cy.contains('Jan 14, 2021')
+      cy.contains('13 Jan 2021')
+      cy.contains('14 Jan 2021')
       cy.contains('N - Normal')
       cy.contains('1 Pitcairn House St Thomass Square')
       cy.contains(

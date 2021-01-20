@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 const dateToStr = (date) =>
-  date.toLocaleDateString('en', {
+  date.toLocaleDateString('en-gb', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
