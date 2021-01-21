@@ -32,14 +32,16 @@ describe('Raise repair form', () => {
     // Property address details with tenure and alerts information
     cy.get('.govuk-caption-l').contains('New repair')
     cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
-    cy.get('.hackney-property-alerts li.bg-turquoise').within(() => {
-      cy.contains('Tenure: Secure')
-    })
-    cy.get('.hackney-property-alerts').within(() => {
-      cy.contains('Address Alert: Property Under Disrepair (DIS)')
-      cy.contains('Contact Alert: No Lone Visits (CV)')
-      cy.contains('Contact Alert: Verbal Abuse or Threat of (VA)')
-    })
+
+    cy.checkForTenureAlertDetails(
+      'Tenure: Secure',
+      ['Address Alert: Property Under Disrepair (DIS)'],
+      [
+        'Contact Alert: No Lone Visits (CV)',
+        'Contact Alert: Verbal Abuse or Threat of (VA)',
+      ]
+    )
+
     cy.get('.govuk-heading-m').contains('Repair task details')
 
     // Form section

@@ -28,20 +28,14 @@ describe('Show property', () => {
       cy.contains('E9 6PT')
     })
 
-    // Tenure (raisable repair)
-    cy.get('.hackney-property-alerts li.bg-turquoise').within(() => {
-      cy.contains('Tenure: Secure')
-    })
-
-    // Alerts
-    cy.get('.hackney-property-alerts').within(() => {
-      // Location alerts
-      cy.contains('Address Alert: Property Under Disrepair (DIS)')
-
-      // Person alerts
-      cy.contains('Contact Alert: No Lone Visits (CV)')
-      cy.contains('Contact Alert: Verbal Abuse or Threat of (VA)')
-    })
+    cy.checkForTenureAlertDetails(
+      'Tenure: Secure',
+      ['Address Alert: Property Under Disrepair (DIS)'],
+      [
+        'Contact Alert: No Lone Visits (CV)',
+        'Contact Alert: Verbal Abuse or Threat of (VA)',
+      ]
+    )
 
     // Run lighthouse audit for accessibility report
     cy.audit()
