@@ -1,0 +1,109 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`JobsTable component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <p
+      class="govuk-heading-s"
+    >
+      Manage jobs
+    </p>
+    <table
+      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+    >
+      <thead
+        class="govuk-table__head"
+      >
+        <tr
+          class="govuk-table__row govuk-body"
+        >
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Reference
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Date raised
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Last update
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Priority
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Property
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Description
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        >
+          <td
+            class="govuk-table__cell"
+          >
+            00012345
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            12 Jan 2021
+            <div
+              class="work-order-hours"
+            >
+              4:24 pm
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            13 Jan 2021
+            <div
+              class="work-order-hours"
+            >
+              4:24 pm
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            E - Emergency (24 hours)
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            1 Pitcairn House St Thomass Square
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;
