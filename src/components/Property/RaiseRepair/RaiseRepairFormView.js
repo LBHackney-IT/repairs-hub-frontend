@@ -6,7 +6,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
-import { postRepair } from '../../../utils/frontend-api-client/repairs'
+import { postRepair } from '../../../utils/frontend-api-client/repairs/schedule'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})

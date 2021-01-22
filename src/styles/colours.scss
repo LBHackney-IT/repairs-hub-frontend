@@ -8,6 +8,7 @@ $repairs-hub-colours: (
   'grey': grey,
   'light-grey': #bfc1c3,
   'status-planned': #009ca6,
+  'status-complete': darkgray,
 );
 
 @function repairs-hub-colour($colour) {

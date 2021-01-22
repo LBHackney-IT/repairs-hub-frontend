@@ -111,6 +111,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 type="hidden"
                 value=""
               />
+              <input
+                id="sorCodeContractorRef"
+                name="sorCodeContractorRef"
+                type="hidden"
+                value=""
+              />
             </div>
             <div
               class="govuk-grid-column-one-third"
@@ -231,6 +237,40 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             type="hidden"
             value="16 Pitcairn House  St Thomass Square"
           />
+          <div
+            class="govuk-form-group"
+            id="callerName-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="callerName"
+            >
+              Caller name 
+            </label>
+            <input
+              class="govuk-input undefined"
+              id="callerName"
+              name="callerName"
+              type="text"
+            />
+          </div>
+          <div
+            class="govuk-form-group"
+            id="contactNumber-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="contactNumber"
+            >
+              Contact number 
+            </label>
+            <input
+              class="govuk-input undefined"
+              id="contactNumber"
+              name="contactNumber"
+              type="text"
+            />
+          </div>
           <div
             class="govuk-form-group"
           >

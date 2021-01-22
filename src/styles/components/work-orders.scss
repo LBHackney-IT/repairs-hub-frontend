@@ -40,5 +40,8 @@
     .status-in-progress {
       background-color: repairs-hub-colour('status-planned');
     }
+    .status-work-complete {
+      background-color: repairs-hub-colour('status-complete');
+    }
   }
 }

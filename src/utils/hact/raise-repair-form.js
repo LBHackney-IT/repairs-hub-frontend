@@ -1,10 +1,16 @@
+import { v4 as uuidv4 } from 'uuid'
 import {
   mapPriorityCodeToHact,
   calculateRequiredCompletionDateTime,
 } from './priority-codes'
 
-export const buildRaiseRepairFormData = (formData) => {
+export const buildScheduleRepairFormData = (formData) => {
   return {
+    reference: [
+      {
+        id: uuidv4(),
+      },
+    ],
     descriptionOfWork: formData.descriptionOfWork,
     priority: {
       priorityCode:
@@ -31,17 +37,59 @@ export const buildRaiseRepairFormData = (formData) => {
         ],
       },
     ],
-    sitePropertyUnit: [
-      {
-        address: {
-          addressLine: [formData.shortAddress],
+    site: {
+      property: [
+        {
+          propertyReference: formData.propertyReference,
+          address: {
+            addressLine: [formData.shortAddress],
+          },
+          reference: [
+            {
+              id: formData.propertyReference,
+            },
+          ],
         },
+      ],
+    },
+    instructedBy: {
+      name: 'Hackney Housing',
+    },
+    assignedToPrimary: {
+      name: `Contractor ${formData.sorCodeContractorRef}`,
+      organization: {
         reference: [
           {
-            id: formData.propertyReference,
+            id: formData.sorCodeContractorRef,
           },
         ],
       },
-    ],
+    },
+    customer: {
+      name: formData.callerName,
+      person: {
+        name: {
+          full: formData.callerName,
+        },
+        contact: [
+          {
+            name: {
+              full: formData.callerName,
+            },
+            communication: [
+              {
+                channel: {
+                  // Audio
+                  medium: '20',
+                  // Mobile Phone
+                  code: '60',
+                },
+                value: formData.contactNumber,
+              },
+            ],
+          },
+        ],
+      },
+    },
   }
 }
