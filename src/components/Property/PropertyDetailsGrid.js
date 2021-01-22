@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import PropertyDetailsAddress from './PropertyDetailsAddress'
 import TenureAlertDetails from './TenureAlertDetails'
 import Link from 'next/link'
 
@@ -21,34 +22,14 @@ const PropertyDetailsGrid = ({
             <br></br>
             <span className="govuk-!-font-weight-bold text-green">
               {hasLinkToProperty ? (
-                <>
-                  <Link href={`/properties/${propertyReference}`}>
-                    <a>{address.addressLine}</a>
-                  </Link>
-                </>
+                <Link href={`/properties/${propertyReference}`}>
+                  <a>
+                    <PropertyDetailsAddress address={address} />
+                  </a>
+                </Link>
               ) : (
-                <>{address.addressLine}</>
+                <PropertyDetailsAddress address={address} />
               )}
-            </span>
-            <br></br>
-            {address.streetSuffix && (
-              <>
-                <span className="govuk-!-font-weight-bold text-green">
-                  {hasLinkToProperty ? (
-                    <>
-                      <Link href={`/properties/${propertyReference}`}>
-                        <a>{address.streetSuffix}</a>
-                      </Link>
-                    </>
-                  ) : (
-                    <>{address.streetSuffix}</>
-                  )}
-                </span>
-                <br></br>
-              </>
-            )}
-            <span className="govuk-body-xs text-green">
-              {address.postalCode}
             </span>
           </div>
 

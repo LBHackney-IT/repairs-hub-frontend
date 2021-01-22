@@ -38,23 +38,19 @@ exports[`WorkOrderDetails component should render properly 1`] = `
                 href="/properties/00012345"
               >
                 16 Pitcairn House
+                <br />
+                <span
+                  class="govuk-!-font-weight-bold text-green"
+                >
+                  St Thomass Square
+                </span>
+                <br />
+                <span
+                  class="govuk-body-xs text-green"
+                >
+                  E9 6PT
+                </span>
               </a>
-            </span>
-            <br />
-            <span
-              class="govuk-!-font-weight-bold text-green"
-            >
-              <a
-                href="/properties/00012345"
-              >
-                St Thomass Square
-              </a>
-            </span>
-            <br />
-            <span
-              class="govuk-body-xs text-green"
-            >
-              E9 6PT
             </span>
           </div>
           <ul

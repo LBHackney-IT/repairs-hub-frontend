@@ -73,7 +73,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
-          {formSuccess && (
+          {formSuccess && workOrderReference && (
             <RaiseRepairFormSuccess
               propertyReference={propertyReference}
               workOrderReference={workOrderReference}
