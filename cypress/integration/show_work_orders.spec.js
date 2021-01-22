@@ -36,6 +36,7 @@ describe('Show all work orders', () => {
           cy.contains(
             'ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in'
           )
+          cy.contains('a', 'Update')
         })
         // Run lighthouse audit for accessibility report
         cy.audit()

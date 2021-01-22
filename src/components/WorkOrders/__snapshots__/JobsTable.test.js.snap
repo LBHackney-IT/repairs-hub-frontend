@@ -51,15 +51,25 @@ exports[`JobsTable component should render properly 1`] = `
             class="govuk-table__header"
             scope="col"
           >
+            Status
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
             Description
           </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          />
         </tr>
       </thead>
       <tbody
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+          class="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
         >
           <td
             class="govuk-table__cell"
@@ -98,12 +108,24 @@ exports[`JobsTable component should render properly 1`] = `
           </td>
           <td
             class="govuk-table__cell"
+          />
+          <td
+            class="govuk-table__cell"
           >
             <p
               class="description"
             >
               ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
             </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              href="/repairs/jobs/00012345/choose-option"
+            >
+              Update
+            </a>
           </td>
         </tr>
       </tbody>

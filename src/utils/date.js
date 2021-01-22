@@ -19,3 +19,13 @@ export const sortedByDate = (data) => {
 
   return data.sort((a, b) => b.dateRaised - a.dateRaised)
 }
+
+export const convertFormat = (date) => {
+  const values = date.split('-')
+  return `${values[0]}-${values[1]}-${values[2]}`
+}
+
+export const convertToDateFormat = (string) => {
+  const dateAsString = `${string.date}T${string.time}`
+  return convertDate(dateAsString)
+}
