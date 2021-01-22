@@ -2,7 +2,12 @@ import PropTypes from 'prop-types'
 import Alerts from './Alerts'
 import Tenure from './Tenure'
 
-const TenureAlertDetails = ({ tenure, locationAlerts, personAlerts }) => {
+const TenureAlertDetails = ({
+  canRaiseRepair,
+  tenure,
+  locationAlerts,
+  personAlerts,
+}) => {
   if (
     Object.keys(tenure).length > 0 ||
     locationAlerts.length > 0 ||
@@ -10,7 +15,7 @@ const TenureAlertDetails = ({ tenure, locationAlerts, personAlerts }) => {
   ) {
     return (
       <ul className="hackney-property-alerts">
-        <Tenure tenure={tenure} />
+        <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
         <Alerts alerts={locationAlerts} alertType="Address" />
         <Alerts alerts={personAlerts} alertType="Contact" />
       </ul>
@@ -21,6 +26,7 @@ const TenureAlertDetails = ({ tenure, locationAlerts, personAlerts }) => {
 }
 
 TenureAlertDetails.propTypes = {
+  canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,

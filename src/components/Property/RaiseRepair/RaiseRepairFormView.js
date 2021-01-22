@@ -81,16 +81,17 @@ const RaiseRepairFormView = ({ propertyReference }) => {
             />
           )}
           {!formSuccess &&
-            tenure.canRaiseRepair &&
             property &&
             property.address &&
             property.hierarchyType &&
+            property.canRaiseRepair &&
             locationAlerts &&
             personAlerts &&
             sorCodes && (
               <RaiseRepairForm
                 address={property.address}
                 hierarchyType={property.hierarchyType}
+                canRaiseRepair={property.canRaiseRepair}
                 tenure={tenure}
                 locationAlerts={locationAlerts}
                 personAlerts={personAlerts}

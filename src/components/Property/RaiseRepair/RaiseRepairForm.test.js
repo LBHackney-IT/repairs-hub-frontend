@@ -16,6 +16,7 @@ describe('RaiseRepairForm component', () => {
         subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
+      canRaiseRepair: true,
     },
     alerts: {
       locationAlert: [
@@ -38,7 +39,6 @@ describe('RaiseRepairForm component', () => {
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
-      canRaiseRepair: true,
     },
     sorCodes: [
       {
@@ -72,6 +72,7 @@ describe('RaiseRepairForm component', () => {
       <RaiseRepairForm
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}
+        canRaiseRepair={props.property.canRaiseRepair}
         tenure={props.tenure}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
