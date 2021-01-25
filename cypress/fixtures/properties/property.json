@@ -11,7 +11,8 @@
       "levelCode": "7",
       "subTypeCode": "DWE",
       "subTypeDescription": "Dwelling"
-    }
+    },
+    "canRaiseRepair": true
   },
   "alerts": {
     "locationAlert": [
@@ -39,7 +40,6 @@
   },
   "tenure": {
     "typeCode": "SEC",
-    "typeDescription": "Secure",
-    "canRaiseRepair": true
+    "typeDescription": "Secure"
   }
 }

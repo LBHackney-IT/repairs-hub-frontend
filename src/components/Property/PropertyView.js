@@ -56,6 +56,7 @@ const PropertyView = ({ propertyReference }) => {
                 propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
+                canRaiseRepair={property.canRaiseRepair}
                 tenure={tenure}
                 locationAlerts={locationAlerts}
                 personAlerts={personAlerts}

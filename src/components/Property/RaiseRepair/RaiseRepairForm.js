@@ -10,6 +10,7 @@ import { GridRow, GridColumn } from '../../Layout/Grid'
 const RaiseRepairForm = ({
   address,
   hierarchyType,
+  canRaiseRepair,
   locationAlerts,
   personAlerts,
   tenure,
@@ -96,6 +97,7 @@ const RaiseRepairForm = ({
 
           <div className="govuk-body-s">
             <TenureAlertDetails
+              canRaiseRepair={canRaiseRepair}
               tenure={tenure}
               locationAlerts={locationAlerts}
               personAlerts={personAlerts}
@@ -211,6 +213,7 @@ const RaiseRepairForm = ({
 RaiseRepairForm.propTypes = {
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
+  canRaiseRepair: PropTypes.bool.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,

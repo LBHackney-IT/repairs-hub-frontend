@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 
-const Tenure = ({ tenure }) => {
+const Tenure = ({ tenure, canRaiseRepair }) => {
   let tenureToShow = (tenure) => {
     if (tenure.typeDescription) {
       return (
-        <li className={`bg-${tenure.canRaiseRepair ? 'turquoise' : 'orange'}`}>
+        <li className={`bg-${canRaiseRepair ? 'turquoise' : 'orange'}`}>
           Tenure: {tenure.typeDescription}
         </li>
       )
@@ -16,6 +16,7 @@ const Tenure = ({ tenure }) => {
 }
 
 Tenure.propTypes = {
+  canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object.isRequired,
 }
 

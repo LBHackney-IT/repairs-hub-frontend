@@ -7,6 +7,7 @@ const PropertyDetails = ({
   propertyReference,
   address,
   hierarchyType,
+  canRaiseRepair,
   locationAlerts,
   personAlerts,
   tenure,
@@ -19,7 +20,7 @@ const PropertyDetails = ({
       </h1>
       <div>
         <RaiseRepairStatus
-          canRaiseRepair={tenure.canRaiseRepair}
+          canRaiseRepair={canRaiseRepair}
           description={hierarchyType.subTypeDescription}
           propertyReference={propertyReference}
         />
@@ -48,6 +49,7 @@ const PropertyDetails = ({
             </div>
 
             <TenureAlertDetails
+              canRaiseRepair={canRaiseRepair}
               tenure={tenure}
               locationAlerts={locationAlerts}
               personAlerts={personAlerts}
@@ -63,6 +65,7 @@ PropertyDetails.propTypes = {
   propertyReference: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
+  canRaiseRepair: PropTypes.bool.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,

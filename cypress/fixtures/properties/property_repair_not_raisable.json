@@ -11,7 +11,8 @@
       "levelCode": "7",
       "subTypeCode": "DWE",
       "subTypeDescription": "Dwelling"
-    }
+    },
+    "canRaiseRepair": false
   },
   "alerts": {
     "locationAlert": [],
@@ -19,7 +20,6 @@
   },
   "tenure": {
     "typeCode": "LEA",
-    "typeDescription": "Leasehold (RTB)",
-    "canRaiseRepair": false
+    "typeDescription": "Leasehold (RTB)"
   }
 }

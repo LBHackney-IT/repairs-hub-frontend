@@ -16,6 +16,7 @@ describe('PropertyDetails component', () => {
         subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
+      canRaiseRepair: true,
     },
     alerts: {
       locationAlert: [
@@ -38,7 +39,6 @@ describe('PropertyDetails component', () => {
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
-      canRaiseRepair: true,
     },
   }
 
@@ -48,6 +48,7 @@ describe('PropertyDetails component', () => {
         propertyReference={props.property.propertyReference}
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}
+        canRaiseRepair={props.property.canRaiseRepair}
         tenure={props.tenure}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
