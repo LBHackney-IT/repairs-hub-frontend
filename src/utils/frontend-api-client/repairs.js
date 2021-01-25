@@ -6,7 +6,14 @@ export const postRepair = async (formData) => {
   return data
 }
 
-export const getRepairs = async () => {
+export const getRepairs = async (propertyReference = null) => {
+  if (propertyReference) {
+    const { data } = await axios.get(
+      `/api/repairs/?propertyReference=${propertyReference}`
+    )
+
+    return data
+  }
   const { data } = await axios.get('/api/repairs')
 
   return data

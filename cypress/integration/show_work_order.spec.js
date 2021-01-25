@@ -2,7 +2,7 @@
 
 import 'cypress-audit/commands'
 
-describe('Search for property', () => {
+describe('Show work order', () => {
   beforeEach(() => {
     cy.login()
     cy.server()

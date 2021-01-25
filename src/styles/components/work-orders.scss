@@ -14,3 +14,31 @@
     margin: 0;
   }
 }
+
+.repairs-history-table {
+  tbody {
+    vertical-align: top;
+  }
+
+  td {
+    white-space: nowrap;
+    &.description {
+      white-space: normal;
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .status {
+      color: govuk-colour('white');
+      padding: 4px 10px;
+      font-weight: bold;
+      display: inline-block;
+      width: 90%;
+      max-width: 150px;
+      text-align: center;
+    }
+    .status-in-progress {
+      background-color: repairs-hub-colour('status-planned');
+    }
+  }
+}
