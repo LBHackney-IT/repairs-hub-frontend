@@ -13,6 +13,7 @@ export const buildRaiseRepairFormData = (formData) => {
       requiredCompletionDateTime: calculateRequiredCompletionDateTime(
         mapPriorityCodeToHact[formData.priorityCode].numberOfHours
       ),
+      numberOfDays: mapPriorityCodeToHact[formData.priorityCode].numberOfDays,
     },
     workClass: {
       workClassCode: 0,
@@ -26,6 +27,18 @@ export const buildRaiseRepairFormData = (formData) => {
             quantity: {
               amount: [Number.parseInt(formData.quantity)],
             },
+          },
+        ],
+      },
+    ],
+    sitePropertyUnit: [
+      {
+        address: {
+          addressLine: [formData.shortAddress],
+        },
+        reference: [
+          {
+            id: formData.propertyReference,
           },
         ],
       },

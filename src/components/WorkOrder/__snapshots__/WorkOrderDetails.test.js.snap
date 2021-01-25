@@ -1,32 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PropertyDetails component should render properly 1`] = `
+exports[`WorkOrderDetails component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <a
-      class="govuk-back-link"
-      role="button"
-    >
-      Back
-    </a>
     <h1
-      class="govuk-heading-l govuk-!-margin-bottom-2"
+      class="govuk-heading-l"
     >
-      Dwelling: 16 Pitcairn House
+      Works order: 10000012
     </h1>
-    <div>
-      <span
-        class="govuk-heading-m text-green"
-      >
-        <a
-          href="/properties/00012345/raise-repair/new"
-        >
-          <strong>
-            Raise a repair on this dwelling
-          </strong>
-        </a>
-      </span>
-    </div>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
     <div
       class="govuk-grid-row"
     >
@@ -42,25 +28,29 @@ exports[`PropertyDetails component should render properly 1`] = `
             <span
               class="govuk-body-xs"
             >
-              Property details
+              Dwelling
             </span>
             <br />
             <span
               class="govuk-!-font-weight-bold text-green"
             >
-              16 Pitcairn House
-              <br />
-              <span
-                class="govuk-!-font-weight-bold text-green"
+              <a
+                href="/properties/00012345"
               >
-                St Thomass Square
-              </span>
-              <br />
-              <span
-                class="govuk-body-xs text-green"
-              >
-                E9 6PT
-              </span>
+                16 Pitcairn House
+                <br />
+                <span
+                  class="govuk-!-font-weight-bold text-green"
+                >
+                  St Thomass Square
+                </span>
+                <br />
+                <span
+                  class="govuk-body-xs text-green"
+                >
+                  E9 6PT
+                </span>
+              </a>
             </span>
           </div>
           <ul

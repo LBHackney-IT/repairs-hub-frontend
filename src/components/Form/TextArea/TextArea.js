@@ -11,6 +11,7 @@ const TextArea = ({
   rows = 4,
   register,
   error,
+  required,
   ...otherProps
 }) => (
   <div
@@ -21,7 +22,7 @@ const TextArea = ({
   >
     {label && (
       <label className="govuk-label" htmlFor={name}>
-        {label}
+        {label} {required && <span className="govuk-required">*</span>}
       </label>
     )}
     {hint && (

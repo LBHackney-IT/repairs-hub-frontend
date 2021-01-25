@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import RaiseRepairStatus from './RaiseRepairStatus'
-import TenureAlertDetails from './TenureAlertDetails'
+import PropertyDetailsGrid from './PropertyDetailsGrid'
 import BackButton from '../Layout/BackButton/BackButton'
 
 const PropertyDetails = ({
@@ -25,38 +25,14 @@ const PropertyDetails = ({
           propertyReference={propertyReference}
         />
       </div>
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-one-half">
-          <div className="govuk-body-s">
-            <div className="property-details-main-section">
-              <span className="govuk-body-xs">Property details</span>
-              <br></br>
-              <span className="govuk-!-font-weight-bold text-green">
-                {address.addressLine}
-              </span>
-              <br></br>
-              {address.streetSuffix && (
-                <>
-                  <span className="govuk-!-font-weight-bold text-green">
-                    {address.streetSuffix}
-                  </span>
-                  <br></br>
-                </>
-              )}
-              <span className="govuk-body-xs text-green">
-                {address.postalCode}
-              </span>
-            </div>
-
-            <TenureAlertDetails
-              canRaiseRepair={canRaiseRepair}
-              tenure={tenure}
-              locationAlerts={locationAlerts}
-              personAlerts={personAlerts}
-            />
-          </div>
-        </div>
-      </div>
+      <PropertyDetailsGrid
+        address={address}
+        locationAlerts={locationAlerts}
+        personAlerts={personAlerts}
+        subTypeDescription="Property details"
+        tenure={tenure}
+        canRaiseRepair={canRaiseRepair}
+      />
     </div>
   )
 }

@@ -28,6 +28,15 @@ exports[`RaiseRepairFormSuccess component should render properly 1`] = `
     >
       <li>
         <a
+          href="/work-orders/10000000"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
           href="/properties/00012345"
         >
           <strong>

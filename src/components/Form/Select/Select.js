@@ -16,6 +16,7 @@ const Select = ({
   disabled,
   register,
   widthClass,
+  required,
 }) => (
   <div
     id={`${name}-form-group`}
@@ -24,7 +25,7 @@ const Select = ({
     })}
   >
     <label className="govuk-label" htmlFor={name}>
-      {label}
+      {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint">
@@ -37,6 +38,7 @@ const Select = ({
       className={`govuk-select ${widthClass}`}
       id={name}
       name={name}
+      data-testid={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
       onChange={(e) => onChange && onChange(e.target.value)}

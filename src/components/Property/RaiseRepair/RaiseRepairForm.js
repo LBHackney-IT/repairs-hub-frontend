@@ -8,6 +8,7 @@ import { buildRaiseRepairFormData } from '../../../utils/hact/raise-repair-form'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 
 const RaiseRepairForm = ({
+  propertyReference,
   address,
   hierarchyType,
   canRaiseRepair,
@@ -26,7 +27,6 @@ const RaiseRepairForm = ({
   ]
 
   const onSubmit = async (formData) => {
-    console.log(formData)
     const raiseRepairFormData = buildRaiseRepairFormData(formData)
 
     onFormSubmit(raiseRepairFormData)
@@ -120,6 +120,7 @@ const RaiseRepairForm = ({
                   label="SOR Code"
                   options={sorCodesList}
                   onChange={onSorCodeSelect}
+                  required={true}
                   register={register({
                     required: 'Please select an SOR code',
                     validate: (value) =>
@@ -142,6 +143,7 @@ const RaiseRepairForm = ({
                   label="Quantity"
                   error={errors && errors.quantity}
                   widthClass="govuk-!-width-full"
+                  required={true}
                   register={register({
                     required: 'Please enter a quantity',
                     valueAsNumber: true,
@@ -166,6 +168,7 @@ const RaiseRepairForm = ({
               label="Task priority"
               options={priorityList}
               onChange={onPrioritySelect}
+              required={true}
               register={register({
                 required: 'Please select a priority',
                 validate: (value) =>
@@ -186,6 +189,7 @@ const RaiseRepairForm = ({
               name="descriptionOfWork"
               label="Repair description"
               onKeyUp={characterCount}
+              required={true}
               register={register({
                 required: 'Please enter a repair description',
                 maxLength: {
@@ -202,6 +206,22 @@ const RaiseRepairForm = ({
               </span>{' '}
               characters remaining.
             </span>
+            <input
+              id="propertyReference"
+              name="propertyReference"
+              label="propertyReference"
+              type="hidden"
+              value={propertyReference}
+              ref={register}
+            />
+            <input
+              id="shortAddress"
+              name="shortAddress"
+              label="shortAddress"
+              type="hidden"
+              value={address.shortAddress}
+              ref={register}
+            />
             <Button label="Create works order" type="submit" />
           </form>
         </div>
@@ -211,6 +231,7 @@ const RaiseRepairForm = ({
 }
 
 RaiseRepairForm.propTypes = {
+  propertyReference: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,

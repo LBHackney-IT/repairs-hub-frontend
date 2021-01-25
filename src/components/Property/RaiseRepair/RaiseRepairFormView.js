@@ -73,7 +73,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
-          {formSuccess && (
+          {formSuccess && workOrderReference && (
             <RaiseRepairFormSuccess
               propertyReference={propertyReference}
               workOrderReference={workOrderReference}
@@ -89,6 +89,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
             personAlerts &&
             sorCodes && (
               <RaiseRepairForm
+                propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
                 canRaiseRepair={property.canRaiseRepair}

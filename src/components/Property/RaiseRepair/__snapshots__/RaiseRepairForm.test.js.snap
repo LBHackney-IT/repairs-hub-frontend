@@ -77,10 +77,16 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   class="govuk-label"
                   for="sorCode"
                 >
-                  SOR Code
+                  SOR Code 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
                 </label>
                 <select
                   class="govuk-select govuk-!-width-full"
+                  data-testid="sorCode"
                   id="sorCode"
                   name="sorCode"
                 >
@@ -117,7 +123,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   class="govuk-label"
                   for="quantity"
                 >
-                  Quantity
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
                 </label>
                 <input
                   class="govuk-input govuk-!-width-full"
@@ -136,10 +147,16 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               class="govuk-label"
               for="priorityDescription"
             >
-              Task priority
+              Task priority 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
             </label>
             <select
               class="govuk-select govuk-!-width-full"
+              data-testid="priorityDescription"
               id="priorityDescription"
               name="priorityDescription"
             >
@@ -173,7 +190,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               class="govuk-label"
               for="descriptionOfWork"
             >
-              Repair description
+              Repair description 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
             </label>
             <textarea
               aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
@@ -195,6 +217,20 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             </span>
              characters remaining.
           </span>
+          <input
+            id="propertyReference"
+            label="propertyReference"
+            name="propertyReference"
+            type="hidden"
+            value="00012345"
+          />
+          <input
+            id="shortAddress"
+            label="shortAddress"
+            name="shortAddress"
+            type="hidden"
+            value="16 Pitcairn House  St Thomass Square"
+          />
           <div
             class="govuk-form-group"
           >
