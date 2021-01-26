@@ -38,7 +38,7 @@ export const deleteSession = (res) => {
 }
 
 export const isAuthorised = ({ req, res }, withRedirect = false) => {
-  const { HACKNEY_JWT_SECRET, HACKNEY_AUTHORISED_GROUP } = process.env
+  const { HACKNEY_JWT_SECRET, REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
 
   try {
     const cookies = cookie.parse(req.headers.cookie ?? '')
@@ -54,7 +54,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
     )
 
     const gssUser = {
-      hasAdminPermissions: groups.includes(HACKNEY_AUTHORISED_GROUP),
+      hasAdminPermissions: groups.includes(REPAIRS_AGENTS_GOOGLE_GROUPNAME),
     }
 
     if (!gssUser.hasAdminPermissions) {
