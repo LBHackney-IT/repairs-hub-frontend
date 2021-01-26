@@ -1,5 +1,6 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
+import { buildUser } from './user'
 
 const { GSSO_TOKEN_NAME } = process.env
 
@@ -38,7 +39,7 @@ export const deleteSession = (res) => {
 }
 
 export const isAuthorised = ({ req, res }, withRedirect = false) => {
-  const { HACKNEY_JWT_SECRET, REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
+  const { HACKNEY_JWT_SECRET } = process.env
 
   try {
     const cookies = cookie.parse(req.headers.cookie ?? '')
@@ -48,24 +49,17 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       return withRedirect && redirectToLogin(res)
     }
 
-    const { groups = [], name, email } = jsonwebtoken.verify(
+    const { name, email, groups = [] } = jsonwebtoken.verify(
       token,
       HACKNEY_JWT_SECRET
     )
 
-    const gssUser = {
-      hasAdminPermissions: groups.includes(REPAIRS_AGENTS_GOOGLE_GROUPNAME),
-    }
+    const user = buildUser(name, email, groups)
 
-    if (!gssUser.hasAdminPermissions) {
+    if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
     }
-    return {
-      ...gssUser,
-      isAuthorised: true,
-      name,
-      email,
-    }
+    return user
   } catch (err) {
     if (err instanceof jsonwebtoken.JsonWebTokenError) {
       return withRedirect && redirectToLogin(res)

@@ -11,7 +11,7 @@ const AccessDenied = () => (
 
 export const getServerSideProps = async (ctx) => {
   const user = isAuthorised(ctx)
-  if (user && user.isAuthorised) {
+  if (user && user.hasAnyPermissions) {
     redirectToHome(ctx.res)
   }
   return {
