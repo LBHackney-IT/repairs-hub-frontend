@@ -11,7 +11,8 @@
       "levelCode": "7",
       "subTypeCode": "DWE",
       "subTypeDescription": "Dwelling"
-    }
+    },
+    "canRaiseRepair": true
   },
   "alerts": {
     "locationAlert": [],

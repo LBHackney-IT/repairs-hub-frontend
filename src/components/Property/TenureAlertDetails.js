@@ -9,7 +9,7 @@ const TenureAlertDetails = ({
   personAlerts,
 }) => {
   if (
-    Object.keys(tenure).length > 0 ||
+    (tenure && Object.keys(tenure).length > 0) ||
     locationAlerts.length > 0 ||
     personAlerts.length > 0
   ) {
@@ -27,7 +27,7 @@ const TenureAlertDetails = ({
 
 TenureAlertDetails.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object.isRequired,
+  tenure: PropTypes.object,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
 }

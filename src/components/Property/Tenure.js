@@ -17,7 +17,10 @@ const Tenure = ({ tenure, canRaiseRepair }) => {
 
 Tenure.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object.isRequired,
+  tenure: PropTypes.shape({
+    typeCode: PropTypes.string,
+    typeDescription: PropTypes.string,
+  }).isRequired,
 }
 
 export default Tenure
