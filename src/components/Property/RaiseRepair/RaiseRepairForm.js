@@ -237,7 +237,7 @@ RaiseRepairForm.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
-  tenure: PropTypes.object.isRequired,
+  tenure: PropTypes.object,
   sorCodes: PropTypes.array.isRequired,
 }
 
