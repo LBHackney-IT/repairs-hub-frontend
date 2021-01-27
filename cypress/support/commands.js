@@ -37,6 +37,15 @@ Cypress.Commands.add('loginWithAgentRole', () => {
   cy.visit(host)
 })
 
+Cypress.Commands.add('loginWithContractorRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACTOR')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.visit(host)
+})
+
 Cypress.Commands.add('logout', () => {
   cy.get('.govuk-link--no-visited-state').contains('Logout')
   cy.clearCookie('hackneyToken')
