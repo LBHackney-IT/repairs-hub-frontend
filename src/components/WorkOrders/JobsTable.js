@@ -5,7 +5,7 @@ const JobsTable = ({ workOrders }) => (
   <div>
     <p className="govuk-heading-s">Manage jobs</p>
 
-    <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full">
+    <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <thead className="govuk-table__head">
         <tr className="govuk-table__row govuk-body">
           <th scope="col" className="govuk-table__header">

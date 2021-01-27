@@ -2,3 +2,15 @@
   padding-top: 0.5rem;
   color: repairs-hub-colour('grey');
 }
+
+.hackney-work-order-table {
+  tbody {
+    vertical-align: top;
+  }
+  p.description {
+    width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+  }
+}

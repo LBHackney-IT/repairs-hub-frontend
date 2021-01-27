@@ -26,7 +26,9 @@ const JobRow = ({
     </td>
     <td className="govuk-table__cell">{priority}</td>
     <td className="govuk-table__cell">{property}</td>
-    <td className="govuk-table__cell">{description}</td>
+    <td className="govuk-table__cell">
+      <p className="description">{description}</p>
+    </td>
   </tr>
 )
 
