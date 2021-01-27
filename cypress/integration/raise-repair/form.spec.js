@@ -3,7 +3,7 @@
 import 'cypress-audit/commands'
 
 beforeEach(() => {
-  cy.login()
+  cy.loginWithAgentRole()
 
   cy.server()
   // Stub request for raise a repair form page

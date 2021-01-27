@@ -6,7 +6,7 @@ describe('Show all work orders', () => {
     () => {
       //Stub request with work orders response
       beforeEach(() => {
-        cy.login()
+        cy.loginWithAgentRole()
         cy.server()
         cy.fixture('work_orders/jobs.json').as('workorderslist')
         cy.route('GET', 'api/repairs', '@workorderslist')

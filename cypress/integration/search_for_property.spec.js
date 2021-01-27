@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Search for property', () => {
   beforeEach(() => {
-    cy.login()
+    cy.loginWithAgentRole()
     cy.fixture('properties/properties.json').as('propertiesList')
     cy.server()
   })

@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Search for property', () => {
   beforeEach(() => {
-    cy.login()
+    cy.loginWithAgentRole()
     cy.server()
     // Stub request for work order and property
     cy.fixture('repairs/work-order.json').as('workOrder')

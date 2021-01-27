@@ -28,8 +28,8 @@ import 'cypress-audit/commands'
 
 const host = Cypress.env('HOST')
 
-Cypress.Commands.add('login', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY')
+Cypress.Commands.add('loginWithAgentRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AGENT')
 
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
