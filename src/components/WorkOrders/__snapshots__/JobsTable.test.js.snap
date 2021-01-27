@@ -9,7 +9,7 @@ exports[`JobsTable component should render properly 1`] = `
       Manage jobs
     </p>
     <table
-      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
     >
       <thead
         class="govuk-table__head"
@@ -99,7 +99,11 @@ exports[`JobsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
+            <p
+              class="description"
+            >
+              ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
+            </p>
           </td>
         </tr>
       </tbody>
