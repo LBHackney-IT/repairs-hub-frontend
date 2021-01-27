@@ -9,49 +9,59 @@ describe('Search for property', () => {
     cy.server()
   })
 
-  it('Search for property by postcode', () => {
-    // Stub request for search on properties by postcode
-    cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
+  context('Search for property by postcode', () => {
+    beforeEach(() => {
+      // Stub request for search on properties by postcode
+      cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
 
-    // Search by postcode
-    cy.get('.govuk-input').clear().type('e9 6pt')
-    cy.get('[type="submit"]').contains('Search').click()
-    cy.url().should('contains', 'properties/search?q=e9%25206pt')
-
-    cy.get('.govuk-heading-s').contains(
-      'We found 2 matching results for: e9 6pt'
-    )
-
-    cy.get('.govuk-table').within(() => {
-      cy.contains('th', 'Address')
-      cy.contains('th', 'Postcode')
-      cy.contains('th', 'Property type')
-      cy.contains('th', 'Property reference')
+      // Search by postcode
+      cy.get('.govuk-input').clear().type('e9 6pt')
+      cy.get('[type="submit"]').contains('Search').click()
+      cy.url().should('contains', 'properties/search?q=e9%25206pt')
     })
 
-    cy.get('.govuk-table__cell a').should(
-      'have.attr',
-      'href',
-      '/properties/00012345'
-    )
+    it('checks the heading', () => {
+      cy.get('.govuk-heading-s').contains(
+        'We found 2 matching results for: e9 6pt'
+      )
+    })
 
-    // Run lighthouse audit for accessibility report
-    cy.audit()
+    it('checks the table', () => {
+      cy.get('.govuk-table').within(() => {
+        cy.contains('th', 'Address')
+        cy.contains('th', 'Postcode')
+        cy.contains('th', 'Property type')
+        cy.contains('th', 'Property reference')
+      })
+
+      cy.get('.govuk-table__cell a').should(
+        'have.attr',
+        'href',
+        '/properties/00012345'
+      )
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
   })
 
-  it('Search for property by address', () => {
-    // Stub request for search on properties by address
-    cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
+  context('Search for property by address', () => {
+    beforeEach(() => {
+      // Stub request for search on properties by address
+      cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
 
-    // Search by address
-    cy.get('.govuk-input').type('pitcairn')
-    cy.get('[type="submit"]').contains('Search').click()
+      // Search by address
+      cy.get('.govuk-input').type('pitcairn')
+      cy.get('[type="submit"]').contains('Search').click()
+    })
 
-    cy.get('.govuk-heading-s').contains(
-      'We found 2 matching results for: pitcairn'
-    )
+    it('checks the heading', () => {
+      cy.get('.govuk-heading-s').contains(
+        'We found 2 matching results for: pitcairn'
+      )
 
-    // Run lighthouse audit for accessibility report
-    cy.audit()
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
   })
 })
