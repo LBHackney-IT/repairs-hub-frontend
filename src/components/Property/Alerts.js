@@ -15,7 +15,14 @@ const Alerts = ({ alerts, alertType }) => {
 }
 
 Alerts.propTypes = {
-  alerts: PropTypes.array.isRequired,
+  alerts: PropTypes.arrayOf(
+    PropTypes.shape({
+      type: PropTypes.string,
+      comments: PropTypes.string,
+      startDate: PropTypes.string,
+      endDate: PropTypes.string,
+    })
+  ).isRequired,
 }
 
 export default Alerts
