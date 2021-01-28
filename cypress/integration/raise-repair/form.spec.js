@@ -18,7 +18,7 @@ describe('Raise repair form on property with tenure', () => {
     cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
     cy.route({
       method: 'POST',
-      url: '/api/repairs',
+      url: '/api/repairs/schedule',
       response: '10102030',
     }).as('apiCheck')
   })
@@ -180,6 +180,18 @@ describe('Raise repair form on property with tenure', () => {
           cy.get('#descriptionOfWork-form-group .govuk-error-message').should(
             'not.exist'
           )
+
+          // Fill in contact details
+          cy.get('#callerName').type('Bob Leek')
+          cy.get('#contactNumber').type('a')
+          // Enter invalid contact number
+          cy.get('#contactNumber-form-group .govuk-error-message').within(
+            () => {
+              cy.contains('Contact number is not valid')
+            }
+          )
+          // Enter a valid contact number
+          cy.get('#contactNumber').clear().type('07788659111')
         })
 
         // Submit form
@@ -226,7 +238,7 @@ describe('Raise repair form on property without tenure code', () => {
     cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
     cy.route({
       method: 'POST',
-      url: '/api/repairs',
+      url: '/api/repairs/schedule',
       response: '10102030',
     }).as('apiCheck')
   })

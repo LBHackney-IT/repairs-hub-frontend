@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { Select, Button, TextArea, TextInput } from '../../Form'
-import { buildRaiseRepairFormData } from '../../../utils/hact/raise-repair-form'
+import { buildScheduleRepairFormData } from '../../../utils/hact/raise-repair-form'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 
 const RaiseRepairForm = ({
@@ -21,15 +21,16 @@ const RaiseRepairForm = ({
   const { register, handleSubmit, errors } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
   const [sorCodeDescription, setSorCodeDescription] = useState('')
+  const [sorCodeContractorRef, setSorCodeContractorRef] = useState('')
   const sorCodesList = sorCodes.map((code) => code.customCode)
   const priorityList = [
     ...new Set(sorCodes.map((code) => code.priority.description)),
   ]
 
   const onSubmit = async (formData) => {
-    const raiseRepairFormData = buildRaiseRepairFormData(formData)
+    const scheduleRepairFormData = buildScheduleRepairFormData(formData)
 
-    onFormSubmit(raiseRepairFormData)
+    onFormSubmit(scheduleRepairFormData)
   }
 
   const onPrioritySelect = (priority) => {
@@ -54,6 +55,7 @@ const RaiseRepairForm = ({
 
     setPriorityCode(sorCodeObject?.priority.priorityCode || '')
     setSorCodeDescription(sorCodeDescription)
+    setSorCodeContractorRef(sorCodeObject?.sorContractor.reference || '')
     addSorCodeSummaryHtml(sorCodeDescription)
   }
 
@@ -134,6 +136,13 @@ const RaiseRepairForm = ({
                   name="sorCodeDescription"
                   type="hidden"
                   value={sorCodeDescription}
+                  ref={register}
+                />
+                <input
+                  id="sorCodeContractorRef"
+                  name="sorCodeContractorRef"
+                  type="hidden"
+                  value={sorCodeContractorRef}
                   ref={register}
                 />
               </GridColumn>
@@ -221,6 +230,31 @@ const RaiseRepairForm = ({
               type="hidden"
               value={address.shortAddress}
               ref={register}
+            />
+            <TextInput
+              name="callerName"
+              label="Caller name"
+              required={false}
+              register={register({
+                maxLength: {
+                  value: 50,
+                  message:
+                    'You have exceeded the maximum amount of 50 characters',
+                },
+              })}
+              error={errors && errors.callerName}
+            />
+            <TextInput
+              name="contactNumber"
+              label="Contact number"
+              required={false}
+              register={register({
+                pattern: {
+                  value: /^[0-9]*$/,
+                  message: 'Contact number is not valid',
+                },
+              })}
+              error={errors && errors.contactNumber}
             />
             <Button label="Create works order" type="submit" />
           </form>
