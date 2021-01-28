@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Show property', () => {
   beforeEach(() => {
-    cy.login()
+    cy.loginWithAgentRole()
     cy.server()
   })
 

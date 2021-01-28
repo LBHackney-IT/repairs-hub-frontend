@@ -6,11 +6,11 @@ describe('Show all work orders', () => {
     () => {
       //Stub request with work orders response
       beforeEach(() => {
-        cy.login()
+        cy.loginWithContractorRole()
         cy.server()
         cy.fixture('work_orders/jobs.json').as('workorderslist')
         cy.route('GET', 'api/repairs', '@workorderslist')
-        cy.visit(`${Cypress.env('HOST')}/repairs/jobs`)
+        cy.visit(`${Cypress.env('HOST')}/`)
       })
 
       it('displays headers of the table', () => {

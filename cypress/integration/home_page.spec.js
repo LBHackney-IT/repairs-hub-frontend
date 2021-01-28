@@ -5,7 +5,7 @@ import 'cypress-audit/commands'
 describe('Home page', () => {
   context('When user is logged in', () => {
     beforeEach(() => {
-      cy.login()
+      cy.loginWithAgentRole()
     })
 
     it('Displays all necessary components on the home page', () => {

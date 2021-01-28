@@ -1,7 +1,13 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
+import { TEMPORARY_ROLE_OVERRIDE_KEY } from 'src/pages/api/staging-role-override'
+import { buildUser, CONTRACTOR_ROLE } from './user'
 
-const { GSSO_TOKEN_NAME } = process.env
+const {
+  GSSO_TOKEN_NAME,
+  REPAIRS_AGENTS_GOOGLE_GROUPNAME,
+  CONTRACTORS_GOOGLE_GROUPNAME,
+} = process.env
 
 export const AUTH_WHITELIST = ['/login', '/access-denied']
 
@@ -38,7 +44,7 @@ export const deleteSession = (res) => {
 }
 
 export const isAuthorised = ({ req, res }, withRedirect = false) => {
-  const { HACKNEY_JWT_SECRET, HACKNEY_AUTHORISED_GROUP } = process.env
+  const { HACKNEY_JWT_SECRET } = process.env
 
   try {
     const cookies = cookie.parse(req.headers.cookie ?? '')
@@ -48,24 +54,32 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       return withRedirect && redirectToLogin(res)
     }
 
-    const { groups = [], name, email } = jsonwebtoken.verify(
+    const { name, email, groups = [] } = jsonwebtoken.verify(
       token,
       HACKNEY_JWT_SECRET
     )
 
-    const gssUser = {
-      hasAdminPermissions: groups.includes(HACKNEY_AUTHORISED_GROUP),
+    // const user = buildUser(name, email, groups)
+
+    // Simulate a contractor log in with an override cookie value
+    // TODO: Delete this once contractor login from Google is implemented
+    const stagingUserRoleOverride = cookies[TEMPORARY_ROLE_OVERRIDE_KEY]
+
+    let user
+
+    if (
+      stagingUserRoleOverride === CONTRACTOR_ROLE &&
+      groups.some((group) => group === REPAIRS_AGENTS_GOOGLE_GROUPNAME)
+    ) {
+      user = buildUser(name, email, [CONTRACTORS_GOOGLE_GROUPNAME])
+    } else {
+      user = buildUser(name, email, groups)
     }
 
-    if (!gssUser.hasAdminPermissions) {
+    if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
     }
-    return {
-      ...gssUser,
-      isAuthorised: true,
-      name,
-      email,
-    }
+    return user
   } catch (err) {
     if (err instanceof jsonwebtoken.JsonWebTokenError) {
       return withRedirect && redirectToLogin(res)
