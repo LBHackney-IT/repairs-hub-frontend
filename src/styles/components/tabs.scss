@@ -1,0 +1,16 @@
+.hackney-tabs-list > li {
+  &:focus {
+    outline: 3px solid repairs-hub-colour('housing-2');
+  }
+  a:focus {
+    background-color: repairs-hub-colour('housing-2');
+    box-shadow: 0 -2px repairs-hub-colour('housing-2'),
+      0 4px repairs-hub-colour('black');
+  }
+}
+
+.hackney-tabs-panel {
+  border: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

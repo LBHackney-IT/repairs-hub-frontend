@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
 describe('PropertyDetails component', () => {
@@ -21,16 +21,16 @@ describe('PropertyDetails component', () => {
     alerts: {
       locationAlert: [
         {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
+          type: 'DIS',
+          comments: 'Property Under Disrepair',
           startDate: '2011-02-16',
           endDate: null,
         },
       ],
       personAlert: [
         {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
+          type: 'DIS',
+          comments: 'Property Under Disrepair',
           startDate: '2011-08-16',
           endDate: null,
         },
@@ -42,18 +42,20 @@ describe('PropertyDetails component', () => {
     },
   }
 
-  it('should render properly', () => {
-    const { asFragment } = render(
-      <PropertyDetails
-        propertyReference={props.property.propertyReference}
-        address={props.property.address}
-        hierarchyType={props.property.hierarchyType}
-        canRaiseRepair={props.property.canRaiseRepair}
-        tenure={props.tenure}
-        locationAlerts={props.alerts.locationAlert}
-        personAlerts={props.alerts.personAlert}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  it('should render properly', async () => {
+    await act(async () => {
+      const { asFragment } = render(
+        <PropertyDetails
+          propertyReference={props.property.propertyReference}
+          address={props.property.address}
+          hierarchyType={props.property.hierarchyType}
+          canRaiseRepair={props.property.canRaiseRepair}
+          tenure={props.tenure}
+          locationAlerts={props.alerts.locationAlert}
+          personAlerts={props.alerts.personAlert}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

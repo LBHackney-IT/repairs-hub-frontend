@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepairsHistoryTable component should render properly 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row govuk-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Reference
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date raised
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Status
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        data-ref="10000012"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            href="/work-orders/10000012"
+          >
+            10000012
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          18 Jan 2021
+          <div
+            class="work-order-hours"
+          >
+            3:28 pm
+          </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <span
+            class="status status-in-progress"
+          >
+            In progress
+          </span>
+        </td>
+        <td
+          class="govuk-table__cell description"
+        >
+          This is an immediate repair description
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        data-ref="10000013"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            href="/work-orders/10000013"
+          >
+            10000013
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          23 Jan 2021
+          <div
+            class="work-order-hours"
+          >
+            4:28 pm
+          </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <span
+            class="status status-in-progress"
+          >
+            In progress
+          </span>
+        </td>
+        <td
+          class="govuk-table__cell description"
+        >
+          This is an urgent repair description
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
