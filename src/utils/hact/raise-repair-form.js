@@ -24,19 +24,23 @@ export const buildScheduleRepairFormData = (formData) => {
     workClass: {
       workClassCode: 0,
     },
-    workElement: [
-      {
-        rateScheduleItem: [
+    workElement: formData.sorCodesCollection
+      .map((item) => {
+        return [
           {
-            customCode: formData.sorCode,
-            customName: formData.sorCodeDescription,
-            quantity: {
-              amount: [Number.parseInt(formData.quantity)],
-            },
+            rateScheduleItem: [
+              {
+                customCode: item.code.split(' - ')[0],
+                customName: item.description,
+                quantity: {
+                  amount: [Number.parseInt(item.quantity)],
+                },
+              },
+            ],
           },
-        ],
-      },
-    ],
+        ]
+      })
+      .flat(),
     site: {
       property: [
         {
@@ -56,11 +60,11 @@ export const buildScheduleRepairFormData = (formData) => {
       name: 'Hackney Housing',
     },
     assignedToPrimary: {
-      name: `Contractor ${formData.sorCodeContractorRef}`,
+      name: `Contractor ${formData.sorCodesCollection[0].contractorRef}`,
       organization: {
         reference: [
           {
-            id: formData.sorCodeContractorRef,
+            id: formData.sorCodesCollection[0].contractorRef,
           },
         ],
       },

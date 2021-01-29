@@ -5,7 +5,7 @@ import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { Select, Button, TextArea, TextInput } from '../../Form'
 import { buildScheduleRepairFormData } from '../../../utils/hact/raise-repair-form'
-import { GridRow, GridColumn } from '../../Layout/Grid'
+import SorCodeSelectView from './SorCodeSelectView'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -20,9 +20,6 @@ const RaiseRepairForm = ({
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
-  const [sorCodeDescription, setSorCodeDescription] = useState('')
-  const [sorCodeContractorRef, setSorCodeContractorRef] = useState('')
-  const sorCodesList = sorCodes.map((code) => code.customCode)
   const priorityList = [
     ...new Set(sorCodes.map((code) => code.priority.description)),
   ]
@@ -33,51 +30,12 @@ const RaiseRepairForm = ({
     onFormSubmit(scheduleRepairFormData)
   }
 
-  const onPrioritySelect = (priority) => {
+  const onPrioritySelect = (event) => {
     const sorCodeObject = sorCodes.filter(
-      (a) => a.priority.description == priority
+      (a) => a.priority.description == event.target.value
     )[0]
 
     setPriorityCode(sorCodeObject?.priority.priorityCode || '')
-  }
-  const onSorCodeSelect = (code) => {
-    const sorCodeObject = sorCodes.filter((a) => a.customCode == code)[0]
-    const sorCodeDescription = sorCodeObject?.customName || ''
-
-    if (code) {
-      document.getElementById('priorityDescription').value =
-        sorCodeObject?.priority.description
-
-      if (errors?.priorityDescription) {
-        delete errors.priorityDescription
-      }
-    }
-
-    setPriorityCode(sorCodeObject?.priority.priorityCode || '')
-    setSorCodeDescription(sorCodeDescription)
-    setSorCodeContractorRef(sorCodeObject?.sorContractor.reference || '')
-    addSorCodeSummaryHtml(sorCodeDescription)
-  }
-
-  const addSorCodeSummaryHtml = (sorCodeName) => {
-    const sorCodeSummaryHtml = `<p class='govuk-body-s'>SOR code summary: ${sorCodeName}</p>`
-    const targetNextSibling = event.target.nextSibling
-
-    if (!targetNextSibling) {
-      const sorCodeSummaryDiv = [
-        '<div class="sor-code-summary govuk-!-margin-top-2">',
-        `${sorCodeSummaryHtml}`,
-        '</div>',
-      ].join('\n')
-
-      return event.target.insertAdjacentHTML('afterend', sorCodeSummaryDiv)
-    }
-
-    if (sorCodeName) {
-      targetNextSibling.innerHTML = sorCodeSummaryHtml
-    } else {
-      targetNextSibling.remove()
-    }
   }
 
   const characterCount = () => {
@@ -115,63 +73,12 @@ const RaiseRepairForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <GridRow>
-              <GridColumn width="two-thirds">
-                <Select
-                  name="sorCode"
-                  label="SOR Code"
-                  options={sorCodesList}
-                  onChange={onSorCodeSelect}
-                  required={true}
-                  register={register({
-                    required: 'Please select an SOR code',
-                    validate: (value) =>
-                      sorCodesList.includes(value) || 'SOR code is not valid',
-                  })}
-                  error={errors && errors.sorCode}
-                  widthClass="govuk-!-width-full"
-                />
-                <input
-                  id="sorCodeDescription"
-                  name="sorCodeDescription"
-                  type="hidden"
-                  value={sorCodeDescription}
-                  ref={register}
-                />
-                <input
-                  id="sorCodeContractorRef"
-                  name="sorCodeContractorRef"
-                  type="hidden"
-                  value={sorCodeContractorRef}
-                  ref={register}
-                />
-              </GridColumn>
-              <GridColumn width="one-third">
-                <TextInput
-                  name="quantity"
-                  label="Quantity"
-                  error={errors && errors.quantity}
-                  widthClass="govuk-!-width-full"
-                  required={true}
-                  register={register({
-                    required: 'Please enter a quantity',
-                    valueAsNumber: true,
-                    validate: (value) => {
-                      if (!Number.isInteger(value)) {
-                        return 'Quantity must be a whole number'
-                      }
-                      if (value < 1) {
-                        return 'Quantity must be 1 or more'
-                      } else if (value > 50) {
-                        return 'Quantity must be 50 or less'
-                      } else {
-                        return true
-                      }
-                    },
-                  })}
-                />
-              </GridColumn>
-            </GridRow>
+            <SorCodeSelectView
+              sorCodes={sorCodes}
+              register={register}
+              errors={errors}
+            />
+
             <Select
               name="priorityDescription"
               label="Task priority"

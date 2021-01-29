@@ -9,8 +9,20 @@ jest.mock('uuid', () => {
 
 describe('buildRaiseRepairFormData', () => {
   const formData = {
-    sorCode: 'DES5R006',
-    sorCodeDescription: 'Urgent call outs',
+    sorCodesCollection: [
+      {
+        code: 'DES5R006 - Urgent call outs',
+        description: 'Urgent call outs',
+        quantity: '1',
+        contractorRef: 'H01',
+      },
+      {
+        code: 'DES5R005 - Normal call outs',
+        description: 'Normal call outs',
+        quantity: '3',
+        contractorRef: 'H01',
+      },
+    ],
     quantity: '1',
     priorityDescription: 'U - Urgent (5 Working days)',
     priorityCode: '3',
@@ -19,7 +31,6 @@ describe('buildRaiseRepairFormData', () => {
     shortAddress: '12 Pitcairn House',
     callerName: 'John Smith',
     contactNumber: '07788777888',
-    sorCodeContractorRef: 'H01',
   }
 
   it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
@@ -49,6 +60,15 @@ describe('buildRaiseRepairFormData', () => {
               customCode: 'DES5R006',
               customName: 'Urgent call outs',
               quantity: { amount: [1] },
+            },
+          ],
+        },
+        {
+          rateScheduleItem: [
+            {
+              customCode: 'DES5R005',
+              customName: 'Normal call outs',
+              quantity: { amount: [3] },
             },
           ],
         },
