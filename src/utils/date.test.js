@@ -1,4 +1,9 @@
-import { convertDate, dateToStr, sortedByDate } from './date'
+import {
+  convertDate,
+  dateToStr,
+  sortedByDate,
+  convertToDateFormat,
+} from './date'
 
 describe('date', () => {
   describe('convertDate', () => {
@@ -54,6 +59,18 @@ describe('date', () => {
           ),
         },
       ])
+    })
+  })
+  describe('convertToDateFormat', () => {
+    it('creates a date', () => {
+      const stringToFormat = {
+        date: '2021-01-20',
+        time: '12:12:00',
+      }
+
+      expect(convertToDateFormat(stringToFormat)).toEqual(
+        new Date('2021-01-20T12:12:00.00')
+      )
     })
   })
 })

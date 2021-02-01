@@ -24,8 +24,12 @@ const JobsTable = ({ workOrders }) => (
             Property
           </th>
           <th scope="col" className="govuk-table__header">
+            Status
+          </th>
+          <th scope="col" className="govuk-table__header">
             Description
           </th>
+          <th scope="col" className="govuk-table__header"></th>
         </tr>
       </thead>
       <tbody className="govuk-table__body">
@@ -45,6 +49,7 @@ JobsTable.propTypes = {
       lastUpdated: PropTypes.instanceOf(Date),
       priority: PropTypes.string,
       property: PropTypes.string.isRequired,
+      status: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
     })
   ).isRequired,
