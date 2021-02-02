@@ -3,6 +3,7 @@ $repairs-hub-colours: (
   'housing-2': #009ca6,
   'housing-3': #2dccd3,
   'warning': #ffa300,
+  'danger': #be3a34,
   'white': govuk-colour('white'),
   'black': govuk-colour('black'),
   'grey': grey,
@@ -25,6 +26,14 @@ $repairs-hub-colours: (
 
 .text-white {
   color: repairs-hub-colour('white');
+}
+
+.text-warning {
+  color: repairs-hub-colour('warning');
+}
+
+.text-danger {
+  color: repairs-hub-colour('danger');
 }
 
 .text-\!-green {

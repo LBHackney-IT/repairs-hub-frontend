@@ -31,7 +31,7 @@ describe('Show work order', () => {
     })
 
     it('Property details', () => {
-      cy.get('.govuk-grid-row').within(() => {
+      cy.get('.property-details-main-section').within(() => {
         cy.contains('Dwelling')
         cy.contains('16 Pitcairn House').should(
           'have.attr',
@@ -54,6 +54,21 @@ describe('Show work order', () => {
           'Contact Alert: Verbal Abuse or Threat of (VA)',
         ]
       )
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+
+    it('Work order details', () => {
+      cy.get('.work-order-info').within(() => {
+        cy.contains('Status: In Progress')
+        cy.contains('Priority: U - Urgent (5 Working days)')
+        cy.contains('Raised by Dummy Agent')
+        cy.contains('18 Jan 2021, 3:28 pm')
+        cy.contains('Target: 23 Jan 2021, 6:30 pm')
+        cy.contains('Caller: Jill Smith')
+        cy.contains('07700 900999')
+      })
 
       // Run lighthouse audit for accessibility report
       cy.audit()
