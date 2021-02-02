@@ -1,13 +1,9 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
-import { TEMPORARY_ROLE_OVERRIDE_KEY } from 'src/pages/api/staging-role-override'
-import { buildUser, CONTRACTOR_ROLE } from './user'
+import { TEMPORARY_GROUP_OVERRIDE_KEY } from 'src/pages/api/staging-group-override'
+import { buildUser } from './user'
 
-const {
-  GSSO_TOKEN_NAME,
-  REPAIRS_AGENTS_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
-} = process.env
+const { GSSO_TOKEN_NAME } = process.env
 
 export const AUTH_WHITELIST = ['/login', '/access-denied']
 
@@ -59,22 +55,10 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       HACKNEY_JWT_SECRET
     )
 
-    // const user = buildUser(name, email, groups)
+    // TODO: Delete this once we're happy with Google log ins
+    const stagingUserGroupOverride = cookies[TEMPORARY_GROUP_OVERRIDE_KEY]
 
-    // Simulate a contractor log in with an override cookie value
-    // TODO: Delete this once contractor login from Google is implemented
-    const stagingUserRoleOverride = cookies[TEMPORARY_ROLE_OVERRIDE_KEY]
-
-    let user
-
-    if (
-      stagingUserRoleOverride === CONTRACTOR_ROLE &&
-      groups.some((group) => group === REPAIRS_AGENTS_GOOGLE_GROUPNAME)
-    ) {
-      user = buildUser(name, email, [CONTRACTORS_GOOGLE_GROUPNAME])
-    } else {
-      user = buildUser(name, email, groups)
-    }
+    const user = buildUser(name, email, [stagingUserGroupOverride, ...groups])
 
     if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
