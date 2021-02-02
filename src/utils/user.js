@@ -1,12 +1,15 @@
 export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 
-import { CONTRACTOR_GROUP_REF_MAP } from './userGroups'
-
 const {
   CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
   CONTRACTORS_PURDY_GOOGLE_GROUPNAME,
 } = process.env
+
+const CONTRACTOR_GROUP_REF_MAP = {
+  [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: 'H01',
+  [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: 'PDY', // TODO: Update to a real value
+}
 
 export const buildUser = (name, email, authServiceGroups) => {
   const { REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
