@@ -1,29 +1,37 @@
 export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 
-export const buildUser = (name, email, authServiceGroups) => {
-  const {
-    REPAIRS_AGENTS_GOOGLE_GROUPNAME,
-    CONTRACTORS_GOOGLE_GROUPNAME,
-  } = process.env
+import { CONTRACTOR_GROUP_REF_MAP } from './userGroups'
 
-  const authServiceGroupRoleMap = {
+const {
+  CONTRACTORS_GOOGLE_GROUPNAME,
+  CONTRACTORS_PURDY_GOOGLE_GROUPNAME,
+} = process.env
+
+export const buildUser = (name, email, authServiceGroups) => {
+  const { REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
+
+  const groupNameRoleMap = {
     [REPAIRS_AGENTS_GOOGLE_GROUPNAME]: AGENT_ROLE,
     [CONTRACTORS_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
+    [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
   }
 
-  const roles = authServiceGroups
-    .filter((g) => authServiceGroupRoleMap[g])
-    .map((g) => authServiceGroupRoleMap[g])
+  const groupName = authServiceGroups.find((groupName) =>
+    Object.keys(groupNameRoleMap).includes(groupName)
+  )
 
-  const hasRole = (role) => roles.includes(role)
+  const role = groupNameRoleMap[groupName]
+
+  const hasRole = (r) => r === role
 
   return {
     name: name,
     email: email,
     hasRole: hasRole,
-    hasAgentPermissions: hasRole(AGENT_ROLE),
-    hasContractorPermissions: hasRole(CONTRACTOR_ROLE),
-    hasAnyPermissions: roles.length > 0,
+    hasAgentPermissions: role === AGENT_ROLE,
+    hasContractorPermissions: role === CONTRACTOR_ROLE,
+    hasAnyPermissions: !!role,
+    contractorReference: CONTRACTOR_GROUP_REF_MAP[groupName],
   }
 }
