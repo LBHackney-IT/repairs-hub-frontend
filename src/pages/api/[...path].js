@@ -14,7 +14,21 @@ export default async (req, res) => {
       .json({ message: 'Auth cookie missing.' })
   }
   try {
-    const data = await serviceAPIRequest(req.method, req.query, req.body)
+    let { path, ...queryParams } = req.query
+
+    if (path.join('') === 'repairs' && req.method.toLowerCase() === 'get') {
+      queryParams = {
+        ...queryParams,
+        ContractorReference: user.contractorReference,
+      }
+    }
+
+    const data = await serviceAPIRequest(
+      req.method,
+      path.join('/'),
+      queryParams,
+      req.body
+    )
 
     res.status(HttpStatus.OK).json(data)
   } catch (err) {
