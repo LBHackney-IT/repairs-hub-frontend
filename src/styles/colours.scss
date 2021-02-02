@@ -22,8 +22,17 @@ $repairs-hub-colours: (
 .text-green {
   color: repairs-hub-colour('housing-2');
 }
+
 .text-white {
   color: repairs-hub-colour('white');
+}
+
+.text-\!-green {
+  color: repairs-hub-colour('housing-2') !important;
+}
+
+.text-\!-white {
+  color: repairs-hub-colour('white') !important;
 }
 
 .background-green {

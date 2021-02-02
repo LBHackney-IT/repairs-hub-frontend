@@ -26,32 +26,28 @@ exports[`WorkOrderDetails component should render properly 1`] = `
             class="property-details-main-section"
           >
             <span
-              class="govuk-body-xs"
+              class="govuk-!-font-size-14"
             >
               Dwelling
             </span>
             <br />
-            <span
-              class="govuk-!-font-weight-bold text-green"
+            <a
+              href="/properties/00012345"
             >
-              <a
-                href="/properties/00012345"
+              <div
+                class="text-!-green govuk-!-font-weight-bold"
               >
                 16 Pitcairn House
                 <br />
-                <span
-                  class="govuk-!-font-weight-bold text-green"
-                >
-                  St Thomass Square
-                </span>
+                St Thomass Square
                 <br />
                 <span
-                  class="govuk-body-xs text-green"
+                  class="govuk-!-font-size-14"
                 >
                   E9 6PT
                 </span>
-              </a>
-            </span>
+              </div>
+            </a>
           </div>
           <ul
             class="hackney-property-alerts"

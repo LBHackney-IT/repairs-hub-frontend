@@ -27,12 +27,14 @@ const PropertyDetails = ({
         />
       </div>
       <PropertyDetailsGrid
+        propertyReference={propertyReference}
         address={address}
         locationAlerts={locationAlerts}
         personAlerts={personAlerts}
         subTypeDescription="Property details"
         tenure={tenure}
         canRaiseRepair={canRaiseRepair}
+        hasLinkToProperty={false}
       />
       {canRaiseRepair && (
         <RepairsHistoryView propertyReference={propertyReference} />
