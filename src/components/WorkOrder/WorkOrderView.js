@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getRepair } from '../../utils/frontend-api-client/repairs'
 import { getProperty } from '../../utils/frontend-api-client/properties'
+import Tabs from '../Tabs'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -14,6 +15,7 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const tabsList = ['Repairs history', 'Tasks and SORs']
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -58,16 +60,23 @@ const WorkOrderView = ({ workOrderReference }) => {
             locationAlerts &&
             personAlerts &&
             workOrder && (
-              <WorkOrderDetails
-                propertyReference={property.propertyReference}
-                workOrder={workOrder}
-                address={property.address}
-                tenure={tenure}
-                subTypeDescription={property.hierarchyType.subTypeDescription}
-                locationAlerts={locationAlerts}
-                personAlerts={personAlerts}
-                canRaiseRepair={property.canRaiseRepair}
-              />
+              <>
+                <WorkOrderDetails
+                  propertyReference={property.propertyReference}
+                  workOrder={workOrder}
+                  address={property.address}
+                  tenure={tenure}
+                  subTypeDescription={property.hierarchyType.subTypeDescription}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
+                  canRaiseRepair={property.canRaiseRepair}
+                />
+                <Tabs
+                  tabsList={tabsList}
+                  propertyReference={property.propertyReference}
+                  workOrderReference={workOrderReference}
+                />
+              </>
             )}
           {error && <ErrorMessage label={error} />}
         </>

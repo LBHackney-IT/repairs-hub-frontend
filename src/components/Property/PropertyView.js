@@ -4,6 +4,7 @@ import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../utils/frontend-api-client/properties'
+import Tabs from '../Tabs'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -12,6 +13,7 @@ const PropertyView = ({ propertyReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const tabsList = ['Repairs history']
 
   const getPropertyView = async (propertyReference) => {
     setError(null)
@@ -52,15 +54,23 @@ const PropertyView = ({ propertyReference }) => {
             tenure &&
             locationAlerts &&
             personAlerts && (
-              <PropertyDetails
-                propertyReference={propertyReference}
-                address={property.address}
-                hierarchyType={property.hierarchyType}
-                canRaiseRepair={property.canRaiseRepair}
-                tenure={tenure}
-                locationAlerts={locationAlerts}
-                personAlerts={personAlerts}
-              />
+              <>
+                <PropertyDetails
+                  propertyReference={propertyReference}
+                  address={property.address}
+                  hierarchyType={property.hierarchyType}
+                  canRaiseRepair={property.canRaiseRepair}
+                  tenure={tenure}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
+                />
+                {property.canRaiseRepair && (
+                  <Tabs
+                    tabsList={tabsList}
+                    propertyReference={propertyReference}
+                  />
+                )}
+              </>
             )}
           {error && <ErrorMessage label={error} />}
         </>

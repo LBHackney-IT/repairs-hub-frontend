@@ -14,7 +14,6 @@ const WorkOrderHeader = ({
   tenure,
   canRaiseRepair,
 }) => {
-  console.log(workOrder)
   return (
     <div className="govuk-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">

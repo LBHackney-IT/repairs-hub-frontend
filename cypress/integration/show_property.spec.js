@@ -55,6 +55,9 @@ describe('Show property', () => {
       })
 
       it('Display the repairs history for the property', () => {
+        // Repairs history tab should be active
+        cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
+
         cy.get('.govuk-tabs').within(() => {
           cy.get('.govuk-tabs__tab').contains('Repairs history')
           cy.get('.govuk-heading-l').contains('Repairs history')

@@ -89,52 +89,6 @@ exports[`PropertyDetails component should render properly 1`] = `
         </div>
       </div>
     </div>
-    <div>
-      <div
-        class="govuk-tabs"
-        data-module="tabs"
-      >
-        <h2
-          class="govuk-tabs__title"
-        >
-          Contents
-        </h2>
-        <ul
-          class="govuk-tabs__list hackney-tabs-list"
-        >
-          <li
-            class="govuk-tabs__list-item govuk-tabs__list-item--selected"
-          >
-            <a
-              class="govuk-tabs__tab"
-              href="#repairs-history-tab"
-            >
-              Repairs history
-            </a>
-          </li>
-        </ul>
-        <div
-          class="govuk-tabs__panel hackney-tabs-panel"
-          id="repairs-history-tab"
-        >
-          <h2
-            class="govuk-heading-l"
-          >
-            Repairs history
-          </h2>
-          <div>
-            <hr
-              class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
-            />
-            <p
-              class="govuk-heading-s"
-            >
-              There are no historical repairs
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </DocumentFragment>
 `;

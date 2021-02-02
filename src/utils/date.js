@@ -29,3 +29,9 @@ export const convertToDateFormat = (string) => {
   const dateAsString = `${string.date}T${string.time}`
   return convertDate(dateAsString)
 }
+
+export const sortedByDateAdded = (data) => {
+  data.forEach((job) => (job.dateAdded = convertDate(job.dateAdded)))
+
+  return data.sort((a, b) => b.dateAdded - a.dateAdded)
+}

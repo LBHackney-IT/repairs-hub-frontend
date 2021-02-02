@@ -3,6 +3,7 @@ import {
   dateToStr,
   sortedByDate,
   convertToDateFormat,
+  sortedByDateAdded,
 } from './date'
 
 describe('date', () => {
@@ -61,6 +62,7 @@ describe('date', () => {
       ])
     })
   })
+
   describe('convertToDateFormat', () => {
     it('creates a date', () => {
       const stringToFormat = {
@@ -71,6 +73,40 @@ describe('date', () => {
       expect(convertToDateFormat(stringToFormat)).toEqual(
         new Date('2021-01-20T12:12:00.00')
       )
+    })
+  })
+
+  describe('sortedByDateAdded', () => {
+    it('sorts by date added with most recent first', () => {
+      const data = [
+        {
+          dateAdded: '2021-01-20T16:22:26.000',
+        },
+        {
+          dateAdded: '2021-01-20T16:24:26.000',
+        },
+        {
+          dateAdded: '2021-01-20T16:26:26.000',
+        },
+      ]
+
+      expect(sortedByDateAdded(data)).toEqual([
+        {
+          dateAdded: new Date(
+            'Wed Jan 20 2021 16:26:26 GMT+0000 (Greenwich Mean Time)'
+          ),
+        },
+        {
+          dateAdded: new Date(
+            'Wed Jan 20 2021 16:24:26 GMT+0000 (Greenwich Mean Time)'
+          ),
+        },
+        {
+          dateAdded: new Date(
+            'Wed Jan 20 2021 16:22:26 GMT+0000 (Greenwich Mean Time)'
+          ),
+        },
+      ])
     })
   })
 })

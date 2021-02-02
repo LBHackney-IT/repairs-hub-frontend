@@ -9,6 +9,7 @@ import UserContext from '../components/UserContext/UserContext'
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
+
     return (
       <>
         <UserContext.Provider value={{ user: this.props.userDetails }}>
@@ -19,6 +20,7 @@ class MyApp extends App {
             <Component {...pageProps} userDetails={this.props.userDetails} />
           </Layout>
         </UserContext.Provider>
+        <script src="/js/govuk.js"></script>
       </>
     )
   }

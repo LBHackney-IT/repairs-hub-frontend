@@ -53,34 +53,16 @@ const RepairsHistoryView = ({ propertyReference }) => {
   }
 
   return (
-    <div>
-      <div className="govuk-tabs" data-module="tabs">
-        <h2 className="govuk-tabs__title">Contents</h2>
-
-        <ul className="govuk-tabs__list hackney-tabs-list">
-          <li className="govuk-tabs__list-item govuk-tabs__list-item--selected">
-            <a className="govuk-tabs__tab" href="#repairs-history-tab">
-              Repairs history
-            </a>
-          </li>
-        </ul>
-
-        <div
-          className="govuk-tabs__panel hackney-tabs-panel"
-          id="repairs-history-tab"
-        >
-          <h2 className="govuk-heading-l">Repairs history</h2>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              {workOrders && renderRepairsHistoryTable()}
-              {error && <ErrorMessage label={error} />}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {workOrders && renderRepairsHistoryTable()}
+          {error && <ErrorMessage label={error} />}
+        </>
+      )}
+    </>
   )
 }
 
