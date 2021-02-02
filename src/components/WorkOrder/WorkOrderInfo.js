@@ -4,7 +4,7 @@ import { formatDateTime } from '../../utils/time'
 const WorkOrderInfo = ({ workOrder }) => {
   return (
     <div className="work-order-info">
-      <span className="govuk-!-font-size-14">Works Order</span>
+      <span className="govuk-!-font-size-14">Works order</span>
 
       <div className="govuk-body-s govuk-!-margin-bottom-2">
         <span className="govuk-!-font-weight-bold">

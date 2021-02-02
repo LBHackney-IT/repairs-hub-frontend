@@ -79,7 +79,7 @@ exports[`WorkOrderDetails component should render properly 1`] = `
           <span
             class="govuk-!-font-size-14"
           >
-            Works Order
+            Works order
           </span>
           <div
             class="govuk-body-s govuk-!-margin-bottom-2"
