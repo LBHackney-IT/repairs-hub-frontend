@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import PropertyDetailsGrid from '../Property/PropertyDetailsGrid'
+import WorkOrderHeader from './WorkOrderHeader'
 
 const WorkOrderDetails = ({
   propertyReference,
@@ -16,8 +16,9 @@ const WorkOrderDetails = ({
       <h1 className="govuk-heading-l">Works order: {workOrder.reference}</h1>
       <p className="govuk-body-m">{workOrder.description}</p>
 
-      <PropertyDetailsGrid
+      <WorkOrderHeader
         propertyReference={propertyReference}
+        workOrder={workOrder}
         address={address}
         locationAlerts={locationAlerts}
         personAlerts={personAlerts}

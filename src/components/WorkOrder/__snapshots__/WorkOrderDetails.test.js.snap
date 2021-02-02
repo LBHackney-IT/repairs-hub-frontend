@@ -14,68 +14,133 @@ exports[`WorkOrderDetails component should render properly 1`] = `
       This is an urgent repair description
     </p>
     <div
-      class="govuk-grid-row"
+      class="govuk-body-s govuk-grid-row"
     >
       <div
-        class="govuk-grid-column-one-half"
+        class="govuk-grid-column-one-third"
       >
         <div
-          class="govuk-body-s"
+          class="property-details-main-section"
         >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert:  (
+            <strong />
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert:  (
+            <strong />
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
           <div
-            class="property-details-main-section"
+            class="govuk-body-s govuk-!-margin-bottom-2"
           >
             <span
-              class="govuk-body-xs"
+              class="govuk-!-font-weight-bold"
             >
-              Dwelling
+              Status: In Progress
             </span>
             <br />
             <span
-              class="govuk-!-font-weight-bold text-green"
+              class="govuk-!-font-size-14"
             >
-              <a
-                href="/properties/00012345"
-              >
-                16 Pitcairn House
-                <br />
-                <span
-                  class="govuk-!-font-weight-bold text-green"
-                >
-                  St Thomass Square
-                </span>
-                <br />
-                <span
-                  class="govuk-body-xs text-green"
-                >
-                  E9 6PT
-                </span>
-              </a>
+              Priority: U - Urgent (5 Working days)
             </span>
           </div>
-          <ul
-            class="hackney-property-alerts"
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
           >
-            <li
-              class="bg-turquoise"
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              18 Jan 2021, 3:28 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
             >
-              Tenure: Secure
-            </li>
-            <li
-              class="bg-orange"
-            >
-              Address Alert:  (
-              <strong />
-              )
-            </li>
-            <li
-              class="bg-orange"
-            >
-              Contact Alert:  (
-              <strong />
-              )
-            </li>
-          </ul>
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
         </div>
       </div>
     </div>

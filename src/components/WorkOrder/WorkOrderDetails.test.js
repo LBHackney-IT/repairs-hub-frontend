@@ -12,6 +12,12 @@ describe('WorkOrderDetails component', () => {
       owner: '',
       description: 'This is an urgent repair description',
       propertyReference: '00014888',
+      status: 'In Progress',
+      priorityCode: 2,
+      raisedBy: 'Dummy Agent',
+      target: '2021-01-23T18:30:00.00000',
+      callerName: 'Jill Smith',
+      callerNumber: '07700 900999',
     },
     property: {
       propertyReference: '00012345',
