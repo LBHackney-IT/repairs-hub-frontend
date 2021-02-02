@@ -13,7 +13,7 @@ const {
   HACKNEY_JWT_SECRET,
   REPAIRS_AGENTS_GOOGLE_GROUPNAME,
   GSSO_TOKEN_NAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
+  CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
 } = process.env
 
 const headers = { 'x-api-key': REPAIRS_SERVICE_API_KEY }
@@ -208,7 +208,7 @@ describe('GET /api/repairs', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: [CONTRACTORS_GOOGLE_GROUPNAME], // mapped internally to the 'H01' contractor Ref
+        groups: [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME], // mapped internally to the 'H01' contractor Ref
       },
       HACKNEY_JWT_SECRET
     )
