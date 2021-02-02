@@ -1,9 +1,23 @@
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
-const Button = ({ onClick, label, type, ...otherProps }) => (
+const Button = ({
+  onClick,
+  label,
+  type,
+  isSecondary,
+  className,
+  ...otherProps
+}) => (
   <div className="govuk-form-group">
     <button
-      className="govuk-button"
+      className={cx(
+        'govuk-button',
+        {
+          'govuk-button--secondary': isSecondary,
+        },
+        className
+      )}
       data-module="govuk-button"
       onClick={onClick}
       type={type}
@@ -18,6 +32,8 @@ Button.propTypes = {
   onClick: PropTypes.func,
   label: PropTypes.node.isRequired,
   type: PropTypes.string,
+  isSecondary: PropTypes.bool,
+  className: PropTypes.string,
 }
 
 export default Button

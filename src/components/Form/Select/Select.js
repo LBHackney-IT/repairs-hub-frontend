@@ -41,7 +41,7 @@ const Select = ({
       data-testid={name}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
-      onChange={(e) => onChange && onChange(e.target.value)}
+      onChange={(e) => onChange && onChange(e)}
       value={ignoreValue ? undefined : value}
       disabled={disabled}
     >

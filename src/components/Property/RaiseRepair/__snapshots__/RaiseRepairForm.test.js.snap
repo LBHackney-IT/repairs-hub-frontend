@@ -64,86 +64,95 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           role="form"
         >
           <div
-            class="govuk-grid-row"
+            class="govuk-!-padding-bottom-5"
           >
             <div
-              class="govuk-grid-column-two-thirds"
+              class="govuk-grid-row sor-code-select display-flex align-items-center position-relative"
+              id="sor-code-select-0"
             >
               <div
-                class="govuk-form-group"
-                id="sorCode-form-group"
+                class="govuk-grid-column-two-thirds"
               >
-                <label
-                  class="govuk-label"
-                  for="sorCode"
+                <div
+                  class="govuk-form-group"
+                  id="sorCodesCollection[0][code]-form-group"
                 >
-                  SOR Code 
-                  <span
-                    class="govuk-required"
+                  <label
+                    class="govuk-label"
+                    for="sorCodesCollection[0][code]"
                   >
-                    *
-                  </span>
-                </label>
-                <select
-                  class="govuk-select govuk-!-width-full"
-                  data-testid="sorCode"
-                  id="sorCode"
-                  name="sorCode"
-                >
-                  <option
-                    value=""
-                  />
-                  <option
-                    value="DES5R003"
+                    SOR Code 
+                    <span
+                      class="govuk-required"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <select
+                    class="govuk-select govuk-!-width-full"
+                    data-testid="sorCodesCollection[0][code]"
+                    id="sorCodesCollection[0][code]"
+                    name="sorCodesCollection[0][code]"
                   >
-                    DES5R003
-                  </option>
-                  <option
-                    value="DES5R004"
-                  >
-                    DES5R004
-                  </option>
-                </select>
-              </div>
-              <input
-                id="sorCodeDescription"
-                name="sorCodeDescription"
-                type="hidden"
-                value=""
-              />
-              <input
-                id="sorCodeContractorRef"
-                name="sorCodeContractorRef"
-                type="hidden"
-                value=""
-              />
-            </div>
-            <div
-              class="govuk-grid-column-one-third"
-            >
-              <div
-                class="govuk-form-group"
-                id="quantity-form-group"
-              >
-                <label
-                  class="govuk-label"
-                  for="quantity"
-                >
-                  Quantity 
-                  <span
-                    class="govuk-required"
-                  >
-                    *
-                  </span>
-                </label>
+                    <option
+                      value=""
+                    />
+                    <option
+                      value="DES5R003 - Immediate call outs"
+                    >
+                      DES5R003 - Immediate call outs
+                    </option>
+                    <option
+                      value="DES5R004 - Emergency call outs"
+                    >
+                      DES5R004 - Emergency call outs
+                    </option>
+                  </select>
+                </div>
                 <input
-                  class="govuk-input govuk-!-width-full"
-                  id="quantity"
-                  name="quantity"
-                  type="text"
+                  id="sorCodesCollection[0][description]"
+                  name="sorCodesCollection[0][description]"
+                  type="hidden"
+                />
+                <input
+                  id="sorCodesCollection[0][contractorRef]"
+                  name="sorCodesCollection[0][contractorRef]"
+                  type="hidden"
                 />
               </div>
+              <div
+                class="govuk-grid-column-one-third"
+              >
+                <div
+                  class="govuk-form-group"
+                  id="sorCodesCollection[0][quantity]-form-group"
+                >
+                  <label
+                    class="govuk-label"
+                    for="sorCodesCollection[0][quantity]"
+                  >
+                    Quantity 
+                    <span
+                      class="govuk-required"
+                    >
+                      *
+                    </span>
+                  </label>
+                  <input
+                    class="govuk-input govuk-!-width-full"
+                    id="sorCodesCollection[0][quantity]"
+                    name="sorCodesCollection[0][quantity]"
+                    type="text"
+                  />
+                </div>
+              </div>
             </div>
+            <a
+              class="repairs-hub-link govuk-body-s"
+              href="#"
+            >
+              + Add another SOR code
+            </a>
           </div>
           <div
             class="govuk-form-group"
