@@ -38,7 +38,7 @@ Cypress.Commands.add('loginWithAgentRole', () => {
 })
 
 Cypress.Commands.add('loginWithContractorRole', () => {
-  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACTOR')
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACTOR_ALPHATRACK')
 
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
