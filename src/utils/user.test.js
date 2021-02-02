@@ -2,26 +2,10 @@ import { buildUser, AGENT_ROLE, CONTRACTOR_ROLE } from './user'
 
 const {
   REPAIRS_AGENTS_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
+  CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('buildUser', () => {
-  describe('when called with a single contractor group name', () => {
-    const user = buildUser('', '', [CONTRACTORS_GOOGLE_GROUPNAME])
-
-    describe('hasContractorPermissions', () => {
-      it('returns true', () => {
-        expect(user.hasContractorPermissions).toBe(true)
-      })
-    })
-
-    describe('hasAgentPermissions', () => {
-      it('returns false', () => {
-        expect(user.hasAgentPermissions).toBe(false)
-      })
-    })
-  })
-
   describe('when called with a single agent group name', () => {
     const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
 
@@ -34,6 +18,22 @@ describe('buildUser', () => {
     describe('hasAgentPermissions', () => {
       it('returns true', () => {
         expect(user.hasAgentPermissions).toBe(true)
+      })
+    })
+  })
+
+  describe('when called with a single contractor group name', () => {
+    const user = buildUser('', '', [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME])
+
+    describe('hasContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasContractorPermissions).toBe(true)
+      })
+    })
+
+    describe('hasAgentPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAgentPermissions).toBe(false)
       })
     })
   })
@@ -76,6 +76,26 @@ describe('buildUser', () => {
 
       it('returns false', () => {
         expect(user.hasAnyPermissions).toBe(false)
+      })
+    })
+  })
+
+  describe('contractorReference', () => {
+    describe('when the user is supplied with a single agent group name', () => {
+      const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
+
+      it('is undefined', () => {
+        expect(user.contractorRef).toBeUndefined()
+      })
+    })
+
+    describe(`when the user is supplied with the group name`, () => {
+      const user = buildUser('', '', [
+        'repairs-hub-frontend-staging-contractors-alphatrack',
+      ])
+
+      it(`ref returns the mapped contractor ref for the supplied group`, () => {
+        expect(user.contractorReference).toEqual('H01')
       })
     })
   })

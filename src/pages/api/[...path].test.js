@@ -13,6 +13,7 @@ const {
   HACKNEY_JWT_SECRET,
   REPAIRS_AGENTS_GOOGLE_GROUPNAME,
   GSSO_TOKEN_NAME,
+  CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
 } = process.env
 
 const headers = { 'x-api-key': REPAIRS_SERVICE_API_KEY }
@@ -195,6 +196,50 @@ describe('/api/[...path]', () => {
 
         // Expect the Node API response to reflect the service API response
         expect(res._getStatusCode()).toBe(200)
+      })
+    })
+  })
+})
+
+// Special case for scoping jobs to contractors
+describe('GET /api/repairs', () => {
+  describe('when called by a contractor with a contractorRef', () => {
+    const signedCookie = jsonwebtoken.sign(
+      {
+        name: 'name',
+        email: 'name@example.com',
+        groups: [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME], // mapped internally to the 'H01' contractor Ref
+      },
+      HACKNEY_JWT_SECRET
+    )
+
+    test('retrieves and sends the ref as a query parameter even if the user has forced a different param into the request', async () => {
+      const req = createRequest({
+        method: 'get',
+        headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
+        query: {
+          path: ['repairs'],
+          ContractorReference: 'give-me-unauthorised-results', // simulate a user forcing another ref
+        },
+      })
+
+      axios.mockImplementationOnce(() =>
+        Promise.resolve({
+          status: 200,
+        })
+      )
+
+      const res = createResponse()
+
+      await catchAllEndpoint(req, res)
+
+      expect(axios).toHaveBeenCalledTimes(1)
+      expect(axios).toHaveBeenCalledWith({
+        method: 'get',
+        headers,
+        url: `${REPAIRS_SERVICE_API_URL}/repairs`,
+        params: { ContractorReference: 'H01' }, // request to service API made with user's contractor ref from cookie
+        data: {},
       })
     })
   })
