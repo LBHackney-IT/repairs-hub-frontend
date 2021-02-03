@@ -35,7 +35,7 @@ describe('Home page', () => {
       // UserLogin component
       cy.get('.govuk-heading-m').contains('Login')
       cy.get('.govuk-body').contains(
-        'Please log in with your Hackney email account.'
+        'Please log in with an approved Hackney email account.'
       )
 
       // Run lighthouse audit for accessibility report
@@ -53,7 +53,7 @@ describe('Home page', () => {
       // UserLogin component
       cy.get('.govuk-heading-m').contains('Login')
       cy.get('.govuk-body').contains(
-        'Please log in with your Hackney email account.'
+        'Please log in with an approved Hackney email account.'
       )
 
       // Run lighthouse audit for accessibility report
