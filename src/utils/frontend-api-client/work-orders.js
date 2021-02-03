@@ -5,3 +5,9 @@ export const postCompleteWorkOrder = async (formData) => {
 
   return data
 }
+
+export const postUpdateJob = async (formData) => {
+  const { data } = await axios.post(`/api/jobStatusUpdate`, formData)
+
+  return data
+}

@@ -10,6 +10,8 @@ const SorCodeSelect = ({
   index,
   showRemoveSorCodeSelect,
   removeSorCodeSelect,
+  code,
+  quantity,
 }) => {
   return (
     <GridRow
@@ -21,8 +23,10 @@ const SorCodeSelect = ({
           name={`sorCodesCollection[${index}][code]`}
           label="SOR Code"
           options={sorCodesList}
+          defaultValue={code}
           onChange={(event) => onSorCodeSelect(index, event)}
           required={true}
+          selected={code ?? ''}
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
@@ -51,6 +55,7 @@ const SorCodeSelect = ({
           error={errors && errors.sorCodesCollection?.[`${index}`]?.quantity}
           widthClass="govuk-!-width-full"
           required={true}
+          defaultValue={quantity ? quantity : ''}
           register={register({
             required: 'Please enter a quantity',
             valueAsNumber: true,
@@ -94,6 +99,9 @@ SorCodeSelect.propTypes = {
   index: PropTypes.number.isRequired,
   showRemoveSorCodeSelect: PropTypes.bool.isRequired,
   removeSorCodeSelect: PropTypes.func.isRequired,
+  code: PropTypes.string,
+  quantity: PropTypes.number,
+  cost: PropTypes.number,
 }
 
 export default SorCodeSelect

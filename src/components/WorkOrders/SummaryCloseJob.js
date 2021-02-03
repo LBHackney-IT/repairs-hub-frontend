@@ -27,7 +27,9 @@ const SummaryCloseJob = ({
                 {date.split('-').join('/')} {time}
               </td>
               <td className="govuk-table__cell">
-                <a onClick={changeStep}>Edit</a>
+                <a onClick={changeStep} href="#">
+                  Edit
+                </a>
               </td>
             </tr>
             <tr className="govuk-table__row">
@@ -36,7 +38,9 @@ const SummaryCloseJob = ({
               </th>
               <td className="govuk-table__cell">{notes}</td>
               <td className="govuk-table__cell">
-                <a onClick={changeStep}>Edit</a>
+                <a onClick={changeStep} href="#">
+                  Edit
+                </a>
               </td>
             </tr>
           </tbody>

@@ -76,6 +76,7 @@ const RaiseRepairForm = ({
               sorCodes={sorCodes}
               register={register}
               errors={errors}
+              isContractorUpdatePage={false}
             />
 
             <Select
