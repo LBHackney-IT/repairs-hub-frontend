@@ -25,7 +25,9 @@ const SorCodeSelectView = ({ sorCodes, register, errors }) => {
     ).value = sorCodeContractorRef
   }
 
-  const addSorCodeSelect = () => {
+  const addSorCodeSelect = (e) => {
+    e.preventDefault()
+
     setArrayOfSorCodeSelectComponentIndexes(
       (arrayOfSorCodeSelectComponentIndexes) => [
         ...arrayOfSorCodeSelectComponentIndexes,
