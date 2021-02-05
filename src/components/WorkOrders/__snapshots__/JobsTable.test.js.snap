@@ -74,7 +74,7 @@ exports[`JobsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            00012345
+            10000012
           </td>
           <td
             class="govuk-table__cell"
@@ -108,7 +108,9 @@ exports[`JobsTable component should render properly 1`] = `
           </td>
           <td
             class="govuk-table__cell"
-          />
+          >
+            In Progress
+          </td>
           <td
             class="govuk-table__cell"
           >
@@ -122,7 +124,7 @@ exports[`JobsTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             <a
-              href="/repairs/jobs/00012345/choose-option"
+              href="/repairs/jobs/10000012/choose-option"
             >
               Update
             </a>

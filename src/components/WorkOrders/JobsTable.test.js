@@ -4,12 +4,13 @@ import JobsTable from './JobsTable'
 describe('JobsTable component', () => {
   const props = [
     {
-      reference: '00012345',
+      reference: 10000012,
       dateRaised: new Date('2021-01-12T16:24:26.632Z'),
       lastUpdated: new Date('2021-01-13T16:24:26.632Z'),
       priority: 'E - Emergency (24 hours)',
       property: '1 Pitcairn House St Thomass Square',
       owner: '',
+      status: 'In Progress',
       description:
         'ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in',
     },
