@@ -1,7 +1,11 @@
 import axios from 'axios'
 
-export const getRepairs = async () => {
-  const { data } = await axios.get('/api/repairs')
+const PAGE_SIZE = 10
+
+export const getRepairs = async (pageNumber = 1) => {
+  const { data } = await axios.get(
+    `/api/repairs/?PageSize=${PAGE_SIZE}&PageNumber=${pageNumber}`
+  )
 
   return data
 }

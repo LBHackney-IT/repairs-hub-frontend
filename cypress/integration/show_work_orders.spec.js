@@ -9,7 +9,11 @@ describe('Show all work orders', () => {
         cy.loginWithContractorRole()
         cy.server()
         cy.fixture('work_orders/jobs.json').as('workorderslist')
-        cy.route('GET', 'api/repairs', '@workorderslist')
+        cy.route(
+          'GET',
+          'api/repairs/?PageSize=10&PageNumber=1',
+          '@workorderslist'
+        )
         cy.visit(`${Cypress.env('HOST')}/`)
       })
 

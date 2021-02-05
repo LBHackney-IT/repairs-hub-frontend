@@ -33,7 +33,9 @@ describe('getRepairs', () => {
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs')
+    expect(mockAxios.get).toHaveBeenCalledWith(
+      '/api/repairs/?PageSize=10&PageNumber=1'
+    )
   })
 })
 

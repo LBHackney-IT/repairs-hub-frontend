@@ -6,15 +6,16 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { sortObjectsByDateKey } from '../../utils/date'
 
 const JobView = () => {
+  const [pageNumber, setPageNumber] = useState(1)
   const [workOrders, setWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
-  const workOrderView = async () => {
+  const workOrderView = async (pageNumber) => {
     setError(null)
 
     try {
-      const data = await getRepairs()
+      const data = await getRepairs(pageNumber)
 
       setWorkOrders(
         sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')

@@ -6,7 +6,7 @@ describe('Contractor closing a job', () => {
     cy.loginWithContractorRole()
     cy.server()
     cy.fixture('work_orders/jobs.json').as('workorderslist')
-    cy.route('GET', 'api/repairs', '@workorderslist')
+    cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workorderslist')
     cy.route({
       method: 'POST',
       url: '/api/workOrderComplete',
