@@ -16,8 +16,6 @@ const {
   CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
 } = process.env
 
-const headers = { 'x-api-key': REPAIRS_SERVICE_API_KEY }
-
 describe('/api/[...path]', () => {
   test('returns a not authorised error when there is no auth cookie', async () => {
     const req = createRequest()
@@ -65,6 +63,11 @@ describe('/api/[...path]', () => {
       },
       HACKNEY_JWT_SECRET
     )
+
+    const headers = {
+      'x-api-key': REPAIRS_SERVICE_API_KEY,
+      'x-hackney-user': signedCookie,
+    }
 
     describe('reflects errors from the service API', () => {
       test('when it returns a 404 not found', async () => {
@@ -212,6 +215,11 @@ describe('GET /api/repairs', () => {
       },
       HACKNEY_JWT_SECRET
     )
+
+    const headers = {
+      'x-api-key': REPAIRS_SERVICE_API_KEY,
+      'x-hackney-user': signedCookie,
+    }
 
     test('retrieves and sends the ref as a query parameter even if the user has forced a different param into the request', async () => {
       const req = createRequest({

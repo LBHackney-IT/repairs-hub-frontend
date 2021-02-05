@@ -1,7 +1,10 @@
+import cookie from 'cookie'
 import * as HttpStatus from 'http-status-codes'
 
 import { serviceAPIRequest } from '../../utils/service-api-client'
 import { isAuthorised } from '../../utils/GoogleAuth'
+
+const { GSSO_TOKEN_NAME } = process.env
 
 // Catch-all endpoint. Assumes incoming requests have paths and params
 // matching those on the service API endpoint so it can forward them
@@ -23,11 +26,15 @@ export default async (req, res) => {
       }
     }
 
+    const cookies = cookie.parse(req.headers.cookie ?? '')
+    const token = cookies[GSSO_TOKEN_NAME]
+
     const data = await serviceAPIRequest(
       req.method,
       path.join('/'),
       queryParams,
-      req.body
+      req.body,
+      token
     )
 
     res.status(HttpStatus.OK).json(data)
