@@ -107,20 +107,13 @@ describe('buildRaiseRepairFormData', () => {
           name: {
             full: 'John Smith',
           },
-          contact: [
+          communication: [
             {
-              name: {
-                full: 'John Smith',
+              channel: {
+                medium: '20',
+                code: '60',
               },
-              communication: [
-                {
-                  channel: {
-                    medium: '20',
-                    code: '60',
-                  },
-                  value: '07788777888',
-                },
-              ],
+              value: '07788777888',
             },
           ],
         },

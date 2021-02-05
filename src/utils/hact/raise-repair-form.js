@@ -75,22 +75,15 @@ export const buildScheduleRepairFormData = (formData) => {
         name: {
           full: formData.callerName,
         },
-        contact: [
+        communication: [
           {
-            name: {
-              full: formData.callerName,
+            channel: {
+              // Audio
+              medium: '20',
+              // Mobile Phone
+              code: '60',
             },
-            communication: [
-              {
-                channel: {
-                  // Audio
-                  medium: '20',
-                  // Mobile Phone
-                  code: '60',
-                },
-                value: formData.contactNumber,
-              },
-            ],
+            value: formData.contactNumber,
           },
         ],
       },

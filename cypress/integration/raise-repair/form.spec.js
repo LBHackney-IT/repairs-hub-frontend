@@ -333,20 +333,13 @@ describe('Raise repair form', () => {
                 name: {
                   full: 'Bob Leek',
                 },
-                contact: [
+                communication: [
                   {
-                    name: {
-                      full: 'Bob Leek',
+                    channel: {
+                      medium: '20',
+                      code: '60',
                     },
-                    communication: [
-                      {
-                        channel: {
-                          medium: '20',
-                          code: '60',
-                        },
-                        value: '07788659111',
-                      },
-                    ],
+                    value: '07788659111',
                   },
                 ],
               },
