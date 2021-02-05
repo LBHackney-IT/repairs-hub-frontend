@@ -15,7 +15,7 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const tabsList = ['Repairs history', 'Tasks and SORs']
+  const tabsList = ['Repairs history', 'Tasks and SORs', 'Notes']
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
