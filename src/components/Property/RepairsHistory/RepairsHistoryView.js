@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import RepairsHistoryTable from './RepairsHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getRepairs } from '../../../utils/frontend-api-client/repairs'
+import { getRepairsForProperty } from '../../../utils/frontend-api-client/repairs'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference, tabName }) => {
@@ -15,7 +15,7 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
     setError(null)
 
     try {
-      const data = await getRepairs(propertyReference)
+      const data = await getRepairsForProperty(propertyReference)
 
       setWorkOrders(
         sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
