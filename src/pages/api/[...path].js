@@ -1,50 +1,21 @@
 import cookie from 'cookie'
 import * as HttpStatus from 'http-status-codes'
 
-import { serviceAPIRequest } from '../../utils/service-api-client'
-import { isAuthorised } from '../../utils/GoogleAuth'
+import {
+  serviceAPIRequest,
+  authoriseServiceAPIRequest,
+} from '../../utils/service-api-client'
 
 const { GSSO_TOKEN_NAME } = process.env
 
 // Catch-all endpoint. Assumes incoming requests have paths and params
 // matching those on the service API endpoint so it can forward them
 // without any additional knowledge.
-export default async (req, res) => {
-  const user = isAuthorised({ req })
-  if (!user) {
-    return res
-      .status(HttpStatus.UNAUTHORIZED)
-      .json({ message: 'Auth cookie missing.' })
-  }
-  try {
-    let { path, ...queryParams } = req.query
+export default authoriseServiceAPIRequest(async (req, res) => {
+  const cookies = cookie.parse(req.headers.cookie ?? '')
+  const token = cookies[GSSO_TOKEN_NAME]
 
-    if (path.join('') === 'repairs' && req.method.toLowerCase() === 'get') {
-      queryParams = {
-        ...queryParams,
-        ContractorReference: user.contractorReference,
-      }
-    }
+  const data = await serviceAPIRequest(req, token)
 
-    const cookies = cookie.parse(req.headers.cookie ?? '')
-    const token = cookies[GSSO_TOKEN_NAME]
-
-    const data = await serviceAPIRequest(
-      req.method,
-      path.join('/'),
-      queryParams,
-      req.body,
-      token
-    )
-
-    res.status(HttpStatus.OK).json(data)
-  } catch (err) {
-    console.log(`Service API ${req.method} error:`, err)
-
-    err?.response?.status === HttpStatus.NOT_FOUND
-      ? res.status(HttpStatus.NOT_FOUND).json({ message: `Resource not found` })
-      : res
-          .status(HttpStatus.INTERNAL_SERVER_ERROR)
-          .json({ message: 'Service API server error' })
-  }
-}
+  res.status(HttpStatus.OK).json(data)
+})
