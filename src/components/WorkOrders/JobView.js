@@ -35,13 +35,26 @@ const JobView = () => {
     setLoading(true)
     workOrderView()
   }, [])
+
+  const handlePageClick = (pageNumber) => {
+    setPageNumber(pageNumber)
+    workOrderView(pageNumber)
+    setLoading(true)
+  }
+
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
         <>
-          {workOrders && <JobsTable workOrders={workOrders} />}
+          {workOrders && (
+            <JobsTable
+              workOrders={workOrders}
+              pageNumber={pageNumber}
+              handlePageClick={handlePageClick}
+            />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}

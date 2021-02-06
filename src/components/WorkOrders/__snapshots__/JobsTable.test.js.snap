@@ -132,6 +132,9 @@ exports[`JobsTable component should render properly 1`] = `
         </tr>
       </tbody>
     </table>
+    <div
+      class="page-navigation govuk-!-padding-bottom-5"
+    />
   </div>
 </DocumentFragment>
 `;
