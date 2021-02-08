@@ -44,7 +44,7 @@ const JobsTable = ({ workOrders }) => (
 JobsTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
-      reference: PropTypes.string.isRequired,
+      reference: PropTypes.number.isRequired,
       dateRaised: PropTypes.instanceOf(Date),
       lastUpdated: PropTypes.instanceOf(Date),
       priority: PropTypes.string,
