@@ -7,7 +7,7 @@ describe('TasksAndSorsTable component', () => {
       {
         code: 'DES5R006',
         description: 'Urgent call outs',
-        dateAdded: '2021-02-03T11:33:35.757339',
+        dateAdded: new Date('2021-02-03T11:33:35.757339'),
         quantity: 2,
         cost: 0,
         status: 'Unknown',
@@ -15,7 +15,7 @@ describe('TasksAndSorsTable component', () => {
       {
         code: 'DES5R005',
         description: 'Normal call outs',
-        dateAdded: '2021-02-03T11:33:35.814437',
+        dateAdded: new Date('2021-02-03T11:33:35.814437'),
         quantity: 4,
         cost: 0,
         status: 'Unknown',
@@ -23,7 +23,7 @@ describe('TasksAndSorsTable component', () => {
       {
         code: 'DES5R013',
         description: 'Inspect additional sec entrance',
-        dateAdded: '2021-02-03T11:33:35.799566',
+        dateAdded: new Date('2021-02-03T11:33:35.799566'),
         quantity: 5,
         cost: 0,
         status: 'Unknown',

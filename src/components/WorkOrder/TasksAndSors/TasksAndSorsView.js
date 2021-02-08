@@ -4,7 +4,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import TasksAndSorsTable from './TasksAndSorsTable'
 import { getTasksAndSors } from '../../../utils/frontend-api-client/repairs/[id]/tasks'
-import { sortedByDateAdded } from '../../../utils/date'
+import { sortObjectsByDateKey } from '../../../utils/date'
 
 const TasksAndSorsView = ({ workOrderReference }) => {
   const [tasksAndSors, setTasksAndSors] = useState([])
@@ -17,7 +17,9 @@ const TasksAndSorsView = ({ workOrderReference }) => {
     try {
       const tasksAndSors = await getTasksAndSors(workOrderReference)
 
-      setTasksAndSors(sortedByDateAdded(tasksAndSors))
+      setTasksAndSors(
+        sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
+      )
     } catch (e) {
       setTasksAndSors(null)
       console.log('An error has occured:', e.response)

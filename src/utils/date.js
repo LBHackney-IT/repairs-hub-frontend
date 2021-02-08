@@ -11,13 +11,14 @@ export const dateToStr = (date) =>
     day: 'numeric',
   })
 
-export const sortedByDate = (data) => {
-  data.forEach((job) => {
-    job.dateRaised = convertDate(job.dateRaised)
-    job.lastUpdated = convertDate(job.lastUpdated)
+export const sortObjectsByDateKey = (objects, dateFields, dateKeyToSortBy) => {
+  objects.forEach((o) => {
+    dateFields.forEach((field) => {
+      o[field] = convertDate(o[field])
+    })
   })
 
-  return data.sort((a, b) => b.dateRaised - a.dateRaised)
+  return objects.sort((a, b) => b[dateKeyToSortBy] - a[dateKeyToSortBy])
 }
 
 export const convertFormat = (date) => {
@@ -28,10 +29,4 @@ export const convertFormat = (date) => {
 export const convertToDateFormat = (string) => {
   const dateAsString = `${string.date}T${string.time}`
   return convertDate(dateAsString)
-}
-
-export const sortedByDateAdded = (data) => {
-  data.forEach((job) => (job.dateAdded = convertDate(job.dateAdded)))
-
-  return data.sort((a, b) => b.dateAdded - a.dateAdded)
 }

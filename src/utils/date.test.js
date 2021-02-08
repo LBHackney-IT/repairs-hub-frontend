@@ -1,9 +1,8 @@
 import {
   convertDate,
   dateToStr,
-  sortedByDate,
+  sortObjectsByDateKey,
   convertToDateFormat,
-  sortedByDateAdded,
 } from './date'
 
 describe('date', () => {
@@ -25,9 +24,9 @@ describe('date', () => {
     })
   })
 
-  describe('sortedByDate', () => {
-    it('sorts work orders by date raised', () => {
-      const dataToSort = [
+  describe('sortObjectsByDateKey', () => {
+    it('converts given fields to type date and sorts by the given date key: dateRaised', () => {
+      const data = [
         {
           reference: 1234567,
           dateRaised: '2021-01-13T16:24:26.000',
@@ -40,7 +39,9 @@ describe('date', () => {
         },
       ]
 
-      expect(sortedByDate(dataToSort)).toEqual([
+      expect(
+        sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
+      ).toEqual([
         {
           reference: 1234568,
           dateRaised: new Date(
@@ -61,23 +62,8 @@ describe('date', () => {
         },
       ])
     })
-  })
 
-  describe('convertToDateFormat', () => {
-    it('creates a date', () => {
-      const stringToFormat = {
-        date: '2021-01-20',
-        time: '12:12:00',
-      }
-
-      expect(convertToDateFormat(stringToFormat)).toEqual(
-        new Date('2021-01-20T12:12:00.00')
-      )
-    })
-  })
-
-  describe('sortedByDateAdded', () => {
-    it('sorts by date added with most recent first', () => {
+    it('converts given fields to type date and sorts by the given date key: dateAdded', () => {
       const data = [
         {
           dateAdded: '2021-01-20T16:22:26.000',
@@ -90,7 +76,7 @@ describe('date', () => {
         },
       ]
 
-      expect(sortedByDateAdded(data)).toEqual([
+      expect(sortObjectsByDateKey(data, ['dateAdded'], 'dateAdded')).toEqual([
         {
           dateAdded: new Date(
             'Wed Jan 20 2021 16:26:26 GMT+0000 (Greenwich Mean Time)'
@@ -108,5 +94,18 @@ describe('date', () => {
         },
       ])
     })
+  })
+})
+
+describe('convertToDateFormat', () => {
+  it('creates a date', () => {
+    const stringToFormat = {
+      date: '2021-01-20',
+      time: '12:12:00',
+    }
+
+    expect(convertToDateFormat(stringToFormat)).toEqual(
+      new Date('2021-01-20T12:12:00.00')
+    )
   })
 })
