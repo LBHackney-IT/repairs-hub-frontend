@@ -1,11 +1,19 @@
+import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
 
 import { isAuthorised } from './GoogleAuth'
 
-const { REPAIRS_SERVICE_API_URL, REPAIRS_SERVICE_API_KEY } = process.env
+const {
+  REPAIRS_SERVICE_API_URL,
+  REPAIRS_SERVICE_API_KEY,
+  GSSO_TOKEN_NAME,
+} = process.env
 
-export const serviceAPIRequest = async (request, token) => {
+export const serviceAPIRequest = async (request) => {
+  const cookies = cookie.parse(request.headers.cookie ?? '')
+  const token = cookies[GSSO_TOKEN_NAME]
+
   const headers = {
     'x-api-key': REPAIRS_SERVICE_API_KEY,
     'x-hackney-user': token,
