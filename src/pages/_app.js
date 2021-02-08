@@ -3,7 +3,12 @@ import App from 'next/app'
 import Layout from '../components/Layout'
 import Head from 'next/head'
 
-import { isAuthorised, AUTH_WHITELIST } from '../utils/GoogleAuth'
+import {
+  isAuthorised,
+  redirectToAcessDenied,
+  AUTH_WHITELIST,
+} from '../utils/GoogleAuth'
+
 import UserContext from '../components/UserContext/UserContext'
 
 class MyApp extends App {
@@ -26,7 +31,7 @@ class MyApp extends App {
   }
 }
 
-MyApp.getInitialProps = async ({ ctx }) => {
+MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
   const WITH_REDIRECT = true
 
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
@@ -35,7 +40,25 @@ MyApp.getInitialProps = async ({ ctx }) => {
 
   const userDetails = isAuthorised(ctx, WITH_REDIRECT)
 
-  return { userDetails }
+  if (!userDetails) {
+    return {}
+  }
+
+  if (userDetails && userAuthorisedForPage(pageComponent, userDetails)) {
+    return { userDetails }
+  } else {
+    redirectToAcessDenied(ctx.res)
+    return {}
+  }
+}
+
+const userAuthorisedForPage = (component, user) => {
+  if (!component.permittedRoles || component?.permittedRoles?.length === 0) {
+    console.log(`Component ${component.name} has no permittedRoles defined.`)
+    return false
+  }
+
+  return component.permittedRoles.some((role) => user.hasRole(role))
 }
 
 export default MyApp
