@@ -1,16 +1,44 @@
-.hackney-tabs-list > li {
-  &:focus {
-    outline: 3px solid repairs-hub-colour('housing-2');
-  }
-  a:focus {
-    background-color: repairs-hub-colour('housing-2');
-    box-shadow: 0 -2px repairs-hub-colour('housing-2'),
-      0 4px repairs-hub-colour('black');
-  }
-}
-
+// A lot of overrides and important flags are needed due to the way
+// GOVUK frontend tabs are functioning and the custom design we need
 .hackney-tabs-panel {
   border: none !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+.hackney-tabs-info {
+  border: none !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.hackney-tabs-list > li {
+  a {
+    background-color: repairs-hub-colour('light-grey') !important;
+    color: repairs-hub-colour('white') !important;
+    text-decoration: none;
+
+    &[aria-selected='true'] {
+      background-color: repairs-hub-colour('white') !important;
+      color: repairs-hub-colour('black') !important;
+    }
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  &:focus {
+    outline: 3px solid repairs-hub-colour('housing-3');
+  }
+}
+
+.hackney-tabs-list {
+  .govuk-tabs__list-item {
+    background-color: repairs-hub-colour('light-grey') !important;
+  }
+  .govuk-tabs__list-item--selected {
+    background-color: repairs-hub-colour('white') !important;
+    color: repairs-hub-colour('black') !important;
+  }
 }

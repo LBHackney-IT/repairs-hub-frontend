@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import RaiseRepairStatus from './RaiseRepairStatus'
 import PropertyDetailsGrid from './PropertyDetailsGrid'
-import RepairsHistoryView from './RepairsHistory/RepairsHistoryView'
 import BackButton from '../Layout/BackButton/BackButton'
 
 const PropertyDetails = ({
@@ -36,9 +35,6 @@ const PropertyDetails = ({
         canRaiseRepair={canRaiseRepair}
         hasLinkToProperty={false}
       />
-      {canRaiseRepair && (
-        <RepairsHistoryView propertyReference={propertyReference} />
-      )}
     </div>
   )
 }

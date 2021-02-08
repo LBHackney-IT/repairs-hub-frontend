@@ -4,7 +4,7 @@ import RepairsHistoryTable from './RepairsHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getRepairs } from '../../../utils/frontend-api-client/repairs'
-import { sortedByDate } from '../../../utils/date'
+import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference }) => {
   const [workOrders, setWorkOrders] = useState([])
@@ -17,7 +17,9 @@ const RepairsHistoryView = ({ propertyReference }) => {
     try {
       const data = await getRepairs(propertyReference)
 
-      setWorkOrders(sortedByDate(data))
+      setWorkOrders(
+        sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
+      )
     } catch (e) {
       setWorkOrders(null)
       console.log('An error has occured:', e.response)
@@ -53,34 +55,16 @@ const RepairsHistoryView = ({ propertyReference }) => {
   }
 
   return (
-    <div>
-      <div className="govuk-tabs" data-module="tabs">
-        <h2 className="govuk-tabs__title">Contents</h2>
-
-        <ul className="govuk-tabs__list hackney-tabs-list">
-          <li className="govuk-tabs__list-item govuk-tabs__list-item--selected">
-            <a className="govuk-tabs__tab" href="#repairs-history-tab">
-              Repairs history
-            </a>
-          </li>
-        </ul>
-
-        <div
-          className="govuk-tabs__panel hackney-tabs-panel"
-          id="repairs-history-tab"
-        >
-          <h2 className="govuk-heading-l">Repairs history</h2>
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              {workOrders && renderRepairsHistoryTable()}
-              {error && <ErrorMessage label={error} />}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {workOrders && renderRepairsHistoryTable()}
+          {error && <ErrorMessage label={error} />}
+        </>
+      )}
+    </>
   )
 }
 

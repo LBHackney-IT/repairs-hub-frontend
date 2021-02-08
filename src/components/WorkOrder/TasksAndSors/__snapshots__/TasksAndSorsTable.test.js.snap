@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TasksAndSorsTable component should render properly 1`] = `
+<DocumentFragment>
+  <table
+    class="govuk-table govuk-!-margin-top-5 tasks-and-sors-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row govuk-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date added
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Quantity (est.)
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Cost (est.)
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R006
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Urgent call outs
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          3 Feb 2021, 11:33 am
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          2
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          0
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Unknown
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        data-row-id="1"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R005
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Normal call outs
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          3 Feb 2021, 11:33 am
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          4
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          0
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Unknown
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        data-row-id="2"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R013
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Inspect additional sec entrance
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          3 Feb 2021, 11:33 am
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          5
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          0
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Unknown
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
