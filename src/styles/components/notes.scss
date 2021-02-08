@@ -1,0 +1,41 @@
+.note-entry {
+  border-bottom: 2px solid $govuk-border-colour;
+  margin-left: 2rem;
+  letter-spacing: 0.5px;
+  position: relative;
+  margin-top: 20px;
+  padding-bottom: 20px;
+
+  &:before,
+  &:after {
+    position: absolute;
+    display: block;
+    top: 0;
+  }
+
+  &:after {
+    left: -48px;
+    background: repairs-hub-colour('white');
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    z-index: 10;
+    content: '';
+    border: 4px solid repairs-hub-colour('grey');
+  }
+
+  &:last-of-type {
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border: none;
+  }
+}
+
+.note-timeline {
+  border-left: 4px solid repairs-hub-colour('grey');
+}
+
+.note-info {
+  @include govuk-responsive-margin(2, 'bottom');
+  color: repairs-hub-colour('grey');
+}

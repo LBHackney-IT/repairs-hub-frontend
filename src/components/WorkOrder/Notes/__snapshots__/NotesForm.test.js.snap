@@ -1,0 +1,101 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotesForm component should render properly when display form is false 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-6"
+  >
+    <h2
+      class="govuk-heading-l display-inline govuk-!-margin-right-6"
+    >
+      notes
+    </h2>
+    <div
+      class="display-inline"
+    >
+      <a
+        class="repairs-hub-link govuk-body-s"
+        href="#"
+      >
+        Add a new note
+      </a>
+    </div>
+  </div>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`NotesForm component should render properly when display form is true 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-margin-bottom-6"
+  >
+    <h2
+      class="govuk-heading-l display-inline govuk-!-margin-right-6"
+    >
+      notes
+    </h2>
+  </div>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <form
+        id="notes-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group"
+          id="note-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="note"
+          >
+            Note 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="note-hint note-error"
+            class="govuk-textarea"
+            id="note"
+            name="note"
+            placeholder="Write a new note..."
+            rows="4"
+          />
+        </div>
+        <input
+          id="workOrderReference"
+          label="workOrderReference"
+          name="workOrderReference"
+          type="hidden"
+          value="10002222"
+        />
+        <div
+          class="govuk-form-group"
+        >
+          <button
+            class="govuk-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Publish note
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;

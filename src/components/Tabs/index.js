@@ -57,6 +57,8 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
     }
   }
 
+  let activeTabId = formatTabNameToId(activeTab)
+
   return (
     <div className="govuk-tabs" data-module="govuk-tabs">
       <h2 className="govuk-tabs__title">Contents</h2>
@@ -81,7 +83,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
 
       {tabsList.map((tab, i) => {
         let tabId = formatTabNameToId(tab)
-        let activeTabId = formatTabNameToId(activeTab)
+
         return (
           <div
             key={i}

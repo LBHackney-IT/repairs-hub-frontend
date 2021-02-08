@@ -1,25 +1,21 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextArea, Button } from '../../Form'
 import { buildNoteFormData } from '../../../utils/hact/job-status-update/notes-form'
 
-const NotesForm = ({ onFormSubmit, tabName, workOrderReference }) => {
+const NotesForm = ({
+  onFormSubmit,
+  tabName,
+  workOrderReference,
+  displayForm,
+  showForm,
+}) => {
   const { register, handleSubmit, errors } = useForm()
-  const [displayNotesForm, setDisplayNotesForm] = useState(false)
 
   const onSubmit = async (formData) => {
-    console.log(formData)
     const notesFormData = buildNoteFormData(formData)
-    console.log(notesFormData)
 
     onFormSubmit(notesFormData)
-  }
-
-  const showNotesForm = (e) => {
-    e.preventDefault()
-
-    setDisplayNotesForm(true)
   }
 
   return (
@@ -28,10 +24,10 @@ const NotesForm = ({ onFormSubmit, tabName, workOrderReference }) => {
         <h2 className="govuk-heading-l display-inline govuk-!-margin-right-6">
           {tabName}
         </h2>
-        {!displayNotesForm && (
+        {!displayForm && (
           <div className="display-inline">
             <a
-              onClick={showNotesForm}
+              onClick={showForm}
               href="#"
               className="repairs-hub-link govuk-body-s"
             >
@@ -42,7 +38,7 @@ const NotesForm = ({ onFormSubmit, tabName, workOrderReference }) => {
       </div>
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          {displayNotesForm && (
+          {displayForm && (
             <form role="form" id="notes-form" onSubmit={handleSubmit(onSubmit)}>
               <TextArea
                 name="note"
@@ -81,6 +77,8 @@ NotesForm.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   tabName: PropTypes.string.isRequired,
   workOrderReference: PropTypes.string.isRequired,
+  displayForm: PropTypes.bool.isRequired,
+  showForm: PropTypes.func.isRequired,
 }
 
 export default NotesForm
