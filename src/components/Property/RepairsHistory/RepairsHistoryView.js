@@ -45,6 +45,8 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
     if (!error) {
       return (
         <>
+          <h2 className="govuk-heading-l">{tabName}</h2>
+
           <div>
             <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
             <p className="govuk-heading-s">There are no historical repairs</p>

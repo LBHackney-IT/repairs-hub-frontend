@@ -19,6 +19,7 @@ const NotesView = ({ workOrderReference, tabName }) => {
 
     try {
       await postJobStatusUpdate(formData)
+      setDisplayForm(false)
       getNotesView(workOrderReference)
     } catch (e) {
       console.log(e)

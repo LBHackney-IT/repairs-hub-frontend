@@ -39,6 +39,11 @@ exports[`Tabs component should render properly 1`] = `
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
       id="repairs-history-tab"
     >
+      <h2
+        class="govuk-heading-l"
+      >
+        Repairs history
+      </h2>
       <div>
         <hr
           class="govuk-section-break govuk-section-break--l govuk-section-break--visible"

@@ -107,7 +107,7 @@ describe('Show property', () => {
       it('Display no repairs text when records do not exist', () => {
         cy.route('GET', 'api/repairs/?propertyReference=00012345', '[]')
 
-        cy.get('.govuk-tabs__tab').contains('Repairs history')
+        cy.get('.govuk-tabs__tab').contains('Repairs history').click()
         cy.get('.govuk-heading-l').contains('Repairs history')
         cy.get('.govuk-heading-s').contains('There are no historical repairs')
       })
