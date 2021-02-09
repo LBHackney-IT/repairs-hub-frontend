@@ -20,8 +20,17 @@ const RaiseRepairForm = ({
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
+
   const priorityList = [
-    ...new Set(sorCodes.map((code) => code.priority.description)),
+    ...new Set(
+      sorCodes
+        .map((code) => {
+          if (code.priority) {
+            return code.priority.description
+          }
+        })
+        .filter(Boolean)
+    ),
   ]
 
   const onSubmit = async (formData) => {
