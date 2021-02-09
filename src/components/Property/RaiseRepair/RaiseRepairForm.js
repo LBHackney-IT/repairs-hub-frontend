@@ -6,6 +6,7 @@ import BackButton from '../../Layout/BackButton/BackButton'
 import { Select, Button, TextArea, TextInput } from '../../Form'
 import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 import SorCodeSelectView from './SorCodeSelectView'
+import { characterCount } from '../../../utils/character-count'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -35,13 +36,6 @@ const RaiseRepairForm = ({
     )[0]
 
     setPriorityCode(priorityObject?.priorityCode)
-  }
-
-  const characterCount = () => {
-    const characterCount = document.getElementById('character-count')
-    const maxLength = characterCount.dataset.maximumLength
-
-    characterCount.innerText = maxLength - event.target.value.length
   }
 
   return (
