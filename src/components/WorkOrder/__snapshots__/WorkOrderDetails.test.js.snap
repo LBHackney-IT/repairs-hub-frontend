@@ -1,13 +1,171 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorkOrderDetails component should render properly 1`] = `
+exports[`WorkOrderDetails component should render properly with link to cancel work order 1`] = `
 <DocumentFragment>
   <div>
-    <h1
-      class="govuk-heading-l"
+    <div>
+      <h1
+        class="govuk-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
+    </div>
+    <p
+      class="govuk-body-m"
     >
-      Works order: 10000012
-    </h1>
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-body-s govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="property-details-main-section"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert:  (
+            <strong />
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert:  (
+            <strong />
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
+          <div
+            class="govuk-body-s govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Status: In Progress
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Priority: U - Urgent (5 Working days)
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              14 Jan 2021, 6:56 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component should render properly without a link to cancel work order 1`] = `
+<DocumentFragment>
+  <div>
+    <div>
+      <h1
+        class="govuk-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+    </div>
     <p
       class="govuk-body-m"
     >

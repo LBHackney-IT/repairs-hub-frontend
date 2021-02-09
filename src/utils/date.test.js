@@ -1,8 +1,10 @@
+import MockDate from 'mockdate'
 import {
   convertDate,
   dateToStr,
   sortObjectsByDateKey,
   convertToDateFormat,
+  calculateNewDateTimeFromDate,
 } from './date'
 
 describe('date', () => {
@@ -106,6 +108,17 @@ describe('convertToDateFormat', () => {
 
     expect(convertToDateFormat(stringToFormat)).toEqual(
       new Date('2021-01-20T12:12:00.00')
+    )
+  })
+})
+
+describe('calculateNewDateTimeFromDate', () => {
+  // 2021-01-14T18:16:20.986Z
+  MockDate.set(1610648180986)
+
+  it('should calculate the date time given number of hours', () => {
+    expect(calculateNewDateTimeFromDate(new Date(), 24)).toEqual(
+      new Date('2021-01-15T18:16:20.986Z')
     )
   })
 })

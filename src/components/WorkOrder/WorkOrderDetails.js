@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'
 import WorkOrderHeader from './WorkOrderHeader'
+import Link from 'next/link'
+import { convertDate } from '../../utils/date'
+import { canCancelWorkOrder } from '../../utils/helpers/cancel-work-order'
 
 const WorkOrderDetails = ({
   propertyReference,
@@ -11,9 +14,21 @@ const WorkOrderDetails = ({
   tenure,
   canRaiseRepair,
 }) => {
+  const workOrderDateRaised = convertDate(workOrder.dateRaised)
+
   return (
     <div>
-      <h1 className="govuk-heading-l">Works order: {workOrder.reference}</h1>
+      <div>
+        <h1 className="govuk-heading-l display-inline govuk-!-margin-right-6">
+          Works order: {workOrder.reference}
+        </h1>
+        {workOrder.status !== 'Work Cancelled' &&
+          canCancelWorkOrder(workOrderDateRaised) && (
+            <Link href={`/work-orders/${workOrder.reference}/cancel`}>
+              <a className="govuk-body-m">Cancel Works Order</a>
+            </Link>
+          )}
+      </div>
       <p className="govuk-body-m">{workOrder.description}</p>
 
       <WorkOrderHeader

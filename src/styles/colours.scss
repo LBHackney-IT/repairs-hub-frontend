@@ -10,6 +10,7 @@ $repairs-hub-colours: (
   'light-grey': #bfc1c3,
   'status-planned': #009ca6,
   'status-complete': darkgray,
+  'status-not-complete': crimson,
 );
 
 @function repairs-hub-colour($colour) {

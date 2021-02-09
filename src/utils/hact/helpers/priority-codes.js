@@ -25,13 +25,3 @@ export const mapPriorityCodeToHact = {
     priorityCodeHact: 4,
   },
 }
-
-export const calculateRequiredCompletionDateTime = (hours) => {
-  if (!hours) {
-    console.error('No argument given')
-    return null
-  }
-
-  let currentDateTime = new Date()
-  return new Date(currentDateTime.getTime() + hours * 3600000)
-}

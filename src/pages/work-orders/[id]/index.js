@@ -1,5 +1,5 @@
-import WorkOrderView from '../../components/WorkOrder/WorkOrderView'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../../utils/user'
+import WorkOrderView from '../../../components/WorkOrder/WorkOrderView'
+import { AGENT_ROLE, CONTRACTOR_ROLE } from '../../../utils/user'
 
 const WorkOrderPage = ({ query }) => {
   return <WorkOrderView workOrderReference={query.id} />
