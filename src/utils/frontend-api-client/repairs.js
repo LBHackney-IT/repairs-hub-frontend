@@ -3,9 +3,12 @@ import axios from 'axios'
 const PAGE_SIZE = 10
 
 export const getRepairs = async (pageNumber = 1) => {
-  const { data } = await axios.get(
-    `/api/repairs/?PageSize=${PAGE_SIZE}&PageNumber=${pageNumber}`
-  )
+  const { data } = await await axios.get('/api/repairs/', {
+    params: {
+      PageSize: PAGE_SIZE,
+      PageNumber: pageNumber,
+    },
+  })
 
   return data
 }
