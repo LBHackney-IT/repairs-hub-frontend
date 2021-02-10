@@ -6,6 +6,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
+import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
 import { postRepair } from '../../../utils/frontend-api-client/repairs/schedule'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
@@ -14,6 +15,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [sorCodes, setSorCodes] = useState([])
+  const [priorities, setPriorities] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
@@ -43,15 +45,18 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     try {
       const data = await getProperty(propertyReference)
       const sorCodes = await getSorCodes()
+      const priorities = await getPriorities()
 
       setTenure(data.tenure)
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
       setPersonAlerts(data.alerts.personAlert)
       setSorCodes(sorCodes)
+      setPriorities(priorities)
     } catch (e) {
       setProperty(null)
       setSorCodes(null)
+      setPriorities(null)
       console.log('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
@@ -87,7 +92,8 @@ const RaiseRepairFormView = ({ propertyReference }) => {
             property.canRaiseRepair &&
             locationAlerts &&
             personAlerts &&
-            sorCodes && (
+            sorCodes &&
+            priorities && (
               <RaiseRepairForm
                 propertyReference={propertyReference}
                 address={property.address}
@@ -97,6 +103,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 locationAlerts={locationAlerts}
                 personAlerts={personAlerts}
                 sorCodes={sorCodes}
+                priorities={priorities}
                 onFormSubmit={onFormSubmit}
               />
             )}

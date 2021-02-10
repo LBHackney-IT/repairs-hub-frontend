@@ -9,10 +9,12 @@ describe('Raise repair form', () => {
     cy.server()
     // Stub request for raise a repair form page
     cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
+    cy.fixture('schedule-of-rates/priorities.json').as('priorities')
     cy.fixture('properties/property.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/schedule-of-rates/codes', '@property')
     cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
+    cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
     cy.route({
       method: 'POST',
       url: '/api/repairs/schedule',
