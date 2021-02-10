@@ -64,6 +64,28 @@ describe('RaiseRepairForm component', () => {
         },
       },
     ],
+    priorities: [
+      {
+        priorityCode: 1,
+        description: 'I - Immediate (2 hours)',
+      },
+      {
+        priorityCode: 2,
+        description: 'E - Emergency (24 hours)',
+      },
+      {
+        priorityCode: 3,
+        description: 'U - Urgent 7 days (5 Working days)',
+      },
+      {
+        priorityCode: 4,
+        description: 'N - Normal 28 days (21 working days)',
+      },
+      {
+        priorityCode: 5,
+        description: 'Inspection',
+      },
+    ],
     onFormSubmit: jest.fn(),
   }
 
@@ -78,6 +100,7 @@ describe('RaiseRepairForm component', () => {
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
         sorCodes={props.sorCodes}
+        priorities={props.priorities}
         onFormSubmit={props.onFormSubmit}
       />
     )

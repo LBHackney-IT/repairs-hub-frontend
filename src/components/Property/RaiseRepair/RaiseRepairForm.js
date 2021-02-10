@@ -16,22 +16,12 @@ const RaiseRepairForm = ({
   personAlerts,
   tenure,
   sorCodes,
+  priorities,
   onFormSubmit,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
-
-  const priorityList = [
-    ...new Set(
-      sorCodes
-        .map((code) => {
-          if (code.priority) {
-            return code.priority.description
-          }
-        })
-        .filter(Boolean)
-    ),
-  ]
+  const priorityList = priorities.map((priority) => priority.description)
 
   const onSubmit = async (formData) => {
     const scheduleRepairFormData = buildScheduleRepairFormData(formData)
@@ -40,11 +30,11 @@ const RaiseRepairForm = ({
   }
 
   const onPrioritySelect = (event) => {
-    const sorCodeObject = sorCodes.filter(
-      (a) => a.priority.description == event.target.value
+    const priorityObject = priorities.filter(
+      (priority) => priority.description == event.target.value
     )[0]
 
-    setPriorityCode(sorCodeObject?.priority.priorityCode || '')
+    setPriorityCode(priorityObject?.priorityCode)
   }
 
   const characterCount = () => {
@@ -189,6 +179,7 @@ RaiseRepairForm.propTypes = {
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object,
   sorCodes: PropTypes.array.isRequired,
+  priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
 }
 

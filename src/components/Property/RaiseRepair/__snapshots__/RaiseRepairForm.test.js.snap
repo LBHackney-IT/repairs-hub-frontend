@@ -188,6 +188,21 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               >
                 E - Emergency (24 hours)
               </option>
+              <option
+                value="U - Urgent 7 days (5 Working days)"
+              >
+                U - Urgent 7 days (5 Working days)
+              </option>
+              <option
+                value="N - Normal 28 days (21 working days)"
+              >
+                N - Normal 28 days (21 working days)
+              </option>
+              <option
+                value="Inspection"
+              >
+                Inspection
+              </option>
             </select>
           </div>
           <input
