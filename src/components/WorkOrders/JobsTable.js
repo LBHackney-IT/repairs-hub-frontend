@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import JobRow from './JobRow'
 
-const JobsTable = ({ workOrders }) => (
+const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
     <p className="govuk-heading-s">Manage jobs</p>
 
@@ -38,6 +38,26 @@ const JobsTable = ({ workOrders }) => (
         ))}
       </tbody>
     </table>
+    <div className="page-navigation govuk-!-padding-bottom-5">
+      {pageNumber > 1 && (
+        <button
+          className="govuk-button previous-page-button"
+          data-module="govuk-button"
+          onClick={() => handlePageClick(pageNumber - 1)}
+        >
+          Previous page
+        </button>
+      )}
+      {pageNumber && (
+        <button
+          className="govuk-button next-page-button"
+          data-module="govuk-button"
+          onClick={() => handlePageClick(pageNumber + 1)}
+        >
+          Next page
+        </button>
+      )}
+    </div>
   </div>
 )
 
@@ -53,6 +73,8 @@ JobsTable.propTypes = {
       description: PropTypes.string.isRequired,
     })
   ).isRequired,
+  pageNumber: PropTypes.number,
+  handlePageClick: PropTypes.func,
 }
 
 export default JobsTable

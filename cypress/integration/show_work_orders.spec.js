@@ -9,7 +9,11 @@ describe('Show all work orders', () => {
         cy.loginWithContractorRole()
         cy.server()
         cy.fixture('work_orders/jobs.json').as('workorderslist')
-        cy.route('GET', 'api/repairs', '@workorderslist')
+        cy.route(
+          'GET',
+          'api/repairs/?PageSize=10&PageNumber=1',
+          '@workorderslist'
+        )
         cy.visit(`${Cypress.env('HOST')}/`)
       })
 
@@ -37,6 +41,22 @@ describe('Show all work orders', () => {
             'ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in'
           )
           cy.contains('a', 'Update')
+        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+
+      it('does displays next button', () => {
+        cy.get('.page-navigation').within(() => {
+          cy.contains('Next')
+        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+
+      it('does not displays previous button', () => {
+        cy.get('.page-navigation').within(() => {
+          cy.contains('Previous').should('not.exist')
         })
         // Run lighthouse audit for accessibility report
         cy.audit()

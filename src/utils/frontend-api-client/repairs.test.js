@@ -1,4 +1,4 @@
-import { getRepair, getRepairs } from './repairs'
+import { getRepair, getRepairs, getRepairsForProperty } from './repairs'
 import mockAxios from '../__mocks__/axios'
 
 describe('getRepair', () => {
@@ -33,6 +33,28 @@ describe('getRepairs', () => {
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs')
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
+      params: { PageNumber: 1, PageSize: 10 },
+    })
+  })
+})
+
+describe('getRepairsForProperty', () => {
+  it('calls the Next JS API', async () => {
+    const responseData = { data: 'test' }
+
+    mockAxios.get.mockImplementationOnce(() =>
+      Promise.resolve({
+        data: responseData,
+      })
+    )
+
+    const response = await getRepairsForProperty('1')
+
+    expect(response).toEqual(responseData)
+    expect(mockAxios.get).toHaveBeenCalledTimes(1)
+    expect(mockAxios.get).toHaveBeenCalledWith(
+      '/api/repairs/?propertyReference=1'
+    )
   })
 })

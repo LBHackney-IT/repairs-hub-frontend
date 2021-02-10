@@ -1,6 +1,19 @@
 import axios from 'axios'
 
-export const getRepairs = async (propertyReference = null) => {
+const PAGE_SIZE = 10
+
+export const getRepairs = async (pageNumber = 1) => {
+  const { data } = await await axios.get('/api/repairs/', {
+    params: {
+      PageSize: PAGE_SIZE,
+      PageNumber: pageNumber,
+    },
+  })
+
+  return data
+}
+
+export const getRepairsForProperty = async (propertyReference = null) => {
   if (propertyReference) {
     const { data } = await axios.get(
       `/api/repairs/?propertyReference=${propertyReference}`
@@ -8,9 +21,6 @@ export const getRepairs = async (propertyReference = null) => {
 
     return data
   }
-  const { data } = await axios.get('/api/repairs')
-
-  return data
 }
 
 export const getRepair = async (workOrderReference) => {
