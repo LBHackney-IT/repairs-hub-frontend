@@ -45,6 +45,22 @@ describe('Show all work orders', () => {
         // Run lighthouse audit for accessibility report
         cy.audit()
       })
+
+      it('does displays next button', () => {
+        cy.get('.page-navigation').within(() => {
+          cy.contains('Next')
+        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+
+      it('does not displays previous button', () => {
+        cy.get('.page-navigation').within(() => {
+          cy.contains('Previous').should('not.exist')
+        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
     }
   )
 })

@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import JobsTable from './JobsTable'
 import { getRepairs } from '../../utils/frontend-api-client/repairs'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { sortObjectsByDateKey } from '../../utils/date'
 
-const JobView = () => {
-  const [pageNumber, setPageNumber] = useState(1)
+const JobView = ({ pageNumber }) => {
+  const router = useRouter()
   const [workOrders, setWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
@@ -33,13 +34,22 @@ const JobView = () => {
 
   useEffect(() => {
     setLoading(true)
-    workOrderView()
+    workOrderView(pageNumber)
   }, [])
 
-  const handlePageClick = (pageNumber) => {
-    setPageNumber(pageNumber)
-    workOrderView(pageNumber)
+  const handlePageClick = (newPageNumber) => {
     setLoading(true)
+    workOrderView(newPageNumber)
+    updatePageNumber(newPageNumber)
+  }
+
+  const updatePageNumber = (newPageNumber) => {
+    router.push({
+      pathname: '/',
+      query: {
+        pageNumber: encodeURI(newPageNumber),
+      },
+    })
   }
 
   return (

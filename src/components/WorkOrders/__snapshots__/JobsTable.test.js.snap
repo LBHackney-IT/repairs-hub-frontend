@@ -134,7 +134,14 @@ exports[`JobsTable component should render properly 1`] = `
     </table>
     <div
       class="page-navigation govuk-!-padding-bottom-5"
-    />
+    >
+      <button
+        class="govuk-button next-page-button"
+        data-module="govuk-button"
+      >
+        Next page
+      </button>
+    </div>
   </div>
 </DocumentFragment>
 `;

@@ -7,7 +7,11 @@ const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
   if (user.hasContractorPermissions) {
-    return <JobView />
+    if (Object.entries(query).length === 0) {
+      return <JobView pageNumber={1} />
+    } else {
+      return <JobView pageNumber={parseInt(query.pageNumber)} />
+    }
   } else {
     if (Object.entries(query).length === 0) {
       return <Search />
