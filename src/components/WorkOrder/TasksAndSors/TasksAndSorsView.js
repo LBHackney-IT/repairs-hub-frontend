@@ -6,7 +6,7 @@ import TasksAndSorsTable from './TasksAndSorsTable'
 import { getTasksAndSors } from '../../../utils/frontend-api-client/repairs/[id]/tasks'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
-const TasksAndSorsView = ({ workOrderReference }) => {
+const TasksAndSorsView = ({ workOrderReference, tabName }) => {
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -43,7 +43,9 @@ const TasksAndSorsView = ({ workOrderReference }) => {
         <Spinner />
       ) : (
         <>
-          {tasksAndSors && <TasksAndSorsTable tasksAndSors={tasksAndSors} />}
+          {tasksAndSors && (
+            <TasksAndSorsTable tasksAndSors={tasksAndSors} tabName={tabName} />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
@@ -53,6 +55,7 @@ const TasksAndSorsView = ({ workOrderReference }) => {
 
 TasksAndSorsView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
+  tabName: PropTypes.string.isRequired,
 }
 
 export default TasksAndSorsView

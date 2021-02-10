@@ -3,6 +3,7 @@ import TasksAndSorsTable from './TasksAndSorsTable'
 
 describe('TasksAndSorsTable component', () => {
   const props = {
+    tabName: 'Tasks and SORs',
     tasksAndSors: [
       {
         code: 'DES5R006',
@@ -33,7 +34,10 @@ describe('TasksAndSorsTable component', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <TasksAndSorsTable tasksAndSors={props.tasksAndSors} />
+      <TasksAndSorsTable
+        tasksAndSors={props.tasksAndSors}
+        tabName={props.tabName}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

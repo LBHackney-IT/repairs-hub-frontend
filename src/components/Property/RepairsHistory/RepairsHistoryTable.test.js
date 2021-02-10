@@ -3,6 +3,7 @@ import RepairsHistoryTable from './RepairsHistoryTable'
 
 describe('RepairsHistoryTable component', () => {
   const props = {
+    tabName: 'Repairs history',
     workOrders: [
       {
         reference: 10000012,
@@ -31,7 +32,10 @@ describe('RepairsHistoryTable component', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <RepairsHistoryTable workOrders={props.workOrders} />
+      <RepairsHistoryTable
+        workOrders={props.workOrders}
+        tabName={props.tabName}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

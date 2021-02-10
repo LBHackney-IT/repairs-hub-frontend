@@ -78,6 +78,7 @@ describe('RaiseRepairForm component', () => {
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
         sorCodes={props.sorCodes}
+        onFormSubmit={props.onFormSubmit}
       />
     )
     expect(asFragment()).toMatchSnapshot()

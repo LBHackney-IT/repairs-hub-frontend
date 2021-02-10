@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { Select, Button, TextArea, TextInput } from '../../Form'
-import { buildScheduleRepairFormData } from '../../../utils/hact/raise-repair-form'
+import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 import SorCodeSelectView from './SorCodeSelectView'
 
 const RaiseRepairForm = ({
@@ -189,6 +189,7 @@ RaiseRepairForm.propTypes = {
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object,
   sorCodes: PropTypes.array.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
 }
 
 export default RaiseRepairForm

@@ -58,13 +58,7 @@ exports[`Tabs component should render properly 1`] = `
     <div
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
       id="tasks-and-sors-tab"
-    >
-      <h2
-        class="govuk-heading-l"
-      >
-        Tasks and SORs
-      </h2>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;

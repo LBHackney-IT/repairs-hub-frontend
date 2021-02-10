@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import RepairsHistoryView from '../Property/RepairsHistory/RepairsHistoryView'
 import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
+import NotesView from '../WorkOrder/Notes/NotesView'
 import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
 
 const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
@@ -23,16 +24,40 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
     enableGOVUKFrontendJavascript()
   }, [])
 
-  const renderTabComponentView = (activeTabId) => {
+  const renderTabComponentView = (activeTabId, tabName) => {
     switch (activeTabId) {
       case 'repairs-history-tab':
-        return <RepairsHistoryView propertyReference={propertyReference} />
+        return (
+          <RepairsHistoryView
+            propertyReference={propertyReference}
+            tabName={tabName}
+          />
+        )
       case 'tasks-and-sors-tab':
-        return <TasksAndSorsView workOrderReference={workOrderReference} />
+        return (
+          <TasksAndSorsView
+            workOrderReference={workOrderReference}
+            tabName={tabName}
+          />
+        )
+      case 'notes-tab':
+        return (
+          <NotesView
+            workOrderReference={workOrderReference}
+            tabName={tabName}
+          />
+        )
       default:
-        return <RepairsHistoryView propertyReference={propertyReference} />
+        return (
+          <RepairsHistoryView
+            propertyReference={propertyReference}
+            tabName={tabName}
+          />
+        )
     }
   }
+
+  let activeTabId = formatTabNameToId(activeTab)
 
   return (
     <div className="govuk-tabs" data-module="govuk-tabs">
@@ -58,15 +83,14 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
 
       {tabsList.map((tab, i) => {
         let tabId = formatTabNameToId(tab)
-        let activeTabId = formatTabNameToId(activeTab)
+
         return (
           <div
             key={i}
             className="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
             id={tabId}
           >
-            <h2 className="govuk-heading-l">{tab}</h2>
-            {activeTabId == tabId && renderTabComponentView(activeTabId)}
+            {activeTabId == tabId && renderTabComponentView(activeTabId, tab)}
           </div>
         )
       })}

@@ -6,7 +6,7 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getRepairs } from '../../../utils/frontend-api-client/repairs'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
-const RepairsHistoryView = ({ propertyReference }) => {
+const RepairsHistoryView = ({ propertyReference, tabName }) => {
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -39,12 +39,14 @@ const RepairsHistoryView = ({ propertyReference }) => {
 
   const renderRepairsHistoryTable = () => {
     if (workOrders?.length > 0) {
-      return <RepairsHistoryTable workOrders={workOrders} />
+      return <RepairsHistoryTable workOrders={workOrders} tabName={tabName} />
     }
 
     if (!error) {
       return (
         <>
+          <h2 className="govuk-heading-l">{tabName}</h2>
+
           <div>
             <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
             <p className="govuk-heading-s">There are no historical repairs</p>
@@ -69,6 +71,7 @@ const RepairsHistoryView = ({ propertyReference }) => {
 }
 
 RepairsHistoryView.propTypes = {
+  tabName: PropTypes.string.isRequired,
   propertyReference: PropTypes.string.isRequired,
 }
 

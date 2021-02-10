@@ -2,6 +2,11 @@
 
 exports[`RepairsHistoryTable component should render properly 1`] = `
 <DocumentFragment>
+  <h2
+    class="govuk-heading-l"
+  >
+    Repairs history
+  </h2>
   <table
     class="govuk-table govuk-!-margin-top-5 repairs-history-table"
   >

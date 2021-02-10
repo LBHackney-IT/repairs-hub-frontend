@@ -2,6 +2,11 @@
 
 exports[`TasksAndSorsTable component should render properly 1`] = `
 <DocumentFragment>
+  <h2
+    class="govuk-heading-l"
+  >
+    Tasks and SORs
+  </h2>
   <table
     class="govuk-table govuk-!-margin-top-5 tasks-and-sors-table"
   >

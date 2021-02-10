@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Link from 'next/link'
 import { dateToStr } from '../../../utils/date'
 import { extractTimeFromDate } from '../../../utils/time'
 
@@ -9,9 +8,7 @@ const RepairsHistoryRow = ({ reference, dateRaised, description, status }) => (
     data-ref={reference}
   >
     <td className="govuk-table__cell">
-      <Link href={`/work-orders/${reference}`}>
-        <a>{reference}</a>
-      </Link>
+      <a href={`/work-orders/${reference}`}>{reference}</a>
     </td>
     <td className="govuk-table__cell">
       {dateRaised ? dateToStr(dateRaised) : '—'}
