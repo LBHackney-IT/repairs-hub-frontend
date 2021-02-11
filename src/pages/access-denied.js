@@ -1,10 +1,7 @@
 import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
+import AccessDenied from '../components/AccessDenied'
 
-const AccessDenied = () => (
-  <div>
-    <h1>Access denied</h1>
-  </div>
-)
+const AccessDeniedPage = () => <AccessDenied></AccessDenied>
 
 export const getServerSideProps = async (ctx) => {
   const user = isAuthorised(ctx)
@@ -16,4 +13,4 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-export default AccessDenied
+export default AccessDeniedPage

@@ -39,7 +39,7 @@ describe('MyApp.getInitialProps', () => {
       }
 
       it('returns an object representing the user', async () => {
-        const { userDetails } = await MyApp.getInitialProps({
+        const { userDetails, accessDenied } = await MyApp.getInitialProps({
           ctx: context,
           Component: component,
         })
@@ -51,6 +51,8 @@ describe('MyApp.getInitialProps', () => {
           hasContractorPermissions: false,
           hasAnyPermissions: true,
         })
+
+        expect(accessDenied).toBe(false)
       })
     })
 
@@ -68,13 +70,13 @@ describe('MyApp.getInitialProps', () => {
         permittedRoles: [CONTRACTOR_ROLE], // does not match the user role from their token
       }
 
-      it('returns an empty object and writes a redirect to the access denied page', async () => {
-        const result = await MyApp.getInitialProps({
+      it('writes a redirect to the access denied page', async () => {
+        const { accessDenied } = await MyApp.getInitialProps({
           ctx: context,
           Component: component,
         })
 
-        expect(result).toEqual({})
+        expect(accessDenied).toBe(true)
 
         expect(res._getStatusCode()).toBe(HttpStatus.MOVED_TEMPORARILY)
         expect(res._getHeaders()).toEqual({ location: '/access-denied' })
@@ -93,16 +95,44 @@ describe('MyApp.getInitialProps', () => {
 
       const component = {}
 
-      it('returns an empty object and writes a redirect to the access denied page', async () => {
-        const result = await MyApp.getInitialProps({
+      it('writes a redirect to the access denied page', async () => {
+        const { accessDenied } = await MyApp.getInitialProps({
           ctx: context,
           Component: component,
         })
 
-        expect(result).toEqual({})
+        expect(accessDenied).toBe(true)
 
         expect(res._getStatusCode()).toBe(HttpStatus.MOVED_TEMPORARILY)
         expect(res._getHeaders()).toEqual({ location: '/access-denied' })
+      })
+    })
+
+    describe('when the request comes from a client-side transition', () => {
+      describe('when the component permittedRoles does not contain a role matching the user role', () => {
+        const req = createRequest({ headers, url: '/_next/data/example' }) //
+        const res = createResponse()
+
+        const context = {
+          req,
+          res,
+          pathname: '',
+        }
+
+        const component = {
+          permittedRoles: [CONTRACTOR_ROLE], // does not match the user role from their token
+        }
+
+        it('does not write a redirect but the props indicate the user is denied access', async () => {
+          const result = await MyApp.getInitialProps({
+            ctx: context,
+            Component: component,
+          })
+
+          expect(result.accessDenied).toBe(true)
+
+          expect(res._getStatusCode()).toBe(HttpStatus.OK)
+        })
       })
     })
   })

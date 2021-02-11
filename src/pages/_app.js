@@ -2,6 +2,7 @@ import '../styles/all.scss'
 import App from 'next/app'
 import Layout from '../components/Layout'
 import Head from 'next/head'
+import AccessDenied from '../components/AccessDenied'
 
 import {
   isAuthorised,
@@ -15,6 +16,8 @@ class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
 
+    const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
+
     return (
       <>
         <UserContext.Provider value={{ user: this.props.userDetails }}>
@@ -22,7 +25,10 @@ class MyApp extends App {
             <Head>
               <title>Hackney Repairs Hub</title>
             </Head>
-            <Component {...pageProps} userDetails={this.props.userDetails} />
+            <ComponentToRender
+              {...pageProps}
+              userDetails={this.props.userDetails}
+            />
           </Layout>
         </UserContext.Provider>
         <script src="/js/govuk.js"></script>
@@ -32,27 +38,36 @@ class MyApp extends App {
 }
 
 MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
-  const WITH_REDIRECT = true
-
   if (AUTH_WHITELIST.includes(ctx.pathname)) {
     return {}
   }
 
-  const userDetails = isAuthorised(ctx, WITH_REDIRECT)
+  const isClientSideTransition = ctx.req.url.match('^/_next/data')
+
+  // Do not write server redirects if this is a client side transition.
+  // Otherwise I think Next JS tries to write another response and the
+  // entire request fails.
+  const userDetails = isAuthorised(ctx, !isClientSideTransition)
 
   if (!userDetails) {
-    return {}
+    return { accessDenied: true }
   }
 
-  if (userDetails && userAuthorisedForPage(pageComponent, userDetails)) {
-    return { userDetails }
+  if (userAuthorisedForPage(pageComponent, userDetails)) {
+    return { userDetails, accessDenied: false }
   } else {
-    redirectToAcessDenied(ctx.res)
-    return {}
+    if (!isClientSideTransition) {
+      redirectToAcessDenied(ctx.res)
+    }
+    return { userDetails, accessDenied: true }
   }
 }
 
 const userAuthorisedForPage = (component, user) => {
+  if (component.name === 'Error') {
+    return true
+  }
+
   if (!component.permittedRoles || component?.permittedRoles?.length === 0) {
     console.log(`Component ${component.name} has no permittedRoles defined.`)
     return false
