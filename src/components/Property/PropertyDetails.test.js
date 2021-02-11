@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
 describe('PropertyDetails component', () => {
@@ -43,19 +43,17 @@ describe('PropertyDetails component', () => {
   }
 
   it('should render properly', async () => {
-    await act(async () => {
-      const { asFragment } = render(
-        <PropertyDetails
-          propertyReference={props.property.propertyReference}
-          address={props.property.address}
-          hierarchyType={props.property.hierarchyType}
-          canRaiseRepair={props.property.canRaiseRepair}
-          tenure={props.tenure}
-          locationAlerts={props.alerts.locationAlert}
-          personAlerts={props.alerts.personAlert}
-        />
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
+    const { asFragment } = render(
+      <PropertyDetails
+        propertyReference={props.property.propertyReference}
+        address={props.property.address}
+        hierarchyType={props.property.hierarchyType}
+        canRaiseRepair={props.property.canRaiseRepair}
+        tenure={props.tenure}
+        locationAlerts={props.alerts.locationAlert}
+        personAlerts={props.alerts.personAlert}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
   })
 })

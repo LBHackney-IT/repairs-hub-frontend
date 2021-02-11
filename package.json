@@ -12,7 +12,7 @@
     "prestart": "next build",
     "start": "next start -p $PORT",
     "tests": "jest && yarn test:e2e",
-    "test:unit": "jest",
+    "test:unit": "node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
     "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'",
     "test:e2e": "PORT=5001 start-test 5001 cy:run",
     "e2e:audit": "PORT=5001 start-test 5001 cy:run:audit",
