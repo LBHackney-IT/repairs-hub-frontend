@@ -63,6 +63,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
     if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
     }
+
     return user
   } catch (err) {
     if (err instanceof jsonwebtoken.JsonWebTokenError) {

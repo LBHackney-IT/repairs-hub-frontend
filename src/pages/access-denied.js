@@ -1,17 +1,11 @@
 import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
+import AccessDenied from '../components/AccessDenied'
 
-const AccessDenied = () => (
-  <div>
-    <h1>Access denied</h1>
-    <p className="govuk-body">
-      Sorry, but access to that page is for administrators only.
-    </p>
-  </div>
-)
+const AccessDeniedPage = () => <AccessDenied></AccessDenied>
 
 export const getServerSideProps = async (ctx) => {
   const user = isAuthorised(ctx)
-  if (user && user.hasAnyPermissions) {
+  if (!user || !user.hasAnyPermissions) {
     redirectToHome(ctx.res)
   }
   return {
@@ -19,4 +13,4 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-export default AccessDenied
+export default AccessDeniedPage
