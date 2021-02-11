@@ -1,4 +1,4 @@
-import AppointmentView from '../../../../components/Property/Appointment/AppointmentView'
+import AppointmentView from '../../../../components/WorkOrders/Appointment/AppointmentView'
 
 const AppointmentPage = ({ query }) => {
   return <AppointmentView reference={query.id} />
