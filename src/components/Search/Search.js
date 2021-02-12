@@ -20,7 +20,7 @@ const Search = ({ query }) => {
     }
   }, [])
 
-  async function searchForProperties(newSearchQuery) {
+  const searchForProperties = async (newSearchQuery) => {
     setLoading(true)
     setError(null)
 
