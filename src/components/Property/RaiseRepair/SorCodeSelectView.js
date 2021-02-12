@@ -2,7 +2,13 @@ import PropTypes from 'prop-types'
 import { useState, Fragment } from 'react'
 import SorCodeSelect from './SorCodeSelect'
 
-const SorCodeSelectView = ({ sorCodes, register, errors }) => {
+const SorCodeSelectView = ({
+  sorCodes,
+  register,
+  errors,
+  updatePriority,
+  getPriorityObjectByCode,
+}) => {
   const sorCodesList = sorCodes.map(
     (code) => `${code.customCode} - ${code.customName}`
   )
@@ -11,9 +17,15 @@ const SorCodeSelectView = ({ sorCodes, register, errors }) => {
     setArrayOfSorCodeSelectComponentIndexes,
   ] = useState([0])
 
+  const [sorCodeObjects, setSorCodeObjects] = useState([])
+
+  const getSorCodeObject = (value) => {
+    return sorCodes.filter((a) => a.customCode == value)[0]
+  }
+
   const onSorCodeSelect = (index, event) => {
     const value = event.target.value.split(' - ')[0]
-    const sorCodeObject = sorCodes.filter((a) => a.customCode == value)[0]
+    const sorCodeObject = getSorCodeObject(value)
     const sorCodeDescription = sorCodeObject?.customName || ''
     const sorCodeContractorRef = sorCodeObject?.sorContractor.reference || ''
 
@@ -23,6 +35,36 @@ const SorCodeSelectView = ({ sorCodes, register, errors }) => {
     document.getElementById(
       `sorCodesCollection[${index}][contractorRef]`
     ).value = sorCodeContractorRef
+
+    if (sorCodeObject?.priority) {
+      const sorCodeObjectAtSameIndex = sorCodeObjects.find(
+        (e) => e.index === index
+      )
+
+      if (sorCodeObjectAtSameIndex) {
+        sorCodeObjectAtSameIndex.code = sorCodeObject.priority.priorityCode
+      } else {
+        setSorCodeObjects((sorCodeObjects) => [
+          ...sorCodeObjects,
+          {
+            index: index,
+            code: sorCodeObject.priority.priorityCode,
+          },
+        ])
+      }
+
+      let sortedByPriorityCode = sorCodeObjects.sort((a, b) => a.code - b.code)
+      const existingHigherPriority = sortedByPriorityCode.find(
+        (e) => e.code <= sorCodeObject.priority.priorityCode
+      )
+
+      updatePriority(
+        sorCodeObject.priority.description,
+        sorCodeObject.priority.priorityCode,
+        sorCodeObjects.length,
+        existingHigherPriority?.code
+      )
+    }
   }
 
   const addSorCodeSelect = (e) => {
@@ -41,6 +83,27 @@ const SorCodeSelectView = ({ sorCodes, register, errors }) => {
       (arrayOfSorCodeSelectComponentIndexes) =>
         arrayOfSorCodeSelectComponentIndexes.filter((i) => i !== index)
     )
+
+    const remainingSorCodeObjects = sorCodeObjects.filter(
+      (i) => i.index !== index
+    )
+
+    setSorCodeObjects(remainingSorCodeObjects)
+
+    if (remainingSorCodeObjects.length > 0) {
+      const highestPriorityCode = Math.min(
+        ...remainingSorCodeObjects.map((object) => object.code)
+      )
+      const priorityObject = getPriorityObjectByCode(highestPriorityCode)
+
+      priorityObject &&
+        updatePriority(
+          priorityObject.description,
+          priorityObject.priorityCode,
+          remainingSorCodeObjects.length,
+          highestPriorityCode
+        )
+    }
   }
 
   const sorCodeSelectCollection = () => {
