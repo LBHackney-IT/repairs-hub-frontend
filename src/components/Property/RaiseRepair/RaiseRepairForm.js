@@ -34,12 +34,62 @@ const RaiseRepairForm = ({
     onFormSubmit(scheduleRepairFormData)
   }
 
-  const onPrioritySelect = (event) => {
-    const priorityObject = priorities.filter(
-      (priority) => priority.description == event.target.value
+  const getPriorityObjectByDescription = (description) => {
+    return priorities.filter(
+      (priority) => priority.description == description
     )[0]
+  }
+  const getPriorityObjectByCode = (code) => {
+    return priorities.filter((priority) => priority.priorityCode == code)[0]
+  }
+
+  const onPrioritySelect = (event) => {
+    const priorityObject = getPriorityObjectByDescription(event.target.value)
 
     setPriorityCode(priorityObject?.priorityCode)
+  }
+
+  const updatePriority = (
+    description,
+    code,
+    sorCodesCollectionLength,
+    existingHigherPriorityCode
+  ) => {
+    if (existingHigherPriorityCode) {
+      description = getPriorityObjectByCode(existingHigherPriorityCode)
+        ?.description
+    }
+
+    if (priorityList.includes(description)) {
+      const existingCode = parseInt(
+        document.getElementById('priorityCode').value
+      )
+      // Update priority when SOR code has priority attached if:
+      // Priority description is blank, or there's only one sor code entry, or
+      // when removing an SOR there's an existing entry with higher priority, or
+      // the selected priority code is less than existing priority codes
+      // (Higher priority as code gets lower)
+      if (
+        !existingCode ||
+        sorCodesCollectionLength <= 1 ||
+        existingHigherPriorityCode ||
+        code < existingCode
+      ) {
+        if (errors?.priorityDescription) {
+          delete errors.priorityDescription
+        }
+
+        document.getElementById('priorityDescription').value = description
+
+        setPriorityCode(
+          getPriorityObjectByDescription(description)?.priorityCode
+        )
+      }
+    } else {
+      console.error(
+        `Priority: "${description}" is not included in the available priorities list`
+      )
+    }
   }
 
   return (
@@ -75,6 +125,8 @@ const RaiseRepairForm = ({
               register={register}
               errors={errors}
               isContractorUpdatePage={false}
+              updatePriority={updatePriority}
+              getPriorityObjectByCode={getPriorityObjectByCode}
             />
 
             <Select
