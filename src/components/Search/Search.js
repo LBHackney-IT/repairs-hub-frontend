@@ -7,23 +7,21 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
 
 const Search = ({ query }) => {
-  const [searchParams, setSearchParams] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState()
   const router = useRouter()
 
   useEffect(() => {
     if (query) {
-      setSearchParams(decodeURI(query.q))
+      setSearchQuery(decodeURI(query.q))
       searchForProperties(query.q)
     }
   }, [])
 
   async function searchForProperties(newSearchQuery) {
     setLoading(true)
-    setSearchQuery(newSearchQuery)
     setError(null)
 
     try {
@@ -43,10 +41,8 @@ const Search = ({ query }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    setSearchQuery(searchParams)
-
-    updateSearchQuery(searchParams)
-    query && searchForProperties(searchParams)
+    updateSearchQuery(searchQuery)
+    searchQuery && searchForProperties(searchQuery)
   }
 
   const updateSearchQuery = (newSearchQuery) => {
@@ -72,8 +68,8 @@ const Search = ({ query }) => {
               <input
                 type="text"
                 className="govuk-input govuk-input--width-10 focus-colour govuk-!-margin-bottom-5"
-                value={searchParams}
-                onChange={(event) => setSearchParams(event.target.value)}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
               />
             </label>
             <Button type="submit" label="Search" onClick={handleSubmit} />
