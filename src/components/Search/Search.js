@@ -10,7 +10,6 @@ const Search = ({ query }) => {
   const [searchParams, setSearchParams] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
-  const [searching, setSearching] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState()
   const router = useRouter()
@@ -23,7 +22,6 @@ const Search = ({ query }) => {
   }, [])
 
   async function searchForProperties(newSearchQuery) {
-    setSearching(true)
     setLoading(true)
     setSearchQuery(newSearchQuery)
     setError(null)
@@ -39,7 +37,6 @@ const Search = ({ query }) => {
       )
     }
 
-    setSearching(false)
     setLoading(false)
   }
 
@@ -59,25 +56,6 @@ const Search = ({ query }) => {
         q: encodeURI(newSearchQuery),
       },
     })
-  }
-
-  const renderSearchResults = () => {
-    if (properties?.length > 0) {
-      return <PropertiesTable properties={properties} query={searchQuery} />
-    }
-
-    if (!error) {
-      return (
-        <>
-          <div>
-            <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-            <p className="govuk-heading-s">
-              We found 0 matching results for: {decodeURI(searchQuery)}
-            </p>
-          </div>
-        </>
-      )
-    }
   }
 
   return (
@@ -107,7 +85,9 @@ const Search = ({ query }) => {
         <Spinner />
       ) : (
         <>
-          {!searching && renderSearchResults()}
+          {properties?.length > 0 && (
+            <PropertiesTable properties={properties} query={searchQuery} />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
