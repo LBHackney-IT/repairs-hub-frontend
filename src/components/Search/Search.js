@@ -20,12 +20,12 @@ const Search = ({ query }) => {
     }
   }, [])
 
-  const searchForProperties = async (newSearchQuery) => {
+  const searchForProperties = async (searchQuery) => {
     setLoading(true)
     setError(null)
 
     try {
-      const data = await getProperties(newSearchQuery)
+      const data = await getProperties(searchQuery)
       setProperties(data)
     } catch (e) {
       setProperties(null)
@@ -45,11 +45,11 @@ const Search = ({ query }) => {
     searchQuery && searchForProperties(searchQuery)
   }
 
-  const updateSearchQuery = (newSearchQuery) => {
+  const updateSearchQuery = (searchQuery) => {
     router.push({
       pathname: '/properties/search',
       query: {
-        q: encodeURI(newSearchQuery),
+        q: encodeURI(searchQuery),
       },
     })
   }
