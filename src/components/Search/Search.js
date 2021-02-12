@@ -41,11 +41,11 @@ const Search = ({ query }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    updateSearchQuery(searchQuery)
+    propertiesURL(searchQuery)
     searchQuery && searchForProperties(searchQuery)
   }
 
-  const updateSearchQuery = (searchQuery) => {
+  const propertiesURL = (searchQuery) => {
     router.push({
       pathname: '/properties/search',
       query: {
