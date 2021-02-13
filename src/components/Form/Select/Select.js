@@ -11,6 +11,7 @@ const Select = ({
   children,
   isUnselectable = true,
   ignoreValue,
+  defaultValue,
   value,
   error,
   disabled,
@@ -44,6 +45,7 @@ const Select = ({
       onChange={(e) => onChange && onChange(e)}
       value={ignoreValue ? undefined : value}
       disabled={disabled}
+      defaultValue={defaultValue}
     >
       {isUnselectable && <option key="empty" value=""></option>}
       {options.map((option) => {

@@ -143,6 +143,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                     id="sorCodesCollection[0][quantity]"
                     name="sorCodesCollection[0][quantity]"
                     type="text"
+                    value=""
                   />
                 </div>
               </div>

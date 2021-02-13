@@ -20,7 +20,7 @@ const ChooseOption = ({ reference }) => {
       })
     } else if (e.options == 'Update') {
       router.push({
-        pathname: '',
+        pathname: 'update-job',
         query: { id: reference },
       })
     }
