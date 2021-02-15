@@ -53,5 +53,13 @@
     "sorContractor": {
       "reference": "H01"
     }
+  },
+  {
+    "customCode": "INP5R001",
+    "customName": "Pre insp of wrks by Constructr",
+    "priority": null,
+    "sorContractor": {
+      "reference": "G16-PCL-PGBR"
+    }
   }
 ]
