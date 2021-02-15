@@ -45,7 +45,7 @@ const RaiseRepairForm = ({
   }
 
   return (
-    <div className="govuk-width-container">
+    <>
       <BackButton />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
@@ -167,7 +167,7 @@ const RaiseRepairForm = ({
           </form>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 

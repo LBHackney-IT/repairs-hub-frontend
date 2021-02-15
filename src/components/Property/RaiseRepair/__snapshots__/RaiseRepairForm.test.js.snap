@@ -2,313 +2,309 @@
 
 exports[`RaiseRepairForm component should render properly 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-width-container"
+  <a
+    class="govuk-back-link"
+    role="button"
   >
-    <a
-      class="govuk-back-link"
-      role="button"
-    >
-      Back
-    </a>
+    Back
+  </a>
+  <div
+    class="govuk-grid-row"
+  >
     <div
-      class="govuk-grid-row"
+      class="govuk-grid-column-two-thirds"
     >
-      <div
-        class="govuk-grid-column-two-thirds"
+      <span
+        class="govuk-caption-l"
       >
-        <span
-          class="govuk-caption-l"
+        New repair
+      </span>
+      <h1
+        class="govuk-heading-l govuk-!-margin-bottom-2"
+      >
+        Dwelling: 16 Pitcairn House
+      </h1>
+      <div
+        class="govuk-body-s"
+      >
+        <ul
+          class="hackney-property-alerts"
         >
-          New repair
-        </span>
-        <h1
-          class="govuk-heading-l govuk-!-margin-bottom-2"
-        >
-          Dwelling: 16 Pitcairn House
-        </h1>
-        <div
-          class="govuk-body-s"
-        >
-          <ul
-            class="hackney-property-alerts"
+          <li
+            class="bg-turquoise"
           >
-            <li
-              class="bg-turquoise"
-            >
-              Tenure: Secure
-            </li>
-            <li
-              class="bg-orange"
-            >
-              Address Alert:  (
-              <strong />
-              )
-            </li>
-            <li
-              class="bg-orange"
-            >
-              Contact Alert:  (
-              <strong />
-              )
-            </li>
-          </ul>
-        </div>
-        <h2
-          class="govuk-heading-m govuk-!-margin-top-6"
-        >
-          Repair task details
-        </h2>
-        <form
-          id="repair-request-form"
-          role="form"
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert:  (
+            <strong />
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert:  (
+            <strong />
+            )
+          </li>
+        </ul>
+      </div>
+      <h2
+        class="govuk-heading-m govuk-!-margin-top-6"
+      >
+        Repair task details
+      </h2>
+      <form
+        id="repair-request-form"
+        role="form"
+      >
+        <div
+          class="govuk-!-padding-bottom-5"
         >
           <div
-            class="govuk-!-padding-bottom-5"
+            class="govuk-grid-row sor-code-select display-flex align-items-center position-relative"
+            id="sor-code-select-0"
           >
             <div
-              class="govuk-grid-row sor-code-select display-flex align-items-center position-relative"
-              id="sor-code-select-0"
+              class="govuk-grid-column-two-thirds"
             >
               <div
-                class="govuk-grid-column-two-thirds"
+                class="govuk-form-group"
+                id="sorCodesCollection[0][code]-form-group"
               >
-                <div
-                  class="govuk-form-group"
-                  id="sorCodesCollection[0][code]-form-group"
+                <label
+                  class="govuk-label"
+                  for="sorCodesCollection[0][code]"
                 >
-                  <label
-                    class="govuk-label"
-                    for="sorCodesCollection[0][code]"
+                  SOR Code 
+                  <span
+                    class="govuk-required"
                   >
-                    SOR Code 
-                    <span
-                      class="govuk-required"
-                    >
-                      *
-                    </span>
-                  </label>
-                  <select
-                    class="govuk-select govuk-!-width-full"
-                    data-testid="sorCodesCollection[0][code]"
-                    id="sorCodesCollection[0][code]"
-                    name="sorCodesCollection[0][code]"
-                  >
-                    <option
-                      value=""
-                    />
-                    <option
-                      value="DES5R003 - Immediate call outs"
-                    >
-                      DES5R003 - Immediate call outs
-                    </option>
-                    <option
-                      value="DES5R004 - Emergency call outs"
-                    >
-                      DES5R004 - Emergency call outs
-                    </option>
-                  </select>
-                </div>
-                <input
-                  id="sorCodesCollection[0][description]"
-                  name="sorCodesCollection[0][description]"
-                  type="hidden"
-                />
-                <input
-                  id="sorCodesCollection[0][contractorRef]"
-                  name="sorCodesCollection[0][contractorRef]"
-                  type="hidden"
-                />
-              </div>
-              <div
-                class="govuk-grid-column-one-third"
-              >
-                <div
-                  class="govuk-form-group"
-                  id="sorCodesCollection[0][quantity]-form-group"
+                    *
+                  </span>
+                </label>
+                <select
+                  class="govuk-select govuk-!-width-full"
+                  data-testid="sorCodesCollection[0][code]"
+                  id="sorCodesCollection[0][code]"
+                  name="sorCodesCollection[0][code]"
                 >
-                  <label
-                    class="govuk-label"
-                    for="sorCodesCollection[0][quantity]"
-                  >
-                    Quantity 
-                    <span
-                      class="govuk-required"
-                    >
-                      *
-                    </span>
-                  </label>
-                  <input
-                    class="govuk-input govuk-!-width-full"
-                    id="sorCodesCollection[0][quantity]"
-                    name="sorCodesCollection[0][quantity]"
-                    type="text"
+                  <option
                     value=""
                   />
-                </div>
+                  <option
+                    value="DES5R003 - Immediate call outs"
+                  >
+                    DES5R003 - Immediate call outs
+                  </option>
+                  <option
+                    value="DES5R004 - Emergency call outs"
+                  >
+                    DES5R004 - Emergency call outs
+                  </option>
+                </select>
+              </div>
+              <input
+                id="sorCodesCollection[0][description]"
+                name="sorCodesCollection[0][description]"
+                type="hidden"
+              />
+              <input
+                id="sorCodesCollection[0][contractorRef]"
+                name="sorCodesCollection[0][contractorRef]"
+                type="hidden"
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group"
+                id="sorCodesCollection[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="sorCodesCollection[0][quantity]"
+                >
+                  Quantity 
+                  <span
+                    class="govuk-required"
+                  >
+                    *
+                  </span>
+                </label>
+                <input
+                  class="govuk-input govuk-!-width-full"
+                  id="sorCodesCollection[0][quantity]"
+                  name="sorCodesCollection[0][quantity]"
+                  type="text"
+                  value=""
+                />
               </div>
             </div>
-            <a
-              class="repairs-hub-link govuk-body-s"
-              href="#"
-            >
-              + Add another SOR code
-            </a>
           </div>
-          <div
-            class="govuk-form-group"
-            id="priorityDescription-form-group"
+          <a
+            class="repairs-hub-link govuk-body-s"
+            href="#"
           >
-            <label
-              class="govuk-label"
-              for="priorityDescription"
-            >
-              Task priority 
-              <span
-                class="govuk-required"
-              >
-                *
-              </span>
-            </label>
-            <select
-              class="govuk-select govuk-!-width-full"
-              data-testid="priorityDescription"
-              id="priorityDescription"
-              name="priorityDescription"
-            >
-              <option
-                value=""
-              />
-              <option
-                value="I - Immediate (2 hours)"
-              >
-                I - Immediate (2 hours)
-              </option>
-              <option
-                value="E - Emergency (24 hours)"
-              >
-                E - Emergency (24 hours)
-              </option>
-              <option
-                value="U - Urgent 7 days (5 Working days)"
-              >
-                U - Urgent 7 days (5 Working days)
-              </option>
-              <option
-                value="N - Normal 28 days (21 working days)"
-              >
-                N - Normal 28 days (21 working days)
-              </option>
-              <option
-                value="Inspection"
-              >
-                Inspection
-              </option>
-            </select>
-          </div>
-          <input
-            id="priorityCode"
-            label="priorityCode"
-            name="priorityCode"
-            type="hidden"
-            value=""
-          />
-          <div
-            class="govuk-form-group"
-            id="descriptionOfWork-form-group"
+            + Add another SOR code
+          </a>
+        </div>
+        <div
+          class="govuk-form-group"
+          id="priorityDescription-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="priorityDescription"
           >
-            <label
-              class="govuk-label"
-              for="descriptionOfWork"
-            >
-              Repair description 
-              <span
-                class="govuk-required"
-              >
-                *
-              </span>
-            </label>
-            <textarea
-              aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
-              class="govuk-textarea"
-              id="descriptionOfWork"
-              name="descriptionOfWork"
-              rows="4"
-            />
-          </div>
-          <span
-            class="govuk-hint govuk-!-margin-bottom-6"
-          >
-            You have 
+            Task priority 
             <span
-              data-maximum-length="250"
-              id="character-count"
+              class="govuk-required"
             >
-              250
+              *
             </span>
-             characters remaining.
+          </label>
+          <select
+            class="govuk-select govuk-!-width-full"
+            data-testid="priorityDescription"
+            id="priorityDescription"
+            name="priorityDescription"
+          >
+            <option
+              value=""
+            />
+            <option
+              value="I - Immediate (2 hours)"
+            >
+              I - Immediate (2 hours)
+            </option>
+            <option
+              value="E - Emergency (24 hours)"
+            >
+              E - Emergency (24 hours)
+            </option>
+            <option
+              value="U - Urgent 7 days (5 Working days)"
+            >
+              U - Urgent 7 days (5 Working days)
+            </option>
+            <option
+              value="N - Normal 28 days (21 working days)"
+            >
+              N - Normal 28 days (21 working days)
+            </option>
+            <option
+              value="Inspection"
+            >
+              Inspection
+            </option>
+          </select>
+        </div>
+        <input
+          id="priorityCode"
+          label="priorityCode"
+          name="priorityCode"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="govuk-form-group"
+          id="descriptionOfWork-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="descriptionOfWork"
+          >
+            Repair description 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
+            class="govuk-textarea"
+            id="descriptionOfWork"
+            name="descriptionOfWork"
+            rows="4"
+          />
+        </div>
+        <span
+          class="govuk-hint govuk-!-margin-bottom-6"
+        >
+          You have 
+          <span
+            data-maximum-length="250"
+            id="character-count"
+          >
+            250
           </span>
+           characters remaining.
+        </span>
+        <input
+          id="propertyReference"
+          label="propertyReference"
+          name="propertyReference"
+          type="hidden"
+          value="00012345"
+        />
+        <input
+          id="shortAddress"
+          label="shortAddress"
+          name="shortAddress"
+          type="hidden"
+          value="16 Pitcairn House  St Thomass Square"
+        />
+        <div
+          class="govuk-form-group"
+          id="callerName-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="callerName"
+          >
+            Caller name 
+          </label>
           <input
-            id="propertyReference"
-            label="propertyReference"
-            name="propertyReference"
-            type="hidden"
-            value="00012345"
+            class="govuk-input undefined"
+            id="callerName"
+            name="callerName"
+            type="text"
           />
+        </div>
+        <div
+          class="govuk-form-group"
+          id="contactNumber-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="contactNumber"
+          >
+            Contact number 
+          </label>
           <input
-            id="shortAddress"
-            label="shortAddress"
-            name="shortAddress"
-            type="hidden"
-            value="16 Pitcairn House  St Thomass Square"
+            class="govuk-input undefined"
+            id="contactNumber"
+            name="contactNumber"
+            type="text"
           />
-          <div
-            class="govuk-form-group"
-            id="callerName-form-group"
+        </div>
+        <div
+          class="govuk-form-group"
+        >
+          <button
+            class="govuk-button"
+            data-module="govuk-button"
+            type="submit"
           >
-            <label
-              class="govuk-label"
-              for="callerName"
-            >
-              Caller name 
-            </label>
-            <input
-              class="govuk-input undefined"
-              id="callerName"
-              name="callerName"
-              type="text"
-            />
-          </div>
-          <div
-            class="govuk-form-group"
-            id="contactNumber-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="contactNumber"
-            >
-              Contact number 
-            </label>
-            <input
-              class="govuk-input undefined"
-              id="contactNumber"
-              name="contactNumber"
-              type="text"
-            />
-          </div>
-          <div
-            class="govuk-form-group"
-          >
-            <button
-              class="govuk-button"
-              data-module="govuk-button"
-              type="submit"
-            >
-              Create works order
-            </button>
-          </div>
-        </form>
-      </div>
+            Create works order
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </DocumentFragment>
