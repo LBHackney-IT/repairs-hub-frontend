@@ -12,11 +12,16 @@ const Search = ({ query }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const router = useRouter()
+  const workOrderReferenceRegex = /[0-9]{8}/g
 
   useEffect(() => {
     if (query) {
-      setSearchQuery(decodeURI(query.q))
-      searchForProperties(query.q)
+      if (workOrderReferenceRegex.test(query)) {
+        workOrderUrl(decodeURI(query.q))
+      } else {
+        setSearchQuery(decodeURI(query.q))
+        searchForProperties(query.q)
+      }
     }
   }, [])
 
@@ -41,8 +46,12 @@ const Search = ({ query }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    propertiesURL(searchQuery)
-    searchQuery && searchForProperties(searchQuery)
+    if (workOrderReferenceRegex.test(searchQuery)) {
+      workOrderUrl(searchQuery)
+    } else {
+      propertiesURL(searchQuery)
+      searchQuery && searchForProperties(searchQuery)
+    }
   }
 
   const propertiesURL = (searchQuery) => {
@@ -54,16 +63,20 @@ const Search = ({ query }) => {
     })
   }
 
+  const workOrderUrl = (searchQuery) => {
+    router.push(`/work-orders/${searchQuery}`)
+  }
+
   return (
     <div>
       <section className="section">
-        <h1 className="govuk-heading-m">Find property</h1>
+        <h1 className="govuk-heading-m">Find repair job or property</h1>
 
         <div className="govuk-form-group">
           <form>
             <label className="govuk-label">
               <p className="govuk-body-s govuk-!-margin-bottom-0">
-                Search by postcode or address
+                Search by work order reference, postcode or address
               </p>
               <input
                 type="text"

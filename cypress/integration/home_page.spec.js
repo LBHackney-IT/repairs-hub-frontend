@@ -22,8 +22,10 @@ describe('Home page', () => {
       )
 
       // Search for property component
-      cy.get('.govuk-heading-m').contains('Find property')
-      cy.get('.govuk-label').contains('Search by postcode or address')
+      cy.get('.govuk-heading-m').contains('Find repair job or property')
+      cy.get('.govuk-label').contains(
+        'Search by work order reference, postcode or address'
+      )
 
       // Run lighthouse audit for accessibility report
       cy.audit()
