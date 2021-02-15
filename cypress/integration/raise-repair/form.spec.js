@@ -70,10 +70,37 @@ describe('Raise repair form', () => {
 
     // Fill out form
     cy.get('#repair-request-form').within(() => {
-      // Select SOR Code from dropdown
+      // Select SOR code with no priority attached
+      cy.get('select[id="sorCodesCollection[0][code]"]').select(
+        'INP5R001 - Pre insp of wrks by Constructr'
+      )
+      // Does not autopopulate priority description
+      cy.get('#priorityDescription').should('have.value', '')
+
+      // Select SOR code with priority attached
+      cy.get('select[id="sorCodesCollection[0][code]"]').select(
+        'DES5R003 - Immediate call outs'
+      )
+      // Autopopulates priority description
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'I - Immediate (2 hours)'
+      )
+      // Removes Task Priority validation errors
+      cy.get('#priorityDescription-form-group .govuk-error-message').should(
+        'not.exist'
+      )
+
+      // Select another SOR code
       cy.get('select[id="sorCodesCollection[0][code]"]').select(
         'DES5R004 - Emergency call out'
       )
+      // Autopopulates priority description
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'E - Emergency (24 hours)'
+      )
+
       // Assigns description and contractor ref to hidden field
       cy.get('input[id="sorCodesCollection[0][description]"]').should(
         'have.value',
@@ -96,7 +123,7 @@ describe('Raise repair form', () => {
         cy.contains('Please select an SOR code')
       })
       cy.get('select[id="sorCodesCollection[0][code]"]').select(
-        'DES5R004 - Emergency call out'
+        'DES5R005 - Normal call outs'
       )
 
       // Enter a blank quantity
@@ -148,10 +175,57 @@ describe('Raise repair form', () => {
       cy.contains('+ Add another SOR code').click()
       // Remove link now exists for additional SOR code selector component
       cy.get('.remove-sor-code').contains('-')
+
       // Select SOR Code from dropdown
       cy.get('select[id="sorCodesCollection[1][code]"]').select(
-        'DES5R005 - Normal call outs'
+        'DES5R013 - Inspect additional sec entrance'
       )
+      // Priority description should remain same because inspection is a lower priority than normal
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'N - Normal 28 days (21 working days)'
+      )
+      // Add another SOR code with higher priority
+      cy.contains('+ Add another SOR code').click()
+      cy.get('select[id="sorCodesCollection[2][code]"]').select(
+        'DES5R003 - Immediate call outs'
+      )
+      // Autopopulates priority description with the highest priority
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'I - Immediate (2 hours)'
+      )
+      // Add another SOR code with an emergency priority
+      cy.contains('+ Add another SOR code').click()
+      cy.get('select[id="sorCodesCollection[3][code]"]').select(
+        'DES5R004 - Emergency call out'
+      )
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'I - Immediate (2 hours)'
+      )
+      // Remove SOR code at index 2
+      cy.get('button[id="remove-sor-code-2"]').click()
+      // Autopopulates priority description with the remaining highest priority
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'E - Emergency (24 hours)'
+      )
+      cy.get('button[id="remove-sor-code-3"]').click()
+      // Autopopulates priority description with the remaining highest priority
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'N - Normal 28 days (21 working days)'
+      )
+      // Select SOR code with emergency priority at index 1
+      cy.get('select[id="sorCodesCollection[1][code]"]').select(
+        'DES5R004 - Emergency call out'
+      )
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'E - Emergency (24 hours)'
+      )
+
       // Try to submit form without quantity for this SOR code at index 1
       cy.get('[type="submit"]').contains('Create works order').click()
       cy.get(
@@ -195,7 +269,11 @@ describe('Raise repair form', () => {
       )
       // Remaining SOR codes
       cy.get('button[id="remove-sor-code-1"]').should('not.exist')
-      cy.get('select[id="sorCodesCollection[0][code]"]').contains(
+      cy.get('select[id="sorCodesCollection[0][code]"]').select(
+        'DES5R004 - Emergency call out'
+      )
+      cy.get('select[id="sorCodesCollection[0][code]"]').should(
+        'have.value',
         'DES5R004 - Emergency call out'
       )
       cy.get('input[id="sorCodesCollection[0][quantity]"]').should(
@@ -203,29 +281,19 @@ describe('Raise repair form', () => {
         '1'
       )
       cy.get('button[id="remove-sor-code-0"]').should('not.exist')
-      cy.get('select[id="sorCodesCollection[2][code]"]').contains(
+      cy.get('select[id="sorCodesCollection[2][code]"]').should(
+        'have.value',
         'DES5R006 - Urgent call outs'
       )
       cy.get('input[id="sorCodesCollection[2][quantity]"]').should(
         'have.value',
         '2'
       )
+      cy.get('#priorityDescription').should(
+        'have.value',
+        'E - Emergency (24 hours)'
+      )
       cy.get('button[id="remove-sor-code-2"]').contains('-')
-
-      // Select Task Priority
-      cy.get('#priorityDescription').select('E - Emergency (24 hours)')
-      // Removes Task Priority validation errors
-      cy.get('#priorityDescription-form-group .govuk-error-message').should(
-        'not.exist'
-      )
-      // Select blank Task Priority
-      cy.get('#priorityDescription').select('')
-      cy.get('#priorityDescription-form-group .govuk-error-message').within(
-        () => {
-          cy.contains('Please select a priority')
-        }
-      )
-      cy.get('#priorityDescription').select('E - Emergency (24 hours)')
 
       // Go over the Repair description character limit
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('x'.repeat(251))
