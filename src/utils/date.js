@@ -30,3 +30,13 @@ export const convertToDateFormat = (string) => {
   const dateAsString = `${string.date}T${string.time}`
   return convertDate(dateAsString)
 }
+
+export const calculateNewDateTimeFromDate = (date, hours) => {
+  if (!hours) {
+    console.error('No argument given, hours must be supplied')
+    return null
+  }
+
+  // let currentDateTime = new Date()
+  return new Date(date.getTime() + hours * 3600000)
+}

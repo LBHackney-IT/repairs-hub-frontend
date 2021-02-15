@@ -43,5 +43,8 @@
     .status-work-complete {
       background-color: repairs-hub-colour('status-complete');
     }
+    .status-work-cancelled {
+      background-color: repairs-hub-colour('status-not-complete');
+    }
   }
 }

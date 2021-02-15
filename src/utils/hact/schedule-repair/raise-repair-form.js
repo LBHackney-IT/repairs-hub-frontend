@@ -1,8 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
-import {
-  mapPriorityCodeToHact,
-  calculateRequiredCompletionDateTime,
-} from '../helpers/priority-codes'
+import { mapPriorityCodeToHact } from '../helpers/priority-codes'
+import { calculateNewDateTimeFromDate } from '../../date'
 
 export const buildScheduleRepairFormData = (formData) => {
   return {
@@ -16,7 +14,8 @@ export const buildScheduleRepairFormData = (formData) => {
       priorityCode:
         mapPriorityCodeToHact[formData.priorityCode].priorityCodeHact,
       priorityDescription: formData.priorityDescription,
-      requiredCompletionDateTime: calculateRequiredCompletionDateTime(
+      requiredCompletionDateTime: calculateNewDateTimeFromDate(
+        new Date(),
         mapPriorityCodeToHact[formData.priorityCode].numberOfHours
       ),
       numberOfDays: mapPriorityCodeToHact[formData.priorityCode].numberOfDays,

@@ -236,14 +236,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         <span
           class="govuk-hint govuk-!-margin-bottom-6"
         >
-          You have 
-          <span
-            data-maximum-length="250"
-            id="character-count"
-          >
-            250
-          </span>
-           characters remaining.
+          You have 250 characters remaining.
         </span>
         <input
           id="propertyReference"

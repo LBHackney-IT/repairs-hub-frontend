@@ -3,7 +3,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
-import { Select, Button, TextArea, TextInput } from '../../Form'
+import {
+  Select,
+  Button,
+  CharacterCountLimitedTextArea,
+  TextInput,
+} from '../../Form'
 import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 import SorCodeSelectView from './SorCodeSelectView'
 
@@ -35,13 +40,6 @@ const RaiseRepairForm = ({
     )[0]
 
     setPriorityCode(priorityObject?.priorityCode)
-  }
-
-  const characterCount = () => {
-    const characterCount = document.getElementById('character-count')
-    const maxLength = characterCount.dataset.maximumLength
-
-    characterCount.innerText = maxLength - event.target.value.length
   }
 
   return (
@@ -101,27 +99,15 @@ const RaiseRepairForm = ({
               value={priorityCode}
               ref={register}
             />
-            <TextArea
+            <CharacterCountLimitedTextArea
               name="descriptionOfWork"
               label="Repair description"
-              onKeyUp={characterCount}
               required={true}
-              register={register({
-                required: 'Please enter a repair description',
-                maxLength: {
-                  value: 250,
-                  message: 'You have exceeded the maximum amount of characters',
-                },
-              })}
+              maxLength={250}
+              requiredText="Please enter a repair description"
+              register={register}
               error={errors && errors.descriptionOfWork}
             />
-            <span className="govuk-hint govuk-!-margin-bottom-6">
-              You have{' '}
-              <span id="character-count" data-maximum-length="250">
-                250
-              </span>{' '}
-              characters remaining.
-            </span>
             <input
               id="propertyReference"
               name="propertyReference"

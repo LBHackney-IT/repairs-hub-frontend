@@ -6,7 +6,7 @@ import SummaryCloseJob from './SummaryCloseJob'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { postCompleteWorkOrder } from '../../utils/frontend-api-client/work-orders'
-import { buildCloseJobData } from '../../utils/hact/close-job'
+import { buildCloseJobData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 
 const CloseJob = ({ reference }) => {

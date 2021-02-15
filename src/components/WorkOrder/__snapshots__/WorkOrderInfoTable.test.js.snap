@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkOrderInfoTable component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <table
+      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+    >
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row"
+          id="property"
+        >
+          <th
+            class="govuk-table__header"
+            scope="row"
+          >
+            Property
+          </th>
+          <td
+            class="govuk-table__cell"
+          >
+            315 Banister House Homerton High Street
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row"
+          id="description"
+        >
+          <th
+            class="govuk-table__header"
+            scope="row"
+          >
+            Description
+          </th>
+          <td
+            class="govuk-table__cell"
+          >
+            Broken pipe in bathroom
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;

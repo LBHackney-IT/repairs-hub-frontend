@@ -1,9 +1,4 @@
-import MockDate from 'mockdate'
-
-import {
-  mapPriorityCodeToHact,
-  calculateRequiredCompletionDateTime,
-} from './priority-codes'
+import { mapPriorityCodeToHact } from './priority-codes'
 
 describe('Priority code HACT mapping object', () => {
   it('should map to the correct values', () => {
@@ -32,16 +27,5 @@ describe('Priority code HACT mapping object', () => {
       numberOfDays: 365,
       priorityCodeHact: 4,
     })
-  })
-})
-
-describe('calculateRequiredCompletionDateTime', () => {
-  // 2021-01-14T18:16:20.986Z
-  MockDate.set(1610648180986)
-
-  it('should calculate the date time given number of hours', () => {
-    expect(calculateRequiredCompletionDateTime(24)).toEqual(
-      new Date('2021-01-15T18:16:20.986Z')
-    )
   })
 })
