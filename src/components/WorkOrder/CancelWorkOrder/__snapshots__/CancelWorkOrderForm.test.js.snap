@@ -111,14 +111,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
           <span
             class="govuk-hint govuk-!-margin-bottom-6"
           >
-            You have 
-            <span
-              data-maximum-length="200"
-              id="character-count"
-            >
-              200
-            </span>
-             characters remaining.
+            You have 200 characters remaining.
           </span>
           <div
             class="govuk-form-group"
