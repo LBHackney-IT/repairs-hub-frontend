@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PropertyDetails component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-grid-row govuk-body-s govuk-!-margin-bottom-2"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <h1
+        class="govuk-heading-l govuk-!-margin-bottom-2"
+      >
+        Dwelling: 16 Pitcairn House
+      </h1>
+      <ul
+        class="hackney-property-alerts"
+      >
+        <li
+          class="bg-turquoise"
+        >
+          Tenure: Secure
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;

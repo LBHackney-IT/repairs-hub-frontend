@@ -35,7 +35,7 @@ const WorkOrderHeader = ({
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails />
+        <AppointmentDetails workOrder={workOrder} />
       </div>
     </div>
   )

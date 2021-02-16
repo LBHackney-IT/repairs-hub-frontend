@@ -11,6 +11,12 @@ $repairs-hub-colours: (
   'status-planned': #009ca6,
   'status-complete': darkgray,
   'status-not-complete': crimson,
+  'calendar-available': govuk-colour('white'),
+  'calendar-current': #6895c6,
+  'calendar-selected': #b2cce2,
+  'calendar-border': #e2e4e6,
+  'calendar-divider': #c7c8ca,
+  'calendar-month': #7d8287,
 );
 
 @function repairs-hub-colour($colour) {

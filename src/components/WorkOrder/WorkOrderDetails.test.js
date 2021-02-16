@@ -38,16 +38,16 @@ describe('WorkOrderDetails component', () => {
     alerts: {
       locationAlert: [
         {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
+          type: 'DIS',
+          comments: 'Property Under Disrepair',
           startDate: '2011-02-16',
           endDate: null,
         },
       ],
       personAlert: [
         {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
+          type: 'DIS',
+          comments: 'Property Under Disrepair',
           startDate: '2011-08-16',
           endDate: null,
         },
