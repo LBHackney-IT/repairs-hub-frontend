@@ -1,7 +1,7 @@
 import ChooseOption from '../../../../components/WorkOrders/ChooseOption'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../../../../utils/user'
+import { CONTRACTOR_ROLE } from '../../../../utils/user'
 
-const JobPage = ({ query }) => {
+const ChooseJobOptionPage = ({ query }) => {
   return <ChooseOption reference={query.id} />
 }
 export const getServerSideProps = async (ctx) => {
@@ -14,6 +14,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-JobPage.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE]
+ChooseJobOptionPage.permittedRoles = [CONTRACTOR_ROLE]
 
-export default JobPage
+export default ChooseJobOptionPage
