@@ -1,3 +1,5 @@
+const DAY = 86400000
+
 export const extractTimeFromDate = (date) =>
   date.toLocaleString('en-GB', {
     hour: 'numeric',
@@ -17,4 +19,21 @@ export const formatDateTime = (datetime) => {
     hour: 'numeric',
     minute: '2-digit',
   })
+}
+
+export const beginningOfDay = (date) => {
+  return new Date(Math.floor(date.getTime() / DAY) * DAY)
+}
+
+export const beginningOfWeek = (date) => {
+  const offset = ((date.getDay() + 6) % 7) * DAY
+  return beginningOfDay(new Date(date.getTime() - offset))
+}
+
+export const daysAfter = (date, days) => {
+  return new Date(date.getTime() + days * DAY)
+}
+
+export const dateEqual = (date, otherDate) => {
+  return date.getTime() === otherDate.getTime()
 }

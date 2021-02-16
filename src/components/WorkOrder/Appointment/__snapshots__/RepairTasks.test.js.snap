@@ -1,0 +1,110 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RepairTasks component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-grid-row govuk-body-s"
+  >
+    <div
+      class="govuk-grid-column-full"
+    >
+      <h2
+        class="govuk-heading-m govuk-!-margin-bottom-1"
+      >
+        Repair task details
+      </h2>
+      <table
+        class="govuk-table govuk-!-margin-top-1 govuk-!-margin-bottom-3"
+      >
+        <thead
+          class="govuk-table__head"
+        >
+          <tr
+            class="govuk-table__row govuk-body"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="col"
+            >
+              SOR Code
+            </th>
+            <th
+              class="govuk-table__header govuk-!-width-one-half"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter govuk-table__header--numeric"
+              scope="col"
+            >
+              Quantity (est.)
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
+        >
+          <tr
+            class="govuk-table__row"
+          >
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter"
+            >
+              DES5R006
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-half"
+            >
+              Urgent call outs
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter govuk-table__cell--numeric"
+            >
+              2
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter"
+            >
+              DES5R005
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-half"
+            >
+              Normal call outs
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter govuk-table__cell--numeric"
+            >
+              4
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter"
+            >
+              DES5R013
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-half"
+            >
+              Inspect additional sec entrance
+            </td>
+            <td
+              class="govuk-table__cell govuk-!-width-one-quarter govuk-table__cell--numeric"
+            >
+              5
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</DocumentFragment>
+`;

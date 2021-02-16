@@ -5,6 +5,13 @@ import {
   sortObjectsByDateKey,
   convertToDateFormat,
   calculateNewDateTimeFromDate,
+  shortDayName,
+  shortDate,
+  monthDay,
+  shortMonthName,
+  longMonthName,
+  isBeginningOfMonth,
+  toISODate,
 } from './date'
 
 describe('date', () => {
@@ -120,5 +127,75 @@ describe('calculateNewDateTimeFromDate', () => {
     expect(calculateNewDateTimeFromDate(new Date(), 24)).toEqual(
       new Date('2021-01-15T18:16:20.986Z')
     )
+  })
+})
+
+describe('shortDayName', () => {
+  it('returns Sun for a date which is a Sunday', () => {
+    expect(shortDayName(new Date('2021-02-14T00:00:00'))).toEqual('Sun')
+  })
+
+  it('returns Mon for a date which is a Monday', () => {
+    expect(shortDayName(new Date('2021-02-15T00:00:00'))).toEqual('Mon')
+  })
+
+  it('returns Tue for a date which is a Tuesday', () => {
+    expect(shortDayName(new Date('2021-02-16T00:00:00'))).toEqual('Tue')
+  })
+
+  it('returns Wed for a date which is a Wednesday', () => {
+    expect(shortDayName(new Date('2021-02-17T00:00:00'))).toEqual('Wed')
+  })
+
+  it('returns Thu for a date which is a Thursday', () => {
+    expect(shortDayName(new Date('2021-02-18T00:00:00'))).toEqual('Thu')
+  })
+
+  it('returns Fri for a date which is a Friday', () => {
+    expect(shortDayName(new Date('2021-02-19T00:00:00'))).toEqual('Fri')
+  })
+
+  it('returns Sat for a date which is a Saturday', () => {
+    expect(shortDayName(new Date('2021-02-20T00:00:00'))).toEqual('Sat')
+  })
+})
+
+describe('shortDate', () => {
+  it('returns the day and short month name', () => {
+    expect(shortDate(new Date('2021-02-15T00:00:00'))).toEqual('15 Feb')
+  })
+})
+
+describe('monthDay', () => {
+  it('returns the month day number', () => {
+    expect(monthDay(new Date('2021-02-15T00:00:00'))).toEqual('15')
+  })
+})
+
+describe('shortMonthName', () => {
+  it('returns the short month name', () => {
+    expect(shortMonthName(new Date('2021-02-15T00:00:00'))).toEqual('Feb')
+  })
+})
+
+describe('longMonthName', () => {
+  it('returns the month day number', () => {
+    expect(longMonthName(new Date('2021-02-15T00:00:00'))).toEqual('February')
+  })
+})
+
+describe('isBeginningOfMonth', () => {
+  it('returns true for the first day of the month', () => {
+    expect(isBeginningOfMonth(new Date('2021-02-01T00:00:00'))).toBe(true)
+  })
+
+  it('returns false for other days of the month', () => {
+    expect(isBeginningOfMonth(new Date('2021-02-15T00:00:00'))).toBe(false)
+  })
+})
+
+describe('toISODate', () => {
+  it('returns the ISO 8601 date string', () => {
+    expect(toISODate(new Date('2021-02-15T00:00:00'))).toEqual('2021-02-15')
   })
 })
