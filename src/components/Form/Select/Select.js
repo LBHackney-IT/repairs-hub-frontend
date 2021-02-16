@@ -48,11 +48,11 @@ const Select = ({
       defaultValue={defaultValue}
     >
       {isUnselectable && <option key="empty" value=""></option>}
-      {options.map((option) => {
+      {options.map((option, i) => {
         const { value, text } =
           typeof option === 'string' ? { value: option, text: option } : option
         return (
-          <option key={value} value={value}>
+          <option key={value + i} value={value}>
             {text}
           </option>
         )
