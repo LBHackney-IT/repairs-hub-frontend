@@ -33,9 +33,16 @@ const WorkOrderView = ({ workOrderReference }) => {
       setWorkOrder(null)
       setProperty(null)
       console.log('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+
+      if (e.response?.status === 404) {
+        setError(
+          `Could not find a work order with reference ${workOrderReference}`
+        )
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status}`
+        )
+      }
     }
 
     setLoading(false)

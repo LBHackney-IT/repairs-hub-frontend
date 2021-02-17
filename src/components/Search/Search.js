@@ -7,29 +7,30 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
 
 const Search = ({ query }) => {
-  const [searchParams, setSearchParams] = useState('')
+  const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
-  const [searching, setSearching] = useState(true)
-  const [searchQuery, setSearchQuery] = useState('')
   const [error, setError] = useState()
   const router = useRouter()
+  const workOrderReferenceRegex = /[0-9]{8}/g
 
   useEffect(() => {
     if (query) {
-      setSearchParams(decodeURI(query.q))
-      searchForProperties(query.q)
+      if (workOrderReferenceRegex.test(query)) {
+        workOrderUrl(decodeURI(query.q))
+      } else {
+        setSearchQuery(decodeURI(query.q))
+        searchForProperties(query.q)
+      }
     }
   }, [])
 
-  async function searchForProperties(newSearchQuery) {
-    setSearching(true)
+  const searchForProperties = async (searchQuery) => {
     setLoading(true)
-    setSearchQuery(newSearchQuery)
     setError(null)
 
     try {
-      const data = await getProperties(newSearchQuery)
+      const data = await getProperties(searchQuery)
       setProperties(data)
     } catch (e) {
       setProperties(null)
@@ -39,63 +40,49 @@ const Search = ({ query }) => {
       )
     }
 
-    setSearching(false)
     setLoading(false)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    setSearchQuery(searchParams)
-
-    updateSearchQuery(searchParams)
-    query && searchForProperties(searchParams)
+    if (workOrderReferenceRegex.test(searchQuery)) {
+      workOrderUrl(searchQuery)
+    } else {
+      propertiesURL(searchQuery)
+      searchQuery && searchForProperties(searchQuery)
+    }
   }
 
-  const updateSearchQuery = (newSearchQuery) => {
+  const propertiesURL = (searchQuery) => {
     router.push({
       pathname: '/properties/search',
       query: {
-        q: encodeURI(newSearchQuery),
+        q: encodeURI(searchQuery),
       },
     })
   }
 
-  const renderSearchResults = () => {
-    if (properties?.length > 0) {
-      return <PropertiesTable properties={properties} query={searchQuery} />
-    }
-
-    if (!error) {
-      return (
-        <>
-          <div>
-            <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-            <p className="govuk-heading-s">
-              We found 0 matching results for: {decodeURI(searchQuery)}
-            </p>
-          </div>
-        </>
-      )
-    }
+  const workOrderUrl = (searchQuery) => {
+    router.push(`/work-orders/${searchQuery}`)
   }
 
   return (
     <div>
       <section className="section">
-        <h1 className="govuk-heading-m">Find property</h1>
+        <h1 className="govuk-heading-m">Find repair job or property</h1>
 
         <div className="govuk-form-group">
           <form>
             <label className="govuk-label">
               <p className="govuk-body-s govuk-!-margin-bottom-0">
-                Search by postcode or address
+                Search by work order reference, postcode or address
               </p>
               <input
                 type="text"
                 className="govuk-input govuk-input--width-10 focus-colour govuk-!-margin-bottom-5"
-                value={searchParams}
-                onChange={(event) => setSearchParams(event.target.value)}
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
               />
             </label>
             <Button type="submit" label="Search" onClick={handleSubmit} />
@@ -107,7 +94,9 @@ const Search = ({ query }) => {
         <Spinner />
       ) : (
         <>
-          {!searching && renderSearchResults()}
+          {properties?.length > 0 && (
+            <PropertiesTable properties={properties} query={searchQuery} />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
