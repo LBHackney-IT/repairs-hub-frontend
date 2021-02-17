@@ -14,15 +14,17 @@ describe('buildRaiseRepairFormData', () => {
         code: 'DES5R006 - Urgent call outs',
         description: 'Urgent call outs',
         quantity: '1',
-        contractorRef: 'H01',
       },
       {
         code: 'DES5R005 - Normal call outs',
         description: 'Normal call outs',
         quantity: '3',
-        contractorRef: 'H01',
       },
     ],
+    trade: 'Plumbing',
+    tradeCode: 'PL',
+    contractor: 'Purdy Contracts (P) Ltd - PCL',
+    contractorRef: 'PCL',
     quantity: '1',
     priorityDescription: 'U - Urgent (5 Working days)',
     priorityCode: '3',
@@ -62,6 +64,13 @@ describe('buildRaiseRepairFormData', () => {
               quantity: { amount: [1] },
             },
           ],
+          trade: [
+            {
+              code: 'SP',
+              customCode: 'PL',
+              customName: 'Plumbing',
+            },
+          ],
         },
         {
           rateScheduleItem: [
@@ -69,6 +78,13 @@ describe('buildRaiseRepairFormData', () => {
               customCode: 'DES5R005',
               customName: 'Normal call outs',
               quantity: { amount: [3] },
+            },
+          ],
+          trade: [
+            {
+              code: 'SP',
+              customCode: 'PL',
+              customName: 'Plumbing',
             },
           ],
         },
@@ -92,11 +108,11 @@ describe('buildRaiseRepairFormData', () => {
         name: 'Hackney Housing',
       },
       assignedToPrimary: {
-        name: 'Contractor H01',
+        name: 'Purdy Contracts (P) Ltd',
         organization: {
           reference: [
             {
-              id: 'H01',
+              id: 'PCL',
             },
           ],
         },

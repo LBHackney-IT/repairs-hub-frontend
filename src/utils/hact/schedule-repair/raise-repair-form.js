@@ -36,6 +36,17 @@ export const buildScheduleRepairFormData = (formData) => {
                 },
               },
             ],
+            trade: [
+              {
+                // Hardcoding this as 'SP' - 'Specialist' as code is a mandatory field
+                // but we will only use the customCode field from the API.
+                // There is no 'other' type code to use so this appears to be the
+                // most generic one in the permitted list
+                code: 'SP',
+                customCode: formData.tradeCode,
+                customName: formData.trade,
+              },
+            ],
           },
         ]
       })
@@ -59,11 +70,11 @@ export const buildScheduleRepairFormData = (formData) => {
       name: 'Hackney Housing',
     },
     assignedToPrimary: {
-      name: `Contractor ${formData.sorCodesCollection[0].contractorRef}`,
+      name: formData.contractor.split(' - ')[0],
       organization: {
         reference: [
           {
-            id: formData.sorCodesCollection[0].contractorRef,
+            id: formData.contractorRef,
           },
         ],
       },

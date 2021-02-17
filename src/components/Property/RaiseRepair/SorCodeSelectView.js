@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 import { useState, Fragment } from 'react'
 import SorCodeSelect from './SorCodeSelect'
+import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import Spinner from '../../Spinner/Spinner'
 
 const SorCodeSelectView = ({
   sorCodes,
   register,
   errors,
+  disabled,
   updatePriority,
   getPriorityObjectByCode,
+  loading,
+  apiError,
 }) => {
-  const sorCodesList = sorCodes.map(
-    (code) => `${code.customCode} - ${code.customName}`
-  )
   const [
     arrayOfSorCodeSelectComponentIndexes,
     setArrayOfSorCodeSelectComponentIndexes,
@@ -19,24 +21,25 @@ const SorCodeSelectView = ({
 
   const [sorCodeObjects, setSorCodeObjects] = useState([])
 
+  const sorCodesList = sorCodes.map(
+    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
+  )
+
   const getSorCodeObject = (value) => {
-    return sorCodes.filter((a) => a.customCode == value)[0]
+    return sorCodes.filter((a) => a.code == value)[0]
   }
 
   const onSorCodeSelect = (index, event) => {
     const value = event.target.value.split(' - ')[0]
     const sorCodeObject = getSorCodeObject(value)
-    const sorCodeDescription = sorCodeObject?.customName || ''
-    const sorCodeContractorRef = sorCodeObject?.sorContractor.reference || ''
+
+    const sorCodeDescription = sorCodeObject?.shortDescription || ''
 
     document.getElementById(
       `sorCodesCollection[${index}][description]`
     ).value = sorCodeDescription
-    document.getElementById(
-      `sorCodesCollection[${index}][contractorRef]`
-    ).value = sorCodeContractorRef
 
-    if (sorCodeObject?.priority) {
+    if (sorCodeObject?.priority?.priorityCode) {
       const sorCodeObjectAtSameIndex = sorCodeObjects.find(
         (e) => e.index === index
       )
@@ -114,6 +117,7 @@ const SorCodeSelectView = ({
             sorCodesList={sorCodesList}
             register={register}
             errors={errors}
+            disabled={disabled}
             key={i}
             index={i}
             onSorCodeSelect={onSorCodeSelect}
@@ -126,17 +130,24 @@ const SorCodeSelectView = ({
   }
 
   return (
-    <div className="govuk-!-padding-bottom-5">
-      {sorCodeSelectCollection()}
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="govuk-!-padding-bottom-5">
+          {sorCodeSelectCollection()}
+          {apiError && <ErrorMessage label={apiError} />}
 
-      <a
-        onClick={addSorCodeSelect}
-        href="#"
-        className="repairs-hub-link govuk-body-s"
-      >
-        + Add another SOR code
-      </a>
-    </div>
+          <a
+            onClick={addSorCodeSelect}
+            href="#"
+            className="repairs-hub-link govuk-body-s"
+          >
+            + Add another SOR code
+          </a>
+        </div>
+      )}
+    </>
   )
 }
 
@@ -144,6 +155,11 @@ SorCodeSelectView.propTypes = {
   sorCodes: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  updatePriority: PropTypes.func.isRequired,
+  getPriorityObjectByCode: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  apiError: PropTypes.bool,
 }
 
 export default SorCodeSelectView

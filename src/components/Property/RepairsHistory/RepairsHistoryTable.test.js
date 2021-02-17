@@ -9,7 +9,7 @@ describe('RepairsHistoryTable component', () => {
         reference: 10000012,
         dateRaised: new Date('2021-01-18T15:28:57.17811'),
         lastUpdated: null,
-        priority: 'I - Immediate (2 hours)',
+        priority: '1 [I] IMMEDIATE',
         property: '16 Pitcairn House  St Thomass Square',
         owner: '',
         description: 'This is an immediate repair description',

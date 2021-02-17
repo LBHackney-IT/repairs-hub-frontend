@@ -40,34 +40,10 @@ describe('RaiseRepairForm component', () => {
       typeCode: 'SEC',
       typeDescription: 'Secure',
     },
-    sorCodes: [
-      {
-        customCode: 'DES5R003',
-        customName: 'Immediate call outs',
-        priority: {
-          priorityCode: 1,
-          description: 'I - Immediate (2 hours)',
-        },
-        sorContractor: {
-          reference: 'H01',
-        },
-      },
-      {
-        customCode: 'DES5R004',
-        customName: 'Emergency call outs',
-        priority: {
-          priorityCode: 2,
-          description: 'E - Emergency (24 hours)',
-        },
-        sorContractor: {
-          reference: 'H01',
-        },
-      },
-    ],
     priorities: [
       {
         priorityCode: 1,
-        description: 'I - Immediate (2 hours)',
+        description: '1 [I] IMMEDIATE',
       },
       {
         priorityCode: 2,
@@ -86,6 +62,16 @@ describe('RaiseRepairForm component', () => {
         description: 'Inspection',
       },
     ],
+    trades: [
+      {
+        code: 'DE',
+        name: 'DOOR ENTRY ENGINEER',
+      },
+      {
+        code: 'PL',
+        name: 'Plumbing',
+      },
+    ],
     onFormSubmit: jest.fn(),
   }
 
@@ -99,8 +85,8 @@ describe('RaiseRepairForm component', () => {
         tenure={props.tenure}
         locationAlerts={props.alerts.locationAlert}
         personAlerts={props.alerts.personAlert}
-        sorCodes={props.sorCodes}
         priorities={props.priorities}
+        trades={props.trades}
         onFormSubmit={props.onFormSubmit}
       />
     )
