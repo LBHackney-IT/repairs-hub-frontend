@@ -2,7 +2,7 @@ export const extractTimeFromDate = (date) =>
   date.toLocaleString('en-GB', {
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true,
+    hourCycle: 'h12',
   })
 
 export const formatDateTime = (datetime) => {
@@ -10,7 +10,7 @@ export const formatDateTime = (datetime) => {
     datetime = new Date(datetime)
   }
   return datetime.toLocaleString('en-GB', {
-    hour12: true,
+    hourCycle: 'h12',
     day: 'numeric',
     month: 'short',
     year: 'numeric',
