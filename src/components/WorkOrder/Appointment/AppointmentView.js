@@ -11,6 +11,9 @@ import BackButton from '../../Layout/BackButton/BackButton'
 import PropertyDetails from './PropertyDetails'
 import RepairTasks from './RepairTasks'
 import AppointmentCalendar from './AppointmentCalendar'
+import { postScheduleAppointment } from '../../../utils/frontend-api-client/appointments'
+import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
+import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 
 const AppointmentView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -20,6 +23,13 @@ const AppointmentView = ({ workOrderReference }) => {
   const [tenure, setTenure] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState({})
   const [availableAppointments, setAvailableAppointments] = useState([])
+  const [comments, setComments] = useState('')
+  const [dateSelected, setDateSelected] = useState('')
+  const [slot, setSlot] = useState('')
+  const [scheduleAppointmentSuccess, setScheduleAppointmentSuccess] = useState(
+    false
+  )
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
@@ -63,6 +73,34 @@ const AppointmentView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
+  const makePostRequest = async (
+    formData,
+    comments,
+    dateSelected,
+    slot,
+    commentsForJobStatus
+  ) => {
+    setComments(comments)
+    setDateSelected(dateSelected)
+    setSlot(slot)
+
+    setLoading(true)
+
+    try {
+      await postScheduleAppointment(formData).then(() =>
+        postJobStatusUpdate(commentsForJobStatus)
+      )
+      setScheduleAppointmentSuccess(true)
+    } catch (e) {
+      console.log(e)
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status}`
+      )
+    }
+
+    setLoading(false)
+  }
+
   useEffect(() => {
     setLoading(true)
 
@@ -75,12 +113,13 @@ const AppointmentView = ({ workOrderReference }) => {
         <Spinner />
       ) : (
         <>
-          <BackButton />
+          {!scheduleAppointmentSuccess && <BackButton />}
           {property &&
             property.address &&
             property.hierarchyType &&
             tenure &&
-            workOrder && (
+            workOrder &&
+            !scheduleAppointmentSuccess && (
               <>
                 <PropertyDetails
                   address={property.address}
@@ -93,10 +132,21 @@ const AppointmentView = ({ workOrderReference }) => {
                 <RepairTasks tasks={tasksAndSors} />
                 <AppointmentCalendar
                   availableAppointments={availableAppointments}
+                  workOrderReference={workOrderReference}
+                  makePostRequest={makePostRequest}
                 />
               </>
             )}
           {error && <ErrorMessage label={error} />}
+          {scheduleAppointmentSuccess && (
+            <ScheduleAppointmentSuccess
+              property={property}
+              workOrderReference={workOrderReference}
+              dateSelected={dateSelected}
+              slot={slot}
+              comments={comments}
+            />
+          )}
         </>
       )}
     </>
