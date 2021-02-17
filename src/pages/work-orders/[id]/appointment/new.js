@@ -1,3 +1,4 @@
+import { AGENT_ROLE } from 'src/utils/user'
 import AppointmentView from '../../../../components/WorkOrders/Appointment/AppointmentView'
 
 const AppointmentPage = ({ query }) => {
@@ -12,5 +13,7 @@ export const getServerSideProps = async (ctx) => {
     },
   }
 }
+
+AppointmentPage.permittedRoles = [AGENT_ROLE]
 
 export default AppointmentPage

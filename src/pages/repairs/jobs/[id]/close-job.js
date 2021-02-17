@@ -1,7 +1,7 @@
 import CloseJob from '../../../../components/WorkOrders/CloseJob'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../../../../utils/user'
+import { CONTRACTOR_ROLE } from '../../../../utils/user'
 
-const JobPage = ({ query }) => {
+const CloseJobPage = ({ query }) => {
   return <CloseJob reference={query.id} />
 }
 export const getServerSideProps = async (ctx) => {
@@ -14,6 +14,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-JobPage.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE]
+CloseJobPage.permittedRoles = [CONTRACTOR_ROLE]
 
-export default JobPage
+export default CloseJobPage

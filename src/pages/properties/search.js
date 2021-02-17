@@ -1,5 +1,5 @@
 import Search from '../../components/Search/Search'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../../utils/user'
+import { AGENT_ROLE } from '../../utils/user'
 
 const SearchPage = ({ query }) => {
   return <Search query={query} />
@@ -15,6 +15,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-SearchPage.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE]
+SearchPage.permittedRoles = [AGENT_ROLE]
 
 export default SearchPage

@@ -378,3 +378,22 @@ describe('Raise repair form', () => {
     cy.audit()
   })
 })
+
+// This is a "special" integration test to end-to-end test
+// our permission system. We don't need to replicate this
+// for all our features because we have broad low-level test coverage.
+describe('When a contractor tries to raise a repair using the UI', () => {
+  beforeEach(() => {
+    cy.loginWithContractorRole()
+  })
+
+  it('rejects the request and shows the access-denied page instead', () => {
+    cy.visit(`${Cypress.env('HOST')}/properties/00012345/raise-repair/new`)
+
+    cy.contains('New repair').should('not.exist')
+    cy.url().should('not.contain', 'properties/00012345/raise-repair/new')
+
+    cy.contains('Access denied')
+    cy.url().should('contain', 'access-denied')
+  })
+})
