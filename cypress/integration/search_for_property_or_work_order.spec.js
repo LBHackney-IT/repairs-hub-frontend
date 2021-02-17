@@ -71,20 +71,17 @@ describe('Search by work order reference, postcode or address', () => {
   })
 
   describe('Search by work order reference', () => {
-    beforeEach(() => {
-      cy.fixture('repairs/work-order.json').as('workOrder')
-      cy.fixture('properties/property.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.route('GET', 'api/repairs/10000012', '@workOrder')
-
-      // Search by postcode
-      cy.get('.govuk-input').clear().type('10000012')
-      cy.get('[type="submit"]').contains('Search').click()
-      cy.url().should('contains', 'work-orders/10000012')
-    })
-
     context('Displays the page for a work order', () => {
       beforeEach(() => {
+        cy.fixture('repairs/work-order.json').as('workOrder')
+        cy.fixture('properties/property.json').as('property')
+        cy.route('GET', 'api/properties/00012345', '@property')
+        cy.route('GET', 'api/repairs/10000012', '@workOrder')
+
+        // Search by postcode
+        cy.get('.govuk-input').clear().type('10000012')
+        cy.get('[type="submit"]').contains('Search').click()
+        cy.url().should('contains', 'work-orders/10000012')
         cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
       })
 
@@ -138,6 +135,33 @@ describe('Search by work order reference, postcode or address', () => {
           cy.contains('Target: 23 Jan 2021, 6:30 pm')
           cy.contains('Caller: Jill Smith')
           cy.contains('07700 900999')
+        })
+
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+    })
+
+    context('Displays an error for wrong work order reference', () => {
+      beforeEach(() => {
+        cy.route({
+          method: 'GET',
+          url: 'api/repairs/00000000',
+          status: 404,
+          response: '',
+        }).as('repairs_with_error')
+        // Search by postcode
+        cy.get('.govuk-input').clear().type('00000000')
+        cy.get('[type="submit"]').contains('Search').click()
+        cy.url().should('contains', 'work-orders/00000000')
+        cy.visit(`${Cypress.env('HOST')}/work-orders/00000000`)
+
+        cy.wait('@repairs_with_error')
+      })
+
+      it('Error message', () => {
+        cy.get('.govuk-error-message').within(() => {
+          cy.contains('Could not find a work order with reference 00000000')
         })
 
         // Run lighthouse audit for accessibility report
