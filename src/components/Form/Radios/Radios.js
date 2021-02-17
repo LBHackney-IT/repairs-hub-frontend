@@ -38,8 +38,10 @@ const Radio = ({
       className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
     >
       {options.map((option) => {
-        const { value, text } =
-          typeof option === 'string' ? { value: option, text: option } : option
+        const { value, text, defaultChecked } =
+          typeof option === 'string'
+            ? { value: option, text: option, defaultChecked: false }
+            : option
         return (
           <div className="govuk-radios__item" key={text}>
             <input
@@ -52,6 +54,7 @@ const Radio = ({
               value={value}
               ref={register}
               aria-describedby={hint && `${name}-hint`}
+              defaultChecked={defaultChecked}
               {...otherProps}
             />
             <label
