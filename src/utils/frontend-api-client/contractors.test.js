@@ -15,8 +15,8 @@ describe('getContractors', () => {
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith(
-      '/api/contractors?propertyReference=1&tradeCode=PL'
-    )
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/contractors', {
+      params: { propertyReference: '1', tradeCode: 'PL' },
+    })
   })
 })

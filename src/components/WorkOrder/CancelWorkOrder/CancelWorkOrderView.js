@@ -5,7 +5,7 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
 import { getRepair } from '../../../utils/frontend-api-client/repairs'
-import { postCompleteWorkOrder } from '../../../utils/frontend-api-client/work-orders'
+import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
 import { convertDate } from '../../../utils/date'
 import { canCancelWorkOrder } from '../../../utils/helpers/cancel-work-order'
 
@@ -20,7 +20,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      await postCompleteWorkOrder(formData)
+      await postWorkOrderComplete(formData)
       setFormSuccess(true)
     } catch (e) {
       console.log(e)

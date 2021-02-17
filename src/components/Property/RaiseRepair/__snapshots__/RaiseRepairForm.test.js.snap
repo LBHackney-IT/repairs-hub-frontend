@@ -61,6 +61,79 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         role="form"
       >
         <div
+          class="govuk-form-group"
+          id="trade-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="trade"
+          >
+            Trade 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            autocomplete="off"
+            class="govuk-select govuk-!-width-one-half"
+            data-testid="trade"
+            id="trade"
+            list="autocomplete-list-trade"
+            name="trade"
+          />
+          <datalist
+            id="autocomplete-list-trade"
+          >
+            <option
+              value="DOOR ENTRY ENGINEER - DE"
+            />
+            <option
+              value="Plumbing - PL"
+            />
+          </datalist>
+        </div>
+        <input
+          id="tradeCode"
+          name="tradeCode"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="govuk-form-group"
+          id="contractor-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="contractor"
+          >
+            Contractor 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <select
+            class="govuk-select govuk-!-width-one-half"
+            data-testid="contractor"
+            disabled=""
+            id="contractor"
+            name="contractor"
+          >
+            <option
+              value=""
+            />
+          </select>
+        </div>
+        <input
+          id="contractorRef"
+          name="contractorRef"
+          type="hidden"
+          value=""
+        />
+        <div
           class="govuk-!-padding-bottom-5"
         >
           <div
@@ -88,32 +161,19 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 <select
                   class="govuk-select govuk-!-width-full"
                   data-testid="sorCodesCollection[0][code]"
+                  disabled=""
                   id="sorCodesCollection[0][code]"
                   name="sorCodesCollection[0][code]"
                 >
                   <option
+                    selected=""
                     value=""
                   />
-                  <option
-                    value="DES5R003 - Immediate call outs"
-                  >
-                    DES5R003 - Immediate call outs
-                  </option>
-                  <option
-                    value="DES5R004 - Emergency call outs"
-                  >
-                    DES5R004 - Emergency call outs
-                  </option>
                 </select>
               </div>
               <input
                 id="sorCodesCollection[0][description]"
                 name="sorCodesCollection[0][description]"
-                type="hidden"
-              />
-              <input
-                id="sorCodesCollection[0][contractorRef]"
-                name="sorCodesCollection[0][contractorRef]"
                 type="hidden"
               />
             </div>
@@ -137,6 +197,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input govuk-!-width-full"
+                  disabled=""
                   id="sorCodesCollection[0][quantity]"
                   name="sorCodesCollection[0][quantity]"
                   type="text"
@@ -177,9 +238,9 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               value=""
             />
             <option
-              value="I - Immediate (2 hours)"
+              value="1 [I] IMMEDIATE"
             >
-              I - Immediate (2 hours)
+              1 [I] IMMEDIATE
             </option>
             <option
               value="E - Emergency (24 hours)"

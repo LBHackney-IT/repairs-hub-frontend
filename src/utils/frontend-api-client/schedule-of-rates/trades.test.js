@@ -11,10 +11,12 @@ describe('getTrades`', () => {
       })
     )
 
-    const response = await getTrades()
+    const response = await getTrades(1)
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/schedule-of-rates/trades')
+    expect(mockAxios.get).toHaveBeenCalledWith(
+      '/api/schedule-of-rates/trades?propRef=1'
+    )
   })
 })

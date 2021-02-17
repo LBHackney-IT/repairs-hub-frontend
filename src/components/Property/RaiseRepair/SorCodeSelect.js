@@ -12,6 +12,7 @@ const SorCodeSelect = ({
   removeSorCodeSelect,
   code,
   quantity,
+  disabled,
 }) => {
   return (
     <GridRow
@@ -23,7 +24,8 @@ const SorCodeSelect = ({
           name={`sorCodesCollection[${index}][code]`}
           label="SOR Code"
           options={sorCodesList}
-          defaultValue={code}
+          defaultValue={code ?? ''}
+          disabled={disabled}
           onChange={(event) => onSorCodeSelect(index, event)}
           required={true}
           selected={code ?? ''}
@@ -41,12 +43,6 @@ const SorCodeSelect = ({
           type="hidden"
           ref={register}
         />
-        <input
-          id={`sorCodesCollection[${index}][contractorRef]`}
-          name={`sorCodesCollection[${index}][contractorRef]`}
-          type="hidden"
-          ref={register}
-        />
       </GridColumn>
       <GridColumn width="one-third">
         <TextInput
@@ -56,6 +52,7 @@ const SorCodeSelect = ({
           widthClass="govuk-!-width-full"
           required={true}
           defaultValue={quantity ? quantity : ''}
+          disabled={disabled}
           register={register({
             required: 'Please enter a quantity',
             valueAsNumber: true,
@@ -102,6 +99,7 @@ SorCodeSelect.propTypes = {
   code: PropTypes.string,
   quantity: PropTypes.number,
   cost: PropTypes.number,
+  disabled: PropTypes.bool,
 }
 
 export default SorCodeSelect

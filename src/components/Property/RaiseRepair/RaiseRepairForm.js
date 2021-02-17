@@ -9,8 +9,8 @@ import {
   CharacterCountLimitedTextArea,
   TextInput,
 } from '../../Form'
+import TradeContractorSorCodeView from './TradeContractorSorCodeView'
 import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
-import SorCodeSelectView from './SorCodeSelectView'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -20,8 +20,8 @@ const RaiseRepairForm = ({
   locationAlerts,
   personAlerts,
   tenure,
-  sorCodes,
   priorities,
+  trades,
   onFormSubmit,
 }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -30,6 +30,8 @@ const RaiseRepairForm = ({
 
   const onSubmit = async (formData) => {
     const scheduleRepairFormData = buildScheduleRepairFormData(formData)
+    console.log(formData)
+    console.log(scheduleRepairFormData)
 
     onFormSubmit(scheduleRepairFormData)
   }
@@ -120,15 +122,17 @@ const RaiseRepairForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <SorCodeSelectView
-              sorCodes={sorCodes}
+            <TradeContractorSorCodeView
+              register={register}
+              errors={errors}
+              trades={trades}
+              propertyReference={propertyReference}
               register={register}
               errors={errors}
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
             />
-
             <Select
               name="priorityDescription"
               label="Task priority"
@@ -217,7 +221,7 @@ RaiseRepairForm.propTypes = {
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object,
-  sorCodes: PropTypes.array.isRequired,
+  trades: PropTypes.array.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
 }

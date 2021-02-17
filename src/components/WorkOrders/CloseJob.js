@@ -5,7 +5,7 @@ import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseJob from './SummaryCloseJob'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { postCompleteWorkOrder } from '../../utils/frontend-api-client/work-orders'
+import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-order-complete'
 import { buildCloseJobData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 
@@ -24,7 +24,7 @@ const CloseJob = ({ reference }) => {
     setLoading(true)
 
     try {
-      await postCompleteWorkOrder(formData)
+      await postWorkOrderComplete(formData)
       router.push('/')
     } catch (e) {
       console.log(e)

@@ -10,11 +10,22 @@ describe('Raise repair form', () => {
     // Stub request for raise a repair form page
     cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
     cy.fixture('schedule-of-rates/priorities.json').as('priorities')
+    cy.fixture('schedule-of-rates/trades.json').as('trades')
+    cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route('GET', 'api/schedule-of-rates/codes', '@property')
-    cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes')
+    cy.route(
+      'GET',
+      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+      '@sorCodes'
+    )
     cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
+    cy.route('GET', 'api/schedule-of-rates/trades?propRef=00012345', '@trades')
+    cy.route(
+      'GET',
+      'api/contractors?propertyReference=00012345&tradeCode=PL',
+      '@contractors'
+    )
     cy.route({
       method: 'POST',
       url: '/api/repairs/schedule',
@@ -49,6 +60,12 @@ describe('Raise repair form', () => {
     // Form section
     // Try to submit form without entering required fields
     cy.get('[type="submit"]').contains('Create works order').click()
+    cy.get('#trade-form-group .govuk-error-message').within(() => {
+      cy.contains('Please select a trade')
+    })
+    cy.get('#contractor-form-group .govuk-error-message').within(() => {
+      cy.contains('Please select a contractor')
+    })
     cy.get(
       'div[id="sorCodesCollection[0][code]-form-group"] .govuk-error-message'
     ).within(() => {
@@ -70,6 +87,45 @@ describe('Raise repair form', () => {
 
     // Fill out form
     cy.get('#repair-request-form').within(() => {
+      // Expect contractors and sor code selection to be disabled until trade selected
+      cy.get('#contractor').should('be.disabled')
+      cy.get('select[id="sorCodesCollection[0][code]"]').should('be.disabled')
+      cy.get('input[id="sorCodesCollection[0][quantity]"]').should(
+        'be.disabled'
+      )
+      // Select a trade (<datalist> required typed input for testing)
+      cy.get('#trade').type('Plumbing - PL')
+      // Contractor select is no longer disabled but sor code selection still is
+      cy.get('#contractor').should('not.be.disabled')
+      cy.get('select[id="sorCodesCollection[0][code]"]').should('be.disabled')
+      cy.get('input[id="sorCodesCollection[0][quantity]"]').should(
+        'be.disabled'
+      )
+      // Select a contractor
+      cy.get('#contractor').select('HH General Building Repair - H01')
+      // SOR select is no longer disabled
+      cy.get('select[id="sorCodesCollection[0][code]"]').should(
+        'not.be.disabled'
+      )
+      cy.get('input[id="sorCodesCollection[0][quantity]"]').should(
+        'not.be.disabled'
+      )
+      // Selecting no trade clears contractor and SOR code select options
+      cy.get('#trade').clear()
+      cy.get('#contractor').should('be.disabled')
+      cy.get('select[id="sorCodesCollection[0][code]"]').should('be.disabled')
+      cy.get('input[id="sorCodesCollection[0][quantity]"]').should(
+        'be.disabled'
+      )
+      // Select trade not included in list
+      cy.get('#trade').type('Fake trade')
+      cy.get('#trade-form-group .govuk-error-message').within(() => {
+        cy.contains('Trade is not valid')
+      })
+      // Select valid trade
+      cy.get('#trade').clear().type('Plumbing - PL')
+      cy.get('#contractor').select('HH General Building Repair - H01')
+
       // Select SOR code with no priority attached
       cy.get('select[id="sorCodesCollection[0][code]"]').select(
         'INP5R001 - Pre insp of wrks by Constructr'
@@ -82,10 +138,7 @@ describe('Raise repair form', () => {
         'DES5R003 - Immediate call outs'
       )
       // Autopopulates priority description
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'I - Immediate (2 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Removes Task Priority validation errors
       cy.get('#priorityDescription-form-group .govuk-error-message').should(
         'not.exist'
@@ -96,19 +149,12 @@ describe('Raise repair form', () => {
         'DES5R004 - Emergency call out'
       )
       // Autopopulates priority description
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'E - Emergency (24 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
 
       // Assigns description and contractor ref to hidden field
       cy.get('input[id="sorCodesCollection[0][description]"]').should(
         'have.value',
         'Emergency call out'
-      )
-      cy.get('input[id="sorCodesCollection[0][contractorRef]"]').should(
-        'have.value',
-        'H01'
       )
       // Removes SOR Code validation errors
       cy.get(
@@ -127,6 +173,7 @@ describe('Raise repair form', () => {
       )
 
       // Enter a blank quantity
+      cy.get('input[id="sorCodesCollection[0][quantity]"]').type('x')
       cy.get('input[id="sorCodesCollection[0][quantity]"]').clear()
       cy.get(
         'div[id="sorCodesCollection[0][quantity]-form-group"] .govuk-error-message'
@@ -181,50 +228,32 @@ describe('Raise repair form', () => {
         'DES5R013 - Inspect additional sec entrance'
       )
       // Priority description should remain same because inspection is a lower priority than normal
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'N - Normal 28 days (21 working days)'
-      )
+      cy.get('#priorityDescription').should('have.value', '5 [N] NORMAL')
       // Add another SOR code with higher priority
       cy.contains('+ Add another SOR code').click()
       cy.get('select[id="sorCodesCollection[2][code]"]').select(
         'DES5R003 - Immediate call outs'
       )
       // Autopopulates priority description with the highest priority
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'I - Immediate (2 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Add another SOR code with an emergency priority
       cy.contains('+ Add another SOR code').click()
       cy.get('select[id="sorCodesCollection[3][code]"]').select(
         'DES5R004 - Emergency call out'
       )
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'I - Immediate (2 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Remove SOR code at index 2
       cy.get('button[id="remove-sor-code-2"]').click()
       // Autopopulates priority description with the remaining highest priority
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'E - Emergency (24 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
       cy.get('button[id="remove-sor-code-3"]').click()
       // Autopopulates priority description with the remaining highest priority
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'N - Normal 28 days (21 working days)'
-      )
+      cy.get('#priorityDescription').should('have.value', '5 [N] NORMAL')
       // Select SOR code with emergency priority at index 1
       cy.get('select[id="sorCodesCollection[1][code]"]').select(
         'DES5R004 - Emergency call out'
       )
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'E - Emergency (24 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
 
       // Try to submit form without quantity for this SOR code at index 1
       cy.get('[type="submit"]').contains('Create works order').click()
@@ -264,9 +293,6 @@ describe('Raise repair form', () => {
       cy.get('input[id="sorCodesCollection[1][description]"]').should(
         'not.exist'
       )
-      cy.get('input[id="sorCodesCollection[1][contractorRef]"]').should(
-        'not.exist'
-      )
       // Remaining SOR codes
       cy.get('button[id="remove-sor-code-1"]').should('not.exist')
       cy.get('select[id="sorCodesCollection[0][code]"]').select(
@@ -289,10 +315,7 @@ describe('Raise repair form', () => {
         'have.value',
         '2'
       )
-      cy.get('#priorityDescription').should(
-        'have.value',
-        'E - Emergency (24 hours)'
-      )
+      cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
       cy.get('button[id="remove-sor-code-2"]').contains('-')
 
       // Go over the Repair description character limit
@@ -346,7 +369,7 @@ describe('Raise repair form', () => {
             descriptionOfWork: 'A problem',
             priority: {
               priorityCode: 1,
-              priorityDescription: 'E - Emergency (24 hours)',
+              priorityDescription: '2 [E] EMERGENCY',
               requiredCompletionDateTime: requiredCompletionDateTime,
               numberOfDays: 1,
             },
@@ -360,6 +383,13 @@ describe('Raise repair form', () => {
                     quantity: { amount: [1] },
                   },
                 ],
+                trade: [
+                  {
+                    code: 'SP',
+                    customCode: 'PL',
+                    customName: 'Plumbing - PL',
+                  },
+                ],
               },
               {
                 rateScheduleItem: [
@@ -367,6 +397,13 @@ describe('Raise repair form', () => {
                     customCode: 'DES5R006',
                     customName: 'Urgent call outs',
                     quantity: { amount: [2] },
+                  },
+                ],
+                trade: [
+                  {
+                    code: 'SP',
+                    customCode: 'PL',
+                    customName: 'Plumbing - PL',
                   },
                 ],
               },
@@ -388,7 +425,7 @@ describe('Raise repair form', () => {
             },
             instructedBy: { name: 'Hackney Housing' },
             assignedToPrimary: {
-              name: 'Contractor H01',
+              name: 'HH General Building Repair',
               organization: {
                 reference: [
                   {
