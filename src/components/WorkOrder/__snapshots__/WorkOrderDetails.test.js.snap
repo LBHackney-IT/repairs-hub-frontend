@@ -65,15 +65,19 @@ exports[`WorkOrderDetails component should render properly with link to cancel w
           <li
             class="bg-orange"
           >
-            Address Alert:  (
-            <strong />
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
             )
           </li>
           <li
             class="bg-orange"
           >
-            Contact Alert:  (
-            <strong />
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
             )
           </li>
         </ul>
@@ -149,6 +153,16 @@ exports[`WorkOrderDetails component should render properly with link to cancel w
             Appointment details
           </span>
           <br />
+          <div
+            class="govuk-body-s"
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -215,15 +229,19 @@ exports[`WorkOrderDetails component should render properly without a link to can
           <li
             class="bg-orange"
           >
-            Address Alert:  (
-            <strong />
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
             )
           </li>
           <li
             class="bg-orange"
           >
-            Contact Alert:  (
-            <strong />
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
             )
           </li>
         </ul>
@@ -299,6 +317,16 @@ exports[`WorkOrderDetails component should render properly without a link to can
             Appointment details
           </span>
           <br />
+          <div
+            class="govuk-body-s"
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
         </div>
       </div>
     </div>

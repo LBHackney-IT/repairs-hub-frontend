@@ -40,3 +40,31 @@ export const calculateNewDateTimeFromDate = (date, hours) => {
   // let currentDateTime = new Date()
   return new Date(date.getTime() + hours * 3600000)
 }
+
+export const shortDayName = (date) => {
+  return date.toLocaleDateString('en-GB', { weekday: 'short' })
+}
+
+export const shortDate = (date) => {
+  return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' })
+}
+
+export const monthDay = (date) => {
+  return date.toLocaleDateString('en-GB', { day: 'numeric' })
+}
+
+export const shortMonthName = (date) => {
+  return date.toLocaleDateString('en-GB', { month: 'short' })
+}
+
+export const longMonthName = (date) => {
+  return date.toLocaleDateString('en-GB', { month: 'long' })
+}
+
+export const isBeginningOfMonth = (date) => {
+  return date.getDate() === 1
+}
+
+export const toISODate = (date) => {
+  return date.toISOString().substring(0, 10)
+}
