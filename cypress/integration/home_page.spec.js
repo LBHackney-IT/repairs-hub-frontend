@@ -72,7 +72,7 @@ describe('Home page', () => {
           beforeEach(() => {
             cy.loginWithContractorRole()
             cy.server()
-            cy.fixture('work_orders/jobs.json').as('workorderslist')
+            cy.fixture('repairs/work-orders.json').as('workorderslist')
             cy.route(
               'GET',
               'api/repairs/?PageSize=10&PageNumber=1',
@@ -96,14 +96,12 @@ describe('Home page', () => {
 
           it('displays reference number, date raised, last updated, priority, property address, description', () => {
             cy.get('.govuk-table__cell').within(() => {
-              cy.contains('00012346')
-              cy.contains('13 Jan 2021')
-              cy.contains('14 Jan 2021')
+              cy.contains('10000040')
+              cy.contains('22 Jan 2021')
+              cy.contains('21 Jan 2021')
               cy.contains('N - Normal')
-              cy.contains('1 Pitcairn House St Thomass Square')
-              cy.contains(
-                'ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in'
-              )
+              cy.contains('315 Banister House Homerton High Street')
+              cy.contains('An emergency repair')
               cy.contains('a', 'Update')
             })
             // Run lighthouse audit for accessibility report
