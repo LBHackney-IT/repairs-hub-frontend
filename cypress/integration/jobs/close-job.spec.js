@@ -5,7 +5,7 @@ describe('Contractor closing a job', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
     cy.server()
-    cy.fixture('work_orders/jobs.json').as('workorderslist')
+    cy.fixture('repairs/work-orders.json').as('workorderslist')
     cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workorderslist')
     cy.route({
       method: 'POST',
@@ -17,19 +17,19 @@ describe('Contractor closing a job', () => {
   it('takes you to close-job page', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
     cy.get('.govuk-table__cell').within(() => {
-      cy.contains('00012346')
+      cy.contains('10000040')
       cy.contains('a', 'Update').click()
     })
-    cy.contains('Update work order: 00012346')
+    cy.contains('Update work order: 10000040')
     cy.get('form').within(() => {
       cy.get('[type="radio"]').check('Close job')
       cy.get('[type="submit"]').contains('Next').click()
     })
-    cy.contains('Update work order: 00012346')
+    cy.contains('Update work order: 10000040')
   })
 
   it('shows errors when submit with no inputs', () => {
-    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/00012346/close-job`)
+    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/10000040/close-job`)
     cy.get('form').within(() => {
       cy.get('[type="submit"]').contains('Submit').click()
     })
@@ -42,7 +42,7 @@ describe('Contractor closing a job', () => {
   })
 
   it('submits the form with inputs that are invalid', () => {
-    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/00012346/close-job`)
+    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/10000040/close-job`)
     cy.get('form').within(() => {
       cy.get('#date').type('2028-01-15')
       cy.get('#time').within(() => {
@@ -60,7 +60,7 @@ describe('Contractor closing a job', () => {
   })
 
   it('submits the form with valit inputs and edit them fron summary page', () => {
-    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/00012346/close-job`)
+    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/10000040/close-job`)
     // Enter 5 October 2021 at 14:45
     cy.get('form').within(() => {
       cy.get('#date').type('2020-10-05')
@@ -110,7 +110,7 @@ describe('Contractor closing a job', () => {
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
-          id: '00012346',
+          id: '10000040',
           description: '',
           allocatedBy: '',
         },

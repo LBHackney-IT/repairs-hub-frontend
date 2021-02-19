@@ -6,16 +6,20 @@ describe('Contractor update a job', () => {
     cy.loginWithContractorRole()
     cy.server()
     cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-    cy.fixture('work_orders/jobs.json').as('workorderslist')
-    cy.fixture('work_orders/tasks.json').as('tasksList')
+    cy.fixture('repairs/work-orders.json').as('workorderslist')
+    cy.fixture('repairs/tasks-and-sors.json')
+      .then((tasksAndSors) => {
+        tasksAndSors.splice(1, 2)
+      })
+      .as('tasksList')
+
     cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workorderslist')
-    cy.route('GET', 'api/repairs/00012346/tasks', '@tasksList').as(
+    cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
     cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes').as(
       'sorCodeRequest'
     )
-
     cy.route({
       method: 'POST',
       url: '/api/jobStatusUpdate',
@@ -27,10 +31,10 @@ describe('Contractor update a job', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
 
     cy.get('.govuk-table__cell').within(() => {
-      cy.contains('00012346')
+      cy.contains('10000040')
       cy.contains('a', 'Update').click()
     })
-    cy.contains('Update work order: 00012346')
+    cy.contains('Update work order: 10000040')
     cy.get('form').within(() => {
       cy.get('[type="radio"]').check('Update')
       cy.get('[type="submit"]').contains('Next').click()
@@ -40,7 +44,7 @@ describe('Contractor update a job', () => {
     cy.wait('@sorCodeRequest')
 
     // Update page
-    cy.contains('Update work order: 00012346')
+    cy.contains('Update work order: 10000040')
 
     cy.contains('+ Add another SOR code').click()
 
@@ -81,10 +85,10 @@ describe('Contractor update a job', () => {
   it('allows the user to update the job by changing the existing quantity', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
     cy.get('.govuk-table__cell').within(() => {
-      cy.contains('00012346')
+      cy.contains('10000040')
       cy.contains('a', 'Update').click()
     })
-    cy.contains('Update work order: 00012346')
+    cy.contains('Update work order: 10000040')
     cy.get('form').within(() => {
       cy.get('[type="radio"]').check('Update')
       cy.get('[type="submit"]').contains('Next').click()
@@ -102,7 +106,7 @@ describe('Contractor update a job', () => {
       .its('request.body')
       .should('deep.equal', {
         relatedWorkOrderReference: {
-          id: '00012346',
+          id: '10000040',
           description: '',
           allocatedBy: '',
         },
@@ -110,8 +114,8 @@ describe('Contractor update a job', () => {
         moreSpecificSORCode: {
           rateScheduleItem: [
             {
-              customCode: 'XXXXR003',
-              customName: 'Immediate call outs',
+              customCode: 'DES5R006',
+              customName: 'Urgent call outs',
               quantity: {
                 amount: [Number.parseInt('0')],
               },
@@ -122,7 +126,7 @@ describe('Contractor update a job', () => {
   })
 
   it('allows to update quantity, edit and add new sor codes', () => {
-    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/00012346/update-job`)
+    cy.visit(`${Cypress.env('HOST')}/repairs/jobs/10000040/update-job`)
     cy.wait('@taskListRequest')
     cy.wait('@sorCodeRequest')
 
@@ -136,7 +140,7 @@ describe('Contractor update a job', () => {
 
     cy.contains('Summary of updates to work order')
 
-    cy.get('.govuk-table__body').contains('XXXXR003 - Immediate call outs')
+    cy.get('.govuk-table__body').contains('DES5R006 - Urgent call outs')
     cy.get('.govuk-table__body').contains('12')
     cy.get('.govuk-table__body').contains('0')
     // Go back and add new SOR code
@@ -160,7 +164,7 @@ describe('Contractor update a job', () => {
     })
 
     cy.contains('Summary of updates to work order')
-    cy.get('.govuk-table__body').contains('XXXXR003 - Immediate call outs')
+    cy.get('.govuk-table__body').contains('DES5R006 - Urgent call outs')
     cy.get('.govuk-table__body').contains('10')
     cy.get('.govuk-table__body').contains('0')
     cy.get('.govuk-table__body').contains('DES5R004 - Emergency call out')
@@ -172,7 +176,7 @@ describe('Contractor update a job', () => {
       .its('request.body')
       .should('deep.equal', {
         relatedWorkOrderReference: {
-          id: '00012346',
+          id: '10000040',
           description: '',
           allocatedBy: '',
         },
@@ -180,8 +184,8 @@ describe('Contractor update a job', () => {
         moreSpecificSORCode: {
           rateScheduleItem: [
             {
-              customCode: 'XXXXR003',
-              customName: 'Immediate call outs',
+              customCode: 'DES5R006',
+              customName: 'Urgent call outs',
               quantity: {
                 amount: [Number.parseInt('10')],
               },
