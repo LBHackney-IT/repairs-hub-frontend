@@ -36,7 +36,7 @@ const UpdateJobForm = ({
         id="repair-request-form"
         onSubmit={handleSubmit(onGetToSummary)}
       >
-        <GridRow className="sor-code-select align-items-center" key="lol">
+        <GridRow className="sor-code-select align-items-center">
           {task.map((t, index) => (
             <div key={index}>
               <GridColumn width="two-thirds">
