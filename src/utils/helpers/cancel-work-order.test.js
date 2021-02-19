@@ -2,8 +2,14 @@ import MockDate from 'mockdate'
 import { canCancelWorkOrder } from './cancel-work-order'
 
 describe('canCancelWorkOrder', () => {
-  // 2021-01-14T18:16:20.986Z
-  MockDate.set(1610648180986)
+  beforeAll(() => {
+    // 2021-01-14T18:16:20.986Z
+    MockDate.set(1610648180986)
+  })
+
+  afterAll(() => {
+    MockDate.reset()
+  })
 
   it('returns true if less than an hour has passed since date raised', () => {
     const date = new Date(
