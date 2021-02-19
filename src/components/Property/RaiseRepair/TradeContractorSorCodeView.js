@@ -4,7 +4,7 @@ import SorCodeSelectView from './SorCodeSelectView'
 import TradeDataList from './TradeDataList'
 import ContractorSelect from './ContractorSelect'
 import { getContractors } from '../../../utils/frontend-api-client/contractors'
-import { getSorCodesByTradeAndContractor } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
+import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
 
 const TradeContractorSorCodeView = ({
   trades,
@@ -84,11 +84,7 @@ const TradeContractorSorCodeView = ({
     setGetSorCodesError(null)
 
     try {
-      const sorCodes = await getSorCodesByTradeAndContractor(
-        tradeCode,
-        propertyRef,
-        contractorRef
-      )
+      const sorCodes = await getSorCodes(tradeCode, propertyRef, contractorRef)
 
       setSorCodes(sorCodes)
       setSorCodeSelectDisabled(false)

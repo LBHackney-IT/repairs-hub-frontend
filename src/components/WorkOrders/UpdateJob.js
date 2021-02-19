@@ -72,7 +72,8 @@ const UpdateJob = ({ reference }) => {
 
     try {
       const task = await getTasks(reference)
-      const sorCodes = await getSorCodes()
+      // FIXME: Hardcoding temporarily to not break staging
+      const sorCodes = await getSorCodes('PL', '00012345', 'H01')
 
       setSorCodes(sorCodes)
       setTask(task)

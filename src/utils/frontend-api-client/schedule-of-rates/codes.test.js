@@ -11,10 +11,16 @@ describe('getSorCodes`', () => {
       })
     )
 
-    const response = await getSorCodes()
+    const response = await getSorCodes('PL', '00001234', 'H01')
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/schedule-of-rates/codes')
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/schedule-of-rates/codes', {
+      params: {
+        contractorReference: 'H01',
+        propertyReference: '00001234',
+        tradeCode: 'PL',
+      },
+    })
   })
 })

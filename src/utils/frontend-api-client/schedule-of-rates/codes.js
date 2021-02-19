@@ -1,12 +1,6 @@
 import axios from 'axios'
 
-export const getSorCodes = async () => {
-  const { data } = await axios.get('/api/schedule-of-rates/codes')
-
-  return data
-}
-
-export const getSorCodesByTradeAndContractor = async (
+export const getSorCodes = async (
   tradeCode,
   propertyReference,
   contractorReference
