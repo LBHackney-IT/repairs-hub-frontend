@@ -16,6 +16,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [tenure, setTenure] = useState({})
   const [trades, setTrades] = useState([])
   const [priorities, setPriorities] = useState([])
+  const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
@@ -53,6 +54,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setPersonAlerts(data.alerts.personAlert)
       setPriorities(priorities)
       setTrades(trades)
+      setContacts(data.contacts?.contacts)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
@@ -104,6 +106,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 personAlerts={personAlerts}
                 priorities={priorities}
                 trades={trades}
+                contacts={contacts}
                 onFormSubmit={onFormSubmit}
               />
             )}

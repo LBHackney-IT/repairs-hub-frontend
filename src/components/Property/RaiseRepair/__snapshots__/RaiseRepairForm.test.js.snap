@@ -322,6 +322,26 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           value="16 Pitcairn House  St Thomass Square"
         />
         <div
+          class="govuk-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            No contact details available for this property
+          </strong>
+        </div>
+        <div
           class="govuk-form-group"
           id="callerName-form-group"
         >

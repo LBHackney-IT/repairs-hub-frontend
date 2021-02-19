@@ -11,6 +11,7 @@ import {
 } from '../../Form'
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
+import Contacts from '../Contacts/Contacts'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -22,6 +23,7 @@ const RaiseRepairForm = ({
   tenure,
   priorities,
   trades,
+  contacts,
   onFormSubmit,
 }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -179,6 +181,7 @@ const RaiseRepairForm = ({
               value={address.shortAddress}
               ref={register}
             />
+            <Contacts contacts={contacts} />
             <TextInput
               name="callerName"
               label="Caller name"

@@ -13,6 +13,7 @@ describe('Raise repair form', () => {
     cy.fixture('schedule-of-rates/trades.json').as('trades')
     cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
+
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route(
       'GET',
@@ -54,6 +55,14 @@ describe('Raise repair form', () => {
         'Contact Alert: Verbal Abuse or Threat of (VA)',
       ]
     )
+
+    // Property contact information table
+    cy.get('.govuk-table__caption').contains('Contacts')
+    cy.get('.govuk-table__row .govuk-table__cell').contains('Mark Gardner')
+    cy.get('.govuk-table__row .govuk-table__cell').contains('00000111111')
+    cy.get('.govuk-table__row .govuk-table__cell').contains('00000222222')
+    cy.get('.govuk-table__row .govuk-table__cell').contains('Luam Berhane')
+    cy.get('.govuk-table__row .govuk-table__cell').contains('00000666666')
 
     cy.get('.govuk-heading-m').contains('Repair task details')
 

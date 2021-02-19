@@ -68,6 +68,7 @@ describe('RaiseRepairForm component', () => {
         name: 'Plumbing',
       },
     ],
+    contacts: [],
     onFormSubmit: jest.fn(),
   }
 
@@ -83,6 +84,7 @@ describe('RaiseRepairForm component', () => {
         personAlerts={props.alerts.personAlert}
         priorities={props.priorities}
         trades={props.trades}
+        contacts={props.contacts}
         onFormSubmit={props.onFormSubmit}
       />
     )
