@@ -17,9 +17,12 @@ describe('Contractor update a job', () => {
     cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
-    cy.route('GET', 'api/schedule-of-rates/codes', '@sorCodes').as(
-      'sorCodeRequest'
-    )
+    // FIXME: Harcoding temporarily to not break staging
+    cy.route(
+      'GET',
+      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+      '@sorCodes'
+    ).as('sorCodeRequest')
     cy.route({
       method: 'POST',
       url: '/api/jobStatusUpdate',
