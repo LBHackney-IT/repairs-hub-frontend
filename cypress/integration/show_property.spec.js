@@ -18,7 +18,7 @@ describe('Show property', () => {
         cy.fixture('repairs/work-orders.json').as('workOrders')
         cy.route(
           'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50',
+          'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
           '@workOrders'
         )
         cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
@@ -107,7 +107,7 @@ describe('Show property', () => {
       it('Display no repairs text when records do not exist', () => {
         cy.route(
           'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50',
+          'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
           '[]'
         )
 

@@ -14,11 +14,15 @@ export const getRepairs = async (pageNumber = 1) => {
   return data
 }
 
-export const getRepairsForProperty = async (propertyReference) => {
+export const getRepairsForProperty = async (
+  propertyReference,
+  pageNumber = 1
+) => {
   const { data } = await axios.get('/api/repairs/', {
     params: {
       propertyReference: propertyReference,
       PageSize: PAGE_SIZE_AGENTS,
+      PageNumber: pageNumber,
     },
   })
 

@@ -7,19 +7,23 @@ import { getRepairsForProperty } from '../../../utils/frontend-api-client/repair
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference, tabName }) => {
+  const [pageNumber, setPageNumber] = useState(1)
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
-  const getRepairsHistoryView = async (propertyReference) => {
+  const getRepairsHistoryView = async (propertyReference, pageNumber) => {
     setError(null)
 
     try {
-      const data = await getRepairsForProperty(propertyReference)
+      const data = await getRepairsForProperty(propertyReference, pageNumber)
 
-      setWorkOrders(
-        sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
+      const workOrdersPerPage = sortObjectsByDateKey(
+        data,
+        ['dateRaised', 'lastUpdated'],
+        'dateRaised'
       )
+      setWorkOrders([...workOrders, ...workOrdersPerPage])
     } catch (e) {
       setWorkOrders(null)
       console.log('An error has occured:', e.response)
@@ -33,13 +37,28 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
 
   useEffect(() => {
     setLoading(true)
+    setPageNumber(pageNumber + 1)
 
-    getRepairsHistoryView(propertyReference)
+    getRepairsHistoryView(propertyReference, pageNumber)
   }, [])
+
+  const loadMoreWorkOrders = (newPageNumber) => {
+    setLoading(true)
+    setPageNumber(pageNumber + 1)
+
+    getRepairsHistoryView(propertyReference, newPageNumber)
+  }
 
   const renderRepairsHistoryTable = () => {
     if (workOrders?.length > 0) {
-      return <RepairsHistoryTable workOrders={workOrders} tabName={tabName} />
+      return (
+        <RepairsHistoryTable
+          workOrders={workOrders}
+          tabName={tabName}
+          pageNumber={pageNumber}
+          loadMoreWorkOrders={loadMoreWorkOrders}
+        />
+      )
     }
 
     if (!error) {
