@@ -20,7 +20,7 @@ const ContractorSelect = ({
     .filter(Boolean)
 
   return (
-    <>
+    <div className="min-height-100">
       {loading ? (
         <Spinner />
       ) : (
@@ -43,7 +43,7 @@ const ContractorSelect = ({
           {apiError && <ErrorMessage label={apiError} />}
         </>
       )}
-    </>
+    </div>
   )
 }
 

@@ -130,11 +130,11 @@ const SorCodeSelectView = ({
   }
 
   return (
-    <>
+    <div className="min-height-120 govuk-!-margin-bottom-6">
       {loading ? (
         <Spinner />
       ) : (
-        <div className="govuk-!-padding-bottom-5">
+        <div>
           {sorCodeSelectCollection()}
           {apiError && <ErrorMessage label={apiError} />}
 
@@ -147,7 +147,7 @@ const SorCodeSelectView = ({
           </a>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
