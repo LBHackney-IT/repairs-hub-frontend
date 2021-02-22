@@ -5,18 +5,18 @@ import { PrimarySubmitButton } from '../Form'
 const SummaryUpdateJob = ({
   reference,
   onJobSubmit,
-  task,
-  sorCodesCollection,
+  tasks,
+  rateScheduleItems,
   changeStep,
 }) => {
   const { handleSubmit } = useForm({})
 
   const tableData = (data) => {
     return data.map((t, index) => (
-      <tr className={`task-${index} govuk-table__row`} key={index}>
+      <tr className={`tasks-${index} govuk-table__row`} key={index}>
         <th
           scope="row"
-          className={` sor-code-${index} govuk-table__header`}
+          className={`sor-code-${index} govuk-table__header`}
           key={t.code}
         >
           {t.code}
@@ -58,8 +58,8 @@ const SummaryUpdateJob = ({
             </tr>
           </thead>
           <tbody className="govuk-table__body">
-            {tableData(task)}
-            {sorCodesCollection ? tableData(sorCodesCollection) : ''}
+            {tableData(tasks)}
+            {rateScheduleItems ? tableData(rateScheduleItems) : ''}
           </tbody>
         </table>
         <PrimarySubmitButton label="Confirm and close" />
@@ -71,7 +71,7 @@ const SummaryUpdateJob = ({
 SummaryUpdateJob.propTypes = {
   reference: PropTypes.string.isRequired,
   onJobSubmit: PropTypes.func.isRequired,
-  sorCodesCollection: PropTypes.array,
+  rateScheduleItems: PropTypes.array,
   changeStep: PropTypes.func.isRequired,
 }
 

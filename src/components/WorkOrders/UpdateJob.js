@@ -13,20 +13,23 @@ import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
-  const [task, setTask] = useState([])
+  const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [sorCodes, setSorCodes] = useState([])
-  const [sorCodesCollection, setSorCodesCollection] = useState([])
+  const [rateScheduleItems, setRateScheduleItems] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [showAddedSoreCodes, setShowAddedSoreCodes] = useState(false)
+  const [
+    showAdditionalRateScheduleItems,
+    setShowAdditionalRateScheduleItems,
+  ] = useState(false)
   const router = useRouter()
 
   const onGetToSummary = (e) => {
-    const tasks = updatedTasks(e, task.length)
-    setSorCodesCollection(
-      e.sorCodesCollection
-        ? e.sorCodesCollection
+    const allTasks = updatedTasks(e, tasks.length)
+    setRateScheduleItems(
+      e.rateScheduleItems
+        ? e.rateScheduleItems
             .filter((e) => e != null)
             .map((e, index) => {
               return { id: index, ...e }
@@ -34,19 +37,19 @@ const UpdateJob = ({ reference }) => {
         : []
     )
 
-    setTask(tasks)
+    setTasks(allTasks)
     setShowSummaryPage(true)
   }
 
   const changeCurrentPage = () => {
-    setShowAddedSoreCodes(true)
+    setShowAdditionalRateScheduleItems(true)
     setShowSummaryPage(false)
   }
 
   const onJobUpdateSubmit = () => {
     const updateJobFormData = buildUpdateJob(
-      task,
-      sorCodesCollection,
+      tasks,
+      rateScheduleItems,
       reference
     )
     makePostRequest(updateJobFormData)
@@ -71,14 +74,14 @@ const UpdateJob = ({ reference }) => {
     setError(null)
 
     try {
-      const task = await getTasks(reference)
+      const tasks = await getTasks(reference)
       // FIXME: Hardcoding temporarily to not break staging
       const sorCodes = await getSorCodes('PL', '00012345', 'H01')
 
       setSorCodes(sorCodes)
-      setTask(task)
+      setTasks(tasks)
     } catch (e) {
-      setTask(null)
+      setTasks(null)
       setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
@@ -100,7 +103,7 @@ const UpdateJob = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {task && sorCodes && (
+          {tasks && sorCodes && (
             <>
               {!showSummaryPage && (
                 <>
@@ -110,11 +113,13 @@ const UpdateJob = ({ reference }) => {
                   </h1>
 
                   <UpdateJobForm
-                    task={task}
+                    tasks={tasks}
                     sorCodes={sorCodes}
-                    showAddedSoreCodes={showAddedSoreCodes}
-                    sorCodesCollection={
-                      sorCodesCollection ? sorCodesCollection : null
+                    showAdditionalRateScheduleItems={
+                      showAdditionalRateScheduleItems
+                    }
+                    rateScheduleItems={
+                      rateScheduleItems ? rateScheduleItems : null
                     }
                     onGetToSummary={onGetToSummary}
                   />
@@ -122,10 +127,10 @@ const UpdateJob = ({ reference }) => {
               )}
               {showSummaryPage && (
                 <SummaryUpdateJob
-                  sorCodesCollection={
-                    sorCodesCollection ? sorCodesCollection : null
+                  rateScheduleItems={
+                    rateScheduleItems ? rateScheduleItems : null
                   }
-                  task={task}
+                  tasks={tasks}
                   reference={reference}
                   onJobSubmit={onJobUpdateSubmit}
                   changeStep={changeCurrentPage}

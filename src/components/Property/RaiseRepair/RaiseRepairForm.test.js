@@ -47,19 +47,15 @@ describe('RaiseRepairForm component', () => {
       },
       {
         priorityCode: 2,
-        description: 'E - Emergency (24 hours)',
+        description: '2 [E] EMERGENCY',
       },
       {
         priorityCode: 3,
-        description: 'U - Urgent 7 days (5 Working days)',
+        description: '4 [U] URGENT',
       },
       {
         priorityCode: 4,
-        description: 'N - Normal 28 days (21 working days)',
-      },
-      {
-        priorityCode: 5,
-        description: 'Inspection',
+        description: '5 [N] NORMAL',
       },
     ],
     trades: [

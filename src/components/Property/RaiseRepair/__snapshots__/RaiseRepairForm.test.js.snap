@@ -142,19 +142,19 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         >
           <div>
             <div
-              class="govuk-grid-row sor-code-select display-flex align-items-center position-relative"
-              id="sor-code-select-0"
+              class="govuk-grid-row rate-schedule-item display-flex align-items-center position-relative"
+              id="rate-schedule-item-0"
             >
               <div
                 class="govuk-grid-column-two-thirds"
               >
                 <div
                   class="govuk-form-group"
-                  id="sorCodesCollection[0][code]-form-group"
+                  id="rateScheduleItems[0][code]-form-group"
                 >
                   <label
                     class="govuk-label"
-                    for="sorCodesCollection[0][code]"
+                    for="rateScheduleItems[0][code]"
                   >
                     SOR Code 
                     <span
@@ -165,10 +165,10 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   </label>
                   <select
                     class="govuk-select govuk-!-width-full"
-                    data-testid="sorCodesCollection[0][code]"
+                    data-testid="rateScheduleItems[0][code]"
                     disabled=""
-                    id="sorCodesCollection[0][code]"
-                    name="sorCodesCollection[0][code]"
+                    id="rateScheduleItems[0][code]"
+                    name="rateScheduleItems[0][code]"
                   >
                     <option
                       selected=""
@@ -177,8 +177,8 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   </select>
                 </div>
                 <input
-                  id="sorCodesCollection[0][description]"
-                  name="sorCodesCollection[0][description]"
+                  id="rateScheduleItems[0][description]"
+                  name="rateScheduleItems[0][description]"
                   type="hidden"
                 />
               </div>
@@ -187,11 +187,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               >
                 <div
                   class="govuk-form-group"
-                  id="sorCodesCollection[0][quantity]-form-group"
+                  id="rateScheduleItems[0][quantity]-form-group"
                 >
                   <label
                     class="govuk-label"
-                    for="sorCodesCollection[0][quantity]"
+                    for="rateScheduleItems[0][quantity]"
                   >
                     Quantity 
                     <span
@@ -203,8 +203,8 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   <input
                     class="govuk-input govuk-!-width-full"
                     disabled=""
-                    id="sorCodesCollection[0][quantity]"
-                    name="sorCodesCollection[0][quantity]"
+                    id="rateScheduleItems[0][quantity]"
+                    name="rateScheduleItems[0][quantity]"
                     type="text"
                     value=""
                   />
@@ -249,24 +249,19 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               1 [I] IMMEDIATE
             </option>
             <option
-              value="E - Emergency (24 hours)"
+              value="2 [E] EMERGENCY"
             >
-              E - Emergency (24 hours)
+              2 [E] EMERGENCY
             </option>
             <option
-              value="U - Urgent 7 days (5 Working days)"
+              value="4 [U] URGENT"
             >
-              U - Urgent 7 days (5 Working days)
+              4 [U] URGENT
             </option>
             <option
-              value="N - Normal 28 days (21 working days)"
+              value="5 [N] NORMAL"
             >
-              N - Normal 28 days (21 working days)
-            </option>
-            <option
-              value="Inspection"
-            >
-              Inspection
+              5 [N] NORMAL
             </option>
           </select>
         </div>

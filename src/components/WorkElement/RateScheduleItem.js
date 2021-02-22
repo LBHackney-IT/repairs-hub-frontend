@@ -1,32 +1,34 @@
 import PropTypes from 'prop-types'
-import { GridRow, GridColumn } from '../../Layout/Grid'
-import { Select, TextInput } from '../../Form'
+import { GridRow, GridColumn } from '../Layout/Grid'
+import { Select, TextInput } from '../Form'
 
-const SorCodeSelect = ({
-  onSorCodeSelect,
+const RateScheduleItem = ({
+  onRateScheduleItemSelect,
   sorCodesList,
   register,
   errors,
   index,
-  showRemoveSorCodeSelect,
-  removeSorCodeSelect,
+  showRemoveRateScheduleItem,
+  removeRateScheduleItem,
   code,
   quantity,
   disabled,
 }) => {
   return (
     <GridRow
-      className="sor-code-select display-flex align-items-center position-relative"
-      id={`sor-code-select-${index}`}
+      className="rate-schedule-item display-flex align-items-center position-relative"
+      id={`rate-schedule-item-${index}`}
     >
       <GridColumn width="two-thirds">
         <Select
-          name={`sorCodesCollection[${index}][code]`}
+          name={`rateScheduleItems[${index}][code]`}
           label="SOR Code"
           options={sorCodesList}
           defaultValue={code ?? ''}
           disabled={disabled}
-          onChange={(event) => onSorCodeSelect(index, event)}
+          onChange={(event) =>
+            onRateScheduleItemSelect && onRateScheduleItemSelect(index, event)
+          }
           required={true}
           selected={code ?? ''}
           register={register({
@@ -34,21 +36,21 @@ const SorCodeSelect = ({
             validate: (value) =>
               sorCodesList.includes(value) || 'SOR code is not valid',
           })}
-          error={errors && errors.sorCodesCollection?.[`${index}`]?.code}
+          error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
           widthClass="govuk-!-width-full"
         />
         <input
-          id={`sorCodesCollection[${index}][description]`}
-          name={`sorCodesCollection[${index}][description]`}
+          id={`rateScheduleItems[${index}][description]`}
+          name={`rateScheduleItems[${index}][description]`}
           type="hidden"
           ref={register}
         />
       </GridColumn>
       <GridColumn width="one-third">
         <TextInput
-          name={`sorCodesCollection[${index}][quantity]`}
+          name={`rateScheduleItems[${index}][quantity]`}
           label="Quantity"
-          error={errors && errors.sorCodesCollection?.[`${index}`]?.quantity}
+          error={errors && errors.rateScheduleItems?.[`${index}`]?.quantity}
           widthClass="govuk-!-width-full"
           required={true}
           defaultValue={quantity ? quantity : ''}
@@ -72,13 +74,13 @@ const SorCodeSelect = ({
         />
       </GridColumn>
 
-      {showRemoveSorCodeSelect && (
-        <div className="remove-sor-code position-absolute right-negative-3">
+      {showRemoveRateScheduleItem && (
+        <div className="remove-rate-schedule-item position-absolute right-negative-3">
           <button
-            id={`remove-sor-code-${index}`}
+            id={`remove-rate-schedule-item-${index}`}
             className="cursor-pointer"
             type="button"
-            onClick={() => removeSorCodeSelect(index)}
+            onClick={() => removeRateScheduleItem(index)}
           >
             -
           </button>
@@ -88,18 +90,18 @@ const SorCodeSelect = ({
   )
 }
 
-SorCodeSelect.propTypes = {
-  onSorCodeSelect: PropTypes.func.isRequired,
+RateScheduleItem.propTypes = {
+  onRateScheduleItemSelect: PropTypes.func,
   sorCodesList: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  showRemoveSorCodeSelect: PropTypes.bool.isRequired,
-  removeSorCodeSelect: PropTypes.func.isRequired,
+  showRemoveRateScheduleItem: PropTypes.bool.isRequired,
+  removeRateScheduleItem: PropTypes.func.isRequired,
   code: PropTypes.string,
   quantity: PropTypes.number,
   cost: PropTypes.number,
   disabled: PropTypes.bool,
 }
 
-export default SorCodeSelect
+export default RateScheduleItem

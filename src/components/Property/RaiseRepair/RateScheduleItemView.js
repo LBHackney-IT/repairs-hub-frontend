@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import { useState, Fragment } from 'react'
-import SorCodeSelect from './SorCodeSelect'
+import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import Spinner from '../../Spinner/Spinner'
 
-const SorCodeSelectView = ({
+const RateScheduleItemView = ({
   sorCodes,
   register,
   errors,
@@ -15,11 +15,13 @@ const SorCodeSelectView = ({
   apiError,
 }) => {
   const [
-    arrayOfSorCodeSelectComponentIndexes,
-    setArrayOfSorCodeSelectComponentIndexes,
+    arrayOfRateScheduleItemComponentIndexes,
+    setArrayOfRateScheduleItemComponentIndexes,
   ] = useState([0])
 
-  const [sorCodeObjects, setSorCodeObjects] = useState([])
+  const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
+    []
+  )
 
   const sorCodesList = sorCodes.map(
     (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
@@ -29,26 +31,26 @@ const SorCodeSelectView = ({
     return sorCodes.filter((a) => a.code == value)[0]
   }
 
-  const onSorCodeSelect = (index, event) => {
+  const onRateScheduleItemSelect = (index, event) => {
     const value = event.target.value.split(' - ')[0]
     const sorCodeObject = getSorCodeObject(value)
-
     const sorCodeDescription = sorCodeObject?.shortDescription || ''
 
     document.getElementById(
-      `sorCodesCollection[${index}][description]`
+      `rateScheduleItems[${index}][description]`
     ).value = sorCodeDescription
 
     if (sorCodeObject?.priority?.priorityCode) {
-      const sorCodeObjectAtSameIndex = sorCodeObjects.find(
+      const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
         (e) => e.index === index
       )
 
-      if (sorCodeObjectAtSameIndex) {
-        sorCodeObjectAtSameIndex.code = sorCodeObject.priority.priorityCode
+      if (rateScheduleItemPriorityAtSameIndex) {
+        rateScheduleItemPriorityAtSameIndex.code =
+          sorCodeObject.priority.priorityCode
       } else {
-        setSorCodeObjects((sorCodeObjects) => [
-          ...sorCodeObjects,
+        setRateScheduleItemPriorities((rateScheduleItemPriorities) => [
+          ...rateScheduleItemPriorities,
           {
             index: index,
             code: sorCodeObject.priority.priorityCode,
@@ -56,7 +58,9 @@ const SorCodeSelectView = ({
         ])
       }
 
-      let sortedByPriorityCode = sorCodeObjects.sort((a, b) => a.code - b.code)
+      let sortedByPriorityCode = rateScheduleItemPriorities.sort(
+        (a, b) => a.code - b.code
+      )
       const existingHigherPriority = sortedByPriorityCode.find(
         (e) => e.code <= sorCodeObject.priority.priorityCode
       )
@@ -64,38 +68,38 @@ const SorCodeSelectView = ({
       updatePriority(
         sorCodeObject.priority.description,
         sorCodeObject.priority.priorityCode,
-        sorCodeObjects.length,
+        rateScheduleItemPriorities.length,
         existingHigherPriority?.code
       )
     }
   }
 
-  const addSorCodeSelect = (e) => {
+  const addRateScheduleItem = (e) => {
     e.preventDefault()
 
-    setArrayOfSorCodeSelectComponentIndexes(
-      (arrayOfSorCodeSelectComponentIndexes) => [
-        ...arrayOfSorCodeSelectComponentIndexes,
-        arrayOfSorCodeSelectComponentIndexes.slice(-1)[0] + 1,
+    setArrayOfRateScheduleItemComponentIndexes(
+      (arrayOfRateScheduleItemComponentIndexes) => [
+        ...arrayOfRateScheduleItemComponentIndexes,
+        arrayOfRateScheduleItemComponentIndexes.slice(-1)[0] + 1,
       ]
     )
   }
 
-  const removeSorCodeSelect = (index) => {
-    setArrayOfSorCodeSelectComponentIndexes(
-      (arrayOfSorCodeSelectComponentIndexes) =>
-        arrayOfSorCodeSelectComponentIndexes.filter((i) => i !== index)
+  const removeRateScheduleItem = (index) => {
+    setArrayOfRateScheduleItemComponentIndexes(
+      (arrayOfRateScheduleItemComponentIndexes) =>
+        arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== index)
     )
 
-    const remainingSorCodeObjects = sorCodeObjects.filter(
+    const remainingRateScheduleItemPriorities = rateScheduleItemPriorities.filter(
       (i) => i.index !== index
     )
 
-    setSorCodeObjects(remainingSorCodeObjects)
+    setRateScheduleItemPriorities(remainingRateScheduleItemPriorities)
 
-    if (remainingSorCodeObjects.length > 0) {
+    if (remainingRateScheduleItemPriorities.length > 0) {
       const highestPriorityCode = Math.min(
-        ...remainingSorCodeObjects.map((object) => object.code)
+        ...remainingRateScheduleItemPriorities.map((object) => object.code)
       )
       const priorityObject = getPriorityObjectByCode(highestPriorityCode)
 
@@ -103,26 +107,26 @@ const SorCodeSelectView = ({
         updatePriority(
           priorityObject.description,
           priorityObject.priorityCode,
-          remainingSorCodeObjects.length,
+          remainingRateScheduleItemPriorities.length,
           highestPriorityCode
         )
     }
   }
 
-  const sorCodeSelectCollection = () => {
-    return arrayOfSorCodeSelectComponentIndexes.map((i) => {
+  const rateScheduleItems = () => {
+    return arrayOfRateScheduleItemComponentIndexes.map((i) => {
       return (
-        <Fragment key={`sorCodeCollection~${i}`}>
-          <SorCodeSelect
+        <Fragment key={`rateScheduleItem~${i}`}>
+          <RateScheduleItem
             sorCodesList={sorCodesList}
             register={register}
             errors={errors}
             disabled={disabled}
             key={i}
             index={i}
-            onSorCodeSelect={onSorCodeSelect}
-            showRemoveSorCodeSelect={i > 0}
-            removeSorCodeSelect={removeSorCodeSelect}
+            onRateScheduleItemSelect={onRateScheduleItemSelect}
+            showRemoveRateScheduleItem={i > 0}
+            removeRateScheduleItem={removeRateScheduleItem}
           />
         </Fragment>
       )
@@ -135,11 +139,11 @@ const SorCodeSelectView = ({
         <Spinner />
       ) : (
         <div>
-          {sorCodeSelectCollection()}
+          {rateScheduleItems()}
           {apiError && <ErrorMessage label={apiError} />}
 
           <a
-            onClick={addSorCodeSelect}
+            onClick={addRateScheduleItem}
             href="#"
             className="repairs-hub-link govuk-body-s"
           >
@@ -151,7 +155,7 @@ const SorCodeSelectView = ({
   )
 }
 
-SorCodeSelectView.propTypes = {
+RateScheduleItemView.propTypes = {
   sorCodes: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
@@ -162,4 +166,4 @@ SorCodeSelectView.propTypes = {
   apiError: PropTypes.bool,
 }
 
-export default SorCodeSelectView
+export default RateScheduleItemView

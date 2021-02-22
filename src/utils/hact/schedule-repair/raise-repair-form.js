@@ -23,7 +23,7 @@ export const buildScheduleRepairFormData = (formData) => {
     workClass: {
       workClassCode: 0,
     },
-    workElement: formData.sorCodesCollection
+    workElement: formData.rateScheduleItems
       .map((item) => {
         return [
           {

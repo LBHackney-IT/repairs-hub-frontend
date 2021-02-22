@@ -3,30 +3,31 @@ import { GridRow, GridColumn } from '../Layout/Grid'
 import { PrimarySubmitButton, TextInput } from '../Form'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import ExtraSorCode from './ExtraSorCode'
+import AdditionalRateScheduleItem from './AdditionalRateScheduleItem'
 
 const UpdateJobForm = ({
-  task,
+  tasks,
   sorCodes,
   onGetToSummary,
-  sorCodesCollection,
+  rateScheduleItems,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
-  const [temporarySorCodeCollection, setTemporarySorCodeCollection] = useState([
-    ...sorCodesCollection,
-  ])
-  const [nextFreeIndex, setNextFreeIndex] = useState(sorCodesCollection.length)
+  const [
+    additionalRateScheduleItems,
+    setAdditionalRateScheduleItems,
+  ] = useState([...rateScheduleItems])
+  const [nextFreeIndex, setNextFreeIndex] = useState(rateScheduleItems.length)
 
-  const onDeleteTemporarySorCode = (index) => {
-    let filtered = temporarySorCodeCollection.filter((e) => e.id != index)
-    setTemporarySorCodeCollection([...filtered])
+  const removeRateScheduleItem = (index) => {
+    let filtered = additionalRateScheduleItems.filter((e) => e.id != index)
+    setAdditionalRateScheduleItems([...filtered])
   }
 
-  const onAddTemporarySorCode = () => {
-    temporarySorCodeCollection.push({ id: nextFreeIndex })
+  const addRateScheduleItem = () => {
+    additionalRateScheduleItems.push({ id: nextFreeIndex })
     setNextFreeIndex(nextFreeIndex + 1)
-    setTemporarySorCodeCollection([...temporarySorCodeCollection])
+    setAdditionalRateScheduleItems([...additionalRateScheduleItems])
   }
 
   return (
@@ -36,8 +37,8 @@ const UpdateJobForm = ({
         id="repair-request-form"
         onSubmit={handleSubmit(onGetToSummary)}
       >
-        <GridRow className="sor-code-select align-items-center">
-          {task.map((t, index) => (
+        <GridRow className="rate-schedule-items align-items-center">
+          {tasks.map((t, index) => (
             <div key={index}>
               <GridColumn width="two-thirds">
                 <TextInput
@@ -82,14 +83,14 @@ const UpdateJobForm = ({
             </div>
           ))}
         </GridRow>
-        <ExtraSorCode
+        <AdditionalRateScheduleItem
           sorCodes={sorCodes}
           register={register}
           errors={errors}
-          sorCodesCollection={temporarySorCodeCollection}
+          rateScheduleItems={additionalRateScheduleItems}
           isContractorUpdatePage={isContractorUpdatePage}
-          onDeleteTemporarySorCode={onDeleteTemporarySorCode}
-          onAddTemporarySorCode={onAddTemporarySorCode}
+          removeRateScheduleItem={removeRateScheduleItem}
+          addRateScheduleItem={addRateScheduleItem}
         />
 
         <PrimarySubmitButton label="Next" />
@@ -102,8 +103,7 @@ UpdateJobForm.propTypes = {
   task: PropTypes.array.isRequired,
   sorCodes: PropTypes.array.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
-  sorCodesCollection: PropTypes.array.isRequired,
-  showAddedSoreCodes: PropTypes.bool.isRequired,
+  rateScheduleItems: PropTypes.array.isRequired,
 }
 
 export default UpdateJobForm

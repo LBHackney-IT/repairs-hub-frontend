@@ -9,7 +9,7 @@ jest.mock('uuid', () => {
 
 describe('buildRaiseRepairFormData', () => {
   const formData = {
-    sorCodesCollection: [
+    rateScheduleItems: [
       {
         code: 'DES5R006 - Urgent call outs',
         description: 'Urgent call outs',
@@ -26,7 +26,7 @@ describe('buildRaiseRepairFormData', () => {
     contractor: 'Purdy Contracts (P) Ltd - PCL',
     contractorRef: 'PCL',
     quantity: '1',
-    priorityDescription: 'U - Urgent (5 Working days)',
+    priorityDescription: '4 [U] URGENT',
     priorityCode: '3',
     descriptionOfWork: 'This is an urgent test description',
     propertyReference: '00001234',
@@ -48,7 +48,7 @@ describe('buildRaiseRepairFormData', () => {
       descriptionOfWork: 'This is an urgent test description',
       priority: {
         priorityCode: 2,
-        priorityDescription: 'U - Urgent (5 Working days)',
+        priorityDescription: '4 [U] URGENT',
         requiredCompletionDateTime: new Date('2021-01-21T18:16:20.986Z'),
         numberOfDays: 7,
       },

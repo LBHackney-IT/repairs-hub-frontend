@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { DataList } from '../../Form'
+import { DataList } from '../Form'
 
 const TradeDataList = ({ trades, register, errors, onTradeSelect }) => {
   const tradeList = trades

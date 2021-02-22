@@ -8,7 +8,7 @@ describe('JobsTable component', () => {
         reference: 10000012,
         dateRaised: new Date('2021-01-12T16:24:26.632Z'),
         lastUpdated: new Date('2021-01-13T16:24:26.632Z'),
-        priority: 'E - Emergency (24 hours)',
+        priority: '2 [E] EMERGENCY',
         property: '1 Pitcairn House St Thomass Square',
         owner: '',
         status: 'In Progress',

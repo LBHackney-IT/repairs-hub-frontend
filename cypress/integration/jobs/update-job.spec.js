@@ -7,6 +7,7 @@ describe('Contractor update a job', () => {
     cy.server()
     cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
     cy.fixture('repairs/work-orders.json').as('workorderslist')
+    // Return first item
     cy.fixture('repairs/tasks-and-sors.json')
       .then((tasksAndSors) => {
         tasksAndSors.splice(1, 2)
@@ -70,25 +71,25 @@ describe('Contractor update a job', () => {
 
     cy.get('#repair-request-form').within(() => {
       // Select SOR Code from dropdown
-      cy.get('select[id="sorCodesCollection[0][code]"]').select(
+      cy.get('select[id="rateScheduleItems[0][code]"]').select(
         'DES5R004 - Emergency call out'
       )
       // Enter a non-number quantity
-      cy.get('input[id="sorCodesCollection[0][quantity]"]').clear().type('x')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('x')
 
       cy.get('[type="submit"]').contains('Next').click()
 
       cy.contains('Quantity must be a whole number')
       // Enter a quantity more than the maximum
-      cy.get('input[id="sorCodesCollection[0][quantity]"]').clear().type('60')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('60')
 
       cy.contains('Quantity must be 50 or less')
       // Enter a quantity less then the minimum
-      cy.get('input[id="sorCodesCollection[0][quantity]"]').clear().type('0')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
       cy.contains('Quantity must be 1 or more')
 
       // Enter a non-integer quantity
-      cy.get('input[id="sorCodesCollection[0][quantity]"]').clear().type('1.5')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.5')
       cy.contains('Quantity must be a whole number')
     })
   })
@@ -165,11 +166,11 @@ describe('Contractor update a job', () => {
     cy.get('#repair-request-form').within(() => {
       cy.get('.repairs-hub-link').click()
       // Select SOR Code from dropdown
-      cy.get('select[id="sorCodesCollection[0][code]"]').select(
+      cy.get('select[id="rateScheduleItems[0][code]"]').select(
         'DES5R004 - Emergency call out'
       )
 
-      cy.get('input[id="sorCodesCollection[0][quantity]"]').clear().type('15')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('15')
 
       cy.get('[type="submit"]').contains('Next').click()
     })
