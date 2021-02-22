@@ -6,12 +6,9 @@ import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
 import { getRepair } from '../../../utils/frontend-api-client/repairs'
 import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
-import { convertDate } from '../../../utils/date'
-import { canCancelWorkOrder } from '../../../utils/helpers/cancel-work-order'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
-  const [workOrderDateRaised, setWorkOrderDateRaised] = useState('')
   const [formSuccess, setFormSuccess] = useState(false)
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
@@ -39,7 +36,6 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
       const workOrder = await getRepair(workOrderReference)
 
       setWorkOrder(workOrder)
-      setWorkOrderDateRaised(convertDate(workOrder.dateRaised))
     } catch (e) {
       setWorkOrder(null)
       console.log('An error has occured:', e.response)
@@ -70,15 +66,12 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
               shortAddress={workOrder.property}
             />
           )}
-          {!formSuccess &&
-            workOrder &&
-            workOrderDateRaised &&
-            canCancelWorkOrder(workOrderDateRaised) && (
-              <CancelWorkOrderForm
-                workOrder={workOrder}
-                onFormSubmit={onFormSubmit}
-              />
-            )}
+          {!formSuccess && workOrder && (
+            <CancelWorkOrderForm
+              workOrder={workOrder}
+              onFormSubmit={onFormSubmit}
+            />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
