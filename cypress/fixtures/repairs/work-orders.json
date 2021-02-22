@@ -3,11 +3,12 @@
     "reference": 10000040,
     "dateRaised": "2021-01-22T11:02:00.334849",
     "lastUpdated": null,
-    "priority": "E - Emergency (24 hours)",
+    "priority": "2 [E] EMERGENCY",
     "property": "315 Banister House  Homerton High Street",
-    "owner": "",
+    "owner": "Alphatrack (S) Systems Lt",
     "description": "An emergency repair",
     "propertyReference": "00012345",
+    "tradeCode": "DE",
     "status": "In progress"
   },
   {
@@ -16,20 +17,22 @@
     "lastUpdated": null,
     "priority": "U - Urgent 7 days (5 Working days)",
     "property": "315 Banister House  Homerton High Street",
-    "owner": "",
+    "owner": "Alphatrack (S) Systems Lt",
     "description": "A very urgent repair",
     "propertyReference": "00012345",
+    "tradeCode": "DE",
     "status": "Work complete"
   },
   {
     "reference": 10000036,
     "dateRaised": "2021-01-21T16:41:07.417519",
     "lastUpdated": null,
-    "priority": "I - Immediate (2 hours)",
+    "priority": "1 [I] IMMEDIATE",
     "property": "315 Banister House  Homerton High Street",
-    "owner": "",
+    "owner": "Alphatrack (S) Systems Lt",
     "description": "An immediate repair",
     "propertyReference": "00012345",
+    "tradeCode": "DE",
     "status": "Work complete"
   },
   {
@@ -38,9 +41,10 @@
     "lastUpdated": null,
     "priority": "N - Normal 28 days (21 working days)",
     "property": "315 Banister House  Homerton High Street",
-    "owner": "",
+    "owner": "Alphatrack (S) Systems Lt",
     "description": "A normal repair",
     "propertyReference": "00012345",
+    "tradeCode": "DE",
     "status": "In progress"
   }
 ]

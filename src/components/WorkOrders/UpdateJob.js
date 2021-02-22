@@ -9,7 +9,7 @@ import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updatedTasks } from '../../utils/update-job'
 import { buildUpdateJob } from '../../utils/hact/update-job'
-import { postUpdateJob } from '../../utils/frontend-api-client/work-orders'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
@@ -56,7 +56,7 @@ const UpdateJob = ({ reference }) => {
     setLoading(true)
 
     try {
-      await postUpdateJob(formData)
+      await postJobStatusUpdate(formData)
       router.push('/')
     } catch (e) {
       console.log(e)
@@ -72,7 +72,8 @@ const UpdateJob = ({ reference }) => {
 
     try {
       const task = await getTasks(reference)
-      const sorCodes = await getSorCodes()
+      // FIXME: Hardcoding temporarily to not break staging
+      const sorCodes = await getSorCodes('PL', '00012345', 'H01')
 
       setSorCodes(sorCodes)
       setTask(task)

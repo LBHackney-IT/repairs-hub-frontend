@@ -1,0 +1,26 @@
+[
+  {
+    "code": "BK",
+    "name": "Brickwork & Blockwork"
+  },
+  {
+    "code": "CP",
+    "name": "Carpentry and Joinery"
+  },
+  {
+    "code": "DE",
+    "name": "DOOR ENTRY ENGINEER"
+  },
+  {
+    "code": "EL",
+    "name": "Electrical"
+  },
+  {
+    "code": "MW",
+    "name": "Metalwork"
+  },
+  {
+    "code": "PL",
+    "name": "Plumbing"
+  }
+]

@@ -12,7 +12,7 @@ const ExtraSorCode = ({
   onDeleteTemporarySorCode,
 }) => {
   const sorCodesList = sorCodes.map(
-    (code) => `${code.customCode} - ${code.customName}`
+    (code) => `${code.code} - ${code.shortDescription}`
   )
 
   const sorCodeSelectCollection = (sorCodeCollection) => {

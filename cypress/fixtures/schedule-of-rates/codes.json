@@ -1,57 +1,70 @@
-[
-  {
-    "customCode": "DES5R003",
-    "customName": "Immediate call outs",
-    "priority": {
-      "priorityCode": 1,
-      "description": "I - Immediate (2 hours)"
-    },
-    "sorContractor": {
-      "reference": "H01"
-    }
-  },
-  {
-    "customCode": "DES5R004",
-    "customName": "Emergency call out",
-    "priority": {
-      "priorityCode": 2,
-      "description": "E - Emergency (24 hours)"
-    },
-    "sorContractor": {
-      "reference": "H01"
-    }
-  },
-  {
-    "customCode": "DES5R006",
-    "customName": "Urgent call outs",
-    "priority": {
-      "priorityCode": 3,
-      "description": "U - Urgent (5 Working days)"
-    },
-    "sorContractor": {
-      "reference": "H01"
-    }
-  },
-  {
-    "customCode": "DES5R005",
-    "customName": "Normal call outs",
+[{
+    "code": "20000030",
+    "shortDescription": "DAYWORK PLUMBER BAND 3",
     "priority": {
       "priorityCode": 4,
-      "description": "N - Normal (21 working days)"
-    },
-    "sorContractor": {
-      "reference": "H01"
+      "description": "5 [N] NORMAL"
     }
   },
   {
-    "customCode": "DES5R013",
-    "customName": "Inspect additional sec entrance",
+    "code": "20060020",
+    "shortDescription": "BATHROOM PLUMBING REPAIRS",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    }
+  },
+  {
+    "code": "20060030",
+    "shortDescription": "KITCHEN PLUMBING REPAIRS",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    }
+  },
+  {
+    "code": "DES5R003",
+    "shortDescription": "Immediate call outs",
+    "priority": {
+      "priorityCode": 1,
+      "description": "1 [I] IMMEDIATE"
+    }
+  },
+  {
+    "code": "DES5R004",
+    "shortDescription": "Emergency call out",
+    "priority": {
+      "priorityCode": 2,
+      "description": "2 [E] EMERGENCY"
+    }
+  },
+  {
+    "code": "DES5R006",
+    "shortDescription": "Urgent call outs",
+    "priority": {
+      "priorityCode": 3,
+      "description": "4 [U] URGENT"
+    }
+  },
+  {
+    "code": "DES5R005",
+    "shortDescription": "Normal call outs",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    }
+  },
+  {
+    "code": "DES5R013",
+    "shortDescription": "Inspect additional sec entrance",
     "priority": {
       "priorityCode": 5,
       "description": "Inspection"
-    },
-    "sorContractor": {
-      "reference": "H01"
     }
+  },
+  {
+    "code": "INP5R001",
+    "shortDescription": "Pre insp of wrks by Constructr",
+    "priority": null
   }
 ]
