@@ -14,7 +14,7 @@ const AppointmentCalendar = ({ availableAppointments }) => {
   const currentDate = beginningOfDay(new Date())
   const startOfCalendar = beginningOfWeek(currentDate)
   const [selectedDate, setSelectedDate] = useState(null)
-  const [isdateSelected, setIsdateSelected] = useState(false)
+  const [isDateSelected, setIsDateSelected] = useState(false)
   const [slots, setSlots] = useState(null)
   const [onSummaryPage, setOnSummaryPage] = useState(false)
 
@@ -52,16 +52,16 @@ const AppointmentCalendar = ({ availableAppointments }) => {
     if (isAvailable(date)) {
       setSlots(getAvailableSlots(date, availableAppointments))
       setSelectedDate(date)
-      setIsdateSelected(true)
+      setIsDateSelected(true)
     }
   }
 
   const onCancel = () => {
-    setIsdateSelected(false)
+    setIsDateSelected(false)
     setSelectedDate(null)
   }
 
-  const isOnSummaryPage = () => {
+  const updateOnSummaryPageState = () => {
     setOnSummaryPage(!onSummaryPage)
   }
 
@@ -128,12 +128,12 @@ const AppointmentCalendar = ({ availableAppointments }) => {
           </GridColumn>
         </GridRow>
       )}
-      {isdateSelected && (
+      {isDateSelected && (
         <ChooseTimeSlotView
           date={longMonthWeekday(selectedDate)}
           availableSlots={slots}
           onCancel={onCancel}
-          isOnSummaryPage={isOnSummaryPage}
+          updateOnSummaryPageState={updateOnSummaryPageState}
         />
       )}
     </>

@@ -15,46 +15,46 @@ const TimeSlotForm = ({
 
   return (
     <div className="appointment-am-pm-form">
-      <form
-        role="form"
-        id="appointment"
-        onSubmit={handleSubmit(onGetToSummary)}
-      >
-        <div className="custom-padding">
-          <h2>{date}</h2>
-          <Radios
-            label=""
-            name="options"
-            options={availableSlots['slots'].map((slot) => {
-              let text =
-                slot['description'] == 'AM Slot'
-                  ? 'AM 8:00 -12:00'
-                  : 'PM 12:00-4:00'
-              return {
-                text: text,
-                value: text,
-                defaultChecked: text == timeSlot,
-              }
-            })}
-            register={register({ required: 'Please select a time slot' })}
-            error={errors && errors.options}
-          />
-          <TextArea
-            className="appointment-text-area"
-            name="comments"
-            label="Comments"
-            register={register({
-              required: 'Please add comments',
-            })}
-            error={errors && errors.comments}
-            defaultValue={comments}
-          />
-        </div>
-        <div className="govuk-button-group">
-          <Button label="Submit" type="submit" />
-          <Button type="button" label="Cancel" onClick={onCancel} />
-        </div>
-      </form>
+      <div className="govuk-grid-column-full">
+        <form
+          role="form"
+          id="appointment"
+          onSubmit={handleSubmit(onGetToSummary)}
+        >
+          <div className="am-pm-slots-padding">
+            <h2>{date}</h2>
+            <Radios
+              label=""
+              name="options"
+              options={availableSlots['slots'].map((slot) => {
+                let text =
+                  slot['description'] == 'AM Slot'
+                    ? 'AM 8:00 -12:00'
+                    : 'PM 12:00-4:00'
+                return {
+                  text: text,
+                  value: text,
+                  defaultChecked: text == timeSlot,
+                }
+              })}
+              register={register({ required: 'Please select a time slot' })}
+              error={errors && errors.options}
+            />
+            <TextArea
+              className="appointment-text-area"
+              name="comments"
+              label="Comments"
+              register={register({
+                required: 'Please add comments',
+              })}
+              error={errors && errors.comments}
+              defaultValue={comments}
+            />
+            <Button label="Submit" type="submit" />
+            <Button type="button" label="Cancel" onClick={onCancel} />
+          </div>
+        </form>
+      </div>
     </div>
   )
 }
