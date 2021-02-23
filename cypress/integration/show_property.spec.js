@@ -54,7 +54,7 @@ describe('Show property', () => {
         )
       })
 
-      it('Display the repairs history for the property', () => {
+      it('Displays the repairs history for the property', () => {
         // Repairs history tab should be active
         cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
 
@@ -104,7 +104,7 @@ describe('Show property', () => {
         cy.audit()
       })
 
-      it('Display no repairs text when records do not exist', () => {
+      it('Displays no repairs text when records do not exist', () => {
         cy.route(
           'GET',
           'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
@@ -162,7 +162,7 @@ describe('Show property', () => {
     }
   )
 
-  context('Display property with no tenure type', () => {
+  context('Displays property with no tenure type', () => {
     beforeEach(() => {
       // Stub request with property response
       cy.fixture('properties/property_no_tenure.json').as('property')
