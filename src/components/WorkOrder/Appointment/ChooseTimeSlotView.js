@@ -3,18 +3,25 @@ import TimeSlotForm from './TimeSlotForm'
 import SummaryAppointment from './SummaryAppointment'
 import { useState } from 'react'
 
-const ChooseTimeSlotView = ({ date, availableSlots, onCancel }) => {
+const ChooseTimeSlotView = ({
+  date,
+  availableSlots,
+  onCancel,
+  isOnSummaryPage,
+}) => {
   const [showSummary, setShowSummary] = useState(false)
   const [timeSlot, setTimeSlot] = useState('')
   const [comments, setComments] = useState('')
 
-  const onEditAppointment = (e) => {
+  const onEditAppointment = () => {
     setShowSummary(false)
+    isOnSummaryPage()
   }
   const onGetToSummary = (e) => {
     setTimeSlot(e.options)
     setComments(e.comments)
     setShowSummary(true)
+    isOnSummaryPage()
   }
 
   return (
@@ -41,9 +48,10 @@ const ChooseTimeSlotView = ({ date, availableSlots, onCancel }) => {
 }
 
 ChooseTimeSlotView.propTypes = {
-  date: PropTypes.string,
-  availability: PropTypes.array,
+  date: PropTypes.string.isRequired,
+  availableSlots: PropTypes.object.isRequired,
   onCancel: PropTypes.func.isRequired,
+  isOnSummaryPage: PropTypes.func.isRequired,
 }
 
 export default ChooseTimeSlotView

@@ -12,6 +12,7 @@ import {
   longMonthName,
   isBeginningOfMonth,
   toISODate,
+  longMonthWeekday,
 } from './date'
 
 describe('date', () => {
@@ -197,5 +198,15 @@ describe('isBeginningOfMonth', () => {
 describe('toISODate', () => {
   it('returns the ISO 8601 date string', () => {
     expect(toISODate(new Date('2021-02-15T00:00:00'))).toEqual('2021-02-15')
+  })
+})
+
+describe('longMonthWeekday', () => {
+  it('converts into human readable long Month and Weekday format', () => {
+    const date = new Date(
+      'Fri Feb 26 2021 00:00:00 GMT+0000 (Greenwich Mean Time)'
+    )
+
+    expect(longMonthWeekday(date)).toEqual('Friday, 26 February')
   })
 })

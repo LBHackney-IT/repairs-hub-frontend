@@ -3,8 +3,8 @@ import { useForm } from 'react-hook-form'
 import { Button } from '../../Form'
 
 const SummaryAppointment = ({
-  date,
   timeSlot,
+  date,
   comments,
   onEditAppointment,
 }) => {
@@ -32,9 +32,9 @@ const SummaryAppointment = ({
 }
 
 SummaryAppointment.propTypes = {
-  date: PropTypes.string,
-  timeSlot: PropTypes.string,
-  comments: PropTypes.string,
+  timeSlot: PropTypes.string.isRequired,
+  date: PropTypes.string.isRequired,
+  comments: PropTypes.string.isRequired,
   onEditAppointment: PropTypes.func.isRequired,
 }
 

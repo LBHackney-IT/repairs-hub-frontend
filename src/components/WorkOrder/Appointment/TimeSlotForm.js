@@ -4,12 +4,12 @@ import { Button, TextArea } from '../../Form'
 import { useForm } from 'react-hook-form'
 
 const TimeSlotForm = ({
-  date,
-  availableSlots,
   onGetToSummary,
+  date,
   comments,
   timeSlot,
   onCancel,
+  availableSlots,
 }) => {
   const { handleSubmit, register, errors } = useForm({})
 
@@ -60,10 +60,12 @@ const TimeSlotForm = ({
 }
 
 TimeSlotForm.propTypes = {
-  date: PropTypes.string,
-  availability: PropTypes.array,
   onGetToSummary: PropTypes.func.isRequired,
+  date: PropTypes.string.isRequired,
+  comments: PropTypes.string.isRequired,
+  timeSlot: PropTypes.string.isRequired,
   onCancel: PropTypes.func.isRequired,
+  availableSlots: PropTypes.object.isRequired,
 }
 
 export default TimeSlotForm
