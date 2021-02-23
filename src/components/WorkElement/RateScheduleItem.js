@@ -95,7 +95,7 @@ RateScheduleItem.propTypes = {
   sorCodesList: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number,
   showRemoveRateScheduleItem: PropTypes.bool.isRequired,
   removeRateScheduleItem: PropTypes.func.isRequired,
   code: PropTypes.string,

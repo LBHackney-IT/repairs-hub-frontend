@@ -1,0 +1,232 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateJobForm component should render properly 1`] = `
+<DocumentFragment>
+  <form
+    id="repair-request-form"
+    role="form"
+  >
+    <div
+      class="govuk-grid-row rate-schedule-items align-items-center"
+    >
+      <div>
+        <div
+          class="govuk-grid-column-two-thirds"
+        >
+          <div
+            class="govuk-form-group"
+            id="sor-code-0-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="sor-code-0"
+            >
+              SOR code 
+            </label>
+            <input
+              class="govuk-input sor-code-0 govuk-!-width-full"
+              disabled=""
+              id="sor-code-0"
+              name="sor-code-0"
+              type="text"
+              value="DES5R006 - "
+            />
+          </div>
+          <input
+            id="hidden-sor-code-0"
+            label="hidden-sor-code-0"
+            name="hidden-sor-code-0"
+            type="hidden"
+            value="DES5R006 - "
+          />
+        </div>
+        <div
+          class="govuk-grid-column-one-third"
+        >
+          <div
+            class="govuk-form-group"
+            id="quantity-0-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="quantity-0"
+            >
+              Quantity 
+            </label>
+            <input
+              class="govuk-input quantity-0 govuk-!-width-full"
+              id="quantity-0"
+              name="quantity-0"
+              type="text"
+              value="2"
+            />
+          </div>
+        </div>
+      </div>
+      <div>
+        <div
+          class="govuk-grid-column-two-thirds"
+        >
+          <div
+            class="govuk-form-group"
+            id="sor-code-1-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="sor-code-1"
+            >
+               
+            </label>
+            <input
+              class="govuk-input sor-code-1 govuk-!-width-full"
+              disabled=""
+              id="sor-code-1"
+              name="sor-code-1"
+              type="text"
+              value="DES5R005 - "
+            />
+          </div>
+          <input
+            id="hidden-sor-code-1"
+            label="hidden-sor-code-1"
+            name="hidden-sor-code-1"
+            type="hidden"
+            value="DES5R005 - "
+          />
+        </div>
+        <div
+          class="govuk-grid-column-one-third"
+        >
+          <div
+            class="govuk-form-group"
+            id="quantity-1-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="quantity-1"
+            >
+               
+            </label>
+            <input
+              class="govuk-input quantity-1 govuk-!-width-full"
+              id="quantity-1"
+              name="quantity-1"
+              type="text"
+              value="1"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-!-padding-bottom-5"
+    >
+      <div
+        class="govuk-grid-row rate-schedule-item display-flex align-items-center position-relative"
+        id="rate-schedule-item-undefined"
+      >
+        <div
+          class="govuk-grid-column-two-thirds"
+        >
+          <div
+            class="govuk-form-group"
+            id="rateScheduleItems[undefined][code]-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="rateScheduleItems[undefined][code]"
+            >
+              SOR Code 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <select
+              class="govuk-select govuk-!-width-full"
+              data-testid="rateScheduleItems[undefined][code]"
+              id="rateScheduleItems[undefined][code]"
+              name="rateScheduleItems[undefined][code]"
+            >
+              <option
+                value=""
+              />
+              <option
+                value="20000030 - DAYWORK PLUMBER BAND 3"
+              >
+                20000030 - DAYWORK PLUMBER BAND 3
+              </option>
+              <option
+                value="20060020 - BATHROOM PLUMBING REPAIRS"
+              >
+                20060020 - BATHROOM PLUMBING REPAIRS
+              </option>
+            </select>
+          </div>
+          <input
+            id="rateScheduleItems[undefined][description]"
+            name="rateScheduleItems[undefined][description]"
+            type="hidden"
+          />
+        </div>
+        <div
+          class="govuk-grid-column-one-third"
+        >
+          <div
+            class="govuk-form-group"
+            id="rateScheduleItems[undefined][quantity]-form-group"
+          >
+            <label
+              class="govuk-label"
+              for="rateScheduleItems[undefined][quantity]"
+            >
+              Quantity 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <input
+              class="govuk-input govuk-!-width-full"
+              id="rateScheduleItems[undefined][quantity]"
+              name="rateScheduleItems[undefined][quantity]"
+              type="text"
+              value="2"
+            />
+          </div>
+        </div>
+        <div
+          class="remove-rate-schedule-item position-absolute right-negative-3"
+        >
+          <button
+            class="cursor-pointer"
+            id="remove-rate-schedule-item-undefined"
+            type="button"
+          >
+            -
+          </button>
+        </div>
+      </div>
+      <a
+        class="repairs-hub-link govuk-body-s"
+        href="#"
+      >
+        + Add another SOR code
+      </a>
+    </div>
+    <div
+      class="govuk-form-group"
+    >
+      <button
+        class="govuk-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;

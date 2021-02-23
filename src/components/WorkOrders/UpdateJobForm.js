@@ -100,7 +100,7 @@ const UpdateJobForm = ({
 }
 
 UpdateJobForm.propTypes = {
-  task: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
   sorCodes: PropTypes.array.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   rateScheduleItems: PropTypes.array.isRequired,

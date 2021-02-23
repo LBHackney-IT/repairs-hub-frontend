@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloseJobForm component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <h1
+      class="govuk-heading-l"
+    >
+      Update work order: 10000012
+    </h1>
+    <form
+      role="form"
+    >
+      <div
+        class="govuk-form-group"
+      >
+        <label
+          class="govuk-label govuk-label--m"
+          for="date"
+        >
+          Select completion date 
+        </label>
+        <input
+          class="govuk-input govuk-input--width-10"
+          id="date"
+          name="date"
+          type="date"
+          value="2021-01-12"
+        />
+      </div>
+      <div
+        class="govuk-form-group"
+      >
+        <fieldset
+          aria-describedby="time-hint"
+          class="govuk-fieldset"
+          role="group"
+        >
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--m"
+          >
+            Completion time 
+          </legend>
+          <span
+            class="govuk-hint"
+            id="time-hint"
+          >
+            Use 24h format. For example, 14:30
+          </span>
+          <div
+            class="govuk-date-input"
+            id="time"
+          >
+            <div
+              class="govuk-date-input__item"
+            >
+              <div
+                class="govuk-form-group"
+              >
+                <label
+                  class="govuk-label govuk-date-input__label"
+                  for="time-hour"
+                >
+                  Hour
+                </label>
+                <input
+                  class="govuk-input govuk-date-input__input govuk-input--width-2"
+                  id="time-time"
+                  inputmode="numeric"
+                  name="time-time"
+                  pattern="^\\\\d{1,2}$"
+                  type="text"
+                  value="14"
+                />
+              </div>
+            </div>
+            <div
+              class="govuk-date-input__item"
+            >
+              <div
+                class="govuk-form-group"
+              >
+                <label
+                  class="govuk-label govuk-date-input__label"
+                  for="time-minutes"
+                >
+                  Minutes
+                </label>
+                <input
+                  class="govuk-input govuk-date-input__input govuk-input--width-2"
+                  id="time-minutes"
+                  inputmode="numeric"
+                  name="time-minutes"
+                  pattern="^\\\\d{1,2}$"
+                  type="text"
+                  value="30"
+                />
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+      <div
+        class="govuk-form-group"
+        id="notes-form-group"
+      >
+        <label
+          class="govuk-label"
+          for="notes"
+        >
+          Add notes 
+        </label>
+        <textarea
+          aria-describedby="notes-hint notes-error"
+          class="govuk-textarea"
+          id="notes"
+          name="notes"
+          rows="4"
+        >
+          this is a note
+        </textarea>
+      </div>
+      <div
+        class="govuk-form-group"
+      >
+        <button
+          class="govuk-button"
+          data-module="govuk-button"
+          type="submit"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;
