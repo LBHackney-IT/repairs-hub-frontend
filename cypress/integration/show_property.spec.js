@@ -54,13 +54,68 @@ describe('Show property', () => {
         )
       })
 
-      it('Display the repairs history for the property', () => {
-        // Repairs history tab should be active
-        cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
+      context('Display the Repairs History for the property', () => {
+        it('Displays the history tab active', () => {
+          cy.get('.govuk-tabs__list-item--selected a').contains(
+            'Repairs history'
+          )
+        })
 
-        cy.get('.govuk-tabs').within(() => {
-          cy.get('.govuk-tabs__tab').contains('Repairs history')
-          cy.get('.govuk-heading-l').contains('Repairs history')
+        it('Displays the history table', () => {
+          cy.get('.govuk-tabs').within(() => {
+            cy.get('.govuk-tabs__tab').contains('Repairs history')
+            cy.get('.govuk-heading-l').contains('Repairs history')
+
+            // Repairs history table headers
+            cy.get('.govuk-table').within(() => {
+              cy.contains('th', 'Reference')
+              cy.contains('th', 'Date raised')
+              cy.contains('th', 'Status')
+              cy.contains('th', 'Description')
+            })
+            // Repairs history table rows
+            cy.get('[data-ref=10000040]').within(() => {
+              cy.contains('10000040')
+              cy.contains('22 Jan 2021')
+              cy.contains('11:02 am')
+              cy.contains('In progress')
+              cy.contains('An emergency repair')
+            })
+            cy.get('[data-ref=10000037]').within(() => {
+              cy.contains('10000037')
+              cy.contains('21 Jan 2021')
+              cy.contains('4:46 pm')
+              cy.contains('Work complete')
+              cy.contains('A very urgent repair')
+            })
+            cy.get('[data-ref=10000036]').within(() => {
+              cy.contains('10000036')
+              cy.contains('21 Jan 2021')
+              cy.contains('4:41 pm')
+              cy.contains('Work complete')
+              cy.contains('An immediate repair')
+            })
+            cy.get('[data-ref=10000035]').within(() => {
+              cy.contains('10000035')
+              cy.contains('21 Jan 2021')
+              cy.contains('3:03 pm')
+              cy.contains('In progress')
+              cy.contains('A normal repair')
+            })
+          })
+        })
+
+        it('Displays more repairs after clicking Load more button', () => {
+          // Stub request with property response
+          cy.fixture('repairs/more-work-orders.json').as('moreWorkOrders')
+          cy.route(
+            'GET',
+            'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=2',
+            '@moreWorkOrders'
+          )
+
+          // Click load more button
+          cy.contains('Load more').click()
 
           // Repairs history table headers
           cy.get('.govuk-table').within(() => {
@@ -70,6 +125,20 @@ describe('Show property', () => {
             cy.contains('th', 'Description')
           })
           // Repairs history table rows
+          cy.get('[data-ref=10000044]').within(() => {
+            cy.contains('10000044')
+            cy.contains('20 Feb 2021')
+            cy.contains('11:02 am')
+            cy.contains('In progress')
+            cy.contains('An emergency repair')
+          })
+          cy.get('[data-ref=10000043]').within(() => {
+            cy.contains('10000043')
+            cy.contains('10 Feb 2021')
+            cy.contains('4:46 pm')
+            cy.contains('Work complete')
+            cy.contains('A very urgent repair')
+          })
           cy.get('[data-ref=10000040]').within(() => {
             cy.contains('10000040')
             cy.contains('22 Jan 2021')
@@ -98,10 +167,10 @@ describe('Show property', () => {
             cy.contains('In progress')
             cy.contains('A normal repair')
           })
-        })
 
-        // Run lighthouse audit for accessibility report
-        cy.audit()
+          // Run lighthouse audit for accessibility report
+          cy.audit()
+        })
       })
 
       it('Display no repairs text when records do not exist', () => {
