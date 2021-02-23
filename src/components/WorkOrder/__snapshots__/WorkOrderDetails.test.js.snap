@@ -179,6 +179,12 @@ exports[`WorkOrderDetails component should render properly without a link to can
       >
         Works order: 10000012
       </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
     </div>
     <p
       class="govuk-body-m"
