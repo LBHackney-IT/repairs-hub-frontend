@@ -4,7 +4,6 @@ import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getTasks } from '../../utils/frontend-api-client/tasks'
-import { getSorCodes } from '../../utils/frontend-api-client/schedule-of-rates/codes'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updatedTasks } from '../../utils/update-job'
@@ -16,7 +15,6 @@ const UpdateJob = ({ reference }) => {
   const [tasks, setTasks] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [sorCodes, setSorCodes] = useState([])
   const [rateScheduleItems, setRateScheduleItems] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
   const [
@@ -75,10 +73,7 @@ const UpdateJob = ({ reference }) => {
 
     try {
       const tasks = await getTasks(reference)
-      // FIXME: Hardcoding temporarily to not break staging
-      const sorCodes = await getSorCodes('PL', '00012345', 'H01')
 
-      setSorCodes(sorCodes)
       setTasks(tasks)
     } catch (e) {
       setTasks(null)
@@ -103,7 +98,7 @@ const UpdateJob = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {tasks && sorCodes && (
+          {tasks && (
             <>
               {!showSummaryPage && (
                 <>
@@ -114,7 +109,6 @@ const UpdateJob = ({ reference }) => {
 
                   <UpdateJobForm
                     tasks={tasks}
-                    sorCodes={sorCodes}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }

@@ -1,21 +1,31 @@
 import PropTypes from 'prop-types'
 import RateScheduleItem from '../WorkElement/RateScheduleItem'
-import { Fragment } from 'react'
+import { Fragment, useState } from 'react'
 
 const AdditionalRateScheduleItem = ({
-  sorCodes,
   register,
   errors,
   rateScheduleItems,
   isContractorUpdatePage,
-  addRateScheduleItem,
-  removeRateScheduleItem,
 }) => {
-  const sorCodesList = sorCodes.map(
-    (code) => `${code.code} - ${code.shortDescription}`
-  )
+  const [
+    additionalRateScheduleItems,
+    setAdditionalRateScheduleItems,
+  ] = useState([...rateScheduleItems])
+  const [nextFreeIndex, setNextFreeIndex] = useState(rateScheduleItems.length)
 
-  const additionalRateScheduleItems = (items) => {
+  const removeRateScheduleItem = (index) => {
+    let filtered = additionalRateScheduleItems.filter((e) => e.id != index)
+    setAdditionalRateScheduleItems([...filtered])
+  }
+
+  const addRateScheduleItem = () => {
+    additionalRateScheduleItems.push({ id: nextFreeIndex })
+    setNextFreeIndex(nextFreeIndex + 1)
+    setAdditionalRateScheduleItems([...additionalRateScheduleItems])
+  }
+
+  const showRateScheduleItems = (items) => {
     return items.map((item) => {
       return (
         <Fragment key={`rateScheduleItem~${item.id}`}>
@@ -23,7 +33,6 @@ const AdditionalRateScheduleItem = ({
             code={item.code}
             quantity={item.quantity}
             cost={item.cost}
-            sorCodesList={sorCodesList}
             register={register}
             errors={errors}
             key={item.id}
@@ -31,6 +40,7 @@ const AdditionalRateScheduleItem = ({
             showRemoveRateScheduleItem={isContractorUpdatePage}
             removeRateScheduleItem={removeRateScheduleItem}
             isContractorUpdatePage={isContractorUpdatePage}
+            isTextInput={true}
           />
         </Fragment>
       )
@@ -39,7 +49,7 @@ const AdditionalRateScheduleItem = ({
 
   return (
     <div className="govuk-!-padding-bottom-5">
-      {additionalRateScheduleItems(rateScheduleItems)}
+      {showRateScheduleItems(additionalRateScheduleItems)}
       <a
         onClick={addRateScheduleItem}
         href="#"
@@ -52,7 +62,6 @@ const AdditionalRateScheduleItem = ({
 }
 
 AdditionalRateScheduleItem.propTypes = {
-  sorCodes: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   isContractorUpdatePage: PropTypes.bool.isRequired,

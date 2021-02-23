@@ -47,14 +47,18 @@ const UpdateJobForm = ({
                   widthClass={`sor-code-${index} govuk-!-width-full`}
                   register={register}
                   disabled="disabled"
-                  value={`${[t.code, t.description].join(' - ')}`}
+                  value={`${[t.code, t.description]
+                    .filter(Boolean)
+                    .join(' - ')}`}
                 />
                 <input
                   id={`hidden-sor-code-${index}`}
                   name={`hidden-sor-code-${index}`}
                   label={`hidden-sor-code-${index}`}
                   type="hidden"
-                  value={`${[t.code, t.description].join(' - ')}`}
+                  value={`${[t.code, t.description]
+                    .filter(Boolean)
+                    .join(' - ')}`}
                   ref={register}
                 />
               </GridColumn>
