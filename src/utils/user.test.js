@@ -95,7 +95,7 @@ describe('buildUser', () => {
       ])
 
       it(`ref returns the mapped contractor ref for the supplied group`, () => {
-        expect(user.contractorReference).toEqual('H01')
+        expect(user.contractorReference).toEqual('SCC')
       })
     })
   })

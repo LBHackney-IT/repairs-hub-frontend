@@ -19,7 +19,7 @@ describe('GET /api/repairs', () => {
     {
       name: 'name',
       email: 'name@example.com',
-      groups: [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME], // mapped internally to the 'H01' contractor Ref
+      groups: [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME], // mapped internally to the 'SCC' contractor Ref
     },
     HACKNEY_JWT_SECRET
   )
@@ -55,7 +55,7 @@ describe('GET /api/repairs', () => {
         method: 'get',
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/repairs`,
-        params: { ContractorReference: 'H01' }, // request to service API made with user's contractor ref from cookie
+        params: { ContractorReference: 'SCC' }, // request to service API made with user's contractor ref from cookie
         data: {},
       })
     })
