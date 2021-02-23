@@ -7,8 +7,8 @@ const {
 } = process.env
 
 const CONTRACTOR_GROUP_REF_MAP = {
-  [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: 'H01',
-  [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: 'PDY', // TODO: Update to a real value
+  [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: 'SCC',
+  [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: 'PCL',
 }
 
 export const buildUser = (name, email, authServiceGroups) => {
