@@ -36,7 +36,7 @@ const RepairsHistoryTable = ({
       </table>
       <div className="page-navigation govuk-!-padding-bottom-5">
         <button
-          className="govuk-button previous-page-button"
+          className="govuk-button left-page-button"
           data-module="govuk-button"
           onClick={() => loadMoreWorkOrders(pageNumber)}
         >
