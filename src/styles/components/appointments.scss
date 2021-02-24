@@ -1,3 +1,7 @@
+$calendar-cell-width--mobile: 45px;
+$calendar-cell-width--tablet: 75px;
+$calendar-cell-width--desktop: 100px;
+
 .appointment-calendar {
   table {
     border-collapse: collapse;
@@ -57,7 +61,7 @@
         cursor: not-allowed;
 
         height: 45px;
-        width: 45px;
+        width: $calendar-cell-width--mobile;
 
         &.available {
           background-color: repairs-hub-colour('calendar-available');
@@ -98,7 +102,7 @@
 
         @include govuk-media-query($from: tablet) {
           height: 60px;
-          width: 80px;
+          width: $calendar-cell-width--tablet;
 
           span.date {
             font-size: 12px;
@@ -112,7 +116,7 @@
 
         @include govuk-media-query($from: desktop) {
           height: 75px;
-          width: 100px;
+          width: $calendar-cell-width--desktop;
         }
       }
     }
@@ -156,16 +160,17 @@
   }
 }
 
-.appointment-am-pm-form {
+.timeslot-form {
   background-color: repairs-hub-colour('appointment-light-grey');
-  height: 417px;
-  width: 44.4rem;
-  position: relative;
-}
+  box-sizing: border-box;
 
-.am-pm-slots-padding {
-  padding-left: 1em;
-  padding-top: 0.5em;
+  @include govuk-media-query($from: tablet) {
+    width: calc(#{$calendar-cell-width--tablet} * 7 + 8px);
+  }
+
+  @include govuk-media-query($from: desktop) {
+    width: calc(#{$calendar-cell-width--desktop} * 7 + 8px);
+  }
 }
 
 .appointment-text-area {
