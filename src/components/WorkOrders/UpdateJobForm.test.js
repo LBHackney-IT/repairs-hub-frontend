@@ -3,6 +3,7 @@ import UpdateJobForm from './UpdateJobForm'
 
 describe('UpdateJobForm component', () => {
   const props = {
+    propertyReference: '000012345',
     tasks: [
       {
         code: 'DES5R006',
@@ -13,25 +14,7 @@ describe('UpdateJobForm component', () => {
         quantity: 1,
       },
     ],
-    sorCodes: [
-      {
-        code: '20000030',
-        shortDescription: 'DAYWORK PLUMBER BAND 3',
-        priority: {
-          priorityCode: 4,
-          description: '5 [N] NORMAL',
-        },
-      },
-      {
-        code: '20060020',
-        shortDescription: 'BATHROOM PLUMBING REPAIRS',
-        priority: {
-          priorityCode: 4,
-          description: '5 [N] NORMAL',
-        },
-      },
-    ],
-    rateScheduleItems: [
+    addedTasks: [
       {
         code: 'DES5R004',
         quantity: 2,
@@ -43,9 +26,9 @@ describe('UpdateJobForm component', () => {
   it('should render properly', () => {
     const { asFragment } = render(
       <UpdateJobForm
+        propertyReference={props.propertyReference}
         tasks={props.tasks}
-        rateScheduleItems={props.rateScheduleItems}
-        sorCodes={props.sorCodes}
+        addedTasks={props.addedTasks}
         onGetToSummary={props.onGetToSummary}
       />
     )

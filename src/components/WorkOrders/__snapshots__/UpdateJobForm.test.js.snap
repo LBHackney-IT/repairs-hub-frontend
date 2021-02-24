@@ -29,15 +29,14 @@ exports[`UpdateJobForm component should render properly 1`] = `
               id="sor-code-0"
               name="sor-code-0"
               type="text"
-              value="DES5R006 - "
+              value="DES5R006"
             />
           </div>
           <input
-            id="hidden-sor-code-0"
-            label="hidden-sor-code-0"
-            name="hidden-sor-code-0"
+            id="original-rate-schedule-item-0"
+            name="original-rate-schedule-item-0"
             type="hidden"
-            value="DES5R006 - "
+            value=""
           />
         </div>
         <div
@@ -83,15 +82,14 @@ exports[`UpdateJobForm component should render properly 1`] = `
               id="sor-code-1"
               name="sor-code-1"
               type="text"
-              value="DES5R005 - "
+              value="DES5R005"
             />
           </div>
           <input
-            id="hidden-sor-code-1"
-            label="hidden-sor-code-1"
-            name="hidden-sor-code-1"
+            id="original-rate-schedule-item-1"
+            name="original-rate-schedule-item-1"
             type="hidden"
-            value="DES5R005 - "
+            value=""
           />
         </div>
         <div
@@ -143,31 +141,26 @@ exports[`UpdateJobForm component should render properly 1`] = `
                 *
               </span>
             </label>
-            <select
-              class="govuk-select govuk-!-width-full"
-              data-testid="rateScheduleItems[undefined][code]"
+            <input
+              class="govuk-input govuk-!-width-full"
               id="rateScheduleItems[undefined][code]"
               name="rateScheduleItems[undefined][code]"
-            >
-              <option
-                value=""
-              />
-              <option
-                value="20000030 - DAYWORK PLUMBER BAND 3"
-              >
-                20000030 - DAYWORK PLUMBER BAND 3
-              </option>
-              <option
-                value="20060020 - BATHROOM PLUMBING REPAIRS"
-              >
-                20060020 - BATHROOM PLUMBING REPAIRS
-              </option>
-            </select>
+              options="DES5R004"
+              type="text"
+              value="DES5R004"
+            />
           </div>
           <input
             id="rateScheduleItems[undefined][description]"
             name="rateScheduleItems[undefined][description]"
             type="hidden"
+            value=""
+          />
+          <input
+            id="rateScheduleItems[undefined][cost]"
+            name="rateScheduleItems[undefined][cost]"
+            type="hidden"
+            value=""
           />
         </div>
         <div

@@ -6,7 +6,13 @@ describe('Contractor update a job', () => {
     cy.loginWithContractorRole()
     cy.server()
     cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-    cy.fixture('repairs/work-orders.json').as('workorderslist')
+    cy.fixture('schedule-of-rates/code.json').as('sorCode')
+    cy.fixture('repairs/work-order.json')
+      .as('workOrder')
+      .then((workOrder) => {
+        workOrder.reference = 10000040
+      })
+    cy.fixture('repairs/work-orders.json').as('workOrdersList')
     // Return first item
     cy.fixture('repairs/tasks-and-sors.json')
       .then((tasksAndSors) => {
@@ -14,15 +20,28 @@ describe('Contractor update a job', () => {
       })
       .as('tasksList')
 
-    cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workorderslist')
+    cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workOrdersList')
+    cy.route('GET', 'api/repairs/10000040', '@workOrder')
     cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
-    // FIXME: Harcoding temporarily to not break staging
+    cy.route({
+      method: 'GET',
+      url: 'api/schedule-of-rates/codes/fakecode?propertyReference=00012345',
+      status: 404,
+      response: '',
+    }).as('sorCodeNotFound')
+    cy.route({
+      method: 'GET',
+      url:
+        'api/schedule-of-rates/codes/anotherfakecode?propertyReference=00012345',
+      status: 404,
+      response: '',
+    }).as('sorCodeNotFound')
     cy.route(
       'GET',
-      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
-      '@sorCodes'
+      'api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345',
+      '@sorCode'
     ).as('sorCodeRequest')
     cy.route({
       method: 'POST',
@@ -53,7 +72,6 @@ describe('Contractor update a job', () => {
     })
 
     cy.wait('@taskListRequest')
-    cy.wait('@sorCodeRequest')
 
     // Update page
     cy.contains('Update work order: 10000040')
@@ -65,15 +83,42 @@ describe('Contractor update a job', () => {
     })
 
     cy.get('form').within(() => {
-      cy.contains('Please select an SOR code')
+      cy.contains('Please enter an SOR code')
       cy.contains('Please enter a quantity')
     })
 
     cy.get('#repair-request-form').within(() => {
-      // Select SOR Code from dropdown
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
+      // Enter multiple invalid SOR codes
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode').blur()
+      cy.wait('@sorCodeNotFound')
+      cy.get('[type="submit"]').contains('Next').click()
+      cy.get(
+        'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('SOR code is not valid')
+      })
+      cy.get('[data-error-id="error-0"]').within(() => {
+        cy.contains('Could not find SOR code: fakecode')
+      })
+
+      cy.contains('+ Add another SOR code').click()
+      cy.get('input[id="rateScheduleItems[1][code]"]')
+        .type('anotherfakecode')
+        .blur()
+      cy.wait('@sorCodeNotFound')
+      cy.get('[type="submit"]').contains('Next').click()
+      cy.get(
+        'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('SOR code is not valid')
+      })
+      cy.get('[data-error-id="error-0"]').within(() => {
+        cy.contains('Could not find SOR code: fakecode')
+      })
+      cy.get('[data-error-id="error-1"]').within(() => {
+        cy.contains('Could not find SOR code: anotherfakecode')
+      })
+
       // Enter a non-number quantity
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('x')
 
@@ -106,7 +151,6 @@ describe('Contractor update a job', () => {
       cy.get('[type="submit"]').contains('Next').click()
     })
     cy.wait('@taskListRequest')
-    cy.wait('@sorCodeRequest')
     cy.get('#repair-request-form').within(() => {
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('0')
@@ -126,6 +170,7 @@ describe('Contractor update a job', () => {
         moreSpecificSORCode: {
           rateScheduleItem: [
             {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
               customCode: 'DES5R006',
               customName: 'Urgent call outs',
               quantity: {
@@ -140,7 +185,6 @@ describe('Contractor update a job', () => {
   it('allows to update quantity, edit and add new sor codes', () => {
     cy.visit(`${Cypress.env('HOST')}/repairs/jobs/10000040/update-job`)
     cy.wait('@taskListRequest')
-    cy.wait('@sorCodeRequest')
 
     cy.get('#repair-request-form').within(() => {
       cy.get('#quantity-0-form-group').within(() => {
@@ -165,22 +209,54 @@ describe('Contractor update a job', () => {
     })
     cy.get('#repair-request-form').within(() => {
       cy.get('.repairs-hub-link').click()
-      // Select SOR Code from dropdown
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
+      // Enter in full SOR Code and blur text input
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('PLP5R082').blur()
+      cy.wait('@sorCodeRequest')
+      cy.get('.sor-code-summary').within(() => {
+        cy.contains('SOR code summary: RE ENAMEL ANY SIZE BATH')
+      })
 
+      // Enter invalid SOR Code
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('fakecode')
+        .blur()
+      cy.get('.sor-code-summary').should('not.exist')
+      cy.get('[data-error-id="error-0"]').within(() => {
+        cy.contains('Could not find SOR code: fakecode')
+      })
+      // Enter valid SOR code
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('PLP5R082')
+        .blur()
+      cy.wait('@sorCodeRequest')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('15')
 
       cy.get('[type="submit"]').contains('Next').click()
     })
 
     cy.contains('Summary of updates to work order')
-    cy.get('.govuk-table__body').contains('DES5R006 - Urgent call outs')
-    cy.get('.govuk-table__body').contains('10')
-    cy.get('.govuk-table__body').contains('0')
-    cy.get('.govuk-table__body').contains('DES5R004 - Emergency call out')
-    cy.get('.govuk-table__body').contains('15')
+    // Check table
+    cy.get('.govuk-table__head').within(() => {
+      cy.get('.govuk-table__header').contains('SOR code')
+      cy.get('.govuk-table__header').contains('Quantity')
+      cy.get('.govuk-table__header').contains('Cost')
+    })
+    cy.get('.govuk-table__body').within(() => {
+      cy.get('tr[id="existing-task-0"]').within(() => {
+        cy.contains('DES5R006 - Urgent call outs')
+        cy.contains('10')
+        cy.contains('0')
+      })
+      cy.get('tr[id="added-task-0"]').within(() => {
+        cy.contains('PLP5R082 - RE ENAMEL ANY SIZE BATH')
+        cy.contains('15')
+        cy.contains('148.09')
+      })
+      cy.contains('Total cost')
+      cy.get('#total-cost').contains('2221.35')
+    })
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -196,6 +272,7 @@ describe('Contractor update a job', () => {
         moreSpecificSORCode: {
           rateScheduleItem: [
             {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
               customCode: 'DES5R006',
               customName: 'Urgent call outs',
               quantity: {
@@ -203,8 +280,8 @@ describe('Contractor update a job', () => {
               },
             },
             {
-              customCode: 'DES5R004',
-              customName: 'Emergency call out',
+              customCode: 'PLP5R082',
+              customName: 'RE ENAMEL ANY SIZE BATH',
               quantity: {
                 amount: [Number.parseInt('15')],
               },

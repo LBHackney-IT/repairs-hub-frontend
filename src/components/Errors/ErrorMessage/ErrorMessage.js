@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 
-const ErrorMessage = ({ label, className }) => (
-  <span className={cx('govuk-error-message', className)}>
+const ErrorMessage = ({ label, className, id }) => (
+  <span
+    data-error-id={cx(id >= 0 ? `error-${id}` : null)}
+    className={cx('govuk-error-message', className)}
+  >
     <span className="govuk-visually-hidden">Error:</span> {label}
   </span>
 )

@@ -181,6 +181,12 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   name="rateScheduleItems[0][description]"
                   type="hidden"
                 />
+                <input
+                  id="rateScheduleItems[0][cost]"
+                  name="rateScheduleItems[0][cost]"
+                  type="hidden"
+                  value=""
+                />
               </div>
               <div
                 class="govuk-grid-column-one-third"
@@ -329,6 +335,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             id="callerName"
             name="callerName"
             type="text"
+            value=""
           />
         </div>
         <div
@@ -346,6 +353,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             id="contactNumber"
             name="contactNumber"
             type="text"
+            value=""
           />
         </div>
         <div

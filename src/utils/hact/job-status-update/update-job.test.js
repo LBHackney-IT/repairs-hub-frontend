@@ -1,10 +1,22 @@
 import { buildUpdateJob } from './update-job'
+
 describe('buildUpdateJob', () => {
   const existingTasks = [
-    { code: 'XXXX003 - Immediate call outs', cost: '10', quantity: 1 },
+    {
+      id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbf',
+      code: 'XXXX003 - Immediate call outs',
+      description: 'Immediate call outs',
+      cost: '10',
+      quantity: 1,
+    },
   ]
   const addedTasks = [
-    { id: 0, code: 'XXXX004 - Emergency call out', quantity: 3 },
+    {
+      id: 0,
+      code: 'XXXX004 - Emergency call out',
+      description: 'Emergency call out',
+      quantity: 3,
+    },
   ]
   const reference = '00012345'
 
@@ -19,6 +31,7 @@ describe('buildUpdateJob', () => {
       moreSpecificSORCode: {
         rateScheduleItem: [
           {
+            id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbf',
             customCode: 'XXXX003',
             customName: 'Immediate call outs',
             quantity: {

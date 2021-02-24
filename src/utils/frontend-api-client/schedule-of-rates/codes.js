@@ -15,3 +15,13 @@ export const getSorCodes = async (
 
   return data
 }
+
+export const getSorCode = async (code, propertyReference) => {
+  const { data } = await axios.get(`/api/schedule-of-rates/codes/${code}`, {
+    params: {
+      propertyReference: propertyReference,
+    },
+  })
+
+  return data
+}

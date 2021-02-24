@@ -124,7 +124,7 @@ const RateScheduleItemView = ({
             disabled={disabled}
             key={i}
             index={i}
-            onRateScheduleItemSelect={onRateScheduleItemSelect}
+            onChange={onRateScheduleItemSelect}
             showRemoveRateScheduleItem={i > 0}
             removeRateScheduleItem={removeRateScheduleItem}
           />

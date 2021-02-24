@@ -30,8 +30,6 @@ const RaiseRepairForm = ({
 
   const onSubmit = async (formData) => {
     const scheduleRepairFormData = buildScheduleRepairFormData(formData)
-    console.log(formData)
-    console.log(scheduleRepairFormData)
 
     onFormSubmit(scheduleRepairFormData)
   }

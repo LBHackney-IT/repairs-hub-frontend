@@ -3,16 +3,18 @@ import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import { getRepair } from '../../utils/frontend-api-client/repairs'
 import { getTasks } from '../../utils/frontend-api-client/tasks'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
-import { updatedTasks } from '../../utils/update-job'
-import { buildUpdateJob } from '../../utils/hact/update-job'
+import { updateExistingTasksQuantities } from '../../utils/update-job'
+import { buildUpdateJob } from '../../utils/hact/job-status-update/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
   const [tasks, setTasks] = useState([])
+  const [propertyReference, setPropertyReference] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [rateScheduleItems, setRateScheduleItems] = useState([])
@@ -24,7 +26,8 @@ const UpdateJob = ({ reference }) => {
   const router = useRouter()
 
   const onGetToSummary = (e) => {
-    const allTasks = updatedTasks(e, tasks.length)
+    updateExistingTasksQuantities(e, tasks)
+
     setRateScheduleItems(
       e.rateScheduleItems
         ? e.rateScheduleItems
@@ -35,7 +38,6 @@ const UpdateJob = ({ reference }) => {
         : []
     )
 
-    setTasks(allTasks)
     setShowSummaryPage(true)
   }
 
@@ -68,16 +70,18 @@ const UpdateJob = ({ reference }) => {
     }
   }
 
-  const getWorkOrder = async (reference) => {
+  const getWorkOrderAndTasks = async (reference) => {
     setError(null)
 
     try {
+      const workOrder = await getRepair(reference)
       const tasks = await getTasks(reference)
 
       setTasks(tasks)
+      setPropertyReference(workOrder.propertyReference)
     } catch (e) {
       setTasks(null)
-      setSorCodes([])
+      setPropertyReference(null)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )
@@ -89,7 +93,7 @@ const UpdateJob = ({ reference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getWorkOrder(reference)
+    getWorkOrderAndTasks(reference)
   }, [])
 
   return (
@@ -98,7 +102,7 @@ const UpdateJob = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {tasks && (
+          {tasks && propertyReference && (
             <>
               {!showSummaryPage && (
                 <>
@@ -109,21 +113,18 @@ const UpdateJob = ({ reference }) => {
 
                   <UpdateJobForm
                     tasks={tasks}
+                    propertyReference={propertyReference}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }
-                    rateScheduleItems={
-                      rateScheduleItems ? rateScheduleItems : null
-                    }
+                    addedTasks={rateScheduleItems}
                     onGetToSummary={onGetToSummary}
                   />
                 </>
               )}
               {showSummaryPage && (
                 <SummaryUpdateJob
-                  rateScheduleItems={
-                    rateScheduleItems ? rateScheduleItems : null
-                  }
+                  addedTasks={rateScheduleItems}
                   tasks={tasks}
                   reference={reference}
                   onJobSubmit={onJobUpdateSubmit}
