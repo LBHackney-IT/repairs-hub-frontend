@@ -5,7 +5,7 @@ import TenureAlertDetails from '../TenureAlertDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
 import {
   Select,
-  Button,
+  PrimarySubmitButton,
   CharacterCountLimitedTextArea,
   TextInput,
 } from '../../Form'
@@ -205,7 +205,7 @@ const RaiseRepairForm = ({
               })}
               error={errors && errors.contactNumber}
             />
-            <Button label="Create works order" type="submit" />
+            <PrimarySubmitButton label="Create works order" />
           </form>
         </div>
       </div>

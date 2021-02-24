@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { TextArea, Button } from '../../Form'
+import { TextArea, PrimarySubmitButton } from '../../Form'
 import { buildNoteFormData } from '../../../utils/hact/job-status-update/notes-form'
 
 const NotesForm = ({
@@ -64,7 +64,7 @@ const NotesForm = ({
                 ref={register}
               />
 
-              <Button label="Publish note" type="submit" />
+              <PrimarySubmitButton label="Publish note" />
             </form>
           )}
         </div>

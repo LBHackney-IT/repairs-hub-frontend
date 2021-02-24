@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../Layout/Grid'
-import { Button, TextInput } from '../Form'
+import { PrimarySubmitButton, TextInput } from '../Form'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import ExtraSorCode from './ExtraSorCode'
@@ -92,7 +92,7 @@ const UpdateJobForm = ({
           onAddTemporarySorCode={onAddTemporarySorCode}
         />
 
-        <Button label="Next" type="submit" />
+        <PrimarySubmitButton label="Next" />
       </form>
     </>
   )

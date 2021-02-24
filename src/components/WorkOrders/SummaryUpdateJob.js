@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Button } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 
 const SummaryUpdateJob = ({
   reference,
@@ -62,7 +62,7 @@ const SummaryUpdateJob = ({
             {sorCodesCollection ? tableData(sorCodesCollection) : ''}
           </tbody>
         </table>
-        <Button type="submit" label="Confirm and close" />
+        <PrimarySubmitButton label="Confirm and close" />
       </form>
     </div>
   )

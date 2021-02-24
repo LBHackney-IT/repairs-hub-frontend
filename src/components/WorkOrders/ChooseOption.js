@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Radios from '../Form/Radios/Radios'
 import BackButton from '../Layout/BackButton/BackButton'
 import { useForm } from 'react-hook-form'
-import { Button } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import { useRouter } from 'next/router'
 
 const ChooseOption = ({ reference }) => {
@@ -40,7 +40,7 @@ const ChooseOption = ({ reference }) => {
           })}
           error={errors && errors.options}
         />
-        <Button type="submit" label="Next"></Button>
+        <PrimarySubmitButton label="Next" />
       </form>
     </>
   )
