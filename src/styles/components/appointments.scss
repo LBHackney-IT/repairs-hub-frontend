@@ -171,6 +171,13 @@ $calendar-cell-width--desktop: 100px;
   @include govuk-media-query($from: desktop) {
     width: calc(#{$calendar-cell-width--desktop} * 7 + 8px);
   }
+
+  .button-pair {
+    @include govuk-media-query($from: tablet) {
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
 }
 
 .govuk-textarea.appointment-text-area {
