@@ -12,6 +12,7 @@ const TextArea = ({
   register,
   error,
   required,
+  className,
   ...otherProps
 }) => (
   <div
@@ -32,9 +33,13 @@ const TextArea = ({
     )}
     {error && <ErrorMessage label={error.message} />}
     <textarea
-      className={cx('govuk-textarea', {
-        'govuk-textarea--error': Boolean(error),
-      })}
+      className={cx(
+        'govuk-textarea',
+        {
+          'govuk-textarea--error': Boolean(error),
+        },
+        className
+      )}
       id={name}
       name={name}
       type={type}

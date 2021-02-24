@@ -173,12 +173,8 @@ $calendar-cell-width--desktop: 100px;
   }
 }
 
-.appointment-text-area {
-  width: 301px;
-  height: 54px;
-  left: 145px;
-  top: 1362px;
-
-  background: #ffffff;
-  border: 2px solid #0b0c0c;
+.govuk-textarea.appointment-text-area {
+  @include govuk-media-query($from: desktop) {
+    width: 50%;
+  }
 }
