@@ -17,7 +17,6 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
 
     try {
       const data = await getRepairsForProperty(propertyReference, pageNumber)
-
       const workOrdersPerPage = sortObjectsByDateKey(
         data,
         ['dateRaised', 'lastUpdated'],
@@ -37,7 +36,6 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
 
   useEffect(() => {
     setLoading(true)
-    setPageNumber(pageNumber + 1)
 
     getRepairsHistoryView(propertyReference, pageNumber)
   }, [])

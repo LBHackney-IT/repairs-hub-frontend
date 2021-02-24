@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/repairs'
 import RepairsHistoryRow from './RepairsHistoryRow'
 
 const RepairsHistoryTable = ({
@@ -7,6 +8,29 @@ const RepairsHistoryTable = ({
   pageNumber,
   loadMoreWorkOrders,
 }) => {
+  const moreWorkOrdersAvailable = () => {
+    // TODO: Replace with a real count from the API
+    const maxWorkOrders = pageNumber * PAGE_SIZE_AGENTS
+
+    return workOrders.length >= maxWorkOrders
+  }
+
+  const renderLoadMoreWorkOrders = () => {
+    if (moreWorkOrdersAvailable()) {
+      return (
+        <div className="page-navigation govuk-!-padding-bottom-5">
+          <button
+            className="govuk-button left-page-button"
+            data-module="govuk-button"
+            onClick={() => loadMoreWorkOrders(pageNumber + 1)}
+          >
+            Load more
+          </button>
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <h2 className="govuk-heading-l">{tabName}</h2>
@@ -34,15 +58,7 @@ const RepairsHistoryTable = ({
           ))}
         </tbody>
       </table>
-      <div className="page-navigation govuk-!-padding-bottom-5">
-        <button
-          className="govuk-button left-page-button"
-          data-module="govuk-button"
-          onClick={() => loadMoreWorkOrders(pageNumber)}
-        >
-          Load more
-        </button>
-      </div>
+      {workOrders && renderLoadMoreWorkOrders()}
     </>
   )
 }
@@ -58,6 +74,7 @@ RepairsHistoryTable.propTypes = {
     })
   ).isRequired,
   pageNumber: PropTypes.number,
+  pageSizeAgents: PropTypes.number,
   loadMoreWorkOrders: PropTypes.func,
 }
 
