@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Button, CharacterCountLimitedTextArea } from '../../Form'
+import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import WorkOrderInfoTable from '../WorkOrderInfoTable'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { buildCancelWorkOrderFormData } from '../../../utils/hact/work-order-complete/cancel-work-order-form'
@@ -52,7 +52,7 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
               error={errors && errors.cancelReason}
             />
 
-            <Button label="Cancel repair" type="submit" />
+            <PrimarySubmitButton label="Cancel repair" />
           </form>
         </div>
       </div>

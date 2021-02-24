@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Button } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton/BackButton'
 import DatePicker from '../Form/DatePicker/DatePicker'
 import isPast from 'date-fns/isPast'
@@ -45,7 +45,7 @@ const CloseJobForm = ({ reference, onGetToSummary, notes, time, date }) => {
           error={errors && errors.notes}
           defaultValue={notes}
         />
-        <Button label="Submit" type="submit" />
+        <PrimarySubmitButton label="Submit" />
       </form>
     </div>
   )
