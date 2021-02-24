@@ -5,8 +5,26 @@ const RepairsHistoryTable = ({
   workOrders,
   tabName,
   pageNumber,
+  pageSizeAgents,
   loadMoreWorkOrders,
 }) => {
+  const renderLoadMoreWorkOrders = () => {
+    const maxWorkOrders = pageNumber * pageSizeAgents
+    if (workOrders?.length >= maxWorkOrders) {
+      return (
+        <div className="page-navigation govuk-!-padding-bottom-5">
+          <button
+            className="govuk-button left-page-button"
+            data-module="govuk-button"
+            onClick={() => loadMoreWorkOrders(pageNumber + 1)}
+          >
+            Load more
+          </button>
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <h2 className="govuk-heading-l">{tabName}</h2>
@@ -34,15 +52,7 @@ const RepairsHistoryTable = ({
           ))}
         </tbody>
       </table>
-      <div className="page-navigation govuk-!-padding-bottom-5">
-        <button
-          className="govuk-button left-page-button"
-          data-module="govuk-button"
-          onClick={() => loadMoreWorkOrders(pageNumber)}
-        >
-          Load more
-        </button>
-      </div>
+      {workOrders && renderLoadMoreWorkOrders()}
     </>
   )
 }
@@ -58,6 +68,7 @@ RepairsHistoryTable.propTypes = {
     })
   ).isRequired,
   pageNumber: PropTypes.number,
+  pageSizeAgents: PropTypes.number,
   loadMoreWorkOrders: PropTypes.func,
 }
 

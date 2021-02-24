@@ -3,11 +3,14 @@ import { useState, useEffect } from 'react'
 import RepairsHistoryTable from './RepairsHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getRepairsForProperty } from '../../../utils/frontend-api-client/repairs'
+import {
+  getRepairsForProperty,
+  PAGE_SIZE_AGENTS,
+} from '../../../utils/frontend-api-client/repairs'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference, tabName }) => {
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(0)
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -56,6 +59,7 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
           workOrders={workOrders}
           tabName={tabName}
           pageNumber={pageNumber}
+          pageSizeAgents={PAGE_SIZE_AGENTS}
           loadMoreWorkOrders={loadMoreWorkOrders}
         />
       )

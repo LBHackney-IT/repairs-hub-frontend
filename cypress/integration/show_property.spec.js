@@ -18,7 +18,7 @@ describe('Show property', () => {
         cy.fixture('repairs/work-orders.json').as('workOrders')
         cy.route(
           'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+          'api/repairs/?propertyReference=00012345&PageSize=4&PageNumber=1',
           '@workOrders'
         )
         cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
@@ -106,14 +106,6 @@ describe('Show property', () => {
         })
 
         it('Displays more repairs after clicking Load more button', () => {
-          // Stub request with property response
-          cy.fixture('repairs/more-work-orders.json').as('moreWorkOrders')
-          cy.route(
-            'GET',
-            'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=2',
-            '@moreWorkOrders'
-          )
-
           // Click load more button
           cy.contains('Load more').click()
 
@@ -125,20 +117,6 @@ describe('Show property', () => {
             cy.contains('th', 'Description')
           })
           // Repairs history table rows
-          cy.get('[data-ref=10000044]').within(() => {
-            cy.contains('10000044')
-            cy.contains('20 Feb 2021')
-            cy.contains('11:02 am')
-            cy.contains('In progress')
-            cy.contains('An emergency repair')
-          })
-          cy.get('[data-ref=10000043]').within(() => {
-            cy.contains('10000043')
-            cy.contains('10 Feb 2021')
-            cy.contains('4:46 pm')
-            cy.contains('Work complete')
-            cy.contains('A very urgent repair')
-          })
           cy.get('[data-ref=10000040]').within(() => {
             cy.contains('10000040')
             cy.contains('22 Jan 2021')
@@ -167,6 +145,20 @@ describe('Show property', () => {
             cy.contains('In progress')
             cy.contains('A normal repair')
           })
+          cy.get('[data-ref=10000034]').within(() => {
+            cy.contains('10000044')
+            cy.contains('20 Jan 2021')
+            cy.contains('11:02 am')
+            cy.contains('In progress')
+            cy.contains('An emergency repair')
+          })
+          cy.get('[data-ref=10000033]').within(() => {
+            cy.contains('10000033')
+            cy.contains('10 Jan 2021')
+            cy.contains('4:46 pm')
+            cy.contains('Work complete')
+            cy.contains('A very urgent repair')
+          })
 
           // Run lighthouse audit for accessibility report
           cy.audit()
@@ -176,7 +168,7 @@ describe('Show property', () => {
       it('Displays no repairs text when records do not exist', () => {
         cy.route(
           'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+          'api/repairs/?propertyReference=00012345&PageSize=4&PageNumber=1',
           '[]'
         )
 

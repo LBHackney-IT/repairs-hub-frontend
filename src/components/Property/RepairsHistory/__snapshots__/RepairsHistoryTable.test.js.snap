@@ -123,15 +123,5 @@ exports[`RepairsHistoryTable component should render properly 1`] = `
       </tr>
     </tbody>
   </table>
-  <div
-    class="page-navigation govuk-!-padding-bottom-5"
-  >
-    <button
-      class="govuk-button left-page-button"
-      data-module="govuk-button"
-    >
-      Load more
-    </button>
-  </div>
 </DocumentFragment>
 `;
