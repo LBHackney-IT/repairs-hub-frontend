@@ -9,23 +9,21 @@ const Button = ({
   className,
   ...otherProps
 }) => (
-  <div className="govuk-form-group">
-    <button
-      className={cx(
-        'govuk-button',
-        {
-          'govuk-button--secondary': isSecondary,
-        },
-        className
-      )}
-      data-module="govuk-button"
-      onClick={onClick}
-      type={type}
-      {...otherProps}
-    >
-      {label}
-    </button>
-  </div>
+  <button
+    className={cx(
+      'govuk-button',
+      {
+        'govuk-button--secondary': isSecondary,
+      },
+      className
+    )}
+    data-module="govuk-button"
+    onClick={onClick}
+    type={type}
+    {...otherProps}
+  >
+    {label}
+  </button>
 )
 
 Button.propTypes = {

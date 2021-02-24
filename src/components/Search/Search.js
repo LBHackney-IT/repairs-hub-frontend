@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import PropertiesTable from '../Properties/PropertiesTable'
-import { Button } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
@@ -85,7 +85,7 @@ const Search = ({ query }) => {
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
             </label>
-            <Button type="submit" label="Search" onClick={handleSubmit} />
+            <PrimarySubmitButton label="Search" onClick={handleSubmit} />
           </form>
         </div>
       </section>
