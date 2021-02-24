@@ -5,7 +5,11 @@ import Button from './Button'
 // to separate them from the rest of the form
 const PrimarySubmitButton = ({ ...otherProps }) => (
   <div className="govuk-form-group">
-    <Button type="submit" {...otherProps}></Button>
+    <Button
+      type="submit"
+      className="lbh-button--repairs"
+      {...otherProps}
+    ></Button>
   </div>
 )
 

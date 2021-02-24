@@ -87,7 +87,7 @@ exports[`NotesForm component should render properly when display form is true 1`
           class="govuk-form-group"
         >
           <button
-            class="govuk-button"
+            class="govuk-button lbh-button--repairs"
             data-module="govuk-button"
             type="submit"
           >
