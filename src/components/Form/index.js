@@ -1,4 +1,5 @@
 import PrimarySubmitButton from './Button/PrimarySubmitButton'
+import Button from './Button/Button'
 import Select from './Select/Select'
 import TextArea from './TextArea/TextArea'
 import CharacterCountLimitedTextArea from './TextArea/CharacterCountLimitedTextArea'
@@ -7,6 +8,7 @@ import DataList from './DataList/DataList'
 
 export {
   PrimarySubmitButton,
+  Button,
   Select,
   TextArea,
   CharacterCountLimitedTextArea,
