@@ -1,16 +1,22 @@
 import PropTypes from 'prop-types'
+import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/repairs'
 import RepairsHistoryRow from './RepairsHistoryRow'
 
 const RepairsHistoryTable = ({
   workOrders,
   tabName,
   pageNumber,
-  pageSizeAgents,
   loadMoreWorkOrders,
 }) => {
+  const moreWorkOrdersAvailable = () => {
+    // TODO: Replace with a real count from the API
+    const maxWorkOrders = pageNumber * PAGE_SIZE_AGENTS
+
+    return workOrders.length >= maxWorkOrders
+  }
+
   const renderLoadMoreWorkOrders = () => {
-    const maxWorkOrders = pageNumber * pageSizeAgents
-    if (workOrders?.length >= maxWorkOrders) {
+    if (moreWorkOrdersAvailable()) {
       return (
         <div className="page-navigation govuk-!-padding-bottom-5">
           <button
