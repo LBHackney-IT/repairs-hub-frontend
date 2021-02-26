@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { PAGE_SIZE_AGENTS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Show property', () => {
   beforeEach(() => {
@@ -15,12 +16,13 @@ describe('Show property', () => {
         // Stub request with property response
         cy.fixture('properties/property.json').as('property')
         cy.route('GET', 'api/properties/00012345', '@property')
-        cy.fixture('repairs/work-orders.json').as('workOrders')
+
         cy.route(
           'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50',
-          '@workOrders'
+          `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+          JSON.stringify([])
         )
+
         cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
       })
 
@@ -54,69 +56,174 @@ describe('Show property', () => {
         )
       })
 
-      it('Display the repairs history for the property', () => {
-        // Repairs history tab should be active
+      it('Displays the history tab active', () => {
         cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
-
-        cy.get('.govuk-tabs').within(() => {
-          cy.get('.govuk-tabs__tab').contains('Repairs history')
-          cy.get('.govuk-heading-l').contains('Repairs history')
-
-          // Repairs history table headers
-          cy.get('.govuk-table').within(() => {
-            cy.contains('th', 'Reference')
-            cy.contains('th', 'Date raised')
-            cy.contains('th', 'Status')
-            cy.contains('th', 'Description')
-          })
-          // Repairs history table rows
-          cy.get('[data-ref=10000040]').within(() => {
-            cy.contains('10000040')
-            cy.contains('22 Jan 2021')
-            cy.contains('11:02 am')
-            cy.contains('In progress')
-            cy.contains('An emergency repair')
-          })
-          cy.get('[data-ref=10000037]').within(() => {
-            cy.contains('10000037')
-            cy.contains('21 Jan 2021')
-            cy.contains('4:46 pm')
-            cy.contains('Work complete')
-            cy.contains('A very urgent repair')
-          })
-          cy.get('[data-ref=10000036]').within(() => {
-            cy.contains('10000036')
-            cy.contains('21 Jan 2021')
-            cy.contains('4:41 pm')
-            cy.contains('Work complete')
-            cy.contains('An immediate repair')
-          })
-          cy.get('[data-ref=10000035]').within(() => {
-            cy.contains('10000035')
-            cy.contains('21 Jan 2021')
-            cy.contains('3:03 pm')
-            cy.contains('In progress')
-            cy.contains('A normal repair')
-          })
-        })
-
-        // Run lighthouse audit for accessibility report
-        cy.audit()
       })
 
-      it('Display no repairs text when records do not exist', () => {
-        cy.route(
-          'GET',
-          'api/repairs/?propertyReference=00012345&PageSize=50',
-          '[]'
-        )
-
-        cy.get('.govuk-tabs__tab').contains('Repairs history').click()
-        cy.get('.govuk-heading-l').contains('Repairs history')
-        cy.get('.govuk-heading-s').contains('There are no historical repairs')
+      context('when no repairs have been raised on the property', () => {
+        it('Displays no repairs text', () => {
+          cy.get('.govuk-tabs__tab').contains('Repairs history').click()
+          cy.get('.govuk-heading-l').contains('Repairs history')
+          cy.get('.govuk-heading-s').contains('There are no historical repairs')
+        })
       })
     }
   )
+
+  context('when many repairs have been raised on the property', () => {
+    beforeEach(() => {
+      // Stub request with property response
+      cy.fixture('properties/property.json').as('property')
+      cy.route('GET', 'api/properties/00012345', '@property')
+
+      // Mock many properties for the first page of results, matching our current PAGE_SIZE_AGENTS
+      let properties = [...Array(PAGE_SIZE_AGENTS).keys()]
+
+      properties.forEach((property, index) => {
+        const referenceIndex = (PAGE_SIZE_AGENTS - index).toString()
+
+        const referenceIndexString = `100000${referenceIndex.padStart(2, '0')}`
+
+        properties[index] = {
+          reference: parseInt(referenceIndexString),
+          dateRaised: '2021-01-22T11:02:00.334849',
+          lastUpdated: null,
+          priority: '2 [E] EMERGENCY',
+          property: '315 Banister House  Homerton High Street',
+          owner: 'Alphatrack (S) Systems Lt',
+          description: 'A non-latest repair',
+          propertyReference: '00012345',
+          tradeCode: 'DE',
+          status: 'In Progress',
+        }
+      })
+
+      // Set some fields on the latest repair to check
+      properties[0] = {
+        ...properties[0],
+        dateRaised: '2021-02-01T11:02:00.334849',
+        description: 'The latest repair',
+        status: 'In Progress',
+      }
+
+      // Set some fields on the earliest repair on this page to check
+      properties[properties.length - 1] = {
+        ...properties[properties.length - 1],
+        dateRaised: '2021-01-01T11:02:00.334849',
+        description: 'The earliest repair for page one',
+        status: 'Work complete',
+      }
+
+      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.route(
+        'GET',
+        `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+        JSON.stringify(properties)
+      )
+
+      // Mock a single property in the response for the second page, giving a total of 51 repairs
+      cy.route(
+        'GET',
+        `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=2`,
+        JSON.stringify([
+          {
+            ...properties[properties.length - 1],
+            dateRaised: '2020-01-01T11:02:00.334849',
+            reference: 10000000,
+            description: 'The oldest repair for all pages',
+            status: 'Work complete',
+          },
+        ])
+      )
+    })
+
+    it('Displays the first page of repairs', () => {
+      cy.get('.govuk-tabs').within(() => {
+        cy.get('.govuk-tabs__tab').contains('Repairs history')
+        cy.get('.govuk-heading-l').contains('Repairs history')
+
+        // Repairs history table headers
+        cy.get('.govuk-table').within(() => {
+          cy.contains('th', 'Reference')
+          cy.contains('th', 'Date raised')
+          cy.contains('th', 'Status')
+          cy.contains('th', 'Description')
+        })
+        // Check the first row
+        cy.get('[data-ref=10000050]').within(() => {
+          cy.contains('10000050')
+          cy.contains('1 Feb 2021')
+          cy.contains('11:02 am')
+          cy.contains('In Progress')
+          cy.contains('The latest repair')
+        })
+        // Check the last row
+        cy.get('[data-ref=10000001]').within(() => {
+          cy.contains('10000001')
+          cy.contains('1 Jan 2021')
+          cy.contains('11:02 am')
+          cy.contains('Work complete')
+          cy.contains('The earliest repair for page one')
+        })
+      })
+    })
+
+    it('Displays more repairs after clicking Load more button', () => {
+      cy.get('.repairs-history-table > tbody > tr').should(
+        'have.length',
+        PAGE_SIZE_AGENTS // our first mocked response contains 50 results, matching this
+      )
+
+      cy.contains('Load more').click()
+
+      cy.get('.repairs-history-table > tbody > tr').should(
+        'have.length',
+        PAGE_SIZE_AGENTS + 1 // our second mocked response adds one more property to the list
+      )
+
+      cy.get('[data-ref=10000000]').within(() => {
+        cy.contains('10000000')
+        cy.contains('1 Jan 2020')
+        cy.contains('11:02 am')
+        cy.contains('Work complete')
+        cy.contains('The oldest repair')
+      })
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+  })
+
+  context('when the are fewer repairs than the initial page size', () => {
+    beforeEach(() => {
+      // Stub request with property response
+      cy.fixture('properties/property.json').as('property')
+      cy.route('GET', 'api/properties/00012345', '@property')
+      cy.route(
+        'GET',
+        `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+        JSON.stringify([
+          {
+            reference: 10000000,
+            dateRaised: '2021-01-22T11:02:00.334849',
+            lastUpdated: null,
+            priority: '2 [E] EMERGENCY',
+            property: '315 Banister House  Homerton High Street',
+            owner: 'Alphatrack (S) Systems Lt',
+            description: 'The only repair',
+            propertyReference: '00012345',
+            tradeCode: 'DE',
+            status: 'In Progress',
+          },
+        ])
+      )
+      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+    })
+    it('Does not display a Load more button', () => {
+      cy.get('.govuk-tabs__tab').contains('Repairs history').click()
+      cy.contains('button', 'Load more').should('not.exist')
+    })
+  })
 
   context(
     'Displays property with a tenure type that does not permit raising a repair',
@@ -162,12 +269,17 @@ describe('Show property', () => {
     }
   )
 
-  context('Display property with no tenure type', () => {
+  context('Displays property with no tenure type', () => {
     beforeEach(() => {
       // Stub request with property response
       cy.fixture('properties/property_no_tenure.json').as('property')
       cy.route('GET', 'api/properties/00012345', '@property')
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.route(
+        'GET',
+        `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+        JSON.stringify([])
+      )
     })
 
     it('shows property address in the heading', () => {

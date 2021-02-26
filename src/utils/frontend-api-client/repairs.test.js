@@ -54,7 +54,7 @@ describe('getRepairsForProperty', () => {
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
-      params: { propertyReference: '1', PageSize: 50 },
+      params: { propertyReference: '1', PageSize: 50, PageNumber: 1 },
     })
   })
 })

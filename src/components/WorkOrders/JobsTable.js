@@ -41,7 +41,7 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
     <div className="page-navigation govuk-!-padding-bottom-5">
       {pageNumber > 1 && (
         <button
-          className="govuk-button previous-page-button"
+          className="govuk-button left-page-button"
           data-module="govuk-button"
           onClick={() => handlePageClick(pageNumber - 1)}
         >
@@ -50,7 +50,7 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
       )}
       {pageNumber && (
         <button
-          className="govuk-button next-page-button"
+          className="govuk-button right-page-button"
           data-module="govuk-button"
           onClick={() => handlePageClick(pageNumber + 1)}
         >

@@ -67,7 +67,7 @@ describe('Notes', () => {
     cy.audit()
   })
 
-  it('Display notes as a timeline', () => {
+  it('Displays notes as a timeline', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
     cy.get('a[id="tab_notes-tab"]').click()
 
@@ -89,7 +89,7 @@ describe('Notes', () => {
     })
   })
 
-  it('Display no notes message when there are no notes', () => {
+  it('Displays no notes message when there are no notes', () => {
     cy.route('GET', 'api/repairs/10000012/notes', '[]')
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
     cy.get('a[id="tab_notes-tab"]').click()
