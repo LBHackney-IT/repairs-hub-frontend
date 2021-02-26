@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import MockDate from 'mockdate'
+import UserContext from '../UserContext/UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
 
 describe('WorkOrderDetails component', () => {
@@ -59,43 +60,115 @@ describe('WorkOrderDetails component', () => {
     },
   }
 
-  it('should render properly without a link to cancel work order', () => {
-    // Link isn't shown if current time is greater than dateRaised + 1 hour
-    const { asFragment } = render(
-      <WorkOrderDetails
-        propertyReference={props.property.propertyReference}
-        workOrder={props.workOrder}
-        address={props.property.address}
-        subTypeDescription={props.property.hierarchyType.subTypeDescription}
-        tenure={props.tenure}
-        locationAlerts={props.alerts.locationAlert}
-        personAlerts={props.alerts.personAlert}
-        hasLinkToProperty={true}
-        canRaiseRepair={props.property.canRaiseRepair}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('when logged in as an agent', () => {
+    const user = {
+      name: 'An Agent',
+      email: 'an.agent@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: true,
+      hasContractorPermissions: false,
+      hasAnyPermissions: true,
+      contractorReference: null,
+    }
+
+    it('should render properly without a link to cancel work order', () => {
+      // Link isn't shown if current time is greater than dateRaised + 1 hour
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render properly with link to cancel work order', () => {
+      // 2021-01-14T18:16:20.986Z
+      MockDate.set(1610648180986)
+      // Set current time to within an hour of date raised
+      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
+
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('should render properly with link to cancel work order', () => {
-    // 2021-01-14T18:16:20.986Z
-    MockDate.set(1610648180986)
-    // Set current time to within an hour of date raised
-    props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
+  describe('when logged in as a contractor', () => {
+    const user = {
+      name: 'A Contractor',
+      email: 'a.contractor@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: true,
+      hasAnyPermissions: true,
+      contractorReference: 'SCC',
+    }
 
-    const { asFragment } = render(
-      <WorkOrderDetails
-        propertyReference={props.property.propertyReference}
-        workOrder={props.workOrder}
-        address={props.property.address}
-        subTypeDescription={props.property.hierarchyType.subTypeDescription}
-        tenure={props.tenure}
-        locationAlerts={props.alerts.locationAlert}
-        personAlerts={props.alerts.personAlert}
-        hasLinkToProperty={true}
-        canRaiseRepair={props.property.canRaiseRepair}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+    it('should render properly without a link to cancel work order', () => {
+      // Link isn't shown if current time is greater than dateRaised + 1 hour
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render properly without a link to cancel work order', () => {
+      // 2021-01-14T18:16:20.986Z
+      MockDate.set(1610648180986)
+      // Set current time to within an hour of date raised
+      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
+
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

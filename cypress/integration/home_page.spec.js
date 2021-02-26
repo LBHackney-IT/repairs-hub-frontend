@@ -102,7 +102,6 @@ describe('Home page', () => {
               cy.contains('N - Normal')
               cy.contains('315 Banister House Homerton High Street')
               cy.contains('An emergency repair')
-              cy.contains('a', 'Update')
             })
             // Run lighthouse audit for accessibility report
             cy.audit()

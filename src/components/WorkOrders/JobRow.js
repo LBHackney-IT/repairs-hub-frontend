@@ -13,7 +13,11 @@ const JobRow = ({
   description,
 }) => (
   <tr className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table">
-    <td className="govuk-table__cell">{reference}</td>
+    <td className="govuk-table__cell">
+      <Link href={`/work-orders/${reference}`}>
+        <a>{reference}</a>
+      </Link>
+    </td>
     <td className="govuk-table__cell">
       {dateRaised ? dateToStr(dateRaised) : '—'}
       <div className="work-order-hours">
@@ -31,11 +35,6 @@ const JobRow = ({
     <td className="govuk-table__cell">{status}</td>
     <td className="govuk-table__cell">
       <p className="description">{description}</p>
-    </td>
-    <td className="govuk-table__cell">
-      <Link href={`/repairs/jobs/${reference}/choose-option`}>
-        <a>Update</a>
-      </Link>
     </td>
   </tr>
 )

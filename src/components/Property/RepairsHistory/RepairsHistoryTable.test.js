@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import UserContext from '../../UserContext/UserContext'
 import RepairsHistoryTable from './RepairsHistoryTable'
 
 describe('RepairsHistoryTable component', () => {
@@ -30,13 +31,51 @@ describe('RepairsHistoryTable component', () => {
     ],
   }
 
-  it('should render properly', () => {
-    const { asFragment } = render(
-      <RepairsHistoryTable
-        workOrders={props.workOrders}
-        tabName={props.tabName}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('when logged in as an agent', () => {
+    const user = {
+      name: 'An Agent',
+      email: 'an.agent@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: true,
+      hasContractorPermissions: false,
+      hasAnyPermissions: true,
+      contractorReference: null,
+    }
+
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <RepairsHistoryTable
+            workOrders={props.workOrders}
+            tabName={props.tabName}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contractor', () => {
+    const user = {
+      name: 'A Contractor',
+      email: 'a.contractor@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: true,
+      hasAnyPermissions: true,
+      contractorReference: 'SCC',
+    }
+
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <RepairsHistoryTable
+            workOrders={props.workOrders}
+            tabName={props.tabName}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

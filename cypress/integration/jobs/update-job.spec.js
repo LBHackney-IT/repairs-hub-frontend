@@ -28,15 +28,23 @@ describe('Contractor update a job', () => {
       url: '/api/jobStatusUpdate',
       response: '',
     }).as('apiCheck')
+
+    // Viewing the work order page
+    cy.fixture('properties/property.json').then((property) => {
+      cy.intercept('GET', 'api/properties/00012345', property)
+    })
+    cy.fixture('repairs/work-orders.json').then((workOrders) => {
+      cy.intercept('GET', 'api/repairs/10000040', workOrders[0])
+    })
   })
 
   it('throws errors if input values are empty or not valid', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
 
     cy.get('.govuk-table__cell').within(() => {
-      cy.contains('10000040')
-      cy.contains('a', 'Update').click()
+      cy.contains('a', '10000040').click()
     })
+    cy.contains('a', 'Update Works Order').click()
     cy.contains('Update work order: 10000040')
     cy.get('form').within(() => {
       cy.get('[type="radio"]').check('Update')
@@ -88,9 +96,9 @@ describe('Contractor update a job', () => {
   it('allows the user to update the job by changing the existing quantity', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
     cy.get('.govuk-table__cell').within(() => {
-      cy.contains('10000040')
-      cy.contains('a', 'Update').click()
+      cy.contains('a', '10000040').click()
     })
+    cy.contains('a', 'Update Works Order').click()
     cy.contains('Update work order: 10000040')
     cy.get('form').within(() => {
       cy.get('[type="radio"]').check('Update')

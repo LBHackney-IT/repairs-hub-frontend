@@ -59,10 +59,6 @@ exports[`JobsTable component should render properly 1`] = `
           >
             Description
           </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          />
         </tr>
       </thead>
       <tbody
@@ -74,7 +70,11 @@ exports[`JobsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            10000012
+            <a
+              href="/work-orders/10000012"
+            >
+              10000012
+            </a>
           </td>
           <td
             class="govuk-table__cell"
@@ -119,15 +119,6 @@ exports[`JobsTable component should render properly 1`] = `
             >
               ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
             </p>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              href="/repairs/jobs/10000012/choose-option"
-            >
-              Update
-            </a>
           </td>
         </tr>
       </tbody>

@@ -1,5 +1,7 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/repairs'
+import UserContext from '../../UserContext/UserContext'
 import RepairsHistoryRow from './RepairsHistoryRow'
 
 const RepairsHistoryTable = ({
@@ -8,6 +10,8 @@ const RepairsHistoryTable = ({
   pageNumber,
   loadMoreWorkOrders,
 }) => {
+  const { user } = useContext(UserContext)
+
   const moreWorkOrdersAvailable = () => {
     // TODO: Replace with a real count from the API
     const maxWorkOrders = pageNumber * PAGE_SIZE_AGENTS
@@ -38,9 +42,11 @@ const RepairsHistoryTable = ({
       <table className="govuk-table govuk-!-margin-top-5 repairs-history-table">
         <thead className="govuk-table__head">
           <tr className="govuk-table__row govuk-body">
-            <th scope="col" className="govuk-table__header">
-              Reference
-            </th>
+            {user && user.hasAgentPermissions && (
+              <th scope="col" className="govuk-table__header">
+                Reference
+              </th>
+            )}
             <th scope="col" className="govuk-table__header">
               Date raised
             </th>

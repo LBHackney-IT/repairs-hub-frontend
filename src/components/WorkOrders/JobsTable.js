@@ -29,7 +29,6 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
           <th scope="col" className="govuk-table__header">
             Description
           </th>
-          <th scope="col" className="govuk-table__header"></th>
         </tr>
       </thead>
       <tbody className="govuk-table__body">
