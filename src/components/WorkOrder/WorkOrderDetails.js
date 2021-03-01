@@ -1,5 +1,8 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
+import UserContext from '../UserContext/UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
+import BackButton from '../Layout/BackButton/BackButton'
 import Link from 'next/link'
 
 const WorkOrderDetails = ({
@@ -12,19 +15,28 @@ const WorkOrderDetails = ({
   tenure,
   canRaiseRepair,
 }) => {
+  const { user } = useContext(UserContext)
   const STATUS_CANCELLED = 'Work Cancelled'
 
   return (
     <div>
+      <BackButton />
       <div>
         <h1 className="govuk-heading-l display-inline govuk-!-margin-right-6">
           Works order: {workOrder.reference}
         </h1>
-        {workOrder.status !== STATUS_CANCELLED && (
-          <Link href={`/work-orders/${workOrder.reference}/cancel`}>
-            <a className="govuk-body-m">Cancel Works Order</a>
+        {user && user.hasContractorPermissions && (
+          <Link href={`/repairs/jobs/${workOrder.reference}/choose-option`}>
+            <a className="govuk-body-m">Update Works Order</a>
           </Link>
         )}
+        {user &&
+          user.hasAgentPermissions &&
+          workOrder.status !== STATUS_CANCELLED && (
+            <Link href={`/work-orders/${workOrder.reference}/cancel`}>
+              <a className="govuk-body-m">Cancel Works Order</a>
+            </Link>
+          )}
       </div>
       <p className="govuk-body-m">{workOrder.description}</p>
 
