@@ -175,7 +175,7 @@ exports[`SummaryUpdateJob component should render properly 1`] = `
         class="govuk-form-group"
       >
         <button
-          class="govuk-button lbh-button--repairs"
+          class="govuk-button"
           data-module="govuk-button"
           type="submit"
         >
