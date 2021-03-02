@@ -9,3 +9,18 @@ export const buildNoteFormData = (formData) => {
     otherType: 'addNote',
   }
 }
+
+export const buildDataFromScheduleAppointment = (
+  workOrderReference,
+  comments
+) => {
+  return {
+    relatedWorkOrderReference: {
+      id: workOrderReference,
+    },
+    comments: comments,
+    // Other
+    typeCode: '0',
+    otherType: 'addNote',
+  }
+}

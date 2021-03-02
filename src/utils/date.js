@@ -68,3 +68,13 @@ export const isBeginningOfMonth = (date) => {
 export const toISODate = (date) => {
   return date.toISOString().substring(0, 10)
 }
+
+export const longMonthWeekday = (date) => {
+  if (date) {
+    return date.toLocaleDateString('en-GB', {
+      month: 'long',
+      weekday: 'long',
+      day: 'numeric',
+    })
+  }
+}

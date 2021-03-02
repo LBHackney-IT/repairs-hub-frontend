@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ScheduleAppointmentSuccess component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-green"
+    >
+      <h1
+        class="govuk-heading-xl text-white"
+      >
+        Repair work order created
+      </h1>
+      <div
+        class="govuk-panel__body"
+      >
+        <p
+          class="govuk-!-margin-top-3"
+        >
+          Works order number
+        </p>
+        <strong
+          class="govuk-!-font-size-41"
+        >
+          12345678
+        </strong>
+        <br />
+        <br />
+        <strong
+          class="govuk-!-font-size-36"
+        >
+          Thursday, 25 February
+        </strong>
+        <br />
+        <strong
+          class="govuk-!-font-size-36"
+        >
+          PM
+        </strong>
+        <br />
+        <p>
+          Comments: some comments
+        </p>
+      </div>
+    </div>
+    <ul
+      class="govuk-list govuk-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/12345678"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/properties/00023400"
+        >
+          <strong>
+            Back to 12 Pitcairn House
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Start a new search
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

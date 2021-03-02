@@ -1,15 +1,19 @@
-.govuk-button {
-  background-color: repairs-hub-colour('housing-2') !important;
+// override style for primaruy govuk button without affecting
+// the styles for a secondary button
+
+.govuk-button.lbh-button--repairs:not(.govuk-button--secondary) {
+  background-color: repairs-hub-colour('housing-2');
   &:hover {
-    background-color: #10767c !important;
+    background-color: #10767c;
   }
-  &:focus {
-    opacity: 0.9 !important;
-    background-color: repairs-hub-colour('housing-2') !important;
-    border-color: repairs-hub-colour('housing-2') !important;
+  &:focus,
+  &:focus:not(:active):not(:hover) {
+    opacity: 0.9;
+    background-color: repairs-hub-colour('housing-2');
+    border-color: repairs-hub-colour('housing-2');
   }
   &:focus,
   &:hover {
-    box-shadow: none !important;
+    box-shadow: none;
   }
 }
