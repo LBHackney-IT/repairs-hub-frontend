@@ -76,7 +76,7 @@ exports[`SummaryCloseJob component should render properly 1`] = `
         class="govuk-form-group"
       >
         <button
-          class="govuk-button"
+          class="govuk-button lbh-button--repairs"
           data-module="govuk-button"
           type="submit"
         >
