@@ -1,7 +1,7 @@
 // override style for primaruy govuk button without affecting
 // the styles for a secondary button
 
-.govuk-button.lbh-button--repairs:not(.govuk-button--secondary) {
+.govuk-button:not(.govuk-button--secondary) {
   background-color: repairs-hub-colour('housing-2');
   &:hover {
     background-color: #10767c;

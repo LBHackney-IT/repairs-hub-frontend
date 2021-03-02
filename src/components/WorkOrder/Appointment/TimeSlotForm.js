@@ -57,9 +57,9 @@ const TimeSlotForm = ({
               isSecondary={true}
               label="Cancel"
               onClick={onCancel}
-              className="lbh-button--repairs govuk-!-margin-right-4"
+              className="govuk-!-margin-right-4"
             />
-            <Button label="Add" type="submit" className="lbh-button--repairs" />
+            <Button label="Add" type="submit" />
           </div>
         </form>
       </div>
