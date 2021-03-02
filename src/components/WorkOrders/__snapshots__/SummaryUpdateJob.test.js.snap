@@ -1,0 +1,188 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SummaryUpdateJob component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="govuk-heading-l"
+    >
+      Update work order: 10000012
+    </h1>
+    <form
+      id="repair-request-form"
+      role="form"
+    >
+      <p
+        class="govuk-heading-s"
+      >
+        Summary of updates to work order
+      </p>
+      <p
+        class="govuk-heading-s"
+      >
+        Tasks and SORs
+      </p>
+      <table
+        class="govuk-table"
+      >
+        <thead
+          class="govuk-table__head"
+        >
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              SOR code
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Quantity
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Cost
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            />
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
+        >
+          <tr
+            class="tasks-0 govuk-table__row"
+            id="existing-task-0"
+          >
+            <th
+              class="sor-code-0 govuk-table__header"
+              scope="row"
+            >
+              DES5R006
+            </th>
+            <td
+              class="quantity-0 govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="cost-0 govuk-table__cell"
+            >
+              £10.5
+            </td>
+            <td
+              class="edit-0 govuk-table__cell"
+            >
+              <a
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="tasks-1 govuk-table__row"
+            id="existing-task-1"
+          >
+            <th
+              class="sor-code-1 govuk-table__header"
+              scope="row"
+            >
+              DES5R005
+            </th>
+            <td
+              class="quantity-1 govuk-table__cell"
+            >
+              1
+            </td>
+            <td
+              class="cost-1 govuk-table__cell"
+            >
+              £14.5
+            </td>
+            <td
+              class="edit-1 govuk-table__cell"
+            >
+              <a
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="tasks-0 govuk-table__row"
+            id="added-task-0"
+          >
+            <th
+              class="sor-code-0 govuk-table__header"
+              scope="row"
+            >
+              DES5R004
+            </th>
+            <td
+              class="quantity-0 govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="cost-0 govuk-table__cell"
+            >
+              £22.5
+            </td>
+            <td
+              class="edit-0 govuk-table__cell"
+            >
+              <a
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              scope="row"
+            />
+            <td
+              class="govuk-!-padding-top-5"
+            >
+              <strong>
+                Total cost
+              </strong>
+            </td>
+            <td
+              class="govuk-!-padding-top-5"
+              id="total-cost"
+            >
+              £80.50
+            </td>
+            <td />
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="govuk-form-group"
+      >
+        <button
+          class="govuk-button"
+          data-module="govuk-button"
+          type="submit"
+        >
+          Confirm and close
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

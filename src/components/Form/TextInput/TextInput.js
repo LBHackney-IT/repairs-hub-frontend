@@ -11,6 +11,8 @@ const TextInput = ({
   type = 'text',
   widthClass,
   required,
+  onBlur,
+  defaultValue,
   ...otherProps
 }) => (
   <div
@@ -37,6 +39,8 @@ const TextInput = ({
       type={type}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
+      defaultValue={defaultValue}
+      onBlur={(e) => onBlur && onBlur(e)}
       {...otherProps}
     />
   </div>

@@ -3,30 +3,34 @@ import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import { getRepair } from '../../utils/frontend-api-client/repairs'
 import { getTasks } from '../../utils/frontend-api-client/tasks'
-import { getSorCodes } from '../../utils/frontend-api-client/schedule-of-rates/codes'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
-import { updatedTasks } from '../../utils/update-job'
-import { buildUpdateJob } from '../../utils/hact/update-job'
+import { updateExistingTasksQuantities } from '../../utils/update-job'
+import { buildUpdateJob } from '../../utils/hact/job-status-update/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
-  const [task, setTask] = useState([])
+  const [tasks, setTasks] = useState([])
+  const [propertyReference, setPropertyReference] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [sorCodes, setSorCodes] = useState([])
-  const [sorCodesCollection, setSorCodesCollection] = useState([])
+  const [rateScheduleItems, setRateScheduleItems] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [showAddedSoreCodes, setShowAddedSoreCodes] = useState(false)
+  const [
+    showAdditionalRateScheduleItems,
+    setShowAdditionalRateScheduleItems,
+  ] = useState(false)
   const router = useRouter()
 
   const onGetToSummary = (e) => {
-    const tasks = updatedTasks(e, task.length)
-    setSorCodesCollection(
-      e.sorCodesCollection
-        ? e.sorCodesCollection
+    updateExistingTasksQuantities(e, tasks)
+
+    setRateScheduleItems(
+      e.rateScheduleItems
+        ? e.rateScheduleItems
             .filter((e) => e != null)
             .map((e, index) => {
               return { id: index, ...e }
@@ -34,19 +38,18 @@ const UpdateJob = ({ reference }) => {
         : []
     )
 
-    setTask(tasks)
     setShowSummaryPage(true)
   }
 
   const changeCurrentPage = () => {
-    setShowAddedSoreCodes(true)
+    setShowAdditionalRateScheduleItems(true)
     setShowSummaryPage(false)
   }
 
   const onJobUpdateSubmit = () => {
     const updateJobFormData = buildUpdateJob(
-      task,
-      sorCodesCollection,
+      tasks,
+      rateScheduleItems,
       reference
     )
     makePostRequest(updateJobFormData)
@@ -67,19 +70,18 @@ const UpdateJob = ({ reference }) => {
     }
   }
 
-  const getWorkOrder = async (reference) => {
+  const getWorkOrderAndTasks = async (reference) => {
     setError(null)
 
     try {
-      const task = await getTasks(reference)
-      // FIXME: Hardcoding temporarily to not break staging
-      const sorCodes = await getSorCodes('PL', '00012345', 'H01')
+      const workOrder = await getRepair(reference)
+      const tasks = await getTasks(reference)
 
-      setSorCodes(sorCodes)
-      setTask(task)
+      setTasks(tasks)
+      setPropertyReference(workOrder.propertyReference)
     } catch (e) {
-      setTask(null)
-      setSorCodes([])
+      setTasks(null)
+      setPropertyReference(null)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )
@@ -91,7 +93,7 @@ const UpdateJob = ({ reference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getWorkOrder(reference)
+    getWorkOrderAndTasks(reference)
   }, [])
 
   return (
@@ -100,7 +102,7 @@ const UpdateJob = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {task && sorCodes && (
+          {tasks && propertyReference && (
             <>
               {!showSummaryPage && (
                 <>
@@ -110,22 +112,20 @@ const UpdateJob = ({ reference }) => {
                   </h1>
 
                   <UpdateJobForm
-                    task={task}
-                    sorCodes={sorCodes}
-                    showAddedSoreCodes={showAddedSoreCodes}
-                    sorCodesCollection={
-                      sorCodesCollection ? sorCodesCollection : null
+                    tasks={tasks}
+                    propertyReference={propertyReference}
+                    showAdditionalRateScheduleItems={
+                      showAdditionalRateScheduleItems
                     }
+                    addedTasks={rateScheduleItems}
                     onGetToSummary={onGetToSummary}
                   />
                 </>
               )}
               {showSummaryPage && (
                 <SummaryUpdateJob
-                  sorCodesCollection={
-                    sorCodesCollection ? sorCodesCollection : null
-                  }
-                  task={task}
+                  addedTasks={rateScheduleItems}
+                  tasks={tasks}
                   reference={reference}
                   onJobSubmit={onJobUpdateSubmit}
                   changeStep={changeCurrentPage}

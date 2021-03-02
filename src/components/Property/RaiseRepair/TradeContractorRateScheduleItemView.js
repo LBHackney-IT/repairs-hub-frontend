@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
-import SorCodeSelectView from './SorCodeSelectView'
-import TradeDataList from './TradeDataList'
+import RateScheduleItemView from './RateScheduleItemView'
+import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorSelect from './ContractorSelect'
 import { getContractors } from '../../../utils/frontend-api-client/contractors'
 import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
 
-const TradeContractorSorCodeView = ({
+const TradeContractorRateScheduleItemView = ({
   trades,
   propertyReference,
   register,
@@ -23,7 +23,7 @@ const TradeContractorSorCodeView = ({
   const [contractorReference, setContractorReference] = useState('')
   const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
-  const [sorCodeSelectDisabled, setSorCodeSelectDisabled] = useState(true)
+  const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
@@ -36,7 +36,7 @@ const TradeContractorSorCodeView = ({
       getContractorsData(propertyReference, tradeCode)
     } else {
       setContractorSelectDisabled(true)
-      setSorCodeSelectDisabled(true)
+      setRateScheduleItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
@@ -53,7 +53,7 @@ const TradeContractorSorCodeView = ({
       setContractorReference(contractorRef)
       getSorCodesData(tradeCode, propertyReference, contractorRef)
     } else {
-      setSorCodeSelectDisabled(true)
+      setRateScheduleItemDisabled(true)
       setContractorReference('')
     }
   }
@@ -87,7 +87,7 @@ const TradeContractorSorCodeView = ({
       const sorCodes = await getSorCodes(tradeCode, propertyRef, contractorRef)
 
       setSorCodes(sorCodes)
-      setSorCodeSelectDisabled(false)
+      setRateScheduleItemDisabled(false)
     } catch (e) {
       setSorCodes([])
       console.log('An error has occured:', e.response)
@@ -133,10 +133,10 @@ const TradeContractorSorCodeView = ({
         value={contractorReference}
       />
 
-      <SorCodeSelectView
+      <RateScheduleItemView
         loading={loadingSorCodes}
         sorCodes={sorCodes}
-        disabled={sorCodeSelectDisabled}
+        disabled={rateScheduleItemDisabled}
         register={register}
         errors={errors}
         isContractorUpdatePage={false}
@@ -148,7 +148,7 @@ const TradeContractorSorCodeView = ({
   )
 }
 
-TradeContractorSorCodeView.propTypes = {
+TradeContractorRateScheduleItemView.propTypes = {
   trades: PropTypes.array.isRequired,
   propertyReference: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
@@ -157,4 +157,4 @@ TradeContractorSorCodeView.propTypes = {
   getPriorityObjectByCode: PropTypes.func.isRequired,
 }
 
-export default TradeContractorSorCodeView
+export default TradeContractorRateScheduleItemView

@@ -99,7 +99,7 @@ exports[`JobsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            E - Emergency (24 hours)
+            2 [E] EMERGENCY
           </td>
           <td
             class="govuk-table__cell"

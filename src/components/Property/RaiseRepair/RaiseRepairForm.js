@@ -9,7 +9,7 @@ import {
   CharacterCountLimitedTextArea,
   TextInput,
 } from '../../Form'
-import TradeContractorSorCodeView from './TradeContractorSorCodeView'
+import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 
 const RaiseRepairForm = ({
@@ -30,8 +30,6 @@ const RaiseRepairForm = ({
 
   const onSubmit = async (formData) => {
     const scheduleRepairFormData = buildScheduleRepairFormData(formData)
-    console.log(formData)
-    console.log(scheduleRepairFormData)
 
     onFormSubmit(scheduleRepairFormData)
   }
@@ -54,7 +52,7 @@ const RaiseRepairForm = ({
   const updatePriority = (
     description,
     code,
-    sorCodesCollectionLength,
+    rateScheduleItemsLength,
     existingHigherPriorityCode
   ) => {
     if (existingHigherPriorityCode) {
@@ -73,7 +71,7 @@ const RaiseRepairForm = ({
       // (Higher priority as code gets lower)
       if (
         !existingCode ||
-        sorCodesCollectionLength <= 1 ||
+        rateScheduleItemsLength <= 1 ||
         existingHigherPriorityCode ||
         code < existingCode
       ) {
@@ -122,7 +120,7 @@ const RaiseRepairForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <TradeContractorSorCodeView
+            <TradeContractorRateScheduleItemView
               register={register}
               errors={errors}
               trades={trades}

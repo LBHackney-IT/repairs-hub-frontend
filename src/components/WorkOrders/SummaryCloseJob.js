@@ -55,8 +55,8 @@ SummaryCloseJob.propTypes = {
   reference: PropTypes.string.isRequired,
   onJobSubmit: PropTypes.func.isRequired,
   notes: PropTypes.string.isRequired,
-  time: PropTypes.instanceOf(Date),
-  day: PropTypes.instanceOf(Date),
+  time: PropTypes.string,
+  date: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
 }
 
