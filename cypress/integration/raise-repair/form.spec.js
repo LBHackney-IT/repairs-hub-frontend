@@ -106,6 +106,13 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
         'not.be.disabled'
       )
+      // Priority disabled until SOR is selected
+      cy.get('#priorityDescription').should('be.disabled')
+      cy.get('select[id="rateScheduleItems[0][code]"]').select(
+        'INP5R001 - Pre insp of wrks by Constructr'
+      )
+      cy.get('#priorityDescription').should('not.be.disabled')
+
       // Selecting no trade clears contractor and SOR code select options
       cy.get('#trade').clear()
       cy.get('#contractor').should('be.disabled')

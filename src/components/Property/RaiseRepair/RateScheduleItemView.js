@@ -32,6 +32,8 @@ const RateScheduleItemView = ({
   }
 
   const onRateScheduleItemSelect = (index, event) => {
+    document.getElementById('priorityDescription').disabled = false
+
     const value = event.target.value.split(' - ')[0]
     const sorCodeObject = getSorCodeObject(value)
     const sorCodeDescription = sorCodeObject?.shortDescription || ''
