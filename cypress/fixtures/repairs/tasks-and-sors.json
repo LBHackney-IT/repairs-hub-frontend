@@ -5,8 +5,10 @@
     "description": "Urgent call outs",
     "dateAdded": "2021-02-03T09:33:35.757339",
     "quantity": 2,
-    "cost": 0,
-    "status": "Unknown"
+    "cost": 10,
+    "status": "Unknown",
+    "original": true,
+    "originalQuantity": 2
   },
   {
     "id": "bde7c53b-8947-414c-b88f-9c5e3d875cbg",
@@ -15,7 +17,9 @@
     "dateAdded": "2021-02-03T11:23:35.814437",
     "quantity": 4,
     "cost": 0,
-    "status": "Unknown"
+    "status": "Unknown",
+    "original": false,
+    "originalQuantity": null
   },
   {
     "id": "cde7c53b-8947-414c-b88f-9c5e3d875cbh",
@@ -24,6 +28,8 @@
     "dateAdded": "2021-02-03T11:33:35.799566",
     "quantity": 5,
     "cost": 0,
-    "status": "Unknown"
+    "status": "Unknown",
+    "original": false,
+    "originalQuantity": null
   }
 ]

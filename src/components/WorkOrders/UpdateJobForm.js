@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { PrimarySubmitButton } from '../Form'
 import { useForm } from 'react-hook-form'
+import OriginalRateScheduleItems from './RateScheduleItems/OriginalRateScheduleItems'
 import ExistingRateScheduleItems from './RateScheduleItems/ExistingRateScheduleItems'
 import VariedRateScheduleItems from './RateScheduleItems/VariedRateScheduleItems'
 
@@ -12,6 +13,7 @@ const UpdateJobForm = ({
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
+  const originalTasks = tasks.filter((t) => t.original)
 
   return (
     <>
@@ -20,6 +22,7 @@ const UpdateJobForm = ({
         id="repair-request-form"
         onSubmit={handleSubmit(onGetToSummary)}
       >
+        <OriginalRateScheduleItems originalTasks={originalTasks} />
         <ExistingRateScheduleItems
           tasks={tasks}
           register={register}
@@ -28,7 +31,7 @@ const UpdateJobForm = ({
         <VariedRateScheduleItems
           register={register}
           errors={errors}
-          existingAddedRateScheduleItems={addedTasks}
+          addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
           propertyReference={propertyReference}
         />

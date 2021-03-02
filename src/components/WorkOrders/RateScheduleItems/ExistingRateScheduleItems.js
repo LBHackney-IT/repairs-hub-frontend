@@ -4,53 +4,63 @@ import { TextInput } from '../../Form'
 
 const ExistingRateScheduleItems = ({ tasks, errors, register }) => {
   return (
-    <>
-      <GridRow className="rate-schedule-items align-items-center">
-        {tasks.map((t, index) => (
-          <div key={index}>
-            <GridColumn width="two-thirds">
-              <TextInput
-                name={`sor-code-${index}`}
-                label={index == 0 ? 'SOR code' : ''}
-                widthClass={`sor-code-${index} govuk-!-width-full`}
-                register={register}
-                disabled="disabled"
-                value={`${[t.code, t.description].filter(Boolean).join(' - ')}`}
-              />
-              <input
-                id={`original-rate-schedule-item-${index}`}
-                name={`original-rate-schedule-item-${index}`}
-                type="hidden"
-                value={t.id}
-                ref={register}
-              />
-            </GridColumn>
-            <GridColumn width="one-third">
-              <TextInput
-                name={`quantity-${index}`}
-                label={index == 0 ? 'Quantity' : ''}
-                error={errors && errors.quantity}
-                widthClass={`quantity-${index} govuk-!-width-full`}
-                defaultValue={t.quantity}
-                register={register({
-                  required: 'Please enter a quantity',
-                  valueAsNumber: true,
-                  validate: (value) => {
-                    if (!Number.isInteger(value)) {
-                      return 'Quantity must be a whole number'
-                    } else if (value > 50) {
-                      return 'Quantity must be 50 or less'
-                    } else {
-                      return true
-                    }
-                  },
-                })}
-              />
-            </GridColumn>
-          </div>
-        ))}
-      </GridRow>
-    </>
+    <div>
+      <section className="section" id="existing-rate-schedule-items">
+        <h2 className="govuk-heading-m">
+          All tasks and SORS against the work order
+        </h2>
+
+        <GridRow className="rate-schedule-items align-items-center">
+          {tasks.map((t, index) => (
+            <div key={index}>
+              <GridColumn width="two-thirds">
+                <TextInput
+                  name={`sor-code-${index}`}
+                  label={index == 0 ? 'SOR code' : ''}
+                  widthClass={`sor-code-${index} govuk-!-width-full`}
+                  register={register}
+                  disabled="disabled"
+                  value={`${[t.code, t.description]
+                    .filter(Boolean)
+                    .join(' - ')}`}
+                />
+                <input
+                  id={`original-rate-schedule-item-${index}`}
+                  name={`original-rate-schedule-item-${index}`}
+                  type="hidden"
+                  value={t.id}
+                  ref={register}
+                />
+              </GridColumn>
+              <GridColumn width="one-third">
+                <TextInput
+                  name={`quantity-${index}`}
+                  label={index == 0 ? 'Quantity' : ''}
+                  error={errors && errors?.[`quantity-${index}`]}
+                  widthClass={`quantity-${index} govuk-!-width-full`}
+                  defaultValue={t.quantity}
+                  register={register({
+                    required: 'Please enter a quantity',
+                    valueAsNumber: true,
+                    validate: (value) => {
+                      if (!Number.isInteger(value)) {
+                        return 'Quantity must be a whole number'
+                      } else if (value > 50) {
+                        return 'Quantity must be 50 or less'
+                      } else {
+                        return true
+                      }
+                    },
+                  })}
+                />
+              </GridColumn>
+            </div>
+          ))}
+        </GridRow>
+
+        <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+      </section>
+    </div>
   )
 }
 

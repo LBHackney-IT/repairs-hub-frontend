@@ -20,34 +20,34 @@ exports[`SummaryUpdateJob component should render properly 1`] = `
       <p
         class="govuk-heading-s"
       >
-        Tasks and SORs
+        Original Tasks and SORs
       </p>
       <table
-        class="govuk-table"
+        class="govuk-table original-tasks-table"
       >
         <thead
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row"
+            class="govuk-table__row govuk-body"
           >
             <th
-              class="govuk-table__header"
+              class="govuk-table__header govuk-!-width-one-half"
               scope="col"
             >
               SOR code
             </th>
             <th
-              class="govuk-table__header"
+              class="govuk-table__header govuk-!-width-one-quarter"
               scope="col"
             >
               Quantity
             </th>
             <th
-              class="govuk-table__header"
+              class="govuk-table__header govuk-!-width-one-quarter"
               scope="col"
             >
-              Cost
+              Cost (unit)
             </th>
             <th
               class="govuk-table__header"
@@ -59,87 +59,91 @@ exports[`SummaryUpdateJob component should render properly 1`] = `
           class="govuk-table__body"
         >
           <tr
-            class="tasks-0 govuk-table__row"
-            id="existing-task-0"
+            class="govuk-table__row"
+            id="original-task-0"
           >
             <th
-              class="sor-code-0 govuk-table__header"
+              class="govuk-table__header"
               scope="row"
             >
               DES5R006
             </th>
             <td
-              class="quantity-0 govuk-table__cell"
+              class="govuk-table__cell"
             >
               2
             </td>
             <td
-              class="cost-0 govuk-table__cell"
+              class="govuk-table__cell"
+            >
+              £10.5
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p
+        class="govuk-heading-s"
+      >
+        Updated Tasks and SORs
+      </p>
+      <table
+        class="govuk-table updated-tasks-table"
+      >
+        <thead
+          class="govuk-table__head"
+        >
+          <tr
+            class="govuk-table__row govuk-body"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-half"
+              scope="col"
+            >
+              SOR code
+            </th>
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="col"
+            >
+              Quantity
+            </th>
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="col"
+            >
+              Cost (unit)
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            />
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
+        >
+          <tr
+            class="govuk-table__row"
+            id="existing-task-0"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              DES5R006
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              3
+            </td>
+            <td
+              class="govuk-table__cell"
             >
               £10.5
             </td>
             <td
-              class="edit-0 govuk-table__cell"
-            >
-              <a
-                href="#"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr
-            class="tasks-1 govuk-table__row"
-            id="existing-task-1"
-          >
-            <th
-              class="sor-code-1 govuk-table__header"
-              scope="row"
-            >
-              DES5R005
-            </th>
-            <td
-              class="quantity-1 govuk-table__cell"
-            >
-              1
-            </td>
-            <td
-              class="cost-1 govuk-table__cell"
-            >
-              £14.5
-            </td>
-            <td
-              class="edit-1 govuk-table__cell"
-            >
-              <a
-                href="#"
-              >
-                Edit
-              </a>
-            </td>
-          </tr>
-          <tr
-            class="tasks-0 govuk-table__row"
-            id="added-task-0"
-          >
-            <th
-              class="sor-code-0 govuk-table__header"
-              scope="row"
-            >
-              DES5R004
-            </th>
-            <td
-              class="quantity-0 govuk-table__cell"
-            >
-              2
-            </td>
-            <td
-              class="cost-0 govuk-table__cell"
-            >
-              £22.5
-            </td>
-            <td
-              class="edit-0 govuk-table__cell"
+              class="govuk-table__cell"
             >
               <a
                 href="#"
@@ -150,22 +154,124 @@ exports[`SummaryUpdateJob component should render properly 1`] = `
           </tr>
           <tr
             class="govuk-table__row"
+            id="existing-task-1"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              DES5R005
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              1
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              £14.5
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+            id="added-task-0"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              DES5R004
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              £22.5
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+            id="original-cost"
           >
             <th
               scope="row"
             />
             <td
-              class="govuk-!-padding-top-5"
+              class="govuk-!-padding-top-3"
+            >
+              <strong>
+                Original cost
+              </strong>
+            </td>
+            <td
+              class="govuk-!-padding-top-3"
+            >
+              £21.00
+            </td>
+            <td />
+          </tr>
+          <tr
+            class="govuk-table__row"
+            id="variation-cost"
+          >
+            <th
+              scope="row"
+            />
+            <td
+              class="govuk-!-padding-top-3"
+            >
+              <strong>
+                Variation cost
+              </strong>
+            </td>
+            <td
+              class="govuk-!-padding-top-3"
+            >
+              £70.00
+            </td>
+            <td />
+          </tr>
+          <tr
+            class="govuk-table__row"
+            id="total-cost"
+          >
+            <th
+              scope="row"
+            />
+            <td
+              class="govuk-!-padding-top-3 border-top-black"
             >
               <strong>
                 Total cost
               </strong>
             </td>
             <td
-              class="govuk-!-padding-top-5"
-              id="total-cost"
+              class="govuk-!-padding-top-3 border-top-black"
             >
-              £80.50
+              £91.00
             </td>
             <td />
           </tr>
