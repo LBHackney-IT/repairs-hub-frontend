@@ -69,7 +69,7 @@ const VariedRateScheduleItems = ({
         setSorCodesList([...new Set([...sorCodesList, sorCode.code])])
       }
     } catch (e) {
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
       findRateScheduleItem(index).description = ''
 
       if (e.response?.status === 404) {

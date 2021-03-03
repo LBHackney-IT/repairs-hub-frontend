@@ -70,7 +70,7 @@ const TradeContractorRateScheduleItemView = ({
     } catch (e) {
       setContractors([])
       setContractorReference('')
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
       setGetContractorsError(
         `Oops an error occurred getting contractors with error status: ${e.response?.status}`
       )
@@ -90,7 +90,7 @@ const TradeContractorRateScheduleItemView = ({
       setRateScheduleItemDisabled(false)
     } catch (e) {
       setSorCodes([])
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
       setGetSorCodesError(
         `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
       )

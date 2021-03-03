@@ -32,7 +32,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       setWorkOrder(null)
       setProperty(null)
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
 
       if (e.response?.status === 404) {
         setError(

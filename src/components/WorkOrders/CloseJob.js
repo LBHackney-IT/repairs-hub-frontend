@@ -27,7 +27,7 @@ const CloseJob = ({ reference }) => {
       await postWorkOrderComplete(formData)
       router.push('/')
     } catch (e) {
-      console.log(e)
+      console.error(e)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )

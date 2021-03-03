@@ -23,7 +23,7 @@ const ChooseTimeSlotView = ({
     updateOnSummaryPageState()
   }
   const onGetToSummary = (e) => {
-    console.log(e)
+    console.error(e)
     setTimeSlot(e.options)
     setComments(e.comments)
     setShowSummary(true)
