@@ -243,6 +243,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           <select
             class="govuk-select govuk-!-width-full"
             data-testid="priorityDescription"
+            disabled=""
             id="priorityDescription"
             name="priorityDescription"
           >

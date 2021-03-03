@@ -136,6 +136,7 @@ const RaiseRepairForm = ({
               label="Task priority"
               options={priorityList}
               onChange={onPrioritySelect}
+              disabled={true}
               required={true}
               register={register({
                 required: 'Please select a priority',
