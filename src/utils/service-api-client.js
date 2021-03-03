@@ -21,7 +21,35 @@ export const serviceAPIRequest = async (request) => {
 
   let { path, ...queryParams } = request.query
 
-  const { data } = await axios({
+  const api = axios.create()
+
+  // Log request
+  api.interceptors.request.use((request) => {
+    console.info(
+      'Starting Service API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          'x-api-key': '[REMOVED]',
+          'x-hackney-user': '[REMOVED]',
+        },
+      })
+    )
+
+    return request
+  })
+
+  // Log response
+  api.interceptors.response.use((response) => {
+    console.info(
+      `Service API response: ${response.status} ${response.statusText}`
+    )
+
+    return response
+  })
+
+  const { data } = await api({
     method: request.method,
     headers,
     url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
@@ -44,7 +72,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (err) {
-      console.error(`Service API ${req.method} error:`, err)
+      console.log(`Service API ${req.method} error:`, err)
 
       err?.response?.status === HttpStatus.NOT_FOUND
         ? res
