@@ -41,6 +41,10 @@ describe('Cancel work order', () => {
           '16 Pitcairn House St Thomass Square'
         )
       })
+      cy.get('#tradeDescription').within(() => {
+        cy.get('.govuk-table__header').contains('Trade')
+        cy.get('.govuk-table__cell').contains('DOOR ENTRY ENGINEER - DE')
+      })
       cy.get('#description').within(() => {
         cy.get('.govuk-table__header').contains('Description')
         cy.get('.govuk-table__cell').contains(

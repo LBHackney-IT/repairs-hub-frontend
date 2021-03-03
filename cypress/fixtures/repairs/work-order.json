@@ -11,6 +11,8 @@
   "priorityCode": 2,
   "raisedBy": "Dummy Agent",
   "target": "2021-01-23T18:30:00.00000",
+  "tradeCode": "DE",
+  "tradeDescription": "DOOR ENTRY ENGINEER - DE",
   "callerName": "Jill Smith",
   "callerNumber": "07700 900999"
 }
