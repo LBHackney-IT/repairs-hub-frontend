@@ -44,7 +44,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (err) {
-      console.log(`Service API ${req.method} error:`, err)
+      console.error(`Service API ${req.method} error:`, err)
 
       err?.response?.status === HttpStatus.NOT_FOUND
         ? res
