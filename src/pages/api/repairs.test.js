@@ -1,10 +1,11 @@
 import axios from 'axios'
+
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 
 import repairsEndpoint from './repairs.js'
 
-jest.mock('axios', () => jest.fn())
+jest.mock('axios')
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -40,11 +41,9 @@ describe('GET /api/repairs', () => {
         },
       })
 
-      axios.mockImplementationOnce(() =>
-        Promise.resolve({
-          status: 200,
-        })
-      )
+      axios.create = jest.fn(() => axios)
+
+      axios.mockResolvedValue({ data: 'data' })
 
       const res = createResponse()
 

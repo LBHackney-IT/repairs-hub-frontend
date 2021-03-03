@@ -5,7 +5,7 @@ import { createRequest, createResponse } from 'node-mocks-http'
 
 import catchAllEndpoint from './[...path].js'
 
-jest.mock('axios', () => jest.fn())
+jest.mock('axios')
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -70,6 +70,8 @@ describe('/api/[...path]', () => {
 
     describe('reflects errors from the service API', () => {
       test('when it returns a 404 not found', async () => {
+        axios.create = jest.fn(() => axios)
+
         axios.mockImplementationOnce(() =>
           Promise.reject({
             response: { status: HttpStatus.NOT_FOUND },
@@ -95,6 +97,8 @@ describe('/api/[...path]', () => {
       })
 
       test('when it returns a 500 internal server error', async () => {
+        axios.create = jest.fn(() => axios)
+
         axios.mockImplementationOnce(() =>
           Promise.reject({
             response: { status: HttpStatus.INTERNAL_SERVER_ERROR },
@@ -115,7 +119,7 @@ describe('/api/[...path]', () => {
 
         expect(res._getStatusCode()).toBe(HttpStatus.INTERNAL_SERVER_ERROR)
         expect(JSON.parse(res._getData())).toEqual({
-          message: 'Service API server error',
+          message: 'Service API error',
         })
       })
     })
@@ -133,6 +137,8 @@ describe('/api/[...path]', () => {
         })
 
         const res = createResponse()
+
+        axios.create = jest.fn(() => axios)
 
         // Mock the return value from the service API
         axios.mockImplementationOnce(() =>
@@ -174,6 +180,8 @@ describe('/api/[...path]', () => {
         })
 
         const res = createResponse()
+
+        axios.create = jest.fn(() => axios)
 
         // Mock the return value from the service API
         axios.mockImplementationOnce(() =>
