@@ -51,6 +51,9 @@ const RepairsHistoryTable = ({
               Date raised
             </th>
             <th scope="col" className="govuk-table__header">
+              Trade
+            </th>
+            <th scope="col" className="govuk-table__header">
               Status
             </th>
             <th scope="col" className="govuk-table__header">
@@ -75,6 +78,7 @@ RepairsHistoryTable.propTypes = {
     PropTypes.shape({
       reference: PropTypes.number,
       dateRaised: PropTypes.instanceOf(Date),
+      tradeDescription: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,
     })

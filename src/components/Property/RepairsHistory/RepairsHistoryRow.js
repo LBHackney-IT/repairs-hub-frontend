@@ -4,7 +4,13 @@ import UserContext from '../../UserContext/UserContext'
 import { dateToStr } from '../../../utils/date'
 import { extractTimeFromDate } from '../../../utils/time'
 
-const RepairsHistoryRow = ({ reference, dateRaised, description, status }) => {
+const RepairsHistoryRow = ({
+  reference,
+  dateRaised,
+  tradeDescription,
+  description,
+  status,
+}) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -23,6 +29,7 @@ const RepairsHistoryRow = ({ reference, dateRaised, description, status }) => {
           {dateRaised ? extractTimeFromDate(dateRaised) : ''}
         </div>
       </td>
+      <td className="govuk-table__cell">{tradeDescription}</td>
       <td className="govuk-table__cell">
         <span
           className={`status status-${status
@@ -40,6 +47,7 @@ const RepairsHistoryRow = ({ reference, dateRaised, description, status }) => {
 RepairsHistoryRow.propTypes = {
   reference: PropTypes.number.isRequired,
   dateRaised: PropTypes.instanceOf(Date),
+  tradeDescription: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
 }

@@ -94,6 +94,7 @@ describe('Show property', () => {
           description: 'A non-latest repair',
           propertyReference: '00012345',
           tradeCode: 'DE',
+          tradeDescription: 'DOOR ENTRY ENGINEER - DE',
           status: 'In Progress',
         }
       })
@@ -146,6 +147,7 @@ describe('Show property', () => {
         cy.get('.govuk-table').within(() => {
           cy.contains('th', 'Reference')
           cy.contains('th', 'Date raised')
+          cy.contains('th', 'Trade')
           cy.contains('th', 'Status')
           cy.contains('th', 'Description')
         })
@@ -154,6 +156,7 @@ describe('Show property', () => {
           cy.contains('10000050')
           cy.contains('1 Feb 2021')
           cy.contains('11:02 am')
+          cy.contains('DOOR ENTRY ENGINEER - DE')
           cy.contains('In Progress')
           cy.contains('The latest repair')
         })
@@ -162,6 +165,7 @@ describe('Show property', () => {
           cy.contains('10000001')
           cy.contains('1 Jan 2021')
           cy.contains('11:02 am')
+          cy.contains('DOOR ENTRY ENGINEER - DE')
           cy.contains('Work complete')
           cy.contains('The earliest repair for page one')
         })
@@ -185,6 +189,7 @@ describe('Show property', () => {
         cy.contains('10000000')
         cy.contains('1 Jan 2020')
         cy.contains('11:02 am')
+        cy.contains('DOOR ENTRY ENGINEER - DE')
         cy.contains('Work complete')
         cy.contains('The oldest repair')
       })
@@ -213,6 +218,7 @@ describe('Show property', () => {
             description: 'The only repair',
             propertyReference: '00012345',
             tradeCode: 'DE',
+            tradeDescription: 'DOOR ENTRY ENGINEER - DE',
             status: 'In Progress',
           },
         ])
