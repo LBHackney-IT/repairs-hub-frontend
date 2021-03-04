@@ -187,6 +187,25 @@ describe('Contractor update a job', () => {
     cy.wait('@taskListRequest')
 
     cy.get('#repair-request-form').within(() => {
+      cy.get('#original-rate-schedule-items').within(() => {
+        cy.get('.govuk-heading-m').contains(
+          'Original tasks and SORS raised with work order'
+        )
+        // Expect all input fields to be disabled
+        cy.get('input[id="originalRateScheduleItems[0][code]"]').should(
+          'be.disabled'
+        )
+        cy.get('input[id="originalRateScheduleItems[0][quantity]"]').should(
+          'be.disabled'
+        )
+      })
+      cy.get('#existing-rate-schedule-items').within(() => {
+        cy.get('.govuk-heading-m').contains(
+          'All tasks and SORS against the work order'
+        )
+        // Expect SOR code input fields to be disabled
+        cy.get('input[id="sor-code-0"]').should('be.disabled')
+      })
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('12')
       })
@@ -205,7 +224,7 @@ describe('Contractor update a job', () => {
     })
 
     cy.get('#quantity-0-form-group').within(() => {
-      cy.get('input[id="quantity-0"]').clear().type('10')
+      cy.get('input[id="quantity-0"]').clear().type('3')
     })
     cy.get('#repair-request-form').within(() => {
       cy.get('.repairs-hub-link').click()
@@ -231,31 +250,60 @@ describe('Contractor update a job', () => {
         .type('PLP5R082')
         .blur()
       cy.wait('@sorCodeRequest')
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('15')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('5')
 
       cy.get('[type="submit"]').contains('Next').click()
     })
 
     cy.contains('Summary of updates to work order')
-    // Check table
-    cy.get('.govuk-table__head').within(() => {
-      cy.get('.govuk-table__header').contains('SOR code')
-      cy.get('.govuk-table__header').contains('Quantity')
-      cy.get('.govuk-table__header').contains('Cost')
+    // Check original tasks and SORS table
+    cy.contains('Original Tasks and SORs')
+    cy.get('.govuk-table.original-tasks-table').within(() => {
+      cy.get('.govuk-table__head').within(() => {
+        cy.get('.govuk-table__header').contains('SOR code')
+        cy.get('.govuk-table__header').contains('Quantity')
+        cy.get('.govuk-table__header').contains('Cost (unit)')
+      })
+      cy.get('.govuk-table__body').within(() => {
+        cy.get('tr[id="original-task-0"]').within(() => {
+          cy.contains('DES5R006 - Urgent call outs')
+          cy.contains('2')
+          cy.contains('0')
+        })
+      })
     })
-    cy.get('.govuk-table__body').within(() => {
-      cy.get('tr[id="existing-task-0"]').within(() => {
-        cy.contains('DES5R006 - Urgent call outs')
-        cy.contains('10')
-        cy.contains('0')
+    // Check updated tasks and SORS table
+    cy.contains('Updated Tasks and SORs')
+    cy.get('.govuk-table.updated-tasks-table').within(() => {
+      cy.get('.govuk-table__head').within(() => {
+        cy.get('.govuk-table__header').contains('SOR code')
+        cy.get('.govuk-table__header').contains('Quantity')
+        cy.get('.govuk-table__header').contains('Cost (unit)')
       })
-      cy.get('tr[id="added-task-0"]').within(() => {
-        cy.contains('PLP5R082 - RE ENAMEL ANY SIZE BATH')
-        cy.contains('15')
-        cy.contains('148.09')
+      cy.get('.govuk-table__body').within(() => {
+        cy.get('tr[id="existing-task-0"]').within(() => {
+          cy.contains('DES5R006 - Urgent call outs')
+          cy.contains('3')
+          cy.contains('0')
+        })
+        cy.get('tr[id="added-task-0"]').within(() => {
+          cy.contains('PLP5R082 - RE ENAMEL ANY SIZE BATH')
+          cy.contains('5')
+          cy.contains('148.09')
+        })
+        cy.get('#original-cost').within(() => {
+          cy.contains('Original cost')
+          cy.contains('20.00')
+        })
+        cy.get('#variation-cost').within(() => {
+          cy.contains('Variation cost')
+          cy.contains('750.45')
+        })
+        cy.get('#total-cost').within(() => {
+          cy.contains('Total cost')
+          cy.contains('770.45')
+        })
       })
-      cy.contains('Total cost')
-      cy.get('#total-cost').contains('2221.35')
     })
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
@@ -276,14 +324,14 @@ describe('Contractor update a job', () => {
               customCode: 'DES5R006',
               customName: 'Urgent call outs',
               quantity: {
-                amount: [Number.parseInt('10')],
+                amount: [Number.parseInt('3')],
               },
             },
             {
               customCode: 'PLP5R082',
               customName: 'RE ENAMEL ANY SIZE BATH',
               quantity: {
-                amount: [Number.parseInt('15')],
+                amount: [Number.parseInt('5')],
               },
             },
           ],

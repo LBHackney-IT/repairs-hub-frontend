@@ -8,21 +8,17 @@ import { getSorCode } from '../../../utils/frontend-api-client/schedule-of-rates
 const VariedRateScheduleItems = ({
   register,
   errors,
-  existingAddedRateScheduleItems,
+  addedTasks,
   isContractorUpdatePage,
   propertyReference,
 }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
-  const [rateScheduleItems, setRateScheduleItems] = useState([
-    ...existingAddedRateScheduleItems,
-  ])
+  const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [sorCodesList, setSorCodesList] = useState(
-    existingAddedRateScheduleItems.map((item) => item.code)
+    addedTasks.map((item) => item.code)
   )
-  const [nextFreeIndex, setNextFreeIndex] = useState(
-    existingAddedRateScheduleItems.length
-  )
+  const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
 
   const addRateScheduleItem = () => {
     rateScheduleItems.push({ id: nextFreeIndex })
@@ -155,7 +151,7 @@ VariedRateScheduleItems.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   isContractorUpdatePage: PropTypes.bool.isRequired,
-  existingAddedRateScheduleItems: PropTypes.array.isRequired,
+  addedTasks: PropTypes.array.isRequired,
 }
 
 export default VariedRateScheduleItems

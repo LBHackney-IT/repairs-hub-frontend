@@ -6,115 +6,148 @@ exports[`UpdateJobForm component should render properly 1`] = `
     id="repair-request-form"
     role="form"
   >
-    <div
-      class="govuk-grid-row rate-schedule-items align-items-center"
-    >
-      <div>
-        <div
-          class="govuk-grid-column-two-thirds"
+    <div>
+      <section
+        class="section"
+        id="original-rate-schedule-items"
+      >
+        <h2
+          class="govuk-heading-m"
         >
-          <div
-            class="govuk-form-group"
-            id="sor-code-0-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="sor-code-0"
-            >
-              SOR code 
-            </label>
-            <input
-              class="govuk-input sor-code-0 govuk-!-width-full"
-              disabled=""
-              id="sor-code-0"
-              name="sor-code-0"
-              type="text"
-              value="DES5R006"
-            />
-          </div>
-          <input
-            id="original-rate-schedule-item-0"
-            name="original-rate-schedule-item-0"
-            type="hidden"
-            value=""
-          />
-        </div>
+          Original tasks and SORS raised with work order
+        </h2>
         <div
-          class="govuk-grid-column-one-third"
+          class="govuk-grid-row original-rate-schedule-items align-items-center"
+        />
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
+    </div>
+    <div>
+      <section
+        class="section"
+        id="existing-rate-schedule-items"
+      >
+        <h2
+          class="govuk-heading-m"
         >
-          <div
-            class="govuk-form-group"
-            id="quantity-0-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="quantity-0"
-            >
-              Quantity 
-            </label>
-            <input
-              class="govuk-input quantity-0 govuk-!-width-full"
-              id="quantity-0"
-              name="quantity-0"
-              type="text"
-              value="2"
-            />
-          </div>
-        </div>
-      </div>
-      <div>
+          All tasks and SORS against the work order
+        </h2>
         <div
-          class="govuk-grid-column-two-thirds"
+          class="govuk-grid-row rate-schedule-items align-items-center"
         >
-          <div
-            class="govuk-form-group"
-            id="sor-code-1-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="sor-code-1"
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
             >
-               
-            </label>
-            <input
-              class="govuk-input sor-code-1 govuk-!-width-full"
-              disabled=""
-              id="sor-code-1"
-              name="sor-code-1"
-              type="text"
-              value="DES5R005"
-            />
-          </div>
-          <input
-            id="original-rate-schedule-item-1"
-            name="original-rate-schedule-item-1"
-            type="hidden"
-            value=""
-          />
-        </div>
-        <div
-          class="govuk-grid-column-one-third"
-        >
-          <div
-            class="govuk-form-group"
-            id="quantity-1-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="quantity-1"
+              <div
+                class="govuk-form-group"
+                id="sor-code-0-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="sor-code-0"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input sor-code-0 govuk-!-width-full"
+                  disabled=""
+                  id="sor-code-0"
+                  name="sor-code-0"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-0"
+                name="original-rate-schedule-item-0"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
             >
-               
-            </label>
-            <input
-              class="govuk-input quantity-1 govuk-!-width-full"
-              id="quantity-1"
-              name="quantity-1"
-              type="text"
-              value="1"
-            />
+              <div
+                class="govuk-form-group"
+                id="quantity-0-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="quantity-0"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input quantity-0 govuk-!-width-full"
+                  id="quantity-0"
+                  name="quantity-0"
+                  type="text"
+                  value="2"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group"
+                id="sor-code-1-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="sor-code-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input sor-code-1 govuk-!-width-full"
+                  disabled=""
+                  id="sor-code-1"
+                  name="sor-code-1"
+                  type="text"
+                  value="DES5R005"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-1"
+                name="original-rate-schedule-item-1"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group"
+                id="quantity-1-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="quantity-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input quantity-1 govuk-!-width-full"
+                  id="quantity-1"
+                  name="quantity-1"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
     </div>
     <div
       class="govuk-!-padding-bottom-5"

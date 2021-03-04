@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
   const [tasks, setTasks] = useState([])
+  const [originalTasks, setOriginalTasks] = useState([])
   const [propertyReference, setPropertyReference] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -78,6 +79,7 @@ const UpdateJob = ({ reference }) => {
       const tasks = await getTasks(reference)
 
       setTasks(tasks)
+      setOriginalTasks(tasks.filter((t) => t.original))
       setPropertyReference(workOrder.propertyReference)
     } catch (e) {
       setTasks(null)
@@ -125,6 +127,7 @@ const UpdateJob = ({ reference }) => {
               {showSummaryPage && (
                 <SummaryUpdateJob
                   addedTasks={rateScheduleItems}
+                  originalTasks={originalTasks}
                   tasks={tasks}
                   reference={reference}
                   onJobSubmit={onJobUpdateSubmit}
