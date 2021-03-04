@@ -52,6 +52,20 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
               </tr>
               <tr
                 class="govuk-table__row"
+                id="tradeDescription"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Trade
+                </th>
+                <td
+                  class="govuk-table__cell"
+                />
+              </tr>
+              <tr
+                class="govuk-table__row"
                 id="description"
               >
                 <th

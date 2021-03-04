@@ -26,6 +26,12 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
           class="govuk-table__header"
           scope="col"
         >
+          Trade
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
           Status
         </th>
         <th
@@ -56,6 +62,11 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
         <td
           class="govuk-table__cell"
         >
+          DOOR ENTRY ENGINEER - DE
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
           <span
             class="status status-in-progress"
           >
@@ -81,6 +92,11 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
           >
             4:28 pm
           </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          DOOR ENTRY ENGINEER - DE
         </td>
         <td
           class="govuk-table__cell"
@@ -134,6 +150,12 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           class="govuk-table__header"
           scope="col"
         >
+          Trade
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
           Status
         </th>
         <th
@@ -173,6 +195,11 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
         <td
           class="govuk-table__cell"
         >
+          DOOR ENTRY ENGINEER - DE
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
           <span
             class="status status-in-progress"
           >
@@ -207,6 +234,11 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           >
             4:28 pm
           </div>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          DOOR ENTRY ENGINEER - DE
         </td>
         <td
           class="govuk-table__cell"

@@ -9,6 +9,7 @@
     "description": "An emergency repair",
     "propertyReference": "00012345",
     "tradeCode": "DE",
+    "tradeDescription": "DOOR ENTRY ENGINEER - DE",
     "status": "In progress"
   },
   {
@@ -21,6 +22,7 @@
     "description": "A very urgent repair",
     "propertyReference": "00012345",
     "tradeCode": "DE",
+    "tradeDescription": "DOOR ENTRY ENGINEER - DE",
     "status": "Work complete"
   },
   {
@@ -33,6 +35,7 @@
     "description": "An immediate repair",
     "propertyReference": "00012345",
     "tradeCode": "DE",
+    "tradeDescription": "DOOR ENTRY ENGINEER - DE",
     "status": "Work complete"
   },
   {
@@ -45,6 +48,7 @@
     "description": "A normal repair",
     "propertyReference": "00012345",
     "tradeCode": "DE",
+    "tradeDescription": "DOOR ENTRY ENGINEER - DE",
     "status": "In progress"
   }
 ]

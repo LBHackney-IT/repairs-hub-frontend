@@ -5,6 +5,7 @@ describe('WorkOrderInfoTable component', () => {
   const props = {
     workOrder: {
       reference: 10000012,
+      tradeDescription: 'DOOR ENTRY ENGINEER - DE',
       description: 'Broken pipe in bathroom',
       property: '315 Banister House Homerton High Street',
     },
