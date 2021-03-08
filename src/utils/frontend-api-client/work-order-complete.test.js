@@ -1,5 +1,7 @@
 import { postWorkOrderComplete } from './work-order-complete'
-import mockAxios from '../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('postWorkOrderComplete', () => {
   it('calls the Next JS API', async () => {

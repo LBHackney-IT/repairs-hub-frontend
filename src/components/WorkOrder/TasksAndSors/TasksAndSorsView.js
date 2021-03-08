@@ -22,7 +22,7 @@ const TasksAndSorsView = ({ workOrderReference, tabName }) => {
       )
     } catch (e) {
       setTasksAndSors(null)
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )

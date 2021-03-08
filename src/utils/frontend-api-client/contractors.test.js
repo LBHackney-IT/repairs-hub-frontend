@@ -1,5 +1,7 @@
 import { getContractors } from './contractors'
-import mockAxios from '../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('getContractors', () => {
   it('calls the Next JS API', async () => {

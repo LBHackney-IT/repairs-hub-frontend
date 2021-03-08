@@ -1,5 +1,7 @@
 import { postJobStatusUpdate } from './job-status-update'
-import mockAxios from '../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('postJobStatusUpdate', () => {
   it('calls the Next JS API', async () => {

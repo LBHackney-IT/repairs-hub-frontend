@@ -1,5 +1,7 @@
 import { postRepair } from './schedule'
-import mockAxios from '../../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('postRepair', () => {
   it('calls the Next JS API', async () => {

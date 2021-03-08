@@ -1,5 +1,7 @@
 import { getProperties, getProperty } from './properties'
-import mockAxios from '../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('getProperties', () => {
   it('calls the Next JS API', async () => {

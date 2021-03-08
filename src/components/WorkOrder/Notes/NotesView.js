@@ -22,7 +22,7 @@ const NotesView = ({ workOrderReference, tabName }) => {
       setDisplayForm(false)
       getNotesView(workOrderReference)
     } catch (e) {
-      console.log(e)
+      console.error(e)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )
@@ -46,7 +46,7 @@ const NotesView = ({ workOrderReference, tabName }) => {
       setNotes(sortObjectsByDateKey(notes, ['time'], 'time'))
     } catch (e) {
       setNotes(null)
-      console.log('An error has occured:', e.response)
+      console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status}`
       )

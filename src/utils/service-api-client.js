@@ -21,7 +21,37 @@ export const serviceAPIRequest = async (request) => {
 
   let { path, ...queryParams } = request.query
 
-  const { data } = await axios({
+  const api = axios.create()
+
+  // Log request
+  api.interceptors.request.use((request) => {
+    console.info(
+      'Starting Service API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          'x-api-key': '[REMOVED]',
+          'x-hackney-user': '[REMOVED]',
+        },
+      })
+    )
+
+    return request
+  })
+
+  // Log successful responses
+  api.interceptors.response.use((response) => {
+    console.info(
+      `Service API response: ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
+    )
+
+    return response
+  })
+
+  const { data } = await api({
     method: request.method,
     headers,
     url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
@@ -43,16 +73,38 @@ export const authoriseServiceAPIRequest = (callBack) => {
     try {
       // Call the function defined in the API route
       return await callBack(req, res, user)
-    } catch (err) {
-      console.log(`Service API ${req.method} error:`, err)
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a non-200 status
+        console.error(
+          'Service API response',
+          JSON.stringify({
+            status: error.response?.status,
+            data: error.response?.data,
+            headers: error.response?.headers,
+          })
+        )
 
-      err?.response?.status === HttpStatus.NOT_FOUND
-        ? res
-            .status(HttpStatus.NOT_FOUND)
-            .json({ message: `Resource not found` })
-        : res
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
-            .json({ message: 'Service API server error' })
+        error?.response?.status === HttpStatus.NOT_FOUND
+          ? res
+              .status(HttpStatus.NOT_FOUND)
+              .json({ message: `Resource not found` })
+          : res
+              .status(HttpStatus.INTERNAL_SERVER_ERROR)
+              .json({ message: 'Service API error' })
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('Cannot connect to Service API')
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'No response received from Service API' })
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('API Client could not setup request', error.message)
+        res
+          .status(HttpStatus.INTERNAL_SERVER_ERROR)
+          .json({ message: 'API Client request setup error' })
+      }
     }
   }
 }

@@ -1,5 +1,7 @@
 import { getPriorities } from './priorities'
-import mockAxios from '../../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('getPriorities`', () => {
   it('calls the Next JS API', async () => {
