@@ -1,5 +1,7 @@
 import { getSorCodes, getSorCode } from './codes'
-import mockAxios from '../../__mocks__/axios'
+import mockAxios from 'axios'
+
+jest.mock('axios')
 
 describe('getSorCodes`', () => {
   it('calls the Next JS API', async () => {
