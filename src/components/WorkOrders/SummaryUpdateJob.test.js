@@ -41,6 +41,7 @@ describe('SummaryUpdateJob component', () => {
     onJobSubmit: jest.fn(),
     changeStep: jest.fn(),
     calculateTotalCost: jest.fn(),
+    variationReason: 'More work is necessary',
   }
 
   it('should render properly', () => {
@@ -52,6 +53,7 @@ describe('SummaryUpdateJob component', () => {
         tasks={props.tasks}
         addedTasks={props.addedTasks}
         changeStep={props.changeStep}
+        variationReason={props.variationReason}
       />
     )
     expect(asFragment()).toMatchSnapshot()

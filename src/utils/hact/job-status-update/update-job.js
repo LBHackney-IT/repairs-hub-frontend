@@ -1,4 +1,9 @@
-export const buildUpdateJob = (existingTasks, addedTasks, reference) => {
+export const buildUpdateJob = (
+  existingTasks,
+  addedTasks,
+  reference,
+  variationReason
+) => {
   const buildRateScheduleItems = (tasks, existing = false) => {
     return tasks.map((task) => {
       return {
@@ -21,9 +26,8 @@ export const buildUpdateJob = (existingTasks, addedTasks, reference) => {
   return {
     relatedWorkOrderReference: {
       id: reference,
-      description: '',
-      allocatedBy: '',
     },
+    comments: `Variation reason: ${variationReason}`,
     typeCode: 8,
     moreSpecificSORCode: {
       rateScheduleItem: rateScheduleItems,

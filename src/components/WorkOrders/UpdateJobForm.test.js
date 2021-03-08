@@ -21,6 +21,8 @@ describe('UpdateJobForm component', () => {
       },
     ],
     onGetToSummary: jest.fn(),
+    setVariationReason: jest.fn(),
+    variationReason: 'More work is necessary',
   }
 
   it('should render properly', () => {
@@ -30,6 +32,8 @@ describe('UpdateJobForm component', () => {
         tasks={props.tasks}
         addedTasks={props.addedTasks}
         onGetToSummary={props.onGetToSummary}
+        setVariationReason={props.setVariationReason}
+        variationReason={props.variationReason}
       />
     )
     expect(asFragment()).toMatchSnapshot()

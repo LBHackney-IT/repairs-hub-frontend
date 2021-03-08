@@ -278,6 +278,18 @@ exports[`SummaryUpdateJob component should render properly 1`] = `
         </tbody>
       </table>
       <div
+        class="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7"
+      >
+        <p
+          class="govuk-heading-s"
+        >
+          Variation reason
+        </p>
+        <p>
+          More work is necessary
+        </p>
+      </div>
+      <div
         class="govuk-form-group"
       >
         <button
