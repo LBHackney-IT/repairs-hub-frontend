@@ -3,7 +3,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 
 const {
-  REPAIRS_AGENTS_GOOGLE_GROUPNAME,
+  AGENTS_GOOGLE_GROUPNAME,
   HACKNEY_JWT_SECRET,
   GSSO_TOKEN_NAME,
 } = process.env
@@ -14,7 +14,7 @@ describe('isAuthorised', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: [REPAIRS_AGENTS_GOOGLE_GROUPNAME],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )

@@ -7,10 +7,10 @@ const {
 } = process.env
 
 export const buildUser = (name, email, authServiceGroups) => {
-  const { REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
+  const { AGENTS_GOOGLE_GROUPNAME } = process.env
 
   const groupNameRoleMap = {
-    [REPAIRS_AGENTS_GOOGLE_GROUPNAME]: AGENT_ROLE,
+    [AGENTS_GOOGLE_GROUPNAME]: AGENT_ROLE,
     [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
     [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
   }
