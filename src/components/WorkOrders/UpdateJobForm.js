@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { PrimarySubmitButton } from '../Form'
+import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../Form'
 import { useForm } from 'react-hook-form'
 import OriginalRateScheduleItems from './RateScheduleItems/OriginalRateScheduleItems'
 import ExistingRateScheduleItems from './RateScheduleItems/ExistingRateScheduleItems'
@@ -10,6 +10,8 @@ const UpdateJobForm = ({
   propertyReference,
   onGetToSummary,
   addedTasks,
+  setVariationReason,
+  variationReason,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
@@ -35,6 +37,18 @@ const UpdateJobForm = ({
           isContractorUpdatePage={isContractorUpdatePage}
           propertyReference={propertyReference}
         />
+        <CharacterCountLimitedTextArea
+          name="variationReason"
+          maxLength={250}
+          value={variationReason}
+          requiredText="Please enter a reason"
+          label="Variation reason"
+          placeholder="Write a reason for the variation..."
+          required={true}
+          register={register}
+          onChange={(event) => setVariationReason(event.target.value)}
+          error={errors && errors.variationReason}
+        />
         <PrimarySubmitButton label="Next" />
       </form>
     </>
@@ -46,6 +60,8 @@ UpdateJobForm.propTypes = {
   propertyReference: PropTypes.string.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   addedTasks: PropTypes.array.isRequired,
+  setVariationReason: PropTypes.func.isRequired,
+  variationReason: PropTypes.string.isRequired,
 }
 
 export default UpdateJobForm

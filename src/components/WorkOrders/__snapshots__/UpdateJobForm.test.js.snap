@@ -244,6 +244,37 @@ exports[`UpdateJobForm component should render properly 1`] = `
     </div>
     <div
       class="govuk-form-group"
+      id="variationReason-form-group"
+    >
+      <label
+        class="govuk-label"
+        for="variationReason"
+      >
+        Variation reason 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <textarea
+        aria-describedby="variationReason-hint variationReason-error"
+        class="govuk-textarea"
+        id="variationReason"
+        name="variationReason"
+        placeholder="Write a reason for the variation..."
+        rows="4"
+      >
+        More work is necessary
+      </textarea>
+    </div>
+    <span
+      class="govuk-hint govuk-!-margin-bottom-6"
+    >
+      You have 250 characters remaining.
+    </span>
+    <div
+      class="govuk-form-group"
     >
       <button
         class="govuk-button"

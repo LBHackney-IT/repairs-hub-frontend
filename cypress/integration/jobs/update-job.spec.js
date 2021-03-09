@@ -82,9 +82,18 @@ describe('Contractor update a job', () => {
       cy.get('[type="submit"]').contains('Next').click()
     })
 
-    cy.get('form').within(() => {
+    cy.get(
+      'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
+    ).within(() => {
       cy.contains('Please enter an SOR code')
+    })
+    cy.get(
+      'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+    ).within(() => {
       cy.contains('Please enter a quantity')
+    })
+    cy.get('#variationReason-form-group .govuk-error-message').within(() => {
+      cy.contains('Please enter a reason')
     })
 
     cy.get('#repair-request-form').within(() => {
@@ -155,6 +164,7 @@ describe('Contractor update a job', () => {
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('0')
       })
+      cy.get('#variationReason').get('.govuk-textarea').type('Needs more work')
       cy.get('[type="submit"]').contains('Next').click()
     })
     cy.get('[type="submit"]').contains('Confirm and close').click()
@@ -163,10 +173,9 @@ describe('Contractor update a job', () => {
       .should('deep.equal', {
         relatedWorkOrderReference: {
           id: '10000040',
-          description: '',
-          allocatedBy: '',
         },
         typeCode: 8,
+        comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [
             {
@@ -209,6 +218,9 @@ describe('Contractor update a job', () => {
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('12')
       })
+
+      // Enter variation reason
+      cy.get('#variationReason').get('.govuk-textarea').type('Needs more work')
 
       cy.get('[type="submit"]').contains('Next').click()
     })
@@ -305,6 +317,10 @@ describe('Contractor update a job', () => {
         })
       })
     })
+    cy.get('.variation-reason-summary').within(() => {
+      cy.contains('Variation reason')
+      cy.contains('Needs more work')
+    })
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -313,10 +329,9 @@ describe('Contractor update a job', () => {
       .should('deep.equal', {
         relatedWorkOrderReference: {
           id: '10000040',
-          description: '',
-          allocatedBy: '',
         },
         typeCode: 8,
+        comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [
             {

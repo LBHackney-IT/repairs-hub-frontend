@@ -19,15 +19,15 @@ describe('buildUpdateJob', () => {
     },
   ]
   const reference = '00012345'
+  const variationReason = 'More work is required'
 
   it('builds the UpdateJob form data to post to the Repairs API', async () => {
     const updateJobFormData = {
       relatedWorkOrderReference: {
         id: '00012345',
-        description: '',
-        allocatedBy: '',
       },
       typeCode: 8,
+      comments: 'Variation reason: More work is required',
       moreSpecificSORCode: {
         rateScheduleItem: [
           {
@@ -49,7 +49,12 @@ describe('buildUpdateJob', () => {
       },
     }
 
-    const response = buildUpdateJob(existingTasks, addedTasks, reference)
+    const response = buildUpdateJob(
+      existingTasks,
+      addedTasks,
+      reference,
+      variationReason
+    )
     expect(response).toEqual(updateJobFormData)
   })
 })

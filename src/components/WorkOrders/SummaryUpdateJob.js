@@ -10,6 +10,7 @@ const SummaryUpdateJob = ({
   tasks,
   addedTasks,
   changeStep,
+  variationReason,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -30,6 +31,11 @@ const SummaryUpdateJob = ({
           changeStep={changeStep}
         />
 
+        <div className="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7">
+          <p className="govuk-heading-s">Variation reason</p>
+          <p>{variationReason}</p>
+        </div>
+
         <PrimarySubmitButton label="Confirm and close" />
       </form>
     </div>
@@ -39,8 +45,11 @@ const SummaryUpdateJob = ({
 SummaryUpdateJob.propTypes = {
   reference: PropTypes.string.isRequired,
   onJobSubmit: PropTypes.func.isRequired,
+  originalTasks: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array,
   changeStep: PropTypes.func.isRequired,
+  variationReason: PropTypes.string.isRequired,
 }
 
 export default SummaryUpdateJob

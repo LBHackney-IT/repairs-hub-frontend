@@ -16,6 +16,7 @@ const UpdateJob = ({ reference }) => {
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
   const [propertyReference, setPropertyReference] = useState('')
+  const [variationReason, setVariationReason] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [rateScheduleItems, setRateScheduleItems] = useState([])
@@ -51,7 +52,8 @@ const UpdateJob = ({ reference }) => {
     const updateJobFormData = buildUpdateJob(
       tasks,
       rateScheduleItems,
-      reference
+      reference,
+      variationReason
     )
     makePostRequest(updateJobFormData)
   }
@@ -121,6 +123,8 @@ const UpdateJob = ({ reference }) => {
                     }
                     addedTasks={rateScheduleItems}
                     onGetToSummary={onGetToSummary}
+                    setVariationReason={setVariationReason}
+                    variationReason={variationReason}
                   />
                 </>
               )}
@@ -132,6 +136,7 @@ const UpdateJob = ({ reference }) => {
                   reference={reference}
                   onJobSubmit={onJobUpdateSubmit}
                   changeStep={changeCurrentPage}
+                  variationReason={variationReason}
                 />
               )}
             </>
