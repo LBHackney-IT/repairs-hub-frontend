@@ -7,17 +7,17 @@ describe('Show work order', () => {
     cy.loginWithAgentRole()
     cy.server()
     // Stub request for work order and property
-    cy.fixture('repairs/work-order.json').as('workOrder')
+
     cy.fixture('properties/property.json').as('property')
     cy.fixture('repairs/notes.json').as('notes')
-
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route('GET', 'api/repairs/10000012', '@workOrder')
     cy.route('GET', 'api/repairs/10000012/notes', '@notes')
   })
 
-  context('Displays the page for a work order', () => {
+  context('Displays the page for a work order with appointment details', () => {
     beforeEach(() => {
+      cy.fixture('repairs/work-order-with-appointment.json').as('workOrder')
+      cy.route('GET', 'api/repairs/10000012', '@workOrder')
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
     })
 
@@ -71,6 +71,87 @@ describe('Show work order', () => {
         cy.contains('Target: 23 Jan 2021, 6:30 pm')
         cy.contains('Caller: Jill Smith')
         cy.contains('07700 900999')
+      })
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+
+    it('Appointment details', () => {
+      cy.get('.appointment-details').within(() => {
+        cy.contains('Appointment details')
+        cy.contains('19 Mar 2021, 12:00-18:00')
+      })
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+  })
+  context(
+    'Displays the page for a work order without appointment details',
+    () => {
+      beforeEach(() => {
+        cy.fixture('repairs/work-order.json').as('workOrder')
+        cy.route('GET', 'api/repairs/10000012', '@workOrder')
+        cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      })
+
+      it('Work order details', () => {
+        cy.get('.work-order-info').within(() => {
+          cy.contains('Status: In Progress')
+          cy.contains('Priority: U - Urgent (5 Working days)')
+          cy.contains('Raised by Dummy Agent')
+          cy.contains('18 Jan 2021, 3:28 pm')
+          cy.contains('Target: 23 Jan 2021, 6:30 pm')
+          cy.contains('Caller: Jill Smith')
+          cy.contains('07700 900999')
+        })
+
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+
+      it('Appointment details', () => {
+        cy.get('.appointment-details').within(() => {
+          cy.contains('Appointment details')
+          cy.contains('a', 'Schedule an appointment')
+        })
+
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+    }
+  )
+
+  context('Displays the page for a work order with Emergency priority', () => {
+    beforeEach(() => {
+      cy.fixture('repairs/work-order-with-emergency.json').as(
+        'workOrderEmergency'
+      )
+      cy.route('GET', 'api/repairs/10000012', '@workOrderEmergency')
+
+      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    })
+
+    it('Work order details', () => {
+      cy.get('.work-order-info').within(() => {
+        cy.contains('Status: In Progress')
+        cy.contains('Priority: 2 [E] EMERGENCY')
+        cy.contains('Raised by Dummy Agent')
+        cy.contains('18 Jan 2021, 3:28 pm')
+        cy.contains('Target: 23 Jan 2021, 6:30 pm')
+        cy.contains('Caller: Jill Smith')
+        cy.contains('07700 900999')
+      })
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+
+    it('Appointment details', () => {
+      cy.get('.appointment-details').within(() => {
+        cy.contains('Appointment details')
+        cy.contains('Not applicable')
       })
 
       // Run lighthouse audit for accessibility report

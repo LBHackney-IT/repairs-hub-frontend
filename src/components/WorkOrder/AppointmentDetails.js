@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
+import { dateToStr } from '../../utils/date'
 
 const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
   const STATUS_CANCELLED = 'Work Cancelled'
-
   if (workOrder.priorityCode > 1) {
     return (
       <div className="appointment-details">
@@ -15,7 +15,8 @@ const AppointmentDetails = ({ workOrder }) => {
         <div className="govuk-body-s">
           {user &&
             user.hasAgentPermissions &&
-            workOrder.status !== STATUS_CANCELLED && (
+            workOrder.status !== STATUS_CANCELLED &&
+            !workOrder.appointment && (
               <Link
                 href={`/work-orders/${workOrder.reference}/appointment/new`}
               >
@@ -23,6 +24,17 @@ const AppointmentDetails = ({ workOrder }) => {
                   Schedule an appointment
                 </a>
               </Link>
+            )}
+          {user &&
+            user.hasAgentPermissions &&
+            workOrder.status !== STATUS_CANCELLED &&
+            !!workOrder.appointment && (
+              <div className="govuk-body-s">
+                <span className="govuk-!-font-size-14">
+                  {dateToStr(new Date(workOrder.appointment.date))},{' '}
+                  {workOrder.appointment.start}-{workOrder.appointment.end}
+                </span>
+              </div>
             )}
         </div>
       </div>

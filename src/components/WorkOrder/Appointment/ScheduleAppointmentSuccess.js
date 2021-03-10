@@ -15,7 +15,7 @@ const ScheduleAppointmentSuccess = ({
           Repair work order created
         </h1>
         <div className="govuk-panel__body">
-          <p className="govuk-!-margin-top-3">Works order number</p>
+          <p className="govuk-!-margin-top-3">Work order number</p>
           <strong className="govuk-!-font-size-41">{workOrderReference}</strong>
           <br />
           <br />
