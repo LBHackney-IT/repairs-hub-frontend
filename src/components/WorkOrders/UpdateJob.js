@@ -3,23 +3,24 @@ import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
 import { getRepair } from '../../utils/frontend-api-client/repairs'
 import { getTasks } from '../../utils/frontend-api-client/tasks'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
-import { buildUpdateJob } from '../../utils/hact/job-status-update/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
+  const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
   const [propertyReference, setPropertyReference] = useState('')
   const [variationReason, setVariationReason] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [rateScheduleItems, setRateScheduleItems] = useState([])
+  const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
   const [
     showAdditionalRateScheduleItems,
@@ -30,7 +31,7 @@ const UpdateJob = ({ reference }) => {
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
 
-    setRateScheduleItems(
+    setAddedTasks(
       e.rateScheduleItems
         ? e.rateScheduleItems
             .filter((e) => e != null)
@@ -48,17 +49,7 @@ const UpdateJob = ({ reference }) => {
     setShowSummaryPage(false)
   }
 
-  const onJobUpdateSubmit = () => {
-    const updateJobFormData = buildUpdateJob(
-      tasks,
-      rateScheduleItems,
-      reference,
-      variationReason
-    )
-    makePostRequest(updateJobFormData)
-  }
-
-  const makePostRequest = async (formData) => {
+  const onFormSubmit = async (formData) => {
     setLoading(true)
 
     try {
@@ -73,17 +64,20 @@ const UpdateJob = ({ reference }) => {
     }
   }
 
-  const getWorkOrderAndTasks = async (reference) => {
+  const getUpdateJobForm = async (reference) => {
     setError(null)
 
     try {
+      const currentUser = await getCurrentUser()
       const workOrder = await getRepair(reference)
       const tasks = await getTasks(reference)
 
+      setCurrentUser(currentUser)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setPropertyReference(workOrder.propertyReference)
     } catch (e) {
+      setCurrentUser(null)
       setTasks(null)
       setPropertyReference(null)
       setError(
@@ -97,7 +91,7 @@ const UpdateJob = ({ reference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getWorkOrderAndTasks(reference)
+    getUpdateJobForm(reference)
   }, [])
 
   return (
@@ -106,7 +100,7 @@ const UpdateJob = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {tasks && propertyReference && (
+          {currentUser && tasks && propertyReference && (
             <>
               {!showSummaryPage && (
                 <>
@@ -116,12 +110,13 @@ const UpdateJob = ({ reference }) => {
                   </h1>
 
                   <UpdateJobForm
-                    tasks={tasks}
+                    latestTasks={tasks}
+                    originalTasks={originalTasks}
+                    addedTasks={addedTasks}
                     propertyReference={propertyReference}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }
-                    addedTasks={rateScheduleItems}
                     onGetToSummary={onGetToSummary}
                     setVariationReason={setVariationReason}
                     variationReason={variationReason}
@@ -130,11 +125,12 @@ const UpdateJob = ({ reference }) => {
               )}
               {showSummaryPage && (
                 <SummaryUpdateJob
-                  addedTasks={rateScheduleItems}
+                  latestTasks={tasks}
                   originalTasks={originalTasks}
-                  tasks={tasks}
+                  addedTasks={addedTasks}
+                  varySpendLimit={parseFloat(currentUser.varyLimit)}
                   reference={reference}
-                  onJobSubmit={onJobUpdateSubmit}
+                  onFormSubmit={onFormSubmit}
                   changeStep={changeCurrentPage}
                   variationReason={variationReason}
                 />
