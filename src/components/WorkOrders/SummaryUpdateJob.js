@@ -1,40 +1,82 @@
 import PropTypes from 'prop-types'
-import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
+import { calculateTotalCost } from '../../utils/helpers/calculations'
+import { buildUpdateJob } from '../../utils/hact/job-status-update/update-job'
 import UpdateSummaryRateScheduleItems from './RateScheduleItems/UpdateSummaryRateScheduleItems'
+import WarningText from '../Template/WarningText'
 
 const SummaryUpdateJob = ({
   reference,
-  onJobSubmit,
+  onFormSubmit,
+  varySpendLimit,
   originalTasks,
-  tasks,
+  latestTasks,
   addedTasks,
   changeStep,
   variationReason,
 }) => {
-  const { handleSubmit } = useForm({})
+  const onSubmit = async () => {
+    // The API validates whether the total variation cost is over the logged in
+    // user's vary spend limit & updates WO status to 'Pending Approval' if true
+    const updateJobFormData = buildUpdateJob(
+      latestTasks,
+      addedTasks,
+      reference,
+      variationReason
+    )
+
+    onFormSubmit(updateJobFormData)
+  }
+
+  const ORIGINAL_COST = 'Original cost'
+  const TOTAL_VARIED_COST = 'Variation cost'
+  const TOTAL_COST = 'Total cost'
+
+  const original = {
+    description: ORIGINAL_COST,
+    cost: calculateTotalCost(originalTasks, 'cost', 'originalQuantity'),
+  }
+  const total = {
+    description: TOTAL_COST,
+    cost: calculateTotalCost(
+      latestTasks.concat(addedTasks),
+      'cost',
+      'quantity'
+    ),
+  }
+  const totalVaried = {
+    description: TOTAL_VARIED_COST,
+    cost: total.cost - original.cost,
+  }
+
+  const overSpendLimit = totalVaried.cost.toFixed(2) > varySpendLimit
 
   return (
     <div>
       <h1 className="govuk-heading-l">Update work order: {reference}</h1>
-      <form
-        role="form"
-        id="repair-request-form"
-        onSubmit={handleSubmit(onJobSubmit)}
-      >
+      <form role="form" id="repair-request-form" onSubmit={onSubmit}>
         <p className="govuk-heading-s">Summary of updates to work order</p>
 
         <UpdateSummaryRateScheduleItems
           originalTasks={originalTasks}
-          tasks={tasks}
+          latestTasks={latestTasks}
           addedTasks={addedTasks}
           changeStep={changeStep}
+          originalCostObject={original}
+          totalCostObject={total}
+          totalVariedCostObject={totalVaried}
         />
 
         <div className="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7">
           <p className="govuk-heading-s">Variation reason</p>
           <p>{variationReason}</p>
         </div>
+
+        {overSpendLimit && (
+          <WarningText
+            text={`Your variation cost exceeds £${varySpendLimit} and will be sent for approval.`}
+          />
+        )}
 
         <PrimarySubmitButton label="Confirm and close" />
       </form>
@@ -44,9 +86,10 @@ const SummaryUpdateJob = ({
 
 SummaryUpdateJob.propTypes = {
   reference: PropTypes.string.isRequired,
-  onJobSubmit: PropTypes.func.isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  varySpendLimit: PropTypes.number.isRequired,
   originalTasks: PropTypes.array.isRequired,
-  tasks: PropTypes.array.isRequired,
+  latestTasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array,
   changeStep: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,
