@@ -1,0 +1,7 @@
+{
+  "sub": "100111222333444555666",
+  "name": "Hackney User",
+  "email": "hackney.user@test.hackney.gov.uk",
+  "varyLimit": "250",
+  "raiseLimit": "1000"
+}

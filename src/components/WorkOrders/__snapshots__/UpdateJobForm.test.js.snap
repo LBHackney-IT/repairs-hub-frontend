@@ -18,7 +18,56 @@ exports[`UpdateJobForm component should render properly 1`] = `
         </h2>
         <div
           class="govuk-grid-row original-rate-schedule-items align-items-center"
-        />
+        >
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group"
+                id="originalRateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="originalRateScheduleItems[0][code]"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input undefined"
+                  disabled=""
+                  id="originalRateScheduleItems[0][code]"
+                  name="originalRateScheduleItems[0][code]"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group"
+                id="originalRateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label"
+                  for="originalRateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input undefined"
+                  disabled=""
+                  id="originalRateScheduleItems[0][quantity]"
+                  name="originalRateScheduleItems[0][quantity]"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
         <hr
           class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
         />
@@ -32,7 +81,7 @@ exports[`UpdateJobForm component should render properly 1`] = `
         <h2
           class="govuk-heading-m"
         >
-          All tasks and SORS against the work order
+          Latest tasks and SORS against the work order
         </h2>
         <div
           class="govuk-grid-row rate-schedule-items align-items-center"

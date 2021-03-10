@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import WarningText from '../../WarningText'
+import WarningText from '../../Template/WarningText'
 import ContactsTable from './ContactsTable'
 
 const Contacts = ({ contacts }) => {

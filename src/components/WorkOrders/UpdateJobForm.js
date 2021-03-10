@@ -2,20 +2,20 @@ import PropTypes from 'prop-types'
 import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../Form'
 import { useForm } from 'react-hook-form'
 import OriginalRateScheduleItems from './RateScheduleItems/OriginalRateScheduleItems'
-import ExistingRateScheduleItems from './RateScheduleItems/ExistingRateScheduleItems'
-import VariedRateScheduleItems from './RateScheduleItems/VariedRateScheduleItems'
+import LatestRateScheduleItems from './RateScheduleItems/LatestRateScheduleItems'
+import AddedRateScheduleItems from './RateScheduleItems/AddedRateScheduleItems'
 
 const UpdateJobForm = ({
-  tasks,
+  latestTasks,
+  originalTasks,
+  addedTasks,
   propertyReference,
   onGetToSummary,
-  addedTasks,
   setVariationReason,
   variationReason,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
-  const originalTasks = tasks.filter((t) => t.original)
 
   return (
     <>
@@ -25,12 +25,12 @@ const UpdateJobForm = ({
         onSubmit={handleSubmit(onGetToSummary)}
       >
         <OriginalRateScheduleItems originalTasks={originalTasks} />
-        <ExistingRateScheduleItems
-          tasks={tasks}
+        <LatestRateScheduleItems
+          latestTasks={latestTasks}
           register={register}
           errors={errors}
         />
-        <VariedRateScheduleItems
+        <AddedRateScheduleItems
           register={register}
           errors={errors}
           addedTasks={addedTasks}
@@ -56,10 +56,11 @@ const UpdateJobForm = ({
 }
 
 UpdateJobForm.propTypes = {
-  tasks: PropTypes.array.isRequired,
+  latestTasks: PropTypes.array.isRequired,
+  originalTasks: PropTypes.array.isRequired,
+  addedTasks: PropTypes.array.isRequired,
   propertyReference: PropTypes.string.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
-  addedTasks: PropTypes.array.isRequired,
   setVariationReason: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,
 }
