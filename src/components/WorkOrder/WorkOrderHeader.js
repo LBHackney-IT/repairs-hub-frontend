@@ -13,6 +13,7 @@ const WorkOrderHeader = ({
   personAlerts,
   tenure,
   canRaiseRepair,
+  notes,
 }) => {
   return (
     <div className="govuk-body-s govuk-grid-row">
@@ -35,7 +36,7 @@ const WorkOrderHeader = ({
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails workOrder={workOrder} />
+        <AppointmentDetails workOrder={workOrder} notes={notes} />
       </div>
     </div>
   )
@@ -50,6 +51,7 @@ WorkOrderHeader.propTypes = {
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
+  notes: PropTypes.array,
 }
 
 export default WorkOrderHeader

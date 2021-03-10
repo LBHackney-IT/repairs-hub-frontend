@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getRepair } from '../../utils/frontend-api-client/repairs'
+import { getRepair, getNotes } from '../../utils/frontend-api-client/repairs'
 import { getProperty } from '../../utils/frontend-api-client/properties'
 import Tabs from '../Tabs'
 
@@ -16,6 +16,7 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const tabsList = ['Repairs history', 'Tasks and SORs', 'Notes']
+  const [notes, setNotes] = useState([])
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -23,7 +24,9 @@ const WorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrder = await getRepair(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
+      const notes = await getNotes(workOrderReference)
 
+      setNotes(notes)
       setWorkOrder(workOrder)
       setProperty(propertyObject.property)
       setLocationAlerts(propertyObject.alerts.locationAlert)
@@ -77,6 +80,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
                   canRaiseRepair={property.canRaiseRepair}
+                  notes={notes}
                 />
                 <Tabs
                   tabsList={tabsList}

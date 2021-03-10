@@ -14,6 +14,7 @@ const WorkOrderDetails = ({
   personAlerts,
   tenure,
   canRaiseRepair,
+  notes,
 }) => {
   const { user } = useContext(UserContext)
   const STATUS_CANCELLED = 'Work Cancelled'
@@ -50,6 +51,7 @@ const WorkOrderDetails = ({
         tenure={tenure}
         hasLinkToProperty={true}
         canRaiseRepair={canRaiseRepair}
+        notes={notes}
       />
     </div>
   )
@@ -64,6 +66,7 @@ WorkOrderDetails.propTypes = {
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
+  notes: PropTypes.array,
 }
 
 export default WorkOrderDetails
