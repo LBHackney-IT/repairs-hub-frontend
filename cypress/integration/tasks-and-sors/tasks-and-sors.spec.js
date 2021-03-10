@@ -29,7 +29,8 @@ describe('Tasks and SORs', () => {
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.govuk-heading-l').contains('Tasks and SORs')
 
-      cy.get('.govuk-table').within(() => {
+      cy.contains('Latest Tasks and SORs')
+      cy.get('.govuk-table.latest-tasks-and-sors-table').within(() => {
         // Tasks and SORS table headers
         cy.contains('th', 'SOR')
         cy.contains('th', 'Description')
@@ -43,7 +44,7 @@ describe('Tasks and SORs', () => {
           cy.contains('DES5R013')
           cy.contains('Inspect additional sec entrance')
           cy.contains('3 Feb 2021, 11:33 am')
-          cy.contains('2')
+          cy.contains('5')
           cy.contains('0')
           cy.contains('Unknown')
         })
@@ -59,7 +60,28 @@ describe('Tasks and SORs', () => {
           cy.contains('DES5R006')
           cy.contains('Urgent call outs')
           cy.contains('3 Feb 2021, 9:33 am')
-          cy.contains('5')
+          cy.contains('2')
+          cy.contains('0')
+          cy.contains('Unknown')
+        })
+      })
+
+      cy.contains('Original Tasks and SORs')
+      cy.get('.govuk-table.original-tasks-and-sors-table').within(() => {
+        // Tasks and SORS table headers
+        cy.contains('th', 'SOR')
+        cy.contains('th', 'Description')
+        cy.contains('th', 'Date added')
+        cy.contains('th', 'Quantity (est.)')
+        cy.contains('th', 'Cost')
+        cy.contains('th', 'Status')
+
+        // Tasks and SORS table rows
+        cy.get('[data-row-id="0"]').within(() => {
+          cy.contains('DES5R006')
+          cy.contains('Urgent call outs')
+          cy.contains('3 Feb 2021, 9:33 am')
+          cy.contains('1')
           cy.contains('0')
           cy.contains('Unknown')
         })

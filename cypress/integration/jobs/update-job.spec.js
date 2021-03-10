@@ -279,7 +279,7 @@ describe('Contractor update a job', () => {
       cy.get('.govuk-table__body').within(() => {
         cy.get('tr[id="original-task-0"]').within(() => {
           cy.contains('DES5R006 - Urgent call outs')
-          cy.contains('2')
+          cy.contains('1')
           cy.contains('0')
         })
       })
@@ -305,11 +305,11 @@ describe('Contractor update a job', () => {
         })
         cy.get('#original-cost').within(() => {
           cy.contains('Original cost')
-          cy.contains('20.00')
+          cy.contains('10.00')
         })
         cy.get('#variation-cost').within(() => {
           cy.contains('Variation cost')
-          cy.contains('750.45')
+          cy.contains('760.45')
         })
         cy.get('#total-cost').within(() => {
           cy.contains('Total cost')

@@ -17,7 +17,12 @@ export const TBody = (props) => (
 )
 
 export const TR = (props) => (
-  <tr className={cx('govuk-table__row', props.className)}>{props.children}</tr>
+  <tr
+    data-row-id={props.index}
+    className={cx('govuk-table__row', props.className)}
+  >
+    {props.children}
+  </tr>
 )
 
 export const TH = (props) => (

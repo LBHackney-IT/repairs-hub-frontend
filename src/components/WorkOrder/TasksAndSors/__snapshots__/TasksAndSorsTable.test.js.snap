@@ -7,8 +7,13 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
   >
     Tasks and SORs
   </h2>
+  <p
+    class="govuk-heading-s"
+  >
+    Latest Tasks and SORs
+  </p>
   <table
-    class="govuk-table govuk-!-margin-top-5 tasks-and-sors-table"
+    class="govuk-table govuk-!-margin-top-5 latest-tasks-and-sors-table"
   >
     <thead
       class="govuk-table__head"
@@ -58,7 +63,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-body-s"
         data-row-id="0"
       >
         <td
@@ -84,7 +89,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          0
+          £0
         </td>
         <td
           class="govuk-table__cell"
@@ -93,7 +98,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-body-s"
         data-row-id="1"
       >
         <td
@@ -119,7 +124,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          0
+          £0
         </td>
         <td
           class="govuk-table__cell"
@@ -128,7 +133,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-body-s"
         data-row-id="2"
       >
         <td
@@ -154,7 +159,99 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          0
+          £0
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Unknown
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p
+    class="govuk-heading-s"
+  >
+    Original Tasks and SORs
+  </p>
+  <table
+    class="govuk-table govuk-!-margin-top-5 original-tasks-and-sors-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row govuk-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Date added
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Quantity (est.)
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Cost (est.)
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Status
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row govuk-body-s"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R006
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Urgent call outs
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          3 Feb 2021, 11:33 am
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          1
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          £0
         </td>
         <td
           class="govuk-table__cell"

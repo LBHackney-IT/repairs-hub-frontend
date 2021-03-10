@@ -11,6 +11,8 @@ const TasksAndSorsView = ({ workOrderReference, tabName }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
+  const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
+
   const getTasksAndSorsView = async (workOrderReference) => {
     setError(null)
 
@@ -44,7 +46,17 @@ const TasksAndSorsView = ({ workOrderReference, tabName }) => {
       ) : (
         <>
           {tasksAndSors && (
-            <TasksAndSorsTable tasksAndSors={tasksAndSors} tabName={tabName} />
+            <TasksAndSorsTable
+              /**
+                Latest refers to the latest (live) tasks and sors against the work order,
+                which will include any variations for different codes and quantities
+                whereas original refers to the tasks and sors that originated from
+                the raise repair form, along with its original quantity
+              **/
+              latestTasksAndSors={tasksAndSors}
+              originalTasksAndSors={originalTasksAndSors}
+              tabName={tabName}
+            />
           )}
           {error && <ErrorMessage label={error} />}
         </>
