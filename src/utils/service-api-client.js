@@ -23,6 +23,8 @@ export const serviceAPIRequest = async (request) => {
 
   const api = axios.create()
 
+  // anything
+
   // Log request
   api.interceptors.request.use((request) => {
     console.info(
