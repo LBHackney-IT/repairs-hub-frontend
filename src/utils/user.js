@@ -6,11 +6,6 @@ const {
   CONTRACTORS_PURDY_GOOGLE_GROUPNAME,
 } = process.env
 
-const CONTRACTOR_GROUP_REF_MAP = {
-  [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: 'SCC',
-  [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: 'PCL',
-}
-
 export const buildUser = (name, email, authServiceGroups) => {
   const { REPAIRS_AGENTS_GOOGLE_GROUPNAME } = process.env
 
@@ -35,6 +30,5 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasAgentPermissions: role === AGENT_ROLE,
     hasContractorPermissions: role === CONTRACTOR_ROLE,
     hasAnyPermissions: !!role,
-    contractorReference: CONTRACTOR_GROUP_REF_MAP[groupName],
   }
 }
