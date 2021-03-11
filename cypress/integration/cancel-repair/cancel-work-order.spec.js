@@ -11,9 +11,11 @@ describe('Cancel work order', () => {
     cy.server()
     cy.fixture('repairs/work-order.json').as('workOrder')
     cy.fixture('properties/property.json').as('property')
+    cy.fixture('repairs/notes.json').as('notes')
 
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/repairs/10000012', '@workOrder')
+    cy.route('GET', 'api/repairs/10000012/notes', '@notes')
     cy.route({
       method: 'POST',
       url: '/api/workOrderComplete',

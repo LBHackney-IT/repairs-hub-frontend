@@ -12,6 +12,8 @@ describe('Tasks and SORs', () => {
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.fixture('repairs/work-orders.json').as('workOrders')
     cy.route('GET', 'api/repairs/?propertyReference=00012345', '@workOrders')
+    cy.fixture('repairs/notes.json').as('notes')
+    cy.route('GET', 'api/repairs/10000012/notes', '@notes')
     cy.fixture('repairs/work-order.json').as('workOrder')
     cy.route('GET', 'api/repairs/10000012', '@workOrder')
     cy.fixture('repairs/tasks-and-sors.json').as('tasksAndSors')

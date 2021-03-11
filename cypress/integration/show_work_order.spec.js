@@ -9,8 +9,11 @@ describe('Show work order', () => {
     // Stub request for work order and property
     cy.fixture('repairs/work-order.json').as('workOrder')
     cy.fixture('properties/property.json').as('property')
+    cy.fixture('repairs/notes.json').as('notes')
+
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/repairs/10000012', '@workOrder')
+    cy.route('GET', 'api/repairs/10000012/notes', '@notes')
   })
 
   context('Displays the page for a work order', () => {
