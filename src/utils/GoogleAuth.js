@@ -1,6 +1,5 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
-import { TEMPORARY_GROUP_OVERRIDE_KEY } from 'src/pages/api/staging-group-override'
 import { buildUser } from './user'
 
 const { GSSO_TOKEN_NAME } = process.env
@@ -55,10 +54,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       HACKNEY_JWT_SECRET
     )
 
-    // TODO: Delete this once we're happy with Google log ins
-    const stagingUserGroupOverride = cookies[TEMPORARY_GROUP_OVERRIDE_KEY]
-
-    const user = buildUser(name, email, [stagingUserGroupOverride, ...groups])
+    const user = buildUser(name, email, groups)
 
     if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
