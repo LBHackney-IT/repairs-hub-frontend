@@ -54,7 +54,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setPersonAlerts(data.alerts.personAlert)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(data.contacts?.contacts)
+      setContacts(data.contacts)
     } catch (e) {
       setProperty(null)
       setPriorities(null)

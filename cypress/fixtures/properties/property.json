@@ -42,18 +42,16 @@
     "typeCode": "SEC",
     "typeDescription": "Secure"
   },
-  "contacts": {
-    "contacts": [
-      {
-        "firstName": "Mark",
-        "lastName": "Gardner",
-        "phoneNumbers": ["00000111111", "00000222222"]
-      },
-      {
-        "firstName": "Luam",
-        "lastName": "Berhane",
-        "phoneNumbers": ["00000666666"]
-      }
-    ]
-  }
+  "contacts": [
+    {
+      "firstName": "Mark",
+      "lastName": "Gardner",
+      "phoneNumbers": ["00000111111", "00000222222"]
+    },
+    {
+      "firstName": "Luam",
+      "lastName": "Berhane",
+      "phoneNumbers": ["00000666666"]
+    }
+  ]
 }
