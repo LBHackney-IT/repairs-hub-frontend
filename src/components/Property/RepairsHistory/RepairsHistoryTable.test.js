@@ -41,7 +41,6 @@ describe('RepairsHistoryTable component', () => {
       hasAgentPermissions: true,
       hasContractorPermissions: false,
       hasAnyPermissions: true,
-      contractorReference: null,
     }
 
     it('should render properly', () => {
@@ -65,7 +64,6 @@ describe('RepairsHistoryTable component', () => {
       hasAgentPermissions: false,
       hasContractorPermissions: true,
       hasAnyPermissions: true,
-      contractorReference: 'SCC',
     }
 
     it('should render properly', () => {

@@ -68,7 +68,6 @@ describe('WorkOrderDetails component', () => {
       hasAgentPermissions: true,
       hasContractorPermissions: false,
       hasAnyPermissions: true,
-      contractorReference: null,
     }
 
     it('should render properly without a link to cancel work order', () => {
@@ -124,7 +123,6 @@ describe('WorkOrderDetails component', () => {
       hasAgentPermissions: false,
       hasContractorPermissions: true,
       hasAnyPermissions: true,
-      contractorReference: 'SCC',
     }
 
     it('should render properly without a link to cancel work order', () => {

@@ -79,24 +79,4 @@ describe('buildUser', () => {
       })
     })
   })
-
-  describe('contractorReference', () => {
-    describe('when the user is supplied with a single agent group name', () => {
-      const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
-
-      it('is undefined', () => {
-        expect(user.contractorRef).toBeUndefined()
-      })
-    })
-
-    describe(`when the user is supplied with the group name`, () => {
-      const user = buildUser('', '', [
-        'repairs-hub-frontend-staging-contractors-alphatrack',
-      ])
-
-      it(`ref returns the mapped contractor ref for the supplied group`, () => {
-        expect(user.contractorReference).toEqual('SCC')
-      })
-    })
-  })
 })
