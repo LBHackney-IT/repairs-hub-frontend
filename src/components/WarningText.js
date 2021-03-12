@@ -1,4 +1,6 @@
-const ContactsNoneAvailable = () => {
+import PropTypes from 'prop-types'
+
+const WarningText = ({ text }) => {
   return (
     <div className="govuk-warning-text">
       <span className="govuk-warning-text__icon" aria-hidden="true">
@@ -6,10 +8,14 @@ const ContactsNoneAvailable = () => {
       </span>
       <strong className="govuk-warning-text__text">
         <span className="govuk-warning-text__assistive">Warning</span>
-        No contact details available for this property
+        {text}
       </strong>
     </div>
   )
 }
 
-export default ContactsNoneAvailable
+WarningText.propTypes = {
+  text: PropTypes.string.isRequired,
+}
+
+export default WarningText
