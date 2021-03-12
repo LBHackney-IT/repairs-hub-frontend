@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { PAGE_SIZE_AGENTS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Search by work order reference, postcode or address', () => {
   beforeEach(() => {
@@ -75,8 +76,16 @@ describe('Search by work order reference, postcode or address', () => {
       beforeEach(() => {
         cy.fixture('repairs/work-order.json').as('workOrder')
         cy.fixture('properties/property.json').as('property')
+        cy.fixture('repairs/notes.json').as('notes')
+
         cy.route('GET', 'api/properties/00012345', '@property')
         cy.route('GET', 'api/repairs/10000012', '@workOrder')
+        cy.route('GET', 'api/repairs/10000012/notes', '@notes')
+        cy.route(
+          'GET',
+          `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+          JSON.stringify([])
+        )
 
         // Search by postcode
         cy.get('.govuk-input').clear().type('10000012')
