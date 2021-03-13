@@ -57,12 +57,17 @@ describe('Raise repair form', () => {
     )
 
     // Property contact information table
-    cy.get('.govuk-table__caption').contains('Contacts')
-    cy.get('.govuk-table__row .govuk-table__cell').contains('Mark Gardner')
-    cy.get('.govuk-table__row .govuk-table__cell').contains('00000111111')
-    cy.get('.govuk-table__row .govuk-table__cell').contains('00000222222')
-    cy.get('.govuk-table__row .govuk-table__cell').contains('Luam Berhane')
-    cy.get('.govuk-table__row .govuk-table__cell').contains('00000666666')
+    cy.get('.govuk-table')
+      .contains('Contacts')
+      .parent()
+      .within(() => {
+        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
+        cy.get('tbody>tr').eq(0).contains('00000111111')
+        cy.get('tbody>tr').eq(0).contains('00000222222')
+
+        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
+        cy.get('tbody>tr').eq(1).contains('00000666666')
+      })
 
     cy.get('.govuk-heading-m').contains('Repair task details')
 
