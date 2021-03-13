@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import WarningText from '../WarningText'
 
 const RaiseRepairStatus = ({
   canRaiseRepair,
@@ -18,15 +19,7 @@ const RaiseRepairStatus = ({
     )
   } else {
     return (
-      <div className="govuk-warning-text">
-        <span className="govuk-warning-text__icon" aria-hidden="true">
-          !
-        </span>
-        <strong className="govuk-warning-text__text">
-          <span className="govuk-warning-text__assistive">Warning</span>
-          Cannot raise a repair on this property due to tenure type
-        </strong>
-      </div>
+      <WarningText text="Cannot raise a repair on this property due to tenure type" />
     )
   }
 }
