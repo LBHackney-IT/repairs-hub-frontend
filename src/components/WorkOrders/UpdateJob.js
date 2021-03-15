@@ -5,12 +5,11 @@ import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
 import { getRepair } from '../../utils/frontend-api-client/repairs'
-import { getTasks } from '../../utils/frontend-api-client/tasks'
+import { getTasksAndSors } from '../../utils/frontend-api-client/repairs/[id]/tasks'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
-import { getHubUser } from '../../utils/frontend-api-client/user'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
 import { useRouter } from 'next/router'
 
@@ -81,8 +80,7 @@ const UpdateJob = ({ reference }) => {
     try {
       const currentUser = await getCurrentUser()
       const workOrder = await getRepair(reference)
-      const tasks = await getTasks(reference)
-      const user = await getHubUser()
+      const tasks = await getTasksAndSors(reference)
 
       setCurrentUser(currentUser)
       setTasks(tasks)
