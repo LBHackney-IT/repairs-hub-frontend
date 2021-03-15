@@ -8,6 +8,8 @@ import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
 import { postRepair } from '../../../utils/frontend-api-client/repairs/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
+import { useRouter } from 'next/router'
+import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -21,15 +23,24 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
+  const router = useRouter()
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
     try {
       const ref = await postRepair(formData)
-
       setWorkOrderReference(ref)
-      setFormSuccess(true)
+      if (
+        priorityCodesRequiringAppointments.includes(
+          formData.priority.priorityCode
+        )
+      ) {
+        router.push(`/work-orders/${ref}/appointment/new`)
+        return
+      } else {
+        setFormSuccess(true)
+      }
     } catch (e) {
       console.error(e)
       setError(

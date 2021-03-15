@@ -14,6 +14,7 @@ import AppointmentCalendar from './AppointmentCalendar'
 import { postScheduleAppointment } from '../../../utils/frontend-api-client/appointments'
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
+import NoAvailableAppointments from './NoAvailableAppointments'
 
 const AppointmentView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -130,11 +131,15 @@ const AppointmentView = ({ workOrderReference }) => {
                   canRaiseRepair={property.canRaiseRepair}
                 />
                 <RepairTasks tasks={tasksAndSors} />
-                <AppointmentCalendar
-                  availableAppointments={availableAppointments}
-                  workOrderReference={workOrderReference}
-                  makePostRequest={makePostRequest}
-                />
+                {!availableAppointments.length ? (
+                  <NoAvailableAppointments />
+                ) : (
+                  <AppointmentCalendar
+                    availableAppointments={availableAppointments}
+                    workOrderReference={workOrderReference}
+                    makePostRequest={makePostRequest}
+                  />
+                )}
               </>
             )}
           {error && <ErrorMessage label={error} />}

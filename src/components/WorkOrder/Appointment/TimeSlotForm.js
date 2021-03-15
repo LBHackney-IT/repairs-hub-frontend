@@ -15,7 +15,7 @@ const TimeSlotForm = ({
   const { handleSubmit, register, errors } = useForm({})
 
   return (
-    <div className="govuk-grid-row">
+    <div className="govuk-grid-row" id="available-slots">
       <div className="govuk-grid-column-full">
         <form
           role="form"
