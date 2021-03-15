@@ -5,12 +5,11 @@ import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
 import { getRepair } from '../../utils/frontend-api-client/repairs'
-import { getTasks } from '../../utils/frontend-api-client/tasks'
+import { getTasksAndSors } from '../../utils/frontend-api-client/repairs/[id]/tasks'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
-import { getHubUser } from '../../utils/frontend-api-client/user'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
 import { useRouter } from 'next/router'
 
@@ -20,7 +19,6 @@ const UpdateJob = ({ reference }) => {
   const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [userData, setUserData] = useState()
   const [propertyReference, setPropertyReference] = useState('')
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
@@ -63,7 +61,7 @@ const UpdateJob = ({ reference }) => {
 
       if (isSpendLimitReachedResponse(e.response)) {
         setError(
-          `Variation cost exceeds £${userData?.varyLimit}, please contact your contract manager to vary on your behalf`
+          `Variation cost exceeds £${currentUser?.varyLimit}, please contact your contract manager to vary on your behalf`
         )
       } else {
         setError(
@@ -81,14 +79,12 @@ const UpdateJob = ({ reference }) => {
     try {
       const currentUser = await getCurrentUser()
       const workOrder = await getRepair(reference)
-      const tasks = await getTasks(reference)
-      const user = await getHubUser()
+      const tasks = await getTasksAndSors(reference)
 
       setCurrentUser(currentUser)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setPropertyReference(workOrder.propertyReference)
-      setUserData(user)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
