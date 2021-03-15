@@ -5,7 +5,7 @@ import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
 import { getRepair } from '../../utils/frontend-api-client/repairs'
-import { getTasks } from '../../utils/frontend-api-client/tasks'
+import { getTasksAndSors } from '../../utils/frontend-api-client/repairs/[id]/tasks'
 import UpdateJobForm from './UpdateJobForm'
 import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
@@ -70,7 +70,7 @@ const UpdateJob = ({ reference }) => {
     try {
       const currentUser = await getCurrentUser()
       const workOrder = await getRepair(reference)
-      const tasks = await getTasks(reference)
+      const tasks = await getTasksAndSors(reference)
 
       setCurrentUser(currentUser)
       setTasks(tasks)
