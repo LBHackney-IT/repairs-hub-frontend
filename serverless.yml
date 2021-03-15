@@ -40,8 +40,7 @@ functions:
       GSSO_TOKEN_NAME: ${ssm:/repairs-hub/${self:provider.stage}/gsso-token-name}
       HACKNEY_JWT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/hackney-jwt-secret}
       AGENTS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/agents-group}
-      CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contractors-alphatrack-group}
-      CONTRACTORS_PURDY_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contractors-purdy-group}
+      CONTRACTORS_GOOGLE_GROUPNAME_PREFIX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-prefix}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
 
 resources:

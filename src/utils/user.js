@@ -1,25 +1,36 @@
 export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 
-const {
-  CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
-  CONTRACTORS_PURDY_GOOGLE_GROUPNAME,
-} = process.env
-
 export const buildUser = (name, email, authServiceGroups) => {
-  const { AGENTS_GOOGLE_GROUPNAME } = process.env
+  const {
+    CONTRACTORS_GOOGLE_GROUPNAME_PREFIX,
+    AGENTS_GOOGLE_GROUPNAME,
+  } = process.env
 
-  const groupNameRoleMap = {
-    [AGENTS_GOOGLE_GROUPNAME]: AGENT_ROLE,
-    [CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
-    [CONTRACTORS_PURDY_GOOGLE_GROUPNAME]: CONTRACTOR_ROLE,
-  }
-
-  const groupName = authServiceGroups.find((groupName) =>
-    Object.keys(groupNameRoleMap).includes(groupName)
+  const contractorGroupRegex = new RegExp(
+    `^${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}`
   )
 
-  const role = groupNameRoleMap[groupName]
+  const roleFromGroup = (groupName) => {
+    if (groupName === AGENTS_GOOGLE_GROUPNAME) {
+      return AGENT_ROLE
+    } else if (hasContractorGroupPrefix(groupName)) {
+      return CONTRACTOR_ROLE
+    }
+
+    console.log(`User group name not recognised: ${groupName}`)
+  }
+
+  const hasContractorGroupPrefix = (groupName) =>
+    !!contractorGroupRegex.test(groupName)
+
+  const groupName = authServiceGroups.find(
+    (groupName) =>
+      groupName === AGENTS_GOOGLE_GROUPNAME ||
+      hasContractorGroupPrefix(groupName)
+  )
+
+  const role = roleFromGroup(groupName)
 
   const hasRole = (r) => r === role
 
