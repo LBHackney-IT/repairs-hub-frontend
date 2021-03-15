@@ -4,11 +4,25 @@ import TasksAndSorsTable from './TasksAndSorsTable'
 describe('TasksAndSorsTable component', () => {
   const props = {
     tabName: 'Tasks and SORs',
-    tasksAndSors: [
+    originalTasksAndSors: [
       {
         code: 'DES5R006',
         description: 'Urgent call outs',
         dateAdded: new Date('2021-02-03T11:33:35.757339'),
+        original: true,
+        originalQuantity: 1,
+        quantity: 2,
+        cost: 0,
+        status: 'Unknown',
+      },
+    ],
+    latestTasksAndSors: [
+      {
+        code: 'DES5R006',
+        description: 'Urgent call outs',
+        dateAdded: new Date('2021-02-03T11:33:35.757339'),
+        original: true,
+        originalQuantity: 1,
         quantity: 2,
         cost: 0,
         status: 'Unknown',
@@ -17,6 +31,8 @@ describe('TasksAndSorsTable component', () => {
         code: 'DES5R005',
         description: 'Normal call outs',
         dateAdded: new Date('2021-02-03T11:33:35.814437'),
+        original: false,
+        originalQuantity: null,
         quantity: 4,
         cost: 0,
         status: 'Unknown',
@@ -25,6 +41,8 @@ describe('TasksAndSorsTable component', () => {
         code: 'DES5R013',
         description: 'Inspect additional sec entrance',
         dateAdded: new Date('2021-02-03T11:33:35.799566'),
+        original: false,
+        originalQuantity: null,
         quantity: 5,
         cost: 0,
         status: 'Unknown',
@@ -35,7 +53,8 @@ describe('TasksAndSorsTable component', () => {
   it('should render properly', () => {
     const { asFragment } = render(
       <TasksAndSorsTable
-        tasksAndSors={props.tasksAndSors}
+        originalTasksAndSors={props.originalTasksAndSors}
+        latestTasksAndSors={props.latestTasksAndSors}
         tabName={props.tabName}
       />
     )
