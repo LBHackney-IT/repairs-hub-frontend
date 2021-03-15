@@ -6,7 +6,7 @@ import jsonwebtoken from 'jsonwebtoken'
 import * as HttpStatus from 'http-status-codes'
 
 const {
-  REPAIRS_AGENTS_GOOGLE_GROUPNAME,
+  AGENTS_GOOGLE_GROUPNAME,
   HACKNEY_JWT_SECRET,
   GSSO_TOKEN_NAME,
 } = process.env
@@ -17,7 +17,7 @@ describe('MyApp.getInitialProps', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: [REPAIRS_AGENTS_GOOGLE_GROUPNAME],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )

@@ -1,13 +1,13 @@
 import { buildUser, AGENT_ROLE, CONTRACTOR_ROLE } from './user'
 
 const {
-  REPAIRS_AGENTS_GOOGLE_GROUPNAME,
+  AGENTS_GOOGLE_GROUPNAME,
   CONTRACTORS_ALPHATRACK_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('buildUser', () => {
   describe('when called with a single agent group name', () => {
-    const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
+    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
@@ -39,7 +39,7 @@ describe('buildUser', () => {
   })
 
   describe('hasRole', () => {
-    const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
+    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
     describe('when the supplied role maps to the group name for the user', () => {
       it('returns true', () => {
@@ -56,7 +56,7 @@ describe('buildUser', () => {
 
   describe('hasAnyPermissions', () => {
     describe('when the group name for the user maps to a recognised role', () => {
-      const user = buildUser('', '', [REPAIRS_AGENTS_GOOGLE_GROUPNAME])
+      const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
       it('returns true', () => {
         expect(user.hasAnyPermissions).toBe(true)
