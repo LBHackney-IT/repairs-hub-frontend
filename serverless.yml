@@ -41,6 +41,7 @@ functions:
       HACKNEY_JWT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/hackney-jwt-secret}
       AGENTS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/agents-group}
       CONTRACTORS_GOOGLE_GROUPNAME_PREFIX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-prefix}
+      CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
 
 resources:
