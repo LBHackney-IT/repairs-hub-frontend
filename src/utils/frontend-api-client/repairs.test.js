@@ -1,4 +1,9 @@
-import { getRepair, getRepairs, getRepairsForProperty } from './repairs'
+import {
+  getRepair,
+  getRepairs,
+  getRepairsForProperty,
+  getPendingApprovalRepairs,
+} from './repairs'
 import mockAxios from 'axios'
 
 jest.mock('axios')
@@ -57,6 +62,26 @@ describe('getRepairsForProperty', () => {
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
       params: { propertyReference: '1', PageSize: 50, PageNumber: 1 },
+    })
+  })
+})
+
+describe('getPendingApprovalRepairs', () => {
+  it('calls the Next JS API', async () => {
+    const responseData = { data: 'test' }
+
+    mockAxios.get.mockImplementationOnce(() =>
+      Promise.resolve({
+        data: responseData,
+      })
+    )
+
+    const response = await getPendingApprovalRepairs()
+
+    expect(response).toEqual(responseData)
+    expect(mockAxios.get).toHaveBeenCalledTimes(1)
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
+      params: { PageSize: 10, PageNumber: 1, StatusCode: 90 },
     })
   })
 })
