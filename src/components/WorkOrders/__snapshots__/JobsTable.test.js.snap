@@ -66,6 +66,7 @@ exports[`JobsTable component should render properly 1`] = `
       >
         <tr
           class="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+          data-ref="10000012"
         >
           <td
             class="govuk-table__cell"
