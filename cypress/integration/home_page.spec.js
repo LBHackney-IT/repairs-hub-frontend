@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { PAGE_SIZE_CONTRACTORS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Home page', () => {
   context('When user is not logged in', () => {
@@ -79,7 +80,7 @@ describe('Home page', () => {
             cy.fixture('repairs/work-orders.json').as('workorderslist')
             cy.route(
               'GET',
-              'api/repairs/?PageSize=10&PageNumber=1',
+              `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
               '@workorderslist'
             )
             cy.visit(`${Cypress.env('HOST')}/`)
@@ -137,9 +138,9 @@ describe('Home page', () => {
             cy.audit()
           })
 
-          it('does displays next button', () => {
+          it('does not display next button when work orders are less than PAGE_SIZE_CONTRACTORS', () => {
             cy.get('.page-navigation').within(() => {
-              cy.contains('Next')
+              cy.contains('Next').should('not.exist')
             })
             // Run lighthouse audit for accessibility report
             cy.audit()

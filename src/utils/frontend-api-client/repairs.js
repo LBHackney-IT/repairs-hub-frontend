@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const PAGE_SIZE_CONTRACTORS = 10
+export const PAGE_SIZE_CONTRACTORS = 10
 export const PAGE_SIZE_AGENTS = 50
 const PENDING_APPROVAL = 90
 
