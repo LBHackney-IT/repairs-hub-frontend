@@ -146,7 +146,7 @@ describe('Home page', () => {
             cy.audit()
           })
 
-          it('does not displays previous button', () => {
+          it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
