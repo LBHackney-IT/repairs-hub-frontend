@@ -67,6 +67,7 @@ describe('WorkOrderDetails component', () => {
       hasRole: true,
       hasAgentPermissions: true,
       hasContractorPermissions: false,
+      hasContractManagerPermissions: false,
       hasAnyPermissions: true,
     }
 
@@ -122,6 +123,63 @@ describe('WorkOrderDetails component', () => {
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: true,
+      hasContractManagerPermissions: false,
+      hasAnyPermissions: true,
+    }
+
+    it('should render properly without a link to cancel work order', () => {
+      // Link isn't shown if current time is greater than dateRaised + 1 hour
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render properly without a link to cancel work order', () => {
+      // 2021-01-14T18:16:20.986Z
+      MockDate.set(1610648180986)
+      // Set current time to within an hour of date raised
+      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
+
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contract manager', () => {
+    const user = {
+      name: 'A Contractor',
+      email: 'a.contractor@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: false,
+      hasContractManagerPermissions: true,
       hasAnyPermissions: true,
     }
 
