@@ -44,7 +44,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     } catch (e) {
       console.error(e)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
 
@@ -72,7 +72,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setTrades(null)
       console.error('An error has occured:', e.response)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
 
