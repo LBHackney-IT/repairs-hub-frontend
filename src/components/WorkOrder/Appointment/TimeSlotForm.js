@@ -28,10 +28,9 @@ const TimeSlotForm = ({
             label=""
             name="options"
             options={availableSlots['slots'].map((slot) => {
-              let text =
-                slot['description'] == 'AM Slot'
-                  ? 'AM 8:00 -12:00'
-                  : 'PM 12:00-4:00'
+              let text = slot['description'].match('AM')
+                ? 'AM 8:00 -12:00'
+                : 'PM 12:00-4:00'
               return {
                 text: text,
                 value: text,
