@@ -40,7 +40,7 @@ const WorkOrderView = ({ workOrderReference }) => {
         )
       } else {
         setError(
-          `Oops an error occurred with error status: ${e.response?.status}`
+          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
         )
       }
     }
