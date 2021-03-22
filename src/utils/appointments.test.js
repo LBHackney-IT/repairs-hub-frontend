@@ -8,17 +8,17 @@ describe('getAvailableSlots', () => {
     const availableSlots = [
       {
         date: '2021-02-16T00:00:00',
-        slots: [{ description: 'AM Slot' }, { description: 'PM Slot' }],
+        slots: [{ description: 'AM' }, { description: 'PM' }],
       },
       {
         date: '2021-02-26T00:00:00',
-        slots: [{ description: 'AM Slot' }, { description: 'PM Slot' }],
+        slots: [{ description: 'AM' }, { description: 'PM' }],
       },
     ]
 
     expect(getAvailableSlots(date, availableSlots)).toEqual({
       date: '2021-02-26T00:00:00',
-      slots: [{ description: 'AM Slot' }, { description: 'PM Slot' }],
+      slots: [{ description: 'AM' }, { description: 'PM' }],
     })
   })
 })

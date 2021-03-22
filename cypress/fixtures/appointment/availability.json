@@ -83,13 +83,13 @@
     "slots": [
       {
         "reference": "31/2021-03-18",
-        "description": "AM Slot",
+        "description": "AM",
         "start": "2000-01-01T08:00:00",
         "end": "2000-01-01T13:00:00"
       },
       {
         "reference": "41/2021-03-18",
-        "description": "PM Slot",
+        "description": "PM",
         "start": "2000-01-01T12:00:00",
         "end": "2000-01-01T18:00:00"
       }
@@ -100,13 +100,13 @@
     "slots": [
       {
         "reference": "32/2021-03-19",
-        "description": "AM Slot",
+        "description": "AM",
         "start": "2000-01-01T08:00:00",
         "end": "2000-01-01T13:00:00"
       },
       {
         "reference": "42/2021-03-19",
-        "description": "PM Slot",
+        "description": "PM",
         "start": "2000-01-01T12:00:00",
         "end": "2000-01-01T18:00:00"
       }
