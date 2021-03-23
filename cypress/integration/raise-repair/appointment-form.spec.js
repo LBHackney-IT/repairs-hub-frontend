@@ -22,6 +22,12 @@ describe('Schedule appointment form', () => {
     cy.route('GET', 'api/repairs/10102030', '@workOrder')
     cy.route('GET', 'api/repairs/10102030/tasks', '@task')
     cy.route('GET', 'api/properties/00012345', '@property')
+    cy.route('GET', 'api/hub-user', {})
+    cy.route(
+      'GET',
+      'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      []
+    )
     cy.route(
       'GET',
       'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
