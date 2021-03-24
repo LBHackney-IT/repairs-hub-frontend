@@ -1,9 +1,9 @@
-import { getTasks } from './tasks'
+import { getCurrentUser } from './hub-user'
 import mockAxios from 'axios'
 
 jest.mock('axios')
 
-describe('getTasks', () => {
+describe('getCurrentUser`', () => {
   it('calls the Next JS API', async () => {
     const responseData = { data: 'test' }
 
@@ -13,10 +13,10 @@ describe('getTasks', () => {
       })
     )
 
-    const response = await getTasks('10000012')
+    const response = await getCurrentUser()
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/10000012/tasks')
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/hub-user')
   })
 })

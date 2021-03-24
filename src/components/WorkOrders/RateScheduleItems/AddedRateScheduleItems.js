@@ -5,7 +5,7 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import Spinner from '../../Spinner/Spinner'
 import { getSorCode } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
 
-const VariedRateScheduleItems = ({
+const AddedRateScheduleItems = ({
   register,
   errors,
   addedTasks,
@@ -147,11 +147,12 @@ const VariedRateScheduleItems = ({
   )
 }
 
-VariedRateScheduleItems.propTypes = {
+AddedRateScheduleItems.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  isContractorUpdatePage: PropTypes.bool.isRequired,
   addedTasks: PropTypes.array.isRequired,
+  isContractorUpdatePage: PropTypes.bool.isRequired,
+  propertyReference: PropTypes.string.isRequired,
 }
 
-export default VariedRateScheduleItems
+export default AddedRateScheduleItems

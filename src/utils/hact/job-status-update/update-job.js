@@ -1,5 +1,5 @@
 export const buildUpdateJob = (
-  existingTasks,
+  latestTasks,
   addedTasks,
   reference,
   variationReason
@@ -19,7 +19,7 @@ export const buildUpdateJob = (
   }
 
   const rateScheduleItems = [
-    ...buildRateScheduleItems(existingTasks, true),
+    ...buildRateScheduleItems(latestTasks, true),
     ...buildRateScheduleItems(addedTasks),
   ]
 
@@ -28,7 +28,9 @@ export const buildUpdateJob = (
       id: reference,
     },
     comments: `Variation reason: ${variationReason}`,
-    typeCode: 8,
+    // From HACT JobStatusUpdateTypeCode:
+    // 80 - More specific SOR codes identified
+    typeCode: '80',
     moreSpecificSORCode: {
       rateScheduleItem: rateScheduleItems,
     },
