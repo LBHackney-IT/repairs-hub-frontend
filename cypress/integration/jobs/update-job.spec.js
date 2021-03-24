@@ -30,14 +30,14 @@ describe('Contractor update a job', () => {
     )
     cy.route({
       method: 'GET',
-      url: 'api/schedule-of-rates/codes/fakecode?propertyReference=00012345',
+      url: 'api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345',
       status: 404,
       response: '',
     }).as('sorCodeNotFound')
     cy.route({
       method: 'GET',
       url:
-        'api/schedule-of-rates/codes/anotherfakecode?propertyReference=00012345',
+        'api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345',
       status: 404,
       response: '',
     }).as('sorCodeNotFound')
@@ -110,7 +110,7 @@ describe('Contractor update a job', () => {
         cy.contains('SOR code is not valid')
       })
       cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: fakecode')
+        cy.contains('Could not find SOR code: FAKECODE')
       })
 
       cy.contains('+ Add another SOR code').click()
@@ -125,10 +125,10 @@ describe('Contractor update a job', () => {
         cy.contains('SOR code is not valid')
       })
       cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: fakecode')
+        cy.contains('Could not find SOR code: FAKECODE')
       })
       cy.get('[data-error-id="error-1"]').within(() => {
-        cy.contains('Could not find SOR code: anotherfakecode')
+        cy.contains('Could not find SOR code: ANOTHERFAKECODE')
       })
 
       // Enter a non-number quantity
@@ -249,6 +249,15 @@ describe('Contractor update a job', () => {
       cy.get('.sor-code-summary').within(() => {
         cy.contains('SOR code summary: RE ENAMEL ANY SIZE BATH')
       })
+      // Enter case insensitive SOR code
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('plp5R082')
+        .blur()
+      cy.wait('@sorCodeRequest')
+      cy.get('.sor-code-summary').within(() => {
+        cy.contains('SOR code summary: RE ENAMEL ANY SIZE BATH')
+      })
 
       // Enter invalid SOR Code
       cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -257,7 +266,7 @@ describe('Contractor update a job', () => {
         .blur()
       cy.get('.sor-code-summary').should('not.exist')
       cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: fakecode')
+        cy.contains('Could not find SOR code: FAKECODE')
       })
       // Enter valid SOR code
       cy.get('input[id="rateScheduleItems[0][code]"]')
