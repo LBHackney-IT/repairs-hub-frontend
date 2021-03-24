@@ -29,7 +29,7 @@ const CloseJob = ({ reference }) => {
     } catch (e) {
       console.error(e)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
       setLoading(false)
     }
