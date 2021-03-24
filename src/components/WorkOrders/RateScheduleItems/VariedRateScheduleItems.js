@@ -51,7 +51,7 @@ const VariedRateScheduleItems = ({
     }
 
     if (attribute === 'code' && value.length > 0 && !existingCode) {
-      findSorCode(value, index)
+      findSorCode(value.toUpperCase(), index)
     }
   }
 
