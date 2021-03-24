@@ -7,17 +7,17 @@ import { AGENT_ROLE, CONTRACTOR_ROLE } from '../utils/user'
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
-  if (user.hasContractorPermissions) {
-    if (Object.entries(query).length === 0) {
-      return <JobView pageNumber={1} />
-    } else {
-      return <JobView pageNumber={parseInt(query.pageNumber)} />
-    }
-  } else {
+  if (user.hasAgentPermissions) {
     if (Object.entries(query).length === 0) {
       return <Search />
     } else {
       return <Search query={query} />
+    }
+  } else {
+    if (Object.entries(query).length === 0) {
+      return <JobView pageNumber={1} />
+    } else {
+      return <JobView pageNumber={parseInt(query.pageNumber)} />
     }
   }
 }
