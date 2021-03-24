@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes'
 
-import { CONTRACTOR_ROLE } from '../../../utils/user'
+import { AGENT_ROLE } from '../../../utils/user'
 import {
   serviceAPIRequest,
   authoriseServiceAPIRequest,
@@ -12,9 +12,9 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
   const data = await serviceAPIRequest(req)
 
   // redact contact information for contractor responses
-  if (user.hasRole(CONTRACTOR_ROLE)) {
-    res.status(HttpStatus.OK).json({ ...data, contacts: '[REMOVED]' })
-  } else {
+  if (user.hasRole(AGENT_ROLE)) {
     res.status(HttpStatus.OK).json(data)
+  } else {
+    res.status(HttpStatus.OK).json({ ...data, contacts: '[REMOVED]' })
   }
 })
