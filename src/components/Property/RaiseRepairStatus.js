@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import WarningText from '../WarningText'
+import WarningText from '../Template/WarningText'
 
 const RaiseRepairStatus = ({
   canRaiseRepair,

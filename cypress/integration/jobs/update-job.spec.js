@@ -19,13 +19,15 @@ describe('Contractor update a job', () => {
         tasksAndSors.splice(1, 2)
       })
       .as('tasksList')
+    cy.fixture('hub-user/user.json').then((user) => {
+      cy.intercept('GET', 'api/hub-user', user)
+    })
 
     cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workOrdersList')
     cy.route('GET', 'api/repairs/10000040', '@workOrder')
     cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
-    cy.route('GET', 'api/hub-user', {})
     cy.route(
       'GET',
       'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
@@ -180,7 +182,7 @@ describe('Contractor update a job', () => {
         relatedWorkOrderReference: {
           id: '10000040',
         },
-        typeCode: 8,
+        typeCode: '80',
         comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [
@@ -216,7 +218,7 @@ describe('Contractor update a job', () => {
       })
       cy.get('#existing-rate-schedule-items').within(() => {
         cy.get('.govuk-heading-m').contains(
-          'All tasks and SORS against the work order'
+          'Latest tasks and SORS against the work order'
         )
         // Expect SOR code input fields to be disabled
         cy.get('input[id="sor-code-0"]').should('be.disabled')
@@ -336,6 +338,12 @@ describe('Contractor update a job', () => {
       cy.contains('Variation reason')
       cy.contains('Needs more work')
     })
+    // Warning text as logged in user's vary limit has been exceeded
+    cy.get('.govuk-warning-text').within(() => {
+      cy.contains(
+        'Your variation cost exceeds £250 and will be sent for approval.'
+      )
+    })
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -345,7 +353,7 @@ describe('Contractor update a job', () => {
         relatedWorkOrderReference: {
           id: '10000040',
         },
-        typeCode: 8,
+        typeCode: '80',
         comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [

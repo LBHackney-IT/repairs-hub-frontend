@@ -4,14 +4,26 @@ import UpdateJobForm from './UpdateJobForm'
 describe('UpdateJobForm component', () => {
   const props = {
     propertyReference: '000012345',
-    tasks: [
+    originalTasks: [
+      {
+        code: 'DES5R006',
+        quantity: 1,
+        original: true,
+        originalQuantity: 1,
+      },
+    ],
+    latestTasks: [
       {
         code: 'DES5R006',
         quantity: 2,
+        original: true,
+        originalQuantity: 1,
       },
       {
         code: 'DES5R005',
         quantity: 1,
+        original: false,
+        originalQuantity: null,
       },
     ],
     addedTasks: [
@@ -29,7 +41,8 @@ describe('UpdateJobForm component', () => {
     const { asFragment } = render(
       <UpdateJobForm
         propertyReference={props.propertyReference}
-        tasks={props.tasks}
+        originalTasks={props.originalTasks}
+        latestTasks={props.latestTasks}
         addedTasks={props.addedTasks}
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
