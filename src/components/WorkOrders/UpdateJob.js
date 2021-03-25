@@ -10,11 +10,14 @@ import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
 import { buildUpdateJob } from '../../utils/hact/job-status-update/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { getHubUser } from '../../utils/frontend-api-client/user'
+import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
 import { useRouter } from 'next/router'
 
 const UpdateJob = ({ reference }) => {
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
+  const [userData, setUserData] = useState()
   const [propertyReference, setPropertyReference] = useState('')
   const [variationReason, setVariationReason] = useState('')
   const [loading, setLoading] = useState(false)
@@ -66,9 +69,17 @@ const UpdateJob = ({ reference }) => {
       router.push('/')
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
+
+      if (isSpendLimitReachedResponse(e.response)) {
+        setError(
+          `Variation cost exceeds £${userData?.varyLimit}, please contact your contract manager to vary on your behalf`
+        )
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        )
+      }
+
       setLoading(false)
     }
   }
@@ -79,10 +90,12 @@ const UpdateJob = ({ reference }) => {
     try {
       const workOrder = await getRepair(reference)
       const tasks = await getTasks(reference)
+      const user = await getHubUser()
 
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setPropertyReference(workOrder.propertyReference)
+      setUserData(user)
     } catch (e) {
       setTasks(null)
       setPropertyReference(null)

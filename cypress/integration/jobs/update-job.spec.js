@@ -25,6 +25,12 @@ describe('Contractor update a job', () => {
     cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
+    cy.route('GET', 'api/hub-user', {})
+    cy.route(
+      'GET',
+      'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      []
+    )
     cy.route({
       method: 'GET',
       url: 'api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345',

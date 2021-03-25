@@ -13,6 +13,7 @@ describe('Raise repair form', () => {
     cy.fixture('schedule-of-rates/trades.json').as('trades')
     cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
+    cy.route('GET', 'api/hub-user', {})
 
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route(

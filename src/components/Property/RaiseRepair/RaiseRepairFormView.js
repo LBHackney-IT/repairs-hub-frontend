@@ -8,8 +8,10 @@ import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
 import { postRepair } from '../../../utils/frontend-api-client/repairs/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
+import { getHubUser } from '../../../utils/frontend-api-client/user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
+import { isSpendLimitReachedResponse } from '../../../utils/helpers/api-responses'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -23,6 +25,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
+  const [userData, setUserData] = useState()
   const router = useRouter()
 
   const onFormSubmit = async (formData) => {
@@ -43,9 +46,16 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       }
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
+
+      if (isSpendLimitReachedResponse(e.response)) {
+        setError(
+          `Repair cost exceeds £${userData?.raiseLimit}, please contact your manager to raise on your behalf`
+        )
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        )
+      }
     }
 
     setLoading(false)
@@ -58,6 +68,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       const data = await getProperty(propertyReference)
       const priorities = await getPriorities()
       const trades = await getTrades(propertyReference)
+      const user = await getHubUser()
 
       setTenure(data.tenure)
       setProperty(data.property)
@@ -66,6 +77,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setPriorities(priorities)
       setTrades(trades)
       setContacts(data.contacts)
+      setUserData(user)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
