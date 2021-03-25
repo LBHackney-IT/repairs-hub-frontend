@@ -74,24 +74,27 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
-      if (error.response) {
+      const errorResponse = error.response
+      if (errorResponse) {
         // The request was made and the server responded with a non-200 status
         console.error(
           'Service API response',
           JSON.stringify({
-            status: error.response?.status,
-            data: error.response?.data,
-            headers: error.response?.headers,
+            status: errorResponse?.status,
+            data: errorResponse?.data,
+            headers: errorResponse?.headers,
           })
         )
 
-        error?.response?.status === HttpStatus.NOT_FOUND
+        // When we get a 404 from the service API
+        errorResponse?.status === HttpStatus.NOT_FOUND
           ? res
               .status(HttpStatus.NOT_FOUND)
               .json({ message: `Resource not found` })
-          : res
-              .status(HttpStatus.INTERNAL_SERVER_ERROR)
-              .json({ message: 'Service API error' })
+          : // Return the actual error status and message from the service API
+            res
+              .status(errorResponse?.status)
+              .json({ message: errorResponse?.data || 'Service API error' })
       } else if (error.request) {
         // The request was made but no response was received
         console.error('Cannot connect to Service API')
