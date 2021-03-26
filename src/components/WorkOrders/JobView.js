@@ -4,7 +4,6 @@ import JobsTable from './JobsTable'
 import { getRepairs } from '../../utils/frontend-api-client/repairs'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { sortObjectsByDateKey } from '../../utils/date'
 
 const JobView = ({ pageNumber }) => {
   const router = useRouter()
@@ -18,9 +17,7 @@ const JobView = ({ pageNumber }) => {
     try {
       const data = await getRepairs(pageNumber)
 
-      setWorkOrders(
-        sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
-      )
+      setWorkOrders(data)
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)
