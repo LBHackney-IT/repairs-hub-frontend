@@ -49,5 +49,11 @@
     .status-pending-approval {
       background-color: repairs-hub-colour('status-waiting');
     }
+    .status-variation-approved {
+      background-color: repairs-hub-colour('dark-green');
+    }
+    .status-variation-rejected {
+      background-color: repairs-hub-colour('status-not-complete');
+    }
   }
 }
