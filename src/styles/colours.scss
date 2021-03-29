@@ -56,3 +56,7 @@ $repairs-hub-colours: (
 .background-green {
   background: repairs-hub-colour('housing-2');
 }
+
+.background-red {
+  background: repairs-hub-colour('danger');
+}
