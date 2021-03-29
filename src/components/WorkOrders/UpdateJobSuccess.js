@@ -10,11 +10,15 @@ const UpdateJobSuccess = ({ workOrderReference, requiresAuthorisation }) => {
     <div>
       <div
         className={cx('govuk-panel govuk-panel--confirmation', {
-          'background-green': !requiresAuthorisation,
-          'background-red': requiresAuthorisation,
+          'background-dark-green': !requiresAuthorisation,
+          'background-yellow': requiresAuthorisation,
         })}
       >
-        <div className="govuk-panel__body">
+        <div
+          className={cx('govuk-panel__body', {
+            'text-black': requiresAuthorisation,
+          })}
+        >
           <strong className="">{text}</strong>
         </div>
       </div>

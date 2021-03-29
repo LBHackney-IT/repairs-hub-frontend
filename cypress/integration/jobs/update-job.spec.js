@@ -199,7 +199,7 @@ describe('Contractor update a job', () => {
       })
 
     // Confirmation screen
-    cy.get('.govuk-panel--confirmation.background-green').within(() => {
+    cy.get('.govuk-panel--confirmation.background-dark-green').within(() => {
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Job 10000040 has been successfully updated')
       })
@@ -394,7 +394,7 @@ describe('Contractor update a job', () => {
       })
 
     // Confirmation screen
-    cy.get('.govuk-panel--confirmation.background-red').within(() => {
+    cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
       cy.get('.govuk-panel__body').within(() => {
         cy.contains(
           'Job 10000040 requires authorisation and has been sent to a manager'

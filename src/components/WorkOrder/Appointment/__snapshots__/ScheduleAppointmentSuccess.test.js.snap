@@ -4,7 +4,7 @@ exports[`ScheduleAppointmentSuccess component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="govuk-panel govuk-panel--confirmation background-green"
+      class="govuk-panel govuk-panel--confirmation background-dark-green"
     >
       <h1
         class="govuk-heading-xl text-white"

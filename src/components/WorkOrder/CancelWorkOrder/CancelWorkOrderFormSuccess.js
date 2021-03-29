@@ -8,7 +8,7 @@ const CancelWorkOrderFormSuccess = ({
 }) => {
   return (
     <div>
-      <div className="govuk-panel govuk-panel--confirmation background-green">
+      <div className="govuk-panel govuk-panel--confirmation background-dark-green">
         <h1 className="govuk-heading-xl text-white">Repair cancelled</h1>
         <div className="govuk-panel__body">
           Works order {workOrderReference} has been cancelled

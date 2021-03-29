@@ -4,7 +4,7 @@ exports[`UpdateJobSuccess component should render properly does not require auth
 <DocumentFragment>
   <div>
     <div
-      class="govuk-panel govuk-panel--confirmation background-green"
+      class="govuk-panel govuk-panel--confirmation background-dark-green"
     >
       <div
         class="govuk-panel__body"
@@ -46,10 +46,10 @@ exports[`UpdateJobSuccess component should render properly requires authorisatio
 <DocumentFragment>
   <div>
     <div
-      class="govuk-panel govuk-panel--confirmation background-red"
+      class="govuk-panel govuk-panel--confirmation background-yellow"
     >
       <div
-        class="govuk-panel__body"
+        class="govuk-panel__body text-black"
       >
         <strong
           class=""
