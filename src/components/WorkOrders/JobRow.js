@@ -41,9 +41,9 @@ const JobRow = ({
 
 JobRow.propTypes = {
   reference: PropTypes.number.isRequired,
-  dateRaised: PropTypes.instanceOf(Date),
+  dateRaised: PropTypes.string.isRequired,
   lastUpdated: PropTypes.instanceOf(Date),
-  priority: PropTypes.string,
+  priority: PropTypes.string.isRequired,
   property: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,

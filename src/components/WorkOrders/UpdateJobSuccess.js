@@ -45,7 +45,7 @@ const UpdateJobSuccess = ({ workOrderReference, requiresAuthorisation }) => {
 }
 
 UpdateJobSuccess.propTypes = {
-  workOrderReference: PropTypes.number.isRequired,
+  workOrderReference: PropTypes.string.isRequired,
   requiresAuthorisation: PropTypes.bool.isRequired,
 }
 
