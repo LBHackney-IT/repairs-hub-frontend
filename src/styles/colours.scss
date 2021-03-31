@@ -8,6 +8,8 @@ $repairs-hub-colours: (
   'black': govuk-colour('black'),
   'grey': grey,
   'light-grey': #bfc1c3,
+  'yellow': #f8e08e,
+  'dark-green': #00664f,
   'appointment-light-grey': #dfdfdf,
   'status-planned': #009ca6,
   'status-complete': darkgray,
@@ -37,6 +39,10 @@ $repairs-hub-colours: (
   color: repairs-hub-colour('white');
 }
 
+.text-black {
+  color: repairs-hub-colour('black');
+}
+
 .text-warning {
   color: repairs-hub-colour('warning');
 }
@@ -53,6 +59,10 @@ $repairs-hub-colours: (
   color: repairs-hub-colour('white') !important;
 }
 
-.background-green {
-  background: repairs-hub-colour('housing-2');
+.background-yellow {
+  background: repairs-hub-colour('yellow');
+}
+
+.background-dark-green {
+  background: repairs-hub-colour('dark-green');
 }

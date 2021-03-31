@@ -11,7 +11,7 @@ import SummaryUpdateJob from './SummaryUpdateJob'
 import { updateExistingTasksQuantities } from '../../utils/update-job'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
-import { useRouter } from 'next/router'
+import UpdateJobSuccess from './UpdateJobSuccess'
 
 const UpdateJob = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -27,7 +27,8 @@ const UpdateJob = ({ reference }) => {
     showAdditionalRateScheduleItems,
     setShowAdditionalRateScheduleItems,
   ] = useState(false)
-  const router = useRouter()
+  const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
+  const [overSpendLimit, setOverSpendLimit] = useState()
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -50,12 +51,14 @@ const UpdateJob = ({ reference }) => {
     setShowSummaryPage(false)
   }
 
-  const onFormSubmit = async (formData) => {
+  const onFormSubmit = async (formData, overSpendLimit) => {
     setLoading(true)
 
     try {
       await postJobStatusUpdate(formData)
-      router.push('/')
+
+      setOverSpendLimit(overSpendLimit)
+      setShowUpdateSuccess(true)
     } catch (e) {
       console.error(e)
 
@@ -68,9 +71,9 @@ const UpdateJob = ({ reference }) => {
           `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
         )
       }
-
-      setLoading(false)
     }
+
+    setLoading(false)
   }
 
   const getUpdateJobForm = async (reference) => {
@@ -111,7 +114,15 @@ const UpdateJob = ({ reference }) => {
         <>
           {currentUser && tasks && propertyReference && (
             <>
-              {!showSummaryPage && (
+              {showUpdateSuccess && (
+                <>
+                  <UpdateJobSuccess
+                    workOrderReference={reference}
+                    requiresAuthorisation={overSpendLimit}
+                  />
+                </>
+              )}
+              {!showSummaryPage && !showUpdateSuccess && (
                 <>
                   <BackButton />
                   <h1 className="govuk-heading-l">
@@ -132,7 +143,7 @@ const UpdateJob = ({ reference }) => {
                   />
                 </>
               )}
-              {showSummaryPage && (
+              {showSummaryPage && !showUpdateSuccess && (
                 <SummaryUpdateJob
                   latestTasks={tasks}
                   originalTasks={originalTasks}

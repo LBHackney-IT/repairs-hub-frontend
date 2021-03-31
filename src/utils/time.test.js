@@ -32,6 +32,12 @@ describe('time', () => {
 
       expect(extractTimeFromDate(date)).toEqual('12:46 am')
     })
+
+    it('extracts time from a date/time passed as a String object', () => {
+      const date = '2021-01-20T15:16:57Z'
+
+      expect(extractTimeFromDate(date)).toEqual('3:16 pm')
+    })
   })
 
   describe('formatDateTime', () => {

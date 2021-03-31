@@ -63,13 +63,13 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
 JobsTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
-      reference: PropTypes.number.isRequired,
-      dateRaised: PropTypes.instanceOf(Date),
+      reference: PropTypes.number,
+      dateRaised: PropTypes.string,
       lastUpdated: PropTypes.instanceOf(Date),
       priority: PropTypes.string,
-      property: PropTypes.string.isRequired,
-      status: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      property: PropTypes.string,
+      status: PropTypes.string,
+      description: PropTypes.string,
     })
   ).isRequired,
   pageNumber: PropTypes.number,

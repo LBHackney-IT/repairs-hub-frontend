@@ -25,7 +25,7 @@ const SummaryUpdateJob = ({
       variationReason
     )
 
-    onFormSubmit(updateJobFormData)
+    onFormSubmit(updateJobFormData, overSpendLimit)
   }
 
   const ORIGINAL_COST = 'Original cost'

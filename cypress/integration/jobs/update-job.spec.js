@@ -197,6 +197,23 @@ describe('Contractor update a job', () => {
           ],
         },
       })
+
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation.background-dark-green').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('Job 10000040 has been successfully updated')
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.govuk-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+    })
   })
 
   it('allows to update quantity, edit and add new sor codes', () => {
@@ -376,8 +393,24 @@ describe('Contractor update a job', () => {
         },
       })
 
-    cy.location('pathname').should('eq', '/')
-    cy.contains('Manage jobs')
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains(
+          'Job 10000040 requires authorisation and has been sent to a manager'
+        )
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.govuk-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+    })
 
     // Run lighthouse audit for accessibility report
     cy.audit()
