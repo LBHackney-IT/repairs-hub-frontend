@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
+import UserContext from '../UserContext/UserContext'
 import PropertiesTable from '../Properties/PropertiesTable'
 import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner/Spinner'
@@ -7,6 +8,8 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
 
 const Search = ({ query }) => {
+  const { user } = useContext(UserContext)
+  const canSearchForProperty = user && user.hasAgentPermissions
   const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
@@ -14,9 +17,16 @@ const Search = ({ query }) => {
   const router = useRouter()
   const workOrderReferenceRegex = /[0-9]{8}/g
 
+  const searchHeadingText = canSearchForProperty
+    ? 'Find repair job or property'
+    : 'Find repair job'
+  const searchLabelText = canSearchForProperty
+    ? 'Search by work order reference, postcode or address'
+    : 'Search by work order reference'
+
   useEffect(() => {
     if (query) {
-      if (workOrderReferenceRegex.test(query)) {
+      if (workOrderReferenceRegex.test(query) || !canSearchForProperty) {
         workOrderUrl(decodeURI(query.q))
       } else {
         setSearchQuery(decodeURI(query.q))
@@ -46,7 +56,7 @@ const Search = ({ query }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (workOrderReferenceRegex.test(searchQuery)) {
+    if (workOrderReferenceRegex.test(searchQuery) || !canSearchForProperty) {
       workOrderUrl(searchQuery)
     } else {
       propertiesURL(searchQuery)
@@ -56,7 +66,7 @@ const Search = ({ query }) => {
 
   const propertiesURL = (searchQuery) => {
     router.push({
-      pathname: '/properties/search',
+      pathname: '/search',
       query: {
         q: encodeURI(searchQuery),
       },
@@ -70,13 +80,13 @@ const Search = ({ query }) => {
   return (
     <div>
       <section className="section">
-        <h1 className="govuk-heading-m">Find repair job or property</h1>
+        <h1 className="govuk-heading-m">{searchHeadingText}</h1>
 
         <div className="govuk-form-group">
           <form>
             <label className="govuk-label">
               <p className="govuk-body-s govuk-!-margin-bottom-0">
-                Search by work order reference, postcode or address
+                {searchLabelText}
               </p>
               <input
                 type="text"
