@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+  snyk: snyk/snyk@0.0.3
 
 executors:
   node-executor:
@@ -38,6 +39,12 @@ jobs:
       - persist_to_workspace:
           root: *workspace_root
           paths: .
+
+  security-vulnerabilities-scan:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - snyk/scan
 
   tests:
     executor: node-executor
@@ -132,6 +139,9 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
+      - security-vulnerabilities-scan:
+          requires:
+            - install-dependencies
       - tests:
           requires:
             - install-dependencies
