@@ -31,17 +31,13 @@ describe('Home page', () => {
       cy.get('.lbh-header__service-name').contains('Repairs Hub')
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-      // Search link
-      cy.get('.govuk-link--no-visited-state').eq(0).contains('Search')
-      cy.get('.govuk-link--no-visited-state')
-        .eq(0)
-        .should('have.attr', 'href', '/search')
-
       // Logout component
-      cy.get('.govuk-link--no-visited-state').eq(1).contains('Logout')
-      cy.get('.govuk-link--no-visited-state')
-        .eq(1)
-        .should('have.attr', 'href', '/logout')
+      cy.get('.govuk-link--no-visited-state').contains('Logout')
+      cy.get('.govuk-link--no-visited-state').should(
+        'have.attr',
+        'href',
+        '/logout'
+      )
 
       // Search for property component
       cy.get('.govuk-heading-m').contains('Find repair job or property')
@@ -83,32 +79,6 @@ describe('Home page', () => {
               '@workorderslist'
             )
             cy.visit(`${Cypress.env('HOST')}/`)
-          })
-
-          it('displays content in the header', () => {
-            // Header component
-            cy.get('.lbh-header__service-name').contains('Repairs Hub')
-            cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-            // Manage jobs link
-            cy.get('.govuk-link--no-visited-state')
-              .eq(0)
-              .contains('Manage jobs')
-            cy.get('.govuk-link--no-visited-state')
-              .eq(0)
-              .should('have.attr', 'href', '/')
-
-            // Search link
-            cy.get('.govuk-link--no-visited-state').eq(1).contains('Search')
-            cy.get('.govuk-link--no-visited-state')
-              .eq(1)
-              .should('have.attr', 'href', '/search')
-
-            // Logout component
-            cy.get('.govuk-link--no-visited-state').eq(2).contains('Logout')
-            cy.get('.govuk-link--no-visited-state')
-              .eq(2)
-              .should('have.attr', 'href', '/logout')
           })
 
           it('displays headers of the table', () => {
