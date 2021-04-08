@@ -14,9 +14,25 @@ const HeaderComponent = ({ serviceName }) => {
         homepageUrl="/"
       >
         {user && (
-          <a className="govuk-link govuk-link--no-visited-state" href="/logout">
-            Logout
-          </a>
+          <>
+            {!user.hasAgentPermissions && (
+              <a className="govuk-link govuk-link--no-visited-state" href="/">
+                Manage jobs
+              </a>
+            )}
+            <a
+              className="govuk-link govuk-link--no-visited-state"
+              href="/search"
+            >
+              Search
+            </a>
+            <a
+              className="govuk-link govuk-link--no-visited-state"
+              href="/logout"
+            >
+              Logout
+            </a>
+          </>
         )}
       </Header>
     </>
