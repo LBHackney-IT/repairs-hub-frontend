@@ -4,190 +4,75 @@ import 'cypress-audit/commands'
 import { PAGE_SIZE_AGENTS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Search by work order reference, postcode or address', () => {
-  context('When logged in user is an agent', () => {
+  beforeEach(() => {
+    cy.loginWithAgentRole()
+    cy.server()
+  })
+
+  describe('Search for property', () => {
     beforeEach(() => {
-      cy.loginWithAgentRole()
-      cy.server()
+      cy.fixture('properties/properties.json').as('propertiesList')
     })
 
-    describe('Search for property', () => {
+    context('Search for property by postcode', () => {
       beforeEach(() => {
-        cy.fixture('properties/properties.json').as('propertiesList')
+        // Stub request for search on properties by postcode
+        cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
+
+        // Search by postcode
+        cy.get('.govuk-input').clear().type('e9 6pt')
+        cy.get('[type="submit"]').contains('Search').click()
+        cy.url().should('contains', 'properties/search?q=e9%25206pt')
       })
 
-      context('Search for property by postcode', () => {
-        beforeEach(() => {
-          // Stub request for search on properties by postcode
-          cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
-
-          // Search by postcode
-          cy.get('.govuk-input').clear().type('e9 6pt')
-          cy.get('[type="submit"]').contains('Search').click()
-          cy.url().should('contains', '/search?q=e9%25206pt')
-        })
-
-        it('checks the heading', () => {
-          cy.get('.govuk-heading-s').contains(
-            'We found 2 matching results for: e9 6pt'
-          )
-        })
-
-        it('checks the table', () => {
-          cy.get('.govuk-table').within(() => {
-            cy.contains('th', 'Address')
-            cy.contains('th', 'Postcode')
-            cy.contains('th', 'Property type')
-            cy.contains('th', 'Property reference')
-          })
-
-          cy.get('.govuk-table__cell a').should(
-            'have.attr',
-            'href',
-            '/properties/00012345'
-          )
-
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
+      it('checks the heading', () => {
+        cy.get('.govuk-heading-s').contains(
+          'We found 2 matching results for: e9 6pt'
+        )
       })
 
-      context('Search for property by address', () => {
-        beforeEach(() => {
-          // Stub request for search on properties by address
-          cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
-
-          // Search by address
-          cy.get('.govuk-input').type('pitcairn')
-          cy.get('[type="submit"]').contains('Search').click()
+      it('checks the table', () => {
+        cy.get('.govuk-table').within(() => {
+          cy.contains('th', 'Address')
+          cy.contains('th', 'Postcode')
+          cy.contains('th', 'Property type')
+          cy.contains('th', 'Property reference')
         })
 
-        it('checks the heading', () => {
-          cy.get('.govuk-heading-s').contains(
-            'We found 2 matching results for: pitcairn'
-          )
+        cy.get('.govuk-table__cell a').should(
+          'have.attr',
+          'href',
+          '/properties/00012345'
+        )
 
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
       })
     })
 
-    describe('Search by work order reference', () => {
-      context('Displays the page for a work order', () => {
-        beforeEach(() => {
-          cy.fixture('repairs/work-order.json').as('workOrder')
-          cy.fixture('properties/property.json').as('property')
-          cy.fixture('repairs/notes.json').as('notes')
+    context('Search for property by address', () => {
+      beforeEach(() => {
+        // Stub request for search on properties by address
+        cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
 
-          cy.route('GET', 'api/properties/00012345', '@property')
-          cy.route('GET', 'api/repairs/10000012', '@workOrder')
-          cy.route('GET', 'api/repairs/10000012/notes', '@notes')
-          cy.route(
-            'GET',
-            `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-            JSON.stringify([])
-          )
-
-          // Search by postcode
-          cy.get('.govuk-input').clear().type('10000012')
-          cy.get('[type="submit"]').contains('Search').click()
-          cy.url().should('contains', 'work-orders/10000012')
-          cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-        })
-
-        it('Works order header with reference number', () => {
-          cy.get('.govuk-heading-l').within(() => {
-            cy.contains('Works order: 10000012')
-          })
-        })
-
-        it('Repair description', () => {
-          cy.get('.govuk-body-m').within(() => {
-            cy.contains('This is an urgent repair description')
-          })
-        })
-
-        it('Property details', () => {
-          cy.get('.property-details-main-section').within(() => {
-            cy.contains('Dwelling')
-            cy.contains('16 Pitcairn House').should(
-              'have.attr',
-              'href',
-              '/properties/00012345'
-            )
-            cy.contains('St Thomass Square').should(
-              'have.attr',
-              'href',
-              '/properties/00012345'
-            )
-            cy.contains('E9 6PT')
-          })
-
-          cy.checkForTenureAlertDetails(
-            'Tenure: Secure',
-            ['Address Alert: Property Under Disrepair (DIS)'],
-            [
-              'Contact Alert: No Lone Visits (CV)',
-              'Contact Alert: Verbal Abuse or Threat of (VA)',
-            ]
-          )
-
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
-
-        it('Work order details', () => {
-          cy.get('.work-order-info').within(() => {
-            cy.contains('Status: In Progress')
-            cy.contains('Priority: U - Urgent (5 Working days)')
-            cy.contains('Raised by Dummy Agent')
-            cy.contains('18 Jan 2021, 3:28 pm')
-            cy.contains('Target: 23 Jan 2021, 6:30 pm')
-            cy.contains('Caller: Jill Smith')
-            cy.contains('07700 900999')
-          })
-
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
+        // Search by address
+        cy.get('.govuk-input').type('pitcairn')
+        cy.get('[type="submit"]').contains('Search').click()
       })
 
-      context('Displays an error for wrong work order reference', () => {
-        beforeEach(() => {
-          cy.route({
-            method: 'GET',
-            url: 'api/repairs/00000000',
-            status: 404,
-            response: '',
-          }).as('repairs_with_error')
-          // Search by postcode
-          cy.get('.govuk-input').clear().type('00000000')
-          cy.get('[type="submit"]').contains('Search').click()
-          cy.url().should('contains', 'work-orders/00000000')
-          cy.visit(`${Cypress.env('HOST')}/work-orders/00000000`)
+      it('checks the heading', () => {
+        cy.get('.govuk-heading-s').contains(
+          'We found 2 matching results for: pitcairn'
+        )
 
-          cy.wait('@repairs_with_error')
-        })
-
-        it('Error message', () => {
-          cy.get('.govuk-error-message').within(() => {
-            cy.contains('Could not find a work order with reference 00000000')
-          })
-
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
       })
     })
   })
 
-  context('When logged in user is a contractor', () => {
-    beforeEach(() => {
-      cy.loginWithContractorRole()
-      cy.server()
-    })
-
-    describe('Search by work order reference', () => {
+  describe('Search by work order reference', () => {
+    context('Displays the page for a work order', () => {
       beforeEach(() => {
         cy.fixture('repairs/work-order.json').as('workOrder')
         cy.fixture('properties/property.json').as('property')
@@ -201,67 +86,95 @@ describe('Search by work order reference, postcode or address', () => {
           `api/repairs/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
           JSON.stringify([])
         )
-      })
 
-      it('navigates to the work order page', () => {
-        // Search by work order ref
-        cy.contains('Search').click()
+        // Search by postcode
         cy.get('.govuk-input').clear().type('10000012')
         cy.get('[type="submit"]').contains('Search').click()
         cy.url().should('contains', 'work-orders/10000012')
+        cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      })
 
+      it('Works order header with reference number', () => {
         cy.get('.govuk-heading-l').within(() => {
           cy.contains('Works order: 10000012')
         })
+      })
+
+      it('Repair description', () => {
         cy.get('.govuk-body-m').within(() => {
           cy.contains('This is an urgent repair description')
         })
       })
+
+      it('Property details', () => {
+        cy.get('.property-details-main-section').within(() => {
+          cy.contains('Dwelling')
+          cy.contains('16 Pitcairn House').should(
+            'have.attr',
+            'href',
+            '/properties/00012345'
+          )
+          cy.contains('St Thomass Square').should(
+            'have.attr',
+            'href',
+            '/properties/00012345'
+          )
+          cy.contains('E9 6PT')
+        })
+
+        cy.checkForTenureAlertDetails(
+          'Tenure: Secure',
+          ['Address Alert: Property Under Disrepair (DIS)'],
+          [
+            'Contact Alert: No Lone Visits (CV)',
+            'Contact Alert: Verbal Abuse or Threat of (VA)',
+          ]
+        )
+
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
+
+      it('Work order details', () => {
+        cy.get('.work-order-info').within(() => {
+          cy.contains('Status: In Progress')
+          cy.contains('Priority: U - Urgent (5 Working days)')
+          cy.contains('Raised by Dummy Agent')
+          cy.contains('18 Jan 2021, 3:28 pm')
+          cy.contains('Target: 23 Jan 2021, 6:30 pm')
+          cy.contains('Caller: Jill Smith')
+          cy.contains('07700 900999')
+        })
+
+        // Run lighthouse audit for accessibility report
+        cy.audit()
+      })
     })
 
-    describe('Search by postcode or address', () => {
+    context('Displays an error for wrong work order reference', () => {
       beforeEach(() => {
         cy.route({
           method: 'GET',
-          url: 'api/repairs/e96bt',
+          url: 'api/repairs/00000000',
           status: 404,
           response: '',
         }).as('repairs_with_error')
-        cy.route({
-          method: 'GET',
-          url: 'api/repairs/randomaddress',
-          status: 404,
-          response: '',
-        }).as('repairs_with_error')
+        // Search by postcode
+        cy.get('.govuk-input').clear().type('00000000')
+        cy.get('[type="submit"]').contains('Search').click()
+        cy.url().should('contains', 'work-orders/00000000')
+        cy.visit(`${Cypress.env('HOST')}/work-orders/00000000`)
 
-        cy.visit(`${Cypress.env('HOST')}/search`)
+        cy.wait('@repairs_with_error')
       })
 
-      it('returns 404 not found when searching for anything other than a work order', () => {
-        // Search by postcode
-        cy.get('.govuk-input').clear().type('e96bt')
-        cy.get('[type="submit"]').contains('Search').click()
-        cy.url().should('contains', 'work-orders/e96bt')
-
-        cy.wait('@repairs_with_error')
-
+      it('Error message', () => {
         cy.get('.govuk-error-message').within(() => {
-          cy.contains('Could not find a work order with reference e96bt')
+          cy.contains('Could not find a work order with reference 00000000')
         })
 
-        // Search by address
-        cy.contains('Search').click()
-        cy.get('.govuk-input').clear().type('randomaddress')
-        cy.get('[type="submit"]').contains('Search').click()
-        cy.url().should('contains', 'work-orders/randomaddress')
-
-        cy.wait('@repairs_with_error')
-
-        cy.get('.govuk-error-message').within(() => {
-          cy.contains(
-            'Could not find a work order with reference randomaddress'
-          )
-        })
+        // Run lighthouse audit for accessibility report
+        cy.audit()
       })
     })
   })

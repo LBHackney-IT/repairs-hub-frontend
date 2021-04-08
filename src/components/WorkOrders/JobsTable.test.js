@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react'
-import UserContext from '../UserContext/UserContext'
 import JobsTable from './JobsTable'
 
 describe('JobsTable component', () => {
@@ -22,23 +21,12 @@ describe('JobsTable component', () => {
   }
 
   it('should render properly', () => {
-    const user = {
-      name: 'A Contractor',
-      email: 'a.contractor@hackney.gov.uk',
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasAnyPermissions: true,
-    }
-
     const { asFragment } = render(
-      <UserContext.Provider value={{ user }}>
-        <JobsTable
-          workOrders={props.workOrders}
-          pageNumber={props.pageNumber}
-          handlePageClick={props.handlePageClick}
-        />
-      </UserContext.Provider>
+      <JobsTable
+        workOrders={props.workOrders}
+        pageNumber={props.pageNumber}
+        handlePageClick={props.handlePageClick}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
