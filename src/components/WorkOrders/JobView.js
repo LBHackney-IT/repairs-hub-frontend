@@ -20,7 +20,7 @@ const JobView = ({ pageNumber }) => {
     setError(null)
 
     try {
-      var data = []
+      let data = []
 
       if (user.hasContractorPermissions) {
         data = await getRepairs(pageNumber)
