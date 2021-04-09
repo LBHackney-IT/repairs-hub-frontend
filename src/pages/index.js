@@ -2,7 +2,11 @@ import Search from '../components/Search/Search'
 import JobView from '../components/WorkOrders/JobView'
 import UserContext from '../components/UserContext/UserContext'
 import { useContext } from 'react'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../utils/user'
+import {
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+} from '../utils/user'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -32,6 +36,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-Home.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE]
+Home.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE]
 
 export default Home

@@ -40,6 +40,7 @@ describe('RepairsHistoryTable component', () => {
       hasRole: true,
       hasAgentPermissions: true,
       hasContractorPermissions: false,
+      hasContractManagerPermissions: false,
       hasAnyPermissions: true,
     }
 
@@ -63,6 +64,31 @@ describe('RepairsHistoryTable component', () => {
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: true,
+      hasContractManagerPermissions: false,
+      hasAnyPermissions: true,
+    }
+
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <RepairsHistoryTable
+            workOrders={props.workOrders}
+            tabName={props.tabName}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contract manager', () => {
+    const user = {
+      name: 'A Contractor',
+      email: 'a.contractor@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: false,
+      hasContractManagerPermissions: true,
       hasAnyPermissions: true,
     }
 

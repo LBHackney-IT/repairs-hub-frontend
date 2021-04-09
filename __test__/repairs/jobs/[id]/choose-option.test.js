@@ -1,8 +1,12 @@
 import ChooseJobOptionPage from 'src/pages/repairs/jobs/[id]/close-job'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from 'src/utils/user'
+import {
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+} from 'src/utils/user'
 
 describe('ChooseJobOptionPage.permittedRoles', () => {
-  ;[CONTRACTOR_ROLE].forEach((role) => {
+  ;[CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE].forEach((role) => {
     it(`permits the ${role} role to access the page`, () => {
       expect(ChooseJobOptionPage.permittedRoles).toContain(role)
     })

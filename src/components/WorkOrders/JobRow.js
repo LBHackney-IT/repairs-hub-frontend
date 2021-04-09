@@ -12,7 +12,10 @@ const JobRow = ({
   status,
   description,
 }) => (
-  <tr className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table">
+  <tr
+    className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+    data-ref={reference}
+  >
     <td className="govuk-table__cell">
       <Link href={`/work-orders/${reference}`}>
         <a>{reference}</a>

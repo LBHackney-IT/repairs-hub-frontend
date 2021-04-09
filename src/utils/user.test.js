@@ -1,8 +1,14 @@
-import { buildUser, AGENT_ROLE, CONTRACTOR_ROLE } from './user'
+import {
+  buildUser,
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+} from './user'
 
 const {
   AGENTS_GOOGLE_GROUPNAME,
   CONTRACTORS_GOOGLE_GROUPNAME_PREFIX,
+  CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('buildUser', () => {
@@ -18,6 +24,12 @@ describe('buildUser', () => {
     describe('hasAgentPermissions', () => {
       it('returns true', () => {
         expect(user.hasAgentPermissions).toBe(true)
+      })
+    })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractManagerPermissions).toBe(false)
       })
     })
   })
@@ -38,6 +50,33 @@ describe('buildUser', () => {
         expect(user.hasAgentPermissions).toBe(false)
       })
     })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractManagerPermissions).toBe(false)
+      })
+    })
+  })
+
+  describe('when called with a single contract manager group name', () => {
+    const user = buildUser('', '', [CONTRACT_MANAGERS_GOOGLE_GROUPNAME])
+    describe('hasContractorPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAgentPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAgentPermissions).toBe(false)
+      })
+    })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasContractManagerPermissions).toBe(true)
+      })
+    })
   })
 
   describe('hasRole', () => {
@@ -52,6 +91,12 @@ describe('buildUser', () => {
     describe('when the supplied role does not map to the group name for the user', () => {
       it('returns false', () => {
         expect(user.hasRole(CONTRACTOR_ROLE)).toBe(false)
+      })
+    })
+
+    describe('when the supplied role does not map to the group name for the user', () => {
+      it('returns false', () => {
+        expect(user.hasRole(CONTRACT_MANAGER_ROLE)).toBe(false)
       })
     })
   })

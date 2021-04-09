@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { PAGE_SIZE_CONTRACTORS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Home page', () => {
   context('When user is not logged in', () => {
@@ -79,7 +80,7 @@ describe('Home page', () => {
             cy.fixture('repairs/work-orders.json').as('workorderslist')
             cy.route(
               'GET',
-              'api/repairs/?PageSize=10&PageNumber=1',
+              `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
               '@workorderslist'
             )
             cy.visit(`${Cypress.env('HOST')}/`)
@@ -111,41 +112,36 @@ describe('Home page', () => {
               .should('have.attr', 'href', '/logout')
           })
 
-          it('displays headers of the table', () => {
+          it('Displays the first page of repairs', () => {
             cy.get('.govuk-table').within(() => {
               cy.contains('th', 'Reference')
               cy.contains('th', 'Date raised')
               cy.contains('th', 'Last update')
               cy.contains('th', 'Priority')
               cy.contains('th', 'Property')
+              cy.contains('th', 'Status')
               cy.contains('th', 'Description')
             })
-            // Run lighthouse audit for accessibility report
-            cy.audit()
-          })
-
-          it('displays reference number, date raised, last updated, priority, property address, description', () => {
-            cy.get('.govuk-table__cell').within(() => {
+            // Check the first row
+            cy.get('[data-ref=10000040]').within(() => {
               cy.contains('10000040')
               cy.contains('22 Jan 2021')
-              cy.contains('21 Jan 2021')
-              cy.contains('N - Normal')
+              cy.contains('[E] EMERGENCY')
               cy.contains('315 Banister House Homerton High Street')
+              cy.contains('In progress')
               cy.contains('An emergency repair')
             })
-            // Run lighthouse audit for accessibility report
-            cy.audit()
           })
 
-          it('does displays next button', () => {
+          it('does not display next button when work orders are less than PAGE_SIZE_CONTRACTORS', () => {
             cy.get('.page-navigation').within(() => {
-              cy.contains('Next')
+              cy.contains('Next').should('not.exist')
             })
             // Run lighthouse audit for accessibility report
             cy.audit()
           })
 
-          it('does not displays previous button', () => {
+          it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })

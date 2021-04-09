@@ -1,8 +1,12 @@
 import PropertyPage from 'src/pages/properties/[id]'
-import { CONTRACTOR_ROLE, AGENT_ROLE } from 'src/utils/user'
+import {
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+} from 'src/utils/user'
 
 describe('PropertyPage.permittedRoles', () => {
-  ;[AGENT_ROLE].forEach((role) => {
+  ;[AGENT_ROLE, CONTRACT_MANAGER_ROLE].forEach((role) => {
     it(`permits the ${role} role to access the page`, () => {
       expect(PropertyPage.permittedRoles).toContain(role)
     })

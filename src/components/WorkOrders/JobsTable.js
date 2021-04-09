@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import JobRow from './JobRow'
+import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontend-api-client/repairs'
 
 const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
@@ -47,7 +48,7 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
           Previous page
         </button>
       )}
-      {pageNumber && (
+      {pageNumber && workOrders.length >= PAGE_SIZE_CONTRACTORS && (
         <button
           className="govuk-button right-page-button"
           data-module="govuk-button"
