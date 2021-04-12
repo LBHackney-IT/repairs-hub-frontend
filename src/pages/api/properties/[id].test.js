@@ -56,6 +56,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
     )
 
     const headers = {
+      'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
     }
@@ -112,6 +113,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
     )
 
     const headers = {
+      'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
     }

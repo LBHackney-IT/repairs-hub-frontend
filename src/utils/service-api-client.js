@@ -17,6 +17,7 @@ export const serviceAPIRequest = async (request) => {
   const headers = {
     'x-api-key': REPAIRS_SERVICE_API_KEY,
     'x-hackney-user': token,
+    'Content-Type': 'application/json',
   }
 
   let { path, ...queryParams } = request.query
