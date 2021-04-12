@@ -1,5 +1,6 @@
 import cookie from 'cookie'
 import axios from 'axios'
+import qs from 'qs'
 import * as HttpStatus from 'http-status-codes'
 
 import { isAuthorised } from './GoogleAuth'
@@ -57,6 +58,9 @@ export const serviceAPIRequest = async (request) => {
     headers,
     url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
     params: queryParams,
+    paramsSerializer: (params) => {
+      return qs.stringify(params, { arrayFormat: 'repeat' })
+    },
     data: request.body,
   })
 

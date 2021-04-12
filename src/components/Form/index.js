@@ -5,6 +5,8 @@ import TextArea from './TextArea/TextArea'
 import CharacterCountLimitedTextArea from './TextArea/CharacterCountLimitedTextArea'
 import TextInput from './TextInput/TextInput'
 import DataList from './DataList/DataList'
+import Checkbox from './Checkbox/Checkbox'
+import Radio from './Radios/Radios'
 
 export {
   Button,
@@ -14,4 +16,6 @@ export {
   CharacterCountLimitedTextArea,
   TextInput,
   DataList,
+  Checkbox,
+  Radio,
 }

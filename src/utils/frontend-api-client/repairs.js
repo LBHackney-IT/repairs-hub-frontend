@@ -1,14 +1,18 @@
 import axios from 'axios'
+import qs from 'qs'
 
 export const PAGE_SIZE_CONTRACTORS = 10
 export const PAGE_SIZE_AGENTS = 50
-const PENDING_APPROVAL = 90
 
-export const getRepairs = async (pageNumber = 1) => {
+export const getRepairs = async (pageNumber = 1, options) => {
   const { data } = await axios.get('/api/repairs/', {
     params: {
       PageSize: PAGE_SIZE_CONTRACTORS,
       PageNumber: pageNumber,
+      ...(options.StatusCode && { StatusCode: options.StatusCode }),
+    },
+    paramsSerializer: (params) => {
+      return qs.stringify(params, { arrayFormat: 'repeat' })
     },
   })
 
@@ -30,17 +34,17 @@ export const getRepairsForProperty = async (
   return data
 }
 
-export const getPendingApprovalRepairs = async (pageNumber = 1) => {
-  const { data } = await axios.get('/api/repairs/', {
-    params: {
-      PageSize: PAGE_SIZE_CONTRACTORS,
-      PageNumber: pageNumber,
-      StatusCode: PENDING_APPROVAL,
-    },
-  })
+// export const getPendingApprovalRepairs = async (pageNumber = 1) => {
+//   const { data } = await axios.get('/api/repairs/', {
+//     params: {
+//       PageSize: PAGE_SIZE_CONTRACTORS,
+//       PageNumber: pageNumber,
+//       StatusCode: PENDING_APPROVAL,
+//     },
+//   })
 
-  return data
-}
+//   return data
+// }
 
 export const getRepair = async (workOrderReference) => {
   const { data } = await axios.get(`/api/repairs/${workOrderReference}`)

@@ -11,7 +11,7 @@ import {
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
-  if (user.hasAgentPermissions) {
+  if (!user.hasAgentPermissions) {
     if (Object.entries(query).length === 0) {
       return <Search />
     } else {
@@ -21,7 +21,7 @@ const Home = ({ query }) => {
     if (Object.entries(query).length === 0) {
       return <JobView pageNumber={1} />
     } else {
-      return <JobView pageNumber={parseInt(query.pageNumber)} />
+      return <JobView query={query} />
     }
   }
 }
