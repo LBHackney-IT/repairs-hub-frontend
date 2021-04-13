@@ -30,6 +30,11 @@ const WorkOrderDetails = ({
             <a className="govuk-body-m">Update Works Order</a>
           </Link>
         )}
+        {user && user.hasContractManagerPermissions && (
+          <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
+            <a className="govuk-body-m">Update Works Order</a>
+          </Link>
+        )}
         {user &&
           user.hasAgentPermissions &&
           workOrder.status !== STATUS_CANCELLED && (
