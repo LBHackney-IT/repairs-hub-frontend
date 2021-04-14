@@ -45,8 +45,6 @@ const LatestRateScheduleItems = ({ latestTasks, errors, register }) => {
                     validate: (value) => {
                       if (!Number.isInteger(value)) {
                         return 'Quantity must be a whole number'
-                      } else if (value > 50) {
-                        return 'Quantity must be 50 or less'
                       } else {
                         return true
                       }

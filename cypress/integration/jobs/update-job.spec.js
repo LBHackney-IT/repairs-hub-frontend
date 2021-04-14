@@ -142,10 +142,7 @@ describe('Contractor update a job', () => {
       cy.get('[type="submit"]').contains('Next').click()
 
       cy.contains('Quantity must be a whole number')
-      // Enter a quantity more than the maximum
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('60')
 
-      cy.contains('Quantity must be 50 or less')
       // Enter a quantity less then the minimum
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
       cy.contains('Quantity must be 1 or more')

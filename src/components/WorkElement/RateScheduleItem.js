@@ -96,8 +96,6 @@ const RateScheduleItem = ({
                 }
                 if (value < 1) {
                   return 'Quantity must be 1 or more'
-                } else if (value > 50) {
-                  return 'Quantity must be 50 or less'
                 } else {
                   return true
                 }
