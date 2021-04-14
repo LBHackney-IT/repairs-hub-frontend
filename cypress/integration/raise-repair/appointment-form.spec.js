@@ -131,6 +131,7 @@ describe('Schedule appointment form', () => {
                       propertyReference: '00012345',
                       address: {
                         addressLine: ['16 Pitcairn House  St Thomass Square'],
+                        postalCode: 'E9 6PT',
                       },
                       reference: [
                         {

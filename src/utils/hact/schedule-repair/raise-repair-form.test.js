@@ -31,6 +31,7 @@ describe('buildRaiseRepairFormData', () => {
     descriptionOfWork: 'This is an urgent test description',
     propertyReference: '00001234',
     shortAddress: '12 Pitcairn House',
+    postalCode: 'E9 6PT',
     callerName: 'John Smith',
     contactNumber: '07788777888',
   }
@@ -95,6 +96,7 @@ describe('buildRaiseRepairFormData', () => {
             propertyReference: '00001234',
             address: {
               addressLine: ['12 Pitcairn House'],
+              postalCode: 'E9 6PT',
             },
             reference: [
               {
