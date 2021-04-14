@@ -221,14 +221,6 @@ describe('Raise repair form', () => {
         cy.contains('Quantity must be 1 or more')
       })
 
-      // Enter a quantity more than the maximum
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('51')
-      cy.get(
-        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
-      ).within(() => {
-        cy.contains('Quantity must be 50 or less')
-      })
-
       // Enter a valid quantity
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
 
