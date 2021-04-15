@@ -78,7 +78,7 @@ const AppointmentCalendar = ({
             <div className="appointment-calendar">
               <table>
                 <caption>
-                  <h2 className="govuk-heading-m govuk-!-margin-bottom-2">
+                  <h2 className="lbh-heading-h2 govuk-!-margin-bottom-2">
                     Choose date and time
                   </h2>
                 </caption>
@@ -136,7 +136,7 @@ const AppointmentCalendar = ({
       {isDateSelected && (
         <>
           {onSummaryPage && (
-            <h2 className="govuk-heading-m govuk-!-margin-bottom-2">
+            <h2 className="lbh-heading-h2 govuk-!-margin-bottom-2">
               Confirm date and time
             </h2>
           )}

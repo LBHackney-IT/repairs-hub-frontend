@@ -6,7 +6,7 @@ const OriginalRateScheduleItems = ({ originalTasks }) => {
   return (
     <div>
       <section className="section" id="original-rate-schedule-items">
-        <h2 className="govuk-heading-m">
+        <h2 className="lbh-heading-h2">
           Original tasks and SORS raised with work order
         </h2>
 

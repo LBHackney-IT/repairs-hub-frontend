@@ -3,7 +3,7 @@
 exports[`Tabs component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-tabs"
+    class="govuk-tabs lbh-tabs"
     data-module="govuk-tabs"
   >
     <h2
@@ -40,7 +40,7 @@ exports[`Tabs component should render properly 1`] = `
       id="repairs-history-tab"
     >
       <h2
-        class="govuk-heading-l"
+        class="lbh-heading-l"
       >
         Repairs history
       </h2>
@@ -49,7 +49,7 @@ exports[`Tabs component should render properly 1`] = `
           class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
         />
         <p
-          class="govuk-heading-s"
+          class="lbh-heading-h4"
         >
           There are no historical repairs
         </p>

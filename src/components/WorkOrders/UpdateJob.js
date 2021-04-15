@@ -125,7 +125,7 @@ const UpdateJob = ({ reference }) => {
               {!showSummaryPage && !showUpdateSuccess && (
                 <>
                   <BackButton />
-                  <h1 className="govuk-heading-l">
+                  <h1 className="lbh-heading-l">
                     Update work order: {reference}
                   </h1>
 

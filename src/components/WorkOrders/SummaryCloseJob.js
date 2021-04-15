@@ -14,9 +14,9 @@ const SummaryCloseJob = ({
 
   return (
     <div>
-      <h1 className="govuk-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onJobSubmit)}>
-        <p className="govuk-heading-s">Summary of updates to work order</p>
+        <p className="lbh-heading-h4">Summary of updates to work order</p>
         <table className="govuk-table">
           <tbody className="govuk-table__body">
             <tr className="govuk-table__row">

@@ -3,7 +3,7 @@ const NoAvailableAppointments = () => {
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full">
         <div className="timeslot-form govuk-!-padding-4">
-          <h2 className="govuk-heading-m" id="no-appointment">
+          <h2 className="lbh-heading-h2" id="no-appointment">
             No available appointments
           </h2>
           <p className="govuk-body">

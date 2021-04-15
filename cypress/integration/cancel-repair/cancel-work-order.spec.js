@@ -34,7 +34,7 @@ describe('Cancel work order', () => {
 
     cy.url().should('contains', '/work-orders/10000012/cancel')
     cy.get('.govuk-caption-l').contains('Cancel repair')
-    cy.get('.govuk-heading-l').contains('Works order: 10000012')
+    cy.get('.lbh-heading-l').contains('Works order: 10000012')
     cy.get('.govuk-table').within(() => {
       // Property and description
       cy.get('#property').within(() => {
@@ -56,7 +56,7 @@ describe('Cancel work order', () => {
     })
 
     // Form section
-    cy.get('.govuk-heading-m').within(() => {
+    cy.get('.lbh-heading-h2').within(() => {
       cy.contains('Reason to cancel')
     })
     // Submit form without entering required fields
@@ -105,7 +105,7 @@ describe('Cancel work order', () => {
 
     // Cancel work order confirmation screen
     cy.get('.govuk-panel--confirmation').within(() => {
-      cy.get('.govuk-heading-xl').contains('Repair cancelled')
+      cy.get('.lbh-heading-xl').contains('Repair cancelled')
       cy.get('.govuk-panel__body').contains(
         'Works order 10000012 has been cancelled'
       )

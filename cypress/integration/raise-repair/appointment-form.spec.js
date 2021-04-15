@@ -70,7 +70,7 @@ describe('Schedule appointment form', () => {
     })
     it('Schedules an appointment after raising a repair', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.get('.govuk-heading-m')
+      cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
 
@@ -301,7 +301,7 @@ describe('Schedule appointment form', () => {
 
     it('Should display message that no appointments are availbale', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.get('.govuk-heading-m')
+      cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
 

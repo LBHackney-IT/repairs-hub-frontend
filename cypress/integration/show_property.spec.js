@@ -27,11 +27,11 @@ describe('Show property', () => {
       })
 
       it('shows property address in the heading', () => {
-        cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
+        cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
       })
 
       it('shows can raise a repair link', () => {
-        cy.get('.govuk-heading-m').within(() => {
+        cy.get('.lbh-heading-h2').within(() => {
           cy.contains('Raise a repair on this dwelling')
         })
       })
@@ -63,8 +63,8 @@ describe('Show property', () => {
       context('when no repairs have been raised on the property', () => {
         it('Displays no repairs text', () => {
           cy.get('.govuk-tabs__tab').contains('Repairs history').click()
-          cy.get('.govuk-heading-l').contains('Repairs history')
-          cy.get('.govuk-heading-s').contains('There are no historical repairs')
+          cy.get('.lbh-heading-l').contains('Repairs history')
+          cy.get('.lbh-heading-h4').contains('There are no historical repairs')
         })
       })
     }
@@ -141,7 +141,7 @@ describe('Show property', () => {
     it('Displays the first page of repairs', () => {
       cy.get('.govuk-tabs').within(() => {
         cy.get('.govuk-tabs__tab').contains('Repairs history')
-        cy.get('.govuk-heading-l').contains('Repairs history')
+        cy.get('.lbh-heading-l').contains('Repairs history')
 
         // Repairs history table headers
         cy.get('.govuk-table').within(() => {
@@ -244,11 +244,11 @@ describe('Show property', () => {
       })
 
       it('shows property address in the heading', () => {
-        cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
+        cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
       })
 
       it('shows cannot raise a repair text', () => {
-        cy.get('.govuk-warning-text').within(() => {
+        cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
           cy.contains(
             'Cannot raise a repair on this property due to tenure type'
           )
@@ -289,7 +289,7 @@ describe('Show property', () => {
     })
 
     it('shows property address in the heading', () => {
-      cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
+      cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
     })
 
     it('does not show property alerts', () => {

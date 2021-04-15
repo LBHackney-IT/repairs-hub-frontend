@@ -70,7 +70,7 @@ describe('Schedule appointment form', () => {
   // when priority is Emergency it is not redirecting to schedule appointment page
   it('Shows a success page right after work order created', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-    cy.get('.govuk-heading-m')
+    cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
       .click()
 
@@ -187,7 +187,7 @@ describe('Schedule appointment form', () => {
   // when priority is Normal it is redirecting to schedule appointment page
   it('Shows a success page right after work order created', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-    cy.get('.govuk-heading-m')
+    cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
       .click()
 

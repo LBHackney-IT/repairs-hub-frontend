@@ -39,14 +39,14 @@ describe('Raise repair form', () => {
     // Click link to raise a repair
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
 
-    cy.get('.govuk-heading-m')
+    cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
       .click()
     cy.url().should('contains', 'properties/00012345/raise-repair/new')
 
     // Property address details with tenure and alerts information
     cy.get('.govuk-caption-l').contains('New repair')
-    cy.get('.govuk-heading-l').contains('Dwelling: 16 Pitcairn House')
+    cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
 
     cy.checkForTenureAlertDetails(
       'Tenure: Secure',
@@ -70,7 +70,7 @@ describe('Raise repair form', () => {
         cy.get('tbody>tr').eq(1).contains('00000666666')
       })
 
-    cy.get('.govuk-heading-m').contains('Repair task details')
+    cy.get('.lbh-heading-h2').contains('Repair task details')
 
     // Form section
     // Try to submit form without entering required fields
@@ -464,7 +464,7 @@ describe('Raise repair form', () => {
 
     // Confirmation screen
     cy.get('.govuk-panel--confirmation').within(() => {
-      cy.get('h1.govuk-heading-xl').contains('Repair work order created')
+      cy.get('h1.lbh-heading-xl').contains('Repair work order created')
 
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Work order number')

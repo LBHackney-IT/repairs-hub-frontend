@@ -22,7 +22,7 @@ describe('Show work order', () => {
     })
 
     it('Works order header with reference number', () => {
-      cy.get('.govuk-heading-l').within(() => {
+      cy.get('.lbh-heading-l').within(() => {
         cy.contains('Works order: 10000012')
       })
     })

@@ -23,7 +23,7 @@ const AppointmentSummary = ({
             onSubmit={handleSubmit(onEditAppointment)}
           >
             <div className="am-pm-slots-padding">
-              <h2 className="govuk-heading-m">Appointment Details:</h2>
+              <h2 className="lbh-heading-h2">Appointment Details:</h2>
               <p className="govuk-body">{date}</p>
               <p className="govuk-body">{timeSlot.split(' ')[0]}</p>
               <br />

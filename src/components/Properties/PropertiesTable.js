@@ -5,7 +5,7 @@ const PropertiesTable = ({ properties, query }) => (
   <div>
     <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
-    <p className="govuk-heading-s">
+    <p className="lbh-heading-h4">
       We found {properties.length} matching results for: {decodeURI(query)}
     </p>
 

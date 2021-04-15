@@ -14,7 +14,7 @@ const TimeInput = forwardRef(
   (
     {
       label,
-      labelSize = 'm',
+      labelSize = 's',
       error,
       hint,
       value,
@@ -41,12 +41,12 @@ const TimeInput = forwardRef(
     }, [time])
     return (
       <div
-        className={cx('govuk-form-group', {
+        className={cx('govuk-form-group lbh-form-group', {
           'govuk-form-group--error': error,
         })}
       >
         <fieldset
-          className="govuk-fieldset"
+          className="govuk-fieldset lbh-fieldset"
           role="group"
           aria-describedby={`${name}-hint`}
         >
@@ -61,16 +61,16 @@ const TimeInput = forwardRef(
           {error && <ErrorMessage label={error.message} />}
           <div className="govuk-date-input" id={name}>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
+              <div className="govuk-form-group lbh-form-group">
                 <label
-                  className="govuk-label govuk-date-input__label"
+                  className="govuk-label lbh-label govuk-date-input__label"
                   htmlFor={`${name}-hour`}
                 >
                   Hour
                 </label>
                 <input
                   className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-2',
+                    'govuk-input lbh-input govuk-date-input__input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }
@@ -91,16 +91,16 @@ const TimeInput = forwardRef(
               </div>
             </div>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
+              <div className="govuk-form-group lbh-form-group">
                 <label
-                  className="govuk-label govuk-date-input__label"
+                  className="govuk-label lbh-label govuk-date-input__label"
                   htmlFor={`${name}-minutes`}
                 >
                   Minutes
                 </label>
                 <input
                   className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-2',
+                    'govuk-input lbh-input govuk-date-input__input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }
