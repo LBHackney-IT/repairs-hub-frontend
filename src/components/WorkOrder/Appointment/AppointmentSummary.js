@@ -43,7 +43,7 @@ const AppointmentSummary = ({
       <br />
       <PrimarySubmitButton
         width="one-third"
-        label="Create work order"
+        label="Book appointment"
         type="button"
         onClick={onCreateWorkOrder}
       />
