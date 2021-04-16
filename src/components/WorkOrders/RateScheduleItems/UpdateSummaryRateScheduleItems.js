@@ -107,12 +107,12 @@ const UpdateSummaryRateScheduleItems = ({
 
   return (
     <>
-      <p className="govuk-heading-s">Original Tasks and SORs</p>
+      <p className="lbh-heading-h4">Original Tasks and SORs</p>
       <Table className="original-tasks-table">
         {buildTableTemplate(rateScheduleItemsTable(originalTasks, false, true))}
       </Table>
 
-      <p className="govuk-heading-s">Updated Tasks and SORs</p>
+      <p className="lbh-heading-h4">Updated Tasks and SORs</p>
       <Table className="updated-tasks-table">
         {buildTableTemplate(
           rateScheduleItemsTable(latestTasks, true),

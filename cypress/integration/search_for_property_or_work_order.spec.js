@@ -27,7 +27,7 @@ describe('Search by work order reference, postcode or address', () => {
         })
 
         it('checks the heading', () => {
-          cy.get('.govuk-heading-s').contains(
+          cy.get('.lbh-heading-h4').contains(
             'We found 2 matching results for: e9 6pt'
           )
         })
@@ -62,7 +62,7 @@ describe('Search by work order reference, postcode or address', () => {
         })
 
         it('checks the heading', () => {
-          cy.get('.govuk-heading-s').contains(
+          cy.get('.lbh-heading-h4').contains(
             'We found 2 matching results for: pitcairn'
           )
 
@@ -96,7 +96,7 @@ describe('Search by work order reference, postcode or address', () => {
         })
 
         it('Works order header with reference number', () => {
-          cy.get('.govuk-heading-l').within(() => {
+          cy.get('.lbh-heading-l').within(() => {
             cy.contains('Works order: 10000012')
           })
         })
@@ -210,7 +210,7 @@ describe('Search by work order reference, postcode or address', () => {
         cy.get('[type="submit"]').contains('Search').click()
         cy.url().should('contains', 'work-orders/10000012')
 
-        cy.get('.govuk-heading-l').within(() => {
+        cy.get('.lbh-heading-l').within(() => {
           cy.contains('Works order: 10000012')
         })
         cy.get('.govuk-body-m').within(() => {

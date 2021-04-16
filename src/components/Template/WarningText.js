@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const WarningText = ({ text }) => {
   return (
-    <div className="govuk-warning-text">
+    <div className="govuk-warning-text lbh-warning-text">
       <span className="govuk-warning-text__icon" aria-hidden="true">
         !
       </span>

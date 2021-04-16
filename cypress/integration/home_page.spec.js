@@ -12,7 +12,7 @@ describe('Home page', () => {
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
       // UserLogin component
-      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.lbh-heading-h2').contains('Login')
       cy.get('.govuk-body').contains(
         'Please log in with an approved Hackney email account.'
       )
@@ -33,19 +33,17 @@ describe('Home page', () => {
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
       // Search link
-      cy.get('.govuk-link--no-visited-state').eq(0).contains('Search')
-      cy.get('.govuk-link--no-visited-state')
-        .eq(0)
+      cy.get('#search')
+        .contains('Search')
         .should('have.attr', 'href', '/search')
 
       // Logout component
-      cy.get('.govuk-link--no-visited-state').eq(1).contains('Logout')
-      cy.get('.govuk-link--no-visited-state')
-        .eq(1)
+      cy.get('#logout')
+        .contains('Logout')
         .should('have.attr', 'href', '/logout')
 
       // Search for property component
-      cy.get('.govuk-heading-m').contains('Find repair job or property')
+      cy.get('.lbh-heading-h2').contains('Find repair job or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
@@ -58,7 +56,7 @@ describe('Home page', () => {
       cy.logout()
 
       // UserLogin component
-      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.lbh-heading-h2').contains('Login')
       cy.get('.govuk-body').contains(
         'Please log in with an approved Hackney email account.'
       )
@@ -92,23 +90,19 @@ describe('Home page', () => {
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
             // Manage jobs link
-            cy.get('.govuk-link--no-visited-state')
-              .eq(0)
-              .contains('Manage jobs')
-            cy.get('.govuk-link--no-visited-state')
+            cy.get('.lbh-header__links a').eq(0).contains('Manage jobs')
+            cy.get('.lbh-header__links a')
               .eq(0)
               .should('have.attr', 'href', '/')
 
             // Search link
-            cy.get('.govuk-link--no-visited-state').eq(1).contains('Search')
-            cy.get('.govuk-link--no-visited-state')
-              .eq(1)
+            cy.get('#search')
+              .contains('Search')
               .should('have.attr', 'href', '/search')
 
             // Logout component
-            cy.get('.govuk-link--no-visited-state').eq(2).contains('Logout')
-            cy.get('.govuk-link--no-visited-state')
-              .eq(2)
+            cy.get('#logout')
+              .contains('Logout')
               .should('have.attr', 'href', '/logout')
           })
 

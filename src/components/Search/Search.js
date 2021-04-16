@@ -80,17 +80,17 @@ const Search = ({ query }) => {
   return (
     <div>
       <section className="section">
-        <h1 className="govuk-heading-m">{searchHeadingText}</h1>
+        <h1 className="lbh-heading-h2">{searchHeadingText}</h1>
 
-        <div className="govuk-form-group">
+        <div className="govuk-form-group lbh-form-group">
           <form>
-            <label className="govuk-label">
+            <label className="govuk-label lbh-label">
               <p className="govuk-body-s govuk-!-margin-bottom-0">
                 {searchLabelText}
               </p>
               <input
                 type="text"
-                className="govuk-input govuk-input--width-10 focus-colour govuk-!-margin-bottom-5"
+                className="govuk-input lbh-input govuk-input--width-10 focus-colour"
                 value={searchQuery}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />

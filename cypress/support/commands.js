@@ -56,7 +56,7 @@ Cypress.Commands.add('loginWithContractManagerRole', () => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get('.govuk-link--no-visited-state').contains('Logout')
+  cy.get('#logout').contains('Logout')
   cy.clearCookie('hackneyToken')
 
   cy.getCookies().should('be.empty')

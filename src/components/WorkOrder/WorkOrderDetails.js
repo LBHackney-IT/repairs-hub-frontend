@@ -22,7 +22,7 @@ const WorkOrderDetails = ({
     <div>
       <BackButton />
       <div>
-        <h1 className="govuk-heading-l display-inline govuk-!-margin-right-6">
+        <h1 className="lbh-heading-l display-inline govuk-!-margin-right-6">
           Works order: {workOrder.reference}
         </h1>
         {user && user.hasContractorPermissions && (

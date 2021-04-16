@@ -53,9 +53,9 @@ const SummaryUpdateJob = ({
 
   return (
     <div>
-      <h1 className="govuk-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
       <form role="form" id="repair-request-form" onSubmit={onSubmit}>
-        <p className="govuk-heading-s">Summary of updates to work order</p>
+        <p className="lbh-heading-h4">Summary of updates to work order</p>
 
         <UpdateSummaryRateScheduleItems
           originalTasks={originalTasks}
@@ -68,7 +68,7 @@ const SummaryUpdateJob = ({
         />
 
         <div className="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7">
-          <p className="govuk-heading-s">Variation reason</p>
+          <p className="lbh-heading-h4">Variation reason</p>
           <p>{variationReason}</p>
         </div>
 

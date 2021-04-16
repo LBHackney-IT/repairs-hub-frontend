@@ -3,7 +3,7 @@
 exports[`RaiseRepairForm component should render properly 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link"
+    class="govuk-back-link lbh-back-link"
     role="button"
   >
     Back
@@ -20,7 +20,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         New repair
       </span>
       <h1
-        class="govuk-heading-l govuk-!-margin-bottom-2"
+        class="lbh-heading-l govuk-!-margin-bottom-2"
       >
         Dwelling: 16 Pitcairn House
       </h1>
@@ -52,7 +52,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         </ul>
       </div>
       <h2
-        class="govuk-heading-m govuk-!-margin-top-6"
+        class="lbh-heading-h2 govuk-!-margin-top-6"
       >
         Repair task details
       </h2>
@@ -61,11 +61,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         role="form"
       >
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="trade-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="trade"
           >
             Trade 
@@ -77,7 +77,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           </label>
           <input
             autocomplete="off"
-            class="govuk-select govuk-!-width-one-half"
+            class="govuk-select lbh-select govuk-!-width-one-half"
             data-testid="trade"
             id="trade"
             list="autocomplete-list-trade"
@@ -104,11 +104,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           class="min-height-100"
         >
           <div
-            class="govuk-form-group"
+            class="govuk-form-group lbh-form-group"
             id="contractor-form-group"
           >
             <label
-              class="govuk-label"
+              class="govuk-label lbh-label"
               for="contractor"
             >
               Contractor 
@@ -119,7 +119,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               </span>
             </label>
             <select
-              class="govuk-select govuk-!-width-one-half"
+              class="govuk-select lbh-select govuk-!-width-one-half"
               data-testid="contractor"
               disabled=""
               id="contractor"
@@ -149,11 +149,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 class="govuk-grid-column-two-thirds"
               >
                 <div
-                  class="govuk-form-group"
+                  class="govuk-form-group lbh-form-group"
                   id="rateScheduleItems[0][code]-form-group"
                 >
                   <label
-                    class="govuk-label"
+                    class="govuk-label lbh-label"
                     for="rateScheduleItems[0][code]"
                   >
                     SOR Code 
@@ -164,7 +164,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                     </span>
                   </label>
                   <select
-                    class="govuk-select govuk-!-width-full"
+                    class="govuk-select lbh-select govuk-!-width-full"
                     data-testid="rateScheduleItems[0][code]"
                     disabled=""
                     id="rateScheduleItems[0][code]"
@@ -192,11 +192,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                 class="govuk-grid-column-one-third"
               >
                 <div
-                  class="govuk-form-group"
+                  class="govuk-form-group lbh-form-group"
                   id="rateScheduleItems[0][quantity]-form-group"
                 >
                   <label
-                    class="govuk-label"
+                    class="govuk-label lbh-label"
                     for="rateScheduleItems[0][quantity]"
                   >
                     Quantity 
@@ -207,7 +207,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                     </span>
                   </label>
                   <input
-                    class="govuk-input govuk-!-width-full"
+                    class="govuk-input lbh-input govuk-!-width-full"
                     disabled=""
                     id="rateScheduleItems[0][quantity]"
                     name="rateScheduleItems[0][quantity]"
@@ -226,11 +226,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           </div>
         </div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="priorityDescription-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="priorityDescription"
           >
             Task priority 
@@ -241,7 +241,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             </span>
           </label>
           <select
-            class="govuk-select govuk-!-width-full"
+            class="govuk-select lbh-select govuk-!-width-full"
             data-testid="priorityDescription"
             disabled=""
             id="priorityDescription"
@@ -280,11 +280,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           value=""
         />
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="descriptionOfWork-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="descriptionOfWork"
           >
             Repair description 
@@ -296,7 +296,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           </label>
           <textarea
             aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
-            class="govuk-textarea"
+            class="govuk-textarea lbh-textarea"
             id="descriptionOfWork"
             name="descriptionOfWork"
             rows="4"
@@ -322,7 +322,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           value="16 Pitcairn House  St Thomass Square"
         />
         <div
-          class="govuk-warning-text"
+          class="govuk-warning-text lbh-warning-text"
         >
           <span
             aria-hidden="true"
@@ -342,17 +342,17 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           </strong>
         </div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="callerName-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="callerName"
           >
             Caller name 
           </label>
           <input
-            class="govuk-input undefined"
+            class="govuk-input lbh-input undefined"
             id="callerName"
             name="callerName"
             type="text"
@@ -360,17 +360,17 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           />
         </div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="contactNumber-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="contactNumber"
           >
             Contact number 
           </label>
           <input
-            class="govuk-input undefined"
+            class="govuk-input lbh-input undefined"
             id="contactNumber"
             name="contactNumber"
             type="text"
@@ -378,10 +378,10 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           />
         </div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
         >
           <button
-            class="govuk-button"
+            class="govuk-button lbh-button"
             data-module="govuk-button"
             type="submit"
           >

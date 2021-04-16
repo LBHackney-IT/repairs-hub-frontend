@@ -7,7 +7,7 @@ exports[`CancelWorkOrderFormSuccess component should render properly 1`] = `
       class="govuk-panel govuk-panel--confirmation background-dark-green"
     >
       <h1
-        class="govuk-heading-xl text-white"
+        class="lbh-heading-xl text-white"
       >
         Repair cancelled
       </h1>

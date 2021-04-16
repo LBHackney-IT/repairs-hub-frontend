@@ -70,7 +70,7 @@ describe('Schedule appointment form', () => {
   // when priority is Emergency it is not redirecting to schedule appointment page
   it('Shows a success page right after work order created', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-    cy.get('.govuk-heading-m')
+    cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
       .click()
 
@@ -85,9 +85,13 @@ describe('Schedule appointment form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
       cy.get('#priorityDescription').select('2 [E] EMERGENCY')
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-      cy.get('#callerName').type('Bob Leek')
-      cy.get('#contactNumber').clear().type('07788659111')
-      cy.get('[type="submit"]').contains('Create works order').click()
+      cy.get('#callerName').type('Bob Leek', { force: true })
+      cy.get('#contactNumber')
+        .clear({ force: true })
+        .type('07788659111', { force: true })
+      cy.get('[type="submit"]')
+        .contains('Create works order')
+        .click({ force: true })
       // Check body of post request, creates work order
       cy.get('@apiCheck')
         .its('request.body')
@@ -187,7 +191,7 @@ describe('Schedule appointment form', () => {
   // when priority is Normal it is redirecting to schedule appointment page
   it('Shows a success page right after work order created', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-    cy.get('.govuk-heading-m')
+    cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
       .click()
 
@@ -202,9 +206,13 @@ describe('Schedule appointment form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
       cy.get('#priorityDescription').select('5 [N] NORMAL')
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-      cy.get('#callerName').type('Bob Leek')
-      cy.get('#contactNumber').clear().type('07788659111')
-      cy.get('[type="submit"]').contains('Create works order').click()
+      cy.get('#callerName').type('Bob Leek', { force: true })
+      cy.get('#contactNumber')
+        .clear({ force: true })
+        .type('07788659111', { force: true })
+      cy.get('[type="submit"]')
+        .contains('Create works order')
+        .click({ force: true })
       // Check body of post request, creates work order
       cy.get('@apiCheck')
         .its('request.body')
@@ -293,7 +301,7 @@ describe('Schedule appointment form', () => {
     cy.url().should('contains', 'work-orders/10102030/appointment/new')
 
     cy.get('.appointment-calendar').within(() => {
-      cy.get('.available').contains('11').click()
+      cy.get('.available').contains('11').click({ force: true })
     })
     cy.get('form').within(() => {
       cy.contains('Thursday, 11 March')
@@ -302,8 +310,8 @@ describe('Schedule appointment form', () => {
 
       // choose AM slot and leave comment
       cy.get('[type="radio"]').first().check()
-      cy.get('#comments').type('10 am works for me')
-      cy.get('[type="submit"]').contains('Add').click()
+      cy.get('#comments').type('10 am works for me', { force: true })
+      cy.get('[type="submit"]').contains('Add').click({ force: true })
     })
 
     // Summary page
@@ -314,7 +322,9 @@ describe('Schedule appointment form', () => {
       cy.contains('AM')
       cy.contains('Comments: 10 am works for me')
     })
-    cy.get('[type="button"]').contains('Create work order').click()
+    cy.get('[type="button"]')
+      .contains('Create work order')
+      .click({ force: true })
     cy.get('@apiCheckAppointment')
       .its('request.body')
       .should('deep.equal', {

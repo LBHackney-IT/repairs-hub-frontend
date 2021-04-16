@@ -6,7 +6,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
     class="govuk-width-container"
   >
     <a
-      class="govuk-back-link"
+      class="govuk-back-link lbh-back-link"
       role="button"
     >
       Back
@@ -23,7 +23,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
           Cancel repair
         </span>
         <h1
-          class="govuk-heading-l govuk-!-margin-bottom-2"
+          class="lbh-heading-l govuk-!-margin-bottom-2"
         >
           Works order: 10000012
         </h1>
@@ -84,7 +84,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
           </table>
         </div>
         <h2
-          class="govuk-heading-m govuk-!-margin-top-6"
+          class="lbh-heading-h2 govuk-!-margin-top-6"
         >
           Reason to cancel
         </h2>
@@ -100,11 +100,11 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             value="10000012"
           />
           <div
-            class="govuk-form-group"
+            class="govuk-form-group lbh-form-group"
             id="cancelReason-form-group"
           >
             <label
-              class="govuk-label"
+              class="govuk-label lbh-label"
               for="cancelReason"
             >
               Reason 
@@ -116,7 +116,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             </label>
             <textarea
               aria-describedby="cancelReason-hint cancelReason-error"
-              class="govuk-textarea"
+              class="govuk-textarea lbh-textarea"
               id="cancelReason"
               name="cancelReason"
               rows="4"
@@ -128,10 +128,10 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             You have 200 characters remaining.
           </span>
           <div
-            class="govuk-form-group"
+            class="govuk-form-group lbh-form-group"
           >
             <button
-              class="govuk-button"
+              class="govuk-button lbh-button"
               data-module="govuk-button"
               type="submit"
             >

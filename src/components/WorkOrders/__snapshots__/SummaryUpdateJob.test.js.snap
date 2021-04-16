@@ -4,7 +4,7 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
 <DocumentFragment>
   <div>
     <h1
-      class="govuk-heading-l"
+      class="lbh-heading-l"
     >
       Update work order: 10000012
     </h1>
@@ -13,12 +13,12 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
       role="form"
     >
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Summary of updates to work order
       </p>
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Original Tasks and SORs
       </p>
@@ -82,7 +82,7 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
         </tbody>
       </table>
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Updated Tasks and SORs
       </p>
@@ -281,7 +281,7 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
         class="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7"
       >
         <p
-          class="govuk-heading-s"
+          class="lbh-heading-h4"
         >
           Variation reason
         </p>
@@ -290,7 +290,7 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
         </p>
       </div>
       <div
-        class="govuk-warning-text"
+        class="govuk-warning-text lbh-warning-text"
       >
         <span
           aria-hidden="true"
@@ -310,10 +310,10 @@ exports[`SummaryUpdateJob component should render properly over vary spend limit
         </strong>
       </div>
       <div
-        class="govuk-form-group"
+        class="govuk-form-group lbh-form-group"
       >
         <button
-          class="govuk-button"
+          class="govuk-button lbh-button"
           data-module="govuk-button"
           type="submit"
         >
@@ -329,7 +329,7 @@ exports[`SummaryUpdateJob component should render properly within vary spend lim
 <DocumentFragment>
   <div>
     <h1
-      class="govuk-heading-l"
+      class="lbh-heading-l"
     >
       Update work order: 10000012
     </h1>
@@ -338,12 +338,12 @@ exports[`SummaryUpdateJob component should render properly within vary spend lim
       role="form"
     >
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Summary of updates to work order
       </p>
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Original Tasks and SORs
       </p>
@@ -407,7 +407,7 @@ exports[`SummaryUpdateJob component should render properly within vary spend lim
         </tbody>
       </table>
       <p
-        class="govuk-heading-s"
+        class="lbh-heading-h4"
       >
         Updated Tasks and SORs
       </p>
@@ -606,7 +606,7 @@ exports[`SummaryUpdateJob component should render properly within vary spend lim
         class="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7"
       >
         <p
-          class="govuk-heading-s"
+          class="lbh-heading-h4"
         >
           Variation reason
         </p>
@@ -615,10 +615,10 @@ exports[`SummaryUpdateJob component should render properly within vary spend lim
         </p>
       </div>
       <div
-        class="govuk-form-group"
+        class="govuk-form-group lbh-form-group"
       >
         <button
-          class="govuk-button"
+          class="govuk-button lbh-button"
           data-module="govuk-button"
           type="submit"
         >

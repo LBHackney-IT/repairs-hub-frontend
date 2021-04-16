@@ -19,7 +19,7 @@ const Radio = ({
   ...otherProps
 }) => (
   <div
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': error,
     })}
   >
@@ -28,14 +28,16 @@ const Radio = ({
     </label>
     <br />
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
       </span>
     )}
     {children}
     {error && <ErrorMessage label={error.message} />}
     <div
-      className={cx('govuk-radios', { 'govuk-radios--inline': isRadiosInline })}
+      className={cx('govuk-radios lbh-radios', {
+        'govuk-radios--inline': isRadiosInline,
+      })}
     >
       {options.map((option) => {
         const { value, text, defaultChecked } =
@@ -58,7 +60,7 @@ const Radio = ({
               {...otherProps}
             />
             <label
-              className="govuk-label govuk-radios__label"
+              className="govuk-label lbh-label govuk-radios__label"
               htmlFor={`${name}_${value}`}
             >
               {text}

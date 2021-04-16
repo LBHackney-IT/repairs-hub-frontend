@@ -11,7 +11,7 @@ const Button = ({
 }) => (
   <button
     className={cx(
-      'govuk-button',
+      'govuk-button lbh-button',
       {
         'govuk-button--secondary': isSecondary,
       },

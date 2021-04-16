@@ -6,7 +6,7 @@ const RepairTasks = ({ tasks }) => {
   return (
     <GridRow className="govuk-body-s">
       <GridColumn width="full">
-        <h2 className="govuk-heading-m govuk-!-margin-bottom-1">
+        <h2 className="lbh-heading-h2 govuk-!-margin-bottom-1">
           Repair task details
         </h2>
 

@@ -13,7 +13,7 @@ const AppointmentHeader = ({
   return (
     <GridRow className="govuk-body-s govuk-!-margin-bottom-2">
       <GridColumn width="two-thirds">
-        <h1 className="govuk-heading-l govuk-!-margin-bottom-2">
+        <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
           {subTypeDescription}: {address.addressLine}
         </h1>
 

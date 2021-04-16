@@ -219,7 +219,7 @@ describe('Contractor update a job', () => {
 
     cy.get('#repair-request-form').within(() => {
       cy.get('#original-rate-schedule-items').within(() => {
-        cy.get('.govuk-heading-m').contains(
+        cy.get('.lbh-heading-h2').contains(
           'Original tasks and SORS raised with work order'
         )
         // Expect all input fields to be disabled
@@ -231,7 +231,7 @@ describe('Contractor update a job', () => {
         )
       })
       cy.get('#existing-rate-schedule-items').within(() => {
-        cy.get('.govuk-heading-m').contains(
+        cy.get('.lbh-heading-h2').contains(
           'Latest tasks and SORS against the work order'
         )
         // Expect SOR code input fields to be disabled
@@ -353,7 +353,7 @@ describe('Contractor update a job', () => {
       cy.contains('Needs more work')
     })
     // Warning text as logged in user's vary limit has been exceeded
-    cy.get('.govuk-warning-text').within(() => {
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
         'Your variation cost exceeds £250 and will be sent for approval.'
       )

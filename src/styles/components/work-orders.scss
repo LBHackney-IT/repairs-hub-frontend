@@ -50,10 +50,10 @@
       background-color: repairs-hub-colour('status-waiting');
     }
     .status-variation-approved {
-      background-color: repairs-hub-colour('dark-green');
+      background-color: repairs-hub-colour('status-approved');
     }
     .status-variation-rejected {
-      background-color: repairs-hub-colour('status-not-complete');
+      background-color: repairs-hub-colour('status-rejected');
     }
   }
 }

@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types'
 import JobRow from './JobRow'
 import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontend-api-client/repairs'
+import { Button } from '../Form'
 
 const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
-    <p className="govuk-heading-s">Manage jobs</p>
+    <p className="lbh-heading-h4">Manage jobs</p>
 
     <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <thead className="govuk-table__head">
@@ -40,22 +41,19 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
     </table>
     <div className="page-navigation govuk-!-padding-bottom-5">
       {pageNumber > 1 && (
-        <button
-          className="govuk-button left-page-button"
-          data-module="govuk-button"
+        <Button
+          label="Previous page"
           onClick={() => handlePageClick(pageNumber - 1)}
-        >
-          Previous page
-        </button>
+          type="submit"
+        />
       )}
       {pageNumber && workOrders.length >= PAGE_SIZE_CONTRACTORS && (
-        <button
-          className="govuk-button right-page-button"
-          data-module="govuk-button"
+        <Button
+          label="Next page"
           onClick={() => handlePageClick(pageNumber + 1)}
-        >
-          Next page
-        </button>
+          type="submit"
+          className="right-page-button"
+        />
       )}
     </div>
   </div>
