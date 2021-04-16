@@ -74,7 +74,9 @@ describe('Raise repair form', () => {
 
     // Form section
     // Try to submit form without entering required fields
-    cy.get('[type="submit"]').contains('Create works order').click()
+    cy.get('[type="submit"]')
+      .contains('Create works order')
+      .click({ force: true })
     cy.get('#trade-form-group .govuk-error-message').within(() => {
       cy.contains('Please select a trade')
     })
@@ -264,7 +266,9 @@ describe('Raise repair form', () => {
       cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
 
       // Try to submit form without quantity for this SOR code at index 1
-      cy.get('[type="submit"]').contains('Create works order').click()
+      cy.get('[type="submit"]')
+        .contains('Create works order')
+        .click({ force: true })
       cy.get(
         'div[id="rateScheduleItems[1][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
@@ -362,7 +366,9 @@ describe('Raise repair form', () => {
     })
 
     // Submit form
-    cy.get('[type="submit"]').contains('Create works order').click()
+    cy.get('[type="submit"]')
+      .contains('Create works order')
+      .click({ force: true })
     // Check body of post request
     cy.get('@apiCheck')
       .its('request.body')

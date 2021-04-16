@@ -178,7 +178,7 @@ describe('Show property', () => {
         PAGE_SIZE_AGENTS // our first mocked response contains 50 results, matching this
       )
 
-      cy.contains('Load more').click()
+      cy.contains('Load more').click({ force: true })
 
       cy.get('.repairs-history-table > tbody > tr').should(
         'have.length',
