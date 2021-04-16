@@ -11,7 +11,7 @@ It's a [Next.js](https://nextjs.org) app that works with:
 - Hackney's [repairs API](https://github.com/LBHackney-IT/repairs-api)
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
 
-It's built using the [React port](https://github.com/LBHackney-IT/lbh-frontend-react) of Hackney Frontend.
+It's built using [Hackney Design System](https://github.com/LBHackney-IT/lbh-frontend).
 
 ### Clone the project
 

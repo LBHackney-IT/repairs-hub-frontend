@@ -1,56 +1,45 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import { calculateTotalCost } from '../../../utils/helpers/calculations'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 
 const UpdateSummaryRateScheduleItems = ({
   originalTasks,
-  tasks,
+  latestTasks,
   addedTasks,
   changeStep,
+  originalCostObject,
+  totalCostObject,
+  totalVariedCostObject,
 }) => {
-  const ORIGINAL_COST = 'Original cost'
-  const TOTAL_VARIED_COST = 'Variation cost'
-  const TOTAL_COST = 'Total cost'
-
   const showCostBreakdown = () => {
-    const original = {
-      description: ORIGINAL_COST,
-      cost: calculateTotalCost(originalTasks, 'cost', 'originalQuantity'),
-    }
-    const total = {
-      description: TOTAL_COST,
-      cost: calculateTotalCost(tasks.concat(addedTasks), 'cost', 'quantity'),
-    }
-    const totalVaried = {
-      description: TOTAL_VARIED_COST,
-      cost: total.cost - original.cost,
-    }
-
-    return [original, totalVaried, total].map((object, index) => (
-      <tr
-        key={index}
-        className="govuk-table__row"
-        id={object.description.toLowerCase().replace(/\s/g, '-')}
-      >
-        <th scope="row">{}</th>
-        <td
-          className={cx('govuk-!-padding-top-3', {
-            'border-top-black': object.description === TOTAL_COST,
-          })}
+    return [originalCostObject, totalVariedCostObject, totalCostObject].map(
+      (object, index) => (
+        <tr
+          key={index}
+          className="govuk-table__row"
+          id={object.description.toLowerCase().replace(/\s/g, '-')}
         >
-          <strong>{object.description}</strong>
-        </td>
-        <td
-          className={cx('govuk-!-padding-top-3', {
-            'border-top-black': object.description === TOTAL_COST,
-          })}
-        >
-          £{object.cost.toFixed(2)}
-        </td>
-        <td>{}</td>
-      </tr>
-    ))
+          <th scope="row">{}</th>
+          <td
+            className={cx('govuk-!-padding-top-3', {
+              'border-top-black':
+                object.description === totalCostObject.description,
+            })}
+          >
+            <strong>{object.description}</strong>
+          </td>
+          <td
+            className={cx('govuk-!-padding-top-3', {
+              'border-top-black':
+                object.description === totalCostObject.description,
+            })}
+          >
+            £{object.cost.toFixed(2)}
+          </td>
+          <td>{}</td>
+        </tr>
+      )
+    )
   }
 
   const rateScheduleItemsTable = (
@@ -118,15 +107,15 @@ const UpdateSummaryRateScheduleItems = ({
 
   return (
     <>
-      <p className="govuk-heading-s">Original Tasks and SORs</p>
+      <p className="lbh-heading-h4">Original Tasks and SORs</p>
       <Table className="original-tasks-table">
         {buildTableTemplate(rateScheduleItemsTable(originalTasks, false, true))}
       </Table>
 
-      <p className="govuk-heading-s">Updated Tasks and SORs</p>
+      <p className="lbh-heading-h4">Updated Tasks and SORs</p>
       <Table className="updated-tasks-table">
         {buildTableTemplate(
-          rateScheduleItemsTable(tasks, true),
+          rateScheduleItemsTable(latestTasks, true),
           rateScheduleItemsTable(addedTasks),
           showCostBreakdown()
         )}
@@ -137,9 +126,12 @@ const UpdateSummaryRateScheduleItems = ({
 
 UpdateSummaryRateScheduleItems.propTypes = {
   originalTasks: PropTypes.array.isRequired,
-  tasks: PropTypes.array,
+  latestTasks: PropTypes.array,
   addedTasks: PropTypes.array,
   changeStep: PropTypes.func,
+  originalCostObject: PropTypes.object.isRequired,
+  totalCostObject: PropTypes.object.isRequired,
+  totalVariedCostObject: PropTypes.object.isRequired,
 }
 
 export default UpdateSummaryRateScheduleItems

@@ -1,3 +1,4 @@
+import Button from './Button/Button'
 import PrimarySubmitButton from './Button/PrimarySubmitButton'
 import Select from './Select/Select'
 import TextArea from './TextArea/TextArea'
@@ -6,6 +7,7 @@ import TextInput from './TextInput/TextInput'
 import DataList from './DataList/DataList'
 
 export {
+  Button,
   PrimarySubmitButton,
   Select,
   TextArea,

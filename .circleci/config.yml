@@ -64,6 +64,14 @@ jobs:
       - store_artifacts:
           path: cypress/reports
 
+  build-deploy-development:
+    executor: aws-cli/default
+    steps:
+      - *attach_workspace
+      - run:
+          name: deploy
+          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
+
   build-deploy-staging:
     executor: aws-cli/default
     steps:
@@ -79,6 +87,19 @@ jobs:
       - run:
           name: deploy
           command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
+
+  assume-role-development:
+    executor: docker-python
+    steps:
+      - checkout
+      - aws_assume_role/assume_role:
+          account: $AWS_ACCOUNT_DEVELOPMENT
+          profile_name: default
+          role: 'LBH_Circle_CI_Deployment_Role'
+      - persist_to_workspace:
+          root: *workspace_root
+          paths:
+            - .aws
 
   assume-role-staging:
     executor: docker-python
@@ -117,6 +138,20 @@ workflows:
       - e2e:
           requires:
             - install-dependencies
+      - assume-role-development:
+          context: api-assume-role-housing-development-context
+          requires:
+            - tests
+            - e2e
+          filters:
+            branches:
+              only: develop
+      - build-deploy-development:
+          requires:
+            - assume-role-development
+          filters:
+            branches:
+              only: develop
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:

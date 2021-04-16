@@ -100,7 +100,7 @@ const RaiseRepairForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l">New repair</span>
-          <h1 className="govuk-heading-l govuk-!-margin-bottom-2">
+          <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
@@ -113,7 +113,7 @@ const RaiseRepairForm = ({
             />
           </div>
 
-          <h2 className="govuk-heading-m govuk-!-margin-top-6">
+          <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Repair task details
           </h2>
 
@@ -179,6 +179,14 @@ const RaiseRepairForm = ({
               label="shortAddress"
               type="hidden"
               value={address.shortAddress}
+              ref={register}
+            />
+            <input
+              id="postalCode"
+              name="postalCode"
+              label="postalCode"
+              type="hidden"
+              value={address.postalCode}
               ref={register}
             />
             <Contacts contacts={contacts} />

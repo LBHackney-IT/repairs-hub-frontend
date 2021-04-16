@@ -4,7 +4,7 @@
 .govuk-button:not(.govuk-button--secondary) {
   background-color: repairs-hub-colour('housing-2');
   &:hover {
-    background-color: #10767c;
+    background-color: #10767c !important;
   }
   &:focus,
   &:focus:not(:active):not(:hover) {

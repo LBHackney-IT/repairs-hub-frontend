@@ -60,7 +60,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
   let activeTabId = formatTabNameToId(activeTab)
 
   return (
-    <div className="govuk-tabs" data-module="govuk-tabs">
+    <div className="govuk-tabs lbh-tabs" data-module="govuk-tabs">
       <h2 className="govuk-tabs__title">Contents</h2>
 
       <ul className="govuk-tabs__list hackney-tabs-list">

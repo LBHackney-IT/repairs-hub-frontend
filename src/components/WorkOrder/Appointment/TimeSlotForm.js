@@ -23,7 +23,7 @@ const TimeSlotForm = ({
           className="timeslot-form govuk-!-padding-4"
           onSubmit={handleSubmit(onGetToSummary)}
         >
-          <h2 className="govuk-heading-m">{date}</h2>
+          <h2 className="lbh-heading-h2">{date}</h2>
           <Radios
             label=""
             name="options"

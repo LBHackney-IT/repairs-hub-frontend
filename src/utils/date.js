@@ -5,7 +5,7 @@ export const convertDate = (dateAsString) => {
   return dateAsString
 }
 export const dateToStr = (date) =>
-  date.toLocaleDateString('en-GB', {
+  new Date(date).toLocaleDateString('en-GB', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

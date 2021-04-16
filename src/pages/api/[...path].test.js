@@ -64,6 +64,7 @@ describe('/api/[...path]', () => {
     )
 
     const headers = {
+      'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
     }

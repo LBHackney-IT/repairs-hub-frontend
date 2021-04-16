@@ -21,11 +21,11 @@ const Select = ({
 }) => (
   <div
     id={`${name}-form-group`}
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': error,
     })}
   >
-    <label className="govuk-label" htmlFor={name}>
+    <label className="govuk-label lbh-label" htmlFor={name}>
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
@@ -36,7 +36,7 @@ const Select = ({
     {children}
     {error && <ErrorMessage label={error.message} />}
     <select
-      className={`govuk-select ${widthClass}`}
+      className={`govuk-select lbh-select ${widthClass}`}
       id={name}
       name={name}
       data-testid={name}

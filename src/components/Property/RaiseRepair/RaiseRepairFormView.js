@@ -8,7 +8,7 @@ import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
 import { postRepair } from '../../../utils/frontend-api-client/repairs/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
-import { getHubUser } from '../../../utils/frontend-api-client/user'
+import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { isSpendLimitReachedResponse } from '../../../utils/helpers/api-responses'
@@ -25,7 +25,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
-  const [userData, setUserData] = useState()
+  const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
 
   const onFormSubmit = async (formData) => {
@@ -49,7 +49,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
 
       if (isSpendLimitReachedResponse(e.response)) {
         setError(
-          `Repair cost exceeds £${userData?.raiseLimit}, please contact your manager to raise on your behalf`
+          `Repair cost exceeds £${currentUser?.raiseLimit}, please contact your manager to raise on your behalf`
         )
       } else {
         setError(
@@ -68,7 +68,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       const data = await getProperty(propertyReference)
       const priorities = await getPriorities()
       const trades = await getTrades(propertyReference)
-      const user = await getHubUser()
+      const user = await getCurrentUser()
 
       setTenure(data.tenure)
       setProperty(data.property)
@@ -77,7 +77,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       setPriorities(priorities)
       setTrades(trades)
       setContacts(data.contacts)
-      setUserData(user)
+      setCurrentUser(user)
     } catch (e) {
       setProperty(null)
       setPriorities(null)

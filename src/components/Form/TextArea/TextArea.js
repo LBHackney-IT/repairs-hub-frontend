@@ -17,24 +17,24 @@ const TextArea = ({
 }) => (
   <div
     id={`${name}-form-group`}
-    className={cx('govuk-form-group', {
+    className={cx('govuk-form-group lbh-form-group', {
       'govuk-form-group--error': Boolean(error),
     })}
   >
     {label && (
-      <label className="govuk-label" htmlFor={name}>
+      <label className="govuk-label lbh-label" htmlFor={name}>
         {label} {required && <span className="govuk-required">*</span>}
       </label>
     )}
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
       </span>
     )}
     {error && <ErrorMessage label={error.message} />}
     <textarea
       className={cx(
-        'govuk-textarea',
+        'govuk-textarea lbh-textarea',
         {
           'govuk-textarea--error': Boolean(error),
         },

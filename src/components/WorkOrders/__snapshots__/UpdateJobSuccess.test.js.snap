@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateJobSuccess component should render properly does not require authorisation 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-dark-green"
+    >
+      <div
+        class="govuk-panel__body"
+      >
+        <strong
+          class=""
+        >
+          Job 10000012 has been successfully updated
+        </strong>
+      </div>
+    </div>
+    <ul
+      class="govuk-list govuk-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            View jobs dashboard
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UpdateJobSuccess component should render properly requires authorisation 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-yellow"
+    >
+      <div
+        class="govuk-panel__body text-black"
+      >
+        <strong
+          class=""
+        >
+          Job 10000012 requires authorisation and has been sent to a manager
+        </strong>
+      </div>
+    </div>
+    <ul
+      class="govuk-list govuk-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            View jobs dashboard
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

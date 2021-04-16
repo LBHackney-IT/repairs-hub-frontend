@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types'
+import { Button } from '../Form'
 
 const UserLogin = ({ gssoUrl, submitText }) => {
   return (
     <div>
       <section className="section">
-        <h1 className="govuk-heading-m">Login</h1>
+        <h1 className="lbh-heading-h2">Login</h1>
 
         <p className="govuk-body">
           Please log in with an approved Hackney email account.
         </p>
 
-        <a className="govuk-link" href={gssoUrl}>
-          <button className="govuk-button">{submitText}</button>
+        <a className="" href={gssoUrl}>
+          <Button label={submitText} />
         </a>
       </section>
     </div>

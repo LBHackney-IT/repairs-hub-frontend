@@ -27,7 +27,7 @@ describe('Tasks and SORs', () => {
     // Now select Tasks and SORs tab
     cy.get('a[id="tab_tasks-and-sors-tab"]').click()
     cy.get('#tasks-and-sors-tab').within(() => {
-      cy.get('.govuk-heading-l').contains('Tasks and SORs')
+      cy.get('.lbh-heading-l').contains('Tasks and SORs')
 
       cy.contains('Latest Tasks and SORs')
       cy.get('.govuk-table.latest-tasks-and-sors-table').within(() => {
@@ -97,7 +97,7 @@ describe('Tasks and SORs', () => {
     cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
 
     cy.get('#tasks-and-sors-tab').within(() => {
-      cy.get('.govuk-heading-l').contains('Tasks and SORs')
+      cy.get('.lbh-heading-l').contains('Tasks and SORs')
 
       cy.get('.govuk-table').within(() => {
         // Tasks and SORS table headers

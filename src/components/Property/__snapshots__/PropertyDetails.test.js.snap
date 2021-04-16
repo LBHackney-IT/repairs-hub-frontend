@@ -4,19 +4,19 @@ exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <a
-      class="govuk-back-link"
+      class="govuk-back-link lbh-back-link"
       role="button"
     >
       Back
     </a>
     <h1
-      class="govuk-heading-l govuk-!-margin-bottom-2"
+      class="lbh-heading-l govuk-!-margin-bottom-2"
     >
       Dwelling: 16 Pitcairn House
     </h1>
     <div>
       <span
-        class="govuk-heading-m text-green"
+        class="lbh-heading-h2 text-green"
       >
         <a
           href="/properties/00012345/raise-repair/new"

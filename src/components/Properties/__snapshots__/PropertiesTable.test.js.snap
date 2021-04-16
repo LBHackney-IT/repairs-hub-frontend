@@ -7,7 +7,7 @@ exports[`PropertiesTable component should render properly 1`] = `
       class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
     />
     <p
-      class="govuk-heading-s"
+      class="lbh-heading-h4"
     >
       We found 2 matching results for: E9 6PT
     </p>

@@ -1,12 +1,16 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import JobsTable from './JobsTable'
-import { getRepairs } from '../../utils/frontend-api-client/repairs'
+import {
+  getRepairs,
+  getPendingApprovalRepairs,
+} from '../../utils/frontend-api-client/repairs'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { sortObjectsByDateKey } from '../../utils/date'
+import UserContext from '../UserContext/UserContext'
 
 const JobView = ({ pageNumber }) => {
+  const { user } = useContext(UserContext)
   const router = useRouter()
   const [workOrders, setWorkOrders] = useState([])
   const [error, setError] = useState()
@@ -16,11 +20,15 @@ const JobView = ({ pageNumber }) => {
     setError(null)
 
     try {
-      const data = await getRepairs(pageNumber)
+      let data = []
 
-      setWorkOrders(
-        sortObjectsByDateKey(data, ['dateRaised', 'lastUpdated'], 'dateRaised')
-      )
+      if (user.hasContractorPermissions) {
+        data = await getRepairs(pageNumber)
+      } else if (user.hasContractManagerPermissions) {
+        data = await getPendingApprovalRepairs(pageNumber)
+      }
+
+      setWorkOrders(data)
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)

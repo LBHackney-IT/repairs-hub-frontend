@@ -70,7 +70,7 @@ describe('Schedule appointment form', () => {
     })
     it('Schedules an appointment after raising a repair', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.get('.govuk-heading-m')
+      cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
 
@@ -85,9 +85,13 @@ describe('Schedule appointment form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityDescription').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-        cy.get('#callerName').type('Bob Leek')
-        cy.get('#contactNumber').clear().type('07788659111')
-        cy.get('[type="submit"]').contains('Create works order').click()
+        cy.get('#callerName').type('Bob Leek', { force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('07788659111', { force: true })
+        cy.get('[type="submit"]')
+          .contains('Create works order')
+          .click({ force: true })
         // Check body of post request, creates work order
         cy.get('@apiCheck')
           .its('request.body')
@@ -131,6 +135,7 @@ describe('Schedule appointment form', () => {
                       propertyReference: '00012345',
                       address: {
                         addressLine: ['16 Pitcairn House  St Thomass Square'],
+                        postalCode: 'E9 6PT',
                       },
                       reference: [
                         {
@@ -181,7 +186,7 @@ describe('Schedule appointment form', () => {
       cy.get('.appointment-calendar').within(() => {
         cy.contains('Choose date and time')
         cy.contains('March')
-        cy.get('.available').contains('17').click()
+        cy.get('.available').contains('17').click({ force: true })
       })
 
       //available slots appear for 17th of March, only available AM slot
@@ -192,7 +197,7 @@ describe('Schedule appointment form', () => {
           .last()
           .should('not.have.value', 'PM 12:00-4:00')
         //press "cancel" button
-        cy.get('[type="button"]').contains('Cancel').click()
+        cy.get('[type="button"]').contains('Cancel').click({ force: true })
         //check that availbale slots dissapear
         cy.contains('Wednesday, 17 March').should('not.exist')
       })
@@ -207,14 +212,14 @@ describe('Schedule appointment form', () => {
         cy.get('[type="radio"]').last().should('have.value', 'PM 12:00-4:00')
 
         // press "Add" without choosing slot and entering comments
-        cy.get('[type="submit"]').contains('Add').click()
+        cy.get('[type="submit"]').contains('Add').click({ force: true })
         cy.contains('Please select a time slot')
         cy.contains('Please add comments')
 
         // choose AM slot and leave comment
         cy.get('[type="radio"]').first().check()
-        cy.get('#comments').type('10 am works for me')
-        cy.get('[type="submit"]').contains('Add').click()
+        cy.get('#comments').type('10 am works for me', { force: true })
+        cy.get('[type="submit"]').contains('Add').click({ force: true })
       })
       // Summary page
       cy.contains('Confirm date and time')
@@ -229,11 +234,15 @@ describe('Schedule appointment form', () => {
       cy.get('form').within(() => {
         cy.contains('Thursday, 11 March')
         cy.get('[type="radio"]').first().should('be.checked')
-        cy.get('#comments').should('have.value', '10 am works for me')
+        cy.get('#comments')
+          .scrollIntoView()
+          .should('have.value', '10 am works for me')
 
         cy.get('[type="radio"]').last().check()
-        cy.get('#comments').clear().type('Prefer 1pm appointment')
-        cy.get('[type="submit"]').contains('Add').click()
+        cy.get('#comments')
+          .clear({ force: true })
+          .type('Prefer 1pm appointment', { force: true })
+        cy.get('[type="submit"]').contains('Add').click({ force: true })
       })
 
       // Summary page contains updated info
@@ -244,7 +253,9 @@ describe('Schedule appointment form', () => {
         cy.contains('PM')
         cy.contains('Prefer 1pm appointment')
       })
-      cy.get('[type="button"]').contains('Create work order').click()
+      cy.get('[type="button"]')
+        .contains('Create work order')
+        .click({ force: true })
       //appointment api check
       cy.get('@apiCheckAppointment')
         .its('request.body')
@@ -301,7 +312,7 @@ describe('Schedule appointment form', () => {
 
     it('Should display message that no appointments are availbale', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.get('.govuk-heading-m')
+      cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
 
@@ -316,9 +327,13 @@ describe('Schedule appointment form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityDescription').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-        cy.get('#callerName').type('Bob Leek')
-        cy.get('#contactNumber').clear().type('07788659111')
-        cy.get('[type="submit"]').contains('Create works order').click()
+        cy.get('#callerName').type('Bob Leek', { force: true })
+        cy.get('#contactNumber')
+          .clear({ force: true })
+          .type('07788659111', { force: true })
+        cy.get('[type="submit"]')
+          .contains('Create works order')
+          .click({ force: true })
       })
 
       // shows that there are no available appointments

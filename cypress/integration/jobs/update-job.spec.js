@@ -19,13 +19,15 @@ describe('Contractor update a job', () => {
         tasksAndSors.splice(1, 2)
       })
       .as('tasksList')
+    cy.fixture('hub-user/user.json').then((user) => {
+      cy.intercept('GET', 'api/hub-user', user)
+    })
 
     cy.route('GET', 'api/repairs/?PageSize=10&PageNumber=1', '@workOrdersList')
     cy.route('GET', 'api/repairs/10000040', '@workOrder')
     cy.route('GET', 'api/repairs/10000040/tasks', '@tasksList').as(
       'taskListRequest'
     )
-    cy.route('GET', 'api/hub-user', {})
     cy.route(
       'GET',
       'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
@@ -140,10 +142,7 @@ describe('Contractor update a job', () => {
       cy.get('[type="submit"]').contains('Next').click()
 
       cy.contains('Quantity must be a whole number')
-      // Enter a quantity more than the maximum
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('60')
 
-      cy.contains('Quantity must be 50 or less')
       // Enter a quantity less then the minimum
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
       cy.contains('Quantity must be 1 or more')
@@ -180,7 +179,7 @@ describe('Contractor update a job', () => {
         relatedWorkOrderReference: {
           id: '10000040',
         },
-        typeCode: 8,
+        typeCode: '80',
         comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [
@@ -195,6 +194,23 @@ describe('Contractor update a job', () => {
           ],
         },
       })
+
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation.background-dark-green').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('Job 10000040 has been successfully updated')
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.govuk-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+    })
   })
 
   it('allows to update quantity, edit and add new sor codes', () => {
@@ -203,7 +219,7 @@ describe('Contractor update a job', () => {
 
     cy.get('#repair-request-form').within(() => {
       cy.get('#original-rate-schedule-items').within(() => {
-        cy.get('.govuk-heading-m').contains(
+        cy.get('.lbh-heading-h2').contains(
           'Original tasks and SORS raised with work order'
         )
         // Expect all input fields to be disabled
@@ -215,8 +231,8 @@ describe('Contractor update a job', () => {
         )
       })
       cy.get('#existing-rate-schedule-items').within(() => {
-        cy.get('.govuk-heading-m').contains(
-          'All tasks and SORS against the work order'
+        cy.get('.lbh-heading-h2').contains(
+          'Latest tasks and SORS against the work order'
         )
         // Expect SOR code input fields to be disabled
         cy.get('input[id="sor-code-0"]').should('be.disabled')
@@ -336,6 +352,12 @@ describe('Contractor update a job', () => {
       cy.contains('Variation reason')
       cy.contains('Needs more work')
     })
+    // Warning text as logged in user's vary limit has been exceeded
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.contains(
+        'Your variation cost exceeds £250 and will be sent for approval.'
+      )
+    })
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -345,7 +367,7 @@ describe('Contractor update a job', () => {
         relatedWorkOrderReference: {
           id: '10000040',
         },
-        typeCode: 8,
+        typeCode: '80',
         comments: 'Variation reason: Needs more work',
         moreSpecificSORCode: {
           rateScheduleItem: [
@@ -368,8 +390,24 @@ describe('Contractor update a job', () => {
         },
       })
 
-    cy.location('pathname').should('eq', '/')
-    cy.contains('Manage jobs')
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains(
+          'Job 10000040 requires authorisation and has been sent to a manager'
+        )
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.govuk-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+    })
 
     // Run lighthouse audit for accessibility report
     cy.audit()

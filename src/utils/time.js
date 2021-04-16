@@ -1,11 +1,15 @@
 const DAY = 86400000
 
-export const extractTimeFromDate = (date) =>
-  date.toLocaleString('en-GB', {
+export const extractTimeFromDate = (datetime) => {
+  if (typeof datetime === 'string') {
+    datetime = new Date(datetime)
+  }
+  return datetime.toLocaleString('en-GB', {
     hour: 'numeric',
     minute: 'numeric',
     hourCycle: 'h12',
   })
+}
 
 export const formatDateTime = (datetime) => {
   if (typeof datetime === 'string') {

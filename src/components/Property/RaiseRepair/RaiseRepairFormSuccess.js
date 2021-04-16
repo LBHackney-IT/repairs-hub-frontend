@@ -8,10 +8,8 @@ const RaiseRepairFormSuccess = ({
 }) => {
   return (
     <div>
-      <div className="govuk-panel govuk-panel--confirmation background-green">
-        <h1 className="govuk-heading-xl text-white">
-          Repair work order created
-        </h1>
+      <div className="govuk-panel govuk-panel--confirmation background-dark-green">
+        <h1 className="lbh-heading-xl text-white">Repair work order created</h1>
         <div className="govuk-panel__body">
           Work order number
           <br></br>

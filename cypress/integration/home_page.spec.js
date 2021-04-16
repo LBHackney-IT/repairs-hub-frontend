@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { PAGE_SIZE_CONTRACTORS } from '../../src/utils/frontend-api-client/repairs'
 
 describe('Home page', () => {
   context('When user is not logged in', () => {
@@ -11,7 +12,7 @@ describe('Home page', () => {
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
       // UserLogin component
-      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.lbh-heading-h2').contains('Login')
       cy.get('.govuk-body').contains(
         'Please log in with an approved Hackney email account.'
       )
@@ -31,16 +32,18 @@ describe('Home page', () => {
       cy.get('.lbh-header__service-name').contains('Repairs Hub')
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
+      // Search link
+      cy.get('#search')
+        .contains('Search')
+        .should('have.attr', 'href', '/search')
+
       // Logout component
-      cy.get('.govuk-link--no-visited-state').contains('Logout')
-      cy.get('.govuk-link--no-visited-state').should(
-        'have.attr',
-        'href',
-        '/logout'
-      )
+      cy.get('#logout')
+        .contains('Logout')
+        .should('have.attr', 'href', '/logout')
 
       // Search for property component
-      cy.get('.govuk-heading-m').contains('Find repair job or property')
+      cy.get('.lbh-heading-h2').contains('Find repair job or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
@@ -53,7 +56,7 @@ describe('Home page', () => {
       cy.logout()
 
       // UserLogin component
-      cy.get('.govuk-heading-m').contains('Login')
+      cy.get('.lbh-heading-h2').contains('Login')
       cy.get('.govuk-body').contains(
         'Please log in with an approved Hackney email account.'
       )
@@ -75,47 +78,64 @@ describe('Home page', () => {
             cy.fixture('repairs/work-orders.json').as('workorderslist')
             cy.route(
               'GET',
-              'api/repairs/?PageSize=10&PageNumber=1',
+              `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
               '@workorderslist'
             )
             cy.visit(`${Cypress.env('HOST')}/`)
           })
 
-          it('displays headers of the table', () => {
+          it('displays content in the header', () => {
+            // Header component
+            cy.get('.lbh-header__service-name').contains('Repairs Hub')
+            cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+
+            // Manage jobs link
+            cy.get('.lbh-header__links a').eq(0).contains('Manage jobs')
+            cy.get('.lbh-header__links a')
+              .eq(0)
+              .should('have.attr', 'href', '/')
+
+            // Search link
+            cy.get('#search')
+              .contains('Search')
+              .should('have.attr', 'href', '/search')
+
+            // Logout component
+            cy.get('#logout')
+              .contains('Logout')
+              .should('have.attr', 'href', '/logout')
+          })
+
+          it('Displays the first page of repairs', () => {
             cy.get('.govuk-table').within(() => {
               cy.contains('th', 'Reference')
               cy.contains('th', 'Date raised')
               cy.contains('th', 'Last update')
               cy.contains('th', 'Priority')
               cy.contains('th', 'Property')
+              cy.contains('th', 'Status')
               cy.contains('th', 'Description')
             })
-            // Run lighthouse audit for accessibility report
-            cy.audit()
-          })
-
-          it('displays reference number, date raised, last updated, priority, property address, description', () => {
-            cy.get('.govuk-table__cell').within(() => {
+            // Check the first row
+            cy.get('[data-ref=10000040]').within(() => {
               cy.contains('10000040')
               cy.contains('22 Jan 2021')
-              cy.contains('21 Jan 2021')
-              cy.contains('N - Normal')
+              cy.contains('[E] EMERGENCY')
               cy.contains('315 Banister House Homerton High Street')
+              cy.contains('In progress')
               cy.contains('An emergency repair')
             })
-            // Run lighthouse audit for accessibility report
-            cy.audit()
           })
 
-          it('does displays next button', () => {
+          it('does not display next button when work orders are less than PAGE_SIZE_CONTRACTORS', () => {
             cy.get('.page-navigation').within(() => {
-              cy.contains('Next')
+              cy.contains('Next').should('not.exist')
             })
             // Run lighthouse audit for accessibility report
             cy.audit()
           })
 
-          it('does not displays previous button', () => {
+          it('does not display previous button', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })

@@ -1,5 +1,6 @@
 $govuk-assets-path: '~govuk-frontend/govuk/assets/';
 $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
+@import 'node_modules/lbh-frontend/lbh/all';
 @import 'govuk-frontend/govuk/all';
 
 @import 'colours';

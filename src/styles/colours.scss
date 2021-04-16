@@ -3,16 +3,20 @@ $repairs-hub-colours: (
   'housing-2': #009ca6,
   'housing-3': #2dccd3,
   'warning': #ffa300,
-  'danger': #be3a34,
+  'danger': lbh-colour('lbh-f02'),
   'white': govuk-colour('white'),
   'black': govuk-colour('black'),
   'grey': grey,
   'light-grey': #bfc1c3,
+  'yellow': #f8e08e,
+  'dark-green': lbh-colour('lbh-a01'),
   'appointment-light-grey': #dfdfdf,
   'status-planned': #009ca6,
   'status-complete': darkgray,
   'status-not-complete': crimson,
-  'status-waiting': #f8e08e,
+  'status-waiting': lbh-colour('lbh-h04'),
+  'status-approved': lbh-colour('lbh-a01'),
+  'status-rejected': lbh-colour('lbh-f02'),
   'calendar-available': govuk-colour('white'),
   'calendar-current': #6895c6,
   'calendar-selected': #b2cce2,
@@ -30,11 +34,15 @@ $repairs-hub-colours: (
 }
 
 .text-green {
-  color: repairs-hub-colour('housing-2');
+  color: lbh-colour('lbh-a01');
 }
 
 .text-white {
   color: repairs-hub-colour('white');
+}
+
+.text-black {
+  color: repairs-hub-colour('black');
 }
 
 .text-warning {
@@ -53,6 +61,10 @@ $repairs-hub-colours: (
   color: repairs-hub-colour('white') !important;
 }
 
-.background-green {
-  background: repairs-hub-colour('housing-2');
+.background-yellow {
+  background: repairs-hub-colour('yellow');
+}
+
+.background-dark-green {
+  background: repairs-hub-colour('dark-green');
 }

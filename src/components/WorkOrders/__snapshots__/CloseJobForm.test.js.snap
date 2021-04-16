@@ -4,13 +4,13 @@ exports[`CloseJobForm component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <a
-      class="govuk-back-link"
+      class="govuk-back-link lbh-back-link"
       role="button"
     >
       Back
     </a>
     <h1
-      class="govuk-heading-l"
+      class="lbh-heading-l"
     >
       Update work order: 10000012
     </h1>
@@ -21,7 +21,7 @@ exports[`CloseJobForm component should render properly 1`] = `
         class="govuk-form-group"
       >
         <label
-          class="govuk-label govuk-label--m"
+          class="govuk-label lbh-label govuk-label--m"
           for="date"
         >
           Select completion date 
@@ -35,15 +35,15 @@ exports[`CloseJobForm component should render properly 1`] = `
         />
       </div>
       <div
-        class="govuk-form-group"
+        class="govuk-form-group lbh-form-group"
       >
         <fieldset
           aria-describedby="time-hint"
-          class="govuk-fieldset"
+          class="govuk-fieldset lbh-fieldset"
           role="group"
         >
           <legend
-            class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
             Completion time 
           </legend>
@@ -61,16 +61,16 @@ exports[`CloseJobForm component should render properly 1`] = `
               class="govuk-date-input__item"
             >
               <div
-                class="govuk-form-group"
+                class="govuk-form-group lbh-form-group"
               >
                 <label
-                  class="govuk-label govuk-date-input__label"
+                  class="govuk-label lbh-label govuk-date-input__label"
                   for="time-hour"
                 >
                   Hour
                 </label>
                 <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
+                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
                   id="time-time"
                   inputmode="numeric"
                   name="time-time"
@@ -84,16 +84,16 @@ exports[`CloseJobForm component should render properly 1`] = `
               class="govuk-date-input__item"
             >
               <div
-                class="govuk-form-group"
+                class="govuk-form-group lbh-form-group"
               >
                 <label
-                  class="govuk-label govuk-date-input__label"
+                  class="govuk-label lbh-label govuk-date-input__label"
                   for="time-minutes"
                 >
                   Minutes
                 </label>
                 <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
+                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
                   id="time-minutes"
                   inputmode="numeric"
                   name="time-minutes"
@@ -107,18 +107,18 @@ exports[`CloseJobForm component should render properly 1`] = `
         </fieldset>
       </div>
       <div
-        class="govuk-form-group"
+        class="govuk-form-group lbh-form-group"
         id="notes-form-group"
       >
         <label
-          class="govuk-label"
+          class="govuk-label lbh-label"
           for="notes"
         >
           Add notes 
         </label>
         <textarea
           aria-describedby="notes-hint notes-error"
-          class="govuk-textarea"
+          class="govuk-textarea lbh-textarea"
           id="notes"
           name="notes"
           rows="4"
@@ -127,10 +127,10 @@ exports[`CloseJobForm component should render properly 1`] = `
         </textarea>
       </div>
       <div
-        class="govuk-form-group"
+        class="govuk-form-group lbh-form-group"
       >
         <button
-          class="govuk-button"
+          class="govuk-button lbh-button"
           data-module="govuk-button"
           type="submit"
         >

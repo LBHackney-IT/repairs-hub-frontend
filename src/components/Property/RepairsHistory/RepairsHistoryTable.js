@@ -37,7 +37,7 @@ const RepairsHistoryTable = ({
 
   return (
     <>
-      <h2 className="govuk-heading-l">{tabName}</h2>
+      <h2 className="lbh-heading-l">{tabName}</h2>
 
       <table className="govuk-table govuk-!-margin-top-5 repairs-history-table">
         <thead className="govuk-table__head">

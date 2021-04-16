@@ -20,13 +20,13 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l">Cancel repair</span>
-          <h1 className="govuk-heading-l govuk-!-margin-bottom-2">
+          <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
             Works order: {workOrder.reference}
           </h1>
 
           <WorkOrderInfoTable workOrder={workOrder} />
 
-          <h2 className="govuk-heading-m govuk-!-margin-top-6">
+          <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Reason to cancel
           </h2>
           <form

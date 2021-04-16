@@ -13,7 +13,7 @@ describe('SummaryUpdateJob component', () => {
         cost: '10.5',
       },
     ],
-    tasks: [
+    latestTasks: [
       {
         code: 'DES5R006',
         quantity: 3,
@@ -38,24 +38,43 @@ describe('SummaryUpdateJob component', () => {
         cost: '22.5',
       },
     ],
-    onJobSubmit: jest.fn(),
+    onFormSubmit: jest.fn(),
     changeStep: jest.fn(),
     calculateTotalCost: jest.fn(),
     variationReason: 'More work is necessary',
   }
 
-  it('should render properly', () => {
-    const { asFragment } = render(
-      <SummaryUpdateJob
-        reference={props.reference}
-        onJobSubmit={props.onJobSubmit}
-        originalTasks={props.originalTasks}
-        tasks={props.tasks}
-        addedTasks={props.addedTasks}
-        changeStep={props.changeStep}
-        variationReason={props.variationReason}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('should render properly', () => {
+    it('within vary spend limit', () => {
+      const { asFragment } = render(
+        <SummaryUpdateJob
+          reference={props.reference}
+          onFormSubmit={props.onFormSubmit}
+          originalTasks={props.originalTasks}
+          latestTasks={props.latestTasks}
+          addedTasks={props.addedTasks}
+          changeStep={props.changeStep}
+          variationReason={props.variationReason}
+          varySpendLimit={250}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('over vary spend limit', () => {
+      const { asFragment } = render(
+        <SummaryUpdateJob
+          reference={props.reference}
+          onFormSubmit={props.onFormSubmit}
+          originalTasks={props.originalTasks}
+          latestTasks={props.latestTasks}
+          addedTasks={props.addedTasks}
+          changeStep={props.changeStep}
+          variationReason={props.variationReason}
+          varySpendLimit={20}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

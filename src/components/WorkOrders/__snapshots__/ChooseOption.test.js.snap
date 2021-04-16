@@ -3,13 +3,13 @@
 exports[`ChooseOption component should render properly 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link"
+    class="govuk-back-link lbh-back-link"
     role="button"
   >
     Back
   </a>
   <h1
-    class="govuk-heading-l"
+    class="lbh-heading-l"
   >
     Update work order: 00012345
   </h1>
@@ -17,7 +17,7 @@ exports[`ChooseOption component should render properly 1`] = `
     role="form"
   >
     <div
-      class="govuk-form-group"
+      class="govuk-form-group lbh-form-group"
     >
       <label
         class="govuk-label govuk-label--m"
@@ -27,7 +27,7 @@ exports[`ChooseOption component should render properly 1`] = `
       </label>
       <br />
       <div
-        class="govuk-radios"
+        class="govuk-radios lbh-radios"
       >
         <div
           class="govuk-radios__item"
@@ -40,7 +40,7 @@ exports[`ChooseOption component should render properly 1`] = `
             value="Update"
           />
           <label
-            class="govuk-label govuk-radios__label"
+            class="govuk-label lbh-label govuk-radios__label"
             for="options_Update"
           >
             Update
@@ -57,7 +57,7 @@ exports[`ChooseOption component should render properly 1`] = `
             value="Close job"
           />
           <label
-            class="govuk-label govuk-radios__label"
+            class="govuk-label lbh-label govuk-radios__label"
             for="options_Close job"
           >
             Close job
@@ -66,10 +66,10 @@ exports[`ChooseOption component should render properly 1`] = `
       </div>
     </div>
     <div
-      class="govuk-form-group"
+      class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button"
+        class="govuk-button lbh-button"
         data-module="govuk-button"
         type="submit"
       >

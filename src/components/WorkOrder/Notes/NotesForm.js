@@ -21,7 +21,7 @@ const NotesForm = ({
   return (
     <>
       <div className="govuk-!-margin-bottom-6">
-        <h2 className="govuk-heading-l display-inline govuk-!-margin-right-6">
+        <h2 className="lbh-heading-l display-inline govuk-!-margin-right-6">
           {tabName}
         </h2>
         {!displayForm && (

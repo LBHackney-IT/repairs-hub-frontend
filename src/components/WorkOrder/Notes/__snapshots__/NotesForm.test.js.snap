@@ -6,7 +6,7 @@ exports[`NotesForm component should render properly when display form is false 1
     class="govuk-!-margin-bottom-6"
   >
     <h2
-      class="govuk-heading-l display-inline govuk-!-margin-right-6"
+      class="lbh-heading-l display-inline govuk-!-margin-right-6"
     >
       notes
     </h2>
@@ -37,7 +37,7 @@ exports[`NotesForm component should render properly when display form is true 1`
     class="govuk-!-margin-bottom-6"
   >
     <h2
-      class="govuk-heading-l display-inline govuk-!-margin-right-6"
+      class="lbh-heading-l display-inline govuk-!-margin-right-6"
     >
       notes
     </h2>
@@ -53,11 +53,11 @@ exports[`NotesForm component should render properly when display form is true 1`
         role="form"
       >
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
           id="note-form-group"
         >
           <label
-            class="govuk-label"
+            class="govuk-label lbh-label"
             for="note"
           >
             Note 
@@ -69,7 +69,7 @@ exports[`NotesForm component should render properly when display form is true 1`
           </label>
           <textarea
             aria-describedby="note-hint note-error"
-            class="govuk-textarea"
+            class="govuk-textarea lbh-textarea"
             id="note"
             name="note"
             placeholder="Write a new note..."
@@ -84,10 +84,10 @@ exports[`NotesForm component should render properly when display form is true 1`
           value="10002222"
         />
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
         >
           <button
-            class="govuk-button"
+            class="govuk-button lbh-button"
             data-module="govuk-button"
             type="submit"
           >

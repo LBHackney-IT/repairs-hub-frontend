@@ -12,7 +12,10 @@ const JobRow = ({
   status,
   description,
 }) => (
-  <tr className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table">
+  <tr
+    className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+    data-ref={reference}
+  >
     <td className="govuk-table__cell">
       <Link href={`/work-orders/${reference}`}>
         <a>{reference}</a>
@@ -41,9 +44,9 @@ const JobRow = ({
 
 JobRow.propTypes = {
   reference: PropTypes.number.isRequired,
-  dateRaised: PropTypes.instanceOf(Date),
+  dateRaised: PropTypes.string.isRequired,
   lastUpdated: PropTypes.instanceOf(Date),
-  priority: PropTypes.string,
+  priority: PropTypes.string.isRequired,
   property: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,

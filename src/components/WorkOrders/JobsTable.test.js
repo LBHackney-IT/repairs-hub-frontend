@@ -1,4 +1,5 @@
 import { render } from '@testing-library/react'
+import UserContext from '../UserContext/UserContext'
 import JobsTable from './JobsTable'
 
 describe('JobsTable component', () => {
@@ -6,7 +7,7 @@ describe('JobsTable component', () => {
     workOrders: [
       {
         reference: 10000012,
-        dateRaised: new Date('2021-01-12T16:24:26.632Z'),
+        dateRaised: '2021-01-12T16:24:26.632Z',
         lastUpdated: new Date('2021-01-13T16:24:26.632Z'),
         priority: '2 [E] EMERGENCY',
         property: '1 Pitcairn House St Thomass Square',
@@ -21,12 +22,23 @@ describe('JobsTable component', () => {
   }
 
   it('should render properly', () => {
+    const user = {
+      name: 'A Contractor',
+      email: 'a.contractor@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: true,
+      hasAnyPermissions: true,
+    }
+
     const { asFragment } = render(
-      <JobsTable
-        workOrders={props.workOrders}
-        pageNumber={props.pageNumber}
-        handlePageClick={props.handlePageClick}
-      />
+      <UserContext.Provider value={{ user }}>
+        <JobsTable
+          workOrders={props.workOrders}
+          pageNumber={props.pageNumber}
+          handlePageClick={props.handlePageClick}
+        />
+      </UserContext.Provider>
     )
     expect(asFragment()).toMatchSnapshot()
   })

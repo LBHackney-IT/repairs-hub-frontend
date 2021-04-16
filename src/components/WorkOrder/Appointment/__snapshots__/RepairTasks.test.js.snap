@@ -9,7 +9,7 @@ exports[`RepairTasks component should render properly 1`] = `
       class="govuk-grid-column-full"
     >
       <h2
-        class="govuk-heading-m govuk-!-margin-bottom-1"
+        class="lbh-heading-h2 govuk-!-margin-bottom-1"
       >
         Repair task details
       </h2>
