@@ -26,7 +26,7 @@ const AppointmentDetails = ({ workOrder }) => {
               </Link>
             )}
           {user &&
-            user.hasAgentPermissions &&
+            (user.hasAgentPermissions || user.hasContractorPermissions) &&
             workOrder.status !== STATUS_CANCELLED &&
             !!workOrder.appointment && (
               <div className="govuk-body-s">
