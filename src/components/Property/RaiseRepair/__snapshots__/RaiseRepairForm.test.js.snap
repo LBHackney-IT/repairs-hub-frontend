@@ -321,6 +321,13 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           type="hidden"
           value="16 Pitcairn House  St Thomass Square"
         />
+        <input
+          id="postalCode"
+          label="postalCode"
+          name="postalCode"
+          type="hidden"
+          value="E9 6PT"
+        />
         <div
           class="govuk-warning-text lbh-warning-text"
         >

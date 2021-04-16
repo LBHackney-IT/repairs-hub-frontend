@@ -57,6 +57,7 @@ export const buildScheduleRepairFormData = (formData) => {
           propertyReference: formData.propertyReference,
           address: {
             addressLine: [formData.shortAddress],
+            postalCode: formData.postalCode,
           },
           reference: [
             {

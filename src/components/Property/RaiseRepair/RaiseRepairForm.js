@@ -181,6 +181,14 @@ const RaiseRepairForm = ({
               value={address.shortAddress}
               ref={register}
             />
+            <input
+              id="postalCode"
+              name="postalCode"
+              label="postalCode"
+              type="hidden"
+              value={address.postalCode}
+              ref={register}
+            />
             <Contacts contacts={contacts} />
             <TextInput
               name="callerName"
