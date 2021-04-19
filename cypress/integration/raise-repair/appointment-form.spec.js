@@ -254,7 +254,7 @@ describe('Schedule appointment form', () => {
         cy.contains('Prefer 1pm appointment')
       })
       cy.get('[type="button"]')
-        .contains('Create work order')
+        .contains('Book appointment')
         .click({ force: true })
       //appointment api check
       cy.get('@apiCheckAppointment')
