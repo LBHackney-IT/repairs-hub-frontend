@@ -93,7 +93,7 @@ describe('Schedule appointment form', () => {
         .contains('Create works order')
         .click({ force: true })
       // Check body of post request, creates work order
-      cy.get('@apiCheck')
+      cy.wait('@apiCheck')
         .its('request.body')
         .then((body) => {
           const referenceIdUuid = body.reference[0].id

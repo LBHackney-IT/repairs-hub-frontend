@@ -41,12 +41,10 @@ const LatestRateScheduleItems = ({ latestTasks, errors, register }) => {
                   defaultValue={t.quantity}
                   register={register({
                     required: 'Please enter a quantity',
-                    valueAsNumber: true,
                     validate: (value) => {
-                      if (!Number.isInteger(value)) {
+                      const valueAsNumber = parseFloat(value)
+                      if (!Number.isInteger(valueAsNumber)) {
                         return 'Quantity must be a whole number'
-                      } else {
-                        return true
                       }
                     },
                   })}
