@@ -18,11 +18,12 @@ const RepairsHistoryRow = ({
       className="govuk-table__row govuk-table__row--clickable govuk-body-s"
       data-ref={reference}
     >
-      {user && user.hasAgentPermissions && (
-        <td className="govuk-table__cell">
-          <a href={`/work-orders/${reference}`}>{reference}</a>
-        </td>
-      )}
+      {user &&
+        (user.hasAgentPermissions || user.hasContractManagerPermissions) && (
+          <td className="govuk-table__cell">
+            <a href={`/work-orders/${reference}`}>{reference}</a>
+          </td>
+        )}
       <td className="govuk-table__cell">
         {dateRaised ? dateToStr(dateRaised) : '—'}
         <div className="work-order-hours">
