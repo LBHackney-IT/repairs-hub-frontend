@@ -10,32 +10,40 @@ import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
 } from '../../../utils/hact/job-status-update/authorisation'
+import SuccessPage from '../../SuccessPage/SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { useRouter } from 'next/router'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
-  const [showNotes, setShowNotes] = useState(false)
+  const [formSuccess, setFormSuccess] = useState(false)
+  const [variationApproved, setVariationApproved] = useState(true)
+  const [confirmationPageMessage, setConfirmationPageMessage] = useState('')
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
-  const router = useRouter()
 
   const onSubmitForm = (e) => {
     const formData =
       e.options == 'Approve request'
         ? buildAuthorisationApprovedFormData(workOrderReference)
         : buildAuthorisationRejectedFormData(e, workOrderReference)
+    addConfirmationText()
     makePostRequest(formData)
+  }
+
+  const addConfirmationText = () => {
+    variationApproved
+      ? setConfirmationPageMessage('You have approved a variation for')
+      : setConfirmationPageMessage('You have rejected a variation for')
   }
 
   const makePostRequest = async (formData) => {
     setLoading(true)
     try {
       await postJobStatusUpdate(formData)
-      router.push('/')
+      setFormSuccess(true)
     } catch (e) {
       console.error(e)
       setError(
@@ -47,8 +55,8 @@ const AuthorisationView = ({ workOrderReference }) => {
 
   const addNotes = (e) => {
     e.target.value == 'Reject request'
-      ? setShowNotes(true)
-      : setShowNotes(false)
+      ? setVariationApproved(false)
+      : setVariationApproved(true)
   }
 
   return (
@@ -56,41 +64,51 @@ const AuthorisationView = ({ workOrderReference }) => {
       {loading ? (
         <Spinner />
       ) : (
-        <div>
-          <BackButton />
-          <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
-            Authorisation request: {workOrderReference}{' '}
-          </h1>
-          <Link href={`/work-orders/${workOrderReference}`}>
-            <a className="govuk-body-s">See works order</a>
-          </Link>
-          <br></br>
-          <br></br>
-          <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
-            <Radios
-              label="This job requires your authorisation"
-              name="options"
-              options={['Approve request', 'Reject request']}
-              onChange={addNotes}
-              register={register({
-                required: 'Please select a process',
-              })}
-              error={errors && errors.options}
+        <>
+          {!formSuccess && (
+            <div>
+              <BackButton />
+              <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
+                Authorisation request: {workOrderReference}{' '}
+              </h1>
+              <Link href={`/work-orders/${workOrderReference}`}>
+                <a className="govuk-body-s">See works order</a>
+              </Link>
+              <br></br>
+              <br></br>
+              <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
+                <Radios
+                  label="This job requires your authorisation"
+                  name="options"
+                  options={['Approve request', 'Reject request']}
+                  onChange={addNotes}
+                  register={register({
+                    required: 'Please select a process',
+                  })}
+                  error={errors && errors.options}
+                />
+                {!variationApproved && (
+                  <TextArea
+                    name="note"
+                    label="Add notes"
+                    register={register({
+                      required: 'Please add notes',
+                    })}
+                    error={errors && errors.note}
+                  />
+                )}
+                <PrimarySubmitButton label="Submit" />
+              </form>
+              {error && <ErrorMessage label={error} />}
+            </div>
+          )}
+          {formSuccess && (
+            <SuccessPage
+              workOrderReference={workOrderReference}
+              text={confirmationPageMessage}
             />
-            {showNotes && (
-              <TextArea
-                name="note"
-                label="Add notes"
-                register={register({
-                  required: 'Please add notes',
-                })}
-                error={errors && errors.note}
-              />
-            )}
-            <PrimarySubmitButton label="Submit" />
-          </form>
-          {error && <ErrorMessage label={error} />}
-        </div>
+          )}
+        </>
       )}
     </>
   )

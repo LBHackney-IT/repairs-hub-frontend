@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuccessPage component when variation approved should render properly with approved message 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="lbh-page-announcement"
+    >
+      <div
+        class="lbh-announcement__content"
+      >
+        <p>
+          You have approved a variation for 
+          <strong>
+            work order 
+          </strong>
+        </p>
+      </div>
+    </section>
+    <ul
+      class="lbh-list lbh-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/undefined"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Back to dashboard
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component when variation approved should render properly with rejected message 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="lbh-page-announcement"
+    >
+      <div
+        class="lbh-announcement__content"
+      >
+        <p>
+          You have rejected a variation for 
+          <strong>
+            work order 
+          </strong>
+        </p>
+      </div>
+    </section>
+    <ul
+      class="lbh-list lbh-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/undefined"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Back to dashboard
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
