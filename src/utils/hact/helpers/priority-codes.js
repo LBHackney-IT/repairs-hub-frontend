@@ -1,27 +1,27 @@
-export const mapPriorityCodeToHact = {
+export const priorityCodeCompletionTimes = {
+  // immediate
   1: {
     numberOfHours: 2,
     numberOfDays: 0,
-    priorityCodeHact: 1,
   },
+  // emergency
   2: {
     numberOfHours: 24,
     numberOfDays: 1,
-    priorityCodeHact: 1,
   },
+  // urgent
   3: {
-    numberOfHours: 168,
-    numberOfDays: 7,
-    priorityCodeHact: 2,
+    numberOfHours: 120,
+    numberOfDays: 5,
   },
+  // normal
   4: {
-    numberOfHours: 720,
-    numberOfDays: 30,
-    priorityCodeHact: 3,
+    numberOfHours: 504,
+    numberOfDays: 21,
   },
-  5: {
-    numberOfHours: 8760,
-    numberOfDays: 365,
-    priorityCodeHact: 4,
-  },
+  // inspection ?
+  // 5: {
+  //   numberOfHours: 8670,
+  //   numberOfDays: 365,
+  // },
 }

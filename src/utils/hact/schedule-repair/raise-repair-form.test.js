@@ -48,10 +48,10 @@ describe('buildRaiseRepairFormData', () => {
       ],
       descriptionOfWork: 'This is an urgent test description',
       priority: {
-        priorityCode: 2,
+        priorityCode: 3,
         priorityDescription: '4 [U] URGENT',
-        requiredCompletionDateTime: new Date('2021-01-21T18:16:20.986Z'),
-        numberOfDays: 7,
+        requiredCompletionDateTime: new Date('2021-01-19T18:16:20.986Z'),
+        numberOfDays: 5,
       },
       workClass: {
         workClassCode: 0,

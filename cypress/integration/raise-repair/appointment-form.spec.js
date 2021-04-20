@@ -105,10 +105,10 @@ describe('Schedule appointment form', () => {
                 reference: [{ id: referenceIdUuid }],
                 descriptionOfWork: 'Testing',
                 priority: {
-                  priorityCode: 3,
+                  priorityCode: 4,
                   priorityDescription: '5 [N] NORMAL',
                   requiredCompletionDateTime: requiredCompletionDateTime,
-                  numberOfDays: 30,
+                  numberOfDays: 21,
                 },
                 workClass: { workClassCode: 0 },
                 workElement: [
