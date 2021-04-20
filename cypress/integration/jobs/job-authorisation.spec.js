@@ -44,6 +44,8 @@ describe('Contract manager can authorise variation', () => {
         comments: 'Variation rejected: Can not approve it',
         typeCode: '125',
       })
+
+    cy.contains('You have rejected a variation for work order 10000012')
   })
 
   it('Approves job variation', () => {
@@ -63,5 +65,7 @@ describe('Contract manager can authorise variation', () => {
         },
         typeCode: '100-20',
       })
+
+    cy.contains('You have approved a variation for work order 10000012')
   })
 })
