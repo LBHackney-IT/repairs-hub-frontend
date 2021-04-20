@@ -13,10 +13,10 @@ describe('getFilters`', () => {
       })
     )
 
-    const response = await getFilters('workOrder')
+    const response = await getFilters('WorkOrder')
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/filters/workOrder')
+    expect(mockAxios.get).toHaveBeenCalledWith('/api/filter/WorkOrder')
   })
 })

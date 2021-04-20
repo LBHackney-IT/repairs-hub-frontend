@@ -11,7 +11,7 @@ import {
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
-  if (!user.hasAgentPermissions) {
+  if (user.hasAgentPermissions) {
     if (Object.entries(query).length === 0) {
       return <Search />
     } else {

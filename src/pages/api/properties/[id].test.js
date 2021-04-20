@@ -1,6 +1,7 @@
 import axios from 'axios'
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { paramsSerializer } from '../../../utils/urls'
 
 import propertiesEndpoint from './[id].js'
 
@@ -68,6 +69,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         query: {
           id: '1',
         },
+        params: {},
       })
 
       const res = createResponse()
@@ -80,6 +82,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/properties/1`,
         params: {},
+        paramsSerializer: paramsSerializer,
         data: {},
       })
 
@@ -137,6 +140,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/properties/1`,
         params: {},
+        paramsSerializer: paramsSerializer,
         data: {},
       })
 

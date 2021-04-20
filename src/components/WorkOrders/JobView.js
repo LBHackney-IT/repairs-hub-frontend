@@ -4,7 +4,7 @@ import JobsTable from './JobsTable'
 import { getRepairs } from '../../utils/frontend-api-client/repairs'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import WorkOrdersFilter from '../Filter/WorkOrdersFilter'
+import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '../../utils/helpers/filter'
 
 const JobView = ({ query }) => {
@@ -64,7 +64,7 @@ const JobView = ({ query }) => {
 
   return (
     <>
-      <WorkOrdersFilter
+      <WorkOrdersFilterView
         onFormSubmit={onFormSubmit}
         appliedFilters={queryParams}
       />
