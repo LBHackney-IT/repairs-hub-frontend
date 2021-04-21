@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search component when logged in as a contract manager should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="section"
+    >
+      <h1
+        class="lbh-heading-h2"
+      >
+        Find repair job or property
+      </h1>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <form>
+          <label
+            class="govuk-label lbh-label"
+          >
+            <p
+              class="govuk-body-s govuk-!-margin-bottom-0"
+            >
+              Search by work order reference, postcode or address
+            </p>
+            <input
+              class="govuk-input lbh-input govuk-input--width-10 focus-colour"
+              type="text"
+              value=""
+            />
+          </label>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Search component when logged in as a contractor should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="section"
+    >
+      <h1
+        class="lbh-heading-h2"
+      >
+        Find repair job
+      </h1>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <form>
+          <label
+            class="govuk-label lbh-label"
+          >
+            <p
+              class="govuk-body-s govuk-!-margin-bottom-0"
+            >
+              Search by work order reference
+            </p>
+            <input
+              class="govuk-input lbh-input govuk-input--width-10 focus-colour"
+              type="text"
+              value=""
+            />
+          </label>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Search component when logged in as an agent should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="section"
+    >
+      <h1
+        class="lbh-heading-h2"
+      >
+        Find repair job or property
+      </h1>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <form>
+          <label
+            class="govuk-label lbh-label"
+          >
+            <p
+              class="govuk-body-s govuk-!-margin-bottom-0"
+            >
+              Search by work order reference, postcode or address
+            </p>
+            <input
+              class="govuk-input lbh-input govuk-input--width-10 focus-colour"
+              type="text"
+              value=""
+            />
+          </label>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>
+</DocumentFragment>
+`;
