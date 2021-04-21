@@ -1,19 +1,19 @@
 {
   "Priority": [
     {
-      "key": "I",
+      "key": "1",
       "description": "Immediate"
     },
     {
-      "key": "E",
+      "key": "2",
       "description": "Emergency"
     },
     {
-      "key": "U",
+      "key": "3",
       "description": "Urgent"
     },
     {
-      "key": "N",
+      "key": "4",
       "description": "Normal"
     }
   ],
@@ -31,16 +31,8 @@
       "description": "Work Cancelled"
     },
     {
-      "key": "70",
-      "description": "On Hold"
-    },
-    {
       "key": "90",
       "description": "Pending Approval"
-    },
-    {
-      "key": "110",
-      "description": "Materials Needed"
     },
     {
       "key": "1080",
