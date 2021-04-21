@@ -57,7 +57,7 @@ const JobView = ({ query }) => {
       pathname: '/',
       query: {
         pageNumber: pageNumber,
-        ...(filters.StatusCode && { StatusCode: filters.StatusCode }),
+        ...(filters?.StatusCode && { StatusCode: filters.StatusCode }),
       },
     })
   }
