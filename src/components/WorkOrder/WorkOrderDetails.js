@@ -17,6 +17,7 @@ const WorkOrderDetails = ({
 }) => {
   const { user } = useContext(UserContext)
   const STATUS_CANCELLED = 'Work Cancelled'
+  const STATUS_PENDING_APPROVAL = 'Pending Approval'
 
   return (
     <div>
@@ -30,11 +31,13 @@ const WorkOrderDetails = ({
             <a className="govuk-body-m">Update Works Order</a>
           </Link>
         )}
-        {user && user.hasContractManagerPermissions && (
-          <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
-            <a className="govuk-body-m">Update Works Order</a>
-          </Link>
-        )}
+        {user &&
+          user.hasContractManagerPermissions &&
+          workOrder.status == STATUS_PENDING_APPROVAL && (
+            <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
+              <a className="govuk-body-m">Update Works Order</a>
+            </Link>
+          )}
         {user &&
           user.hasAgentPermissions &&
           workOrder.status !== STATUS_CANCELLED && (
