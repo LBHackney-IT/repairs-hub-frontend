@@ -1,15 +1,17 @@
 import axios from 'axios'
+import { paramsSerializer } from '../urls'
 
 export const PAGE_SIZE_CONTRACTORS = 10
 export const PAGE_SIZE_AGENTS = 50
-const PENDING_APPROVAL = 90
 
-export const getRepairs = async (pageNumber = 1) => {
+export const getRepairs = async (pageNumber = 1, options) => {
   const { data } = await axios.get('/api/repairs/', {
     params: {
       PageSize: PAGE_SIZE_CONTRACTORS,
       PageNumber: pageNumber,
+      ...(options.StatusCode && { StatusCode: options.StatusCode }),
     },
+    paramsSerializer: paramsSerializer,
   })
 
   return data
@@ -24,18 +26,6 @@ export const getRepairsForProperty = async (
       propertyReference: propertyReference,
       PageSize: PAGE_SIZE_AGENTS,
       PageNumber: pageNumber,
-    },
-  })
-
-  return data
-}
-
-export const getPendingApprovalRepairs = async (pageNumber = 1) => {
-  const { data } = await axios.get('/api/repairs/', {
-    params: {
-      PageSize: PAGE_SIZE_CONTRACTORS,
-      PageNumber: pageNumber,
-      StatusCode: PENDING_APPROVAL,
     },
   })
 

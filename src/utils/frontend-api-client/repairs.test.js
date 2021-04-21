@@ -1,10 +1,6 @@
-import {
-  getRepair,
-  getRepairs,
-  getRepairsForProperty,
-  getPendingApprovalRepairs,
-} from './repairs'
+import { getRepair, getRepairs, getRepairsForProperty } from './repairs'
 import mockAxios from 'axios'
+import { paramsSerializer } from '../urls'
 
 jest.mock('axios')
 
@@ -36,12 +32,13 @@ describe('getRepairs', () => {
       })
     )
 
-    const response = await getRepairs()
+    const response = await getRepairs(1, { StatusCode: [90, 50] })
 
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
-      params: { PageNumber: 1, PageSize: 10 },
+      params: { PageNumber: 1, PageSize: 10, StatusCode: [90, 50] },
+      paramsSerializer: paramsSerializer,
     })
   })
 })
@@ -62,26 +59,6 @@ describe('getRepairsForProperty', () => {
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
       params: { propertyReference: '1', PageSize: 50, PageNumber: 1 },
-    })
-  })
-})
-
-describe('getPendingApprovalRepairs', () => {
-  it('calls the Next JS API', async () => {
-    const responseData = { data: 'test' }
-
-    mockAxios.get.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: responseData,
-      })
-    )
-
-    const response = await getPendingApprovalRepairs()
-
-    expect(response).toEqual(responseData)
-    expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/repairs/', {
-      params: { PageSize: 10, PageNumber: 1, StatusCode: 90 },
     })
   })
 })

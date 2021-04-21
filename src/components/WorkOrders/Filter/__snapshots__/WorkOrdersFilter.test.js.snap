@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkOrdersFilter component should render properly 1`] = `
+<DocumentFragment>
+  <details
+    class="govuk-details"
+    data-module="govuk-details"
+  >
+    <summary
+      class="govuk-details__summary"
+    >
+      <span
+        class="govuk-details__summary-text"
+      >
+        Filters
+      </span>
+    </summary>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <fieldset
+        class="govuk-fieldset"
+      >
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--m"
+        >
+          Status
+        </legend>
+        <div
+          class="govuk-checkboxes"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <div
+              class="govuk-checkboxes lbh-checkboxes"
+            >
+              <div
+                class="govuk-checkboxes__item"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.80"
+                  name="StatusCode.80"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.80"
+                >
+                  In Progress
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <div
+              class="govuk-checkboxes lbh-checkboxes"
+            >
+              <div
+                class="govuk-checkboxes__item"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.50"
+                  name="StatusCode.50"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.50"
+                >
+                  Complete
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <div
+              class="govuk-checkboxes lbh-checkboxes"
+            >
+              <div
+                class="govuk-checkboxes__item"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.30"
+                  name="StatusCode.30"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.30"
+                >
+                  Work Cancelled
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Apply filters
+      </button>
+    </div>
+  </details>
+</DocumentFragment>
+`;

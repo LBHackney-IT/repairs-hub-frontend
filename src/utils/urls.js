@@ -1,3 +1,5 @@
+import qs from 'qs'
+
 export const absoluteUrl = (req, setLocalhost) => {
   var protocol = 'https:'
   var host = req
@@ -16,4 +18,8 @@ export const absoluteUrl = (req, setLocalhost) => {
 
 export const getProtocol = () => {
   return process.env.NODE_ENV === 'production' ? 'https' : 'http'
+}
+
+export const paramsSerializer = (params) => {
+  return qs.stringify(params, { arrayFormat: 'repeat' })
 }
