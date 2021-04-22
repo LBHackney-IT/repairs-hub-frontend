@@ -33,11 +33,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     try {
       const ref = await postRepair(formData)
       setWorkOrderReference(ref)
-      if (
-        priorityCodesRequiringAppointments.includes(
-          formData.priority.priorityCode
-        )
-      ) {
+      if (orderRequiresAppointment(formData.priority.priorityCode)) {
         router.push(`/work-orders/${ref}/appointment/new`)
         return
       } else {
@@ -52,6 +48,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     }
 
     setLoading(false)
+  }
+
+  const orderRequiresAppointment = (priorityCode) => {
+    return priorityCodesRequiringAppointments.includes(priorityCode)
   }
 
   const getRaiseRepairFormView = async (propertyReference) => {
