@@ -7,7 +7,6 @@ import {
 
 const {
   AGENTS_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME_PREFIX,
   CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
 } = process.env
 
@@ -36,7 +35,7 @@ describe('buildUser', () => {
 
   describe('when called with a single contractor group name', () => {
     const user = buildUser('', '', [
-      `${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}-alphatrack`,
+      'repairs-hub-contractors-alphatrack-staging',
     ])
 
     describe('hasContractorPermissions', () => {
