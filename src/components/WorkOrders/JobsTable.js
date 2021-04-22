@@ -17,9 +17,6 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
             Date raised
           </th>
           <th scope="col" className="govuk-table__header">
-            Last update
-          </th>
-          <th scope="col" className="govuk-table__header">
             Priority
           </th>
           <th scope="col" className="govuk-table__header">
@@ -27,6 +24,9 @@ const JobsTable = ({ workOrders, pageNumber, handlePageClick }) => (
           </th>
           <th scope="col" className="govuk-table__header">
             Status
+          </th>
+          <th scope="col" className="govuk-table__header">
+            Trade
           </th>
           <th scope="col" className="govuk-table__header">
             Description

@@ -110,10 +110,10 @@ describe('Home page', () => {
             cy.get('.govuk-table').within(() => {
               cy.contains('th', 'Reference')
               cy.contains('th', 'Date raised')
-              cy.contains('th', 'Last update')
               cy.contains('th', 'Priority')
               cy.contains('th', 'Property')
               cy.contains('th', 'Status')
+              cy.contains('th', 'Trade')
               cy.contains('th', 'Description')
             })
             // Check the first row
@@ -123,6 +123,7 @@ describe('Home page', () => {
               cy.contains('[E] EMERGENCY')
               cy.contains('315 Banister House Homerton High Street')
               cy.contains('In progress')
+              cy.contains('DOOR ENTRY ENGINEER - DE')
               cy.contains('An emergency repair')
             })
           })

@@ -13,6 +13,7 @@ describe('JobsTable component', () => {
         property: '1 Pitcairn House St Thomass Square',
         owner: '',
         status: 'In Progress',
+        tradeDescription: 'Electrical - EL',
         description:
           'ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in',
       },

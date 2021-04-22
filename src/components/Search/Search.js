@@ -16,7 +16,7 @@ const Search = ({ query }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const router = useRouter()
-  const workOrderReferenceRegex = /[0-9]{8}/g
+  const workOrderReferenceRegex = /^[0-9]{7,10}$/g
 
   const searchHeadingText = canSearchForProperty
     ? 'Find repair job or property'
