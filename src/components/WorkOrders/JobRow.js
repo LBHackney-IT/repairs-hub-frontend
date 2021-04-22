@@ -6,10 +6,10 @@ import Link from 'next/link'
 const JobRow = ({
   reference,
   dateRaised,
-  lastUpdated,
   priority,
   property,
   status,
+  tradeDescription,
   description,
 }) => (
   <tr
@@ -27,15 +27,10 @@ const JobRow = ({
         {dateRaised ? extractTimeFromDate(dateRaised) : ''}
       </div>
     </td>
-    <td className="govuk-table__cell">
-      {lastUpdated ? dateToStr(lastUpdated) : '—'}
-      <div className="work-order-hours">
-        {lastUpdated ? extractTimeFromDate(lastUpdated) : ''}
-      </div>
-    </td>
     <td className="govuk-table__cell">{priority}</td>
     <td className="govuk-table__cell">{property}</td>
     <td className="govuk-table__cell">{status}</td>
+    <td className="govuk-table__cell">{tradeDescription}</td>
     <td className="govuk-table__cell">
       <p className="description">{description}</p>
     </td>
@@ -45,11 +40,11 @@ const JobRow = ({
 JobRow.propTypes = {
   reference: PropTypes.number.isRequired,
   dateRaised: PropTypes.string.isRequired,
-  lastUpdated: PropTypes.instanceOf(Date),
   priority: PropTypes.string.isRequired,
   property: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
+  trade: PropTypes.string.isRequired,
 }
 
 export default JobRow
