@@ -68,7 +68,7 @@ describe('Schedule appointment form', () => {
     cy.clock(now)
   })
   // when priority is Emergency it is not redirecting to schedule appointment page
-  it('Shows a success page right after work order created', () => {
+  it('Shows a success page right after a work order is created with an emergency priority', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
     cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
@@ -190,7 +190,7 @@ describe('Schedule appointment form', () => {
   })
 
   // when priority is Normal it is redirecting to schedule appointment page
-  it('Shows a success page right after work order created', () => {
+  it('Shows an appointment booking page right after work order is created with a normal priority', () => {
     cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
     cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
