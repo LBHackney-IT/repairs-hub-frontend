@@ -9,8 +9,11 @@ export const buildUser = (name, email, authServiceGroups) => {
     AGENTS_GOOGLE_GROUPNAME,
   } = process.env
 
+  const CONTRACTORS_GOOGLE_GROUPNAME_SUFFIX =
+    process.env.CONTRACTORS_GOOGLE_GROUPNAME_SUFFIX || ''
+
   const contractorGroupRegex = new RegExp(
-    `^${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}`
+    `^${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}.*${CONTRACTORS_GOOGLE_GROUPNAME_SUFFIX}$`
   )
 
   const rolesFromGroups = (groupNames) => {
@@ -19,7 +22,7 @@ export const buildUser = (name, email, authServiceGroups) => {
         return AGENT_ROLE
       } else if (groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME) {
         return CONTRACT_MANAGER_ROLE
-      } else if (hasContractorGroupPrefix(groupName)) {
+      } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
       }
 
@@ -27,14 +30,14 @@ export const buildUser = (name, email, authServiceGroups) => {
     })
   }
 
-  const hasContractorGroupPrefix = (groupName) =>
+  const isContractorGroupName = (groupName) =>
     !!contractorGroupRegex.test(groupName)
 
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       groupName === AGENTS_GOOGLE_GROUPNAME ||
       groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME ||
-      hasContractorGroupPrefix(groupName)
+      isContractorGroupName(groupName)
   )
 
   const roles = rolesFromGroups(groupNames)

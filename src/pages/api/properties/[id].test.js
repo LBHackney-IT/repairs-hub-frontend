@@ -11,6 +11,7 @@ const {
   HACKNEY_JWT_SECRET,
   GSSO_TOKEN_NAME,
   CONTRACTORS_GOOGLE_GROUPNAME_PREFIX,
+  CONTRACTORS_GOOGLE_GROUPNAME_SUFFIX,
   AGENTS_GOOGLE_GROUPNAME,
   REPAIRS_SERVICE_API_KEY,
 } = process.env
@@ -107,7 +108,9 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: [`${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}-alphatrack`],
+        groups: [
+          `${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}-alphatrack-${CONTRACTORS_GOOGLE_GROUPNAME_SUFFIX}`,
+        ],
       },
       HACKNEY_JWT_SECRET
     )
