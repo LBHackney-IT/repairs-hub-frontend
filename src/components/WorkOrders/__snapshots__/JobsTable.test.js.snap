@@ -33,12 +33,6 @@ exports[`JobsTable component should render properly 1`] = `
             class="govuk-table__header"
             scope="col"
           >
-            Last update
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
             Priority
           </th>
           <th
@@ -52,6 +46,12 @@ exports[`JobsTable component should render properly 1`] = `
             scope="col"
           >
             Status
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Trade
           </th>
           <th
             class="govuk-table__header"
@@ -90,16 +90,6 @@ exports[`JobsTable component should render properly 1`] = `
           <td
             class="govuk-table__cell"
           >
-            13 Jan 2021
-            <div
-              class="work-order-hours"
-            >
-              4:24 pm
-            </div>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
             2 [E] EMERGENCY
           </td>
           <td
@@ -111,6 +101,11 @@ exports[`JobsTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             In Progress
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            Electrical - EL
           </td>
           <td
             class="govuk-table__cell"
