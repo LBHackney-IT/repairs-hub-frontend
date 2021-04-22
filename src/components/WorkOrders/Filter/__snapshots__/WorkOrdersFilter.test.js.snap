@@ -16,97 +16,168 @@ exports[`WorkOrdersFilter component should render properly 1`] = `
       </span>
     </summary>
     <div
-      class="govuk-form-group lbh-form-group"
+      class="govuk-grid-row undefined"
     >
-      <fieldset
-        class="govuk-fieldset"
+      <div
+        class="govuk-form-group lbh-form-group"
       >
-        <legend
-          class="govuk-fieldset__legend govuk-fieldset__legend--m"
-        >
-          Status
-        </legend>
         <div
-          class="govuk-checkboxes"
+          class="govuk-grid-column-one-half"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
+          <fieldset
+            class="govuk-fieldset"
           >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Status
+            </legend>
             <div
-              class="govuk-checkboxes lbh-checkboxes"
+              class="govuk-checkboxes"
             >
               <div
-                class="govuk-checkboxes__item"
+                class="govuk-form-group lbh-form-group"
               >
-                <input
-                  class="govuk-checkboxes__input"
-                  id="StatusCode.80"
-                  name="StatusCode.80"
-                  type="checkbox"
-                />
-                <label
-                  class="govuk-label govuk-checkboxes__label"
-                  for="StatusCode.80"
+                <div
+                  class="govuk-checkboxes lbh-checkboxes"
                 >
-                  In Progress
-                </label>
+                  <div
+                    class="govuk-checkboxes__item"
+                  >
+                    <input
+                      class="govuk-checkboxes__input"
+                      id="StatusCode.80"
+                      name="StatusCode.80"
+                      type="checkbox"
+                    />
+                    <label
+                      class="govuk-label govuk-checkboxes__label"
+                      for="StatusCode.80"
+                    >
+                      In Progress
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            class="govuk-form-group lbh-form-group"
-          >
-            <div
-              class="govuk-checkboxes lbh-checkboxes"
-            >
               <div
-                class="govuk-checkboxes__item"
+                class="govuk-form-group lbh-form-group"
               >
-                <input
-                  class="govuk-checkboxes__input"
-                  id="StatusCode.50"
-                  name="StatusCode.50"
-                  type="checkbox"
-                />
-                <label
-                  class="govuk-label govuk-checkboxes__label"
-                  for="StatusCode.50"
+                <div
+                  class="govuk-checkboxes lbh-checkboxes"
                 >
-                  Complete
-                </label>
+                  <div
+                    class="govuk-checkboxes__item"
+                  >
+                    <input
+                      class="govuk-checkboxes__input"
+                      id="StatusCode.50"
+                      name="StatusCode.50"
+                      type="checkbox"
+                    />
+                    <label
+                      class="govuk-label govuk-checkboxes__label"
+                      for="StatusCode.50"
+                    >
+                      Complete
+                    </label>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-          <div
-            class="govuk-form-group lbh-form-group"
-          >
-            <div
-              class="govuk-checkboxes lbh-checkboxes"
-            >
               <div
-                class="govuk-checkboxes__item"
+                class="govuk-form-group lbh-form-group"
               >
-                <input
-                  class="govuk-checkboxes__input"
-                  id="StatusCode.30"
-                  name="StatusCode.30"
-                  type="checkbox"
-                />
-                <label
-                  class="govuk-label govuk-checkboxes__label"
-                  for="StatusCode.30"
+                <div
+                  class="govuk-checkboxes lbh-checkboxes"
                 >
-                  Work Cancelled
-                </label>
+                  <div
+                    class="govuk-checkboxes__item"
+                  >
+                    <input
+                      class="govuk-checkboxes__input"
+                      id="StatusCode.30"
+                      name="StatusCode.30"
+                      type="checkbox"
+                    />
+                    <label
+                      class="govuk-label govuk-checkboxes__label"
+                      for="StatusCode.30"
+                    >
+                      Work Cancelled
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
+          </fieldset>
         </div>
-      </fieldset>
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <fieldset
+            class="govuk-fieldset"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Priority
+            </legend>
+            <div
+              class="govuk-checkboxes"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+              >
+                <div
+                  class="govuk-checkboxes lbh-checkboxes"
+                >
+                  <div
+                    class="govuk-checkboxes__item"
+                  >
+                    <input
+                      class="govuk-checkboxes__input"
+                      id="Priorities.I"
+                      name="Priorities.I"
+                      type="checkbox"
+                    />
+                    <label
+                      class="govuk-label govuk-checkboxes__label"
+                      for="Priorities.I"
+                    >
+                      Immediate
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="govuk-form-group lbh-form-group"
+              >
+                <div
+                  class="govuk-checkboxes lbh-checkboxes"
+                >
+                  <div
+                    class="govuk-checkboxes__item"
+                  >
+                    <input
+                      class="govuk-checkboxes__input"
+                      id="Priorities.E"
+                      name="Priorities.E"
+                      type="checkbox"
+                    />
+                    <label
+                      class="govuk-label govuk-checkboxes__label"
+                      for="Priorities.E"
+                    >
+                      Emergency
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
     </div>
-    <div
-      class="govuk-form-group lbh-form-group"
-    >
+    <div>
       <button
         class="govuk-button lbh-button"
         data-module="govuk-button"
@@ -114,6 +185,13 @@ exports[`WorkOrdersFilter component should render properly 1`] = `
       >
         Apply filters
       </button>
+      <div>
+        <a
+          href="#"
+        >
+          Clear filters
+        </a>
+      </div>
     </div>
   </details>
 </DocumentFragment>

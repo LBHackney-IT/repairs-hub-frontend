@@ -10,6 +10,7 @@ export const getRepairs = async (pageNumber = 1, options) => {
       PageSize: PAGE_SIZE_CONTRACTORS,
       PageNumber: pageNumber,
       ...(options.StatusCode && { StatusCode: options.StatusCode }),
+      ...(options.Priorities && { Priorities: options.Priorities }),
     },
     paramsSerializer: paramsSerializer,
   })

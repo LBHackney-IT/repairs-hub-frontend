@@ -31,6 +31,7 @@ describe('WorkOrdersFilter component', () => {
     },
     loading: false,
     register: jest.fn(),
+    clearFilters: jest.fn(),
   }
 
   it('should render properly', () => {

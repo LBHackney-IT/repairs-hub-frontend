@@ -16,11 +16,23 @@ const JobView = ({ query }) => {
   const pageNumber = parseInt(query?.pageNumber || 1)
   const queryParams = appliedFilters || query
 
-  const onFormSubmit = async (formData) => {
+  const onFilterSubmit = async (formData) => {
     const setFilters = setFilterOptions(formData)
     setAppliedFilters(setFilters)
     updateUrlQueryParams(setFilters)
     workOrderView(1, setFilters)
+  }
+
+  const clearFilters = (e) => {
+    e.preventDefault()
+
+    document
+      .querySelectorAll('.govuk-checkboxes__input')
+      .forEach((elem) => (elem.checked = false))
+
+    setAppliedFilters({})
+    updateUrlQueryParams({})
+    workOrderView(1)
   }
 
   const workOrderView = async (pageNumber, filterOptions = {}) => {
@@ -58,6 +70,7 @@ const JobView = ({ query }) => {
       query: {
         pageNumber: pageNumber,
         ...(filters?.StatusCode && { StatusCode: filters.StatusCode }),
+        ...(filters?.Priorities && { Priorities: filters.Priorities }),
       },
     })
   }
@@ -65,8 +78,9 @@ const JobView = ({ query }) => {
   return (
     <>
       <WorkOrdersFilterView
-        onFormSubmit={onFormSubmit}
+        onFilterSubmit={onFilterSubmit}
         appliedFilters={queryParams}
+        clearFilters={clearFilters}
       />
 
       {loading ? (

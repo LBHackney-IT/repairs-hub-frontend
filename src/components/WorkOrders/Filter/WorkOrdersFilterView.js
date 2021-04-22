@@ -5,16 +5,21 @@ import { getFilters } from '../../../utils/frontend-api-client/filters'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
 
-const WorkOrdersFilterView = ({ onFormSubmit, appliedFilters }) => {
+const WorkOrdersFilterView = ({
+  onFilterSubmit,
+  appliedFilters,
+  clearFilters,
+}) => {
   const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [filters, setFilters] = useState()
 
   const onSubmit = async (formData) => {
-    formData.status = { ...formData.status }
+    formData.StatusCode = { ...formData.StatusCode }
+    formData.Priorities = { ...formData.Priorities }
 
-    onFormSubmit(formData)
+    onFilterSubmit(formData)
   }
 
   const getWorkOrdersFilterView = async () => {
@@ -54,6 +59,7 @@ const WorkOrdersFilterView = ({ onFormSubmit, appliedFilters }) => {
             filters={filters}
             register={register}
             appliedFilters={appliedFilters}
+            clearFilters={clearFilters}
           />
         </form>
       </div>
@@ -64,7 +70,7 @@ const WorkOrdersFilterView = ({ onFormSubmit, appliedFilters }) => {
 }
 
 WorkOrdersFilterView.propTypes = {
-  onFormSubmit: PropTypes.func.isRequired,
+  onFilterSubmit: PropTypes.func.isRequired,
   appliedFilters: PropTypes.object,
 }
 
