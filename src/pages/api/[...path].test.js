@@ -2,6 +2,7 @@ import axios from 'axios'
 import jsonwebtoken from 'jsonwebtoken'
 import * as HttpStatus from 'http-status-codes'
 import { createRequest, createResponse } from 'node-mocks-http'
+import { paramsSerializer } from '../../utils/urls'
 
 import catchAllEndpoint from './[...path].js'
 
@@ -159,6 +160,7 @@ describe('/api/[...path]', () => {
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/a/nested/path`,
           params: { queryKey: 'a query value' },
+          paramsSerializer: paramsSerializer,
           data: {}, // no body
         })
 
@@ -195,13 +197,20 @@ describe('/api/[...path]', () => {
         // Call the Node API catch-all endpoint function
         await catchAllEndpoint(req, res)
 
+        axios.interceptors.request.use((request) => {
+          console.log('Starting Request', JSON.stringify(request, null, 2))
+          return request
+        })
+
         // Expect an almost-identical call to the service API from our Node API
         expect(axios).toHaveBeenCalledTimes(1)
+
         expect(axios).toHaveBeenCalledWith({
           method: 'post',
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/repairs`,
           params: {},
+          paramsSerializer: paramsSerializer,
           data: 'a body value',
         })
 

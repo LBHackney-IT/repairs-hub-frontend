@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react'
-import MockDate from 'mockdate'
 import UserContext from '../UserContext/UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
 
@@ -71,32 +70,7 @@ describe('WorkOrderDetails component', () => {
       hasAnyPermissions: true,
     }
 
-    it('should render properly without a link to cancel work order', () => {
-      // Link isn't shown if current time is greater than dateRaised + 1 hour
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
-          <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
-            workOrder={props.workOrder}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
-            hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-
-    it('should render properly with link to cancel work order', () => {
-      // 2021-01-14T18:16:20.986Z
-      MockDate.set(1610648180986)
-      // Set current time to within an hour of date raised
-      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
-
+    it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails
@@ -127,32 +101,7 @@ describe('WorkOrderDetails component', () => {
       hasAnyPermissions: true,
     }
 
-    it('should render properly without a link to cancel work order', () => {
-      // Link isn't shown if current time is greater than dateRaised + 1 hour
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
-          <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
-            workOrder={props.workOrder}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
-            hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-
-    it('should render properly without a link to cancel work order', () => {
-      // 2021-01-14T18:16:20.986Z
-      MockDate.set(1610648180986)
-      // Set current time to within an hour of date raised
-      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
-
+    it('should render properly with a link to update work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails
@@ -184,7 +133,6 @@ describe('WorkOrderDetails component', () => {
     }
 
     it('should render properly without a link to cancel work order', () => {
-      // Link isn't shown if current time is greater than dateRaised + 1 hour
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails
@@ -203,12 +151,30 @@ describe('WorkOrderDetails component', () => {
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render properly without a link to cancel work order', () => {
-      // 2021-01-14T18:16:20.986Z
-      MockDate.set(1610648180986)
-      // Set current time to within an hour of date raised
-      props.workOrder.dateRaised = '2021-01-14T18:56:20.986Z'
+    it('should render properly with a link to update work order', () => {
+      // Work order status is Pending Approval
+      props.workOrder.status = 'Pending Approval'
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
 
+    it('should render properly without a link to update work order', () => {
+      // Work order status is In Progress
+      props.workOrder.status = 'In Progress'
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails

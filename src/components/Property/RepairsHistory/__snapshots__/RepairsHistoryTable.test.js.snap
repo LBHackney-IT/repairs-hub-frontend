@@ -20,6 +20,12 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
           class="govuk-table__header"
           scope="col"
         >
+          Reference
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
           Date raised
         </th>
         <th
@@ -49,6 +55,15 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
         class="govuk-table__row govuk-table__row--clickable govuk-body-s"
         data-ref="10000012"
       >
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            href="/work-orders/10000012"
+          >
+            10000012
+          </a>
+        </td>
         <td
           class="govuk-table__cell"
         >
@@ -83,6 +98,15 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
         class="govuk-table__row govuk-table__row--clickable govuk-body-s"
         data-ref="10000013"
       >
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            href="/work-orders/10000013"
+          >
+            10000013
+          </a>
+        </td>
         <td
           class="govuk-table__cell"
         >

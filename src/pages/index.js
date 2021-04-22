@@ -21,7 +21,7 @@ const Home = ({ query }) => {
     if (Object.entries(query).length === 0) {
       return <JobView pageNumber={1} />
     } else {
-      return <JobView pageNumber={parseInt(query.pageNumber)} />
+      return <JobView query={query} />
     }
   }
 }

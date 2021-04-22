@@ -382,7 +382,7 @@ describe('Raise repair form', () => {
             reference: [{ id: referenceIdUuid }],
             descriptionOfWork: 'A problem',
             priority: {
-              priorityCode: 1,
+              priorityCode: 2,
               priorityDescription: '2 [E] EMERGENCY',
               requiredCompletionDateTime: requiredCompletionDateTime,
               numberOfDays: 1,

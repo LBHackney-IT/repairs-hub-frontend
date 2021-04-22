@@ -105,7 +105,7 @@ describe('Schedule appointment form', () => {
               reference: [{ id: referenceIdUuid }],
               descriptionOfWork: 'Testing',
               priority: {
-                priorityCode: 1,
+                priorityCode: 2,
                 priorityDescription: '2 [E] EMERGENCY',
                 requiredCompletionDateTime: requiredCompletionDateTime,
                 numberOfDays: 1,
@@ -227,10 +227,10 @@ describe('Schedule appointment form', () => {
               reference: [{ id: referenceIdUuid }],
               descriptionOfWork: 'Testing',
               priority: {
-                priorityCode: 3,
+                priorityCode: 4,
                 priorityDescription: '5 [N] NORMAL',
                 requiredCompletionDateTime: requiredCompletionDateTime,
-                numberOfDays: 30,
+                numberOfDays: 21,
               },
               workClass: { workClassCode: 0 },
               workElement: [
@@ -325,7 +325,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Comments: 10 am works for me')
     })
     cy.get('[type="button"]')
-      .contains('Create work order')
+      .contains('Book appointment')
       .click({ force: true })
     cy.get('@apiCheckAppointment')
       .its('request.body')

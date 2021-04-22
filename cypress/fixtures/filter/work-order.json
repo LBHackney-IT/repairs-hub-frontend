@@ -1,0 +1,46 @@
+{
+  "Priority": [
+    {
+      "key": "1",
+      "description": "Immediate"
+    },
+    {
+      "key": "2",
+      "description": "Emergency"
+    },
+    {
+      "key": "3",
+      "description": "Urgent"
+    },
+    {
+      "key": "4",
+      "description": "Normal"
+    }
+  ],
+  "Status": [
+    {
+      "key": "80",
+      "description": "In Progress"
+    },
+    {
+      "key": "50",
+      "description": "Complete"
+    },
+    {
+      "key": "30",
+      "description": "Work Cancelled"
+    },
+    {
+      "key": "90",
+      "description": "Pending Approval"
+    },
+    {
+      "key": "1080",
+      "description": "Variation Approved"
+    },
+    {
+      "key": "1090",
+      "description": "Variation Rejected"
+    }
+  ]
+}

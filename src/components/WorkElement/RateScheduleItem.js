@@ -89,12 +89,12 @@ const RateScheduleItem = ({
             disabled={disabled}
             register={register({
               required: 'Please enter a quantity',
-              valueAsNumber: true,
               validate: (value) => {
-                if (!Number.isInteger(value)) {
+                const valueAsNumber = parseFloat(value)
+                if (!Number.isInteger(valueAsNumber)) {
                   return 'Quantity must be a whole number'
                 }
-                if (value < 1) {
+                if (valueAsNumber < 1) {
                   return 'Quantity must be 1 or more'
                 } else {
                   return true

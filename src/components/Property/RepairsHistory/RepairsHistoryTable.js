@@ -42,11 +42,13 @@ const RepairsHistoryTable = ({
       <table className="govuk-table govuk-!-margin-top-5 repairs-history-table">
         <thead className="govuk-table__head">
           <tr className="govuk-table__row govuk-body">
-            {user && user.hasAgentPermissions && (
-              <th scope="col" className="govuk-table__header">
-                Reference
-              </th>
-            )}
+            {user &&
+              (user.hasAgentPermissions ||
+                user.hasContractManagerPermissions) && (
+                <th scope="col" className="govuk-table__header">
+                  Reference
+                </th>
+              )}
             <th scope="col" className="govuk-table__header">
               Date raised
             </th>
