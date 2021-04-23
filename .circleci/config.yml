@@ -145,13 +145,13 @@ workflows:
             - e2e
           filters:
             branches:
-              only: develop
+              only: fix-contractor-group-detection
       - build-deploy-development:
           requires:
             - assume-role-development
           filters:
             branches:
-              only: develop
+              only: fix-contractor-group-detection
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
