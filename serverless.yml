@@ -44,6 +44,7 @@ functions:
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
       NEXT_PUBLIC_EXTERNAL_SCHEDULER_URL: ${ssm:/repairs-hub/${self:provider.stage}/external-scheduler-url}
+      NEXT_PUBLIC_ENV_NAME: ${self:provider.stage}
 
 resources:
   Resources:

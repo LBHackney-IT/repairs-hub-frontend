@@ -5,6 +5,19 @@ import UserContext from '../../UserContext/UserContext'
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext)
 
+  const envNamefiltering = () => {
+    if (
+      process.env.NEXT_PUBLIC_ENV_NAME &&
+      process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() !== 'production'
+    ) {
+      return (
+        <div className={`env-name env-${process.env.NEXT_PUBLIC_ENV_NAME}`}>
+          <p>{process.env.NEXT_PUBLIC_ENV_NAME.toUpperCase()}</p>
+        </div>
+      )
+    }
+  }
+
   return (
     <>
       <header className="lbh-header ">
@@ -46,6 +59,7 @@ const HeaderComponent = ({ serviceName }) => {
                 <span className="lbh-header__logo-text"> Hackney </span>
                 <span className="lbh-header__service-name">{serviceName}</span>
               </a>
+              {envNamefiltering()}
             </div>
             <div className="lbh-header__links">
               {user && (

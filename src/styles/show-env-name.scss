@@ -1,0 +1,20 @@
+.env-name {
+  border: 2px solid;
+  padding: 5px;
+
+  p {
+    font-family: $govuk-font-family;
+    color: white;
+  }
+}
+.env-development {
+  border-color: repairs-hub-colour('housing-1');
+}
+
+.env-staging {
+  border-color: repairs-hub-colour('warning');
+}
+
+.env-localdev {
+  border-color: repairs-hub-colour('warning');
+}
