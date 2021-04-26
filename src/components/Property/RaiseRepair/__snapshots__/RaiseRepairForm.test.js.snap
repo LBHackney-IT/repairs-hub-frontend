@@ -185,7 +185,6 @@ exports[`RaiseRepairForm component should render properly 1`] = `
                   id="rateScheduleItems[0][cost]"
                   name="rateScheduleItems[0][cost]"
                   type="hidden"
-                  value=""
                 />
               </div>
               <div

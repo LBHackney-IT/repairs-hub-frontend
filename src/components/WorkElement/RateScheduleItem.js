@@ -53,26 +53,17 @@ const RateScheduleItem = ({
             widthClass="govuk-!-width-full"
           />
 
-          {hiddenDescriptionValue ? (
-            <input
-              id={`rateScheduleItems[${index}][description]`}
-              name={`rateScheduleItems[${index}][description]`}
-              value={description ?? ''}
-              type="hidden"
-              ref={register}
-            />
-          ) : (
-            <input
-              id={`rateScheduleItems[${index}][description]`}
-              name={`rateScheduleItems[${index}][description]`}
-              type="hidden"
-              ref={register}
-            />
-          )}
+          <input
+            id={`rateScheduleItems[${index}][description]`}
+            name={`rateScheduleItems[${index}][description]`}
+            {...(hiddenDescriptionValue && { value: description ?? '' })}
+            type="hidden"
+            ref={register}
+          />
           <input
             id={`rateScheduleItems[${index}][cost]`}
             name={`rateScheduleItems[${index}][cost]`}
-            value={cost ?? ''}
+            {...(cost && { value: cost ?? '' })}
             type="hidden"
             ref={register}
           />

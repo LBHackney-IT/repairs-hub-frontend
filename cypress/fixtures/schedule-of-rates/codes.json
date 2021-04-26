@@ -13,7 +13,8 @@
     "priority": {
       "priorityCode": 4,
       "description": "5 [N] NORMAL"
-    }
+    },
+    "cost": 50.17
   },
   {
     "code": "20060030",
@@ -21,7 +22,8 @@
     "priority": {
       "priorityCode": 4,
       "description": "5 [N] NORMAL"
-    }
+    },
+    "cost": 5.8
   },
   {
     "code": "DES5R003",
@@ -29,7 +31,8 @@
     "priority": {
       "priorityCode": 1,
       "description": "1 [I] IMMEDIATE"
-    }
+    },
+    "cost": 0
   },
   {
     "code": "DES5R004",

@@ -12,7 +12,7 @@ exports[`SuccessPage component when variation approved should render properly wi
         <p>
           You have approved a variation for 
           <strong>
-            work order 
+            work order 10000012
           </strong>
         </p>
       </div>
@@ -22,7 +22,7 @@ exports[`SuccessPage component when variation approved should render properly wi
     >
       <li>
         <a
-          href="/work-orders/undefined"
+          href="/work-orders/10000012"
         >
           <strong>
             View work order
@@ -55,7 +55,7 @@ exports[`SuccessPage component when variation approved should render properly wi
         <p>
           You have rejected a variation for 
           <strong>
-            work order 
+            work order 10000012
           </strong>
         </p>
       </div>
@@ -65,7 +65,7 @@ exports[`SuccessPage component when variation approved should render properly wi
     >
       <li>
         <a
-          href="/work-orders/undefined"
+          href="/work-orders/10000012"
         >
           <strong>
             View work order

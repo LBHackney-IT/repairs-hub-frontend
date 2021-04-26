@@ -242,7 +242,6 @@ exports[`UpdateJobForm component should render properly 1`] = `
             id="rateScheduleItems[undefined][cost]"
             name="rateScheduleItems[undefined][cost]"
             type="hidden"
-            value=""
           />
         </div>
         <div
