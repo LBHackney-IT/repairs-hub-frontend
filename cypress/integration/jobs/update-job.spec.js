@@ -141,15 +141,51 @@ describe('Contractor update a job', () => {
 
       cy.get('[type="submit"]').contains('Next').click()
 
-      cy.contains('Quantity must be a whole number')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('x')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Quantity must be a number')
+      })
 
-      // Enter a quantity less then the minimum
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
-      cy.contains('Quantity must be 1 or more')
-
-      // Enter a non-integer quantity
+      // Enter a quantity with 1 decimal point
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.5')
-      cy.contains('Quantity must be a whole number')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).should('not.exist')
+      // Enter a quantity with 2 decimal points
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.55')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).should('not.exist')
+      // Enter a quantity less than 1 with 2 decimal points
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0.55')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).should('not.exist')
+      // Enter a quantity with more than 2 decimal points
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.555')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains(
+          'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+        )
+      })
+
+      // Enter a quantity less than the minimum
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Quantity must be 0 or more')
+      })
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('-1')
+      cy.get(
+        'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Quantity must be 0 or more')
+      })
     })
   })
 
