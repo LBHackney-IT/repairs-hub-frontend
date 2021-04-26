@@ -34,6 +34,10 @@ const RateScheduleItemView = ({
     return sorCodes.filter((a) => a.code == value)[0]
   }
 
+  const updateTotalCost = (rateScheduleItemCosts) => {
+    setTotalCost(calculateTotalCost(rateScheduleItemCosts, 'cost', 'quantity'))
+  }
+
   const onQuantityInput = (index, event) => {
     const quantity = parseFloat(event.target.value) || 0
     const costPerUnit = parseFloat(
@@ -49,9 +53,7 @@ const RateScheduleItemView = ({
       rateScheduleItemCostAtSameIndex.quantity = quantity
 
       setRateScheduleItemCosts(rateScheduleItemCosts)
-      setTotalCost(
-        calculateTotalCost(rateScheduleItemCosts, 'cost', 'quantity')
-      )
+      updateTotalCost(rateScheduleItemCosts)
     } else {
       const newRateScheduleItemCosts = [
         ...rateScheduleItemCosts,
@@ -63,9 +65,7 @@ const RateScheduleItemView = ({
       ]
 
       setRateScheduleItemCosts(newRateScheduleItemCosts)
-      setTotalCost(
-        calculateTotalCost(newRateScheduleItemCosts, 'cost', 'quantity')
-      )
+      updateTotalCost(newRateScheduleItemCosts)
     }
   }
 
@@ -144,6 +144,7 @@ const RateScheduleItemView = ({
       (i) => i.index !== index
     )
     setRateScheduleItemCosts(remainingRateScheduleItemCosts)
+    updateTotalCost(remainingRateScheduleItemCosts)
 
     if (remainingRateScheduleItemPriorities.length > 0) {
       const highestPriorityCode = Math.min(

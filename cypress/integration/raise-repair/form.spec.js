@@ -13,7 +13,9 @@ describe('Raise repair form', () => {
     cy.fixture('schedule-of-rates/trades.json').as('trades')
     cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
-    cy.route('GET', 'api/hub-user', {})
+    cy.fixture('hub-user/user.json').then((user) => {
+      cy.intercept('GET', 'api/hub-user', user)
+    })
 
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route(
@@ -496,6 +498,73 @@ describe('Raise repair form', () => {
 
     // Run lighthouse audit for accessibility report
     cy.audit()
+  })
+
+  it('Display warning text when over the raise limit', () => {
+    // Navigate to the raise repair form
+    cy.visit(`${Cypress.env('HOST')}/properties/00012345/raise-repair/new`)
+
+    // Select a trade
+    cy.get('#trade').type('Plumbing - PL')
+    // Select a contractor
+    cy.get('#contractor').select('HH General Building Repair - H01')
+    // Select an SOR with no cost
+    cy.get('select[id="rateScheduleItems[0][code]"]').select(
+      'DES5R003 - Immediate call outs'
+    )
+    cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
+    // Within user's raise limit so no warning text is displayed
+    cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+
+    // Select an SOR with cost: £50.17
+    cy.contains('+ Add another SOR code').click()
+    cy.get('select[id="rateScheduleItems[1][code]"]').select(
+      '20060020 - BATHROOM PLUMBING REPAIRS'
+    )
+    // Select a quantity to make total 50.17 x 5 = 250.85
+    cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
+    // Warning text as user's raise limit (£250) has been exceeded
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.contains(
+        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+      )
+    })
+
+    // Change quantity to make total 50.17 x 4 = 200.68
+    cy.get('input[id="rateScheduleItems[1][quantity]"]').clear().type('4')
+    // Within user's raise limit so no warning text is displayed
+    cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+
+    // Add another SOR with cost: £5.80
+    cy.contains('+ Add another SOR code').click()
+    cy.get('select[id="rateScheduleItems[2][code]"]').select(
+      '20060030 - KITCHEN PLUMBING REPAIRS'
+    )
+    // Add quantity of 1 to make total 200.68 + (5.80 x 9) = 252.88
+    cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
+    // Warning text as user's raise limit (£250) has been exceeded
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.contains(
+        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+      )
+    })
+
+    // Remove SOR at index 1 to make total cost 5.80 x 9 = 52.2
+    cy.get('button[id="remove-rate-schedule-item-1"]').click()
+    // Within user's raise limit so no warning text is displayed
+    cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+    // Edit quantity to 43 to make total 5.80 x 43 = 249.4
+    cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('43')
+    // Within user's raise limit so no warning text is displayed
+    cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+    // Edit quantity to 44 to make total 5.80 x 44 = 255.2
+    cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('44')
+    // Warning text as user's raise limit (£250) has been exceeded
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.contains(
+        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+      )
+    })
   })
 })
 

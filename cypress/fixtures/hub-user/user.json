@@ -3,5 +3,5 @@
   "name": "Hackney User",
   "email": "hackney.user@test.hackney.gov.uk",
   "varyLimit": "250",
-  "raiseLimit": "1000"
+  "raiseLimit": "250"
 }
