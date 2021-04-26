@@ -43,6 +43,7 @@ functions:
       CONTRACTORS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-regex}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
+      NEXT_PUBLIC_EXTERNAL_SCHEDULER_URL: ${ssm:/repairs-hub/${self:provider.stage}/external-scheduler-url}
 
 resources:
   Resources:
