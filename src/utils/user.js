@@ -5,13 +5,13 @@ export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const buildUser = (name, email, authServiceGroups) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
-    CONTRACTORS_GOOGLE_GROUPNAME_PREFIX,
     AGENTS_GOOGLE_GROUPNAME,
   } = process.env
 
-  const contractorGroupRegex = new RegExp(
-    `^${CONTRACTORS_GOOGLE_GROUPNAME_PREFIX}`
-  )
+  const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
+    process.env.CONTRACTORS_GOOGLE_GROUPNAME_REGEX || false
+
+  const contractorGroupRegex = new RegExp(CONTRACTORS_GOOGLE_GROUPNAME_REGEX)
 
   const rolesFromGroups = (groupNames) => {
     return groupNames.map((groupName) => {
@@ -19,7 +19,7 @@ export const buildUser = (name, email, authServiceGroups) => {
         return AGENT_ROLE
       } else if (groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME) {
         return CONTRACT_MANAGER_ROLE
-      } else if (hasContractorGroupPrefix(groupName)) {
+      } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
       }
 
@@ -27,14 +27,14 @@ export const buildUser = (name, email, authServiceGroups) => {
     })
   }
 
-  const hasContractorGroupPrefix = (groupName) =>
+  const isContractorGroupName = (groupName) =>
     !!contractorGroupRegex.test(groupName)
 
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       groupName === AGENTS_GOOGLE_GROUPNAME ||
       groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME ||
-      hasContractorGroupPrefix(groupName)
+      isContractorGroupName(groupName)
   )
 
   const roles = rolesFromGroups(groupNames)
