@@ -30,10 +30,11 @@ describe('Raise repair form', () => {
       'api/contractors?propertyReference=00012345&tradeCode=PL',
       '@contractors'
     )
-    cy.route({
-      method: 'POST',
-      url: '/api/repairs/schedule',
-      response: '10102030',
+    cy.route('POST', '/api/repairs/schedule', {
+      id: 10102030,
+      statusCode: 200,
+      statusCodeDescription: '???',
+      externallyManagedAppointment: false,
     }).as('apiCheck')
   })
 

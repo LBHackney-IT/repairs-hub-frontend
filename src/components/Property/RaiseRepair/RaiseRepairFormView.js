@@ -31,14 +31,14 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const ref = await postRepair(formData)
-      setWorkOrderReference(ref)
+      const { id } = await postRepair(formData)
+      setWorkOrderReference(id)
       if (
         priorityCodesRequiringAppointments.includes(
           formData.priority.priorityCode
         )
       ) {
-        router.push(`/work-orders/${ref}/appointment/new`)
+        router.push(`/work-orders/${id}/appointment/new`)
         return
       } else {
         setFormSuccess(true)
