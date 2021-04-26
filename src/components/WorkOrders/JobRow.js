@@ -44,7 +44,7 @@ JobRow.propTypes = {
   property: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  trade: PropTypes.string.isRequired,
+  tradeDescription: PropTypes.string.isRequired,
 }
 
 export default JobRow
