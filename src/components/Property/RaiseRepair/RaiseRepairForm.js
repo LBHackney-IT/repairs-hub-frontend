@@ -10,8 +10,9 @@ import {
   TextInput,
 } from '../../Form'
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
-import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 import Contacts from '../Contacts/Contacts'
+import WarningText from '../../Template/WarningText'
+import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -25,10 +26,14 @@ const RaiseRepairForm = ({
   trades,
   contacts,
   onFormSubmit,
+  raiseLimit,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
   const priorityList = priorities.map((priority) => priority.description)
+
+  const [totalCost, setTotalCost] = useState('')
+  const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
     const scheduleRepairFormData = buildScheduleRepairFormData(formData)
@@ -132,6 +137,7 @@ const RaiseRepairForm = ({
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
+              setTotalCost={setTotalCost}
             />
             <Select
               name="priorityDescription"
@@ -215,6 +221,11 @@ const RaiseRepairForm = ({
               })}
               error={errors && errors.contactNumber}
             />
+
+            {overSpendLimit && (
+              <WarningText text="The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
+            )}
+
             <PrimarySubmitButton label="Create works order" />
           </form>
         </div>

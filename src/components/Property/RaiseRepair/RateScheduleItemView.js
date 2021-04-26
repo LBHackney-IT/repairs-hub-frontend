@@ -3,6 +3,7 @@ import { useState, Fragment } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import Spinner from '../../Spinner/Spinner'
+import { calculateTotalCost } from '../../../utils/helpers/calculations'
 
 const RateScheduleItemView = ({
   sorCodes,
@@ -13,6 +14,7 @@ const RateScheduleItemView = ({
   getPriorityObjectByCode,
   loading,
   apiError,
+  setTotalCost,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -22,6 +24,7 @@ const RateScheduleItemView = ({
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
   )
+  const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
   const sorCodesList = sorCodes.map(
     (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
@@ -31,6 +34,41 @@ const RateScheduleItemView = ({
     return sorCodes.filter((a) => a.code == value)[0]
   }
 
+  const onQuantityInput = (index, event) => {
+    const quantity = parseFloat(event.target.value) || 0
+    const costPerUnit = parseFloat(
+      document.getElementById(`rateScheduleItems[${index}][cost]`).value
+    )
+
+    const rateScheduleItemCostAtSameIndex = rateScheduleItemCosts.find(
+      (e) => e.index === index
+    )
+
+    if (rateScheduleItemCostAtSameIndex) {
+      rateScheduleItemCostAtSameIndex.cost = costPerUnit
+      rateScheduleItemCostAtSameIndex.quantity = quantity
+
+      setRateScheduleItemCosts(rateScheduleItemCosts)
+      setTotalCost(
+        calculateTotalCost(rateScheduleItemCosts, 'cost', 'quantity')
+      )
+    } else {
+      const newRateScheduleItemCosts = [
+        ...rateScheduleItemCosts,
+        {
+          index: index,
+          cost: costPerUnit,
+          quantity: quantity,
+        },
+      ]
+
+      setRateScheduleItemCosts(newRateScheduleItemCosts)
+      setTotalCost(
+        calculateTotalCost(newRateScheduleItemCosts, 'cost', 'quantity')
+      )
+    }
+  }
+
   const onRateScheduleItemSelect = (index, event) => {
     document.getElementById('priorityDescription').disabled = false
 
@@ -38,9 +76,13 @@ const RateScheduleItemView = ({
     const sorCodeObject = getSorCodeObject(value)
     const sorCodeDescription = sorCodeObject?.shortDescription || ''
 
+    // Set hidden description value
     document.getElementById(
       `rateScheduleItems[${index}][description]`
     ).value = sorCodeDescription
+    // Set hidden cost value
+    document.getElementById(`rateScheduleItems[${index}][cost]`).value =
+      sorCodeObject?.cost
 
     if (sorCodeObject?.priority?.priorityCode) {
       const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
@@ -96,8 +138,12 @@ const RateScheduleItemView = ({
     const remainingRateScheduleItemPriorities = rateScheduleItemPriorities.filter(
       (i) => i.index !== index
     )
-
     setRateScheduleItemPriorities(remainingRateScheduleItemPriorities)
+
+    const remainingRateScheduleItemCosts = rateScheduleItemCosts.filter(
+      (i) => i.index !== index
+    )
+    setRateScheduleItemCosts(remainingRateScheduleItemCosts)
 
     if (remainingRateScheduleItemPriorities.length > 0) {
       const highestPriorityCode = Math.min(
@@ -127,6 +173,7 @@ const RateScheduleItemView = ({
             key={i}
             index={i}
             onChange={onRateScheduleItemSelect}
+            onInputChange={onQuantityInput}
             showRemoveRateScheduleItem={i > 0}
             removeRateScheduleItem={removeRateScheduleItem}
           />

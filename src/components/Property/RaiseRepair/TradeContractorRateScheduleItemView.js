@@ -13,6 +13,7 @@ const TradeContractorRateScheduleItemView = ({
   errors,
   updatePriority,
   getPriorityObjectByCode,
+  setTotalCost,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -143,6 +144,7 @@ const TradeContractorRateScheduleItemView = ({
         updatePriority={updatePriority}
         getPriorityObjectByCode={getPriorityObjectByCode}
         apiError={getSorCodesError}
+        setTotalCost={setTotalCost}
       />
     </>
   )
