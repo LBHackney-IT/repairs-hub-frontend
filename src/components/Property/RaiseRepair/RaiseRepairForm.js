@@ -12,7 +12,6 @@ import {
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
-import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
 
 const RaiseRepairForm = ({
   propertyReference,
@@ -25,6 +24,7 @@ const RaiseRepairForm = ({
   priorities,
   trades,
   contacts,
+  setContractorReference,
   onFormSubmit,
   raiseLimit,
 }) => {
@@ -36,9 +36,7 @@ const RaiseRepairForm = ({
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
-    const scheduleRepairFormData = buildScheduleRepairFormData(formData)
-
-    onFormSubmit(scheduleRepairFormData)
+    onFormSubmit(formData)
   }
 
   const getPriorityObjectByDescription = (description) => {
@@ -136,6 +134,7 @@ const RaiseRepairForm = ({
               errors={errors}
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
+              setContractorReference={setContractorReference}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
             />

@@ -22,4 +22,16 @@ describe('RaiseRepairFormSuccess component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('should render an external scheduler link if provided', () => {
+    const { asFragment } = render(
+      <RaiseRepairFormSuccess
+        propertyReference={props.property.propertyReference}
+        shortAddress={props.property.address.shortAddress}
+        workOrderReference={props.workOrderReference}
+        externalSchedulerLink="https://example.com"
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

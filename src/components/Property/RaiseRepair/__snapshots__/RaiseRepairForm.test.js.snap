@@ -131,12 +131,6 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             </select>
           </div>
         </div>
-        <input
-          id="contractorRef"
-          name="contractorRef"
-          type="hidden"
-          value=""
-        />
         <div
           class="min-height-120 govuk-!-margin-bottom-6"
         >

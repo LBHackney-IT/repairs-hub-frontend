@@ -14,6 +14,7 @@ const TradeContractorRateScheduleItemView = ({
   updatePriority,
   getPriorityObjectByCode,
   setTotalCost,
+  setContractorReference,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -21,7 +22,6 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [tradeCode, setTradeCode] = useState('')
   const [contractors, setContractors] = useState([])
-  const [contractorReference, setContractorReference] = useState('')
   const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
   const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
@@ -125,13 +125,6 @@ const TradeContractorRateScheduleItemView = ({
         register={register}
         errors={errors}
         apiError={getContractorsError}
-      />
-      <input
-        id="contractorRef"
-        name="contractorRef"
-        type="hidden"
-        ref={register}
-        value={contractorReference}
       />
 
       <RateScheduleItemView

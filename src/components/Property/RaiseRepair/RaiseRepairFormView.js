@@ -11,6 +11,10 @@ import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
+import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
+
+// Currently refers to the DLO contractors
+const EXTERNALLY_BOOKED_CONTRACTOR_REF_REGEX = /H\d{2}/
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -24,6 +28,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
+  const [contractorReference, setContractorReference] = useState('')
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
 
@@ -31,9 +36,20 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const ref = await postRepair(formData)
+      const hactFormData = buildScheduleRepairFormData({
+        ...formData,
+        contractorRef: contractorReference,
+      })
+
+      const ref = await postRepair(hactFormData)
       setWorkOrderReference(ref)
-      if (orderRequiresAppointment(formData.priority.priorityCode)) {
+
+      if (
+        orderRequiresHubAppointment(
+          hactFormData.priority.priorityCode,
+          contractorReference
+        )
+      ) {
         router.push(`/work-orders/${ref}/appointment/new`)
         return
       } else {
@@ -50,9 +66,15 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(false)
   }
 
-  const orderRequiresAppointment = (priorityCode) => {
-    return priorityCodesRequiringAppointments.includes(priorityCode)
+  const orderRequiresHubAppointment = (priorityCode, contractorReference) => {
+    return (
+      priorityCodesRequiringAppointments.includes(priorityCode) &&
+      !contractorRequiresExternalAppointment(contractorReference)
+    )
   }
+
+  const contractorRequiresExternalAppointment = (contractorReference) =>
+    EXTERNALLY_BOOKED_CONTRACTOR_REF_REGEX.test(contractorReference)
 
   const getRaiseRepairFormView = async (propertyReference) => {
     setError(null)
@@ -101,6 +123,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
               propertyReference={propertyReference}
               workOrderReference={workOrderReference}
               shortAddress={property.address.shortAddress}
+              externalSchedulerLink={
+                contractorRequiresExternalAppointment(contractorReference) &&
+                process.env.NEXT_PUBLIC_EXTERNAL_SCHEDULER_URL
+              }
             />
           )}
           {!formSuccess &&
@@ -123,6 +149,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 priorities={priorities}
                 trades={trades}
                 contacts={contacts}
+                setContractorReference={setContractorReference}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
               />
