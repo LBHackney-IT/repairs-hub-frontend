@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SuccessPage component when variation approved should render properly with approved message 1`] = `
+exports[`SuccessPage component Approving / Rejecting a work order when variation is approved should render success screen with approved message 1`] = `
 <DocumentFragment>
   <div>
     <section
-      class="lbh-page-announcement"
+      class="text-align-center lbh-page-announcement"
     >
       <div
         class="lbh-announcement__content"
@@ -43,11 +43,11 @@ exports[`SuccessPage component when variation approved should render properly wi
 </DocumentFragment>
 `;
 
-exports[`SuccessPage component when variation approved should render properly with rejected message 1`] = `
+exports[`SuccessPage component Approving / Rejecting a work order when variation is rejected should render success screen with rejected message 1`] = `
 <DocumentFragment>
   <div>
     <section
-      class="lbh-page-announcement"
+      class="text-align-center lbh-page-announcement"
     >
       <div
         class="lbh-announcement__content"
@@ -78,6 +78,140 @@ exports[`SuccessPage component when variation approved should render properly wi
         >
           <strong>
             Back to dashboard
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair High cost (over raise limit) authorisation should render a success screen with a warning message 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="text-align-center lbh-page-announcement"
+    >
+      <div
+        class="lbh-announcement__content"
+      >
+        <h2>
+          Repair works order created
+        </h2>
+        <p>
+          Works order number
+        </p>
+        <strong
+          class="govuk-!-font-size-24"
+        >
+          10000012
+        </strong>
+      </div>
+    </section>
+    <div
+      class="govuk-warning-text lbh-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <strong
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-warning-text__assistive"
+        >
+          Warning
+        </span>
+        Works order 10000012 requires authorisation. Please request authorisation from a manager.
+      </strong>
+    </div>
+    <ul
+      class="lbh-list lbh-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/properties/12345678"
+        >
+          <strong>
+            Back to 12 Random Lane
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Start a new search
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair Within raise limit should render a success screen without a warning message 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="text-align-center lbh-page-announcement"
+    >
+      <div
+        class="lbh-announcement__content"
+      >
+        <h2>
+          Repair works order created
+        </h2>
+        <p>
+          Works order number
+        </p>
+        <strong
+          class="govuk-!-font-size-24"
+        >
+          10000012
+        </strong>
+      </div>
+    </section>
+    <ul
+      class="lbh-list lbh-!-margin-top-9"
+    >
+      <li>
+        <a
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/properties/12345678"
+        >
+          <strong>
+            Back to 12 Random Lane
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Start a new search
           </strong>
         </a>
       </li>

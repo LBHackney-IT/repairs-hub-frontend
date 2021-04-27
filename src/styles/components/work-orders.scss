@@ -49,6 +49,14 @@
     .status-pending-approval {
       background-color: repairs-hub-colour('status-waiting');
     }
+    .status-variation-pending-approval {
+      background-color: repairs-hub-colour('status-waiting');
+      white-space: normal;
+    }
+    .status-authorisation-pending-approval {
+      background-color: repairs-hub-colour('status-waiting');
+      white-space: normal;
+    }
     .status-variation-approved {
       background-color: repairs-hub-colour('status-approved');
     }

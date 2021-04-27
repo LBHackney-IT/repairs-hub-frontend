@@ -2,39 +2,81 @@ import { render } from '@testing-library/react'
 import SuccessPage from './SuccessPage'
 
 describe('SuccessPage component', () => {
-  describe('when variation approved', () => {
+  describe('Approving / Rejecting a work order', () => {
     const props = {
-      workOrder: {
-        reference: '10000012',
-      },
-      text: 'You have approved a variation for',
+      workOrderReference: '10000012',
+      showDashboardLink: true,
     }
-    it('should render properly with approved message', () => {
-      const { asFragment } = render(
-        <SuccessPage
-          workOrderReference={props.workOrder.reference}
-          text={props.text}
-        />
-      )
-      expect(asFragment()).toMatchSnapshot()
+
+    describe('when variation is approved', () => {
+      it('should render success screen with approved message', () => {
+        const { asFragment } = render(
+          <SuccessPage
+            workOrderReference={props.workOrderReference}
+            text="You have approved a variation for"
+            showDashboardLink={props.showDashboardLink}
+          />
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    describe('when variation is rejected', () => {
+      it('should render success screen with rejected message', () => {
+        const { asFragment } = render(
+          <SuccessPage
+            workOrderReference={props.workOrderReference}
+            text="You have rejected a variation for"
+            showDashboardLink={props.showDashboardLink}
+          />
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 
-  describe('when variation approved', () => {
+  describe('Raising a repair', () => {
     const props = {
-      workOrder: {
-        reference: '10000012',
-      },
-      text: 'You have rejected a variation for',
+      workOrderReference: '10000012',
+      text: 'Repair works order created',
+      propertyReference: '12345678',
+      shortAddress: '12 Random Lane',
+      showSearchLink: true,
+      isRaiseRepairSuccess: true,
     }
-    it('should render properly with rejected message', () => {
-      const { asFragment } = render(
-        <SuccessPage
-          workOrderReference={props.workOrder.reference}
-          text={props.text}
-        />
-      )
-      expect(asFragment()).toMatchSnapshot()
+
+    describe('High cost (over raise limit) authorisation', () => {
+      it('should render a success screen with a warning message', () => {
+        const { asFragment } = render(
+          <SuccessPage
+            workOrderReference={props.workOrderReference}
+            text={props.text}
+            propertyReference={props.propertyReference}
+            shortAddress={props.shortAddress}
+            showSearchLink={props.showSearchLink}
+            isRaiseRepairSuccess={props.isRaiseRepairSuccess}
+            authorisationPendingApproval={true}
+          />
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    describe('Within raise limit', () => {
+      it('should render a success screen without a warning message', () => {
+        const { asFragment } = render(
+          <SuccessPage
+            workOrderReference={props.workOrderReference}
+            text={props.text}
+            propertyReference={props.propertyReference}
+            shortAddress={props.shortAddress}
+            showSearchLink={props.showSearchLink}
+            isRaiseRepairSuccess={props.isRaiseRepairSuccess}
+            authorisationPendingApproval={false}
+          />
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
     })
   })
 })

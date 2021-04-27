@@ -1,24 +1,25 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import Link from 'next/link'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import { useState } from 'react'
 import BackButton from '../../Layout/BackButton/BackButton'
 import Radios from '../../Form/Radios/Radios'
-import SuccessPage from '../../SuccessPage/SuccessPage'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import {
-  buildAuthorisationApprovedFormData,
-  buildAuthorisationRejectedFormData,
+  buildVariationAuthorisationApprovedFormData,
+  buildVariationAuthorisationRejectedFormData,
 } from '../../../utils/hact/job-status-update/authorisation'
+import SuccessPage from '../../SuccessPage/SuccessPage'
+import Link from 'next/link'
+import { useForm } from 'react-hook-form'
 
-const AuthorisationView = ({ workOrderReference }) => {
+const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
-  const [authorisationApproved, setAuthorisationApproved] = useState(true)
+  const [variationApproved, setVariationApproved] = useState(true)
+  const [confirmationPageMessage, setConfirmationPageMessage] = useState('')
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
@@ -26,18 +27,22 @@ const AuthorisationView = ({ workOrderReference }) => {
   const onSubmitForm = (e) => {
     const formData =
       e.options == 'Approve request'
-        ? buildAuthorisationApprovedFormData(workOrderReference)
-        : buildAuthorisationRejectedFormData(e, workOrderReference)
-
-    onFormSubmit(formData)
+        ? buildVariationAuthorisationApprovedFormData(workOrderReference)
+        : buildVariationAuthorisationRejectedFormData(e, workOrderReference)
+    addConfirmationText()
+    makePostRequest(formData)
   }
 
-  const onFormSubmit = async (formData) => {
-    setLoading(true)
+  const addConfirmationText = () => {
+    variationApproved
+      ? setConfirmationPageMessage('You have approved a variation for')
+      : setConfirmationPageMessage('You have rejected a variation for')
+  }
 
+  const makePostRequest = async (formData) => {
+    setLoading(true)
     try {
       await postJobStatusUpdate(formData)
-
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
@@ -45,14 +50,13 @@ const AuthorisationView = ({ workOrderReference }) => {
         `Oops an error occurred with error status: ${e.response?.status}`
       )
     }
-
     setLoading(false)
   }
 
-  const displayNotes = (e) => {
+  const addNotes = (e) => {
     e.target.value == 'Reject request'
-      ? setAuthorisationApproved(false)
-      : setAuthorisationApproved(true)
+      ? setVariationApproved(false)
+      : setVariationApproved(true)
   }
 
   return (
@@ -65,7 +69,7 @@ const AuthorisationView = ({ workOrderReference }) => {
             <div>
               <BackButton />
               <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
-                Authorisation request: {workOrderReference}{' '}
+                Authorisation variation request: {workOrderReference}{' '}
               </h1>
               <Link href={`/work-orders/${workOrderReference}`}>
                 <a className="govuk-body-s">See works order</a>
@@ -77,13 +81,13 @@ const AuthorisationView = ({ workOrderReference }) => {
                   label="This job requires your authorisation"
                   name="options"
                   options={['Approve request', 'Reject request']}
-                  onChange={displayNotes}
+                  onChange={addNotes}
                   register={register({
                     required: 'Please select a process',
                   })}
                   error={errors && errors.options}
                 />
-                {!authorisationApproved && (
+                {!variationApproved && (
                   <TextArea
                     name="note"
                     label="Add notes"
@@ -101,11 +105,7 @@ const AuthorisationView = ({ workOrderReference }) => {
           {formSuccess && (
             <SuccessPage
               workOrderReference={workOrderReference}
-              text={
-                authorisationApproved
-                  ? 'You have approved the authorisation request for'
-                  : 'You have rejected the authorisation request for'
-              }
+              text={confirmationPageMessage}
               showDashboardLink={true}
             />
           )}
@@ -115,8 +115,8 @@ const AuthorisationView = ({ workOrderReference }) => {
   )
 }
 
-AuthorisationView.propTypes = {
+VariationAuthorisationView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
 }
 
-export default AuthorisationView
+export default VariationAuthorisationView

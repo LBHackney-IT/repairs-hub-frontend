@@ -1,5 +1,5 @@
 import CancelWorkOrderView from '../../../components/WorkOrder/CancelWorkOrder/CancelWorkOrderView'
-import { AGENT_ROLE } from '../../../utils/user'
+import { AGENT_ROLE, AUTHORISATION_MANAGER_ROLE } from '../../../utils/user'
 
 const CancelWorkOrderPage = ({ query }) => {
   return <CancelWorkOrderView workOrderReference={query.id} />
@@ -15,6 +15,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-CancelWorkOrderPage.permittedRoles = [AGENT_ROLE]
+CancelWorkOrderPage.permittedRoles = [AGENT_ROLE, AUTHORISATION_MANAGER_ROLE]
 
 export default CancelWorkOrderPage

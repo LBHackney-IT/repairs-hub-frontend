@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import RaiseRepairForm from './RaiseRepairForm'
-import RaiseRepairFormSuccess from './RaiseRepairFormSuccess'
+import SuccessPage from '../../SuccessPage/SuccessPage'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
@@ -11,6 +11,7 @@ import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
+import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -23,6 +24,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
+  const [
+    authorisationPendingApproval,
+    setAuthorisationPendingApproval,
+  ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
@@ -31,18 +36,21 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const { id } = await postRepair(formData)
+      const { id, statusCode } = await postRepair(formData)
       setWorkOrderReference(id)
-      if (
+
+      if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
+        setAuthorisationPendingApproval(true)
+      } else if (
         priorityCodesRequiringAppointments.includes(
           formData.priority.priorityCode
         )
       ) {
         router.push(`/work-orders/${id}/appointment/new`)
         return
-      } else {
-        setFormSuccess(true)
       }
+
+      setFormSuccess(true)
     } catch (e) {
       console.error(e)
 
@@ -96,12 +104,18 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
-          {formSuccess && workOrderReference && (
-            <RaiseRepairFormSuccess
-              propertyReference={propertyReference}
-              workOrderReference={workOrderReference}
-              shortAddress={property.address.shortAddress}
-            />
+          {formSuccess && workOrderReference && property && (
+            <>
+              <SuccessPage
+                propertyReference={propertyReference}
+                workOrderReference={workOrderReference}
+                shortAddress={property.address.shortAddress}
+                text={'Repair works order created'}
+                showSearchLink={true}
+                isRaiseRepairSuccess={true}
+                authorisationPendingApproval={authorisationPendingApproval}
+              />
+            </>
           )}
           {!formSuccess &&
             property &&

@@ -3,6 +3,7 @@ import {
   AGENT_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
 } from 'src/utils/user'
 
 describe('CloseJobPage.permittedRoles', () => {
@@ -11,7 +12,7 @@ describe('CloseJobPage.permittedRoles', () => {
       expect(CloseJobPage.permittedRoles).toContain(role)
     })
   })
-  ;[AGENT_ROLE].forEach((role) => {
+  ;[AGENT_ROLE, AUTHORISATION_MANAGER_ROLE].forEach((role) => {
     it(`does not permit the ${role} role to access the page`, () => {
       expect(CloseJobPage.permittedRoles).not.toContain(role)
     })

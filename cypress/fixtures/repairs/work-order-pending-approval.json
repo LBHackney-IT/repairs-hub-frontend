@@ -7,7 +7,7 @@
   "owner": "",
   "description": "This is an urgent repair description",
   "propertyReference": "00012345",
-  "status": "Pending Approval",
+  "status": "Variation Pending Approval",
   "priorityCode": 2,
   "raisedBy": "Dummy Agent",
   "target": "2021-01-23T18:30:00.00000",
