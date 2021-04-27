@@ -15,6 +15,12 @@ const HeaderComponent = ({ serviceName }) => {
           <p>{process.env.NEXT_PUBLIC_ENV_NAME.toUpperCase()}</p>
         </div>
       )
+    } else {
+      return (
+        <div>
+          <p>We are on {process.env.NEXT_PUBLIC_ENV_NAME}</p>
+        </div>
+      )
     }
   }
 
