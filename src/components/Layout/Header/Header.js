@@ -2,27 +2,10 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext/UserContext'
 
+const { NEXT_PUBLIC_ENV_NAME } = process.env
+
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext)
-
-  const envNamefiltering = () => {
-    if (
-      process.env.NEXT_PUBLIC_ENV_NAME &&
-      process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() !== 'production'
-    ) {
-      return (
-        <div className={`env-name env-${process.env.NEXT_PUBLIC_ENV_NAME}`}>
-          <p>{process.env.NEXT_PUBLIC_ENV_NAME.toUpperCase()}</p>
-        </div>
-      )
-    } else {
-      return (
-        <div>
-          <p>We are on {process.env.NEXT_PUBLIC_ENV_NAME}</p>
-        </div>
-      )
-    }
-  }
 
   return (
     <>
@@ -65,7 +48,7 @@ const HeaderComponent = ({ serviceName }) => {
                 <span className="lbh-header__logo-text"> Hackney </span>
                 <span className="lbh-header__service-name">{serviceName}</span>
               </a>
-              {envNamefiltering()}
+              {NEXT_PUBLIC_ENV_NAME}
             </div>
             <div className="lbh-header__links">
               {user && (
