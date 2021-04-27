@@ -40,6 +40,7 @@ describe('WorkOrdersFilter component', () => {
         filters={props.filters}
         loading={props.loading}
         register={props.register}
+        clearFilters={props.clearFilters}
       />
     )
     expect(asFragment()).toMatchSnapshot()

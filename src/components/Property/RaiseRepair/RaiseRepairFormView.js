@@ -11,7 +11,6 @@ import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
-import { isSpendLimitReachedResponse } from '../../../utils/helpers/api-responses'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -47,15 +46,9 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     } catch (e) {
       console.error(e)
 
-      if (isSpendLimitReachedResponse(e.response)) {
-        setError(
-          `Repair cost exceeds £${currentUser?.raiseLimit}, please contact your manager to raise on your behalf`
-        )
-      } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-        )
-      }
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
     }
 
     setLoading(false)
@@ -131,6 +124,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 trades={trades}
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
+                raiseLimit={currentUser?.raiseLimit}
               />
             )}
           {error && <ErrorMessage label={error} />}
