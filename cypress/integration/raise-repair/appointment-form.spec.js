@@ -338,8 +338,16 @@ describe('Schedule appointment form', () => {
       })
 
       // shows that there are no available appointments
-
       cy.get('#no-appointment').contains('No available appointments')
+
+      // Link back to work order
+      cy.get('.govuk-list li').within(() => {
+        cy.contains('View work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10102030'
+        )
+      })
 
       // Run lighthouse audit for accessibility report
       cy.audit()

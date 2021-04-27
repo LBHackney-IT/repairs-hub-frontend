@@ -1,4 +1,7 @@
-const NoAvailableAppointments = () => {
+import PropTypes from 'prop-types'
+import Link from 'next/link'
+
+const NoAvailableAppointments = ({ workOrderReference }) => {
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full">
@@ -11,9 +14,22 @@ const NoAvailableAppointments = () => {
             Contractor should contact the resident to make the appointment.
           </p>
         </div>
+        <ul className="govuk-list govuk-!-margin-top-9">
+          <li>
+            <Link href={`/work-orders/${workOrderReference}`}>
+              <a>
+                <strong>View work order</strong>
+              </a>
+            </Link>
+          </li>
+        </ul>
       </div>
     </div>
   )
+}
+
+NoAvailableAppointments.propTypes = {
+  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default NoAvailableAppointments
