@@ -1,6 +1,7 @@
 import { deleteSession } from '../utils/GoogleAuth'
 import {
   AGENT_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
 } from '../utils/user'
@@ -12,6 +13,11 @@ export const getServerSideProps = async ({ res }) => {
   return { props: {} }
 }
 
-Logout.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE]
+Logout.permittedRoles = [
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
+]
 
 export default Logout

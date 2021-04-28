@@ -4,6 +4,11 @@ import UserContext from '../UserContext/UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
 import BackButton from '../Layout/BackButton/BackButton'
 import Link from 'next/link'
+import {
+  STATUS_CANCELLED,
+  STATUS_VARIATION_PENDING_APPROVAL,
+  STATUS_AUTHORISATION_PENDING_APPROVAL,
+} from '../../utils/status-codes'
 
 const WorkOrderDetails = ({
   propertyReference,
@@ -16,8 +21,6 @@ const WorkOrderDetails = ({
   canRaiseRepair,
 }) => {
   const { user } = useContext(UserContext)
-  const STATUS_CANCELLED = 'Work Cancelled'
-  const STATUS_PENDING_APPROVAL = 'Pending Approval'
 
   return (
     <div>
@@ -26,21 +29,36 @@ const WorkOrderDetails = ({
         <h1 className="lbh-heading-l display-inline govuk-!-margin-right-6">
           Works order: {workOrder.reference}
         </h1>
-        {user && user.hasContractorPermissions && (
-          <Link href={`/repairs/jobs/${workOrder.reference}/choose-option`}>
-            <a className="govuk-body-m">Update Works Order</a>
-          </Link>
-        )}
         {user &&
-          user.hasContractManagerPermissions &&
-          workOrder.status == STATUS_PENDING_APPROVAL && (
-            <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
+          (user.hasContractorPermissions ||
+            user.hasContractManagerPermissions) && (
+            <Link href={`/repairs/jobs/${workOrder.reference}/choose-option`}>
               <a className="govuk-body-m">Update Works Order</a>
             </Link>
           )}
         {user &&
-          user.hasAgentPermissions &&
-          workOrder.status !== STATUS_CANCELLED && (
+          user.hasContractManagerPermissions &&
+          workOrder.status ===
+            STATUS_VARIATION_PENDING_APPROVAL.description && (
+            <Link
+              href={`/repairs/jobs/${workOrder.reference}/variation-authorisation`}
+            >
+              <a className="govuk-body-m">Authorise Works Order Variation</a>
+            </Link>
+          )}
+        {user &&
+          user.hasAuthorisationManagerPermissions &&
+          workOrder.status ===
+            STATUS_AUTHORISATION_PENDING_APPROVAL.description && (
+            <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
+              <a className="govuk-body-m">Authorise Works Order</a>
+            </Link>
+          )}
+        {user &&
+          (user.hasAgentPermissions ||
+            user.hasAuthorisationManagerPermissions ||
+            user.hasContractManagerPermissions) &&
+          workOrder.status !== STATUS_CANCELLED.description && (
             <Link href={`/work-orders/${workOrder.reference}/cancel`}>
               <a className="govuk-body-m">Cancel Works Order</a>
             </Link>

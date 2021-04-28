@@ -3,6 +3,7 @@ import {
   AGENT_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
 } from '../../../utils/user'
 
 const WorkOrderPage = ({ query }) => {
@@ -23,6 +24,7 @@ WorkOrderPage.permittedRoles = [
   AGENT_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
 ]
 
 export default WorkOrderPage

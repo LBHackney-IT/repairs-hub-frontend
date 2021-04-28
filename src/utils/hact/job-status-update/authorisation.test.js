@@ -1,43 +1,89 @@
 import {
+  buildVariationAuthorisationApprovedFormData,
+  buildVariationAuthorisationRejectedFormData,
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
 } from './authorisation'
 
-describe('buildAuthorisationApprovedFormData', () => {
-  const workOrderReference = '00012345'
-  it('builds the UpdateJob form data to post to the Repairs API', () => {
-    const authorisationJobFormData = {
-      relatedWorkOrderReference: {
-        id: '00012345',
-      },
-      typeCode: '100-20',
-    }
+const workOrderReference = '00012345'
 
-    const response = buildAuthorisationApprovedFormData(workOrderReference)
+describe('Authorisation for a variation request', () => {
+  describe('buildVariationAuthorisationApprovedFormData', () => {
+    it('builds the UpdateJob form data to post to the Repairs API', () => {
+      const authorisationJobFormData = {
+        relatedWorkOrderReference: {
+          id: '00012345',
+        },
+        typeCode: '100-20',
+      }
 
-    expect(response).toEqual(authorisationJobFormData)
+      const response = buildVariationAuthorisationApprovedFormData(
+        workOrderReference
+      )
+
+      expect(response).toEqual(authorisationJobFormData)
+    })
+  })
+
+  describe('buildVariationAuthorisationRejectedFormData', () => {
+    it('builds the UpdateJob form data to post to the Repairs API', () => {
+      const formData = {
+        note: 'Can not approve it',
+      }
+      const authorisationJobFormData = {
+        relatedWorkOrderReference: {
+          id: '00012345',
+        },
+        comments: 'Variation rejected: Can not approve it',
+        typeCode: '125',
+      }
+
+      const response = buildVariationAuthorisationRejectedFormData(
+        formData,
+        workOrderReference
+      )
+
+      expect(response).toEqual(authorisationJobFormData)
+    })
   })
 })
 
-describe('buildAuthorisationRejectedFormData', () => {
-  const workOrderReference = '00012345'
-  const formData = {
-    note: 'Can not approve it',
-  }
-  it('builds the UpdateJob form data to post to the Repairs API', () => {
-    const authorisationJobFormData = {
-      relatedWorkOrderReference: {
-        id: '00012345',
-      },
-      comments: 'Variation rejected: Can not approve it',
-      typeCode: '125',
+describe('Authorisation for a new work order', () => {
+  describe('buildAuthorisationApprovedFormData', () => {
+    it('builds the approved authorisation request for the JobStatusUpdate endpoint in the Repairs API', () => {
+      const authorisationJobFormData = {
+        relatedWorkOrderReference: {
+          id: '00012345',
+        },
+        typeCode: '23',
+      }
+
+      const response = buildAuthorisationApprovedFormData(workOrderReference)
+
+      expect(response).toEqual(authorisationJobFormData)
+    })
+  })
+
+  describe('buildAuthorisationRejectedFormData', () => {
+    const formData = {
+      note: 'This is far too expensive!',
     }
 
-    const response = buildAuthorisationRejectedFormData(
-      formData,
-      workOrderReference
-    )
+    it('builds the approved authorisation request for the JobStatusUpdate endpoint in the Repairs API', () => {
+      const authorisationJobFormData = {
+        relatedWorkOrderReference: {
+          id: '00012345',
+        },
+        comments: 'Authorisation rejected: This is far too expensive!',
+        typeCode: '22',
+      }
 
-    expect(response).toEqual(authorisationJobFormData)
+      const response = buildAuthorisationRejectedFormData(
+        formData,
+        workOrderReference
+      )
+
+      expect(response).toEqual(authorisationJobFormData)
+    })
   })
 })

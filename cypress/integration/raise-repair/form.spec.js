@@ -333,6 +333,9 @@ describe('Raise repair form', () => {
       cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
       cy.get('button[id="remove-rate-schedule-item-2"]').contains('-')
 
+      // No warning if within raise limit
+      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+
       // Go over the Repair description character limit
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('x'.repeat(251))
       cy.get('#descriptionOfWork-form-group .govuk-error-message').within(
@@ -473,35 +476,43 @@ describe('Raise repair form', () => {
       })
 
     // Confirmation screen
-    cy.get('.govuk-panel--confirmation').within(() => {
-      cy.get('h1.lbh-heading-xl').contains('Repair work order created')
-
-      cy.get('.govuk-panel__body').within(() => {
-        cy.contains('Work order number')
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-announcement__content').within(() => {
+        cy.get('h2').contains('Repair works order created')
+        cy.contains('Works order number')
         cy.contains('10102030')
       })
     })
+    // No warning if within raise limit
+    cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
 
     // Actions to see relevant pages
-    cy.get('.govuk-list li').within(() => {
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10102030'
+      )
       cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
         'have.attr',
         'href',
         '/properties/00012345'
       )
       cy.contains('Start a new search').should('have.attr', 'href', '/')
-      cy.contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10102030'
-      )
     })
 
     // Run lighthouse audit for accessibility report
     cy.audit()
   })
 
-  it('Display warning text when over the raise limit', () => {
+  it('Display warning text when over the raise limit and submit for high cost authorisation', () => {
+    cy.route('POST', '/api/repairs/schedule', {
+      id: 10102030,
+      statusCode: 1010,
+      statusCodeDescription: '???',
+      externallyManagedAppointment: false,
+    }).as('apiCheck')
+
     // Navigate to the raise repair form
     cy.visit(`${Cypress.env('HOST')}/properties/00012345/raise-repair/new`)
 
@@ -565,6 +576,42 @@ describe('Raise repair form', () => {
       cy.contains(
         'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
       )
+    })
+
+    // Fill in Repair Description
+    cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+    // Submit form for high cost (over raise limit) authorisation
+    cy.get('[type="submit"]').contains('Create works order').click()
+
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-announcement__content').within(() => {
+        cy.get('h2').contains('Repair works order created')
+        cy.contains('Works order number')
+        cy.contains('10102030')
+      })
+    })
+    // Warning text as this work order is over the raise limit
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.get('.govuk-warning-text__text').contains(
+        'Works order 10102030 requires authorisation. Please request authorisation from a manager.'
+      )
+    })
+
+    // Actions to see relevant pages
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10102030'
+      )
+      cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
+        'have.attr',
+        'href',
+        '/properties/00012345'
+      )
+      cy.contains('Start a new search').should('have.attr', 'href', '/')
     })
   })
 })

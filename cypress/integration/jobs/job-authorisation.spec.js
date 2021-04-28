@@ -20,8 +20,8 @@ describe('Contract manager can authorise variation', () => {
 
   it('Rejects job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('a', 'Update Works Order').click()
-    cy.contains('Authorisation request: 10000012')
+    cy.contains('a', 'Authorise Works Order').click()
+    cy.contains('Authorisation variation request: 10000012')
 
     // Throws an error when rejected without comments
     // Notes section appears when clicked "reject request"
@@ -50,8 +50,13 @@ describe('Contract manager can authorise variation', () => {
 
   it('Approves job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('a', 'Update Works Order').click()
-    cy.contains('Authorisation request: 10000012')
+    cy.contains('a', 'Authorise Works Order').click()
+    cy.contains('Authorisation variation request: 10000012')
+
+    cy.url().should(
+      'contains',
+      '/repairs/jobs/10000012/variation-authorisation'
+    )
 
     // When click approve default comments appear
     cy.get('[type="radio"]').check('Approve request')

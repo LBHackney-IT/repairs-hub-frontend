@@ -123,8 +123,8 @@ describe('WorkOrderDetails component', () => {
 
   describe('when logged in as a contract manager', () => {
     const user = {
-      name: 'A Contractor',
-      email: 'a.contractor@hackney.gov.uk',
+      name: 'A Contract Manager',
+      email: 'a.contract-manager@hackney.gov.uk',
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: false,
@@ -132,7 +132,7 @@ describe('WorkOrderDetails component', () => {
       hasAnyPermissions: true,
     }
 
-    it('should render properly without a link to cancel work order', () => {
+    it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails
@@ -151,9 +151,9 @@ describe('WorkOrderDetails component', () => {
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render properly with a link to update work order', () => {
-      // Work order status is Pending Approval
-      props.workOrder.status = 'Pending Approval'
+    it('should render with a link to authorise a variation request when status is variation pending approval', () => {
+      // Work order status is Variation Pending Approval
+      props.workOrder.status = 'Variation Pending Approval'
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
           <WorkOrderDetails
@@ -172,7 +172,81 @@ describe('WorkOrderDetails component', () => {
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render properly without a link to update work order', () => {
+    it('should render without a link to authorise a variation request when status is not variation pending approval', () => {
+      // Work order status is In Progress
+      props.workOrder.status = 'In Progress'
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as an authorisation manager', () => {
+    const user = {
+      name: 'An authorisation manager',
+      email: 'an.authorisation-manager@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: false,
+      hasContractManagerPermissions: false,
+      hasAuthorisationManagerPermissions: true,
+      hasAnyPermissions: true,
+    }
+
+    it('should render properly with a link to cancel work order', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render with a link to authorise a new work order when status is authorisation pending approval', () => {
+      // Work order status is Authorisation Pending Approval
+      props.workOrder.status = 'Authorisation Pending Approval'
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render without a link to authorise a new work order when status is not authorisation pending approval', () => {
       // Work order status is In Progress
       props.workOrder.status = 'In Progress'
       const { asFragment } = render(

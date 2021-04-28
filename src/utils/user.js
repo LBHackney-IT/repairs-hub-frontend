@@ -1,11 +1,13 @@
 export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
+export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 
 export const buildUser = (name, email, authServiceGroups) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
     AGENTS_GOOGLE_GROUPNAME,
+    AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -19,6 +21,8 @@ export const buildUser = (name, email, authServiceGroups) => {
         return AGENT_ROLE
       } else if (groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME) {
         return CONTRACT_MANAGER_ROLE
+      } else if (groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME) {
+        return AUTHORISATION_MANAGER_ROLE
       } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
       }
@@ -34,6 +38,7 @@ export const buildUser = (name, email, authServiceGroups) => {
     (groupName) =>
       groupName === AGENTS_GOOGLE_GROUPNAME ||
       groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME ||
+      groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME ||
       isContractorGroupName(groupName)
   )
 
@@ -48,6 +53,7 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasAgentPermissions: hasRole(AGENT_ROLE),
     hasContractorPermissions: hasRole(CONTRACTOR_ROLE),
     hasContractManagerPermissions: hasRole(CONTRACT_MANAGER_ROLE),
+    hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
     hasAnyPermissions: roles.length > 0,
   }
 }

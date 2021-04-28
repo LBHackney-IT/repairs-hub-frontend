@@ -132,7 +132,9 @@ const AppointmentView = ({ workOrderReference }) => {
                 />
                 <RepairTasks tasks={tasksAndSors} />
                 {!availableAppointments.length ? (
-                  <NoAvailableAppointments />
+                  <NoAvailableAppointments
+                    workOrderReference={workOrderReference}
+                  />
                 ) : (
                   <AppointmentCalendar
                     availableAppointments={availableAppointments}

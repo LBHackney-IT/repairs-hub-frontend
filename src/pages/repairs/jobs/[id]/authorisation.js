@@ -1,4 +1,4 @@
-import { CONTRACT_MANAGER_ROLE } from '../../../../utils/user'
+import { AUTHORISATION_MANAGER_ROLE } from '../../../../utils/user'
 import AuthorisationView from '../../../../components/WorkOrder/Authorisation/AuthorisationView'
 
 const AuthorisationPage = ({ query }) => {
@@ -14,6 +14,6 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-AuthorisationPage.permittedRoles = [CONTRACT_MANAGER_ROLE]
+AuthorisationPage.permittedRoles = [AUTHORISATION_MANAGER_ROLE]
 
 export default AuthorisationPage

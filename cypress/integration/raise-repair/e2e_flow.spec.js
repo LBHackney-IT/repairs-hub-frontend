@@ -178,13 +178,29 @@ describe('Schedule appointment form', () => {
         })
     })
 
-    //success form
-    cy.contains('Repair work order created')
-    cy.contains('Work order number')
-    cy.contains('10102030')
-    cy.contains('a', 'View work order')
-    cy.contains('a', 'Back to 16 Pitcairn House')
-    cy.contains('a', 'Start a new search')
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-announcement__content').within(() => {
+        cy.get('h2').contains('Repair works order created')
+        cy.contains('Works order number')
+        cy.contains('10102030')
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10102030'
+      )
+      cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
+        'have.attr',
+        'href',
+        '/properties/00012345'
+      )
+      cy.contains('Start a new search').should('have.attr', 'href', '/')
+    })
 
     // Run lighthouse audit for accessibility report
     cy.audit()
