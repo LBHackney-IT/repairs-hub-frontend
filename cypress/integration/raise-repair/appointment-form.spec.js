@@ -30,7 +30,7 @@ describe('Schedule appointment form', () => {
     )
     cy.route(
       'GET',
-      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*',
       '@sorCodes'
     )
     cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
@@ -77,7 +77,7 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('HH General Building Repair - H01')
+        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
 
         cy.get('select[id="rateScheduleItems[0][code]"]').select(
           'DES5R005 - Normal call outs'
@@ -148,11 +148,11 @@ describe('Schedule appointment form', () => {
                 },
                 instructedBy: { name: 'Hackney Housing' },
                 assignedToPrimary: {
-                  name: 'HH General Building Repair',
+                  name: 'Purdy Contracts (P) Ltd',
                   organization: {
                     reference: [
                       {
-                        id: 'H01',
+                        id: 'PCL',
                       },
                     ],
                   },
@@ -311,7 +311,7 @@ describe('Schedule appointment form', () => {
       )
     })
 
-    it('Should display message that no appointments are availbale', () => {
+    it('Should display message that no appointments are available', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
       cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
@@ -319,7 +319,7 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('HH General Building Repair - H01')
+        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
 
         cy.get('select[id="rateScheduleItems[0][code]"]').select(
           'DES5R005 - Normal call outs'

@@ -5,6 +5,7 @@ const RaiseRepairFormSuccess = ({
   propertyReference,
   workOrderReference,
   shortAddress,
+  externalSchedulerLink,
 }) => {
   return (
     <div>
@@ -18,6 +19,18 @@ const RaiseRepairFormSuccess = ({
       </div>
 
       <ul className="govuk-list govuk-!-margin-top-9">
+        {externalSchedulerLink && (
+          <li>
+            Please{' '}
+            <Link href={externalSchedulerLink}>
+              <a>
+                <strong>open DRS</strong>
+              </a>
+            </Link>{' '}
+            to book an appointment
+          </li>
+        )}
+
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
             <a>

@@ -1,5 +1,74 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`RaiseRepairFormSuccess component should render an external scheduler link if provided 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-dark-green"
+    >
+      <h1
+        class="lbh-heading-xl text-white"
+      >
+        Repair work order created
+      </h1>
+      <div
+        class="govuk-panel__body"
+      >
+        Work order number
+        <br />
+        <strong
+          class="govuk-!-font-size-48"
+        >
+          10000000
+        </strong>
+      </div>
+    </div>
+    <ul
+      class="govuk-list govuk-!-margin-top-9"
+    >
+      <li>
+        Please 
+        <a
+          href="https://example.com"
+        >
+          <strong>
+            open DRS
+          </strong>
+        </a>
+         to book an appointment
+      </li>
+      <li>
+        <a
+          href="/work-orders/10000000"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/properties/00012345"
+        >
+          <strong>
+            Back to 16 Pitcairn House  St Thomass Square
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          href="/"
+        >
+          <strong>
+            Start a new search
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`RaiseRepairFormSuccess component should render properly 1`] = `
 <DocumentFragment>
   <div>
