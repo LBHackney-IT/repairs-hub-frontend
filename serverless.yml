@@ -44,7 +44,6 @@ functions:
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
-      NEXT_PUBLIC_ENV_NAME: ${self:provider.stage}
 
 resources:
   Resources:
