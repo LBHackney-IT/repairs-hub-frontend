@@ -47,34 +47,27 @@ describe('SuccessPage component', () => {
 
     describe('High cost (over raise limit) authorisation', () => {
       it('should render a success screen with a warning message', () => {
-        const { asFragment } = render(
-          <SuccessPage
-            workOrderReference={props.workOrderReference}
-            text={props.text}
-            propertyReference={props.propertyReference}
-            shortAddress={props.shortAddress}
-            showSearchLink={props.showSearchLink}
-            isRaiseRepairSuccess={props.isRaiseRepairSuccess}
-            authorisationPendingApproval={true}
-          />
-        )
+        const testProps = { ...props, authorisationPendingApproval: true }
+        const { asFragment } = render(<SuccessPage {...testProps} />)
         expect(asFragment()).toMatchSnapshot()
       })
     })
 
     describe('Within raise limit', () => {
       it('should render a success screen without a warning message', () => {
-        const { asFragment } = render(
-          <SuccessPage
-            workOrderReference={props.workOrderReference}
-            text={props.text}
-            propertyReference={props.propertyReference}
-            shortAddress={props.shortAddress}
-            showSearchLink={props.showSearchLink}
-            isRaiseRepairSuccess={props.isRaiseRepairSuccess}
-            authorisationPendingApproval={false}
-          />
-        )
+        const testProps = { ...props, authorisationPendingApproval: false }
+        const { asFragment } = render(<SuccessPage {...testProps} />)
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    describe('With an external scheduler URL', () => {
+      it('should render text with a link to schedule externally', () => {
+        const testProps = {
+          ...props,
+          externalSchedulerUrl: 'https://drs.example.com',
+        }
+        const { asFragment } = render(<SuccessPage {...testProps} />)
         expect(asFragment()).toMatchSnapshot()
       })
     })
