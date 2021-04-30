@@ -145,13 +145,13 @@ workflows:
             - e2e
           filters:
             branches:
-              only: develop
+              only: no-dlo-repairs-appointments-in-hub
       - build-deploy-development:
           requires:
             - assume-role-development
           filters:
             branches:
-              only: develop
+              only: no-dlo-repairs-appointments-in-hub
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
