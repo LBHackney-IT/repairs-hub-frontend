@@ -45,7 +45,9 @@ const HeaderComponent = ({ serviceName }) => {
                 </svg>
                 <span className="lbh-header__logo-text"> Hackney </span>
                 <span className="lbh-header__service-name">{serviceName}</span>
-                <span className="lbh-header__service-name env-name">
+                <span
+                  className={`lbh-header__service-name env-name env-${process.env.NEXT_PUBLIC_ENV_NAME}`}
+                >
                   {process.env.NEXT_PUBLIC_ENV_NAME}
                 </span>
               </a>
