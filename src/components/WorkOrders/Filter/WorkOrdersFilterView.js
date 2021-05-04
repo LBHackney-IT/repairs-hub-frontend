@@ -13,7 +13,8 @@ const WorkOrdersFilterView = ({
   const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [filters, setFilters] = useState()
+  const [statusFilters, setStatusFilters] = useState()
+  const [priorityFilters, setPriorityFilters] = useState()
 
   const onSubmit = async (formData) => {
     formData.StatusCode = { ...formData.StatusCode }
@@ -28,9 +29,10 @@ const WorkOrdersFilterView = ({
     try {
       const workOrderFilters = await getFilters('WorkOrder')
 
-      setFilters(workOrderFilters)
+      removeUnusedFilters(workOrderFilters)
     } catch (e) {
-      setFilters(null)
+      setStatusFilters(null)
+      setPriorityFilters(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -38,6 +40,15 @@ const WorkOrdersFilterView = ({
     }
 
     setLoading(false)
+  }
+
+  const removeUnusedFilters = (allFilters) => {
+    const filteredFilters = allFilters.Status.filter(
+      (status) => status.key != '70' && status.key != '110'
+    )
+
+    setStatusFilters(filteredFilters)
+    setPriorityFilters(allFilters.Priority)
   }
 
   useEffect(() => {
@@ -56,7 +67,8 @@ const WorkOrdersFilterView = ({
         >
           <WorkOrdersFilter
             loading={loading}
-            filters={filters}
+            statusFilters={statusFilters}
+            priorityFilters={priorityFilters}
             register={register}
             appliedFilters={appliedFilters}
             clearFilters={clearFilters}

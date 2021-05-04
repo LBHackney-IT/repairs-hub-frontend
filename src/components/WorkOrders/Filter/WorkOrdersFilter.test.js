@@ -3,32 +3,30 @@ import WorkOrdersFilter from './WorkOrdersFilter'
 
 describe('WorkOrdersFilter component', () => {
   const props = {
-    filters: {
-      Priority: [
-        {
-          key: 'I',
-          description: 'Immediate',
-        },
-        {
-          key: 'E',
-          description: 'Emergency',
-        },
-      ],
-      Status: [
-        {
-          key: '80',
-          description: 'In Progress',
-        },
-        {
-          key: '50',
-          description: 'Complete',
-        },
-        {
-          key: '30',
-          description: 'Work Cancelled',
-        },
-      ],
-    },
+    priorityFilters: [
+      {
+        key: 'I',
+        description: 'Immediate',
+      },
+      {
+        key: 'E',
+        description: 'Emergency',
+      },
+    ],
+    statusFilters: [
+      {
+        key: '80',
+        description: 'In Progress',
+      },
+      {
+        key: '50',
+        description: 'Complete',
+      },
+      {
+        key: '30',
+        description: 'Work Cancelled',
+      },
+    ],
     loading: false,
     register: jest.fn(),
     clearFilters: jest.fn(),
@@ -37,7 +35,8 @@ describe('WorkOrdersFilter component', () => {
   it('should render properly', () => {
     const { asFragment } = render(
       <WorkOrdersFilter
-        filters={props.filters}
+        statusFilters={props.statusFilters}
+        priorityFilters={props.priorityFilters}
         loading={props.loading}
         register={props.register}
         clearFilters={props.clearFilters}

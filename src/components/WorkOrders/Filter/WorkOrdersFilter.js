@@ -5,7 +5,8 @@ import { GridColumn, GridRow } from '../../Layout/Grid'
 
 const WorkOrdersFilter = ({
   loading,
-  filters,
+  statusFilters,
+  priorityFilters,
   register,
   appliedFilters,
   clearFilters,
@@ -20,7 +21,7 @@ const WorkOrdersFilter = ({
         <Spinner />
       ) : (
         <>
-          {filters && (
+          {statusFilters && priorityFilters && (
             <>
               <GridRow>
                 <div className="govuk-form-group lbh-form-group">
@@ -31,7 +32,7 @@ const WorkOrdersFilter = ({
                       </legend>
 
                       <div className="govuk-checkboxes">
-                        {filters.Status.map((status, index) => (
+                        {statusFilters.map((status, index) => (
                           <Checkbox
                             key={index}
                             name={`StatusCode.${status.key}`}
@@ -53,7 +54,7 @@ const WorkOrdersFilter = ({
                       </legend>
 
                       <div className="govuk-checkboxes">
-                        {filters.Priority.map((priority, index) => (
+                        {priorityFilters.map((priority, index) => (
                           <Checkbox
                             key={index}
                             name={`Priorities.${priority.key}`}
