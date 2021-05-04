@@ -30,7 +30,7 @@ describe('Raise repair form', () => {
       'api/contractors?propertyReference=00012345&tradeCode=PL',
       '@contractors'
     )
-    cy.route('POST', '/api/repairs/schedule', {
+    cy.route('POST', '/api/workOrders/schedule', {
       id: 10102030,
       statusCode: 200,
       statusCodeDescription: '???',
@@ -529,7 +529,7 @@ describe('Raise repair form', () => {
   })
 
   it('Display warning text when over the raise limit and submit for high cost authorisation', () => {
-    cy.route('POST', '/api/repairs/schedule', {
+    cy.route('POST', '/api/workOrders/schedule', {
       id: 10102030,
       statusCode: 1010,
       statusCodeDescription: '???',

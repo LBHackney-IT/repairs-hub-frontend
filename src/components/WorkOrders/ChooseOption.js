@@ -15,12 +15,12 @@ const ChooseOption = ({ reference }) => {
   const onSubmitForm = (e) => {
     if (e.options == 'Close job') {
       router.push({
-        pathname: 'close-job',
+        pathname: 'close',
         query: { id: reference },
       })
     } else if (e.options == 'Update') {
       router.push({
-        pathname: 'update-job',
+        pathname: 'update',
         query: { id: reference },
       })
     }
@@ -45,6 +45,7 @@ const ChooseOption = ({ reference }) => {
     </>
   )
 }
+
 ChooseOption.propTypes = {
   reference: PropTypes.string.isRequired,
 }

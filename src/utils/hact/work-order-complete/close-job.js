@@ -1,4 +1,4 @@
-export const buildCloseJobData = (completionDate, notes, reference) => {
+export const buildCloseWorkOrderData = (completionDate, notes, reference) => {
   return {
     workOrderReference: {
       id: reference,

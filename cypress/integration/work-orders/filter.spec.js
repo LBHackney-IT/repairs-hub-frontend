@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { PAGE_SIZE_CONTRACTORS } from '../../../src/utils/frontend-api-client/repairs'
+import { PAGE_SIZE_CONTRACTORS } from '../../../src/utils/frontend-api-client/work-orders'
 
 describe('Filter work orders', () => {
   // Stub work orders and work orders filter response
@@ -12,20 +12,20 @@ describe('Filter work orders', () => {
     cy.fixture('filter/work-order.json').as('workOrderFilters')
     cy.route('GET', `api/filter/WorkOrder`, '@workOrderFilters')
     // All work orders
-    cy.fixture('repairs/work-orders.json').as('workOrderslist')
+    cy.fixture('work-orders/work-orders.json').as('workOrderslist')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
       '@workOrderslist'
     )
     // No work orders for work cancelled
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=30`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=30`,
       []
     )
     // Work complete (50)
-    cy.fixture('repairs/work-orders.json')
+    cy.fixture('work-orders/work-orders.json')
       .then((workOrders) => {
         return workOrders.filter(
           (workOrder) => workOrder.status === 'Work complete'
@@ -34,55 +34,55 @@ describe('Filter work orders', () => {
       .as('workComplete')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50`,
       '@workComplete'
     )
-    // Pending Approval (90)
-    cy.fixture('repairs/work-orders.json')
+    // Variation Pending Approval (90)
+    cy.fixture('work-orders/work-orders.json')
       .then((workOrders) => {
         return workOrders.filter(
-          (workOrder) => workOrder.status === 'Pending Approval'
+          (workOrder) => workOrder.status === 'Variation Pending Approval'
         )
       })
       .as('pendingApproval')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=90`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=90`,
       '@pendingApproval'
     )
-    // Work Complete (50) and Pending Approval (90)
-    cy.fixture('repairs/work-orders.json')
+    // Work Complete (50) and Variation Pending Approval (90)
+    cy.fixture('work-orders/work-orders.json')
       .then((workOrders) => {
         return workOrders.filter(
           (workOrder) =>
             workOrder.status === 'Work complete' ||
-            workOrder.status === 'Pending Approval'
+            workOrder.status === 'Variation Pending Approval'
         )
       })
       .as('workCompleteAndPendingApproval')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50&StatusCode=90`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50&StatusCode=90`,
       '@workCompleteAndPendingApproval'
     )
-    // In Progress (80) and Pending Approval (90) and Emergency priority
-    cy.fixture('repairs/work-orders.json')
+    // In Progress (80) and Variation Pending Approval (90) and Emergency priority
+    cy.fixture('work-orders/work-orders.json')
       .then((workOrders) => {
         return workOrders.filter(
           (workOrder) =>
             (workOrder.status === 'In progress' ||
-              workOrder.status === 'Pending Approval') &&
+              workOrder.status === 'Variation Pending Approval') &&
             workOrder.priority === '2 [E] EMERGENCY'
         )
       })
       .as('emergencyPriorityWorkInProgressAndPendingApproval')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2`,
       '@emergencyPriorityWorkInProgressAndPendingApproval'
     )
     // Work order with Emergency priority
-    cy.fixture('repairs/work-orders.json')
+    cy.fixture('work-orders/work-orders.json')
       .then((workOrders) => {
         return workOrders.filter(
           (workOrder) => workOrder.priority === '2 [E] EMERGENCY'
@@ -91,7 +91,7 @@ describe('Filter work orders', () => {
       .as('emergencyPriorityWork')
     cy.route(
       'GET',
-      `api/repairs/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&Priorities=2`,
+      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&Priorities=2`,
       '@emergencyPriorityWork'
     )
 
@@ -157,7 +157,7 @@ describe('Filter work orders', () => {
 
     cy.url().should('contains', '/?pageNumber=1&StatusCode=50')
 
-    // Filter by work order complete and pending approval
+    // Filter by work order complete and Variation Pending Approval
     cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
     cy.get('[type="submit"]').contains('Apply filters').click()
 
@@ -168,7 +168,7 @@ describe('Filter work orders', () => {
       cy.contains('Work complete')
     })
     cy.get('[data-ref=10000030]').within(() => {
-      cy.contains('Pending Approval')
+      cy.contains('Variation Pending Approval')
     })
     cy.get('[data-ref=10000035]').should('not.exist')
     cy.get('[data-ref=10000040]').should('not.exist')
@@ -180,7 +180,7 @@ describe('Filter work orders', () => {
     cy.get('[type="submit"]').contains('Apply filters').click()
 
     cy.get('[data-ref=10000030]').within(() => {
-      cy.contains('Pending Approval')
+      cy.contains('Variation Pending Approval')
     })
     cy.get('[data-ref=10000037]').should('not.exist')
     cy.get('[data-ref=10000036]').should('not.exist')
@@ -218,12 +218,12 @@ describe('Filter work orders', () => {
       cy.contains('Work complete')
     })
     cy.get('[data-ref=10000030]').within(() => {
-      cy.contains('Pending Approval')
+      cy.contains('Variation Pending Approval')
     })
     cy.get('[data-ref=10000035]').should('not.exist')
     cy.get('[data-ref=10000040]').should('not.exist')
 
-    // Expect only work complete and pending approval filter checkbox to be selected
+    // Expect only work complete and Variation Pending Approval filter checkbox to be selected
     cy.get('.govuk-details__summary-text').contains('Filters').click()
     cy.get('.govuk-checkboxes')
       .find('[name="StatusCode.50"]')
@@ -274,7 +274,7 @@ describe('Filter work orders', () => {
     cy.get('[data-ref=10000035]').should('not.exist')
     cy.get('[data-ref=10000030]').should('not.exist')
 
-    // Expect only work in progress, pending approval and emergency filter checkbox to be selected
+    // Expect only work in progress, Variation Pending Approval and emergency filter checkbox to be selected
     // Status filter options
     cy.get('.govuk-details__summary-text').contains('Filters').click()
     cy.get('.govuk-checkboxes')

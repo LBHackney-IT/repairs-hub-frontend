@@ -32,7 +32,7 @@ const WorkOrderDetails = ({
         {user &&
           (user.hasContractorPermissions ||
             user.hasContractManagerPermissions) && (
-            <Link href={`/repairs/jobs/${workOrder.reference}/choose-option`}>
+            <Link href={`/work-orders/${workOrder.reference}/choose-option`}>
               <a className="govuk-body-m">Update Works Order</a>
             </Link>
           )}
@@ -41,7 +41,7 @@ const WorkOrderDetails = ({
           workOrder.status ===
             STATUS_VARIATION_PENDING_APPROVAL.description && (
             <Link
-              href={`/repairs/jobs/${workOrder.reference}/variation-authorisation`}
+              href={`/work-orders/${workOrder.reference}/variation-authorisation`}
             >
               <a className="govuk-body-m">Authorise Works Order Variation</a>
             </Link>
@@ -50,7 +50,7 @@ const WorkOrderDetails = ({
           user.hasAuthorisationManagerPermissions &&
           workOrder.status ===
             STATUS_AUTHORISATION_PENDING_APPROVAL.description && (
-            <Link href={`/repairs/jobs/${workOrder.reference}/authorisation`}>
+            <Link href={`/work-orders/${workOrder.reference}/authorisation`}>
               <a className="govuk-body-m">Authorise Works Order</a>
             </Link>
           )}

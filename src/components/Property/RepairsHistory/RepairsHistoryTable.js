@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/repairs'
+import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/work-orders'
 import UserContext from '../../UserContext/UserContext'
 import RepairsHistoryRow from './RepairsHistoryRow'
 

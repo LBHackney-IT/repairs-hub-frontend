@@ -55,6 +55,15 @@ Cypress.Commands.add('loginWithContractManagerRole', () => {
   cy.visit(host)
 })
 
+Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AUTHORISATION_MANAGER')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.visit(host)
+})
+
 Cypress.Commands.add('logout', () => {
   cy.get('#logout').contains('Logout')
   cy.clearCookie('hackneyToken')

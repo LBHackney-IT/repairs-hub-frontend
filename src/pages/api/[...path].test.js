@@ -177,7 +177,7 @@ describe('/api/[...path]', () => {
           method: 'post',
           headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
           query: {
-            path: ['repairs'], // replicates how Next JS structures API requests
+            path: ['workOrders'], // replicates how Next JS structures API requests
           },
           body: 'a body value',
         })
@@ -208,7 +208,7 @@ describe('/api/[...path]', () => {
         expect(axios).toHaveBeenCalledWith({
           method: 'post',
           headers,
-          url: `${REPAIRS_SERVICE_API_URL}/repairs`,
+          url: `${REPAIRS_SERVICE_API_URL}/workOrders`,
           params: {},
           paramsSerializer: paramsSerializer,
           data: 'a body value',
