@@ -22,7 +22,7 @@ describe('Contract manager can authorise variation', () => {
 
   it('Rejects job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('a', 'Authorise Works Order').click()
+    cy.contains('a', 'Authorise Works Order Variation').click()
     cy.contains('Authorisation variation request: 10000012')
 
     // Throws an error when rejected without comments
@@ -52,7 +52,7 @@ describe('Contract manager can authorise variation', () => {
 
   it('Approves job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('a', 'Authorise Works Order').click()
+    cy.contains('a', 'Authorise Works Order Variation').click()
     cy.contains('Authorisation variation request: 10000012')
 
     cy.url().should('contains', '/work-orders/10000012/variation-authorisation')

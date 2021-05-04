@@ -35,6 +35,10 @@
       "description": "Variation Pending Approval"
     },
     {
+      "key": "1010",
+      "description": "Authorisation Pending Approval"
+    },
+    {
       "key": "1080",
       "description": "Variation Approved"
     },
