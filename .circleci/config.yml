@@ -70,7 +70,9 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=development
+            yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -78,7 +80,9 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=staging
+            yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
