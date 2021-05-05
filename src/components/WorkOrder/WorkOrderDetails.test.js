@@ -10,7 +10,7 @@ describe('WorkOrderDetails component', () => {
       lastUpdated: null,
       priority: 'U - Urgent (5 Working days)',
       property: '',
-      owner: '',
+      owner: 'Alphatrack (S) Systems Lt',
       description: 'This is an urgent repair description',
       propertyReference: '00014888',
       status: 'In Progress',

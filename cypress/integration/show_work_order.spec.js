@@ -82,6 +82,8 @@ describe('Show work order', () => {
         cy.contains('Appointment details')
         cy.contains('19 Mar 2021, 12:00-18:00')
       })
+      //can see who was assigned
+      cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
       // Run lighthouse audit for accessibility report
       cy.audit()
@@ -116,6 +118,8 @@ describe('Show work order', () => {
           cy.contains('Appointment details')
           cy.contains('a', 'Schedule an appointment')
         })
+        //can see who was assigned
+        cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
         // Run lighthouse audit for accessibility report
         cy.audit()
@@ -153,6 +157,8 @@ describe('Show work order', () => {
         cy.contains('Appointment details')
         cy.contains('Not applicable')
       })
+      //can see who was assigned
+      cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
       // Run lighthouse audit for accessibility report
       cy.audit()

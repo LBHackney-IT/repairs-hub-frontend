@@ -176,6 +176,13 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             </a>
           </div>
         </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -364,6 +371,13 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             </a>
           </div>
         </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -546,6 +560,13 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             </a>
           </div>
         </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -714,6 +735,13 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           <div
             class="govuk-body-s"
           />
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>
@@ -891,6 +919,13 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
             </a>
           </div>
         </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1067,6 +1102,13 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
             </a>
           </div>
         </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
       </div>
     </div>
   </div>
@@ -1241,6 +1283,13 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <div
             class="govuk-body-s"
           />
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>
@@ -1417,6 +1466,13 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
               Schedule an appointment
             </a>
           </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>
