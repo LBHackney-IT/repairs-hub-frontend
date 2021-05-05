@@ -28,6 +28,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     authorisationPendingApproval,
     setAuthorisationPendingApproval,
   ] = useState(false)
+  const [
+    externallyManagedAppointment,
+    setExternallyManagedAppointment,
+  ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
@@ -36,11 +40,15 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const { id, statusCode } = await postRepair(formData)
+      const { id, statusCode, externallyManagedAppointment } = await postRepair(
+        formData
+      )
       setWorkOrderReference(id)
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
+      } else if (externallyManagedAppointment) {
+        setExternallyManagedAppointment(true)
       } else if (
         priorityCodesRequiringAppointments.includes(
           formData.priority.priorityCode
@@ -114,6 +122,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 showSearchLink={true}
                 isRaiseRepairSuccess={true}
                 authorisationPendingApproval={authorisationPendingApproval}
+                externalSchedulerLink={
+                  externallyManagedAppointment &&
+                  process.env.NEXT_PUBLIC_SCHEDULER_URL
+                }
               />
             </>
           )}
