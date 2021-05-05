@@ -36,6 +36,9 @@ const WorkOrderHeader = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <AppointmentDetails workOrder={workOrder} />
+        <div className="govuk-body-xs govuk-!-margin-bottom-2">
+          <span>Assigned to: {workOrder.owner}</span>
+        </div>
       </div>
     </div>
   )
