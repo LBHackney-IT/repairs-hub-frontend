@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import RepairsHistoryTable from './RepairsHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getRepairsForProperty } from '../../../utils/frontend-api-client/repairs'
+import { getWorkOrdersForProperty } from '../../../utils/frontend-api-client/work-orders'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference, tabName }) => {
@@ -12,11 +12,11 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
-  const getRepairsHistoryView = async (propertyReference, pageNumber) => {
+  const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
     setError(null)
 
     try {
-      const data = await getRepairsForProperty(propertyReference, pageNumber)
+      const data = await getWorkOrdersForProperty(propertyReference, pageNumber)
       const workOrdersPerPage = sortObjectsByDateKey(
         data,
         ['dateRaised', 'lastUpdated'],
@@ -37,14 +37,14 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
   useEffect(() => {
     setLoading(true)
 
-    getRepairsHistoryView(propertyReference, pageNumber)
+    getWorkOrdersHistoryView(propertyReference, pageNumber)
   }, [])
 
   const loadMoreWorkOrders = (newPageNumber) => {
     setLoading(true)
     setPageNumber(pageNumber + 1)
 
-    getRepairsHistoryView(propertyReference, newPageNumber)
+    getWorkOrdersHistoryView(propertyReference, newPageNumber)
   }
 
   const renderRepairsHistoryTable = () => {

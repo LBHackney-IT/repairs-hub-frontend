@@ -1,4 +1,4 @@
-export const buildUpdateJob = (
+export const buildUpdateWorkOrder = (
   latestTasks,
   addedTasks,
   reference,

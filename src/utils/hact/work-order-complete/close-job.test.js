@@ -1,5 +1,5 @@
-import { buildCloseJobData } from './close-job'
-describe('buildCloseJobData', () => {
+import { buildCloseWorkOrderData } from './close-job'
+describe('buildCloseWorkOrderData', () => {
   const completionDate = new Date(
     'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
   )
@@ -7,7 +7,7 @@ describe('buildCloseJobData', () => {
   const reference = '00012346'
 
   it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
-    const closeJobFormData = {
+    const CloseWorkOrderFormData = {
       workOrderReference: {
         id: reference,
         description: '',
@@ -23,7 +23,7 @@ describe('buildCloseJobData', () => {
       ],
     }
 
-    const response = buildCloseJobData(completionDate, notes, reference)
-    expect(response).toEqual(closeJobFormData)
+    const response = buildCloseWorkOrderData(completionDate, notes, reference)
+    expect(response).toEqual(CloseWorkOrderFormData)
   })
 })

@@ -17,7 +17,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/choose-option"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
       </a>
@@ -206,13 +206,13 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/choose-option"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
       </a>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/variation-authorisation"
+        href="/work-orders/10000012/variation-authorisation"
       >
         Authorise Works Order Variation
       </a>
@@ -401,7 +401,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/choose-option"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
       </a>
@@ -590,7 +590,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/choose-option"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
       </a>
@@ -1132,7 +1132,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/authorisation"
+        href="/work-orders/10000012/authorisation"
       >
         Authorise Works Order
       </a>

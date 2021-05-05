@@ -10,7 +10,10 @@ import { getProperties } from '../../utils/frontend-api-client/properties'
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
   const canSearchForProperty =
-    user && (user.hasAgentPermissions || user.hasContractManagerPermissions)
+    user &&
+    (user.hasAgentPermissions ||
+      user.hasContractManagerPermissions ||
+      user.hasAuthorisationManagerPermissions)
   const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)

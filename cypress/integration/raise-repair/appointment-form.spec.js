@@ -16,16 +16,16 @@ describe('Schedule appointment form', () => {
     cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
 
-    cy.fixture('repairs/work-order.json').as('workOrder')
-    cy.fixture('repairs/task.json').as('task')
+    cy.fixture('work-orders/work-order.json').as('workOrder')
+    cy.fixture('work-orders/task.json').as('task')
 
-    cy.route('GET', 'api/repairs/10102030', '@workOrder')
-    cy.route('GET', 'api/repairs/10102030/tasks', '@task')
+    cy.route('GET', 'api/workOrders/10102030', '@workOrder')
+    cy.route('GET', 'api/workOrders/10102030/tasks', '@task')
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/hub-user', {})
     cy.route(
       'GET',
-      'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       []
     )
     cy.route(
@@ -40,7 +40,7 @@ describe('Schedule appointment form', () => {
       'api/contractors?propertyReference=00012345&tradeCode=PL',
       '@contractors'
     )
-    cy.route('POST', '/api/repairs/schedule', {
+    cy.route('POST', '/api/workOrders/schedule', {
       id: 10102030,
       statusCode: 200,
       statusCodeDescription: '???',

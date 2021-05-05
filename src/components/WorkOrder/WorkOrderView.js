@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getRepair } from '../../utils/frontend-api-client/repairs'
+import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 import { getProperty } from '../../utils/frontend-api-client/properties'
 import Tabs from '../Tabs'
 
@@ -21,7 +21,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getRepair(workOrderReference)
+      const workOrder = await getWorkOrder(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
 
       setWorkOrder(workOrder)

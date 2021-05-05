@@ -1,5 +1,5 @@
 import Search from '../components/Search/Search'
-import JobView from '../components/WorkOrders/JobView'
+import WorkOrdersView from '../components/WorkOrders/WorkOrdersView'
 import UserContext from '../components/UserContext/UserContext'
 import { useContext } from 'react'
 import {
@@ -22,15 +22,15 @@ const Home = ({ query }) => {
     if (Object.entries(query).length === 0) {
       if (user.hasAuthorisationManagerPermissions) {
         // Default filter selected for Authorisation Pending Approval work orders
-        return <JobView pageNumber={1} query={{ StatusCode: '1010' }} />
+        return <WorkOrdersView pageNumber={1} query={{ StatusCode: '1010' }} />
       } else if (user.hasContractorManagerPermissions) {
         // Default filter selected for Variation Pending Approval work orders
-        return <JobView pageNumber={1} query={{ StatusCode: '90' }} />
+        return <WorkOrdersView pageNumber={1} query={{ StatusCode: '90' }} />
       } else {
-        return <JobView pageNumber={1} />
+        return <WorkOrdersView pageNumber={1} />
       }
     } else {
-      return <JobView query={query} />
+      return <WorkOrdersView query={query} />
     }
   }
 }
