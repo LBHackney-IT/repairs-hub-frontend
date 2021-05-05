@@ -49,6 +49,7 @@ export const buildUser = (name, email, authServiceGroups) => {
   return {
     name: name,
     email: email,
+    roles: roles,
     hasRole: hasRole,
     hasAgentPermissions: hasRole(AGENT_ROLE),
     hasContractorPermissions: hasRole(CONTRACTOR_ROLE),

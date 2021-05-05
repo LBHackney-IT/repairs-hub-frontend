@@ -1,10 +1,10 @@
 import SearchPage from 'src/pages/search'
 import {
   AGENT_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from 'src/utils/user'
-import { AUTHORISATION_MANAGER_ROLE } from '../src/utils/user'
+} from '../src/utils/user'
 
 describe('SearchPage.permittedRoles', () => {
   ;[

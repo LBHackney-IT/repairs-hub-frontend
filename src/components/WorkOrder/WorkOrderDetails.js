@@ -2,13 +2,11 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
+import { GridRow, GridColumn } from '../Layout/Grid'
 import BackButton from '../Layout/BackButton/BackButton'
-import Link from 'next/link'
-import {
-  STATUS_CANCELLED,
-  STATUS_VARIATION_PENDING_APPROVAL,
-  STATUS_AUTHORISATION_PENDING_APPROVAL,
-} from '../../utils/status-codes'
+import MultiButton from '../Layout/MultiButton/MultiButton'
+
+import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 
 const WorkOrderDetails = ({
   propertyReference,
@@ -22,48 +20,41 @@ const WorkOrderDetails = ({
 }) => {
   const { user } = useContext(UserContext)
 
+  const workOrderActionMenu = () => {
+    return WORK_ORDER_ACTIONS.filter((choice) => {
+      if (
+        choice.permittedRoles.some((role) => user.roles.includes(role)) &&
+        choice.permittedStatuses.includes(workOrder.status)
+      ) {
+        return choice
+      }
+    })
+  }
+
+  const currentWorkOrderActionMenu = workOrderActionMenu()
+
   return (
-    <div>
+    <>
       <BackButton />
-      <div>
-        <h1 className="lbh-heading-l display-inline govuk-!-margin-right-6">
-          Works order: {workOrder.reference}
-        </h1>
-        {user &&
-          (user.hasContractorPermissions ||
-            user.hasContractManagerPermissions) && (
-            <Link href={`/work-orders/${workOrder.reference}/choose-option`}>
-              <a className="govuk-body-m">Update Works Order</a>
-            </Link>
+
+      <GridRow>
+        <GridColumn width="two-thirds">
+          <h1 className="lbh-heading-l display-inline govuk-!-margin-right-6">
+            Works order: {workOrder.reference}
+          </h1>
+        </GridColumn>
+        <GridColumn width="one-third">
+          {currentWorkOrderActionMenu?.length > 0 && (
+            <MultiButton
+              name="workOrderMenu"
+              label="Select work order"
+              secondary={false}
+              choices={currentWorkOrderActionMenu}
+              workOrderReference={workOrder.reference}
+            />
           )}
-        {user &&
-          user.hasContractManagerPermissions &&
-          workOrder.status ===
-            STATUS_VARIATION_PENDING_APPROVAL.description && (
-            <Link
-              href={`/work-orders/${workOrder.reference}/variation-authorisation`}
-            >
-              <a className="govuk-body-m">Authorise Works Order Variation</a>
-            </Link>
-          )}
-        {user &&
-          user.hasAuthorisationManagerPermissions &&
-          workOrder.status ===
-            STATUS_AUTHORISATION_PENDING_APPROVAL.description && (
-            <Link href={`/work-orders/${workOrder.reference}/authorisation`}>
-              <a className="govuk-body-m">Authorise Works Order</a>
-            </Link>
-          )}
-        {user &&
-          (user.hasAgentPermissions ||
-            user.hasAuthorisationManagerPermissions ||
-            user.hasContractManagerPermissions) &&
-          workOrder.status !== STATUS_CANCELLED.description && (
-            <Link href={`/work-orders/${workOrder.reference}/cancel`}>
-              <a className="govuk-body-m">Cancel Works Order</a>
-            </Link>
-          )}
-      </div>
+        </GridColumn>
+      </GridRow>
       <p className="govuk-body-m">{workOrder.description}</p>
 
       <WorkOrderHeader
@@ -77,7 +68,7 @@ const WorkOrderDetails = ({
         hasLinkToProperty={true}
         canRaiseRepair={canRaiseRepair}
       />
-    </div>
+    </>
   )
 }
 

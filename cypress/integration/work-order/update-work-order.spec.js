@@ -76,11 +76,13 @@ describe('Contractor update a job', () => {
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
     })
-    cy.contains('a', 'Update Works Order').click()
-    cy.contains('Update work order: 10000040')
-    cy.get('form').within(() => {
-      cy.get('[type="radio"]').check('Update')
-      cy.get('[type="submit"]').contains('Next').click()
+
+    cy.get('[data-testid="details"]').contains('Update').click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Update')
+        .should('have.attr', 'href', '/work-orders/10000040/update')
+        .click()
     })
 
     cy.wait('@taskListRequest')
@@ -198,12 +200,15 @@ describe('Contractor update a job', () => {
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
     })
-    cy.contains('a', 'Update Works Order').click()
-    cy.contains('Update work order: 10000040')
-    cy.get('form').within(() => {
-      cy.get('[type="radio"]').check('Update')
-      cy.get('[type="submit"]').contains('Next').click()
+
+    cy.get('[data-testid="details"]').contains('Update').click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Update')
+        .should('have.attr', 'href', '/work-orders/10000040/update')
+        .click()
     })
+
     cy.wait('@taskListRequest')
     cy.get('#repair-request-form').within(() => {
       cy.get('#quantity-0-form-group').within(() => {
