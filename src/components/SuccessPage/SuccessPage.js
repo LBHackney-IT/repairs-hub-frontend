@@ -31,6 +31,18 @@ const SuccessPage = ({ ...props }) => {
       )}
 
       <ul className="lbh-list lbh-!-margin-top-9">
+        {props.externalSchedulerLink && (
+          <li>
+            Please{' '}
+            <Link href={props.externalSchedulerLink}>
+              <a>
+                <strong>open DRS</strong>
+              </a>
+            </Link>{' '}
+            to book an appointment
+          </li>
+        )}
+
         {props.workOrderReference && (
           <li>
             <Link href={`/work-orders/${props.workOrderReference}`}>
