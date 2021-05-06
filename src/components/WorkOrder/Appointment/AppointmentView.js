@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getRepair } from '../../../utils/frontend-api-client/repairs'
+import { getWorkOrder } from '../../../utils/frontend-api-client/work-orders'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/repairs/[id]/tasks'
+import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
 import { getAvailableAppointments } from '../../../utils/frontend-api-client/appointments'
 import { beginningOfDay, beginningOfWeek, daysAfter } from '../../../utils/time'
 import BackButton from '../../Layout/BackButton/BackButton'
@@ -38,7 +38,7 @@ const AppointmentView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getRepair(workOrderReference)
+      const workOrder = await getWorkOrder(workOrderReference)
       const tasksAndSors = await getTasksAndSors(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
       const currentDate = beginningOfDay(new Date())
@@ -132,7 +132,9 @@ const AppointmentView = ({ workOrderReference }) => {
                 />
                 <RepairTasks tasks={tasksAndSors} />
                 {!availableAppointments.length ? (
-                  <NoAvailableAppointments />
+                  <NoAvailableAppointments
+                    workOrderReference={workOrderReference}
+                  />
                 ) : (
                   <AppointmentCalendar
                     availableAppointments={availableAppointments}

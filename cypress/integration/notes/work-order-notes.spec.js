@@ -10,12 +10,12 @@ describe('Notes', () => {
     // Stub requests
     cy.fixture('properties/property.json').as('property')
     cy.route('GET', 'api/properties/00012345', '@property')
-    cy.fixture('repairs/work-orders.json').as('workOrders')
-    cy.route('GET', 'api/repairs/?propertyReference=00012345', '@workOrders')
-    cy.fixture('repairs/work-order.json').as('workOrder')
-    cy.route('GET', 'api/repairs/10000012', '@workOrder')
-    cy.fixture('repairs/notes.json').as('notes')
-    cy.route('GET', 'api/repairs/10000012/notes', '@notes')
+    cy.fixture('work-orders/work-orders.json').as('workOrders')
+    cy.route('GET', 'api/workOrders/?propertyReference=00012345', '@workOrders')
+    cy.fixture('work-orders/work-order.json').as('workOrder')
+    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+    cy.fixture('work-orders/notes.json').as('notes')
+    cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
     cy.route({
       method: 'POST',
       url: '/api/jobStatusUpdate',
@@ -90,7 +90,7 @@ describe('Notes', () => {
   })
 
   it('Displays no notes message when there are no notes', () => {
-    cy.route('GET', 'api/repairs/10000012/notes', '[]')
+    cy.route('GET', 'api/workOrders/10000012/notes', '[]')
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
     cy.get('a[id="tab_notes-tab"]').click()
 

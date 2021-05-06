@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorkOrderDetails component when logged in as a contract manager should render properly with a link to update work order 1`] = `
+exports[`WorkOrderDetails component when logged in as a contract manager should render properly with a link to cancel work order 1`] = `
 <DocumentFragment>
   <div>
     <a
@@ -17,9 +17,15 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/authorisation"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
+      </a>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
       </a>
     </div>
     <p
@@ -105,7 +111,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             <span
               class="govuk-!-font-weight-bold"
             >
-              Status: Pending Approval
+              Status: In Progress
             </span>
             <br />
             <span
@@ -161,7 +167,21 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <br />
           <div
             class="govuk-body-s"
-          />
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>
@@ -169,7 +189,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
 </DocumentFragment>
 `;
 
-exports[`WorkOrderDetails component when logged in as a contract manager should render properly without a link to cancel work order 1`] = `
+exports[`WorkOrderDetails component when logged in as a contract manager should render with a link to authorise a variation request when status is variation pending approval 1`] = `
 <DocumentFragment>
   <div>
     <a
@@ -184,6 +204,213 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       >
         Works order: 10000012
       </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/choose-option"
+      >
+        Update Works Order
+      </a>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/variation-authorisation"
+      >
+        Authorise Works Order Variation
+      </a>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
+    </div>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-body-s govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="property-details-main-section"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
+          <div
+            class="govuk-body-s govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Status: Variation Pending Approval
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Priority: U - Urgent (5 Working days)
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              18 Jan 2021, 3:28 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
+          <div
+            class="govuk-body-s"
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component when logged in as a contract manager should render without a link to authorise a variation request when status is not variation pending approval 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div>
+      <h1
+        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/choose-option"
+      >
+        Update Works Order
+      </a>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
     </div>
     <p
       class="govuk-body-m"
@@ -324,170 +551,21 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <br />
           <div
             class="govuk-body-s"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`WorkOrderDetails component when logged in as a contract manager should render properly without a link to update work order 1`] = `
-<DocumentFragment>
-  <div>
-    <a
-      class="govuk-back-link lbh-back-link"
-      role="button"
-    >
-      Back
-    </a>
-    <div>
-      <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
-      >
-        Works order: 10000012
-      </h1>
-    </div>
-    <p
-      class="govuk-body-m"
-    >
-      This is an urgent repair description
-    </p>
-    <div
-      class="govuk-body-s govuk-grid-row"
-    >
-      <div
-        class="govuk-grid-column-one-third"
-      >
-        <div
-          class="property-details-main-section"
-        >
-          <span
-            class="govuk-!-font-size-14"
           >
-            Dwelling
-          </span>
-          <br />
-          <a
-            href="/properties/00012345"
-          >
-            <div
-              class="text-!-green govuk-!-font-weight-bold"
-            >
-              16 Pitcairn House
-              <br />
-              St Thomass Square
-              <br />
-              <span
-                class="govuk-!-font-size-14"
-              >
-                E9 6PT
-              </span>
-            </div>
-          </a>
-        </div>
-        <ul
-          class="hackney-property-alerts"
-        >
-          <li
-            class="bg-turquoise"
-          >
-            Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-        </ul>
-      </div>
-      <div
-        class="govuk-grid-column-one-third"
-      >
-        <div
-          class="work-order-info"
-        >
-          <span
-            class="govuk-!-font-size-14"
-          >
-            Works order
-          </span>
-          <div
-            class="govuk-body-s govuk-!-margin-bottom-2"
-          >
-            <span
+            <a
               class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
             >
-              Status: In Progress
-            </span>
-            <br />
-            <span
-              class="govuk-!-font-size-14"
-            >
-              Priority: U - Urgent (5 Working days)
-            </span>
-          </div>
-          <div
-            class="govuk-body-xs govuk-!-margin-bottom-2"
-          >
-            <span>
-              Raised by Dummy Agent
-            </span>
-            <br />
-            <span>
-              18 Jan 2021, 3:28 pm
-            </span>
-          </div>
-          <div
-            class="govuk-body-xs govuk-!-margin-bottom-2"
-          >
-            <span
-              class="govuk-!-font-weight-bold"
-            >
-              Target: 23 Jan 2021, 6:30 pm
-            </span>
-          </div>
-          <div
-            class="govuk-body-xs govuk-!-margin-bottom-2"
-          >
-            <span>
-              Caller: Jill Smith
-            </span>
-            <br />
-            <span>
-              07700 900999
-            </span>
+              Schedule an appointment
+            </a>
           </div>
         </div>
-      </div>
-      <div
-        class="govuk-grid-column-one-third"
-      >
         <div
-          class="appointment-details"
+          class="govuk-body-xs govuk-!-margin-bottom-2"
         >
-          <span
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
           </span>
-          <br />
-          <div
-            class="govuk-body-s"
-          />
         </div>
       </div>
     </div>
@@ -512,7 +590,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       </h1>
       <a
         class="govuk-body-m"
-        href="/repairs/jobs/10000012/choose-option"
+        href="/work-orders/10000012/choose-option"
       >
         Update Works Order
       </a>
@@ -657,6 +735,13 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           <div
             class="govuk-body-s"
           />
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>
@@ -833,6 +918,561 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
               Schedule an appointment
             </a>
           </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component when logged in as an authorisation manager should render properly with a link to cancel work order 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div>
+      <h1
+        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
+    </div>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-body-s govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="property-details-main-section"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
+          <div
+            class="govuk-body-s govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Status: In Progress
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Priority: U - Urgent (5 Working days)
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              18 Jan 2021, 3:28 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
+          <div
+            class="govuk-body-s"
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component when logged in as an authorisation manager should render with a link to authorise a new work order when status is authorisation pending approval 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div>
+      <h1
+        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/authorisation"
+      >
+        Authorise Works Order
+      </a>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
+    </div>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-body-s govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="property-details-main-section"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
+          <div
+            class="govuk-body-s govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Status: Authorisation Pending Approval
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Priority: U - Urgent (5 Working days)
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              18 Jan 2021, 3:28 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
+          <div
+            class="govuk-body-s"
+          />
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component when logged in as an authorisation manager should render without a link to authorise a new work order when status is not authorisation pending approval 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div>
+      <h1
+        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      >
+        Works order: 10000012
+      </h1>
+      <a
+        class="govuk-body-m"
+        href="/work-orders/10000012/cancel"
+      >
+        Cancel Works Order
+      </a>
+    </div>
+    <p
+      class="govuk-body-m"
+    >
+      This is an urgent repair description
+    </p>
+    <div
+      class="govuk-body-s govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="property-details-main-section"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Dwelling
+          </span>
+          <br />
+          <a
+            href="/properties/00012345"
+          >
+            <div
+              class="text-!-green govuk-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </a>
+        </div>
+        <ul
+          class="hackney-property-alerts"
+        >
+          <li
+            class="bg-turquoise"
+          >
+            Tenure: Secure
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Address Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+          <li
+            class="bg-orange"
+          >
+            Contact Alert: Property Under Disrepair (
+            <strong>
+              DIS
+            </strong>
+            )
+          </li>
+        </ul>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="work-order-info"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Works order
+          </span>
+          <div
+            class="govuk-body-s govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Status: In Progress
+            </span>
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Priority: U - Urgent (5 Working days)
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Raised by Dummy Agent
+            </span>
+            <br />
+            <span>
+              18 Jan 2021, 3:28 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span
+              class="govuk-!-font-weight-bold"
+            >
+              Target: 23 Jan 2021, 6:30 pm
+            </span>
+          </div>
+          <div
+            class="govuk-body-xs govuk-!-margin-bottom-2"
+          >
+            <span>
+              Caller: Jill Smith
+            </span>
+            <br />
+            <span>
+              07700 900999
+            </span>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-third"
+      >
+        <div
+          class="appointment-details"
+        >
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Appointment details
+          </span>
+          <br />
+          <div
+            class="govuk-body-s"
+          >
+            <a
+              class="govuk-!-font-weight-bold"
+              href="/work-orders/10000012/appointment/new"
+            >
+              Schedule an appointment
+            </a>
+          </div>
+        </div>
+        <div
+          class="govuk-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Assigned to: Alphatrack (S) Systems Lt
+          </span>
         </div>
       </div>
     </div>

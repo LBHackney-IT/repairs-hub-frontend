@@ -37,8 +37,7 @@ describe('buildRaiseRepairFormData', () => {
   }
 
   it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
-    // 2021-01-14T18:16:20.986Z
-    MockDate.set(1610648180986)
+    MockDate.set(new Date('Thu Jan 14 2021 18:16:20Z'))
 
     const scheduleRepairFormData = {
       reference: [
@@ -50,7 +49,7 @@ describe('buildRaiseRepairFormData', () => {
       priority: {
         priorityCode: 3,
         priorityDescription: '4 [U] URGENT',
-        requiredCompletionDateTime: new Date('2021-01-19T18:16:20.986Z'),
+        requiredCompletionDateTime: new Date('Thu Jan 21 2021 18:16:20Z'),
         numberOfDays: 5,
       },
       workClass: {

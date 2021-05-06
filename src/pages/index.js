@@ -1,9 +1,10 @@
 import Search from '../components/Search/Search'
-import JobView from '../components/WorkOrders/JobView'
+import WorkOrdersView from '../components/WorkOrders/WorkOrdersView'
 import UserContext from '../components/UserContext/UserContext'
 import { useContext } from 'react'
 import {
   AGENT_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
 } from '../utils/user'
@@ -19,9 +20,17 @@ const Home = ({ query }) => {
     }
   } else {
     if (Object.entries(query).length === 0) {
-      return <JobView pageNumber={1} />
+      if (user.hasAuthorisationManagerPermissions) {
+        // Default filter selected for Authorisation Pending Approval work orders
+        return <WorkOrdersView pageNumber={1} query={{ StatusCode: '1010' }} />
+      } else if (user.hasContractorManagerPermissions) {
+        // Default filter selected for Variation Pending Approval work orders
+        return <WorkOrdersView pageNumber={1} query={{ StatusCode: '90' }} />
+      } else {
+        return <WorkOrdersView pageNumber={1} />
+      }
     } else {
-      return <JobView query={query} />
+      return <WorkOrdersView query={query} />
     }
   }
 }
@@ -36,6 +45,11 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-Home.permittedRoles = [AGENT_ROLE, CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE]
+Home.permittedRoles = [
+  AGENT_ROLE,
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+  AUTHORISATION_MANAGER_ROLE,
+]
 
 export default Home

@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
+import {
+  STATUS_CANCELLED,
+  STATUS_AUTHORISATION_PENDING_APPROVAL,
+} from '../../utils/status-codes'
 
 const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
-  const STATUS_CANCELLED = 'Work Cancelled'
+
   if (workOrder.priorityCode > 1) {
     return (
       <div className="appointment-details">
@@ -14,8 +18,12 @@ const AppointmentDetails = ({ workOrder }) => {
         <br></br>
         <div className="govuk-body-s">
           {user &&
-            user.hasAgentPermissions &&
-            workOrder.status !== STATUS_CANCELLED &&
+            (user.hasAgentPermissions ||
+              user.hasContractManagerPermissions ||
+              user.hasAuthorisationManagerPermissions) &&
+            workOrder.status !== STATUS_CANCELLED.description &&
+            workOrder.status !==
+              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
             !workOrder.appointment && (
               <Link
                 href={`/work-orders/${workOrder.reference}/appointment/new`}

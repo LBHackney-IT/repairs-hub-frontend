@@ -1,6 +1,6 @@
-import { buildUpdateJob } from './update-job'
+import { buildUpdateWorkOrder } from './update-job'
 
-describe('buildUpdateJob', () => {
+describe('buildUpdateWorkOrder', () => {
   const latestTasks = [
     {
       id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -21,8 +21,8 @@ describe('buildUpdateJob', () => {
   const reference = '00012345'
   const variationReason = 'More work is required'
 
-  it('builds the UpdateJob form data to post to the Repairs API', () => {
-    const updateJobFormData = {
+  it('builds the UpdateWorkOrder form data to post to the Repairs API', () => {
+    const UpdateWorkOrderFormData = {
       relatedWorkOrderReference: {
         id: '00012345',
       },
@@ -49,13 +49,13 @@ describe('buildUpdateJob', () => {
       },
     }
 
-    const response = buildUpdateJob(
+    const response = buildUpdateWorkOrder(
       latestTasks,
       addedTasks,
       reference,
       variationReason
     )
 
-    expect(response).toEqual(updateJobFormData)
+    expect(response).toEqual(UpdateWorkOrderFormData)
   })
 })

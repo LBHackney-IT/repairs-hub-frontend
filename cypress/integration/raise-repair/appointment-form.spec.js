@@ -16,21 +16,21 @@ describe('Schedule appointment form', () => {
     cy.fixture('contractors/contractors.json').as('contractors')
     cy.fixture('properties/property.json').as('property')
 
-    cy.fixture('repairs/work-order.json').as('workOrder')
-    cy.fixture('repairs/task.json').as('task')
+    cy.fixture('work-orders/work-order.json').as('workOrder')
+    cy.fixture('work-orders/task.json').as('task')
 
-    cy.route('GET', 'api/repairs/10102030', '@workOrder')
-    cy.route('GET', 'api/repairs/10102030/tasks', '@task')
+    cy.route('GET', 'api/workOrders/10102030', '@workOrder')
+    cy.route('GET', 'api/workOrders/10102030/tasks', '@task')
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/hub-user', {})
     cy.route(
       'GET',
-      'api/repairs/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       []
     )
     cy.route(
       'GET',
-      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*',
       '@sorCodes'
     )
     cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
@@ -40,10 +40,11 @@ describe('Schedule appointment form', () => {
       'api/contractors?propertyReference=00012345&tradeCode=PL',
       '@contractors'
     )
-    cy.route({
-      method: 'POST',
-      url: '/api/repairs/schedule',
-      response: '10102030',
+    cy.route('POST', '/api/workOrders/schedule', {
+      id: 10102030,
+      statusCode: 200,
+      statusCodeDescription: '???',
+      externallyManagedAppointment: false,
     }).as('apiCheck')
 
     cy.route({
@@ -76,7 +77,7 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('HH General Building Repair - H01')
+        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
 
         cy.get('select[id="rateScheduleItems[0][code]"]').select(
           'DES5R005 - Normal call outs'
@@ -147,11 +148,11 @@ describe('Schedule appointment form', () => {
                 },
                 instructedBy: { name: 'Hackney Housing' },
                 assignedToPrimary: {
-                  name: 'HH General Building Repair',
+                  name: 'Purdy Contracts (P) Ltd',
                   organization: {
                     reference: [
                       {
-                        id: 'H01',
+                        id: 'PCL',
                       },
                     ],
                   },
@@ -310,7 +311,7 @@ describe('Schedule appointment form', () => {
       )
     })
 
-    it('Should display message that no appointments are availbale', () => {
+    it('Should display message that no appointments are available', () => {
       cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
       cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
@@ -318,7 +319,7 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('HH General Building Repair - H01')
+        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
 
         cy.get('select[id="rateScheduleItems[0][code]"]').select(
           'DES5R005 - Normal call outs'
@@ -337,8 +338,16 @@ describe('Schedule appointment form', () => {
       })
 
       // shows that there are no available appointments
-
       cy.get('#no-appointment').contains('No available appointments')
+
+      // Link back to work order
+      cy.get('.govuk-list li').within(() => {
+        cy.contains('View work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10102030'
+        )
+      })
 
       // Run lighthouse audit for accessibility report
       cy.audit()

@@ -4,7 +4,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
-import { getRepair } from '../../../utils/frontend-api-client/repairs'
+import { getWorkOrder } from '../../../utils/frontend-api-client/work-orders'
 import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
@@ -33,7 +33,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getRepair(workOrderReference)
+      const workOrder = await getWorkOrder(workOrderReference)
 
       setWorkOrder(workOrder)
     } catch (e) {

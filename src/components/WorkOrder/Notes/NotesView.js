@@ -5,7 +5,7 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
-import { getNotes } from '../../../utils/frontend-api-client/repairs/[id]/notes'
+import { getNotes } from '../../../utils/frontend-api-client/work-orders/[id]/notes'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const NotesView = ({ workOrderReference, tabName }) => {

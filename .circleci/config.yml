@@ -56,7 +56,9 @@ jobs:
       - *attach_workspace
       - run:
           name: Run E2E With Lighthouse Audit
-          command: yarn e2e:audit
+          command: |
+            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+            yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -70,7 +72,10 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=development
+            export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
+            yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
 
   build-deploy-staging:
     executor: aws-cli/default
@@ -78,7 +83,10 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=staging
+            export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
+            yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
     executor: aws-cli/default
@@ -86,7 +94,9 @@ jobs:
       - *attach_workspace
       - run:
           name: deploy
-          command: yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
+          command: |
+            export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_PRODUCTION
+            yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
 
   assume-role-development:
     executor: docker-python
