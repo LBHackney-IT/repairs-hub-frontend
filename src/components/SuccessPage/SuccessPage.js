@@ -35,7 +35,7 @@ const SuccessPage = ({ ...props }) => {
           <li>
             Please{' '}
             <Link href={props.externalSchedulerLink}>
-              <a>
+              <a target="_blank" rel="noopener">
                 <strong>open DRS</strong>
               </a>
             </Link>{' '}

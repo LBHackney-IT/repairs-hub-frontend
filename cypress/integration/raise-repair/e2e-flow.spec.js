@@ -436,6 +436,7 @@ describe('Schedule appointment form', () => {
         'href',
         Cypress.env('NEXT_PUBLIC_SCHEDULER_URL')
       )
+      cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
     })
   })
 })
