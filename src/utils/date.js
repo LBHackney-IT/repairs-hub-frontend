@@ -31,16 +31,6 @@ export const convertToDateFormat = (string) => {
   return convertDate(dateAsString)
 }
 
-export const calculateNewDateTimeFromDate = (date, hours) => {
-  if (!hours) {
-    console.error('No argument given, hours must be supplied')
-    return null
-  }
-
-  // let currentDateTime = new Date()
-  return new Date(date.getTime() + hours * 3600000)
-}
-
 export const shortDayName = (date) => {
   return date.toLocaleDateString('en-GB', { weekday: 'short' })
 }
