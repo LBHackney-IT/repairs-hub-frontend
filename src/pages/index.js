@@ -23,7 +23,7 @@ const Home = ({ query }) => {
       if (user.hasAuthorisationManagerPermissions) {
         // Default filter selected for Authorisation Pending Approval work orders
         return <WorkOrdersView pageNumber={1} query={{ StatusCode: '1010' }} />
-      } else if (user.hasContractorManagerPermissions) {
+      } else if (user.hasContractManagerPermissions) {
         // Default filter selected for Variation Pending Approval work orders
         return <WorkOrdersView pageNumber={1} query={{ StatusCode: '90' }} />
       } else {

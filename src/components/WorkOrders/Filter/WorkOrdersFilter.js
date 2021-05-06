@@ -1,7 +1,10 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Spinner from '../../Spinner/Spinner'
 import { Checkbox, Button } from '../../Form'
 import { GridColumn, GridRow } from '../../Layout/Grid'
+import UserContext from '../../UserContext/UserContext'
+import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 
 const WorkOrdersFilter = ({
   loading,
@@ -10,6 +13,19 @@ const WorkOrdersFilter = ({
   appliedFilters,
   clearFilters,
 }) => {
+  const { user } = useContext(UserContext)
+
+  const statusFilterOptions = () => {
+    if (user && user.hasContractorPermissions) {
+      return filters.Status.filter(
+        (status) =>
+          status.key !== STATUS_AUTHORISATION_PENDING_APPROVAL.code.toString()
+      )
+    } else {
+      return filters.Status
+    }
+  }
+
   return (
     <details className="govuk-details" data-module="govuk-details">
       <summary className="govuk-details__summary">
@@ -31,7 +47,7 @@ const WorkOrdersFilter = ({
                       </legend>
 
                       <div className="govuk-checkboxes">
-                        {filters.Status.map((status, index) => (
+                        {statusFilterOptions().map((status, index) => (
                           <Checkbox
                             key={index}
                             name={`StatusCode.${status.key}`}
