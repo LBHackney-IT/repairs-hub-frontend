@@ -1,27 +1,25 @@
 import { priorityCodeCompletionTimes } from '../hact/helpers/priority-codes'
-import add from 'date-fns/add'
+import { isSaturday, addDays, subDays, isWeekend } from 'date-fns'
 
-const WEEKEND_DAYS = [0, 6]
+const isWorkingDay = (date) => !isWeekend(date)
 
-const isWorkingDay = (date) => !WEEKEND_DAYS.includes(date.getDay())
-
+// Returns supplied start date plus however many calendar days we loop over to satisfy
+// the required number of working days.
 const dateAfterCountWorkingDays = (startDate, targetWorkingDaysCount) => {
-  var workingDaysCount = 0
-  var calendarDaysCount = 0
+  let workingDaysCount = 0
+  let calendarDaysCount = 0
 
   while (workingDaysCount < targetWorkingDaysCount) {
     calendarDaysCount += 1
 
-    const date = add(startDate, { days: calendarDaysCount })
+    const date = addDays(startDate, calendarDaysCount)
 
     if (isWorkingDay(date)) {
       workingDaysCount += 1
     }
   }
 
-  // Return the start date plus however many calendar days we looped over to satisfy
-  // the required number of working days.
-  return add(startDate, { days: calendarDaysCount })
+  return addDays(startDate, calendarDaysCount)
 }
 
 export const calculateCompletionDateTime = (priorityCode) => {
@@ -30,11 +28,20 @@ export const calculateCompletionDateTime = (priorityCode) => {
     numberOfDays: completionTargetWorkingDays,
   } = priorityCodeCompletionTimes[priorityCode]
 
-  const now = new Date()
+  let now = new Date()
 
-  if (completionTargetWorkingDays < 1) {
+  if (
+    // Immediates always have a target of 2 hours
+    completionTargetWorkingDays < 1
+  ) {
     return new Date(now.setHours(now.getHours() + completionTargetHours))
   } else {
+    // For the purpose of target time calculation, treat an order raised on a Saturday
+    // as if it had been raised on the preceding Friday.
+    if (isSaturday(now)) {
+      now = subDays(now, 1)
+    }
+
     return dateAfterCountWorkingDays(now, completionTargetWorkingDays)
   }
 }
