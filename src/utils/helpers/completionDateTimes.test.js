@@ -6,27 +6,49 @@ describe('calculateCompletionDateTime', () => {
     // 2 hours
     const priorityCode = 1
 
-    const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
+    describe('and the works order is created on a working day', () => {
+      const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
 
-    beforeEach(() => {
-      MockDate.set(dateTime)
+      beforeEach(() => {
+        MockDate.set(dateTime)
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('adds the configured number of hours to set the target time for the same day', () => {
+        const expectedDateTime = new Date(
+          dateTime.setHours(dateTime.getHours() + 2)
+        )
+
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          expectedDateTime
+        )
+      })
     })
 
-    afterEach(() => {
-      MockDate.reset()
+    describe('and the works order is created on a non-working day', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('adds the configured number of hours to set the target time for the same day', () => {
+        const expectedDateTime = new Date(
+          dateTime.setHours(dateTime.getHours() + 2)
+        )
+
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          expectedDateTime
+        )
+      })
     })
-
-    it('adds the configured number of hours to set the target time', () => {
-      const expectedDateTime = new Date(
-        dateTime.setHours(dateTime.getHours() + 2)
-      )
-
-      expect(calculateCompletionDateTime(priorityCode)).toEqual(
-        expectedDateTime
-      )
-    })
-
-    xdescribe('and the works order is created on a non-working day', () => {})
   })
 
   describe('when the priority code represents an emergency order', () => {
@@ -71,7 +93,24 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created on a non-working day', () => {})
+    describe('and the works order is created on a Saturday', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day', () => {
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Monday 28 June 2021 09:00:00Z')
+        )
+      })
+    })
+
     xdescribe('and the works order is created when there are imminent bank holidays', () => {})
   })
 
@@ -118,7 +157,24 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created on a non-working day', () => {})
+    describe('and the works order is created on a non-working day', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day', () => {
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Friday 2 July 2021 09:00:00Z')
+        )
+      })
+    })
+
     xdescribe('and the works order is created when there are imminent bank holidays', () => {})
   })
 
@@ -165,7 +221,24 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created on a non-working day', () => {})
+    describe('and the works order is created on a non-working day', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day', () => {
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Monday 26 July 2021 09:00:00Z')
+        )
+      })
+    })
+
     xdescribe('and the works order is created when there are imminent bank holidays', () => {})
   })
 })
