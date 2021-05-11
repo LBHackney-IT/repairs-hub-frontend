@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Cookies from 'universal-cookie'
 import { useState, useEffect } from 'react'
 import RaiseRepairForm from './RaiseRepairForm'
 import SuccessPage from '../../SuccessPage/SuccessPage'
@@ -6,6 +7,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
+import { getSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
 import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
@@ -32,6 +34,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     externallyManagedAppointment,
     setExternallyManagedAppointment,
   ] = useState(false)
+  const [
+    externalAppointmentManagementUrl,
+    setExternalAppointmentManagementUrl,
+  ] = useState()
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
@@ -40,15 +46,39 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(true)
 
     try {
-      const { id, statusCode, externallyManagedAppointment } = await postRepair(
-        formData
-      )
+      const {
+        id,
+        statusCode,
+        externallyManagedAppointment,
+        externalAppointmentManagementUrl,
+      } = await postRepair(formData)
       setWorkOrderReference(id)
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
       } else if (externallyManagedAppointment) {
+        const cookies = new Cookies()
+
+        let schedulerSessionId = cookies.get(
+          process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
+        )
+
+        if (!schedulerSessionId) {
+          ;({ schedulerSessionId } = await getSchedulerSessionId())
+
+          cookies.set(
+            process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
+            schedulerSessionId,
+            {
+              path: '/',
+            }
+          )
+        }
+
         setExternallyManagedAppointment(true)
+        setExternalAppointmentManagementUrl(
+          `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
+        )
       } else if (
         priorityCodesRequiringAppointments.includes(
           formData.priority.priorityCode
@@ -124,7 +154,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 authorisationPendingApproval={authorisationPendingApproval}
                 externalSchedulerLink={
                   externallyManagedAppointment &&
-                  process.env.NEXT_PUBLIC_SCHEDULER_URL
+                  externalAppointmentManagementUrl
                 }
               />
             </>
