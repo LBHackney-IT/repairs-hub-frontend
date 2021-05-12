@@ -11,6 +11,10 @@ export const getWorkOrders = async (pageNumber = 1, options) => {
       PageNumber: pageNumber,
       ...(options.StatusCode && { StatusCode: options.StatusCode }),
       ...(options.Priorities && { Priorities: options.Priorities }),
+      ...(options.TradeCodes && { TradeCodes: options.TradeCodes }),
+      ...(options.ContractorReference && {
+        ContractorReference: options.ContractorReference,
+      }),
     },
     paramsSerializer: paramsSerializer,
   })

@@ -6,6 +6,7 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '../../utils/helpers/filter'
+import { GridColumn, GridRow } from '../Layout/Grid'
 
 const WorkOrdersView = ({ query }) => {
   const router = useRouter()
@@ -71,34 +72,47 @@ const WorkOrdersView = ({ query }) => {
         pageNumber: pageNumber,
         ...(filters?.StatusCode && { StatusCode: filters.StatusCode }),
         ...(filters?.Priorities && { Priorities: filters.Priorities }),
+        ...(filters?.TradeCodes && { TradeCodes: filters.TradeCodes }),
+        ...(filters?.ContractorReference && {
+          ContractorReference: filters.ContractorReference,
+        }),
       },
     })
   }
 
   return (
     <>
-      <WorkOrdersFilterView
-        onFilterSubmit={onFilterSubmit}
-        appliedFilters={queryParams}
-        clearFilters={clearFilters}
-      />
+      <GridRow>
+        <GridColumn
+          width="one-third"
+          className="filter-container govuk-!-padding-0"
+        >
+          <WorkOrdersFilterView
+            onFilterSubmit={onFilterSubmit}
+            appliedFilters={queryParams}
+            clearFilters={clearFilters}
+          />
+        </GridColumn>
 
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {workOrders && (
+        <GridColumn width="two-thirds">
+          {loading ? (
+            <Spinner />
+          ) : (
             <>
-              <WorkOrdersTable
-                workOrders={workOrders}
-                pageNumber={pageNumber}
-                handlePageClick={handlePageClick}
-              />
+              {workOrders && (
+                <>
+                  <WorkOrdersTable
+                    workOrders={workOrders}
+                    pageNumber={pageNumber}
+                    handlePageClick={handlePageClick}
+                  />
+                </>
+              )}
+              {error && <ErrorMessage label={error} />}
             </>
           )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
+        </GridColumn>
+      </GridRow>
     </>
   )
 }
