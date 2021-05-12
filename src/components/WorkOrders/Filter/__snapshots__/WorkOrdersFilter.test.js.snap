@@ -1,31 +1,126 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorkOrdersFilter component should render properly 1`] = `
+exports[`WorkOrdersFilter component When logged in as an authorisation manager should render properly with all filter options 1`] = `
 <DocumentFragment>
-  <details
-    class="govuk-details"
-    data-module="govuk-details"
+  <section
+    class="lbh-collapsible"
   >
-    <summary
-      class="govuk-details__summary"
+    <div
+      aria-expanded="true"
+      class="lbh-collapsible__button filter-collapsible"
     >
-      <span
-        class="govuk-details__summary-text"
+      <h2
+        class="lbh-heading-h2 lbh-collapsible__heading"
       >
         Filters
-      </span>
-    </summary>
+      </h2>
+      <svg
+        height="10"
+        viewBox="0 0 17 10"
+        width="17"
+      >
+        <path
+          d="M2 1.5L8.5 7.5L15 1.5"
+          stroke-width="3"
+        />
+      </svg>
+    </div>
     <div
-      class="govuk-grid-row undefined"
+      class="lbh-collapsible__content govuk-!-margin-0"
     >
       <div
-        class="govuk-form-group lbh-form-group"
+        class="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5"
       >
         <div
-          class="govuk-grid-column-one-half"
+          class="govuk-!-padding-left-2"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Apply filters
+          </button>
+          <div>
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Clear filters
+            </a>
+          </div>
+        </div>
+        <div
+          class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+            >
+              Contractor
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="contractor-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.AVP"
+                  name="ContractorReference.AVP"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.AVP"
+                >
+                  Avonline Network (A) Ltd
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.PCL"
+                  name="ContractorReference.PCL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.PCL"
+                >
+                  Purdy Contracts (P) Ltd
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.SCC"
+                  name="ContractorReference.SCC"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.SCC"
+                >
+                  Alphatrack (S) Systems Lt
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -33,88 +128,139 @@ exports[`WorkOrdersFilter component should render properly 1`] = `
               Status
             </legend>
             <div
-              class="govuk-checkboxes"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="status-filters"
             >
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-checkboxes__item govuk-!-margin-0"
               >
-                <div
-                  class="govuk-checkboxes lbh-checkboxes"
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.80"
+                  name="StatusCode.80"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.80"
                 >
-                  <div
-                    class="govuk-checkboxes__item"
-                  >
-                    <input
-                      class="govuk-checkboxes__input"
-                      id="StatusCode.80"
-                      name="StatusCode.80"
-                      type="checkbox"
-                    />
-                    <label
-                      class="govuk-label govuk-checkboxes__label"
-                      for="StatusCode.80"
-                    >
-                      In Progress
-                    </label>
-                  </div>
-                </div>
+                  In Progress
+                </label>
               </div>
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-checkboxes__item govuk-!-margin-0"
               >
-                <div
-                  class="govuk-checkboxes lbh-checkboxes"
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.50"
+                  name="StatusCode.50"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.50"
                 >
-                  <div
-                    class="govuk-checkboxes__item"
-                  >
-                    <input
-                      class="govuk-checkboxes__input"
-                      id="StatusCode.50"
-                      name="StatusCode.50"
-                      type="checkbox"
-                    />
-                    <label
-                      class="govuk-label govuk-checkboxes__label"
-                      for="StatusCode.50"
-                    >
-                      Complete
-                    </label>
-                  </div>
-                </div>
+                  Complete
+                </label>
               </div>
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-checkboxes__item govuk-!-margin-0"
               >
-                <div
-                  class="govuk-checkboxes lbh-checkboxes"
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.30"
+                  name="StatusCode.30"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.30"
                 >
-                  <div
-                    class="govuk-checkboxes__item"
-                  >
-                    <input
-                      class="govuk-checkboxes__input"
-                      id="StatusCode.30"
-                      name="StatusCode.30"
-                      type="checkbox"
-                    />
-                    <label
-                      class="govuk-label govuk-checkboxes__label"
-                      for="StatusCode.30"
-                    >
-                      Work Cancelled
-                    </label>
-                  </div>
-                </div>
+                  Work Cancelled
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1010"
+                  name="StatusCode.1010"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1010"
+                >
+                  Authorisation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.90"
+                  name="StatusCode.90"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.90"
+                >
+                  Variation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1080"
+                  name="StatusCode.1080"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1080"
+                >
+                  Variation Approved
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1090"
+                  name="StatusCode.1090"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1090"
+                >
+                  Variation Rejected
+                </label>
               </div>
             </div>
           </fieldset>
+          <div
+            class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
+          >
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Show all 7
+            </a>
+          </div>
         </div>
         <div
-          class="govuk-grid-column-one-half"
+          class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -122,77 +268,834 @@ exports[`WorkOrdersFilter component should render properly 1`] = `
               Priority
             </legend>
             <div
-              class="govuk-checkboxes"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="priority-filters"
             >
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-checkboxes__item govuk-!-margin-0"
               >
-                <div
-                  class="govuk-checkboxes lbh-checkboxes"
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.I"
+                  name="Priorities.I"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.I"
                 >
-                  <div
-                    class="govuk-checkboxes__item"
-                  >
-                    <input
-                      class="govuk-checkboxes__input"
-                      id="Priorities.I"
-                      name="Priorities.I"
-                      type="checkbox"
-                    />
-                    <label
-                      class="govuk-label govuk-checkboxes__label"
-                      for="Priorities.I"
-                    >
-                      Immediate
-                    </label>
-                  </div>
-                </div>
+                  Immediate
+                </label>
               </div>
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-checkboxes__item govuk-!-margin-0"
               >
-                <div
-                  class="govuk-checkboxes lbh-checkboxes"
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.E"
+                  name="Priorities.E"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.E"
                 >
-                  <div
-                    class="govuk-checkboxes__item"
-                  >
-                    <input
-                      class="govuk-checkboxes__input"
-                      id="Priorities.E"
-                      name="Priorities.E"
-                      type="checkbox"
-                    />
-                    <label
-                      class="govuk-label govuk-checkboxes__label"
-                      for="Priorities.E"
-                    >
-                      Emergency
-                    </label>
-                  </div>
-                </div>
+                  Emergency
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Trade
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="trade-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.DE"
+                  name="TradeCodes.DE"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.DE"
+                >
+                  DOOR ENTRY ENGINEER
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.EL"
+                  name="TradeCodes.EL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.EL"
+                >
+                  Electrical
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.GL"
+                  name="TradeCodes.GL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.GL"
+                >
+                  Glazing
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.PL"
+                  name="TradeCodes.PL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.PL"
+                >
+                  Plumbing
+                </label>
               </div>
             </div>
           </fieldset>
         </div>
       </div>
     </div>
-    <div>
-      <button
-        class="govuk-button lbh-button"
-        data-module="govuk-button"
-        type="submit"
+  </section>
+</DocumentFragment>
+`;
+
+exports[`WorkOrdersFilter component when logged in as a contract manager should render properly with all filter options 1`] = `
+<DocumentFragment>
+  <section
+    class="lbh-collapsible"
+  >
+    <div
+      aria-expanded="true"
+      class="lbh-collapsible__button filter-collapsible"
+    >
+      <h2
+        class="lbh-heading-h2 lbh-collapsible__heading"
       >
-        Apply filters
-      </button>
-      <div>
-        <a
-          href="#"
+        Filters
+      </h2>
+      <svg
+        height="10"
+        viewBox="0 0 17 10"
+        width="17"
+      >
+        <path
+          d="M2 1.5L8.5 7.5L15 1.5"
+          stroke-width="3"
+        />
+      </svg>
+    </div>
+    <div
+      class="lbh-collapsible__content govuk-!-margin-0"
+    >
+      <div
+        class="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5"
+      >
+        <div
+          class="govuk-!-padding-left-2"
         >
-          Clear filters
-        </a>
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Apply filters
+          </button>
+          <div>
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Clear filters
+            </a>
+          </div>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+            >
+              Contractor
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="contractor-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.AVP"
+                  name="ContractorReference.AVP"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.AVP"
+                >
+                  Avonline Network (A) Ltd
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.PCL"
+                  name="ContractorReference.PCL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.PCL"
+                >
+                  Purdy Contracts (P) Ltd
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="ContractorReference.SCC"
+                  name="ContractorReference.SCC"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="ContractorReference.SCC"
+                >
+                  Alphatrack (S) Systems Lt
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Status
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="status-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.80"
+                  name="StatusCode.80"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.80"
+                >
+                  In Progress
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.50"
+                  name="StatusCode.50"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.50"
+                >
+                  Complete
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.30"
+                  name="StatusCode.30"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.30"
+                >
+                  Work Cancelled
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1010"
+                  name="StatusCode.1010"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1010"
+                >
+                  Authorisation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.90"
+                  name="StatusCode.90"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.90"
+                >
+                  Variation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1080"
+                  name="StatusCode.1080"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1080"
+                >
+                  Variation Approved
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1090"
+                  name="StatusCode.1090"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1090"
+                >
+                  Variation Rejected
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <div
+            class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
+          >
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Show all 7
+            </a>
+          </div>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Priority
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="priority-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.I"
+                  name="Priorities.I"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.I"
+                >
+                  Immediate
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.E"
+                  name="Priorities.E"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.E"
+                >
+                  Emergency
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Trade
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="trade-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.DE"
+                  name="TradeCodes.DE"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.DE"
+                >
+                  DOOR ENTRY ENGINEER
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.EL"
+                  name="TradeCodes.EL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.EL"
+                >
+                  Electrical
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.GL"
+                  name="TradeCodes.GL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.GL"
+                >
+                  Glazing
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.PL"
+                  name="TradeCodes.PL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.PL"
+                >
+                  Plumbing
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
       </div>
     </div>
-  </details>
+  </section>
+</DocumentFragment>
+`;
+
+exports[`WorkOrdersFilter component when logged in as a contractor should render properly without filter by contractor and no authorisation pending approval status 1`] = `
+<DocumentFragment>
+  <section
+    class="lbh-collapsible"
+  >
+    <div
+      aria-expanded="true"
+      class="lbh-collapsible__button filter-collapsible"
+    >
+      <h2
+        class="lbh-heading-h2 lbh-collapsible__heading"
+      >
+        Filters
+      </h2>
+      <svg
+        height="10"
+        viewBox="0 0 17 10"
+        width="17"
+      >
+        <path
+          d="M2 1.5L8.5 7.5L15 1.5"
+          stroke-width="3"
+        />
+      </svg>
+    </div>
+    <div
+      class="lbh-collapsible__content govuk-!-margin-0"
+    >
+      <div
+        class="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5"
+      >
+        <div
+          class="govuk-!-padding-left-2"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Apply filters
+          </button>
+          <div>
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Clear filters
+            </a>
+          </div>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Status
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="status-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.80"
+                  name="StatusCode.80"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.80"
+                >
+                  In Progress
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.50"
+                  name="StatusCode.50"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.50"
+                >
+                  Complete
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.30"
+                  name="StatusCode.30"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.30"
+                >
+                  Work Cancelled
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.90"
+                  name="StatusCode.90"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.90"
+                >
+                  Variation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1080"
+                  name="StatusCode.1080"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1080"
+                >
+                  Variation Approved
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="StatusCode.1090"
+                  name="StatusCode.1090"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1090"
+                >
+                  Variation Rejected
+                </label>
+              </div>
+            </div>
+          </fieldset>
+          <div
+            class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
+          >
+            <a
+              class="govuk-link"
+              href="#"
+            >
+              Show all 6
+            </a>
+          </div>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Priority
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="priority-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.I"
+                  name="Priorities.I"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.I"
+                >
+                  Immediate
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="Priorities.E"
+                  name="Priorities.E"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="Priorities.E"
+                >
+                  Emergency
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+        <div
+          class="border-bottom-grey"
+        >
+          <fieldset
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+          >
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+            >
+              Trade
+            </legend>
+            <div
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              id="trade-filters"
+            >
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.DE"
+                  name="TradeCodes.DE"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.DE"
+                >
+                  DOOR ENTRY ENGINEER
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.EL"
+                  name="TradeCodes.EL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.EL"
+                >
+                  Electrical
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.GL"
+                  name="TradeCodes.GL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.GL"
+                >
+                  Glazing
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
+                  id="TradeCodes.PL"
+                  name="TradeCodes.PL"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="TradeCodes.PL"
+                >
+                  Plumbing
+                </label>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+  </section>
 </DocumentFragment>
 `;

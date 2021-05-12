@@ -46,5 +46,45 @@
       "key": "1090",
       "description": "Variation Rejected"
     }
+  ],
+  "Trades": [
+    {
+      "key": "AD",
+      "description": "Disabled Adaptions"
+    },
+    {
+      "key": "CA",
+      "description": "Cash Items"
+    },
+    {
+      "key": "CP",
+      "description": "Carpentry and Joinery"
+    },
+    {
+      "key": "DE",
+      "description": "DOOR ENTRY ENGINEER"
+    },
+    {
+      "key": "EL",
+      "description": "Electrical"
+    },
+    {
+      "key": "PL",
+      "description": "Plumbing"
+    }
+  ],
+  "Contractors": [
+    {
+      "key": "AVP",
+      "description": "Avonline Network (A) Ltd"
+    },
+    {
+      "key": "PCL",
+      "description": "Purdy Contracts (P) Ltd"
+    },
+    {
+      "key": "SCC",
+      "description": "Alphatrack (S) Systems Lt"
+    }
   ]
 }
