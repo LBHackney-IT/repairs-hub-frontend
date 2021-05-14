@@ -44,6 +44,9 @@ functions:
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
+      DRS_WEB_SERVICES_URL: ${ssm:/repairs-hub/${self:provider.stage}/drs-url}
+      DRS_WEB_SERVICES_USERNAME: ${ssm:/repairs-hub/${self:provider.stage}/drs-login}
+      DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
 
 resources:
   Resources:
