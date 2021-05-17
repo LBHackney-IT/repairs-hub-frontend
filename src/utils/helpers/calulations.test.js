@@ -1,4 +1,9 @@
-import { calculateTotalCost } from './calculations'
+import {
+  calculateTotalCost,
+  calculateCostBeforeVariation,
+  calculateChangeInCost,
+  calculateTotalVariedCost,
+} from './calculations'
 
 describe('calculateTotalCost', () => {
   const arrayOfObjects = [
@@ -13,5 +18,74 @@ describe('calculateTotalCost', () => {
     expect(calculateTotalCost(arrayOfObjects, 'cost', 'quantity')).toEqual(
       71.55
     )
+  })
+})
+
+describe('calculateCostBeforeVariation', () => {
+  const arrayOfObjects = [
+    {
+      code: '21000019',
+      unitCost: '10',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+    {
+      code: '21000017',
+      unitCost: '20',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+  ]
+
+  it('returns cost before variation', () => {
+    expect(calculateCostBeforeVariation(arrayOfObjects)).toEqual(30)
+  })
+})
+
+describe('calculateChangeInCost', () => {
+  const arrayOfObjects = [
+    {
+      code: '21000019',
+      unitCost: '10',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+    {
+      code: '21000017',
+      unitCost: '20',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+  ]
+
+  it('returns change is cost', () => {
+    expect(calculateChangeInCost(arrayOfObjects)).toEqual(270)
+  })
+})
+
+describe('calculateTotalVariedCost', () => {
+  const arrayOfObjects = [
+    {
+      code: '21000019',
+      unitCost: '10',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+    {
+      code: '21000017',
+      unitCost: '20',
+      currentQuantity: 1,
+      originalQuantity: 1,
+      variedQuantity: 10,
+    },
+  ]
+
+  it('returns change is cost', () => {
+    expect(calculateTotalVariedCost(arrayOfObjects)).toEqual(300)
   })
 })
