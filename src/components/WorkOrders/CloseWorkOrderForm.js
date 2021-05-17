@@ -45,9 +45,7 @@ const CloseWorkOrderForm = ({
         <TextArea
           name="notes"
           label="Add notes"
-          register={register({
-            required: 'Please add notes',
-          })}
+          register={register}
           error={errors && errors.notes}
           defaultValue={notes}
         />
