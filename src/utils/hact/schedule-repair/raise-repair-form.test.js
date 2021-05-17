@@ -18,7 +18,7 @@ describe('buildRaiseRepairFormData', () => {
       {
         code: 'DES5R005 - Normal call outs',
         description: 'Normal call outs',
-        quantity: '3',
+        quantity: '3.25',
       },
     ],
     trade: 'Plumbing',
@@ -77,7 +77,7 @@ describe('buildRaiseRepairFormData', () => {
             {
               customCode: 'DES5R005',
               customName: 'Normal call outs',
-              quantity: { amount: [3] },
+              quantity: { amount: [3.25] },
             },
           ],
           trade: [
