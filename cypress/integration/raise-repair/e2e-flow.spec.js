@@ -400,7 +400,13 @@ describe('Schedule appointment form', () => {
         statusCode: 200,
         statusCodeDescription: '???',
         externallyManagedAppointment: true,
-      }).as('apiCheck')
+        externalAppointmentManagementUrl:
+          'https://scheduler.example.hackney.gov.uk?bookingId=1',
+      })
+
+      cy.route('GET', 'api/users/schedulerSession', {
+        schedulerSessionId: 'SCHEDULER_SESSION_ID',
+      }).as('schedulerSession')
     })
 
     it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
@@ -425,18 +431,60 @@ describe('Schedule appointment form', () => {
           .click({ force: true })
       })
 
-      //success form
       cy.contains('Repair works order created')
-      cy.contains('Works order number')
-      cy.contains('10102030')
 
       cy.contains('Please open DRS to book an appointment')
       cy.contains('a', 'open DRS').should(
         'have.attr',
         'href',
-        Cypress.env('NEXT_PUBLIC_SCHEDULER_URL')
+        'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
       )
       cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+
+      cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
+        'have.property',
+        'value',
+        'SCHEDULER_SESSION_ID'
+      )
+    })
+
+    describe('and the user already has a session cookie for the scheduler', () => {
+      beforeEach(() => {
+        cy.setCookie(
+          Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
+          'EXISTING_SCHEDULER_SESSION_ID'
+        )
+      })
+
+      it('builds the link using the existing session', () => {
+        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a repair on this dwelling')
+          .click()
+
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.get('#contractor').select('HH General Building Repair - H01')
+
+          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+            'DES5R005 - Normal call outs'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityDescription').select('5 [N] NORMAL')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('[type="submit"]')
+            .contains('Create works order')
+            .click({ force: true })
+        })
+
+        cy.contains('a', 'open DRS').should(
+          'have.attr',
+          'href',
+          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
+        )
+        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+      })
     })
   })
 })

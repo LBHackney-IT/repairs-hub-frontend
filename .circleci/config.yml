@@ -75,6 +75,7 @@ jobs:
           command: |
             export NEXT_PUBLIC_ENV_NAME=development
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
+            export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
 
   build-deploy-staging:
@@ -86,6 +87,7 @@ jobs:
           command: |
             export NEXT_PUBLIC_ENV_NAME=staging
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
+            export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
@@ -96,6 +98,7 @@ jobs:
           name: deploy
           command: |
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_PRODUCTION
+            export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
 
   assume-role-development:
