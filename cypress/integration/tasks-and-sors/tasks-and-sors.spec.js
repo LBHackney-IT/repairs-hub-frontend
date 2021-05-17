@@ -36,8 +36,8 @@ describe('Tasks and SORs', () => {
         cy.contains('th', 'Description')
         cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
-        cy.contains('th', 'Cost')
-        cy.contains('th', 'Status')
+        cy.contains('th', 'Unit cost')
+        cy.contains('th', 'Cost (est.)')
 
         // Tasks and SORS table rows
         cy.get('[data-row-id="0"]').within(() => {
@@ -46,7 +46,7 @@ describe('Tasks and SORs', () => {
           cy.contains('3 Feb 2021, 11:33 am')
           cy.contains('5')
           cy.contains('0')
-          cy.contains('Unknown')
+          cy.contains('0')
         })
         cy.get('[data-row-id="1"]').within(() => {
           cy.contains('DES5R005')
@@ -54,15 +54,15 @@ describe('Tasks and SORs', () => {
           cy.contains('3 Feb 2021, 11:23 am')
           cy.contains('4')
           cy.contains('0')
-          cy.contains('Unknown')
+          cy.contains('0')
         })
         cy.get('[data-row-id="2"]').within(() => {
           cy.contains('DES5R006')
           cy.contains('Urgent call outs')
           cy.contains('3 Feb 2021, 9:33 am')
           cy.contains('2')
-          cy.contains('0')
-          cy.contains('Unknown')
+          cy.contains('10')
+          cy.contains('20')
         })
       })
 
@@ -73,8 +73,8 @@ describe('Tasks and SORs', () => {
         cy.contains('th', 'Description')
         cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
-        cy.contains('th', 'Cost')
-        cy.contains('th', 'Status')
+        cy.contains('th', 'Unit cost')
+        cy.contains('th', 'Cost (est.)')
 
         // Tasks and SORS table rows
         cy.get('[data-row-id="0"]').within(() => {
@@ -82,11 +82,12 @@ describe('Tasks and SORs', () => {
           cy.contains('Urgent call outs')
           cy.contains('3 Feb 2021, 9:33 am')
           cy.contains('1')
-          cy.contains('0')
-          cy.contains('Unknown')
+          cy.contains('10')
+          cy.contains('10')
         })
       })
     })
+
     // Run lighthouse audit for accessibility report
     cy.audit()
   })
@@ -105,8 +106,8 @@ describe('Tasks and SORs', () => {
         cy.contains('th', 'Description')
         cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
-        cy.contains('th', 'Cost')
-        cy.contains('th', 'Status')
+        cy.contains('th', 'Unit cost')
+        cy.contains('th', 'Cost (est.)')
       })
     })
   })

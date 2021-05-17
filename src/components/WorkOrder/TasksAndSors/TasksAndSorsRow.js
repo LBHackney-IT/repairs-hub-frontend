@@ -8,7 +8,6 @@ const tasksAndSorsRow = ({
   dateAdded,
   taskQuantity,
   cost,
-  status,
   index,
 }) => (
   <TR index={index} className="govuk-body-s">
@@ -17,7 +16,7 @@ const tasksAndSorsRow = ({
     <TD>{dateAdded ? formatDateTime(dateAdded) : '—'}</TD>
     <TD>{taskQuantity}</TD>
     <TD>£{cost}</TD>
-    <TD>{status}</TD>
+    <TD>£{parseFloat(cost * taskQuantity).toFixed(2)}</TD>
   </TR>
 )
 
@@ -27,7 +26,6 @@ tasksAndSorsRow.propTypes = {
   dateAdded: PropTypes.instanceOf(Date).isRequired,
   taskQuantity: PropTypes.number.isRequired,
   cost: PropTypes.number.isRequired,
-  status: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 }
 

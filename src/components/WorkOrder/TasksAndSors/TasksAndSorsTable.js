@@ -16,8 +16,8 @@ const TasksAndSorsTable = ({
             <TH scope="col">Description</TH>
             <TH scope="col">Date added</TH>
             <TH scope="col">Quantity (est.)</TH>
+            <TH scope="col">Unit cost</TH>
             <TH scope="col">Cost (est.)</TH>
-            <TH scope="col">Status</TH>
           </TR>
         </THead>
         <TBody>
