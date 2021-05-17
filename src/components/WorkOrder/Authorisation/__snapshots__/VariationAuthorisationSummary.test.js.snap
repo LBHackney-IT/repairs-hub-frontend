@@ -1,0 +1,345 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VariationAuthorisationSummary component should render properly 1`] = `
+<DocumentFragment>
+  <h2
+    class="lbh-heading-h2"
+  >
+    Summary of Tasks and SORs
+  </h2>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Original SORs
+  </h4>
+  <table
+    class="govuk-table lbh-table original-sor-summary"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR code
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Quantity
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Cost
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+        index="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R006 - Urgent call outs
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          1
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £10
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Updated Tasks SORs
+  </h4>
+  <br />
+  <p
+    class="govuk-body"
+  >
+    Updated by: John Johnson (Alphatrack) 
+  </p>
+  <p
+    class="govuk-body"
+  >
+    Tuesday, 11 May 2021 
+  </p>
+  <div
+    class="lbh-stat"
+  >
+    <span
+      class="lbh-stat__caption"
+    >
+      Variation reason: More work needed
+    </span>
+  </div>
+  <table
+    class="govuk-table lbh-table updated-tasks-table"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR Status
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR code
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Unit Cost
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Quantity
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Cost
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Varied quantity
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          Varied Cost
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row"
+        index="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          <span
+            class="status status-increased"
+          >
+            Increased
+          </span>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R005
+          <p>
+            Normal Call outs
+          </p>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £4
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          1
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £4
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          4000
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £16000
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        index="1"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          <span
+            class="status status-reduced"
+          >
+            Reduced
+          </span>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          DES5R006
+          <p>
+            Normal Call outs
+          </p>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £19
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          10
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £190
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          2
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          £38
+        </td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr
+        class="govuk-table__row"
+        id="cost-before-variation"
+      >
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <td
+          class="govuk-!-padding-top-3"
+        >
+          <strong>
+            Cost before variation
+          </strong>
+        </td>
+        <td
+          class="govuk-!-padding-top-3 govuk-table__cell--numeric"
+        >
+          £194
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        id="change-in-cost"
+      >
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <td
+          class="govuk-!-padding-top-3 border-top-black"
+        >
+          <strong>
+            Change in cost
+          </strong>
+        </td>
+        <td
+          class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
+        >
+          £15844
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        id="total-cost-after-variation"
+      >
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <th
+          scope="row"
+        />
+        <td
+          class="govuk-!-padding-top-3 border-top-black"
+        >
+          <strong>
+            Total cost after variation
+          </strong>
+        </td>
+        <td
+          class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
+        >
+          £16038
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;

@@ -68,3 +68,11 @@ export const longMonthWeekday = (date) => {
     })
   }
 }
+
+export const longDateToStr = (date) =>
+  new Date(date).toLocaleDateString('en-GB', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })

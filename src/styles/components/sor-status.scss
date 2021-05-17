@@ -1,0 +1,29 @@
+.updated-tasks-table {
+  tbody {
+    vertical-align: top;
+  }
+
+  td {
+    .status {
+      color: govuk-colour('white');
+      padding: 4px 10px;
+      font-weight: bold;
+      display: inline-block;
+      width: 90%;
+      max-width: 150px;
+      text-align: center;
+    }
+    .status-reduced {
+      background-color: repairs-hub-colour('status-waiting');
+    }
+    .status-increased {
+      background-color: repairs-hub-colour('status-rejected');
+    }
+    .status-new {
+      background-color: repairs-hub-colour('sor-code-new');
+    }
+    .status-unchanged {
+      background-color: repairs-hub-colour('status-complete');
+    }
+  }
+}
