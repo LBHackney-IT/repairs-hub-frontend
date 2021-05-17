@@ -49,13 +49,13 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Cost (est.)
+          Unit cost
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Status
+          Cost (est.)
         </th>
       </tr>
     </thead>
@@ -89,12 +89,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          £0
+          £20.15
         </td>
         <td
           class="govuk-table__cell"
         >
-          Unknown
+          £40.30
         </td>
       </tr>
       <tr
@@ -124,12 +124,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          £0
+          £1.4
         </td>
         <td
           class="govuk-table__cell"
         >
-          Unknown
+          £5.60
         </td>
       </tr>
       <tr
@@ -159,12 +159,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          £0
+          £7.31
         </td>
         <td
           class="govuk-table__cell"
         >
-          Unknown
+          £36.55
         </td>
       </tr>
     </tbody>
@@ -211,13 +211,13 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__header"
           scope="col"
         >
-          Cost (est.)
+          Unit cost
         </th>
         <th
           class="govuk-table__header"
           scope="col"
         >
-          Status
+          Cost (est.)
         </th>
       </tr>
     </thead>
@@ -251,12 +251,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell"
         >
-          £0
+          £20.15
         </td>
         <td
           class="govuk-table__cell"
         >
-          Unknown
+          £20.15
         </td>
       </tr>
     </tbody>

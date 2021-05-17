@@ -12,8 +12,7 @@ describe('TasksAndSorsTable component', () => {
         original: true,
         originalQuantity: 1,
         quantity: 2,
-        cost: 0,
-        status: 'Unknown',
+        cost: 20.15,
       },
     ],
     latestTasksAndSors: [
@@ -24,8 +23,7 @@ describe('TasksAndSorsTable component', () => {
         original: true,
         originalQuantity: 1,
         quantity: 2,
-        cost: 0,
-        status: 'Unknown',
+        cost: 20.15,
       },
       {
         code: 'DES5R005',
@@ -34,8 +32,7 @@ describe('TasksAndSorsTable component', () => {
         original: false,
         originalQuantity: null,
         quantity: 4,
-        cost: 0,
-        status: 'Unknown',
+        cost: 1.4,
       },
       {
         code: 'DES5R013',
@@ -44,8 +41,7 @@ describe('TasksAndSorsTable component', () => {
         original: false,
         originalQuantity: null,
         quantity: 5,
-        cost: 0,
-        status: 'Unknown',
+        cost: 7.31,
       },
     ],
   }
