@@ -27,8 +27,20 @@ export const bankHolidays = {
         bunting: true,
       },
       {
+        title: 'FAKE',
+        date: '2021-05-24',
+        notes: '',
+        bunting: true,
+      },
+      {
         title: 'Spring bank holiday',
         date: '2021-05-31',
+        notes: '',
+        bunting: true,
+      },
+      {
+        title: 'FAKE',
+        date: '2021-06-07',
         notes: '',
         bunting: true,
       },
