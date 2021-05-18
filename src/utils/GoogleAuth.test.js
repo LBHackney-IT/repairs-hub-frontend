@@ -1,4 +1,4 @@
-import { isAuthorised } from './GoogleAuth'
+import { isAuthorised, deleteSessions } from './GoogleAuth'
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 
@@ -35,6 +35,28 @@ describe('isAuthorised', () => {
         hasContractorPermissions: false,
         hasAnyPermissions: true,
       })
+    })
+  })
+})
+
+describe('deleteSessions', () => {
+  describe('expires the auth session along with other supplied sessions', () => {
+    const res = createResponse()
+
+    test('returns a user object with relevant fields and permissions', () => {
+      deleteSessions(res, {
+        additionalCookies: {
+          'another-cookie': { domain: 'repairs-hub.hackney.gov.uk', path: '/' },
+        },
+      })
+
+      expect(res.getHeaders()['set-cookie']).toContain(
+        `${GSSO_TOKEN_NAME}=null; Max-Age=-1; Domain=.hackney.gov.uk; Path=/`
+      )
+
+      expect(res.getHeaders()['set-cookie']).toContain(
+        'another-cookie=null; Max-Age=-1; Domain=repairs-hub.hackney.gov.uk; Path=/'
+      )
     })
   })
 })
