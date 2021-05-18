@@ -20,6 +20,7 @@ const UpdateWorkOrder = ({ reference }) => {
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
   const [propertyReference, setPropertyReference] = useState('')
+  const [contractorReference, setContractorReference] = useState('')
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
@@ -88,10 +89,12 @@ const UpdateWorkOrder = ({ reference }) => {
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setPropertyReference(workOrder.propertyReference)
+      setContractorReference(workOrder.contractorReference)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
       setPropertyReference(null)
+      setContractorReference(null)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -134,6 +137,7 @@ const UpdateWorkOrder = ({ reference }) => {
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
                     propertyReference={propertyReference}
+                    contractorReference={contractorReference}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }
