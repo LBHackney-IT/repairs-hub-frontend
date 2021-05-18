@@ -50,7 +50,6 @@ describe('Contractor closing a job', () => {
     cy.get('form').within(() => {
       cy.contains('Please pick completion date')
       cy.contains('Please enter a valid time')
-      cy.contains('Please add notes')
     })
   })
 
@@ -132,7 +131,7 @@ describe('Contractor closing a job', () => {
             typeCode: 0,
             otherType: 'complete',
             comments:
-              'This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
+              'Work order closed - This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
             eventTime: '2020-11-06T13:01:00.000Z',
           },
         ],

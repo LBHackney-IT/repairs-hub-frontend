@@ -241,8 +241,6 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
           £38
         </td>
       </tr>
-    </tbody>
-    <tbody>
       <tr
         class="govuk-table__row"
         id="cost-before-variation"

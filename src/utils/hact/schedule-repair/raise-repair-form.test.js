@@ -1,6 +1,14 @@
 import MockDate from 'mockdate'
 import { buildScheduleRepairFormData } from './raise-repair-form'
 
+const mockBankHolidays = jest.fn()
+
+jest.mock('../../helpers/bank-holidays', () => ({
+  get bankHolidays() {
+    return mockBankHolidays()
+  },
+}))
+
 jest.mock('uuid', () => {
   return {
     v4: jest.fn(() => 'aa757643-cf89-4247-a42c-8a035182feqd'),
@@ -18,7 +26,7 @@ describe('buildRaiseRepairFormData', () => {
       {
         code: 'DES5R005 - Normal call outs',
         description: 'Normal call outs',
-        quantity: '3',
+        quantity: '3.25',
       },
     ],
     trade: 'Plumbing',
@@ -39,6 +47,18 @@ describe('buildRaiseRepairFormData', () => {
   it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
     MockDate.set(new Date('Thu Jan 14 2021 18:16:20Z'))
 
+    // set the following Monday as a bank holiday
+    mockBankHolidays.mockReturnValue({
+      'england-and-wales': {
+        division: 'england-and-wales',
+        events: [
+          {
+            date: '2021-01-19',
+          },
+        ],
+      },
+    })
+
     const scheduleRepairFormData = {
       reference: [
         {
@@ -49,7 +69,7 @@ describe('buildRaiseRepairFormData', () => {
       priority: {
         priorityCode: 3,
         priorityDescription: '4 [U] URGENT',
-        requiredCompletionDateTime: new Date('Thu Jan 21 2021 18:16:20Z'),
+        requiredCompletionDateTime: new Date('Friday Jan 22 2021 18:16:20Z'),
         numberOfDays: 5,
       },
       workClass: {
@@ -77,7 +97,7 @@ describe('buildRaiseRepairFormData', () => {
             {
               customCode: 'DES5R005',
               customName: 'Normal call outs',
-              quantity: { amount: [3] },
+              quantity: { amount: [3.25] },
             },
           ],
           trade: [

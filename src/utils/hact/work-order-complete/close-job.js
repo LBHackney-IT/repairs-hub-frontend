@@ -9,7 +9,7 @@ export const buildCloseWorkOrderData = (completionDate, notes, reference) => {
       {
         typeCode: 0,
         otherType: 'complete',
-        comments: notes,
+        comments: `Work order closed - ${notes}`,
         eventTime: completionDate,
       },
     ],

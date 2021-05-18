@@ -1,4 +1,6 @@
-import { deleteSession } from '../utils/GoogleAuth'
+import { deleteSessions } from '../utils/GoogleAuth'
+import { closeDRSSession } from '../utils/scheduling/drs/web-services/sessions'
+import cookie from 'cookie'
 import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
@@ -8,8 +10,19 @@ import {
 
 const Logout = () => null
 
-export const getServerSideProps = async ({ res }) => {
-  deleteSession(res)
+export const getServerSideProps = async ({ req, res }) => {
+  const cookies = cookie.parse(req.headers.cookie ?? '')
+  const schedulerSessionId =
+    cookies[process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]
+
+  if (schedulerSessionId) {
+    await closeDRSSession(schedulerSessionId)
+  }
+
+  deleteSessions(res, {
+    additionalCookieNames: [process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME],
+  })
+
   return { props: {} }
 }
 

@@ -1,7 +1,23 @@
 import { calculateCompletionDateTime } from './completionDateTimes'
 import MockDate from 'mockdate'
 
+const mockBankHolidays = jest.fn()
+
+jest.mock('./bank-holidays', () => ({
+  get bankHolidays() {
+    return mockBankHolidays()
+  },
+}))
+
 describe('calculateCompletionDateTime', () => {
+  beforeEach(() => {
+    mockBankHolidays.mockReturnValue({
+      'england-and-wales': {
+        events: [],
+      },
+    })
+  })
+
   describe('when the priority code represents an immediate order', () => {
     // 2 hours
     const priorityCode = 1
@@ -111,7 +127,37 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created when there are imminent bank holidays', () => {})
+    describe('and the works order is created when there are imminent bank holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockBankHolidays.mockReturnValue({
+          'england-and-wales': {
+            division: 'england-and-wales',
+            events: [
+              {
+                title: 'Fake bank holiday',
+                date: '2021-06-28', // the following Monday
+                notes: '',
+                bunting: true,
+              },
+            ],
+          },
+        })
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Tuesday 29 June 2021 09:00:00Z')
+        )
+      })
+    })
   })
 
   describe('when the priority code represents an urgent order', () => {
@@ -175,7 +221,38 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created when there are imminent bank holidays', () => {})
+    describe('and the works order is created when there are imminent bank holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockBankHolidays.mockReturnValue({
+          'england-and-wales': {
+            division: 'england-and-wales',
+            events: [
+              {
+                title: 'Fake bank holiday',
+                date: '2021-06-28', // the following Monday
+                notes: '',
+                bunting: true,
+              },
+            ],
+          },
+        })
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
+        // 5 working days into the future, as if the order had been raised on Friday and with the bank holiday accounted for
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Monday 5 July 2021 09:00:00Z')
+        )
+      })
+    })
   })
 
   describe('when the priority code represents a normal order', () => {
@@ -239,6 +316,43 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    xdescribe('and the works order is created when there are imminent bank holidays', () => {})
+    describe('and the works order is created when there are imminent bank holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockBankHolidays.mockReturnValue({
+          'england-and-wales': {
+            division: 'england-and-wales',
+            events: [
+              {
+                title: 'Fake bank holiday',
+                date: '2021-06-28', // the following Monday
+                notes: '',
+                bunting: true,
+              },
+              {
+                title: 'Fake bank holiday',
+                date: '2021-07-26',
+                notes: '',
+                bunting: true,
+              },
+            ],
+          },
+        })
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
+        // 21 working days into the future, as if the order had been raised on Friday and with the 2 bank holidays accounted for
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Wednesday 28 July 2021 09:00:00Z')
+        )
+      })
+    })
   })
 })

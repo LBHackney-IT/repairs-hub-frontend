@@ -31,7 +31,7 @@ export const buildScheduleRepairFormData = (formData) => {
                 customCode: item.code.split(' - ')[0],
                 customName: item.description,
                 quantity: {
-                  amount: [Number.parseInt(item.quantity)],
+                  amount: [Number.parseFloat(item.quantity)],
                 },
               },
             ],
