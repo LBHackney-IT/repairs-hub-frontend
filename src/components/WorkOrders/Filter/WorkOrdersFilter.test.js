@@ -1,6 +1,9 @@
 import { render } from '@testing-library/react'
 import UserContext from '../../UserContext/UserContext'
 import WorkOrdersFilter from './WorkOrdersFilter'
+import { contractor } from 'factories/contractor'
+import { contractManager } from 'factories/contract_manager'
+import { authorisationManager } from 'factories/authorisation_manager'
 
 describe('WorkOrdersFilter component', () => {
   const props = {
@@ -84,21 +87,9 @@ describe('WorkOrdersFilter component', () => {
   }
 
   describe('when logged in as a contractor', () => {
-    const user = {
-      name: 'A Contractor',
-      email: 'a.contractor@hackney.gov.uk',
-      roles: ['contractor'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasContractManagerPermissions: false,
-      hasAuthorisationManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly without filter by contractor and no authorisation pending approval status', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractor }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}
@@ -112,21 +103,9 @@ describe('WorkOrdersFilter component', () => {
   })
 
   describe('when logged in as a contract manager', () => {
-    const user = {
-      name: 'A Contract Manager',
-      email: 'a.contract_manager@hackney.gov.uk',
-      roles: ['contract_manager'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: true,
-      hasAuthorisationManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with all filter options', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractManager }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}
@@ -140,21 +119,9 @@ describe('WorkOrdersFilter component', () => {
   })
 
   describe('when logged in as an authorisation manager', () => {
-    const user = {
-      name: 'An Authorisation Manager',
-      email: 'a.authorisation_manager@hackney.gov.uk',
-      roles: ['authorisation_manager'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: false,
-      hasAuthorisationManagerPermissions: true,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with all filter options', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: authorisationManager }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}
