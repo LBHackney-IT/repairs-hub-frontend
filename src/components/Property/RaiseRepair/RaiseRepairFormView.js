@@ -42,6 +42,8 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
 
+  const TWELVE_HOURS_IN_SECONDS = 60 * 60 * 12
+
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
@@ -71,6 +73,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
             schedulerSessionId,
             {
               path: '/',
+              maxAge: TWELVE_HOURS_IN_SECONDS,
             }
           )
         }

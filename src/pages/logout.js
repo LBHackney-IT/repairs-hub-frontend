@@ -20,7 +20,11 @@ export const getServerSideProps = async ({ req, res }) => {
   }
 
   deleteSessions(res, {
-    additionalCookieNames: [process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME],
+    additionalCookies: {
+      [process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]: {
+        path: '/',
+      },
+    },
   })
 
   return { props: {} }
