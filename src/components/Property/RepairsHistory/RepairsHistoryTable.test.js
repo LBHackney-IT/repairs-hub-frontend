@@ -104,4 +104,29 @@ describe('RepairsHistoryTable component', () => {
       expect(asFragment()).toMatchSnapshot()
     })
   })
+
+  describe('when logged in as an authorisation manager', () => {
+    const user = {
+      name: 'Auth manager',
+      email: 'authmanager@hackney.gov.uk',
+      hasRole: true,
+      hasAgentPermissions: false,
+      hasContractorPermissions: false,
+      hasContractManagerPermissions: false,
+      hasAuthorisationManagerPermissions: true,
+      hasAnyPermissions: true,
+    }
+
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <RepairsHistoryTable
+            workOrders={props.workOrders}
+            tabName={props.tabName}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
 })

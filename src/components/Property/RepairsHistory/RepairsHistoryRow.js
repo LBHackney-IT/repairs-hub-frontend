@@ -19,7 +19,9 @@ const RepairsHistoryRow = ({
       data-ref={reference}
     >
       {user &&
-        (user.hasAgentPermissions || user.hasContractManagerPermissions) && (
+        (user.hasAgentPermissions ||
+          user.hasContractManagerPermissions ||
+          user.hasAuthorisationManagerPermissions) && (
           <td className="govuk-table__cell">
             <a href={`/work-orders/${reference}`}>{reference}</a>
           </td>
