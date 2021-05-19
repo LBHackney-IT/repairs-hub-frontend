@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
+import MultiButton from '../Layout/MultiButton/MultiButton'
 
 describe('WorkOrderDetails component', () => {
   const props = {
@@ -63,6 +64,7 @@ describe('WorkOrderDetails component', () => {
     const user = {
       name: 'An Agent',
       email: 'an.agent@hackney.gov.uk',
+      roles: ['agent'],
       hasRole: true,
       hasAgentPermissions: true,
       hasContractorPermissions: false,
@@ -73,6 +75,21 @@ describe('WorkOrderDetails component', () => {
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'cancel',
+                title: 'Cancel',
+                description: 'Cancel Work Order',
+                permittedRoles: 'agent',
+                permittedStatuses: 'In Progress',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -94,6 +111,7 @@ describe('WorkOrderDetails component', () => {
     const user = {
       name: 'A Contractor',
       email: 'a.contractor@hackney.gov.uk',
+      roles: ['contractor'],
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: true,
@@ -104,6 +122,21 @@ describe('WorkOrderDetails component', () => {
     it('should render properly with a link to update work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'update',
+                title: 'Update',
+                description: 'Update Work Order',
+                permittedRoles: 'contractor',
+                permittedStatuses: 'In Progress',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -125,6 +158,7 @@ describe('WorkOrderDetails component', () => {
     const user = {
       name: 'A Contract Manager',
       email: 'a.contract-manager@hackney.gov.uk',
+      roles: ['contract_manager'],
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: false,
@@ -135,6 +169,21 @@ describe('WorkOrderDetails component', () => {
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'cancel',
+                title: 'Cancel',
+                description: 'Cancel Work Order',
+                permittedRoles: 'contract_manager',
+                permittedStatuses: 'In Progress',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -156,6 +205,21 @@ describe('WorkOrderDetails component', () => {
       props.workOrder.status = 'Variation Pending Approval'
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'variation-authorisation',
+                title: 'Variation Authorisation',
+                description: 'Authorise Work Order Variation',
+                permittedRoles: 'contract_manager',
+                permittedStatuses: 'Variation Pending Approval',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -198,6 +262,7 @@ describe('WorkOrderDetails component', () => {
     const user = {
       name: 'An authorisation manager',
       email: 'an.authorisation-manager@hackney.gov.uk',
+      roles: ['authorisation_manager'],
       hasRole: true,
       hasAgentPermissions: false,
       hasContractorPermissions: false,
@@ -209,6 +274,21 @@ describe('WorkOrderDetails component', () => {
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'cancel',
+                title: 'Cancel',
+                description: 'Cancel Work Order',
+                permittedRoles: 'authorisation_manager',
+                permittedStatuses: 'In Progress',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -230,6 +310,21 @@ describe('WorkOrderDetails component', () => {
       props.workOrder.status = 'Authorisation Pending Approval'
       const { asFragment } = render(
         <UserContext.Provider value={{ user }}>
+          <MultiButton
+            name="workOrderMenu"
+            label="Select work order"
+            secondary={false}
+            choices={[
+              {
+                href: 'authorisation',
+                title: 'Authorisation',
+                description: 'Authorise Work Order',
+                permittedRoles: 'authorisation_manager',
+                permittedStatuses: 'Authorisation Pending Approval',
+              },
+            ]}
+            workOrderReference={props.workOrder.reference}
+          />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
