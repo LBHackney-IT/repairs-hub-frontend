@@ -32,13 +32,19 @@ describe('Contract manager can authorise variation', () => {
 
   it('Rejects job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('Authorise Works Order Variation')
-      .should(
-        'have.attr',
-        'href',
-        '/work-orders/10000012/variation-authorisation'
-      )
-      .click()
+    cy.get('[data-testid="details"]')
+      .contains('Variation Authorisation')
+      .click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Variation Authorisation')
+        .should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/variation-authorisation'
+        )
+        .click()
+    })
 
     cy.contains('Authorisation variation request: 10000012')
 
@@ -69,13 +75,19 @@ describe('Contract manager can authorise variation', () => {
 
   it('Approves job variation', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('Authorise Works Order Variation')
-      .should(
-        'have.attr',
-        'href',
-        '/work-orders/10000012/variation-authorisation'
-      )
-      .click()
+    cy.get('[data-testid="details"]')
+      .contains('Variation Authorisation')
+      .click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Variation Authorisation')
+        .should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/variation-authorisation'
+        )
+        .click()
+    })
 
     cy.contains('Authorisation variation request: 10000012')
 
@@ -100,13 +112,19 @@ describe('Contract manager can authorise variation', () => {
   // summary page and calculation
   it('shows summary page and calculation of variation cost', () => {
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-    cy.contains('Authorise Works Order Variation')
-      .should(
-        'have.attr',
-        'href',
-        '/work-orders/10000012/variation-authorisation'
-      )
-      .click()
+    cy.get('[data-testid="details"]')
+      .contains('Variation Authorisation')
+      .click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Variation Authorisation')
+        .should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/variation-authorisation'
+        )
+        .click()
+    })
 
     cy.contains('Authorisation variation request: 10000012')
     cy.contains('Summary of Tasks and SORs')

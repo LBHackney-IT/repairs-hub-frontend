@@ -5,12 +5,26 @@ describe('Contractor closing a job', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
     cy.server()
-    cy.fixture('work-orders/work-orders.json').as('workorderslist')
-    cy.fixture('properties/property.json').as('property')
+    cy.fixture('work-orders/work-order.json')
+      .as('workOrder')
+      .then((workOrder) => {
+        workOrder.reference = 10000040
+      })
+    cy.fixture('work-orders/work-orders.json').as('workOrdersList')
+    cy.fixture('hub-user/user.json').then((user) => {
+      cy.intercept('GET', 'api/hub-user', user)
+    })
+
     cy.route(
       'GET',
       'api/workOrders/?PageSize=10&PageNumber=1',
-      '@workorderslist'
+      '@workOrdersList'
+    )
+    cy.route('GET', 'api/workOrders/10000040', '@workOrder')
+    cy.route(
+      'GET',
+      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      []
     )
     cy.route({
       method: 'POST',
@@ -29,16 +43,18 @@ describe('Contractor closing a job', () => {
 
   it('takes you to close page', () => {
     cy.visit(`${Cypress.env('HOST')}/`)
+
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
     })
-    cy.contains('a', 'Update Works Order').click()
-    cy.contains('Update work order: 10000040')
-    cy.get('form').within(() => {
-      cy.get('[type="radio"]').check('Close job')
-      cy.get('[type="submit"]').contains('Next').click()
+
+    cy.get('[data-testid="details"]').contains('Close').click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Close')
+        .should('have.attr', 'href', '/work-orders/10000040/close')
+        .click()
     })
-    cy.contains('Update work order: 10000040')
   })
 
   it('shows errors when submit with no inputs', () => {

@@ -28,9 +28,11 @@ describe('Cancel work order', () => {
 
   it('Cancel a work order', () => {
     // Work order view page has a link to cancel work order
-    cy.contains('Cancel Works Order')
-      .should('have.attr', 'href', '/work-orders/10000012/cancel')
-      .click()
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Cancel')
+        .should('have.attr', 'href', '/work-orders/10000012/cancel')
+        .click()
+    })
 
     cy.url().should('contains', '/work-orders/10000012/cancel')
     cy.get('.govuk-caption-l').contains('Cancel repair')

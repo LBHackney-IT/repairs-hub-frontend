@@ -26,7 +26,12 @@ describe('Authorisation workflow for a work order', () => {
 
   context('When logged in as an authorisation manager', () => {
     it('Rejects to authorise work order', () => {
-      cy.contains('a', 'Authorise Works Order').click()
+      cy.get('.govuk-grid-column-one-third').within(() => {
+        cy.contains('a', 'Authorisation')
+          .should('have.attr', 'href', '/work-orders/10000012/authorisation')
+          .click()
+      })
+
       cy.contains('Authorisation request: 10000012')
       cy.contains('This job requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
@@ -76,7 +81,12 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('Authorises work order', () => {
-      cy.contains('a', 'Authorise Works Order').click()
+      cy.get('.govuk-grid-column-one-third').within(() => {
+        cy.contains('a', 'Authorisation')
+          .should('have.attr', 'href', '/work-orders/10000012/authorisation')
+          .click()
+      })
+
       cy.contains('Authorisation request: 10000012')
       cy.contains('This job requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
@@ -119,7 +129,9 @@ describe('Authorisation workflow for a work order', () => {
       // Visit work order page
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
 
-      cy.contains('a', 'Authorise Works Order').should('not.exist')
+      cy.get('.govuk-grid-column-one-third').within(() => {
+        cy.contains('a', 'Authorisation').should('not.exist')
+      })
     })
   })
 })

@@ -27,22 +27,28 @@ export const redirectToAcessDenied = (res) => {
   res.end()
 }
 
-export const deleteSessions = (
-  res,
-  options = { additionalCookieNames: [] }
-) => {
-  let { additionalCookieNames } = options
+export const deleteSessions = (res, options = { additionalCookies: {} }) => {
+  let { additionalCookies } = options
 
-  const cookiesForDeletion = [GSSO_TOKEN_NAME, ...additionalCookieNames].map(
+  const googleAuthCookie = {
+    [GSSO_TOKEN_NAME]: {
+      domain: '.hackney.gov.uk',
+      path: '/',
+    },
+  }
+
+  const cookiesForDeletion = { ...googleAuthCookie, ...additionalCookies }
+
+  const serializedCookies = Object.keys(cookiesForDeletion).map(
     (cookieName) => {
       return cookie.serialize(cookieName, null, {
         maxAge: -1,
-        domain: '.hackney.gov.uk',
+        ...cookiesForDeletion[cookieName],
       })
     }
   )
 
-  res.setHeader('Set-Cookie', cookiesForDeletion)
+  res.setHeader('Set-Cookie', serializedCookies)
 
   redirectToLogin(res)
 }

@@ -1,0 +1,143 @@
+@import 'lbh-frontend/lbh/base';
+
+.outer {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  @include govuk-font($size: 16);
+
+  width: 100%;
+
+  * {
+    margin-top: 0;
+  }
+
+  @include govuk-media-query($from: tablet) {
+    width: auto;
+  }
+}
+
+.button {
+  margin-top: 0;
+  border-radius: 10px 0px 0px 10px;
+  color: lbh-colour('lbh-white') !important;
+
+  svg {
+    margin-right: 10px;
+  }
+
+  &:focus svg rect {
+    fill: lbh-colour('lbh-text');
+  }
+  &:active svg rect,
+  &:focus:hover svg rect {
+    fill: lbh-colour('lbh-white');
+  }
+}
+
+.summary {
+  border: none;
+  // this colour doesn't seem to be in the design system
+  border-left: 2px solid #002d18;
+  border-radius: 0px 10px 10px 0px;
+  margin-top: 0;
+  display: flex;
+  max-width: 100px;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  &:focus svg path {
+    stroke: lbh-colour('lbh-text');
+  }
+  &:active svg path,
+  &:focus:hover svg path {
+    stroke: lbh-colour('lbh-white');
+  }
+}
+
+.summarySecondary {
+  border: 1px solid lbh-colour('lbh-primary-button');
+  border-left: 1px solid lbh-colour('lbh-primary-button');
+  padding: 19px;
+
+  svg path {
+    stroke: lbh-colour('lbh-primary-button');
+  }
+
+  &:hover svg path {
+    stroke: lbh-colour('lbh-white');
+  }
+
+  &:focus svg path {
+    stroke: lbh-colour('lbh-text');
+  }
+  &:active svg path,
+  &:focus:hover svg path {
+    stroke: lbh-colour('lbh-white');
+  }
+}
+
+.fieldset {
+  position: absolute;
+  right: 0;
+  top: 55px;
+  left: inherit;
+  max-width: 270px;
+
+  @include govuk-media-query($from: tablet) {
+    width: auto;
+  }
+
+  border-radius: 5px;
+  border: 1px solid lbh-colour('lbh-border');
+  @include govuk-font($size: 16);
+  padding: 0;
+  overflow: hidden;
+  background: lbh-colour('lbh-grey-4');
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.option {
+  position: relative;
+  padding: 10px;
+  padding-left: 35px;
+  border-bottom: 1px solid lbh-colour('lbh-border');
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  svg {
+    position: absolute;
+    left: 10px;
+    top: 15px;
+  }
+
+  &:hover,
+  &:focus-within {
+    background: lbh-colour('lbh-white');
+  }
+
+  input {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+  }
+}
+
+.label {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.hint {
+  margin-top: 5px;
+  color: lbh-colour('lbh-secondary-text');
+  line-height: 1.5;
+}
