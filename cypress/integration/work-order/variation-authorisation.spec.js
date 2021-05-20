@@ -185,15 +185,15 @@ describe('Contract manager can authorise variation', () => {
       // Cost calculation
       cy.get('#cost-before-variation').within(() => {
         cy.contains('td', 'Cost before variation')
-        cy.contains('td', '£204')
+        cy.contains('td', '£204.00')
       })
       cy.get('#change-in-cost').within(() => {
         cy.contains('td', 'Change in cost')
-        cy.contains('td', '£15894')
+        cy.contains('td', '£15894.00')
       })
       cy.get('#total-cost-after-variation').within(() => {
         cy.contains('td', 'Total cost after variation')
-        cy.contains('td', '£16098')
+        cy.contains('td', '£16098.00')
       })
     })
   })
