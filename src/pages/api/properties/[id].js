@@ -22,6 +22,6 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
   ) {
     res.status(HttpStatus.OK).json(data)
   } else {
-    res.status(HttpStatus.OK).json({ ...data, contacts: '[REMOVED]' })
+    res.status(HttpStatus.OK).json({ ...data, contacts: ['REMOVED'] })
   }
 })

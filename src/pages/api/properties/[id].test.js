@@ -205,7 +205,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
 
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData['contacts']).toEqual('[REMOVED]')
+      expect(parsedData['contacts']).toEqual(['REMOVED'])
     })
   })
 })
