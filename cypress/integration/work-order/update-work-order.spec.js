@@ -39,20 +39,21 @@ describe('Contractor update a job', () => {
     )
     cy.route({
       method: 'GET',
-      url: 'api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345',
+      url:
+        'api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345?contractorReference=SCC',
       status: 404,
       response: '',
     }).as('sorCodeNotFound')
     cy.route({
       method: 'GET',
       url:
-        'api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345',
+        'api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345?contractorReference=SCC',
       status: 404,
       response: '',
     }).as('sorCodeNotFound')
     cy.route(
       'GET',
-      'api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345',
+      'api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345?contractorReference=SCC',
       '@sorCode'
     ).as('sorCodeRequest')
     cy.route({

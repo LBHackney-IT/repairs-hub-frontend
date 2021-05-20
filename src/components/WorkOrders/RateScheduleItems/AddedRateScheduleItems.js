@@ -11,6 +11,7 @@ const AddedRateScheduleItems = ({
   addedTasks,
   isContractorUpdatePage,
   propertyReference,
+  contractorReference,
 }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
@@ -60,7 +61,11 @@ const AddedRateScheduleItems = ({
     setError(null)
 
     try {
-      const sorCode = await getSorCode(sorCodeQuery, propertyReference)
+      const sorCode = await getSorCode(
+        sorCodeQuery,
+        propertyReference,
+        contractorReference
+      )
 
       if (sorCode) {
         updateRateScheduleItem(index, 'description', sorCode.shortDescription)

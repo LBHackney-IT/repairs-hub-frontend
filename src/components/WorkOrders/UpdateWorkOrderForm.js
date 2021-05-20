@@ -10,6 +10,7 @@ const UpdateWorkOrderForm = ({
   originalTasks,
   addedTasks,
   propertyReference,
+  contractorReference,
   onGetToSummary,
   setVariationReason,
   variationReason,
@@ -36,6 +37,7 @@ const UpdateWorkOrderForm = ({
           addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
           propertyReference={propertyReference}
+          contractorReference={contractorReference}
         />
         <CharacterCountLimitedTextArea
           name="variationReason"
