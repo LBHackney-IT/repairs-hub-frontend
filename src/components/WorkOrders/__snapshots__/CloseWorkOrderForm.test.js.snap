@@ -26,6 +26,12 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Select completion date 
         </label>
+        <span
+          class="govuk-hint"
+          id="date-hint"
+        >
+          For example, 15/05/2021
+        </span>
         <input
           class="govuk-input govuk-input--width-10"
           id="date"

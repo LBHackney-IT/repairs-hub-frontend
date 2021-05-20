@@ -24,6 +24,7 @@ const CloseWorkOrderForm = ({
         <DatePicker
           name="date"
           label="Select completion date"
+          hint="For example, 15/05/2021"
           register={register({
             required: 'Please pick completion date',
             validate: (value) =>
