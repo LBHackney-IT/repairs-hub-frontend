@@ -2,6 +2,10 @@ import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
 import MultiButton from '../Layout/MultiButton/MultiButton'
+import { agent } from 'factories/agent'
+import { contractor } from 'factories/contractor'
+import { contractManager } from 'factories/contract_manager'
+import { authorisationManager } from 'factories/authorisation_manager'
 
 describe('WorkOrderDetails component', () => {
   const props = {
@@ -61,20 +65,9 @@ describe('WorkOrderDetails component', () => {
   }
 
   describe('when logged in as an agent', () => {
-    const user = {
-      name: 'An Agent',
-      email: 'an.agent@hackney.gov.uk',
-      roles: ['agent'],
-      hasRole: true,
-      hasAgentPermissions: true,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: agent }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -108,20 +101,9 @@ describe('WorkOrderDetails component', () => {
   })
 
   describe('when logged in as a contractor', () => {
-    const user = {
-      name: 'A Contractor',
-      email: 'a.contractor@hackney.gov.uk',
-      roles: ['contractor'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasContractManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with a link to update work order', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractor }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -155,20 +137,9 @@ describe('WorkOrderDetails component', () => {
   })
 
   describe('when logged in as a contract manager', () => {
-    const user = {
-      name: 'A Contract Manager',
-      email: 'a.contract-manager@hackney.gov.uk',
-      roles: ['contract_manager'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: true,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractManager }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -204,7 +175,7 @@ describe('WorkOrderDetails component', () => {
       // Work order status is Variation Pending Approval
       props.workOrder.status = 'Variation Pending Approval'
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractManager }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -240,7 +211,7 @@ describe('WorkOrderDetails component', () => {
       // Work order status is In Progress
       props.workOrder.status = 'In Progress'
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractManager }}>
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
@@ -259,21 +230,9 @@ describe('WorkOrderDetails component', () => {
   })
 
   describe('when logged in as an authorisation manager', () => {
-    const user = {
-      name: 'An authorisation manager',
-      email: 'an.authorisation-manager@hackney.gov.uk',
-      roles: ['authorisation_manager'],
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: false,
-      hasAuthorisationManagerPermissions: true,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly with a link to cancel work order', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: authorisationManager }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -309,7 +268,7 @@ describe('WorkOrderDetails component', () => {
       // Work order status is Authorisation Pending Approval
       props.workOrder.status = 'Authorisation Pending Approval'
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: authorisationManager }}>
           <MultiButton
             name="workOrderMenu"
             label="Select work order"
@@ -345,7 +304,7 @@ describe('WorkOrderDetails component', () => {
       // Work order status is In Progress
       props.workOrder.status = 'In Progress'
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: authorisationManager }}>
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}

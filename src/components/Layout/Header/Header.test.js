@@ -10,9 +10,12 @@ describe('Header', () => {
       const user = {
         name: 'An Agent',
         email: 'an.agent@hackney.gov.uk',
+        roles: ['agent'],
         hasRole: true,
         hasAgentPermissions: true,
         hasContractorPermissions: false,
+        hasContractManagerPermissions: false,
+        hasAuthorisationManagerPermissions: false,
         hasAnyPermissions: true,
       }
 
@@ -36,9 +39,70 @@ describe('Header', () => {
       const user = {
         name: 'A Contractor',
         email: 'a.contractor@hackney.gov.uk',
+        roles: ['contractor'],
         hasRole: true,
         hasAgentPermissions: false,
         hasContractorPermissions: true,
+        hasContractManagerPermissions: false,
+        hasAuthorisationManagerPermissions: false,
+        hasAnyPermissions: true,
+      }
+
+      const { getByText, queryByText } = render(
+        <UserContext.Provider
+          value={{
+            user: user,
+          }}
+        >
+          <Header serviceName={serviceName} />
+        </UserContext.Provider>
+      )
+
+      expect(getByText(serviceName)).toBeInTheDocument()
+      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Search')).toBeInTheDocument()
+      expect(queryByText('Manage jobs')).toBeInTheDocument()
+    })
+
+    it('should render header content for contract manager', () => {
+      const user = {
+        name: 'A Contract Manager',
+        email: 'a.contract_manager@hackney.gov.uk',
+        roles: ['contract_manager'],
+        hasRole: true,
+        hasAgentPermissions: false,
+        hasContractorPermissions: false,
+        hasContractManagerPermissions: true,
+        hasAuthorisationManagerPermissions: false,
+        hasAnyPermissions: true,
+      }
+
+      const { getByText, queryByText } = render(
+        <UserContext.Provider
+          value={{
+            user: user,
+          }}
+        >
+          <Header serviceName={serviceName} />
+        </UserContext.Provider>
+      )
+
+      expect(getByText(serviceName)).toBeInTheDocument()
+      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Search')).toBeInTheDocument()
+      expect(queryByText('Manage jobs')).toBeInTheDocument()
+    })
+
+    it('should render header content for authorisation manager', () => {
+      const user = {
+        name: 'An Authorisation Manager',
+        email: 'a.authorisation_manager@hackney.gov.uk',
+        roles: ['authorisation_manager'],
+        hasRole: true,
+        hasAgentPermissions: false,
+        hasContractorPermissions: false,
+        hasContractManagerPermissions: false,
+        hasAuthorisationManagerPermissions: true,
         hasAnyPermissions: true,
       }
 

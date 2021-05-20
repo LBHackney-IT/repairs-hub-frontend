@@ -47,8 +47,11 @@ describe('MyApp.getInitialProps', () => {
         expect(userDetails).toMatchObject({
           name: 'name',
           email: 'name@example.com',
+          roles: ['agent'],
           hasAgentPermissions: true,
           hasContractorPermissions: false,
+          hasContractManagerPermissions: false,
+          hasAuthorisationManagerPermissions: false,
           hasAnyPermissions: true,
         })
 

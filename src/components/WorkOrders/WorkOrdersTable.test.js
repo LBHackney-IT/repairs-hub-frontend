@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import WorkOrdersTable from './WorkOrdersTable'
+import { contractor } from 'factories/contractor'
 
 describe('WorkOrdersTable component', () => {
   const props = {
@@ -23,17 +24,8 @@ describe('WorkOrdersTable component', () => {
   }
 
   it('should render properly', () => {
-    const user = {
-      name: 'A Contractor',
-      email: 'a.contractor@hackney.gov.uk',
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasAnyPermissions: true,
-    }
-
     const { asFragment } = render(
-      <UserContext.Provider value={{ user }}>
+      <UserContext.Provider value={{ user: contractor }}>
         <WorkOrdersTable
           workOrders={props.workOrders}
           pageNumber={props.pageNumber}
