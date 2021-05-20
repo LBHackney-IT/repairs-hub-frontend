@@ -28,6 +28,11 @@ describe('Contract manager can authorise variation', () => {
     cy.route('GET', 'api/workOrders/10000012/tasks', '@tasks-and-sors').as(
       'tasks-and-sors-request'
     )
+
+    cy.fixture('hub-user/user.json').then((user) => {
+      user.varyLimit = 20000
+      cy.intercept('GET', 'api/hub-user', user)
+    })
   })
 
   it('Rejects job variation', () => {
@@ -196,5 +201,48 @@ describe('Contract manager can authorise variation', () => {
         cy.contains('td', '£16098.00')
       })
     })
+  })
+
+  it('Can not authorise (approve) variation if over vary spend limit', () => {
+    cy.fixture('work-orders/high-cost-variation-task.json').as(
+      'high-cost-variation-task'
+    )
+    cy.route(
+      'GET',
+      'api/workOrders/10000012/variation-tasks',
+      '@high-cost-variation-task'
+    ).as('variation-tasks-request')
+
+    cy.visit(
+      `${Cypress.env('HOST')}/work-orders/10000012/variation-authorisation`
+    )
+
+    cy.contains('Authorisation variation request: 10000012')
+
+    // Warning text as work order with applied variation is above user's vary limit (£20000)
+    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.contains(
+        'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request however.'
+      )
+    })
+
+    cy.get('[type="radio"]').contains('Approve request').should('not.exist')
+    cy.get('[type="radio"]').check('Reject request')
+
+    // Rejects with comments post request goes through
+    cy.get('#note').type('Can not approve it')
+    cy.get('[type="submit"]').contains('Submit').click({ force: true })
+
+    cy.get('@apiCheck')
+      .its('request.body')
+      .should('deep.equal', {
+        relatedWorkOrderReference: {
+          id: '10000012',
+        },
+        comments: 'Variation rejected: Can not approve it',
+        typeCode: '125',
+      })
+
+    cy.contains('You have rejected a variation for work order 10000012')
   })
 })
