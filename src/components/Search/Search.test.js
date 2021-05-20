@@ -1,43 +1,16 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import Search from './Search'
+import { agent } from 'factories/agent'
+import { contractor } from 'factories/contractor'
+import { contractManager } from 'factories/contract_manager'
+import { authorisationManager } from 'factories/authorisation_manager'
 
 describe('Search component', () => {
   describe('when logged in as an agent', () => {
-    const user = {
-      name: 'An Agent',
-      email: 'an.agent@hackney.gov.uk',
-      hasRole: true,
-      hasAgentPermissions: true,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
-          <Search />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-  })
-
-  describe('when logged in as a contract manager', () => {
-    const user = {
-      name: 'A contract manager',
-      email: 'a.contract-manager@hackney.gov.uk',
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: true,
-      hasAnyPermissions: true,
-    }
-
-    it('should render properly', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: agent }}>
           <Search />
         </UserContext.Provider>
       )
@@ -46,19 +19,31 @@ describe('Search component', () => {
   })
 
   describe('when logged in as a contractor', () => {
-    const user = {
-      name: 'An Agent',
-      email: 'a.contractor@hackney.gov.uk',
-      hasRole: true,
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasContractManagerPermissions: false,
-      hasAnyPermissions: true,
-    }
-
     it('should render properly', () => {
       const { asFragment } = render(
-        <UserContext.Provider value={{ user }}>
+        <UserContext.Provider value={{ user: contractor }}>
+          <Search />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contract manager', () => {
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: contractManager }}>
+          <Search />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as an authorisation manager', () => {
+    it('should render properly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: authorisationManager }}>
           <Search />
         </UserContext.Provider>
       )
