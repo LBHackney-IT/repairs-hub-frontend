@@ -69,7 +69,7 @@ const VariationAuthorisationSummary = ({ variationTasks, originalSors }) => {
               'border-top-black': object.description !== COST_BEFORE_VARIATION,
             })}
           >
-            £{object.cost}
+            £{object.cost.toFixed(2)}
           </td>
         </tr>
       )

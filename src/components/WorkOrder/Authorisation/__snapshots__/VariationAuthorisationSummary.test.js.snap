@@ -270,7 +270,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         <td
           class="govuk-!-padding-top-3 govuk-table__cell--numeric"
         >
-          £194
+          £194.00
         </td>
       </tr>
       <tr
@@ -302,7 +302,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         <td
           class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
         >
-          £15844
+          £15844.00
         </td>
       </tr>
       <tr
@@ -334,7 +334,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         <td
           class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
         >
-          £16038
+          £16038.00
         </td>
       </tr>
     </tbody>
