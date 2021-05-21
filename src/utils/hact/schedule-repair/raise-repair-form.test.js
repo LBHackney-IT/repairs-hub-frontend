@@ -1,13 +1,4 @@
-import MockDate from 'mockdate'
 import { buildScheduleRepairFormData } from './raise-repair-form'
-
-const mockBankHolidays = jest.fn()
-
-jest.mock('../../helpers/bank-holidays', () => ({
-  get bankHolidays() {
-    return mockBankHolidays()
-  },
-}))
 
 jest.mock('uuid', () => {
   return {
@@ -45,20 +36,6 @@ describe('buildRaiseRepairFormData', () => {
   }
 
   it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
-    MockDate.set(new Date('Thu Jan 14 2021 18:16:20Z'))
-
-    // set the following Monday as a bank holiday
-    mockBankHolidays.mockReturnValue({
-      'england-and-wales': {
-        division: 'england-and-wales',
-        events: [
-          {
-            date: '2021-01-19',
-          },
-        ],
-      },
-    })
-
     const scheduleRepairFormData = {
       reference: [
         {

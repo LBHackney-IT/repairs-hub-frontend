@@ -1,6 +1,5 @@
 import { priorityCodeCompletionTimes } from '../hact/helpers/priority-codes'
 import { isSaturday, addDays, subDays, isWeekend, format } from 'date-fns'
-import { bankHolidays } from './bank-holidays'
 
 export class PriorityCodeError extends Error {
   constructor(message) {
@@ -8,60 +7,73 @@ export class PriorityCodeError extends Error {
   }
 }
 
-export const isBankHoliday = (date) => {
-  const formattedDate = format(date, 'yyyy-MM-dd')
-  const englandWalesBankHolidays = bankHolidays['england-and-wales']['events']
+export class CompletionTimesCalculator {
+  constructor(priorityCode, bankHolidays = []) {
+    this.bankHolidays = bankHolidays
 
-  return englandWalesBankHolidays.some(
-    (bankHoliday) => formattedDate === bankHoliday.date
-  )
-}
+    if (!priorityCodeCompletionTimes[priorityCode]) {
+      throw new PriorityCodeError(`Invalid priority code ${priorityCode}`)
+    }
 
-const isNonWorkingDay = (date) => isWeekend(date) || isBankHoliday(date)
+    const {
+      numberOfHours: completionTargetHours,
+      numberOfDays: completionTargetWorkingDays,
+    } = priorityCodeCompletionTimes[priorityCode]
 
-// Returns supplied start date plus however many calendar days we loop over to satisfy
-// the required number of working days.
-const dateAfterCountWorkingDays = (startDate, targetWorkingDaysCount) => {
-  let workingDaysCount = 0
-  let calendarDaysCount = 0
+    this.completionTargetHours = completionTargetHours
+    this.completionTargetWorkingDays = completionTargetWorkingDays
+  }
 
-  while (workingDaysCount < targetWorkingDaysCount) {
-    calendarDaysCount += 1
+  completionDateTime() {
+    let now = new Date()
 
-    const date = addDays(startDate, calendarDaysCount)
+    if (
+      // Immediates always have a target of 2 hours
+      this.completionTargetWorkingDays < 1
+    ) {
+      return new Date(now.setHours(now.getHours() + this.completionTargetHours))
+    } else {
+      // For the purpose of target time calculation, treat an order raised on a Saturday
+      // as if it had been raised on the preceding Friday.
+      if (isSaturday(now)) {
+        now = subDays(now, 1)
+      }
 
-    if (!isNonWorkingDay(date)) {
-      workingDaysCount += 1
+      return this.dateAfterCountWorkingDays(
+        now,
+        this.completionTargetWorkingDays
+      )
     }
   }
 
-  return addDays(startDate, calendarDaysCount)
-}
+  // Returns supplied start date plus however many calendar days we loop over to satisfy
+  // the required number of working days.
+  dateAfterCountWorkingDays(startDate, targetWorkingDaysCount) {
+    let workingDaysCount = 0
+    let calendarDaysCount = 0
 
-export const calculateCompletionDateTime = (priorityCode) => {
-  if (!priorityCodeCompletionTimes[priorityCode]) {
-    throw new PriorityCodeError(`Invalid priority code ${priorityCode}`)
-  }
+    while (workingDaysCount < targetWorkingDaysCount) {
+      calendarDaysCount += 1
 
-  const {
-    numberOfHours: completionTargetHours,
-    numberOfDays: completionTargetWorkingDays,
-  } = priorityCodeCompletionTimes[priorityCode]
+      const date = addDays(startDate, calendarDaysCount)
 
-  let now = new Date()
-
-  if (
-    // Immediates always have a target of 2 hours
-    completionTargetWorkingDays < 1
-  ) {
-    return new Date(now.setHours(now.getHours() + completionTargetHours))
-  } else {
-    // For the purpose of target time calculation, treat an order raised on a Saturday
-    // as if it had been raised on the preceding Friday.
-    if (isSaturday(now)) {
-      now = subDays(now, 1)
+      if (!this.isNonWorkingDay(date)) {
+        workingDaysCount += 1
+      }
     }
 
-    return dateAfterCountWorkingDays(now, completionTargetWorkingDays)
+    return addDays(startDate, calendarDaysCount)
+  }
+
+  isNonWorkingDay(date) {
+    return isWeekend(date) || this.isBankHoliday(date)
+  }
+
+  isBankHoliday(date) {
+    const formattedDate = format(date, 'yyyy-MM-dd')
+
+    return this.bankHolidays.some(
+      (bankHoliday) => formattedDate === bankHoliday.date
+    )
   }
 }

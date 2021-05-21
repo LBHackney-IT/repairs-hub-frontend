@@ -1,26 +1,11 @@
-import { calculateCompletionDateTime } from './completionDateTimes'
+import { CompletionTimesCalculator } from './completionDateTimes'
 import MockDate from 'mockdate'
 
-const mockBankHolidays = jest.fn()
-
-jest.mock('./bank-holidays', () => ({
-  get bankHolidays() {
-    return mockBankHolidays()
-  },
-}))
-
-describe('calculateCompletionDateTime', () => {
-  beforeEach(() => {
-    mockBankHolidays.mockReturnValue({
-      'england-and-wales': {
-        events: [],
-      },
-    })
-  })
-
+describe('completionDateTime', () => {
   describe('when the priority code represents an immediate order', () => {
     // 2 hours
     const priorityCode = 1
+    let calculator = new CompletionTimesCalculator(priorityCode)
 
     describe('and the works order is created on a working day', () => {
       const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
@@ -38,9 +23,7 @@ describe('calculateCompletionDateTime', () => {
           dateTime.setHours(dateTime.getHours() + 2)
         )
 
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
-          expectedDateTime
-        )
+        expect(calculator.completionDateTime()).toEqual(expectedDateTime)
       })
     })
 
@@ -60,9 +43,7 @@ describe('calculateCompletionDateTime', () => {
           dateTime.setHours(dateTime.getHours() + 2)
         )
 
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
-          expectedDateTime
-        )
+        expect(calculator.completionDateTime()).toEqual(expectedDateTime)
       })
     })
   })
@@ -70,6 +51,7 @@ describe('calculateCompletionDateTime', () => {
   describe('when the priority code represents an emergency order', () => {
     // 1 working day
     const priorityCode = 2
+    let calculator = new CompletionTimesCalculator(priorityCode)
 
     describe('and the day of order creation and the day following it are working days', () => {
       const dateTime = new Date('Wednesday 30 June 2021 08:00:00Z')
@@ -83,7 +65,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time for the same time on the configured number of working days from now', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Thursday 1 July 2021 08:00:00Z')
         )
       })
@@ -103,9 +85,7 @@ describe('calculateCompletionDateTime', () => {
       it('sets the target time for the same time on the configured number of working days from now', () => {
         const expectedDateTime = new Date('Monday 5 July 2021 19:00:00Z')
 
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
-          expectedDateTime
-        )
+        expect(calculator.completionDateTime()).toEqual(expectedDateTime)
       })
     })
 
@@ -121,7 +101,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time as if the order had been raised on the preceding working day', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Monday 28 June 2021 09:00:00Z')
         )
       })
@@ -132,28 +112,23 @@ describe('calculateCompletionDateTime', () => {
 
       beforeEach(() => {
         MockDate.set(dateTime)
-
-        mockBankHolidays.mockReturnValue({
-          'england-and-wales': {
-            division: 'england-and-wales',
-            events: [
-              {
-                title: 'Fake bank holiday',
-                date: '2021-06-28', // the following Monday
-                notes: '',
-                bunting: true,
-              },
-            ],
-          },
-        })
       })
 
       afterEach(() => {
         MockDate.reset()
       })
 
+      let calculator = new CompletionTimesCalculator(priorityCode, [
+        {
+          title: 'Fake bank holiday',
+          date: '2021-06-28', // the following Monday
+          notes: '',
+          bunting: true,
+        },
+      ])
+
       it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Tuesday 29 June 2021 09:00:00Z')
         )
       })
@@ -163,6 +138,7 @@ describe('calculateCompletionDateTime', () => {
   describe('when the priority code represents an urgent order', () => {
     // 5 working days
     const priorityCode = 3
+    let calculator = new CompletionTimesCalculator(priorityCode)
 
     describe('and the day of order creation is a working day with no imminent bank holidays', () => {
       const dateTime = new Date('Wednesday 7 July 2021 19:00:00Z')
@@ -176,7 +152,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time for the same time on the configured number of working days from now', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime(priorityCode)).toEqual(
           new Date('Wednesday 14 July 2021 19:00:00Z')
         )
       })
@@ -197,7 +173,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time for the same time on the configured number of working days from now', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Wednesday 5 January 2022 12:00:00Z')
         )
       })
@@ -215,7 +191,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time as if the order had been raised on the preceding working day', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime(priorityCode)).toEqual(
           new Date('Friday 2 July 2021 09:00:00Z')
         )
       })
@@ -226,29 +202,24 @@ describe('calculateCompletionDateTime', () => {
 
       beforeEach(() => {
         MockDate.set(dateTime)
-
-        mockBankHolidays.mockReturnValue({
-          'england-and-wales': {
-            division: 'england-and-wales',
-            events: [
-              {
-                title: 'Fake bank holiday',
-                date: '2021-06-28', // the following Monday
-                notes: '',
-                bunting: true,
-              },
-            ],
-          },
-        })
       })
 
       afterEach(() => {
         MockDate.reset()
       })
 
+      let calculator = new CompletionTimesCalculator(priorityCode, [
+        {
+          title: 'Fake bank holiday',
+          date: '2021-06-28', // the following Monday
+          notes: '',
+          bunting: true,
+        },
+      ])
+
       it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
         // 5 working days into the future, as if the order had been raised on Friday and with the bank holiday accounted for
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Monday 5 July 2021 09:00:00Z')
         )
       })
@@ -258,6 +229,8 @@ describe('calculateCompletionDateTime', () => {
   describe('when the priority code represents a normal order', () => {
     // 21 working days
     const priorityCode = 4
+
+    let calculator = new CompletionTimesCalculator(priorityCode)
 
     describe('and the day of order creation is a working day with no imminent bank holidays', () => {
       const dateTime = new Date('Tuesday 1 June 2021 19:00:00Z')
@@ -271,7 +244,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time for the same time on the configured number of working days from now', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Wednesday 30 June 2021 19:00:00Z')
         )
       })
@@ -292,7 +265,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time for the same time on the configured number of working days from now', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Thursday 27 January 2022 12:00:00Z')
         )
       })
@@ -310,7 +283,7 @@ describe('calculateCompletionDateTime', () => {
       })
 
       it('sets the target time as if the order had been raised on the preceding working day', () => {
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Monday 26 July 2021 09:00:00Z')
         )
       })
@@ -321,35 +294,30 @@ describe('calculateCompletionDateTime', () => {
 
       beforeEach(() => {
         MockDate.set(dateTime)
-
-        mockBankHolidays.mockReturnValue({
-          'england-and-wales': {
-            division: 'england-and-wales',
-            events: [
-              {
-                title: 'Fake bank holiday',
-                date: '2021-06-28', // the following Monday
-                notes: '',
-                bunting: true,
-              },
-              {
-                title: 'Fake bank holiday',
-                date: '2021-07-26',
-                notes: '',
-                bunting: true,
-              },
-            ],
-          },
-        })
       })
 
       afterEach(() => {
         MockDate.reset()
       })
 
+      let calculator = new CompletionTimesCalculator(priorityCode, [
+        {
+          title: 'Fake bank holiday',
+          date: '2021-06-28', // the following Monday
+          notes: '',
+          bunting: true,
+        },
+        {
+          title: 'Fake bank holiday',
+          date: '2021-07-26',
+          notes: '',
+          bunting: true,
+        },
+      ])
+
       it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
         // 21 working days into the future, as if the order had been raised on Friday and with the 2 bank holidays accounted for
-        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+        expect(calculator.completionDateTime()).toEqual(
           new Date('Wednesday 28 July 2021 09:00:00Z')
         )
       })
@@ -359,7 +327,7 @@ describe('calculateCompletionDateTime', () => {
   describe('when supplied an unknown priority code', () => {
     it('throws an error', () => {
       expect(() => {
-        calculateCompletionDateTime(-9999)
+        new CompletionTimesCalculator(-9999)
       }).toThrowError('Invalid priority code -9999')
     })
   })
