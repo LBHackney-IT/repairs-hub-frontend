@@ -3,11 +3,14 @@ import cx from 'classnames'
 import {
   calculateCostBeforeVariation,
   calculateChangeInCost,
-  calculateTotalVariedCost,
 } from '../../../utils/helpers/calculations'
 import { longDateToStr } from '../../../utils/date'
 
-const VariationAuthorisationSummary = ({ variationTasks, originalSors }) => {
+const VariationAuthorisationSummary = ({
+  variationTasks,
+  originalSors,
+  totalCostAfterVariation,
+}) => {
   const COST_BEFORE_VARIATION = 'Cost before variation'
   const TOTAL_VARIED_COST = 'Total cost after variation'
   const CHANGE_IN_COST = 'Change in cost'
@@ -39,7 +42,7 @@ const VariationAuthorisationSummary = ({ variationTasks, originalSors }) => {
   }
   const totalVaried = {
     description: TOTAL_VARIED_COST,
-    cost: calculateTotalVariedCost(variationTasks.tasks),
+    cost: totalCostAfterVariation,
   }
 
   //show cost breakdown

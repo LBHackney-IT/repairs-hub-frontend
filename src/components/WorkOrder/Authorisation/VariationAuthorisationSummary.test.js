@@ -42,12 +42,14 @@ describe('VariationAuthorisationSummary component', () => {
         originalQuantity: 1,
       },
     ],
+    totalCostAfterVariation: 16038.0,
   }
   it('should render properly', () => {
     const { asFragment } = render(
       <VariationAuthorisationSummary
         variationTasks={props.variationTasks}
         originalSors={props.originalSors}
+        totalCostAfterVariation={props.totalCostAfterVariation}
       />
     )
     expect(asFragment()).toMatchSnapshot()
