@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
 import { priorityCodeCompletionTimes } from '../helpers/priority-codes'
-import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
 
 export const buildScheduleRepairFormData = (formData) => {
   return {
@@ -13,9 +12,6 @@ export const buildScheduleRepairFormData = (formData) => {
     priority: {
       priorityCode: Number.parseInt(formData.priorityCode),
       priorityDescription: formData.priorityDescription,
-      requiredCompletionDateTime: calculateCompletionDateTime(
-        formData.priorityCode
-      ),
       numberOfDays:
         priorityCodeCompletionTimes[formData.priorityCode].numberOfDays,
     },

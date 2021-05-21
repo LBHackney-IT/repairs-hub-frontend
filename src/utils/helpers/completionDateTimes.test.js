@@ -355,4 +355,12 @@ describe('calculateCompletionDateTime', () => {
       })
     })
   })
+
+  describe('when supplied an unknown priority code', () => {
+    it('throws an error', () => {
+      expect(() => {
+        calculateCompletionDateTime(-9999)
+      }).toThrowError('Invalid priority code -9999')
+    })
+  })
 })

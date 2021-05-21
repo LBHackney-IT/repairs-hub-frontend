@@ -102,8 +102,6 @@ describe('Schedule appointment form', () => {
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
-            const requiredCompletionDateTime =
-              body.priority.requiredCompletionDateTime
             cy.get('@apiCheck')
               .its('request.body')
               .should('deep.equal', {
@@ -112,7 +110,6 @@ describe('Schedule appointment form', () => {
                 priority: {
                   priorityCode: 2,
                   priorityDescription: '2 [E] EMERGENCY',
-                  requiredCompletionDateTime: requiredCompletionDateTime,
                   numberOfDays: 1,
                 },
                 workClass: { workClassCode: 0 },
@@ -240,8 +237,6 @@ describe('Schedule appointment form', () => {
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
-            const requiredCompletionDateTime =
-              body.priority.requiredCompletionDateTime
             cy.get('@apiCheck')
               .its('request.body')
               .should('deep.equal', {
@@ -250,7 +245,6 @@ describe('Schedule appointment form', () => {
                 priority: {
                   priorityCode: 4,
                   priorityDescription: '5 [N] NORMAL',
-                  requiredCompletionDateTime: requiredCompletionDateTime,
                   numberOfDays: 21,
                 },
                 workClass: { workClassCode: 0 },

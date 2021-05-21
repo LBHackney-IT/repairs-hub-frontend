@@ -69,7 +69,6 @@ describe('buildRaiseRepairFormData', () => {
       priority: {
         priorityCode: 3,
         priorityDescription: '4 [U] URGENT',
-        requiredCompletionDateTime: new Date('Friday Jan 22 2021 18:16:20Z'),
         numberOfDays: 5,
       },
       workClass: {

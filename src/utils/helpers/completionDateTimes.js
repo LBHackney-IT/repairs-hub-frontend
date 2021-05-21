@@ -2,6 +2,12 @@ import { priorityCodeCompletionTimes } from '../hact/helpers/priority-codes'
 import { isSaturday, addDays, subDays, isWeekend, format } from 'date-fns'
 import { bankHolidays } from './bank-holidays'
 
+export class PriorityCodeError extends Error {
+  constructor(message) {
+    super(message)
+  }
+}
+
 export const isBankHoliday = (date) => {
   const formattedDate = format(date, 'yyyy-MM-dd')
   const englandWalesBankHolidays = bankHolidays['england-and-wales']['events']
@@ -33,6 +39,10 @@ const dateAfterCountWorkingDays = (startDate, targetWorkingDaysCount) => {
 }
 
 export const calculateCompletionDateTime = (priorityCode) => {
+  if (!priorityCodeCompletionTimes[priorityCode]) {
+    throw new PriorityCodeError(`Invalid priority code ${priorityCode}`)
+  }
+
   const {
     numberOfHours: completionTargetHours,
     numberOfDays: completionTargetWorkingDays,
