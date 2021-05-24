@@ -5,11 +5,7 @@ import { createRequest, createResponse } from 'node-mocks-http'
 import jsonwebtoken from 'jsonwebtoken'
 import * as HttpStatus from 'http-status-codes'
 
-const {
-  AGENTS_GOOGLE_GROUPNAME,
-  HACKNEY_JWT_SECRET,
-  GSSO_TOKEN_NAME,
-} = process.env
+const { HACKNEY_JWT_SECRET, GSSO_TOKEN_NAME } = process.env
 
 describe('MyApp.getInitialProps', () => {
   describe('when the context contains a valid user token', () => {
@@ -17,7 +13,7 @@ describe('MyApp.getInitialProps', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: [AGENTS_GOOGLE_GROUPNAME],
+        groups: ['repairs-hub-agents-staging'],
       },
       HACKNEY_JWT_SECRET
     )

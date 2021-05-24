@@ -14,8 +14,11 @@ import SuccessPage from '../../SuccessPage/SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
+import WarningText from '../../Template/WarningText'
 import { getVariationTasks } from '../../../utils/frontend-api-client/variation-tasks'
 import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
+import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
+import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
 
 const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -25,6 +28,13 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const [confirmationPageMessage, setConfirmationPageMessage] = useState('')
   const [variationTasks, setVariationTasks] = useState({})
   const [originalSors, setOriginalSors] = useState([])
+  const [varySpendLimit, setVarySpendLimit] = useState()
+  const [overSpendLimit, setOverSpendLimit] = useState()
+  const [totalCostAfterVariation, setTotalCostAfterVariation] = useState()
+  const [formActions, setFormActions] = useState([
+    'Approve request',
+    'Reject request',
+  ])
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
@@ -34,7 +44,20 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
     try {
       const variationTasks = await getVariationTasks(workOrderReference)
+      const user = await getCurrentUser()
+
       setVariationTasks(variationTasks)
+      setVarySpendLimit(parseFloat(user.varyLimit))
+
+      const totalCostAfterVariation = calculateTotalVariedCost(
+        variationTasks.tasks
+      )
+      setTotalCostAfterVariation(totalCostAfterVariation)
+
+      if (totalCostAfterVariation.toFixed(2) > parseFloat(user.varyLimit)) {
+        setOverSpendLimit(true)
+        setFormActions(['Reject request'])
+      }
     } catch (e) {
       setVariationTasks(null)
       console.error('An error has occured:', e.response)
@@ -118,47 +141,59 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
         <Spinner />
       ) : (
         <>
-          {!formSuccess && variationTasks.tasks && originalSors && (
-            <div>
-              <BackButton />
-              <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
-                Authorisation variation request: {workOrderReference}{' '}
-              </h1>
-              <Link href={`/work-orders/${workOrderReference}`}>
-                <a className="govuk-body-s">See works order</a>
-              </Link>
-              <VariationAuthorisationSummary
-                variationTasks={variationTasks}
-                originalSors={originalSors}
-              />
-              <br></br>
-              <br></br>
-              <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
-                <Radios
-                  label="This job requires your authorisation"
-                  name="options"
-                  options={['Approve request', 'Reject request']}
-                  onChange={addNotes}
-                  register={register({
-                    required: 'Please select a process',
-                  })}
-                  error={errors && errors.options}
+          {!formSuccess &&
+            variationTasks.tasks &&
+            originalSors &&
+            totalCostAfterVariation &&
+            !isNaN(varySpendLimit) && (
+              <div>
+                <BackButton />
+                <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
+                  Authorisation variation request: {workOrderReference}{' '}
+                </h1>
+                <Link href={`/work-orders/${workOrderReference}`}>
+                  <a className="govuk-body-s">See works order</a>
+                </Link>
+                <VariationAuthorisationSummary
+                  variationTasks={variationTasks}
+                  originalSors={originalSors}
+                  totalCostAfterVariation={totalCostAfterVariation}
                 />
-                {!variationApproved && (
-                  <TextArea
-                    name="note"
-                    label="Add notes"
-                    register={register({
-                      required: 'Please add notes',
-                    })}
-                    error={errors && errors.note}
+                <br></br>
+                <br></br>
+
+                {overSpendLimit && (
+                  <WarningText
+                    text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request however.`}
                   />
                 )}
-                <PrimarySubmitButton label="Submit" />
-              </form>
-              {error && <ErrorMessage label={error} />}
-            </div>
-          )}
+
+                <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
+                  <Radios
+                    label="This job requires your authorisation"
+                    name="options"
+                    options={formActions}
+                    onChange={addNotes}
+                    register={register({
+                      required: 'Please select a process',
+                    })}
+                    error={errors && errors.options}
+                  />
+                  {!variationApproved && (
+                    <TextArea
+                      name="note"
+                      label="Add notes"
+                      register={register({
+                        required: 'Please add notes',
+                      })}
+                      error={errors && errors.note}
+                    />
+                  )}
+                  <PrimarySubmitButton label="Submit" />
+                </form>
+                {error && <ErrorMessage label={error} />}
+              </div>
+            )}
           {formSuccess && (
             <SuccessPage
               workOrderReference={workOrderReference}
