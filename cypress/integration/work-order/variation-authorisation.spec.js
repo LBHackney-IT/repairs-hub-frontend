@@ -168,7 +168,7 @@ describe('Contract manager can authorise variation', () => {
       cy.contains('td', '£38')
 
       //New task
-      cy.contains('td', 'New')
+      cy.contains('td', 'Reduced')
       cy.contains('td', 'DES5R007')
       cy.contains('p', 'Normal Call outs')
       cy.contains('td', '£25')
