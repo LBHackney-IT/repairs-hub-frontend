@@ -8,22 +8,21 @@ describe('Variation summary tab on work-order page', () => {
       cy.server()
       // Stub requests
       cy.fixture('properties/property.json').as('property')
+      cy.route('GET', 'api/properties/00012345', '@property')
       cy.fixture('work-orders/status-variation-pending-approval.json').as(
         'workOrder'
       )
-      cy.fixture('work-orders/variation-tasks.json').as('variation-tasks')
-      cy.fixture('work-orders/tasks-and-sors.json').as('tasks-and-sors')
-
-      cy.route('GET', 'api/properties/00012345', '@property')
       cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+      cy.fixture('work-orders/tasks-and-sors.json').as('tasks-and-sors')
+      cy.route('GET', 'api/workOrders/10000012/tasks', '@tasks-and-sors').as(
+        'tasks-and-sors-request'
+      )
+      cy.fixture('work-orders/variation-tasks.json').as('variation-tasks')
       cy.route(
         'GET',
         'api/workOrders/10000012/variation-tasks',
         '@variation-tasks'
       ).as('variation-tasks-request')
-      cy.route('GET', 'api/workOrders/10000012/tasks', '@tasks-and-sors').as(
-        'tasks-and-sors-request'
-      )
     })
     // Logged in as a contract-manager (has permission to authorise a variation)
     it('shows the summary of the variation in variation-summary tab and has link to authorise variation', () => {
@@ -332,6 +331,7 @@ describe('Variation summary tab on work-order page', () => {
           workOrder.reference = 10000040
         })
       cy.route('GET', 'api/workOrders/10000040', '@workOrder')
+      cy.route('GET', 'api/workOrders/10000040/variation-tasks', '{[]}')
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000040`)
       // Now select Variation Summary tab
@@ -350,6 +350,8 @@ describe('Variation summary tab on work-order page', () => {
           workOrder.reference = 10000037
         })
       cy.route('GET', 'api/workOrders/10000037', '@workOrder')
+      cy.route('GET', 'api/workOrders/10000037/variation-tasks', '{[]}')
+
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000037`)
       // Now select Variation Summary tab
       cy.get('a[id="tab_variation-summary-tab"]').click({ force: true })
@@ -367,6 +369,7 @@ describe('Variation summary tab on work-order page', () => {
           workOrder.reference = 10000032
         })
       cy.route('GET', 'api/workOrders/10000032', '@workOrder')
+      cy.route('GET', 'api/workOrders/10000032/variation-tasks', '{[]}')
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000032`)
       // Now select Variation Summary tab

@@ -6,6 +6,7 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
 import { getVariationTasks } from '../../utils/frontend-api-client/variation-tasks'
 import { getTasksAndSors } from '../../utils/frontend-api-client/work-orders/[id]/tasks'
+import { calculateTotalVariedCost } from '../../utils/helpers/calculations'
 
 const VariationSummaryTab = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -13,13 +14,19 @@ const VariationSummaryTab = ({ workOrderReference }) => {
   const [variationTasks, setVariationTasks] = useState({})
   const [originalSors, setOriginalSors] = useState([])
   const { user } = useContext(UserContext)
+  const [totalCostAfterVariation, setTotalCostAfterVariation] = useState()
 
   const requestVariationTasks = async (workOrderReference) => {
     setError(null)
 
     try {
       const variationTasks = await getVariationTasks(workOrderReference)
+
       setVariationTasks(variationTasks)
+      const totalCostAfterVariation = calculateTotalVariedCost(
+        variationTasks.tasks
+      )
+      setTotalCostAfterVariation(totalCostAfterVariation)
     } catch (e) {
       setVariationTasks(null)
       console.error('An error has occured:', e.response)
@@ -89,6 +96,7 @@ const VariationSummaryTab = ({ workOrderReference }) => {
               <VariationAuthorisationSummary
                 variationTasks={variationTasks}
                 originalSors={originalSors}
+                totalCostAfterVariation={totalCostAfterVariation}
               />
               {error && <ErrorMessage label={error} />}
             </>
