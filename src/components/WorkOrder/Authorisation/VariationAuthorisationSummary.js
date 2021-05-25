@@ -28,7 +28,7 @@ const VariationAuthorisationSummary = ({
     return 'Unchanged'
   }
   const getCost = (task) => {
-    return task.unitCost ? task.unitCost : 0
+    return task.unitCost ? task.unitCost : 0.0
   }
 
   //cost calculation before variation, change in cost and total varied coast
@@ -72,7 +72,7 @@ const VariationAuthorisationSummary = ({
               'border-top-black': object.description !== COST_BEFORE_VARIATION,
             })}
           >
-            £{object.cost.toFixed(2)}
+            £{object.cost ? object.cost.toFixed(2) : '-'}
           </td>
         </tr>
       )
