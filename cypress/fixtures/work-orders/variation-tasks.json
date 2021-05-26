@@ -7,7 +7,7 @@
       "description": "Normal Call outs",
       "id": "abcd",
       "originalQuantity": 1,
-      "unitCost": 4,
+      "unitCost": 4.0,
       "variedQuantity": 4000
     },
     {
@@ -16,7 +16,7 @@
       "description": "Normal Call outs",
       "id": "abc",
       "originalQuantity": 1,
-      "unitCost": 19,
+      "unitCost": 19.0,
       "variedQuantity": 2
     },
     {
@@ -25,7 +25,7 @@
       "description": "Normal Call outs",
       "id": "abcde",
       "originalQuantity": 0,
-      "unitCost": 25,
+      "unitCost": 25.0,
       "variedQuantity": 2
     },
     {
@@ -34,7 +34,7 @@
       "description": "Urgent call outs",
       "id": "abcde",
       "originalQuantity": 1,
-      "unitCost": 10,
+      "unitCost": 10.0,
       "variedQuantity": 1
     }
   ],

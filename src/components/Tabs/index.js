@@ -3,6 +3,7 @@ import { useRouter } from 'next/router'
 import RepairsHistoryView from '../Property/RepairsHistory/RepairsHistoryView'
 import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
+import VariationSummaryTab from './VariationSummaryTab'
 import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
 
 const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
@@ -43,6 +44,13 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
       case 'notes-tab':
         return (
           <NotesView
+            workOrderReference={workOrderReference}
+            tabName={tabName}
+          />
+        )
+      case 'variation-summary-tab':
+        return (
+          <VariationSummaryTab
             workOrderReference={workOrderReference}
             tabName={tabName}
           />
