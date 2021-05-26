@@ -60,7 +60,7 @@ describe('Schedule appointment form', () => {
     cy.clock(now)
   })
 
-  context('There are availbale appointments', () => {
+  context('There are available appointments', () => {
     beforeEach(() => {
       cy.fixture('appointment/availability.json').as('availableAppointments')
       cy.route(
@@ -199,7 +199,7 @@ describe('Schedule appointment form', () => {
           .should('not.have.value', 'PM 12:00-4:00')
         //press "cancel" button
         cy.get('[type="button"]').contains('Cancel').click({ force: true })
-        //check that availbale slots dissapear
+        //check that available slots dissapear
         cy.contains('Wednesday, 17 March').should('not.exist')
       })
 
