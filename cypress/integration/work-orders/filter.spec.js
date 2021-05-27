@@ -623,7 +623,7 @@ describe('Filter work orders', () => {
     })
   })
 
-  context('When logged in as a contractor', () => {
+  context('When logged in as a contractor in one contractor group', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
@@ -706,4 +706,91 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000030]')
     })
   })
+
+  context(
+    'When logged in as a contractor in more than one contractor group',
+    () => {
+      beforeEach(() => {
+        cy.loginWithMultipleContractorRole()
+
+        cy.visit(`${Cypress.env('HOST')}/`)
+      })
+
+      it('Lists all filtering options and displays contractors filter', () => {
+        // Contractor filter options
+        cy.get('#contractor-filters').should('exist')
+        cy.get('.govuk-checkboxes')
+          .find('[name="ContractorReference.AVP"]')
+          .should('exist')
+        cy.get('.govuk-checkboxes')
+          .find('[name="ContractorReference.PCL"]')
+          .should('exist')
+        cy.get('.govuk-checkboxes')
+          .find('[name="ContractorReference.SCC"]')
+          .should('exist')
+
+        // Status filter options (none selected by default)
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.50"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.90"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.80"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.30"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.1010"]')
+          .should('not.exist')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.1080"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="StatusCode.1090"]')
+          .should('not.be.checked')
+        // Priority filter options
+        cy.get('.govuk-checkboxes')
+          .find('[name="Priorities.1"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="Priorities.2"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="Priorities.3"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="Priorities.4"]')
+          .should('not.be.checked')
+        // Trade filter options (none selected by default)
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.AD"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.CA"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.CP"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.DE"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.EL"]')
+          .should('not.be.checked')
+        cy.get('.govuk-checkboxes')
+          .find('[name="TradeCodes.PL"]')
+          .should('not.be.checked')
+
+        // Expect all work orders to be displayed
+        cy.get('[data-ref=10000040]')
+        cy.get('[data-ref=10000035]')
+        cy.get('[data-ref=10000036]')
+        cy.get('[data-ref=10000037]')
+        cy.get('[data-ref=10000030]')
+      })
+    }
+  )
 })
