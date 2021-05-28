@@ -71,19 +71,17 @@ const HeaderComponent = ({ serviceName }) => {
                 </a>
               </Link>
             </div>
-            <div className="lbh-header__links">
-              {user && (
-                <>
-                  {!user.hasAgentPermissions && <a href="/">Manage jobs</a>}
-                  <a id="search" href="/search">
-                    Search
-                  </a>
-                  <a id="logout" href="/logout">
-                    Logout
-                  </a>
-                </>
-              )}
-            </div>
+            {user && (
+              <div className="lbh-header__links">
+                {!user.hasAgentPermissions && <a href="/">Manage jobs</a>}
+                <a id="search" href="/search">
+                  Search
+                </a>
+                <a id="logout" href="/logout">
+                  Logout
+                </a>
+              </div>
+            )}
           </div>
         </div>
       </header>
