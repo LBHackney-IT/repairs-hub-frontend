@@ -48,7 +48,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
             tabName={tabName}
           />
         )
-      case 'variation-summary-tab':
+      case 'pending-variation-tab':
         return (
           <VariationSummaryTab
             workOrderReference={workOrderReference}
