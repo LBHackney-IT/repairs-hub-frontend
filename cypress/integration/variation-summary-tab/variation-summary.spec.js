@@ -2,7 +2,7 @@
 
 import 'cypress-audit/commands'
 
-describe('Variation summary tab on work-order page', () => {
+describe('Pending variation tab on work-order page', () => {
   context('work order status is Variation Pending approval', () => {
     beforeEach(() => {
       cy.server()
@@ -29,9 +29,9 @@ describe('Variation summary tab on work-order page', () => {
       cy.loginWithContractManagerRole()
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click()
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click()
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation')
         cy.contains('Summary of Tasks and SORs')
 
@@ -121,13 +121,13 @@ describe('Variation summary tab on work-order page', () => {
     })
 
     //logged in as an Agent
-    it('shows variation summary but does not show the link for variation authorisation to Agent', () => {
+    it('shows Pending variation but does not show the link for variation authorisation to Agent', () => {
       cy.loginWithAgentRole()
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click()
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click()
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation').should('not.exist')
         cy.contains('Summary of Tasks and SORs')
 
@@ -217,13 +217,13 @@ describe('Variation summary tab on work-order page', () => {
     })
 
     //logged in as a Contractor
-    it('shows variation summary but does not show the link for variation authorisation to Contractor', () => {
+    it('shows Pending variation but does not show the link for variation authorisation to Contractor', () => {
       cy.loginWithContractorRole()
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click()
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click()
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation').should('not.exist')
         cy.contains('Summary of Tasks and SORs')
 
@@ -334,9 +334,9 @@ describe('Variation summary tab on work-order page', () => {
       cy.route('GET', 'api/workOrders/10000040/variation-tasks', '{[]}')
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000040`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click({ force: true })
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
@@ -353,9 +353,9 @@ describe('Variation summary tab on work-order page', () => {
       cy.route('GET', 'api/workOrders/10000037/variation-tasks', '{[]}')
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000037`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click({ force: true })
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
@@ -372,9 +372,9 @@ describe('Variation summary tab on work-order page', () => {
       cy.route('GET', 'api/workOrders/10000032/variation-tasks', '{[]}')
 
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000032`)
-      // Now select Variation Summary tab
-      cy.get('a[id="tab_variation-summary-tab"]').click({ force: true })
-      cy.get('#variation-summary-tab').within(() => {
+      // Now select Variation Pending variation tab
+      cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report

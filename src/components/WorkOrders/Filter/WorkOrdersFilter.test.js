@@ -4,6 +4,7 @@ import WorkOrdersFilter from './WorkOrdersFilter'
 import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
+import { multipleContractor } from 'factories/multiple_contractor'
 
 describe('WorkOrdersFilter component', () => {
   const props = {
@@ -86,10 +87,26 @@ describe('WorkOrdersFilter component', () => {
     clearFilters: jest.fn(),
   }
 
-  describe('when logged in as a contractor', () => {
+  describe('when logged in as a contractor with one contractor role', () => {
     it('should render properly without filter by contractor and no authorisation pending approval status', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractor }}>
+          <WorkOrdersFilter
+            filters={props.filters}
+            loading={props.loading}
+            register={props.register}
+            clearFilters={props.clearFilters}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contractor with more than one contractor role', () => {
+    it('should render properly with filter by contractor (only groups they belong to) and no authorisation pending approval status', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: multipleContractor }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}

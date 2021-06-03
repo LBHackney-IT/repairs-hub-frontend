@@ -46,6 +46,15 @@ Cypress.Commands.add('loginWithContractorRole', () => {
   cy.visit(host)
 })
 
+Cypress.Commands.add('loginWithMultipleContractorRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_MULTIPLE_CONTRACTOR')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.visit(host)
+})
+
 Cypress.Commands.add('loginWithContractManagerRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_MANAGER')
 
