@@ -45,6 +45,8 @@ describe('Authorisation workflow for a work order', () => {
       cy.contains('This job requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
+      cy.wait('@tasks-and-sors-request')
+
       // Notes is a mandatory field for a rejection
       cy.get('Add notes').should('not.exist')
       cy.get('[type="radio"]').check('Reject request')
