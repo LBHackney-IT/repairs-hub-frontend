@@ -144,3 +144,413 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is immediate priority includes related warning text 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-width-container"
+  >
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-two-thirds"
+      >
+        <span
+          class="govuk-caption-l"
+        >
+          Cancel repair
+        </span>
+        <h1
+          class="lbh-heading-l govuk-!-margin-bottom-2"
+        >
+          Works order: 10000012
+        </h1>
+        <div>
+          <table
+            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+          >
+            <tbody
+              class="govuk-table__body"
+            >
+              <tr
+                class="govuk-table__row"
+                id="property"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Property
+                </th>
+                <td
+                  class="govuk-table__cell"
+                >
+                  315 Banister House Homerton High Street
+                </td>
+              </tr>
+              <tr
+                class="govuk-table__row"
+                id="tradeDescription"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Trade
+                </th>
+                <td
+                  class="govuk-table__cell"
+                />
+              </tr>
+              <tr
+                class="govuk-table__row"
+                id="description"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Description
+                </th>
+                <td
+                  class="govuk-table__cell"
+                >
+                  Broken pipe in bathroom
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For immediate or emergency jobs contact planner first.
+          </strong>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm.
+          </strong>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For jobs on the current day contact the operative first. If they have already started work do not cancel.
+          </strong>
+        </div>
+        <h2
+          class="lbh-heading-h2 govuk-!-margin-top-6"
+        >
+          Reason to cancel
+        </h2>
+        <form
+          id="cancel-work-order-form"
+          role="form"
+        >
+          <input
+            id="workOrderReference"
+            label="workOrderReference"
+            name="workOrderReference"
+            type="hidden"
+            value="10000012"
+          />
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="cancelReason-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="cancelReason"
+            >
+              Reason 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <textarea
+              aria-describedby="cancelReason-hint cancelReason-error"
+              class="govuk-textarea lbh-textarea"
+              id="cancelReason"
+              name="cancelReason"
+              rows="4"
+            />
+          </div>
+          <span
+            class="govuk-hint govuk-!-margin-bottom-6"
+          >
+            You have 200 characters remaining.
+          </span>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Cancel repair
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is urgent priority includes related warning text 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-width-container"
+  >
+    <a
+      class="govuk-back-link lbh-back-link"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-two-thirds"
+      >
+        <span
+          class="govuk-caption-l"
+        >
+          Cancel repair
+        </span>
+        <h1
+          class="lbh-heading-l govuk-!-margin-bottom-2"
+        >
+          Works order: 10000012
+        </h1>
+        <div>
+          <table
+            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+          >
+            <tbody
+              class="govuk-table__body"
+            >
+              <tr
+                class="govuk-table__row"
+                id="property"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Property
+                </th>
+                <td
+                  class="govuk-table__cell"
+                >
+                  315 Banister House Homerton High Street
+                </td>
+              </tr>
+              <tr
+                class="govuk-table__row"
+                id="tradeDescription"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Trade
+                </th>
+                <td
+                  class="govuk-table__cell"
+                />
+              </tr>
+              <tr
+                class="govuk-table__row"
+                id="description"
+              >
+                <th
+                  class="govuk-table__header"
+                  scope="row"
+                >
+                  Description
+                </th>
+                <td
+                  class="govuk-table__cell"
+                >
+                  Broken pipe in bathroom
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For immediate or emergency jobs contact planner first.
+          </strong>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm.
+          </strong>
+        </div>
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            For jobs on the current day contact the operative first. If they have already started work do not cancel.
+          </strong>
+        </div>
+        <h2
+          class="lbh-heading-h2 govuk-!-margin-top-6"
+        >
+          Reason to cancel
+        </h2>
+        <form
+          id="cancel-work-order-form"
+          role="form"
+        >
+          <input
+            id="workOrderReference"
+            label="workOrderReference"
+            name="workOrderReference"
+            type="hidden"
+            value="10000012"
+          />
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="cancelReason-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="cancelReason"
+            >
+              Reason 
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <textarea
+              aria-describedby="cancelReason-hint cancelReason-error"
+              class="govuk-textarea lbh-textarea"
+              id="cancelReason"
+              name="cancelReason"
+              rows="4"
+            />
+          </div>
+          <span
+            class="govuk-hint govuk-!-margin-bottom-6"
+          >
+            You have 200 characters remaining.
+          </span>
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              type="submit"
+            >
+              Cancel repair
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -4,6 +4,9 @@ import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import WorkOrderInfoTable from '../WorkOrderInfoTable'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { buildCancelWorkOrderFormData } from '../../../utils/hact/work-order-complete/cancel-work-order-form'
+import WarningText from '../../Template/WarningText'
+import { highPriorityCodes } from '../../../utils/helpers/priorities'
+import { isContractorScheduledInternally } from '../../../utils/helpers/work-orders'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -13,6 +16,8 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
 
     onFormSubmit(cancelWorkOrderFormData)
   }
+
+  const isHighPriority = (code) => highPriorityCodes.includes(code)
 
   return (
     <div className="govuk-width-container">
@@ -26,9 +31,23 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
 
           <WorkOrderInfoTable workOrder={workOrder} />
 
+          {isContractorScheduledInternally(workOrder.contractorReference) &&
+            isHighPriority(workOrder.priorityCode) && (
+              <WarningText text="For immediate or emergency jobs contact planner first." />
+            )}
+
+          {isContractorScheduledInternally(workOrder.contractorReference) && (
+            <WarningText text="For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm." />
+          )}
+
+          {isContractorScheduledInternally(workOrder.contractorReference) && (
+            <WarningText text="For jobs on the current day contact the operative first. If they have already started work do not cancel." />
+          )}
+
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Reason to cancel
           </h2>
+
           <form
             role="form"
             id="cancel-work-order-form"
