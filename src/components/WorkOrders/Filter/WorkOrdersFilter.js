@@ -28,6 +28,15 @@ const WorkOrdersFilter = ({
     }
   }
 
+  const showContractorFilters = () => {
+    return (
+      user &&
+      (user.hasContractManagerPermissions ||
+        user.hasAuthorisationManagerPermissions ||
+        user.roles.filter((role) => role == 'contractor').length > 1)
+    )
+  }
+
   const showAllCheckboxes = (e, filterType) => {
     e.preventDefault()
 
@@ -72,41 +81,39 @@ const WorkOrdersFilter = ({
           </div>
         </div>
 
-        {user &&
-          (user.hasContractManagerPermissions ||
-            user.hasAuthorisationManagerPermissions) && (
-            <div className="border-bottom-grey">
-              <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
-                <legend className="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3">
-                  Contractor
-                </legend>
+        {showContractorFilters() && (
+          <div className="border-bottom-grey">
+            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+              <legend className="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3">
+                Contractor
+              </legend>
 
-                <div
-                  className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
-                  id="contractor-filters"
-                >
-                  {filters.Contractors.map((contractor, index) => (
-                    <Checkbox
-                      className="govuk-!-margin-0"
-                      key={index}
-                      name={`ContractorReference.${contractor.key}`}
-                      label={contractor.description}
-                      register={register}
-                      checked={appliedFilters?.ContractorReference?.includes(
-                        contractor.key
-                      )}
-                      hidden={index >= CHECKBOX_NUMBER}
-                    />
-                  ))}
-                </div>
-              </fieldset>
+              <div
+                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+                id="contractor-filters"
+              >
+                {filters.Contractors.map((contractor, index) => (
+                  <Checkbox
+                    className="govuk-!-margin-0"
+                    key={index}
+                    name={`ContractorReference.${contractor.key}`}
+                    label={contractor.description}
+                    register={register}
+                    checked={appliedFilters?.ContractorReference?.includes(
+                      contractor.key
+                    )}
+                    hidden={index >= CHECKBOX_NUMBER}
+                  />
+                ))}
+              </div>
+            </fieldset>
 
-              {showAllCheckboxesHtml(
-                filters.Contractors.length,
-                'contractor-filters'
-              )}
-            </div>
-          )}
+            {showAllCheckboxesHtml(
+              filters.Contractors.length,
+              'contractor-filters'
+            )}
+          </div>
+        )}
 
         <div className="border-bottom-grey">
           <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
