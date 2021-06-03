@@ -47,6 +47,8 @@ functions:
       DRS_WEB_SERVICES_URL: ${ssm:/repairs-hub/${self:provider.stage}/drs-url}
       DRS_WEB_SERVICES_USERNAME: ${ssm:/repairs-hub/${self:provider.stage}/drs-login}
       DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
+      TEMP_BANK_HOLIDAYS_PATH: ${ssm:/repairs-hub/${self:provider.stage}/temp-bank-holidays-path}
+      BANK_HOLIDAYS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/bank-holidays-api-url}
 
 resources:
   Resources:
