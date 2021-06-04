@@ -74,7 +74,7 @@ Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
 })
 
 Cypress.Commands.add('logout', () => {
-  cy.get('#logout').contains('Logout')
+  cy.get('#signout').contains('Sign out')
   cy.clearCookie('hackneyToken')
 
   cy.getCookies().should('be.empty')

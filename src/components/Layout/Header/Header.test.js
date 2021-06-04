@@ -5,7 +5,7 @@ import UserContext from '../../UserContext/UserContext'
 describe('Header', () => {
   const serviceName = 'Hackney Header'
 
-  describe('When user is logged in', () => {
+  describe('When user is signed in', () => {
     it('should render header content for agents', () => {
       const user = {
         name: 'An Agent',
@@ -30,7 +30,7 @@ describe('Header', () => {
       )
 
       expect(getByText(serviceName)).toBeInTheDocument()
-      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
       expect(queryByText('Manage jobs')).not.toBeInTheDocument()
     })
@@ -59,7 +59,7 @@ describe('Header', () => {
       )
 
       expect(getByText(serviceName)).toBeInTheDocument()
-      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
       expect(queryByText('Manage jobs')).toBeInTheDocument()
     })
@@ -88,7 +88,7 @@ describe('Header', () => {
       )
 
       expect(getByText(serviceName)).toBeInTheDocument()
-      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
       expect(queryByText('Manage jobs')).toBeInTheDocument()
     })
@@ -117,14 +117,14 @@ describe('Header', () => {
       )
 
       expect(getByText(serviceName)).toBeInTheDocument()
-      expect(queryByText('Logout')).toBeInTheDocument()
+      expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
       expect(queryByText('Manage jobs')).toBeInTheDocument()
     })
   })
 
-  describe('When user is not logged in', () => {
-    it('should render service name without logout link', () => {
+  describe('When user is not signed in', () => {
+    it('should render service name without signed out link', () => {
       const { getByText, queryByText } = render(
         <UserContext.Provider
           value={{
@@ -136,7 +136,7 @@ describe('Header', () => {
       )
 
       expect(getByText(serviceName)).toBeInTheDocument()
-      expect(queryByText('Logout')).not.toBeInTheDocument()
+      expect(queryByText('Sign out')).not.toBeInTheDocument()
       expect(queryByText('Search')).not.toBeInTheDocument()
       expect(queryByText('Manage jobs')).not.toBeInTheDocument()
     })

@@ -1,4 +1,3 @@
-%repairs-hub-link,
 .repairs-hub-link {
   color: repairs-hub-colour('housing-2');
 
@@ -17,12 +16,6 @@
 .repairs-hub-link-no-visited {
   &:visited {
     color: repairs-hub-colour('housing-2');
-  }
-}
-
-.repairs-hub-main-wrapper {
-  a {
-    @extend %repairs-hub-link;
   }
 }
 
