@@ -43,7 +43,7 @@ describe('Home page', () => {
         .should('have.attr', 'href', '/logout')
 
       // Search for property component
-      cy.get('.lbh-heading-h2').contains('Find repair job or property')
+      cy.get('.lbh-heading-h1').contains('Find repair job or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
