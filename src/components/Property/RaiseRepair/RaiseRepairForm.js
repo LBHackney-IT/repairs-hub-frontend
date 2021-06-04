@@ -109,7 +109,7 @@ const RaiseRepairForm = ({
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
-          <div className="govuk-body-s">
+          <div className="lbh-body-s">
             <TenureAlertDetails
               canRaiseRepair={canRaiseRepair}
               tenure={tenure}

@@ -55,7 +55,7 @@ const WorkOrderDetails = ({
           )}
         </GridColumn>
       </GridRow>
-      <p className="govuk-body-m">{workOrder.description}</p>
+      <p className="lbh-body-m">{workOrder.description}</p>
 
       <WorkOrderHeader
         propertyReference={propertyReference}

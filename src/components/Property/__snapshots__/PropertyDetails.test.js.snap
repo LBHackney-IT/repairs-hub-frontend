@@ -34,7 +34,7 @@ exports[`PropertyDetails component should render properly 1`] = `
         class="govuk-grid-column-one-half"
       >
         <div
-          class="govuk-body-s"
+          class="lbh-body-s"
         >
           <div
             class="property-details-main-section"

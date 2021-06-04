@@ -75,7 +75,7 @@ const VariationSummaryTab = ({ workOrderReference }) => {
         <div className="display-inline">
           <a
             href={`/work-orders/${workOrderReference}/variation-authorisation               `}
-            className="repairs-hub-link govuk-body-s"
+            className="repairs-hub-link lbh-body-s"
           >
             Variation Authorisation
           </a>
@@ -102,7 +102,7 @@ const VariationSummaryTab = ({ workOrderReference }) => {
             </>
           ) : (
             <>
-              <p className="govuk-body-s">
+              <p className="lbh-body-s">
                 There are no variations for this work order.
               </p>
             </>

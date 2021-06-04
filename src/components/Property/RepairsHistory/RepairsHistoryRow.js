@@ -15,7 +15,7 @@ const RepairsHistoryRow = ({
 
   return (
     <tr
-      className="govuk-table__row govuk-table__row--clickable govuk-body-s"
+      className="govuk-table__row govuk-table__row--clickable lbh-body-s"
       data-ref={reference}
     >
       {user &&

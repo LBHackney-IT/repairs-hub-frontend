@@ -73,7 +73,7 @@ const AppointmentCalendar = ({
   return (
     <>
       {!onSummaryPage && (
-        <GridRow className="govuk-body-s">
+        <GridRow className="lbh-body-s">
           <GridColumn width="full">
             <div className="appointment-calendar">
               <table>

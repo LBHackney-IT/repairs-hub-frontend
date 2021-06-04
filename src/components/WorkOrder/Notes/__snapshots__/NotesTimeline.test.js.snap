@@ -3,7 +3,7 @@
 exports[`NotesTimeline component should render properly when there are no notes 1`] = `
 <DocumentFragment>
   <p
-    class="govuk-body-s"
+    class="lbh-body-s"
   >
     There are no notes for this work order.
   </p>
@@ -16,22 +16,22 @@ exports[`NotesTimeline component should render properly when there are notes 1`]
     class="govuk-list note-timeline"
   >
     <li
-      class="note-entry govuk-body-s"
+      class="note-entry lbh-body-s"
       data-note-id="0"
     >
       <div
-        class="note-info govuk-body-s"
+        class="note-info lbh-body-s"
       >
         8 Feb 2021, 3:06 pm by Random Name (random.name@hackney.gov.uk)
       </div>
       A more recent note about this repair
     </li>
     <li
-      class="note-entry govuk-body-s"
+      class="note-entry lbh-body-s"
       data-note-id="1"
     >
       <div
-        class="note-info govuk-body-s"
+        class="note-info lbh-body-s"
       >
         8 Feb 2021, 3:05 pm by Random Name (random.name@hackney.gov.uk)
       </div>

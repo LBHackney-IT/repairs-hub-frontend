@@ -102,7 +102,7 @@ describe('Search by work order reference, postcode or address', () => {
         })
 
         it('Repair description', () => {
-          cy.get('.govuk-body-m').within(() => {
+          cy.get('.lbh-body-m').within(() => {
             cy.contains('This is an urgent repair description')
           })
         })
@@ -213,7 +213,7 @@ describe('Search by work order reference, postcode or address', () => {
         cy.get('.lbh-heading-l').within(() => {
           cy.contains('Works order: 10000012')
         })
-        cy.get('.govuk-body-m').within(() => {
+        cy.get('.lbh-body-m').within(() => {
           cy.contains('This is an urgent repair description')
         })
       })

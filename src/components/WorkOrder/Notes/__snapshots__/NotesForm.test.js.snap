@@ -14,7 +14,7 @@ exports[`NotesForm component should render properly when display form is false 1
       class="display-inline"
     >
       <a
-        class="repairs-hub-link govuk-body-s"
+        class="repairs-hub-link lbh-body-s"
         href="#"
       >
         Add a new note

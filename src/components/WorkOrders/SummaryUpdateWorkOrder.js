@@ -67,7 +67,7 @@ const SummaryUpdateWorkOrder = ({
           totalVariedCostObject={totalVaried}
         />
 
-        <div className="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7">
+        <div className="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7">
           <p className="lbh-heading-h4">Variation reason</p>
           <p>{variationReason}</p>
         </div>

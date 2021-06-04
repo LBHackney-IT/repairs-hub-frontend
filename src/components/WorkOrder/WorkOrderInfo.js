@@ -7,7 +7,7 @@ const WorkOrderInfo = ({ workOrder }) => {
     <div className="work-order-info">
       <span className="govuk-!-font-size-14">Works order</span>
 
-      <div className="govuk-body-s govuk-!-margin-bottom-2">
+      <div className="lbh-body-s govuk-!-margin-bottom-2">
         <span className="govuk-!-font-weight-bold">
           Status: {workOrder.status}
         </span>
@@ -23,7 +23,7 @@ const WorkOrderInfo = ({ workOrder }) => {
         )}
       </div>
 
-      <div className="govuk-body-xs govuk-!-margin-bottom-2">
+      <div className="lbh-body-xs govuk-!-margin-bottom-2">
         <span>Raised by {workOrder.raisedBy}</span>
         {workOrder.dateRaised && (
           <>
@@ -34,7 +34,7 @@ const WorkOrderInfo = ({ workOrder }) => {
       </div>
 
       {workOrder.target && (
-        <div className="govuk-body-xs govuk-!-margin-bottom-2">
+        <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span className="govuk-!-font-weight-bold">
             Target: {formatDateTime(workOrder.target)}
           </span>
@@ -42,7 +42,7 @@ const WorkOrderInfo = ({ workOrder }) => {
       )}
 
       {workOrder.callerName && (
-        <div className="govuk-body-xs govuk-!-margin-bottom-2">
+        <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span>Caller: {workOrder.callerName}</span>
           {workOrder.callerNumber && (
             <>

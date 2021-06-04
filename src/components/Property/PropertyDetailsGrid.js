@@ -16,7 +16,7 @@ const PropertyDetailsGrid = ({
   return (
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-one-half">
-        <div className="govuk-body-s">
+        <div className="lbh-body-s">
           <PropertyDetailsAddress
             address={address}
             propertyReference={propertyReference}

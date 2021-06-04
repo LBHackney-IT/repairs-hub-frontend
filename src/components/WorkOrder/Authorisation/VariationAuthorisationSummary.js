@@ -122,10 +122,8 @@ const VariationAuthorisationSummary = ({
 
       <h4 className="lbh-heading-h4">Updated Tasks SORs</h4>
       <br></br>
-      <p className="govuk-body">Updated by: {variationTasks.authorName} </p>
-      <p className="govuk-body">
-        {longDateToStr(variationTasks.variationDate)}{' '}
-      </p>
+      <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
+      <p className="lbh-body">{longDateToStr(variationTasks.variationDate)} </p>
       <div className="lbh-stat">
         <span className="lbh-stat__caption">{variationTasks.notes}</span>
       </div>

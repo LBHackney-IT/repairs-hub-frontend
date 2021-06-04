@@ -25,7 +25,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         Dwelling: 16 Pitcairn House
       </h1>
       <div
-        class="govuk-body-s"
+        class="lbh-body-s"
       >
         <ul
           class="hackney-property-alerts"
@@ -217,7 +217,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               </div>
             </div>
             <a
-              class="repairs-hub-link govuk-body-s"
+              class="repairs-hub-link lbh-body-s"
               href="#"
             >
               + Add another SOR code

@@ -24,10 +24,10 @@ const AppointmentSummary = ({
           >
             <div className="am-pm-slots-padding">
               <h2 className="lbh-heading-h2">Appointment Details:</h2>
-              <p className="govuk-body">{date}</p>
-              <p className="govuk-body">{timeSlot.split(' ')[0]}</p>
+              <p className="lbh-body">{date}</p>
+              <p className="lbh-body">{timeSlot.split(' ')[0]}</p>
               <br />
-              <p className="govuk-body">Comments: {comments}</p>
+              <p className="lbh-body">Comments: {comments}</p>
               <div className="button-pair">
                 <Button
                   width="one-third"

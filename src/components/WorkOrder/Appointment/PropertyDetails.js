@@ -11,7 +11,7 @@ const AppointmentHeader = ({
   canRaiseRepair,
 }) => {
   return (
-    <GridRow className="govuk-body-s govuk-!-margin-bottom-2">
+    <GridRow className="lbh-body-s govuk-!-margin-bottom-2">
       <GridColumn width="two-thirds">
         <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
           {subTypeDescription}: {address.addressLine}

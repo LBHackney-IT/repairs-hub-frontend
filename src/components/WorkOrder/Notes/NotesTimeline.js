@@ -9,7 +9,7 @@ const NotesTimeline = ({ notes }) => {
           {notes.map((note, index) => (
             <li
               key={index}
-              className="note-entry govuk-body-s"
+              className="note-entry lbh-body-s"
               data-note-id={index}
             >
               <NoteEntry key={index} {...note} />
@@ -17,7 +17,7 @@ const NotesTimeline = ({ notes }) => {
           ))}
         </ul>
       ) : (
-        <p className="govuk-body-s">There are no notes for this work order.</p>
+        <p className="lbh-body-s">There are no notes for this work order.</p>
       )}
     </>
   )

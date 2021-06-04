@@ -15,7 +15,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
         class="govuk-table__head"
       >
         <tr
-          class="govuk-table__row govuk-body"
+          class="govuk-table__row lbh-body"
         >
           <th
             class="govuk-table__header"
@@ -65,7 +65,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
           data-ref="10000012"
         >
           <td

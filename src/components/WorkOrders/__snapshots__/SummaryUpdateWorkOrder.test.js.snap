@@ -29,7 +29,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row govuk-body"
+            class="govuk-table__row lbh-body"
           >
             <th
               class="govuk-table__header govuk-!-width-one-half"
@@ -93,7 +93,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row govuk-body"
+            class="govuk-table__row lbh-body"
           >
             <th
               class="govuk-table__header govuk-!-width-one-half"
@@ -278,7 +278,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
         </tbody>
       </table>
       <div
-        class="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7"
+        class="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7"
       >
         <p
           class="lbh-heading-h4"
@@ -354,7 +354,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row govuk-body"
+            class="govuk-table__row lbh-body"
           >
             <th
               class="govuk-table__header govuk-!-width-one-half"
@@ -418,7 +418,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row govuk-body"
+            class="govuk-table__row lbh-body"
           >
             <th
               class="govuk-table__header govuk-!-width-one-half"
@@ -603,7 +603,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
         </tbody>
       </table>
       <div
-        class="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7"
+        class="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7"
       >
         <p
           class="lbh-heading-h4"

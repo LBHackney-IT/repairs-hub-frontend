@@ -96,9 +96,7 @@ describe('Notes', () => {
 
     cy.get('#notes-tab').within(() => {
       cy.get('.lbh-heading-l').contains('Notes')
-      cy.get('.govuk-body-s').contains(
-        'There are no notes for this work order.'
-      )
+      cy.get('.lbh-body-s').contains('There are no notes for this work order.')
     })
   })
 

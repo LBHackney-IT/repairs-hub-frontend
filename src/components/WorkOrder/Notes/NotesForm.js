@@ -29,7 +29,7 @@ const NotesForm = ({
             <a
               onClick={showForm}
               href="#"
-              className="repairs-hub-link govuk-body-s"
+              className="repairs-hub-link lbh-body-s"
             >
               Add a new note
             </a>

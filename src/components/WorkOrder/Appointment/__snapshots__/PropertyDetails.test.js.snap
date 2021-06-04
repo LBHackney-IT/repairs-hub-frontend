@@ -3,7 +3,7 @@
 exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-grid-row govuk-body-s govuk-!-margin-bottom-2"
+    class="govuk-grid-row lbh-body-s govuk-!-margin-bottom-2"
   >
     <div
       class="govuk-grid-column-two-thirds"

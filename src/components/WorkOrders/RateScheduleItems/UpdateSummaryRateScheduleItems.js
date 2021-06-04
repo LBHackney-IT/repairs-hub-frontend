@@ -87,7 +87,7 @@ const UpdateSummaryRateScheduleItems = ({
     return (
       <>
         <THead>
-          <TR className="govuk-body">
+          <TR className="lbh-body">
             <TH scope="col" width="one-half">
               SOR code
             </TH>

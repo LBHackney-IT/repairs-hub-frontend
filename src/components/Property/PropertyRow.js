@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 
 const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
-  <tr className="govuk-table__row govuk-table__row--clickable govuk-body-s">
+  <tr className="govuk-table__row govuk-table__row--clickable lbh-body-s">
     <td className="govuk-table__cell">
       <Link href={`/properties/${propertyReference}`}>
         <a>{address.shortAddress}</a>

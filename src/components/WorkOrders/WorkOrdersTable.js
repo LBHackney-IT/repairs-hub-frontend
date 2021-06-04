@@ -9,7 +9,7 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
 
     <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <thead className="govuk-table__head">
-        <tr className="govuk-table__row govuk-body">
+        <tr className="govuk-table__row lbh-body">
           <th scope="col" className="govuk-table__header">
             Reference
           </th>

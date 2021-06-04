@@ -13,7 +13,7 @@ const WorkOrderRow = ({
   description,
 }) => (
   <tr
-    className="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+    className="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
     data-ref={reference}
   >
     <td className="govuk-table__cell">

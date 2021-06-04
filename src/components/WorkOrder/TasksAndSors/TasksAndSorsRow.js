@@ -10,7 +10,7 @@ const tasksAndSorsRow = ({
   cost,
   index,
 }) => (
-  <TR index={index} className="govuk-body-s">
+  <TR index={index} className="lbh-body-s">
     <TD>{code}</TD>
     <TD>{description}</TD>
     <TD>{dateAdded ? formatDateTime(dateAdded) : '—'}</TD>

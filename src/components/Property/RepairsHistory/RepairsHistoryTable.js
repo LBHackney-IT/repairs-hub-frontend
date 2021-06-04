@@ -41,7 +41,7 @@ const RepairsHistoryTable = ({
 
       <table className="govuk-table govuk-!-margin-top-5 repairs-history-table">
         <thead className="govuk-table__head">
-          <tr className="govuk-table__row govuk-body">
+          <tr className="govuk-table__row lbh-body">
             {user &&
               (user.hasAgentPermissions ||
                 user.hasContractManagerPermissions ||

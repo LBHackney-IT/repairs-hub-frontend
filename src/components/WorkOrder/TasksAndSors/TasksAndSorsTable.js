@@ -11,7 +11,7 @@ const TasksAndSorsTable = ({
     return (
       <>
         <THead>
-          <TR className="govuk-body">
+          <TR className="lbh-body">
             <TH scope="col">SOR</TH>
             <TH scope="col">Description</TH>
             <TH scope="col">Date added</TH>

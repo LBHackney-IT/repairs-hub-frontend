@@ -28,7 +28,7 @@ describe('Show work order', () => {
     })
 
     it('Repair description', () => {
-      cy.get('.govuk-body-m').within(() => {
+      cy.get('.lbh-body-m').within(() => {
         cy.contains('This is an urgent repair description')
       })
     })

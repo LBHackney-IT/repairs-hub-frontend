@@ -9,7 +9,7 @@ const NoAvailableAppointments = ({ workOrderReference }) => {
           <h2 className="lbh-heading-h2" id="no-appointment">
             No available appointments
           </h2>
-          <p className="govuk-body">
+          <p className="lbh-body">
             {' '}
             Contractor should contact the resident to make the appointment.
           </p>

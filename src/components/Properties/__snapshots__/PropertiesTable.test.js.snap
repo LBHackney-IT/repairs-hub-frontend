@@ -50,7 +50,7 @@ exports[`PropertiesTable component should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         >
           <td
             class="govuk-table__cell"
@@ -78,7 +78,7 @@ exports[`PropertiesTable component should render properly 1`] = `
           </td>
         </tr>
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         >
           <td
             class="govuk-table__cell"
