@@ -15,9 +15,8 @@ describe('Work order cancellations', () => {
       cy.fixture('work-orders/notes.json').as('notes')
 
       cy.route('GET', 'api/properties/00012345', '@property')
-      cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+      cy.route('GET', 'api/workOrders/10000012', '@workOrder').as('workOrder')
       cy.route('GET', 'api/workOrders/?propertyReference=*', [])
-      cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
       cy.route({
         method: 'POST',
         url: '/api/workOrderComplete',
@@ -26,6 +25,7 @@ describe('Work order cancellations', () => {
 
       cy.clock(now)
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      cy.wait('@workOrder')
     })
 
     it('shows the confirmation page after a successful form submission', () => {
@@ -35,6 +35,8 @@ describe('Work order cancellations', () => {
           .should('have.attr', 'href', '/work-orders/10000012/cancel')
           .click()
       })
+
+      cy.wait('@workOrder')
 
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
