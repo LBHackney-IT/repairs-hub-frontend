@@ -11,6 +11,7 @@ const PropertyDetailsGrid = ({
   tenure,
   hasLinkToProperty,
   canRaiseRepair,
+  tmoName,
 }) => {
   return (
     <div className="govuk-grid-row">
@@ -22,12 +23,12 @@ const PropertyDetailsGrid = ({
             subTypeDescription={subTypeDescription}
             hasLinkToProperty={hasLinkToProperty}
           />
-
           <TenureAlertDetails
             tenure={tenure}
             locationAlerts={locationAlerts}
             personAlerts={personAlerts}
             canRaiseRepair={canRaiseRepair}
+            tmoName={tmoName}
           />
         </div>
       </div>
@@ -44,6 +45,7 @@ PropertyDetailsGrid.propTypes = {
   tenure: PropTypes.object.isRequired,
   hasLinkToProperty: PropTypes.bool,
   canRaiseRepair: PropTypes.bool,
+  tmoName: PropTypes.string,
 }
 
 export default PropertyDetailsGrid

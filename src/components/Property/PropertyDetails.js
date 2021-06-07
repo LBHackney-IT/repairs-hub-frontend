@@ -11,6 +11,7 @@ const PropertyDetails = ({
   locationAlerts,
   personAlerts,
   tenure,
+  tmoName,
 }) => {
   return (
     <div>
@@ -34,6 +35,7 @@ const PropertyDetails = ({
         tenure={tenure}
         canRaiseRepair={canRaiseRepair}
         hasLinkToProperty={false}
+        tmoName={tmoName}
       />
     </div>
   )
@@ -47,6 +49,7 @@ PropertyDetails.propTypes = {
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
+  tmoName: PropTypes.string,
 }
 
 export default PropertyDetails
