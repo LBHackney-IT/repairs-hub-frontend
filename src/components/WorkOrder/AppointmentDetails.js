@@ -7,11 +7,12 @@ import {
   STATUS_CANCELLED,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
 } from '../../utils/status-codes'
+import { IMMEDIATE_PRIORITY_CODE } from '../../utils/helpers/priorities'
 
 const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
 
-  if (workOrder.priorityCode > 1) {
+  if (workOrder.priorityCode !== IMMEDIATE_PRIORITY_CODE) {
     return (
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
