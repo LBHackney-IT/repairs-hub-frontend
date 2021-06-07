@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
+import cx from 'classnames'
 
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext)
@@ -15,18 +16,42 @@ const HeaderComponent = ({ serviceName }) => {
         <span
           className={`lbh-header__service-name env-name env-${process.env.NEXT_PUBLIC_ENV_NAME}`}
         >
-          {process.env.NEXT_PUBLIC_ENV_NAME}
+          {process.env.NEXT_PUBLIC_ENV_NAME.toUpperCase()}
         </span>
+      )
+    }
+  }
+
+  const showDevelopmentNote = () => {
+    if (
+      process.env.NEXT_PUBLIC_ENV_NAME &&
+      process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() == 'development'
+    ) {
+      return (
+        <section className="text-for-env-note">
+          <div className="lbh-container">
+            <h3>
+              {`This is not live, this is a test environment`.toUpperCase()}
+            </h3>
+          </div>
+        </section>
       )
     }
   }
 
   return (
     <>
+      {showDevelopmentNote()}
       <a href="#main-content" className="govuk-skip-link lbh-skip-link">
         Skip to main content
       </a>
-      <header className="lbh-header ">
+      <header
+        className={`lbh-header ${cx(
+          process.env.NEXT_PUBLIC_ENV_NAME == 'staging'
+            ? 'lbh-header--purple'
+            : ''
+        )}`}
+      >
         <div className="lbh-header__main">
           <div className="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked">
             <div className="lbh-header__title">
