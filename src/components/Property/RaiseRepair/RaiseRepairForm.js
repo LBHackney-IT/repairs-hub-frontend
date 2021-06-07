@@ -104,7 +104,7 @@ const RaiseRepairForm = ({
       <BackButton />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <span className="govuk-caption-l">New repair</span>
+          <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>

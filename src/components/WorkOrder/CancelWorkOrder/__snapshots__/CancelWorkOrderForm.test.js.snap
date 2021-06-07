@@ -18,7 +18,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>
@@ -163,7 +163,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>
@@ -368,7 +368,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>

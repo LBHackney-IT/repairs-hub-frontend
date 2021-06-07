@@ -15,7 +15,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
       class="govuk-grid-column-two-thirds"
     >
       <span
-        class="govuk-caption-l"
+        class="govuk-caption-l lbh-caption"
       >
         New repair
       </span>
