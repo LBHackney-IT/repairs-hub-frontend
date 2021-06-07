@@ -16,6 +16,7 @@ describe('Work order cancellations', () => {
 
       cy.route('GET', 'api/properties/00012345', '@property')
       cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+      cy.route('GET', 'api/workOrders/?propertyReference=*', [])
       cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
       cy.route({
         method: 'POST',
