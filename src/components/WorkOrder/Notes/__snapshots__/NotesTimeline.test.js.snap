@@ -13,7 +13,7 @@ exports[`NotesTimeline component should render properly when there are no notes 
 exports[`NotesTimeline component should render properly when there are notes 1`] = `
 <DocumentFragment>
   <ul
-    class="govuk-list note-timeline"
+    class="lbh-list note-timeline"
   >
     <li
       class="note-entry lbh-body-s"

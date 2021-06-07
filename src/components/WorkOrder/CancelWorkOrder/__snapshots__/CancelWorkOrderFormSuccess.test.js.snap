@@ -18,7 +18,7 @@ exports[`CancelWorkOrderFormSuccess component should render properly 1`] = `
       </div>
     </div>
     <ul
-      class="govuk-list govuk-!-margin-top-9"
+      class="lbh-list govuk-!-margin-top-9"
     >
       <li>
         <a

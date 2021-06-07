@@ -25,7 +25,7 @@ const ScheduleAppointmentSuccess = ({
         </div>
       </div>
 
-      <ul className="govuk-list govuk-!-margin-top-9">
+      <ul className="lbh-list govuk-!-margin-top-9">
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
             <a className="lbh-link">

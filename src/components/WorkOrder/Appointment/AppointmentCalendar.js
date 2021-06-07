@@ -125,7 +125,7 @@ const AppointmentCalendar = ({
                   ))}
                 </tbody>
               </table>
-              <ul className="legend">
+              <ul className="lbh-list legend">
                 <li className="available">Available</li>
                 <li className="unavailable">Unavailable</li>
               </ul>

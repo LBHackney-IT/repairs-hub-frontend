@@ -120,7 +120,7 @@ describe('Work order cancellations', () => {
         )
       })
 
-      cy.get('.govuk-list').within(() => {
+      cy.get('.lbh-list').within(() => {
         cy.contains(
           'New repair for 16 Pitcairn House St Thomass Square'
         ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')

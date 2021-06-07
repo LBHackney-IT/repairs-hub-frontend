@@ -5,7 +5,7 @@ const NotesTimeline = ({ notes }) => {
   return (
     <>
       {notes.length ? (
-        <ul className="govuk-list note-timeline">
+        <ul className="lbh-list note-timeline">
           {notes.map((note, index) => (
             <li
               key={index}
