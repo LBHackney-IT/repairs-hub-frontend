@@ -74,7 +74,7 @@ const UpdateSummaryRateScheduleItems = ({
         <td className="govuk-table__cell">£{parseFloat(task.cost)}</td>
         {dataAttribute !== 'original-task' && (
           <td className="govuk-table__cell">
-            <a onClick={changeStep} href="#">
+            <a className="lbh-link" onClick={changeStep} href="#">
               Edit
             </a>
           </td>

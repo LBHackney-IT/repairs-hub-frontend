@@ -56,6 +56,7 @@ exports[`PropertiesTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/properties/00012345"
             >
               16 Pitcairn House  St Thomass Square
@@ -84,6 +85,7 @@ exports[`PropertiesTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/properties/00012346"
             >
               1 Pitcairn House  St Thomass Square

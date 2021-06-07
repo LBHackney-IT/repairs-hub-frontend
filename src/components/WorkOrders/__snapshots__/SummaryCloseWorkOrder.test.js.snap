@@ -40,6 +40,7 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -64,6 +65,7 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit

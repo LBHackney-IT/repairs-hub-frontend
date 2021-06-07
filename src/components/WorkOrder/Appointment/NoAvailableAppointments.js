@@ -17,7 +17,7 @@ const NoAvailableAppointments = ({ workOrderReference }) => {
         <ul className="govuk-list govuk-!-margin-top-9">
           <li>
             <Link href={`/work-orders/${workOrderReference}`}>
-              <a>
+              <a className="lbh-link">
                 <strong>View work order</strong>
               </a>
             </Link>

@@ -29,7 +29,7 @@ const AppointmentDetails = ({ workOrder }) => {
               <Link
                 href={`/work-orders/${workOrder.reference}/appointment/new`}
               >
-                <a className="govuk-!-font-weight-bold">
+                <a className="lbh-link govuk-!-font-weight-bold">
                   Schedule an appointment
                 </a>
               </Link>

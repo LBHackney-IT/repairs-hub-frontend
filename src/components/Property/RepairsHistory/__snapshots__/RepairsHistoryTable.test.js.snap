@@ -59,6 +59,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -102,6 +103,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013
@@ -319,6 +321,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -362,6 +365,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013
@@ -461,6 +465,7 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -504,6 +509,7 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013

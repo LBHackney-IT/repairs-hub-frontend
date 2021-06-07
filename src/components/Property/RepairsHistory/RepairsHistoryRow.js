@@ -23,7 +23,9 @@ const RepairsHistoryRow = ({
           user.hasContractManagerPermissions ||
           user.hasAuthorisationManagerPermissions) && (
           <td className="govuk-table__cell">
-            <a href={`/work-orders/${reference}`}>{reference}</a>
+            <a className="lbh-link" href={`/work-orders/${reference}`}>
+              {reference}
+            </a>
           </td>
         )}
       <td className="govuk-table__cell">

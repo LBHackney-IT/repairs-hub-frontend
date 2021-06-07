@@ -18,7 +18,7 @@ const WorkOrderRow = ({
   >
     <td className="govuk-table__cell">
       <Link href={`/work-orders/${reference}`}>
-        <a>{reference}</a>
+        <a className="lbh-link">{reference}</a>
       </Link>
     </td>
     <td className="govuk-table__cell">

@@ -18,7 +18,7 @@ const CancelWorkOrderFormSuccess = ({
       <ul className="govuk-list govuk-!-margin-top-9">
         <li>
           <Link href={`/properties/${propertyReference}/raise-repair/new`}>
-            <a>
+            <a className="lbh-link">
               <strong>New repair for {shortAddress}</strong>
             </a>
           </Link>
@@ -26,7 +26,7 @@ const CancelWorkOrderFormSuccess = ({
 
         <li>
           <Link href="/">
-            <a>
+            <a className="lbh-link">
               <strong>Start a new search</strong>
             </a>
           </Link>
@@ -34,7 +34,7 @@ const CancelWorkOrderFormSuccess = ({
 
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>Back to work order</strong>
             </a>
           </Link>

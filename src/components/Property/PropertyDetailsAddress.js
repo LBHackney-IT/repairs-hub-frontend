@@ -29,7 +29,7 @@ const PropertyDetailsAddress = ({
       <br></br>
       {hasLinkToProperty ? (
         <Link href={`/properties/${propertyReference}`}>
-          <a>
+          <a className="lbh-link">
             <Address address={address} />
           </a>
         </Link>

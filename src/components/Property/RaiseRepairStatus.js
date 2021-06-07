@@ -11,7 +11,7 @@ const RaiseRepairStatus = ({
     return (
       <span className="lbh-heading-h2 text-green">
         <Link href={`/properties/${propertyReference}/raise-repair/new`}>
-          <a>
+          <a className="lbh-link">
             <strong>Raise a repair on this {description.toLowerCase()}</strong>
           </a>
         </Link>

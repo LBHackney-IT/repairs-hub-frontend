@@ -22,6 +22,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -31,6 +32,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -65,6 +67,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -74,6 +77,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -133,6 +137,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -142,6 +147,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/properties/12345678"
         >
           <strong>
@@ -151,6 +157,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -190,6 +197,7 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -199,6 +207,7 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/properties/12345678"
         >
           <strong>
@@ -208,6 +217,7 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -247,6 +257,7 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -256,6 +267,7 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/properties/12345678"
         >
           <strong>
@@ -265,6 +277,7 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>

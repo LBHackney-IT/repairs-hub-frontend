@@ -146,6 +146,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -176,6 +177,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -206,6 +208,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -471,6 +474,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -501,6 +505,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -531,6 +536,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit

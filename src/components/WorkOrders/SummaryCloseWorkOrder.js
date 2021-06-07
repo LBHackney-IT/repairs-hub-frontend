@@ -27,7 +27,7 @@ const SummaryCloseWorkOrder = ({
                 {date.split('-').join('/')} {time}
               </td>
               <td className="govuk-table__cell">
-                <a onClick={changeStep} href="#">
+                <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
               </td>
@@ -38,7 +38,7 @@ const SummaryCloseWorkOrder = ({
               </th>
               <td className="govuk-table__cell">{notes}</td>
               <td className="govuk-table__cell">
-                <a onClick={changeStep} href="#">
+                <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
               </td>

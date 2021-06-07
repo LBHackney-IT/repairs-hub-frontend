@@ -60,7 +60,7 @@ const WorkOrdersFilter = ({
           <a
             href="#"
             onClick={(e) => showAllCheckboxes(e, filterType)}
-            className="govuk-link"
+            className="lbh-link"
           >
             Show all {numberOfFilterOptions}
           </a>
@@ -75,7 +75,7 @@ const WorkOrdersFilter = ({
         <div className="govuk-!-padding-left-2">
           <Button label="Apply filters" type="submit" />
           <div>
-            <a className="govuk-link" href="#" onClick={(e) => clearFilters(e)}>
+            <a className="lbh-link" href="#" onClick={(e) => clearFilters(e)}>
               Clear filters
             </a>
           </div>

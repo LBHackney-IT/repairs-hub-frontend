@@ -5,7 +5,7 @@ const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
   <tr className="govuk-table__row govuk-table__row--clickable lbh-body-s">
     <td className="govuk-table__cell">
       <Link href={`/properties/${propertyReference}`}>
-        <a>{address.shortAddress}</a>
+        <a className="lbh-link">{address.shortAddress}</a>
       </Link>
     </td>
     <td className="govuk-table__cell">{address.postalCode}</td>

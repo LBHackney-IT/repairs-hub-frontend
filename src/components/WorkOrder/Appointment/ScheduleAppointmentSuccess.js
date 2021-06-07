@@ -28,7 +28,7 @@ const ScheduleAppointmentSuccess = ({
       <ul className="govuk-list govuk-!-margin-top-9">
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>View work order</strong>
             </a>
           </Link>
@@ -36,7 +36,7 @@ const ScheduleAppointmentSuccess = ({
 
         <li>
           <Link href={`/properties/${property.propertyReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>Back to {property.address.addressLine}</strong>
             </a>
           </Link>
@@ -44,7 +44,7 @@ const ScheduleAppointmentSuccess = ({
 
         <li>
           <Link href={`/`}>
-            <a>
+            <a className="lbh-link">
               <strong>Start a new search</strong>
             </a>
           </Link>

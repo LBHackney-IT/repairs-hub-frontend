@@ -10,7 +10,9 @@ const MockComponent = () => {
   useClickOutside(ref, mockHandler)
   return (
     <>
-      <a href="#">Outside text</a>
+      <a className="lbh-link" href="#">
+        Outside text
+      </a>
       <div ref={ref}>Inside text</div>
     </>
   )

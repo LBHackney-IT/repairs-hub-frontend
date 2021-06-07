@@ -19,6 +19,7 @@ exports[`PropertyDetails component should render properly 1`] = `
         class="lbh-heading-h2 text-green"
       >
         <a
+          class="lbh-link"
           href="/properties/00012345/raise-repair/new"
         >
           <strong>

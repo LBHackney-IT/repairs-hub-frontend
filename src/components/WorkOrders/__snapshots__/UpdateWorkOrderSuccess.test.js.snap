@@ -21,6 +21,7 @@ exports[`UpdateWorkOrderSuccess component should render properly does not requir
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -30,6 +31,7 @@ exports[`UpdateWorkOrderSuccess component should render properly does not requir
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -63,6 +65,7 @@ exports[`UpdateWorkOrderSuccess component should render properly requires author
     >
       <li>
         <a
+          class="lbh-link"
           href="/work-orders/10000012"
         >
           <strong>
@@ -72,6 +75,7 @@ exports[`UpdateWorkOrderSuccess component should render properly requires author
       </li>
       <li>
         <a
+          class="lbh-link"
           href="/"
         >
           <strong>

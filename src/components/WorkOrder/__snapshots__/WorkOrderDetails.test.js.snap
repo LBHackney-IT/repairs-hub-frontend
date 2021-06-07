@@ -278,6 +278,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -398,7 +399,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment
@@ -716,6 +717,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -836,7 +838,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment
@@ -1038,6 +1040,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -1158,7 +1161,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment
@@ -1434,6 +1437,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -1802,6 +1806,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -1922,7 +1927,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment
@@ -2177,6 +2182,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -2297,7 +2303,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment
@@ -2573,6 +2579,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -2846,6 +2853,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </span>
         <br />
         <a
+          class="lbh-link"
           href="/properties/00012345"
         >
           <div
@@ -2966,7 +2974,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="lbh-body-s"
         >
           <a
-            class="govuk-!-font-weight-bold"
+            class="lbh-link govuk-!-font-weight-bold"
             href="/work-orders/10000012/appointment/new"
           >
             Schedule an appointment

@@ -72,6 +72,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/work-orders/10000012"
             >
               10000012

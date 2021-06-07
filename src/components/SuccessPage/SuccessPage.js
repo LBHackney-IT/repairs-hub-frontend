@@ -35,7 +35,7 @@ const SuccessPage = ({ ...props }) => {
           <li>
             Please{' '}
             <Link href={props.externalSchedulerLink}>
-              <a target="_blank" rel="noopener">
+              <a className="lbh-link" target="_blank" rel="noopener">
                 <strong>open DRS</strong>
               </a>
             </Link>{' '}
@@ -46,7 +46,7 @@ const SuccessPage = ({ ...props }) => {
         {props.workOrderReference && (
           <li>
             <Link href={`/work-orders/${props.workOrderReference}`}>
-              <a>
+              <a className="lbh-link">
                 <strong>View work order</strong>
               </a>
             </Link>
@@ -56,7 +56,7 @@ const SuccessPage = ({ ...props }) => {
         {props.shortAddress && (
           <li>
             <Link href={`/properties/${props.propertyReference}`}>
-              <a>
+              <a className="lbh-link">
                 <strong>Back to {props.shortAddress}</strong>
               </a>
             </Link>
@@ -66,7 +66,7 @@ const SuccessPage = ({ ...props }) => {
         {props.showSearchLink && (
           <li>
             <Link href="/">
-              <a>
+              <a className="lbh-link">
                 <strong>Start a new search</strong>
               </a>
             </Link>
@@ -76,7 +76,7 @@ const SuccessPage = ({ ...props }) => {
         {props.showDashboardLink && (
           <li>
             <Link href="/">
-              <a>
+              <a className="lbh-link">
                 <strong>Back to dashboard</strong>
               </a>
             </Link>
