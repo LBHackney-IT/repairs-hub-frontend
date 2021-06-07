@@ -13,7 +13,7 @@ const Button = ({
     className={cx(
       'govuk-button lbh-button',
       {
-        'govuk-button--secondary': isSecondary,
+        'govuk-button-secondary lbh-button--secondary': isSecondary,
       },
       className
     )}
