@@ -8,7 +8,7 @@ const WorkOrderInfo = ({ workOrder }) => {
       <span className="govuk-!-font-size-14">Works order</span>
 
       <div className="lbh-body-s govuk-!-margin-bottom-2">
-        <span className="govuk-!-font-weight-bold">
+        <span className="lbh-!-font-weight-bold">
           Status: {workOrder.status}
         </span>
         <br></br>
@@ -35,7 +35,7 @@ const WorkOrderInfo = ({ workOrder }) => {
 
       {workOrder.target && (
         <div className="lbh-body-xs govuk-!-margin-bottom-2">
-          <span className="govuk-!-font-weight-bold">
+          <span className="lbh-!-font-weight-bold">
             Target: {formatDateTime(workOrder.target)}
           </span>
         </div>

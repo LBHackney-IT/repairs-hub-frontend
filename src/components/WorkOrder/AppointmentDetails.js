@@ -29,7 +29,7 @@ const AppointmentDetails = ({ workOrder }) => {
               <Link
                 href={`/work-orders/${workOrder.reference}/appointment/new`}
               >
-                <a className="lbh-link govuk-!-font-weight-bold">
+                <a className="lbh-link lbh-!-font-weight-bold">
                   Schedule an appointment
                 </a>
               </Link>
@@ -56,7 +56,7 @@ const AppointmentDetails = ({ workOrder }) => {
         <span className="govuk-!-font-size-14">Appointment details</span>
         <br></br>
         <div className="lbh-body-s">
-          <span className="govuk-!-font-weight-bold">Not applicable</span>
+          <span className="lbh-!-font-weight-bold">Not applicable</span>
         </div>
       </div>
     )
