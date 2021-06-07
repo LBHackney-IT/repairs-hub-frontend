@@ -10,9 +10,13 @@ import {
   EMERGENCY_PRIORITY_CODE,
 } from '../../../utils/helpers/priorities'
 import { isContractorScheduledInternally } from '../../../utils/helpers/work-orders'
+import { useState } from 'react'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
+  const [scheduledInternally] = useState(
+    isContractorScheduledInternally(workOrder.contractorReference)
+  )
 
   const onSubmit = async (formData) => {
     const cancelWorkOrderFormData = buildCancelWorkOrderFormData(formData)
@@ -32,19 +36,18 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
 
           <WorkOrderInfoTable workOrder={workOrder} />
 
-          {isContractorScheduledInternally(workOrder.contractorReference) &&
+          {scheduledInternally &&
             [IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].includes(
               workOrder.priorityCode
             ) && (
               <WarningText text="For immediate or emergency jobs contact planner first." />
             )}
 
-          {isContractorScheduledInternally(workOrder.contractorReference) && (
-            <WarningText text="For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm." />
-          )}
-
-          {isContractorScheduledInternally(workOrder.contractorReference) && (
-            <WarningText text="For jobs on the current day contact the operative first. If they have already started work do not cancel." />
+          {scheduledInternally && (
+            <>
+              <WarningText text="For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm." />
+              <WarningText text="For jobs on the current day contact the operative first. If they have already started work do not cancel." />
+            </>
           )}
 
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
