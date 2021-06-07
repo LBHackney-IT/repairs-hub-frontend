@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 const WorkOrderInfoTable = ({ workOrder }) => (
   <div>
-    <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full">
+    <table className="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full">
       <tbody className="govuk-table__body">
         <tr className="govuk-table__row" id="property">
           <th scope="row" className="govuk-table__header">

@@ -9,7 +9,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
       Manage jobs
     </p>
     <table
-      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
+      class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
     >
       <thead
         class="govuk-table__head"

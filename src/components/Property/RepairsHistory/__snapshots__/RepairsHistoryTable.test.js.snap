@@ -8,7 +8,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -150,7 +150,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -268,7 +268,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -410,7 +410,7 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"

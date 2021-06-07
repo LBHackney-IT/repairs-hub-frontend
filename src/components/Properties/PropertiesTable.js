@@ -9,9 +9,9 @@ const PropertiesTable = ({ properties, query }) => (
       We found {properties.length} matching results for: {decodeURI(query)}
     </p>
 
-    <table className="govuk-table govuk-!-margin-top-5">
+    <table className="govuk-table lbh-table govuk-!-margin-top-5">
       <thead className="govuk-table__head">
-        <tr className="govuk-table__row govuk-body">
+        <tr className="govuk-table__row lbh-body">
           <th scope="col" className="govuk-table__header">
             Address
           </th>

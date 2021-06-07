@@ -3,7 +3,7 @@ import ContactsRow from './ContactsRow'
 
 const ContactsTable = ({ contacts }) => {
   return (
-    <table className="govuk-table">
+    <table className="govuk-table lbh-table">
       <caption className="govuk-table__caption">Contacts</caption>
       <thead className="govuk-table__head">
         <tr className="govuk-table__row">

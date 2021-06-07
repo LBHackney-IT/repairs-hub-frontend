@@ -12,13 +12,13 @@ exports[`PropertiesTable component should render properly 1`] = `
       We found 2 matching results for: E9 6PT
     </p>
     <table
-      class="govuk-table govuk-!-margin-top-5"
+      class="govuk-table lbh-table govuk-!-margin-top-5"
     >
       <thead
         class="govuk-table__head"
       >
         <tr
-          class="govuk-table__row govuk-body"
+          class="govuk-table__row lbh-body"
         >
           <th
             class="govuk-table__header"

@@ -17,7 +17,7 @@ const SummaryCloseWorkOrder = ({
       <h1 className="lbh-heading-l">Update work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onJobSubmit)}>
         <p className="lbh-heading-h4">Summary of updates to work order</p>
-        <table className="govuk-table">
+        <table className="govuk-table lbh-table">
           <tbody className="govuk-table__body">
             <tr className="govuk-table__row">
               <th scope="row" className="govuk-table__header">

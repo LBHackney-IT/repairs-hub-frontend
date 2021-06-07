@@ -23,7 +23,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
         Original Tasks and SORs
       </p>
       <table
-        class="govuk-table original-tasks-table"
+        class="govuk-table lbh-table original-tasks-table"
       >
         <thead
           class="govuk-table__head"
@@ -87,7 +87,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
         Updated Tasks and SORs
       </p>
       <table
-        class="govuk-table updated-tasks-table"
+        class="govuk-table lbh-table updated-tasks-table"
       >
         <thead
           class="govuk-table__head"
@@ -348,7 +348,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
         Original Tasks and SORs
       </p>
       <table
-        class="govuk-table original-tasks-table"
+        class="govuk-table lbh-table original-tasks-table"
       >
         <thead
           class="govuk-table__head"
@@ -412,7 +412,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
         Updated Tasks and SORs
       </p>
       <table
-        class="govuk-table updated-tasks-table"
+        class="govuk-table lbh-table updated-tasks-table"
       >
         <thead
           class="govuk-table__head"

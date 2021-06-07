@@ -3,7 +3,7 @@
 exports[`Contacts component when supplied with a list of contacts renders a table with a row for each contact 1`] = `
 <DocumentFragment>
   <table
-    class="govuk-table"
+    class="govuk-table lbh-table"
   >
     <caption
       class="govuk-table__caption"

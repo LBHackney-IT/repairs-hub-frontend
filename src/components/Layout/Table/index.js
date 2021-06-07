@@ -1,7 +1,9 @@
 import cx from 'classnames'
 
 export const Table = (props) => (
-  <table className={cx('govuk-table', props.className)}>{props.children}</table>
+  <table className={cx('govuk-table lbh-table', props.className)}>
+    {props.children}
+  </table>
 )
 
 export const THead = (props) => (

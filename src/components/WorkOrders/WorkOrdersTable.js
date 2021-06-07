@@ -7,7 +7,7 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
     <p className="lbh-heading-h4">Manage jobs</p>
 
-    <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
+    <table className="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <thead className="govuk-table__head">
         <tr className="govuk-table__row lbh-body">
           <th scope="col" className="govuk-table__header">

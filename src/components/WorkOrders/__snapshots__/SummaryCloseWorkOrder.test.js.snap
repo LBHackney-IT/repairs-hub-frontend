@@ -17,7 +17,7 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
         Summary of updates to work order
       </p>
       <table
-        class="govuk-table"
+        class="govuk-table lbh-table"
       >
         <tbody
           class="govuk-table__body"

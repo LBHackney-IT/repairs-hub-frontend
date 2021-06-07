@@ -13,7 +13,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
     Latest Tasks and SORs
   </p>
   <table
-    class="govuk-table govuk-!-margin-top-5 latest-tasks-and-sors-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 latest-tasks-and-sors-table"
   >
     <thead
       class="govuk-table__head"
@@ -175,7 +175,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
     Original Tasks and SORs
   </p>
   <table
-    class="govuk-table govuk-!-margin-top-5 original-tasks-and-sors-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 original-tasks-and-sors-table"
   >
     <thead
       class="govuk-table__head"

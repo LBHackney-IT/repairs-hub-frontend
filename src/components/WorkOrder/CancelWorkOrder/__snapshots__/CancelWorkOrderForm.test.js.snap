@@ -29,7 +29,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"
@@ -174,7 +174,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"
@@ -379,7 +379,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"
