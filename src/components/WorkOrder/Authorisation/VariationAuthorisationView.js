@@ -148,7 +148,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
             !isNaN(varySpendLimit) && (
               <div>
                 <BackButton />
-                <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
+                <h1 className="lbh-heading-h1 govuk-!-margin-right-6 govuk-!-margin-bottom-0">
                   Authorisation variation request: {workOrderReference}{' '}
                 </h1>
                 <Link href={`/work-orders/${workOrderReference}`}>

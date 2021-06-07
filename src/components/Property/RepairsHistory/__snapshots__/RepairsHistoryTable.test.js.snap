@@ -3,7 +3,7 @@
 exports[`RepairsHistoryTable component when logged in as a contract manager should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
@@ -145,7 +145,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
 exports[`RepairsHistoryTable component when logged in as a contractor should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
@@ -263,7 +263,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
 exports[`RepairsHistoryTable component when logged in as an agent should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
@@ -405,7 +405,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
 exports[`RepairsHistoryTable component when logged in as an authorisation manager should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>

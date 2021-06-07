@@ -128,7 +128,7 @@ const UpdateWorkOrder = ({ reference }) => {
               {!showSummaryPage && !showUpdateSuccess && (
                 <>
                   <BackButton />
-                  <h1 className="lbh-heading-l">
+                  <h1 className="lbh-heading-h1">
                     Update work order: {reference}
                   </h1>
 

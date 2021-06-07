@@ -9,7 +9,7 @@ exports[`PropertyDetails component should render properly 1`] = `
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l govuk-!-margin-bottom-2"
+        class="lbh-heading-h1 govuk-!-margin-bottom-2"
       >
         Dwelling: 16 Pitcairn House
       </h1>

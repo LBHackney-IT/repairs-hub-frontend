@@ -5,9 +5,9 @@ const PropertiesTable = ({ properties, query }) => (
   <div>
     <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
-    <p className="lbh-heading-h4">
+    <h4 className="lbh-heading-h4">
       We found {properties.length} matching results for: {decodeURI(query)}
-    </p>
+    </h4>
 
     <table className="govuk-table lbh-table govuk-!-margin-top-5">
       <thead className="govuk-table__head">

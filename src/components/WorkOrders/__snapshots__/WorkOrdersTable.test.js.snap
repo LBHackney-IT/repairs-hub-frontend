@@ -3,11 +3,11 @@
 exports[`WorkOrdersTable component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <p
+    <h4
       class="lbh-heading-h4"
     >
       Manage jobs
-    </p>
+    </h4>
     <table
       class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
     >

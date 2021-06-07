@@ -5,7 +5,7 @@ import { Button } from '../Form'
 
 const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
-    <p className="lbh-heading-h4">Manage jobs</p>
+    <h4 className="lbh-heading-h4">Manage jobs</h4>
 
     <table className="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <thead className="govuk-table__head">

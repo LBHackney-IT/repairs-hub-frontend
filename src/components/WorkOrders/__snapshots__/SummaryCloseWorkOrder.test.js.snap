@@ -4,18 +4,18 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <h1
-      class="lbh-heading-l"
+      class="lbh-heading-h1"
     >
       Update work order: 10000012
     </h1>
     <form
       role="form"
     >
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Summary of updates to work order
-      </p>
+      </h4>
       <table
         class="govuk-table lbh-table"
       >

@@ -4,7 +4,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
 <DocumentFragment>
   <div>
     <h1
-      class="lbh-heading-l"
+      class="lbh-heading-h1"
     >
       Update work order: 10000012
     </h1>
@@ -12,16 +12,16 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
       id="repair-request-form"
       role="form"
     >
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Summary of updates to work order
-      </p>
-      <p
+      </h4>
+      <h4
         class="lbh-heading-h4"
       >
         Original Tasks and SORs
-      </p>
+      </h4>
       <table
         class="govuk-table lbh-table original-tasks-table"
       >
@@ -81,11 +81,11 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
           </tr>
         </tbody>
       </table>
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Updated Tasks and SORs
-      </p>
+      </h4>
       <table
         class="govuk-table lbh-table updated-tasks-table"
       >
@@ -280,11 +280,11 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
       <div
         class="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7"
       >
-        <p
+        <h4
           class="lbh-heading-h4"
         >
           Variation reason
-        </p>
+        </h4>
         <p>
           More work is necessary
         </p>
@@ -329,7 +329,7 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
 <DocumentFragment>
   <div>
     <h1
-      class="lbh-heading-l"
+      class="lbh-heading-h1"
     >
       Update work order: 10000012
     </h1>
@@ -337,16 +337,16 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
       id="repair-request-form"
       role="form"
     >
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Summary of updates to work order
-      </p>
-      <p
+      </h4>
+      <h4
         class="lbh-heading-h4"
       >
         Original Tasks and SORs
-      </p>
+      </h4>
       <table
         class="govuk-table lbh-table original-tasks-table"
       >
@@ -406,11 +406,11 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
           </tr>
         </tbody>
       </table>
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Updated Tasks and SORs
-      </p>
+      </h4>
       <table
         class="govuk-table lbh-table updated-tasks-table"
       >
@@ -605,11 +605,11 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
       <div
         class="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7"
       >
-        <p
+        <h4
           class="lbh-heading-h4"
         >
           Variation reason
-        </p>
+        </h4>
         <p>
           More work is necessary
         </p>

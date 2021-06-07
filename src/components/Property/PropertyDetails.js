@@ -16,7 +16,7 @@ const PropertyDetails = ({
   return (
     <div>
       <BackButton />
-      <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
+      <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
         {hierarchyType.subTypeDescription}: {address.addressLine}
       </h1>
       <div>

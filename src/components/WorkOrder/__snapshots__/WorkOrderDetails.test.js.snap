@@ -110,7 +110,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -527,7 +527,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -870,7 +870,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -1287,7 +1287,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -1676,7 +1676,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -2051,7 +2051,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -2426,7 +2426,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>
@@ -2720,7 +2720,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l display-inline govuk-!-margin-right-6"
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
         Works order: 10000012
       </h1>

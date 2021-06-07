@@ -38,14 +38,14 @@ const TasksAndSorsTable = ({
 
   return (
     <>
-      <h2 className="lbh-heading-l">{tabName}</h2>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <p className="lbh-heading-h4">Latest Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Latest Tasks and SORs</h4>
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
       </Table>
 
-      <p className="lbh-heading-h4">Original Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Original Tasks and SORs</h4>
       <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
         {buildTable(originalTasksAndSors, true)}
       </Table>

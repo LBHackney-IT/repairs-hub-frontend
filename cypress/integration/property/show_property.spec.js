@@ -27,7 +27,7 @@ describe('Show property', () => {
       })
 
       it('shows property address in the heading', () => {
-        cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
+        cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
       })
 
       it('shows can raise a repair link', () => {
@@ -63,7 +63,7 @@ describe('Show property', () => {
       context('when no repairs have been raised on the property', () => {
         it('Displays no repairs text', () => {
           cy.get('.govuk-tabs__tab').contains('Repairs history').click()
-          cy.get('.lbh-heading-l').contains('Repairs history')
+          cy.get('.lbh-heading-h2').contains('Repairs history')
           cy.get('.lbh-heading-h4').contains('There are no historical repairs')
         })
       })
@@ -141,7 +141,7 @@ describe('Show property', () => {
     it('Displays the first page of repairs', () => {
       cy.get('.govuk-tabs').within(() => {
         cy.get('.govuk-tabs__tab').contains('Repairs history')
-        cy.get('.lbh-heading-l').contains('Repairs history')
+        cy.get('.lbh-heading-h2').contains('Repairs history')
 
         // Repairs history table headers
         cy.get('.govuk-table').within(() => {
@@ -244,7 +244,7 @@ describe('Show property', () => {
       })
 
       it('shows property address in the heading', () => {
-        cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
+        cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
       })
 
       it('shows cannot raise a repair text', () => {
@@ -289,7 +289,7 @@ describe('Show property', () => {
     })
 
     it('shows property address in the heading', () => {
-      cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
+      cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
     })
 
     it('does not show property alerts', () => {
@@ -324,7 +324,7 @@ describe('Show property', () => {
     })
 
     it('shows property address in the heading', () => {
-      cy.get('.lbh-heading-l').contains('12 Test Street')
+      cy.get('.lbh-heading-h1').contains('12 Test Street')
     })
 
     it('does not show property alerts', () => {

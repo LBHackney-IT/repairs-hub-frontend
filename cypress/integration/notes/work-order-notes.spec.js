@@ -30,7 +30,7 @@ describe('Notes', () => {
     // Now select Notes tab
     cy.get('a[id="tab_notes-tab"]').click()
     cy.get('#notes-tab').within(() => {
-      cy.get('.lbh-heading-l').contains('Notes')
+      cy.get('.lbh-heading-h2').contains('Notes')
       // Form hidden by default
       cy.get('#note-form-group').should('not.exist')
       // Click to reveal form
@@ -72,7 +72,7 @@ describe('Notes', () => {
     cy.get('a[id="tab_notes-tab"]').click()
 
     cy.get('#notes-tab').within(() => {
-      cy.get('.lbh-heading-l').contains('Notes')
+      cy.get('.lbh-heading-h2').contains('Notes')
 
       cy.get('[data-note-id="0"]').within(() => {
         cy.get('.note-info').within(() => {
@@ -95,7 +95,7 @@ describe('Notes', () => {
     cy.get('a[id="tab_notes-tab"]').click()
 
     cy.get('#notes-tab').within(() => {
-      cy.get('.lbh-heading-l').contains('Notes')
+      cy.get('.lbh-heading-h2').contains('Notes')
       cy.get('.lbh-body-s').contains('There are no notes for this work order.')
     })
   })
@@ -106,7 +106,7 @@ describe('Notes', () => {
     cy.get('.govuk-tabs__list-item--selected a').contains('Notes')
 
     cy.get('#notes-tab').within(() => {
-      cy.get('.lbh-heading-l').contains('Notes')
+      cy.get('.lbh-heading-h2').contains('Notes')
     })
   })
 })
