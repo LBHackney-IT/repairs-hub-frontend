@@ -1,4 +1,5 @@
 import MockDate from 'mockdate'
+import { URGENT_PRIORITY_CODE } from '../../helpers/priorities'
 import { buildScheduleRepairFormData } from './raise-repair-form'
 
 const mockBankHolidays = jest.fn()
@@ -35,7 +36,7 @@ describe('buildRaiseRepairFormData', () => {
     contractorRef: 'PCL',
     quantity: '1',
     priorityDescription: '4 [U] URGENT',
-    priorityCode: '3',
+    priorityCode: URGENT_PRIORITY_CODE,
     descriptionOfWork: 'This is an urgent test description',
     propertyReference: '00001234',
     shortAddress: '12 Pitcairn House',
@@ -67,7 +68,7 @@ describe('buildRaiseRepairFormData', () => {
       ],
       descriptionOfWork: 'This is an urgent test description',
       priority: {
-        priorityCode: 3,
+        priorityCode: URGENT_PRIORITY_CODE,
         priorityDescription: '4 [U] URGENT',
         requiredCompletionDateTime: new Date('Friday Jan 22 2021 18:16:20Z'),
         numberOfDays: 5,

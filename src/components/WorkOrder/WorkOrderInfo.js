@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { IMMEDIATE_PRIORITY_CODE } from '../../utils/helpers/priorities'
 import { formatDateTime } from '../../utils/time'
 
 const WorkOrderInfo = ({ workOrder }) => {
@@ -11,7 +12,7 @@ const WorkOrderInfo = ({ workOrder }) => {
           Status: {workOrder.status}
         </span>
         <br></br>
-        {workOrder.priorityCode == 1 ? (
+        {workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE ? (
           <span className="text-danger govuk-!-font-size-14">
             Priority: {workOrder.priority}
           </span>

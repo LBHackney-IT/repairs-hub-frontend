@@ -1,4 +1,8 @@
 import { render } from '@testing-library/react'
+import {
+  EMERGENCY_PRIORITY_CODE,
+  IMMEDIATE_PRIORITY_CODE,
+} from '../../../utils/helpers/priorities'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 
 describe('CancelWorkOrderForm component', () => {
@@ -32,7 +36,10 @@ describe('CancelWorkOrderForm component', () => {
       it('includes related warning text', () => {
         const { asFragment } = render(
           <CancelWorkOrderForm
-            workOrder={{ ...props.workOrder, priorityCode: 1 }}
+            workOrder={{
+              ...props.workOrder,
+              priorityCode: IMMEDIATE_PRIORITY_CODE,
+            }}
             onFormSubmit={props.onFormSubmit}
           />
         )
@@ -41,11 +48,14 @@ describe('CancelWorkOrderForm component', () => {
       })
     })
 
-    describe('when the work order is urgent priority', () => {
+    describe('when the work order is emergency priority', () => {
       it('includes related warning text', () => {
         const { asFragment } = render(
           <CancelWorkOrderForm
-            workOrder={{ ...props.workOrder, priorityCode: 2 }}
+            workOrder={{
+              ...props.workOrder,
+              priorityCode: EMERGENCY_PRIORITY_CODE,
+            }}
             onFormSubmit={props.onFormSubmit}
           />
         )

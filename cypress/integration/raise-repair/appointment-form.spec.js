@@ -1,6 +1,8 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { NORMAL_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
+
 // Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
@@ -106,7 +108,7 @@ describe('Schedule appointment form', () => {
                 reference: [{ id: referenceIdUuid }],
                 descriptionOfWork: 'Testing',
                 priority: {
-                  priorityCode: 4,
+                  priorityCode: NORMAL_PRIORITY_CODE,
                   priorityDescription: '5 [N] NORMAL',
                   requiredCompletionDateTime: requiredCompletionDateTime,
                   numberOfDays: 21,

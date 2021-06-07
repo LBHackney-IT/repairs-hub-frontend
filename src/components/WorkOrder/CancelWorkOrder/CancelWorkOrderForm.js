@@ -5,7 +5,10 @@ import WorkOrderInfoTable from '../WorkOrderInfoTable'
 import BackButton from '../../Layout/BackButton/BackButton'
 import { buildCancelWorkOrderFormData } from '../../../utils/hact/work-order-complete/cancel-work-order-form'
 import WarningText from '../../Template/WarningText'
-import { highPriorityCodes } from '../../../utils/helpers/priorities'
+import {
+  IMMEDIATE_PRIORITY_CODE,
+  EMERGENCY_PRIORITY_CODE,
+} from '../../../utils/helpers/priorities'
 import { isContractorScheduledInternally } from '../../../utils/helpers/work-orders'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
@@ -16,8 +19,6 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
 
     onFormSubmit(cancelWorkOrderFormData)
   }
-
-  const isHighPriority = (code) => highPriorityCodes.includes(code)
 
   return (
     <div className="govuk-width-container">
@@ -32,7 +33,9 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
           <WorkOrderInfoTable workOrder={workOrder} />
 
           {isContractorScheduledInternally(workOrder.contractorReference) &&
-            isHighPriority(workOrder.priorityCode) && (
+            [IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].includes(
+              workOrder.priorityCode
+            ) && (
               <WarningText text="For immediate or emergency jobs contact planner first." />
             )}
 

@@ -145,7 +145,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is immediate priority includes related warning text 1`] = `
+exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is emergency priority includes related warning text 1`] = `
 <DocumentFragment>
   <div
     class="govuk-width-container"
@@ -350,7 +350,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
 </DocumentFragment>
 `;
 
-exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is urgent priority includes related warning text 1`] = `
+exports[`CancelWorkOrderForm component when the work order is for the DLO when the work order is immediate priority includes related warning text 1`] = `
 <DocumentFragment>
   <div
     class="govuk-width-container"

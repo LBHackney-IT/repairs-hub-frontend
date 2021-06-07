@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+import { EMERGENCY_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
 
 describe('Raise repair form', () => {
   beforeEach(() => {
@@ -411,7 +412,7 @@ describe('Raise repair form', () => {
             reference: [{ id: referenceIdUuid }],
             descriptionOfWork: 'A problem',
             priority: {
-              priorityCode: 2,
+              priorityCode: EMERGENCY_PRIORITY_CODE,
               priorityDescription: '2 [E] EMERGENCY',
               requiredCompletionDateTime: requiredCompletionDateTime,
               numberOfDays: 1,
