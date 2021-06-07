@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
+import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 
 const SummaryCloseWorkOrder = ({
   reference,
@@ -17,34 +18,30 @@ const SummaryCloseWorkOrder = ({
       <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onJobSubmit)}>
         <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
-        <table className="govuk-table lbh-table">
-          <tbody className="govuk-table__body">
-            <tr className="govuk-table__row">
-              <th scope="row" className="govuk-table__header">
-                Completion time
-              </th>
-              <td className="govuk-table__cell">
+        <Table>
+          <TBody>
+            <TR>
+              <TH scope="row">Completion time</TH>
+              <TD>
                 {date.split('-').join('/')} {time}
-              </td>
-              <td className="govuk-table__cell">
+              </TD>
+              <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
-              </td>
-            </tr>
-            <tr className="govuk-table__row">
-              <th scope="row" className="govuk-table__header">
-                Notes
-              </th>
-              <td className="govuk-table__cell">{notes}</td>
-              <td className="govuk-table__cell">
+              </TD>
+            </TR>
+            <TR>
+              <TH scope="row">Notes</TH>
+              <TD>{notes}</TD>
+              <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </TD>
+            </TR>
+          </TBody>
+        </Table>
         <PrimarySubmitButton label="Confirm and close" />
       </form>
     </div>

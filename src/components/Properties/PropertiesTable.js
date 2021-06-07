@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import PropertyRow from '../Property/PropertyRow'
+import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 
 const PropertiesTable = ({ properties, query }) => (
   <div>
@@ -9,29 +10,21 @@ const PropertiesTable = ({ properties, query }) => (
       We found {properties.length} matching results for: {decodeURI(query)}
     </h4>
 
-    <table className="govuk-table lbh-table govuk-!-margin-top-5">
-      <thead className="govuk-table__head">
-        <tr className="govuk-table__row lbh-body">
-          <th scope="col" className="govuk-table__header">
-            Address
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Postcode
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Property type
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Property reference
-          </th>
-        </tr>
-      </thead>
-      <tbody className="govuk-table__body">
+    <Table className="govuk-!-margin-top-5">
+      <THead>
+        <TR className="lbh-body">
+          <TH scope="col">Address</TH>
+          <TH scope="col">Postcode</TH>
+          <TH scope="col">Property type</TH>
+          <TH scope="col">Property reference</TH>
+        </TR>
+      </THead>
+      <TBody>
         {properties.map((property, index) => (
           <PropertyRow key={index} {...property} />
         ))}
-      </tbody>
-    </table>
+      </TBody>
+    </Table>
   </div>
 )
 

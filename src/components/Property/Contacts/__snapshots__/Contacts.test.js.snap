@@ -6,7 +6,7 @@ exports[`Contacts component when supplied with a list of contacts renders a tabl
     class="govuk-table lbh-table"
   >
     <caption
-      class="govuk-table__caption"
+      class="govuk-table__caption lbh-heading-h3 lbh-table__caption"
     >
       Contacts
     </caption>

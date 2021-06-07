@@ -2,43 +2,30 @@ import PropTypes from 'prop-types'
 import WorkOrderRow from './WorkOrderRow'
 import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontend-api-client/work-orders'
 import { Button } from '../Form'
+import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 
 const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
     <h4 className="lbh-heading-h4">Manage jobs</h4>
 
-    <table className="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
-      <thead className="govuk-table__head">
-        <tr className="govuk-table__row lbh-body">
-          <th scope="col" className="govuk-table__header">
-            Reference
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Date raised
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Priority
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Property
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Status
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Trade
-          </th>
-          <th scope="col" className="govuk-table__header">
-            Description
-          </th>
-        </tr>
-      </thead>
-      <tbody className="govuk-table__body">
+    <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
+      <THead>
+        <TR className="lbh-body">
+          <TH scope="col">Reference</TH>
+          <TH scope="col">Date raised</TH>
+          <TH scope="col">Priority</TH>
+          <TH scope="col">Property</TH>
+          <TH scope="col">Status</TH>
+          <TH scope="col">Trade</TH>
+          <TH scope="col">Description</TH>
+        </TR>
+      </THead>
+      <TBody>
         {workOrders.map((job, index) => (
           <WorkOrderRow key={index} {...job} />
         ))}
-      </tbody>
-    </table>
+      </TBody>
+    </Table>
     <div className="page-navigation govuk-!-padding-bottom-5">
       {pageNumber > 1 && (
         <Button

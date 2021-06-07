@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { dateToStr } from '../../utils/date'
 import { extractTimeFromDate } from '../../utils/time'
 import Link from 'next/link'
+import { TR, TD } from '../Layout/Table'
 
 const WorkOrderRow = ({
   reference,
@@ -12,29 +13,27 @@ const WorkOrderRow = ({
   tradeDescription,
   description,
 }) => (
-  <tr
-    className="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
-    data-ref={reference}
+  <TR
+    reference={reference}
+    className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
   >
-    <td className="govuk-table__cell">
+    <TD>
       <Link href={`/work-orders/${reference}`}>
         <a className="lbh-link">{reference}</a>
       </Link>
-    </td>
-    <td className="govuk-table__cell">
+    </TD>
+    <TD>
       {dateRaised ? dateToStr(dateRaised) : '—'}
       <div className="work-order-hours">
         {dateRaised ? extractTimeFromDate(dateRaised) : ''}
       </div>
-    </td>
-    <td className="govuk-table__cell">{priority}</td>
-    <td className="govuk-table__cell">{property}</td>
-    <td className="govuk-table__cell">{status}</td>
-    <td className="govuk-table__cell">{tradeDescription}</td>
-    <td className="govuk-table__cell">
-      <p className="description">{description}</p>
-    </td>
-  </tr>
+    </TD>
+    <TD>{priority}</TD>
+    <TD>{property}</TD>
+    <TD>{status}</TD>
+    <TD>{tradeDescription}</TD>
+    <TD className="description">{description}</TD>
+  </TR>
 )
 
 WorkOrderRow.propTypes = {

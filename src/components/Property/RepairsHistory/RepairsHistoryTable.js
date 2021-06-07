@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/work-orders'
 import UserContext from '../../UserContext/UserContext'
 import RepairsHistoryRow from './RepairsHistoryRow'
+import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 
 const RepairsHistoryTable = ({
   workOrders,
@@ -39,37 +40,27 @@ const RepairsHistoryTable = ({
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <table className="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table">
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row lbh-body">
+      <Table className="govuk-!-margin-top-5 repairs-history-table">
+        <THead>
+          <TR className="lbh-body">
             {user &&
               (user.hasAgentPermissions ||
                 user.hasContractManagerPermissions ||
                 user.hasAuthorisationManagerPermissions) && (
-                <th scope="col" className="govuk-table__header">
-                  Reference
-                </th>
+                <TH scope="col">Reference</TH>
               )}
-            <th scope="col" className="govuk-table__header">
-              Date raised
-            </th>
-            <th scope="col" className="govuk-table__header">
-              Trade
-            </th>
-            <th scope="col" className="govuk-table__header">
-              Status
-            </th>
-            <th scope="col" className="govuk-table__header">
-              Description
-            </th>
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
+            <TH scope="col">Date raised</TH>
+            <TH scope="col">Trade</TH>
+            <TH scope="col">Status</TH>
+            <TH scope="col">Description</TH>
+          </TR>
+        </THead>
+        <TBody>
           {workOrders.map((workOrder, index) => (
             <RepairsHistoryRow key={index} {...workOrder} />
           ))}
-        </tbody>
-      </table>
+        </TBody>
+      </Table>
       {workOrders && renderLoadMoreWorkOrders()}
     </>
   )

@@ -109,13 +109,9 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             Electrical - EL
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell description"
           >
-            <p
-              class="description"
-            >
-              ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
-            </p>
+            ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
           </td>
         </tr>
       </tbody>

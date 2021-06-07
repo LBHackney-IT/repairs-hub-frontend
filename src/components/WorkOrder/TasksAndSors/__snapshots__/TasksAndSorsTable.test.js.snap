@@ -46,13 +46,13 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           Quantity (est.)
         </th>
         <th
-          class="govuk-table__header"
+          class="govuk-table__header govuk-table__header--numeric"
           scope="col"
         >
           Unit cost
         </th>
         <th
-          class="govuk-table__header"
+          class="govuk-table__header govuk-table__header--numeric"
           scope="col"
         >
           Cost (est.)
@@ -87,12 +87,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           2
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £20.15
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £40.30
         </td>
@@ -122,12 +122,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           4
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £1.4
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £5.60
         </td>
@@ -157,12 +157,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           5
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £7.31
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £36.55
         </td>
@@ -208,13 +208,13 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           Quantity (est.)
         </th>
         <th
-          class="govuk-table__header"
+          class="govuk-table__header govuk-table__header--numeric"
           scope="col"
         >
           Unit cost
         </th>
         <th
-          class="govuk-table__header"
+          class="govuk-table__header govuk-table__header--numeric"
           scope="col"
         >
           Cost (est.)
@@ -249,12 +249,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           1
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £20.15
         </td>
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell govuk-table__cell--numeric"
         >
           £20.15
         </td>

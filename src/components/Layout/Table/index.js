@@ -21,7 +21,9 @@ export const TBody = (props) => (
 export const TR = (props) => (
   <tr
     data-row-id={props.index}
+    data-ref={props.reference}
     className={cx('govuk-table__row', props.className)}
+    id={props.id}
   >
     {props.children}
   </tr>
@@ -46,7 +48,10 @@ export const TD = (props) => (
     className={cx(
       'govuk-table__cell',
       props.width ? `govuk-!-width-${props.width}` : null,
-      props.type ? `govuk-table__cell--${props.type}` : null
+      props.padding ? `govuk-!-padding-${props.padding}` : null,
+      props.type ? `govuk-table__cell--${props.type}` : null,
+      props.border ? `border-${props.border}` : null,
+      props.className
     )}
   >
     {props.children}
