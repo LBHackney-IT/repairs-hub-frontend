@@ -384,15 +384,19 @@ describe('Raise repair form', () => {
         'not.exist'
       )
 
-      // Fill in contact details
-      cy.get('#callerName').type('Bob Leek')
-      cy.get('#contactNumber').type('a')
-      // Enter invalid contact number
-      cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
-        cy.contains('Contact number is not valid')
+      //Submit for without contact and coller name details
+      cy.get('[type="submit"]')
+
+      cy.get('#callerName-form-group .govuk-error-message').within(() => {
+        cy.contains('Please add caller name')
       })
-      // Enter a valid contact number
-      cy.get('#contactNumber').clear().type('07788659111')
+      cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
+        cy.contains('Please add contact number')
+      })
+
+      // Fill in contact details
+      cy.get('#callerName').type('NA', { force: true })
+      cy.get('#contactNumber').type('NA', { force: true })
     })
 
     // Submit form
@@ -480,10 +484,10 @@ describe('Raise repair form', () => {
               },
             },
             customer: {
-              name: 'Bob Leek',
+              name: 'NA',
               person: {
                 name: {
-                  full: 'Bob Leek',
+                  full: 'NA',
                 },
                 communication: [
                   {
@@ -491,7 +495,7 @@ describe('Raise repair form', () => {
                       medium: '20',
                       code: '60',
                     },
-                    value: '07788659111',
+                    value: 'NA',
                   },
                 ],
               },
@@ -604,6 +608,10 @@ describe('Raise repair form', () => {
 
     // Fill in Repair Description
     cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+    //Fill in contact details
+    cy.get('#callerName').type('NA', { force: true })
+    cy.get('#contactNumber').type('NA', { force: true })
 
     // Submit form for high cost (over raise limit) authorisation
     cy.get('[type="submit"]').contains('Create works order').click()
