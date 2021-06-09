@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TmoName component should render properly 1`] = `
+<DocumentFragment>
+  <li
+    class="bg-orange"
+  >
+    TMO: Test address TMO
+  </li>
+</DocumentFragment>
+`;

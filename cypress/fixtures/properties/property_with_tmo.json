@@ -1,0 +1,23 @@
+{
+  "property": {
+    "propertyReference": "00012345",
+    "address": {
+      "shortAddress": "12 Test Street Testminister",
+      "postalCode": "N1 TEST",
+      "addressLine": "12 Test Street",
+      "streetSuffix": "Test Estate"
+    },
+    "hierarchyType": {
+      "levelCode": "7",
+      "subTypeCode": "DWE",
+      "subTypeDescription": "Dwelling"
+    },
+    "tmoName": "Testing TMO",
+    "canRaiseRepair": false
+  },
+  "alerts": {
+    "locationAlert": [],
+    "personAlert": []
+  },
+  "tenure": null
+}

@@ -63,6 +63,7 @@ const PropertyView = ({ propertyReference }) => {
                   tenure={tenure}
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
+                  tmoName={property.tmoName}
                 />
                 {property.canRaiseRepair && (
                   <Tabs
