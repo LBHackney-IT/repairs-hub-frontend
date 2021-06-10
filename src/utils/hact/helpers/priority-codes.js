@@ -1,21 +1,24 @@
+import {
+  IMMEDIATE_PRIORITY_CODE,
+  EMERGENCY_PRIORITY_CODE,
+  URGENT_PRIORITY_CODE,
+  NORMAL_PRIORITY_CODE,
+} from '../../helpers/priorities'
+
 export const priorityCodeCompletionTimes = {
-  // immediate
-  1: {
+  [IMMEDIATE_PRIORITY_CODE]: {
     numberOfHours: 2,
     numberOfDays: 0,
   },
-  // emergency
-  2: {
+  [EMERGENCY_PRIORITY_CODE]: {
     numberOfHours: 24,
     numberOfDays: 1,
   },
-  // urgent
-  3: {
+  [URGENT_PRIORITY_CODE]: {
     numberOfHours: 120,
     numberOfDays: 5,
   },
-  // normal
-  4: {
+  [NORMAL_PRIORITY_CODE]: {
     numberOfHours: 504,
     numberOfDays: 21,
   },

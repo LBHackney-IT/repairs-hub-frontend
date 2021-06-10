@@ -1,4 +1,10 @@
 import { render } from '@testing-library/react'
+import {
+  EMERGENCY_PRIORITY_CODE,
+  IMMEDIATE_PRIORITY_CODE,
+  NORMAL_PRIORITY_CODE,
+  URGENT_PRIORITY_CODE,
+} from '../../../utils/helpers/priorities'
 import RaiseRepairForm from './RaiseRepairForm'
 
 describe('RaiseRepairForm component', () => {
@@ -42,19 +48,19 @@ describe('RaiseRepairForm component', () => {
     },
     priorities: [
       {
-        priorityCode: 1,
+        priorityCode: IMMEDIATE_PRIORITY_CODE,
         description: '1 [I] IMMEDIATE',
       },
       {
-        priorityCode: 2,
+        priorityCode: EMERGENCY_PRIORITY_CODE,
         description: '2 [E] EMERGENCY',
       },
       {
-        priorityCode: 3,
+        priorityCode: URGENT_PRIORITY_CODE,
         description: '4 [U] URGENT',
       },
       {
-        priorityCode: 4,
+        priorityCode: NORMAL_PRIORITY_CODE,
         description: '5 [N] NORMAL',
       },
     ],

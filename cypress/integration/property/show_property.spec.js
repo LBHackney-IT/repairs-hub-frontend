@@ -309,4 +309,38 @@ describe('Show property', () => {
       cy.audit()
     })
   })
+
+  context('Displays property with TMO', () => {
+    beforeEach(() => {
+      // Stub request with property response
+      cy.fixture('properties/property_with_tmo.json').as('property')
+      cy.route('GET', 'api/properties/00012345', '@property')
+      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.route(
+        'GET',
+        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
+        JSON.stringify([])
+      )
+    })
+
+    it('shows property address in the heading', () => {
+      cy.get('.lbh-heading-l').contains('12 Test Street')
+    })
+
+    it('does not show property alerts', () => {
+      cy.get('.hackney-property-alerts').should('not.exist')
+    })
+
+    it('does show TMO details', () => {
+      cy.get('.hackney-property-alerts').contains('TMO: Testing TMO')
+    })
+
+    it('does not show the Repairs history tab', () => {
+      // No repairs history
+      cy.contains('Repairs history').should('not.exist')
+
+      // Run lighthouse audit for accessibility report
+      cy.audit()
+    })
+  })
 })

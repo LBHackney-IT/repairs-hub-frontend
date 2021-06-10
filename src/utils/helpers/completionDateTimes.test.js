@@ -1,5 +1,11 @@
 import { calculateCompletionDateTime } from './completionDateTimes'
 import MockDate from 'mockdate'
+import {
+  EMERGENCY_PRIORITY_CODE,
+  IMMEDIATE_PRIORITY_CODE,
+  NORMAL_PRIORITY_CODE,
+  URGENT_PRIORITY_CODE,
+} from './priorities'
 
 const mockBankHolidays = jest.fn()
 
@@ -20,7 +26,7 @@ describe('calculateCompletionDateTime', () => {
 
   describe('when the priority code represents an immediate order', () => {
     // 2 hours
-    const priorityCode = 1
+    const priorityCode = IMMEDIATE_PRIORITY_CODE
 
     describe('and the works order is created on a working day', () => {
       const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
@@ -69,7 +75,7 @@ describe('calculateCompletionDateTime', () => {
 
   describe('when the priority code represents an emergency order', () => {
     // 1 working day
-    const priorityCode = 2
+    const priorityCode = EMERGENCY_PRIORITY_CODE
 
     describe('and the day of order creation and the day following it are working days', () => {
       const dateTime = new Date('Wednesday 30 June 2021 08:00:00Z')
@@ -162,7 +168,7 @@ describe('calculateCompletionDateTime', () => {
 
   describe('when the priority code represents an urgent order', () => {
     // 5 working days
-    const priorityCode = 3
+    const priorityCode = URGENT_PRIORITY_CODE
 
     describe('and the day of order creation is a working day with no imminent bank holidays', () => {
       const dateTime = new Date('Wednesday 7 July 2021 19:00:00Z')
@@ -257,7 +263,7 @@ describe('calculateCompletionDateTime', () => {
 
   describe('when the priority code represents a normal order', () => {
     // 21 working days
-    const priorityCode = 4
+    const priorityCode = NORMAL_PRIORITY_CODE
 
     describe('and the day of order creation is a working day with no imminent bank holidays', () => {
       const dateTime = new Date('Tuesday 1 June 2021 19:00:00Z')
