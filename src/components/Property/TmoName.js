@@ -1,18 +1,11 @@
 import PropTypes from 'prop-types'
 
-const TmoName = ({ tmoName }) => {
-  let tmoToShow = (tmoName) => {
-    if (tmoName) {
-      return <li className="bg-orange">TMO: {tmoName}</li>
-    } else {
-      return ''
-    }
-  }
-  return <>{tmoToShow(tmoName)}</>
-}
+const TmoName = ({ tmoName }) => (
+  <>{tmoName && <li className="bg-orange">TMO: {tmoName}</li>}</>
+)
 
 TmoName.propTypes = {
-  tmoName: PropTypes.string.isRequired,
+  tmoName: PropTypes.string,
 }
 
 export default TmoName
