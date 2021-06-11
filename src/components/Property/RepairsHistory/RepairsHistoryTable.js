@@ -44,7 +44,8 @@ const RepairsHistoryTable = ({
           <tr className="govuk-table__row govuk-body">
             {user &&
               (user.hasAgentPermissions ||
-                user.hasContractManagerPermissions) && (
+                user.hasContractManagerPermissions ||
+                user.hasAuthorisationManagerPermissions) && (
                 <th scope="col" className="govuk-table__header">
                   Reference
                 </th>
