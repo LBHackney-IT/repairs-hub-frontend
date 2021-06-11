@@ -5,16 +5,16 @@ import { PAGE_SIZE_CONTRACTORS } from '../../src/utils/frontend-api-client/work-
 
 describe('Home page', () => {
   context('When user is not logged in', () => {
-    it('Redirects on the login page', () => {
+    it('Redirects on the sign in page', () => {
       cy.visit(Cypress.env('HOST'))
       // Header component
       cy.get('.lbh-header__service-name').contains('Repairs Hub')
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
       // UserLogin component
-      cy.get('.lbh-heading-h2').contains('Login')
-      cy.get('.govuk-body').contains(
-        'Please log in with an approved Hackney email account.'
+      cy.get('.lbh-heading-h1').contains('Sign in')
+      cy.get('.lbh-body').contains(
+        'Please sign in with your Hackney email account.'
       )
 
       // Run lighthouse audit for accessibility report
@@ -38,12 +38,12 @@ describe('Home page', () => {
         .should('have.attr', 'href', '/search')
 
       // Logout component
-      cy.get('#logout')
-        .contains('Logout')
+      cy.get('#signout')
+        .contains('Sign out')
         .should('have.attr', 'href', '/logout')
 
       // Search for property component
-      cy.get('.lbh-heading-h2').contains('Find repair job or property')
+      cy.get('.lbh-heading-h1').contains('Find repair job or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
@@ -52,13 +52,13 @@ describe('Home page', () => {
       cy.audit()
     })
 
-    it('Redirects to login page once logout is clicked and the cookies are cleared', () => {
+    it('Redirects to sign in page once logout is clicked and the cookies are cleared', () => {
       cy.logout()
 
       // UserLogin component
-      cy.get('.lbh-heading-h2').contains('Login')
-      cy.get('.govuk-body').contains(
-        'Please log in with an approved Hackney email account.'
+      cy.get('.lbh-heading-h1').contains('Sign in')
+      cy.get('.lbh-body').contains(
+        'Please sign in with your Hackney email account.'
       )
 
       // Run lighthouse audit for accessibility report
@@ -101,8 +101,8 @@ describe('Home page', () => {
               .should('have.attr', 'href', '/search')
 
             // Logout component
-            cy.get('#logout')
-              .contains('Logout')
+            cy.get('#signout')
+              .contains('Sign out')
               .should('have.attr', 'href', '/logout')
           })
 

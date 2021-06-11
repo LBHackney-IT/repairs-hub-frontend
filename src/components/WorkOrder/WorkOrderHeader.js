@@ -15,7 +15,7 @@ const WorkOrderHeader = ({
   canRaiseRepair,
 }) => {
   return (
-    <div className="govuk-body-s govuk-grid-row">
+    <div className="lbh-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">
         <PropertyDetailsAddress
           address={address}
@@ -36,7 +36,7 @@ const WorkOrderHeader = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <AppointmentDetails workOrder={workOrder} />
-        <div className="govuk-body-xs govuk-!-margin-bottom-2">
+        <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
       </div>

@@ -6,19 +6,19 @@ exports[`PropertiesTable component should render properly 1`] = `
     <hr
       class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
     />
-    <p
+    <h4
       class="lbh-heading-h4"
     >
       We found 2 matching results for: E9 6PT
-    </p>
+    </h4>
     <table
-      class="govuk-table govuk-!-margin-top-5"
+      class="govuk-table lbh-table govuk-!-margin-top-5"
     >
       <thead
         class="govuk-table__head"
       >
         <tr
-          class="govuk-table__row govuk-body"
+          class="govuk-table__row lbh-body"
         >
           <th
             class="govuk-table__header"
@@ -50,12 +50,13 @@ exports[`PropertiesTable component should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         >
           <td
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/properties/00012345"
             >
               16 Pitcairn House  St Thomass Square
@@ -78,12 +79,13 @@ exports[`PropertiesTable component should render properly 1`] = `
           </td>
         </tr>
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         >
           <td
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/properties/00012346"
             >
               1 Pitcairn House  St Thomass Square

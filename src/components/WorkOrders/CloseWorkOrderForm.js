@@ -19,7 +19,7 @@ const CloseWorkOrderForm = ({
   return (
     <div>
       <BackButton />
-      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onGetToSummary)}>
         <DatePicker
           name="date"

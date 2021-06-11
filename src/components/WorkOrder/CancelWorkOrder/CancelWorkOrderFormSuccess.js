@@ -9,16 +9,16 @@ const CancelWorkOrderFormSuccess = ({
   return (
     <div>
       <div className="govuk-panel govuk-panel--confirmation background-dark-green">
-        <h1 className="lbh-heading-xl text-white">Repair cancelled</h1>
+        <h1 className="lbh-heading-h1 text-white">Repair cancelled</h1>
         <div className="govuk-panel__body">
           Works order {workOrderReference} has been cancelled
         </div>
       </div>
 
-      <ul className="govuk-list govuk-!-margin-top-9">
+      <ul className="lbh-list govuk-!-margin-top-9">
         <li>
           <Link href={`/properties/${propertyReference}/raise-repair/new`}>
-            <a>
+            <a className="lbh-link">
               <strong>New repair for {shortAddress}</strong>
             </a>
           </Link>
@@ -26,7 +26,7 @@ const CancelWorkOrderFormSuccess = ({
 
         <li>
           <Link href="/">
-            <a>
+            <a className="lbh-link">
               <strong>Start a new search</strong>
             </a>
           </Link>
@@ -34,7 +34,7 @@ const CancelWorkOrderFormSuccess = ({
 
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>Back to work order</strong>
             </a>
           </Link>

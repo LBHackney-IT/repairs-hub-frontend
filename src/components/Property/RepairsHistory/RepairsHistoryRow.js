@@ -1,8 +1,10 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
 import { dateToStr } from '../../../utils/date'
 import { extractTimeFromDate } from '../../../utils/time'
+import { TR, TD } from '../../Layout/Table'
 
 const RepairsHistoryRow = ({
   reference,
@@ -14,26 +16,28 @@ const RepairsHistoryRow = ({
   const { user } = useContext(UserContext)
 
   return (
-    <tr
-      className="govuk-table__row govuk-table__row--clickable govuk-body-s"
-      data-ref={reference}
+    <TR
+      reference={reference}
+      className="govuk-table__row--clickable lbh-body-s"
     >
       {user &&
         (user.hasAgentPermissions ||
           user.hasContractManagerPermissions ||
           user.hasAuthorisationManagerPermissions) && (
-          <td className="govuk-table__cell">
-            <a href={`/work-orders/${reference}`}>{reference}</a>
-          </td>
+          <TD>
+            <Link href={`/work-orders/${reference}`}>
+              <a className="lbh-link">{reference}</a>
+            </Link>
+          </TD>
         )}
-      <td className="govuk-table__cell">
+      <TD>
         {dateRaised ? dateToStr(dateRaised) : '—'}
         <div className="work-order-hours">
           {dateRaised ? extractTimeFromDate(dateRaised) : ''}
         </div>
-      </td>
-      <td className="govuk-table__cell">{tradeDescription}</td>
-      <td className="govuk-table__cell">
+      </TD>
+      <TD>{tradeDescription}</TD>
+      <TD>
         <span
           className={`status status-${status
             .replace(/\s+/g, '-')
@@ -41,9 +45,9 @@ const RepairsHistoryRow = ({
         >
           {status}
         </span>
-      </td>
-      <td className="govuk-table__cell description">{description}</td>
-    </tr>
+      </TD>
+      <TD className="description">{description}</TD>
+    </TR>
   )
 }
 

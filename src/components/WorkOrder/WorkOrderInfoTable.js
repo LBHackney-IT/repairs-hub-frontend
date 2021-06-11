@@ -1,29 +1,24 @@
 import PropTypes from 'prop-types'
+import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 
 const WorkOrderInfoTable = ({ workOrder }) => (
   <div>
-    <table className="govuk-table govuk-!-margin-top-5 govuk-!-width-full">
-      <tbody className="govuk-table__body">
-        <tr className="govuk-table__row" id="property">
-          <th scope="row" className="govuk-table__header">
-            Property
-          </th>
-          <td className="govuk-table__cell">{workOrder.property}</td>
-        </tr>
-        <tr className="govuk-table__row" id="tradeDescription">
-          <th scope="row" className="govuk-table__header">
-            Trade
-          </th>
-          <td className="govuk-table__cell">{workOrder.tradeDescription}</td>
-        </tr>
-        <tr className="govuk-table__row" id="description">
-          <th scope="row" className="govuk-table__header">
-            Description
-          </th>
-          <td className="govuk-table__cell">{workOrder.description}</td>
-        </tr>
-      </tbody>
-    </table>
+    <Table className="govuk-!-margin-top-5 govuk-!-width-full">
+      <TBody>
+        <TR id="property">
+          <TH scope="row">Property</TH>
+          <TD>{workOrder.property}</TD>
+        </TR>
+        <TR id="tradeDescription">
+          <TH scope="row">Trade</TH>
+          <TD>{workOrder.tradeDescription}</TD>
+        </TR>
+        <TR id="description">
+          <TH scope="row">Description</TH>
+          <TD>{workOrder.description}</TD>
+        </TR>
+      </TBody>
+    </Table>
   </div>
 )
 

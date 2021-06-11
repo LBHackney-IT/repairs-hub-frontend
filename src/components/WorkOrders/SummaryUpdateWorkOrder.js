@@ -53,9 +53,9 @@ const SummaryUpdateWorkOrder = ({
 
   return (
     <div>
-      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
       <form role="form" id="repair-request-form" onSubmit={onSubmit}>
-        <p className="lbh-heading-h4">Summary of updates to work order</p>
+        <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
 
         <UpdateSummaryRateScheduleItems
           originalTasks={originalTasks}
@@ -67,8 +67,8 @@ const SummaryUpdateWorkOrder = ({
           totalVariedCostObject={totalVaried}
         />
 
-        <div className="variation-reason-summary govuk-body-s govuk-!-margin-bottom-7">
-          <p className="lbh-heading-h4">Variation reason</p>
+        <div className="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7">
+          <h4 className="lbh-heading-h4">Variation reason</h4>
           <p>{variationReason}</p>
         </div>
 

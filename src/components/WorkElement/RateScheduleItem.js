@@ -112,7 +112,7 @@ const RateScheduleItem = ({
 
       {description && (
         <div className="sor-code-summary">
-          <p className="govuk-body-s">SOR code summary: {description}</p>
+          <p className="lbh-body-s">SOR code summary: {description}</p>
         </div>
       )}
     </>

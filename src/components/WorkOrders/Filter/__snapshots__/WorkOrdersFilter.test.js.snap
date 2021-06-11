@@ -43,7 +43,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
           </button>
           <div>
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Clear filters
@@ -249,7 +249,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
           >
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Show all 7
@@ -437,7 +437,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
           </button>
           <div>
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Clear filters
@@ -627,7 +627,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
           >
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Show all 6
@@ -815,7 +815,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
           </button>
           <div>
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Clear filters
@@ -939,7 +939,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
             class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
           >
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Show all 6
@@ -1127,7 +1127,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
           </button>
           <div>
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Clear filters
@@ -1333,7 +1333,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             class="govuk-!-padding-left-2 govuk-!-padding-bottom-2 govuk-!-margin-1 status-filters"
           >
             <a
-              class="govuk-link"
+              class="lbh-link"
               href="#"
             >
               Show all 7

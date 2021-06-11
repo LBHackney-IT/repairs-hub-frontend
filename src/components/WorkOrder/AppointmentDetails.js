@@ -17,7 +17,7 @@ const AppointmentDetails = ({ workOrder }) => {
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
         <br></br>
-        <div className="govuk-body-s">
+        <div className="lbh-body-s">
           {user &&
             (user.hasAgentPermissions ||
               user.hasContractManagerPermissions ||
@@ -29,7 +29,7 @@ const AppointmentDetails = ({ workOrder }) => {
               <Link
                 href={`/work-orders/${workOrder.reference}/appointment/new`}
               >
-                <a className="govuk-!-font-weight-bold">
+                <a className="lbh-link lbh-!-font-weight-bold">
                   Schedule an appointment
                 </a>
               </Link>
@@ -40,7 +40,7 @@ const AppointmentDetails = ({ workOrder }) => {
               user.hasContractManagerPermissions) &&
             workOrder.status !== STATUS_CANCELLED &&
             !!workOrder.appointment && (
-              <div className="govuk-body-s">
+              <div className="lbh-body-s">
                 <span className="govuk-!-font-size-14">
                   {dateToStr(new Date(workOrder.appointment.date))},{' '}
                   {workOrder.appointment.start}-{workOrder.appointment.end}
@@ -55,8 +55,8 @@ const AppointmentDetails = ({ workOrder }) => {
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
         <br></br>
-        <div className="govuk-body-s">
-          <span className="govuk-!-font-weight-bold">Not applicable</span>
+        <div className="lbh-body-s">
+          <span className="lbh-!-font-weight-bold">Not applicable</span>
         </div>
       </div>
     )

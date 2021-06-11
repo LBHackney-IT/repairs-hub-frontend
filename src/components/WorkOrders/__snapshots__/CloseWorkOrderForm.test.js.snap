@@ -10,7 +10,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
       Back
     </a>
     <h1
-      class="lbh-heading-l"
+      class="lbh-heading-h1"
     >
       Update work order: 10000012
     </h1>

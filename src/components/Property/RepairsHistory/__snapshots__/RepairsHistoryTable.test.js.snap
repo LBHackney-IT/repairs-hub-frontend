@@ -3,18 +3,18 @@
 exports[`RepairsHistoryTable component when logged in as a contract manager should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
     >
       <tr
-        class="govuk-table__row govuk-body"
+        class="govuk-table__row lbh-body"
       >
         <th
           class="govuk-table__header"
@@ -52,13 +52,14 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000012"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -95,13 +96,14 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000013"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013
@@ -145,18 +147,18 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
 exports[`RepairsHistoryTable component when logged in as a contractor should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
     >
       <tr
-        class="govuk-table__row govuk-body"
+        class="govuk-table__row lbh-body"
       >
         <th
           class="govuk-table__header"
@@ -188,7 +190,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000012"
       >
         <td
@@ -222,7 +224,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000013"
       >
         <td
@@ -263,18 +265,18 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
 exports[`RepairsHistoryTable component when logged in as an agent should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
     >
       <tr
-        class="govuk-table__row govuk-body"
+        class="govuk-table__row lbh-body"
       >
         <th
           class="govuk-table__header"
@@ -312,13 +314,14 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000012"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -355,13 +358,14 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000013"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013
@@ -405,18 +409,18 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
 exports[`RepairsHistoryTable component when logged in as an authorisation manager should render properly 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-l"
+    class="lbh-heading-h2"
   >
     Repairs history
   </h2>
   <table
-    class="govuk-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
   >
     <thead
       class="govuk-table__head"
     >
       <tr
-        class="govuk-table__row govuk-body"
+        class="govuk-table__row lbh-body"
       >
         <th
           class="govuk-table__header"
@@ -454,13 +458,14 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000012"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000012"
           >
             10000012
@@ -497,13 +502,14 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable govuk-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
         data-ref="10000013"
       >
         <td
           class="govuk-table__cell"
         >
           <a
+            class="lbh-link"
             href="/work-orders/10000013"
           >
             10000013

@@ -22,13 +22,13 @@ describe('Show work order', () => {
     })
 
     it('Works order header with reference number', () => {
-      cy.get('.lbh-heading-l').within(() => {
+      cy.get('.lbh-heading-h1').within(() => {
         cy.contains('Works order: 10000012')
       })
     })
 
     it('Repair description', () => {
-      cy.get('.govuk-body-m').within(() => {
+      cy.get('.lbh-body-m').within(() => {
         cy.contains('This is an urgent repair description')
       })
     })

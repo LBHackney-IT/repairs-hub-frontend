@@ -1,15 +1,14 @@
 import PropTypes from 'prop-types'
+import { TR, TD } from '../../Layout/Table'
 
 const Row = ({ contact }) => {
   return (
-    <tr className="govuk-table__row">
-      <td className="govuk-table__cell">
-        {[contact?.firstName, contact?.lastName].join(' ')}
-      </td>
-      <td className="govuk-table__cell">{contact.phoneNumbers[0]}</td>
-      <td className="govuk-table__cell">{contact.phoneNumbers[1]}</td>
-      <td className="govuk-table__cell">{contact.phoneNumbers[2]}</td>
-    </tr>
+    <TR>
+      <TD>{[contact?.firstName, contact?.lastName].join(' ')}</TD>
+      <TD>{contact.phoneNumbers[0]}</TD>
+      <TD>{contact.phoneNumbers[1]}</TD>
+      <TD>{contact.phoneNumbers[2]}</TD>
+    </TR>
   )
 }
 

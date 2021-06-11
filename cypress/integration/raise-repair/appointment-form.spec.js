@@ -343,7 +343,7 @@ describe('Schedule appointment form', () => {
       cy.get('#no-appointment').contains('No available appointments')
 
       // Link back to work order
-      cy.get('.govuk-list li').within(() => {
+      cy.get('.lbh-list li').within(() => {
         cy.contains('View work order').should(
           'have.attr',
           'href',

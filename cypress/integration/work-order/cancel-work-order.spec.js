@@ -40,7 +40,7 @@ describe('Work order cancellations', () => {
 
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
-      cy.get('.lbh-heading-l').contains('Works order: 10000012')
+      cy.get('.lbh-heading-h1').contains('Works order: 10000012')
       cy.get('.govuk-table').within(() => {
         // Property and description
         cy.get('#property').within(() => {
@@ -114,13 +114,13 @@ describe('Work order cancellations', () => {
 
       // Cancel work order confirmation screen
       cy.get('.govuk-panel--confirmation').within(() => {
-        cy.get('.lbh-heading-xl').contains('Repair cancelled')
+        cy.get('.lbh-heading-h1').contains('Repair cancelled')
         cy.get('.govuk-panel__body').contains(
           'Works order 10000012 has been cancelled'
         )
       })
 
-      cy.get('.govuk-list').within(() => {
+      cy.get('.lbh-list').within(() => {
         cy.contains(
           'New repair for 16 Pitcairn House St Thomass Square'
         ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')

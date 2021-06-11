@@ -142,7 +142,7 @@ const AddedRateScheduleItems = ({
           <a
             onClick={addRateScheduleItem}
             href="#"
-            className="repairs-hub-link govuk-body-s"
+            className="repairs-hub-link lbh-body-s"
           >
             + Add another SOR code
           </a>

@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import { TR, TD } from '../Layout/Table'
 
 const PropertyRow = ({ propertyReference, address, hierarchyType }) => (
-  <tr className="govuk-table__row govuk-table__row--clickable govuk-body-s">
-    <td className="govuk-table__cell">
+  <TR className="govuk-table__row--clickable lbh-body-s">
+    <TD>
       <Link href={`/properties/${propertyReference}`}>
-        <a>{address.shortAddress}</a>
+        <a className="lbh-link">{address.shortAddress}</a>
       </Link>
-    </td>
-    <td className="govuk-table__cell">{address.postalCode}</td>
-    <td className="govuk-table__cell">{hierarchyType.subTypeDescription}</td>
-    <td className="govuk-table__cell">{propertyReference}</td>
-  </tr>
+    </TD>
+    <TD>{address.postalCode}</TD>
+    <TD>{hierarchyType.subTypeDescription}</TD>
+    <TD>{propertyReference}</TD>
+  </TR>
 )
 
 PropertyRow.propTypes = {

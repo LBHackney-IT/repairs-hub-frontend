@@ -102,8 +102,8 @@ const HeaderComponent = ({ serviceName }) => {
                 <a id="search" href="/search">
                   Search
                 </a>
-                <a id="logout" href="/logout">
-                  Logout
+                <a id="signout" href="/logout">
+                  Sign out
                 </a>
               </div>
             )}

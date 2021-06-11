@@ -6,7 +6,7 @@ exports[`NotesForm component should render properly when display form is false 1
     class="govuk-!-margin-bottom-6"
   >
     <h2
-      class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      class="lbh-heading-h2 display-inline govuk-!-margin-right-6"
     >
       notes
     </h2>
@@ -14,7 +14,7 @@ exports[`NotesForm component should render properly when display form is false 1
       class="display-inline"
     >
       <a
-        class="repairs-hub-link govuk-body-s"
+        class="repairs-hub-link lbh-body-s"
         href="#"
       >
         Add a new note
@@ -37,7 +37,7 @@ exports[`NotesForm component should render properly when display form is true 1`
     class="govuk-!-margin-bottom-6"
   >
     <h2
-      class="lbh-heading-l display-inline govuk-!-margin-right-6"
+      class="lbh-heading-h2 display-inline govuk-!-margin-right-6"
     >
       notes
     </h2>

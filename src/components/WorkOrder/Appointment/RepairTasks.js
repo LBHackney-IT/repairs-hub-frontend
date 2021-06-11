@@ -4,7 +4,7 @@ import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 
 const RepairTasks = ({ tasks }) => {
   return (
-    <GridRow className="govuk-body-s">
+    <GridRow className="lbh-body-s">
       <GridColumn width="full">
         <h2 className="lbh-heading-h2 govuk-!-margin-bottom-1">
           Repair task details
@@ -12,7 +12,7 @@ const RepairTasks = ({ tasks }) => {
 
         <Table className="govuk-!-margin-top-1 govuk-!-margin-bottom-3">
           <THead>
-            <TR className="govuk-body">
+            <TR className="lbh-body">
               <TH scope="col" width="one-quarter">
                 SOR Code
               </TH>

@@ -3,18 +3,18 @@
 exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-grid-row govuk-body-s govuk-!-margin-bottom-2"
+    class="govuk-grid-row lbh-body-s govuk-!-margin-bottom-2"
   >
     <div
       class="govuk-grid-column-two-thirds"
     >
       <h1
-        class="lbh-heading-l govuk-!-margin-bottom-2"
+        class="lbh-heading-h1 govuk-!-margin-bottom-2"
       >
         Dwelling: 16 Pitcairn House
       </h1>
       <ul
-        class="hackney-property-alerts"
+        class="lbh-list hackney-property-alerts"
       >
         <li
           class="bg-turquoise"
