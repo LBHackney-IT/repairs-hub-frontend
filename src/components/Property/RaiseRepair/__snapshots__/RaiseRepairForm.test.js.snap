@@ -356,6 +356,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             for="callerName"
           >
             Caller name 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
           </label>
           <input
             class="govuk-input lbh-input undefined"
@@ -374,6 +379,11 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             for="contactNumber"
           >
             Contact number 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
           </label>
           <input
             class="govuk-input lbh-input undefined"

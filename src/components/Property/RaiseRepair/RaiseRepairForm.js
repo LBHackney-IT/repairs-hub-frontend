@@ -199,8 +199,9 @@ const RaiseRepairForm = ({
             <TextInput
               name="callerName"
               label="Caller name"
-              required={false}
+              required={true}
               register={register({
+                required: 'Please add caller name',
                 maxLength: {
                   value: 50,
                   message:
@@ -212,12 +213,9 @@ const RaiseRepairForm = ({
             <TextInput
               name="contactNumber"
               label="Contact number"
-              required={false}
+              required={true}
               register={register({
-                pattern: {
-                  value: /^[0-9]*$/,
-                  message: 'Contact number is not valid',
-                },
+                required: 'Please add contact number',
               })}
               error={errors && errors.contactNumber}
             />
