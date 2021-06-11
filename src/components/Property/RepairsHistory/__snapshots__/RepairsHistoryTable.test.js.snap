@@ -422,6 +422,12 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
           class="govuk-table__header"
           scope="col"
         >
+          Reference
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
           Date raised
         </th>
         <th
