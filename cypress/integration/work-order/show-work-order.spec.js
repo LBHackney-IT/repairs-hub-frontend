@@ -2,6 +2,8 @@
 
 import 'cypress-audit/commands'
 
+import MockDate from 'mockdate'
+
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
@@ -9,11 +11,14 @@ describe('Show work order page', () => {
 
     cy.fixture('properties/property.json').as('property')
     cy.fixture('work-orders/notes.json').as('notes')
+
     cy.route('GET', 'api/properties/00012345', '@property')
     cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
 
     cy.fixture('work-orders/work-order.json').as('workOrder')
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+    cy.route('GET', 'api/workOrders/10000012', '@workOrder').as(
+      'workOrderResponse'
+    )
     cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
   })
 
@@ -79,12 +84,36 @@ describe('Show work order page', () => {
       cy.fixture('work-orders/with-appointment.json').as('workOrder')
       cy.route('GET', 'api/workOrders/10000012', '@workOrder')
       cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+
+      cy.wait('@workOrderResponse')
     })
 
     it('Shows the scheduled appointment details', () => {
       cy.get('.appointment-details').within(() => {
         cy.contains('Appointment details')
         cy.contains('19 Mar 2021, 12:00-18:00')
+      })
+    })
+
+    context('And the appointment start time is in the future', () => {
+      beforeEach(() => {
+        MockDate.set(new Date('March 19 2021 11:59:00Z'))
+      })
+
+      it('Does not show the assigned operatives', () => {
+        cy.contains('Operative 1').should('not.exist')
+        cy.contains('Operative 2').should('not.exist')
+      })
+    })
+
+    context('And the appointment start time is in the past', () => {
+      beforeEach(() => {
+        MockDate.set(new Date('March 19 2021 12:01:00Z'))
+      })
+
+      it('Shows the assigned operatives', () => {
+        cy.contains('Operative 1')
+        cy.contains('Operative 2')
       })
     })
   })

@@ -14,6 +14,17 @@ const WorkOrderHeader = ({
   tenure,
   canRaiseRepair,
 }) => {
+  const pastAppointmentStartTime = (date, startTime) => {
+    if (!date || !startTime) {
+      return false
+    }
+
+    const currentTime = new Date().getTime()
+    const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
+
+    return currentTime > appointmentStartTime
+  }
+
   return (
     <div className="lbh-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">
@@ -36,9 +47,25 @@ const WorkOrderHeader = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <AppointmentDetails workOrder={workOrder} />
-        <div className="lbh-body-xs govuk-!-margin-bottom-2">
+        <div className="lbh-body-xs">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
+
+        {workOrder.operatives.length > 1 &&
+          workOrder.appointment &&
+          pastAppointmentStartTime(
+            workOrder.appointment.date,
+            workOrder.appointment.start
+          ) && (
+            <>
+              <p className="lbh-body-xs">Operatives</p>
+              <ul className="lbh-list">
+                {workOrder.operatives.map((operative) => (
+                  <li className="lbh-body-xs">{operative.name}</li>
+                ))}
+              </ul>
+            </>
+          )}
       </div>
     </div>
   )
