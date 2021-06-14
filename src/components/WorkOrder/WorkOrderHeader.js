@@ -3,6 +3,7 @@ import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import TenureAlertDetails from '../Property/TenureAlertDetails'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
+import Operatives from './Operatives'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -56,16 +57,7 @@ const WorkOrderHeader = ({
           pastAppointmentStartTime(
             workOrder.appointment.date,
             workOrder.appointment.start
-          ) && (
-            <>
-              <p className="lbh-body-xs">Operatives</p>
-              <ul className="lbh-list">
-                {workOrder.operatives.map((operative) => (
-                  <li className="lbh-body-xs">{operative.name}</li>
-                ))}
-              </ul>
-            </>
-          )}
+          ) && <Operatives operatives={workOrder.operatives} />}
       </div>
     </div>
   )
