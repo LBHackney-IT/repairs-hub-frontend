@@ -117,6 +117,7 @@ const HeaderComponent = ({ serviceName }) => {
           </strong>
           <span className="govuk-phase-banner__text">
             This is our new website design - it's work in progress.
+            <span> </span>
             <a
               href={`mailto:repairshub.feedback@hackney.gov.uk`}
               title="Tell us what you think"

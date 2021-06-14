@@ -26,15 +26,17 @@
 
 import 'cypress-audit/commands'
 
-const host = Cypress.env('HOST')
-
 Cypress.Commands.add('loginWithAgentRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AGENT')
 
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
   cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
-  cy.visit(host)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/user.json' }
+  )
 })
 
 Cypress.Commands.add('loginWithContractorRole', () => {
@@ -43,7 +45,24 @@ Cypress.Commands.add('loginWithContractorRole', () => {
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
   cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
-  cy.visit(host)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/contractor.json' }
+  )
+})
+
+Cypress.Commands.add('loginWithAgentAndContractorRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_DLO_CONTRACTOR')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/operative.json' }
+  )
 })
 
 Cypress.Commands.add('loginWithMultipleContractorRole', () => {
@@ -52,7 +71,11 @@ Cypress.Commands.add('loginWithMultipleContractorRole', () => {
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
   cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
-  cy.visit(host)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/multiple-contractor.json' }
+  )
 })
 
 Cypress.Commands.add('loginWithContractManagerRole', () => {
@@ -61,7 +84,11 @@ Cypress.Commands.add('loginWithContractManagerRole', () => {
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
   cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
-  cy.visit(host)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/user.json' }
+  )
 })
 
 Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
@@ -70,7 +97,11 @@ Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
   cy.getCookies().should('be.empty')
   cy.setCookie('hackneyToken', gssoTestKey)
   cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
-  cy.visit(host)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hub-user/user.json' }
+  )
 })
 
 Cypress.Commands.add('logout', () => {
@@ -78,5 +109,4 @@ Cypress.Commands.add('logout', () => {
   cy.clearCookie('hackneyToken')
 
   cy.getCookies().should('be.empty')
-  cy.visit(host)
 })

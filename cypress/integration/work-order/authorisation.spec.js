@@ -6,35 +6,44 @@ describe('Authorisation workflow for a work order', () => {
   beforeEach(() => {
     cy.loginWithAuthorisationManagerRole()
 
-    cy.server()
-    // Stub requests
-    cy.fixture('properties/property.json').as('property')
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.fixture('work-orders/status-authorisation-pending-approval.json').as(
-      'workOrder'
-    )
-    cy.fixture('work-orders/task.json').as('task')
-    cy.route('GET', 'api/workOrders/10000012/tasks', '@task').as(
-      'tasks-and-sors-request'
-    )
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-    cy.route({
-      method: 'POST',
-      url: '/api/jobStatusUpdate',
-      response: '',
-    }).as('apiCheck')
-
     cy.fixture('hub-user/user.json').then((user) => {
       user.raiseLimit = 1000
-      cy.intercept('GET', 'api/hub-user', user)
+      cy.intercept({ method: 'GET', path: '/api/hub-user' }, { body: user })
     })
 
-    // Visit work order page
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    // Stub requests
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'work-orders/status-authorisation-pending-approval.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { fixture: 'work-orders/task.json' }
+    ).as('tasks-and-sors-request')
+
+    cy.intercept(
+      { method: 'POST', url: '/api/jobStatusUpdate' },
+      { body: '' }
+    ).as('apiCheck')
   })
 
   context('When logged in as an authorisation manager', () => {
     it('Rejects to authorise work order', () => {
+      // Visit work order page
+      cy.visit('/work-orders/10000012')
+
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
           .should('have.attr', 'href', '/work-orders/10000012/authorisation')
@@ -92,6 +101,9 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('Authorises work order', () => {
+      // Visit work order page
+      cy.visit('/work-orders/10000012')
+
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
           .should('have.attr', 'href', '/work-orders/10000012/authorisation')
@@ -135,10 +147,13 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('No link to authorise works order if status is not authorisation pending approval', () => {
-      cy.fixture('work-orders/work-order.json').as('workOrder')
-      cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/work-order.json' }
+      )
+
       // Visit work order page
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      cy.visit('/work-orders/10000012')
 
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation').should('not.exist')
@@ -146,12 +161,12 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('Can not authorise (approve) works order if over raise spend limit', () => {
-      cy.fixture('work-orders/high-cost-task.json').as('high-cost-task')
-      cy.route('GET', 'api/workOrders/10000012/tasks', '@high-cost-task').as(
-        'tasks-and-sors-request'
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { fixture: 'work-orders/high-cost-task.json' }
       )
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012/authorisation`)
+      cy.visit('/work-orders/10000012/authorisation')
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This job requires your authorisation')
@@ -196,7 +211,7 @@ describe('When an agent tries to authorise using the UI', () => {
   })
 
   it('rejects the request and shows the access-denied page instead', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012/authorisation`)
+    cy.visit('/work-orders/10000012/authorisation')
 
     cy.contains('a', 'Authorise Works Order').should('not.exist')
     cy.contains('Authorisation request: 10000012').should('not.exist')

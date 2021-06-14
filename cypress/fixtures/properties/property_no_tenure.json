@@ -12,7 +12,7 @@
       "subTypeCode": "DWE",
       "subTypeDescription": "Dwelling"
     },
-    "canRaiseRepair": true
+    "canRaiseRepair": false
   },
   "alerts": {
     "locationAlert": [],

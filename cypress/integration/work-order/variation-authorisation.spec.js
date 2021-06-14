@@ -4,39 +4,45 @@ import 'cypress-audit/commands'
 describe('Contract manager can authorise variation', () => {
   beforeEach(() => {
     cy.loginWithContractManagerRole()
-    cy.server()
-    // Stub requests
-    cy.fixture('properties/property.json').as('property')
-    cy.fixture('work-orders/status-variation-pending-approval.json').as(
-      'workOrder'
-    )
-    cy.fixture('work-orders/variation-tasks.json').as('variation-tasks')
-    cy.fixture('work-orders/tasks-and-sors.json').as('tasks-and-sors')
-
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-    cy.route({
-      method: 'POST',
-      url: '/api/jobStatusUpdate',
-      response: '',
-    }).as('apiCheck')
-    cy.route(
-      'GET',
-      'api/workOrders/10000012/variation-tasks',
-      '@variation-tasks'
-    ).as('variation-tasks-request')
-    cy.route('GET', 'api/workOrders/10000012/tasks', '@tasks-and-sors').as(
-      'tasks-and-sors-request'
-    )
 
     cy.fixture('hub-user/user.json').then((user) => {
       user.varyLimit = 20000
       cy.intercept('GET', 'api/hub-user', user)
     })
+
+    // Stub requests
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'work-orders/status-variation-pending-approval.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
+      { fixture: 'work-orders/variation-tasks.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { fixture: 'work-orders/tasks-and-sors.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
+    cy.intercept(
+      { method: 'POST', url: '/api/jobStatusUpdate' },
+      { body: '' }
+    ).as('apiCheck')
   })
 
   it('Rejects job variation', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -79,7 +85,7 @@ describe('Contract manager can authorise variation', () => {
   })
 
   it('Approves job variation', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -116,7 +122,7 @@ describe('Contract manager can authorise variation', () => {
 
   // summary page and calculation
   it('shows summary page and calculation of variation cost', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -204,18 +210,12 @@ describe('Contract manager can authorise variation', () => {
   })
 
   it('Can not authorise (approve) variation if over vary spend limit', () => {
-    cy.fixture('work-orders/high-cost-variation-task.json').as(
-      'high-cost-variation-task'
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
+      { fixture: 'work-orders/high-cost-variation-task.json' }
     )
-    cy.route(
-      'GET',
-      'api/workOrders/10000012/variation-tasks',
-      '@high-cost-variation-task'
-    ).as('variation-tasks-request')
 
-    cy.visit(
-      `${Cypress.env('HOST')}/work-orders/10000012/variation-authorisation`
-    )
+    cy.visit('/work-orders/10000012/variation-authorisation')
 
     cy.contains('Authorisation variation request: 10000012')
 

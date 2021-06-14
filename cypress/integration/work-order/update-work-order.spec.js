@@ -4,75 +4,99 @@ import 'cypress-audit/commands'
 describe('Contractor update a job', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
-    cy.server()
-    cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-    cy.fixture('schedule-of-rates/code.json').as('sorCode')
-    cy.fixture('work-orders/work-order.json')
-      .as('workOrder')
-      .then((workOrder) => {
-        workOrder.reference = 10000040
-      })
-    cy.fixture('work-orders/work-orders.json').as('workOrdersList')
-    // Return first item
-    cy.fixture('work-orders/tasks-and-sors.json')
-      .then((tasksAndSors) => {
-        tasksAndSors.splice(1, 2)
-      })
-      .as('tasksList')
-    cy.fixture('hub-user/user.json').then((user) => {
-      cy.intercept('GET', 'api/hub-user', user)
-    })
 
-    cy.route(
-      'GET',
-      'api/workOrders/?PageSize=10&PageNumber=1',
-      '@workOrdersList'
+    // Viewing the home page
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      {
+        fixture: 'filter/work-order.json',
+      }
     )
-    cy.route('GET', 'api/workOrders/10000040', '@workOrder')
-    cy.route('GET', 'api/workOrders/10000040/tasks', '@tasksList').as(
-      'taskListRequest'
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+      { fixture: 'work-orders/work-orders.json' }
     )
-    cy.route(
-      'GET',
-      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
-      []
-    )
-    cy.route({
-      method: 'GET',
-      url:
-        'api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345?contractorReference=SCC',
-      status: 404,
-      response: '',
-    }).as('sorCodeNotFound')
-    cy.route({
-      method: 'GET',
-      url:
-        'api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345?contractorReference=SCC',
-      status: 404,
-      response: '',
-    }).as('sorCodeNotFound')
-    cy.route(
-      'GET',
-      'api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345?contractorReference=SCC',
-      '@sorCode'
-    ).as('sorCodeRequest')
-    cy.route({
-      method: 'POST',
-      url: '/api/jobStatusUpdate',
-      response: '',
-    }).as('apiCheck')
 
     // Viewing the work order page
-    cy.fixture('properties/property.json').then((property) => {
-      cy.intercept('GET', 'api/properties/00012345', property)
+    cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      workOrder.reference = 10000040
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040' },
+        { body: workOrder }
+      )
     })
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
-      cy.intercept('GET', 'api/workOrders/10000040', workOrders[0])
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
+
+    // Updating the work order
+    cy.fixture('work-orders/tasks-and-sors.json').then((tasksAndSors) => {
+      tasksAndSors.splice(1, 2)
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+        { body: tasksAndSors }
+      ).as('taskListRequest')
     })
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345?contractorReference=SCC',
+      },
+      { fixture: 'schedule-of-rates/code.json' }
+    ).as('sorCodeRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345?contractorReference=SCC',
+      },
+      (req) => {
+        req.reply({
+          statusCode: 404,
+          body: {
+            message: 'Could not find SOR code',
+          },
+        })
+      }
+    ).as('sorCodeNotFound')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345?contractorReference=SCC',
+      },
+      (req) => {
+        req.reply({
+          statusCode: 404,
+          body: {
+            message: 'Could not find SOR code',
+          },
+        })
+      }
+    ).as('sorCodeNotFound')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/jobStatusUpdate' },
+      { body: '' }
+    ).as('apiCheck')
   })
 
   it('throws errors if input values are empty or not valid', () => {
-    cy.visit(`${Cypress.env('HOST')}/`)
+    cy.visit('/')
 
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
@@ -114,8 +138,8 @@ describe('Contractor update a job', () => {
     cy.get('#repair-request-form').within(() => {
       // Enter multiple invalid SOR codes
       cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode').blur()
-      cy.wait('@sorCodeNotFound')
       cy.get('[type="submit"]').contains('Next').click()
+      cy.wait('@sorCodeNotFound')
       cy.get(
         'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
       ).within(() => {
@@ -197,7 +221,8 @@ describe('Contractor update a job', () => {
   })
 
   it('allows the user to update the job by changing the existing quantity', () => {
-    cy.visit(`${Cypress.env('HOST')}/`)
+    cy.visit('/')
+
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
     })
@@ -260,7 +285,8 @@ describe('Contractor update a job', () => {
   })
 
   it('allows to update quantity, edit and add new sor codes', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000040/update`)
+    cy.visit('/work-orders/10000040/update')
+
     cy.wait('@taskListRequest')
 
     cy.get('#repair-request-form').within(() => {
@@ -329,6 +355,7 @@ describe('Contractor update a job', () => {
         .clear()
         .type('fakecode')
         .blur()
+      cy.wait('@sorCodeNotFound')
       cy.get('.sor-code-summary').should('not.exist')
       cy.get('[data-error-id="error-0"]').within(() => {
         cy.contains('Could not find SOR code: FAKECODE')

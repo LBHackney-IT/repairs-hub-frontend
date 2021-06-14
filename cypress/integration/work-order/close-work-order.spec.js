@@ -4,45 +4,49 @@ import 'cypress-audit/commands'
 describe('Contractor closing a job', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
-    cy.server()
-    cy.fixture('work-orders/work-order.json')
-      .as('workOrder')
-      .then((workOrder) => {
-        workOrder.reference = 10000040
-      })
-    cy.fixture('work-orders/work-orders.json').as('workOrdersList')
-    cy.fixture('hub-user/user.json').then((user) => {
-      cy.intercept('GET', 'api/hub-user', user)
-    })
 
-    cy.route(
-      'GET',
-      'api/workOrders/?PageSize=10&PageNumber=1',
-      '@workOrdersList'
-    )
-    cy.route('GET', 'api/workOrders/10000040', '@workOrder')
-    cy.route(
-      'GET',
-      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
-      []
-    )
-    cy.route({
-      method: 'POST',
-      url: '/api/workOrderComplete',
-      response: '',
-    }).as('apiCheck')
+    // Viewing the home page
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      {
+        fixture: 'filter/work-order.json',
+      }
+    ).as('workOrderFilters')
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+      { fixture: 'work-orders/work-orders.json' }
+    ).as('workOrders')
 
     // Viewing the work order page
-    cy.fixture('properties/property.json').then((property) => {
-      cy.intercept('GET', 'api/properties/00012345', property)
+    cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      workOrder.reference = 10000040
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040' },
+        { body: workOrder }
+      )
     })
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
-      cy.intercept('GET', 'api/workOrders/10000040', workOrders[0])
-    })
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
+
+    // Submitting the update
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrderComplete' },
+      { body: '' }
+    ).as('apiCheck')
   })
 
   it('takes you to close page', () => {
-    cy.visit(`${Cypress.env('HOST')}/`)
+    cy.visit('/')
 
     cy.get('.govuk-table__cell').within(() => {
       cy.contains('a', '10000040').click()
@@ -58,7 +62,8 @@ describe('Contractor closing a job', () => {
   })
 
   it('shows errors when submit with no inputs', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000040/close`)
+    cy.visit('/work-orders/10000040/close')
+
     cy.get('form').within(() => {
       cy.get('[type="submit"]').contains('Submit').click()
     })
@@ -71,7 +76,8 @@ describe('Contractor closing a job', () => {
   })
 
   it('submits the form with inputs that are invalid', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000040/close`)
+    cy.visit('/work-orders/10000040/close')
+
     cy.get('form').within(() => {
       cy.get('#date').type('2028-01-15')
       cy.get('#time').within(() => {
@@ -89,7 +95,8 @@ describe('Contractor closing a job', () => {
   })
 
   it('submits the form with valid inputs and allows to edit them from summary page', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000040/close`)
+    cy.visit('/work-orders/10000040/close')
+
     // Enter 5 October 2021 at 14:45
     cy.get('form').within(() => {
       cy.get('[type="radio"]').first().should('have.value', 'Job Completed')
@@ -163,8 +170,11 @@ describe('Contractor closing a job', () => {
         ],
       })
 
-    cy.location('pathname').should('eq', '/')
+    cy.wait(['@workOrderFilters', '@workOrders'])
+
+    cy.location('pathname').should('equal', '/')
     cy.contains('Manage jobs')
+
     // Run lighthouse audit for accessibility report
     cy.audit()
   })
@@ -172,7 +182,7 @@ describe('Contractor closing a job', () => {
   // Closing job becasue of No Access
 
   it('submits the form with closing reason: No Access', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000040/close`)
+    cy.visit('/work-orders/10000040/close')
 
     // Enter 6 November 2020 at 13:01
     cy.get('form').within(() => {
@@ -217,8 +227,9 @@ describe('Contractor closing a job', () => {
         ],
       })
 
-    cy.location('pathname').should('eq', '/')
+    cy.location('pathname').should('equal', '/')
     cy.contains('Manage jobs')
+
     // Run lighthouse audit for accessibility report
     cy.audit()
   })
