@@ -27,38 +27,42 @@ $repairs-hub-colours: (
   outline: 3px solid repairs-hub-colour('housing-3') !important;
 }
 
-.text-green {
-  color: repairs-hub-colour('dark-green');
+.text {
+  &-green {
+    color: repairs-hub-colour('dark-green');
+  }
+
+  &-white {
+    color: repairs-hub-colour('white');
+  }
+
+  &-black {
+    color: repairs-hub-colour('black');
+  }
+
+  &-warning {
+    color: repairs-hub-colour('warning');
+  }
+
+  &-danger {
+    color: repairs-hub-colour('danger');
+  }
+
+  &-\!-green {
+    color: repairs-hub-colour('housing-2') !important;
+  }
+
+  &-\!-white {
+    color: repairs-hub-colour('white') !important;
+  }
 }
 
-.text-white {
-  color: repairs-hub-colour('white');
-}
+.background {
+  &-yellow {
+    background: repairs-hub-colour('yellow');
+  }
 
-.text-black {
-  color: repairs-hub-colour('black');
-}
-
-.text-warning {
-  color: repairs-hub-colour('warning');
-}
-
-.text-danger {
-  color: repairs-hub-colour('danger');
-}
-
-.text-\!-green {
-  color: repairs-hub-colour('housing-2') !important;
-}
-
-.text-\!-white {
-  color: repairs-hub-colour('white') !important;
-}
-
-.background-yellow {
-  background: repairs-hub-colour('yellow');
-}
-
-.background-dark-green {
-  background: repairs-hub-colour('dark-green');
+  &-dark-green {
+    background: repairs-hub-colour('dark-green');
+  }
 }

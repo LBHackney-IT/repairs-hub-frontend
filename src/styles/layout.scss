@@ -7,12 +7,14 @@
     position: relative;
   }
 }
+
 .position-absolute {
   position: absolute;
   &.right-negative-3 {
     right: -3%;
   }
 }
+
 .display-inline {
   display: inline;
 }
@@ -28,9 +30,12 @@
   min-height: 120px;
 }
 
-.border-top-black {
-  border-top: 2px solid black;
-}
-.border-bottom-grey {
-  border-bottom: 2px solid lbh-colour('lbh-border');
+.border {
+  &-top-black {
+    border-top: 2px solid black;
+  }
+
+  &-bottom-grey {
+    border-bottom: 2px solid lbh-colour('lbh-border');
+  }
 }

@@ -6,17 +6,19 @@
   li {
     margin-bottom: 5px;
     padding: 4px 8px;
-  }
 
-  li:last-child {
-    margin-bottom: 0;
-  }
+    &.bg {
+      &-orange {
+        background: repairs-hub-colour('warning');
+      }
 
-  li.bg-orange {
-    background: repairs-hub-colour('warning');
-  }
+      &-turquoise {
+        background: repairs-hub-colour('housing-2');
+      }
+    }
 
-  li.bg-turquoise {
-    background: repairs-hub-colour('housing-2');
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
