@@ -221,7 +221,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
               </div>
             </div>
             <a
-              class="repairs-hub-link lbh-body-s"
+              class="lbh-link"
               href="#"
             >
               + Add another SOR code

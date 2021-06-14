@@ -333,7 +333,7 @@ describe('Contractor update a job', () => {
       cy.get('input[id="quantity-0"]').clear().type('3')
     })
     cy.get('#repair-request-form').within(() => {
-      cy.get('.repairs-hub-link').click()
+      cy.get('.lbh-link').click()
       // Enter in full SOR Code and blur text input
       cy.get('input[id="rateScheduleItems[0][code]"]').type('PLP5R082').blur()
       cy.wait('@sorCodeRequest')
