@@ -14,7 +14,7 @@
 
 .hackney-tabs-list > li {
   a {
-    background-color: repairs-hub-colour('light-grey') !important;
+    background-color: repairs-hub-colour('grey') !important;
     color: repairs-hub-colour('white') !important;
     text-decoration: none;
 
@@ -35,7 +35,7 @@
 
 .hackney-tabs-list {
   .govuk-tabs__list-item {
-    background-color: repairs-hub-colour('light-grey') !important;
+    background-color: repairs-hub-colour('grey') !important;
   }
   .govuk-tabs__list-item--selected {
     background-color: repairs-hub-colour('white') !important;
