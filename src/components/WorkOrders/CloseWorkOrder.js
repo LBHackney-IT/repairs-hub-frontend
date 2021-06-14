@@ -16,6 +16,7 @@ const CloseWorkOrder = ({ reference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
+  const [reason, setReason] = useState('')
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -39,7 +40,8 @@ const CloseWorkOrder = ({ reference }) => {
     const CloseWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
       notes,
-      reference
+      reference,
+      reason
     )
 
     makePostRequest(CloseWorkOrderFormData)
@@ -53,6 +55,7 @@ const CloseWorkOrder = ({ reference }) => {
     const properDate = convertToDateFormat(e)
     setCompletionDate(properDate)
 
+    setReason(e.reason)
     setNotes(e.notes)
     setDateToShow(e.date)
     changeCurrentPage()
@@ -72,6 +75,7 @@ const CloseWorkOrder = ({ reference }) => {
               notes={notes}
               time={completionTime}
               date={completionDate}
+              reason={reason}
             />
           )}
           {!CloseWorkOrderFormPage && (
@@ -80,6 +84,7 @@ const CloseWorkOrder = ({ reference }) => {
               notes={notes}
               time={completionTime}
               date={dateToShow}
+              reason={reason}
               changeStep={changeCurrentPage}
               reference={reference}
             />

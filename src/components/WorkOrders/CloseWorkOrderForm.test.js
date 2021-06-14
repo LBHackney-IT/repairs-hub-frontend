@@ -8,6 +8,7 @@ describe('CloseWorkOrderForm component', () => {
     notes: 'this is a note',
     time: '14:30',
     date: new Date('2021-01-12T16:24:26.632Z'),
+    reason: 'No Access',
   }
 
   it('should render properly', () => {
@@ -18,6 +19,7 @@ describe('CloseWorkOrderForm component', () => {
         notes={props.notes}
         time={props.time}
         date={props.date}
+        reason={props.reason}
       />
     )
     expect(asFragment()).toMatchSnapshot()

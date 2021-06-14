@@ -7,6 +7,7 @@ describe('SummaryCloseWorkOrder component', () => {
     notes: 'this is a note',
     time: '14:30',
     date: '2021-02-03T11:33:35.757339',
+    reason: 'No Access',
     onJobSubmit: jest.fn(),
     changeStep: jest.fn(),
   }
@@ -18,6 +19,7 @@ describe('SummaryCloseWorkOrder component', () => {
         notes={props.notes}
         time={props.time}
         date={props.date}
+        reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
       />

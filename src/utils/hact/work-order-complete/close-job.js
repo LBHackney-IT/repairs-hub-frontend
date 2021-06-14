@@ -1,4 +1,9 @@
-export const buildCloseWorkOrderData = (completionDate, notes, reference) => {
+export const buildCloseWorkOrderData = (
+  completionDate,
+  notes,
+  reference,
+  reason
+) => {
   return {
     workOrderReference: {
       id: reference,
@@ -7,7 +12,7 @@ export const buildCloseWorkOrderData = (completionDate, notes, reference) => {
     },
     jobStatusUpdates: [
       {
-        typeCode: 0,
+        typeCode: reason == 'No Access' ? '70' : '0',
         otherType: 'complete',
         comments: `Work order closed - ${notes}`,
         eventTime: completionDate,

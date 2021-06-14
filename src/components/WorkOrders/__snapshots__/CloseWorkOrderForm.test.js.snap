@@ -12,11 +12,61 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
     <h1
       class="lbh-heading-h1"
     >
-      Update work order: 10000012
+      Close work order: 10000012
     </h1>
     <form
       role="form"
     >
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label govuk-label--m"
+          for="reason"
+        >
+          Select reason for closing 
+        </label>
+        <br />
+        <div
+          class="govuk-radios lbh-radios"
+        >
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              id="reason_Job Completed"
+              name="reason"
+              type="radio"
+              value="Job Completed"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_Job Completed"
+            >
+              Job Completed
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              checked=""
+              class="govuk-radios__input"
+              id="reason_No Access"
+              name="reason"
+              type="radio"
+              value="No Access"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_No Access"
+            >
+              No Access
+            </label>
+          </div>
+        </div>
+      </div>
       <div
         class="govuk-form-group"
       >
