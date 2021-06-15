@@ -25,6 +25,7 @@ describe('WorkOrderDetails component', () => {
       target: '2021-01-23T18:30:00.00000',
       callerName: 'Jill Smith',
       callerNumber: '07700 900999',
+      operatives: [],
     },
     property: {
       propertyReference: '00012345',
