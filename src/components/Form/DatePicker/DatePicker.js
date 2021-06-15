@@ -14,7 +14,7 @@ const DatePicker = ({
 }) => {
   return (
     <div
-      className={cx('govuk-form-group', {
+      className={cx('govuk-form-group lbh-form-group', {
         'govuk-form-group--error': error,
       })}
     >
