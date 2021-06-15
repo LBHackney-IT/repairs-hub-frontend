@@ -47,7 +47,7 @@ exports[`PropertyDetails component should render properly 1`] = `
             </span>
             <br />
             <div
-              class="lbh-!-font-weight-bold text-!-green"
+              class="lbh-!-font-weight-bold"
             >
               16 Pitcairn House
               <br />

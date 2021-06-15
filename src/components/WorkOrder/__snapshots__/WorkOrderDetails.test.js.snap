@@ -282,7 +282,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -721,7 +721,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -1044,7 +1044,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -1441,7 +1441,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -1810,7 +1810,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -2186,7 +2186,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -2583,7 +2583,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
@@ -2857,7 +2857,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           href="/properties/00012345"
         >
           <div
-            class="lbh-!-font-weight-bold text-!-green"
+            class="lbh-!-font-weight-bold"
           >
             16 Pitcairn House
             <br />
