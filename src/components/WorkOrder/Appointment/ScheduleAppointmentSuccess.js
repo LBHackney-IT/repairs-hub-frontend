@@ -11,7 +11,7 @@ const ScheduleAppointmentSuccess = ({
   return (
     <div>
       <div className="govuk-panel govuk-panel--confirmation background-dark-green">
-        <h1 className="lbh-heading-xl text-white">Repair work order created</h1>
+        <h1 className="lbh-heading-h1 text-white">Repair work order created</h1>
         <div className="govuk-panel__body">
           <p className="govuk-!-margin-top-3">Work order number</p>
           <strong className="govuk-!-font-size-41">{workOrderReference}</strong>
@@ -25,10 +25,10 @@ const ScheduleAppointmentSuccess = ({
         </div>
       </div>
 
-      <ul className="govuk-list govuk-!-margin-top-9">
+      <ul className="lbh-list govuk-!-margin-top-9">
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>View work order</strong>
             </a>
           </Link>
@@ -36,7 +36,7 @@ const ScheduleAppointmentSuccess = ({
 
         <li>
           <Link href={`/properties/${property.propertyReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>Back to {property.address.addressLine}</strong>
             </a>
           </Link>
@@ -44,7 +44,7 @@ const ScheduleAppointmentSuccess = ({
 
         <li>
           <Link href={`/`}>
-            <a>
+            <a className="lbh-link">
               <strong>Start a new search</strong>
             </a>
           </Link>

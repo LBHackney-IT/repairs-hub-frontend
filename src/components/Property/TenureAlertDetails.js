@@ -17,7 +17,7 @@ const TenureAlertDetails = ({
     tmoName
   ) {
     return (
-      <ul className="hackney-property-alerts">
+      <ul className="lbh-list hackney-property-alerts">
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
         <Alerts alerts={locationAlerts} alertType="Address" />
         <TmoName tmoName={tmoName} />

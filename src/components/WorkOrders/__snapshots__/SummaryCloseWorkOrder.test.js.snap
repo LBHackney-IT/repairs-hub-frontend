@@ -4,20 +4,20 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <h1
-      class="lbh-heading-l"
+      class="lbh-heading-h1"
     >
-      Update work order: 10000012
+      Close work order: 10000012
     </h1>
     <form
       role="form"
     >
-      <p
+      <h4
         class="lbh-heading-h4"
       >
         Summary of updates to work order
-      </p>
+      </h4>
       <table
-        class="govuk-table"
+        class="govuk-table lbh-table"
       >
         <tbody
           class="govuk-table__body"
@@ -40,6 +40,32 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              Reason
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              No Access
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="lbh-link"
                 href="#"
               >
                 Edit
@@ -64,6 +90,7 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__cell"
             >
               <a
+                class="lbh-link"
                 href="#"
               >
                 Edit

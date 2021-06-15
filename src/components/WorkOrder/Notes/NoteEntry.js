@@ -13,7 +13,7 @@ const NoteInfo = ({ time, user, email }) => {
 const NoteEntry = ({ note, time, user, userEmail }) => {
   return (
     <>
-      <div className="note-info govuk-body-s">
+      <div className="note-info lbh-body-s">
         <NoteInfo time={time} user={user} email={userEmail} />
       </div>
       {note}

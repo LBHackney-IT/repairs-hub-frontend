@@ -13,7 +13,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
     Original SORs
   </h4>
   <table
-    class="govuk-table lbh-table original-sor-summary"
+    class="govuk-table lbh-table lbh-table original-sor-summary"
   >
     <thead
       class="govuk-table__head"
@@ -46,7 +46,6 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
     >
       <tr
         class="govuk-table__row"
-        index="0"
       >
         <td
           class="govuk-table__cell"
@@ -73,12 +72,12 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
   </h4>
   <br />
   <p
-    class="govuk-body"
+    class="lbh-body"
   >
     Updated by: John Johnson (Alphatrack) 
   </p>
   <p
-    class="govuk-body"
+    class="lbh-body"
   >
     Tuesday, 11 May 2021 
   </p>
@@ -92,7 +91,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
     </span>
   </div>
   <table
-    class="govuk-table lbh-table updated-tasks-table"
+    class="govuk-table lbh-table lbh-table updated-tasks-table"
   >
     <thead
       class="govuk-table__head"
@@ -149,7 +148,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
     >
       <tr
         class="govuk-table__row"
-        index="0"
+        data-row-id="0"
       >
         <td
           class="govuk-table__cell"
@@ -196,7 +195,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
       </tr>
       <tr
         class="govuk-table__row"
-        index="1"
+        data-row-id="1"
       >
         <td
           class="govuk-table__cell"
@@ -246,29 +245,34 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         id="cost-before-variation"
       >
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <td
-          class="govuk-!-padding-top-3"
+          class="govuk-table__cell govuk-!-padding-top-3"
         >
           <strong>
             Cost before variation
           </strong>
         </td>
         <td
-          class="govuk-!-padding-top-3 govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-!-padding-top-3 govuk-table__cell--numeric"
         >
           £194.00
         </td>
@@ -278,29 +282,34 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         id="change-in-cost"
       >
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <td
-          class="govuk-!-padding-top-3 border-top-black"
+          class="govuk-table__cell govuk-!-padding-top-3 border-top-black"
         >
           <strong>
             Change in cost
           </strong>
         </td>
         <td
-          class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
+          class="govuk-table__cell govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
         >
           £15844.00
         </td>
@@ -310,29 +319,34 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         id="total-cost-after-variation"
       >
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <th
+          class="govuk-table__header"
           scope="row"
         />
         <td
-          class="govuk-!-padding-top-3 border-top-black"
+          class="govuk-table__cell govuk-!-padding-top-3 border-top-black"
         >
           <strong>
             Total cost after variation
           </strong>
         </td>
         <td
-          class="govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
+          class="govuk-table__cell govuk-!-padding-top-3 govuk-table__cell--numeric border-top-black"
         >
           £16038.00
         </td>

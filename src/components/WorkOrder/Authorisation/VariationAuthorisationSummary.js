@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
-import cx from 'classnames'
 import {
   calculateCostBeforeVariation,
   calculateChangeInCost,
 } from '../../../utils/helpers/calculations'
 import { longDateToStr } from '../../../utils/date'
+import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 
 const VariationAuthorisationSummary = ({
   variationTasks,
@@ -49,32 +49,38 @@ const VariationAuthorisationSummary = ({
   const showCostBreakdown = () => {
     return [costBeforeVariation, changeInCost, totalVaried].map(
       (object, index) => (
-        <tr
+        <TR
           key={index}
-          className="govuk-table__row"
           id={object.description.toLowerCase().replace(/\s/g, '-')}
         >
-          <th scope="row">{}</th>
-          <th scope="row">{}</th>
-          <th scope="row">{}</th>
-          <th scope="row">{}</th>
-          <th scope="row">{}</th>
+          <TH scope="row">{}</TH>
+          <TH scope="row">{}</TH>
+          <TH scope="row">{}</TH>
+          <TH scope="row">{}</TH>
+          <TH scope="row">{}</TH>
 
-          <td
-            className={cx('govuk-!-padding-top-3', {
-              'border-top-black': object.description !== COST_BEFORE_VARIATION,
-            })}
+          <TD
+            padding="top-3"
+            border={
+              object.description !== COST_BEFORE_VARIATION
+                ? 'top-black'
+                : undefined
+            }
           >
             <strong>{object.description}</strong>
-          </td>
-          <td
-            className={cx('govuk-!-padding-top-3 govuk-table__cell--numeric', {
-              'border-top-black': object.description !== COST_BEFORE_VARIATION,
-            })}
+          </TD>
+          <TD
+            padding="top-3"
+            border={
+              object.description !== COST_BEFORE_VARIATION
+                ? 'top-black'
+                : undefined
+            }
+            type="numeric"
           >
             £{object.cost ? object.cost.toFixed(2) : '-'}
-          </td>
-        </tr>
+          </TD>
+        </TR>
       )
     )
   }
@@ -83,99 +89,67 @@ const VariationAuthorisationSummary = ({
     <>
       <h2 className="lbh-heading-h2">Summary of Tasks and SORs</h2>
       <h4 className="lbh-heading-h4">Original SORs</h4>
-      <table className="govuk-table lbh-table original-sor-summary">
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row">
-            <th scope="col" className="govuk-table__header">
-              SOR code
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+      <Table className="lbh-table original-sor-summary">
+        <THead>
+          <TR>
+            <TH scope="col">SOR code</TH>
+            <TH scope="col" type="numeric">
               Quantity
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+            </TH>
+            <TH scope="col" type="numeric">
               Cost
-            </th>
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
+            </TH>
+          </TR>
+        </THead>
+        <TBody>
           {originalSors.map((task, index) => (
-            <tr index={index} key={index} className="govuk-table__row">
-              <td className="govuk-table__cell">
+            <TR key={index}>
+              <TD>
                 {task.code} - {task.description}
-              </td>
-              <td className="govuk-table__cell govuk-table__cell--numeric">
-                {task.originalQuantity}
-              </td>
-              <td className="govuk-table__cell govuk-table__cell--numeric">
-                £{task.cost}
-              </td>
-            </tr>
+              </TD>
+              <TD type="numeric">{task.originalQuantity}</TD>
+              <TD type="numeric">£{task.cost}</TD>
+            </TR>
           ))}
-        </tbody>
-      </table>
+        </TBody>
+      </Table>
 
       <h4 className="lbh-heading-h4">Updated Tasks SORs</h4>
       <br></br>
-      <p className="govuk-body">Updated by: {variationTasks.authorName} </p>
-      <p className="govuk-body">
-        {longDateToStr(variationTasks.variationDate)}{' '}
-      </p>
+      <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
+      <p className="lbh-body">{longDateToStr(variationTasks.variationDate)} </p>
       <div className="lbh-stat">
         <span className="lbh-stat__caption">{variationTasks.notes}</span>
       </div>
 
-      <table className="govuk-table lbh-table updated-tasks-table">
-        <thead className="govuk-table__head">
-          <tr className="govuk-table__row">
-            <th scope="col" className="govuk-table__header">
-              SOR Status
-            </th>
-            <th scope="col" className="govuk-table__header">
-              SOR code
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+      <Table className="lbh-table updated-tasks-table">
+        <THead>
+          <TR>
+            <TH scope="col">SOR Status</TH>
+            <TH scope="col">SOR code</TH>
+            <TH scope="col" type="numeric">
               Unit Cost
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+            </TH>
+            <TH scope="col" type="numeric">
               Quantity
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+            </TH>
+            <TH scope="col" type="numeric">
               Cost
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+            </TH>
+            <TH scope="col" type="numeric">
               Varied quantity
-            </th>
-            <th
-              scope="col"
-              className="govuk-table__header govuk-table__header--numeric"
-            >
+            </TH>
+            <TH scope="col" type="numeric">
               Varied Cost
-            </th>
-          </tr>
-        </thead>
-        <tbody className="govuk-table__body">
+            </TH>
+          </TR>
+        </THead>
+
+        <TBody>
           {variationTasks.tasks
             ? variationTasks.tasks.map((task, index) => (
-                <tr index={index} key={index} className="govuk-table__row">
-                  <td className="govuk-table__cell">
+                <TR index={index} key={index}>
+                  <TD>
                     <span
                       className={`status status-${sorStatus(task)
                         .replace(/\s+/g, '-')
@@ -183,32 +157,24 @@ const VariationAuthorisationSummary = ({
                     >
                       {sorStatus(task)}
                     </span>
-                  </td>
-                  <td className="govuk-table__cell">
+                  </TD>
+                  <TD>
                     {task.code}
                     <p>{task.description}</p>
-                  </td>
-                  <td className="govuk-table__cell govuk-table__cell--numeric">
-                    £{getCost(task)}
-                  </td>
-                  <td className="govuk-table__cell govuk-table__cell--numeric">
-                    {task.currentQuantity}
-                  </td>
-                  <td className="govuk-table__cell govuk-table__cell--numeric">
+                  </TD>
+                  <TD type="numeric">£{getCost(task)}</TD>
+                  <TD type="numeric">{task.currentQuantity}</TD>
+                  <TD type="numeric">
                     £{getCost(task) * task.currentQuantity}
-                  </td>
-                  <td className="govuk-table__cell govuk-table__cell--numeric">
-                    {task.variedQuantity}
-                  </td>
-                  <td className="govuk-table__cell govuk-table__cell--numeric">
-                    £{getCost(task) * task.variedQuantity}
-                  </td>
-                </tr>
+                  </TD>
+                  <TD type="numeric">{task.variedQuantity}</TD>
+                  <TD type="numeric">£{getCost(task) * task.variedQuantity}</TD>
+                </TR>
               ))
             : ''}
           {variationTasks.tasks ? showCostBreakdown() : ''}
-        </tbody>
-      </table>
+        </TBody>
+      </Table>
     </>
   )
 }

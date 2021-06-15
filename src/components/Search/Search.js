@@ -84,21 +84,19 @@ const Search = ({ query }) => {
   return (
     <div>
       <section className="section">
-        <h1 className="lbh-heading-h2">{searchHeadingText}</h1>
+        <h1 className="lbh-heading-h1">{searchHeadingText}</h1>
 
         <div className="govuk-form-group lbh-form-group">
           <form>
-            <label className="govuk-label lbh-label">
-              <p className="govuk-body-s govuk-!-margin-bottom-0">
-                {searchLabelText}
-              </p>
-              <input
-                type="text"
-                className="govuk-input lbh-input govuk-input--width-10 focus-colour"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-              />
-            </label>
+            <label className="govuk-label lbh-label">{searchLabelText}</label>
+            <input
+              className="govuk-input lbh-input govuk-input--width-10 focus-colour"
+              id="input-search"
+              name="search-name"
+              type="text"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+            />
             <PrimarySubmitButton label="Search" onClick={handleSubmit} />
           </form>
         </div>

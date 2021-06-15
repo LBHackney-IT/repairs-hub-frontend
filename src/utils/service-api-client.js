@@ -93,7 +93,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
         errorResponse?.status === HttpStatus.NOT_FOUND
           ? res
               .status(HttpStatus.NOT_FOUND)
-              .json({ message: `Resource not found` })
+              .json({ message: errorResponse?.data || 'Resource not found' })
           : // Return the actual error status and message from the service API
             res
               .status(errorResponse?.status)

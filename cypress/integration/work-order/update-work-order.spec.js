@@ -249,7 +249,7 @@ describe('Contractor update a job', () => {
     })
 
     // Actions to see relevant pages
-    cy.get('.govuk-list li').within(() => {
+    cy.get('.lbh-list li').within(() => {
       cy.contains('View work order').should(
         'have.attr',
         'href',
@@ -446,7 +446,7 @@ describe('Contractor update a job', () => {
     })
 
     // Actions to see relevant pages
-    cy.get('.govuk-list li').within(() => {
+    cy.get('.lbh-list li').within(() => {
       cy.contains('View work order').should(
         'have.attr',
         'href',

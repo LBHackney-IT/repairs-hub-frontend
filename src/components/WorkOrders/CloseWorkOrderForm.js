@@ -6,6 +6,7 @@ import DatePicker from '../Form/DatePicker/DatePicker'
 import isPast from 'date-fns/isPast'
 import TimeInput from '../Form/TimeInput/TimeInput'
 import TextArea from '../Form/TextArea/TextArea'
+import Radios from '../Form/Radios/Radios'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -13,14 +14,30 @@ const CloseWorkOrderForm = ({
   notes,
   time,
   date,
+  reason,
 }) => {
   const { handleSubmit, register, control, errors } = useForm({})
 
   return (
     <div>
       <BackButton />
-      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-h1">Close work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onGetToSummary)}>
+        <Radios
+          label="Select reason for closing"
+          name="reason"
+          options={['Job Completed', 'No Access'].map((r) => {
+            return {
+              text: r,
+              value: r,
+              defaultChecked: r == reason,
+            }
+          })}
+          register={register({
+            required: 'Please select a reason for closing the job',
+          })}
+          error={errors && errors.reason}
+        />
         <DatePicker
           name="date"
           label="Select completion date"
@@ -62,6 +79,7 @@ CloseWorkOrderForm.propTypes = {
   notes: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date),
+  reason: PropTypes.string,
 }
 
 export default CloseWorkOrderForm

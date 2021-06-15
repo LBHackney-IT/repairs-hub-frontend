@@ -75,7 +75,7 @@ describe('/api/[...path]', () => {
 
         axios.mockImplementationOnce(() =>
           Promise.reject({
-            response: { status: HttpStatus.NOT_FOUND },
+            response: { status: HttpStatus.NOT_FOUND, data: 'error message' },
           })
         )
 
@@ -93,7 +93,7 @@ describe('/api/[...path]', () => {
 
         expect(res._getStatusCode()).toBe(HttpStatus.NOT_FOUND)
         expect(JSON.parse(res._getData())).toEqual({
-          message: 'Resource not found',
+          message: 'error message',
         })
       })
 

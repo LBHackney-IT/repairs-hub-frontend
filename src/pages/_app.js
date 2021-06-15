@@ -12,6 +12,12 @@ import {
 
 import UserContext from '../components/UserContext/UserContext'
 
+if (typeof window !== 'undefined') {
+  document.body.className = document.body.className
+    ? document.body.className + ' js-enabled'
+    : 'js-enabled'
+}
+
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props
@@ -23,7 +29,14 @@ class MyApp extends App {
         <UserContext.Provider value={{ user: this.props.userDetails }}>
           <Layout>
             <Head>
+              <meta charSet="utf-8" />
               <title>Hackney Repairs Hub</title>
+              <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1, viewport-fit=cover"
+              />
+              <meta name="theme-color" content="#0b0c0c" />
+              <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
             </Head>
             <ComponentToRender
               {...pageProps}

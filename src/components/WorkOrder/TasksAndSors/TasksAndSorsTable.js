@@ -11,13 +11,17 @@ const TasksAndSorsTable = ({
     return (
       <>
         <THead>
-          <TR className="govuk-body">
+          <TR className="lbh-body">
             <TH scope="col">SOR</TH>
             <TH scope="col">Description</TH>
             <TH scope="col">Date added</TH>
             <TH scope="col">Quantity (est.)</TH>
-            <TH scope="col">Unit cost</TH>
-            <TH scope="col">Cost (est.)</TH>
+            <TH scope="col" type="numeric">
+              Unit cost
+            </TH>
+            <TH scope="col" type="numeric">
+              Cost (est.)
+            </TH>
           </TR>
         </THead>
         <TBody>
@@ -38,14 +42,14 @@ const TasksAndSorsTable = ({
 
   return (
     <>
-      <h2 className="lbh-heading-l">{tabName}</h2>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <p className="lbh-heading-h4">Latest Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Latest Tasks and SORs</h4>
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
       </Table>
 
-      <p className="lbh-heading-h4">Original Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Original Tasks and SORs</h4>
       <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
         {buildTable(originalTasksAndSors, true)}
       </Table>

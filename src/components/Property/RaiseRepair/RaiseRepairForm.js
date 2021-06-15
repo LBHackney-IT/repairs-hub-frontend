@@ -104,12 +104,12 @@ const RaiseRepairForm = ({
       <BackButton />
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
-          <span className="govuk-caption-l">New repair</span>
-          <h1 className="lbh-heading-l govuk-!-margin-bottom-2">
+          <span className="govuk-caption-l lbh-caption">New repair</span>
+          <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
-          <div className="govuk-body-s">
+          <div className="lbh-body-s">
             <TenureAlertDetails
               canRaiseRepair={canRaiseRepair}
               tenure={tenure}

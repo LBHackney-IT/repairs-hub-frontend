@@ -26,10 +26,10 @@ const UpdateWorkOrderSuccess = ({
         </div>
       </div>
 
-      <ul className="govuk-list govuk-!-margin-top-9">
+      <ul className="lbh-list govuk-!-margin-top-9">
         <li>
           <Link href={`/work-orders/${workOrderReference}`}>
-            <a>
+            <a className="lbh-link">
               <strong>View work order</strong>
             </a>
           </Link>
@@ -37,7 +37,7 @@ const UpdateWorkOrderSuccess = ({
 
         <li>
           <Link href="/">
-            <a>
+            <a className="lbh-link">
               <strong>View jobs dashboard</strong>
             </a>
           </Link>

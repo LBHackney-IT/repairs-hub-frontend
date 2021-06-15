@@ -50,7 +50,7 @@ describe('Raise repair form', () => {
 
     // Property address details with tenure and alerts information
     cy.get('.govuk-caption-l').contains('New repair')
-    cy.get('.lbh-heading-l').contains('Dwelling: 16 Pitcairn House')
+    cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
     cy.checkForTenureAlertDetails(
       'Tenure: Secure',

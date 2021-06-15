@@ -3,7 +3,7 @@
 exports[`RepairTasks component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-grid-row govuk-body-s"
+    class="govuk-grid-row lbh-body-s"
   >
     <div
       class="govuk-grid-column-full"
@@ -14,13 +14,13 @@ exports[`RepairTasks component should render properly 1`] = `
         Repair task details
       </h2>
       <table
-        class="govuk-table govuk-!-margin-top-1 govuk-!-margin-bottom-3"
+        class="govuk-table lbh-table govuk-!-margin-top-1 govuk-!-margin-bottom-3"
       >
         <thead
           class="govuk-table__head"
         >
           <tr
-            class="govuk-table__row govuk-body"
+            class="govuk-table__row lbh-body"
           >
             <th
               class="govuk-table__header govuk-!-width-one-quarter"

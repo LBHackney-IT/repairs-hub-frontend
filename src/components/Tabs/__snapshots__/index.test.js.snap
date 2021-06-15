@@ -40,7 +40,7 @@ exports[`Tabs component should render properly 1`] = `
       id="repairs-history-tab"
     >
       <h2
-        class="lbh-heading-l"
+        class="lbh-heading-h2"
       >
         Repairs history
       </h2>
@@ -48,11 +48,11 @@ exports[`Tabs component should render properly 1`] = `
         <hr
           class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
         />
-        <p
+        <h4
           class="lbh-heading-h4"
         >
           There are no historical repairs
-        </p>
+        </h4>
       </div>
     </div>
     <div

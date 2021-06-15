@@ -10,13 +10,13 @@ const tasksAndSorsRow = ({
   cost,
   index,
 }) => (
-  <TR index={index} className="govuk-body-s">
+  <TR index={index} className="lbh-body-s">
     <TD>{code}</TD>
     <TD>{description}</TD>
     <TD>{dateAdded ? formatDateTime(dateAdded) : '—'}</TD>
     <TD>{taskQuantity}</TD>
-    <TD>£{cost}</TD>
-    <TD>£{parseFloat(cost * taskQuantity).toFixed(2)}</TD>
+    <TD type="numeric">£{cost}</TD>
+    <TD type="numeric">£{parseFloat(cost * taskQuantity).toFixed(2)}</TD>
   </TR>
 )
 

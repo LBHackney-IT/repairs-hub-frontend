@@ -4,7 +4,7 @@ exports[`WorkOrderInfoTable component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <table
-      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+      class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
     >
       <tbody
         class="govuk-table__body"

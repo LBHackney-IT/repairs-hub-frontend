@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../Form'
+import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 
 const SummaryCloseWorkOrder = ({
   reference,
@@ -9,42 +10,48 @@ const SummaryCloseWorkOrder = ({
   time,
   date,
   changeStep,
+  reason,
 }) => {
   const { handleSubmit } = useForm({})
 
   return (
     <div>
-      <h1 className="lbh-heading-l">Update work order: {reference}</h1>
+      <h1 className="lbh-heading-h1">Close work order: {reference}</h1>
       <form role="form" onSubmit={handleSubmit(onJobSubmit)}>
-        <p className="lbh-heading-h4">Summary of updates to work order</p>
-        <table className="govuk-table">
-          <tbody className="govuk-table__body">
-            <tr className="govuk-table__row">
-              <th scope="row" className="govuk-table__header">
-                Completion time
-              </th>
-              <td className="govuk-table__cell">
+        <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
+        <Table>
+          <TBody>
+            <TR>
+              <TH scope="row">Completion time</TH>
+              <TD>
                 {date.split('-').join('/')} {time}
-              </td>
-              <td className="govuk-table__cell">
-                <a onClick={changeStep} href="#">
+              </TD>
+              <TD>
+                <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
-              </td>
-            </tr>
-            <tr className="govuk-table__row">
-              <th scope="row" className="govuk-table__header">
-                Notes
-              </th>
-              <td className="govuk-table__cell">{notes}</td>
-              <td className="govuk-table__cell">
-                <a onClick={changeStep} href="#">
+              </TD>
+            </TR>
+            <TR>
+              <TH scope="row">Reason</TH>
+              <TD>{reason}</TD>
+              <TD>
+                <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+              </TD>
+            </TR>
+            <TR>
+              <TH scope="row">Notes</TH>
+              <TD>{notes}</TD>
+              <TD>
+                <a className="lbh-link" onClick={changeStep} href="#">
+                  Edit
+                </a>
+              </TD>
+            </TR>
+          </TBody>
+        </Table>
         <PrimarySubmitButton label="Confirm and close" />
       </form>
     </div>
@@ -58,6 +65,7 @@ SummaryCloseWorkOrder.propTypes = {
   time: PropTypes.string,
   date: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
+  reason: PropTypes.string.isRequired,
 }
 
 export default SummaryCloseWorkOrder

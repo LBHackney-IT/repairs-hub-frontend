@@ -21,7 +21,7 @@ const NotesForm = ({
   return (
     <>
       <div className="govuk-!-margin-bottom-6">
-        <h2 className="lbh-heading-l display-inline govuk-!-margin-right-6">
+        <h2 className="lbh-heading-h2 display-inline govuk-!-margin-right-6">
           {tabName}
         </h2>
         {!displayForm && (
@@ -29,7 +29,7 @@ const NotesForm = ({
             <a
               onClick={showForm}
               href="#"
-              className="repairs-hub-link govuk-body-s"
+              className="repairs-hub-link lbh-body-s"
             >
               Add a new note
             </a>

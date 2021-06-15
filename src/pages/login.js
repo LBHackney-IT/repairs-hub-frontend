@@ -4,7 +4,12 @@ import { getProtocol } from '../utils/urls'
 import UserLogin from '../components/UserLogin/UserLogin'
 
 const LoginPage = ({ gssoUrl, returnUrl }) => {
-  return <UserLogin submitText="Login" gssoUrl={`${gssoUrl}${returnUrl}`} />
+  return (
+    <UserLogin
+      submitText="Sign in with Google"
+      gssoUrl={`${gssoUrl}${returnUrl}`}
+    />
+  )
 }
 
 LoginPage.propTypes = {

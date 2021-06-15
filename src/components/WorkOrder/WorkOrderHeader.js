@@ -3,6 +3,7 @@ import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import TenureAlertDetails from '../Property/TenureAlertDetails'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
+import Operatives from './Operatives'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -14,8 +15,19 @@ const WorkOrderHeader = ({
   tenure,
   canRaiseRepair,
 }) => {
+  const pastAppointmentStartTime = (date, startTime) => {
+    if (!date || !startTime) {
+      return false
+    }
+
+    const currentTime = new Date().getTime()
+    const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
+
+    return currentTime > appointmentStartTime
+  }
+
   return (
-    <div className="govuk-body-s govuk-grid-row">
+    <div className="lbh-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">
         <PropertyDetailsAddress
           address={address}
@@ -36,9 +48,16 @@ const WorkOrderHeader = ({
       </div>
       <div className="govuk-grid-column-one-third">
         <AppointmentDetails workOrder={workOrder} />
-        <div className="govuk-body-xs govuk-!-margin-bottom-2">
+        <div className="lbh-body-xs">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
+
+        {workOrder.operatives.length > 1 &&
+          workOrder.appointment &&
+          pastAppointmentStartTime(
+            workOrder.appointment.date,
+            workOrder.appointment.start
+          ) && <Operatives operatives={workOrder.operatives} />}
       </div>
     </div>
   )

@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Address = ({ address }) => {
   return (
-    <div className="text-!-green govuk-!-font-weight-bold">
+    <div className="lbh-!-font-weight-bold text-!-green">
       {address.addressLine}
       <br></br>
       {address.streetSuffix && (
@@ -29,7 +29,7 @@ const PropertyDetailsAddress = ({
       <br></br>
       {hasLinkToProperty ? (
         <Link href={`/properties/${propertyReference}`}>
-          <a>
+          <a className="lbh-link">
             <Address address={address} />
           </a>
         </Link>

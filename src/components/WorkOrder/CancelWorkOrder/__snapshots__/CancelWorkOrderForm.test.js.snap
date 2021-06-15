@@ -18,18 +18,18 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>
         <h1
-          class="lbh-heading-l govuk-!-margin-bottom-2"
+          class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
           Works order: 10000012
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"
@@ -163,18 +163,18 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>
         <h1
-          class="lbh-heading-l govuk-!-margin-bottom-2"
+          class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
           Works order: 10000012
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"
@@ -368,18 +368,18 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         class="govuk-grid-column-two-thirds"
       >
         <span
-          class="govuk-caption-l"
+          class="govuk-caption-l lbh-caption"
         >
           Cancel repair
         </span>
         <h1
-          class="lbh-heading-l govuk-!-margin-bottom-2"
+          class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
           Works order: 10000012
         </h1>
         <div>
           <table
-            class="govuk-table govuk-!-margin-top-5 govuk-!-width-full"
+            class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full"
           >
             <tbody
               class="govuk-table__body"

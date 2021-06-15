@@ -3,19 +3,19 @@
 exports[`WorkOrdersTable component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <p
+    <h4
       class="lbh-heading-h4"
     >
       Manage jobs
-    </p>
+    </h4>
     <table
-      class="govuk-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
+      class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
     >
       <thead
         class="govuk-table__head"
       >
         <tr
-          class="govuk-table__row govuk-body"
+          class="govuk-table__row lbh-body"
         >
           <th
             class="govuk-table__header"
@@ -65,13 +65,14 @@ exports[`WorkOrdersTable component should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable govuk-body-s hackney-work-order-table"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
           data-ref="10000012"
         >
           <td
             class="govuk-table__cell"
           >
             <a
+              class="lbh-link"
               href="/work-orders/10000012"
             >
               10000012
@@ -108,13 +109,9 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             Electrical - EL
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell description"
           >
-            <p
-              class="description"
-            >
-              ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
-            </p>
+            ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
           </td>
         </tr>
       </tbody>

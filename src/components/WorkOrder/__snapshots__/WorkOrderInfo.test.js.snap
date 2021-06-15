@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkOrderInfo component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="work-order-info"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Works order
+    </span>
+    <div
+      class="lbh-body-s govuk-!-margin-bottom-2"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Status: In Progress
+      </span>
+      <br />
+      <span
+        class="govuk-!-font-size-14"
+      >
+        Priority: some priority text
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span>
+        Raised by Dummy Agent
+      </span>
+      <br />
+      <span>
+        18 Jan 2021, 3:28 pm
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Target: 23 Jan 2021, 6:30 pm
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span>
+        Caller: Jill Smith
+      </span>
+      <br />
+      <span>
+        07700 900999
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderInfo component when the work order is immediate priority includes an highlight for that priority 1`] = `
+<DocumentFragment>
+  <div
+    class="work-order-info"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Works order
+    </span>
+    <div
+      class="lbh-body-s govuk-!-margin-bottom-2"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Status: In Progress
+      </span>
+      <br />
+      <span
+        class="text-danger govuk-!-font-size-14"
+      >
+        Priority: some priority text
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span>
+        Raised by Dummy Agent
+      </span>
+      <br />
+      <span>
+        18 Jan 2021, 3:28 pm
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Target: 23 Jan 2021, 6:30 pm
+      </span>
+    </div>
+    <div
+      class="lbh-body-xs govuk-!-margin-bottom-2"
+    >
+      <span>
+        Caller: Jill Smith
+      </span>
+      <br />
+      <span>
+        07700 900999
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;

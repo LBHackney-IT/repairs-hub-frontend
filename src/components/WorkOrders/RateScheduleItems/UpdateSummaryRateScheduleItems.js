@@ -74,7 +74,7 @@ const UpdateSummaryRateScheduleItems = ({
         <td className="govuk-table__cell">£{parseFloat(task.cost)}</td>
         {dataAttribute !== 'original-task' && (
           <td className="govuk-table__cell">
-            <a onClick={changeStep} href="#">
+            <a className="lbh-link" onClick={changeStep} href="#">
               Edit
             </a>
           </td>
@@ -87,7 +87,7 @@ const UpdateSummaryRateScheduleItems = ({
     return (
       <>
         <THead>
-          <TR className="govuk-body">
+          <TR className="lbh-body">
             <TH scope="col" width="one-half">
               SOR code
             </TH>
@@ -107,12 +107,12 @@ const UpdateSummaryRateScheduleItems = ({
 
   return (
     <>
-      <p className="lbh-heading-h4">Original Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Original Tasks and SORs</h4>
       <Table className="original-tasks-table">
         {buildTableTemplate(rateScheduleItemsTable(originalTasks, false, true))}
       </Table>
 
-      <p className="lbh-heading-h4">Updated Tasks and SORs</p>
+      <h4 className="lbh-heading-h4">Updated Tasks and SORs</h4>
       <Table className="updated-tasks-table">
         {buildTableTemplate(
           rateScheduleItemsTable(latestTasks, true),

@@ -105,11 +105,11 @@ const AuthorisationView = ({ workOrderReference }) => {
           {!formSuccess && (
             <div>
               <BackButton />
-              <h1 className="lbh-heading-l govuk-!-margin-right-6 govuk-!-margin-bottom-0">
+              <h1 className="lbh-heading-h1 govuk-!-margin-right-6 govuk-!-margin-bottom-0">
                 Authorisation request: {workOrderReference}{' '}
               </h1>
               <Link href={`/work-orders/${workOrderReference}`}>
-                <a className="govuk-body-s">See works order</a>
+                <a className="lbh-link">See works order</a>
               </Link>
               <br></br>
               <br></br>

@@ -4,11 +4,7 @@ const Layout = ({ children }) => (
   <>
     <HeaderComponent serviceName="Repairs Hub" />
 
-    <main
-      className="lbh-main-wrapper repairs-hub-main-wrapper"
-      id="main-content"
-      role="main"
-    >
+    <main className="lbh-main-wrapper" id="main-content" role="main">
       <div className="lbh-container">{children}</div>
     </main>
   </>
