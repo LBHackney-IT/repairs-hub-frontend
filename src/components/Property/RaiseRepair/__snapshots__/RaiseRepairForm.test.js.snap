@@ -31,7 +31,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           class="lbh-list hackney-property-alerts"
         >
           <li
-            class="bg-turquoise"
+            class="bg-dark-green"
           >
             Tenure: Secure
           </li>

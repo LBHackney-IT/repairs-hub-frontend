@@ -300,7 +300,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -739,7 +739,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -1062,7 +1062,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -1459,7 +1459,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -1828,7 +1828,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -2204,7 +2204,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -2601,7 +2601,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
@@ -2875,7 +2875,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="lbh-list hackney-property-alerts"
       >
         <li
-          class="bg-turquoise"
+          class="bg-dark-green"
         >
           Tenure: Secure
         </li>
