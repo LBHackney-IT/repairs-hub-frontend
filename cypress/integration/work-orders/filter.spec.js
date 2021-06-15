@@ -627,6 +627,13 @@ describe('Filter work orders', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
+      cy.fixture('filter/work-order.json')
+        .then((filters) => {
+          filters.Contractors.splice(1, 3)
+        })
+        .as('workOrderFilters')
+      cy.route('GET', `api/filter/WorkOrder`, '@workOrderFilters')
+
       cy.visit(`${Cypress.env('HOST')}/`)
     })
 

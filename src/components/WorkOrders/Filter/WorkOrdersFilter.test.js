@@ -87,22 +87,6 @@ describe('WorkOrdersFilter component', () => {
     clearFilters: jest.fn(),
   }
 
-  describe('when logged in as a contractor with one contractor role', () => {
-    it('should render properly without filter by contractor and no authorisation pending approval status', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user: contractor }}>
-          <WorkOrdersFilter
-            filters={props.filters}
-            loading={props.loading}
-            register={props.register}
-            clearFilters={props.clearFilters}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-  })
-
   describe('when logged in as a contractor with more than one contractor role', () => {
     it('should render properly with filter by contractor (only groups they belong to) and no authorisation pending approval status', () => {
       const { asFragment } = render(
@@ -139,6 +123,30 @@ describe('WorkOrdersFilter component', () => {
     it('should render properly with all filter options', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
+          <WorkOrdersFilter
+            filters={props.filters}
+            loading={props.loading}
+            register={props.register}
+            clearFilters={props.clearFilters}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a contractor with one contractor role', () => {
+    it('should render properly without filter by contractor and no authorisation pending approval status', () => {
+      // Return one contractor option
+      props.filters.Contractors = [
+        {
+          key: 'AVP',
+          description: 'Avonline Network (A) Ltd',
+        },
+      ]
+
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: contractor }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}
