@@ -29,12 +29,7 @@ const WorkOrdersFilter = ({
   }
 
   const showContractorFilters = () => {
-    return (
-      user &&
-      (user.hasContractManagerPermissions ||
-        user.hasAuthorisationManagerPermissions ||
-        user.roles.filter((role) => role == 'contractor').length > 1)
-    )
+    return filters.Contractors.length > 1
   }
 
   const showAllCheckboxes = (e, filterType) => {

@@ -71,5 +71,16 @@ describe('SuccessPage component', () => {
         expect(asFragment()).toMatchSnapshot()
       })
     })
+
+    describe('With Emergency and Immediate DLO repairs text', () => {
+      it('should render text that Emergency and immediate DLO repairs are sent directly to the Planners', () => {
+        const testProps = {
+          ...props,
+          immediateOrEmergencyDloRepairText: true,
+        }
+        const { asFragment } = render(<SuccessPage {...testProps} />)
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
   })
 })

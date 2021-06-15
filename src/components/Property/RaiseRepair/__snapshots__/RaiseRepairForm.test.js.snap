@@ -74,6 +74,10 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             >
               *
             </span>
+             
+            <span>
+               - Search by type (e.g. Gas) or code (e.g. GS)
+            </span>
           </label>
           <input
             autocomplete="off"

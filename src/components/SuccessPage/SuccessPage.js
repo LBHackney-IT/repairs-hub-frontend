@@ -43,6 +43,17 @@ const SuccessPage = ({ ...props }) => {
           </li>
         )}
 
+        {props.immediateOrEmergencyDloRepairText && (
+          <li>
+            <p>
+              <strong>
+                Emergency and immediate DLO repairs are sent directly to the
+                Planners. An appointment does not need to be booked.
+              </strong>
+            </p>
+          </li>
+        )}
+
         {props.workOrderReference && (
           <li>
             <Link href={`/work-orders/${props.workOrderReference}`}>

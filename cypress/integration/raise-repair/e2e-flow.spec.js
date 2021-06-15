@@ -413,47 +413,172 @@ describe('Schedule appointment form', () => {
       }).as('schedulerSession')
     })
 
-    it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a repair on this dwelling')
-        .click()
+    describe('and the priority is Normal (N)', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a repair on this dwelling')
+          .click()
 
-      cy.get('#repair-request-form').within(() => {
-        cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('HH General Building Repair - H01')
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.get('#contractor').select('HH General Building Repair - H01')
 
-        cy.get('select[id="rateScheduleItems[0][code]"]').select(
-          'DES5R005 - Normal call outs'
+          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+            'DES5R005 - Normal call outs'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityDescription').select('5 [N] NORMAL')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('#callerName').type('NA', { force: true })
+          cy.get('#contactNumber')
+            .clear({ force: true })
+            .type('NA', { force: true })
+          cy.get('[type="submit"]')
+            .contains('Create works order')
+            .click({ force: true })
+        })
+
+        cy.contains('Repair works order created')
+
+        cy.contains('Please open DRS to book an appointment')
+        cy.contains('a', 'open DRS').should(
+          'have.attr',
+          'href',
+          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
+        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
 
-        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-        cy.get('#priorityDescription').select('5 [N] NORMAL')
-        cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-        cy.get('#callerName').type('NA', { force: true })
-        cy.get('#contactNumber')
-          .clear({ force: true })
-          .type('NA', { force: true })
-        cy.get('[type="submit"]')
-          .contains('Create works order')
-          .click({ force: true })
+        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
+          'have.property',
+          'value',
+          'SCHEDULER_SESSION_ID'
+        )
       })
+    })
 
-      cy.contains('Repair works order created')
+    describe('and the priority is Urgent (U)', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a repair on this dwelling')
+          .click()
 
-      cy.contains('Please open DRS to book an appointment')
-      cy.contains('a', 'open DRS').should(
-        'have.attr',
-        'href',
-        'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
-      )
-      cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.get('#contractor').select('HH General Building Repair - H01')
 
-      cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
-        'have.property',
-        'value',
-        'SCHEDULER_SESSION_ID'
-      )
+          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+            'DES5R006 - Urgent call outs'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityDescription').select('4 [U] URGENT')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('#callerName').type('NA', { force: true })
+          cy.get('#contactNumber')
+            .clear({ force: true })
+            .type('NA', { force: true })
+          cy.get('[type="submit"]')
+            .contains('Create works order')
+            .click({ force: true })
+        })
+
+        cy.contains('Repair works order created')
+
+        cy.contains('Please open DRS to book an appointment')
+        cy.contains('a', 'open DRS').should(
+          'have.attr',
+          'href',
+          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
+        )
+        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+
+        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
+          'have.property',
+          'value',
+          'SCHEDULER_SESSION_ID'
+        )
+      })
+    })
+
+    describe('and the priority is Immediate (I)', () => {
+      it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
+        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a repair on this dwelling')
+          .click()
+
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.get('#contractor').select('HH General Building Repair - H01')
+
+          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+            'DES5R003 - Immediate call outs'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityDescription').select('1 [I] IMMEDIATE')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('#callerName').type('NA', { force: true })
+          cy.get('#contactNumber')
+            .clear({ force: true })
+            .type('NA', { force: true })
+          cy.get('[type="submit"]')
+            .contains('Create works order')
+            .click({ force: true })
+        })
+
+        cy.contains('Repair works order created')
+
+        cy.contains('Please open DRS to book an appointment').should(
+          'not.exist'
+        )
+        cy.contains('a', 'open DRS').should('not.exist')
+        cy.contains(
+          'Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.'
+        )
+      })
+    })
+
+    describe('and the priority is Emergency (E)', () => {
+      it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
+        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a repair on this dwelling')
+          .click()
+
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.get('#contractor').select('HH General Building Repair - H01')
+
+          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+            'DES5R004 - Emergency call out'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityDescription').select('2 [E] EMERGENCY')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('#callerName').type('NA', { force: true })
+          cy.get('#contactNumber')
+            .clear({ force: true })
+            .type('NA', { force: true })
+          cy.get('[type="submit"]')
+            .contains('Create works order')
+            .click({ force: true })
+        })
+
+        cy.contains('Repair works order created')
+
+        cy.contains('Please open DRS to book an appointment').should(
+          'not.exist'
+        )
+        cy.contains('a', 'open DRS').should('not.exist')
+        cy.contains(
+          'Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.'
+        )
+      })
     })
 
     describe('and the user already has a session cookie for the scheduler', () => {
