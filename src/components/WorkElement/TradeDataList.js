@@ -10,6 +10,7 @@ const TradeDataList = ({ trades, register, errors, onTradeSelect }) => {
     <DataList
       name="trade"
       label="Trade"
+      labelMessage="- Search by type (e.g. Gas) or code (e.g. GS)"
       options={tradeList}
       onChange={onTradeSelect}
       required={true}
