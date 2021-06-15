@@ -215,8 +215,10 @@ describe('Schedule appointment form', () => {
 
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
+        cy.get('.lbh-page-announcement__title').contains(
+          'Repair works order created'
+        )
         cy.get('.lbh-announcement__content').within(() => {
-          cy.get('h2').contains('Repair works order created')
           cy.contains('Works order number')
           cy.contains('10102030')
         })
