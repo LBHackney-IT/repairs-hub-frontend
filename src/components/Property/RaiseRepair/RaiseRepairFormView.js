@@ -38,6 +38,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     externalAppointmentManagementUrl,
     setExternalAppointmentManagementUrl,
   ] = useState()
+  const [
+    immediateOrEmergencyDloRepairText,
+    setImmediateOrEmergencyDloRepairText,
+  ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
@@ -59,29 +63,39 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
       } else if (externallyManagedAppointment) {
-        const cookies = new Cookies()
+        // Emergency and immediate DLO repairs are sent directly to the Planners
+        // We display no link to open DRS
+        if (
+          !priorityCodesRequiringAppointments.includes(
+            formData.priority.priorityCode
+          )
+        ) {
+          setImmediateOrEmergencyDloRepairText(true)
+        } else {
+          const cookies = new Cookies()
 
-        let schedulerSessionId = cookies.get(
-          process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
-        )
+          let schedulerSessionId = cookies.get(
+            process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
+          )
 
-        if (!schedulerSessionId) {
-          ;({ schedulerSessionId } = await getSchedulerSessionId())
+          if (!schedulerSessionId) {
+            ;({ schedulerSessionId } = await getSchedulerSessionId())
 
-          cookies.set(
-            process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
-            schedulerSessionId,
-            {
-              path: '/',
-              maxAge: TWELVE_HOURS_IN_SECONDS,
-            }
+            cookies.set(
+              process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
+              schedulerSessionId,
+              {
+                path: '/',
+                maxAge: TWELVE_HOURS_IN_SECONDS,
+              }
+            )
+          }
+
+          setExternallyManagedAppointment(true)
+          setExternalAppointmentManagementUrl(
+            `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
           )
         }
-
-        setExternallyManagedAppointment(true)
-        setExternalAppointmentManagementUrl(
-          `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
-        )
       } else if (
         priorityCodesRequiringAppointments.includes(
           formData.priority.priorityCode
@@ -158,6 +172,9 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 externalSchedulerLink={
                   externallyManagedAppointment &&
                   externalAppointmentManagementUrl
+                }
+                immediateOrEmergencyDloRepairText={
+                  immediateOrEmergencyDloRepairText
                 }
               />
             </>

@@ -170,6 +170,73 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
 </DocumentFragment>
 `;
 
+exports[`SuccessPage component Raising a repair With Emergency and Immediate DLO repairs text should render text that Emergency and immediate DLO repairs are sent directly to the Planners 1`] = `
+<DocumentFragment>
+  <div>
+    <section
+      class="text-align-center lbh-page-announcement"
+    >
+      <div
+        class="lbh-announcement__content"
+      >
+        <h2>
+          Repair works order created
+        </h2>
+        <p>
+          Works order number
+        </p>
+        <strong
+          class="govuk-!-font-size-24"
+        >
+          10000012
+        </strong>
+      </div>
+    </section>
+    <ul
+      class="lbh-list lbh-!-margin-top-9"
+    >
+      <li>
+        <p>
+          <strong>
+            Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.
+          </strong>
+        </p>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
+          href="/properties/12345678"
+        >
+          <strong>
+            Back to 12 Random Lane
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
+          href="/"
+        >
+          <strong>
+            Start a new search
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`SuccessPage component Raising a repair With an external scheduler URL should render text with a link to schedule externally 1`] = `
 <DocumentFragment>
   <div>
