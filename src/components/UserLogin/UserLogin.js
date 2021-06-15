@@ -7,7 +7,7 @@ const UserLogin = ({ gssoUrl, submitText }) => {
         <h1 className="lbh-heading-h1">Sign in</h1>
         <a
           href={gssoUrl}
-          className="govuk-button lbh-button  lbh-button--start govuk-button--start"
+          className="govuk-button lbh-button lbh-button--start govuk-button--start"
         >
           {submitText}
           <svg
