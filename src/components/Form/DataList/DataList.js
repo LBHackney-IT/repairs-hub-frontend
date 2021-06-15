@@ -15,6 +15,7 @@ const DataList = ({
   register,
   widthClass,
   required,
+  labelMessage,
 }) => {
   useEffect(() => {
     if (!options || !Array.isArray(options)) {
@@ -30,7 +31,8 @@ const DataList = ({
       })}
     >
       <label className="govuk-label lbh-label" htmlFor={name}>
-        {label} {required && <span className="govuk-required">*</span>}
+        {label} {required && <span className="govuk-required">*</span>}{' '}
+        {labelMessage && <span> {labelMessage}</span>}
       </label>
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint">
@@ -75,6 +77,7 @@ DataList.propTypes = {
     ])
   ).isRequired,
   children: PropTypes.node,
+  labelMessage: PropTypes.string,
 }
 
 export default DataList
