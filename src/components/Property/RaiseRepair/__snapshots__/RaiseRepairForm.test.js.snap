@@ -308,7 +308,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
         <span
           class="govuk-hint govuk-!-margin-bottom-6"
         >
-          You have 250 characters remaining.
+          You have 230 characters remaining.
         </span>
         <input
           id="propertyReference"
