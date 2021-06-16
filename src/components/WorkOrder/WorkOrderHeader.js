@@ -52,7 +52,7 @@ const WorkOrderHeader = ({
           <span>Assigned to: {workOrder.owner}</span>
         </div>
 
-        {workOrder.operatives.length > 1 &&
+        {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
           pastAppointmentStartTime(
             workOrder.appointment.date,
