@@ -361,7 +361,7 @@ describe('Raise repair form', () => {
       cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
 
       // Go over the Repair description character limit
-      cy.get('#descriptionOfWork').get('.govuk-textarea').type('x'.repeat(251))
+      cy.get('#descriptionOfWork').get('.govuk-textarea').type('x'.repeat(231))
       cy.get('#descriptionOfWork-form-group .govuk-error-message').within(
         () => {
           cy.contains('You have exceeded the maximum amount of characters')
@@ -377,7 +377,7 @@ describe('Raise repair form', () => {
       // Fill in Repair Description within character limit
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
       cy.get('.govuk-hint').within(() => {
-        cy.contains('You have 241 characters remaining.')
+        cy.contains('You have 221 characters remaining.')
       })
       // Removes Repair Description validation errors
       cy.get('#descriptionOfWork-form-group .govuk-error-message').should(
