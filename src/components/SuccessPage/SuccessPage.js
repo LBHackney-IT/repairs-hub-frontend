@@ -1,19 +1,15 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
+import PageAnnouncement from '../Template/PageAnnouncement'
 
 const SuccessPage = ({ ...props }) => {
   return (
     <>
-      <section className="text-align-center lbh-page-announcement">
-        <h3 className="lbh-page-announcement__title">{props.text}</h3>
-        <div className="lbh-page-announcement__content">
-          <p>Works order number</p>
-          <strong className="govuk-!-font-size-24">
-            {props.workOrderReference}
-          </strong>
-        </div>
-      </section>
+      <PageAnnouncement
+        title={props.text}
+        workOrderReference={props.workOrderReference}
+      />
 
       {props.authorisationPendingApproval && (
         <WarningText
