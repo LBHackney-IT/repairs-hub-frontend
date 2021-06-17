@@ -13,7 +13,7 @@ describe('SuccessPage component', () => {
         const { asFragment } = render(
           <SuccessPage
             workOrderReference={props.workOrderReference}
-            text="You have approved a variation for"
+            text="You have approved a variation"
             showDashboardLink={props.showDashboardLink}
           />
         )
@@ -26,7 +26,7 @@ describe('SuccessPage component', () => {
         const { asFragment } = render(
           <SuccessPage
             workOrderReference={props.workOrderReference}
-            text="You have rejected a variation for"
+            text="You have rejected a variation"
             showDashboardLink={props.showDashboardLink}
           />
         )
@@ -42,7 +42,6 @@ describe('SuccessPage component', () => {
       propertyReference: '12345678',
       shortAddress: '12 Random Lane',
       showSearchLink: true,
-      isRaiseRepairSuccess: true,
     }
 
     describe('High cost (over raise limit) authorisation', () => {

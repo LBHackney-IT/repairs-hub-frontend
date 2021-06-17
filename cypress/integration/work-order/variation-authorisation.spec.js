@@ -81,7 +81,16 @@ describe('Contract manager can authorise variation', () => {
         typeCode: '125',
       })
 
-    cy.contains('You have rejected a variation for work order 10000012')
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'You have rejected a variation'
+      )
+      cy.get('.lbh-page-announcement__content').within(() => {
+        cy.contains('Works order number')
+        cy.contains('10000012')
+      })
+    })
   })
 
   it('Approves job variation', () => {
@@ -117,7 +126,16 @@ describe('Contract manager can authorise variation', () => {
         typeCode: '100-20',
       })
 
-    cy.contains('You have approved a variation for work order 10000012')
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'You have approved a variation'
+      )
+      cy.get('.lbh-page-announcement__content').within(() => {
+        cy.contains('Works order number')
+        cy.contains('10000012')
+      })
+    })
   })
 
   // summary page and calculation
@@ -245,7 +263,16 @@ describe('Contract manager can authorise variation', () => {
         typeCode: '125',
       })
 
-    cy.contains('You have rejected a variation for work order 10000012')
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'You have rejected a variation'
+      )
+      cy.get('.lbh-page-announcement__content').within(() => {
+        cy.contains('Works order number')
+        cy.contains('10000012')
+      })
+    })
   })
 
   //collapsible

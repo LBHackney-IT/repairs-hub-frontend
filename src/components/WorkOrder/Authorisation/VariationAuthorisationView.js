@@ -104,8 +104,8 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
   const addConfirmationText = () => {
     variationApproved
-      ? setConfirmationPageMessage('You have approved a variation for')
-      : setConfirmationPageMessage('You have rejected a variation for')
+      ? setConfirmationPageMessage('You have approved a variation')
+      : setConfirmationPageMessage('You have rejected a variation')
   }
 
   const makePostRequest = async (formData) => {
