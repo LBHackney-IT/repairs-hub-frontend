@@ -4,25 +4,27 @@ import WarningText from '../Template/WarningText'
 
 const SuccessPage = ({ ...props }) => {
   return (
-    <div>
-      <section className="text-align-center lbh-page-announcement">
-        {props.isRaiseRepairSuccess ? (
+    <>
+      {props.isRaiseRepairSuccess ? (
+        <section className="text-align-center lbh-page-announcement">
+          <h3 className="lbh-page-announcement__title">{props.text}</h3>
           <div className="lbh-announcement__content">
-            <h2>{props.text}</h2>
             <p>Works order number</p>
             <strong className="govuk-!-font-size-24">
               {props.workOrderReference}
             </strong>
           </div>
-        ) : (
+        </section>
+      ) : (
+        <section className="text-align-center lbh-page-announcement">
           <div className="lbh-announcement__content">
             <p>
               {props.text}{' '}
               <strong>work order {props.workOrderReference}</strong>
             </p>
           </div>
-        )}
-      </section>
+        </section>
+      )}
 
       {props.authorisationPendingApproval && (
         <WarningText
@@ -94,7 +96,7 @@ const SuccessPage = ({ ...props }) => {
           </li>
         )}
       </ul>
-    </div>
+    </>
   )
 }
 

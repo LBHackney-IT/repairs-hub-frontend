@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 const Address = ({ address }) => {
   return (
-    <div className="lbh-!-font-weight-bold text-!-green">
+    <div className="lbh-!-font-weight-bold">
       {address.addressLine}
       <br></br>
       {address.streetSuffix && (

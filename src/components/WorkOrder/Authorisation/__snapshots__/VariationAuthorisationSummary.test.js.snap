@@ -154,7 +154,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
           class="govuk-table__cell"
         >
           <span
-            class="status status-increased"
+            class="govuk-tag lbh-tag lbh-tag--status-increased"
           >
             Increased
           </span>
@@ -201,7 +201,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
           class="govuk-table__cell"
         >
           <span
-            class="status status-reduced"
+            class="govuk-tag lbh-tag lbh-tag--status-reduced"
           >
             Reduced
           </span>

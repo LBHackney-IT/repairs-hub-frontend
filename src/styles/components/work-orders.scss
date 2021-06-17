@@ -1,6 +1,6 @@
 .work-order-hours {
   padding-top: 0.5rem;
-  color: repairs-hub-colour('grey');
+  color: repairs-hub-colour('dark-grey');
 }
 
 .hackney-work-order-table {
@@ -28,40 +28,41 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    .status {
-      color: govuk-colour('white');
-      padding: 4px 10px;
-      font-weight: bold;
-      display: inline-block;
-      width: 90%;
-      max-width: 150px;
-      text-align: center;
-    }
-    .status-in-progress {
-      background-color: repairs-hub-colour('status-planned');
-    }
-    .status-work-complete {
-      background-color: repairs-hub-colour('status-complete');
-    }
-    .status-work-cancelled {
-      background-color: repairs-hub-colour('status-not-complete');
-    }
-    .status-pending-approval {
-      background-color: repairs-hub-colour('status-waiting');
-    }
-    .status-variation-pending-approval {
-      background-color: repairs-hub-colour('status-waiting');
-      white-space: normal;
-    }
-    .status-authorisation-pending-approval {
-      background-color: repairs-hub-colour('status-waiting');
-      white-space: normal;
-    }
-    .status-variation-approved {
-      background-color: repairs-hub-colour('status-approved');
-    }
-    .status-variation-rejected {
-      background-color: repairs-hub-colour('status-rejected');
+    .lbh-tag {
+      &--status-in-progress {
+        background-color: repairs-hub-colour('blue');
+        color: repairs-hub-colour('white');
+      }
+      &--status-work-complete {
+        background-color: repairs-hub-colour('white');
+        color: repairs-hub-colour('black');
+      }
+      &--status-work-cancelled {
+        background-color: repairs-hub-colour('grey');
+        color: repairs-hub-colour('black');
+      }
+      &--status-pending-approval {
+        background-color: repairs-hub-colour('yellow');
+        color: repairs-hub-colour('black');
+      }
+      &--status-variation-pending-approval {
+        background-color: repairs-hub-colour('yellow');
+        color: repairs-hub-colour('black');
+        white-space: normal;
+      }
+      &--status-authorisation-pending-approval {
+        background-color: repairs-hub-colour('yellow');
+        color: repairs-hub-colour('black');
+        white-space: normal;
+      }
+      &--status-variation-approved {
+        background-color: repairs-hub-colour('dark-green');
+        color: repairs-hub-colour('white');
+      }
+      &--status-variation-rejected {
+        background-color: repairs-hub-colour('danger');
+        color: repairs-hub-colour('white');
+      }
     }
   }
 }

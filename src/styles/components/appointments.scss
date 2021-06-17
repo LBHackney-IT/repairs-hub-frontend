@@ -64,7 +64,7 @@ $calendar-cell-width--desktop: 100px;
         width: $calendar-cell-width--mobile;
 
         &.available {
-          background-color: repairs-hub-colour('calendar-available');
+          background-color: repairs-hub-colour('white');
           cursor: pointer;
         }
 
@@ -93,7 +93,7 @@ $calendar-cell-width--desktop: 100px;
         }
 
         span.month {
-          background-color: repairs-hub-colour('calendar-month');
+          background-color: repairs-hub-colour('dark-grey');
         }
 
         span.today {
@@ -145,7 +145,7 @@ $calendar-cell-width--desktop: 100px;
 
       &.available {
         &::before {
-          background-color: repairs-hub-colour('calendar-available');
+          background-color: repairs-hub-colour('white');
         }
       }
 
@@ -161,7 +161,7 @@ $calendar-cell-width--desktop: 100px;
 }
 
 .timeslot-form {
-  background-color: repairs-hub-colour('appointment-light-grey');
+  background-color: repairs-hub-colour('light-grey');
   box-sizing: border-box;
 
   @include govuk-media-query($from: tablet) {

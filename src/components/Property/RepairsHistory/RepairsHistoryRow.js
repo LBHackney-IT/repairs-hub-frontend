@@ -2,6 +2,7 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
+import Status from '../../WorkOrder/Status'
 import { dateToStr } from '../../../utils/date'
 import { extractTimeFromDate } from '../../../utils/time'
 import { TR, TD } from '../../Layout/Table'
@@ -38,13 +39,7 @@ const RepairsHistoryRow = ({
       </TD>
       <TD>{tradeDescription}</TD>
       <TD>
-        <span
-          className={`status status-${status
-            .replace(/\s+/g, '-')
-            .toLowerCase()}`}
-        >
-          {status}
-        </span>
+        <Status status={status} />
       </TD>
       <TD className="description">{description}</TD>
     </TR>

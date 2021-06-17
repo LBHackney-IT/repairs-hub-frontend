@@ -26,11 +26,7 @@ const NotesForm = ({
         </h2>
         {!displayForm && (
           <div className="display-inline">
-            <a
-              onClick={showForm}
-              href="#"
-              className="repairs-hub-link lbh-body-s"
-            >
+            <a className="lbh-link" href="#" onClick={showForm}>
               Add a new note
             </a>
           </div>
