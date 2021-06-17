@@ -9,22 +9,33 @@ describe('Work order cancellations', () => {
   describe('when submitting a work order cancellation', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
-      cy.server()
-      cy.fixture('work-orders/work-order.json').as('workOrder')
-      cy.fixture('properties/property.json').as('property')
-      cy.fixture('work-orders/notes.json').as('notes')
 
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.route('GET', 'api/workOrders/10000012', '@workOrder').as('workOrder')
-      cy.route('GET', 'api/workOrders/?propertyReference=*', [])
-      cy.route({
-        method: 'POST',
-        url: '/api/workOrderComplete',
-        response: '',
-      }).as('apiCheck')
+      // Viewing the work order page
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/work-order.json' }
+      ).as('workOrder')
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      )
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: [] }
+      )
+
+      // Submitting the update
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrderComplete' },
+        { body: '' }
+      ).as('apiCheck')
 
       cy.clock(now)
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      cy.visit('/work-orders/10000012')
       cy.wait('@workOrder')
     })
 
@@ -37,7 +48,6 @@ describe('Work order cancellations', () => {
       })
 
       cy.wait('@workOrder')
-
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
       cy.get('.lbh-heading-h1').contains('Works order: 10000012')
@@ -140,17 +150,19 @@ describe('Work order cancellations', () => {
     describe('when the order is for a contractor scheduled internally', () => {
       beforeEach(() => {
         cy.loginWithAgentRole()
-        cy.server()
-        cy.fixture('work-orders/work-order.json')
-          .then((workOrder) => {
-            workOrder.contractorReference = 'H01' // an internally-scheduled contractor ref
-          })
-          .as('workOrder')
 
-        cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+          // an internally-scheduled contractor ref
+          workOrder.contractorReference = 'H01'
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
 
         cy.clock(now)
-        cy.visit(`${Cypress.env('HOST')}/work-orders/10000012/cancel`)
+        cy.visit('/work-orders/10000012/cancel')
       })
 
       it('shows warning text on the form', () => {
@@ -175,17 +187,19 @@ describe('Work order cancellations', () => {
     describe('when the order is scheduled outside of Hackney', () => {
       beforeEach(() => {
         cy.loginWithAgentRole()
-        cy.server()
-        cy.fixture('work-orders/work-order.json')
-          .then((workOrder) => {
-            workOrder.contractorReference = 'HCK' // an externally-scheduled contractor ref
-          })
-          .as('workOrder')
 
-        cy.route('GET', 'api/workOrders/10000012', '@workOrder')
+        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+          // an externally-scheduled contractor ref
+          workOrder.contractorReference = 'HCK'
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
 
         cy.clock(now)
-        cy.visit(`${Cypress.env('HOST')}/work-orders/10000012/cancel`)
+        cy.visit('/work-orders/10000012/cancel')
       })
 
       it('does not show warning text on the form', () => {

@@ -1,29 +1,21 @@
 $repairs-hub-colours: (
   'housing-1': #005f61,
-  'housing-2': #009ca6,
   'housing-3': #2dccd3,
   'warning': #ffa300,
   'danger': lbh-colour('lbh-f02'),
-  'white': govuk-colour('white'),
-  'black': govuk-colour('black'),
-  'grey': grey,
-  'light-grey': #bfc1c3,
-  'yellow': #f8e08e,
+  'white': lbh-colour('lbh-white'),
+  'black': lbh-colour('lbh-black'),
+  'dark-grey': lbh-colour('lbh-grey-1'),
+  'grey': lbh-colour('lbh-grey-2'),
+  'light-grey': lbh-colour('lbh-grey-3'),
+  'yellow': lbh-colour('lbh-h04'),
   'dark-green': lbh-colour('lbh-a01'),
-  'appointment-light-grey': #dfdfdf,
-  'status-planned': lbh-colour('lbh-link'),
-  'status-complete': darkgray,
-  'status-not-complete': lbh-colour('lbh-grey-2'),
-  'status-waiting': lbh-colour('lbh-h04'),
-  'status-approved': lbh-colour('lbh-a01'),
-  'status-rejected': lbh-colour('lbh-f02'),
-  'calendar-available': govuk-colour('white'),
+  'blue': lbh-colour('lbh-link'),
   'calendar-current': #6895c6,
   'calendar-selected': #b2cce2,
   'calendar-border': #e2e4e6,
   'calendar-divider': #c7c8ca,
   'calendar-month': #7d8287,
-  'sor-code-new': #025ea6,
 );
 
 @function repairs-hub-colour($colour) {
@@ -34,38 +26,38 @@ $repairs-hub-colours: (
   outline: 3px solid repairs-hub-colour('housing-3') !important;
 }
 
-.text-green {
-  color: lbh-colour('lbh-a01');
+.text {
+  &-green {
+    color: repairs-hub-colour('dark-green');
+  }
+
+  &-white {
+    color: repairs-hub-colour('white');
+  }
+
+  &-black {
+    color: repairs-hub-colour('black');
+  }
+
+  &-warning {
+    color: repairs-hub-colour('warning');
+  }
+
+  &-danger {
+    color: repairs-hub-colour('danger');
+  }
+
+  &-\!-white {
+    color: repairs-hub-colour('white') !important;
+  }
 }
 
-.text-white {
-  color: repairs-hub-colour('white');
-}
+.background {
+  &-yellow {
+    background: repairs-hub-colour('yellow');
+  }
 
-.text-black {
-  color: repairs-hub-colour('black');
-}
-
-.text-warning {
-  color: repairs-hub-colour('warning');
-}
-
-.text-danger {
-  color: repairs-hub-colour('danger');
-}
-
-.text-\!-green {
-  color: repairs-hub-colour('housing-2') !important;
-}
-
-.text-\!-white {
-  color: repairs-hub-colour('white') !important;
-}
-
-.background-yellow {
-  background: repairs-hub-colour('yellow');
-}
-
-.background-dark-green {
-  background: repairs-hub-colour('dark-green');
+  &-dark-green {
+    background: repairs-hub-colour('dark-green');
+  }
 }

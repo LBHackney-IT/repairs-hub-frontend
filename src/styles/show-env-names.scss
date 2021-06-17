@@ -1,19 +1,23 @@
-.env-name {
-  border: 2px solid;
-  padding: 5px;
-  margin-left: 10px;
-}
-.env-development {
-  border-color: repairs-hub-colour('housing-1');
+.env {
+  &-name {
+    border: 2px solid;
+    padding: 5px;
+    margin-left: 10px;
+  }
+
+  &-development {
+    border-color: repairs-hub-colour('housing-1');
+  }
+
+  &-staging {
+    border-color: repairs-hub-colour('warning');
+  }
+
+  &-localdev {
+    border-color: repairs-hub-colour('warning');
+  }
 }
 
-.env-staging {
-  border-color: repairs-hub-colour('warning');
-}
-
-.env-localdev {
-  border-color: repairs-hub-colour('warning');
-}
 .text-for-env-note {
   background-color: red;
 }

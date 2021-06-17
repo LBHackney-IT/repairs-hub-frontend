@@ -139,11 +139,7 @@ const AddedRateScheduleItems = ({
         <>
           {showRateScheduleItems(rateScheduleItems)}
           {error && <ErrorMessage label={error} />}
-          <a
-            onClick={addRateScheduleItem}
-            href="#"
-            className="repairs-hub-link lbh-body-s"
-          >
+          <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
             + Add another SOR code
           </a>
         </>

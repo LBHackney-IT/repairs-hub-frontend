@@ -1,24 +1,23 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { PAGE_SIZE_AGENTS } from '../../../src/utils/frontend-api-client/work-orders'
 
 describe('Search by work order reference, postcode or address', () => {
   context('When logged in user is an agent', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
-      cy.server()
     })
 
     describe('Search for property', () => {
-      beforeEach(() => {
-        cy.fixture('properties/properties.json').as('propertiesList')
-      })
-
       context('Search for property by postcode', () => {
         beforeEach(() => {
           // Stub request for search on properties by postcode
-          cy.route('GET', 'api/properties/?q=e9 6pt', '@propertiesList')
+          cy.intercept(
+            { method: 'GET', path: '/api/properties/?q=e9%206pt' },
+            { fixture: 'properties/properties.json' }
+          )
+
+          cy.visit('/')
 
           // Search by postcode
           cy.get('.govuk-input').clear().type('e9 6pt')
@@ -54,7 +53,12 @@ describe('Search by work order reference, postcode or address', () => {
       context('Search for property by address', () => {
         beforeEach(() => {
           // Stub request for search on properties by address
-          cy.route('GET', 'api/properties/?q=pitcairn', '@propertiesList')
+          cy.intercept(
+            { method: 'GET', path: '/api/properties/?q=pitcairn' },
+            { fixture: 'properties/properties.json' }
+          )
+
+          cy.visit('/')
 
           // Search by address
           cy.get('.govuk-input').type('pitcairn')
@@ -75,24 +79,31 @@ describe('Search by work order reference, postcode or address', () => {
     describe('Search by work order reference', () => {
       context('Displays the page for a work order', () => {
         beforeEach(() => {
-          cy.fixture('work-orders/work-order.json').as('workOrder')
-          cy.fixture('properties/property.json').as('property')
-          cy.fixture('work-orders/notes.json').as('notes')
-
-          cy.route('GET', 'api/properties/00012345', '@property')
-          cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-          cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
-          cy.route(
-            'GET',
-            `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-            JSON.stringify([])
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { fixture: 'work-orders/work-order.json' }
+          )
+          cy.intercept(
+            { method: 'GET', path: '/api/properties/00012345' },
+            { fixture: 'properties/property.json' }
+          )
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+            },
+            { body: [] }
           )
 
-          // Search by postcode
+          cy.visit('/')
+
+          // Search by work order reference
           cy.get('.govuk-input').clear().type('10000012')
           cy.get('[type="submit"]').contains('Search').click()
           cy.url().should('contains', 'work-orders/10000012')
-          cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+
+          cy.visit('/work-orders/10000012')
         })
 
         it('Works order header with reference number', () => {
@@ -154,17 +165,26 @@ describe('Search by work order reference, postcode or address', () => {
 
       context('Displays an error for wrong work order reference', () => {
         beforeEach(() => {
-          cy.route({
-            method: 'GET',
-            url: 'api/workOrders/00000000',
-            status: 404,
-            response: '',
-          }).as('repairs_with_error')
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/00000000' },
+            (req) => {
+              req.reply({
+                statusCode: 404,
+                body: {
+                  message: 'Unable to locate work order 0',
+                },
+              })
+            }
+          ).as('repairs_with_error')
+
+          cy.visit('/')
+
           // Search by postcode
           cy.get('.govuk-input').clear().type('00000000')
           cy.get('[type="submit"]').contains('Search').click()
           cy.url().should('contains', 'work-orders/00000000')
-          cy.visit(`${Cypress.env('HOST')}/work-orders/00000000`)
+
+          cy.visit('/work-orders/00000000')
 
           cy.wait('@repairs_with_error')
         })
@@ -184,23 +204,41 @@ describe('Search by work order reference, postcode or address', () => {
   context('When logged in user is a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
-      cy.server()
     })
 
     describe('Search by work order reference', () => {
       beforeEach(() => {
-        cy.fixture('work-orders/work-order.json').as('workOrder')
-        cy.fixture('properties/property.json').as('property')
-        cy.fixture('work-orders/notes.json').as('notes')
-
-        cy.route('GET', 'api/properties/00012345', '@property')
-        cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-        cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
-        cy.route(
-          'GET',
-          `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-          JSON.stringify([])
+        // Viewing the home page
+        cy.intercept(
+          { method: 'GET', path: '/api/filter/WorkOrder' },
+          {
+            fixture: 'filter/work-order.json',
+          }
         )
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+          { fixture: 'work-orders/work-orders.json' }
+        )
+
+        // Viewing the work order page
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'work-orders/work-order.json' }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/property.json' }
+        )
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          },
+          { body: [] }
+        )
+
+        cy.visit('/')
       })
 
       it('navigates to the work order page', () => {
@@ -221,20 +259,30 @@ describe('Search by work order reference, postcode or address', () => {
 
     describe('Search by postcode or address', () => {
       beforeEach(() => {
-        cy.route({
-          method: 'GET',
-          url: 'api/workOrders/e96bt',
-          status: 404,
-          response: '',
-        }).as('repairs_with_error')
-        cy.route({
-          method: 'GET',
-          url: 'api/workOrders/randomaddress',
-          status: 404,
-          response: '',
-        }).as('repairs_with_error')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/e96bt' },
+          (req) => {
+            req.reply({
+              statusCode: 404,
+              body: {
+                message: 'Unable to locate work order e96bt',
+              },
+            })
+          }
+        ).as('repairs_with_error')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/randomaddress' },
+          (req) => {
+            req.reply({
+              statusCode: 404,
+              body: {
+                message: 'Unable to locate work order randomaddress',
+              },
+            })
+          }
+        ).as('repairs_with_error')
 
-        cy.visit(`${Cypress.env('HOST')}/search`)
+        cy.visit('/search')
       })
 
       it('returns 404 not found when searching for anything other than a work order', () => {

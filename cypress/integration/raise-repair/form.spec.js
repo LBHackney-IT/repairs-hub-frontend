@@ -7,41 +7,59 @@ describe('Raise repair form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    cy.server()
     // Stub request for raise a repair form page
-    cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-    cy.fixture('schedule-of-rates/priorities.json').as('priorities')
-    cy.fixture('schedule-of-rates/trades.json').as('trades')
-    cy.fixture('contractors/contractors.json').as('contractors')
-    cy.fixture('properties/property.json').as('property')
-    cy.fixture('hub-user/user.json').then((user) => {
-      cy.intercept('GET', 'api/hub-user', user)
-    })
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+      },
+      { fixture: 'contractors/contractors.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+      },
+      { fixture: 'schedule-of-rates/codes.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/schedule-of-rates/priorities' },
+      { fixture: 'schedule-of-rates/priorities.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
+      { fixture: 'schedule-of-rates/trades.json' }
+    )
 
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route(
-      'GET',
-      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
-      '@sorCodes'
-    )
-    cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
-    cy.route('GET', 'api/schedule-of-rates/trades?propRef=00012345', '@trades')
-    cy.route(
-      'GET',
-      'api/contractors?propertyReference=00012345&tradeCode=PL',
-      '@contractors'
-    )
-    cy.route('POST', '/api/workOrders/schedule', {
-      id: 10102030,
-      statusCode: 200,
-      statusCodeDescription: '???',
-      externallyManagedAppointment: false,
-    }).as('apiCheck')
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/schedule' },
+      {
+        body: {
+          id: 10102030,
+          statusCode: 200,
+          statusCodeDescription: '???',
+          externallyManagedAppointment: false,
+        },
+      }
+    ).as('apiCheck')
   })
 
   it('Fill out repair task details form to raise a repair', () => {
     // Click link to raise a repair
-    cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+    cy.visit('/properties/00012345')
 
     cy.get('.lbh-heading-h2')
       .contains('Raise a repair on this dwelling')
@@ -505,8 +523,10 @@ describe('Raise repair form', () => {
 
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'Repair works order created'
+      )
       cy.get('.lbh-announcement__content').within(() => {
-        cy.get('h2').contains('Repair works order created')
         cy.contains('Works order number')
         cy.contains('10102030')
       })
@@ -534,15 +554,20 @@ describe('Raise repair form', () => {
   })
 
   it('Display warning text when over the raise limit and submit for high cost authorisation', () => {
-    cy.route('POST', '/api/workOrders/schedule', {
-      id: 10102030,
-      statusCode: 1010,
-      statusCodeDescription: '???',
-      externallyManagedAppointment: false,
-    }).as('apiCheck')
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/schedule' },
+      {
+        body: {
+          id: 10102030,
+          statusCode: 1010,
+          statusCodeDescription: '???',
+          externallyManagedAppointment: false,
+        },
+      }
+    ).as('apiCheck')
 
     // Navigate to the raise repair form
-    cy.visit(`${Cypress.env('HOST')}/properties/00012345/raise-repair/new`)
+    cy.visit('/properties/00012345/raise-repair/new')
 
     // Select a trade
     cy.get('#trade').type('Plumbing - PL')
@@ -618,8 +643,10 @@ describe('Raise repair form', () => {
 
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'Repair works order created'
+      )
       cy.get('.lbh-announcement__content').within(() => {
-        cy.get('h2').contains('Repair works order created')
         cy.contains('Works order number')
         cy.contains('10102030')
       })
@@ -657,7 +684,7 @@ describe('When a contractor tries to raise a repair using the UI', () => {
   })
 
   it('rejects the request and shows the access-denied page instead', () => {
-    cy.visit(`${Cypress.env('HOST')}/properties/00012345/raise-repair/new`)
+    cy.visit('/properties/00012345/raise-repair/new')
 
     cy.contains('New repair').should('not.exist')
     cy.url().should('not.contain', 'properties/00012345/raise-repair/new')

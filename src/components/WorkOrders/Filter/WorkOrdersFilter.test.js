@@ -5,6 +5,7 @@ import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 import { multipleContractor } from 'factories/multiple_contractor'
+import { agentAndContractor } from 'factories/agent_and_contractor'
 
 describe('WorkOrdersFilter component', () => {
   const props = {
@@ -123,6 +124,22 @@ describe('WorkOrdersFilter component', () => {
     it('should render properly with all filter options', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
+          <WorkOrdersFilter
+            filters={props.filters}
+            loading={props.loading}
+            register={props.register}
+            clearFilters={props.clearFilters}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('when logged in as a combined agent/contractor', () => {
+    it('should render properly with all filter options', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: agentAndContractor }}>
           <WorkOrdersFilter
             filters={props.filters}
             loading={props.loading}

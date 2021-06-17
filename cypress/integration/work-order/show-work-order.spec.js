@@ -2,27 +2,35 @@
 
 import 'cypress-audit/commands'
 
-import MockDate from 'mockdate'
-
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
-    cy.server()
 
-    cy.fixture('properties/property.json').as('property')
-    cy.fixture('work-orders/notes.json').as('notes')
-
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
-
-    cy.fixture('work-orders/work-order.json').as('workOrder')
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder').as(
-      'workOrderResponse'
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'work-orders/work-order.json' }
     )
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/notes' },
+      { fixture: 'work-orders/notes.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
   })
 
   it('Shows various details about the work order, property and assigned contractor', () => {
+    cy.visit('/work-orders/10000012')
+
     cy.get('.lbh-heading-h1').within(() => {
       cy.contains('Works order: 10000012')
     })
@@ -72,6 +80,8 @@ describe('Show work order page', () => {
 
   context('When the work order has no appointment', () => {
     it('Shows a link to schedule it', () => {
+      cy.visit('/work-orders/10000012')
+
       cy.get('.appointment-details').within(() => {
         cy.contains('Appointment details')
         cy.contains('a', 'Schedule an appointment')
@@ -81,14 +91,15 @@ describe('Show work order page', () => {
 
   context('When the work order has an existing appointment', () => {
     beforeEach(() => {
-      cy.fixture('work-orders/with-appointment.json').as('workOrder')
-      cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
-
-      cy.wait('@workOrderResponse')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/with-appointment.json' }
+      )
     })
 
     it('Shows the scheduled appointment details', () => {
+      cy.visit('/work-orders/10000012')
+
       cy.get('.appointment-details').within(() => {
         cy.contains('Appointment details')
         cy.contains('19 Mar 2021, 12:00-18:00')
@@ -97,10 +108,17 @@ describe('Show work order page', () => {
 
     context('And the appointment start time is in the future', () => {
       beforeEach(() => {
-        MockDate.set(new Date('March 19 2021 11:59:00Z'))
+        cy.clock(new Date('March 19 2021 11:59:00Z'))
       })
 
       it('Does not show the assigned operatives', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.get('.appointment-details').within(() => {
+          cy.contains('Appointment details')
+          cy.contains('19 Mar 2021, 12:00-18:00')
+        })
+
         cy.contains('Operative 1').should('not.exist')
         cy.contains('Operative 2').should('not.exist')
       })
@@ -108,10 +126,17 @@ describe('Show work order page', () => {
 
     context('And the appointment start time is in the past', () => {
       beforeEach(() => {
-        MockDate.set(new Date('March 19 2021 12:01:00Z'))
+        cy.clock(new Date('March 19 2021 12:01:00Z'))
       })
 
       it('Shows the assigned operatives', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.get('.appointment-details').within(() => {
+          cy.contains('Appointment details')
+          cy.contains('19 Mar 2021, 12:00-18:00')
+        })
+
         cy.contains('Operative 1')
         cy.contains('Operative 2')
       })
@@ -120,13 +145,15 @@ describe('Show work order page', () => {
 
   context('When the work order has an immediate priority', () => {
     beforeEach(() => {
-      cy.fixture('work-orders/priority-immediate.json').as('workOrderImmediate')
-      cy.route('GET', 'api/workOrders/10000012', '@workOrderImmediate')
-
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/priority-immediate.json' }
+      )
     })
 
     it('Indicates that an appointment is not applicable', () => {
+      cy.visit('/work-orders/10000012')
+
       cy.get('.appointment-details').within(() => {
         cy.contains('Appointment details')
         cy.contains('Not applicable')

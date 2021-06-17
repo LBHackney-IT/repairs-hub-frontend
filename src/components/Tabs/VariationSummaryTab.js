@@ -74,8 +74,8 @@ const VariationSummaryTab = ({ workOrderReference }) => {
       return (
         <div className="display-inline">
           <a
-            href={`/work-orders/${workOrderReference}/variation-authorisation               `}
-            className="repairs-hub-link lbh-body-s"
+            className="lbh-link"
+            href={`/work-orders/${workOrderReference}/variation-authorisation`}
           >
             Variation Authorisation
           </a>

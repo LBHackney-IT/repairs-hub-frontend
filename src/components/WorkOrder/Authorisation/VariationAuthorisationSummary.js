@@ -5,6 +5,7 @@ import {
 } from '../../../utils/helpers/calculations'
 import { longDateToStr } from '../../../utils/date'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
+import Status from '../Status'
 
 const VariationAuthorisationSummary = ({
   variationTasks,
@@ -150,13 +151,7 @@ const VariationAuthorisationSummary = ({
             ? variationTasks.tasks.map((task, index) => (
                 <TR index={index} key={index}>
                   <TD>
-                    <span
-                      className={`status status-${sorStatus(task)
-                        .replace(/\s+/g, '-')
-                        .toLowerCase()}`}
-                    >
-                      {sorStatus(task)}
-                    </span>
+                    <Status status={sorStatus(task)} />
                   </TD>
                   <TD>
                     {task.code}

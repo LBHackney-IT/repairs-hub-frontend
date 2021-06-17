@@ -4,27 +4,37 @@ import 'cypress-audit/commands'
 
 describe('Notes', () => {
   beforeEach(() => {
-    cy.loginWithAgentRole()
-
-    cy.server()
     // Stub requests
-    cy.fixture('properties/property.json').as('property')
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.fixture('work-orders/work-orders.json').as('workOrders')
-    cy.route('GET', 'api/workOrders/?propertyReference=00012345', '@workOrders')
-    cy.fixture('work-orders/work-order.json').as('workOrder')
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-    cy.fixture('work-orders/notes.json').as('notes')
-    cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
-    cy.route({
-      method: 'POST',
-      url: '/api/jobStatusUpdate',
-      response: '',
-    }).as('apiCheck')
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { fixture: 'work-orders/work-orders.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'work-orders/work-order.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/notes' },
+      { fixture: 'work-orders/notes.json' }
+    )
+    cy.intercept(
+      { method: 'POST', path: '/api/jobStatusUpdate' },
+      { body: '' }
+    ).as('apiCheck')
+
+    cy.loginWithAgentRole()
   })
 
   it('Fill out notes form and update the job status', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
     // Repairs history tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
     // Now select Notes tab
@@ -68,7 +78,8 @@ describe('Notes', () => {
   })
 
   it('Displays notes as a timeline', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
+
     cy.get('a[id="tab_notes-tab"]').click()
 
     cy.get('#notes-tab').within(() => {
@@ -90,8 +101,12 @@ describe('Notes', () => {
   })
 
   it('Displays no notes message when there are no notes', () => {
-    cy.route('GET', 'api/workOrders/10000012/notes', '[]')
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/notes' },
+      { body: [] }
+    )
+
+    cy.visit('/work-orders/10000012')
     cy.get('a[id="tab_notes-tab"]').click()
 
     cy.get('#notes-tab').within(() => {
@@ -101,7 +116,7 @@ describe('Notes', () => {
   })
 
   it('Navigate directly to notes tab', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012#notes-tab`)
+    cy.visit('/work-orders/10000012#notes-tab')
     // Notes tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Notes')
 

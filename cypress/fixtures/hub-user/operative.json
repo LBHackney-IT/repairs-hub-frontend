@@ -4,5 +4,5 @@
   "email": "hackney.user@test.hackney.gov.uk",
   "varyLimit": "250",
   "raiseLimit": "250",
-  "contractors": []
+  "contractors": ["H01"]
 }
