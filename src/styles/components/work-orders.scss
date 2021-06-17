@@ -63,6 +63,10 @@
         background-color: repairs-hub-colour('danger');
         color: repairs-hub-colour('white');
       }
+      &--status-no-access {
+        background-color: repairs-hub-colour('grey');
+        color: repairs-hub-colour('black');
+      }
     }
   }
 }
