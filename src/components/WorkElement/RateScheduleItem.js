@@ -44,8 +44,12 @@ const RateScheduleItem = ({
                 ? 'Please enter an SOR code'
                 : 'Please select an SOR code',
               validate: (value) => {
-                if (!sorCodesList.includes(value)) {
+                let sorCodesListValid = sorCodesList.includes(value)
+
+                if (!isTextInput && !sorCodesListValid) {
                   return 'SOR code is not valid'
+                } else {
+                  return sorCodesListValid
                 }
               },
             })}
