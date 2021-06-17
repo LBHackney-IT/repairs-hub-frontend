@@ -1,6 +1,6 @@
 $repairs-hub-colours: (
   'orange': lbh-colour('lbh-f04'),
-  'danger': lbh-colour('lbh-f02'),
+  'dark-red': lbh-colour('lbh-f02'),
   'white': lbh-colour('lbh-white'),
   'black': lbh-colour('lbh-black'),
   'dark-grey': lbh-colour('lbh-grey-1'),
@@ -33,8 +33,8 @@ $repairs-hub-colours: (
     color: repairs-hub-colour('black');
   }
 
-  &-danger {
-    color: repairs-hub-colour('danger');
+  &-dark-red {
+    color: repairs-hub-colour('dark-red');
   }
 
   &-\!-white {
