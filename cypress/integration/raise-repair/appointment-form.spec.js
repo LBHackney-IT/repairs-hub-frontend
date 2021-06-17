@@ -10,69 +10,88 @@ describe('Schedule appointment form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    cy.server()
     // Stub request for raise a repair form page
-    cy.fixture('schedule-of-rates/codes.json').as('sorCodes')
-    cy.fixture('schedule-of-rates/priorities.json').as('priorities')
-    cy.fixture('schedule-of-rates/trades.json').as('trades')
-    cy.fixture('contractors/contractors.json').as('contractors')
-    cy.fixture('properties/property.json').as('property')
-
-    cy.fixture('work-orders/work-order.json').as('workOrder')
-    cy.fixture('work-orders/task.json').as('task')
-
-    cy.route('GET', 'api/workOrders/10102030', '@workOrder')
-    cy.route('GET', 'api/workOrders/10102030/tasks', '@task')
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.route('GET', 'api/hub-user', {})
-    cy.route(
-      'GET',
-      'api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
-      []
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
     )
-    cy.route(
-      'GET',
-      'api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*',
-      '@sorCodes'
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
+      },
+      { fixture: 'contractors/contractors.json' }
     )
-    cy.route('GET', 'api/schedule-of-rates/priorities', '@priorities')
-    cy.route('GET', 'api/schedule-of-rates/trades?propRef=00012345', '@trades')
-    cy.route(
-      'GET',
-      'api/contractors?propertyReference=00012345&tradeCode=PL',
-      '@contractors'
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL',
+      },
+      { fixture: 'schedule-of-rates/codes.json' }
     )
-    cy.route('POST', '/api/workOrders/schedule', {
-      id: 10102030,
-      statusCode: 200,
-      statusCodeDescription: '???',
-      externallyManagedAppointment: false,
-    }).as('apiCheck')
+    cy.intercept(
+      { method: 'GET', path: '/api/schedule-of-rates/priorities' },
+      { fixture: 'schedule-of-rates/priorities.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
+      { fixture: 'schedule-of-rates/trades.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10102030' },
+      { fixture: 'work-orders/work-order.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10102030/tasks' },
+      { fixture: 'work-orders/task.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { body: [] }
+    )
 
-    cy.route({
-      method: 'POST',
-      url: '/api/appointments',
-      response: '',
-    }).as('apiCheckAppointment')
-    cy.route({
-      method: 'POST',
-      url: '/api/jobStatusUpdate',
-      response: '',
-    }).as('apiCheckjobStatus')
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/schedule' },
+      {
+        body: {
+          id: 10102030,
+          statusCode: 200,
+          statusCodeDescription: '???',
+          externallyManagedAppointment: false,
+        },
+      }
+    ).as('apiCheck')
+    cy.intercept(
+      { method: 'POST', path: '/api/appointments' },
+      { body: '' }
+    ).as('apiCheckAppointment')
+    cy.intercept(
+      { method: 'POST', path: '/api/jobStatusUpdate' },
+      { body: '' }
+    ).as('apiCheckjobStatus')
+
     cy.clock(now)
   })
 
   context('There are available appointments', () => {
     beforeEach(() => {
-      cy.fixture('appointment/availability.json').as('availableAppointments')
-      cy.route(
-        'GET',
-        'api/appointments?workOrderReference=10102030&fromDate=2021-03-08&toDate=2021-04-11',
-        '@availableAppointments'
-      )
+      cy.intercept(
+        {
+          method: 'GET',
+          pathname: '/api/appointments',
+        },
+        { fixture: 'appointment/availability.json' }
+      ).as('availableAppointments')
     })
+
     it('Schedules an appointment after raising a repair', () => {
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.visit('/properties/00012345')
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
@@ -179,6 +198,8 @@ describe('Schedule appointment form', () => {
               })
           })
       })
+
+      cy.wait('@availableAppointments')
 
       //Appointment page with calendar
       cy.url().should('contains', 'work-orders/10102030/appointment/new')
@@ -306,15 +327,18 @@ describe('Schedule appointment form', () => {
 
   context('No available appointments', () => {
     beforeEach(() => {
-      cy.route(
-        'GET',
-        'api/appointments?workOrderReference=10102030&fromDate=2021-03-08&toDate=2021-04-11',
-        []
-      )
+      cy.intercept(
+        {
+          method: 'GET',
+          pathname: '/api/appointments',
+        },
+        { body: [] }
+      ).as('availableAppointments')
     })
 
     it('Should display message that no appointments are available', () => {
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.visit('/properties/00012345')
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a repair on this dwelling')
         .click()
@@ -338,6 +362,8 @@ describe('Schedule appointment form', () => {
           .contains('Create works order')
           .click({ force: true })
       })
+
+      cy.wait('@availableAppointments')
 
       // shows that there are no available appointments
       cy.get('#no-appointment').contains('No available appointments')

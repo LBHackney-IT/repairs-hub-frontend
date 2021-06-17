@@ -5,30 +5,37 @@ import 'cypress-audit/commands'
 describe('Pending variation tab on work-order page', () => {
   context('work order status is Variation Pending approval', () => {
     beforeEach(() => {
-      cy.server()
       // Stub requests
-      cy.fixture('properties/property.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.fixture('work-orders/status-variation-pending-approval.json').as(
-        'workOrder'
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/status-variation-pending-approval.json' }
       )
-      cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-      cy.fixture('work-orders/tasks-and-sors.json').as('tasks-and-sors')
-      cy.route('GET', 'api/workOrders/10000012/tasks', '@tasks-and-sors').as(
-        'tasks-and-sors-request'
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
       )
-      cy.fixture('work-orders/variation-tasks.json').as('variation-tasks')
-      cy.route(
-        'GET',
-        'api/workOrders/10000012/variation-tasks',
-        '@variation-tasks'
-      ).as('variation-tasks-request')
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: [] }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { fixture: 'work-orders/tasks-and-sors.json' }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
+        { fixture: 'work-orders/variation-tasks.json' }
+      )
     })
     // Logged in as a contract-manager (has permission to authorise a variation)
     it('shows the summary of the variation in variation-summary tab and has link to authorise variation', () => {
       cy.loginWithContractManagerRole()
+      cy.visit('/work-orders/10000012')
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
       // Now select Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click()
       cy.get('#pending-variation-tab').within(() => {
@@ -123,8 +130,8 @@ describe('Pending variation tab on work-order page', () => {
     //logged in as an Agent
     it('shows Pending variation but does not show the link for variation authorisation to Agent', () => {
       cy.loginWithAgentRole()
+      cy.visit('/work-orders/10000012')
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
       // Now select Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click()
       cy.get('#pending-variation-tab').within(() => {
@@ -219,8 +226,8 @@ describe('Pending variation tab on work-order page', () => {
     //logged in as a Contractor
     it('shows Pending variation but does not show the link for variation authorisation to Contractor', () => {
       cy.loginWithContractorRole()
+      cy.visit('/work-orders/10000012')
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
       // Now select Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click()
       cy.get('#pending-variation-tab').within(() => {
@@ -318,22 +325,41 @@ describe('Pending variation tab on work-order page', () => {
   context('work order status is NOT Variation Pending Approval', () => {
     beforeEach(() => {
       cy.loginWithContractManagerRole()
-      cy.server()
+
       // Stub requests
-      cy.fixture('properties/property.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      )
     })
 
     it('status is In Progress ', () => {
-      cy.fixture('work-orders/work-order.json')
-        .as('workOrder')
-        .then((workOrder) => {
-          workOrder.reference = 10000040
-        })
-      cy.route('GET', 'api/workOrders/10000040', '@workOrder')
-      cy.route('GET', 'api/workOrders/10000040/variation-tasks', '{[]}')
+      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        workOrder.reference = 10000040
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040' },
+          { body: workOrder }
+        )
+      })
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: [] }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+        { fixture: 'work-orders/tasks-and-sors.json' }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/variation-tasks' },
+        { body: [] }
+      )
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000040`)
+      cy.visit('/work-orders/10000040')
+
       // Now select Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
       cy.get('#pending-variation-tab').within(() => {
@@ -344,15 +370,32 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     it('status is Work complete ', () => {
-      cy.fixture('work-orders/work-order.json')
-        .as('workOrder')
-        .then((workOrder) => {
-          workOrder.reference = 10000037
-        })
-      cy.route('GET', 'api/workOrders/10000037', '@workOrder')
-      cy.route('GET', 'api/workOrders/10000037/variation-tasks', '{[]}')
+      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        workOrder.reference = 10000037
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000037' },
+          { body: workOrder }
+        )
+      })
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: [] }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000037/tasks' },
+        { fixture: 'work-orders/tasks-and-sors.json' }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000037/variation-tasks' },
+        { body: [] }
+      )
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000037`)
+      cy.visit('/work-orders/10000037')
+
       // Now select Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
       cy.get('#pending-variation-tab').within(() => {
@@ -363,15 +406,32 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     it('status is Authorisation Pending Approval ', () => {
-      cy.fixture('work-orders/work-order.json')
-        .as('workOrder')
-        .then((workOrder) => {
-          workOrder.reference = 10000032
-        })
-      cy.route('GET', 'api/workOrders/10000032', '@workOrder')
-      cy.route('GET', 'api/workOrders/10000032/variation-tasks', '{[]}')
+      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        workOrder.reference = 10000032
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000032' },
+          { body: workOrder }
+        )
+      })
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: [] }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000032/tasks' },
+        { fixture: 'work-orders/tasks-and-sors.json' }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000032/variation-tasks' },
+        { body: [] }
+      )
 
-      cy.visit(`${Cypress.env('HOST')}/work-orders/10000032`)
+      cy.visit('/work-orders/10000032')
+
       // Now select Variation Pending variation tab
       cy.get('a[id="tab_pending-variation-tab"]').click({ force: true })
       cy.get('#pending-variation-tab').within(() => {

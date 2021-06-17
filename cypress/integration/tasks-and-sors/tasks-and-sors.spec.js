@@ -6,22 +6,32 @@ describe('Tasks and SORs', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    cy.server()
     // Stub requests
-    cy.fixture('properties/property.json').as('property')
-    cy.route('GET', 'api/properties/00012345', '@property')
-    cy.fixture('work-orders/work-orders.json').as('workOrders')
-    cy.route('GET', 'api/workOrders/?propertyReference=00012345', '@workOrders')
-    cy.fixture('work-orders/notes.json').as('notes')
-    cy.route('GET', 'api/workOrders/10000012/notes', '@notes')
-    cy.fixture('work-orders/work-order.json').as('workOrder')
-    cy.route('GET', 'api/workOrders/10000012', '@workOrder')
-    cy.fixture('work-orders/tasks-and-sors.json').as('tasksAndSors')
-    cy.route('GET', 'api/workOrders/10000012/tasks', '@tasksAndSors')
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'work-orders/work-order.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    )
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+      },
+      { fixture: 'work-orders/work-orders.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { fixture: 'work-orders/tasks-and-sors.json' }
+    )
   })
 
   it('Displays tasks and sors relating to a work order', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
+
     // Repairs history tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
     // Now select Tasks and SORs tab
@@ -93,7 +103,8 @@ describe('Tasks and SORs', () => {
   })
 
   it('Navigate directly to tasks and sors tab', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012#tasks-and-sors-tab`)
+    cy.visit('/work-orders/10000012#tasks-and-sors-tab')
+
     // Tasks and SORs tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
 
@@ -110,5 +121,8 @@ describe('Tasks and SORs', () => {
         cy.contains('th', 'Cost (est.)')
       })
     })
+
+    // Run lighthouse audit for accessibility report
+    cy.audit()
   })
 })

@@ -1,120 +1,107 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { PAGE_SIZE_CONTRACTORS } from '../../../src/utils/frontend-api-client/work-orders'
 
 describe('Filter work orders', () => {
   // Stub work orders and work orders filter response
   beforeEach(() => {
-    cy.server()
     // Work order filters
-    cy.fixture('filter/work-order.json').as('workOrderFilters')
-    cy.route('GET', `api/filter/WorkOrder`, '@workOrderFilters')
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      { fixture: 'filter/work-order.json' }
+    )
+
     // All work orders
-    cy.fixture('work-orders/work-orders.json').as('workOrderslist')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1`,
-      '@workOrderslist'
+    cy.intercept(
+      { path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+      { fixture: 'work-orders/work-orders.json' }
     )
+
     // No work orders for work cancelled
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=30`,
-      []
+    cy.intercept(
+      { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=30' },
+      { body: [] }
     )
+
     // Work complete (50)
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
-          (workOrder) => workOrder.status === 'Work complete'
-        )
-      })
-      .as('workComplete')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50`,
-      '@workComplete'
-    )
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50' },
+        workOrders.filter((workOrder) => workOrder.status === 'Work complete')
+      )
+    })
+
     // Variation Pending Approval (90)
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90' },
+        workOrders.filter(
           (workOrder) => workOrder.status === 'Variation Pending Approval'
         )
-      })
-      .as('pendingApproval')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=90`,
-      '@pendingApproval'
-    )
+      )
+    })
+
     // Work Complete (50) and Variation Pending Approval (90)
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&StatusCode=90',
+        },
+        workOrders.filter(
           (workOrder) =>
             workOrder.status === 'Work complete' ||
             workOrder.status === 'Variation Pending Approval'
         )
-      })
-      .as('workCompleteAndPendingApproval')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=50&StatusCode=90`,
-      '@workCompleteAndPendingApproval'
-    )
+      )
+    })
+
     // In Progress (80) and Variation Pending Approval (90) and Emergency priority
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2',
+        },
+        workOrders.filter(
           (workOrder) =>
             (workOrder.status === 'In progress' ||
               workOrder.status === 'Variation Pending Approval') &&
             workOrder.priority === '2 [E] EMERGENCY'
         )
-      })
-      .as('emergencyPriorityWorkInProgressAndPendingApproval')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2`,
-      '@emergencyPriorityWorkInProgressAndPendingApproval'
-    )
+      )
+    })
+
     // Work order with Emergency priority
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        { path: '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2' },
+        workOrders.filter(
           (workOrder) => workOrder.priority === '2 [E] EMERGENCY'
         )
-      })
-      .as('emergencyPriorityWork')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&Priorities=2`,
-      '@emergencyPriorityWork'
-    )
+      )
+    })
+
     // Work order with Plumbing and Purdys
-    cy.fixture('work-orders/work-orders.json')
-      .then((workOrders) => {
-        return workOrders.filter(
+    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+      cy.intercept(
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL',
+        },
+        workOrders.filter(
           (workOrder) =>
             workOrder.tradeCode === 'PL' &&
             workOrder.owner === 'Purdy Contracts (P) Ltd'
         )
-      })
-      .as('purdyPlumbingWorkOrders')
-    cy.route(
-      'GET',
-      `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&TradeCodes=PL&ContractorReference=PCL`,
-      '@purdyPlumbingWorkOrders'
-    )
+      )
+    })
   })
 
   context('When logged in as a contract manager', () => {
     beforeEach(() => {
       cy.loginWithContractManagerRole()
-
-      cy.visit(`${Cypress.env('HOST')}/`)
+      cy.visit('/')
     })
 
     it('Filter work orders', () => {
@@ -164,6 +151,9 @@ describe('Filter work orders', () => {
         .should('not.be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.SCC"]')
+        .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="ContractorReference.H01"]')
         .should('not.be.checked')
       // Trade filter options
       cy.get('.govuk-checkboxes')
@@ -280,9 +270,7 @@ describe('Filter work orders', () => {
       )
 
       // Navigate directly to URL with query parameters
-      cy.visit(
-        `${Cypress.env('HOST')}/?pageNumber=1&StatusCode=50&StatusCode=90`
-      )
+      cy.visit('/?pageNumber=1&StatusCode=50&StatusCode=90')
 
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
@@ -332,11 +320,7 @@ describe('Filter work orders', () => {
       cy.url().should('contains', '/?pageNumber=1&StatusCode=30')
 
       // Navigate to url directly again with emergency priority query parameter
-      cy.visit(
-        `${Cypress.env(
-          'HOST'
-        )}/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2`
-      )
+      cy.visit('/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2')
 
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
@@ -527,22 +511,18 @@ describe('Filter work orders', () => {
 
   context('When logged in as an authorisation manager', () => {
     beforeEach(() => {
-      cy.loginWithAuthorisationManagerRole()
-
       // Stub authorisation pending approval work order (1010)
-      cy.fixture('work-orders/work-orders.json')
-        .then((workOrders) => {
-          return workOrders.filter(
+      cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+        cy.intercept(
+          { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=1010' },
+          workOrders.filter(
             (workOrder) => workOrder.status === 'Authorisation Pending Approval'
           )
-        })
-        .as('authorisationPendingApproval')
-      cy.route(
-        'GET',
-        `api/workOrders/?PageSize=${PAGE_SIZE_CONTRACTORS}&PageNumber=1&StatusCode=1010`,
-        '@authorisationPendingApproval'
-      )
-      cy.visit(`${Cypress.env('HOST')}/`)
+        )
+      })
+
+      cy.loginWithAuthorisationManagerRole()
+      cy.visit('/')
     })
 
     it('Has Authorisation Pending Approval work order filter selected by default', () => {
@@ -592,6 +572,9 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.SCC"]')
         .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="ContractorReference.H01"]')
+        .should('not.be.checked')
       // Trade filter options
       cy.get('.govuk-checkboxes')
         .find('[name="TradeCodes.AD"]')
@@ -625,16 +608,13 @@ describe('Filter work orders', () => {
 
   context('When logged in as a contractor in one contractor group', () => {
     beforeEach(() => {
+      cy.fixture('filter/work-order.json').then((filters) => {
+        filters.Contractors.splice(1)
+        cy.intercept({ method: 'GET', path: '/api/filter/WorkOrder' }, filters)
+      })
+
       cy.loginWithContractorRole()
-
-      cy.fixture('filter/work-order.json')
-        .then((filters) => {
-          filters.Contractors.splice(1, 3)
-        })
-        .as('workOrderFilters')
-      cy.route('GET', `api/filter/WorkOrder`, '@workOrderFilters')
-
-      cy.visit(`${Cypress.env('HOST')}/`)
+      cy.visit('/')
     })
 
     it('Lists all filtering options with the exception of the contractors filter', () => {
@@ -648,6 +628,9 @@ describe('Filter work orders', () => {
         .should('not.exist')
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.SCC"]')
+        .should('not.exist')
+      cy.get('.govuk-checkboxes')
+        .find('[name="ContractorReference.H01"]')
         .should('not.exist')
 
       // Status filter options (none selected by default)
@@ -719,8 +702,7 @@ describe('Filter work orders', () => {
     () => {
       beforeEach(() => {
         cy.loginWithMultipleContractorRole()
-
-        cy.visit(`${Cypress.env('HOST')}/`)
+        cy.visit('/')
       })
 
       it('Lists all filtering options and displays contractors filter', () => {
@@ -734,6 +716,9 @@ describe('Filter work orders', () => {
           .should('exist')
         cy.get('.govuk-checkboxes')
           .find('[name="ContractorReference.SCC"]')
+          .should('exist')
+        cy.get('.govuk-checkboxes')
+          .find('[name="ContractorReference.H01"]')
           .should('exist')
 
         // Status filter options (none selected by default)

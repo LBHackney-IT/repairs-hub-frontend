@@ -1,12 +1,10 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { PAGE_SIZE_AGENTS } from '../../../src/utils/frontend-api-client/work-orders'
 
 describe('Show property', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
-    cy.server()
   })
 
   context(
@@ -14,16 +12,21 @@ describe('Show property', () => {
     () => {
       beforeEach(() => {
         // Stub request with property response
-        cy.fixture('properties/property.json').as('property')
-        cy.route('GET', 'api/properties/00012345', '@property')
-
-        cy.route(
-          'GET',
-          `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-          JSON.stringify([])
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/property.json' }
         )
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          },
+          { body: [] }
+        ).as('repairsHistory')
 
-        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.visit('/properties/00012345')
+        cy.wait('@repairsHistory')
       })
 
       it('shows property address in the heading', () => {
@@ -73,14 +76,16 @@ describe('Show property', () => {
   context('when many repairs have been raised on the property', () => {
     beforeEach(() => {
       // Stub request with property response
-      cy.fixture('properties/property.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      )
 
-      // Mock many properties for the first page of results, matching our current PAGE_SIZE_AGENTS
-      let properties = [...Array(PAGE_SIZE_AGENTS).keys()]
+      // Mock many properties for the first page of results
+      let properties = [...Array(50).keys()]
 
       properties.forEach((property, index) => {
-        const referenceIndex = (PAGE_SIZE_AGENTS - index).toString()
+        const referenceIndex = (50 - index).toString()
 
         const referenceIndexString = `100000${referenceIndex.padStart(2, '0')}`
 
@@ -115,27 +120,34 @@ describe('Show property', () => {
         status: 'Work complete',
       }
 
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.route(
-        'GET',
-        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-        JSON.stringify(properties)
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        { body: properties }
+      )
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2',
+        },
+        {
+          body: [
+            {
+              ...properties[properties.length - 1],
+              dateRaised: '2020-01-01T11:02:00.334849',
+              reference: 10000000,
+              description: 'The oldest repair for all pages',
+              status: 'Work complete',
+            },
+          ],
+        }
       )
 
-      // Mock a single property in the response for the second page, giving a total of 51 repairs
-      cy.route(
-        'GET',
-        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=2`,
-        JSON.stringify([
-          {
-            ...properties[properties.length - 1],
-            dateRaised: '2020-01-01T11:02:00.334849',
-            reference: 10000000,
-            description: 'The oldest repair for all pages',
-            status: 'Work complete',
-          },
-        ])
-      )
+      cy.visit('/properties/00012345')
     })
 
     it('Displays the first page of repairs', () => {
@@ -173,17 +185,13 @@ describe('Show property', () => {
     })
 
     it('Displays more repairs after clicking Load more button', () => {
-      cy.get('.repairs-history-table > tbody > tr').should(
-        'have.length',
-        PAGE_SIZE_AGENTS // our first mocked response contains 50 results, matching this
-      )
+      // our first mocked response contains 50 results, matching this
+      cy.get('.repairs-history-table > tbody > tr').should('have.length', 50)
 
       cy.contains('Load more').click({ force: true })
 
-      cy.get('.repairs-history-table > tbody > tr').should(
-        'have.length',
-        PAGE_SIZE_AGENTS + 1 // our second mocked response adds one more property to the list
-      )
+      // our second mocked response adds one more property to the list
+      cy.get('.repairs-history-table > tbody > tr').should('have.length', 51)
 
       cy.get('[data-ref=10000000]').within(() => {
         cy.contains('10000000')
@@ -202,29 +210,38 @@ describe('Show property', () => {
   context('when the are fewer repairs than the initial page size', () => {
     beforeEach(() => {
       // Stub request with property response
-      cy.fixture('properties/property.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.route(
-        'GET',
-        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-        JSON.stringify([
-          {
-            reference: 10000000,
-            dateRaised: '2021-01-22T11:02:00.334849',
-            lastUpdated: null,
-            priority: '2 [E] EMERGENCY',
-            property: '315 Banister House  Homerton High Street',
-            owner: 'Alphatrack (S) Systems Lt',
-            description: 'The only repair',
-            propertyReference: '00012345',
-            tradeCode: 'DE',
-            tradeDescription: 'DOOR ENTRY ENGINEER - DE',
-            status: 'In Progress',
-          },
-        ])
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
       )
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        },
+        {
+          body: [
+            {
+              reference: 10000000,
+              dateRaised: '2021-01-22T11:02:00.334849',
+              lastUpdated: null,
+              priority: '2 [E] EMERGENCY',
+              property: '315 Banister House  Homerton High Street',
+              owner: 'Alphatrack (S) Systems Lt',
+              description: 'The only repair',
+              propertyReference: '00012345',
+              tradeCode: 'DE',
+              tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+              status: 'In Progress',
+            },
+          ],
+        }
+      )
+
+      cy.visit('/properties/00012345')
     })
+
     it('Does not display a Load more button', () => {
       cy.get('.govuk-tabs__tab').contains('Repairs history').click()
       cy.contains('button', 'Load more').should('not.exist')
@@ -236,11 +253,13 @@ describe('Show property', () => {
     () => {
       beforeEach(() => {
         // Stub request with property response
-        cy.fixture('properties/property_repair_not_raisable.json').as(
-          'property'
-        )
-        cy.route('GET', 'api/properties/00012345', '@property')
-        cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/property_repair_not_raisable.json' }
+        ).as('property')
+
+        cy.visit('/properties/00012345')
+        cy.wait('@property')
       })
 
       it('shows property address in the heading', () => {
@@ -261,10 +280,6 @@ describe('Show property', () => {
         })
       })
 
-      it('does not show Alerts section', () => {
-        cy.get('.hackney-property-alerts').should('not.exist')
-      })
-
       it('does not show the Repairs history tab', () => {
         // No repairs history
         cy.contains('Repairs history').should('not.exist')
@@ -278,14 +293,13 @@ describe('Show property', () => {
   context('Displays property with no tenure type', () => {
     beforeEach(() => {
       // Stub request with property response
-      cy.fixture('properties/property_no_tenure.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.route(
-        'GET',
-        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-        JSON.stringify([])
-      )
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property_no_tenure.json' }
+      ).as('property')
+
+      cy.visit('/properties/00012345')
+      cy.wait('@property')
     })
 
     it('shows property address in the heading', () => {
@@ -313,22 +327,17 @@ describe('Show property', () => {
   context('Displays property with TMO', () => {
     beforeEach(() => {
       // Stub request with property response
-      cy.fixture('properties/property_with_tmo.json').as('property')
-      cy.route('GET', 'api/properties/00012345', '@property')
-      cy.visit(`${Cypress.env('HOST')}/properties/00012345`)
-      cy.route(
-        'GET',
-        `api/workOrders/?propertyReference=00012345&PageSize=${PAGE_SIZE_AGENTS}&PageNumber=1`,
-        JSON.stringify([])
-      )
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property_with_tmo.json' }
+      ).as('property')
+
+      cy.visit('/properties/00012345')
+      cy.wait('@property')
     })
 
     it('shows property address in the heading', () => {
       cy.get('.lbh-heading-h1').contains('12 Test Street')
-    })
-
-    it('does not show property alerts', () => {
-      cy.get('.hackney-property-alerts').should('not.exist')
     })
 
     it('does show TMO details', () => {
