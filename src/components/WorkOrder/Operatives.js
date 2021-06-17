@@ -1,13 +1,10 @@
 const Operatives = ({ operatives }) => {
   return (
-    <>
-      <p className="lbh-body-xs">Operatives</p>
-      <ul className="lbh-list">
-        {operatives.map((operative) => (
-          <li className="lbh-body-xs">{operative.name}</li>
-        ))}
-      </ul>
-    </>
+    <p className="lbh-body-xs">
+      {`Operatives: ${operatives
+        .map((operative) => operative.name)
+        .join(', ')}`}
+    </p>
   )
 }
 

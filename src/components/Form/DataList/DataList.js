@@ -16,6 +16,8 @@ const DataList = ({
   widthClass,
   required,
   labelMessage,
+  value,
+  additionalDivClasses,
 }) => {
   useEffect(() => {
     if (!options || !Array.isArray(options)) {
@@ -26,9 +28,13 @@ const DataList = ({
   return (
     <div
       id={`${name}-form-group`}
-      className={cx('govuk-form-group lbh-form-group', {
-        'govuk-form-group--error': error,
-      })}
+      className={cx(
+        `govuk-form-group lbh-form-group`,
+        {
+          'govuk-form-group--error': error,
+        },
+        additionalDivClasses
+      )}
     >
       <label className="govuk-label lbh-label" htmlFor={name}>
         {label} {required && <span className="govuk-required">*</span>}{' '}
@@ -54,6 +60,7 @@ const DataList = ({
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         onChange={(e) => onChange && onChange(e)}
+        {...(value && { value })}
       />
 
       <datalist id={`autocomplete-list-${name}`}>

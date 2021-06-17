@@ -163,6 +163,107 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         </fieldset>
       </div>
       <div
+        class="operatives"
+      >
+        <p
+          class="govuk-heading-m"
+        >
+          Search by operative name and select from the list
+        </p>
+        <div>
+          <div
+            class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
+            id="operative-0-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="operative-0"
+            >
+              Operative name 1 *  
+            </label>
+            <input
+              autocomplete="off"
+              class="govuk-select lbh-select undefined"
+              data-testid="operative-0"
+              id="operative-0"
+              list="autocomplete-list-operative-0"
+              name="operative-0"
+              value="Operative A [1]"
+            />
+            <datalist
+              id="autocomplete-list-operative-0"
+            >
+              <option
+                value="Operative A [1]"
+              />
+              <option
+                value="Operative B [2]"
+              />
+            </datalist>
+          </div>
+          <input
+            id="operativeId-0"
+            name="operativeId-0"
+            type="hidden"
+            value="1"
+          />
+        </div>
+        <div />
+        <div>
+          <div
+            class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
+            id="operative-1-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="operative-1"
+            >
+              Operative name 2 *  
+            </label>
+            <input
+              autocomplete="off"
+              class="govuk-select lbh-select undefined"
+              data-testid="operative-1"
+              id="operative-1"
+              list="autocomplete-list-operative-1"
+              name="operative-1"
+              value="Operative B [2]"
+            />
+            <datalist
+              id="autocomplete-list-operative-1"
+            >
+              <option
+                value="Operative A [1]"
+              />
+              <option
+                value="Operative B [2]"
+              />
+            </datalist>
+          </div>
+          <button
+            aria-label="Remove operative"
+            class="cursor-pointer govuk-!-margin-left-2"
+            type="button"
+          >
+            -
+          </button>
+          <input
+            id="operativeId-1"
+            name="operativeId-1"
+            type="hidden"
+            value="2"
+          />
+        </div>
+        <div>
+          <a
+            class="lbh-link"
+            href="#"
+          >
+            + Add operative from list
+          </a>
+        </div>
+      </div>
+      <div
         class="govuk-form-group lbh-form-group"
         id="notes-form-group"
       >
