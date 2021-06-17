@@ -205,13 +205,19 @@ describe('Contractor update a job', () => {
       })
 
       // Enter a quantity less than the minimum
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('0')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('Quantity must be 0 or more')
       })
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('-1')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('-1')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
