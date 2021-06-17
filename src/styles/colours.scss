@@ -1,7 +1,7 @@
 $repairs-hub-colours: (
   'housing-1': #005f61,
   'housing-3': #2dccd3,
-  'warning': #ffa300,
+  'orange': lbh-colour('lbh-f04'),
   'danger': lbh-colour('lbh-f02'),
   'white': lbh-colour('lbh-white'),
   'black': lbh-colour('lbh-black'),
@@ -37,10 +37,6 @@ $repairs-hub-colours: (
 
   &-black {
     color: repairs-hub-colour('black');
-  }
-
-  &-warning {
-    color: repairs-hub-colour('warning');
   }
 
   &-danger {
