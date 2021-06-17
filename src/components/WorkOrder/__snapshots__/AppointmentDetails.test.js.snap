@@ -1,0 +1,269 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is normal priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is urgent priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with no appointment when the work order is emergency priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Not applicable
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with no appointment when the work order is immediate priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Not applicable
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with no appointment when the work order is normal priority does show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to book an appointment
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with no appointment when the work order is urgent priority does show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to book an appointment
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is emergency priority does not show a link to schedule an appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Not applicable
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is immediate priority does not show a link to schedule an appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Not applicable
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is normal priority does show a link to schedule an appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is urgent priority does show a link to schedule an appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

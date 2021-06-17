@@ -17,6 +17,7 @@ const WorkOrderDetails = ({
   personAlerts,
   tenure,
   canRaiseRepair,
+  schedulerSessionId,
 }) => {
   const { user } = useContext(UserContext)
 
@@ -67,6 +68,7 @@ const WorkOrderDetails = ({
         tenure={tenure}
         hasLinkToProperty={true}
         canRaiseRepair={canRaiseRepair}
+        schedulerSessionId={schedulerSessionId}
       />
     </>
   )
