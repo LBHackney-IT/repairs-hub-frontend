@@ -137,29 +137,27 @@ describe('Contractor update a job', () => {
 
     cy.get('#repair-request-form').within(() => {
       // Enter multiple invalid SOR codes
-      cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode').blur()
-      cy.get('[type="submit"]').contains('Next').click()
-      cy.wait('@sorCodeNotFound')
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode')
       cy.get(
         'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('SOR code is not valid')
       })
+      cy.get('[type="submit"]').contains('Next').click()
+      cy.wait('@sorCodeNotFound')
       cy.get('[data-error-id="error-0"]').within(() => {
         cy.contains('Could not find SOR code: FAKECODE')
       })
 
       cy.contains('+ Add another SOR code').click()
-      cy.get('input[id="rateScheduleItems[1][code]"]')
-        .type('anotherfakecode')
-        .blur()
-      cy.wait('@sorCodeNotFound')
-      cy.get('[type="submit"]').contains('Next').click()
+      cy.get('input[id="rateScheduleItems[1][code]"]').type('anotherfakecode')
       cy.get(
         'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('SOR code is not valid')
       })
+      cy.get('[type="submit"]').contains('Next').click()
+      cy.wait('@sorCodeNotFound')
       cy.get('[data-error-id="error-0"]').within(() => {
         cy.contains('Could not find SOR code: FAKECODE')
       })
