@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner/Spinner'
@@ -8,6 +8,7 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-order-complete'
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
+import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 
 const CloseWorkOrder = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
@@ -17,6 +18,7 @@ const CloseWorkOrder = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [workOrder, setWorkOrder] = useState()
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -35,6 +37,35 @@ const CloseWorkOrder = ({ reference }) => {
       setLoading(false)
     }
   }
+
+  const getCloseWorkOrder = async () => {
+    setError(null)
+
+    try {
+      const workOrder = await getWorkOrder(reference)
+
+      setWorkOrder(workOrder)
+    } catch (e) {
+      setWorkOrder(null)
+
+      console.error('An error has occured:', e.response)
+
+      if (e.response?.status === 404) {
+        setError(`Could not find a work order with reference ${reference}`)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        )
+      }
+    }
+    setLoading(false)
+  }
+
+  useEffect(() => {
+    setLoading(true)
+
+    getCloseWorkOrder()
+  }, [])
 
   const onJobSubmit = async () => {
     const CloseWorkOrderFormData = buildCloseWorkOrderData(
@@ -68,28 +99,34 @@ const CloseWorkOrder = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {CloseWorkOrderFormPage && (
-            <CloseWorkOrderForm
-              reference={reference}
-              onGetToSummary={onGetToSummary}
-              notes={notes}
-              time={completionTime}
-              date={completionDate}
-              reason={reason}
-            />
+          {!workOrder && error && <ErrorMessage label={error} />}
+
+          {workOrder && (
+            <>
+              {CloseWorkOrderFormPage && (
+                <CloseWorkOrderForm
+                  reference={workOrder.reference}
+                  onGetToSummary={onGetToSummary}
+                  notes={notes}
+                  time={completionTime}
+                  date={completionDate}
+                  reason={reason}
+                />
+              )}
+              {!CloseWorkOrderFormPage && (
+                <SummaryCloseWorkOrder
+                  onJobSubmit={onJobSubmit}
+                  notes={notes}
+                  time={completionTime}
+                  date={dateToShow}
+                  reason={reason}
+                  changeStep={changeCurrentPage}
+                  reference={workOrder.reference}
+                />
+              )}
+              {error && <ErrorMessage label={error} />}
+            </>
           )}
-          {!CloseWorkOrderFormPage && (
-            <SummaryCloseWorkOrder
-              onJobSubmit={onJobSubmit}
-              notes={notes}
-              time={completionTime}
-              date={dateToShow}
-              reason={reason}
-              changeStep={changeCurrentPage}
-              reference={reference}
-            />
-          )}
-          {error && <ErrorMessage label={error} />}
         </>
       )}
     </>
