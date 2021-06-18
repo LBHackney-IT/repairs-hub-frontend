@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'universal-cookie'
 
-const TWELVE_HOURS_IN_SECONDS = 60 * 60 * 12
+const SIX_HOURS_IN_SECONDS = 60 * 60 * 6
 
 export const getOrCreateSchedulerSessionId = async () => {
   const cookies = new Cookies()
@@ -18,7 +18,7 @@ export const getOrCreateSchedulerSessionId = async () => {
       schedulerSessionId,
       {
         path: '/',
-        maxAge: TWELVE_HOURS_IN_SECONDS,
+        maxAge: SIX_HOURS_IN_SECONDS,
       }
     )
   }
