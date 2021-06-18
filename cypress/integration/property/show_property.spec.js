@@ -80,6 +80,10 @@ describe('Show property', () => {
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
       )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'work-orders/work-order.json' }
+      ).as('workOrder')
 
       // Mock many properties for the first page of results
       let properties = [...Array(50).keys()]
@@ -181,6 +185,15 @@ describe('Show property', () => {
           cy.contains('Work complete')
           cy.contains('The earliest repair for page one')
         })
+      })
+    })
+
+    it('Clicks the first repair of repairs history', () => {
+      cy.contains('10000012').click()
+      cy.url().should('contains', 'work-orders/10000012')
+
+      cy.get('.lbh-heading-h1').within(() => {
+        cy.contains('Works order: 10000012')
       })
     })
 
