@@ -102,9 +102,8 @@ describe('Home page', () => {
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
             // Manage jobs link
-            cy.get('.lbh-header__links a').eq(0).contains('Manage jobs')
-            cy.get('.lbh-header__links a')
-              .eq(0)
+            cy.get('#manage')
+              .contains('Manage jobs')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -194,9 +193,8 @@ describe('Home page', () => {
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
             // Manage jobs link
-            cy.get('.lbh-header__links a').eq(0).contains('Manage jobs')
-            cy.get('.lbh-header__links a')
-              .eq(0)
+            cy.get('#manage')
+              .contains('Manage jobs')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -293,9 +291,8 @@ describe('Home page', () => {
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
             // Manage jobs link
-            cy.get('.lbh-header__links a').eq(0).contains('Manage jobs')
-            cy.get('.lbh-header__links a')
-              .eq(0)
+            cy.get('#manage')
+              .contains('Manage jobs')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -392,6 +389,11 @@ describe('Home page', () => {
               // Header component
               cy.get('.lbh-header__service-name').contains('Repairs Hub')
               cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+
+              // Manage jobs link
+              cy.get('#manage')
+                .contains('Manage jobs')
+                .should('have.attr', 'href', '/')
 
               // Search link
               cy.get('#search')
