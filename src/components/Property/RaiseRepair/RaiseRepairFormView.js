@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Cookies from 'universal-cookie'
 import { useState, useEffect } from 'react'
 import RaiseRepairForm from './RaiseRepairForm'
 import SuccessPage from '../../SuccessPage/SuccessPage'
@@ -7,7 +6,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
-import { getSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
+import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
 import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
@@ -46,8 +45,6 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   const [currentUser, setCurrentUser] = useState()
   const router = useRouter()
 
-  const TWELVE_HOURS_IN_SECONDS = 60 * 60 * 12
-
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
@@ -72,24 +69,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         ) {
           setImmediateOrEmergencyDloRepairText(true)
         } else {
-          const cookies = new Cookies()
-
-          let schedulerSessionId = cookies.get(
-            process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
-          )
-
-          if (!schedulerSessionId) {
-            ;({ schedulerSessionId } = await getSchedulerSessionId())
-
-            cookies.set(
-              process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
-              schedulerSessionId,
-              {
-                path: '/',
-                maxAge: TWELVE_HOURS_IN_SECONDS,
-              }
-            )
-          }
+          const schedulerSessionId = await getOrCreateSchedulerSessionId()
 
           setExternallyManagedAppointment(true)
           setExternalAppointmentManagementUrl(

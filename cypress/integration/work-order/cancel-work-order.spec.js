@@ -154,6 +154,8 @@ describe('Work order cancellations', () => {
         cy.fixture('work-orders/work-order.json').then((workOrder) => {
           // an internally-scheduled contractor ref
           workOrder.contractorReference = 'H01'
+          // emergency priority code
+          workOrder.priorityCode = 2
 
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000012' },

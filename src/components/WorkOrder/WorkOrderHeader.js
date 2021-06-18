@@ -14,6 +14,7 @@ const WorkOrderHeader = ({
   personAlerts,
   tenure,
   canRaiseRepair,
+  schedulerSessionId,
 }) => {
   const pastAppointmentStartTime = (date, startTime) => {
     if (!date || !startTime) {
@@ -47,7 +48,10 @@ const WorkOrderHeader = ({
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails workOrder={workOrder} />
+        <AppointmentDetails
+          workOrder={workOrder}
+          schedulerSessionId={schedulerSessionId}
+        />
         <div className="lbh-body-xs">
           <span>Assigned to: {workOrder.owner}</span>
         </div>

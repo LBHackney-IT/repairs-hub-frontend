@@ -7,12 +7,61 @@ import {
   STATUS_CANCELLED,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
 } from '../../utils/status-codes'
-import { IMMEDIATE_PRIORITY_CODE } from '../../utils/helpers/priorities'
+import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 
-const AppointmentDetails = ({ workOrder }) => {
+const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
 
-  if (workOrder.priorityCode !== IMMEDIATE_PRIORITY_CODE) {
+  const appointmentNotApplicableHtml = () => {
+    return (
+      <div className="appointment-details">
+        <span className="govuk-!-font-size-14">Appointment details</span>
+        <br></br>
+        <div className="lbh-body-s">
+          <span className="lbh-!-font-weight-bold">Not applicable</span>
+        </div>
+      </div>
+    )
+  }
+
+  const appointmentDetailsInfoHtml = () => {
+    return (
+      <div className="lbh-body-s">
+        <span className="govuk-!-font-size-14">
+          {dateToStr(new Date(workOrder.appointment.date))},{' '}
+          {workOrder.appointment.start}-{workOrder.appointment.end}
+        </span>
+      </div>
+    )
+  }
+
+  const scheduleAppointmentHtml = () => {
+    if (workOrder.externalAppointmentManagementUrl) {
+      if (schedulerSessionId) {
+        return (
+          <Link
+            href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
+          >
+            <a className="lbh-link" target="_blank" rel="noopener">
+              <strong>Open DRS</strong> to book an appointment
+            </a>
+          </Link>
+        )
+      } else {
+        console.error('Scheduler Session ID does not exist')
+      }
+    } else {
+      return (
+        <Link href={`/work-orders/${workOrder.reference}/appointment/new`}>
+          <a className="lbh-link lbh-!-font-weight-bold">
+            Schedule an appointment
+          </a>
+        </Link>
+      )
+    }
+  }
+
+  if (priorityCodesRequiringAppointments.includes(workOrder.priorityCode)) {
     return (
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
@@ -25,41 +74,20 @@ const AppointmentDetails = ({ workOrder }) => {
             workOrder.status !== STATUS_CANCELLED.description &&
             workOrder.status !==
               STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
-            !workOrder.appointment && (
-              <Link
-                href={`/work-orders/${workOrder.reference}/appointment/new`}
-              >
-                <a className="lbh-link lbh-!-font-weight-bold">
-                  Schedule an appointment
-                </a>
-              </Link>
-            )}
+            !workOrder.appointment &&
+            scheduleAppointmentHtml()}
           {user &&
             (user.hasAgentPermissions ||
               user.hasContractorPermissions ||
               user.hasContractManagerPermissions) &&
             workOrder.status !== STATUS_CANCELLED &&
-            !!workOrder.appointment && (
-              <div className="lbh-body-s">
-                <span className="govuk-!-font-size-14">
-                  {dateToStr(new Date(workOrder.appointment.date))},{' '}
-                  {workOrder.appointment.start}-{workOrder.appointment.end}
-                </span>
-              </div>
-            )}
+            !!workOrder.appointment &&
+            appointmentDetailsInfoHtml()}
         </div>
       </div>
     )
   } else {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          <span className="lbh-!-font-weight-bold">Not applicable</span>
-        </div>
-      </div>
-    )
+    return appointmentNotApplicableHtml()
   }
 }
 
