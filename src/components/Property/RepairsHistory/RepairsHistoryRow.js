@@ -26,7 +26,12 @@ const RepairsHistoryRow = ({
           user.hasContractManagerPermissions ||
           user.hasAuthorisationManagerPermissions) && (
           <TD>
-            <Link href={`/work-orders/${reference}`}>
+            <Link
+              href={{
+                pathname: '/work-orders/[reference]',
+                query: { reference: `${reference}` },
+              }}
+            >
               <a className="lbh-link">{reference}</a>
             </Link>
           </TD>
