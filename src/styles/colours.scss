@@ -6,14 +6,11 @@ $repairs-hub-colours: (
   'dark-grey': lbh-colour('lbh-grey-1'),
   'grey': lbh-colour('lbh-grey-2'),
   'light-grey': lbh-colour('lbh-grey-3'),
+  'lighter-grey': lbh-colour('lbh-panel'),
   'yellow': lbh-colour('lbh-h04'),
   'dark-green': lbh-colour('lbh-a01'),
+  'light-green': lbh-colour('lbh-primary-disabled'),
   'blue': lbh-colour('lbh-link'),
-  'calendar-current': #6895c6,
-  'calendar-selected': #b2cce2,
-  'calendar-border': #e2e4e6,
-  'calendar-divider': #c7c8ca,
-  'calendar-month': #7d8287,
 );
 
 @function repairs-hub-colour($colour) {
