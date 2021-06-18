@@ -98,7 +98,12 @@ const HeaderComponent = ({ serviceName }) => {
             </div>
             {user && (
               <div className="lbh-header__links">
-                {!user.hasAgentPermissions && <a href="/">Manage jobs</a>}
+                {(user.hasContractorPermissions ||
+                  !user.hasAgentPermissions) && (
+                  <a id="manage" href="/">
+                    Manage jobs
+                  </a>
+                )}
                 <a id="search" href="/search">
                   Search
                 </a>
