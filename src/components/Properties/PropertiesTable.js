@@ -6,11 +6,10 @@ const PropertiesTable = ({ properties, query }) => (
   <div>
     <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
-    <h4 className="lbh-heading-h4">
-      We found {properties.length} matching results for: {decodeURI(query)}
-    </h4>
-
     <Table className="govuk-!-margin-top-5">
+      <caption className="govuk-table__caption lbh-heading-h3 lbh-table__caption">
+        We found {properties.length} matching results for: {decodeURI(query)}
+      </caption>
       <THead>
         <TR className="lbh-body">
           <TH scope="col">Address</TH>
