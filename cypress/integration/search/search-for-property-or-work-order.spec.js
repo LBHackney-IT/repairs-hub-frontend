@@ -26,9 +26,9 @@ describe('Search by work order reference, postcode or address', () => {
         })
 
         it('checks the heading', () => {
-          cy.get('.lbh-heading-h4').contains(
-            'We found 2 matching results for: e9 6pt'
-          )
+          cy.get('.govuk-table').within(() => {
+            cy.contains('caption', 'We found 2 matching results for: e9 6pt')
+          })
         })
 
         it('checks the table', () => {
@@ -65,10 +65,10 @@ describe('Search by work order reference, postcode or address', () => {
           cy.get('[type="submit"]').contains('Search').click()
         })
 
-        it('checks the heading', () => {
-          cy.get('.lbh-heading-h4').contains(
-            'We found 2 matching results for: pitcairn'
-          )
+        it.only('checks the heading', () => {
+          cy.get('.govuk-table').within(() => {
+            cy.contains('caption', 'We found 2 matching results for: pitcairn')
+          })
 
           // Run lighthouse audit for accessibility report
           cy.audit()

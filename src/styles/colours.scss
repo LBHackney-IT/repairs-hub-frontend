@@ -1,29 +1,20 @@
 $repairs-hub-colours: (
-  'housing-1': #005f61,
-  'housing-3': #2dccd3,
-  'warning': #ffa300,
-  'danger': lbh-colour('lbh-f02'),
+  'orange': lbh-colour('lbh-f04'),
+  'dark-red': lbh-colour('lbh-f02'),
   'white': lbh-colour('lbh-white'),
   'black': lbh-colour('lbh-black'),
   'dark-grey': lbh-colour('lbh-grey-1'),
   'grey': lbh-colour('lbh-grey-2'),
   'light-grey': lbh-colour('lbh-grey-3'),
+  'lighter-grey': lbh-colour('lbh-panel'),
   'yellow': lbh-colour('lbh-h04'),
   'dark-green': lbh-colour('lbh-a01'),
+  'light-green': lbh-colour('lbh-primary-disabled'),
   'blue': lbh-colour('lbh-link'),
-  'calendar-current': #6895c6,
-  'calendar-selected': #b2cce2,
-  'calendar-border': #e2e4e6,
-  'calendar-divider': #c7c8ca,
-  'calendar-month': #7d8287,
 );
 
 @function repairs-hub-colour($colour) {
   @return map-get($repairs-hub-colours, quote($colour));
-}
-
-.focus-colour:focus {
-  outline: 3px solid repairs-hub-colour('housing-3') !important;
 }
 
 .text {
@@ -39,12 +30,8 @@ $repairs-hub-colours: (
     color: repairs-hub-colour('black');
   }
 
-  &-warning {
-    color: repairs-hub-colour('warning');
-  }
-
-  &-danger {
-    color: repairs-hub-colour('danger');
+  &-dark-red {
+    color: repairs-hub-colour('dark-red');
   }
 
   &-\!-white {

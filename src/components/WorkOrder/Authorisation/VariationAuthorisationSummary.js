@@ -89,52 +89,68 @@ const VariationAuthorisationSummary = ({
 
   const updatedSORsToShow = () => {
     return (
-      <Table className="lbh-table updated-tasks-table">
-        <THead>
-          <TR>
-            <TH scope="col">SOR Status</TH>
-            <TH scope="col">SOR code</TH>
-            <TH scope="col" type="numeric">
-              Unit Cost
-            </TH>
-            <TH scope="col" type="numeric">
-              Quantity
-            </TH>
-            <TH scope="col" type="numeric">
-              Cost
-            </TH>
-            <TH scope="col" type="numeric">
-              Varied quantity
-            </TH>
-            <TH scope="col" type="numeric">
-              Varied Cost
-            </TH>
-          </TR>
-        </THead>
+      <>
+        <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
+        <p className="lbh-body">
+          {longDateToStr(variationTasks.variationDate)}{' '}
+        </p>
+        <div className="lbh-stat">
+          <span className="lbh-stat__caption">{variationTasks.notes}</span>
+        </div>
 
-        <TBody>
-          {variationTasks.tasks
-            ? variationTasks.tasks.map((task, index) => (
-                <TR index={index} key={index}>
-                  <TD>
-                    <Status status={sorStatus(task)} />
-                  </TD>
-                  <TD>
-                    {task.code}
-                    <p>{task.description}</p>
-                  </TD>
-                  <TD type="numeric">£{getCost(task)}</TD>
-                  <TD type="numeric">{task.currentQuantity}</TD>
-                  <TD type="numeric">
-                    £{getCost(task) * task.currentQuantity}
-                  </TD>
-                  <TD type="numeric">{task.variedQuantity}</TD>
-                  <TD type="numeric">£{getCost(task) * task.variedQuantity}</TD>
-                </TR>
-              ))
-            : ''}
-        </TBody>
-      </Table>
+        <Table className="lbh-table updated-tasks-table">
+          <THead>
+            <TR>
+              <TH scope="col">SOR Status</TH>
+              <TH scope="col">SOR code</TH>
+              <TH scope="col" type="numeric">
+                Unit Cost
+              </TH>
+              <TH scope="col" type="numeric">
+                Quantity
+              </TH>
+              <TH scope="col" type="numeric">
+                Cost
+              </TH>
+              <TH scope="col" type="numeric">
+                Varied quantity
+              </TH>
+              <TH scope="col" type="numeric">
+                Varied Cost
+              </TH>
+            </TR>
+          </THead>
+
+          <TBody>
+            {variationTasks.tasks
+              ? variationTasks.tasks.map((task, index) => (
+                  <TR index={index} key={index}>
+                    <TD>
+                      <Status status={sorStatus(task)} />
+                    </TD>
+                    <TD>
+                      {task.code}
+                      <p>{task.description}</p>
+                    </TD>
+                    <TD type="numeric">£{getCost(task)}</TD>
+                    <TD type="numeric">{task.currentQuantity}</TD>
+                    <TD type="numeric">
+                      £{getCost(task) * task.currentQuantity}
+                    </TD>
+                    <TD type="numeric">{task.variedQuantity}</TD>
+                    <TD type="numeric">
+                      £{getCost(task) * task.variedQuantity}
+                    </TD>
+                  </TR>
+                ))
+              : ''}
+          </TBody>
+        </Table>
+
+        <Table className="lbh-table calculated-cost">
+          <TBody>{variationTasks.tasks ? showCostBreakdown() : ''}</TBody>
+        </Table>
+      </>
     )
   }
 
@@ -175,27 +191,14 @@ const VariationAuthorisationSummary = ({
       <Collapsible
         heading="Original SORs"
         collapsableDivClassName="original-sors"
-      >
-        {originalSORsToShow()}
-      </Collapsible>
+        children={originalSORsToShow()}
+      />
 
       <Collapsible
         heading="Updated Tasks SORs"
         collapsableDivClassName="updated-sors"
-      >
-        <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
-        <p className="lbh-body">
-          {longDateToStr(variationTasks.variationDate)}{' '}
-        </p>
-        <div className="lbh-stat">
-          <span className="lbh-stat__caption">{variationTasks.notes}</span>
-        </div>
-        {updatedSORsToShow()}
-
-        <Table className="lbh-table calculated-cost">
-          <TBody>{variationTasks.tasks ? showCostBreakdown() : ''}</TBody>
-        </Table>
-      </Collapsible>
+        children={updatedSORsToShow()}
+      />
     </>
   )
 }

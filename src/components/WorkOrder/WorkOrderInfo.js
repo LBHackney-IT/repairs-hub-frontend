@@ -13,7 +13,7 @@ const WorkOrderInfo = ({ workOrder }) => {
         </span>
         <br></br>
         {workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE ? (
-          <span className="text-danger govuk-!-font-size-14">
+          <span className="text-dark-red govuk-!-font-size-14">
             Priority: {workOrder.priority}
           </span>
         ) : (

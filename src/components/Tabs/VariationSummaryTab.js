@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
+import Link from 'next/link'
 import UserContext from '../UserContext/UserContext'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
@@ -73,12 +74,11 @@ const VariationSummaryTab = ({ workOrderReference }) => {
     if (user.roles.includes('contract_manager')) {
       return (
         <div className="display-inline">
-          <a
-            className="lbh-link"
+          <Link
             href={`/work-orders/${workOrderReference}/variation-authorisation`}
           >
-            Variation Authorisation
-          </a>
+            <a className="lbh-link">Variation Authorisation</a>
+          </Link>
         </div>
       )
     }

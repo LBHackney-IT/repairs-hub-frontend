@@ -526,7 +526,7 @@ describe('Raise repair form', () => {
       cy.get('.lbh-page-announcement__title').contains(
         'Repair works order created'
       )
-      cy.get('.lbh-announcement__content').within(() => {
+      cy.get('.lbh-page-announcement__content').within(() => {
         cy.contains('Works order number')
         cy.contains('10102030')
       })
@@ -646,7 +646,7 @@ describe('Raise repair form', () => {
       cy.get('.lbh-page-announcement__title').contains(
         'Repair works order created'
       )
-      cy.get('.lbh-announcement__content').within(() => {
+      cy.get('.lbh-page-announcement__content').within(() => {
         cy.contains('Works order number')
         cy.contains('10102030')
       })

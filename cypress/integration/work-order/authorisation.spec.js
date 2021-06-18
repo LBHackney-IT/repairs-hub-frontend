@@ -79,10 +79,12 @@ describe('Authorisation workflow for a work order', () => {
 
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-announcement__content').within(() => {
-          cy.contains(
-            'You have rejected the authorisation request for work order 10000012'
-          )
+        cy.get('.lbh-page-announcement__title').contains(
+          'You have rejected the authorisation request'
+        )
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Works order number')
+          cy.contains('10000012')
         })
       })
 
@@ -128,10 +130,12 @@ describe('Authorisation workflow for a work order', () => {
 
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-announcement__content').within(() => {
-          cy.contains(
-            'You have approved the authorisation request for work order 10000012'
-          )
+        cy.get('.lbh-page-announcement__title').contains(
+          'You have approved the authorisation request'
+        )
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Works order number')
+          cy.contains('10000012')
         })
       })
 
@@ -195,10 +199,12 @@ describe('Authorisation workflow for a work order', () => {
 
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-announcement__content').within(() => {
-          cy.contains(
-            'You have rejected the authorisation request for work order 10000012'
-          )
+        cy.get('.lbh-page-announcement__title').contains(
+          'You have rejected the authorisation request'
+        )
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Works order number')
+          cy.contains('10000012')
         })
       })
     })
