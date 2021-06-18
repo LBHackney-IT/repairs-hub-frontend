@@ -192,8 +192,10 @@ describe('Contract manager can authorise variation', () => {
       cy.contains('td', '£10')
       cy.contains('td', '1')
       cy.contains('td', '£10')
+    })
 
-      // Cost calculation
+    // Cost calculation
+    cy.get('.calculated-cost').within(() => {
       cy.get('#cost-before-variation').within(() => {
         cy.contains('td', 'Cost before variation')
         cy.contains('td', '£204.00')
@@ -244,5 +246,84 @@ describe('Contract manager can authorise variation', () => {
       })
 
     cy.contains('You have rejected a variation for work order 10000012')
+  })
+
+  //collapsible
+  it('shows summary page and calculation of variation cost', () => {
+    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.get('[data-testid="details"]')
+      .contains('Variation Authorisation')
+      .click({ force: true })
+
+    cy.get('.govuk-grid-column-one-third').within(() => {
+      cy.contains('a', 'Variation Authorisation')
+        .should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/variation-authorisation'
+        )
+        .click()
+    })
+
+    cy.contains('Authorisation variation request: 10000012')
+    cy.contains('Summary of Tasks and SORs')
+
+    //collapse
+    cy.get('.original-sors').click()
+    cy.contains('.original-sor-summary').should('not.exist')
+
+    cy.get('.updated-sors').click()
+    cy.contains('.updated-tasks-table').should('not.exist')
+
+    //un-collapse
+    cy.get('.original-sors').click()
+    cy.get('.original-sor-summary').within(() => {
+      cy.contains('td', 'DES5R006 - Urgent call outs')
+      cy.contains('td', '1')
+      cy.contains('td', '£10')
+    })
+
+    cy.get('.updated-sors').click()
+    cy.get('.updated-tasks-table').within(() => {
+      // Increased task
+      cy.contains('td', 'Increase')
+      cy.contains('td', 'DES5R005')
+      cy.contains('p', 'Normal Call outs')
+      cy.contains('td', '£4')
+      cy.contains('td', '1')
+      cy.contains('td', '£4')
+      cy.contains('td', '4000')
+      cy.contains('td', '£1600')
+
+      //Reduced task
+      cy.contains('td', 'Reduced')
+      cy.contains('td', 'DES5R006')
+      cy.contains('p', 'Normal Call outs')
+      cy.contains('td', '£19')
+      cy.contains('td', '10')
+      cy.contains('td', '£190')
+      cy.contains('td', '2')
+      cy.contains('td', '£38')
+
+      //New task
+      cy.contains('td', 'Reduced')
+      cy.contains('td', 'DES5R007')
+      cy.contains('p', 'Normal Call outs')
+      cy.contains('td', '£25')
+      cy.contains('td', '0')
+      cy.contains('td', '£0')
+      cy.contains('td', '2')
+      cy.contains('td', '£50')
+
+      //Unchanged task
+      cy.contains('td', 'Unchanged')
+      cy.contains('td', 'DES5R006')
+      cy.contains('p', 'Normal Call outs')
+      cy.contains('td', '£10')
+      cy.contains('td', '1')
+      cy.contains('td', '£10')
+      cy.contains('td', '1')
+      cy.contains('td', '£10')
+    })
   })
 })

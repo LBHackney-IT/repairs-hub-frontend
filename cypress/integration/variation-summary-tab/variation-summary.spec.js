@@ -109,8 +109,9 @@ describe('Pending variation tab on work-order page', () => {
               cy.contains('td', '1')
               cy.contains('td', '£10')
             })
-
-          // Cost calculation
+        })
+        // Cost calculation
+        cy.get('.calculated-cost').within(() => {
           cy.get('#cost-before-variation').within(() => {
             cy.contains('td', 'Cost before variation')
             cy.contains('td', '£204.00')
@@ -205,8 +206,9 @@ describe('Pending variation tab on work-order page', () => {
               cy.contains('td', '1')
               cy.contains('td', '£10')
             })
+        })
 
-          // Cost calculation
+        cy.get('.calculated-cost').within(() => {
           cy.get('#cost-before-variation').within(() => {
             cy.contains('td', 'Cost before variation')
             cy.contains('td', '£204.00')
@@ -301,7 +303,9 @@ describe('Pending variation tab on work-order page', () => {
               cy.contains('td', '1')
               cy.contains('td', '£10')
             })
-
+        })
+        // Cost calculation
+        cy.get('.calculated-cost').within(() => {
           // Cost calculation
           cy.get('#cost-before-variation').within(() => {
             cy.contains('td', 'Cost before variation')

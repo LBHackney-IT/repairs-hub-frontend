@@ -140,9 +140,7 @@ describe('Contractor update a job', () => {
       cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode')
       cy.get(
         'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
-      ).within(() => {
-        cy.contains('SOR code is not valid')
-      })
+      )
       cy.get('[type="submit"]').contains('Next').click()
       cy.wait('@sorCodeNotFound')
       cy.get('[data-error-id="error-0"]').within(() => {
@@ -153,9 +151,7 @@ describe('Contractor update a job', () => {
       cy.get('input[id="rateScheduleItems[1][code]"]').type('anotherfakecode')
       cy.get(
         'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
-      ).within(() => {
-        cy.contains('SOR code is not valid')
-      })
+      )
       cy.get('[type="submit"]').contains('Next').click()
       cy.wait('@sorCodeNotFound')
       cy.get('[data-error-id="error-0"]').within(() => {
@@ -178,22 +174,34 @@ describe('Contractor update a job', () => {
       })
 
       // Enter a quantity with 1 decimal point
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.5')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('1.5')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).should('not.exist')
       // Enter a quantity with 2 decimal points
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.55')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('1.55')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).should('not.exist')
       // Enter a quantity less than 1 with 2 decimal points
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0.55')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('0.55')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).should('not.exist')
       // Enter a quantity with more than 2 decimal points
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.555')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]')
+        .clear()
+        .type('1.555')
+        .blur()
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {

@@ -5,6 +5,7 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 import { getProperty } from '../../utils/frontend-api-client/properties'
+import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
 import Tabs from '../Tabs'
 
 const WorkOrderView = ({ workOrderReference }) => {
@@ -13,6 +14,7 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
+  const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const tabsList = [
@@ -28,6 +30,15 @@ const WorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrder = await getWorkOrder(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
+
+      // Call getOrCreateSchedulerSessionId if it is a DRS work order with no appointment
+      if (
+        workOrder.externalAppointmentManagementUrl &&
+        !workOrder.appointment
+      ) {
+        const schedulerSessionId = await getOrCreateSchedulerSessionId()
+        setSchedulerSessionId(schedulerSessionId)
+      }
 
       setWorkOrder(workOrder)
       setProperty(propertyObject.property)
@@ -82,6 +93,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
                   canRaiseRepair={property.canRaiseRepair}
+                  schedulerSessionId={schedulerSessionId}
                 />
                 <Tabs
                   tabsList={tabsList}

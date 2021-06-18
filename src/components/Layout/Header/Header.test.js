@@ -64,6 +64,35 @@ describe('Header', () => {
       expect(queryByText('Manage jobs')).toBeInTheDocument()
     })
 
+    it('should render header content for DLO operatives', () => {
+      const user = {
+        name: 'An Operative',
+        email: 'an.operative@hackney.gov.uk',
+        roles: ['agent', 'contractor'],
+        hasRole: true,
+        hasAgentPermissions: true,
+        hasContractorPermissions: true,
+        hasContractManagerPermissions: false,
+        hasAuthorisationManagerPermissions: false,
+        hasAnyPermissions: true,
+      }
+
+      const { getByText, queryByText } = render(
+        <UserContext.Provider
+          value={{
+            user: user,
+          }}
+        >
+          <Header serviceName={serviceName} />
+        </UserContext.Provider>
+      )
+
+      expect(getByText(serviceName)).toBeInTheDocument()
+      expect(queryByText('Sign out')).toBeInTheDocument()
+      expect(queryByText('Search')).toBeInTheDocument()
+      expect(queryByText('Manage jobs')).toBeInTheDocument()
+    })
+
     it('should render header content for contract manager', () => {
       const user = {
         name: 'A Contract Manager',
