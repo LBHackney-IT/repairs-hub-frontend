@@ -6,6 +6,7 @@ import {
 import { longDateToStr } from '../../../utils/date'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Status from '../Status'
+import Collapsible from 'src/components/Layout/Collapsible/Collapsible'
 
 const VariationAuthorisationSummary = ({
   variationTasks,
@@ -86,43 +87,8 @@ const VariationAuthorisationSummary = ({
     )
   }
 
-  return (
-    <>
-      <h2 className="lbh-heading-h2">Summary of Tasks and SORs</h2>
-      <h4 className="lbh-heading-h4">Original SORs</h4>
-      <Table className="lbh-table original-sor-summary">
-        <THead>
-          <TR>
-            <TH scope="col">SOR code</TH>
-            <TH scope="col" type="numeric">
-              Quantity
-            </TH>
-            <TH scope="col" type="numeric">
-              Cost
-            </TH>
-          </TR>
-        </THead>
-        <TBody>
-          {originalSors.map((task, index) => (
-            <TR key={index}>
-              <TD>
-                {task.code} - {task.description}
-              </TD>
-              <TD type="numeric">{task.originalQuantity}</TD>
-              <TD type="numeric">£{task.cost}</TD>
-            </TR>
-          ))}
-        </TBody>
-      </Table>
-
-      <h4 className="lbh-heading-h4">Updated Tasks SORs</h4>
-      <br></br>
-      <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
-      <p className="lbh-body">{longDateToStr(variationTasks.variationDate)} </p>
-      <div className="lbh-stat">
-        <span className="lbh-stat__caption">{variationTasks.notes}</span>
-      </div>
-
+  const updatedSORsToShow = () => {
+    return (
       <Table className="lbh-table updated-tasks-table">
         <THead>
           <TR>
@@ -167,9 +133,69 @@ const VariationAuthorisationSummary = ({
                 </TR>
               ))
             : ''}
-          {variationTasks.tasks ? showCostBreakdown() : ''}
         </TBody>
       </Table>
+    )
+  }
+
+  const originalSORsToShow = () => {
+    return (
+      <>
+        <Table className="lbh-table original-sor-summary">
+          <THead>
+            <TR>
+              <TH scope="col">SOR code</TH>
+              <TH scope="col" type="numeric">
+                Quantity
+              </TH>
+              <TH scope="col" type="numeric">
+                Cost
+              </TH>
+            </TR>
+          </THead>
+          <TBody>
+            {originalSors.map((task, index) => (
+              <TR key={index}>
+                <TD>
+                  {task.code} - {task.description}
+                </TD>
+                <TD type="numeric">{task.originalQuantity}</TD>
+                <TD type="numeric">£{task.cost}</TD>
+              </TR>
+            ))}
+          </TBody>
+        </Table>
+      </>
+    )
+  }
+
+  return (
+    <>
+      <h2 className="lbh-heading-h2">Summary of Tasks and SORs</h2>
+      <Collapsible
+        heading="Original SORs"
+        collapsableDivClassName="original-sors"
+      >
+        {originalSORsToShow()}
+      </Collapsible>
+
+      <Collapsible
+        heading="Updated Tasks SORs"
+        collapsableDivClassName="updated-sors"
+      >
+        <p className="lbh-body">Updated by: {variationTasks.authorName} </p>
+        <p className="lbh-body">
+          {longDateToStr(variationTasks.variationDate)}{' '}
+        </p>
+        <div className="lbh-stat">
+          <span className="lbh-stat__caption">{variationTasks.notes}</span>
+        </div>
+        {updatedSORsToShow()}
+
+        <Table className="lbh-table calculated-cost">
+          <TBody>{variationTasks.tasks ? showCostBreakdown() : ''}</TBody>
+        </Table>
+      </Collapsible>
     </>
   )
 }
