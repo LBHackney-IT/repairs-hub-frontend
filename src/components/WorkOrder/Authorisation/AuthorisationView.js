@@ -151,8 +151,8 @@ const AuthorisationView = ({ workOrderReference }) => {
               workOrderReference={workOrderReference}
               text={
                 authorisationApproved
-                  ? 'You have approved the authorisation request for'
-                  : 'You have rejected the authorisation request for'
+                  ? 'You have approved the authorisation request'
+                  : 'You have rejected the authorisation request'
               }
               showDashboardLink={true}
             />

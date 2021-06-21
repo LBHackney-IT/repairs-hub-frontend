@@ -6,15 +6,15 @@
   }
 
   &-development {
-    border-color: repairs-hub-colour('housing-1');
+    border-color: repairs-hub-colour('dark-green');
   }
 
   &-staging {
-    border-color: repairs-hub-colour('warning');
+    border-color: repairs-hub-colour('orange');
   }
 
   &-localdev {
-    border-color: repairs-hub-colour('warning');
+    border-color: repairs-hub-colour('orange');
   }
 }
 

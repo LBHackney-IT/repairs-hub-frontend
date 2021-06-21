@@ -218,7 +218,7 @@ describe('Contractor update a job', () => {
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
-        cy.contains('Quantity must be 0 or more')
+        cy.contains('Quantity must be greater than 0')
       })
       cy.get('input[id="rateScheduleItems[0][quantity]"]')
         .clear()
@@ -227,7 +227,7 @@ describe('Contractor update a job', () => {
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
-        cy.contains('Quantity must be 0 or more')
+        cy.contains('Quantity must be greater than 0')
       })
     })
   })
@@ -249,9 +249,55 @@ describe('Contractor update a job', () => {
 
     cy.wait('@taskListRequest')
     cy.get('#repair-request-form').within(() => {
+      // Enter a non-number quantity
+      cy.get('#quantity-0-form-group').within(() => {
+        cy.get('input[id="quantity-0"]').clear().type('x')
+      })
+
+      cy.get('[type="submit"]').contains('Next').click()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').within(
+        () => {
+          cy.contains('Quantity must be a number')
+        }
+      )
+
+      // Enter a quantity with 1 decimal point
+      cy.get('input[id="quantity-0"]').clear().type('1.5').blur()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').should(
+        'not.exist'
+      )
+      // Enter a quantity with 2 decimal points
+      cy.get('input[id="quantity-0"]').clear().type('1.55').blur()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').should(
+        'not.exist'
+      )
+      // Enter a quantity less than 1 with 2 decimal points
+      cy.get('input[id="quantity-0"]').clear().type('0.55').blur()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').should(
+        'not.exist'
+      )
+      // Enter a quantity with more than 2 decimal points
+      cy.get('input[id="quantity-0"]').clear().type('1.555').blur()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').within(
+        () => {
+          cy.contains(
+            'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+          )
+        }
+      )
+      // Enter a negative quantity
+      cy.get('input[id="quantity-0"]').clear().type('-1').blur()
+      cy.get('div[id="quantity-0-form-group"] .govuk-error-message').within(
+        () => {
+          cy.contains('Quantity must be 0 or more')
+        }
+      )
+
+      // Enter valid number
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('0')
       })
+
       cy.get('#variationReason').get('.govuk-textarea').type('Needs more work')
       cy.get('[type="submit"]').contains('Next').click()
     })

@@ -5,7 +5,7 @@ $calendar-cell-width--desktop: 100px;
 .appointment-calendar {
   table {
     border-collapse: collapse;
-    border: 1px solid repairs-hub-colour('calendar-border');
+    border: 1px solid repairs-hub-colour('lighter-grey');
     margin: 0 0 10px 0;
 
     background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCI+PHBhdGggZmlsbD0iI2Y3ZjdmNyIgZD0iTTAgMGgxMHYxMEgweiIvPjxwYXRoIGQ9Ik0tMSAxbDItMk0wIDEwTDEwIDBNOSAxMWwyLTIiIHN0cm9rZT0iI2RjZGNkYyIvPjwvc3ZnPg==');
@@ -19,10 +19,10 @@ $calendar-cell-width--desktop: 100px;
     }
 
     thead {
-      border-bottom: 2px solid repairs-hub-colour('calendar-divider');
+      border-bottom: 2px solid repairs-hub-colour('grey');
 
       tr {
-        border-top: 1px solid repairs-hub-colour('calendar-border');
+        border-top: 1px solid repairs-hub-colour('lighter-grey');
 
         th {
           background-color: repairs-hub-colour('white');
@@ -49,7 +49,7 @@ $calendar-cell-width--desktop: 100px;
     }
 
     td {
-      border: 1px solid repairs-hub-colour('calendar-border');
+      border: 1px solid repairs-hub-colour('lighter-grey');
     }
 
     td {
@@ -69,7 +69,7 @@ $calendar-cell-width--desktop: 100px;
         }
 
         &.selected {
-          background-color: repairs-hub-colour('calendar-selected');
+          background-color: repairs-hub-colour('light-green');
         }
 
         span.date {
@@ -97,7 +97,7 @@ $calendar-cell-width--desktop: 100px;
         }
 
         span.today {
-          background-color: repairs-hub-colour('calendar-current');
+          background-color: repairs-hub-colour('dark-green');
         }
 
         @include govuk-media-query($from: tablet) {
@@ -140,7 +140,7 @@ $calendar-cell-width--desktop: 100px;
         top: 0;
         width: 16px;
         height: 16px;
-        border: 1px solid repairs-hub-colour('calendar-border');
+        border: 1px solid repairs-hub-colour('lighter-grey');
       }
 
       &.available {

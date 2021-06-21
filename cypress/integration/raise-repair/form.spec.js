@@ -259,13 +259,13 @@ describe('Raise repair form', () => {
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
-        cy.contains('Quantity must be 0 or more')
+        cy.contains('Quantity must be greater than 0')
       })
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('-1')
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
-        cy.contains('Quantity must be 0 or more')
+        cy.contains('Quantity must be greater than 0')
       })
 
       // Enter a valid quantity
@@ -526,7 +526,7 @@ describe('Raise repair form', () => {
       cy.get('.lbh-page-announcement__title').contains(
         'Repair works order created'
       )
-      cy.get('.lbh-announcement__content').within(() => {
+      cy.get('.lbh-page-announcement__content').within(() => {
         cy.contains('Works order number')
         cy.contains('10102030')
       })
@@ -646,7 +646,7 @@ describe('Raise repair form', () => {
       cy.get('.lbh-page-announcement__title').contains(
         'Repair works order created'
       )
-      cy.get('.lbh-announcement__content').within(() => {
+      cy.get('.lbh-page-announcement__content').within(() => {
         cy.contains('Works order number')
         cy.contains('10102030')
       })

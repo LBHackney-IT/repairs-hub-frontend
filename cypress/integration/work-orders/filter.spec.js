@@ -405,6 +405,13 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="TradeCodes.PL"]').check()
       cy.get('[type="submit"]').contains('Apply filters').click()
 
+      cy.get('.govuk-checkboxes')
+        .find('[name="ContractorReference.PCL"]')
+        .should('be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="TradeCodes.PL"]')
+        .should('be.checked')
+
       // Plumbing trade and Purdy contractor work orders
       cy.get('[data-ref=10000040]').should('not.exist')
       cy.get('[data-ref=10000035]').should('not.exist')

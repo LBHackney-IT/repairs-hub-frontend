@@ -42,9 +42,15 @@ const LatestRateScheduleItems = ({ latestTasks, errors, register }) => {
                   register={register({
                     required: 'Please enter a quantity',
                     validate: (value) => {
-                      const valueAsNumber = parseFloat(value)
-                      if (!Number.isInteger(valueAsNumber)) {
-                        return 'Quantity must be a whole number'
+                      const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
+                      if (isNaN(value)) {
+                        return 'Quantity must be a number'
+                      } else if (value < 0) {
+                        return 'Quantity must be 0 or more'
+                      } else if (!maxTwoDecimalPoints.test(value)) {
+                        return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+                      } else {
+                        return true
                       }
                     },
                   })}

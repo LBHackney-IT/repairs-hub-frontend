@@ -147,7 +147,6 @@ const RaiseRepairFormView = ({ propertyReference }) => {
                 shortAddress={property.address.shortAddress}
                 text={'Repair works order created'}
                 showSearchLink={true}
-                isRaiseRepairSuccess={true}
                 authorisationPendingApproval={authorisationPendingApproval}
                 externalSchedulerLink={
                   externallyManagedAppointment &&
