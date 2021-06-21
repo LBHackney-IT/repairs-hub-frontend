@@ -184,7 +184,7 @@ const WorkOrdersFilter = ({
                   name={`TradeCodes.${trade.key}`}
                   label={trade.description}
                   register={register}
-                  checked={appliedFilters?.Trades?.includes(trade.key)}
+                  checked={appliedFilters?.TradeCodes?.includes(trade.key)}
                   hidden={index >= CHECKBOX_NUMBER}
                 />
               ))}
