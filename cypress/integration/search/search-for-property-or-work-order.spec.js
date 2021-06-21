@@ -65,7 +65,7 @@ describe('Search by work order reference, postcode or address', () => {
           cy.get('[type="submit"]').contains('Search').click()
         })
 
-        it.only('checks the heading', () => {
+        it('checks the heading', () => {
           cy.get('.govuk-table').within(() => {
             cy.contains('caption', 'We found 2 matching results for: pitcairn')
           })
