@@ -89,7 +89,7 @@ const RateScheduleItem = ({
                 if (isNaN(value)) {
                   return 'Quantity must be a number'
                 } else if (value <= 0) {
-                  return 'Quantity must be 0 or more'
+                  return 'Quantity must be greater than 0'
                 } else if (!maxTwoDecimalPoints.test(value)) {
                   return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
                 } else {
