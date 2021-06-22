@@ -1,0 +1,18 @@
+[
+  {
+    "match": "Cannot create DRS Web Services session with error: DRSWebServicesError: DRS Web Services returned non-200 response: DRS error message",
+    "group": null
+  },
+  {
+    "match": "Service API response {\"status\":500}",
+    "group": null
+  },
+  {
+    "match": "Service API response {\"status\":404,\"data\":\"error message\"}",
+    "group": null
+  },
+  {
+    "match": "Component undefined has no permittedRoles defined",
+    "group": null
+  }
+]
