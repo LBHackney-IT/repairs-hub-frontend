@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
-import TenureAlertDetails from './TenureAlertDetails'
+import TenureDetails from './TenureDetails'
 
 const PropertyDetailsGrid = ({
   propertyReference,
@@ -23,7 +23,7 @@ const PropertyDetailsGrid = ({
             subTypeDescription={subTypeDescription}
             hasLinkToProperty={hasLinkToProperty}
           />
-          <TenureAlertDetails
+          <TenureDetails
             tenure={tenure}
             locationAlerts={locationAlerts}
             personAlerts={personAlerts}

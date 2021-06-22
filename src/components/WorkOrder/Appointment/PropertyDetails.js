@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
-import TenureAlertDetails from '../../Property/TenureAlertDetails'
+import TenureDetails from '../../Property/TenureDetails'
 
 const AppointmentHeader = ({
   address,
@@ -17,7 +17,7 @@ const AppointmentHeader = ({
           {subTypeDescription}: {address.addressLine}
         </h1>
 
-        <TenureAlertDetails
+        <TenureDetails
           tenure={tenure}
           locationAlerts={locationAlerts}
           personAlerts={personAlerts}

@@ -49,7 +49,7 @@ describe('Show property', () => {
       })
 
       it('shows Tenure and Alerts section', () => {
-        cy.checkForTenureAlertDetails(
+        cy.checkForTenureDetails(
           'Tenure: Secure',
           ['Address Alert: Property Under Disrepair (DIS)'],
           [

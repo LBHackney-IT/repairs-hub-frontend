@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
-import TenureAlertDetails from '../Property/TenureAlertDetails'
+import TenureDetails from '../Property/TenureDetails'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
@@ -37,7 +37,7 @@ const WorkOrderHeader = ({
           hasLinkToProperty={true}
         />
 
-        <TenureAlertDetails
+        <TenureDetails
           tenure={tenure}
           locationAlerts={locationAlerts}
           personAlerts={personAlerts}

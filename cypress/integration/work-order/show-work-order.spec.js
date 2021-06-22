@@ -54,7 +54,7 @@ describe('Show work order page', () => {
       cy.contains('E9 6PT')
     })
 
-    cy.checkForTenureAlertDetails(
+    cy.checkForTenureDetails(
       'Tenure: Secure',
       ['Address Alert: Property Under Disrepair (DIS)'],
       [

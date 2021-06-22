@@ -70,7 +70,7 @@ describe('Raise repair form', () => {
     cy.get('.govuk-caption-l').contains('New repair')
     cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
-    cy.checkForTenureAlertDetails(
+    cy.checkForTenureDetails(
       'Tenure: Secure',
       ['Address Alert: Property Under Disrepair (DIS)'],
       [

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import Alerts from './Alerts'
 import Tenure from './Tenure'
-import TmoName from './TmoName'
+import TenureDetail from './TenureDetail'
 
-const TenureAlertDetails = ({
+const TenureDetails = ({
   canRaiseRepair,
   tenure,
   locationAlerts,
@@ -20,7 +20,7 @@ const TenureAlertDetails = ({
       <ul className="lbh-list hackney-property-alerts">
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
         <Alerts alerts={locationAlerts} alertType="Address" />
-        <TmoName tmoName={tmoName} />
+        <TenureDetail text="TMO" detail={tmoName} />
         <Alerts alerts={personAlerts} alertType="Contact" />
       </ul>
     )
@@ -29,7 +29,7 @@ const TenureAlertDetails = ({
   }
 }
 
-TenureAlertDetails.propTypes = {
+TenureDetails.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   locationAlerts: PropTypes.array.isRequired,
@@ -37,4 +37,4 @@ TenureAlertDetails.propTypes = {
   tmoName: PropTypes.string,
 }
 
-export default TenureAlertDetails
+export default TenureDetails
