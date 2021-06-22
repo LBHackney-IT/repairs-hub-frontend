@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import TenureAlertDetails from '../TenureAlertDetails'
+import TenureDetails from '../TenureDetails'
 import BackButton from '../../Layout/BackButton/BackButton'
 import {
   Select,
@@ -110,7 +110,7 @@ const RaiseRepairForm = ({
           </h1>
 
           <div className="lbh-body-s">
-            <TenureAlertDetails
+            <TenureDetails
               canRaiseRepair={canRaiseRepair}
               tenure={tenure}
               locationAlerts={locationAlerts}

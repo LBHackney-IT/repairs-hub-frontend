@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TmoName component should render properly 1`] = `
+exports[`TenureDetail component with TMO name should render properly 1`] = `
 <DocumentFragment>
   <li
     class="bg-orange"

@@ -1,5 +1,5 @@
 Cypress.Commands.add(
-  'checkForTenureAlertDetails',
+  'checkForTenureDetails',
   (tenure, addressAlerts, contactAlerts) => {
     // Tenure
     cy.get('.hackney-property-alerts li.bg-dark-green').within(() => {

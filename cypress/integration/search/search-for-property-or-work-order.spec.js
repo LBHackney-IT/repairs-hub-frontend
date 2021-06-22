@@ -134,7 +134,7 @@ describe('Search by work order reference, postcode or address', () => {
             cy.contains('E9 6PT')
           })
 
-          cy.checkForTenureAlertDetails(
+          cy.checkForTenureDetails(
             'Tenure: Secure',
             ['Address Alert: Property Under Disrepair (DIS)'],
             [
