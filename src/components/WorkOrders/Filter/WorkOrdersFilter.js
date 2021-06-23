@@ -5,6 +5,7 @@ import { Checkbox, Button } from '../../Form'
 import UserContext from '../../UserContext/UserContext'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 import Collapsible from '../../Layout/Collapsible/Collapsible'
+import FilterTag from '../../Tag/FilterTag'
 
 const WorkOrdersFilter = ({
   loading,
@@ -12,10 +13,37 @@ const WorkOrdersFilter = ({
   register,
   appliedFilters,
   clearFilters,
+  selectedFilters,
 }) => {
   const { user } = useContext(UserContext)
 
   const CHECKBOX_NUMBER = 5
+
+  const saveAppliedFiltersToLocalStorage = (e) => {
+    e.preventDefault()
+
+    if (
+      window.confirm(
+        `Save my selected filters:\n${JSON.stringify(selectedFilters).replace(
+          /["{}:]/g,
+          ' '
+        )} as the default preset?`
+      )
+    ) {
+      localStorage.setItem(
+        'RH - default work order filters',
+        JSON.stringify(appliedFilters)
+      )
+    }
+  }
+
+  const removeAppliedFiltersFromLocalStorage = (e) => {
+    e.preventDefault()
+
+    if (window.confirm('Remove my default saved filters?')) {
+      localStorage.removeItem('RH - default work order filters')
+    }
+  }
 
   const statusFilterOptions = () => {
     if (user && user.hasContractorPermissions) {
@@ -64,16 +92,71 @@ const WorkOrdersFilter = ({
     }
   }
 
-  const filterOptionsHtml = () => {
+  const selectedFilterOptions = () => {
+    if (Object.keys(selectedFilters).length === 0) {
+      return <p className="lbh-body-m">You have no selected filters</p>
+    }
+
+    return Object.keys(selectedFilters).map((filterCategory) => {
+      return (
+        <div key={filterCategory}>
+          <h4 className="lbh-heading-h4">{filterCategory}</h4>
+          <ul className="filter-tags" id={`selected-filters-${filterCategory}`}>
+            {selectedFilters[filterCategory].map((option, i) => {
+              return <FilterTag text={option} key={i} />
+            })}
+          </ul>
+        </div>
+      )
+    })
+  }
+
+  const selectedFilterOptionsHtml = () => {
     return (
-      <div className="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5">
-        <div className="govuk-!-padding-left-2">
-          <Button label="Apply filters" type="submit" />
+      <div className="selected-filters govuk-!-padding-bottom-2">
+        <div className="govuk-!-padding-2">
           <div>
             <a className="lbh-link" href="#" onClick={(e) => clearFilters(e)}>
               Clear filters
             </a>
           </div>
+          <div>
+            <a
+              className="lbh-link"
+              href="#"
+              onClick={(e) => saveAppliedFiltersToLocalStorage(e)}
+            >
+              Save selected filters as my default preset
+            </a>
+          </div>
+          <div>
+            <a
+              className="lbh-link"
+              href="#"
+              onClick={(e) => removeAppliedFiltersFromLocalStorage(e)}
+            >
+              Remove saved default filter preset
+            </a>
+          </div>
+
+          {selectedFilterOptions()}
+        </div>
+      </div>
+    )
+  }
+
+  const filterOptionsHtml = () => {
+    return (
+      <div className="govuk-form-group lbh-form-group filter-options govuk-!-margin-bottom-5">
+        <Collapsible
+          heading="Selected filters"
+          collapsableDivClassName="filter-collapsible"
+          contentMargin="govuk-!-margin-0"
+          children={selectedFilterOptionsHtml()}
+        />
+
+        <div className="govuk-!-padding-left-2 govuk-!-margin-top-0">
+          <Button label="Apply filters" type="submit" />
         </div>
 
         {showContractorFilters() && (

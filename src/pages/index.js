@@ -35,13 +35,18 @@ const Home = ({ query }) => {
   }
 
   const HomeView = ({ contractors }) => {
+    // Use saved filter preset in local storage as the default applied filters (if present)
+    const defaultFilters = JSON.parse(
+      localStorage.getItem('RH - default work order filters')
+    )
+
     if (user.hasAgentPermissions) {
       if (user.hasContractorPermissions) {
         if (Object.entries(query).length === 0) {
           return (
             <WorkOrdersView
               pageNumber={1}
-              query={{ ContractorReference: contractors }}
+              query={defaultFilters || { ContractorReference: contractors }}
             />
           )
         } else {
@@ -59,13 +64,26 @@ const Home = ({ query }) => {
         if (user.hasAuthorisationManagerPermissions) {
           // Default filter selected for Authorisation Pending Approval work orders
           return (
-            <WorkOrdersView pageNumber={1} query={{ StatusCode: '1010' }} />
+            <WorkOrdersView
+              pageNumber={1}
+              query={defaultFilters || { StatusCode: '1010' }}
+            />
           )
         } else if (user.hasContractManagerPermissions) {
           // Default filter selected for Variation Pending Approval work orders
-          return <WorkOrdersView pageNumber={1} query={{ StatusCode: '90' }} />
+          return (
+            <WorkOrdersView
+              pageNumber={1}
+              query={defaultFilters || { StatusCode: '90' }}
+            />
+          )
         } else {
-          return <WorkOrdersView pageNumber={1} />
+          return (
+            <WorkOrdersView
+              pageNumber={1}
+              {...(defaultFilters && { query: defaultFilters })}
+            />
+          )
         }
       } else {
         return <WorkOrdersView query={query} />

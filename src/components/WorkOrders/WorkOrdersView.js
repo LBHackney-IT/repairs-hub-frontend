@@ -15,7 +15,7 @@ const WorkOrdersView = ({ query }) => {
   const [loading, setLoading] = useState(false)
   const [appliedFilters, setAppliedFilters] = useState()
   const pageNumber = parseInt(query?.pageNumber || 1)
-  const queryParams = appliedFilters || query
+  const queryParams = appliedFilters || query || {}
 
   const onFilterSubmit = async (formData) => {
     const setFilters = setFilterOptions(formData)
