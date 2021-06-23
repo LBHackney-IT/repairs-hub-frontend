@@ -10,7 +10,7 @@ class AppDocument extends Document {
     return (
       <Html lang="en" className="govuk-template lbh-template">
         <Head>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/hackney_favicon.ico" />
         </Head>
         <body className="govuk-template__body">
           <Main />
