@@ -1,7 +1,6 @@
 import '../styles/all.scss'
 import App from 'next/app'
 import Layout from '../components/Layout'
-import Head from 'next/head'
 import AccessDenied from '../components/AccessDenied'
 
 import {
@@ -11,6 +10,7 @@ import {
 } from '../utils/GoogleAuth'
 
 import UserContext from '../components/UserContext/UserContext'
+import Meta from '../components/Meta'
 
 if (typeof window !== 'undefined') {
   document.body.className = document.body.className
@@ -28,16 +28,8 @@ class MyApp extends App {
       <>
         <UserContext.Provider value={{ user: this.props.userDetails }}>
           <Layout>
-            <Head>
-              <meta charSet="utf-8" />
-              <title>Hackney Repairs Hub</title>
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, viewport-fit=cover"
-              />
-              <meta name="theme-color" content="#0b0c0c" />
-              <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-            </Head>
+            <Meta />
+
             <ComponentToRender
               {...pageProps}
               userDetails={this.props.userDetails}

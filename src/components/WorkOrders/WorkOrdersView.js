@@ -7,6 +7,7 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '../../utils/helpers/filter'
 import { GridColumn, GridRow } from '../Layout/Grid'
+import Meta from '../Meta'
 
 const WorkOrdersView = ({ query }) => {
   const router = useRouter()
@@ -82,6 +83,7 @@ const WorkOrdersView = ({ query }) => {
 
   return (
     <>
+      <Meta title="Manage jobs" />
       <GridRow>
         <GridColumn
           width="one-third"

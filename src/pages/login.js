@@ -2,13 +2,17 @@ import PropTypes from 'prop-types'
 import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
 import { getProtocol } from '../utils/urls'
 import UserLogin from '../components/UserLogin/UserLogin'
+import Meta from '../components/Meta'
 
 const LoginPage = ({ gssoUrl, returnUrl }) => {
   return (
-    <UserLogin
-      submitText="Sign in with Google"
-      gssoUrl={`${gssoUrl}${returnUrl}`}
-    />
+    <>
+      <Meta title="Sign in" />
+      <UserLogin
+        submitText="Sign in with Google"
+        gssoUrl={`${gssoUrl}${returnUrl}`}
+      />
+    </>
   )
 }
 

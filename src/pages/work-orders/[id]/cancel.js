@@ -1,3 +1,4 @@
+import Meta from '../../../components/Meta'
 import CancelWorkOrderView from '../../../components/WorkOrder/CancelWorkOrder/CancelWorkOrderView'
 import {
   AGENT_ROLE,
@@ -6,7 +7,12 @@ import {
 } from '../../../utils/user'
 
 const WorkOrderCancelPage = ({ query }) => {
-  return <CancelWorkOrderView workOrderReference={query.id} />
+  return (
+    <>
+      <Meta title={`Cancel Works Order ${query.id}`} />
+      <CancelWorkOrderView workOrderReference={query.id} />
+    </>
+  )
 }
 
 export const getServerSideProps = async (ctx) => {

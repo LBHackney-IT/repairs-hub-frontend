@@ -6,6 +6,7 @@ import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
+import Meta from '../Meta'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -82,37 +83,40 @@ const Search = ({ query }) => {
   }
 
   return (
-    <div>
-      <section className="section">
-        <h1 className="lbh-heading-h1">{searchHeadingText}</h1>
+    <>
+      <Meta title="Search" />
+      <div>
+        <section className="section">
+          <h1 className="lbh-heading-h1">{searchHeadingText}</h1>
 
-        <div className="govuk-form-group lbh-form-group">
-          <form>
-            <label className="govuk-label lbh-label">{searchLabelText}</label>
-            <input
-              className="govuk-input lbh-input govuk-input--width-10"
-              id="input-search"
-              name="search-name"
-              type="text"
-              value={searchQuery}
-              onChange={(event) => setSearchQuery(event.target.value)}
-            />
-            <PrimarySubmitButton label="Search" onClick={handleSubmit} />
-          </form>
-        </div>
-      </section>
+          <div className="govuk-form-group lbh-form-group">
+            <form>
+              <label className="govuk-label lbh-label">{searchLabelText}</label>
+              <input
+                className="govuk-input lbh-input govuk-input--width-10"
+                id="input-search"
+                name="search-name"
+                type="text"
+                value={searchQuery}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+              <PrimarySubmitButton label="Search" onClick={handleSubmit} />
+            </form>
+          </div>
+        </section>
 
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {properties?.length > 0 && (
-            <PropertiesTable properties={properties} query={searchQuery} />
-          )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
-    </div>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <>
+            {properties?.length > 0 && (
+              <PropertiesTable properties={properties} query={searchQuery} />
+            )}
+            {error && <ErrorMessage label={error} />}
+          </>
+        )}
+      </div>
+    </>
   )
 }
 

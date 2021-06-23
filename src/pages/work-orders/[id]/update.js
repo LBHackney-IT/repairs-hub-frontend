@@ -1,8 +1,14 @@
+import Meta from '../../../components/Meta'
 import UpdateWorkOrder from '../../../components/WorkOrders/UpdateWorkOrder'
 import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 
 const WorkOrderUpdatePage = ({ query }) => {
-  return <UpdateWorkOrder reference={query.id} />
+  return (
+    <>
+      <Meta title={`Update Works Order ${query.id}`} />
+      <UpdateWorkOrder reference={query.id} />
+    </>
+  )
 }
 export const getServerSideProps = async (ctx) => {
   const { query } = ctx
