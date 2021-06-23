@@ -11,6 +11,7 @@ const SummaryCloseWorkOrder = ({
   date,
   changeStep,
   reason,
+  operativeNames,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -32,6 +33,17 @@ const SummaryCloseWorkOrder = ({
                 </a>
               </TD>
             </TR>
+            {operativeNames && (
+              <TR>
+                <TH scope="row">Operatives</TH>
+                <TD>{operativeNames.join(', ')}</TD>
+                <TD>
+                  <a className="lbh-link" onClick={changeStep} href="#">
+                    Edit
+                  </a>
+                </TD>
+              </TR>
+            )}
             <TR>
               <TH scope="row">Reason</TH>
               <TD>{reason}</TD>
@@ -59,7 +71,7 @@ const SummaryCloseWorkOrder = ({
 }
 
 SummaryCloseWorkOrder.propTypes = {
-  reference: PropTypes.string.isRequired,
+  reference: PropTypes.number.isRequired,
   onJobSubmit: PropTypes.func.isRequired,
   notes: PropTypes.string.isRequired,
   time: PropTypes.string,

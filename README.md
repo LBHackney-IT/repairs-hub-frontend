@@ -51,6 +51,8 @@ This application is using Jest, `react-testing-library`, for unit tests and can 
 yarn test:unit
 ```
 
+To keep the unit test output clear of known and expected console output we can make use of [jest-clean-console-reporter](https://github.com/jevakallio/jest-clean-console-reporter). Rules can be added to `./reporter-rules.json` to suppress or group commands.
+
 This application is using cypress, for end-to-end and integration tests and can be run using the following command:
 
 ```

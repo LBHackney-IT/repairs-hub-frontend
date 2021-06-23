@@ -1,3 +1,5 @@
+let reporterRules = require('./reporter-rules.json')
+
 module.exports = {
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
@@ -19,4 +21,8 @@ module.exports = {
   moduleNameMapper: {
     '^.+\\.(css|scss)$': '<rootDir>/src/styles/__mocks__/styleMock.js',
   },
+  reporters: [
+    ['jest-clean-console-reporter', { rules: reporterRules }],
+    '@jest/reporters/build/SummaryReporter',
+  ],
 }

@@ -9,6 +9,10 @@ import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-orde
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { getOperatives } from '../../utils/frontend-api-client/operatives'
+import { isDLOContractorReference } from '../../utils/helpers/work-orders'
+import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 
 const CloseWorkOrder = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
@@ -18,16 +22,27 @@ const CloseWorkOrder = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [availableOperatives, setAvailableOperatives] = useState([])
+  const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
 
-  const makePostRequest = async (formData) => {
+  const makePostRequest = async (
+    workOrderCompleteFormData,
+    operativeAssignmentFormData
+  ) => {
     setLoading(true)
 
     try {
-      await postWorkOrderComplete(formData)
+      if (isDLOContractorReference(workOrder.contractorReference)) {
+        postJobStatusUpdate(operativeAssignmentFormData).then(() => {
+          postWorkOrderComplete(workOrderCompleteFormData)
+        })
+      } else {
+        postWorkOrderComplete(workOrderCompleteFormData)
+      }
       router.push('/')
     } catch (e) {
       console.error(e)
@@ -43,20 +58,23 @@ const CloseWorkOrder = ({ reference }) => {
 
     try {
       const workOrder = await getWorkOrder(reference)
-
       setWorkOrder(workOrder)
+
+      if (isDLOContractorReference(workOrder.contractorReference)) {
+        setSelectedOperatives(workOrder.operatives)
+
+        const operatives = await getOperatives()
+        setAvailableOperatives(operatives)
+      }
     } catch (e) {
       setWorkOrder(null)
+      setAvailableOperatives([])
 
       console.error('An error has occured:', e.response)
 
-      if (e.response?.status === 404) {
-        setError(`Could not find a work order with reference ${reference}`)
-      } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-        )
-      }
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
     }
     setLoading(false)
   }
@@ -75,7 +93,12 @@ const CloseWorkOrder = ({ reference }) => {
       reason
     )
 
-    makePostRequest(CloseWorkOrderFormData)
+    const operativeAssignmentFormData = buildOperativeAssignmentFormData(
+      reference,
+      selectedOperatives
+    )
+
+    makePostRequest(CloseWorkOrderFormData, operativeAssignmentFormData)
   }
 
   const changeCurrentPage = () => {
@@ -86,6 +109,15 @@ const CloseWorkOrder = ({ reference }) => {
     const properDate = convertToDateFormat(e)
     setCompletionDate(properDate)
 
+    const operativeIds = Object.entries(e)
+      .filter(([key]) => key.match(/^operativeId-\d+$/))
+      .map(([, value]) => Number.parseInt(value))
+
+    setSelectedOperatives(
+      operativeIds.map((operativeId) =>
+        availableOperatives.find((operative) => operative.id === operativeId)
+      )
+    )
     setReason(e.reason)
     setNotes(e.notes)
     setDateToShow(e.date)
@@ -111,6 +143,11 @@ const CloseWorkOrder = ({ reference }) => {
                   time={completionTime}
                   date={completionDate}
                   reason={reason}
+                  operativeAssignmentMandatory={isDLOContractorReference(
+                    workOrder.contractorReference
+                  )}
+                  currentOperatives={selectedOperatives}
+                  availableOperatives={availableOperatives}
                 />
               )}
               {!CloseWorkOrderFormPage && (
@@ -120,6 +157,10 @@ const CloseWorkOrder = ({ reference }) => {
                   time={completionTime}
                   date={dateToShow}
                   reason={reason}
+                  operativeNames={
+                    isDLOContractorReference(workOrder.contractorReference) &&
+                    selectedOperatives.map((operative) => operative.name)
+                  }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
                 />
