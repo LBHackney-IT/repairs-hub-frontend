@@ -242,8 +242,7 @@ describe('Show work order page', () => {
           cy.contains('19 Mar 2021, 12:00-18:00')
         })
 
-        cy.contains('Operative 1')
-        cy.contains('Operative 2')
+        cy.contains('Operatives: Operative 1, Operative 2')
       })
     })
   })

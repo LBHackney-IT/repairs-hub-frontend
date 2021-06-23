@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectOperatives component should render properly 1`] = `
+<DocumentFragment>
+  <div
+    class="operatives"
+  >
+    <p
+      class="govuk-heading-m"
+    >
+      Search by operative name and select from the list
+    </p>
+    <div>
+      <div
+        class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
+        id="operative-0-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="operative-0"
+        >
+          Operative name 1 *  
+        </label>
+        <input
+          autocomplete="off"
+          class="govuk-select lbh-select undefined"
+          data-testid="operative-0"
+          id="operative-0"
+          list="autocomplete-list-operative-0"
+          name="operative-0"
+          value="Operative A [1]"
+        />
+        <datalist
+          id="autocomplete-list-operative-0"
+        >
+          <option
+            value="Operative A [1]"
+          />
+          <option
+            value="Operative B [2]"
+          />
+          <option
+            value="Operative C [3]"
+          />
+        </datalist>
+      </div>
+      <input
+        id="operativeId-0"
+        name="operativeId-0"
+        type="hidden"
+        value="1"
+      />
+    </div>
+    <div>
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add operative from list
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;

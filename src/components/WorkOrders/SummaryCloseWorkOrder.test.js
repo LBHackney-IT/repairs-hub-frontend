@@ -3,11 +3,12 @@ import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 
 describe('SummaryCloseWorkOrder component', () => {
   const props = {
-    reference: '10000012',
+    reference: 10000012,
     notes: 'this is a note',
     time: '14:30',
     date: '2021-02-03T11:33:35.757339',
     reason: 'No Access',
+    operatives: ['Operative A', 'Operative B'],
     onJobSubmit: jest.fn(),
     changeStep: jest.fn(),
   }
@@ -22,6 +23,7 @@ describe('SummaryCloseWorkOrder component', () => {
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
+        operativeNames={props.operatives}
       />
     )
     expect(asFragment()).toMatchSnapshot()
