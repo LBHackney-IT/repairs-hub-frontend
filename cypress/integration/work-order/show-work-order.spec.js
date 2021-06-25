@@ -22,7 +22,7 @@ describe('Show work order page', () => {
       {
         method: 'GET',
         path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
       },
       { body: [] }
     )
@@ -271,7 +271,7 @@ describe('Show work order page', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { fixture: 'work-orders/work-orders.json' }
       ).as('repairsHistory')
@@ -287,7 +287,7 @@ describe('Show work order page', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: [] }
       )
