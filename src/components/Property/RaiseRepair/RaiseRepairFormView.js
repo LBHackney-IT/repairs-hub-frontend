@@ -13,6 +13,7 @@ import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
 import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
+import Meta from '../../Meta'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -139,6 +140,12 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
+          <Meta
+            {...(property &&
+              property.address && {
+                title: `New repair at ${property.address.addressLine}`,
+              })}
+          />
           {formSuccess && workOrderReference && property && (
             <>
               <SuccessPage

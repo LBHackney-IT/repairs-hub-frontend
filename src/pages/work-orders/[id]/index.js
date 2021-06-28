@@ -1,3 +1,4 @@
+import Meta from '../../../components/Meta'
 import WorkOrderView from '../../../components/WorkOrder/WorkOrderView'
 import {
   AGENT_ROLE,
@@ -7,7 +8,12 @@ import {
 } from '../../../utils/user'
 
 const WorkOrderPage = ({ query }) => {
-  return <WorkOrderView workOrderReference={query.id} />
+  return (
+    <>
+      <Meta title={`Works Order ${query.id}`} />
+      <WorkOrderView workOrderReference={query.id} />
+    </>
+  )
 }
 
 export const getServerSideProps = async (ctx) => {
