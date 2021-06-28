@@ -83,7 +83,7 @@ describe('Authorisation workflow for a work order', () => {
           'You have rejected the authorisation request'
         )
         cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Works order number')
+          cy.contains('Work order number')
           cy.contains('10000012')
         })
       })
@@ -134,7 +134,7 @@ describe('Authorisation workflow for a work order', () => {
           'You have approved the authorisation request'
         )
         cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Works order number')
+          cy.contains('Work order number')
           cy.contains('10000012')
         })
       })
@@ -150,7 +150,7 @@ describe('Authorisation workflow for a work order', () => {
       })
     })
 
-    it('No link to authorise works order if status is not authorisation pending approval', () => {
+    it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'work-orders/work-order.json' }
@@ -164,7 +164,7 @@ describe('Authorisation workflow for a work order', () => {
       })
     })
 
-    it('Can not authorise (approve) works order if over raise spend limit', () => {
+    it('Can not authorise (approve) work order if over raise spend limit', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
         { fixture: 'work-orders/high-cost-task.json' }
@@ -203,7 +203,7 @@ describe('Authorisation workflow for a work order', () => {
           'You have rejected the authorisation request'
         )
         cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Works order number')
+          cy.contains('Work order number')
           cy.contains('10000012')
         })
       })
@@ -219,7 +219,7 @@ describe('When an agent tries to authorise using the UI', () => {
   it('rejects the request and shows the access-denied page instead', () => {
     cy.visit('/work-orders/10000012/authorisation')
 
-    cy.contains('a', 'Authorise Works Order').should('not.exist')
+    cy.contains('a', 'Authorise Work Order').should('not.exist')
     cy.contains('Authorisation request: 10000012').should('not.exist')
     cy.url().should('not.contain', 'work-orders/10000012/authorisation')
 

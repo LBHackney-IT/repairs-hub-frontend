@@ -87,7 +87,7 @@ describe('Contract manager can authorise variation', () => {
         'You have rejected a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })
@@ -132,7 +132,7 @@ describe('Contract manager can authorise variation', () => {
         'You have approved a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })
@@ -269,7 +269,7 @@ describe('Contract manager can authorise variation', () => {
         'You have rejected a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })

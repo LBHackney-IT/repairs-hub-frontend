@@ -152,7 +152,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                   Authorisation variation request: {workOrderReference}{' '}
                 </h1>
                 <Link href={`/work-orders/${workOrderReference}`}>
-                  <a className="lbh-link">See works order</a>
+                  <a className="lbh-link">See work order</a>
                 </Link>
                 <VariationAuthorisationSummary
                   variationTasks={variationTasks}

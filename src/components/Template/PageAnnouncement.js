@@ -4,7 +4,7 @@ export const PageAnnouncement = (props) => (
   <section className="text-align-center lbh-page-announcement">
     <h3 className="lbh-page-announcement__title">{props.title}</h3>
     <div className="lbh-page-announcement__content">
-      <p>Works order number</p>
+      <p>Work order number</p>
       <strong className="govuk-!-font-size-24">
         {props.workOrderReference}
       </strong>

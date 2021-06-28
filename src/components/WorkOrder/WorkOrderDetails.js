@@ -41,7 +41,7 @@ const WorkOrderDetails = ({
       <GridRow>
         <GridColumn width="two-thirds">
           <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-            Works order: {workOrder.reference}
+            Work order: {workOrder.reference}
           </h1>
         </GridColumn>
         <GridColumn width="one-third">

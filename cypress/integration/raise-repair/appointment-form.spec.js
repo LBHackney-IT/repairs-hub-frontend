@@ -112,7 +112,7 @@ describe('Schedule appointment form', () => {
           .clear({ force: true })
           .type('07788659111', { force: true })
         cy.get('[type="submit"]')
-          .contains('Create works order')
+          .contains('Create work order')
           .click({ force: true })
         // Check body of post request, creates work order
         cy.get('@apiCheck')
@@ -359,7 +359,7 @@ describe('Schedule appointment form', () => {
           .clear({ force: true })
           .type('07788659111', { force: true })
         cy.get('[type="submit"]')
-          .contains('Create works order')
+          .contains('Create work order')
           .click({ force: true })
       })
 

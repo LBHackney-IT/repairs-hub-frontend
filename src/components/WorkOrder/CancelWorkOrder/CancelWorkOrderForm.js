@@ -31,7 +31,7 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l lbh-caption">Cancel repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-            Works order: {workOrder.reference}
+            Work order: {workOrder.reference}
           </h1>
 
           <WorkOrderInfoTable workOrder={workOrder} />

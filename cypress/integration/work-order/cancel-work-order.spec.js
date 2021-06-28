@@ -50,7 +50,7 @@ describe('Work order cancellations', () => {
       cy.wait('@workOrder')
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
-      cy.get('.lbh-heading-h1').contains('Works order: 10000012')
+      cy.get('.lbh-heading-h1').contains('Work order: 10000012')
       cy.get('.govuk-table').within(() => {
         // Property and description
         cy.get('#property').within(() => {
@@ -126,7 +126,7 @@ describe('Work order cancellations', () => {
       cy.get('.govuk-panel--confirmation').within(() => {
         cy.get('.lbh-heading-h1').contains('Repair cancelled')
         cy.get('.govuk-panel__body').contains(
-          'Works order 10000012 has been cancelled'
+          'Work order 10000012 has been cancelled'
         )
       })
 

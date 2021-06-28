@@ -25,7 +25,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
         <h1
           class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
-          Works order: 10000012
+          Work order: 10000012
         </h1>
         <div>
           <table
@@ -170,7 +170,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         <h1
           class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
-          Works order: 10000012
+          Work order: 10000012
         </h1>
         <div>
           <table
@@ -375,7 +375,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         <h1
           class="lbh-heading-h1 govuk-!-margin-bottom-2"
         >
-          Works order: 10000012
+          Work order: 10000012
         </h1>
         <div>
           <table

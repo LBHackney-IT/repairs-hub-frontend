@@ -5,7 +5,7 @@ import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 const WorkOrderUpdatePage = ({ query }) => {
   return (
     <>
-      <Meta title={`Update Works Order ${query.id}`} />
+      <Meta title={`Update Work Order ${query.id}`} />
       <UpdateWorkOrder reference={query.id} />
     </>
   )
