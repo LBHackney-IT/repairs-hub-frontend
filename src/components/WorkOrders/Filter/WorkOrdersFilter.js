@@ -46,7 +46,11 @@ const WorkOrdersFilter = ({
   }
 
   const statusFilterOptions = () => {
-    if (user && user.hasContractorPermissions) {
+    if (
+      user &&
+      user.hasContractorPermissions &&
+      !user.hasAuthorisationManagerPermissions
+    ) {
       return filters.Status.filter(
         (status) =>
           status.key !== STATUS_AUTHORISATION_PENDING_APPROVAL.code.toString()
