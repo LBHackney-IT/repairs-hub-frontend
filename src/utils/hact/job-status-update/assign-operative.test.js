@@ -15,11 +15,6 @@ describe('buildOperativeAssignmentFormData', () => {
         id: 3,
         name: 'Operative C',
       },
-      // Intentional duplicate
-      {
-        id: 3,
-        name: 'Operative C',
-      },
     ]
 
     const response = buildOperativeAssignmentFormData('1', operatives)
@@ -27,7 +22,6 @@ describe('buildOperativeAssignmentFormData', () => {
       relatedWorkOrderReference: {
         id: '1',
       },
-      comments: 'Assigned Operative A, Operative B, Operative C',
       operativesAssigned: [
         {
           identification: {

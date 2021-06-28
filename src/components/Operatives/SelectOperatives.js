@@ -41,7 +41,8 @@ const SelectOperatives = ({
               register={register}
               errors={errors}
               showAddOperative={index === selectedOperatives.length - 1}
-              addOperativeHandler={() => {
+              addOperativeHandler={(e) => {
+                e.preventDefault()
                 setSelectedOperatives([...selectedOperatives, null])
               }}
               showRemoveOperative={

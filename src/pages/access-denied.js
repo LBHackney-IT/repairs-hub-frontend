@@ -1,7 +1,13 @@
 import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
 import AccessDenied from '../components/AccessDenied'
+import Meta from '../components/Meta'
 
-const AccessDeniedPage = () => <AccessDenied></AccessDenied>
+const AccessDeniedPage = () => (
+  <>
+    <Meta title="Access Denied" />
+    <AccessDenied></AccessDenied>
+  </>
+)
 
 export const getServerSideProps = async (ctx) => {
   const user = isAuthorised(ctx)

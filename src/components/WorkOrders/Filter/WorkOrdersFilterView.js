@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { getFilters } from '../../../utils/frontend-api-client/filters'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
+import { SelectedFilterOptions } from '../../../utils/helpers/filter'
 
 const WorkOrdersFilterView = ({
   onFilterSubmit,
@@ -14,6 +15,7 @@ const WorkOrdersFilterView = ({
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [filters, setFilters] = useState()
+  const [selectedFilters, setSelectedFilters] = useState()
 
   const onSubmit = async (formData) => {
     formData.StatusCode = { ...formData.StatusCode }
@@ -28,7 +30,13 @@ const WorkOrdersFilterView = ({
     try {
       const workOrderFilters = await getFilters('WorkOrder')
 
+      const selectedFilters = new SelectedFilterOptions(
+        appliedFilters,
+        workOrderFilters
+      ).getSelectedFilterOptions()
+
       setFilters(workOrderFilters)
+      setSelectedFilters(selectedFilters)
     } catch (e) {
       setFilters(null)
       console.error('An error has occured:', e.response)
@@ -60,6 +68,7 @@ const WorkOrdersFilterView = ({
             register={register}
             appliedFilters={appliedFilters}
             clearFilters={clearFilters}
+            selectedFilters={selectedFilters}
           />
         </form>
       </div>

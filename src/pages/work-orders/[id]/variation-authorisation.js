@@ -1,8 +1,14 @@
 import { CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 import VariationAuthorisationView from '../../../components/WorkOrder/Authorisation/VariationAuthorisationView'
+import Meta from '../../../components/Meta'
 
 const VariationAuthorisationPage = ({ query }) => {
-  return <VariationAuthorisationView workOrderReference={query.id} />
+  return (
+    <>
+      <Meta title={`Authorise variation for Works Order ${query.id}`} />
+      <VariationAuthorisationView workOrderReference={query.id} />
+    </>
+  )
 }
 export const getServerSideProps = async (ctx) => {
   const { query } = ctx

@@ -6,17 +6,18 @@ import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 import { multipleContractor } from 'factories/multiple_contractor'
 import { agentAndContractor } from 'factories/agent_and_contractor'
+import { SelectedFilterOptions } from '../../../utils/helpers/filter'
 
 describe('WorkOrdersFilter component', () => {
   const props = {
     filters: {
       Priority: [
         {
-          key: 'I',
+          key: '1',
           description: 'Immediate',
         },
         {
-          key: 'E',
+          key: '2',
           description: 'Emergency',
         },
       ],
@@ -83,10 +84,20 @@ describe('WorkOrdersFilter component', () => {
         },
       ],
     },
+    appliedFilters: {
+      ContractorReference: ['PCL', 'AVP'],
+      StatusCode: ['80'],
+      Priorities: ['1', '2'],
+    },
     loading: false,
     register: jest.fn(),
     clearFilters: jest.fn(),
   }
+
+  const selectedFilters = new SelectedFilterOptions(
+    props.appliedFilters,
+    props.filters
+  ).getSelectedFilterOptions()
 
   describe('when logged in as a contractor with more than one contractor role', () => {
     it('should render properly with filter by contractor (only groups they belong to) and no authorisation pending approval status', () => {
@@ -97,6 +108,8 @@ describe('WorkOrdersFilter component', () => {
             loading={props.loading}
             register={props.register}
             clearFilters={props.clearFilters}
+            appliedFilters={props.appliedFilters}
+            selectedFilters={selectedFilters}
           />
         </UserContext.Provider>
       )
@@ -113,6 +126,8 @@ describe('WorkOrdersFilter component', () => {
             loading={props.loading}
             register={props.register}
             clearFilters={props.clearFilters}
+            appliedFilters={props.appliedFilters}
+            selectedFilters={selectedFilters}
           />
         </UserContext.Provider>
       )
@@ -129,6 +144,8 @@ describe('WorkOrdersFilter component', () => {
             loading={props.loading}
             register={props.register}
             clearFilters={props.clearFilters}
+            appliedFilters={props.appliedFilters}
+            selectedFilters={selectedFilters}
           />
         </UserContext.Provider>
       )
@@ -145,6 +162,8 @@ describe('WorkOrdersFilter component', () => {
             loading={props.loading}
             register={props.register}
             clearFilters={props.clearFilters}
+            appliedFilters={props.appliedFilters}
+            selectedFilters={selectedFilters}
           />
         </UserContext.Provider>
       )
@@ -169,6 +188,8 @@ describe('WorkOrdersFilter component', () => {
             loading={props.loading}
             register={props.register}
             clearFilters={props.clearFilters}
+            appliedFilters={props.appliedFilters}
+            selectedFilters={selectedFilters}
           />
         </UserContext.Provider>
       )

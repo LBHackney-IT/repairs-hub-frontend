@@ -13,6 +13,7 @@ import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-
 import { getOperatives } from '../../utils/frontend-api-client/operatives'
 import { isDLOContractorReference } from '../../utils/helpers/work-orders'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
+import { uniqueArrayValues } from '../../utils/helpers/array'
 
 const CloseWorkOrder = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
@@ -86,16 +87,36 @@ const CloseWorkOrder = ({ reference }) => {
   }, [])
 
   const onJobSubmit = async () => {
-    const CloseWorkOrderFormData = buildCloseWorkOrderData(
-      completionDate,
-      notes,
-      reference,
-      reason
+    const operativeIds = selectedOperatives.map((operative) => operative.id)
+
+    const deduplicatedOperatives = uniqueArrayValues(
+      operativeIds
+    ).map((operativeId) =>
+      selectedOperatives.find((operative) => operative.id === operativeId)
     )
 
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       reference,
-      selectedOperatives
+      deduplicatedOperatives
+    )
+
+    const fullNotes =
+      deduplicatedOperatives.length > 0
+        ? [
+            notes,
+            `Assigned operatives ${deduplicatedOperatives
+              .map((operative) => operative.name)
+              .join(', ')}`,
+          ]
+            .filter((s) => s)
+            .join(' - ')
+        : notes
+
+    const CloseWorkOrderFormData = buildCloseWorkOrderData(
+      completionDate,
+      fullNotes,
+      reference,
+      reason
     )
 
     makePostRequest(CloseWorkOrderFormData, operativeAssignmentFormData)

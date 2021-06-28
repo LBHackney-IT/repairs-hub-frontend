@@ -7,6 +7,7 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '../../utils/helpers/filter'
 import { GridColumn, GridRow } from '../Layout/Grid'
+import Meta from '../Meta'
 
 const WorkOrdersView = ({ query }) => {
   const router = useRouter()
@@ -15,7 +16,7 @@ const WorkOrdersView = ({ query }) => {
   const [loading, setLoading] = useState(false)
   const [appliedFilters, setAppliedFilters] = useState()
   const pageNumber = parseInt(query?.pageNumber || 1)
-  const queryParams = appliedFilters || query
+  const queryParams = appliedFilters || query || {}
 
   const onFilterSubmit = async (formData) => {
     const setFilters = setFilterOptions(formData)
@@ -82,6 +83,7 @@ const WorkOrdersView = ({ query }) => {
 
   return (
     <>
+      <Meta title="Manage jobs" />
       <GridRow>
         <GridColumn
           width="one-third"

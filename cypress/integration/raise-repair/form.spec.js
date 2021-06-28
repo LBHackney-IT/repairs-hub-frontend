@@ -421,6 +421,9 @@ describe('Raise repair form', () => {
     cy.get('[type="submit"]')
       .contains('Create works order')
       .click({ force: true })
+
+    cy.wait('@apiCheck')
+
     // Check body of post request
     cy.get('@apiCheck')
       .its('request.body')
@@ -428,97 +431,95 @@ describe('Raise repair form', () => {
         const referenceIdUuid = body.reference[0].id
         const requiredCompletionDateTime =
           body.priority.requiredCompletionDateTime
-        cy.get('@apiCheck')
-          .its('request.body')
-          .should('deep.equal', {
-            reference: [{ id: referenceIdUuid }],
-            descriptionOfWork: 'A problem',
-            priority: {
-              priorityCode: EMERGENCY_PRIORITY_CODE,
-              priorityDescription: '2 [E] EMERGENCY',
-              requiredCompletionDateTime: requiredCompletionDateTime,
-              numberOfDays: 1,
+        cy.wrap(body).should('deep.equal', {
+          reference: [{ id: referenceIdUuid }],
+          descriptionOfWork: 'A problem',
+          priority: {
+            priorityCode: EMERGENCY_PRIORITY_CODE,
+            priorityDescription: '2 [E] EMERGENCY',
+            requiredCompletionDateTime: requiredCompletionDateTime,
+            numberOfDays: 1,
+          },
+          workClass: { workClassCode: 0 },
+          workElement: [
+            {
+              rateScheduleItem: [
+                {
+                  customCode: 'DES5R004',
+                  customName: 'Emergency call out',
+                  quantity: { amount: [1] },
+                },
+              ],
+              trade: [
+                {
+                  code: 'SP',
+                  customCode: 'PL',
+                  customName: 'Plumbing - PL',
+                },
+              ],
             },
-            workClass: { workClassCode: 0 },
-            workElement: [
+            {
+              rateScheduleItem: [
+                {
+                  customCode: 'DES5R006',
+                  customName: 'Urgent call outs',
+                  quantity: { amount: [2] },
+                },
+              ],
+              trade: [
+                {
+                  code: 'SP',
+                  customCode: 'PL',
+                  customName: 'Plumbing - PL',
+                },
+              ],
+            },
+          ],
+          site: {
+            property: [
               {
-                rateScheduleItem: [
+                propertyReference: '00012345',
+                address: {
+                  addressLine: ['16 Pitcairn House  St Thomass Square'],
+                  postalCode: 'E9 6PT',
+                },
+                reference: [
                   {
-                    customCode: 'DES5R004',
-                    customName: 'Emergency call out',
-                    quantity: { amount: [1] },
-                  },
-                ],
-                trade: [
-                  {
-                    code: 'SP',
-                    customCode: 'PL',
-                    customName: 'Plumbing - PL',
-                  },
-                ],
-              },
-              {
-                rateScheduleItem: [
-                  {
-                    customCode: 'DES5R006',
-                    customName: 'Urgent call outs',
-                    quantity: { amount: [2] },
-                  },
-                ],
-                trade: [
-                  {
-                    code: 'SP',
-                    customCode: 'PL',
-                    customName: 'Plumbing - PL',
+                    id: '00012345',
                   },
                 ],
               },
             ],
-            site: {
-              property: [
+          },
+          instructedBy: { name: 'Hackney Housing' },
+          assignedToPrimary: {
+            name: 'HH General Building Repair',
+            organization: {
+              reference: [
                 {
-                  propertyReference: '00012345',
-                  address: {
-                    addressLine: ['16 Pitcairn House  St Thomass Square'],
-                    postalCode: 'E9 6PT',
-                  },
-                  reference: [
-                    {
-                      id: '00012345',
-                    },
-                  ],
+                  id: 'H01',
                 },
               ],
             },
-            instructedBy: { name: 'Hackney Housing' },
-            assignedToPrimary: {
-              name: 'HH General Building Repair',
-              organization: {
-                reference: [
-                  {
-                    id: 'H01',
-                  },
-                ],
+          },
+          customer: {
+            name: 'NA',
+            person: {
+              name: {
+                full: 'NA',
               },
-            },
-            customer: {
-              name: 'NA',
-              person: {
-                name: {
-                  full: 'NA',
+              communication: [
+                {
+                  channel: {
+                    medium: '20',
+                    code: '60',
+                  },
+                  value: 'NA',
                 },
-                communication: [
-                  {
-                    channel: {
-                      medium: '20',
-                      code: '60',
-                    },
-                    value: 'NA',
-                  },
-                ],
-              },
+              ],
             },
-          })
+          },
+        })
       })
 
     // Confirmation screen
