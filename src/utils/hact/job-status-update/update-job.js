@@ -12,7 +12,7 @@ export const buildUpdateWorkOrder = (
         customCode: task.code.split(' - ')[0],
         customName: task.description,
         quantity: {
-          amount: [Number.parseInt(task.quantity)],
+          amount: [Number.parseFloat(task.quantity)],
         },
       }
     })
