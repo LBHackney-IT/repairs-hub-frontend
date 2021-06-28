@@ -49,6 +49,7 @@ const WorkOrdersFilter = ({
     if (
       user &&
       user.hasContractorPermissions &&
+      !user.hasAgentPermissions &&
       !user.hasAuthorisationManagerPermissions
     ) {
       return filters.Status.filter(

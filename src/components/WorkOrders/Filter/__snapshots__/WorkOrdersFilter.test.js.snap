@@ -310,6 +310,22 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  id="StatusCode.1010"
+                  name="StatusCode.1010"
+                  type="checkbox"
+                />
+                <label
+                  class="govuk-label govuk-checkboxes__label"
+                  for="StatusCode.1010"
+                >
+                  Authorisation Pending Approval
+                </label>
+              </div>
+              <div
+                class="govuk-checkboxes__item govuk-!-margin-0"
+              >
+                <input
+                  class="govuk-checkboxes__input"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -322,7 +338,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 </label>
               </div>
               <div
-                class="govuk-checkboxes__item govuk-!-margin-0"
+                class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-display-none"
               >
                 <input
                   class="govuk-checkboxes__input"
@@ -362,7 +378,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               class="lbh-link"
               href="#"
             >
-              Show all 6
+              Show all 7
             </a>
           </div>
         </div>
