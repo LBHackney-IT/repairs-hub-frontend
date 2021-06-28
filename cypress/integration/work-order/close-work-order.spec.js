@@ -337,6 +337,7 @@ describe('Closing a work order', () => {
           cy.get('#time-time').type('13')
           cy.get('#time-minutes').type('01')
         })
+        cy.get('#notes').type('A note')
 
         cy.get('.operatives').within(() => {
           cy.get('input[list]').should('have.length', 3)
@@ -429,7 +430,6 @@ describe('Closing a work order', () => {
 
         cy.get('[type="submit"]').contains('Confirm and close').click()
 
-        cy.wait('@workOrderCompleteRequest')
         cy.wait('@jobStatusUpdateRequest')
 
         cy.get('@jobStatusUpdateRequest')
@@ -438,7 +438,6 @@ describe('Closing a work order', () => {
             relatedWorkOrderReference: {
               id: '10000040',
             },
-            comments: 'Assigned Operative Y, Operative Z',
             operativesAssigned: [
               {
                 identification: {
@@ -452,6 +451,27 @@ describe('Closing a work order', () => {
               },
             ],
             typeCode: '10',
+          })
+
+        cy.wait('@workOrderCompleteRequest')
+
+        cy.get('@workOrderCompleteRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            workOrderReference: {
+              id: '10000040',
+              description: '',
+              allocatedBy: '',
+            },
+            jobStatusUpdates: [
+              {
+                typeCode: '70',
+                otherType: 'complete',
+                comments:
+                  'Work order closed - A note - Assigned operatives Operative Y, Operative Z',
+                eventTime: '2020-11-06T13:01:00.000Z',
+              },
+            ],
           })
 
         cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
