@@ -9,7 +9,7 @@ describe('Filter work orders', () => {
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       { fixture: 'filter/work-order.json' }
-    )
+    ).as('filters')
 
     // All work orders
     cy.intercept(
@@ -69,7 +69,7 @@ describe('Filter work orders', () => {
               workOrder.status === 'Variation Pending Approval') &&
             workOrder.priority === '2 [E] EMERGENCY'
         )
-      )
+      ).as('workOrdersInProgressVariationPendingApprovalEmergency')
     })
 
     // Work order with Emergency priority
@@ -176,6 +176,20 @@ describe('Filter work orders', () => {
         .should('not.be.checked')
       cy.get('.trade-filters').within(() => {
         cy.contains('Show all 6')
+      })
+
+      // Selected filters summary
+      cy.get('.selected-filters').within(() => {
+        cy.contains('Clear filters')
+        cy.contains('Save selected filters as my default preset')
+        cy.contains('Remove saved default filter preset')
+
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval')
+        })
+        cy.get('#selected-filters-Priority').should('not.exist')
+        cy.get('#selected-filters-Trade').should('not.exist')
       })
 
       // Only variation pending approval work orders are displayed
@@ -428,6 +442,19 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
       cy.get('[type="submit"]').contains('Apply filters').click()
 
+      // Selected filters summary
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval')
+          cy.contains('In Progress')
+        })
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency')
+        })
+        cy.get('#selected-filters-Trade').should('not.exist')
+      })
+
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
         cy.contains('2 [E] EMERGENCY')
@@ -470,6 +497,16 @@ describe('Filter work orders', () => {
         .should('not.be.checked')
 
       cy.contains('Clear filters').click()
+
+      // Selected filters summary
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').should('not.exist')
+        cy.get('#selected-filters-Priority').should('not.exist')
+        cy.get('#selected-filters-Trade').should('not.exist')
+
+        cy.contains('You have no selected filters')
+      })
 
       // All work orders now appear
       cy.get('[data-ref=10000040]')
@@ -792,4 +829,151 @@ describe('Filter work orders', () => {
       })
     }
   )
+
+  context('Saving and removing default filter options', () => {
+    beforeEach(() => {
+      cy.loginWithContractManagerRole()
+    })
+
+    it('Saves selected filters in localStorage as the default filter preset', () => {
+      cy.visit('/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2')
+      cy.wait('@filters')
+      cy.wait('@workOrdersInProgressVariationPendingApprovalEmergency')
+
+      // Selected filters summary
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('In Progress')
+          cy.contains('Variation Pending Approval')
+        })
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency')
+        })
+        cy.get('#selected-filters-Trade').should('not.exist')
+      })
+
+      // Save selected filters to localStorage
+      cy.get('.selected-filters').within(() => {
+        cy.contains('Save selected filters as my default preset')
+          .click({ force: true })
+          .then(() => {
+            expect(
+              localStorage.getItem('RH - default work order filters')
+            ).to.equal(
+              '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":"2"}'
+            )
+            cy.on('window:confirm', (string) => {
+              expect(string).to.equal(
+                'Save my selected filters:\n  Status  [ In Progress , Variation Pending Approval ], Priority  [ Emergency ]  as the default preset?'
+              )
+            })
+          })
+      })
+
+      cy.visit('/')
+
+      // Selected filters summary
+      // Expect saved default filters to be applied
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('In Progress')
+          cy.contains('Variation Pending Approval')
+        })
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency')
+        })
+        cy.get('#selected-filters-Trade').should('not.exist')
+      })
+
+      cy.get('[data-ref=10000040]').within(() => {
+        cy.contains('In progress')
+        cy.contains('2 [E] EMERGENCY')
+      })
+      cy.get('[data-ref=10000037]').should('not.exist')
+      cy.get('[data-ref=10000036]').should('not.exist')
+      cy.get('[data-ref=10000035]').should('not.exist')
+      cy.get('[data-ref=10000030]').should('not.exist')
+
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.50"]')
+        .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.90"]')
+        .should('be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.80"]')
+        .should('be.checked')
+      // Priority filter options
+      cy.get('.govuk-checkboxes')
+        .find('[name="Priorities.1"]')
+        .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="Priorities.2"]')
+        .should('be.checked')
+    })
+
+    it('Removes selected default filters from localStorage', () => {
+      localStorage.setItem(
+        'RH - default work order filters',
+        '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":"2"}'
+      )
+      cy.visit('/')
+      cy.wait('@filters')
+
+      // Save selected filters to localStorage
+      cy.get('.selected-filters').within(() => {
+        cy.contains('Remove saved default filter preset')
+          .click({ force: true })
+          .then(() => {
+            expect(
+              localStorage.getItem('RH - default work order filters')
+            ).to.equal(null)
+            cy.on('window:confirm', (string) => {
+              expect(string).to.equal('Remove my default saved filters?')
+            })
+          })
+      })
+
+      cy.visit('/')
+
+      // Selected filters summary
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Contractor').should('not.exist')
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('In Progress').should('not.exist')
+          // Default filter for contract managers still applied
+          cy.contains('Variation Pending Approval')
+        })
+        cy.get('#selected-filters-Priority').should('not.exist')
+        cy.get('#selected-filters-Trade').should('not.exist')
+      })
+
+      cy.get('[data-ref=10000040]').should('not.exist')
+      cy.get('[data-ref=10000037]').should('not.exist')
+      cy.get('[data-ref=10000036]').should('not.exist')
+      cy.get('[data-ref=10000035]').should('not.exist')
+      cy.get('[data-ref=10000030]').within(() => {
+        cy.contains('Variation Pending Approval')
+      })
+
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.50"]')
+        .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.90"]')
+        .should('be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="StatusCode.80"]')
+        .should('not.be.checked')
+      // Priority filter options
+      cy.get('.govuk-checkboxes')
+        .find('[name="Priorities.1"]')
+        .should('not.be.checked')
+      cy.get('.govuk-checkboxes')
+        .find('[name="Priorities.2"]')
+        .should('not.be.checked')
+    })
+  })
 })
