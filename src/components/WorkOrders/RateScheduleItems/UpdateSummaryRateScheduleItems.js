@@ -79,6 +79,9 @@ const UpdateSummaryRateScheduleItems = ({
             </a>
           </td>
         )}
+        {dataAttribute == 'original-task' && (
+          <td className="govuk-table__cell aligned-row">{''}</td>
+        )}
       </tr>
     ))
   }

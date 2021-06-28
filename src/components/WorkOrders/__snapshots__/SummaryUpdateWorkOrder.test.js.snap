@@ -78,6 +78,9 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
             >
               £10.5
             </td>
+            <td
+              class="govuk-table__cell aligned-row"
+            />
           </tr>
         </tbody>
       </table>
@@ -406,6 +409,9 @@ exports[`SummaryUpdateWorkOrder component should render properly within vary spe
             >
               £10.5
             </td>
+            <td
+              class="govuk-table__cell aligned-row"
+            />
           </tr>
         </tbody>
       </table>
