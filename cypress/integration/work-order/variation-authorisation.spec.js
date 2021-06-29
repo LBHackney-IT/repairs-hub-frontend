@@ -87,7 +87,7 @@ describe('Contract manager can authorise variation', () => {
         'You have rejected a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })
@@ -132,7 +132,7 @@ describe('Contract manager can authorise variation', () => {
         'You have approved a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })
@@ -242,7 +242,7 @@ describe('Contract manager can authorise variation', () => {
     // Warning text as work order with applied variation is above user's vary limit (£20000)
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
-        'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request however.'
+        'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
       )
     })
 
@@ -269,7 +269,7 @@ describe('Contract manager can authorise variation', () => {
         'You have rejected a variation'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10000012')
       })
     })

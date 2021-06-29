@@ -20,7 +20,7 @@ describe('Show property', () => {
           {
             method: 'GET',
             path:
-              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { body: [] }
         ).as('repairsHistory')
@@ -128,7 +128,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: properties }
       )
@@ -136,7 +136,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2&sort=dateraised%3Adesc',
         },
         {
           body: [
@@ -193,7 +193,7 @@ describe('Show property', () => {
       cy.url().should('contains', 'work-orders/10000012')
 
       cy.get('.lbh-heading-h1').within(() => {
-        cy.contains('Works order: 10000012')
+        cy.contains('Work order: 10000012')
       })
     })
 
@@ -231,7 +231,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         {
           body: [

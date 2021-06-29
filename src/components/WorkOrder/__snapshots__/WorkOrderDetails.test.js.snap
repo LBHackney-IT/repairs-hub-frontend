@@ -112,7 +112,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -333,7 +333,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -530,7 +530,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -772,7 +772,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -874,7 +874,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -1095,7 +1095,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -1292,7 +1292,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -1492,7 +1492,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -1682,7 +1682,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -1861,7 +1861,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -2058,7 +2058,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -2237,7 +2237,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -2434,7 +2434,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -2634,7 +2634,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
@@ -2729,7 +2729,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <h1
         class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
       >
-        Works order: 10000012
+        Work order: 10000012
       </h1>
     </div>
     <div
@@ -2908,7 +2908,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         <span
           class="govuk-!-font-size-14"
         >
-          Works order
+          Work order
         </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"

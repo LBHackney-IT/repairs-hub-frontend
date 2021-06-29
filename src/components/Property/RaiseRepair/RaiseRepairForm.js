@@ -221,10 +221,10 @@ const RaiseRepairForm = ({
             />
 
             {overSpendLimit && (
-              <WarningText text="The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
+              <WarningText text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
             )}
 
-            <PrimarySubmitButton label="Create works order" />
+            <PrimarySubmitButton label="Create work order" />
           </form>
         </div>
       </div>

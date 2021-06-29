@@ -15,7 +15,7 @@ describe('buildUpdateWorkOrder', () => {
       id: 0,
       code: 'XXXX004 - Emergency call out',
       description: 'Emergency call out',
-      quantity: 3,
+      quantity: 3.5,
     },
   ]
   const reference = '00012345'
@@ -35,14 +35,14 @@ describe('buildUpdateWorkOrder', () => {
             customCode: 'XXXX003',
             customName: 'Immediate call outs',
             quantity: {
-              amount: [Number.parseInt('1')],
+              amount: [Number.parseFloat('1')],
             },
           },
           {
             customCode: 'XXXX004',
             customName: 'Emergency call out',
             quantity: {
-              amount: [Number.parseInt('3')],
+              amount: [Number.parseFloat('3.5')],
             },
           },
         ],

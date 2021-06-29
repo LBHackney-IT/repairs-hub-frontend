@@ -5,7 +5,7 @@ import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 const WorkOrderClosePage = ({ query }) => {
   return (
     <>
-      <Meta title={`Close Works Order ${query.id}`} />
+      <Meta title={`Close Work Order ${query.id}`} />
       <CloseWorkOrder reference={query.id} />
     </>
   )

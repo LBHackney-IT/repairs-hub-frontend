@@ -10,7 +10,7 @@ import {
 const WorkOrderPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Works Order ${query.id}`} />
+      <Meta title={`Work Order ${query.id}`} />
       <WorkOrderView workOrderReference={query.id} />
     </>
   )

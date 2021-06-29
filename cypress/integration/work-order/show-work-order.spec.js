@@ -22,7 +22,7 @@ describe('Show work order page', () => {
       {
         method: 'GET',
         path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
       },
       { body: [] }
     )
@@ -32,7 +32,7 @@ describe('Show work order page', () => {
     cy.visit('/work-orders/10000012')
 
     cy.get('.lbh-heading-h1').within(() => {
-      cy.contains('Works order: 10000012')
+      cy.contains('Work order: 10000012')
     })
 
     cy.get('.lbh-body-m').within(() => {
@@ -271,7 +271,7 @@ describe('Show work order page', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { fixture: 'work-orders/work-orders.json' }
       ).as('repairsHistory')
@@ -287,7 +287,7 @@ describe('Show work order page', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: [] }
       )
@@ -301,7 +301,7 @@ describe('Show work order page', () => {
       cy.url().should('contains', 'work-orders/10000040')
 
       cy.get('.lbh-heading-h1').within(() => {
-        cy.contains('Works order: 10000040')
+        cy.contains('Work order: 10000040')
       })
     })
   })

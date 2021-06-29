@@ -109,14 +109,14 @@ const AuthorisationView = ({ workOrderReference }) => {
                 Authorisation request: {workOrderReference}{' '}
               </h1>
               <Link href={`/work-orders/${workOrderReference}`}>
-                <a className="lbh-link">See works order</a>
+                <a className="lbh-link">See work order</a>
               </Link>
               <br></br>
               <br></br>
 
               {overSpendLimit && (
                 <WarningText
-                  text={`Work order is over your raise limit of £${raiseSpendLimit}, please contact a manager to approve. You can still reject the authorisation request however.`}
+                  text={`Work order is over your raise limit of £${raiseSpendLimit}, please contact a manager to approve. You can still reject the authorisation request.`}
                 />
               )}
 

@@ -152,7 +152,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                   Authorisation variation request: {workOrderReference}{' '}
                 </h1>
                 <Link href={`/work-orders/${workOrderReference}`}>
-                  <a className="lbh-link">See works order</a>
+                  <a className="lbh-link">See work order</a>
                 </Link>
                 <VariationAuthorisationSummary
                   variationTasks={variationTasks}
@@ -164,7 +164,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
                 {overSpendLimit && (
                   <WarningText
-                    text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request however.`}
+                    text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request.`}
                   />
                 )}
 
