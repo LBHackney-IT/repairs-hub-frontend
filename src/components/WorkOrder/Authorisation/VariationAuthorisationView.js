@@ -164,7 +164,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
                 {overSpendLimit && (
                   <WarningText
-                    text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request however.`}
+                    text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request.`}
                   />
                 )}
 
