@@ -439,8 +439,8 @@ describe('Schedule appointment form', () => {
             statusCode: 200,
             statusCodeDescription: '???',
             externallyManagedAppointment: true,
-            externalAppointmentManagementUrl:
-              'https://scheduler.example.hackney.gov.uk?bookingId=1',
+            // Use a local URL for test only
+            externalAppointmentManagementUrl: '/scheduler?bookingId=1',
           },
         }
       ).as('apiCheck')
@@ -485,9 +485,27 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'open DRS').should(
           'have.attr',
           'href',
-          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
+          '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
         cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+
+        // Avoid opening a new tab by re-writing link behaviour
+        cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
+
+        cy.wait('@apiCheckjobStatus')
+
+        cy.get('@apiCheckjobStatus')
+          .its('request.body')
+          .then((body) => {
+            cy.wrap(body).should('deep.equal', {
+              relatedWorkOrderReference: {
+                id: 10102030,
+              },
+              comments: 'A Name opened the DRS Web Booking Manager',
+              typeCode: '0',
+              otherType: 'addNote',
+            })
+          })
 
         cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
           'have.property',
@@ -531,7 +549,7 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'open DRS').should(
           'have.attr',
           'href',
-          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
+          '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
         cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
 
@@ -661,7 +679,7 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'open DRS').should(
           'have.attr',
           'href',
-          'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
+          '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
         )
         cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
       })
