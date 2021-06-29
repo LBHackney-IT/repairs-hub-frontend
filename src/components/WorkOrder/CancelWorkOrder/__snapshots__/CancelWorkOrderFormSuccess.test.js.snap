@@ -14,7 +14,7 @@ exports[`CancelWorkOrderFormSuccess component should render properly 1`] = `
       <div
         class="govuk-panel__body"
       >
-        Works order 10000000 has been cancelled
+        Work order 10000000 has been cancelled
       </div>
     </div>
     <ul

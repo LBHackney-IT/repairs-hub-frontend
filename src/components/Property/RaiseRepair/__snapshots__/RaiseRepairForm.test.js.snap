@@ -405,7 +405,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
             data-module="govuk-button"
             type="submit"
           >
-            Create works order
+            Create work order
           </button>
         </div>
       </form>

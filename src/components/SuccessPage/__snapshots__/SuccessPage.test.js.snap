@@ -14,7 +14,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -64,7 +64,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -108,13 +108,13 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair works order created
+      Repair work order created
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -140,7 +140,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
       >
         Warning
       </span>
-      Works order 10000012 requires authorisation. Please request authorisation from a manager.
+      Work order 10000012 requires authorisation. Please request authorisation from a manager.
     </strong>
   </div>
   <ul
@@ -188,13 +188,13 @@ exports[`SuccessPage component Raising a repair With Emergency and Immediate DLO
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair works order created
+      Repair work order created
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -255,13 +255,13 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair works order created
+      Repair work order created
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -315,13 +315,13 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair works order created
+      Repair work order created
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Works order number
+        Work order number
       </p>
       <strong
         class="govuk-!-font-size-24"

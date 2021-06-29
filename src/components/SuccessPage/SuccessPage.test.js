@@ -38,7 +38,7 @@ describe('SuccessPage component', () => {
   describe('Raising a repair', () => {
     const props = {
       workOrderReference: '10000012',
-      text: 'Repair works order created',
+      text: 'Repair work order created',
       propertyReference: '12345678',
       shortAddress: '12 Random Lane',
       showSearchLink: true,

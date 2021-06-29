@@ -9,7 +9,7 @@ import {
 const WorkOrderCancelPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Cancel Works Order ${query.id}`} />
+      <Meta title={`Cancel Work Order ${query.id}`} />
       <CancelWorkOrderView workOrderReference={query.id} />
     </>
   )

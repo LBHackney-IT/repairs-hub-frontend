@@ -13,7 +13,7 @@ const SuccessPage = ({ ...props }) => {
 
       {props.authorisationPendingApproval && (
         <WarningText
-          text={`Works order ${props.workOrderReference} requires authorisation. Please request authorisation from a manager.`}
+          text={`Work order ${props.workOrderReference} requires authorisation. Please request authorisation from a manager.`}
         />
       )}
 

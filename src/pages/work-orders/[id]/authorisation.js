@@ -5,7 +5,7 @@ import Meta from '../../../components/Meta'
 const AuthorisationPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Authorisation for Works Order ${query.id}`} />
+      <Meta title={`Authorisation for Work Order ${query.id}`} />
       <AuthorisationView workOrderReference={query.id} />
     </>
   )

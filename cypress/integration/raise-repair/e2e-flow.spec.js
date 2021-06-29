@@ -126,7 +126,7 @@ describe('Schedule appointment form', () => {
           .clear({ force: true })
           .type('07788659111', { force: true })
         cy.get('[type="submit"]')
-          .contains('Create works order')
+          .contains('Create work order')
           .click({ force: true })
         // Check body of post request, creates work order
         cy.get('@apiCheck')
@@ -216,10 +216,10 @@ describe('Schedule appointment form', () => {
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
         cy.get('.lbh-page-announcement__title').contains(
-          'Repair works order created'
+          'Repair work order created'
         )
         cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Works order number')
+          cy.contains('Work order number')
           cy.contains('10102030')
         })
       })
@@ -267,7 +267,7 @@ describe('Schedule appointment form', () => {
           .clear({ force: true })
           .type('07788659111', { force: true })
         cy.get('[type="submit"]')
-          .contains('Create works order')
+          .contains('Create work order')
           .click({ force: true })
         // Check body of post request, creates work order
         cy.get('@apiCheck')
@@ -475,11 +475,11 @@ describe('Schedule appointment form', () => {
             .clear({ force: true })
             .type('NA', { force: true })
           cy.get('[type="submit"]')
-            .contains('Create works order')
+            .contains('Create work order')
             .click({ force: true })
         })
 
-        cy.contains('Repair works order created')
+        cy.contains('Repair work order created')
 
         cy.contains('Please open DRS to book an appointment')
         cy.contains('a', 'open DRS').should(
@@ -521,11 +521,11 @@ describe('Schedule appointment form', () => {
             .clear({ force: true })
             .type('NA', { force: true })
           cy.get('[type="submit"]')
-            .contains('Create works order')
+            .contains('Create work order')
             .click({ force: true })
         })
 
-        cy.contains('Repair works order created')
+        cy.contains('Repair work order created')
 
         cy.contains('Please open DRS to book an appointment')
         cy.contains('a', 'open DRS').should(
@@ -567,11 +567,11 @@ describe('Schedule appointment form', () => {
             .clear({ force: true })
             .type('NA', { force: true })
           cy.get('[type="submit"]')
-            .contains('Create works order')
+            .contains('Create work order')
             .click({ force: true })
         })
 
-        cy.contains('Repair works order created')
+        cy.contains('Repair work order created')
 
         cy.contains('Please open DRS to book an appointment').should(
           'not.exist'
@@ -607,11 +607,11 @@ describe('Schedule appointment form', () => {
             .clear({ force: true })
             .type('NA', { force: true })
           cy.get('[type="submit"]')
-            .contains('Create works order')
+            .contains('Create work order')
             .click({ force: true })
         })
 
-        cy.contains('Repair works order created')
+        cy.contains('Repair work order created')
 
         cy.contains('Please open DRS to book an appointment').should(
           'not.exist'
@@ -654,7 +654,7 @@ describe('Schedule appointment form', () => {
             .clear({ force: true })
             .type('NA', { force: true })
           cy.get('[type="submit"]')
-            .contains('Create works order')
+            .contains('Create work order')
             .click({ force: true })
         })
 

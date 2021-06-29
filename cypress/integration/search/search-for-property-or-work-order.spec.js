@@ -106,9 +106,9 @@ describe('Search by work order reference, postcode or address', () => {
           cy.visit('/work-orders/10000012')
         })
 
-        it('Works order header with reference number', () => {
+        it('Work order header with reference number', () => {
           cy.get('.lbh-heading-h1').within(() => {
-            cy.contains('Works order: 10000012')
+            cy.contains('Work order: 10000012')
           })
         })
 
@@ -249,7 +249,7 @@ describe('Search by work order reference, postcode or address', () => {
         cy.url().should('contains', 'work-orders/10000012')
 
         cy.get('.lbh-heading-h1').within(() => {
-          cy.contains('Works order: 10000012')
+          cy.contains('Work order: 10000012')
         })
         cy.get('.lbh-body-m').within(() => {
           cy.contains('This is an urgent repair description')

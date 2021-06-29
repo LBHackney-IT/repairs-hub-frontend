@@ -97,7 +97,7 @@ describe('Raise repair form', () => {
     // Form section
     // Try to submit form without entering required fields
     cy.get('[type="submit"]')
-      .contains('Create works order')
+      .contains('Create work order')
       .click({ force: true })
     cy.get('#trade-form-group .govuk-error-message').within(() => {
       cy.contains('Please select a trade')
@@ -312,7 +312,7 @@ describe('Raise repair form', () => {
 
       // Try to submit form without quantity for this SOR code at index 1
       cy.get('[type="submit"]')
-        .contains('Create works order')
+        .contains('Create work order')
         .click({ force: true })
       cy.get(
         'div[id="rateScheduleItems[1][quantity]-form-group"] .govuk-error-message'
@@ -419,7 +419,7 @@ describe('Raise repair form', () => {
 
     // Submit form
     cy.get('[type="submit"]')
-      .contains('Create works order')
+      .contains('Create work order')
       .click({ force: true })
 
     cy.wait('@apiCheck')
@@ -525,10 +525,10 @@ describe('Raise repair form', () => {
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
-        'Repair works order created'
+        'Repair work order created'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10102030')
       })
     })
@@ -592,7 +592,7 @@ describe('Raise repair form', () => {
     // Warning text as user's raise limit (£250) has been exceeded
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
-        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
       )
     })
 
@@ -611,7 +611,7 @@ describe('Raise repair form', () => {
     // Warning text as user's raise limit (£250) has been exceeded
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
-        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
       )
     })
 
@@ -628,7 +628,7 @@ describe('Raise repair form', () => {
     // Warning text as user's raise limit (£250) has been exceeded
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
-        'The works order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
       )
     })
 
@@ -640,22 +640,22 @@ describe('Raise repair form', () => {
     cy.get('#contactNumber').type('NA', { force: true })
 
     // Submit form for high cost (over raise limit) authorisation
-    cy.get('[type="submit"]').contains('Create works order').click()
+    cy.get('[type="submit"]').contains('Create work order').click()
 
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
-        'Repair works order created'
+        'Repair work order created'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Works order number')
+        cy.contains('Work order number')
         cy.contains('10102030')
       })
     })
     // Warning text as this work order is over the raise limit
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.get('.govuk-warning-text__text').contains(
-        'Works order 10102030 requires authorisation. Please request authorisation from a manager.'
+        'Work order 10102030 requires authorisation. Please request authorisation from a manager.'
       )
     })
 

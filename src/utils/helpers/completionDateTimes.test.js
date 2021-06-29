@@ -28,7 +28,7 @@ describe('calculateCompletionDateTime', () => {
     // 2 hours
     const priorityCode = IMMEDIATE_PRIORITY_CODE
 
-    describe('and the works order is created on a working day', () => {
+    describe('and the work order is created on a working day', () => {
       const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
 
       beforeEach(() => {
@@ -50,7 +50,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created on a non-working day', () => {
+    describe('and the work order is created on a non-working day', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -115,7 +115,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created on a Saturday', () => {
+    describe('and the work order is created on a Saturday', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -133,7 +133,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created when there are imminent bank holidays', () => {
+    describe('and the work order is created when there are imminent bank holidays', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -209,7 +209,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created on a non-working day', () => {
+    describe('and the work order is created on a non-working day', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -227,7 +227,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created when there are imminent bank holidays', () => {
+    describe('and the work order is created when there are imminent bank holidays', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -304,7 +304,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created on a non-working day', () => {
+    describe('and the work order is created on a non-working day', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {
@@ -322,7 +322,7 @@ describe('calculateCompletionDateTime', () => {
       })
     })
 
-    describe('and the works order is created when there are imminent bank holidays', () => {
+    describe('and the work order is created when there are imminent bank holidays', () => {
       const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
 
       beforeEach(() => {

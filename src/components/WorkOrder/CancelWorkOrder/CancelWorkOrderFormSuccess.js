@@ -11,7 +11,7 @@ const CancelWorkOrderFormSuccess = ({
       <div className="govuk-panel govuk-panel--confirmation background-dark-green">
         <h1 className="lbh-heading-h1 text-white">Repair cancelled</h1>
         <div className="govuk-panel__body">
-          Works order {workOrderReference} has been cancelled
+          Work order {workOrderReference} has been cancelled
         </div>
       </div>
 

@@ -8,7 +8,7 @@ exports[`WorkOrderInfo component should render properly 1`] = `
     <span
       class="govuk-!-font-size-14"
     >
-      Works order
+      Work order
     </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
@@ -68,7 +68,7 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
     <span
       class="govuk-!-font-size-14"
     >
-      Works order
+      Work order
     </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"

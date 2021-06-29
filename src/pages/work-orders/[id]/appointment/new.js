@@ -9,7 +9,7 @@ import AppointmentView from '../../../../components/WorkOrder/Appointment/Appoin
 const AppointmentPage = ({ query }) => {
   return (
     <>
-      <Meta title={`New appointment for Works Order ${query.id}`} />
+      <Meta title={`New appointment for Work Order ${query.id}`} />
       <AppointmentView workOrderReference={query.id} />
     </>
   )

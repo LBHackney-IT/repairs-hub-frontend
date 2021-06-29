@@ -5,7 +5,7 @@ import Meta from '../../../components/Meta'
 const VariationAuthorisationPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Authorise variation for Works Order ${query.id}`} />
+      <Meta title={`Authorise variation for Work Order ${query.id}`} />
       <VariationAuthorisationView workOrderReference={query.id} />
     </>
   )
