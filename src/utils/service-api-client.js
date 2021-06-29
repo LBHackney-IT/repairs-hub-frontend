@@ -1,6 +1,9 @@
 import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
+import cache from './middleware/cache'
+
+const CACHE_MAX_AGE_IN_MS = 300000 // 5 minutes
 
 import { isAuthorised } from './GoogleAuth'
 import { paramsSerializer } from './urls'
@@ -11,7 +14,18 @@ const {
   GSSO_TOKEN_NAME,
 } = process.env
 
-export const serviceAPIRequest = async (request) => {
+export const serviceAPIRequest = cache(async (request, response) => {
+  const cacheKey = encodeURIComponent(request.url)
+
+  if (request.cache && request.cache.has(cacheKey)) {
+    const { data } = request.cache.get(cacheKey)
+
+    response.setHeader('Cache-Control', `public,max-age=${CACHE_MAX_AGE_IN_MS}`)
+    response.setHeader('X-Cache', 'HIT')
+
+    return data
+  }
+
   const cookies = cookie.parse(request.headers.cookie ?? '')
   const token = cookies[GSSO_TOKEN_NAME]
 
@@ -53,17 +67,44 @@ export const serviceAPIRequest = async (request) => {
     return response
   })
 
-  const { data } = await api({
-    method: request.method,
-    headers,
-    url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-    params: queryParams,
-    paramsSerializer: paramsSerializer,
-    data: request.body,
-  })
+  try {
+    const { status, data } = await api({
+      method: request.method,
+      headers,
+      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
+      params: queryParams,
+      paramsSerializer,
+      data: request.body,
+    })
 
-  return data
-}
+    if (status === 200) {
+      if (request.cache) {
+        request.cache.set(cacheKey, { data })
+      }
+
+      response.setHeader('Cache-Control', 'no-cache')
+      response.setHeader('X-Cache', 'MISS')
+
+      return data
+    } else {
+      return response.status(status).json(data)
+    }
+  } catch (error) {
+    const errorResponse = error.response
+
+    if (errorResponse) {
+      // The request was made and the server responded with a non-200 status
+      console.error(
+        'Service API response',
+        JSON.stringify({
+          status: errorResponse?.status,
+          data: errorResponse?.data,
+          headers: errorResponse?.headers,
+        })
+      )
+    }
+  }
+})
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {

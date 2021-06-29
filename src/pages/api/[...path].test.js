@@ -159,7 +159,7 @@ describe('/api/[...path]', () => {
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/a/nested/path`,
           params: { queryKey: 'a query value' },
-          paramsSerializer: paramsSerializer,
+          paramsSerializer,
           data: {}, // no body
         })
 
@@ -209,7 +209,7 @@ describe('/api/[...path]', () => {
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/workOrders`,
           params: {},
-          paramsSerializer: paramsSerializer,
+          paramsSerializer,
           data: 'a body value',
         })
 
