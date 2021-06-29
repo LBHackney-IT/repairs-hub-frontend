@@ -116,7 +116,7 @@ const AuthorisationView = ({ workOrderReference }) => {
 
               {overSpendLimit && (
                 <WarningText
-                  text={`Work order is over your raise limit of £${raiseSpendLimit}, please contact a manager to approve. You can still reject the authorisation request however.`}
+                  text={`Work order is over your raise limit of £${raiseSpendLimit}, please contact a manager to approve. You can still reject the authorisation request.`}
                 />
               )}
 

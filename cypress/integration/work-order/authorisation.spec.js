@@ -178,7 +178,7 @@ describe('Authorisation workflow for a work order', () => {
       // Warning text as work order is above user's raise limit (£1000)
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
-          'Work order is over your raise limit of £1000, please contact a manager to approve. You can still reject the authorisation request however'
+          'Work order is over your raise limit of £1000, please contact a manager to approve. You can still reject the authorisation request.'
         )
       })
 
