@@ -93,7 +93,12 @@ describe('getWorkOrdersForProperty', () => {
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/workOrders/', {
-      params: { propertyReference: '1', PageSize: 50, PageNumber: 1 },
+      params: {
+        propertyReference: '1',
+        PageSize: 50,
+        PageNumber: 1,
+        sort: 'dateraised:desc',
+      },
     })
   })
 })

@@ -4,7 +4,6 @@ import RepairsHistoryTable from './RepairsHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getWorkOrdersForProperty } from '../../../utils/frontend-api-client/work-orders'
-import { sortObjectsByDateKey } from '../../../utils/date'
 
 const RepairsHistoryView = ({ propertyReference, tabName }) => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -17,12 +16,7 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
 
     try {
       const data = await getWorkOrdersForProperty(propertyReference, pageNumber)
-      const workOrdersPerPage = sortObjectsByDateKey(
-        data,
-        ['dateRaised', 'lastUpdated'],
-        'dateRaised'
-      )
-      setWorkOrders([...workOrders, ...workOrdersPerPage])
+      setWorkOrders([...workOrders, ...data])
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)

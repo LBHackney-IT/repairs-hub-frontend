@@ -20,7 +20,7 @@ describe('Show property', () => {
           {
             method: 'GET',
             path:
-              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { body: [] }
         ).as('repairsHistory')
@@ -128,7 +128,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: properties }
       )
@@ -136,7 +136,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2&sort=dateraised%3Adesc',
         },
         {
           body: [
@@ -231,7 +231,7 @@ describe('Show property', () => {
         {
           method: 'GET',
           path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         {
           body: [
