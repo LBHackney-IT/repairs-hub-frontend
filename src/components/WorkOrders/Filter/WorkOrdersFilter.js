@@ -168,7 +168,7 @@ const WorkOrdersFilter = ({
               </legend>
 
               <div
-                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
                 id="contractor-filters"
               >
                 {filters.Contractors.map((contractor, index) => (
@@ -201,7 +201,7 @@ const WorkOrdersFilter = ({
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               {statusFilterOptions().map((status, index) => (
@@ -231,7 +231,7 @@ const WorkOrdersFilter = ({
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               {filters.Priority.map((priority, index) => (
@@ -258,7 +258,7 @@ const WorkOrdersFilter = ({
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               {filters.Trades.map((trade, index) => (

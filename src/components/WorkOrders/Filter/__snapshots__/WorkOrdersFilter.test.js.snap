@@ -185,7 +185,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               Contractor
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="contractor-filters"
             >
               <div
@@ -253,7 +253,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -394,7 +394,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -446,7 +446,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -707,7 +707,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -848,7 +848,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -900,7 +900,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -1161,7 +1161,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -1286,7 +1286,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -1338,7 +1338,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -1599,7 +1599,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               Contractor
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="contractor-filters"
             >
               <div
@@ -1667,7 +1667,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -1808,7 +1808,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -1860,7 +1860,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -2121,7 +2121,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               Contractor
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="contractor-filters"
             >
               <div
@@ -2189,7 +2189,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -2314,7 +2314,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -2366,7 +2366,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -2627,7 +2627,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -2752,7 +2752,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -2804,7 +2804,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
@@ -3065,7 +3065,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               Contractor
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="contractor-filters"
             >
               <div
@@ -3133,7 +3133,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               Status
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               <div
@@ -3274,7 +3274,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               Priority
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               <div
@@ -3326,7 +3326,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               Trade
             </legend>
             <div
-              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              class="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               <div
