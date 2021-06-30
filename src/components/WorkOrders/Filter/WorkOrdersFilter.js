@@ -6,6 +6,7 @@ import UserContext from '../../UserContext/UserContext'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 import Collapsible from '../../Layout/Collapsible/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
+import { canSeeAllFilters } from '../../../utils/user-permissions'
 
 const WorkOrdersFilter = ({
   loading,
@@ -46,19 +47,13 @@ const WorkOrdersFilter = ({
   }
 
   const statusFilterOptions = () => {
-    if (
-      user &&
-      user.hasContractorPermissions &&
-      !user.hasAgentPermissions &&
-      !user.hasAuthorisationManagerPermissions &&
-      !user.hasContractManagerPermissions
-    ) {
+    if (user && canSeeAllFilters(user)) {
+      return filters.Status
+    } else {
       return filters.Status.filter(
         (status) =>
           status.key !== STATUS_AUTHORISATION_PENDING_APPROVAL.code.toString()
       )
-    } else {
-      return filters.Status
     }
   }
 

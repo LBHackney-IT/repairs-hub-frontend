@@ -4,6 +4,7 @@ import { PAGE_SIZE_AGENTS } from 'src/utils/frontend-api-client/work-orders'
 import UserContext from '../../UserContext/UserContext'
 import RepairsHistoryRow from './RepairsHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
+import { canAccessWorkOrder } from '../../../utils/user-permissions'
 
 const RepairsHistoryTable = ({
   workOrders,
@@ -43,12 +44,7 @@ const RepairsHistoryTable = ({
       <Table className="govuk-!-margin-top-5 repairs-history-table">
         <THead>
           <TR className="lbh-body">
-            {user &&
-              (user.hasAgentPermissions ||
-                user.hasContractManagerPermissions ||
-                user.hasAuthorisationManagerPermissions) && (
-                <TH scope="col">Reference</TH>
-              )}
+            {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
             <TH scope="col">Date raised</TH>
             <TH scope="col">Trade</TH>
             <TH scope="col">Status</TH>
