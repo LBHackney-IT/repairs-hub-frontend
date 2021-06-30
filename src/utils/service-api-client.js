@@ -1,12 +1,10 @@
 import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
-import cache from './middleware/cache'
-
-const CACHE_MAX_AGE_IN_MS = 300000 // 5 minutes
-
 import { isAuthorised } from './GoogleAuth'
 import { paramsSerializer } from './urls'
+import { cache } from './middleware/cache'
+import { CACHE_MAX_AGE_IN_MS } from './helpers/cache'
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -14,61 +12,64 @@ const {
   GSSO_TOKEN_NAME,
 } = process.env
 
-export const serviceAPIRequest = cache(async (request, response) => {
-  const cacheKey = encodeURIComponent(request.url)
+export const serviceAPIRequest = cache(
+  async (request, response, cacheRequest = false) => {
+    const cacheKey = encodeURIComponent(request.url)
 
-  if (request.cache && request.cache.has(cacheKey)) {
-    const { data } = request.cache.get(cacheKey)
+    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
+      const { data } = request.cache.get(cacheKey)
 
-    response.setHeader('Cache-Control', `public,max-age=${CACHE_MAX_AGE_IN_MS}`)
-    response.setHeader('X-Cache', 'HIT')
+      response.setHeader(
+        'Cache-Control',
+        `public,max-age=${CACHE_MAX_AGE_IN_MS}`
+      )
+      response.setHeader('X-Cache', 'HIT')
 
-    return data
-  }
+      return data
+    }
 
-  const cookies = cookie.parse(request.headers.cookie ?? '')
-  const token = cookies[GSSO_TOKEN_NAME]
+    const cookies = cookie.parse(request.headers.cookie ?? '')
+    const token = cookies[GSSO_TOKEN_NAME]
 
-  const headers = {
-    'x-api-key': REPAIRS_SERVICE_API_KEY,
-    'x-hackney-user': token,
-    'Content-Type': 'application/json',
-  }
+    const headers = {
+      'x-api-key': REPAIRS_SERVICE_API_KEY,
+      'x-hackney-user': token,
+      'Content-Type': 'application/json',
+    }
 
-  let { path, ...queryParams } = request.query
+    let { path, ...queryParams } = request.query
 
-  const api = axios.create()
+    const api = axios.create()
 
-  // Log request
-  api.interceptors.request.use((request) => {
-    console.info(
-      'Starting Service API request:',
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          'x-api-key': '[REMOVED]',
-          'x-hackney-user': '[REMOVED]',
-        },
-      })
-    )
+    // Log request
+    api.interceptors.request.use((request) => {
+      console.info(
+        'Starting Service API request:',
+        JSON.stringify({
+          ...request,
+          headers: {
+            ...request.headers,
+            'x-api-key': '[REMOVED]',
+            'x-hackney-user': '[REMOVED]',
+          },
+        })
+      )
 
-    return request
-  })
+      return request
+    })
 
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    console.info(
-      `Service API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
-    )
+    // Log successful responses
+    api.interceptors.response.use((response) => {
+      console.info(
+        `Service API response: ${response.status} ${
+          response.statusText
+        } ${JSON.stringify(response.data)}`
+      )
 
-    return response
-  })
+      return response
+    })
 
-  try {
-    const { status, data } = await api({
+    const { data } = await api({
       method: request.method,
       headers,
       url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
@@ -77,34 +78,16 @@ export const serviceAPIRequest = cache(async (request, response) => {
       data: request.body,
     })
 
-    if (status === 200) {
-      if (request.cache) {
-        request.cache.set(cacheKey, { data })
-      }
-
-      response.setHeader('Cache-Control', 'no-cache')
-      response.setHeader('X-Cache', 'MISS')
-
-      return data
-    } else {
-      return response.status(status).json(data)
+    if (cacheRequest && request.cache) {
+      request.cache.set(cacheKey, { data })
     }
-  } catch (error) {
-    const errorResponse = error.response
 
-    if (errorResponse) {
-      // The request was made and the server responded with a non-200 status
-      console.error(
-        'Service API response',
-        JSON.stringify({
-          status: errorResponse?.status,
-          data: errorResponse?.data,
-          headers: errorResponse?.headers,
-        })
-      )
-    }
+    response.setHeader('Cache-Control', 'no-cache')
+    response.setHeader('X-Cache', 'MISS')
+
+    return data
   }
-})
+)
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {

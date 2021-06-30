@@ -1,7 +1,6 @@
 import LRU from 'lru-cache'
 
-const CACHE_MAX_SIZE = 500
-const CACHE_MAX_AGE_IN_MS = 300000 // 5 minutes
+import { CACHE_MAX_SIZE, CACHE_MAX_AGE_IN_MS } from '../helpers/cache'
 
 const context = {
   cache: new LRU({
@@ -10,10 +9,18 @@ const context = {
   }),
 }
 
-const cache = (handler) => (req, res) => {
+export const cache = (handler) => (req, res) => {
   req.cache = context.cache
 
-  return handler(req, res)
+  return handler(req, res, validateCacheRequest(req.url))
 }
 
-export default cache
+const validateCacheRequest = (url) => {
+  return Boolean(
+    url.match(new RegExp('^.*/properties.*$')) ||
+      url.match(new RegExp('^.*/schedule-of-rates/.*$')) ||
+      url.match(new RegExp('^.*/filter/.*$')) ||
+      url.match(new RegExp('^.*/hub-user.*$')) ||
+      url.match(new RegExp('^.*/contractors.*$'))
+  )
+}
