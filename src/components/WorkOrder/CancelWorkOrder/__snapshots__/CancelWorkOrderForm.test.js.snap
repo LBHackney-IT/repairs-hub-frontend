@@ -123,7 +123,8 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             />
           </div>
           <span
-            class="govuk-hint govuk-!-margin-bottom-6"
+            aria-live="polite"
+            class="govuk-hint govuk-character-count__message"
           >
             You have 200 characters remaining.
           </span>
@@ -328,7 +329,8 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             />
           </div>
           <span
-            class="govuk-hint govuk-!-margin-bottom-6"
+            aria-live="polite"
+            class="govuk-hint govuk-character-count__message"
           >
             You have 200 characters remaining.
           </span>
@@ -533,7 +535,8 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             />
           </div>
           <span
-            class="govuk-hint govuk-!-margin-bottom-6"
+            aria-live="polite"
+            class="govuk-hint govuk-character-count__message"
           >
             You have 200 characters remaining.
           </span>
