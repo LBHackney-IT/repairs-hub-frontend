@@ -17,5 +17,6 @@
   "callerNumber": "07700 900999",
   "contractorReference": "SCC",
   "operatives": [],
-  "externalAppointmentManagementUrl": null
+  "externalAppointmentManagementUrl": null,
+  "canAssignOperative": false
 }
