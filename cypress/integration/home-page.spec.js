@@ -175,7 +175,7 @@ describe('Home page', () => {
             cy.intercept(
               {
                 method: 'GET',
-                path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90',
+                path: '/api/workOrders/?PageSize=10&PageNumber=1',
               },
               {
                 fixture: 'work-orders/work-orders.json',
@@ -206,12 +206,6 @@ describe('Home page', () => {
             cy.get('#signout')
               .contains('Sign out')
               .should('have.attr', 'href', '/logout')
-          })
-
-          it('Checks the status checkbox', () => {
-            cy.get('.govuk-checkboxes')
-              .find('[name="StatusCode.90"]')
-              .should('be.checked')
           })
 
           it('Displays the first page of repairs', () => {
@@ -272,8 +266,7 @@ describe('Home page', () => {
             cy.intercept(
               {
                 method: 'GET',
-                path:
-                  '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=1010',
+                path: '/api/workOrders/?PageSize=10&PageNumber=1',
               },
               {
                 fixture: 'work-orders/work-orders.json',
@@ -304,12 +297,6 @@ describe('Home page', () => {
             cy.get('#signout')
               .contains('Sign out')
               .should('have.attr', 'href', '/logout')
-          })
-
-          it('Checks the status checkbox', () => {
-            cy.get('.govuk-checkboxes')
-              .find('[name="StatusCode.1010"]')
-              .should('be.checked')
           })
 
           it('Displays the first page of repairs', () => {
@@ -372,8 +359,7 @@ describe('Home page', () => {
               cy.intercept(
                 {
                   method: 'GET',
-                  path:
-                    '/api/workOrders/?PageSize=10&PageNumber=1&ContractorReference=H01',
+                  path: '/api/workOrders/?PageSize=10&PageNumber=1',
                 },
                 {
                   fixture: 'work-orders/work-orders.json',
@@ -426,12 +412,6 @@ describe('Home page', () => {
                 cy.contains('DOOR ENTRY ENGINEER - DE')
                 cy.contains('An emergency repair')
               })
-            })
-
-            it('Checks the contractor checkbox', () => {
-              cy.get('.govuk-checkboxes')
-                .find('[name="ContractorReference.H01"]')
-                .should('be.checked')
             })
 
             it('does not display next button when work orders are less than 10', () => {
