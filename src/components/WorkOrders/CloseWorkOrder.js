@@ -11,7 +11,6 @@ import { useRouter } from 'next/router'
 import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { getOperatives } from '../../utils/frontend-api-client/operatives'
-import { isDLOContractorReference } from '../../utils/helpers/work-orders'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
 
@@ -37,7 +36,7 @@ const CloseWorkOrder = ({ reference }) => {
     setLoading(true)
 
     try {
-      if (isDLOContractorReference(workOrder.contractorReference)) {
+      if (workOrder.canAssignOperative) {
         postJobStatusUpdate(operativeAssignmentFormData).then(() => {
           postWorkOrderComplete(workOrderCompleteFormData)
         })
@@ -61,7 +60,7 @@ const CloseWorkOrder = ({ reference }) => {
       const workOrder = await getWorkOrder(reference)
       setWorkOrder(workOrder)
 
-      if (isDLOContractorReference(workOrder.contractorReference)) {
+      if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
 
         const operatives = await getOperatives()
@@ -164,9 +163,7 @@ const CloseWorkOrder = ({ reference }) => {
                   time={completionTime}
                   date={completionDate}
                   reason={reason}
-                  operativeAssignmentMandatory={isDLOContractorReference(
-                    workOrder.contractorReference
-                  )}
+                  operativeAssignmentMandatory={workOrder.canAssignOperative}
                   currentOperatives={selectedOperatives}
                   availableOperatives={availableOperatives}
                 />
@@ -179,7 +176,7 @@ const CloseWorkOrder = ({ reference }) => {
                   date={dateToShow}
                   reason={reason}
                   operativeNames={
-                    isDLOContractorReference(workOrder.contractorReference) &&
+                    workOrder.canAssignOperative &&
                     selectedOperatives.map((operative) => operative.name)
                   }
                   changeStep={changeCurrentPage}

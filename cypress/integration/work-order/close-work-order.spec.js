@@ -2,7 +2,7 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order', () => {
-  describe('When the work order is not for the DLO', () => {
+  describe('When the work order does not require operative assignment', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
@@ -244,7 +244,7 @@ describe('Closing a work order', () => {
     })
   })
 
-  describe('When the order is for the DLO', () => {
+  describe('When the order requires operative assignment', () => {
     describe('And the workorder has existing operatives assigned', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
@@ -264,7 +264,7 @@ describe('Closing a work order', () => {
         // Viewing the work order page
         cy.fixture('work-orders/work-order.json').then((workOrder) => {
           workOrder.reference = 10000040
-          workOrder.contractorReference = 'H10' // DLO contractor reference
+          workOrder.canAssignOperative = true
           workOrder.operatives = [
             {
               id: 1,
@@ -488,6 +488,7 @@ describe('Closing a work order', () => {
         cy.fixture('work-orders/work-order.json').then((workOrder) => {
           workOrder.reference = 10000040
           workOrder.contractorReference = 'H10' // DLO contractor reference
+          workOrder.canAssignOperative = true
           workOrder.operatives = []
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000040' },
