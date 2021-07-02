@@ -18,5 +18,6 @@
   "contractorReference": "H01",
   "operatives": [],
   "appointment": null,
-  "externalAppointmentManagementUrl": "https://scheduler.example.hackney.gov.uk?bookingId=1"
+  "externalAppointmentManagementUrl": "https://scheduler.example.hackney.gov.uk?bookingId=1",
+  "canAssignOperative": true
 }

@@ -109,10 +109,9 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.50"]')
         .should('not.be.checked')
-      // Variation pending approval selected by default
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.90"]')
-        .should('be.checked')
+        .should('not.be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.80"]')
         .should('not.be.checked')
@@ -185,34 +184,18 @@ describe('Filter work orders', () => {
         cy.contains('Remove saved default filter preset')
 
         cy.get('#selected-filters-Contractor').should('not.exist')
-        cy.get('#selected-filters-Status').within(() => {
-          cy.contains('Variation Pending Approval')
-        })
+        cy.get('#selected-filters-Status').should('not.exist')
         cy.get('#selected-filters-Priority').should('not.exist')
         cy.get('#selected-filters-Trade').should('not.exist')
       })
 
-      // Only variation pending approval work orders are displayed
-      cy.get('[data-ref=10000030]').within(() => {
-        cy.contains('Variation Pending Approval')
-      })
-      cy.get('[data-ref=10000037]').should('not.exist')
-      cy.get('[data-ref=10000036]').should('not.exist')
-      cy.get('[data-ref=10000035]').should('not.exist')
-      cy.get('[data-ref=10000040]').should('not.exist')
-      cy.get('[data-ref=10000032]').should('not.exist')
-
-      // Remove variation pending approval filter
-      cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').uncheck()
-      cy.get('[type="submit"]').contains('Apply filters').click()
-
-      // Expect all work orders to be displayed
-      cy.get('[data-ref=10000040]')
-      cy.get('[data-ref=10000035]')
-      cy.get('[data-ref=10000036]')
-      cy.get('[data-ref=10000037]')
-      cy.get('[data-ref=10000030]')
-      cy.get('[data-ref=10000032]')
+      // All work orders are displayed
+      cy.get('[data-ref=10000030]').should('exist')
+      cy.get('[data-ref=10000037]').should('exist')
+      cy.get('[data-ref=10000036]').should('exist')
+      cy.get('[data-ref=10000035]').should('exist')
+      cy.get('[data-ref=10000040]').should('exist')
+      cy.get('[data-ref=10000032]').should('exist')
 
       // Filter by work order complete
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').check()
@@ -553,103 +536,6 @@ describe('Filter work orders', () => {
     })
   })
 
-  context('When logged in as an authorisation manager', () => {
-    beforeEach(() => {
-      // Stub authorisation pending approval work order (1010)
-      cy.fixture('work-orders/work-orders.json').then((workOrders) => {
-        cy.intercept(
-          { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=1010' },
-          workOrders.filter(
-            (workOrder) => workOrder.status === 'Authorisation Pending Approval'
-          )
-        )
-      })
-
-      cy.loginWithAuthorisationManagerRole()
-      cy.visit('/')
-    })
-
-    it('Has Authorisation Pending Approval work order filter selected by default', () => {
-      // Status filter options
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.50"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.90"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.80"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.30"]')
-        .should('not.be.checked')
-      // Authorisation Pending Approval work order filter selected
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.1010"]')
-        .should('be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.1080"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="StatusCode.1090"]')
-        .should('not.be.checked')
-      // Priority filter options
-      cy.get('.govuk-checkboxes')
-        .find('[name="Priorities.1"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="Priorities.2"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="Priorities.3"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="Priorities.4"]')
-        .should('not.be.checked')
-      // Contractor filter options
-      cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.AVP"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.PCL"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.SCC"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.H01"]')
-        .should('not.be.checked')
-      // Trade filter options
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.AD"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.CA"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.CP"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.DE"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.EL"]')
-        .should('not.be.checked')
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.PL"]')
-        .should('not.be.checked')
-
-      cy.get('[data-ref=10000032]').within(() => {
-        cy.contains('Authorisation Pending Approval')
-      })
-      cy.get('[data-ref=10000040]').should('not.exist')
-      cy.get('[data-ref=10000037]').should('not.exist')
-      cy.get('[data-ref=10000036]').should('not.exist')
-      cy.get('[data-ref=10000035]').should('not.exist')
-      cy.get('[data-ref=10000030]').should('not.exist')
-    })
-  })
-
   context('When logged in as a contractor in one contractor group', () => {
     beforeEach(() => {
       cy.fixture('filter/work-order.json').then((filters) => {
@@ -941,29 +827,23 @@ describe('Filter work orders', () => {
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Contractor').should('not.exist')
-        cy.get('#selected-filters-Status').within(() => {
-          cy.contains('In Progress').should('not.exist')
-          // Default filter for contract managers still applied
-          cy.contains('Variation Pending Approval')
-        })
+        cy.get('#selected-filters-Status').should('not.exist')
         cy.get('#selected-filters-Priority').should('not.exist')
         cy.get('#selected-filters-Trade').should('not.exist')
       })
 
-      cy.get('[data-ref=10000040]').should('not.exist')
-      cy.get('[data-ref=10000037]').should('not.exist')
-      cy.get('[data-ref=10000036]').should('not.exist')
-      cy.get('[data-ref=10000035]').should('not.exist')
-      cy.get('[data-ref=10000030]').within(() => {
-        cy.contains('Variation Pending Approval')
-      })
+      cy.get('[data-ref=10000040]').should('exist')
+      cy.get('[data-ref=10000037]').should('exist')
+      cy.get('[data-ref=10000036]').should('exist')
+      cy.get('[data-ref=10000035]').should('exist')
+      cy.get('[data-ref=10000030]').should('exist')
 
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.50"]')
         .should('not.be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.90"]')
-        .should('be.checked')
+        .should('not.be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.80"]')
         .should('not.be.checked')

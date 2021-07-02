@@ -106,6 +106,8 @@ describe('Work order cancellations', () => {
       // Submit form
       cy.get('[type="submit"]').contains('Cancel repair').click()
       // Check post request body
+      cy.wait('@apiCheck')
+
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {

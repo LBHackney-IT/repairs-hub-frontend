@@ -2,7 +2,6 @@ import Search from '../components/Search/Search'
 import Spinner from '../components/Spinner/Spinner'
 import WorkOrdersView from '../components/WorkOrders/WorkOrdersView'
 import UserContext from '../components/UserContext/UserContext'
-import { getCurrentUser } from '../utils/frontend-api-client/hub-user'
 import { useContext, useEffect, useState } from 'react'
 import {
   AGENT_ROLE,
@@ -14,88 +13,44 @@ import {
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [contractors, setContractors] = useState()
+  const [loading, setLoading] = useState(true)
 
-  const getContractors = async () => {
-    setError(null)
-
-    try {
-      const data = await getCurrentUser()
-      setContractors(data.contractors)
-    } catch (e) {
-      console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+  const HomeView = () => {
+    if (
+      user &&
+      (user.hasContractorPermissions ||
+        user.hasAuthorisationManagerPermissions ||
+        user.hasContractManagerPermissions)
+    ) {
+      // Use saved filter preset in local storage as the default applied filters (if present)
+      const defaultFilters = JSON.parse(
+        localStorage.getItem('RH - default work order filters')
       )
-    }
 
-    setLoading(false)
-  }
-
-  const HomeView = ({ contractors }) => {
-    // Use saved filter preset in local storage as the default applied filters (if present)
-    const defaultFilters = JSON.parse(
-      localStorage.getItem('RH - default work order filters')
-    )
-
-    if (user.hasAgentPermissions) {
-      if (user.hasContractorPermissions) {
-        if (Object.entries(query).length === 0) {
-          return (
-            <WorkOrdersView
-              pageNumber={1}
-              query={defaultFilters || { ContractorReference: contractors }}
-            />
-          )
-        } else {
-          return <WorkOrdersView query={query} />
-        }
+      if (Object.entries(query).length === 0) {
+        return (
+          <WorkOrdersView
+            pageNumber={1}
+            {...(defaultFilters && { query: defaultFilters })}
+          />
+        )
       } else {
-        if (Object.entries(query).length === 0) {
-          return <Search />
-        } else {
-          return <Search query={query} />
-        }
+        return <WorkOrdersView query={query} />
       }
     } else {
       if (Object.entries(query).length === 0) {
-        if (user.hasAuthorisationManagerPermissions) {
-          // Default filter selected for Authorisation Pending Approval work orders
-          return (
-            <WorkOrdersView
-              pageNumber={1}
-              query={defaultFilters || { StatusCode: '1010' }}
-            />
-          )
-        } else if (user.hasContractManagerPermissions) {
-          // Default filter selected for Variation Pending Approval work orders
-          return (
-            <WorkOrdersView
-              pageNumber={1}
-              query={defaultFilters || { StatusCode: '90' }}
-            />
-          )
-        } else {
-          return (
-            <WorkOrdersView
-              pageNumber={1}
-              {...(defaultFilters && { query: defaultFilters })}
-            />
-          )
-        }
+        return <Search />
       } else {
-        return <WorkOrdersView query={query} />
+        return <Search query={query} />
       }
     }
   }
 
   useEffect(() => {
-    setLoading(true)
-    setContractors(null)
-
-    getContractors()
+    // Window object is required to access localStorage
+    if (typeof window !== 'undefined') {
+      setLoading(false)
+    }
   }, [])
 
   return (
@@ -104,8 +59,7 @@ const Home = ({ query }) => {
         <Spinner />
       ) : (
         <>
-          {contractors && <HomeView contractors={contractors} />}
-          {error && <ErrorMessage label={error} />}
+          <HomeView />
         </>
       )}
     </>
