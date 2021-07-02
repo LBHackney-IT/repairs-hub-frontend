@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 
-describe('Contractor update a job', () => {
+describe('Contractor update a work order', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
 
@@ -232,7 +232,7 @@ describe('Contractor update a job', () => {
     })
   })
 
-  it('allows the user to update the job by changing the existing quantity', () => {
+  it('allows the user to update the work order by changing the existing quantity', () => {
     cy.visit('/')
 
     cy.get('.govuk-table__cell').within(() => {
@@ -327,7 +327,7 @@ describe('Contractor update a job', () => {
     // Confirmation screen
     cy.get('.govuk-panel--confirmation.background-dark-green').within(() => {
       cy.get('.govuk-panel__body').within(() => {
-        cy.contains('Job 10000040 has been successfully updated')
+        cy.contains('Work order 10000040 has been successfully updated')
       })
     })
 
@@ -338,7 +338,7 @@ describe('Contractor update a job', () => {
         'href',
         '/work-orders/10000040'
       )
-      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+      cy.contains('View work orders dashboard').should('have.attr', 'href', '/')
     })
   })
 
@@ -525,7 +525,7 @@ describe('Contractor update a job', () => {
     cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
       cy.get('.govuk-panel__body').within(() => {
         cy.contains(
-          'Job 10000040 requires authorisation and has been sent to a manager'
+          'Work order 10000040 requires authorisation and has been sent to a manager'
         )
       })
     })
@@ -537,7 +537,7 @@ describe('Contractor update a job', () => {
         'href',
         '/work-orders/10000040'
       )
-      cy.contains('View jobs dashboard').should('have.attr', 'href', '/')
+      cy.contains('View work orders dashboard').should('have.attr', 'href', '/')
     })
 
     // Run lighthouse audit for accessibility report

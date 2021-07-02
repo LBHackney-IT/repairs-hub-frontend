@@ -41,7 +41,7 @@ describe('Contract manager can authorise variation', () => {
     ).as('apiCheck')
   })
 
-  it('Rejects job variation', () => {
+  it('Rejects work order variation', () => {
     cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
@@ -93,7 +93,7 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  it('Approves job variation', () => {
+  it('Approves work order variation', () => {
     cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')

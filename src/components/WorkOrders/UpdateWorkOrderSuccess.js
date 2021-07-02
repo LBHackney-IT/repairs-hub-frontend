@@ -7,8 +7,8 @@ const UpdateWorkOrderSuccess = ({
   requiresAuthorisation,
 }) => {
   const text = requiresAuthorisation
-    ? `Job ${workOrderReference} requires authorisation and has been sent to a manager`
-    : `Job ${workOrderReference} has been successfully updated`
+    ? `Work order ${workOrderReference} requires authorisation and has been sent to a manager`
+    : `Work order ${workOrderReference} has been successfully updated`
   return (
     <div>
       <div
@@ -38,7 +38,7 @@ const UpdateWorkOrderSuccess = ({
         <li>
           <Link href="/">
             <a className="lbh-link">
-              <strong>View jobs dashboard</strong>
+              <strong>View work orders dashboard</strong>
             </a>
           </Link>
         </li>

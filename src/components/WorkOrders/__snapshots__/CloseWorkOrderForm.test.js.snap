@@ -35,16 +35,16 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           >
             <input
               class="govuk-radios__input"
-              id="reason_Job Completed"
+              id="reason_Work Order Completed"
               name="reason"
               type="radio"
-              value="Job Completed"
+              value="Work Order Completed"
             />
             <label
               class="govuk-label lbh-label govuk-radios__label"
-              for="reason_Job Completed"
+              for="reason_Work Order Completed"
             >
-              Job Completed
+              Work Order Completed
             </label>
           </div>
           <div

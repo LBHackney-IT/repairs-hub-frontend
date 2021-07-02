@@ -101,7 +101,7 @@ const HeaderComponent = ({ serviceName }) => {
               <div className="lbh-header__links">
                 {user && canManageJobs(user) && (
                   <a id="manage" href="/">
-                    Manage jobs
+                    Manage work orders
                   </a>
                 )}
                 <a id="search" href="/search">

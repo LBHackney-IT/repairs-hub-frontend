@@ -51,7 +51,7 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       cy.contains('Authorisation request: 10000012')
-      cy.contains('This job requires your authorisation')
+      cy.contains('This work order requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
       cy.wait('@tasks-and-sors-request')
@@ -113,7 +113,7 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       cy.contains('Authorisation request: 10000012')
-      cy.contains('This job requires your authorisation')
+      cy.contains('This work order requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
       cy.get('[type="radio"]').check('Approve request')
@@ -173,7 +173,7 @@ describe('Authorisation workflow for a work order', () => {
       cy.visit('/work-orders/10000012/authorisation')
 
       cy.contains('Authorisation request: 10000012')
-      cy.contains('This job requires your authorisation')
+      cy.contains('This work order requires your authorisation')
 
       // Warning text as work order is above user's raise limit (£1000)
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {

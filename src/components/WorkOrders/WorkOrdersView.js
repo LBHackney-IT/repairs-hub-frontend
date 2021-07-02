@@ -83,7 +83,7 @@ const WorkOrdersView = ({ query }) => {
 
   return (
     <>
-      <Meta title="Manage jobs" />
+      <Meta title="Manage work orders" />
       <GridRow>
         <GridColumn
           width="one-third"

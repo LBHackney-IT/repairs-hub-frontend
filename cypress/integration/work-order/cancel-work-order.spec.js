@@ -171,18 +171,20 @@ describe('Work order cancellations', () => {
 
       it('shows warning text on the form', () => {
         cy.get('.lbh-warning-text')
-          .contains('For immediate or emergency jobs contact planner first.')
-          .should('exist')
-
-        cy.get('.lbh-warning-text')
           .contains(
-            'For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm.'
+            'For immediate or emergency work orders contact planner first.'
           )
           .should('exist')
 
         cy.get('.lbh-warning-text')
           .contains(
-            'For jobs on the current day contact the operative first. If they have already started work do not cancel.'
+            'For next day work orders contact planners if before 3pm, contact repairs admin if after 3pm.'
+          )
+          .should('exist')
+
+        cy.get('.lbh-warning-text')
+          .contains(
+            'For work orders on the current day contact the operative first. If they have already started work do not cancel.'
           )
           .should('exist')
       })

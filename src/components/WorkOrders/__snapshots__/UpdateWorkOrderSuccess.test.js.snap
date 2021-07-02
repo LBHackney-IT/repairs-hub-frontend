@@ -12,7 +12,7 @@ exports[`UpdateWorkOrderSuccess component should render properly does not requir
         <strong
           class=""
         >
-          Job 10000012 has been successfully updated
+          Work order 10000012 has been successfully updated
         </strong>
       </div>
     </div>
@@ -35,7 +35,7 @@ exports[`UpdateWorkOrderSuccess component should render properly does not requir
           href="/"
         >
           <strong>
-            View jobs dashboard
+            View work orders dashboard
           </strong>
         </a>
       </li>
@@ -56,7 +56,7 @@ exports[`UpdateWorkOrderSuccess component should render properly requires author
         <strong
           class=""
         >
-          Job 10000012 requires authorisation and has been sent to a manager
+          Work order 10000012 requires authorisation and has been sent to a manager
         </strong>
       </div>
     </div>
@@ -79,7 +79,7 @@ exports[`UpdateWorkOrderSuccess component should render properly requires author
           href="/"
         >
           <strong>
-            View jobs dashboard
+            View work orders dashboard
           </strong>
         </a>
       </li>

@@ -44,7 +44,7 @@ describe('Home page', () => {
         .should('have.attr', 'href', '/logout')
 
       // Search for property component
-      cy.get('.lbh-heading-h1').contains('Find repair job or property')
+      cy.get('.lbh-heading-h1').contains('Find repair work order or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
@@ -101,9 +101,9 @@ describe('Home page', () => {
             cy.get('.lbh-header__service-name').contains('Repairs Hub')
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-            // Manage jobs link
+            // Manage work orders link
             cy.get('#manage')
-              .contains('Manage jobs')
+              .contains('Manage work orders')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -192,9 +192,9 @@ describe('Home page', () => {
             cy.get('.lbh-header__service-name').contains('Repairs Hub')
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-            // Manage jobs link
+            // Manage work orders link
             cy.get('#manage')
-              .contains('Manage jobs')
+              .contains('Manage work orders')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -283,9 +283,9 @@ describe('Home page', () => {
             cy.get('.lbh-header__service-name').contains('Repairs Hub')
             cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-            // Manage jobs link
+            // Manage work orders link
             cy.get('#manage')
-              .contains('Manage jobs')
+              .contains('Manage work orders')
               .should('have.attr', 'href', '/')
 
             // Search link
@@ -376,9 +376,9 @@ describe('Home page', () => {
               cy.get('.lbh-header__service-name').contains('Repairs Hub')
               cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
-              // Manage jobs link
+              // Manage work orders link
               cy.get('#manage')
-                .contains('Manage jobs')
+                .contains('Manage work orders')
                 .should('have.attr', 'href', '/')
 
               // Search link

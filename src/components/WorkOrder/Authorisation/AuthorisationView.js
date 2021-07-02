@@ -122,7 +122,7 @@ const AuthorisationView = ({ workOrderReference }) => {
 
               <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
                 <Radios
-                  label="This job requires your authorisation"
+                  label="This work order requires your authorisation"
                   name="options"
                   options={formActions}
                   onChange={displayNotes}
