@@ -6,6 +6,7 @@ import Status from '../../WorkOrder/Status'
 import { dateToStr } from '../../../utils/date'
 import { extractTimeFromDate } from '../../../utils/time'
 import { TR, TD } from '../../Layout/Table'
+import { canAccessWorkOrder } from '../../../utils/user-permissions'
 
 const RepairsHistoryRow = ({
   reference,
@@ -21,21 +22,18 @@ const RepairsHistoryRow = ({
       reference={reference}
       className="govuk-table__row--clickable lbh-body-s"
     >
-      {user &&
-        (user.hasAgentPermissions ||
-          user.hasContractManagerPermissions ||
-          user.hasAuthorisationManagerPermissions) && (
-          <TD>
-            <Link
-              href={{
-                pathname: '/work-orders/[reference]',
-                query: { reference: `${reference}` },
-              }}
-            >
-              <a className="lbh-link">{reference}</a>
-            </Link>
-          </TD>
-        )}
+      {user && canAccessWorkOrder(user) && (
+        <TD>
+          <Link
+            href={{
+              pathname: '/work-orders/[reference]',
+              query: { reference: `${reference}` },
+            }}
+          >
+            <a className="lbh-link">{reference}</a>
+          </Link>
+        </TD>
+      )}
       <TD>
         {dateRaised ? dateToStr(dateRaised) : '—'}
         <div className="work-order-hours">
