@@ -50,7 +50,8 @@ const WorkOrdersFilter = ({
       user &&
       user.hasContractorPermissions &&
       !user.hasAgentPermissions &&
-      !user.hasAuthorisationManagerPermissions
+      !user.hasAuthorisationManagerPermissions &&
+      !user.hasContractManagerPermissions
     ) {
       return filters.Status.filter(
         (status) =>
