@@ -71,7 +71,7 @@ describe('Closing a work order', () => {
       })
       cy.contains('Summary of updates to work order').should('not.exist')
       cy.get('form').within(() => {
-        cy.contains('Please select a reason for closing the job')
+        cy.contains('Please select a reason for closing the work order')
         cy.contains('Please pick completion date')
         cy.contains('Please enter a valid time')
       })
@@ -103,7 +103,9 @@ describe('Closing a work order', () => {
 
       // Enter 5 October 2021 at 14:45
       cy.get('form').within(() => {
-        cy.get('[type="radio"]').first().should('have.value', 'Job Completed')
+        cy.get('[type="radio"]')
+          .first()
+          .should('have.value', 'Work Order Completed')
         cy.get('[type="radio"]').last().should('have.value', 'No Access')
         //choose No Access reason
         cy.get('[type="radio"]').last().check()
@@ -148,7 +150,7 @@ describe('Closing a work order', () => {
       cy.get('.govuk-table__row').contains('2020/11/06')
       cy.get('.govuk-table__row').contains('13:01')
       cy.get('.govuk-table__row').contains('Reason')
-      cy.get('.govuk-table__row').contains('Job Completed')
+      cy.get('.govuk-table__row').contains('Work Order Completed')
       cy.get('.govuk-table__row').contains('Notes')
       cy.get('.govuk-table__row').contains(
         'This has been repaired and I forgot I did it on a completely different date and time.'
@@ -180,7 +182,7 @@ describe('Closing a work order', () => {
       cy.wait(['@workOrderFilters', '@workOrders'])
 
       cy.location('pathname').should('equal', '/')
-      cy.contains('Manage jobs')
+      cy.contains('Manage work orders')
 
       cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
 
@@ -188,14 +190,16 @@ describe('Closing a work order', () => {
       cy.audit()
     })
 
-    // Closing job becasue of No Access
+    // Closing work order becasue of No Access
 
     it('submits the form with closing reason: No Access', () => {
       cy.visit('/work-orders/10000040/close')
 
       // Enter 6 November 2020 at 13:01
       cy.get('form').within(() => {
-        cy.get('[type="radio"]').first().should('have.value', 'Job Completed')
+        cy.get('[type="radio"]')
+          .first()
+          .should('have.value', 'Work Order Completed')
         cy.get('[type="radio"]').last().should('have.value', 'No Access')
         //choose No Access reason
         cy.get('[type="radio"]').last().check()
@@ -237,7 +241,7 @@ describe('Closing a work order', () => {
         })
 
       cy.location('pathname').should('equal', '/')
-      cy.contains('Manage jobs')
+      cy.contains('Manage work orders')
 
       // Run lighthouse audit for accessibility report
       cy.audit()

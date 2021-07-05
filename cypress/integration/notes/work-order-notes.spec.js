@@ -33,7 +33,7 @@ describe('Notes', () => {
     cy.loginWithAgentRole()
   })
 
-  it('Fill out notes form and update the job status', () => {
+  it('Fill out notes form and update the work order status', () => {
     cy.visit('/work-orders/10000012')
     // Repairs history tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')

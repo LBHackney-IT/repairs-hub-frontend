@@ -20,8 +20,8 @@ const Search = ({ query }) => {
   const workOrderReferenceRegex = /^[0-9]{7,10}$/g
 
   const searchHeadingText = canSearchForProperty
-    ? 'Find repair job or property'
-    : 'Find repair job'
+    ? 'Find repair work order or property'
+    : 'Find repair work order'
   const searchLabelText = canSearchForProperty
     ? 'Search by work order reference, postcode or address'
     : 'Search by work order reference'

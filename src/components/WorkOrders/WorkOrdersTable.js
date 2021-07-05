@@ -6,7 +6,7 @@ import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 
 const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
-    <h4 className="lbh-heading-h4">Manage jobs</h4>
+    <h4 className="lbh-heading-h4">Manage work orders</h4>
 
     <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <THead>

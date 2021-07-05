@@ -31,7 +31,7 @@ const CloseWorkOrderForm = ({
           <Radios
             label="Select reason for closing"
             name="reason"
-            options={['Job Completed', 'No Access'].map((r) => {
+            options={['Work Order Completed', 'No Access'].map((r) => {
               return {
                 text: r,
                 value: r,
@@ -39,7 +39,7 @@ const CloseWorkOrderForm = ({
               }
             })}
             register={register({
-              required: 'Please select a reason for closing the job',
+              required: 'Please select a reason for closing the work order',
             })}
             error={errors && errors.reason}
           />
