@@ -29,7 +29,7 @@ const Select = ({
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint">
+      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
       </span>
     )}
