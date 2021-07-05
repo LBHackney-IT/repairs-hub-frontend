@@ -42,7 +42,7 @@ describe('getWorkOrders', () => {
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/workOrders/', {
       params: { PageNumber: 1, PageSize: 10, StatusCode: [90, 50] },
-      paramsSerializer: paramsSerializer,
+      paramsSerializer,
     })
   })
 
@@ -73,7 +73,7 @@ describe('getWorkOrders', () => {
         TradeCodes: ['PL'],
         ContractorReference: 'PCL',
       },
-      paramsSerializer: paramsSerializer,
+      paramsSerializer,
     })
   })
 })

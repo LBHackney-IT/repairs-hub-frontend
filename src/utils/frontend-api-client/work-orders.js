@@ -17,7 +17,7 @@ export const getWorkOrders = async (pageNumber = 1, options) => {
         ContractorReference: options.ContractorReference,
       }),
     },
-    paramsSerializer: paramsSerializer,
+    paramsSerializer,
   })
 
   return data

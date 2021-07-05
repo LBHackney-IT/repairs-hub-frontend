@@ -81,7 +81,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/properties/1`,
         params: {},
-        paramsSerializer: paramsSerializer,
+        paramsSerializer,
         data: {},
       })
 
@@ -140,7 +140,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/properties/1`,
         params: {},
-        paramsSerializer: paramsSerializer,
+        paramsSerializer,
         data: {},
       })
 
@@ -198,7 +198,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
         headers,
         url: `${REPAIRS_SERVICE_API_URL}/properties/1`,
         params: {},
-        paramsSerializer: paramsSerializer,
+        paramsSerializer,
         data: {},
       })
 

@@ -159,7 +159,7 @@ describe('/api/[...path]', () => {
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/a/nested/path`,
           params: { queryKey: 'a query value' },
-          paramsSerializer: paramsSerializer,
+          paramsSerializer,
           data: {}, // no body
         })
 
@@ -209,12 +209,103 @@ describe('/api/[...path]', () => {
           headers,
           url: `${REPAIRS_SERVICE_API_URL}/workOrders`,
           params: {},
-          paramsSerializer: paramsSerializer,
+          paramsSerializer,
           data: 'a body value',
         })
 
         // Expect the Node API response to reflect the service API response
         expect(res._getStatusCode()).toBe(200)
+      })
+    })
+
+    describe('caching the API responses in memory', () => {
+      ;[
+        'api/hub-user',
+        'api/filter/workOrder',
+        'api/properties',
+        'api/properties/01234567',
+        'api/properties/01234567/alerts',
+        'api/schedule-of-rates/codes',
+        'api/schedule-of-rates/123',
+        'api/schedule-of-rates/trades',
+        'api/schedule-of-rates/priorities',
+        'api/contractors',
+      ].forEach((url) => {
+        describe(`requesting the ${url} endpoint`, () => {
+          test('there is caching', async () => {
+            // Create a 'GET' request for the Node API
+            const getReq = createRequest({
+              method: 'get',
+              headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
+              url: url,
+            })
+
+            const res = createResponse()
+
+            axios.create = jest.fn(() => axios)
+
+            // Mock the 'GET' return value from the service API
+            axios.mockImplementationOnce(() =>
+              Promise.resolve({
+                status: 200,
+                data: { key: 'hackney' },
+              })
+            )
+            // Perform a 'GET' to the Node API catch-all endpoint function
+            await catchAllEndpoint(getReq, res)
+            // Expect a call to be made to the API
+            expect(axios).toHaveBeenCalledTimes(1)
+
+            // Test for caching
+            // Perform another 'GET' to the Node API catch-all endpoint function
+            await catchAllEndpoint(getReq, res)
+            // Expect a subsequent call NOT to have been made to the API
+            expect(axios).toHaveBeenCalledTimes(1)
+          })
+        })
+      })
+      ;[
+        'api/appointments',
+        'api/operatives',
+        'api/operatives/12345',
+        'api/workOrders',
+        'api/workOrders/01234567',
+        'api/workOrders/01234567/variation-tasks',
+        'api/workOrders/01234567/tasks',
+        'api/workOrders/01234567/notes',
+      ].forEach((url) => {
+        describe(`requesting the ${url} endpoint`, () => {
+          test('there is NO caching', async () => {
+            // Create a 'GET' request for the Node API
+            const getReq = createRequest({
+              method: 'get',
+              headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
+              url: url,
+            })
+
+            const res = createResponse()
+
+            axios.create = jest.fn(() => axios)
+
+            // Mock the 'GET' return value from the service API
+            axios.mockImplementationOnce(() =>
+              Promise.resolve({
+                status: 200,
+                data: { key: 'hackney' },
+              })
+            )
+            // Perform a 'GET' to the Node API catch-all endpoint function
+            await catchAllEndpoint(getReq, res)
+            // Expect a call to be made to the API
+            expect(axios).toHaveBeenCalledTimes(1)
+
+            // Test for caching
+            // Perform another 'GET' to the Node API catch-all endpoint function
+            await catchAllEndpoint(getReq, res)
+            // Expect a subsequent call to have been made to the API
+            expect(axios).toHaveBeenCalledTimes(2)
+          })
+        })
       })
     })
   })
