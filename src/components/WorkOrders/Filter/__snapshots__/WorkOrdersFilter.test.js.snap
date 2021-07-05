@@ -177,7 +177,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
@@ -245,7 +245,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -386,7 +386,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -438,7 +438,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -699,7 +699,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -840,7 +840,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -892,7 +892,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1153,7 +1153,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1278,7 +1278,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1330,7 +1330,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1591,7 +1591,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
@@ -1659,7 +1659,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1800,7 +1800,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -1852,7 +1852,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2113,7 +2113,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
@@ -2181,7 +2181,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2306,7 +2306,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2358,7 +2358,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2619,7 +2619,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2744,7 +2744,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -2796,7 +2796,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -3057,7 +3057,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
@@ -3125,7 +3125,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -3266,7 +3266,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"
@@ -3318,7 +3318,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
           class="border-bottom-grey"
         >
           <fieldset
-            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2"
+            class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--m"

@@ -162,7 +162,7 @@ const WorkOrdersFilter = ({
 
         {showContractorFilters() && (
           <div className="border-bottom-grey">
-            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
               <legend className="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3">
                 Contractor
               </legend>
@@ -195,7 +195,7 @@ const WorkOrdersFilter = ({
         )}
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Status
             </legend>
@@ -225,7 +225,7 @@ const WorkOrdersFilter = ({
         </div>
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Priority
             </legend>
@@ -252,7 +252,7 @@ const WorkOrdersFilter = ({
         </div>
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Trade
             </legend>
