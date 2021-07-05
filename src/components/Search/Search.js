@@ -7,14 +7,11 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { getProperties } from '../../utils/frontend-api-client/properties'
 import Meta from '../Meta'
+import { canAccessWorkOrder } from '../../utils/user-permissions'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
-  const canSearchForProperty =
-    user &&
-    (user.hasAgentPermissions ||
-      user.hasContractManagerPermissions ||
-      user.hasAuthorisationManagerPermissions)
+  const canSearchForProperty = user && canAccessWorkOrder(user)
   const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
@@ -23,8 +20,8 @@ const Search = ({ query }) => {
   const workOrderReferenceRegex = /^[0-9]{7,10}$/g
 
   const searchHeadingText = canSearchForProperty
-    ? 'Find repair job or property'
-    : 'Find repair job'
+    ? 'Find repair work order or property'
+    : 'Find repair work order'
   const searchLabelText = canSearchForProperty
     ? 'Search by work order reference, postcode or address'
     : 'Search by work order reference'

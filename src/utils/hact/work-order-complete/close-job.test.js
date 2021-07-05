@@ -6,7 +6,7 @@ describe('buildCloseWorkOrderData', () => {
   const notes = 'hello'
   const reference = '00012346'
 
-  //typeCode 0 for Job Completed
+  //typeCode 0 for Work Order Completed
   it('builds the ScheduleRepair form data to post to the Repairs API with typeCode 0', async () => {
     const CloseWorkOrderFormData = {
       workOrderReference: {
@@ -28,7 +28,7 @@ describe('buildCloseWorkOrderData', () => {
       completionDate,
       notes,
       reference,
-      'Job Completed'
+      'Work Order Completed'
     )
     expect(response).toEqual(CloseWorkOrderFormData)
   })

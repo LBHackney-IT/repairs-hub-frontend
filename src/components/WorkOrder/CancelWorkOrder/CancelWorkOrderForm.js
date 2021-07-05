@@ -40,13 +40,13 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
             [IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].includes(
               workOrder.priorityCode
             ) && (
-              <WarningText text="For immediate or emergency jobs contact planner first." />
+              <WarningText text="For immediate or emergency work orders contact planner first." />
             )}
 
           {scheduledInternally && (
             <>
-              <WarningText text="For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm." />
-              <WarningText text="For jobs on the current day contact the operative first. If they have already started work do not cancel." />
+              <WarningText text="For next day work orders contact planners if before 3pm, contact repairs admin if after 3pm." />
+              <WarningText text="For work orders on the current day contact the operative first. If they have already started work do not cancel." />
             </>
           )}
 

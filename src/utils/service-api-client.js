@@ -1,9 +1,10 @@
 import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
-
 import { isAuthorised } from './GoogleAuth'
 import { paramsSerializer } from './urls'
+import { cache } from './middleware/cache'
+import { CACHE_MAX_AGE_IN_MS } from './helpers/cache'
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -11,59 +12,82 @@ const {
   GSSO_TOKEN_NAME,
 } = process.env
 
-export const serviceAPIRequest = async (request) => {
-  const cookies = cookie.parse(request.headers.cookie ?? '')
-  const token = cookies[GSSO_TOKEN_NAME]
+export const serviceAPIRequest = cache(
+  async (request, response, cacheRequest = false) => {
+    const cacheKey = encodeURIComponent(request.url)
 
-  const headers = {
-    'x-api-key': REPAIRS_SERVICE_API_KEY,
-    'x-hackney-user': token,
-    'Content-Type': 'application/json',
+    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
+      const { data } = request.cache.get(cacheKey)
+
+      response.setHeader(
+        'Cache-Control',
+        `public,max-age=${CACHE_MAX_AGE_IN_MS}`
+      )
+      response.setHeader('X-Cache', 'HIT')
+
+      return data
+    }
+
+    const cookies = cookie.parse(request.headers.cookie ?? '')
+    const token = cookies[GSSO_TOKEN_NAME]
+
+    const headers = {
+      'x-api-key': REPAIRS_SERVICE_API_KEY,
+      'x-hackney-user': token,
+      'Content-Type': 'application/json',
+    }
+
+    let { path, ...queryParams } = request.query
+
+    const api = axios.create()
+
+    // Log request
+    api.interceptors.request.use((request) => {
+      console.info(
+        'Starting Service API request:',
+        JSON.stringify({
+          ...request,
+          headers: {
+            ...request.headers,
+            'x-api-key': '[REMOVED]',
+            'x-hackney-user': '[REMOVED]',
+          },
+        })
+      )
+
+      return request
+    })
+
+    // Log successful responses
+    api.interceptors.response.use((response) => {
+      console.info(
+        `Service API response: ${response.status} ${
+          response.statusText
+        } ${JSON.stringify(response.data)}`
+      )
+
+      return response
+    })
+
+    const { data } = await api({
+      method: request.method,
+      headers,
+      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
+      params: queryParams,
+      paramsSerializer,
+      data: request.body,
+    })
+
+    if (cacheRequest && request.cache) {
+      request.cache.set(cacheKey, { data })
+    }
+
+    response.setHeader('Cache-Control', 'no-cache')
+    response.setHeader('X-Cache', 'MISS')
+
+    return data
   }
-
-  let { path, ...queryParams } = request.query
-
-  const api = axios.create()
-
-  // Log request
-  api.interceptors.request.use((request) => {
-    console.info(
-      'Starting Service API request:',
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          'x-api-key': '[REMOVED]',
-          'x-hackney-user': '[REMOVED]',
-        },
-      })
-    )
-
-    return request
-  })
-
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    console.info(
-      `Service API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
-    )
-
-    return response
-  })
-
-  const { data } = await api({
-    method: request.method,
-    headers,
-    url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-    params: queryParams,
-    paramsSerializer: paramsSerializer,
-    data: request.body,
-  })
-
-  return data
-}
+)
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {

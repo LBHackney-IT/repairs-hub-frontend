@@ -32,7 +32,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
-      expect(queryByText('Manage jobs')).not.toBeInTheDocument()
+      expect(queryByText('Manage work orders')).not.toBeInTheDocument()
     })
 
     it('should render header content for contractors', () => {
@@ -61,7 +61,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
-      expect(queryByText('Manage jobs')).toBeInTheDocument()
+      expect(queryByText('Manage work orders')).toBeInTheDocument()
     })
 
     it('should render header content for DLO operatives', () => {
@@ -90,7 +90,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
-      expect(queryByText('Manage jobs')).toBeInTheDocument()
+      expect(queryByText('Manage work orders')).toBeInTheDocument()
     })
 
     it('should render header content for contract manager', () => {
@@ -119,7 +119,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
-      expect(queryByText('Manage jobs')).toBeInTheDocument()
+      expect(queryByText('Manage work orders')).toBeInTheDocument()
     })
 
     it('should render header content for authorisation manager', () => {
@@ -148,7 +148,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).toBeInTheDocument()
       expect(queryByText('Search')).toBeInTheDocument()
-      expect(queryByText('Manage jobs')).toBeInTheDocument()
+      expect(queryByText('Manage work orders')).toBeInTheDocument()
     })
   })
 
@@ -167,7 +167,7 @@ describe('Header', () => {
       expect(getByText(serviceName)).toBeInTheDocument()
       expect(queryByText('Sign out')).not.toBeInTheDocument()
       expect(queryByText('Search')).not.toBeInTheDocument()
-      expect(queryByText('Manage jobs')).not.toBeInTheDocument()
+      expect(queryByText('Manage work orders')).not.toBeInTheDocument()
     })
   })
 })

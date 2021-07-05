@@ -9,7 +9,7 @@ exports[`Search component when logged in as a contract manager should render pro
       <h1
         class="lbh-heading-h1"
       >
-        Find repair job or property
+        Find repair work order or property
       </h1>
       <div
         class="govuk-form-group lbh-form-group"
@@ -54,7 +54,7 @@ exports[`Search component when logged in as a contractor should render properly 
       <h1
         class="lbh-heading-h1"
       >
-        Find repair job
+        Find repair work order
       </h1>
       <div
         class="govuk-form-group lbh-form-group"
@@ -99,7 +99,7 @@ exports[`Search component when logged in as an agent should render properly 1`] 
       <h1
         class="lbh-heading-h1"
       >
-        Find repair job or property
+        Find repair work order or property
       </h1>
       <div
         class="govuk-form-group lbh-form-group"
@@ -144,7 +144,7 @@ exports[`Search component when logged in as an authorisation manager should rend
       <h1
         class="lbh-heading-h1"
       >
-        Find repair job or property
+        Find repair work order or property
       </h1>
       <div
         class="govuk-form-group lbh-form-group"

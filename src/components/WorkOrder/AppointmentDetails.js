@@ -8,6 +8,10 @@ import {
   STATUS_AUTHORISATION_PENDING_APPROVAL,
 } from '../../utils/status-codes'
 import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
+import {
+  canSeeAppointmentDetailsInfo,
+  canScheduleAppointment,
+} from '../../utils/user-permissions'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -68,18 +72,14 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         <br></br>
         <div className="lbh-body-s">
           {user &&
-            (user.hasAgentPermissions ||
-              user.hasContractManagerPermissions ||
-              user.hasAuthorisationManagerPermissions) &&
+            canScheduleAppointment(user) &&
             workOrder.status !== STATUS_CANCELLED.description &&
             workOrder.status !==
               STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
             !workOrder.appointment &&
             scheduleAppointmentHtml()}
           {user &&
-            (user.hasAgentPermissions ||
-              user.hasContractorPermissions ||
-              user.hasContractManagerPermissions) &&
+            canSeeAppointmentDetailsInfo(user) &&
             workOrder.status !== STATUS_CANCELLED &&
             !!workOrder.appointment &&
             appointmentDetailsInfoHtml()}

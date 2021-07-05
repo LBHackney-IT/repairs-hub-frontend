@@ -245,7 +245,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For immediate or emergency jobs contact planner first.
+            For immediate or emergency work orders contact planner first.
           </strong>
         </div>
         <div
@@ -265,7 +265,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm.
+            For next day work orders contact planners if before 3pm, contact repairs admin if after 3pm.
           </strong>
         </div>
         <div
@@ -285,7 +285,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For jobs on the current day contact the operative first. If they have already started work do not cancel.
+            For work orders on the current day contact the operative first. If they have already started work do not cancel.
           </strong>
         </div>
         <h2
@@ -450,7 +450,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For immediate or emergency jobs contact planner first.
+            For immediate or emergency work orders contact planner first.
           </strong>
         </div>
         <div
@@ -470,7 +470,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For next day jobs contact planners if before 3pm, contact repairs admin if after 3pm.
+            For next day work orders contact planners if before 3pm, contact repairs admin if after 3pm.
           </strong>
         </div>
         <div
@@ -490,7 +490,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             >
               Warning
             </span>
-            For jobs on the current day contact the operative first. If they have already started work do not cancel.
+            For work orders on the current day contact the operative first. If they have already started work do not cancel.
           </strong>
         </div>
         <h2

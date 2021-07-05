@@ -99,7 +99,7 @@ describe('Show work order page', () => {
       )
     })
 
-    context('For a higher priority job (Immediate or Emergency)', () => {
+    context('For a higher priority work order (Immediate or Emergency)', () => {
       it('Does not show a link to schedule an appointment', () => {
         cy.fixture('work-orders/externally-managed-appointment.json').then(
           (workOrder) => {
@@ -124,7 +124,7 @@ describe('Show work order page', () => {
       })
     })
 
-    context('For a lower priority job (Urgent or Normal)', () => {
+    context('For a lower priority work order (Urgent or Normal)', () => {
       it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },

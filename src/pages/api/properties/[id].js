@@ -12,7 +12,7 @@ import {
 export default authoriseServiceAPIRequest(async (req, res, user) => {
   req.query = { path: ['properties', req.query.id] }
 
-  const data = await serviceAPIRequest(req)
+  const data = await serviceAPIRequest(req, res)
 
   // redact contact information for contractor responses
   if (
