@@ -33,7 +33,8 @@
         background-color: repairs-hub-colour('blue');
         color: repairs-hub-colour('white');
       }
-      &--status-work-complete {
+      &--status-work-complete,
+      &--status-locked {
         background-color: repairs-hub-colour('white');
         color: repairs-hub-colour('black');
       }
