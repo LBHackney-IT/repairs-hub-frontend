@@ -41,7 +41,7 @@ const DataList = ({
         {labelMessage && <span> {labelMessage}</span>}
       </label>
       {hint && (
-        <span id={`${name}-hint`} className="govuk-hint">
+        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
           {hint}
         </span>
       )}

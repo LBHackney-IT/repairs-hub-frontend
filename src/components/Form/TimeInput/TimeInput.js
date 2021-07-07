@@ -55,13 +55,13 @@ const TimeInput = forwardRef(
           >
             {label} {required && <span className="govuk-required">*</span>}
           </legend>
-          <span id={`${name}-hint`} className="govuk-hint">
+          <span id={`${name}-hint`} className="govuk-hint lbh-hint">
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}
-          <div className="govuk-date-input" id={name}>
+          <div className="govuk-date-input lbh-date-input" id={name}>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group lbh-form-group">
+              <div className="govuk-form-group">
                 <label
                   className="govuk-label lbh-label govuk-date-input__label"
                   htmlFor={`${name}-hour`}
@@ -91,7 +91,7 @@ const TimeInput = forwardRef(
               </div>
             </div>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group lbh-form-group">
+              <div className="govuk-form-group">
                 <label
                   className="govuk-label lbh-label govuk-date-input__label"
                   htmlFor={`${name}-minutes`}
@@ -100,7 +100,7 @@ const TimeInput = forwardRef(
                 </label>
                 <input
                   className={cx(
-                    'govuk-input lbh-input govuk-date-input__input govuk-input--width-2',
+                    'govuk-input govuk-date-input__input govuk-input--width-2',
                     {
                       'govuk-input--error': error,
                     }
