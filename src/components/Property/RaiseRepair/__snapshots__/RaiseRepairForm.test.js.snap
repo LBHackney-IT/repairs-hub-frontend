@@ -306,7 +306,8 @@ exports[`RaiseRepairForm component should render properly 1`] = `
           />
         </div>
         <span
-          class="govuk-hint govuk-!-margin-bottom-6"
+          aria-live="polite"
+          class="govuk-hint govuk-character-count__message"
         >
           You have 230 characters remaining.
         </span>

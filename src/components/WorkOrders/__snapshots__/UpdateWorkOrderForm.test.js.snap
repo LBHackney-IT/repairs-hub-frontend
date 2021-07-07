@@ -317,7 +317,8 @@ exports[`UpdateWorkOrderForm component should render properly 1`] = `
       </textarea>
     </div>
     <span
-      class="govuk-hint govuk-!-margin-bottom-6"
+      aria-live="polite"
+      class="govuk-hint govuk-character-count__message"
     >
       You have 250 characters remaining.
     </span>

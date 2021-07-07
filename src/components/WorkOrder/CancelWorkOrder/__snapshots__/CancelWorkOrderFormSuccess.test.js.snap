@@ -4,7 +4,7 @@ exports[`CancelWorkOrderFormSuccess component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <div
-      class="govuk-panel govuk-panel--confirmation background-dark-green"
+      class="govuk-panel govuk-panel--confirmation lbh-panel"
     >
       <h1
         class="lbh-heading-h1 text-white"

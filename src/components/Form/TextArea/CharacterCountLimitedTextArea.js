@@ -27,7 +27,10 @@ const CharacterCountLimitedTextArea = ({
         })}
         {...otherProps}
       />
-      <span className="govuk-hint govuk-!-margin-bottom-6">
+      <span
+        className="govuk-hint govuk-character-count__message"
+        aria-live="polite"
+      >
         You have {remainingCharacterCount} characters remaining.
       </span>
     </>

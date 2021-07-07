@@ -162,13 +162,13 @@ const WorkOrdersFilter = ({
 
         {showContractorFilters() && (
           <div className="border-bottom-grey">
-            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
               <legend className="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3">
                 Contractor
               </legend>
 
               <div
-                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+                className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
                 id="contractor-filters"
               >
                 {filters.Contractors.map((contractor, index) => (
@@ -195,13 +195,13 @@ const WorkOrdersFilter = ({
         )}
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Status
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="status-filters"
             >
               {statusFilterOptions().map((status, index) => (
@@ -225,13 +225,13 @@ const WorkOrdersFilter = ({
         </div>
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Priority
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="priority-filters"
             >
               {filters.Priority.map((priority, index) => (
@@ -252,13 +252,13 @@ const WorkOrdersFilter = ({
         </div>
 
         <div className="border-bottom-grey">
-          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2">
+          <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
             <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
               Trade
             </legend>
 
             <div
-              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1"
+              className="govuk-checkboxes govuk-checkboxes--small govuk-!-margin-top-1 lbh-checkboxes"
               id="trade-filters"
             >
               {filters.Trades.map((trade, index) => (

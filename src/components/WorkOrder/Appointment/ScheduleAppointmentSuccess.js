@@ -10,7 +10,7 @@ const ScheduleAppointmentSuccess = ({
 }) => {
   return (
     <div>
-      <div className="govuk-panel govuk-panel--confirmation background-dark-green">
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel">
         <h1 className="lbh-heading-h1 text-white">Repair work order created</h1>
         <div className="govuk-panel__body">
           <p className="govuk-!-margin-top-3">Work order number</p>
