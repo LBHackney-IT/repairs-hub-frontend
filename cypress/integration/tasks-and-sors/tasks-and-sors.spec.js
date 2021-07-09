@@ -32,10 +32,7 @@ describe('Tasks and SORs', () => {
   it('Displays tasks and sors relating to a work order', () => {
     cy.visit('/work-orders/10000012')
 
-    // Repairs history tab should be active
-    cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
-    // Now select Tasks and SORs tab
-    cy.get('a[id="tab_tasks-and-sors-tab"]').click()
+    cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
@@ -104,10 +101,8 @@ describe('Tasks and SORs', () => {
 
   it('Navigate directly to tasks and sors tab', () => {
     cy.visit('/work-orders/10000012#tasks-and-sors-tab')
-
     // Tasks and SORs tab should be active
     cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
-
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 

@@ -16,7 +16,7 @@ describe('Tabs component', () => {
   enableGOVUKFrontendJavascript.mockImplementation(() => funcSpy())
 
   const props = {
-    tabsList: ['Repairs history', 'Tasks and SORs'],
+    tabsList: ['Tasks and SORs', 'Repairs history'],
     propertyReference: '00012345',
     workOrderReference: '10203040',
   }
