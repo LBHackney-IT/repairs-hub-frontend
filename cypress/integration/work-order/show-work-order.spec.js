@@ -293,6 +293,10 @@ describe('Show work order page', () => {
       )
 
       cy.visit('/work-orders/10000012')
+      // Tasks and SORs tab should be active
+      cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+      // Now select Notes tab
+      cy.get('a[id="tab_repairs-history-tab"]').click()
       cy.wait('@repairsHistory')
     })
 

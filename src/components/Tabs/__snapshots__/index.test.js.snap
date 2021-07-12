@@ -19,9 +19,9 @@ exports[`Tabs component should render properly 1`] = `
       >
         <a
           class="govuk-tabs__tab"
-          href="#repairs-history-tab"
+          href="#tasks-and-sors-tab"
         >
-          Repairs history
+          Tasks and SORs
         </a>
       </li>
       <li
@@ -29,12 +29,16 @@ exports[`Tabs component should render properly 1`] = `
       >
         <a
           class="govuk-tabs__tab"
-          href="#tasks-and-sors-tab"
+          href="#repairs-history-tab"
         >
-          Tasks and SORs
+          Repairs history
         </a>
       </li>
     </ul>
+    <div
+      class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
+      id="tasks-and-sors-tab"
+    />
     <div
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
       id="repairs-history-tab"
@@ -55,10 +59,6 @@ exports[`Tabs component should render properly 1`] = `
         </h4>
       </div>
     </div>
-    <div
-      class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
-      id="tasks-and-sors-tab"
-    />
   </div>
 </DocumentFragment>
 `;

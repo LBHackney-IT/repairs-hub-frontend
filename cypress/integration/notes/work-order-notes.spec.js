@@ -35,8 +35,8 @@ describe('Notes', () => {
 
   it('Fill out notes form and update the work order status', () => {
     cy.visit('/work-orders/10000012')
-    // Repairs history tab should be active
-    cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
+    // Tasks and SORs tab should be active
+    cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
     // Now select Notes tab
     cy.get('a[id="tab_notes-tab"]').click()
     cy.get('#notes-tab').within(() => {
