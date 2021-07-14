@@ -95,6 +95,14 @@ describe('Show work order page', () => {
             trades: ['DE'],
           },
         ]
+
+        workOrder.appointment = {
+          date: '2021-03-19',
+          description: 'PM Slot',
+          end: '18:00',
+          start: '12:00',
+        }
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },
           { body: workOrder }

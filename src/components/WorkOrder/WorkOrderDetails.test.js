@@ -7,6 +7,8 @@ import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 import { URGENT_PRIORITY_CODE } from '../../utils/helpers/priorities'
+import { subMinutes } from 'date-fns'
+import MockDate from 'mockdate'
 
 describe('WorkOrderDetails component', () => {
   const props = {
@@ -65,6 +67,10 @@ describe('WorkOrderDetails component', () => {
       typeDescription: 'Secure',
     },
   }
+
+  beforeEach(() => {
+    MockDate.set(subMinutes(new Date(props.workOrder.target), 1))
+  })
 
   describe('when logged in as an agent', () => {
     it('should render properly with a link to cancel work order', () => {

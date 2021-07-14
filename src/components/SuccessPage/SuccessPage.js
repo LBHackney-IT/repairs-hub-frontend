@@ -12,7 +12,7 @@ const SuccessPage = ({ ...props }) => {
 
   const openExternalLinkEventHandler = async () => {
     const jobStatusUpdate = buildDataFromScheduleAppointment(
-      props.workOrderReference,
+      props.workOrderReference.toString(),
       `${user.name} opened the DRS Web Booking Manager`
     )
 

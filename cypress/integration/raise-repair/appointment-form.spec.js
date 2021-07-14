@@ -202,7 +202,6 @@ describe('Schedule appointment form', () => {
       cy.wait('@availableAppointments')
 
       //Appointment page with calendar
-      cy.url().should('contains', 'work-orders/10102030/appointment/new')
       cy.contains('Repair task details')
       // availble slots are not shown
       cy.contains('#available-slots').should('not.exist')
@@ -280,7 +279,9 @@ describe('Schedule appointment form', () => {
       cy.get('[type="button"]')
         .contains('Book appointment')
         .click({ force: true })
+
       //appointment api check
+      cy.wait('@apiCheckAppointment')
       cy.get('@apiCheckAppointment')
         .its('request.body')
         .should('deep.equal', {
@@ -295,6 +296,8 @@ describe('Schedule appointment form', () => {
             allocatedBy: '',
           },
         })
+
+      cy.wait('@apiCheckjobStatus')
       //jobStatusUpdate api check - adding comments
       cy.get('@apiCheckjobStatus')
         .its('request.body')

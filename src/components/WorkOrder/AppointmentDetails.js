@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
-import { dateToStr } from '../../utils/date'
+import { convertDate, dateToStr } from '../../utils/date'
 import {
   STATUS_CANCELLED,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
@@ -39,7 +39,14 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     )
   }
 
-  const scheduleAppointmentHtml = () => {
+  const scheduleAppointmentHtml = (hasExistingAppointment) => {
+    const targetTime = convertDate(workOrder.target)
+    const now = Date.now()
+
+    if (targetTime && targetTime < now) {
+      return null
+    }
+
     if (workOrder.externalAppointmentManagementUrl) {
       if (schedulerSessionId) {
         return (
@@ -47,7 +54,8 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
             href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
           >
             <a className="lbh-link" target="_blank" rel="noopener">
-              <strong>Open DRS</strong> to book an appointment
+              <strong>Open DRS</strong> to{' '}
+              {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
             </a>
           </Link>
         )
@@ -55,11 +63,17 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         console.error('Scheduler Session ID does not exist')
       }
     } else {
+      const href = hasExistingAppointment
+        ? `/work-orders/${workOrder.reference}/appointment/edit`
+        : `/work-orders/${workOrder.reference}/appointment/new`
+
+      const linkText = hasExistingAppointment
+        ? 'Reschedule appointment'
+        : 'Schedule an appointment'
+
       return (
-        <Link href={`/work-orders/${workOrder.reference}/appointment/new`}>
-          <a className="lbh-link lbh-!-font-weight-bold">
-            Schedule an appointment
-          </a>
+        <Link href={href}>
+          <a className="lbh-link lbh-!-font-weight-bold">{linkText}</a>
         </Link>
       )
     }
@@ -76,8 +90,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
             workOrder.status !== STATUS_CANCELLED.description &&
             workOrder.status !==
               STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
-            !workOrder.appointment &&
-            scheduleAppointmentHtml()}
+            scheduleAppointmentHtml(!!workOrder.appointment)}
           {user &&
             canSeeAppointmentDetailsInfo(user) &&
             workOrder.status !== STATUS_CANCELLED &&
