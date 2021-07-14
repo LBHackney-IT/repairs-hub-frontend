@@ -5,8 +5,6 @@ import { formatDateTime } from '../../utils/time'
 const WorkOrderInfo = ({ workOrder }) => {
   return (
     <div className="work-order-info">
-      <span className="govuk-!-font-size-14">Work order</span>
-
       <div className="lbh-body-s govuk-!-margin-bottom-2">
         <span className="lbh-!-font-weight-bold">
           Status: {workOrder.status}

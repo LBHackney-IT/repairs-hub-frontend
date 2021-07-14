@@ -5,11 +5,6 @@ exports[`WorkOrderInfo component should render properly 1`] = `
   <div
     class="work-order-info"
   >
-    <span
-      class="govuk-!-font-size-14"
-    >
-      Work order
-    </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
@@ -65,11 +60,6 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
   <div
     class="work-order-info"
   >
-    <span
-      class="govuk-!-font-size-14"
-    >
-      Work order
-    </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
