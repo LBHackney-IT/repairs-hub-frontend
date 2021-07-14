@@ -26,6 +26,8 @@ describe('Managing work order appointments', () => {
       },
       { body: [] }
     )
+
+    cy.clock(new Date('2021-01-22T18:30:00.00000'))
   })
 
   context('When the work order has no appointment', () => {

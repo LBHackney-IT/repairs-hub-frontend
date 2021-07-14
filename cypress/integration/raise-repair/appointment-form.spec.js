@@ -2,9 +2,11 @@
 
 import 'cypress-audit/commands'
 import { NORMAL_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
+import { STATUS_CANCELLED } from '../../../src/utils/status-codes'
 
 // Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
+const targetTime = '2021-03-23T18:30:00.00000'
 
 describe('Schedule appointment form', () => {
   beforeEach(() => {
@@ -38,10 +40,18 @@ describe('Schedule appointment form', () => {
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
       { fixture: 'schedule-of-rates/trades.json' }
     )
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10102030' },
-      { fixture: 'work-orders/work-order.json' }
-    )
+
+    cy.fixture('work-orders/work-order.json')
+      .then((workOrder) => {
+        workOrder.target = targetTime
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10102030' },
+          { body: workOrder }
+        )
+      })
+      .as('workOrder')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
       { fixture: 'work-orders/task.json' }
@@ -74,12 +84,12 @@ describe('Schedule appointment form', () => {
       { method: 'POST', path: '/api/jobStatusUpdate' },
       { body: '' }
     ).as('apiCheckjobStatus')
-
-    cy.clock(now)
   })
 
   context('There are available appointments', () => {
     beforeEach(() => {
+      cy.clock(now)
+
       cy.intercept(
         {
           method: 'GET',
@@ -199,10 +209,9 @@ describe('Schedule appointment form', () => {
           })
       })
 
-      cy.wait('@availableAppointments')
+      cy.wait(['@workOrder', '@availableAppointments'])
 
       //Appointment page with calendar
-      cy.url().should('contains', 'work-orders/10102030/appointment/new')
       cy.contains('Repair task details')
       // availble slots are not shown
       cy.contains('#available-slots').should('not.exist')
@@ -280,6 +289,7 @@ describe('Schedule appointment form', () => {
       cy.get('[type="button"]')
         .contains('Book appointment')
         .click({ force: true })
+
       //appointment api check
 
       cy.wait('@apiCheckAppointment')
@@ -332,6 +342,8 @@ describe('Schedule appointment form', () => {
 
   context('No available appointments', () => {
     beforeEach(() => {
+      cy.clock(now)
+
       cy.intercept(
         {
           method: 'GET',
@@ -384,6 +396,33 @@ describe('Schedule appointment form', () => {
 
       // Run lighthouse audit for accessibility report
       cy.audit()
+    })
+  })
+
+  context('When the work order is in a completed status', () => {
+    beforeEach(() => {
+      cy.fixture('work-orders/work-order.json')
+        .then((workOrder) => {
+          workOrder.status = STATUS_CANCELLED.description
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10102030' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+    })
+
+    it('Shows an error message if navigating to appointment new page directly', () => {
+      cy.visit('work-orders/10102030/appointment/new')
+
+      cy.wait('@workOrder')
+
+      cy.get('.appointment-calendar').should('not.exist')
+
+      cy.contains(
+        'Appointment scheduling for closed or authorisation pending work orders is not permitted'
+      )
     })
   })
 })

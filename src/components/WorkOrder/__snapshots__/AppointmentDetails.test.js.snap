@@ -1,5 +1,101 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AppointmentDetails component DRS work order when the work order allows scheduling shows a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to book an appointment
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order when the work order does not allow scheduling does not show a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order when the work order is in a closed state does not show a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order when the work order is not closed shows a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to book an appointment
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`AppointmentDetails component DRS work order with an appointment when the work order allows scheduling shows a schedule link 1`] = `
 <DocumentFragment>
   <div
@@ -48,7 +144,25 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component DRS work order with an appointment when the work order is lower priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is in a closed state does not show a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is lower priority shows a link to reschedule an appointment with DRS Web Booking Manager 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -62,11 +176,52 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     <div
       class="lbh-body-s"
     >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to reschedule appointment
+      </a>
       <span
         class="govuk-!-font-size-14"
       >
         19 Mar 2021, 12:00-18:00
       </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is not closed shows a schedule link 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to book an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>

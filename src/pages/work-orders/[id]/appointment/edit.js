@@ -6,15 +6,13 @@ import {
 import Meta from '../../../../components/Meta'
 import AppointmentView from '../../../../components/WorkOrder/Appointment/AppointmentView'
 
-const AppointmentPage = ({ query }) => {
+const EditAppointmentPage = ({ query }) => {
   return (
     <>
-      <Meta title={`New appointment for Work Order ${query.id}`} />
+      <Meta title={`Reschedule appointment for Work Order ${query.id}`} />
       <AppointmentView
         workOrderReference={query.id}
-        successText={
-          query.newOrder ? 'Repair work order created' : 'Appointment created'
-        }
+        successText={'Appointment rescheduled'}
       />
     </>
   )
@@ -29,10 +27,10 @@ export const getServerSideProps = async (ctx) => {
   }
 }
 
-AppointmentPage.permittedRoles = [
+EditAppointmentPage.permittedRoles = [
   AGENT_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
 ]
 
-export default AppointmentPage
+export default EditAppointmentPage

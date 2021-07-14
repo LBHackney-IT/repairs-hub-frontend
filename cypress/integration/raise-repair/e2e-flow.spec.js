@@ -357,8 +357,6 @@ describe('Schedule appointment form', () => {
       cy.wait('@availableAppointments')
 
       //Appointment page with calendar
-      cy.url().should('contains', 'work-orders/10102030/appointment/new')
-
       cy.get('.appointment-calendar').within(() => {
         cy.get('.available').contains('11').click({ force: true })
       })
@@ -499,7 +497,7 @@ describe('Schedule appointment form', () => {
           .then((body) => {
             cy.wrap(body).should('deep.equal', {
               relatedWorkOrderReference: {
-                id: 10102030,
+                id: '10102030',
               },
               comments: 'A Name opened the DRS Web Booking Manager',
               typeCode: '0',

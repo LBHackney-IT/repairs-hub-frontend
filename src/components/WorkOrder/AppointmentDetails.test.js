@@ -83,7 +83,7 @@ describe('AppointmentDetails component', () => {
       }
 
       describe('when the work order is lower priority', () => {
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
+        it('shows a link to reschedule an appointment with DRS Web Booking Manager', () => {
           let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
 
           workOrder.isLowerPriority = jest.fn(() => true)
@@ -99,57 +99,99 @@ describe('AppointmentDetails component', () => {
           expect(asFragment()).toMatchSnapshot()
         })
       })
+    })
 
-      describe('when the work order allows scheduling', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment: null,
-            priorityCode: NORMAL_PRIORITY_CODE,
-          }
-        })
-
-        it('shows a schedule link', () => {
-          let workOrder = new WorkOrder(drsWorkOrder)
-
-          workOrder.statusAllowsScheduling = jest.fn(() => true)
-
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
+    describe('when the work order allows scheduling', () => {
+      beforeEach(() => {
+        drsWorkOrder = {
+          ...drsWorkOrder,
+          priorityCode: NORMAL_PRIORITY_CODE,
+        }
       })
 
-      describe('when the work order does not allow scheduling', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment: null,
-            priorityCode: NORMAL_PRIORITY_CODE,
-          }
-        })
+      it('shows a schedule link', () => {
+        let workOrder = new WorkOrder(drsWorkOrder)
 
-        it('does not show a schedule link', () => {
-          let workOrder = new WorkOrder(drsWorkOrder)
+        workOrder.statusAllowsScheduling = jest.fn(() => true)
 
-          workOrder.statusAllowsScheduling = jest.fn(() => false)
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user: agent }}>
+            <AppointmentDetails
+              workOrder={workOrder}
+              schedulerSessionId={schedulerSessionId}
+            />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
 
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
+    describe('when the work order does not allow scheduling', () => {
+      beforeEach(() => {
+        drsWorkOrder = {
+          ...drsWorkOrder,
+          priorityCode: NORMAL_PRIORITY_CODE,
+        }
+      })
+
+      it('does not show a schedule link', () => {
+        let workOrder = new WorkOrder(drsWorkOrder)
+
+        workOrder.statusAllowsScheduling = jest.fn(() => false)
+
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user: agent }}>
+            <AppointmentDetails
+              workOrder={workOrder}
+              schedulerSessionId={schedulerSessionId}
+            />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    describe('when the work order is not closed', () => {
+      beforeEach(() => {
+        drsWorkOrder = {
+          ...drsWorkOrder,
+          priorityCode: NORMAL_PRIORITY_CODE,
+          status: 'In Progress',
+        }
+      })
+
+      it('shows a schedule link', () => {
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user: agent }}>
+            <AppointmentDetails
+              workOrder={new WorkOrder(drsWorkOrder)}
+              schedulerSessionId={schedulerSessionId}
+            />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
+    describe('when the work order is in a closed state', () => {
+      beforeEach(() => {
+        drsWorkOrder = {
+          ...drsWorkOrder,
+          priorityCode: NORMAL_PRIORITY_CODE,
+          status: 'Work Complete',
+        }
+      })
+
+      it('does not show a schedule link', () => {
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user: agent }}>
+            <AppointmentDetails
+              workOrder={new WorkOrder(drsWorkOrder)}
+              schedulerSessionId={schedulerSessionId}
+            />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
       })
     })
   })
