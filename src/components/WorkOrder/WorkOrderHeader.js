@@ -75,10 +75,6 @@ const WorkOrderHeader = ({
             </span>
           </div>
         )}
-        {/* 
-        should we be able to show Operatives even thouhg appointment wasn't scheduled? 
-        ex: work order 10000664 */}
-
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
           pastAppointmentStartTime(
