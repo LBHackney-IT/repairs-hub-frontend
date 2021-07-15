@@ -11,17 +11,6 @@ describe('Managing work order appointments', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    cy.fixture('work-orders/with-appointment.json')
-      .then((workOrder) => {
-        workOrder.target = now.toISOString()
-
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
-          { body: workOrder }
-        )
-      })
-      .as('workOrder')
-
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -47,6 +36,17 @@ describe('Managing work order appointments', () => {
 
   describe('Rescheduling a work order within Repairs Hub', () => {
     beforeEach(() => {
+      cy.fixture('work-orders/with-appointment.json')
+        .then((workOrder) => {
+          workOrder.target = now.toISOString()
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+
       cy.intercept(
         {
           method: 'GET',
@@ -164,6 +164,8 @@ describe('Managing work order appointments', () => {
       it('Does not show a reschedule link', () => {
         cy.visit('/work-orders/10000012')
 
+        cy.wait(['@tasks', '@workOrder', '@property'])
+
         cy.get('.appointment-details').within(() => {
           cy.contains('Reschedule appointment').should('not.exist')
         })
@@ -171,7 +173,65 @@ describe('Managing work order appointments', () => {
     })
   })
 
-  xdescribe('Rescheduling a work order in DRS', () => {
-    it('Permits rescheduling and calls the API to make a note of when DRS was opened', () => {})
+  describe('Rescheduling a work order in DRS', () => {
+    beforeEach(() => {
+      cy.fixture('work-orders/with-appointment.json')
+        .then((workOrder) => {
+          workOrder.target = now.toISOString()
+          workOrder.externalAppointmentManagementUrl = '/scheduler?bookingId=1'
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+
+      cy.setCookie(
+        Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
+        'EXISTING_SCHEDULER_SESSION_ID'
+      )
+
+      cy.intercept(
+        { method: 'POST', path: '/api/jobStatusUpdate' },
+        { body: '' }
+      ).as('apiCheckjobStatus')
+
+      cy.clock(subMinutes(now, 1))
+    })
+
+    it('Permits rescheduling and calls the API to make a note of when DRS was opened', () => {
+      cy.visit('/work-orders/10000012')
+
+      cy.wait(['@tasks', '@workOrder', '@property'])
+
+      cy.contains('a', 'Open DRS to reschedule appointment')
+        .should(
+          'have.attr',
+          'href',
+          '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
+        )
+        .should('have.attr', 'target', '_blank')
+
+      // Avoid opening a new tab by re-writing link behaviour
+      cy.contains('a', 'Open DRS to reschedule appointment')
+        .invoke('removeAttr', 'target')
+        .click()
+
+      cy.wait('@apiCheckjobStatus')
+
+      cy.get('@apiCheckjobStatus')
+        .its('request.body')
+        .then((body) => {
+          cy.wrap(body).should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000012',
+            },
+            comments: 'A Name opened the DRS Web Booking Manager',
+            typeCode: '0',
+            otherType: 'addNote',
+          })
+        })
+    })
   })
 })

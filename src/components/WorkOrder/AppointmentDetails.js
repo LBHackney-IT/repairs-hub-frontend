@@ -12,9 +12,20 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
 } from '../../utils/user-permissions'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
+
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await postJobStatusUpdate(jobStatusUpdate)
+  }
 
   const appointmentNotApplicableHtml = () => {
     return (
@@ -53,7 +64,12 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
           <Link
             href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
           >
-            <a className="lbh-link" target="_blank" rel="noopener">
+            <a
+              className="lbh-link"
+              target="_blank"
+              rel="noopener"
+              onClick={openExternalLinkEventHandler}
+            >
               <strong>Open DRS</strong> to{' '}
               {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
             </a>
