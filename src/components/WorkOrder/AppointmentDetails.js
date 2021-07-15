@@ -84,18 +84,18 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
         <br></br>
-        <div className="lbh-body-s">
+        <div className="lbh-body-s govuk-!-margin-top-0">
+          {user &&
+            canSeeAppointmentDetailsInfo(user) &&
+            workOrder.status !== STATUS_CANCELLED &&
+            !!workOrder.appointment &&
+            appointmentDetailsInfoHtml()}
           {user &&
             canScheduleAppointment(user) &&
             workOrder.status !== STATUS_CANCELLED.description &&
             workOrder.status !==
               STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
             scheduleAppointmentHtml(!!workOrder.appointment)}
-          {user &&
-            canSeeAppointmentDetailsInfo(user) &&
-            workOrder.status !== STATUS_CANCELLED &&
-            !!workOrder.appointment &&
-            appointmentDetailsInfoHtml()}
         </div>
       </div>
     )

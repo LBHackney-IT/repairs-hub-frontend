@@ -12,8 +12,17 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
       <a
         class="lbh-link"
         href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
@@ -25,15 +34,6 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
         </strong>
          to reschedule appointment
       </a>
-      <div
-        class="lbh-body-s"
-      >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -51,8 +51,17 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
+      <div
+        class="lbh-body-s"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          19 Mar 2021, 12:00-18:00
+        </span>
+      </div>
       <a
         class="lbh-link"
         href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
@@ -64,15 +73,6 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
         </strong>
          to reschedule appointment
       </a>
-      <div
-        class="lbh-body-s"
-      >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -138,7 +138,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link"
@@ -168,7 +168,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link"
@@ -246,7 +246,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link lbh-!-font-weight-bold"
@@ -271,7 +271,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link lbh-!-font-weight-bold"
