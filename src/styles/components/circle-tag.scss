@@ -19,12 +19,8 @@
   &--status-work-cancelled {
     background-color: repairs-hub-colour('grey');
   }
-  &--status-pending-approval {
-    background-color: repairs-hub-colour('yellow');
-  }
-  &--status-variation-pending-approval {
-    background-color: repairs-hub-colour('yellow');
-  }
+  &--status-pending-approval,
+  &--status-variation-pending-approval,
   &--status-authorisation-pending-approval {
     background-color: repairs-hub-colour('yellow');
   }

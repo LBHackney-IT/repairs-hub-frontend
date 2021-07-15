@@ -7,12 +7,10 @@ import { formatDateTime } from '../../utils/time'
 
 const WorkOrderInfo = ({ workOrder }) => {
   const highPriority = () => {
-    if (
-      workOrder.priorityCode == EMERGENCY_PRIORITY_CODE ||
-      workOrder.priorityCode == IMMEDIATE_PRIORITY_CODE
-    ) {
-      return true
-    }
+    return (
+      workOrder.priorityCode === EMERGENCY_PRIORITY_CODE ||
+      workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE
+    )
   }
 
   return (

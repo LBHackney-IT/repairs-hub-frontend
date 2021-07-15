@@ -29,12 +29,7 @@ const WorkOrderHeader = ({
   }
 
   const completionReason = () => {
-    if (workOrder.status == 'Work Complete') {
-      return 'Completed'
-    }
-    if (workOrder.status == 'No Access') {
-      return 'No Access'
-    }
+    return workOrder.status === 'Work Complete' ? 'Completed' : workOrder.status
   }
 
   return (
