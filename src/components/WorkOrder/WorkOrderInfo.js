@@ -19,7 +19,7 @@ const WorkOrderInfo = ({ workOrder }) => {
     <div className="work-order-info">
       <div className="lbh-body-s govuk-!-margin-bottom-2">
         <span
-          className={`status-element element-color--status-${workOrder.status
+          className={`circle-tag circle-tag--status-${workOrder.status
             .replace(/\s+/g, '-')
             .toLowerCase()}`}
         ></span>
