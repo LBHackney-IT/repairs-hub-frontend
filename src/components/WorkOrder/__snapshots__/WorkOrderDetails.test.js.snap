@@ -334,6 +334,9 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
+            class="status-element element-color--status-in-progress"
+          />
+          <span
             class="lbh-!-font-weight-bold"
           >
             Status: In Progress
@@ -768,6 +771,9 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
+            class="status-element element-color--status-variation-pending-approval"
+          />
+          <span
             class="lbh-!-font-weight-bold"
           >
             Status: Variation Pending Approval
@@ -1085,6 +1091,9 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="status-element element-color--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -1478,6 +1487,9 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
+            class="status-element element-color--status-in-progress"
+          />
+          <span
             class="lbh-!-font-weight-bold"
           >
             Status: In Progress
@@ -1841,6 +1853,9 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="status-element element-color--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -2212,6 +2227,9 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="status-element element-color--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -2605,6 +2623,9 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
+            class="status-element element-color--status-authorisation-pending-approval"
+          />
+          <span
             class="lbh-!-font-weight-bold"
           >
             Status: Authorisation Pending Approval
@@ -2873,6 +2894,9 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="status-element element-color--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >

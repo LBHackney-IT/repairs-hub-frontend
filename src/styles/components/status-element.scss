@@ -1,0 +1,41 @@
+.status-element {
+  height: 20px;
+  width: 20px;
+  background-color: repairs-hub-colour('blue');
+  border-radius: 50%;
+  margin-right: 0.3rem;
+  margin-left: -1.4rem;
+  margin-bottom: -1.3rem;
+  display: flex;
+
+  .element-color {
+    &--status-in-progress {
+      background-color: repairs-hub-colour('blue');
+    }
+    &--status-work-complete,
+    &--status-locked {
+      background-color: repairs-hub-colour('white');
+    }
+    &--status-work-cancelled {
+      background-color: repairs-hub-colour('grey');
+    }
+    &--status-pending-approval {
+      background-color: repairs-hub-colour('yellow');
+    }
+    &--status-variation-pending-approval {
+      background-color: repairs-hub-colour('yellow');
+    }
+    &--status-authorisation-pending-approval {
+      background-color: repairs-hub-colour('yellow');
+    }
+    &--status-variation-approved {
+      background-color: repairs-hub-colour('dark-green');
+    }
+    &--status-variation-rejected {
+      background-color: repairs-hub-colour('dark-red');
+    }
+    &--status-no-access {
+      background-color: repairs-hub-colour('grey');
+    }
+  }
+}

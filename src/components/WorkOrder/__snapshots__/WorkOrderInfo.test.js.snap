@@ -9,6 +9,9 @@ exports[`WorkOrderInfo component should render properly 1`] = `
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
       <span
+        class="status-element element-color--status-in-progress"
+      />
+      <span
         class="lbh-!-font-weight-bold"
       >
         Status: In Progress
@@ -63,6 +66,9 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
+      <span
+        class="status-element element-color--status-in-progress"
+      />
       <span
         class="lbh-!-font-weight-bold"
       >
