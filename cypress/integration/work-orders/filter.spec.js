@@ -105,6 +105,8 @@ describe('Filter work orders', () => {
     })
 
     it('Filter work orders', () => {
+      cy.wait('@filters')
+
       // Status filter options
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.50"]')
@@ -419,6 +421,8 @@ describe('Filter work orders', () => {
     })
 
     it('Clears all filters', () => {
+      cy.wait('@filters')
+
       // Check a few filter options
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
@@ -636,6 +640,8 @@ describe('Filter work orders', () => {
       })
 
       it('Lists all filtering options and displays contractors filter', () => {
+        cy.wait('@filters')
+
         // Contractor filter options
         cy.get('#contractor-filters').should('exist')
         cy.get('.govuk-checkboxes')
