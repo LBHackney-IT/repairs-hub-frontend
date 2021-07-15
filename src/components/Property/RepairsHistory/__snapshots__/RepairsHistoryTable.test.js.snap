@@ -72,7 +72,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
           <div
             class="work-order-hours"
           >
-            3:28 pm
+            15:28
           </div>
         </td>
         <td
@@ -116,7 +116,7 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
           <div
             class="work-order-hours"
           >
-            4:28 pm
+            16:28
           </div>
         </td>
         <td
@@ -200,7 +200,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
           <div
             class="work-order-hours"
           >
-            3:28 pm
+            15:28
           </div>
         </td>
         <td
@@ -234,7 +234,7 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
           <div
             class="work-order-hours"
           >
-            4:28 pm
+            16:28
           </div>
         </td>
         <td
@@ -334,7 +334,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           <div
             class="work-order-hours"
           >
-            3:28 pm
+            15:28
           </div>
         </td>
         <td
@@ -378,7 +378,7 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
           <div
             class="work-order-hours"
           >
-            4:28 pm
+            16:28
           </div>
         </td>
         <td
@@ -478,7 +478,7 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
           <div
             class="work-order-hours"
           >
-            3:28 pm
+            15:28
           </div>
         </td>
         <td
@@ -522,7 +522,7 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
           <div
             class="work-order-hours"
           >
-            4:28 pm
+            16:28
           </div>
         </td>
         <td

@@ -87,13 +87,13 @@ describe('Notes', () => {
 
       cy.get('[data-note-id="0"]').within(() => {
         cy.get('.note-info').within(() => {
-          cy.contains('8 Feb 2021, 3:06 pm')
+          cy.contains('8 Feb 2021, 15:06')
           cy.contains('by Random User (random.user@hackney.gov.uk)')
         })
       })
       cy.get('[data-note-id="1"]').within(() => {
         cy.get('.note-info').within(() => {
-          cy.contains('8 Feb 2021, 3:05 pm')
+          cy.contains('8 Feb 2021, 15:05')
           cy.contains('by Random User (random.user@hackney.gov.uk)')
         })
       })
