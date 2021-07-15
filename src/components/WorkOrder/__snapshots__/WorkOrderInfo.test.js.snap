@@ -72,7 +72,9 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
       <span
         class="text-dark-red govuk-!-font-size-14"
       >
-        Priority: some priority text
+        <strong>
+          Priority: some priority text
+        </strong>
       </span>
     </div>
     <div
