@@ -85,7 +85,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             <div
               class="work-order-hours"
             >
-              4:24 pm
+              16:24
             </div>
           </td>
           <td

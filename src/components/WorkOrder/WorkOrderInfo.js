@@ -1,20 +1,33 @@
 import PropTypes from 'prop-types'
-import { IMMEDIATE_PRIORITY_CODE } from '../../utils/helpers/priorities'
+import {
+  IMMEDIATE_PRIORITY_CODE,
+  EMERGENCY_PRIORITY_CODE,
+} from '../../utils/helpers/priorities'
 import { formatDateTime } from '../../utils/time'
 
 const WorkOrderInfo = ({ workOrder }) => {
+  const highPriority = () => {
+    return (
+      workOrder.priorityCode === EMERGENCY_PRIORITY_CODE ||
+      workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE
+    )
+  }
+
   return (
     <div className="work-order-info">
-      <span className="govuk-!-font-size-14">Work order</span>
-
       <div className="lbh-body-s govuk-!-margin-bottom-2">
+        <span
+          className={`circle-tag circle-tag--status-${workOrder.status
+            .replace(/\s+/g, '-')
+            .toLowerCase()}`}
+        ></span>
         <span className="lbh-!-font-weight-bold">
           Status: {workOrder.status}
         </span>
         <br></br>
-        {workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE ? (
+        {highPriority() ? (
           <span className="text-dark-red govuk-!-font-size-14">
-            Priority: {workOrder.priority}
+            <strong>Priority: {workOrder.priority}</strong>
           </span>
         ) : (
           <span className="govuk-!-font-size-14">

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Panel from '../../Template/Panel'
 
 const CancelWorkOrderFormSuccess = ({
   workOrderReference,
@@ -7,13 +8,11 @@ const CancelWorkOrderFormSuccess = ({
   shortAddress,
 }) => {
   return (
-    <div>
-      <div className="govuk-panel govuk-panel--confirmation lbh-panel">
-        <h1 className="lbh-heading-h1 text-white">Repair cancelled</h1>
-        <div className="govuk-panel__body">
-          Work order {workOrderReference} has been cancelled
-        </div>
-      </div>
+    <>
+      <Panel
+        title="Repair work order cancelled"
+        workOrderReference={workOrderReference}
+      />
 
       <ul className="lbh-list govuk-!-margin-top-9">
         <li>
@@ -40,7 +39,7 @@ const CancelWorkOrderFormSuccess = ({
           </Link>
         </li>
       </ul>
-    </div>
+    </>
   )
 }
 

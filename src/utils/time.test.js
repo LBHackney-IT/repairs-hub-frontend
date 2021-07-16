@@ -8,63 +8,84 @@ import {
 } from './time'
 
 describe('time', () => {
-  describe('extractTimeFromDate', () => {
-    it('extracts time from a date', () => {
-      const date = new Date(
-        'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
-      )
-
-      expect(extractTimeFromDate(date)).toEqual('3:46 pm')
-    })
-
-    it('extracts time at 12pm from a date', () => {
-      const date = new Date(
-        'Wed Jan 20 2021 12:46:57 GMT+0000 (Greenwich Mean Time)'
-      )
-
-      expect(extractTimeFromDate(date)).toEqual('12:46 pm')
-    })
-
-    it('extracts time at 12am from a date', () => {
+  describe('extractTimeFromDate using h23', () => {
+    it('should show 00:46', () => {
       const date = new Date(
         'Wed Jan 20 2021 00:46:57 GMT+0000 (Greenwich Mean Time)'
       )
 
-      expect(extractTimeFromDate(date)).toEqual('12:46 am')
+      expect(extractTimeFromDate(date)).toEqual('00:46')
     })
 
-    it('extracts time from a date/time passed as a String object', () => {
-      const date = '2021-01-20T15:16:57Z'
+    it('should show 03:46', () => {
+      const date = new Date(
+        'Wed Jan 20 2021 03:46:57 GMT+0000 (Greenwich Mean Time)'
+      )
 
-      expect(extractTimeFromDate(date)).toEqual('3:16 pm')
+      expect(extractTimeFromDate(date)).toEqual('03:46')
+    })
+
+    it('should show 12:46', () => {
+      const date = new Date(
+        'Wed Jan 20 2021 12:46:57 GMT+0000 (Greenwich Mean Time)'
+      )
+
+      expect(extractTimeFromDate(date)).toEqual('12:46')
+    })
+
+    it('should show 15:46', () => {
+      const date = new Date(
+        'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
+      )
+
+      expect(extractTimeFromDate(date)).toEqual('15:46')
+    })
+
+    it('should show 19:09', () => {
+      const date = new Date(
+        'Wed Jan 20 2021 19:09:57 GMT+0000 (Greenwich Mean Time)'
+      )
+
+      expect(extractTimeFromDate(date)).toEqual('19:09')
     })
   })
 
-  describe('formatDateTime', () => {
-    it('formats date/time passed as a Date object', () => {
-      const datetime = new Date('2021-01-20T15:16:57Z')
-      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 3:16 pm')
-    })
-
-    it('formats date/time passed as a String object', () => {
-      const datetime = '2021-01-20T15:16:57Z'
-      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 3:16 pm')
-    })
-
-    it('formats 12pm date/time', () => {
-      const datetime = new Date('2021-01-20T12:16:57Z')
-      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 12:16 pm')
-    })
-
-    it('formats 12am date/time', () => {
+  describe('formatDateTime using h23', () => {
+    it('should show 20 Jan 2021, 00:16', () => {
       const datetime = '2021-01-20T00:16:57Z'
-      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 12:16 am')
+
+      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 00:16')
+    })
+
+    it('should show 20 Jan 2021, 03:16', () => {
+      const datetime = new Date('2021-01-20T03:16:57Z')
+
+      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 03:16')
+    })
+
+    it('should show 20 Jan 2021, 12:16', () => {
+      const datetime = new Date('2021-01-20T12:16:57Z')
+
+      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 12:16')
+    })
+
+    it('should show 20 Jan 2021, 15:16', () => {
+      const datetime = '2021-01-20T15:16:57Z'
+
+      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 15:16')
+    })
+
+    it('should show 19:09', () => {
+      const datetime = '2021-01-20T19:09:57Z'
+
+      expect(formatDateTime(datetime)).toEqual('20 Jan 2021, 19:09')
     })
   })
 
   describe('beginningOfDay', () => {
     it('sets the time to the beginning of the day', () => {
       const date = new Date('2021-02-17T15:16:57Z')
+
       expect(beginningOfDay(date)).toEqual(new Date('2021-02-17T00:00:00Z'))
     })
   })

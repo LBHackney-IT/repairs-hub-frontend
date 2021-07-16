@@ -4,6 +4,7 @@ import TenureDetails from '../Property/TenureDetails'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
+import { formatDateTime } from 'src/utils/time'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -25,6 +26,10 @@ const WorkOrderHeader = ({
     const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
 
     return currentTime > appointmentStartTime
+  }
+
+  const completionReason = () => {
+    return workOrder.status === 'Work Complete' ? 'Completed' : workOrder.status
   }
 
   return (
@@ -55,7 +60,16 @@ const WorkOrderHeader = ({
         <div className="lbh-body-xs">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
-
+        {workOrder.closedDated && (
+          <div className="lbh-body-xs">
+            <span>
+              <strong>
+                {completionReason()}:{' '}
+                {formatDateTime(new Date(workOrder.closedDated))}
+              </strong>
+            </span>
+          </div>
+        )}
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
           pastAppointmentStartTime(

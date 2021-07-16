@@ -7,16 +7,14 @@ exports[`ScheduleAppointmentSuccess component should render properly 1`] = `
       class="govuk-panel govuk-panel--confirmation lbh-panel"
     >
       <h1
-        class="lbh-heading-h1 text-white"
+        class="govuk-panel__title"
       >
         Repair work order created
       </h1>
       <div
         class="govuk-panel__body"
       >
-        <p
-          class="govuk-!-margin-top-3"
-        >
+        <p>
           Work order number
         </p>
         <strong
@@ -24,21 +22,21 @@ exports[`ScheduleAppointmentSuccess component should render properly 1`] = `
         >
           12345678
         </strong>
-        <br />
-        <br />
         <strong
           class="govuk-!-font-size-36"
         >
+          <br />
+          <br />
           Thursday, 25 February
         </strong>
-        <br />
         <strong
           class="govuk-!-font-size-36"
         >
+          <br />
           PM
         </strong>
-        <br />
         <p>
+          <br />
           Comments: some comments
         </p>
       </div>

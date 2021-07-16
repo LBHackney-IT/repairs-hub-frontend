@@ -171,7 +171,7 @@ describe('Show property', () => {
         cy.get('[data-ref=10000050]').within(() => {
           cy.contains('10000050')
           cy.contains('1 Feb 2021')
-          cy.contains('11:02 am')
+          cy.contains('11:02')
           cy.contains('DOOR ENTRY ENGINEER - DE')
           cy.contains('In Progress')
           cy.contains('The latest repair')
@@ -180,7 +180,7 @@ describe('Show property', () => {
         cy.get('[data-ref=10000001]').within(() => {
           cy.contains('10000001')
           cy.contains('1 Jan 2021')
-          cy.contains('11:02 am')
+          cy.contains('11:02')
           cy.contains('DOOR ENTRY ENGINEER - DE')
           cy.contains('Work complete')
           cy.contains('The earliest repair for page one')
@@ -209,7 +209,7 @@ describe('Show property', () => {
       cy.get('[data-ref=10000000]').within(() => {
         cy.contains('10000000')
         cy.contains('1 Jan 2020')
-        cy.contains('11:02 am')
+        cy.contains('11:02')
         cy.contains('DOOR ENTRY ENGINEER - DE')
         cy.contains('Work complete')
         cy.contains('The oldest repair')
