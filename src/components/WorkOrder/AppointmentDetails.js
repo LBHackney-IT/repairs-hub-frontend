@@ -22,12 +22,10 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
 
   const appointmentDetailsInfoHtml = () => {
     return (
-      <div className="lbh-body-s">
-        <span className="govuk-!-font-size-14">
-          {dateToStr(new Date(workOrder.appointment.date))},{' '}
-          {workOrder.appointment.start}-{workOrder.appointment.end}
-        </span>
-      </div>
+      <span className="govuk-!-font-size-14">
+        {dateToStr(new Date(workOrder.appointment.date))},{' '}
+        {workOrder.appointment.start}-{workOrder.appointment.end}
+      </span>
     )
   }
 
