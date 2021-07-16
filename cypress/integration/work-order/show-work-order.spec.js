@@ -247,24 +247,6 @@ describe('Show work order page', () => {
     })
   })
 
-  context('When the work order has an immediate priority', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/priority-immediate.json' }
-      )
-    })
-
-    it('Indicates that an appointment is not applicable', () => {
-      cy.visit('/work-orders/10000012')
-
-      cy.get('.appointment-details').within(() => {
-        cy.contains('Appointment details')
-        cy.contains('Not applicable')
-      })
-    })
-  })
-
   context('When the work order has work orders on repairs history tab', () => {
     beforeEach(() => {
       cy.intercept(
