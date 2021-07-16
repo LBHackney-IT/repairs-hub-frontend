@@ -330,14 +330,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -769,14 +767,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-variation-pending-approval"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -1092,14 +1088,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -1489,14 +1483,12 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -1858,14 +1850,12 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -2234,14 +2224,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -2631,14 +2619,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-authorisation-pending-approval"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
@@ -2905,14 +2891,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="work-order-info"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          Work order
-        </span>
         <div
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
           <span
             class="lbh-!-font-weight-bold"
           >
