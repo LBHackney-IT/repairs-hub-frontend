@@ -226,15 +226,12 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
@@ -254,15 +251,12 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
