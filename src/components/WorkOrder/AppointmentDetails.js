@@ -56,11 +56,12 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       <span className="govuk-!-font-size-14">Appointment details</span>
       <br></br>
       <div className="lbh-body-s">
-        {user &&
-        priorityCodesRequiringAppointments.includes(workOrder.priorityCode) &&
-        workOrder.status !== STATUS_CANCELLED.description ? (
+        {user && workOrder.status !== STATUS_CANCELLED.description ? (
           <>
             {canScheduleAppointment(user) &&
+              priorityCodesRequiringAppointments.includes(
+                workOrder.priorityCode
+              ) &&
               workOrder.status !==
                 STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
               !workOrder.appointment &&

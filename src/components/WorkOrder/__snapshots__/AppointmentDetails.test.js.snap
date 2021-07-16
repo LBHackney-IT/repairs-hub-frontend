@@ -61,13 +61,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     <br />
     <div
       class="lbh-body-s"
-    >
-      <span
-        class="lbh-!-font-weight-bold"
-      >
-        Not applicable
-      </span>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;
@@ -85,13 +79,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     <br />
     <div
       class="lbh-body-s"
-    >
-      <span
-        class="lbh-!-font-weight-bold"
-      >
-        Not applicable
-      </span>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;
@@ -156,7 +144,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is emergency priority does not show a link to schedule an appointment 1`] = `
+exports[`AppointmentDetails component Displays "Not applicable" when the work order has been cancelled 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -180,6 +168,24 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
 </DocumentFragment>
 `;
 
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is emergency priority does not show a link to schedule an appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    />
+  </div>
+</DocumentFragment>
+`;
+
 exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is immediate priority does not show a link to schedule an appointment 1`] = `
 <DocumentFragment>
   <div
@@ -193,13 +199,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <br />
     <div
       class="lbh-body-s"
-    >
-      <span
-        class="lbh-!-font-weight-bold"
-      >
-        Not applicable
-      </span>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;
@@ -218,11 +218,12 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <span
-        class="govuk-!-font-size-14"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        19 Mar 2021, 12:00-18:00
-      </span>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
@@ -242,11 +243,12 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <span
-        class="govuk-!-font-size-14"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        19 Mar 2021, 12:00-18:00
-      </span>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
