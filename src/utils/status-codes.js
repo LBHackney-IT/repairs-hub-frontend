@@ -5,7 +5,7 @@ export const STATUS_IN_PROGRESS = {
 
 export const STATUS_COMPLETE = {
   code: 50,
-  description: 'Complete',
+  description: 'Work Complete',
 }
 
 export const STATUS_CANCELLED = {
@@ -31,6 +31,11 @@ export const STATUS_VARIATION_APPROVED = {
 export const STATUS_VARIATION_REJECTED = {
   code: 1090,
   description: 'Variation Rejected',
+}
+
+export const STATUS_NO_ACCESS = {
+  code: 1000,
+  description: 'No Access',
 }
 
 export const WORK_ORDERS_STATUSES = [

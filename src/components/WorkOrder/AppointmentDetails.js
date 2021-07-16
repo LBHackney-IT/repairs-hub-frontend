@@ -6,6 +6,8 @@ import { dateToStr } from '../../utils/date'
 import {
   STATUS_CANCELLED,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
+  STATUS_COMPLETE,
+  STATUS_NO_ACCESS,
 } from '../../utils/status-codes'
 import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 import {
@@ -15,6 +17,16 @@ import {
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
+
+  const statusAllowsScheduling = (currentStatus) => {
+    const statuses = [
+      STATUS_CANCELLED.description,
+      STATUS_AUTHORISATION_PENDING_APPROVAL.description,
+      STATUS_COMPLETE.description,
+      STATUS_NO_ACCESS.description,
+    ]
+    return !statuses.includes(currentStatus)
+  }
 
   const appointmentNotApplicableHtml = () => {
     return (
@@ -73,9 +85,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         <div className="lbh-body-s">
           {user &&
             canScheduleAppointment(user) &&
-            workOrder.status !== STATUS_CANCELLED.description &&
-            workOrder.status !==
-              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
+            statusAllowsScheduling(workOrder.status) &&
             !workOrder.appointment &&
             scheduleAppointmentHtml()}
           {user &&
