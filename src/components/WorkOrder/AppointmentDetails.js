@@ -20,18 +20,6 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     return !CLOSED_STATUS_DESCRIPTIONS.includes(currentStatus)
   }
 
-  const appointmentNotApplicableHtml = () => {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          <span className="lbh-!-font-weight-bold">Not applicable</span>
-        </div>
-      </div>
-    )
-  }
-
   const appointmentDetailsInfoHtml = () => {
     return (
       <div className="lbh-body-s">
@@ -69,28 +57,30 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     }
   }
 
-  if (priorityCodesRequiringAppointments.includes(workOrder.priorityCode)) {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          {user &&
-            canScheduleAppointment(user) &&
-            statusAllowsScheduling(workOrder.status) &&
-            !workOrder.appointment &&
-            scheduleAppointmentHtml()}
-          {user &&
-            canSeeAppointmentDetailsInfo(user) &&
-            workOrder.status !== STATUS_CANCELLED &&
-            !!workOrder.appointment &&
-            appointmentDetailsInfoHtml()}
-        </div>
+  return (
+    <div className="appointment-details">
+      <span className="govuk-!-font-size-14">Appointment details</span>
+      <br></br>
+      <div className="lbh-body-s">
+        {priorityCodesRequiringAppointments.includes(workOrder.priorityCode) ? (
+          <>
+            {user &&
+              canScheduleAppointment(user) &&
+              statusAllowsScheduling(workOrder.status) &&
+              !workOrder.appointment &&
+              scheduleAppointmentHtml()}
+            {user &&
+              canSeeAppointmentDetailsInfo(user) &&
+              workOrder.status !== STATUS_CANCELLED &&
+              !!workOrder.appointment &&
+              appointmentDetailsInfoHtml()}
+          </>
+        ) : (
+          <span className="lbh-!-font-weight-bold">Not applicable</span>
+        )}
       </div>
-    )
-  } else {
-    return appointmentNotApplicableHtml()
-  }
+    </div>
+  )
 }
 
 AppointmentDetails.propTypes = {
