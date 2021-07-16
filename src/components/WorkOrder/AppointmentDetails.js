@@ -16,26 +16,12 @@ import {
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
 
-  const appointmentNotApplicableHtml = () => {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          <span className="lbh-!-font-weight-bold">Not applicable</span>
-        </div>
-      </div>
-    )
-  }
-
   const appointmentDetailsInfoHtml = () => {
     return (
-      <div className="lbh-body-s">
-        <span className="govuk-!-font-size-14">
-          {dateToStr(new Date(workOrder.appointment.date))},{' '}
-          {workOrder.appointment.start}-{workOrder.appointment.end}
-        </span>
-      </div>
+      <span className="govuk-!-font-size-14">
+        {dateToStr(new Date(workOrder.appointment.date))},{' '}
+        {workOrder.appointment.start}-{workOrder.appointment.end}
+      </span>
     )
   }
 
@@ -65,30 +51,31 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     }
   }
 
-  if (priorityCodesRequiringAppointments.includes(workOrder.priorityCode)) {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          {user &&
-            canScheduleAppointment(user) &&
-            workOrder.status !== STATUS_CANCELLED.description &&
-            workOrder.status !==
-              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
-            !workOrder.appointment &&
-            scheduleAppointmentHtml()}
-          {user &&
-            canSeeAppointmentDetailsInfo(user) &&
-            workOrder.status !== STATUS_CANCELLED &&
-            !!workOrder.appointment &&
-            appointmentDetailsInfoHtml()}
-        </div>
+  return (
+    <div className="appointment-details">
+      <span className="govuk-!-font-size-14">Appointment details</span>
+      <br></br>
+      <div className="lbh-body-s">
+        {user && workOrder.status !== STATUS_CANCELLED.description ? (
+          <>
+            {canScheduleAppointment(user) &&
+              priorityCodesRequiringAppointments.includes(
+                workOrder.priorityCode
+              ) &&
+              workOrder.status !==
+                STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
+              !workOrder.appointment &&
+              scheduleAppointmentHtml()}
+            {canSeeAppointmentDetailsInfo(user) &&
+              !!workOrder.appointment &&
+              appointmentDetailsInfoHtml()}
+          </>
+        ) : (
+          <span className="lbh-!-font-weight-bold">Not applicable</span>
+        )}
       </div>
-    )
-  } else {
-    return appointmentNotApplicableHtml()
-  }
+    </div>
+  )
 }
 
 AppointmentDetails.propTypes = {

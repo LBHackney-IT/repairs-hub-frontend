@@ -8,6 +8,7 @@ import {
   NORMAL_PRIORITY_CODE,
 } from '../../utils/helpers/priorities'
 import AppointmentDetails from './AppointmentDetails'
+import { STATUS_CANCELLED } from '../../utils/status-codes'
 
 const workOrder = {
   reference: 10000012,
@@ -45,7 +46,10 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: IMMEDIATE_PRIORITY_CODE,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -56,12 +60,13 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is emergency priority', () => {
         it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = EMERGENCY_PRIORITY_CODE
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: EMERGENCY_PRIORITY_CODE,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -72,12 +77,13 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is urgent priority', () => {
         it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: URGENT_PRIORITY_CODE,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -93,7 +99,10 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: NORMAL_PRIORITY_CODE,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -113,13 +122,14 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is urgent priority', () => {
         it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-          workOrder.appointment = appointment
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: URGENT_PRIORITY_CODE,
+                  appointment,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -130,13 +140,14 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is normal priority', () => {
         it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = NORMAL_PRIORITY_CODE
-          workOrder.appointment = appointment
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={workOrder}
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: NORMAL_PRIORITY_CODE,
+                  appointment,
+                }}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -151,12 +162,15 @@ describe('AppointmentDetails component', () => {
     describe('with no appointment', () => {
       describe('when the work order is immediate priority', () => {
         it('does not show a link to schedule an appointment', () => {
-          workOrder.priorityCode = IMMEDIATE_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: IMMEDIATE_PRIORITY_CODE,
+                  externalAppointmentManagementUrl: null,
+                }}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -165,12 +179,15 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is emergency priority', () => {
         it('does not show a link to schedule an appointment', () => {
-          workOrder.priorityCode = EMERGENCY_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: EMERGENCY_PRIORITY_CODE,
+                  externalAppointmentManagementUrl: null,
+                }}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -179,12 +196,15 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is urgent priority', () => {
         it('does show a link to schedule an appointment', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: URGENT_PRIORITY_CODE,
+                  externalAppointmentManagementUrl: null,
+                }}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -193,17 +213,35 @@ describe('AppointmentDetails component', () => {
 
       describe('when the work order is normal priority', () => {
         it('does show a link to schedule an appointment', () => {
-          workOrder.priorityCode = NORMAL_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
-
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={{
+                  ...workOrder,
+                  priorityCode: NORMAL_PRIORITY_CODE,
+                  externalAppointmentManagementUrl: null,
+                }}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
         })
       })
     })
+  })
+
+  it('Displays "Not applicable" when the work order has been cancelled', () => {
+    const { asFragment } = render(
+      <UserContext.Provider value={{ user: agent }}>
+        <AppointmentDetails
+          workOrder={{
+            ...workOrder,
+            priorityCode: EMERGENCY_PRIORITY_CODE,
+            status: STATUS_CANCELLED.description,
+          }}
+        />
+      </UserContext.Provider>
+    )
+    expect(asFragment()).toMatchSnapshot()
   })
 })
