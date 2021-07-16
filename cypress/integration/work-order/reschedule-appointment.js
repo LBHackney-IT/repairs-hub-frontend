@@ -170,6 +170,18 @@ describe('Managing work order appointments', () => {
           cy.contains('Reschedule appointment').should('not.exist')
         })
       })
+
+      it('Shows an error message if navigating to appointment edit directly', () => {
+        cy.visit('/work-orders/10000012/appointment/edit')
+
+        cy.wait('@workOrder')
+
+        cy.get('.appointment-calendar').should('not.exist')
+
+        cy.contains(
+          'Appointment scheduling for work orders with passed target times is not permitted'
+        )
+      })
     })
   })
 
