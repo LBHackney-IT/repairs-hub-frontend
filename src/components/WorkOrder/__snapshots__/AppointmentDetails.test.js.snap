@@ -14,15 +14,11 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <span
+        class="govuk-!-font-size-14"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        19 Mar 2021, 12:00-18:00
+      </span>
     </div>
   </div>
 </DocumentFragment>
@@ -42,15 +38,11 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <span
+        class="govuk-!-font-size-14"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        19 Mar 2021, 12:00-18:00
+      </span>
     </div>
   </div>
 </DocumentFragment>
@@ -226,15 +218,11 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <span
+        class="govuk-!-font-size-14"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        19 Mar 2021, 12:00-18:00
+      </span>
     </div>
   </div>
 </DocumentFragment>
@@ -254,15 +242,11 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     <div
       class="lbh-body-s"
     >
-      <div
-        class="lbh-body-s"
+      <span
+        class="govuk-!-font-size-14"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        19 Mar 2021, 12:00-18:00
+      </span>
     </div>
   </div>
 </DocumentFragment>
