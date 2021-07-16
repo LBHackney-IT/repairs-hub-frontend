@@ -95,6 +95,10 @@ describe('Search by work order reference, postcode or address', () => {
             },
             { body: [] }
           )
+          cy.intercept(
+            { method: 'GET', path: 'workOrders/10000012/tasks' },
+            { body: [] }
+          )
 
           cy.visit('/')
 

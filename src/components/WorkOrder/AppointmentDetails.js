@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
-import { dateToStr } from '../../utils/date'
+import { convertDate, dateToStr } from '../../utils/date'
 import {
   STATUS_CANCELLED,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
@@ -12,9 +12,20 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
 } from '../../utils/user-permissions'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
+
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await postJobStatusUpdate(jobStatusUpdate)
+  }
 
   const appointmentNotApplicableHtml = () => {
     return (
@@ -39,15 +50,28 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     )
   }
 
-  const scheduleAppointmentHtml = () => {
+  const scheduleAppointmentHtml = (hasExistingAppointment) => {
+    const targetTime = convertDate(workOrder.target)
+    const now = Date.now()
+
+    if (targetTime && targetTime < now) {
+      return null
+    }
+
     if (workOrder.externalAppointmentManagementUrl) {
       if (schedulerSessionId) {
         return (
           <Link
             href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
           >
-            <a className="lbh-link" target="_blank" rel="noopener">
-              <strong>Open DRS</strong> to book an appointment
+            <a
+              className="lbh-link"
+              target="_blank"
+              rel="noopener"
+              onClick={openExternalLinkEventHandler}
+            >
+              <strong>Open DRS</strong> to{' '}
+              {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
             </a>
           </Link>
         )
@@ -55,11 +79,17 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         console.error('Scheduler Session ID does not exist')
       }
     } else {
+      const href = hasExistingAppointment
+        ? `/work-orders/${workOrder.reference}/appointment/edit`
+        : `/work-orders/${workOrder.reference}/appointment/new`
+
+      const linkText = hasExistingAppointment
+        ? 'Reschedule appointment'
+        : 'Schedule an appointment'
+
       return (
-        <Link href={`/work-orders/${workOrder.reference}/appointment/new`}>
-          <a className="lbh-link lbh-!-font-weight-bold">
-            Schedule an appointment
-          </a>
+        <Link href={href}>
+          <a className="lbh-link lbh-!-font-weight-bold">{linkText}</a>
         </Link>
       )
     }
@@ -70,19 +100,18 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       <div className="appointment-details">
         <span className="govuk-!-font-size-14">Appointment details</span>
         <br></br>
-        <div className="lbh-body-s">
-          {user &&
-            canScheduleAppointment(user) &&
-            workOrder.status !== STATUS_CANCELLED.description &&
-            workOrder.status !==
-              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
-            !workOrder.appointment &&
-            scheduleAppointmentHtml()}
+        <div className="lbh-body-s govuk-!-margin-top-0">
           {user &&
             canSeeAppointmentDetailsInfo(user) &&
             workOrder.status !== STATUS_CANCELLED &&
             !!workOrder.appointment &&
             appointmentDetailsInfoHtml()}
+          {user &&
+            canScheduleAppointment(user) &&
+            workOrder.status !== STATUS_CANCELLED.description &&
+            workOrder.status !==
+              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
+            scheduleAppointmentHtml(!!workOrder.appointment)}
         </div>
       </div>
     )

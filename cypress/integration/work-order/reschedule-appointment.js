@@ -1,0 +1,249 @@
+/// <reference types="cypress" />
+
+import 'cypress-audit/commands'
+import { addMinutes, subMinutes } from 'date-fns'
+
+describe('Managing work order appointments', () => {
+  const now = new Date(
+    'Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)'
+  )
+
+  beforeEach(() => {
+    cy.loginWithAgentRole()
+
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    ).as('property')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/notes' },
+      { fixture: 'work-orders/notes.json' }
+    )
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { fixture: 'work-orders/task.json' }
+    ).as('tasks')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/workOrders?propertyReference=00012345*',
+      },
+      { body: [] }
+    )
+  })
+
+  describe('Rescheduling a work order within Repairs Hub', () => {
+    beforeEach(() => {
+      cy.fixture('work-orders/with-appointment.json')
+        .then((workOrder) => {
+          workOrder.target = now.toISOString()
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          pathname: '/api/appointments',
+        },
+        { fixture: 'appointment/availability.json' }
+      ).as('availableAppointments')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/appointments' },
+        { body: '' }
+      ).as('apiCheckAppointment')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/jobStatusUpdate' },
+        { body: '' }
+      ).as('apiCheckjobStatus')
+    })
+
+    context('When the work order target time is in the future', () => {
+      beforeEach(() => {
+        cy.clock(subMinutes(now, 1))
+      })
+
+      it('Permits rescheduling and displays the new appointment on the work order', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait(['@tasks', '@workOrder', '@property'])
+
+        cy.get('.appointment-details').within(() => {
+          cy.contains('19 Mar 2021, 12:00-18:00')
+
+          cy.contains('Reschedule appointment').click()
+        })
+
+        cy.wait(['@availableAppointments', '@tasks', '@workOrder', '@property'])
+
+        //Appointment page with calendar
+        cy.url().should('contains', 'work-orders/10000012/appointment/edit')
+
+        cy.contains('Repair task details')
+
+        cy.get('.appointment-calendar').within(() => {
+          cy.get('.available').contains('11').click({ force: true })
+        })
+
+        cy.get('form').within(() => {
+          cy.contains('Thursday, 11 March')
+          cy.get('[type="radio"]')
+            .first()
+            .should('have.value', 'AM 8:00 -12:00')
+          cy.get('[type="radio"]').last().should('have.value', 'PM 12:00-4:00')
+
+          // choose AM slot and leave comment
+          cy.get('[type="radio"]').first().check()
+          cy.get('#comments').type('10 am works for me', { force: true })
+          cy.get('[type="submit"]').contains('Add').click({ force: true })
+        })
+
+        // Summary page
+        cy.contains('Confirm date and time')
+        cy.get('form').within(() => {
+          cy.contains('Appointment Details:')
+          cy.contains('Thursday, 11 March')
+          cy.contains('AM')
+          cy.contains('Comments: 10 am works for me')
+        })
+        cy.get('[type="button"]')
+          .contains('Book appointment')
+          .click({ force: true })
+
+        cy.wait('@apiCheckAppointment')
+        cy.get('@apiCheckAppointment')
+          .its('request.body')
+          .should('deep.equal', {
+            workOrderReference: {
+              id: 10000012,
+              description: '',
+              allocatedBy: '',
+            },
+            appointmentReference: {
+              id: '31/2021-03-11',
+              description: '',
+              allocatedBy: '',
+            },
+          })
+
+        cy.wait('@apiCheckjobStatus')
+        cy.get('@apiCheckjobStatus')
+          .its('request.body')
+          .should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000012',
+            },
+            comments: '10 am works for me',
+            typeCode: '0',
+            otherType: 'addNote',
+          })
+
+        cy.get('.govuk-panel').within(() => {
+          cy.contains('Appointment rescheduled')
+          cy.contains('Work order number')
+          cy.contains('10000012')
+          cy.contains('Thursday, 11 March')
+          cy.contains('Comments: 10 am works for me')
+        })
+      })
+    })
+
+    context('When the work order target time is in the past', () => {
+      beforeEach(() => {
+        cy.clock(addMinutes(now, 1))
+      })
+
+      it('Does not show a reschedule link', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait(['@tasks', '@workOrder', '@property'])
+
+        cy.get('.appointment-details').within(() => {
+          cy.contains('Reschedule appointment').should('not.exist')
+        })
+      })
+
+      it('Shows an error message if navigating to appointment edit directly', () => {
+        cy.visit('/work-orders/10000012/appointment/edit')
+
+        cy.wait('@workOrder')
+
+        cy.get('.appointment-calendar').should('not.exist')
+
+        cy.contains(
+          'Appointment scheduling for work orders with passed target times is not permitted'
+        )
+      })
+    })
+  })
+
+  describe('Rescheduling a work order in DRS', () => {
+    beforeEach(() => {
+      cy.fixture('work-orders/with-appointment.json')
+        .then((workOrder) => {
+          workOrder.target = now.toISOString()
+          workOrder.externalAppointmentManagementUrl = '/scheduler?bookingId=1'
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+
+      cy.setCookie(
+        Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
+        'EXISTING_SCHEDULER_SESSION_ID'
+      )
+
+      cy.intercept(
+        { method: 'POST', path: '/api/jobStatusUpdate' },
+        { body: '' }
+      ).as('apiCheckjobStatus')
+
+      cy.clock(subMinutes(now, 1))
+    })
+
+    it('Permits rescheduling and calls the API to make a note of when DRS was opened', () => {
+      cy.visit('/work-orders/10000012')
+
+      cy.wait(['@tasks', '@workOrder', '@property'])
+
+      cy.contains('a', 'Open DRS to reschedule appointment')
+        .should(
+          'have.attr',
+          'href',
+          '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
+        )
+        .should('have.attr', 'target', '_blank')
+
+      // Avoid opening a new tab by re-writing link behaviour
+      cy.contains('a', 'Open DRS to reschedule appointment')
+        .invoke('removeAttr', 'target')
+        .click()
+
+      cy.wait('@apiCheckjobStatus')
+
+      cy.get('@apiCheckjobStatus')
+        .its('request.body')
+        .then((body) => {
+          cy.wrap(body).should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000012',
+            },
+            comments: 'A Name opened the DRS Web Booking Manager',
+            typeCode: '0',
+            otherType: 'addNote',
+          })
+        })
+    })
+  })
+})

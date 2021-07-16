@@ -44,6 +44,8 @@ describe('Authorisation workflow for a work order', () => {
       // Visit work order page
       cy.visit('/work-orders/10000012')
 
+      cy.wait('@tasks-and-sors-request')
+
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
           .should('have.attr', 'href', '/work-orders/10000012/authorisation')
@@ -119,6 +121,7 @@ describe('Authorisation workflow for a work order', () => {
       cy.get('[type="radio"]').check('Approve request')
       cy.get('[type="submit"]').contains('Submit').click()
 
+      cy.wait('@apiCheck')
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -168,9 +171,10 @@ describe('Authorisation workflow for a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
         { fixture: 'work-orders/high-cost-task.json' }
-      )
+      ).as('highCostTasks')
 
       cy.visit('/work-orders/10000012/authorisation')
+      cy.wait('@highCostTasks')
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')
@@ -186,6 +190,8 @@ describe('Authorisation workflow for a work order', () => {
       cy.get('[type="radio"]').check('Reject request')
       cy.get('#note').type('Rejecting!')
       cy.get('[type="submit"]').contains('Submit').click()
+
+      cy.wait('@apiCheck')
 
       cy.get('@apiCheck')
         .its('request.body')

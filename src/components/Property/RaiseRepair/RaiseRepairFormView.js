@@ -10,10 +10,10 @@ import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-clien
 import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
 import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
-import { useRouter } from 'next/router'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 import Meta from '../../Meta'
+import router from 'next/router'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -44,7 +44,6 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
-  const router = useRouter()
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -56,6 +55,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         externallyManagedAppointment,
         externalAppointmentManagementUrl,
       } = await postRepair(formData)
+
       setWorkOrderReference(id)
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
@@ -82,7 +82,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
           formData.priority.priorityCode
         )
       ) {
-        router.push(`/work-orders/${id}/appointment/new`)
+        router.push({
+          pathname: `/work-orders/${id}/appointment/new`,
+          query: { newOrder: true },
+        })
         return
       }
 

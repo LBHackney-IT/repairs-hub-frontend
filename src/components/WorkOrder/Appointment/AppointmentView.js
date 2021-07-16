@@ -15,8 +15,9 @@ import { postScheduleAppointment } from '../../../utils/frontend-api-client/appo
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import NoAvailableAppointments from './NoAvailableAppointments'
+import { convertDate } from '../../../utils/date'
 
-const AppointmentView = ({ workOrderReference }) => {
+const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
@@ -39,6 +40,17 @@ const AppointmentView = ({ workOrderReference }) => {
 
     try {
       const workOrder = await getWorkOrder(workOrderReference)
+
+      const targetTime = convertDate(workOrder.target)
+      const now = Date.now()
+
+      if (targetTime && targetTime < now) {
+        setError(
+          'Appointment scheduling for work orders with passed target times is not permitted'
+        )
+        return
+      }
+
       const tasksAndSors = await getTasksAndSors(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
       const currentDate = beginningOfDay(new Date())
@@ -69,9 +81,9 @@ const AppointmentView = ({ workOrderReference }) => {
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
+    } finally {
+      setLoading(false)
     }
-
-    setLoading(false)
   }
 
   const makePostRequest = async (
@@ -147,6 +159,7 @@ const AppointmentView = ({ workOrderReference }) => {
           {error && <ErrorMessage label={error} />}
           {scheduleAppointmentSuccess && (
             <ScheduleAppointmentSuccess
+              title={successText}
               property={property}
               workOrderReference={workOrderReference}
               dateSelected={dateSelected}
@@ -162,6 +175,7 @@ const AppointmentView = ({ workOrderReference }) => {
 
 AppointmentView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
+  successText: PropTypes.string,
 }
 
 export default AppointmentView

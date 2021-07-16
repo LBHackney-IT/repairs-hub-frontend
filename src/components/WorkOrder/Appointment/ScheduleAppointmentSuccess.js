@@ -8,11 +8,12 @@ const ScheduleAppointmentSuccess = ({
   comments,
   slot,
   dateSelected,
+  title,
 }) => {
   return (
     <div>
       <Panel
-        title="Repair work order created"
+        title={title}
         workOrderReference={workOrderReference}
         dateSelected={dateSelected}
         slot={slot.split(' ')[0]}

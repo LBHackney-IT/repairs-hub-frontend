@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AppointmentDetails component DRS work order with an appointment when the work order is normal priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is normal priority shows a link to reschedule an appointment with DRS Web Booking Manager 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -12,7 +12,7 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <div
         class="lbh-body-s"
@@ -23,12 +23,23 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
           19 Mar 2021, 12:00-18:00
         </span>
       </div>
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to reschedule appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component DRS work order with an appointment when the work order is urgent priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is urgent priority shows a link to reschedule an appointment with DRS Web Booking Manager 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -40,7 +51,7 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <div
         class="lbh-body-s"
@@ -51,6 +62,17 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
           19 Mar 2021, 12:00-18:00
         </span>
       </div>
+      <a
+        class="lbh-link"
+        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
+        rel="noopener"
+        target="_blank"
+      >
+        <strong>
+          Open DRS
+        </strong>
+         to reschedule appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
@@ -116,7 +138,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link"
@@ -146,7 +168,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
       <a
         class="lbh-link"
@@ -212,7 +234,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is normal priority does show a link to schedule an appointment 1`] = `
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is normal priority shows a link to schedule an appointment 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -224,23 +246,20 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
-      <div
-        class="lbh-body-s"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is urgent priority does show a link to schedule an appointment 1`] = `
+exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is urgent priority shows a link to schedule an appointment 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -252,17 +271,14 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     </span>
     <br />
     <div
-      class="lbh-body-s"
+      class="lbh-body-s govuk-!-margin-top-0"
     >
-      <div
-        class="lbh-body-s"
+      <a
+        class="lbh-link lbh-!-font-weight-bold"
+        href="/work-orders/10000012/appointment/new"
       >
-        <span
-          class="govuk-!-font-size-14"
-        >
-          19 Mar 2021, 12:00-18:00
-        </span>
-      </div>
+        Schedule an appointment
+      </a>
     </div>
   </div>
 </DocumentFragment>
