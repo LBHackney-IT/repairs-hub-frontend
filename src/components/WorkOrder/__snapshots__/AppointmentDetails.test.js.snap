@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is immediate priority shows appointment details and no link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="govuk-!-font-size-14"
+      >
+        19 Mar 2021, 12:00-18:00
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`AppointmentDetails component DRS work order with an appointment when the work order is in a closed state does not show a schedule link 1`] = `
 <DocumentFragment>
   <div
@@ -73,6 +97,30 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
 `;
 
 exports[`AppointmentDetails component DRS work order with an appointment when the work order is urgent priority does not show a link to schedule an appointment with DRS Web Booking Manager 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="govuk-!-font-size-14"
+      >
+        19 Mar 2021, 12:00-18:00
+      </span>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component DRS work order with an appointment when the work order is urgent priority shows appointment details and no link to schedule an appointment with DRS Web Booking Manager 1`] = `
 <DocumentFragment>
   <div
     class="appointment-details"
@@ -199,6 +247,30 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
         </strong>
          to book an appointment
       </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentDetails component Displays "Not applicable" when the work order has been cancelled 1`] = `
+<DocumentFragment>
+  <div
+    class="appointment-details"
+  >
+    <span
+      class="govuk-!-font-size-14"
+    >
+      Appointment details
+    </span>
+    <br />
+    <div
+      class="lbh-body-s"
+    >
+      <span
+        class="lbh-!-font-weight-bold"
+      >
+        Not applicable
+      </span>
     </div>
   </div>
 </DocumentFragment>

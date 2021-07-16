@@ -3,15 +3,12 @@ import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
-import {
-  CLOSED_STATUS_DESCRIPTIONS,
-  STATUS_CANCELLED,
-} from '../../utils/status-codes'
-import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
+import { CLOSED_STATUS_DESCRIPTIONS } from '../../utils/status-codes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
 } from '../../utils/user-permissions'
+import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -56,27 +53,35 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   }
 
   return (
-    <div className="appointment-details">
-      <span className="govuk-!-font-size-14">Appointment details</span>
-      <br></br>
-      <div className="lbh-body-s">
-        {user &&
-        priorityCodesRequiringAppointments.includes(workOrder.priorityCode) &&
-        workOrder.status !== STATUS_CANCELLED.description ? (
-          <>
-            {canScheduleAppointment(user) &&
-              statusAllowsScheduling(workOrder.status) &&
-              !workOrder.appointment &&
-              scheduleAppointmentHtml()}
-            {canSeeAppointmentDetailsInfo(user) &&
-              !!workOrder.appointment &&
-              appointmentDetailsInfoHtml()}
-          </>
-        ) : (
-          <span className="lbh-!-font-weight-bold">Not applicable</span>
-        )}
+    (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
+      <div className="appointment-details">
+        <span className="govuk-!-font-size-14">Appointment details</span>
+        <br></br>
+        <div className="lbh-body-s">
+          {user && (
+            <>
+              {canScheduleAppointment(user) &&
+                !workOrder.appointment &&
+                statusAllowsScheduling(workOrder.status) &&
+                priorityCodesRequiringAppointments.includes(
+                  workOrder.priorityCode
+                ) &&
+                scheduleAppointmentHtml()}
+              {canSeeAppointmentDetailsInfo(user) &&
+                !!workOrder.appointment &&
+                appointmentDetailsInfoHtml()}
+              {canSeeAppointmentDetailsInfo(user) &&
+                !workOrder.appointment &&
+                !priorityCodesRequiringAppointments.includes(
+                  workOrder.priorityCode
+                ) && (
+                  <span className="lbh-!-font-weight-bold">Not applicable</span>
+                )}
+            </>
+          )}
+        </div>
       </div>
-    </div>
+    )
   )
 }
 
