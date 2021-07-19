@@ -9,6 +9,7 @@ import {
   canScheduleAppointment,
 } from '../../utils/user-permissions'
 import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
+import { WorkOrder } from '../../models/work-order'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -86,7 +87,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
 }
 
 AppointmentDetails.propTypes = {
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
 }
 
 export default AppointmentDetails

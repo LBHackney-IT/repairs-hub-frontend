@@ -5,6 +5,7 @@ import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -83,7 +84,7 @@ const WorkOrderHeader = ({
 
 WorkOrderHeader.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,
