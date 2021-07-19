@@ -177,6 +177,50 @@ describe('AppointmentDetails component', () => {
           expect(asFragment()).toMatchSnapshot()
         })
       })
+
+      describe('when the work order is not closed', () => {
+        beforeEach(() => {
+          drsWorkOrder = {
+            ...drsWorkOrder,
+            appointment: null,
+            priorityCode: NORMAL_PRIORITY_CODE,
+            status: 'In Progress',
+          }
+        })
+        it('shows a schedule link', () => {
+          const { asFragment } = render(
+            <UserContext.Provider value={{ user: agent }}>
+              <AppointmentDetails
+                workOrder={drsWorkOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
+            </UserContext.Provider>
+          )
+          expect(asFragment()).toMatchSnapshot()
+        })
+      })
+
+      describe('when the work order is in a closed state', () => {
+        beforeEach(() => {
+          drsWorkOrder = {
+            ...drsWorkOrder,
+            appointment: null,
+            priorityCode: NORMAL_PRIORITY_CODE,
+            status: 'Work Complete',
+          }
+        })
+        it('does not show a schedule link', () => {
+          const { asFragment } = render(
+            <UserContext.Provider value={{ user: agent }}>
+              <AppointmentDetails
+                workOrder={drsWorkOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
+            </UserContext.Provider>
+          )
+          expect(asFragment()).toMatchSnapshot()
+        })
+      })
     })
   })
 
