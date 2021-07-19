@@ -67,8 +67,8 @@ describe('Show work order page', () => {
       cy.contains('Status: In Progress')
       cy.contains('Priority: U - Urgent (5 Working days)')
       cy.contains('Raised by Dummy Agent')
-      cy.contains('18 Jan 2021, 3:28 pm')
-      cy.contains('Target: 23 Jan 2021, 6:30 pm')
+      cy.contains('18 Jan 2021, 15:28')
+      cy.contains('Target: 23 Jan 2021, 18:30')
       cy.contains('Caller: Jill Smith')
       cy.contains('07700 900999')
     })
@@ -293,6 +293,10 @@ describe('Show work order page', () => {
       )
 
       cy.visit('/work-orders/10000012')
+      // Tasks and SORs tab should be active
+      cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+      // Now select Notes tab
+      cy.get('a[id="tab_repairs-history-tab"]').click()
       cy.wait('@repairsHistory')
     })
 

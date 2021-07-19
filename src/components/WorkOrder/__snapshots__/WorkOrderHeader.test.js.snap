@@ -1,0 +1,493 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WorkOrderHeader component when workOrder is in Progress should not show complition reason date and time 1`] = `
+<DocumentFragment>
+  <div
+    class="lbh-body-s govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="property-details-main-section"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Dwelling
+        </span>
+        <br />
+        <a
+          class="lbh-link"
+          href="/properties/undefined"
+        >
+          <div
+            class="lbh-!-font-weight-bold"
+          >
+            16 Pitcairn House
+            <br />
+            St Thomass Square
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              E9 6PT
+            </span>
+          </div>
+        </a>
+      </div>
+      <ul
+        class="lbh-list hackney-property-alerts"
+      >
+        <li
+          class="bg-dark-green"
+        >
+          Tenure: Secure
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+      </ul>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="work-order-info"
+      >
+        <div
+          class="lbh-body-s govuk-!-margin-bottom-2"
+        >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Status: In Progress
+          </span>
+          <br />
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Priority: U - Urgent (5 Working days)
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Raised by Dummy Agent
+          </span>
+          <br />
+          <span>
+            18 Jan 2021, 15:28
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Target: 23 Jan 2021, 18:30
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Caller: Jill Smith
+          </span>
+          <br />
+          <span>
+            07700 900999
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="appointment-details"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Appointment details
+        </span>
+        <br />
+        <div
+          class="lbh-body-s"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Not applicable
+          </span>
+        </div>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          Assigned to: Alphatrack (S) Systems Lt
+        </span>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          <strong>
+            In Progress: 22 Jan 2021, 18:15
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: Completed, date and time 1`] = `
+<DocumentFragment>
+  <div
+    class="lbh-body-s govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="property-details-main-section"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Dwelling
+        </span>
+        <br />
+        <a
+          class="lbh-link"
+          href="/properties/undefined"
+        >
+          <div
+            class="lbh-!-font-weight-bold"
+          >
+            16 Pitcairn House
+            <br />
+            St Thomass Square
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              E9 6PT
+            </span>
+          </div>
+        </a>
+      </div>
+      <ul
+        class="lbh-list hackney-property-alerts"
+      >
+        <li
+          class="bg-dark-green"
+        >
+          Tenure: Secure
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+      </ul>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="work-order-info"
+      >
+        <div
+          class="lbh-body-s govuk-!-margin-bottom-2"
+        >
+          <span
+            class="circle-tag circle-tag--status-work-complete"
+          />
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Status: Work Complete
+          </span>
+          <br />
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Priority: U - Urgent (5 Working days)
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Raised by Dummy Agent
+          </span>
+          <br />
+          <span>
+            18 Jan 2021, 15:28
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Target: 23 Jan 2021, 18:30
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Caller: Jill Smith
+          </span>
+          <br />
+          <span>
+            07700 900999
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="appointment-details"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Appointment details
+        </span>
+        <br />
+        <div
+          class="lbh-body-s"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Not applicable
+          </span>
+        </div>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          Assigned to: Alphatrack (S) Systems Lt
+        </span>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          <strong>
+            Completed: 22 Jan 2021, 18:15
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: No Access, date and time 1`] = `
+<DocumentFragment>
+  <div
+    class="lbh-body-s govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="property-details-main-section"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Dwelling
+        </span>
+        <br />
+        <a
+          class="lbh-link"
+          href="/properties/undefined"
+        >
+          <div
+            class="lbh-!-font-weight-bold"
+          >
+            16 Pitcairn House
+            <br />
+            St Thomass Square
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              E9 6PT
+            </span>
+          </div>
+        </a>
+      </div>
+      <ul
+        class="lbh-list hackney-property-alerts"
+      >
+        <li
+          class="bg-dark-green"
+        >
+          Tenure: Secure
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+      </ul>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="work-order-info"
+      >
+        <div
+          class="lbh-body-s govuk-!-margin-bottom-2"
+        >
+          <span
+            class="circle-tag circle-tag--status-no-access"
+          />
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Status: No Access
+          </span>
+          <br />
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Priority: U - Urgent (5 Working days)
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Raised by Dummy Agent
+          </span>
+          <br />
+          <span>
+            18 Jan 2021, 15:28
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Target: 23 Jan 2021, 18:30
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Caller: Jill Smith
+          </span>
+          <br />
+          <span>
+            07700 900999
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="appointment-details"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Appointment details
+        </span>
+        <br />
+        <div
+          class="lbh-body-s"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Not applicable
+          </span>
+        </div>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          Assigned to: Alphatrack (S) Systems Lt
+        </span>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          <strong>
+            No Access: 22 Jan 2021, 18:15
+          </strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

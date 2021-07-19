@@ -125,11 +125,12 @@ describe('Work order cancellations', () => {
         })
 
       // Cancel work order confirmation screen
-      cy.get('.govuk-panel--confirmation').within(() => {
-        cy.get('.lbh-heading-h1').contains('Repair cancelled')
-        cy.get('.govuk-panel__body').contains(
-          'Work order 10000012 has been cancelled'
-        )
+      cy.get('.lbh-panel').within(() => {
+        cy.get('.govuk-panel__title').contains('Repair work order cancelled')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Work order number')
+          cy.contains('10000012')
+        })
       })
 
       cy.get('.lbh-list').within(() => {

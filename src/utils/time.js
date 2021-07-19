@@ -5,9 +5,9 @@ export const extractTimeFromDate = (datetime) => {
     datetime = new Date(datetime)
   }
   return datetime.toLocaleString('en-GB', {
+    hourCycle: 'h23',
     hour: 'numeric',
     minute: 'numeric',
-    hourCycle: 'h12',
   })
 }
 
@@ -16,12 +16,12 @@ export const formatDateTime = (datetime) => {
     datetime = new Date(datetime)
   }
   return datetime.toLocaleString('en-GB', {
-    hourCycle: 'h12',
+    hourCycle: 'h23',
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     hour: 'numeric',
-    minute: '2-digit',
+    minute: 'numeric',
   })
 }
 

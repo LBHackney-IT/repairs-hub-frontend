@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import Panel from '../../Template/Panel'
 
 const ScheduleAppointmentSuccess = ({
   workOrderReference,
@@ -10,20 +11,13 @@ const ScheduleAppointmentSuccess = ({
 }) => {
   return (
     <div>
-      <div className="govuk-panel govuk-panel--confirmation lbh-panel">
-        <h1 className="lbh-heading-h1 text-white">Repair work order created</h1>
-        <div className="govuk-panel__body">
-          <p className="govuk-!-margin-top-3">Work order number</p>
-          <strong className="govuk-!-font-size-41">{workOrderReference}</strong>
-          <br />
-          <br />
-          <strong className="govuk-!-font-size-36">{dateSelected}</strong>
-          <br></br>
-          <strong className="govuk-!-font-size-36">{slot.split(' ')[0]}</strong>
-          <br></br>
-          <p>Comments: {comments}</p>
-        </div>
-      </div>
+      <Panel
+        title="Repair work order created"
+        workOrderReference={workOrderReference}
+        dateSelected={dateSelected}
+        slot={slot.split(' ')[0]}
+        comments={comments}
+      />
 
       <ul className="lbh-list govuk-!-margin-top-9">
         <li>

@@ -5,14 +5,12 @@ exports[`WorkOrderInfo component should render properly 1`] = `
   <div
     class="work-order-info"
   >
-    <span
-      class="govuk-!-font-size-14"
-    >
-      Work order
-    </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
+      <span
+        class="circle-tag circle-tag--status-in-progress"
+      />
       <span
         class="lbh-!-font-weight-bold"
       >
@@ -33,7 +31,7 @@ exports[`WorkOrderInfo component should render properly 1`] = `
       </span>
       <br />
       <span>
-        18 Jan 2021, 3:28 pm
+        18 Jan 2021, 15:28
       </span>
     </div>
     <div
@@ -42,7 +40,7 @@ exports[`WorkOrderInfo component should render properly 1`] = `
       <span
         class="lbh-!-font-weight-bold"
       >
-        Target: 23 Jan 2021, 6:30 pm
+        Target: 23 Jan 2021, 18:30
       </span>
     </div>
     <div
@@ -65,14 +63,12 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
   <div
     class="work-order-info"
   >
-    <span
-      class="govuk-!-font-size-14"
-    >
-      Work order
-    </span>
     <div
       class="lbh-body-s govuk-!-margin-bottom-2"
     >
+      <span
+        class="circle-tag circle-tag--status-in-progress"
+      />
       <span
         class="lbh-!-font-weight-bold"
       >
@@ -82,7 +78,9 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
       <span
         class="text-dark-red govuk-!-font-size-14"
       >
-        Priority: some priority text
+        <strong>
+          Priority: some priority text
+        </strong>
       </span>
     </div>
     <div
@@ -93,7 +91,7 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
       </span>
       <br />
       <span>
-        18 Jan 2021, 3:28 pm
+        18 Jan 2021, 15:28
       </span>
     </div>
     <div
@@ -102,7 +100,7 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
       <span
         class="lbh-!-font-weight-bold"
       >
-        Target: 23 Jan 2021, 6:30 pm
+        Target: 23 Jan 2021, 18:30
       </span>
     </div>
     <div
