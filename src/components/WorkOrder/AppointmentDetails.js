@@ -4,10 +4,8 @@ import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
 import {
+  CLOSED_STATUS_DESCRIPTIONS,
   STATUS_CANCELLED,
-  STATUS_AUTHORISATION_PENDING_APPROVAL,
-  STATUS_COMPLETE,
-  STATUS_NO_ACCESS,
 } from '../../utils/status-codes'
 import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 import {
@@ -19,13 +17,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
 
   const statusAllowsScheduling = (currentStatus) => {
-    const statuses = [
-      STATUS_CANCELLED.description,
-      STATUS_AUTHORISATION_PENDING_APPROVAL.description,
-      STATUS_COMPLETE.description,
-      STATUS_NO_ACCESS.description,
-    ]
-    return !statuses.includes(currentStatus)
+    return !CLOSED_STATUS_DESCRIPTIONS.includes(currentStatus)
   }
 
   const appointmentNotApplicableHtml = () => {
