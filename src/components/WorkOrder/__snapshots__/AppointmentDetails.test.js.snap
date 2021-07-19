@@ -252,30 +252,6 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
 </DocumentFragment>
 `;
 
-exports[`AppointmentDetails component Displays "Not applicable" when the work order has been cancelled 1`] = `
-<DocumentFragment>
-  <div
-    class="appointment-details"
-  >
-    <span
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </span>
-    <br />
-    <div
-      class="lbh-body-s"
-    >
-      <span
-        class="lbh-!-font-weight-bold"
-      >
-        Not applicable
-      </span>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`AppointmentDetails component Work order (non DRS) with no appointment when the work order is emergency priority does not show a link to schedule an appointment 1`] = `
 <DocumentFragment>
   <div
