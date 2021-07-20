@@ -26,10 +26,10 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
 
   const appointmentDetailsInfoHtml = () => {
     return (
-      <span className="govuk-!-font-size-14">
+      <p className="govuk-!-font-size-14">
         {dateToStr(new Date(workOrder.appointment.date))},{' '}
         {workOrder.appointment.start}-{workOrder.appointment.end}
-      </span>
+      </p>
     )
   }
 
@@ -61,11 +61,11 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
 
       const linkText = hasExistingAppointment
         ? 'Reschedule appointment'
-        : 'Schedule an appointment'
+        : 'Schedule appointment'
 
       return (
         <Link href={href}>
-          <a className="lbh-link lbh-!-font-weight-bold">{linkText}</a>
+          <a className="lbh-link">{linkText}</a>
         </Link>
       )
     }
@@ -74,22 +74,21 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   return (
     (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
       <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
+        <p className="govuk-!-font-size-14">Appointment details</p>
+        <div className="lbh-body-s govuk-!-margin-0">
           {user && (
             <>
-              {canScheduleAppointment(user) &&
-                workOrder.canBeScheduled() &&
-                scheduleAppointmentHtml(!!workOrder.appointment)}
               {canSeeAppointmentDetailsInfo(user) &&
                 workOrder.appointment &&
                 workOrder.status !== STATUS_CANCELLED &&
                 appointmentDetailsInfoHtml()}
+              {canScheduleAppointment(user) &&
+                workOrder.canBeScheduled() &&
+                scheduleAppointmentHtml(!!workOrder.appointment)}
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
                 !workOrder.canBeScheduled() && (
-                  <span className="lbh-!-font-weight-bold">Not applicable</span>
+                  <p className="lbh-!-font-weight-bold">Not applicable</p>
                 )}
             </>
           )}

@@ -36,7 +36,7 @@ describe('Managing work order appointments', () => {
 
       cy.get('.appointment-details').within(() => {
         cy.contains('Appointment details')
-        cy.contains('a', 'Schedule an appointment')
+        cy.contains('a', 'Schedule appointment')
 
         cy.contains('a', 'Open DRS to book an appointment').should('not.exist')
       })
@@ -86,7 +86,7 @@ describe('Managing work order appointments', () => {
 
         cy.get('.appointment-details').within(() => {
           cy.contains('Appointment details')
-          cy.contains('a', 'Schedule an appointment').should('not.exist')
+          cy.contains('a', 'Schedule appointment').should('not.exist')
 
           cy.contains('a', 'Open DRS to book an appointment').should(
             'have.attr',
