@@ -1,3 +1,5 @@
+import { addMinutes, subMinutes } from 'date-fns'
+import format from 'date-fns/format'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -9,6 +11,7 @@ import {
   WORK_ORDERS_STATUSES,
 } from '../utils/status-codes'
 import { WorkOrder } from './work-order'
+import MockDate from 'mockdate'
 
 describe('WorkOrder', () => {
   describe('isHigherPriority()', () => {
@@ -62,6 +65,40 @@ describe('WorkOrder', () => {
 
         expect(workOrder.statusAllowsScheduling()).toBe(false)
       })
+    })
+  })
+
+  describe('appointmentStartTimePassed()', () => {
+    it('returns false when there is no appointment', () => {
+      const workOrder = new WorkOrder()
+
+      expect(workOrder.appointmentStartTimePassed()).toBe(false)
+    })
+
+    it.only('returns true when the current time is past the appointment start time', () => {
+      const now = new Date()
+
+      const date = format(now, 'yyyy-MM-dd')
+      const start = format(now, 'HH:mm')
+
+      const workOrder = new WorkOrder({ appointment: { date, start } })
+
+      MockDate.set(addMinutes(now, 1))
+
+      expect(workOrder.appointmentStartTimePassed()).toBe(true)
+    })
+
+    it('returns false when the current time is before the appointment start time', () => {
+      const now = new Date()
+
+      const date = format(now, 'yyyy-MM-dd')
+      const start = format(now, 'HH:mm')
+
+      const workOrder = new WorkOrder({ appointment: { date, start } })
+
+      MockDate.set(subMinutes(now, 1))
+
+      expect(workOrder.appointmentStartTimePassed()).toBe(false)
     })
   })
 })

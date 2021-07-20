@@ -18,17 +18,6 @@ const WorkOrderHeader = ({
   canRaiseRepair,
   schedulerSessionId,
 }) => {
-  const pastAppointmentStartTime = (date, startTime) => {
-    if (!date || !startTime) {
-      return false
-    }
-
-    const currentTime = new Date().getTime()
-    const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
-
-    return currentTime > appointmentStartTime
-  }
-
   const completionReason = () => {
     return workOrder.status === 'Work Complete' ? 'Completed' : workOrder.status
   }
@@ -73,10 +62,9 @@ const WorkOrderHeader = ({
         )}
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
-          pastAppointmentStartTime(
-            workOrder.appointment.date,
-            workOrder.appointment.start
-          ) && <Operatives operatives={workOrder.operatives} />}
+          workOrder.appointmentStartTimePassed() && (
+            <Operatives operatives={workOrder.operatives} />
+          )}
       </div>
     </div>
   )

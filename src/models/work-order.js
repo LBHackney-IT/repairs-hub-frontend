@@ -29,4 +29,22 @@ export class WorkOrder {
   statusAllowsScheduling = () => {
     return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
   }
+
+  appointmentStartTimePassed = () => {
+    if (
+      !this.appointment ||
+      !this.appointment.date ||
+      !this.appointment.start
+    ) {
+      return false
+    }
+
+    const currentTime = new Date().getTime()
+
+    const appointmentStartTime = new Date(
+      `${this.appointment.date}T${this.appointment.start}`
+    ).getTime()
+
+    return currentTime > appointmentStartTime
+  }
 }
