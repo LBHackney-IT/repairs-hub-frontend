@@ -10,7 +10,7 @@ import { URGENT_PRIORITY_CODE } from '../../utils/helpers/priorities'
 import { WorkOrder } from '../../models/work-order'
 
 describe('WorkOrderDetails component', () => {
-  let workOrder = new WorkOrder({
+  let workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
     lastUpdated: null,
@@ -26,7 +26,7 @@ describe('WorkOrderDetails component', () => {
     callerName: 'Jill Smith',
     callerNumber: '07700 900999',
     operatives: [],
-  })
+  }
 
   const props = {
     property: {
@@ -85,11 +85,11 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'In Progress',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -121,11 +121,11 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'In Progress',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -157,11 +157,11 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'In Progress',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -177,7 +177,6 @@ describe('WorkOrderDetails component', () => {
 
     it('should render with a link to authorise a variation request when status is variation pending approval', () => {
       // Work order status is Variation Pending Approval
-      workOrder.status = 'Variation Pending Approval'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
           <MultiButton
@@ -193,11 +192,16 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'Variation Pending Approval',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={
+              new WorkOrder({
+                ...workOrderData,
+                status: 'Variation Pending Approval',
+              })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -213,12 +217,13 @@ describe('WorkOrderDetails component', () => {
 
     it('should render without a link to authorise a variation request when status is not variation pending approval', () => {
       // Work order status is In Progress
-      workOrder.status = 'In Progress'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={
+              new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -250,11 +255,11 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'In Progress',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -270,7 +275,6 @@ describe('WorkOrderDetails component', () => {
 
     it('should render with a link to authorise a new work order when status is authorisation pending approval', () => {
       // Work order status is Authorisation Pending Approval
-      workOrder.status = 'Authorisation Pending Approval'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
           <MultiButton
@@ -286,11 +290,16 @@ describe('WorkOrderDetails component', () => {
                 permittedStatuses: 'Authorisation Pending Approval',
               },
             ]}
-            workOrderReference={workOrder.reference}
+            workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={
+              new WorkOrder({
+                ...workOrderData,
+                status: 'Authorisation Pending Approval',
+              })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -306,12 +315,13 @@ describe('WorkOrderDetails component', () => {
 
     it('should render without a link to authorise a new work order when status is not authorisation pending approval', () => {
       // Work order status is In Progress
-      workOrder.status = 'In Progress'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={
+              new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}

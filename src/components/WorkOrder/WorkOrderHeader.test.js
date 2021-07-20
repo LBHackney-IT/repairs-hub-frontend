@@ -5,7 +5,7 @@ import { agent } from 'factories/agent'
 import { WorkOrder } from '../../models/work-order'
 
 describe('WorkOrderHeader component', () => {
-  let workOrder = new WorkOrder({
+  let workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
     lastUpdated: null,
@@ -22,7 +22,7 @@ describe('WorkOrderHeader component', () => {
     callerNumber: '07700 900999',
     operatives: [],
     closedDated: '2021-01-22T18:15:00.00000',
-  })
+  }
 
   const props = {
     property: {
@@ -72,7 +72,7 @@ describe('WorkOrderHeader component', () => {
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}
@@ -87,12 +87,11 @@ describe('WorkOrderHeader component', () => {
     })
     it('should show complition reason: No Access, date and time', () => {
       //WorkOrder status: No Access
-      workOrder.status = 'No Access'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={new WorkOrder({ ...workOrderData, status: 'No Access' })}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}
@@ -110,12 +109,13 @@ describe('WorkOrderHeader component', () => {
   describe('when workOrder is in Progress', () => {
     it('should not show complition reason date and time', () => {
       //WorkOrder status: In Progress
-      workOrder.status = 'In Progress'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
             propertyReference={props.property.propertyReference}
-            workOrder={workOrder}
+            workOrder={
+              new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}

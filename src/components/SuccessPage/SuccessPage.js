@@ -1,9 +1,24 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import UserContext from '../UserContext/UserContext'
 
 const SuccessPage = ({ ...props }) => {
+  const { user } = useContext(UserContext)
+
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      props.workOrderReference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await postJobStatusUpdate(jobStatusUpdate)
+  }
+
   return (
     <>
       <PageAnnouncement
@@ -22,7 +37,12 @@ const SuccessPage = ({ ...props }) => {
           <li>
             Please{' '}
             <Link href={props.externalSchedulerLink}>
-              <a className="lbh-link" target="_blank" rel="noopener">
+              <a
+                className="lbh-link"
+                target="_blank"
+                rel="noopener"
+                onClick={openExternalLinkEventHandler}
+              >
                 <strong>open DRS</strong>
               </a>
             </Link>{' '}

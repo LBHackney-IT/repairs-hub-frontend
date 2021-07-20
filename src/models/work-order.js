@@ -1,8 +1,6 @@
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
-  NORMAL_PRIORITY_CODE,
-  URGENT_PRIORITY_CODE,
 } from '../utils/helpers/priorities'
 
 import {
@@ -22,15 +20,8 @@ export class WorkOrder {
     )
   }
 
-  isLowerPriority = () => {
-    return (
-      this.priorityCode === URGENT_PRIORITY_CODE ||
-      this.priorityCode === NORMAL_PRIORITY_CODE
-    )
-  }
-
-  statusAllowsScheduling = () => {
-    return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
+  canBeScheduled = () => {
+    return this.statusAllowsScheduling() && !this.isHigherPriority()
   }
 
   completionReason = () => {
@@ -55,5 +46,9 @@ export class WorkOrder {
     ).getTime()
 
     return currentTime > appointmentStartTime
+  }
+
+  statusAllowsScheduling = () => {
+    return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
   }
 }

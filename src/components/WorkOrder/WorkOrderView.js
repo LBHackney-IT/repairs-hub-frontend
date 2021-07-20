@@ -32,11 +32,8 @@ const WorkOrderView = ({ workOrderReference }) => {
       const workOrder = await getWorkOrder(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
 
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order with no appointment
-      if (
-        workOrder.externalAppointmentManagementUrl &&
-        !workOrder.appointment
-      ) {
+      // Call getOrCreateSchedulerSessionId if it is a DRS work order
+      if (workOrder.externalAppointmentManagementUrl) {
         const schedulerSessionId = await getOrCreateSchedulerSessionId()
         setSchedulerSessionId(schedulerSessionId)
       }

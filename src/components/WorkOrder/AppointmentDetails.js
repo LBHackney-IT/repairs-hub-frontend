@@ -9,28 +9,45 @@ import {
   canScheduleAppointment,
 } from '../../utils/user-permissions'
 import { WorkOrder } from '../../models/work-order'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
 
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await postJobStatusUpdate(jobStatusUpdate)
+  }
+
   const appointmentDetailsInfoHtml = () => {
     return (
-      <span className="govuk-!-font-size-14">
+      <p className="govuk-!-font-size-14">
         {dateToStr(new Date(workOrder.appointment.date))},{' '}
         {workOrder.appointment.start}-{workOrder.appointment.end}
-      </span>
+      </p>
     )
   }
 
-  const scheduleAppointmentHtml = () => {
+  const scheduleAppointmentHtml = (hasExistingAppointment) => {
     if (workOrder.externalAppointmentManagementUrl) {
       if (schedulerSessionId) {
         return (
           <Link
             href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
           >
-            <a className="lbh-link" target="_blank" rel="noopener">
-              <strong>Open DRS</strong> to book an appointment
+            <a
+              className="lbh-link"
+              target="_blank"
+              rel="noopener"
+              onClick={openExternalLinkEventHandler}
+            >
+              <strong>Open DRS</strong> to{' '}
+              {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
             </a>
           </Link>
         )
@@ -38,11 +55,17 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         console.error('Scheduler Session ID does not exist')
       }
     } else {
+      const href = hasExistingAppointment
+        ? `/work-orders/${workOrder.reference}/appointment/edit`
+        : `/work-orders/${workOrder.reference}/appointment/new`
+
+      const linkText = hasExistingAppointment
+        ? 'Reschedule appointment'
+        : 'Schedule appointment'
+
       return (
-        <Link href={`/work-orders/${workOrder.reference}/appointment/new`}>
-          <a className="lbh-link lbh-!-font-weight-bold">
-            Schedule an appointment
-          </a>
+        <Link href={href}>
+          <a className="lbh-link">{linkText}</a>
         </Link>
       )
     }
@@ -51,24 +74,21 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   return (
     (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
       <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
+        <p className="govuk-!-font-size-14">Appointment details</p>
+        <div className="lbh-body-s govuk-!-margin-0">
           {user && (
             <>
-              {canScheduleAppointment(user) &&
-                !workOrder.appointment &&
-                workOrder.statusAllowsScheduling() &&
-                workOrder.isLowerPriority() &&
-                scheduleAppointmentHtml()}
               {canSeeAppointmentDetailsInfo(user) &&
+                workOrder.appointment &&
                 workOrder.status !== STATUS_CANCELLED &&
-                !!workOrder.appointment &&
                 appointmentDetailsInfoHtml()}
+              {canScheduleAppointment(user) &&
+                workOrder.canBeScheduled() &&
+                scheduleAppointmentHtml(!!workOrder.appointment)}
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
-                !workOrder.isLowerPriority() && (
-                  <span className="lbh-!-font-weight-bold">Not applicable</span>
+                !workOrder.canBeScheduled() && (
+                  <p className="lbh-!-font-weight-bold">Not applicable</p>
                 )}
             </>
           )}

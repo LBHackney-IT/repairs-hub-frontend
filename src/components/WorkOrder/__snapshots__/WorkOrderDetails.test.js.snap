@@ -387,20 +387,19 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
@@ -824,20 +823,19 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
@@ -1145,20 +1143,19 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
@@ -1540,14 +1537,13 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         />
       </div>
       <div
@@ -1907,20 +1903,19 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
@@ -2281,20 +2276,19 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
@@ -2676,14 +2670,13 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         />
       </div>
       <div
@@ -2948,20 +2941,19 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
           <a
-            class="lbh-link lbh-!-font-weight-bold"
+            class="lbh-link"
             href="/work-orders/10000012/appointment/new"
           >
-            Schedule an appointment
+            Schedule appointment
           </a>
         </div>
       </div>
