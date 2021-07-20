@@ -80,16 +80,15 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
           {user && (
             <>
               {canScheduleAppointment(user) &&
-                workOrder.statusAllowsScheduling() &&
-                workOrder.isLowerPriority() &&
+                workOrder.canBeScheduled() &&
                 scheduleAppointmentHtml(!!workOrder.appointment)}
               {canSeeAppointmentDetailsInfo(user) &&
+                workOrder.appointment &&
                 workOrder.status !== STATUS_CANCELLED &&
-                !!workOrder.appointment &&
                 appointmentDetailsInfoHtml()}
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
-                !workOrder.isLowerPriority() && (
+                !workOrder.canBeScheduled() && (
                   <span className="lbh-!-font-weight-bold">Not applicable</span>
                 )}
             </>
