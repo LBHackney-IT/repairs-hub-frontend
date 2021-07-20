@@ -9,7 +9,6 @@ import Radios from '../../Form/Radios/Radios'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import {
   buildAuthorisationApprovedFormData,
@@ -45,8 +44,11 @@ const AuthorisationView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      await postJobStatusUpdate(formData)
-
+      frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setFormSuccess(true)
     } catch (e) {
       console.error(e)

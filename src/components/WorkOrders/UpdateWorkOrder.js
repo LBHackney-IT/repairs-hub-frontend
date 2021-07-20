@@ -7,7 +7,6 @@ import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import UpdateWorkOrderForm from './UpdateWorkOrderForm'
 import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
 import { updateExistingTasksQuantities } from '../../utils/update-tasks'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
 import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
 
@@ -54,8 +53,11 @@ const UpdateWorkOrder = ({ reference }) => {
     setLoading(true)
 
     try {
-      await postJobStatusUpdate(formData)
-
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setOverSpendLimit(overSpendLimit)
       setShowUpdateSuccess(true)
     } catch (e) {

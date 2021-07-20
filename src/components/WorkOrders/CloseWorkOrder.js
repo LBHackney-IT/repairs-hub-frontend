@@ -9,7 +9,6 @@ import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-orde
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { getOperatives } from '../../utils/frontend-api-client/operatives'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
@@ -38,7 +37,11 @@ const CloseWorkOrder = ({ reference }) => {
 
     try {
       if (workOrder.canAssignOperative) {
-        postJobStatusUpdate(operativeAssignmentFormData).then(() => {
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: operativeAssignmentFormData,
+        }).then(() => {
           postWorkOrderComplete(workOrderCompleteFormData)
         })
       } else {

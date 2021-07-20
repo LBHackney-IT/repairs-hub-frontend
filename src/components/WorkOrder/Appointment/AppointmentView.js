@@ -12,7 +12,6 @@ import RepairTasks from './RepairTasks'
 import AppointmentCalendar from './AppointmentCalendar'
 import { postScheduleAppointment } from '../../../utils/frontend-api-client/appointments'
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
-import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '../../../models/work-order'
 
@@ -103,7 +102,11 @@ const AppointmentView = ({ workOrderReference, successText }) => {
 
     try {
       await postScheduleAppointment(formData).then(() =>
-        postJobStatusUpdate(commentsForJobStatus)
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: commentsForJobStatus,
+        })
       )
       setScheduleAppointmentSuccess(true)
     } catch (e) {

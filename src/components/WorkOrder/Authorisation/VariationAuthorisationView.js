@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import BackButton from '../../Layout/BackButton/BackButton'
 import Radios from '../../Form/Radios/Radios'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
@@ -15,7 +14,6 @@ import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
-import { getVariationTasks } from '../../../utils/frontend-api-client/variation-tasks'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
 
@@ -42,7 +40,10 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const variationTasks = await getVariationTasks(workOrderReference)
+      const variationTasks = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/variation-tasks`,
+      })
       const user = await frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
@@ -116,7 +117,11 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const makePostRequest = async (formData) => {
     setLoading(true)
     try {
-      await postJobStatusUpdate(formData)
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
