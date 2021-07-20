@@ -8,7 +8,7 @@ import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-order-complete'
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
-import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { getOperatives } from '../../utils/frontend-api-client/operatives'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
@@ -58,7 +58,10 @@ const CloseWorkOrder = ({ reference }) => {
     setError(null)
 
     try {
-      const workOrder = await getWorkOrder(reference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}`,
+      })
       setWorkOrder(new WorkOrder(workOrder))
 
       if (workOrder.canAssignOperative) {

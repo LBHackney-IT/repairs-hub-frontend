@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getWorkOrder } from '../../../utils/frontend-api-client/work-orders'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
 import { getAvailableAppointments } from '../../../utils/frontend-api-client/appointments'
@@ -39,7 +39,10 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderData = await getWorkOrder(workOrderReference)
+      const workOrderData = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
       const workOrder = new WorkOrder(workOrderData)
 
       if (!workOrder.statusAllowsScheduling()) {
@@ -48,7 +51,6 @@ const AppointmentView = ({ workOrderReference, successText }) => {
         )
         return
       }
-
       const tasksAndSors = await getTasksAndSors(workOrderReference)
       const propertyObject = await getProperty(workOrder.propertyReference)
       const currentDate = beginningOfDay(new Date())

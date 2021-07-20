@@ -4,7 +4,7 @@ import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
-import { getWorkOrder } from '../../../utils/frontend-api-client/work-orders'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
 import { WorkOrder } from '../../../models/work-order'
 
@@ -34,7 +34,10 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getWorkOrder(workOrderReference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
 
       setWorkOrder(new WorkOrder(workOrder))
     } catch (e) {

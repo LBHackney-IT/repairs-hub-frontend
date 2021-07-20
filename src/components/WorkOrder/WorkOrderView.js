@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { getProperty } from '../../utils/frontend-api-client/properties'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
 import Tabs from '../Tabs'
@@ -29,7 +29,10 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getWorkOrder(workOrderReference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
       const propertyObject = await getProperty(workOrder.propertyReference)
 
       // Call getOrCreateSchedulerSessionId if it is a DRS work order
