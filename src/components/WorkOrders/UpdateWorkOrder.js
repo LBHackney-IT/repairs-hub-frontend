@@ -4,7 +4,6 @@ import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { getTasksAndSors } from '../../utils/frontend-api-client/work-orders/[id]/tasks'
 import UpdateWorkOrderForm from './UpdateWorkOrderForm'
 import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
 import { updateExistingTasksQuantities } from '../../utils/update-tasks'
@@ -88,7 +87,10 @@ const UpdateWorkOrder = ({ reference }) => {
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
-      const tasks = await getTasksAndSors(reference)
+      const tasks = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}/tasks`,
+      })
 
       setCurrentUser(currentUser)
       setTasks(tasks)

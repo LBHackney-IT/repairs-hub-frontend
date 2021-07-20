@@ -5,7 +5,7 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
-import { getNotes } from '../../../utils/frontend-api-client/work-orders/[id]/notes'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const NotesView = ({ workOrderReference, tabName }) => {
@@ -41,7 +41,10 @@ const NotesView = ({ workOrderReference, tabName }) => {
     setError(null)
 
     try {
-      const notes = await getNotes(workOrderReference)
+      const notes = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/notes`,
+      })
 
       setNotes(sortObjectsByDateKey(notes, ['time'], 'time'))
     } catch (e) {

@@ -16,7 +16,6 @@ import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
 import { getVariationTasks } from '../../../utils/frontend-api-client/variation-tasks'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
 
@@ -82,7 +81,10 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
 
       setOriginalSors(tasksAndSors.filter((t) => t.original))
     } catch (e) {

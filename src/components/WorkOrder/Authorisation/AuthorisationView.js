@@ -10,7 +10,6 @@ import SuccessPage from '../../SuccessPage/SuccessPage'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import {
   buildAuthorisationApprovedFormData,
@@ -69,7 +68,10 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
       const user = await frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
