@@ -69,7 +69,7 @@ describe('WorkOrderHeader component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
+            propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
@@ -89,7 +89,7 @@ describe('WorkOrderHeader component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
+            propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
@@ -112,7 +112,7 @@ describe('WorkOrderHeader component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
+            propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}

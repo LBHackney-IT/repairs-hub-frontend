@@ -19,7 +19,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"
@@ -183,7 +183,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"
@@ -347,7 +347,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"

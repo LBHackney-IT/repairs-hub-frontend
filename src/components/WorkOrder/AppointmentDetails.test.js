@@ -134,6 +134,50 @@ describe('AppointmentDetails component', () => {
         start: '12:00',
       }
 
+      describe('when the work order is immediate priority', () => {
+        beforeEach(() => {
+          drsWorkOrder = {
+            ...drsWorkOrder,
+            appointment,
+            priorityCode: IMMEDIATE_PRIORITY_CODE,
+          }
+        })
+
+        it('shows appointment details and no link to schedule an appointment with DRS Web Booking Manager', () => {
+          const { asFragment } = render(
+            <UserContext.Provider value={{ user: agent }}>
+              <AppointmentDetails
+                workOrder={drsWorkOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
+            </UserContext.Provider>
+          )
+          expect(asFragment()).toMatchSnapshot()
+        })
+      })
+
+      describe('when the work order is urgent priority', () => {
+        beforeEach(() => {
+          drsWorkOrder = {
+            ...drsWorkOrder,
+            appointment,
+            priorityCode: URGENT_PRIORITY_CODE,
+          }
+        })
+
+        it('shows appointment details and no link to schedule an appointment with DRS Web Booking Manager', () => {
+          const { asFragment } = render(
+            <UserContext.Provider value={{ user: agent }}>
+              <AppointmentDetails
+                workOrder={drsWorkOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
+            </UserContext.Provider>
+          )
+          expect(asFragment()).toMatchSnapshot()
+        })
+      })
+
       describe('when the work order is urgent priority', () => {
         beforeEach(() => {
           drsWorkOrder = {
