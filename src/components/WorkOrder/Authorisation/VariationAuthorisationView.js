@@ -17,7 +17,7 @@ import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
 import { getVariationTasks } from '../../../utils/frontend-api-client/variation-tasks'
 import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
-import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
 
 const VariationAuthorisationView = ({ workOrderReference }) => {
@@ -44,7 +44,10 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
     try {
       const variationTasks = await getVariationTasks(workOrderReference)
-      const user = await getCurrentUser()
+      const user = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
 
       setVariationTasks(variationTasks)
       setVarySpendLimit(parseFloat(user.varyLimit))

@@ -9,7 +9,7 @@ import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-ra
 import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
 import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
-import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 import Meta from '../../Meta'
@@ -108,7 +108,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
       const data = await getProperty(propertyReference)
       const priorities = await getPriorities()
       const trades = await getTrades(propertyReference)
-      const user = await getCurrentUser()
+      const user = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
 
       setTenure(data.tenure)
       setProperty(data.property)

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 import { getTasksAndSors } from '../../utils/frontend-api-client/work-orders/[id]/tasks'
 import UpdateWorkOrderForm from './UpdateWorkOrderForm'
@@ -81,7 +81,10 @@ const UpdateWorkOrder = ({ reference }) => {
     setError(null)
 
     try {
-      const currentUser = await getCurrentUser()
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
       const workOrder = await getWorkOrder(reference)
       const tasks = await getTasksAndSors(reference)
 
