@@ -404,7 +404,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -840,7 +840,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -1160,7 +1160,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -1547,7 +1547,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         />
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -1729,7 +1729,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2111,7 +2111,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2484,7 +2484,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2871,7 +2871,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         />
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -3149,7 +3149,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt

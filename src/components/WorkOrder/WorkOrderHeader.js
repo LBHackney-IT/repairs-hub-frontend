@@ -43,7 +43,7 @@ const WorkOrderHeader = ({
           workOrder={workOrder}
           schedulerSessionId={schedulerSessionId}
         />
-        <div className="lbh-body-xs">
+        <div className="lbh-body-xs govuk-!-margin-top-1">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
         {workOrder.closedDated && (
