@@ -4,7 +4,6 @@ import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
 import { STATUS_CANCELLED } from '../../utils/status-codes'
-import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
@@ -60,9 +59,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
               {canScheduleAppointment(user) &&
                 !workOrder.appointment &&
                 workOrder.statusAllowsScheduling() &&
-                priorityCodesRequiringAppointments.includes(
-                  workOrder.priorityCode
-                ) &&
+                workOrder.isLowerPriority() &&
                 scheduleAppointmentHtml()}
               {canSeeAppointmentDetailsInfo(user) &&
                 workOrder.status !== STATUS_CANCELLED &&
@@ -70,9 +67,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
                 appointmentDetailsInfoHtml()}
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
-                !priorityCodesRequiringAppointments.includes(
-                  workOrder.priorityCode
-                ) && (
+                !workOrder.isLowerPriority() && (
                   <span className="lbh-!-font-weight-bold">Not applicable</span>
                 )}
             </>

@@ -28,6 +28,23 @@ describe('WorkOrder', () => {
     })
   })
 
+  describe('isLowerPriority()', () => {
+    ;[URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE].forEach((code) => {
+      it('returns true', () => {
+        const workOrder = new WorkOrder({ priorityCode: code })
+
+        expect(workOrder.isLowerPriority()).toBe(true)
+      })
+    })
+    ;[IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].forEach((code) => {
+      it('returns false', () => {
+        const workOrder = new WorkOrder({ priorityCode: code })
+
+        expect(workOrder.isLowerPriority()).toBe(false)
+      })
+    })
+  })
+
   describe('statusAllowsScheduling()', () => {
     WORK_ORDERS_STATUSES.filter(
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)

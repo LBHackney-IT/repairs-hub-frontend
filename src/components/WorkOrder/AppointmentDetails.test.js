@@ -1,12 +1,7 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import { agent } from 'factories/agent'
-import {
-  IMMEDIATE_PRIORITY_CODE,
-  EMERGENCY_PRIORITY_CODE,
-  URGENT_PRIORITY_CODE,
-  NORMAL_PRIORITY_CODE,
-} from '../../utils/helpers/priorities'
+import { NORMAL_PRIORITY_CODE } from '../../utils/helpers/priorities'
 import AppointmentDetails from './AppointmentDetails'
 import { WorkOrder } from '../../models/work-order'
 
@@ -42,61 +37,16 @@ describe('AppointmentDetails component', () => {
     }
 
     describe('with no appointment', () => {
-      describe('when the work order is immediate priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            priorityCode: IMMEDIATE_PRIORITY_CODE,
-          }
-        })
-
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is emergency priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            priorityCode: EMERGENCY_PRIORITY_CODE,
-          }
-        })
-
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is urgent priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            priorityCode: URGENT_PRIORITY_CODE,
-          }
-        })
-
+      describe('when the work order is lower priority', () => {
         it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
+
+          workOrder.isLowerPriority = jest.fn(() => true)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
+                workOrder={workOrder}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -105,19 +55,16 @@ describe('AppointmentDetails component', () => {
         })
       })
 
-      describe('when the work order is normal priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            priorityCode: NORMAL_PRIORITY_CODE,
-          }
-        })
+      describe('when the work order is not lower priority', () => {
+        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
 
-        it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          workOrder.isLowerPriority = jest.fn(() => false)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
+                workOrder={workOrder}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -135,86 +82,16 @@ describe('AppointmentDetails component', () => {
         start: '12:00',
       }
 
-      describe('when the work order is immediate priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment,
-            priorityCode: IMMEDIATE_PRIORITY_CODE,
-          }
-        })
-
-        it('shows appointment details and no link to schedule an appointment with DRS Web Booking Manager', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is urgent priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment,
-            priorityCode: URGENT_PRIORITY_CODE,
-          }
-        })
-
-        it('shows appointment details and no link to schedule an appointment with DRS Web Booking Manager', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is urgent priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment,
-            priorityCode: URGENT_PRIORITY_CODE,
-          }
-        })
-
+      describe('when the work order is lower priority', () => {
         it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
+
+          workOrder.isLowerPriority = jest.fn(() => true)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is normal priority', () => {
-        beforeEach(() => {
-          drsWorkOrder = {
-            ...drsWorkOrder,
-            appointment,
-            priorityCode: NORMAL_PRIORITY_CODE,
-          }
-        })
-
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={new WorkOrder(drsWorkOrder)}
+                workOrder={workOrder}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -284,72 +161,36 @@ describe('AppointmentDetails component', () => {
     }
 
     describe('with no appointment', () => {
-      describe('when the work order is immediate priority', () => {
-        beforeEach(() => {
-          nonDRSWorkOrder = {
-            ...nonDRSWorkOrder,
-            priorityCode: IMMEDIATE_PRIORITY_CODE,
-          }
-        })
+      describe('when the work order is lower priority', () => {
+        it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder(nonDRSWorkOrder)
 
-        it('does not show a link to schedule an appointment', () => {
+          workOrder.isLowerPriority = jest.fn(() => true)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
         })
       })
 
-      describe('when the work order is emergency priority', () => {
-        beforeEach(() => {
-          nonDRSWorkOrder = {
-            ...nonDRSWorkOrder,
-            priorityCode: EMERGENCY_PRIORITY_CODE,
-          }
-        })
+      describe('when the work order is not lower priority', () => {
+        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder(nonDRSWorkOrder)
 
-        it('does not show a link to schedule an appointment', () => {
+          workOrder.isLowerPriority = jest.fn(() => false)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is urgent priority', () => {
-        beforeEach(() => {
-          nonDRSWorkOrder = {
-            ...nonDRSWorkOrder,
-            priorityCode: URGENT_PRIORITY_CODE,
-          }
-        })
-
-        it('does show a link to schedule an appointment', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is normal priority', () => {
-        beforeEach(() => {
-          nonDRSWorkOrder = {
-            ...nonDRSWorkOrder,
-            priorityCode: NORMAL_PRIORITY_CODE,
-          }
-        })
-
-        it('does show a link to schedule an appointment', () => {
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
