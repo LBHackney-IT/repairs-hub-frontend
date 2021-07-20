@@ -15,6 +15,7 @@ import { postScheduleAppointment } from '../../../utils/frontend-api-client/appo
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
 import NoAvailableAppointments from './NoAvailableAppointments'
+import { WorkOrder } from '../../../models/work-order'
 
 const AppointmentView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -50,7 +51,7 @@ const AppointmentView = ({ workOrderReference }) => {
         endOfCalendar
       )
 
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
       setTasksAndSors(tasksAndSors)
       setProperty(propertyObject.property)
       setLocationAlerts(propertyObject.alerts.locationAlert)

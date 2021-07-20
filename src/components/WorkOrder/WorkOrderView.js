@@ -7,6 +7,7 @@ import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
 import { getProperty } from '../../utils/frontend-api-client/properties'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
 import Tabs from '../Tabs'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -40,7 +41,7 @@ const WorkOrderView = ({ workOrderReference }) => {
         setSchedulerSessionId(schedulerSessionId)
       }
 
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
       setLocationAlerts(propertyObject.alerts.locationAlert)
       setPersonAlerts(propertyObject.alerts.personAlert)

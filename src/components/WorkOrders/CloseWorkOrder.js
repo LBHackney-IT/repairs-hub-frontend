@@ -13,6 +13,7 @@ import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-
 import { getOperatives } from '../../utils/frontend-api-client/operatives'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
+import { WorkOrder } from '../../models/work-order'
 
 const CloseWorkOrder = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
@@ -58,7 +59,7 @@ const CloseWorkOrder = ({ reference }) => {
 
     try {
       const workOrder = await getWorkOrder(reference)
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
