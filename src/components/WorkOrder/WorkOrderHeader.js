@@ -18,10 +18,6 @@ const WorkOrderHeader = ({
   canRaiseRepair,
   schedulerSessionId,
 }) => {
-  const completionReason = () => {
-    return workOrder.status === 'Work Complete' ? 'Completed' : workOrder.status
-  }
-
   return (
     <div className="lbh-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">
@@ -54,7 +50,7 @@ const WorkOrderHeader = ({
           <div className="lbh-body-xs">
             <span>
               <strong>
-                {completionReason()}:{' '}
+                {workOrder.completionReason()}:{' '}
                 {formatDateTime(new Date(workOrder.closedDated))}
               </strong>
             </span>

@@ -5,7 +5,10 @@ import {
   URGENT_PRIORITY_CODE,
 } from '../utils/helpers/priorities'
 
-import { CLOSED_STATUS_DESCRIPTIONS } from '../utils/status-codes'
+import {
+  CLOSED_STATUS_DESCRIPTIONS,
+  STATUS_COMPLETE,
+} from '../utils/status-codes'
 
 export class WorkOrder {
   constructor(workOrderData) {
@@ -28,6 +31,12 @@ export class WorkOrder {
 
   statusAllowsScheduling = () => {
     return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
+  }
+
+  completionReason = () => {
+    return this.status === STATUS_COMPLETE.description
+      ? 'Completed'
+      : this.status
   }
 
   appointmentStartTimePassed = () => {

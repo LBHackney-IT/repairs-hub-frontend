@@ -8,6 +8,7 @@ import {
 } from '../utils/helpers/priorities'
 import {
   CLOSED_STATUS_DESCRIPTIONS,
+  STATUS_COMPLETE,
   WORK_ORDERS_STATUSES,
 } from '../utils/status-codes'
 import { WorkOrder } from './work-order'
@@ -99,6 +100,24 @@ describe('WorkOrder', () => {
       MockDate.set(subMinutes(now, 1))
 
       expect(workOrder.appointmentStartTimePassed()).toBe(false)
+    })
+  })
+
+  describe('completionReason()', () => {
+    it('returns Completed when the status is work complete', () => {
+      const workOrder = new WorkOrder({ status: STATUS_COMPLETE.description })
+
+      expect(workOrder.completionReason()).toBe('Completed')
+    })
+
+    WORK_ORDERS_STATUSES.filter(
+      (status) => status !== STATUS_COMPLETE.description
+    ).forEach((status) => {
+      it(`returns the status description when the status is ${status}`, () => {
+        const workOrder = new WorkOrder({ status })
+
+        expect(workOrder.completionReason()).toBe(status)
+      })
     })
   })
 })
