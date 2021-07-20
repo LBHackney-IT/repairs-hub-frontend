@@ -8,8 +8,9 @@ import {
   NORMAL_PRIORITY_CODE,
 } from '../../utils/helpers/priorities'
 import AppointmentDetails from './AppointmentDetails'
+import { WorkOrder } from '../../models/work-order'
 
-const workOrder = {
+const workOrderData = {
   reference: 10000012,
   dateRaised: '2021-01-18T15:28:57.17811',
   lastUpdated: null,
@@ -35,7 +36,7 @@ const schedulerSessionId = 'SCHEDULER_SESSION_ID'
 describe('AppointmentDetails component', () => {
   describe('DRS work order', () => {
     let drsWorkOrder = {
-      ...workOrder,
+      ...workOrderData,
       externalAppointmentManagementUrl:
         'https://scheduler.example.hackney.gov.uk?bookingId=1',
     }
@@ -53,7 +54,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -74,7 +75,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -95,7 +96,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -116,7 +117,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -147,7 +148,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -169,7 +170,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -191,7 +192,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -213,7 +214,7 @@ describe('AppointmentDetails component', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={new WorkOrder(drsWorkOrder)}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -222,20 +223,24 @@ describe('AppointmentDetails component', () => {
         })
       })
 
-      describe('when the work order is not closed', () => {
+      describe('when the work order allows scheduling', () => {
         beforeEach(() => {
           drsWorkOrder = {
             ...drsWorkOrder,
             appointment: null,
             priorityCode: NORMAL_PRIORITY_CODE,
-            status: 'In Progress',
           }
         })
+
         it('shows a schedule link', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
+
+          workOrder.statusAllowsScheduling = jest.fn(() => true)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={workOrder}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -244,20 +249,24 @@ describe('AppointmentDetails component', () => {
         })
       })
 
-      describe('when the work order is in a closed state', () => {
+      describe('when the work order does not allow scheduling', () => {
         beforeEach(() => {
           drsWorkOrder = {
             ...drsWorkOrder,
             appointment: null,
             priorityCode: NORMAL_PRIORITY_CODE,
-            status: 'Work Complete',
           }
         })
+
         it('does not show a schedule link', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
+
+          workOrder.statusAllowsScheduling = jest.fn(() => false)
+
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
               <AppointmentDetails
-                workOrder={drsWorkOrder}
+                workOrder={workOrder}
                 schedulerSessionId={schedulerSessionId}
               />
             </UserContext.Provider>
@@ -270,7 +279,7 @@ describe('AppointmentDetails component', () => {
 
   describe('Work order (non DRS)', () => {
     let nonDRSWorkOrder = {
-      ...workOrder,
+      ...workOrderData,
       externalAppointmentManagementUrl: null,
     }
 
@@ -286,7 +295,7 @@ describe('AppointmentDetails component', () => {
         it('does not show a link to schedule an appointment', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={nonDRSWorkOrder} />
+              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -304,7 +313,7 @@ describe('AppointmentDetails component', () => {
         it('does not show a link to schedule an appointment', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={nonDRSWorkOrder} />
+              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -322,7 +331,7 @@ describe('AppointmentDetails component', () => {
         it('does show a link to schedule an appointment', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={nonDRSWorkOrder} />
+              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -340,7 +349,7 @@ describe('AppointmentDetails component', () => {
         it('does show a link to schedule an appointment', () => {
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={nonDRSWorkOrder} />
+              <AppointmentDetails workOrder={new WorkOrder(nonDRSWorkOrder)} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()

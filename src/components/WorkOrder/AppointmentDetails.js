@@ -3,20 +3,16 @@ import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
-import { CLOSED_STATUS_DESCRIPTIONS } from '../../utils/status-codes'
+import { STATUS_CANCELLED } from '../../utils/status-codes'
+import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
 } from '../../utils/user-permissions'
-import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
 import { WorkOrder } from '../../models/work-order'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
-
-  const statusAllowsScheduling = (currentStatus) => {
-    return !CLOSED_STATUS_DESCRIPTIONS.includes(currentStatus)
-  }
 
   const appointmentDetailsInfoHtml = () => {
     return (
@@ -63,12 +59,13 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
             <>
               {canScheduleAppointment(user) &&
                 !workOrder.appointment &&
-                statusAllowsScheduling(workOrder.status) &&
+                workOrder.statusAllowsScheduling() &&
                 priorityCodesRequiringAppointments.includes(
                   workOrder.priorityCode
                 ) &&
                 scheduleAppointmentHtml()}
               {canSeeAppointmentDetailsInfo(user) &&
+                workOrder.status !== STATUS_CANCELLED &&
                 !!workOrder.appointment &&
                 appointmentDetailsInfoHtml()}
               {canSeeAppointmentDetailsInfo(user) &&

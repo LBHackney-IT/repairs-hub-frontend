@@ -3,6 +3,8 @@ import {
   IMMEDIATE_PRIORITY_CODE,
 } from '../utils/helpers/priorities'
 
+import { CLOSED_STATUS_DESCRIPTIONS } from '../utils/status-codes'
+
 export class WorkOrder {
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
@@ -13,5 +15,9 @@ export class WorkOrder {
       this.priorityCode === EMERGENCY_PRIORITY_CODE ||
       this.priorityCode === IMMEDIATE_PRIORITY_CODE
     )
+  }
+
+  statusAllowsScheduling = () => {
+    return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
   }
 }

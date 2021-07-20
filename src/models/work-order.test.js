@@ -4,6 +4,10 @@ import {
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
 } from '../utils/helpers/priorities'
+import {
+  CLOSED_STATUS_DESCRIPTIONS,
+  WORK_ORDERS_STATUSES,
+} from '../utils/status-codes'
 import { WorkOrder } from './work-order'
 
 describe('WorkOrder', () => {
@@ -20,6 +24,26 @@ describe('WorkOrder', () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.isHigherPriority()).toBe(false)
+      })
+    })
+  })
+
+  describe('statusAllowsScheduling()', () => {
+    WORK_ORDERS_STATUSES.filter(
+      (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
+    ).forEach((status) => {
+      it('returns true', () => {
+        const workOrder = new WorkOrder({ status })
+
+        expect(workOrder.statusAllowsScheduling()).toBe(true)
+      })
+    })
+
+    CLOSED_STATUS_DESCRIPTIONS.forEach((status) => {
+      it('returns false', () => {
+        const workOrder = new WorkOrder({ status })
+
+        expect(workOrder.statusAllowsScheduling()).toBe(false)
       })
     })
   })
