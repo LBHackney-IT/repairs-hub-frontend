@@ -9,7 +9,6 @@ import BackButton from '../../Layout/BackButton/BackButton'
 import PropertyDetails from './PropertyDetails'
 import RepairTasks from './RepairTasks'
 import AppointmentCalendar from './AppointmentCalendar'
-import { postScheduleAppointment } from '../../../utils/frontend-api-client/appointments'
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '../../../models/work-order'
@@ -103,7 +102,11 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setLoading(true)
 
     try {
-      await postScheduleAppointment(formData).then(() =>
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/appointments`,
+        requestData: formData,
+      }).then(() =>
         frontEndApiRequest({
           method: 'post',
           path: `/api/jobStatusUpdate`,
