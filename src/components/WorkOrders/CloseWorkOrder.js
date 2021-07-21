@@ -9,7 +9,6 @@ import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-orde
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { getOperatives } from '../../utils/frontend-api-client/operatives'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
 import { WorkOrder } from '../../models/work-order'
@@ -70,7 +69,10 @@ const CloseWorkOrder = ({ reference }) => {
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
 
-        const operatives = await getOperatives()
+        const operatives = await frontEndApiRequest({
+          method: 'get',
+          path: `/api/operatives`,
+        })
         setAvailableOperatives(operatives)
       }
     } catch (e) {
