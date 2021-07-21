@@ -10,7 +10,7 @@ import {
 } from '../../utils/user-permissions'
 import { WorkOrder } from '../../models/work-order'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -21,7 +21,11 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       `${user.name} opened the DRS Web Booking Manager`
     )
 
-    await postJobStatusUpdate(jobStatusUpdate)
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
   const appointmentDetailsInfoHtml = () => {

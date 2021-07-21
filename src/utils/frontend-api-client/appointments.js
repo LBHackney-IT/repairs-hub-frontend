@@ -18,9 +18,3 @@ export const getAvailableAppointments = async (
 
   return data
 }
-
-export const postScheduleAppointment = async (formData) => {
-  const { data } = await axios.post(`/api/appointments`, formData)
-
-  return data
-}

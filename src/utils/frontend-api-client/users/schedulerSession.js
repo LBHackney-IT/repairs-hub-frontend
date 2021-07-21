@@ -1,5 +1,5 @@
-import axios from 'axios'
 import Cookies from 'universal-cookie'
+import { frontEndApiRequest } from '../requests'
 
 const SIX_HOURS_IN_SECONDS = 60 * 60 * 6
 
@@ -11,7 +11,10 @@ export const getOrCreateSchedulerSessionId = async () => {
   )
 
   if (!schedulerSessionId) {
-    ;({ schedulerSessionId } = await getSchedulerSessionId())
+    ;({ schedulerSessionId } = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/users/schedulerSession`,
+    }))
 
     cookies.set(
       process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
@@ -24,10 +27,4 @@ export const getOrCreateSchedulerSessionId = async () => {
   }
 
   return schedulerSessionId
-}
-
-export const getSchedulerSessionId = async () => {
-  const { data } = await axios.get('/api/users/schedulerSession')
-
-  return data
 }

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import UserContext from '../UserContext/UserContext'
 
 const SuccessPage = ({ ...props }) => {
@@ -16,7 +16,11 @@ const SuccessPage = ({ ...props }) => {
       `${user.name} opened the DRS Web Booking Manager`
     )
 
-    await postJobStatusUpdate(jobStatusUpdate)
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
   return (

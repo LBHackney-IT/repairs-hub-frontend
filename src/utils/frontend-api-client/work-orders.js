@@ -38,9 +38,3 @@ export const getWorkOrdersForProperty = async (
 
   return data
 }
-
-export const getWorkOrder = async (workOrderReference) => {
-  const { data } = await axios.get(`/api/workOrders/${workOrderReference}`)
-
-  return data
-}

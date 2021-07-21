@@ -9,9 +9,7 @@ import Radios from '../../Form/Radios/Radios'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
-import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
@@ -46,8 +44,11 @@ const AuthorisationView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      await postJobStatusUpdate(formData)
-
+      frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
@@ -69,8 +70,14 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
-      const user = await getCurrentUser()
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
+      const user = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
 
       setRaiseSpendLimit(parseFloat(user.raiseLimit))
 
