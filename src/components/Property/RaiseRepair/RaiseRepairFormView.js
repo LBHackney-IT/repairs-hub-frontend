@@ -4,7 +4,6 @@ import RaiseRepairForm from './RaiseRepairForm'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
 import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
@@ -103,7 +102,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const data = await getProperty(propertyReference)
+      const data = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/${propertyReference}`,
+      })
       const priorities = await frontEndApiRequest({
         method: 'get',
         path: `/api/schedule-of-rates/priorities`,

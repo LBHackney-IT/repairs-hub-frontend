@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from '../../../utils/frontend-api-client/properties'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { getAvailableAppointments } from '../../../utils/frontend-api-client/appointments'
 import { beginningOfDay, beginningOfWeek, daysAfter } from '../../../utils/time'
@@ -53,7 +52,10 @@ const AppointmentView = ({ workOrderReference, successText }) => {
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
-      const propertyObject = await getProperty(workOrder.propertyReference)
+      const propertyObject = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/${workOrder.propertyReference}`,
+      })
       const currentDate = beginningOfDay(new Date())
       const startOfCalendar = beginningOfWeek(currentDate)
       const endOfCalendar = daysAfter(startOfCalendar, 34)

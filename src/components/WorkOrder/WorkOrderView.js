@@ -4,7 +4,6 @@ import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { getProperty } from '../../utils/frontend-api-client/properties'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
 import Tabs from '../Tabs'
 import { WorkOrder } from '../../models/work-order'
@@ -33,7 +32,10 @@ const WorkOrderView = ({ workOrderReference }) => {
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
-      const propertyObject = await getProperty(workOrder.propertyReference)
+      const propertyObject = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/${workOrder.propertyReference}`,
+      })
 
       // Call getOrCreateSchedulerSessionId if it is a DRS work order
       if (workOrder.externalAppointmentManagementUrl) {
