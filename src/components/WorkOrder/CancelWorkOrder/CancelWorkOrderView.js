@@ -5,7 +5,6 @@ import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
-import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
 import { WorkOrder } from '../../../models/work-order'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
@@ -18,7 +17,11 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      await postWorkOrderComplete(formData)
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrderComplete`,
+        requestData: formData,
+      })
       setFormSuccess(true)
     } catch (e) {
       console.error(e)

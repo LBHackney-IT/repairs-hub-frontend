@@ -5,7 +5,6 @@ import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-order-complete'
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
@@ -41,10 +40,18 @@ const CloseWorkOrder = ({ reference }) => {
           path: `/api/jobStatusUpdate`,
           requestData: operativeAssignmentFormData,
         }).then(() => {
-          postWorkOrderComplete(workOrderCompleteFormData)
+          frontEndApiRequest({
+            method: 'post',
+            path: `/api/workOrderComplete`,
+            requestData: workOrderCompleteFormData,
+          })
         })
       } else {
-        postWorkOrderComplete(workOrderCompleteFormData)
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/workOrderComplete`,
+          requestData: workOrderCompleteFormData,
+        })
       }
       router.push('/')
     } catch (e) {
