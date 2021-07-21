@@ -15,8 +15,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+        path: '/api/workOrders?*',
       },
       { body: [] }
     )

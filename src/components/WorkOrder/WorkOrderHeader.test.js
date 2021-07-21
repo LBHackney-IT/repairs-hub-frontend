@@ -2,27 +2,29 @@ import { render } from '@testing-library/react'
 import WorkOrderHeader from './WorkOrderHeader'
 import UserContext from '../UserContext/UserContext'
 import { agent } from 'factories/agent'
+import { WorkOrder } from '../../models/work-order'
 
 describe('WorkOrderHeader component', () => {
+  let workOrderData = {
+    reference: 10000012,
+    dateRaised: '2021-01-18T15:28:57.17811',
+    lastUpdated: null,
+    priority: 'U - Urgent (5 Working days)',
+    property: '',
+    owner: 'Alphatrack (S) Systems Lt',
+    description: 'This is an urgent repair description',
+    propertyReference: '00014888',
+    status: 'Work Complete',
+    priorityCode: 'some code',
+    raisedBy: 'Dummy Agent',
+    target: '2021-01-23T18:30:00.00000',
+    callerName: 'Jill Smith',
+    callerNumber: '07700 900999',
+    operatives: [],
+    closedDated: '2021-01-22T18:15:00.00000',
+  }
+
   const props = {
-    workOrder: {
-      reference: 10000012,
-      dateRaised: '2021-01-18T15:28:57.17811',
-      lastUpdated: null,
-      priority: 'U - Urgent (5 Working days)',
-      property: '',
-      owner: 'Alphatrack (S) Systems Lt',
-      description: 'This is an urgent repair description',
-      propertyReference: '00014888',
-      status: 'Work Complete',
-      priorityCode: 'some code',
-      raisedBy: 'Dummy Agent',
-      target: '2021-01-23T18:30:00.00000',
-      callerName: 'Jill Smith',
-      callerNumber: '07700 900999',
-      operatives: [],
-      closedDated: '2021-01-22T18:15:00.00000',
-    },
     property: {
       propertyReference: '00012345',
       address: {
@@ -69,8 +71,8 @@ describe('WorkOrderHeader component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
-            workOrder={props.workOrder}
+            propertyReference={props.property.propertyReference}
+            workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}
@@ -85,12 +87,11 @@ describe('WorkOrderHeader component', () => {
     })
     it('should show complition reason: No Access, date and time', () => {
       //WorkOrder status: No Access
-      props.workOrder.status = 'No Access'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
-            workOrder={props.workOrder}
+            propertyReference={props.property.propertyReference}
+            workOrder={new WorkOrder({ ...workOrderData, status: 'No Access' })}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}
@@ -108,12 +109,13 @@ describe('WorkOrderHeader component', () => {
   describe('when workOrder is in Progress', () => {
     it('should not show complition reason date and time', () => {
       //WorkOrder status: In Progress
-      props.workOrder.status = 'In Progress'
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
-            propertyReference={props.propertyReference}
-            workOrder={props.workOrder}
+            propertyReference={props.property.propertyReference}
+            workOrder={
+              new WorkOrder({ ...workOrderData, status: 'In Progress' })
+            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             locationAlerts={props.alerts.locationAlert}

@@ -19,7 +19,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"
@@ -127,20 +127,20 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
-          <span
-            class="lbh-!-font-weight-bold"
+          <a
+            class="lbh-link"
+            href="/work-orders/10000012/appointment/new"
           >
-            Not applicable
-          </span>
+            Schedule appointment
+          </a>
         </div>
       </div>
       <div
@@ -183,7 +183,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"
@@ -291,20 +291,19 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
-          <span
+          <p
             class="lbh-!-font-weight-bold"
           >
             Not applicable
-          </span>
+          </p>
         </div>
       </div>
       <div
@@ -347,7 +346,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         <br />
         <a
           class="lbh-link"
-          href="/properties/undefined"
+          href="/properties/00012345"
         >
           <div
             class="lbh-!-font-weight-bold"
@@ -455,20 +454,19 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
       <div
         class="appointment-details"
       >
-        <span
+        <p
           class="govuk-!-font-size-14"
         >
           Appointment details
-        </span>
-        <br />
+        </p>
         <div
-          class="lbh-body-s"
+          class="lbh-body-s govuk-!-margin-0"
         >
-          <span
+          <p
             class="lbh-!-font-weight-bold"
           >
             Not applicable
-          </span>
+          </p>
         </div>
       </div>
       <div

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorkOrderInfo component should render properly 1`] = `
+exports[`WorkOrderInfo component when the work order is higher priority includes an highlight for that priority 1`] = `
 <DocumentFragment>
   <div
     class="work-order-info"
@@ -18,9 +18,11 @@ exports[`WorkOrderInfo component should render properly 1`] = `
       </span>
       <br />
       <span
-        class="govuk-!-font-size-14"
+        class="text-dark-red govuk-!-font-size-14"
       >
-        Priority: some priority text
+        <strong>
+          Priority: some priority text
+        </strong>
       </span>
     </div>
     <div
@@ -58,7 +60,7 @@ exports[`WorkOrderInfo component should render properly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`WorkOrderInfo component when the work order is immediate priority includes an highlight for that priority 1`] = `
+exports[`WorkOrderInfo component when the work order is lower priority should render properly 1`] = `
 <DocumentFragment>
   <div
     class="work-order-info"
@@ -76,11 +78,9 @@ exports[`WorkOrderInfo component when the work order is immediate priority inclu
       </span>
       <br />
       <span
-        class="text-dark-red govuk-!-font-size-14"
+        class="govuk-!-font-size-14"
       >
-        <strong>
-          Priority: some priority text
-        </strong>
+        Priority: some priority text
       </span>
     </div>
     <div

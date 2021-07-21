@@ -5,6 +5,7 @@ import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -17,21 +18,6 @@ const WorkOrderHeader = ({
   canRaiseRepair,
   schedulerSessionId,
 }) => {
-  const pastAppointmentStartTime = (date, startTime) => {
-    if (!date || !startTime) {
-      return false
-    }
-
-    const currentTime = new Date().getTime()
-    const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
-
-    return currentTime > appointmentStartTime
-  }
-
-  const completionReason = () => {
-    return workOrder.status === 'Work Complete' ? 'Completed' : workOrder.status
-  }
-
   return (
     <div className="lbh-body-s govuk-grid-row">
       <div className="govuk-grid-column-one-third">
@@ -64,7 +50,7 @@ const WorkOrderHeader = ({
           <div className="lbh-body-xs">
             <span>
               <strong>
-                {completionReason()}:{' '}
+                {workOrder.completionReason()}:{' '}
                 {formatDateTime(new Date(workOrder.closedDated))}
               </strong>
             </span>
@@ -72,10 +58,9 @@ const WorkOrderHeader = ({
         )}
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
-          pastAppointmentStartTime(
-            workOrder.appointment.date,
-            workOrder.appointment.start
-          ) && <Operatives operatives={workOrder.operatives} />}
+          workOrder.appointmentStartTimePassed() && (
+            <Operatives operatives={workOrder.operatives} />
+          )}
       </div>
     </div>
   )
@@ -83,7 +68,7 @@ const WorkOrderHeader = ({
 
 WorkOrderHeader.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,

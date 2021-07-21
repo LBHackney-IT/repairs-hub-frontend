@@ -23,6 +23,7 @@ describe('ScheduleAppointmentSuccess component', () => {
         comments={props.comments}
         slot={props.slot}
         dateSelected={props.dateSelected}
+        title={'Repair work order created'}
       />
     )
     expect(asFragment()).toMatchSnapshot()

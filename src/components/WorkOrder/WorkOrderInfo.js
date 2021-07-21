@@ -1,18 +1,8 @@
 import PropTypes from 'prop-types'
-import {
-  IMMEDIATE_PRIORITY_CODE,
-  EMERGENCY_PRIORITY_CODE,
-} from '../../utils/helpers/priorities'
+import { WorkOrder } from '../../models/work-order'
 import { formatDateTime } from '../../utils/time'
 
 const WorkOrderInfo = ({ workOrder }) => {
-  const highPriority = () => {
-    return (
-      workOrder.priorityCode === EMERGENCY_PRIORITY_CODE ||
-      workOrder.priorityCode === IMMEDIATE_PRIORITY_CODE
-    )
-  }
-
   return (
     <div className="work-order-info">
       <div className="lbh-body-s govuk-!-margin-bottom-2">
@@ -25,7 +15,7 @@ const WorkOrderInfo = ({ workOrder }) => {
           Status: {workOrder.status}
         </span>
         <br></br>
-        {highPriority() ? (
+        {workOrder.isHigherPriority() ? (
           <span className="text-dark-red govuk-!-font-size-14">
             <strong>Priority: {workOrder.priority}</strong>
           </span>
@@ -70,7 +60,7 @@ const WorkOrderInfo = ({ workOrder }) => {
 }
 
 WorkOrderInfo.propTypes = {
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
 }
 
 export default WorkOrderInfo

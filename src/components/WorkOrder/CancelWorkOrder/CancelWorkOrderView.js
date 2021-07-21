@@ -6,6 +6,7 @@ import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
 import { getWorkOrder } from '../../../utils/frontend-api-client/work-orders'
 import { postWorkOrderComplete } from '../../../utils/frontend-api-client/work-order-complete'
+import { WorkOrder } from '../../../models/work-order'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
@@ -35,7 +36,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrder = await getWorkOrder(workOrderReference)
 
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
     } catch (e) {
       setWorkOrder(null)
       console.error('An error has occured:', e.response)
