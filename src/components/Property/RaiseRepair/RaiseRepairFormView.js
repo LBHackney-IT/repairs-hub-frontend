@@ -5,7 +5,6 @@ import SuccessPage from '../../SuccessPage/SuccessPage'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
-import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
 import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
@@ -51,8 +50,11 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         statusCode,
         externallyManagedAppointment,
         externalAppointmentManagementUrl,
-      } = await postRepair(formData)
-
+      } = await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrders/schedule`,
+        requestData: formData,
+      })
       setWorkOrderReference(id)
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
