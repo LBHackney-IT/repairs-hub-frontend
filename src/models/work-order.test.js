@@ -136,7 +136,7 @@ describe('WorkOrder', () => {
 
       MockDate.set(subMinutes(now, 1))
 
-      expect(workOrder.appointmentStartTimePassed()).toBe(false)
+      expect(workOrder.targetTimePassed()).toBe(false)
     })
   })
 })
