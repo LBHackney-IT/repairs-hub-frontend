@@ -1,3 +1,4 @@
+import { isSameDay } from 'date-fns'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -46,6 +47,21 @@ export class WorkOrder {
     ).getTime()
 
     return currentTime > appointmentStartTime
+  }
+
+  appointmentIsToday = () => {
+    if (
+      !this.appointment ||
+      !this.appointment.date ||
+      !this.appointment.start
+    ) {
+      return false
+    } else {
+      return isSameDay(
+        new Date(),
+        new Date(`${this.appointment.date}T${this.appointment.start}`)
+      )
+    }
   }
 
   statusAllowsScheduling = () => {

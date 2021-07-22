@@ -1,4 +1,4 @@
-import { addMinutes, subMinutes } from 'date-fns'
+import { addDays, addMinutes, subDays, subMinutes } from 'date-fns'
 import format from 'date-fns/format'
 import {
   EMERGENCY_PRIORITY_CODE,
@@ -137,6 +137,49 @@ describe('WorkOrder', () => {
       MockDate.set(subMinutes(now, 1))
 
       expect(workOrder.targetTimePassed()).toBe(false)
+    })
+  })
+
+  describe('appointmentIsToday()', () => {
+    const now = new Date()
+
+    const date = format(now, 'yyyy-MM-dd')
+    const start = format(now, 'HH:mm')
+
+    describe('when the appointment is tomorrow', () => {
+      beforeEach(() => {
+        MockDate.set(subDays(now, 1))
+      })
+
+      it('returns false', () => {
+        const workOrder = new WorkOrder({ appointment: { date, start } })
+
+        expect(workOrder.appointmentIsToday()).toBe(false)
+      })
+    })
+
+    describe('when the appointment is today', () => {
+      beforeEach(() => {
+        MockDate.set(now)
+      })
+
+      it('returns true', () => {
+        const workOrder = new WorkOrder({ appointment: { date, start } })
+
+        expect(workOrder.appointmentIsToday()).toBe(true)
+      })
+    })
+
+    describe('when the appointment was yesterday', () => {
+      beforeEach(() => {
+        MockDate.set(addDays(now, 1))
+      })
+
+      it('returns false', () => {
+        const workOrder = new WorkOrder({ appointment: { date, start } })
+
+        expect(workOrder.appointmentIsToday()).toBe(false)
+      })
     })
   })
 })
