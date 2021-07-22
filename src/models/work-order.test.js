@@ -73,7 +73,7 @@ describe('WorkOrder', () => {
       expect(workOrder.appointmentStartTimePassed()).toBe(false)
     })
 
-    it.only('returns true when the current time is past the appointment start time', () => {
+    it('returns true when the current time is past the appointment start time', () => {
       const now = new Date()
 
       const date = format(now, 'yyyy-MM-dd')
@@ -115,6 +115,28 @@ describe('WorkOrder', () => {
 
         expect(workOrder.completionReason()).toBe(status)
       })
+    })
+  })
+
+  describe('targetTimePassed()', () => {
+    it('returns true when the current time is past the target time', () => {
+      const now = new Date()
+
+      const workOrder = new WorkOrder({ target: now })
+
+      MockDate.set(addMinutes(now, 1))
+
+      expect(workOrder.targetTimePassed()).toBe(true)
+    })
+
+    it('returns false when the current time is before the target time', () => {
+      const now = new Date()
+
+      const workOrder = new WorkOrder({ target: now })
+
+      MockDate.set(subMinutes(now, 1))
+
+      expect(workOrder.appointmentStartTimePassed()).toBe(false)
     })
   })
 })

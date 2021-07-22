@@ -104,6 +104,18 @@ const SuccessPage = ({ ...props }) => {
             </Link>
           </li>
         )}
+
+        {props.showNewWorkOrderLink && (
+          <li>
+            <Link
+              href={`/properties/${props.propertyReference}/raise-repair/new`}
+            >
+              <a className="lbh-link">
+                <strong>Raise a new work order</strong>
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
     </>
   )
@@ -113,6 +125,8 @@ SuccessPage.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   showDashboardLink: PropTypes.bool,
+  showNewWorkOrderLink: PropTypes.bool,
+  propertyReference: PropTypes.string,
   shortAddress: PropTypes.string,
   showSearchLink: PropTypes.bool,
   authorisationPendingApproval: PropTypes.bool,

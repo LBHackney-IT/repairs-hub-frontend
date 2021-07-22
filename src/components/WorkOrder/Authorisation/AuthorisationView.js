@@ -15,6 +15,7 @@ import {
   buildAuthorisationRejectedFormData,
 } from '../../../utils/hact/job-status-update/authorisation'
 import { calculateTotalCost } from '../../../utils/helpers/calculations'
+import { WorkOrder } from '../../../models/work-order'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -23,6 +24,8 @@ const AuthorisationView = ({ workOrderReference }) => {
   const [authorisationApproved, setAuthorisationApproved] = useState(true)
   const [raiseSpendLimit, setRaiseSpendLimit] = useState()
   const [overSpendLimit, setOverSpendLimit] = useState()
+  const [targetDatePassed, setTargetDatePassed] = useState()
+  const [propertyReference, setPropertyReference] = useState()
   const [formActions, setFormActions] = useState([
     'Approve request',
     'Reject request',
@@ -70,6 +73,12 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
+      const workOrderData = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+      const workOrder = new WorkOrder(workOrderData)
+
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
@@ -85,6 +94,12 @@ const AuthorisationView = ({ workOrderReference }) => {
 
       if (totalCost.toFixed(2) > parseFloat(user.raiseLimit)) {
         setOverSpendLimit(true)
+        setFormActions(['Reject request'])
+      }
+
+      if (workOrder.targetTimePassed()) {
+        setTargetDatePassed(true)
+        setPropertyReference(workOrder.propertyReference)
         setFormActions(['Reject request'])
       }
     } catch (e) {
@@ -127,6 +142,12 @@ const AuthorisationView = ({ workOrderReference }) => {
                 />
               )}
 
+              {targetDatePassed && (
+                <WarningText
+                  text={`Work order cannot be approved, the target date has expired. Please reject and raise a new work order.`}
+                />
+              )}
+
               <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
                 <Radios
                   label="This work order requires your authorisation"
@@ -162,6 +183,8 @@ const AuthorisationView = ({ workOrderReference }) => {
                   : 'You have rejected the authorisation request'
               }
               showDashboardLink={true}
+              showNewWorkOrderLink={targetDatePassed}
+              propertyReference={propertyReference}
             />
           )}
         </>

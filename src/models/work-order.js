@@ -51,4 +51,11 @@ export class WorkOrder {
   statusAllowsScheduling = () => {
     return !CLOSED_STATUS_DESCRIPTIONS.includes(this.status)
   }
+
+  targetTimePassed = () => {
+    const currentTime = new Date().getTime()
+    const targetTime = new Date(`${this.target}`).getTime()
+
+    return currentTime > targetTime
+  }
 }

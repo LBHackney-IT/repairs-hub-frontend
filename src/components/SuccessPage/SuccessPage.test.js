@@ -62,6 +62,22 @@ describe('SuccessPage component', () => {
       })
     })
 
+    describe('Above target date (over raise limit) authorisation', () => {
+      it('should render a success screen with a warning message and link to raise new work order', () => {
+        const testProps = {
+          ...props,
+          authorisationPendingApproval: true,
+          showNewWorkOrderLink: true,
+        }
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user }}>
+            <SuccessPage {...testProps} />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
+
     describe('Within raise limit', () => {
       it('should render a success screen without a warning message', () => {
         const testProps = { ...props, authorisationPendingApproval: false }
