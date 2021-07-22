@@ -102,7 +102,7 @@ describe('WorkOrderDetails component', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
-    it('should not render Multibutton if work order is closed', () => {
+    it('should not render the work order action menu if work order is closed', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
@@ -110,7 +110,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={
               new WorkOrder({
                 ...workOrderData,
-                status: 'No Access',
                 closedDated: '2021-01-22T18:15:00.00000',
               })
             }
@@ -150,31 +149,6 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={new WorkOrder(workOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
-            hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-
-    it('should not render Multibutton if work order is closed', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user: agent }}>
-          <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
-            workOrder={
-              new WorkOrder({
-                ...workOrderData,
-                status: 'Work Complete',
-                closedDated: '2021-01-22T18:15:00.00000',
-              })
-            }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
@@ -272,31 +246,6 @@ describe('WorkOrderDetails component', () => {
             propertyReference={props.property.propertyReference}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
-            }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
-            hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-
-    it('should not render Multibutton if work order is closed', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user: agent }}>
-          <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
-            workOrder={
-              new WorkOrder({
-                ...workOrderData,
-                status: 'No Access',
-                closedDated: '2021-01-22T18:15:00.00000',
-              })
             }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
@@ -408,30 +357,5 @@ describe('WorkOrderDetails component', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
-  })
-
-  it('should not render Multibutton if work order is closed', () => {
-    const { asFragment } = render(
-      <UserContext.Provider value={{ user: agent }}>
-        <WorkOrderDetails
-          propertyReference={props.property.propertyReference}
-          workOrder={
-            new WorkOrder({
-              ...workOrderData,
-              status: 'Canceled',
-              closedDated: '2021-01-22T18:15:00.00000',
-            })
-          }
-          address={props.property.address}
-          subTypeDescription={props.property.hierarchyType.subTypeDescription}
-          tenure={props.tenure}
-          locationAlerts={props.alerts.locationAlert}
-          personAlerts={props.alerts.personAlert}
-          hasLinkToProperty={true}
-          canRaiseRepair={props.property.canRaiseRepair}
-        />
-      </UserContext.Provider>
-    )
-    expect(asFragment()).toMatchSnapshot()
   })
 })
