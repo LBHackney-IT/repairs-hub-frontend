@@ -404,7 +404,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -840,7 +840,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -1160,7 +1160,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -1547,10 +1547,201 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         />
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderDetails component when logged in as an agent should not render the work order action menu if work order is closed 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link"
+    role="button"
+  >
+    Back
+  </a>
+  <div
+    class="govuk-grid-row undefined"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <h1
+        class="lbh-heading-h1 display-inline govuk-!-margin-right-6"
+      >
+        Work order: 10000012
+      </h1>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    />
+  </div>
+  <p
+    class="lbh-body-m"
+  >
+    This is an urgent repair description
+  </p>
+  <div
+    class="lbh-body-s govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="property-details-main-section"
+      >
+        <span
+          class="govuk-!-font-size-14"
+        >
+          Dwelling
+        </span>
+        <br />
+        <a
+          class="lbh-link"
+          href="/properties/00012345"
+        >
+          <div
+            class="lbh-!-font-weight-bold"
+          >
+            16 Pitcairn House
+            <br />
+            St Thomass Square
+            <br />
+            <span
+              class="govuk-!-font-size-14"
+            >
+              E9 6PT
+            </span>
+          </div>
+        </a>
+      </div>
+      <ul
+        class="lbh-list hackney-property-alerts"
+      >
+        <li
+          class="bg-dark-green"
+        >
+          Tenure: Secure
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Property Under Disrepair (
+          <strong>
+            DIS
+          </strong>
+          )
+        </li>
+      </ul>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="work-order-info"
+      >
+        <div
+          class="lbh-body-s govuk-!-margin-bottom-2"
+        >
+          <span
+            class="circle-tag circle-tag--status-in-progress"
+          />
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Status: In Progress
+          </span>
+          <br />
+          <span
+            class="govuk-!-font-size-14"
+          >
+            Priority: U - Urgent (5 Working days)
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Raised by Dummy Agent
+          </span>
+          <br />
+          <span>
+            18 Jan 2021, 15:28
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span
+            class="lbh-!-font-weight-bold"
+          >
+            Target: 23 Jan 2021, 18:30
+          </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-bottom-2"
+        >
+          <span>
+            Caller: Jill Smith
+          </span>
+          <br />
+          <span>
+            07700 900999
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-column-one-third"
+    >
+      <div
+        class="appointment-details"
+      >
+        <p
+          class="govuk-!-font-size-14"
+        >
+          Appointment details
+        </p>
+        <div
+          class="lbh-body-s govuk-!-margin-0"
+        >
+          <a
+            class="lbh-link"
+            href="/work-orders/10000012/appointment/new"
+          >
+            Schedule appointment
+          </a>
+        </div>
+      </div>
+      <div
+        class="lbh-body-xs govuk-!-margin-top-1"
+      >
+        <span>
+          Assigned to: Alphatrack (S) Systems Lt
+        </span>
+      </div>
+      <div
+        class="lbh-body-xs"
+      >
+        <span>
+          <strong>
+            In Progress: 22 Jan 2021, 18:15
+          </strong>
         </span>
       </div>
     </div>
@@ -1920,7 +2111,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2293,7 +2484,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2680,7 +2871,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         />
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -2958,7 +3149,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt

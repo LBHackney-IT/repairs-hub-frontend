@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
-import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
 import { STATUS_CANCELLED } from '../../utils/status-codes'
 import {
@@ -10,7 +9,9 @@ import {
 } from '../../utils/user-permissions'
 import { WorkOrder } from '../../models/work-order'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
+import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
+import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -21,7 +22,11 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       `${user.name} opened the DRS Web Booking Manager`
     )
 
-    await postJobStatusUpdate(jobStatusUpdate)
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
   const appointmentDetailsInfoHtml = () => {
@@ -37,36 +42,24 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
     if (workOrder.externalAppointmentManagementUrl) {
       if (schedulerSessionId) {
         return (
-          <Link
-            href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
-          >
-            <a
-              className="lbh-link"
-              target="_blank"
-              rel="noopener"
-              onClick={openExternalLinkEventHandler}
-            >
-              <strong>Open DRS</strong> to{' '}
-              {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
-            </a>
-          </Link>
+          <ScheduleDRSAppointmentLink
+            workOrder={workOrder}
+            schedulerSessionId={schedulerSessionId}
+            openLinkEventHandler={openExternalLinkEventHandler}
+            hasExistingAppointment={hasExistingAppointment}
+            appointmentIsToday={workOrder.appointmentIsToday()}
+          />
         )
       } else {
         console.error('Scheduler Session ID does not exist')
       }
     } else {
-      const href = hasExistingAppointment
-        ? `/work-orders/${workOrder.reference}/appointment/edit`
-        : `/work-orders/${workOrder.reference}/appointment/new`
-
-      const linkText = hasExistingAppointment
-        ? 'Reschedule appointment'
-        : 'Schedule appointment'
-
       return (
-        <Link href={href}>
-          <a className="lbh-link">{linkText}</a>
-        </Link>
+        <ScheduleInternalAppointmentLink
+          workOrderReference={workOrder.reference}
+          hasExistingAppointment={hasExistingAppointment}
+          appointmentIsToday={workOrder.appointmentIsToday()}
+        />
       )
     }
   }
@@ -84,7 +77,7 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
                 appointmentDetailsInfoHtml()}
               {canScheduleAppointment(user) &&
                 workOrder.canBeScheduled() &&
-                scheduleAppointmentHtml(!!workOrder.appointment)}
+                scheduleAppointmentHtml(workOrder.appointment)}
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
                 !workOrder.canBeScheduled() && (

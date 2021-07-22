@@ -144,7 +144,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -307,7 +307,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt
@@ -470,7 +470,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
         </div>
       </div>
       <div
-        class="lbh-body-xs"
+        class="lbh-body-xs govuk-!-margin-top-1"
       >
         <span>
           Assigned to: Alphatrack (S) Systems Lt

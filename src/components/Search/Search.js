@@ -5,7 +5,7 @@ import PropertiesTable from '../Properties/PropertiesTable'
 import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getProperties } from '../../utils/frontend-api-client/properties'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import Meta from '../Meta'
 import { canAccessWorkOrder } from '../../utils/user-permissions'
 
@@ -42,7 +42,10 @@ const Search = ({ query }) => {
     setError(null)
 
     try {
-      const data = await getProperties(searchQuery)
+      const data = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/?q=${searchQuery}`,
+      })
       setProperties(data)
     } catch (e) {
       setProperties(null)

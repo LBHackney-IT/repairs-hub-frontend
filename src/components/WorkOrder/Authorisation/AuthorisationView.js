@@ -9,14 +9,13 @@ import Radios from '../../Form/Radios/Radios'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { postJobStatusUpdate } from '../../../utils/frontend-api-client/job-status-update'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
-import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
 } from '../../../utils/hact/job-status-update/authorisation'
 import { calculateTotalCost } from '../../../utils/helpers/calculations'
+import { WorkOrder } from '../../../models/work-order'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -25,6 +24,8 @@ const AuthorisationView = ({ workOrderReference }) => {
   const [authorisationApproved, setAuthorisationApproved] = useState(true)
   const [raiseSpendLimit, setRaiseSpendLimit] = useState()
   const [overSpendLimit, setOverSpendLimit] = useState()
+  const [targetDatePassed, setTargetDatePassed] = useState()
+  const [propertyReference, setPropertyReference] = useState()
   const [formActions, setFormActions] = useState([
     'Approve request',
     'Reject request',
@@ -46,8 +47,11 @@ const AuthorisationView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      await postJobStatusUpdate(formData)
-
+      frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
@@ -69,8 +73,20 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
-      const user = await getCurrentUser()
+      const workOrderData = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+      const workOrder = new WorkOrder(workOrderData)
+
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
+      const user = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
 
       setRaiseSpendLimit(parseFloat(user.raiseLimit))
 
@@ -78,6 +94,12 @@ const AuthorisationView = ({ workOrderReference }) => {
 
       if (totalCost.toFixed(2) > parseFloat(user.raiseLimit)) {
         setOverSpendLimit(true)
+        setFormActions(['Reject request'])
+      }
+
+      if (workOrder.targetTimePassed()) {
+        setTargetDatePassed(true)
+        setPropertyReference(workOrder.propertyReference)
         setFormActions(['Reject request'])
       }
     } catch (e) {
@@ -120,6 +142,12 @@ const AuthorisationView = ({ workOrderReference }) => {
                 />
               )}
 
+              {targetDatePassed && (
+                <WarningText
+                  text={`Work order cannot be approved, the target date has expired. Please reject and raise a new work order.`}
+                />
+              )}
+
               <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
                 <Radios
                   label="This work order requires your authorisation"
@@ -155,6 +183,8 @@ const AuthorisationView = ({ workOrderReference }) => {
                   : 'You have rejected the authorisation request'
               }
               showDashboardLink={true}
+              showNewWorkOrderLink={targetDatePassed}
+              propertyReference={propertyReference}
             />
           )}
         </>

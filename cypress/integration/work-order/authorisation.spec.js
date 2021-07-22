@@ -2,6 +2,9 @@
 
 import 'cypress-audit/commands'
 
+// Mock date
+const now = new Date('Fri Jan 22 2021 18:27:20 GMT+0000 (Greenwich Mean Time)')
+
 describe('Authorisation workflow for a work order', () => {
   beforeEach(() => {
     cy.loginWithAuthorisationManagerRole()
@@ -105,6 +108,7 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('Authorises work order', () => {
+      cy.clock(now)
       // Visit work order page
       cy.visit('/work-orders/10000012')
 
@@ -212,6 +216,54 @@ describe('Authorisation workflow for a work order', () => {
           cy.contains('Work order number')
           cy.contains('10000012')
         })
+      })
+    })
+
+    it('Can not authorise (approve) work order if over target date', () => {
+      // Visit work order page
+      cy.visit('/work-orders/10000012/authorisation')
+
+      cy.contains('Authorisation request: 10000012')
+      cy.contains('This work order requires your authorisation')
+
+      // Warning text as work order is over target date
+      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+        cy.contains(
+          'Work order cannot be approved, the target date has expired. Please reject and raise a new work order.'
+        )
+      })
+
+      cy.get('[type="radio"]').contains('Approve request').should('not.exist')
+      cy.get('[type="radio"]').check('Reject request')
+      cy.get('#note').type('Rejecting!')
+      cy.get('[type="submit"]').contains('Submit').click()
+
+      cy.wait('@apiCheck')
+
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000012',
+          },
+          comments: 'Authorisation rejected: Rejecting!',
+          typeCode: '22',
+        })
+
+      // Confirmation screen
+      cy.get('.lbh-page-announcement').within(() => {
+        cy.get('.lbh-page-announcement__title').contains(
+          'You have rejected the authorisation request'
+        )
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Work order number')
+          cy.contains('10000012')
+        })
+      })
+
+      // Shows the new work order link
+      cy.get('.lbh-link').within(() => {
+        cy.contains('Raise a new work order')
       })
     })
   })

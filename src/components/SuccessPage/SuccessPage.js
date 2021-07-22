@@ -4,7 +4,7 @@ import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import UserContext from '../UserContext/UserContext'
 
 const SuccessPage = ({ ...props }) => {
@@ -16,7 +16,11 @@ const SuccessPage = ({ ...props }) => {
       `${user.name} opened the DRS Web Booking Manager`
     )
 
-    await postJobStatusUpdate(jobStatusUpdate)
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
   return (
@@ -100,6 +104,18 @@ const SuccessPage = ({ ...props }) => {
             </Link>
           </li>
         )}
+
+        {props.showNewWorkOrderLink && (
+          <li>
+            <Link
+              href={`/properties/${props.propertyReference}/raise-repair/new`}
+            >
+              <a className="lbh-link">
+                <strong>Raise a new work order</strong>
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
     </>
   )
@@ -109,6 +125,8 @@ SuccessPage.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   showDashboardLink: PropTypes.bool,
+  showNewWorkOrderLink: PropTypes.bool,
+  propertyReference: PropTypes.string,
   shortAddress: PropTypes.string,
   showSearchLink: PropTypes.bool,
   authorisationPendingApproval: PropTypes.bool,

@@ -11,6 +11,7 @@ $repairs-hub-colours: (
   'dark-green': lbh-colour('lbh-a01'),
   'light-green': lbh-colour('lbh-primary-disabled'),
   'blue': lbh-colour('lbh-link'),
+  'lightest-blue': #e7f0f6,
 );
 
 @function repairs-hub-colour($colour) {

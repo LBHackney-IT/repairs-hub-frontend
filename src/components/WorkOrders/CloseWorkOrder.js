@@ -5,12 +5,9 @@ import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { postWorkOrderComplete } from '../../utils/frontend-api-client/work-order-complete'
 import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
 import { useRouter } from 'next/router'
-import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
-import { getOperatives } from '../../utils/frontend-api-client/operatives'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
 import { WorkOrder } from '../../models/work-order'
@@ -38,11 +35,23 @@ const CloseWorkOrder = ({ reference }) => {
 
     try {
       if (workOrder.canAssignOperative) {
-        postJobStatusUpdate(operativeAssignmentFormData).then(() => {
-          postWorkOrderComplete(workOrderCompleteFormData)
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: operativeAssignmentFormData,
+        }).then(() => {
+          frontEndApiRequest({
+            method: 'post',
+            path: `/api/workOrderComplete`,
+            requestData: workOrderCompleteFormData,
+          })
         })
       } else {
-        postWorkOrderComplete(workOrderCompleteFormData)
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/workOrderComplete`,
+          requestData: workOrderCompleteFormData,
+        })
       }
       router.push('/')
     } catch (e) {
@@ -58,13 +67,19 @@ const CloseWorkOrder = ({ reference }) => {
     setError(null)
 
     try {
-      const workOrder = await getWorkOrder(reference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}`,
+      })
       setWorkOrder(new WorkOrder(workOrder))
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
 
-        const operatives = await getOperatives()
+        const operatives = await frontEndApiRequest({
+          method: 'get',
+          path: `/api/operatives`,
+        })
         setAvailableOperatives(operatives)
       }
     } catch (e) {

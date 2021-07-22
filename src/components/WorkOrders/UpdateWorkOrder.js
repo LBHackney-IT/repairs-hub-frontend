@@ -3,13 +3,10 @@ import { useState, useEffect } from 'react'
 import Spinner from '../Spinner/Spinner'
 import BackButton from '../Layout/BackButton/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getCurrentUser } from '../../utils/frontend-api-client/hub-user'
-import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
-import { getTasksAndSors } from '../../utils/frontend-api-client/work-orders/[id]/tasks'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import UpdateWorkOrderForm from './UpdateWorkOrderForm'
 import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
 import { updateExistingTasksQuantities } from '../../utils/update-tasks'
-import { postJobStatusUpdate } from '../../utils/frontend-api-client/job-status-update'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/api-responses'
 import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
 
@@ -56,8 +53,11 @@ const UpdateWorkOrder = ({ reference }) => {
     setLoading(true)
 
     try {
-      await postJobStatusUpdate(formData)
-
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: formData,
+      })
       setOverSpendLimit(overSpendLimit)
       setShowUpdateSuccess(true)
     } catch (e) {
@@ -81,9 +81,18 @@ const UpdateWorkOrder = ({ reference }) => {
     setError(null)
 
     try {
-      const currentUser = await getCurrentUser()
-      const workOrder = await getWorkOrder(reference)
-      const tasks = await getTasksAndSors(reference)
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}`,
+      })
+      const tasks = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}/tasks`,
+      })
 
       setCurrentUser(currentUser)
       setTasks(tasks)
