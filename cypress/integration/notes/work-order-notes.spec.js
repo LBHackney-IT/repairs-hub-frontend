@@ -15,15 +15,15 @@ describe('Notes', () => {
         path:
           '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
-      { fixture: 'work-orders/work-orders.json' }
+      { fixture: 'workOrders/workOrders.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/work-order.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/notes' },
-      { fixture: 'work-orders/notes.json' }
+      { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
       { method: 'POST', path: '/api/jobStatusUpdate' },

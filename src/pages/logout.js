@@ -1,5 +1,5 @@
-import { deleteSessions } from '../utils/GoogleAuth'
-import { closeDRSSession } from '../utils/scheduling/drs/web-services/sessions'
+import { deleteSessions } from '../utils/googleAuth'
+import { closeDRSSession } from '../utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
 import {
   AGENT_ROLE,

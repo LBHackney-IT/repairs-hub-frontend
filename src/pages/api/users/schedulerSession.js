@@ -1,6 +1,6 @@
 import * as HttpStatus from 'http-status-codes'
-import { createDRSSession } from '../../../utils/scheduling/drs/web-services/sessions'
-import { authoriseServiceAPIRequest } from '../../../utils/service-api-client'
+import { createDRSSession } from '../../../utils/scheduling/drs/webServices/sessions'
+import { authoriseServiceAPIRequest } from '../../../utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
   try {

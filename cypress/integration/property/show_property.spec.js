@@ -82,7 +82,7 @@ describe('Show property', () => {
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/work-order.json' }
+        { fixture: 'workOrders/workOrder.json' }
       ).as('workOrder')
 
       // Mock many properties for the first page of results
@@ -268,7 +268,7 @@ describe('Show property', () => {
         // Stub request with property response
         cy.intercept(
           { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/property_repair_not_raisable.json' }
+          { fixture: 'properties/propertyRepairNotRaisable.json' }
         ).as('property')
 
         cy.visit('/properties/00012345')
@@ -308,7 +308,7 @@ describe('Show property', () => {
       // Stub request with property response
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property_no_tenure.json' }
+        { fixture: 'properties/propertyNoTenure.json' }
       ).as('property')
 
       cy.visit('/properties/00012345')
@@ -342,7 +342,7 @@ describe('Show property', () => {
       // Stub request with property response
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property_with_tmo.json' }
+        { fixture: 'properties/propertyWithTmo.json' }
       ).as('property')
 
       cy.visit('/properties/00012345')

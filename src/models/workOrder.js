@@ -7,7 +7,7 @@ import {
 import {
   CLOSED_STATUS_DESCRIPTIONS,
   STATUS_COMPLETE,
-} from '../utils/status-codes'
+} from '../utils/statusCodes'
 
 export class WorkOrder {
   constructor(workOrderData) {

@@ -10,8 +10,8 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   STATUS_COMPLETE,
   WORK_ORDERS_STATUSES,
-} from '../utils/status-codes'
-import { WorkOrder } from './work-order'
+} from '../utils/statusCodes'
+import { WorkOrder } from './workOrder'
 import MockDate from 'mockdate'
 
 describe('WorkOrder', () => {

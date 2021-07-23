@@ -3,13 +3,13 @@ import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import WorkOrderInfoTable from '../WorkOrderInfoTable'
 import BackButton from '../../Layout/BackButton/BackButton'
-import { buildCancelWorkOrderFormData } from '../../../utils/hact/work-order-complete/cancel-work-order-form'
+import { buildCancelWorkOrderFormData } from '../../../utils/hact/workOrderComplete/cancelWorkOrderForm'
 import WarningText from '../../Template/WarningText'
 import {
   IMMEDIATE_PRIORITY_CODE,
   EMERGENCY_PRIORITY_CODE,
 } from '../../../utils/helpers/priorities'
-import { isContractorScheduledInternally } from '../../../utils/helpers/work-orders'
+import { isContractorScheduledInternally } from '../../../utils/helpers/workOrders'
 import { useState } from 'react'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {

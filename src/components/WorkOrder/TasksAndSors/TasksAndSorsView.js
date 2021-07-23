@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import TasksAndSorsTable from './TasksAndSorsTable'
-import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const TasksAndSorsView = ({ workOrderReference, tabName }) => {

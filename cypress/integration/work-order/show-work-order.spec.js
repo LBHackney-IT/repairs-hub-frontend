@@ -8,7 +8,7 @@ describe('Show work order page', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/work-order.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -16,7 +16,7 @@ describe('Show work order page', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/notes' },
-      { fixture: 'work-orders/notes.json' }
+      { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
       {
@@ -80,7 +80,7 @@ describe('Show work order page', () => {
 
   context('When the work order has been assigned operatives', () => {
     beforeEach(() => {
-      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.operatives = [
           {
             id: 0,
@@ -154,11 +154,11 @@ describe('Show work order page', () => {
           path:
             '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
-        { fixture: 'work-orders/work-orders.json' }
+        { fixture: 'workOrders/workOrders.json' }
       ).as('repairsHistory')
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000040' },
-        { fixture: 'work-orders/priority-immediate.json' }
+        { fixture: 'workOrders/priorityImmediate.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/properties/00089473' },

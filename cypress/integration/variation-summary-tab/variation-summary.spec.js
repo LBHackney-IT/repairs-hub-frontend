@@ -8,7 +8,7 @@ describe('Pending variation tab on work-order page', () => {
       // Stub requests
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/status-variation-pending-approval.json' }
+        { fixture: 'workOrders/statusVariationPendingApproval.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
@@ -24,11 +24,11 @@ describe('Pending variation tab on work-order page', () => {
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-        { fixture: 'work-orders/tasks-and-sors.json' }
+        { fixture: 'workOrders/tasksAndSors.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
-        { fixture: 'work-orders/variation-tasks.json' }
+        { fixture: 'workOrders/variationTasks.json' }
       )
     })
     // Logged in as a contract-manager (has permission to authorise a variation)
@@ -338,7 +338,7 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     it('status is In Progress ', () => {
-      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000040' },
@@ -355,7 +355,7 @@ describe('Pending variation tab on work-order page', () => {
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000040/tasks' },
-        { fixture: 'work-orders/tasks-and-sors.json' }
+        { fixture: 'workOrders/tasksAndSors.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000040/variation-tasks' },
@@ -374,7 +374,7 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     it('status is Work complete ', () => {
-      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000037
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000037' },
@@ -391,7 +391,7 @@ describe('Pending variation tab on work-order page', () => {
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000037/tasks' },
-        { fixture: 'work-orders/tasks-and-sors.json' }
+        { fixture: 'workOrders/tasksAndSors.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000037/variation-tasks' },
@@ -410,7 +410,7 @@ describe('Pending variation tab on work-order page', () => {
     })
 
     it('status is Authorisation Pending Approval ', () => {
-      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000032
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000032' },
@@ -427,7 +427,7 @@ describe('Pending variation tab on work-order page', () => {
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000032/tasks' },
-        { fixture: 'work-orders/tasks-and-sors.json' }
+        { fixture: 'workOrders/tasksAndSors.json' }
       )
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000032/variation-tasks' },

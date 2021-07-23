@@ -1,6 +1,6 @@
-import { priorityCodeCompletionTimes } from '../hact/helpers/priority-codes'
+import { priorityCodeCompletionTimes } from '../hact/helpers/priorityCodes'
 import { isSaturday, addDays, subDays, isWeekend, format } from 'date-fns'
-import { bankHolidays } from './bank-holidays'
+import { bankHolidays } from './bankHolidays'
 
 export const isBankHoliday = (date) => {
   const formattedDate = format(date, 'yyyy-MM-dd')

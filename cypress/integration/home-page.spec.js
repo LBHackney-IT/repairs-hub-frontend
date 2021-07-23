@@ -78,7 +78,7 @@ describe('Home page', () => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
               {
-                fixture: 'filter/work-order.json',
+                fixture: 'filter/workOrder.json',
               }
             )
             cy.intercept(
@@ -87,7 +87,7 @@ describe('Home page', () => {
                 path: '/api/workOrders/?PageSize=10&PageNumber=1',
               },
               {
-                fixture: 'work-orders/work-orders.json',
+                fixture: 'workOrders/workOrders.json',
               }
             ).as('workOrders')
 
@@ -169,7 +169,7 @@ describe('Home page', () => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
               {
-                fixture: 'filter/work-order.json',
+                fixture: 'filter/workOrder.json',
               }
             )
             cy.intercept(
@@ -178,7 +178,7 @@ describe('Home page', () => {
                 path: '/api/workOrders/?PageSize=10&PageNumber=1',
               },
               {
-                fixture: 'work-orders/work-orders.json',
+                fixture: 'workOrders/workOrders.json',
               }
             ).as('workOrders')
 
@@ -260,7 +260,7 @@ describe('Home page', () => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
               {
-                fixture: 'filter/work-order.json',
+                fixture: 'filter/workOrder.json',
               }
             )
             cy.intercept(
@@ -269,7 +269,7 @@ describe('Home page', () => {
                 path: '/api/workOrders/?PageSize=10&PageNumber=1',
               },
               {
-                fixture: 'work-orders/work-orders.json',
+                fixture: 'workOrders/workOrders.json',
               }
             ).as('workOrders')
 
@@ -353,7 +353,7 @@ describe('Home page', () => {
               cy.intercept(
                 { method: 'GET', path: '/api/filter/WorkOrder' },
                 {
-                  fixture: 'filter/work-order.json',
+                  fixture: 'filter/workOrder.json',
                 }
               )
               cy.intercept(
@@ -362,7 +362,7 @@ describe('Home page', () => {
                   path: '/api/workOrders/?PageSize=10&PageNumber=1',
                 },
                 {
-                  fixture: 'work-orders/work-orders.json',
+                  fixture: 'workOrders/workOrders.json',
                 }
               ).as('workOrders')
 

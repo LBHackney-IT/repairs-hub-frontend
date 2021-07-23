@@ -1,4 +1,4 @@
-import { buildOperativeAssignmentFormData } from './assign-operatives'
+import { buildOperativeAssignmentFormData } from './assignOperatives'
 
 describe('buildOperativeAssignmentFormData', () => {
   it('builds the notes to post to the JobStatusUpdate endpoint in Repairs API', async () => {

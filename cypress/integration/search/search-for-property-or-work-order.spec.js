@@ -81,7 +81,7 @@ describe('Search by work order reference, postcode or address', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000012' },
-            { fixture: 'work-orders/work-order.json' }
+            { fixture: 'workOrders/workOrder.json' }
           )
           cy.intercept(
             { method: 'GET', path: '/api/properties/00012345' },
@@ -216,18 +216,18 @@ describe('Search by work order reference, postcode or address', () => {
         cy.intercept(
           { method: 'GET', path: '/api/filter/WorkOrder' },
           {
-            fixture: 'filter/work-order.json',
+            fixture: 'filter/workOrder.json',
           }
         )
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
-          { fixture: 'work-orders/work-orders.json' }
+          { fixture: 'workOrders/workOrders.json' }
         )
 
         // Viewing the work order page
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },
-          { fixture: 'work-orders/work-order.json' }
+          { fixture: 'workOrders/workOrder.json' }
         )
         cy.intercept(
           { method: 'GET', path: '/api/properties/00012345' },
