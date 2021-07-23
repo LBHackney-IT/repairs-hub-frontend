@@ -3,7 +3,7 @@
 exports[`WorkOrderHeader component when workOrder is in Progress should not show complition reason date and time 1`] = `
 <DocumentFragment>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -167,7 +167,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
 exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: Completed, date and time 1`] = `
 <DocumentFragment>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -330,7 +330,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
 exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: No Access, date and time 1`] = `
 <DocumentFragment>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
