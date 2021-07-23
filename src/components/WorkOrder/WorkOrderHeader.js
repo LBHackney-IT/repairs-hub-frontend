@@ -19,7 +19,7 @@ const WorkOrderHeader = ({
   schedulerSessionId,
 }) => {
   return (
-    <div className="lbh-body-s govuk-grid-row">
+    <div className="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6">
       <div className="govuk-grid-column-one-third">
         <PropertyDetailsAddress
           address={address}

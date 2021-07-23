@@ -263,7 +263,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -699,7 +699,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -1019,7 +1019,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -1413,7 +1413,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -1588,7 +1588,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -1970,7 +1970,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -2343,7 +2343,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -2737,7 +2737,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
@@ -3008,7 +3008,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     This is an urgent repair description
   </p>
   <div
-    class="lbh-body-s govuk-grid-row"
+    class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
   >
     <div
       class="govuk-grid-column-one-third"
