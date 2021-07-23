@@ -7,7 +7,9 @@ const ScheduleWarning = ({ hasExistingAppointment }) => {
         </span>
         <div className="govuk-warning-text__text">
           <span className="govuk-warning-text__assistive">Warning</span>
-          Appointment is today
+          <p className="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold">
+            Appointment is today
+          </p>
           <p className="lbh-body-xs govuk-!-margin-top-1">
             Contact the operative before{' '}
             {hasExistingAppointment ? 'rescheduling' : 'scheduling'}
