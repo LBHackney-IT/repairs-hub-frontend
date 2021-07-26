@@ -28,21 +28,21 @@ describe('WorkOrderDetails component', () => {
     operatives: [],
   }
   let migratedWorkOrderData = {
-      reference: 648707,
-      dateRaised: '2014-02-22T07:58:20.37842',
-      lastUpdated: null,
-      priority: 'U - Urgent (5 Working days)',
-      property: '',
-      owner: 'Alphatrack (S) Systems Lt',
-      description: 'This is a migrated repair description',
-      propertyReference: '00014888',
-      status: 'In Progress',
-      priorityCode: URGENT_PRIORITY_CODE,
-      raisedBy: 'Dummy Agent',
-      target: '2014-02-27T18:30:00.00000',
-      callerName: 'Jill Smith',
-      callerNumber: '07700 900999',
-      operatives: []
+    reference: 648707,
+    dateRaised: '2014-02-22T07:58:20.37842',
+    lastUpdated: null,
+    priority: 'U - Urgent (5 Working days)',
+    property: '',
+    owner: 'Alphatrack (S) Systems Lt',
+    description: 'This is a migrated repair description',
+    propertyReference: '00014888',
+    status: 'In Progress',
+    priorityCode: URGENT_PRIORITY_CODE,
+    raisedBy: 'Dummy Agent',
+    target: '2014-02-27T18:30:00.00000',
+    callerName: 'Jill Smith',
+    callerNumber: '07700 900999',
+    operatives: [],
   }
 
   const props = {
