@@ -20,7 +20,6 @@ const validateCacheRequest = (url) => {
     url.match(new RegExp('^.*/properties.*$')) ||
       url.match(new RegExp('^.*/schedule-of-rates/.*$')) ||
       url.match(new RegExp('^.*/filter/.*$')) ||
-      url.match(new RegExp('^.*/hub-user.*$')) ||
       url.match(new RegExp('^.*/contractors.*$'))
   )
 }

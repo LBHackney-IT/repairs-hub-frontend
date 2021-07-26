@@ -220,7 +220,6 @@ describe('/api/[...path]', () => {
 
     describe('caching the API responses in memory', () => {
       ;[
-        'api/hub-user',
         'api/filter/workOrder',
         'api/properties',
         'api/properties/01234567',
@@ -265,6 +264,7 @@ describe('/api/[...path]', () => {
         })
       })
       ;[
+        'api/hub-user',
         'api/appointments',
         'api/operatives',
         'api/operatives/12345',
