@@ -5,8 +5,7 @@ import UserContext from '../UserContext/UserContext'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
-import { getVariationTasks } from '../../utils/frontend-api-client/variation-tasks'
-import { getTasksAndSors } from '../../utils/frontend-api-client/work-orders/[id]/tasks'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { calculateTotalVariedCost } from '../../utils/helpers/calculations'
 
 const VariationSummaryTab = ({ workOrderReference }) => {
@@ -21,7 +20,10 @@ const VariationSummaryTab = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const variationTasks = await getVariationTasks(workOrderReference)
+      const variationTasks = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/variation-tasks`,
+      })
 
       setVariationTasks(variationTasks)
       const totalCostAfterVariation = calculateTotalVariedCost(
@@ -49,7 +51,10 @@ const VariationSummaryTab = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
 
       setOriginalSors(tasksAndSors.filter((t) => t.original))
     } catch (e) {

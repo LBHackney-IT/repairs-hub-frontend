@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import TasksAndSorsTable from './TasksAndSorsTable'
-import { getTasksAndSors } from '../../../utils/frontend-api-client/work-orders/[id]/tasks'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { sortObjectsByDateKey } from '../../../utils/date'
 
 const TasksAndSorsView = ({ workOrderReference, tabName }) => {
@@ -17,7 +17,10 @@ const TasksAndSorsView = ({ workOrderReference, tabName }) => {
     setError(null)
 
     try {
-      const tasksAndSors = await getTasksAndSors(workOrderReference)
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
 
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')

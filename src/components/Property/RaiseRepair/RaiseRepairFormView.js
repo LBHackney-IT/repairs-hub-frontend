@@ -4,16 +4,12 @@ import RaiseRepairForm from './RaiseRepairForm'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import { getProperty } from '../../../utils/frontend-api-client/properties'
-import { getPriorities } from '../../../utils/frontend-api-client/schedule-of-rates/priorities'
 import { getOrCreateSchedulerSessionId } from '../../../utils/frontend-api-client/users/schedulerSession'
-import { postRepair } from '../../../utils/frontend-api-client/work-orders/schedule'
-import { getTrades } from '../../../utils/frontend-api-client/schedule-of-rates/trades'
-import { getCurrentUser } from '../../../utils/frontend-api-client/hub-user'
-import { useRouter } from 'next/router'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import { priorityCodesRequiringAppointments } from '../../../utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
 import Meta from '../../Meta'
+import router from 'next/router'
 
 const RaiseRepairFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -44,7 +40,6 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
-  const router = useRouter()
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -55,7 +50,11 @@ const RaiseRepairFormView = ({ propertyReference }) => {
         statusCode,
         externallyManagedAppointment,
         externalAppointmentManagementUrl,
-      } = await postRepair(formData)
+      } = await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrders/schedule`,
+        requestData: formData,
+      })
       setWorkOrderReference(id)
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
@@ -82,7 +81,10 @@ const RaiseRepairFormView = ({ propertyReference }) => {
           formData.priority.priorityCode
         )
       ) {
-        router.push(`/work-orders/${id}/appointment/new`)
+        router.push({
+          pathname: `/work-orders/${id}/appointment/new`,
+          query: { newOrder: true },
+        })
         return
       }
 
@@ -102,10 +104,22 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const data = await getProperty(propertyReference)
-      const priorities = await getPriorities()
-      const trades = await getTrades(propertyReference)
-      const user = await getCurrentUser()
+      const data = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/${propertyReference}`,
+      })
+      const priorities = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/schedule-of-rates/priorities`,
+      })
+      const trades = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
+      })
+      const user = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
 
       setTenure(data.tenure)
       setProperty(data.property)

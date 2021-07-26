@@ -1,15 +1,10 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext/UserContext'
 import { agent } from 'factories/agent'
-import {
-  IMMEDIATE_PRIORITY_CODE,
-  EMERGENCY_PRIORITY_CODE,
-  URGENT_PRIORITY_CODE,
-  NORMAL_PRIORITY_CODE,
-} from '../../utils/helpers/priorities'
 import AppointmentDetails from './AppointmentDetails'
+import { WorkOrder } from '../../models/work-order'
 
-const workOrder = {
+const workOrderData = {
   reference: 10000012,
   dateRaised: '2021-01-18T15:28:57.17811',
   lastUpdated: null,
@@ -33,14 +28,26 @@ const workOrder = {
 const schedulerSessionId = 'SCHEDULER_SESSION_ID'
 
 describe('AppointmentDetails component', () => {
+  const appointment = {
+    date: '2021-03-19',
+    description: 'PM Slot',
+    end: '18:00',
+    start: '12:00',
+  }
+
   describe('DRS work order', () => {
-    workOrder.externalAppointmentManagementUrl =
-      'https://scheduler.example.hackney.gov.uk?bookingId=1'
+    let drsWorkOrder = {
+      ...workOrderData,
+      externalAppointmentManagementUrl:
+        'https://scheduler.example.hackney.gov.uk?bookingId=1',
+    }
 
     describe('with no appointment', () => {
-      describe('when the work order is immediate priority', () => {
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = IMMEDIATE_PRIORITY_CODE
+      describe('when the work order can be scheduled', () => {
+        it('shows a link to schedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
+
+          workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
@@ -54,41 +61,11 @@ describe('AppointmentDetails component', () => {
         })
       })
 
-      describe('when the work order is emergency priority', () => {
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = EMERGENCY_PRIORITY_CODE
+      describe('when the work order cannot be scheduled', () => {
+        it('does not show a schedule link', () => {
+          let workOrder = new WorkOrder(drsWorkOrder)
 
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is urgent priority', () => {
-        it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is normal priority', () => {
-        it('does show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = NORMAL_PRIORITY_CODE
+          workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
@@ -104,17 +81,11 @@ describe('AppointmentDetails component', () => {
     })
 
     describe('with an appointment', () => {
-      const appointment = {
-        date: '2021-03-19',
-        description: 'PM Slot',
-        end: '18:00',
-        start: '12:00',
-      }
+      describe('when the work order can be scheduled', () => {
+        it('shows a link to reschedule an appointment with DRS Web Booking Manager', () => {
+          let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
 
-      describe('when the work order is urgent priority', () => {
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-          workOrder.appointment = appointment
+          workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
@@ -128,10 +99,11 @@ describe('AppointmentDetails component', () => {
         })
       })
 
-      describe('when the work order is normal priority', () => {
-        it('does not show a link to schedule an appointment with DRS Web Booking Manager', () => {
-          workOrder.priorityCode = NORMAL_PRIORITY_CODE
-          workOrder.appointment = appointment
+      describe('when the work order cannot be scheduled', () => {
+        it('does not show a reschedule link but shows the existing appointment', () => {
+          let workOrder = new WorkOrder({ ...drsWorkOrder, appointment })
+
+          workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
@@ -148,57 +120,80 @@ describe('AppointmentDetails component', () => {
   })
 
   describe('Work order (non DRS)', () => {
+    let nonDRSWorkOrder = {
+      ...workOrderData,
+      externalAppointmentManagementUrl: null,
+    }
+
     describe('with no appointment', () => {
-      describe('when the work order is immediate priority', () => {
-        it('does not show a link to schedule an appointment', () => {
-          workOrder.priorityCode = IMMEDIATE_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
+      describe('when the work order can be scheduled', () => {
+        it('shows a link to schedule an appointment', () => {
+          let workOrder = new WorkOrder(nonDRSWorkOrder)
+
+          workOrder.canBeScheduled = jest.fn(() => true)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
         })
       })
 
-      describe('when the work order is emergency priority', () => {
-        it('does not show a link to schedule an appointment', () => {
-          workOrder.priorityCode = EMERGENCY_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
+      describe('when the work order cannot be scheduled', () => {
+        it('does not show a schedule link', () => {
+          let workOrder = new WorkOrder(nonDRSWorkOrder)
+
+          workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
+            </UserContext.Provider>
+          )
+          expect(asFragment()).toMatchSnapshot()
+        })
+      })
+    })
+
+    describe('with an appointment', () => {
+      describe('when the work order can be scheduled', () => {
+        it('shows a link to reschedule an appointment', () => {
+          let workOrder = new WorkOrder({ ...nonDRSWorkOrder, appointment })
+
+          workOrder.canBeScheduled = jest.fn(() => true)
+
+          const { asFragment } = render(
+            <UserContext.Provider value={{ user: agent }}>
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
         })
       })
 
-      describe('when the work order is urgent priority', () => {
-        it('does show a link to schedule an appointment', () => {
-          workOrder.priorityCode = URGENT_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
+      describe('when the work order cannot be scheduled', () => {
+        it('does not show a reschedule link but shows the existing appointment', () => {
+          let workOrder = new WorkOrder({ ...nonDRSWorkOrder, appointment })
+
+          workOrder.canBeScheduled = jest.fn(() => false)
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
-            </UserContext.Provider>
-          )
-          expect(asFragment()).toMatchSnapshot()
-        })
-      })
-
-      describe('when the work order is normal priority', () => {
-        it('does show a link to schedule an appointment', () => {
-          workOrder.priorityCode = NORMAL_PRIORITY_CODE
-          workOrder.externalAppointmentManagementUrl = null
-
-          const { asFragment } = render(
-            <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails workOrder={workOrder} />
+              <AppointmentDetails
+                workOrder={workOrder}
+                schedulerSessionId={schedulerSessionId}
+              />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()

@@ -1,9 +1,28 @@
+import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
+import UserContext from '../UserContext/UserContext'
 
 const SuccessPage = ({ ...props }) => {
+  const { user } = useContext(UserContext)
+
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      props.workOrderReference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
+  }
+
   return (
     <>
       <PageAnnouncement
@@ -22,7 +41,12 @@ const SuccessPage = ({ ...props }) => {
           <li>
             Please{' '}
             <Link href={props.externalSchedulerLink}>
-              <a className="lbh-link" target="_blank" rel="noopener">
+              <a
+                className="lbh-link"
+                target="_blank"
+                rel="noopener"
+                onClick={openExternalLinkEventHandler}
+              >
                 <strong>open DRS</strong>
               </a>
             </Link>{' '}
@@ -80,6 +104,18 @@ const SuccessPage = ({ ...props }) => {
             </Link>
           </li>
         )}
+
+        {props.showNewWorkOrderLink && (
+          <li>
+            <Link
+              href={`/properties/${props.propertyReference}/raise-repair/new`}
+            >
+              <a className="lbh-link">
+                <strong>Raise a new work order</strong>
+              </a>
+            </Link>
+          </li>
+        )}
       </ul>
     </>
   )
@@ -89,6 +125,8 @@ SuccessPage.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
   showDashboardLink: PropTypes.bool,
+  showNewWorkOrderLink: PropTypes.bool,
+  propertyReference: PropTypes.string,
   shortAddress: PropTypes.string,
   showSearchLink: PropTypes.bool,
   authorisationPendingApproval: PropTypes.bool,

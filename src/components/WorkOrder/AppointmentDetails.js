@@ -1,98 +1,98 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
-import Link from 'next/link'
 import { dateToStr } from '../../utils/date'
-import {
-  STATUS_CANCELLED,
-  STATUS_AUTHORISATION_PENDING_APPROVAL,
-} from '../../utils/status-codes'
-import { priorityCodesRequiringAppointments } from '../../utils/helpers/priorities'
+import { STATUS_CANCELLED } from '../../utils/status-codes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
 } from '../../utils/user-permissions'
+import { WorkOrder } from '../../models/work-order'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
+import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
+import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
 
-  const appointmentNotApplicableHtml = () => {
-    return (
-      <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          <span className="lbh-!-font-weight-bold">Not applicable</span>
-        </div>
-      </div>
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
     )
+
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
   const appointmentDetailsInfoHtml = () => {
     return (
-      <div className="lbh-body-s">
-        <span className="govuk-!-font-size-14">
-          {dateToStr(new Date(workOrder.appointment.date))},{' '}
-          {workOrder.appointment.start}-{workOrder.appointment.end}
-        </span>
-      </div>
+      <p className="govuk-!-font-size-14">
+        {dateToStr(new Date(workOrder.appointment.date))},{' '}
+        {workOrder.appointment.start}-{workOrder.appointment.end}
+      </p>
     )
   }
 
-  const scheduleAppointmentHtml = () => {
+  const scheduleAppointmentHtml = (hasExistingAppointment) => {
     if (workOrder.externalAppointmentManagementUrl) {
       if (schedulerSessionId) {
         return (
-          <Link
-            href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
-          >
-            <a className="lbh-link" target="_blank" rel="noopener">
-              <strong>Open DRS</strong> to book an appointment
-            </a>
-          </Link>
+          <ScheduleDRSAppointmentLink
+            workOrder={workOrder}
+            schedulerSessionId={schedulerSessionId}
+            openLinkEventHandler={openExternalLinkEventHandler}
+            hasExistingAppointment={hasExistingAppointment}
+            appointmentIsToday={workOrder.appointmentIsToday()}
+          />
         )
       } else {
         console.error('Scheduler Session ID does not exist')
       }
     } else {
       return (
-        <Link href={`/work-orders/${workOrder.reference}/appointment/new`}>
-          <a className="lbh-link lbh-!-font-weight-bold">
-            Schedule an appointment
-          </a>
-        </Link>
+        <ScheduleInternalAppointmentLink
+          workOrderReference={workOrder.reference}
+          hasExistingAppointment={hasExistingAppointment}
+          appointmentIsToday={workOrder.appointmentIsToday()}
+        />
       )
     }
   }
 
-  if (priorityCodesRequiringAppointments.includes(workOrder.priorityCode)) {
-    return (
+  return (
+    (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
       <div className="appointment-details">
-        <span className="govuk-!-font-size-14">Appointment details</span>
-        <br></br>
-        <div className="lbh-body-s">
-          {user &&
-            canScheduleAppointment(user) &&
-            workOrder.status !== STATUS_CANCELLED.description &&
-            workOrder.status !==
-              STATUS_AUTHORISATION_PENDING_APPROVAL.description &&
-            !workOrder.appointment &&
-            scheduleAppointmentHtml()}
-          {user &&
-            canSeeAppointmentDetailsInfo(user) &&
-            workOrder.status !== STATUS_CANCELLED &&
-            !!workOrder.appointment &&
-            appointmentDetailsInfoHtml()}
+        <p className="govuk-!-font-size-14">Appointment details</p>
+        <div className="lbh-body-s govuk-!-margin-0">
+          {user && (
+            <>
+              {canSeeAppointmentDetailsInfo(user) &&
+                workOrder.appointment &&
+                workOrder.status !== STATUS_CANCELLED &&
+                appointmentDetailsInfoHtml()}
+              {canScheduleAppointment(user) &&
+                workOrder.canBeScheduled() &&
+                scheduleAppointmentHtml(workOrder.appointment)}
+              {canSeeAppointmentDetailsInfo(user) &&
+                !workOrder.appointment &&
+                !workOrder.canBeScheduled() && (
+                  <p className="lbh-!-font-weight-bold">Not applicable</p>
+                )}
+            </>
+          )}
         </div>
       </div>
     )
-  } else {
-    return appointmentNotApplicableHtml()
-  }
+  )
 }
 
 AppointmentDetails.propTypes = {
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
 }
 
 export default AppointmentDetails

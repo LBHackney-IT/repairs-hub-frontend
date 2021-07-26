@@ -1,30 +1,8 @@
-import {
-  getWorkOrder,
-  getWorkOrders,
-  getWorkOrdersForProperty,
-} from './work-orders'
+import { getWorkOrders, getWorkOrdersForProperty } from './work-orders'
 import mockAxios from 'axios'
 import { paramsSerializer } from '../urls'
 
 jest.mock('axios')
-
-describe('getWorkOrder', () => {
-  it('calls the Next JS API', async () => {
-    const responseData = { data: 'test' }
-
-    mockAxios.get.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: responseData,
-      })
-    )
-
-    const response = await getWorkOrder('10000012')
-
-    expect(response).toEqual(responseData)
-    expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/workOrders/10000012')
-  })
-})
 
 describe('getWorkOrders', () => {
   it('calls the Next JS API with a status filter', async () => {

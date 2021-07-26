@@ -100,6 +100,96 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
 </DocumentFragment>
 `;
 
+exports[`SuccessPage component Raising a repair Above target date (over raise limit) authorisation should render a success screen with a warning message and link to raise new work order 1`] = `
+<DocumentFragment>
+  <section
+    class="text-align-center lbh-page-announcement"
+  >
+    <h3
+      class="lbh-page-announcement__title"
+    >
+      Repair work order created
+    </h3>
+    <div
+      class="lbh-page-announcement__content"
+    >
+      <p>
+        Work order number
+      </p>
+      <strong
+        class="govuk-!-font-size-24"
+      >
+        10000012
+      </strong>
+    </div>
+  </section>
+  <div
+    class="govuk-warning-text lbh-warning-text"
+  >
+    <span
+      aria-hidden="true"
+      class="govuk-warning-text__icon"
+    >
+      !
+    </span>
+    <strong
+      class="govuk-warning-text__text"
+    >
+      <span
+        class="govuk-warning-text__assistive"
+      >
+        Warning
+      </span>
+      Work order 10000012 requires authorisation. Please request authorisation from a manager.
+    </strong>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        <strong>
+          View work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        <strong>
+          Back to 12 Random Lane
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        <strong>
+          Start a new search
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678/raise-repair/new"
+      >
+        <strong>
+          Raise a new work order
+        </strong>
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
 exports[`SuccessPage component Raising a repair High cost (over raise limit) authorisation should render a success screen with a warning message 1`] = `
 <DocumentFragment>
   <section

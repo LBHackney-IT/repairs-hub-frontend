@@ -4,6 +4,8 @@ import TenureDetails from '../Property/TenureDetails'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
+import { formatDateTime } from 'src/utils/time'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -16,19 +18,8 @@ const WorkOrderHeader = ({
   canRaiseRepair,
   schedulerSessionId,
 }) => {
-  const pastAppointmentStartTime = (date, startTime) => {
-    if (!date || !startTime) {
-      return false
-    }
-
-    const currentTime = new Date().getTime()
-    const appointmentStartTime = new Date(`${date}T${startTime}`).getTime()
-
-    return currentTime > appointmentStartTime
-  }
-
   return (
-    <div className="lbh-body-s govuk-grid-row">
+    <div className="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6">
       <div className="govuk-grid-column-one-third">
         <PropertyDetailsAddress
           address={address}
@@ -52,16 +43,24 @@ const WorkOrderHeader = ({
           workOrder={workOrder}
           schedulerSessionId={schedulerSessionId}
         />
-        <div className="lbh-body-xs">
+        <div className="lbh-body-xs govuk-!-margin-top-1">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
-
+        {workOrder.closedDated && (
+          <div className="lbh-body-xs">
+            <span>
+              <strong>
+                {workOrder.completionReason()}:{' '}
+                {formatDateTime(new Date(workOrder.closedDated))}
+              </strong>
+            </span>
+          </div>
+        )}
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
-          pastAppointmentStartTime(
-            workOrder.appointment.date,
-            workOrder.appointment.start
-          ) && <Operatives operatives={workOrder.operatives} />}
+          workOrder.appointmentStartTimePassed() && (
+            <Operatives operatives={workOrder.operatives} />
+          )}
       </div>
     </div>
   )
@@ -69,7 +68,7 @@ const WorkOrderHeader = ({
 
 WorkOrderHeader.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,

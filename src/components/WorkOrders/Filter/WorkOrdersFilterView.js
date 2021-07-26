@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { getFilters } from '../../../utils/frontend-api-client/filters'
+import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
 import { SelectedFilterOptions } from '../../../utils/helpers/filter'
@@ -28,7 +28,10 @@ const WorkOrdersFilterView = ({
     setError(null)
 
     try {
-      const workOrderFilters = await getFilters('WorkOrder')
+      const workOrderFilters = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/filter/WorkOrder',
+      })
 
       const selectedFilters = new SelectedFilterOptions(
         appliedFilters,

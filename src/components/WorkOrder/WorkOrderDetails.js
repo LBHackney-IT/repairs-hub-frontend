@@ -7,6 +7,7 @@ import BackButton from '../Layout/BackButton/BackButton'
 import MultiButton from '../Layout/MultiButton/MultiButton'
 
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderDetails = ({
   propertyReference,
@@ -45,7 +46,7 @@ const WorkOrderDetails = ({
           </h1>
         </GridColumn>
         <GridColumn width="one-third">
-          {currentWorkOrderActionMenu?.length > 0 && (
+          {currentWorkOrderActionMenu?.length > 0 && !workOrder.closedDated && (
             <MultiButton
               name="workOrderMenu"
               label="Select work order"
@@ -76,7 +77,7 @@ const WorkOrderDetails = ({
 
 WorkOrderDetails.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  workOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,

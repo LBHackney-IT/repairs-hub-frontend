@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { getWorkOrder } from '../../utils/frontend-api-client/work-orders'
-import { getProperty } from '../../utils/frontend-api-client/properties'
+import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
 import Tabs from '../Tabs'
+import { WorkOrder } from '../../models/work-order'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -28,19 +28,22 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await getWorkOrder(workOrderReference)
-      const propertyObject = await getProperty(workOrder.propertyReference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+      const propertyObject = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/${workOrder.propertyReference}`,
+      })
 
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order with no appointment
-      if (
-        workOrder.externalAppointmentManagementUrl &&
-        !workOrder.appointment
-      ) {
+      // Call getOrCreateSchedulerSessionId if it is a DRS work order
+      if (workOrder.externalAppointmentManagementUrl) {
         const schedulerSessionId = await getOrCreateSchedulerSessionId()
         setSchedulerSessionId(schedulerSessionId)
       }
 
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
       setLocationAlerts(propertyObject.alerts.locationAlert)
       setPersonAlerts(propertyObject.alerts.personAlert)

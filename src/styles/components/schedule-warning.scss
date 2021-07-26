@@ -1,0 +1,23 @@
+.schedule-warning {
+  @include govuk-responsive-margin(2, 'top');
+
+  @include govuk-responsive-padding(2, 'left');
+  @include govuk-responsive-padding(1, 'top');
+  @include govuk-responsive-padding(1, 'bottom');
+
+  border-left-color: repairs-hub-colour('blue');
+  border-left-width: 6px;
+  background-color: repairs-hub-colour('lightest-blue');
+
+  .govuk-warning-text__icon {
+    font-size: 1.2em;
+    min-width: 28px;
+    min-height: 28px;
+    margin-top: -3px;
+    border: none;
+  }
+
+  .govuk-warning-text__text {
+    padding-left: 38px;
+  }
+}
