@@ -42,7 +42,7 @@ const WorkOrderDetails = ({
       <GridRow>
         <GridColumn width="two-thirds">
           <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-            Work order: {workOrder.reference}
+            Work order: {workOrder.reference.toString().padStart(8, '0')}
           </h1>
         </GridColumn>
         <GridColumn width="one-third">

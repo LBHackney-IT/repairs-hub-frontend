@@ -27,6 +27,23 @@ describe('WorkOrderDetails component', () => {
     callerNumber: '07700 900999',
     operatives: [],
   }
+  let migratedWorkOrderData = {
+    reference: 648707,
+    dateRaised: '2014-02-22T07:58:20.37842',
+    lastUpdated: null,
+    priority: 'U - Urgent (5 Working days)',
+    property: '',
+    owner: 'Alphatrack (S) Systems Lt',
+    description: 'This is a migrated repair description',
+    propertyReference: '00014888',
+    status: 'In Progress',
+    priorityCode: URGENT_PRIORITY_CODE,
+    raisedBy: 'Dummy Agent',
+    target: '2014-02-27T18:30:00.00000',
+    callerName: 'Jill Smith',
+    callerNumber: '07700 900999',
+    operatives: [],
+  }
 
   const props = {
     property: {
@@ -90,6 +107,27 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={new WorkOrder(workOrderData)}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    //// if work order is 648707 then it should render is as 00648707 (with leading zeroes)
+
+    it('should render migrated work order references correctly', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: agent }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={new WorkOrder(migratedWorkOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
