@@ -8,7 +8,7 @@ describe('Show property', () => {
   })
 
   context(
-    'Displays property details, tenure, alerts and permit to raise a repair',
+    'Displays property details, tenure, alerts and permit to raise a work order',
     () => {
       beforeEach(() => {
         // Stub request with property response
@@ -33,9 +33,9 @@ describe('Show property', () => {
         cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
       })
 
-      it('shows can raise a repair link', () => {
+      it('shows can raise a work order link', () => {
         cy.get('.lbh-heading-h2').within(() => {
-          cy.contains('Raise a repair on this dwelling')
+          cy.contains('Raise a work order on this dwelling')
         })
       })
 
@@ -279,10 +279,10 @@ describe('Show property', () => {
         cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
       })
 
-      it('shows cannot raise a repair text', () => {
+      it('shows cannot raise a work order text', () => {
         cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
           cy.contains(
-            'Cannot raise a repair on this property due to tenure type'
+            'Cannot raise a work order on this property due to tenure type'
           )
         })
       })

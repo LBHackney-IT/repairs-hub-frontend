@@ -12,14 +12,16 @@ const RaiseRepairStatus = ({
       <span className="lbh-heading-h2 text-green">
         <Link href={`/properties/${propertyReference}/raise-repair/new`}>
           <a className="lbh-link">
-            <strong>Raise a repair on this {description.toLowerCase()}</strong>
+            <strong>
+              Raise a work order on this {description.toLowerCase()}
+            </strong>
           </a>
         </Link>
       </span>
     )
   } else {
     return (
-      <WarningText text="Cannot raise a repair on this property due to tenure type" />
+      <WarningText text="Cannot raise a work order on this property due to tenure type" />
     )
   }
 }

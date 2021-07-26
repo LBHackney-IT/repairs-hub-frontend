@@ -12,7 +12,7 @@ describe('Schedule appointment form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub request for raise a repair form page
+    // Stub request for raise a work order form page
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -103,7 +103,7 @@ describe('Schedule appointment form', () => {
       cy.visit('/properties/00012345')
 
       cy.get('.lbh-heading-h2')
-        .contains('Raise a repair on this dwelling')
+        .contains('Raise a work order on this dwelling')
         .click()
 
       cy.get('#repair-request-form').within(() => {
@@ -357,7 +357,7 @@ describe('Schedule appointment form', () => {
       cy.visit('/properties/00012345')
 
       cy.get('.lbh-heading-h2')
-        .contains('Raise a repair on this dwelling')
+        .contains('Raise a work order on this dwelling')
         .click()
 
       cy.get('#repair-request-form').within(() => {
