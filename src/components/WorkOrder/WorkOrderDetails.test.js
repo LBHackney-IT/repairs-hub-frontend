@@ -27,6 +27,23 @@ describe('WorkOrderDetails component', () => {
       callerNumber: '07700 900999',
       operatives: [],
     },
+    migratedWorkOrder: {
+      reference: 648707,
+      dateRaised: '2014-02-22T07:58:20.37842',
+      lastUpdated: null,
+      priority: 'U - Urgent (5 Working days)',
+      property: '',
+      owner: 'Alphatrack (S) Systems Lt',
+      description: 'This is a migrated repair description',
+      propertyReference: '00014888',
+      status: 'In Progress',
+      priorityCode: URGENT_PRIORITY_CODE,
+      raisedBy: 'Dummy Agent',
+      target: '2014-02-27T18:30:00.00000',
+      callerName: 'Jill Smith',
+      callerNumber: '07700 900999',
+      operatives: [],
+    },
     property: {
       propertyReference: '00012345',
       address: {
@@ -88,6 +105,25 @@ describe('WorkOrderDetails component', () => {
           <WorkOrderDetails
             propertyReference={props.property.propertyReference}
             workOrder={props.workOrder}
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            locationAlerts={props.alerts.locationAlert}
+            personAlerts={props.alerts.personAlert}
+            hasLinkToProperty={true}
+            canRaiseRepair={props.property.canRaiseRepair}
+          />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render migrated work orders correctly with an eight character reference', () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: agent }}>
+          <WorkOrderDetails
+            propertyReference={props.property.propertyReference}
+            workOrder={props.migratedWorkOrder}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
             tenure={props.tenure}
