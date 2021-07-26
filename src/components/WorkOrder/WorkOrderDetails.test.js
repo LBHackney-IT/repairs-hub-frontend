@@ -119,6 +119,9 @@ describe('WorkOrderDetails component', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
+
+    //// if work order is 648707 then it should render is as 00648707 (with leading zeroes)
+
     it('should render migrated work order references correctly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
