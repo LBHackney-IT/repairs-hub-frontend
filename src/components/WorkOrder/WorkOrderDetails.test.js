@@ -119,7 +119,7 @@ describe('WorkOrderDetails component', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
-    it('should redner migrated work order references correctly', () => {
+    it('should render migrated work order references correctly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
