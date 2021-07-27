@@ -19,6 +19,7 @@ const CloseWorkOrderForm = ({
   time,
   date,
   reason,
+  dateRaised,
 }) => {
   const { handleSubmit, register, control, errors } = useForm({})
 
@@ -49,9 +50,10 @@ const CloseWorkOrderForm = ({
             hint="For example, 15/05/2021"
             register={register({
               required: 'Please pick completion date',
-              validate: (value) =>
-                isPast(new Date(value)) ||
-                'Please select a date that is in the past',
+              validate: {
+                isInThePast: value => isPast(new Date(value)) || 'Please select a date that is in the past',
+                isLaterThanRaisedDate: value => new Date(value) > dateRaised || `Completion date must be on or after ${new Date(dateRaised).toLocaleDateString()}`,
+              }
             })}
             error={errors && errors.date}
             defaultValue={date ? date.toISOString().split('T')[0] : null}
@@ -96,6 +98,7 @@ CloseWorkOrderForm.propTypes = {
   time: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date),
   reason: PropTypes.string,
+  dateRaised: PropTypes.string
 }
 
 export default CloseWorkOrderForm
