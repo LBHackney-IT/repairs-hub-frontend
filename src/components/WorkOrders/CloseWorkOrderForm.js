@@ -52,7 +52,7 @@ const CloseWorkOrderForm = ({
               required: 'Please pick completion date',
               validate: {
                 isInThePast: value => isPast(new Date(value)) || 'Please select a date that is in the past',
-                isLaterThanRaisedDate: value => new Date(value) > dateRaised || `Completion date must be on or after ${new Date(dateRaised).toLocaleDateString()}`,
+                isLaterThanRaisedDate: value => new Date(value) > new Date(new Date(dateRaised).toDateString()) || `Completion date must be on or after ${new Date(dateRaised).toLocaleDateString()}`,
               }
             })}
             error={errors && errors.date}
