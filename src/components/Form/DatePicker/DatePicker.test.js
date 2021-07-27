@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import { addDays } from 'date-fns'
+import DatePicker from '../Form/DatePicker/DatePicker'
 
 describe('DatePicker component', () => {
   
