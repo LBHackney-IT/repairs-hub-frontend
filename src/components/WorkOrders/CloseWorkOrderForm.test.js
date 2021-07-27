@@ -40,4 +40,23 @@ describe('CloseWorkOrderForm component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('should render an invalid date error with a raised date after completed date', () => {
+    const { asFragment } = render(
+      <CloseWorkOrderForm
+        reference={props.reference}
+        onGetToSummary={props.onGetToSummary}
+        notes={props.notes}
+        time={props.time}
+        date={props.date}
+        reason={props.reason}
+        operativeAssignmentMandatory={true}
+        currentOperatives={props.operatives}
+        availableOperatives={props.availableOperatives}
+        dateRaised={new Date('2025-09-01T12:11:32.121Z')}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
 })
