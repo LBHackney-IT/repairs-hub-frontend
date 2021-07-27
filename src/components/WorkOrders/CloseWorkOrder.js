@@ -182,6 +182,7 @@ const CloseWorkOrder = ({ reference }) => {
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   currentOperatives={selectedOperatives}
                   availableOperatives={availableOperatives}
+                  dateRaised={workOrder.dateRaised}
                 />
               )}
               {!CloseWorkOrderFormPage && (
