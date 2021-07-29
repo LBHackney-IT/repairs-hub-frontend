@@ -51,9 +51,16 @@ const CloseWorkOrderForm = ({
             register={register({
               required: 'Please pick completion date',
               validate: {
-                isInThePast: value => isPast(new Date(value)) || 'Please select a date that is in the past',
-                isLaterThanRaisedDate: value => new Date(value) > new Date(new Date(dateRaised).toDateString()) || `Completion date must be on or after ${new Date(dateRaised).toLocaleDateString()}`,
-              }
+                isInThePast: (value) =>
+                  isPast(new Date(value)) ||
+                  'Please select a date that is in the past',
+                isLaterThanRaisedDate: (value) =>
+                  new Date(value) >
+                    new Date(new Date(dateRaised).toDateString()) ||
+                  `Completion date must be on or after ${new Date(
+                    dateRaised
+                  ).toLocaleDateString()}`,
+              },
             })}
             error={errors && errors.date}
             defaultValue={date ? date.toISOString().split('T')[0] : null}
@@ -98,7 +105,7 @@ CloseWorkOrderForm.propTypes = {
   time: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date),
   reason: PropTypes.string,
-  dateRaised: PropTypes.string
+  dateRaised: PropTypes.string,
 }
 
 export default CloseWorkOrderForm

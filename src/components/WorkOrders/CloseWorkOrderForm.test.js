@@ -58,5 +58,4 @@ describe('CloseWorkOrderForm component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
-
 })
