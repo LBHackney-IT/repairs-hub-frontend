@@ -101,7 +101,7 @@ describe('Closing a work order', () => {
 
       cy.get('.operatives').should('not.exist')
 
-      // Enter 5 October 2021 at 14:45
+      // Enter 19 Janurary 2021 at 14:45
       cy.get('form').within(() => {
         cy.get('[type="radio"]')
           .first()
@@ -109,7 +109,7 @@ describe('Closing a work order', () => {
         cy.get('[type="radio"]').last().should('have.value', 'No Access')
         //choose No Access reason
         cy.get('[type="radio"]').last().check()
-        cy.get('#date').type('2020-10-05')
+        cy.get('#date').type('2021-01-19')
         cy.get('#time').within(() => {
           cy.get('#time-time').clear()
           cy.get('#time-minutes').clear()
@@ -121,7 +121,7 @@ describe('Closing a work order', () => {
       })
       cy.contains('Summary of updates to work order')
       cy.get('.govuk-table__row').contains('Completion time')
-      cy.get('.govuk-table__row').contains('2020/10/05')
+      cy.get('.govuk-table__row').contains('2021/01/19')
       cy.get('.govuk-table__row').contains('14:45')
       cy.get('.govuk-table__row').contains('Reason')
       cy.get('.govuk-table__row').contains('No Access')
@@ -131,7 +131,7 @@ describe('Closing a work order', () => {
       cy.get('.govuk-table__row').within(() => {
         cy.contains('Edit').click()
       })
-      // Enter 19 January 2021 at 13:01
+      // Enter 19 February 2021 at 13:01
       cy.get('form').within(() => {
         cy.get('[type="radio"]').first().check()
         cy.get('#date').type('2021-02-19')
@@ -174,7 +174,7 @@ describe('Closing a work order', () => {
               otherType: 'complete',
               comments:
                 'Work order closed - This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
-              eventTime: '2020-11-06T13:01:00.000Z',
+              eventTime: '2021-02-19T13:01:00.000Z',
             },
           ],
         })
@@ -336,7 +336,7 @@ describe('Closing a work order', () => {
         cy.wait('@operatives')
 
         cy.get('[type="radio"]').last().check()
-        cy.get('#date').type('2020-11-06')
+        cy.get('#date').type('2021-01-19')
         cy.get('#time').within(() => {
           cy.get('#time-time').type('13')
           cy.get('#time-minutes').type('01')
@@ -473,7 +473,7 @@ describe('Closing a work order', () => {
                 otherType: 'complete',
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y, Operative Z',
-                eventTime: '2020-11-06T13:01:00.000Z',
+                eventTime: '2021-01-19T13:01:00.000Z',
               },
             ],
           })
