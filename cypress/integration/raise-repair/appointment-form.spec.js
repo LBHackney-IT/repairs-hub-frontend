@@ -212,7 +212,7 @@ describe('Schedule appointment form', () => {
       cy.wait(['@workOrder', '@availableAppointments'])
 
       //Appointment page with calendar
-      cy.contains('Repair task details')
+      cy.contains('Work order task details')
       // availble slots are not shown
       cy.contains('#available-slots').should('not.exist')
 

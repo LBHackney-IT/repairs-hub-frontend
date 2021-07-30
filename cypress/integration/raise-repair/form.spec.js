@@ -56,7 +56,7 @@ describe('Raise repair form', () => {
     ).as('apiCheck')
   })
 
-  it('Fill out repair task details form to raise a work order', () => {
+  it('Fill out work order task details form to raise a work order', () => {
     // Click link to raise a work order
     cy.visit('/properties/00012345')
 
@@ -91,7 +91,7 @@ describe('Raise repair form', () => {
         cy.get('tbody>tr').eq(1).contains('00000666666')
       })
 
-    cy.get('.lbh-heading-h2').contains('Repair task details')
+    cy.get('.lbh-heading-h2').contains('Work order task details')
 
     // Form section
     // Try to submit form without entering required fields

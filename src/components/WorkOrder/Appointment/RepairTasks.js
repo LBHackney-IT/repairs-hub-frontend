@@ -7,7 +7,7 @@ const RepairTasks = ({ tasks }) => {
     <GridRow className="lbh-body-s">
       <GridColumn width="full">
         <h2 className="lbh-heading-h2 govuk-!-margin-bottom-1">
-          Repair task details
+          Work order task details
         </h2>
 
         <Table className="govuk-!-margin-top-1 govuk-!-margin-bottom-3">

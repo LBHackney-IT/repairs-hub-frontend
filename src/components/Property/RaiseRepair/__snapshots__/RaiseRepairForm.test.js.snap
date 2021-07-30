@@ -54,7 +54,7 @@ exports[`RaiseRepairForm component should render properly 1`] = `
       <h2
         class="lbh-heading-h2 govuk-!-margin-top-6"
       >
-        Repair task details
+        Work order task details
       </h2>
       <form
         id="repair-request-form"
