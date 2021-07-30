@@ -60,13 +60,15 @@ describe('Show property', () => {
       })
 
       it('Displays the history tab active', () => {
-        cy.get('.govuk-tabs__list-item--selected a').contains('Repairs history')
+        cy.get('.govuk-tabs__list-item--selected a').contains(
+          'Work orders history'
+        )
       })
 
       context('when no repairs have been raised on the property', () => {
         it('Displays no repairs text', () => {
-          cy.get('.govuk-tabs__tab').contains('Repairs history').click()
-          cy.get('.lbh-heading-h2').contains('Repairs history')
+          cy.get('.govuk-tabs__tab').contains('Work orders history').click()
+          cy.get('.lbh-heading-h2').contains('Work orders history')
           cy.get('.lbh-heading-h4').contains('There are no historical repairs')
         })
       })
@@ -156,10 +158,10 @@ describe('Show property', () => {
 
     it('Displays the first page of repairs', () => {
       cy.get('.govuk-tabs').within(() => {
-        cy.get('.govuk-tabs__tab').contains('Repairs history')
-        cy.get('.lbh-heading-h2').contains('Repairs history')
+        cy.get('.govuk-tabs__tab').contains('Work orders history')
+        cy.get('.lbh-heading-h2').contains('Work orders history')
 
-        // Repairs history table headers
+        // Work orders history table headers
         cy.get('.govuk-table').within(() => {
           cy.contains('th', 'Reference')
           cy.contains('th', 'Date raised')
@@ -188,7 +190,7 @@ describe('Show property', () => {
       })
     })
 
-    it('Clicks the first repair of repairs history', () => {
+    it('Clicks the first repair of work orders history', () => {
       cy.contains('10000012').click()
       cy.url().should('contains', 'work-orders/10000012')
 
@@ -199,12 +201,18 @@ describe('Show property', () => {
 
     it('Displays more repairs after clicking Load more button', () => {
       // our first mocked response contains 50 results, matching this
-      cy.get('.repairs-history-table > tbody > tr').should('have.length', 50)
+      cy.get('.work-orders-history-table > tbody > tr').should(
+        'have.length',
+        50
+      )
 
       cy.contains('Load more').click({ force: true })
 
       // our second mocked response adds one more property to the list
-      cy.get('.repairs-history-table > tbody > tr').should('have.length', 51)
+      cy.get('.work-orders-history-table > tbody > tr').should(
+        'have.length',
+        51
+      )
 
       cy.get('[data-ref=10000000]').within(() => {
         cy.contains('10000000')
@@ -256,7 +264,7 @@ describe('Show property', () => {
     })
 
     it('Does not display a Load more button', () => {
-      cy.get('.govuk-tabs__tab').contains('Repairs history').click()
+      cy.get('.govuk-tabs__tab').contains('Work orders history').click()
       cy.contains('button', 'Load more').should('not.exist')
     })
   })
@@ -293,9 +301,9 @@ describe('Show property', () => {
         })
       })
 
-      it('does not show the Repairs history tab', () => {
-        // No repairs history
-        cy.contains('Repairs history').should('not.exist')
+      it('does not show the Work orders history tab', () => {
+        // No Work orders history
+        cy.contains('Work orders history').should('not.exist')
 
         // Run lighthouse audit for accessibility report
         cy.audit()
@@ -328,9 +336,9 @@ describe('Show property', () => {
       cy.contains('Tenure').should('not.exist')
     })
 
-    it('does not show the Repairs history tab', () => {
-      // No repairs history
-      cy.contains('Repairs history').should('not.exist')
+    it('does not show the Work orders history tab', () => {
+      // No work orders history
+      cy.contains('Work orders history').should('not.exist')
 
       // Run lighthouse audit for accessibility report
       cy.audit()
@@ -357,9 +365,9 @@ describe('Show property', () => {
       cy.get('.hackney-property-alerts').contains('TMO: Testing TMO')
     })
 
-    it('does not show the Repairs history tab', () => {
-      // No repairs history
-      cy.contains('Repairs history').should('not.exist')
+    it('does not show the Work orders history tab', () => {
+      // No work orders history
+      cy.contains('Work orders history').should('not.exist')
 
       // Run lighthouse audit for accessibility report
       cy.audit()

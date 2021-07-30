@@ -27,7 +27,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
 
   const renderTabComponentView = (activeTabId, tabName) => {
     switch (activeTabId) {
-      case 'repairs-history-tab':
+      case 'work-orders-history-tab':
         return (
           <RepairsHistoryView
             propertyReference={propertyReference}

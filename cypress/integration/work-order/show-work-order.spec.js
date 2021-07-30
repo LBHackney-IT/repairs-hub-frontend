@@ -146,48 +146,51 @@ describe('Show work order page', () => {
     })
   })
 
-  context('When the work order has work orders on repairs history tab', () => {
-    beforeEach(() => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-        },
-        { fixture: 'workOrders/workOrders.json' }
-      ).as('repairsHistory')
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040' },
-        { fixture: 'workOrders/priorityImmediate.json' }
-      )
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00089473' },
-        { fixture: 'properties/property.json' }
-      )
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-        },
-        { body: [] }
-      )
+  context(
+    'When the work order has work orders on Work orders history tab',
+    () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { fixture: 'workOrders/workOrders.json' }
+        ).as('repairsHistory')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040' },
+          { fixture: 'workOrders/priorityImmediate.json' }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00089473' },
+          { fixture: 'properties/property.json' }
+        )
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: [] }
+        )
 
-      cy.visit('/work-orders/10000012')
-      // Tasks and SORs tab should be active
-      cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
-      // Now select Notes tab
-      cy.get('a[id="tab_repairs-history-tab"]').click()
-      cy.wait('@repairsHistory')
-    })
-
-    it('Clicks the first repair of repairs history', () => {
-      cy.contains('10000040').click()
-      cy.url().should('contains', 'work-orders/10000040')
-
-      cy.get('.lbh-heading-h1').within(() => {
-        cy.contains('Work order: 10000040')
+        cy.visit('/work-orders/10000012')
+        // Tasks and SORs tab should be active
+        cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+        // Now select Notes tab
+        cy.get('a[id="tab_work-orders-history-tab"]').click()
+        cy.wait('@repairsHistory')
       })
-    })
-  })
+
+      it('Clicks the first work order of Work orders history', () => {
+        cy.contains('10000040').click()
+        cy.url().should('contains', 'work-orders/10000040')
+
+        cy.get('.lbh-heading-h1').within(() => {
+          cy.contains('Work order: 10000040')
+        })
+      })
+    }
+  )
 })

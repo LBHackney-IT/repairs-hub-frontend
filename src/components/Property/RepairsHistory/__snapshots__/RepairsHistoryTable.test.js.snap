@@ -5,10 +5,10 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -149,10 +149,10 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -267,10 +267,10 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -411,10 +411,10 @@ exports[`RepairsHistoryTable component when logged in as an authorisation manage
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"

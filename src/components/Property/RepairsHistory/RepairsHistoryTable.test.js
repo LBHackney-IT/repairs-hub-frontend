@@ -8,7 +8,7 @@ import { authorisationManager } from 'factories/authorisation_manager'
 
 describe('RepairsHistoryTable component', () => {
   const props = {
-    tabName: 'Repairs history',
+    tabName: 'Work orders history',
     workOrders: [
       {
         reference: 10000012,

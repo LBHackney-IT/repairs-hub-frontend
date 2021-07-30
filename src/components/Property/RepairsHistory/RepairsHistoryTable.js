@@ -41,7 +41,7 @@ const RepairsHistoryTable = ({
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <Table className="govuk-!-margin-top-5 repairs-history-table">
+      <Table className="govuk-!-margin-top-5 work-orders-history-table">
         <THead>
           <TR className="lbh-body">
             {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
