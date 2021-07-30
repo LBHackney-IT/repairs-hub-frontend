@@ -9,13 +9,13 @@ import Radios from '../../Form/Radios/Radios'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
-} from '../../../utils/hact/job-status-update/authorisation'
+} from '../../../utils/hact/jobStatusUpdate/authorisation'
 import { calculateTotalCost } from '../../../utils/helpers/calculations'
-import { WorkOrder } from '../../../models/work-order'
+import { WorkOrder } from '../../../models/workOrder'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()

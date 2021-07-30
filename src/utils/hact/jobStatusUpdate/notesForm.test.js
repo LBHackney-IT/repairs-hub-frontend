@@ -1,4 +1,4 @@
-import { buildNoteFormData } from './notes-form'
+import { buildNoteFormData } from './notesForm'
 
 describe('buildNoteFormData', () => {
   const formData = {

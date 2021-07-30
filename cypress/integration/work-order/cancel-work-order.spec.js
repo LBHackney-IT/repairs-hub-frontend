@@ -13,7 +13,7 @@ describe('Work order cancellations', () => {
       // Viewing the work order page
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/work-order.json' }
+        { fixture: 'workOrders/workOrder.json' }
       ).as('workOrder')
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
@@ -154,7 +154,7 @@ describe('Work order cancellations', () => {
       beforeEach(() => {
         cy.loginWithAgentRole()
 
-        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           // an internally-scheduled contractor ref
           workOrder.contractorReference = 'H01'
           // emergency priority code
@@ -195,7 +195,7 @@ describe('Work order cancellations', () => {
       beforeEach(() => {
         cy.loginWithAgentRole()
 
-        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           // an externally-scheduled contractor ref
           workOrder.contractorReference = 'HCK'
 

@@ -8,7 +8,7 @@ describe('Managing work order appointments', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/work-order.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -16,7 +16,7 @@ describe('Managing work order appointments', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/notes' },
-      { fixture: 'work-orders/notes.json' }
+      { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
       {
@@ -53,7 +53,7 @@ describe('Managing work order appointments', () => {
 
     context('For a higher priority work order (Immediate or Emergency)', () => {
       it('Does not show a link to schedule an appointment', () => {
-        cy.fixture('work-orders/externally-managed-appointment.json').then(
+        cy.fixture('workOrders/externallyManagedAppointment.json').then(
           (workOrder) => {
             workOrder.priority = '1 [I] IMMEDIATE'
             workOrder.priorityCode = 1
@@ -80,7 +80,7 @@ describe('Managing work order appointments', () => {
       it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },
-          { fixture: 'work-orders/externally-managed-appointment.json' }
+          { fixture: 'workOrders/externallyManagedAppointment.json' }
         )
         cy.visit('/work-orders/10000012')
 
@@ -118,7 +118,7 @@ describe('Managing work order appointments', () => {
         it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000012' },
-            { fixture: 'work-orders/externally-managed-appointment.json' }
+            { fixture: 'workOrders/externallyManagedAppointment.json' }
           )
           cy.visit('/work-orders/10000012')
 
@@ -150,7 +150,7 @@ describe('Managing work order appointments', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/with-appointment.json' }
+        { fixture: 'workOrders/withAppointment.json' }
       )
     })
 
@@ -168,7 +168,7 @@ describe('Managing work order appointments', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/priority-immediate.json' }
+        { fixture: 'workOrders/priorityImmediate.json' }
       )
     })
 

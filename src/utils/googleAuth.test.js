@@ -1,4 +1,4 @@
-import { isAuthorised, deleteSessions } from './GoogleAuth'
+import { isAuthorised, deleteSessions } from './googleAuth'
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 

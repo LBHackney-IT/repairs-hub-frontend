@@ -30,7 +30,7 @@ describe('Schedule appointment form', () => {
         path:
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL',
       },
-      { fixture: 'schedule-of-rates/codes.json' }
+      { fixture: 'scheduleOfRates/codes.json' }
     )
     cy.intercept(
       {
@@ -38,27 +38,27 @@ describe('Schedule appointment form', () => {
         path:
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
       },
-      { fixture: 'schedule-of-rates/codes.json' }
+      { fixture: 'scheduleOfRates/codes.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
-      { fixture: 'schedule-of-rates/priorities.json' }
+      { fixture: 'scheduleOfRates/priorities.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
-      { fixture: 'schedule-of-rates/trades.json' }
+      { fixture: 'scheduleOfRates/trades.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030' },
-      { fixture: 'work-orders/work-order.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/notes' },
-      { fixture: 'work-orders/notes.json' }
+      { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
-      { fixture: 'work-orders/task.json' }
+      { fixture: 'workOrders/task.json' }
     )
     cy.intercept(
       {

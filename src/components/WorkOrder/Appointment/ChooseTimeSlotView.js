@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import TimeSlotForm from './TimeSlotForm'
 import AppointmentSummary from './AppointmentSummary'
 import { useState } from 'react'
-import { buildScheduleAppointmentData } from '../../../utils/hact/schedule-repair/schedule-appointment'
+import { buildScheduleAppointmentData } from '../../../utils/hact/scheduleRepair/scheduleAppointment'
 import { getAppointmentReference } from '../../../utils/appointments'
-import { buildDataFromScheduleAppointment } from '../../../utils/hact/job-status-update/notes-form'
+import { buildDataFromScheduleAppointment } from '../../../utils/hact/jobStatusUpdate/notesForm'
 
 const ChooseTimeSlotView = ({
   date,

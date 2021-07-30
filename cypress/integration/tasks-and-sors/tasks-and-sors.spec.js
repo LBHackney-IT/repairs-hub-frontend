@@ -9,7 +9,7 @@ describe('Tasks and SORs', () => {
     // Stub requests
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/work-order.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -21,11 +21,11 @@ describe('Tasks and SORs', () => {
         path:
           '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
-      { fixture: 'work-orders/work-orders.json' }
+      { fixture: 'workOrders/workOrders.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-      { fixture: 'work-orders/tasks-and-sors.json' }
+      { fixture: 'workOrders/tasksAndSors.json' }
     )
   })
 

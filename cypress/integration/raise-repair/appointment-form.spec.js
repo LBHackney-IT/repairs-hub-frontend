@@ -2,7 +2,7 @@
 
 import 'cypress-audit/commands'
 import { NORMAL_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
-import { STATUS_CANCELLED } from '../../../src/utils/status-codes'
+import { STATUS_CANCELLED } from '../../../src/utils/statusCodes'
 
 // Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
@@ -30,18 +30,18 @@ describe('Schedule appointment form', () => {
         path:
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL',
       },
-      { fixture: 'schedule-of-rates/codes.json' }
+      { fixture: 'scheduleOfRates/codes.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
-      { fixture: 'schedule-of-rates/priorities.json' }
+      { fixture: 'scheduleOfRates/priorities.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
-      { fixture: 'schedule-of-rates/trades.json' }
+      { fixture: 'scheduleOfRates/trades.json' }
     )
 
-    cy.fixture('work-orders/work-order.json')
+    cy.fixture('workOrders/workOrder.json')
       .then((workOrder) => {
         workOrder.target = targetTime
 
@@ -54,7 +54,7 @@ describe('Schedule appointment form', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
-      { fixture: 'work-orders/task.json' }
+      { fixture: 'workOrders/task.json' }
     )
     cy.intercept(
       {
@@ -401,7 +401,7 @@ describe('Schedule appointment form', () => {
 
   context('When the work order is in a completed status', () => {
     beforeEach(() => {
-      cy.fixture('work-orders/work-order.json')
+      cy.fixture('workOrders/workOrder.json')
         .then((workOrder) => {
           workOrder.status = STATUS_CANCELLED.description
 

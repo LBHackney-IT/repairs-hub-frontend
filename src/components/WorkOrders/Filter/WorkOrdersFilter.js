@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import Spinner from '../../Spinner/Spinner'
 import { Checkbox, Button } from '../../Form'
 import UserContext from '../../UserContext/UserContext'
-import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/status-codes'
+import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/statusCodes'
 import Collapsible from '../../Layout/Collapsible/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
-import { canSeeAllFilters } from '../../../utils/user-permissions'
+import { canSeeAllFilters } from '../../../utils/userPermissions'
 
 const WorkOrdersFilter = ({
   loading,

@@ -1,10 +1,10 @@
 import MockDate from 'mockdate'
 import { URGENT_PRIORITY_CODE } from '../../helpers/priorities'
-import { buildScheduleRepairFormData } from './raise-repair-form'
+import { buildScheduleRepairFormData } from './raiseRepairForm'
 
 const mockBankHolidays = jest.fn()
 
-jest.mock('../../helpers/bank-holidays', () => ({
+jest.mock('../../helpers/bankHolidays', () => ({
   get bankHolidays() {
     return mockBankHolidays()
   },

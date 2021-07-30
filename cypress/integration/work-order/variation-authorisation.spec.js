@@ -5,7 +5,7 @@ describe('Contract manager can authorise variation', () => {
   beforeEach(() => {
     cy.loginWithContractManagerRole()
 
-    cy.fixture('hub-user/user.json').then((user) => {
+    cy.fixture('hubUser/user.json').then((user) => {
       user.varyLimit = 20000
       cy.intercept('GET', 'api/hub-user', user)
     })
@@ -17,15 +17,15 @@ describe('Contract manager can authorise variation', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/status-variation-pending-approval.json' }
+      { fixture: 'workOrders/statusVariationPendingApproval.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
-      { fixture: 'work-orders/variation-tasks.json' }
+      { fixture: 'workOrders/variationTasks.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-      { fixture: 'work-orders/tasks-and-sors.json' }
+      { fixture: 'workOrders/tasksAndSors.json' }
     )
     cy.intercept(
       {
@@ -232,7 +232,7 @@ describe('Contract manager can authorise variation', () => {
   it('Can not authorise (approve) variation if over vary spend limit', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
-      { fixture: 'work-orders/high-cost-variation-task.json' }
+      { fixture: 'workOrders/highCostVariationTask.json' }
     )
 
     cy.visit('/work-orders/10000012/variation-authorisation')

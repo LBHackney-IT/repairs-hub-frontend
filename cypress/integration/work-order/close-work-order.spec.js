@@ -10,17 +10,17 @@ describe('Closing a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/filter/WorkOrder' },
         {
-          fixture: 'filter/work-order.json',
+          fixture: 'filter/workOrder.json',
         }
       ).as('workOrderFilters')
 
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
-        { fixture: 'work-orders/work-orders.json' }
+        { fixture: 'workOrders/workOrders.json' }
       ).as('workOrders')
 
       // Viewing the work order page
-      cy.fixture('work-orders/work-order.json').then((workOrder) => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000040' },
@@ -257,16 +257,16 @@ describe('Closing a work order', () => {
         cy.intercept(
           { method: 'GET', path: '/api/filter/WorkOrder' },
           {
-            fixture: 'filter/work-order.json',
+            fixture: 'filter/workOrder.json',
           }
         ).as('workOrderFilters')
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
-          { fixture: 'work-orders/work-orders.json' }
+          { fixture: 'workOrders/workOrders.json' }
         ).as('workOrders')
 
         // Viewing the work order page
-        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           workOrder.reference = 10000040
           workOrder.canAssignOperative = true
           workOrder.operatives = [
@@ -489,7 +489,7 @@ describe('Closing a work order', () => {
         cy.loginWithContractorRole()
 
         // Viewing the work order page
-        cy.fixture('work-orders/work-order.json').then((workOrder) => {
+        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           workOrder.reference = 10000040
           workOrder.contractorReference = 'H10' // DLO contractor reference
           workOrder.canAssignOperative = true

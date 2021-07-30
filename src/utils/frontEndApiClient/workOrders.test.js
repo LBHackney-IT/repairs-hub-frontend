@@ -1,4 +1,4 @@
-import { getWorkOrders, getWorkOrdersForProperty } from './work-orders'
+import { getWorkOrders, getWorkOrdersForProperty } from './workOrders'
 import mockAxios from 'axios'
 import { paramsSerializer } from '../urls'
 

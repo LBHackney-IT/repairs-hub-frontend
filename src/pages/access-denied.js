@@ -1,4 +1,4 @@
-import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
+import { redirectToHome, isAuthorised } from '../utils/googleAuth'
 import AccessDenied from '../components/AccessDenied'
 import Meta from '../components/Meta'
 

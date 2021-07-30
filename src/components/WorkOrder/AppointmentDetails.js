@@ -2,14 +2,14 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import { dateToStr } from '../../utils/date'
-import { STATUS_CANCELLED } from '../../utils/status-codes'
+import { STATUS_CANCELLED } from '../../utils/statusCodes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
-} from '../../utils/user-permissions'
-import { WorkOrder } from '../../models/work-order'
-import { buildDataFromScheduleAppointment } from '../../utils/hact/job-status-update/notes-form'
-import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
+} from '../../utils/userPermissions'
+import { WorkOrder } from '../../models/workOrder'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 

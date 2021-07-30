@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import WorkOrderRow from './WorkOrderRow'
-import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontend-api-client/work-orders'
+import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontEndApiClient/workOrders'
 import { Button } from '../Form'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 

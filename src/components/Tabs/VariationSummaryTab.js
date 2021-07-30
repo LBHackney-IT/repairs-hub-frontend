@@ -5,7 +5,7 @@ import UserContext from '../UserContext/UserContext'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
-import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '../../utils/helpers/calculations'
 
 const VariationSummaryTab = ({ workOrderReference }) => {

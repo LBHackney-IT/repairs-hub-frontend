@@ -4,7 +4,7 @@ import {
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
 } from '../../helpers/priorities'
-import { priorityCodeCompletionTimes } from './priority-codes'
+import { priorityCodeCompletionTimes } from './priorityCodes'
 
 describe('priorityCodeCompletionTimes', () => {
   it('should map to the correct values', () => {

@@ -12,7 +12,7 @@ import {
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
-import { buildScheduleRepairFormData } from '../../../utils/hact/schedule-repair/raise-repair-form'
+import { buildScheduleRepairFormData } from '../../../utils/hact/scheduleRepair/raiseRepairForm'
 
 const RaiseRepairForm = ({
   propertyReference,

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
 import { SelectedFilterOptions } from '../../../utils/helpers/filter'

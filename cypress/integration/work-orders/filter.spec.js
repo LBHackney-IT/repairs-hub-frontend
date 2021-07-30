@@ -8,13 +8,13 @@ describe('Filter work orders', () => {
     // Work order filters
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
-      { fixture: 'filter/work-order.json' }
+      { fixture: 'filter/workOrder.json' }
     ).as('filters')
 
     // All work orders
     cy.intercept(
       { path: '/api/workOrders/?PageSize=10&PageNumber=1' },
-      { fixture: 'work-orders/work-orders.json' }
+      { fixture: 'workOrders/workOrders.json' }
     )
 
     // No work orders for work cancelled
@@ -24,7 +24,7 @@ describe('Filter work orders', () => {
     )
 
     // Work complete (50)
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50' },
         workOrders.filter((workOrder) => workOrder.status === 'Work complete')
@@ -32,7 +32,7 @@ describe('Filter work orders', () => {
     })
 
     // Variation Pending Approval (90)
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90' },
         workOrders.filter(
@@ -42,7 +42,7 @@ describe('Filter work orders', () => {
     })
 
     // Work Complete (50) and Variation Pending Approval (90)
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         {
           path:
@@ -57,7 +57,7 @@ describe('Filter work orders', () => {
     })
 
     // In Progress (80) and Variation Pending Approval (90) and Emergency priority
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         {
           path:
@@ -73,7 +73,7 @@ describe('Filter work orders', () => {
     })
 
     // Work order with Emergency priority
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         { path: '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2' },
         workOrders.filter(
@@ -83,7 +83,7 @@ describe('Filter work orders', () => {
     })
 
     // Work order with Plumbing and Purdys
-    cy.fixture('work-orders/work-orders.json').then((workOrders) => {
+    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
         {
           path:
@@ -542,7 +542,7 @@ describe('Filter work orders', () => {
 
   context('When logged in as a contractor in one contractor group', () => {
     beforeEach(() => {
-      cy.fixture('filter/work-order.json').then((filters) => {
+      cy.fixture('filter/workOrder.json').then((filters) => {
         filters.Contractors.splice(1)
         cy.intercept({ method: 'GET', path: '/api/filter/WorkOrder' }, filters)
       })
