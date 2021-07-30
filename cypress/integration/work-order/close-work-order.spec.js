@@ -131,10 +131,10 @@ describe('Closing a work order', () => {
       cy.get('.govuk-table__row').within(() => {
         cy.contains('Edit').click()
       })
-      // Enter 6 November 2020 at 13:01
+      // Enter 19 January 2021 at 13:01
       cy.get('form').within(() => {
         cy.get('[type="radio"]').first().check()
-        cy.get('#date').type('2020-11-06')
+        cy.get('#date').type('2021-02-19')
         cy.get('#time').within(() => {
           cy.get('#time-time').clear()
           cy.get('#time-minutes').clear()
@@ -147,7 +147,7 @@ describe('Closing a work order', () => {
         cy.get('[type="submit"]').contains('Submit').click()
       })
       cy.get('.govuk-table__row').contains('Completion time')
-      cy.get('.govuk-table__row').contains('2020/11/06')
+      cy.get('.govuk-table__row').contains('2021/02/19')
       cy.get('.govuk-table__row').contains('13:01')
       cy.get('.govuk-table__row').contains('Reason')
       cy.get('.govuk-table__row').contains('Work Order Completed')

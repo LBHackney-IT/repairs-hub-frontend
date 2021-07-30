@@ -59,7 +59,7 @@ const CloseWorkOrderForm = ({
                     new Date(new Date(dateRaised).toDateString()) ||
                   `Completion date must be on or after ${new Date(
                     dateRaised
-                  ).toLocaleDateString()}`,
+                  ).toLocaleDateString('en-GB')}`,
               },
             })}
             error={errors && errors.date}
