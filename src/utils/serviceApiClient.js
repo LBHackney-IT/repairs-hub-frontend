@@ -4,7 +4,7 @@ import * as HttpStatus from 'http-status-codes'
 import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import { cache } from './middleware/cache'
-import { CACHE_MAX_AGE_IN_MS } from './helpers/cache'
+import { CACHE_MAX_AGE_IN_SECONDS } from './helpers/cache'
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -21,7 +21,7 @@ export const serviceAPIRequest = cache(
 
       response.setHeader(
         'Cache-Control',
-        `public,max-age=${CACHE_MAX_AGE_IN_MS}`
+        `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
       )
       response.setHeader('X-Cache', 'HIT')
 
