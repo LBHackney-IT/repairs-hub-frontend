@@ -2,17 +2,27 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order', () => {
+  beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/workOrders?*',
+      },
+      { body: [] }
+    )
+
+    // Viewing the home page
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      {
+        fixture: 'filter/workOrder.json',
+      }
+    ).as('workOrderFilters')
+  })
+
   describe('When the work order does not require operative assignment', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
-
-      // Viewing the home page
-      cy.intercept(
-        { method: 'GET', path: '/api/filter/WorkOrder' },
-        {
-          fixture: 'filter/workOrder.json',
-        }
-      ).as('workOrderFilters')
 
       cy.intercept(
         {
@@ -38,14 +48,6 @@ describe('Closing a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
-      )
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
-        },
-        { body: [] }
       )
 
       // Submitting the update
@@ -355,7 +357,7 @@ describe('Closing a work order', () => {
         ).as('jobStatusUpdateRequest')
       })
 
-      it('requires the submission of at least one operative', () => {
+      it('requires total value of split % to be 100', () => {
         cy.visit('/work-orders/10000040/close')
 
         cy.wait('@workOrder')
@@ -377,12 +379,12 @@ describe('Closing a work order', () => {
           cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
         })
 
-        cy.get('.operatives').within(() => {
-          cy.get('input[list]').should('have.length', 3)
+        cy.get('.select_percentage').within(() => {
+          cy.get('select').should('have.length', 3)
 
-          cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
-          cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
-          cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
+          cy.get('select').eq(0).should('have.value', '33.3%')
+          cy.get('select').eq(1).should('have.value', '33.3%')
+          cy.get('select').eq(2).should('have.value', '33.3%')
         })
 
         cy.get('[type="submit"]').contains('Submit').click()
@@ -391,7 +393,9 @@ describe('Closing a work order', () => {
           .contains('Operatives')
           .parent()
           .within(() => {
-            cy.contains('Operative A, Operative B, Operative C')
+            cy.contains(
+              'Operative A : 33.3%, Operative B : 33.3%, Operative C : 33.3%'
+            )
             cy.get('a').contains('Edit').click()
           })
 
@@ -416,37 +420,39 @@ describe('Closing a work order', () => {
         })
 
         cy.get('.operatives').within(() => {
-          cy.get('[aria-label="Remove operative"]').click()
-          cy.get('[aria-label="Remove operative"]').click()
-
-          cy.get('input[list]').should('have.length', 1)
-
           cy.get('input[list]').eq(0).type('Operative Y [25]')
+          cy.get('input[list]').eq(1).type('Operative A [1]')
+          cy.get('input[list]').eq(2).type('Operative B [2]')
+
+          cy.get('a')
+            .contains(/Add operative from list/)
+            .click()
+
+          cy.get('input[list]').eq(3).type('Operative Z [26]')
+
+          cy.get('input[list]').should('have.length', 4)
         })
 
-        cy.get('[type="submit"]').contains('Submit').click() |
-          cy
-            .get('.govuk-table__row')
-            .contains('Operatives')
-            .parent()
-            .within(() => {
-              cy.contains('Operative Y')
-              cy.get('a').contains('Edit').click()
-            })
+        //tatal of split percentages is more than 100
+        cy.get('.select_percentage').within(() => {
+          cy.get('select').eq(0).select('70%')
+          cy.get('select').eq(1).select('20%')
+          cy.get('select').eq(2).select('30%')
+          cy.get('select').eq(3).select('10%')
+        })
+
+        cy.get('[type="submit"]').contains('Submit').click()
 
         cy.get('.operatives').within(() => {
-          cy.get('a')
-            .contains(/Add operative from list/)
-            .click()
+          cy.contains('Work done total across operatives must be equal to 100%')
+        })
 
-          cy.get('a')
-            .contains(/Add operative from list/)
-            .click()
-
-          cy.get('input[list]').should('have.length', 3)
-
-          cy.get('input[list]').eq(1).type('Operative Z [26]')
-          cy.get('input[list]').eq(2).type('Operative Z [26]') // Intentional duplicate
+        //now total is 100
+        cy.get('.select_percentage').within(() => {
+          cy.get('select').eq(0).select('70%')
+          cy.get('select').eq(1).select('20%')
+          cy.get('select').eq(2).select('10%')
+          cy.get('select').eq(3).select('-')
         })
 
         cy.get('[type="submit"]').contains('Submit').click()
@@ -455,7 +461,9 @@ describe('Closing a work order', () => {
           .contains('Operatives')
           .parent()
           .within(() => {
-            cy.contains('Operative Y, Operative Z')
+            cy.contains(
+              'Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -'
+            )
           })
 
         cy.get('[type="submit"]').contains('Confirm and close').click()
@@ -473,11 +481,25 @@ describe('Closing a work order', () => {
                 identification: {
                   number: 25,
                 },
+                calculatedBonus: 70,
+              },
+              {
+                identification: {
+                  number: 1,
+                },
+                calculatedBonus: 20,
+              },
+              {
+                identification: {
+                  number: 2,
+                },
+                calculatedBonus: 10,
               },
               {
                 identification: {
                   number: 26,
                 },
+                calculatedBonus: 0,
               },
             ],
             typeCode: '10',
@@ -498,7 +520,7 @@ describe('Closing a work order', () => {
                 typeCode: '70',
                 otherType: 'complete',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative Y, Operative Z',
+                  'Work order closed - A note - Assigned operatives Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -',
                 eventTime: '2021-01-19T13:01:00.000Z',
               },
             ],
@@ -529,9 +551,24 @@ describe('Closing a work order', () => {
         cy.intercept(
           { method: 'GET', path: '/api/operatives' },
           {
-            body: [],
+            body: [
+              {
+                id: 25,
+                name: 'Operative Y',
+              },
+            ],
           }
         ).as('operatives')
+
+        cy.intercept(
+          { method: 'POST', path: '/api/workOrderComplete' },
+          { body: '' }
+        ).as('workOrderCompleteRequest')
+
+        cy.intercept(
+          { method: 'POST', path: '/api/jobStatusUpdate' },
+          { body: '' }
+        ).as('jobStatusUpdateRequest')
       })
 
       it('requires the submission of at least one operative', () => {
@@ -553,6 +590,79 @@ describe('Closing a work order', () => {
             'Please select an operative'
           )
         })
+
+        cy.get('[type="radio"]').last().check()
+        cy.get('#date').type('2021-01-19')
+        cy.get('#time').within(() => {
+          cy.get('#time-time').type('13')
+          cy.get('#time-minutes').type('01')
+        })
+        cy.get('#notes').type('A note')
+
+        cy.get('.operatives').within(() => {
+          cy.get('input[list]').eq(0).type('Operative Y [25]')
+          cy.get('input[list]').should('have.length', 1)
+        })
+
+        // should add 100% by default
+        cy.get('.select_percentage').within(() => {
+          cy.get('select').eq(0).should('have.value', '100%')
+        })
+
+        cy.get('[type="submit"]').contains('Submit').click()
+
+        cy.get('.govuk-table__row')
+          .contains('Operatives')
+          .parent()
+          .within(() => {
+            cy.contains('Operative Y : 100%')
+          })
+
+        cy.get('[type="submit"]').contains('Confirm and close').click()
+
+        cy.wait('@jobStatusUpdateRequest')
+
+        cy.get('@jobStatusUpdateRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000040',
+            },
+            operativesAssigned: [
+              {
+                identification: {
+                  number: 25,
+                },
+                calculatedBonus: 100,
+              },
+            ],
+            typeCode: '10',
+          })
+
+        cy.wait('@workOrderCompleteRequest')
+
+        cy.get('@workOrderCompleteRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            workOrderReference: {
+              id: '10000040',
+              description: '',
+              allocatedBy: '',
+            },
+            jobStatusUpdates: [
+              {
+                typeCode: '70',
+                otherType: 'complete',
+                comments:
+                  'Work order closed - A note - Assigned operatives Operative Y : 100%',
+                eventTime: '2021-01-19T13:01:00.000Z',
+              },
+            ],
+          })
+
+        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
+
+        cy.audit()
       })
     })
   })

@@ -13,15 +13,23 @@ const CloseWorkOrderForm = ({
   reference,
   onGetToSummary,
   availableOperatives,
-  currentOperatives,
+  assignedOperativesToWorkOrder,
   operativeAssignmentMandatory,
   notes,
   time,
   date,
   reason,
   dateRaised,
+  selectedPercentagesToShowOnEdit,
 }) => {
-  const { handleSubmit, register, control, errors } = useForm({})
+  const {
+    handleSubmit,
+    register,
+    control,
+    errors,
+    trigger,
+    getValues,
+  } = useForm({})
 
   return (
     <>
@@ -77,10 +85,13 @@ const CloseWorkOrderForm = ({
 
           {operativeAssignmentMandatory && (
             <SelectOperatives
-              currentOperatives={currentOperatives}
+              assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
               availableOperatives={availableOperatives}
               register={register}
               errors={errors}
+              selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
+              trigger={trigger}
+              getValues={getValues}
             />
           )}
 

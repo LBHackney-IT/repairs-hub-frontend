@@ -9,46 +9,39 @@ const OperativeDataList = ({
   index,
   register,
   errors,
-  showAddOperative,
-  addOperativeHandler,
-  showRemoveOperative,
-  removeOperativeHandler,
+  isOperativeNameSelected,
+  getValues,
 }) => {
+  const onChange = () => {
+    isOperativeNameSelected(true)
+  }
+
   return (
     <>
-      <div>
-        <DataList
-          defaultValue={selectedOperative}
-          name={name}
-          options={options}
-          label={label}
-          register={register({
-            validate: (value) => {
-              return options.includes(value) || 'Please select an operative'
-            },
-          })}
-          error={errors && errors[name]}
-          additionalDivClasses={['govuk-!-display-inline-block']}
-        />
-        {showRemoveOperative && (
-          <button
-            className="cursor-pointer govuk-!-margin-left-2"
-            aria-label="Remove operative"
-            type="button"
-            onClick={() => removeOperativeHandler(index)}
-          >
-            -
-          </button>
-        )}
-      </div>
-
-      <div>
-        {showAddOperative && (
-          <a className="lbh-link" href="#" onClick={addOperativeHandler}>
-            + Add operative from list
-          </a>
-        )}
-      </div>
+      <DataList
+        name={name}
+        onChange={onChange}
+        defaultValue={selectedOperative}
+        options={options}
+        label={label}
+        register={register({
+          validate: (value) => {
+            if (!options.includes(value)) {
+              return 'Please select an operative'
+            } else if (
+              Object.entries(getValues())
+                .filter(
+                  ([k]) => k !== `operative-${index}` && k.match(/operative-/)
+                )
+                .some(([, name], i) => name === value && i < index)
+            ) {
+              return 'This operative has already been added'
+            }
+          },
+        })}
+        error={errors && errors[name]}
+        additionalDivClasses={['govuk-!-display-inline-block']}
+      />
     </>
   )
 }

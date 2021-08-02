@@ -20,9 +20,10 @@ describe('SelectOperatives component', () => {
   it('should render properly', () => {
     const { asFragment } = render(
       <SelectOperatives
-        currentOperatives={[operatives[0]]}
+        assignedOperativesToWorkOrder={[operatives[0]]}
         availableOperatives={operatives}
         register={() => {}}
+        selectedPercentagesToShowOnEdit={[]}
       />
     )
     expect(asFragment()).toMatchSnapshot()
