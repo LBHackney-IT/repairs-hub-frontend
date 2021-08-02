@@ -8,7 +8,7 @@ import { extractTimeFromDate } from '../../../utils/time'
 import { TR, TD } from '../../Layout/Table'
 import { canAccessWorkOrder } from '../../../utils/userPermissions'
 
-const RepairsHistoryRow = ({
+const WorkOrdersHistoryRow = ({
   reference,
   dateRaised,
   tradeDescription,
@@ -49,7 +49,7 @@ const RepairsHistoryRow = ({
   )
 }
 
-RepairsHistoryRow.propTypes = {
+WorkOrdersHistoryRow.propTypes = {
   reference: PropTypes.number.isRequired,
   dateRaised: PropTypes.instanceOf(Date),
   tradeDescription: PropTypes.string.isRequired,
@@ -57,4 +57,4 @@ RepairsHistoryRow.propTypes = {
   status: PropTypes.string.isRequired,
 }
 
-export default RepairsHistoryRow
+export default WorkOrdersHistoryRow

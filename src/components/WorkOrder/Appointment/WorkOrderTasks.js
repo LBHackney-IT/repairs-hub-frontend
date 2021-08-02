@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 
-const RepairTasks = ({ tasks }) => {
+const WorkOrderTasks = ({ tasks }) => {
   return (
     <GridRow className="lbh-body-s">
       <GridColumn width="full">
@@ -41,8 +41,8 @@ const RepairTasks = ({ tasks }) => {
   )
 }
 
-RepairTasks.propTypes = {
+WorkOrderTasks.propTypes = {
   tasks: PropTypes.array.isRequired,
 }
 
-export default RepairTasks
+export default WorkOrderTasks

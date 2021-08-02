@@ -7,7 +7,7 @@ import { getAvailableAppointments } from '../../../utils/frontEndApiClient/appoi
 import { beginningOfDay, beginningOfWeek, daysAfter } from '../../../utils/time'
 import BackButton from '../../Layout/BackButton/BackButton'
 import PropertyDetails from './PropertyDetails'
-import RepairTasks from './RepairTasks'
+import WorkOrderTasks from './WorkOrderTasks'
 import AppointmentCalendar from './AppointmentCalendar'
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import NoAvailableAppointments from './NoAvailableAppointments'
@@ -152,7 +152,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
                   personAlerts={personAlerts}
                   canRaiseRepair={property.canRaiseRepair}
                 />
-                <RepairTasks tasks={tasksAndSors} />
+                <WorkOrderTasks tasks={tasksAndSors} />
                 {!availableAppointments.length ? (
                   <NoAvailableAppointments
                     workOrderReference={workOrderReference}

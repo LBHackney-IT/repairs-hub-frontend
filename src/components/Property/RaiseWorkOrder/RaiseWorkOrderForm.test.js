@@ -5,9 +5,9 @@ import {
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
 } from '../../../utils/helpers/priorities'
-import RaiseRepairForm from './RaiseRepairForm'
+import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 
-describe('RaiseRepairForm component', () => {
+describe('RaiseWorkOrderForm component', () => {
   const props = {
     property: {
       propertyReference: '00012345',
@@ -80,7 +80,7 @@ describe('RaiseRepairForm component', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <RaiseRepairForm
+      <RaiseWorkOrderForm
         propertyReference={props.property.propertyReference}
         address={props.property.address}
         hierarchyType={props.property.hierarchyType}

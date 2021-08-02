@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import RaiseRepairStatus from './RaiseRepairStatus'
+import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
 import PropertyDetailsGrid from './PropertyDetailsGrid'
 import BackButton from '../Layout/BackButton/BackButton'
 
@@ -20,7 +20,7 @@ const PropertyDetails = ({
         {hierarchyType.subTypeDescription}: {address.addressLine}
       </h1>
       <div>
-        <RaiseRepairStatus
+        <RaiseWorkOrderStatus
           canRaiseRepair={canRaiseRepair}
           description={hierarchyType.subTypeDescription}
           propertyReference={propertyReference}

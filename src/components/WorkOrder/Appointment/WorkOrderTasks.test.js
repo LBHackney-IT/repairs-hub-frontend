@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import RepairTasks from './RepairTasks'
+import WorkOrderTasks from './WorkOrderTasks'
 
-describe('RepairTasks component', () => {
+describe('WorkOrderTasks component', () => {
   const props = {
     tasks: [
       {
@@ -32,7 +32,7 @@ describe('RepairTasks component', () => {
   }
 
   it('should render properly', () => {
-    const { asFragment } = render(<RepairTasks tasks={props.tasks} />)
+    const { asFragment } = render(<WorkOrderTasks tasks={props.tasks} />)
     expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -1,6 +1,6 @@
 import MockDate from 'mockdate'
 import { URGENT_PRIORITY_CODE } from '../../helpers/priorities'
-import { buildScheduleRepairFormData } from './raiseRepairForm'
+import { buildScheduleWorkOrderFormData } from './raiseWorkOrderForm'
 
 const mockBankHolidays = jest.fn()
 
@@ -16,7 +16,7 @@ jest.mock('uuid', () => {
   }
 })
 
-describe('buildRaiseRepairFormData', () => {
+describe('buildRaiseWorkOrderFormData', () => {
   const formData = {
     rateScheduleItems: [
       {
@@ -45,7 +45,7 @@ describe('buildRaiseRepairFormData', () => {
     contactNumber: '07788777888',
   }
 
-  it('builds the ScheduleRepair form data to post to the Repairs API', async () => {
+  it('builds the ScheduleWorkOrder form data to post to the Repairs API', async () => {
     MockDate.set(new Date('Thu Jan 14 2021 18:16:20Z'))
 
     // set the following Monday as a bank holiday
@@ -60,7 +60,7 @@ describe('buildRaiseRepairFormData', () => {
       },
     })
 
-    const scheduleRepairFormData = {
+    const scheduleWorkOrderFormData = {
       reference: [
         {
           id: 'aa757643-cf89-4247-a42c-8a035182feqd',
@@ -158,7 +158,7 @@ describe('buildRaiseRepairFormData', () => {
       },
     }
 
-    const response = buildScheduleRepairFormData(formData)
-    expect(response).toEqual(scheduleRepairFormData)
+    const response = buildScheduleWorkOrderFormData(formData)
+    expect(response).toEqual(scheduleWorkOrderFormData)
   })
 })

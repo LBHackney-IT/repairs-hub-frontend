@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RaiseRepairForm component should render properly 1`] = `
+exports[`RaiseWorkOrderForm component should render properly 1`] = `
 <DocumentFragment>
   <a
     class="govuk-back-link lbh-back-link"

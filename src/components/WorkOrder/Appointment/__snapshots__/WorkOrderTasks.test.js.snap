@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RepairTasks component should render properly 1`] = `
+exports[`WorkOrderTasks component should render properly 1`] = `
 <DocumentFragment>
   <div
     class="govuk-grid-row lbh-body-s"

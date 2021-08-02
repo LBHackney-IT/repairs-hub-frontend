@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 
-const RaiseRepairStatus = ({
+const RaiseWorkOrderStatus = ({
   canRaiseRepair,
   description,
   propertyReference,
@@ -26,10 +26,10 @@ const RaiseRepairStatus = ({
   }
 }
 
-RaiseRepairStatus.propTypes = {
+RaiseWorkOrderStatus.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   description: PropTypes.string.isRequired,
   propertyReference: PropTypes.string.isRequired,
 }
 
-export default RaiseRepairStatus
+export default RaiseWorkOrderStatus

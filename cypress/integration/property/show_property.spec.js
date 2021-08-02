@@ -23,10 +23,10 @@ describe('Show property', () => {
               '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { body: [] }
-        ).as('repairsHistory')
+        ).as('workOrdersHistory')
 
         cy.visit('/properties/00012345')
-        cy.wait('@repairsHistory')
+        cy.wait('@workOrdersHistory')
       })
 
       it('shows property address in the heading', () => {

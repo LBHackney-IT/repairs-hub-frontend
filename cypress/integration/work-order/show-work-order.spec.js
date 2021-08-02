@@ -157,7 +157,7 @@ describe('Show work order page', () => {
               '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { fixture: 'workOrders/workOrders.json' }
-        ).as('repairsHistory')
+        ).as('workOrdersHistory')
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000040' },
           { fixture: 'workOrders/priorityImmediate.json' }
@@ -180,7 +180,7 @@ describe('Show work order page', () => {
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
         // Now select Notes tab
         cy.get('a[id="tab_work-orders-history-tab"]').click()
-        cy.wait('@repairsHistory')
+        cy.wait('@workOrdersHistory')
       })
 
       it('Clicks the first work order of Work orders history', () => {
