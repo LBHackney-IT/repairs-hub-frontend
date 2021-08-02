@@ -88,7 +88,7 @@ describe('Managing work order appointments', () => {
         //Appointment page with calendar
         cy.url().should('contains', 'work-orders/10000012/appointment/edit')
 
-        cy.contains('Repair task details')
+        cy.contains('Work order task details')
 
         cy.get('.appointment-calendar').within(() => {
           cy.get('.available').contains('11').click({ force: true })

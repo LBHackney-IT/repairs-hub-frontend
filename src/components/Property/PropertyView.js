@@ -15,7 +15,7 @@ const PropertyView = ({ propertyReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const tabsList = ['Repairs history']
+  const tabsList = ['Work orders history']
 
   const getPropertyView = async (propertyReference) => {
     setError(null)

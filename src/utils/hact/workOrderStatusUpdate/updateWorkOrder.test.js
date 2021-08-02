@@ -1,4 +1,4 @@
-import { buildUpdateWorkOrder } from './updateJob'
+import { buildUpdateWorkOrder } from './updateWorkOrder'
 
 describe('buildUpdateWorkOrder', () => {
   const latestTasks = [

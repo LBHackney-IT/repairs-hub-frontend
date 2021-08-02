@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import RaiseRepairForm from './RaiseRepairForm'
+import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
@@ -11,7 +11,7 @@ import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/statusCode
 import Meta from '../../Meta'
 import router from 'next/router'
 
-const RaiseRepairFormView = ({ propertyReference }) => {
+const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
@@ -100,7 +100,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
     setLoading(false)
   }
 
-  const getRaiseRepairFormView = async (propertyReference) => {
+  const getRaiseWorkOrderFormView = async (propertyReference) => {
     setError(null)
 
     try {
@@ -145,7 +145,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getRaiseRepairFormView(propertyReference)
+    getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
   return (
@@ -188,7 +188,7 @@ const RaiseRepairFormView = ({ propertyReference }) => {
             personAlerts &&
             priorities &&
             trades && (
-              <RaiseRepairForm
+              <RaiseWorkOrderForm
                 propertyReference={propertyReference}
                 address={property.address}
                 hierarchyType={property.hierarchyType}
@@ -210,8 +210,8 @@ const RaiseRepairFormView = ({ propertyReference }) => {
   )
 }
 
-RaiseRepairFormView.propTypes = {
+RaiseWorkOrderFormView.propTypes = {
   propertyReference: PropTypes.string.isRequired,
 }
 
-export default RaiseRepairFormView
+export default RaiseWorkOrderFormView

@@ -21,7 +21,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     'Tasks and SORs',
     'Notes',
     'Pending variation',
-    'Repairs history',
+    'Work orders history',
   ]
 
   const getWorkOrderView = async (workOrderReference) => {

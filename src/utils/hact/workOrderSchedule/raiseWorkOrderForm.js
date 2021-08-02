@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { priorityCodeCompletionTimes } from '../helpers/priorityCodes'
 import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
 
-export const buildScheduleRepairFormData = (formData) => {
+export const buildScheduleWorkOrderFormData = (formData) => {
   return {
     reference: [
       {

@@ -13,7 +13,7 @@ import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
-} from '../../../utils/hact/jobStatusUpdate/authorisation'
+} from '../../../utils/hact/workOrderStatusUpdate/authorisation'
 import { calculateTotalCost } from '../../../utils/helpers/calculations'
 import { WorkOrder } from '../../../models/workOrder'
 

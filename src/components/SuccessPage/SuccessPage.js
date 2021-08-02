@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
-import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/workOrderStatusUpdate/notesForm'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import UserContext from '../UserContext/UserContext'
 

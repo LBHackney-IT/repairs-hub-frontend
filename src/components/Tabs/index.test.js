@@ -5,7 +5,7 @@ import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
 jest.mock('next/router', () => ({
   useRouter() {
     return {
-      asPath: '/work-orders/10203040#repairs-history-tab',
+      asPath: '/work-orders/10203040#work-orders-history-tab',
     }
   },
 }))
@@ -16,7 +16,7 @@ describe('Tabs component', () => {
   enableGOVUKFrontendJavascript.mockImplementation(() => funcSpy())
 
   const props = {
-    tabsList: ['Tasks and SORs', 'Repairs history'],
+    tabsList: ['Tasks and SORs', 'Work orders history'],
     propertyReference: '00012345',
     workOrderReference: '10203040',
   }

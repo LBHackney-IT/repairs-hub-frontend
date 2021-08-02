@@ -12,9 +12,9 @@ import {
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
-import { buildScheduleRepairFormData } from '../../../utils/hact/scheduleRepair/raiseRepairForm'
+import { buildScheduleWorkOrderFormData } from '../../../utils/hact/workOrderSchedule/raiseWorkOrderForm'
 
-const RaiseRepairForm = ({
+const RaiseWorkOrderForm = ({
   propertyReference,
   address,
   hierarchyType,
@@ -36,9 +36,9 @@ const RaiseRepairForm = ({
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
-    const scheduleRepairFormData = buildScheduleRepairFormData(formData)
+    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData(formData)
 
-    onFormSubmit(scheduleRepairFormData)
+    onFormSubmit(scheduleWorkOrderFormData)
   }
 
   const getPriorityObjectByDescription = (description) => {
@@ -119,7 +119,7 @@ const RaiseRepairForm = ({
           </div>
 
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
-            Repair task details
+            Work order task details
           </h2>
 
           <form
@@ -232,7 +232,7 @@ const RaiseRepairForm = ({
   )
 }
 
-RaiseRepairForm.propTypes = {
+RaiseWorkOrderForm.propTypes = {
   propertyReference: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
@@ -245,4 +245,4 @@ RaiseRepairForm.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
 }
 
-export default RaiseRepairForm
+export default RaiseWorkOrderForm

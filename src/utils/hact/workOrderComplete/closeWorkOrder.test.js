@@ -1,4 +1,4 @@
-import { buildCloseWorkOrderData } from './closeJob'
+import { buildCloseWorkOrderData } from './closeWorkOrder'
 describe('buildCloseWorkOrderData', () => {
   const completionDate = new Date(
     'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
@@ -7,7 +7,7 @@ describe('buildCloseWorkOrderData', () => {
   const reference = '00012346'
 
   //typeCode 0 for Work Order Completed
-  it('builds the ScheduleRepair form data to post to the Repairs API with typeCode 0', async () => {
+  it('builds the ScheduleWorkOrder form data to post to the Repairs API with typeCode 0', async () => {
     const CloseWorkOrderFormData = {
       workOrderReference: {
         id: reference,
@@ -34,7 +34,7 @@ describe('buildCloseWorkOrderData', () => {
   })
 
   //typeCode 70 for No Access
-  it('builds the ScheduleRepair form data to post to the Repairs API with typeCode 70', async () => {
+  it('builds the ScheduleWorkOrder form data to post to the Repairs API with typeCode 70', async () => {
     const CloseWorkOrderFormData = {
       workOrderReference: {
         id: reference,
