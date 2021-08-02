@@ -15,7 +15,10 @@ const OperativeDataList = ({
   addOperativeHandler,
   showRemoveOperative,
   removeOperativeHandler,
+  someFunction,
 }) => {
+  //maybe add here call back function that will update selected operativeName
+  // or maybe move this function to SelectOperatives component
   const [selectedOperativeName, setSelectedOperativeName] = useState(value)
   const [selectedOperativeId, setSelectedOperativeId] = useState(operativeId)
 
@@ -28,7 +31,7 @@ const OperativeDataList = ({
     const newOperativeId = Array.isArray(idMatch)
       ? idMatch[idMatch.length - 1]
       : ''
-
+    someFunction(true)
     setSelectedOperativeId(newOperativeId)
   }
 
@@ -48,7 +51,7 @@ const OperativeDataList = ({
             },
           })}
           error={errors && errors[name]}
-          additionalDivClasses={['govuk-!-display-inline-block']}
+          // additionalDivClasses={['govuk-!-display-inline-block']}
         />
         {showRemoveOperative && (
           <button
