@@ -89,7 +89,7 @@ describe('Closing a work order', () => {
         cy.get('#notes').type('test')
         cy.get('[type="submit"]').contains('Submit').click()
       })
-      
+
       cy.get('form').within(() => {
         cy.contains('Completion date must be on or after 18/01/2021')
       })
