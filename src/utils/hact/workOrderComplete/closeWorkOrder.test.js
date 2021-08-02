@@ -1,4 +1,4 @@
-import { buildCloseWorkOrderData } from './closeJob'
+import { buildCloseWorkOrderData } from './closeWorkOrder'
 describe('buildCloseWorkOrderData', () => {
   const completionDate = new Date(
     'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
