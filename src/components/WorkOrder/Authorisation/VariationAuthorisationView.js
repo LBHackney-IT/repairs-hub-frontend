@@ -8,13 +8,13 @@ import { TextArea, PrimarySubmitButton } from '../../Form'
 import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
-} from '../../../utils/hact/job-status-update/authorisation'
+} from '../../../utils/hact/jobStatusUpdate/authorisation'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
-import { frontEndApiRequest } from '../../../utils/frontend-api-client/requests'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
 
 const VariationAuthorisationView = ({ workOrderReference }) => {

@@ -1,4 +1,4 @@
-import { buildScheduleAppointmentData } from './schedule-appointment'
+import { buildScheduleAppointmentData } from './scheduleAppointment'
 describe('buildScheduleAppointmentData', () => {
   const workOrderReference = '10000197'
   const appointmentReference = '34/2021-02-25'

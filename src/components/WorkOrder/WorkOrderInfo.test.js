@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { WorkOrder } from '../../models/work-order'
+import { WorkOrder } from '../../models/workOrder'
 import WorkOrderInfo from './WorkOrderInfo'
 
 describe('WorkOrderInfo component', () => {

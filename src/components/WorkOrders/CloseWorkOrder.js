@@ -5,12 +5,12 @@ import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/close-job'
+import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeJob'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { buildOperativeAssignmentFormData } from '../../utils/hact/jobStatusUpdate/assignOperatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
-import { WorkOrder } from '../../models/work-order'
+import { WorkOrder } from '../../models/workOrder'
 
 const CloseWorkOrder = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')

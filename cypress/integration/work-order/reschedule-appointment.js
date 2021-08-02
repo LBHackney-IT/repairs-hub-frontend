@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
-} from '../../../src/utils/status-codes'
+} from '../../../src/utils/statusCodes'
 
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
@@ -19,11 +19,11 @@ describe('Managing work order appointments', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/notes' },
-      { fixture: 'work-orders/notes.json' }
+      { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-      { fixture: 'work-orders/task.json' }
+      { fixture: 'workOrders/task.json' }
     ).as('tasks')
 
     cy.intercept(
@@ -60,7 +60,7 @@ describe('Managing work order appointments', () => {
 
     context('When the work order is not in a closed state', () => {
       beforeEach(() => {
-        cy.fixture('work-orders/with-appointment.json')
+        cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
@@ -159,7 +159,7 @@ describe('Managing work order appointments', () => {
 
     context('When the work order is in a closed state', () => {
       beforeEach(() => {
-        cy.fixture('work-orders/with-appointment.json')
+        cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_NO_ACCESS.description
 
@@ -198,7 +198,7 @@ describe('Managing work order appointments', () => {
   describe('Rescheduling a work order in DRS', () => {
     context('When the work order is not in a closed state', () => {
       beforeEach(() => {
-        cy.fixture('work-orders/with-appointment.json')
+        cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.externalAppointmentManagementUrl =
               '/scheduler?bookingId=1'
@@ -258,7 +258,7 @@ describe('Managing work order appointments', () => {
 
       context('When the work order is in a closed state', () => {
         beforeEach(() => {
-          cy.fixture('work-orders/with-appointment.json')
+          cy.fixture('workOrders/withAppointment.json')
             .then((workOrder) => {
               workOrder.externalAppointmentManagementUrl =
                 '/scheduler?bookingId=1'

@@ -4,7 +4,7 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
   canAccessWorkOrder,
-} from './user-permissions'
+} from './userPermissions'
 
 describe('canManageJobs', () => {
   describe('when user is allowed to manage jobs', () => {

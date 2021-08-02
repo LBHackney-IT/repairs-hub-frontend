@@ -9,7 +9,7 @@ import {
 
 const mockBankHolidays = jest.fn()
 
-jest.mock('./bank-holidays', () => ({
+jest.mock('./bankHolidays', () => ({
   get bankHolidays() {
     return mockBankHolidays()
   },

@@ -1,5 +1,5 @@
 import MockDate from 'mockdate'
-import { buildCancelWorkOrderFormData } from './cancel-work-order-form'
+import { buildCancelWorkOrderFormData } from './cancelWorkOrderForm'
 
 describe('buildCancelWorkOrderFormData', () => {
   const formData = {

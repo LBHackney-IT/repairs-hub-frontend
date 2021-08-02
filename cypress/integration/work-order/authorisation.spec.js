@@ -9,7 +9,7 @@ describe('Authorisation workflow for a work order', () => {
   beforeEach(() => {
     cy.loginWithAuthorisationManagerRole()
 
-    cy.fixture('hub-user/user.json').then((user) => {
+    cy.fixture('hubUser/user.json').then((user) => {
       user.raiseLimit = 1000
       cy.intercept({ method: 'GET', path: '/api/hub-user' }, { body: user })
     })
@@ -21,7 +21,7 @@ describe('Authorisation workflow for a work order', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'work-orders/status-authorisation-pending-approval.json' }
+      { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
     )
     cy.intercept(
       {
@@ -33,7 +33,7 @@ describe('Authorisation workflow for a work order', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-      { fixture: 'work-orders/task.json' }
+      { fixture: 'workOrders/task.json' }
     ).as('tasks-and-sors-request')
 
     cy.intercept(
@@ -160,7 +160,7 @@ describe('Authorisation workflow for a work order', () => {
     it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'work-orders/work-order.json' }
+        { fixture: 'workOrders/workOrder.json' }
       )
 
       // Visit work order page
@@ -174,7 +174,7 @@ describe('Authorisation workflow for a work order', () => {
     it('Can not authorise (approve) work order if over raise spend limit', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-        { fixture: 'work-orders/high-cost-task.json' }
+        { fixture: 'workOrders/highCostTask.json' }
       ).as('highCostTasks')
 
       cy.visit('/work-orders/10000012/authorisation')

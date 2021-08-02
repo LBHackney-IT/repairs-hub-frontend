@@ -1,4 +1,4 @@
-import { soapRequest } from '../../../soap-request-client'
+import { soapRequest } from '../../../soapRequestClient'
 import { DOMParser } from 'xmldom'
 import xpath from 'xpath'
 

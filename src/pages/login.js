@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { redirectToHome, isAuthorised } from '../utils/GoogleAuth'
+import { redirectToHome, isAuthorised } from '../utils/googleAuth'
 import { getProtocol } from '../utils/urls'
 import UserLogin from '../components/UserLogin/UserLogin'
 import Meta from '../components/Meta'

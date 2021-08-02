@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { priorityCodeCompletionTimes } from '../helpers/priority-codes'
+import { priorityCodeCompletionTimes } from '../helpers/priorityCodes'
 import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
 
 export const buildScheduleRepairFormData = (formData) => {

@@ -7,7 +7,7 @@ import {
 import {
   serviceAPIRequest,
   authoriseServiceAPIRequest,
-} from '../../../utils/service-api-client'
+} from '../../../utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res, user) => {
   req.query = { path: ['properties', req.query.id] }

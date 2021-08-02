@@ -7,7 +7,7 @@ import {
   isAuthorised,
   redirectToAcessDenied,
   AUTH_WHITELIST,
-} from '../utils/GoogleAuth'
+} from '../utils/googleAuth'
 
 import UserContext from '../components/UserContext/UserContext'
 import Meta from '../components/Meta'

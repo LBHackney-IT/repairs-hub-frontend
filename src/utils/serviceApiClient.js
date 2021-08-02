@@ -1,7 +1,7 @@
 import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
-import { isAuthorised } from './GoogleAuth'
+import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import { cache } from './middleware/cache'
 import { CACHE_MAX_AGE_IN_MS } from './helpers/cache'

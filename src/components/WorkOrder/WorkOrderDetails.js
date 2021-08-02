@@ -7,7 +7,7 @@ import BackButton from '../Layout/BackButton/BackButton'
 import MultiButton from '../Layout/MultiButton/MultiButton'
 
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
-import { WorkOrder } from '../../models/work-order'
+import { WorkOrder } from '../../models/workOrder'
 
 const WorkOrderDetails = ({
   propertyReference,

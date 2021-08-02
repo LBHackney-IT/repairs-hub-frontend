@@ -3,10 +3,10 @@ import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
-import { getOrCreateSchedulerSessionId } from '../../utils/frontend-api-client/users/schedulerSession'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 import Tabs from '../Tabs'
-import { WorkOrder } from '../../models/work-order'
+import { WorkOrder } from '../../models/workOrder'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})

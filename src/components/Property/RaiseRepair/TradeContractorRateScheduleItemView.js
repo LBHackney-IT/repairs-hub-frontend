@@ -3,8 +3,8 @@ import { useState } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorSelect from './ContractorSelect'
-import { getContractors } from '../../../utils/frontend-api-client/contractors'
-import { getSorCodes } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
+import { getContractors } from '../../../utils/frontEndApiClient/contractors'
+import { getSorCodes } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
 
 const TradeContractorRateScheduleItemView = ({
   trades,

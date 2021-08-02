@@ -1,8 +1,8 @@
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { soapRequest } from '../../../utils/soap-request-client'
+import { soapRequest } from '../../../utils/soapRequestClient'
 
-jest.mock('../../../utils/soap-request-client')
+jest.mock('../../../utils/soapRequestClient')
 
 import schedulerSessionEndpoint from './schedulerSession'
 

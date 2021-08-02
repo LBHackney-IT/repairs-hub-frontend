@@ -35,7 +35,7 @@ Cypress.Commands.add('loginWithAgentRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/user.json' }
+    { fixture: 'hubUser/user.json' }
   )
 })
 
@@ -48,7 +48,7 @@ Cypress.Commands.add('loginWithContractorRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/contractor.json' }
+    { fixture: 'hubUser/contractor.json' }
   )
 })
 
@@ -61,7 +61,7 @@ Cypress.Commands.add('loginWithAgentAndContractorRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/operative.json' }
+    { fixture: 'hubUser/operative.json' }
   )
 })
 
@@ -74,7 +74,7 @@ Cypress.Commands.add('loginWithMultipleContractorRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/multiple-contractor.json' }
+    { fixture: 'hubUser/multipleContractor.json' }
   )
 })
 
@@ -87,7 +87,7 @@ Cypress.Commands.add('loginWithContractManagerRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/user.json' }
+    { fixture: 'hubUser/user.json' }
   )
 })
 
@@ -100,7 +100,7 @@ Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
-    { fixture: 'hub-user/user.json' }
+    { fixture: 'hubUser/user.json' }
   )
 })
 

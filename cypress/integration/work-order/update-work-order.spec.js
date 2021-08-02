@@ -9,16 +9,16 @@ describe('Contractor update a work order', () => {
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       {
-        fixture: 'filter/work-order.json',
+        fixture: 'filter/workOrder.json',
       }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
-      { fixture: 'work-orders/work-orders.json' }
+      { fixture: 'workOrders/workOrders.json' }
     )
 
     // Viewing the work order page
-    cy.fixture('work-orders/work-order.json').then((workOrder) => {
+    cy.fixture('workOrders/workOrder.json').then((workOrder) => {
       workOrder.reference = 10000040
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000040' },
@@ -39,7 +39,7 @@ describe('Contractor update a work order', () => {
     )
 
     // Updating the work order
-    cy.fixture('work-orders/tasks-and-sors.json').then((tasksAndSors) => {
+    cy.fixture('workOrders/tasksAndSors.json').then((tasksAndSors) => {
       tasksAndSors.splice(1, 2)
 
       cy.intercept(
@@ -54,7 +54,7 @@ describe('Contractor update a work order', () => {
         path:
           '/api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345?contractorReference=SCC',
       },
-      { fixture: 'schedule-of-rates/code.json' }
+      { fixture: 'scheduleOfRates/code.json' }
     ).as('sorCodeRequest')
 
     cy.intercept(

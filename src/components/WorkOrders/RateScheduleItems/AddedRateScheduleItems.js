@@ -3,7 +3,7 @@ import { Fragment, useState } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import Spinner from '../../Spinner/Spinner'
-import { getSorCode } from '../../../utils/frontend-api-client/schedule-of-rates/codes'
+import { getSorCode } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
 
 const AddedRateScheduleItems = ({
   register,

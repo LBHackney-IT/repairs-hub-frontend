@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
 import cx from 'classnames'
-import { canManageJobs } from '../../../utils/user-permissions'
+import { canManageJobs } from '../../../utils/userPermissions'
 
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext)

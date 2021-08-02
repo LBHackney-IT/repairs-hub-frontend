@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import WorkOrdersTable from './WorkOrdersTable'
-import { getWorkOrders } from '../../utils/frontend-api-client/work-orders'
+import { getWorkOrders } from '../../utils/frontEndApiClient/workOrders'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'

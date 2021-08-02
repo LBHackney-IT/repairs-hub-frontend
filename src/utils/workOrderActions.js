@@ -3,7 +3,7 @@ import {
   STATUS_VARIATION_PENDING_APPROVAL,
   STATUS_AUTHORISATION_PENDING_APPROVAL,
   WORK_ORDERS_STATUSES,
-} from './status-codes'
+} from './statusCodes'
 
 import {
   AGENT_ROLE,
