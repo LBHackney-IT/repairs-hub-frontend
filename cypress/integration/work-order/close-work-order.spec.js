@@ -77,6 +77,24 @@ describe('Closing a work order', () => {
       })
     })
 
+    it('shows errors when the raised date is after the completed date', () => {
+      cy.visit('/work-orders/10000040/close')
+
+      cy.get('form').within(() => {
+        cy.get('#date').type('2021-01-17') //Raised on 2021-01-18
+        cy.get('#time').within(() => {
+          cy.get('#time-time').type('32')
+          cy.get('#time-minutes').type('66')
+        })
+        cy.get('#notes').type('test')
+        cy.get('[type="submit"]').contains('Submit').click()
+      })
+      
+      cy.get('form').within(() => {
+        cy.contains('Completion date must be on or after 18/01/2021')
+      })
+    })
+
     it('submits the form with inputs that are invalid', () => {
       cy.visit('/work-orders/10000040/close')
 
