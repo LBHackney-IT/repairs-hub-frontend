@@ -34,7 +34,7 @@ describe('CloseWorkOrderForm component', () => {
         date={props.date}
         reason={props.reason}
         operativeAssignmentMandatory={true}
-        currentOperatives={props.operatives}
+        assignedOperativesToWorkOrder={props.operatives}
         availableOperatives={props.availableOperatives}
       />
     )

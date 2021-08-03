@@ -5,14 +5,10 @@ import Select from '../Form/Select/Select'
 const SelectPercentage = ({
   updatePercentages,
   operativeIndex,
-  currentOperatives,
+  assignedOperativesToWorkOrder,
   selectedOperatives,
   operativeNameIsSelected,
 }) => {
-  //need to check if operatives were assigned
-  //if 1 operative was assigned then show 100%, 2- 50/50, 3- 33/33/33
-  // if no operatives were assigned and the field of operatives is blank, show '-' instead of 100%
-
   const isOnlyOneOperative = (selectedOperatives) => {
     return selectedOperatives.length === 1
   }
@@ -24,12 +20,12 @@ const SelectPercentage = ({
         operativeNameIsSelected) ||
       (operativeIndex === 0 &&
         selectedOperatives.length === 1 &&
-        currentOperatives === 1)
+        assignedOperativesToWorkOrder === 1)
     ) {
       return '100%'
-    } else if (currentOperatives === 2 && selectedOperatives.length === 2) {
+    } else if (assignedOperativesToWorkOrder === 2 && selectedOperatives.length === 2) {
       return '50%'
-    } else if (currentOperatives === 3 && selectedOperatives.length === 3) {
+    } else if (assignedOperativesToWorkOrder === 3 && selectedOperatives.length === 3) {
       return '33.3%'
     }
     return '—'
@@ -72,7 +68,7 @@ const SelectPercentage = ({
     let onlyOneAssignedOperative =
       operativeIndex === 0 &&
       selectedOperatives.length === 1 &&
-      currentOperatives === 1
+      assignedOperativesToWorkOrder === 1
     if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')

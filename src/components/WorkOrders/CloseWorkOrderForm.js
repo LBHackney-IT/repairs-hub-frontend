@@ -14,7 +14,7 @@ const CloseWorkOrderForm = ({
   reference,
   onGetToSummary,
   availableOperatives,
-  currentOperatives,
+  assignedOperativesToWorkOrder,
   operativeAssignmentMandatory,
   notes,
   time,
@@ -69,7 +69,7 @@ const CloseWorkOrderForm = ({
 
           {operativeAssignmentMandatory && (
             <SelectOperatives
-              currentOperatives={currentOperatives}
+              assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
               availableOperatives={availableOperatives}
               register={register}
               errors={errors}

@@ -180,7 +180,7 @@ const CloseWorkOrder = ({ reference }) => {
                   date={completionDate}
                   reason={reason}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
-                  currentOperatives={selectedOperatives}
+                  assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
                 />
               )}

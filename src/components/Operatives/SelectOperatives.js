@@ -5,14 +5,14 @@ import SelectPercentage from '../WorkOrders/SelectPercentage'
 import { GridRow, GridColumn } from '../Layout/Grid'
 
 const SelectOperatives = ({
-  currentOperatives,
+  assignedOperativesToWorkOrder,
   availableOperatives,
   register,
   errors,
 }) => {
   const [selectedOperatives, setSelectedOperatives] = useState(
     // Add at least one slot for an operative
-    currentOperatives.length > 0 ? currentOperatives : [null]
+    assignedOperativesToWorkOrder.length > 0 ? assignedOperativesToWorkOrder : [null]
   )
   const [operativeNameIsSelected, setOperativeNameIsSelected] = useState(false)
 
@@ -39,7 +39,7 @@ const SelectOperatives = ({
   }
 
   const [updatedPercentages, setUpdatedPercentages] = useState(
-    caculateInitialPercentage(currentOperatives.length)
+    caculateInitialPercentage(assignedOperativesToWorkOrder.length)
   )
 
   //check that all are 33%, then all should be 33%
@@ -118,7 +118,7 @@ const SelectOperatives = ({
                   showRemoveOperative={
                     index > 0 &&
                     index === selectedOperatives.length - 1 &&
-                    selectedOperatives.length > currentOperatives.length
+                    selectedOperatives.length > assignedOperativesToWorkOrder.length
                   }
                   removeOperativeHandler={(operativeIndex) => {
                     let newSelectedOperatives = [
@@ -141,7 +141,7 @@ const SelectOperatives = ({
                 <SelectPercentage
                   updatePercentages={updatePercentages}
                   operativeIndex={index}
-                  currentOperatives={currentOperatives.length}
+                  assignedOperativesToWorkOrder={assignedOperativesToWorkOrder.length}
                   selectedOperatives={selectedOperatives}
                   operativeNameIsSelected={operativeNameIsSelected}
                 />
@@ -155,7 +155,7 @@ const SelectOperatives = ({
 }
 
 SelectOperatives.propTypes = {
-  currentOperatives: PropTypes.array.isRequired,
+  assignedOperativesToWorkOrder: PropTypes.array.isRequired,
   availableOperatives: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
 }
