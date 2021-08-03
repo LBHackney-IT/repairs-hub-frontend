@@ -170,97 +170,256 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Search by operative name and select from the list
         </p>
-        <div>
+        <div
+          class="govuk-grid-row display-flex position-relative"
+        >
           <div
-            class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
-            id="operative-0-form-group"
+            class="govuk-grid-column-two-thirds"
           >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-0"
-            >
-              Operative name 1 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select undefined"
-              data-testid="operative-0"
-              id="operative-0"
-              list="autocomplete-list-operative-0"
-              name="operative-0"
-              value="Operative A [1]"
-            />
-            <datalist
-              id="autocomplete-list-operative-0"
-            >
-              <option
-                value="Operative A [1]"
+            <div>
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="operative-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="operative-0"
+                >
+                  Operative name 1 *  
+                </label>
+                <input
+                  autocomplete="off"
+                  class="govuk-select lbh-select undefined"
+                  data-testid="operative-0"
+                  id="operative-0"
+                  list="autocomplete-list-operative-0"
+                  name="operative-0"
+                  value="Operative A [1]"
+                />
+                <datalist
+                  id="autocomplete-list-operative-0"
+                >
+                  <option
+                    value="Operative A [1]"
+                  />
+                  <option
+                    value="Operative B [2]"
+                  />
+                </datalist>
+              </div>
+              <div />
+              <input
+                id="operativeId-0"
+                name="operativeId-0"
+                type="hidden"
+                value="1"
               />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
+            </div>
+            <div />
           </div>
-          <input
-            id="operativeId-0"
-            name="operativeId-0"
-            type="hidden"
-            value="1"
-          />
-        </div>
-        <div />
-        <div>
           <div
-            class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
-            id="operative-1-form-group"
+            class="govuk-grid-column-one-third"
           >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-1"
+            <div
+              class="select_percentage"
             >
-              Operative name 2 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select undefined"
-              data-testid="operative-1"
-              id="operative-1"
-              list="autocomplete-list-operative-1"
-              name="operative-1"
-              value="Operative B [2]"
-            />
-            <datalist
-              id="autocomplete-list-operative-1"
-            >
-              <option
-                value="Operative A [1]"
-              />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage"
+                >
+                   percentage 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage"
+                  id="percentage"
+                  name="percentage"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="—"
+                  >
+                    —
+                  </option>
+                </select>
+              </div>
+            </div>
           </div>
-          <button
-            aria-label="Remove operative"
-            class="cursor-pointer govuk-!-margin-left-2"
-            type="button"
-          >
-            -
-          </button>
-          <input
-            id="operativeId-1"
-            name="operativeId-1"
-            type="hidden"
-            value="2"
-          />
         </div>
-        <div>
-          <a
-            class="lbh-link"
-            href="#"
+        <div
+          class="govuk-grid-row display-flex position-relative"
+        >
+          <div
+            class="govuk-grid-column-two-thirds"
           >
-            + Add operative from list
-          </a>
+            <div>
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="operative-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="operative-1"
+                >
+                  Operative name 2 *  
+                </label>
+                <input
+                  autocomplete="off"
+                  class="govuk-select lbh-select undefined"
+                  data-testid="operative-1"
+                  id="operative-1"
+                  list="autocomplete-list-operative-1"
+                  name="operative-1"
+                  value="Operative B [2]"
+                />
+                <datalist
+                  id="autocomplete-list-operative-1"
+                >
+                  <option
+                    value="Operative A [1]"
+                  />
+                  <option
+                    value="Operative B [2]"
+                  />
+                </datalist>
+              </div>
+              <div />
+              <input
+                id="operativeId-1"
+                name="operativeId-1"
+                type="hidden"
+                value="2"
+              />
+            </div>
+            <div>
+              <a
+                class="lbh-link"
+                href="#"
+              >
+                + Add operative from list
+              </a>
+            </div>
+          </div>
+          <div
+            class="govuk-grid-column-one-third"
+          >
+            <div
+              class="select_percentage"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage"
+                >
+                   percentage 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage"
+                  id="percentage"
+                  name="percentage"
+                >
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="—"
+                  >
+                    —
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div

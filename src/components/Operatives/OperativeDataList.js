@@ -17,8 +17,6 @@ const OperativeDataList = ({
   removeOperativeHandler,
   someFunction,
 }) => {
-  //maybe add here call back function that will update selected operativeName
-  // or maybe move this function to SelectOperatives component
   const [selectedOperativeName, setSelectedOperativeName] = useState(value)
   const [selectedOperativeId, setSelectedOperativeId] = useState(operativeId)
 
@@ -53,16 +51,18 @@ const OperativeDataList = ({
           error={errors && errors[name]}
           // additionalDivClasses={['govuk-!-display-inline-block']}
         />
-        {showRemoveOperative && (
-          <button
-            className="cursor-pointer govuk-!-margin-left-2"
-            aria-label="Remove operative"
-            type="button"
-            onClick={() => removeOperativeHandler(index)}
-          >
-            -
-          </button>
-        )}
+
+        <div>
+          {showRemoveOperative && (
+            <a
+              className="lbh-link"
+              href="#"
+              onClick={() => removeOperativeHandler(index)}
+            >
+              - Remove operative from list
+            </a>
+          )}
+        </div>
         <input
           id={`operativeId-${index}`}
           name={`operativeId-${index}`}
