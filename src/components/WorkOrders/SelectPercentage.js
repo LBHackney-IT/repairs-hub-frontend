@@ -6,38 +6,38 @@ const SelectPercentage = ({
   updatePercentages,
   operativeIndex,
   assignedOperativesToWorkOrder,
-  selectedOperatives,
+  allOperatives,
   operativeNameIsSelected,
 }) => {
-  const isOnlyOneOperative = (selectedOperatives) => {
-    return selectedOperatives.length === 1
+  const isOnlyOneOperative = (allOperatives) => {
+    return allOperatives.length === 1
   }
 
-  const getDefaultPercentage = (selectedOperatives) => {
+  const getDefaultPercentage = (allOperatives) => {
     if (
       (operativeIndex === 0 &&
-        selectedOperatives.length === 1 &&
+        allOperatives.length === 1 &&
         operativeNameIsSelected) ||
       (operativeIndex === 0 &&
-        selectedOperatives.length === 1 &&
+        allOperatives.length === 1 &&
         assignedOperativesToWorkOrder === 1)
     ) {
       return '100%'
-    } else if (assignedOperativesToWorkOrder === 2 && selectedOperatives.length === 2) {
+    } else if (assignedOperativesToWorkOrder === 2 && allOperatives.length === 2) {
       return '50%'
-    } else if (assignedOperativesToWorkOrder === 3 && selectedOperatives.length === 3) {
+    } else if (assignedOperativesToWorkOrder === 3 && allOperatives.length === 3) {
       return '33.3%'
     }
     return '—'
   }
   const [selectedPercentage, setSelectedPercentage] = useState(
-    getDefaultPercentage(selectedOperatives)
+    getDefaultPercentage(allOperatives)
   )
 
-  const getPossiblePercentages = (selectedOperatives) => {
-    if (isOnlyOneOperative(selectedOperatives)) {
+  const getPossiblePercentages = (allOperatives) => {
+    if (isOnlyOneOperative(allOperatives)) {
       return ['100%']
-    } else if (selectedOperatives.length == 3) {
+    } else if (allOperatives.length == 3) {
       return [
         '100%',
         '90%',
@@ -63,23 +63,23 @@ const SelectPercentage = ({
   useEffect(() => {
     let onlyOneOperativeAndSelectedOperative =
       operativeIndex === 0 &&
-      selectedOperatives.length === 1 &&
+      allOperatives.length === 1 &&
       operativeNameIsSelected
     let onlyOneAssignedOperative =
       operativeIndex === 0 &&
-      selectedOperatives.length === 1 &&
+      allOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
     if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
     } else if (
-      selectedOperatives.length !== 3 &&
+		allOperatives.length !== 3 &&
       selectedPercentage === '33.3%'
     ) {
       setSelectedPercentage('—')
       updatePercentages(operativeIndex, '—')
     }
-  }, [selectedOperatives, operativeNameIsSelected])
+  }, [allOperatives, operativeNameIsSelected])
 
   return (
     <>
@@ -87,9 +87,9 @@ const SelectPercentage = ({
         <Select
           label=" percentage"
           name="percentage"
-          options={getPossiblePercentages(selectedOperatives)}
+          options={getPossiblePercentages(allOperatives)}
           value={selectedPercentage}
-          disabled={isOnlyOneOperative(selectedOperatives)}
+          disabled={isOnlyOneOperative(allOperatives)}
           onChange={onChange}
         />
       </div>

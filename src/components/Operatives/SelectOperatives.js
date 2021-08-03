@@ -10,7 +10,7 @@ const SelectOperatives = ({
   register,
   errors,
 }) => {
-  const [selectedOperatives, setSelectedOperatives] = useState(
+  const [allOperatives, setAllOperatives] = useState(
     // Add at least one slot for an operative
     assignedOperativesToWorkOrder.length > 0 ? assignedOperativesToWorkOrder : [null]
   )
@@ -78,7 +78,7 @@ const SelectOperatives = ({
     setUpdatedPercentages(updatedPercentages)
     console.log('calling update percentages')
     console.log(
-      calculateTotalPercentage(selectedOperatives, updatedPercentages)
+      calculateTotalPercentage(allOperatives, updatedPercentages)
     )
   }
 
@@ -89,7 +89,7 @@ const SelectOperatives = ({
           Search by operative name and select from the list
         </p>
 
-        {selectedOperatives.map((operative, index) => {
+        {allOperatives.map((operative, index) => {
           return (
             <GridRow key={index} className="display-flex position-relative">
               <GridColumn width="two-thirds">
@@ -109,21 +109,21 @@ const SelectOperatives = ({
                   index={index}
                   register={register}
                   errors={errors}
-                  showAddOperative={index === selectedOperatives.length - 1}
+                  showAddOperative={index === allOperatives.length - 1}
                   addOperativeHandler={(e) => {
                     e.preventDefault()
-                    setSelectedOperatives([...selectedOperatives, null])
-                    updatedPercentages[selectedOperatives.length] = '—'
+                    setAllOperatives([...allOperatives, null])
+                    updatedPercentages[allOperatives.length] = '—'
                   }}
                   showRemoveOperative={
                     index > 0 &&
-                    index === selectedOperatives.length - 1 &&
-                    selectedOperatives.length > assignedOperativesToWorkOrder.length
+                    index === allOperatives.length - 1 &&
+                    allOperatives.length > assignedOperativesToWorkOrder.length
                   }
                   removeOperativeHandler={(operativeIndex) => {
                     let newSelectedOperatives = [
-                      ...selectedOperatives.slice(0, operativeIndex),
-                      ...selectedOperatives.slice(operativeIndex + 1),
+                      ...allOperatives.slice(0, operativeIndex),
+                      ...allOperatives.slice(operativeIndex + 1),
                     ]
                     //move this function call => on submit validation
                     console.log(
@@ -132,7 +132,7 @@ const SelectOperatives = ({
                         updatedPercentages
                       )
                     )
-                    setSelectedOperatives(newSelectedOperatives)
+                    setAllOperatives(newSelectedOperatives)
                   }}
                   isOperativeNameSelected={isOperativeNameSelected}
                 />
@@ -142,7 +142,7 @@ const SelectOperatives = ({
                   updatePercentages={updatePercentages}
                   operativeIndex={index}
                   assignedOperativesToWorkOrder={assignedOperativesToWorkOrder.length}
-                  selectedOperatives={selectedOperatives}
+                  allOperatives={allOperatives}
                   operativeNameIsSelected={operativeNameIsSelected}
                 />
               </GridColumn>
