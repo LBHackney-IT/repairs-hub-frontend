@@ -15,7 +15,7 @@ const OperativeDataList = ({
   addOperativeHandler,
   showRemoveOperative,
   removeOperativeHandler,
-  someFunction,
+  isOperativeNameSelected,
 }) => {
   const [selectedOperativeName, setSelectedOperativeName] = useState(value)
   const [selectedOperativeId, setSelectedOperativeId] = useState(operativeId)
@@ -29,7 +29,7 @@ const OperativeDataList = ({
     const newOperativeId = Array.isArray(idMatch)
       ? idMatch[idMatch.length - 1]
       : ''
-    someFunction(true)
+      isOperativeNameSelected(true)
     setSelectedOperativeId(newOperativeId)
   }
 

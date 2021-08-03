@@ -17,7 +17,7 @@ const SelectOperatives = ({
   const [operativeNameIsSelected, setOperativeNameIsSelected] = useState(false)
 
   //check if operative name is selected (rename the function)
-  const someFunction = (nameWasSelected) => {
+  const isOperativeNameSelected = (nameWasSelected) => {
     setOperativeNameIsSelected(nameWasSelected)
   }
 
@@ -134,7 +134,7 @@ const SelectOperatives = ({
                     )
                     setSelectedOperatives(newSelectedOperatives)
                   }}
-                  someFunction={someFunction}
+                  isOperativeNameSelected={isOperativeNameSelected}
                 />
               </GridColumn>
               <GridColumn width="one-third">
