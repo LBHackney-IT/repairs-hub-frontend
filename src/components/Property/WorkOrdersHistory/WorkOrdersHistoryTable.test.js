@@ -1,14 +1,14 @@
 import { render } from '@testing-library/react'
 import UserContext from '../../UserContext/UserContext'
-import RepairsHistoryTable from './RepairsHistoryTable'
+import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import { agent } from 'factories/agent'
 import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 
-describe('RepairsHistoryTable component', () => {
+describe('WorkOrdersHistoryTable component', () => {
   const props = {
-    tabName: 'Repairs history',
+    tabName: 'Work orders history',
     workOrders: [
       {
         reference: 10000012,
@@ -41,7 +41,7 @@ describe('RepairsHistoryTable component', () => {
     it('should render properly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
-          <RepairsHistoryTable
+          <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
           />
@@ -55,7 +55,7 @@ describe('RepairsHistoryTable component', () => {
     it('should render properly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractor }}>
-          <RepairsHistoryTable
+          <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
           />
@@ -69,7 +69,7 @@ describe('RepairsHistoryTable component', () => {
     it('should render properly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
-          <RepairsHistoryTable
+          <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
           />
@@ -83,7 +83,7 @@ describe('RepairsHistoryTable component', () => {
     it('should render properly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
-          <RepairsHistoryTable
+          <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
           />

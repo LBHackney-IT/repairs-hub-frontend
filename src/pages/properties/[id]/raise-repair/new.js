@@ -1,4 +1,4 @@
-import RaiseRepairFormView from '../../../../components/Property/RaiseRepair/RaiseRepairFormView'
+import RaiseWorkOrderFormView from '../../../../components/Property/RaiseWorkOrder/RaiseWorkOrderFormView'
 
 import {
   AGENT_ROLE,
@@ -7,7 +7,7 @@ import {
 } from '../../../../utils/user'
 
 const RaiseRepairPage = ({ query }) => {
-  return <RaiseRepairFormView propertyReference={query.id} />
+  return <RaiseWorkOrderFormView propertyReference={query.id} />
 }
 
 export const getServerSideProps = async (ctx) => {

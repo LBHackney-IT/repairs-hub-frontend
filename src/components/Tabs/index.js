@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import RepairsHistoryView from '../Property/RepairsHistory/RepairsHistoryView'
+import WorkOrdersHistoryView from '../Property/WorkOrdersHistory/WorkOrdersHistoryView'
 import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
@@ -27,9 +27,9 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
 
   const renderTabComponentView = (activeTabId, tabName) => {
     switch (activeTabId) {
-      case 'repairs-history-tab':
+      case 'work-orders-history-tab':
         return (
-          <RepairsHistoryView
+          <WorkOrdersHistoryView
             propertyReference={propertyReference}
             tabName={tabName}
           />
@@ -57,7 +57,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
         )
       default:
         return (
-          <RepairsHistoryView
+          <WorkOrdersHistoryView
             propertyReference={propertyReference}
             tabName={tabName}
           />

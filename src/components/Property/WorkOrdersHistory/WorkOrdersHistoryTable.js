@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { PAGE_SIZE_AGENTS } from 'src/utils/frontEndApiClient/workOrders'
 import UserContext from '../../UserContext/UserContext'
-import RepairsHistoryRow from './RepairsHistoryRow'
+import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '../../../utils/userPermissions'
 
-const RepairsHistoryTable = ({
+const WorkOrdersHistoryTable = ({
   workOrders,
   tabName,
   pageNumber,
@@ -41,7 +41,7 @@ const RepairsHistoryTable = ({
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <Table className="govuk-!-margin-top-5 repairs-history-table">
+      <Table className="govuk-!-margin-top-5 work-orders-history-table">
         <THead>
           <TR className="lbh-body">
             {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
@@ -53,7 +53,7 @@ const RepairsHistoryTable = ({
         </THead>
         <TBody>
           {workOrders.map((workOrder, index) => (
-            <RepairsHistoryRow key={index} {...workOrder} />
+            <WorkOrdersHistoryRow key={index} {...workOrder} />
           ))}
         </TBody>
       </Table>
@@ -62,7 +62,7 @@ const RepairsHistoryTable = ({
   )
 }
 
-RepairsHistoryTable.propTypes = {
+WorkOrdersHistoryTable.propTypes = {
   tabName: PropTypes.string.isRequired,
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
@@ -78,4 +78,4 @@ RepairsHistoryTable.propTypes = {
   loadMoreWorkOrders: PropTypes.func,
 }
 
-export default RepairsHistoryTable
+export default WorkOrdersHistoryTable

@@ -7,7 +7,7 @@ describe('Raise repair form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub request for raise a repair form page
+    // Stub request for raise a work order form page
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -56,12 +56,12 @@ describe('Raise repair form', () => {
     ).as('apiCheck')
   })
 
-  it('Fill out repair task details form to raise a repair', () => {
-    // Click link to raise a repair
+  it('Fill out work order task details form to raise a work order', () => {
+    // Click link to raise a work order
     cy.visit('/properties/00012345')
 
     cy.get('.lbh-heading-h2')
-      .contains('Raise a repair on this dwelling')
+      .contains('Raise a work order on this dwelling')
       .click()
     cy.url().should('contains', 'properties/00012345/raise-repair/new')
 
@@ -91,7 +91,7 @@ describe('Raise repair form', () => {
         cy.get('tbody>tr').eq(1).contains('00000666666')
       })
 
-    cy.get('.lbh-heading-h2').contains('Repair task details')
+    cy.get('.lbh-heading-h2').contains('Work order task details')
 
     // Form section
     // Try to submit form without entering required fields
@@ -678,7 +678,7 @@ describe('Raise repair form', () => {
 // This is a "special" integration test to end-to-end test
 // our permission system. We don't need to replicate this
 // for all our features because we have broad low-level test coverage.
-describe('When a contractor tries to raise a repair using the UI', () => {
+describe('When a contractor tries to raise a work order using the UI', () => {
   beforeEach(() => {
     cy.loginWithContractorRole()
   })

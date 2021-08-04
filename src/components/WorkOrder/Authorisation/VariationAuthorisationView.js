@@ -8,7 +8,7 @@ import { TextArea, PrimarySubmitButton } from '../../Form'
 import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
-} from '../../../utils/hact/jobStatusUpdate/authorisation'
+} from '../../../utils/hact/workOrderStatusUpdate/authorisation'
 import SuccessPage from '../../SuccessPage/SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'

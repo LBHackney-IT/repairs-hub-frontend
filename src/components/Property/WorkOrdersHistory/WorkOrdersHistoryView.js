@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import RepairsHistoryTable from './RepairsHistoryTable'
+import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import { getWorkOrdersForProperty } from '../../../utils/frontEndApiClient/workOrders'
 
-const RepairsHistoryView = ({ propertyReference, tabName }) => {
+const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [pageNumber, setPageNumber] = useState(1)
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
@@ -41,10 +41,10 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
     getWorkOrdersHistoryView(propertyReference, newPageNumber)
   }
 
-  const renderRepairsHistoryTable = () => {
+  const renderWorkOrdersHistoryTable = () => {
     if (workOrders?.length > 0) {
       return (
-        <RepairsHistoryTable
+        <WorkOrdersHistoryTable
           workOrders={workOrders}
           tabName={tabName}
           pageNumber={pageNumber}
@@ -73,7 +73,7 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
         <Spinner />
       ) : (
         <>
-          {workOrders && renderRepairsHistoryTable()}
+          {workOrders && renderWorkOrdersHistoryTable()}
           {error && <ErrorMessage label={error} />}
         </>
       )}
@@ -81,9 +81,9 @@ const RepairsHistoryView = ({ propertyReference, tabName }) => {
   )
 }
 
-RepairsHistoryView.propTypes = {
+WorkOrdersHistoryView.propTypes = {
   tabName: PropTypes.string.isRequired,
   propertyReference: PropTypes.string.isRequired,
 }
 
-export default RepairsHistoryView
+export default WorkOrdersHistoryView

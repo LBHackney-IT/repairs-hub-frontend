@@ -5,10 +5,10 @@ import { convertToDateFormat } from '../../utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
-import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeJob'
+import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { buildOperativeAssignmentFormData } from '../../utils/hact/jobStatusUpdate/assignOperatives'
+import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
 import { uniqueArrayValues } from '../../utils/helpers/array'
 import { WorkOrder } from '../../models/workOrder'
 
@@ -182,6 +182,7 @@ const CloseWorkOrder = ({ reference }) => {
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   currentOperatives={selectedOperatives}
                   availableOperatives={availableOperatives}
+                  dateRaised={workOrder.dateRaised}
                 />
               )}
               {!CloseWorkOrderFormPage && (

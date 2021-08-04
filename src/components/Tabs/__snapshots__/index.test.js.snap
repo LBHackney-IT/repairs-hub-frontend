@@ -29,9 +29,9 @@ exports[`Tabs component should render properly 1`] = `
       >
         <a
           class="govuk-tabs__tab"
-          href="#repairs-history-tab"
+          href="#work-orders-history-tab"
         >
-          Repairs history
+          Work orders history
         </a>
       </li>
     </ul>
@@ -41,12 +41,12 @@ exports[`Tabs component should render properly 1`] = `
     />
     <div
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
-      id="repairs-history-tab"
+      id="work-orders-history-tab"
     >
       <h2
         class="lbh-heading-h2"
       >
-        Repairs history
+        Work orders history
       </h2>
       <div>
         <hr

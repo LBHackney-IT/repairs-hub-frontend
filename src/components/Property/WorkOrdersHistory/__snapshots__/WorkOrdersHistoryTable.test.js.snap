@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`RepairsHistoryTable component when logged in as a contract manager should render properly 1`] = `
+exports[`WorkOrdersHistoryTable component when logged in as a contract manager should render properly 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -144,15 +144,15 @@ exports[`RepairsHistoryTable component when logged in as a contract manager shou
 </DocumentFragment>
 `;
 
-exports[`RepairsHistoryTable component when logged in as a contractor should render properly 1`] = `
+exports[`WorkOrdersHistoryTable component when logged in as a contractor should render properly 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -262,15 +262,15 @@ exports[`RepairsHistoryTable component when logged in as a contractor should ren
 </DocumentFragment>
 `;
 
-exports[`RepairsHistoryTable component when logged in as an agent should render properly 1`] = `
+exports[`WorkOrdersHistoryTable component when logged in as an agent should render properly 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
@@ -406,15 +406,15 @@ exports[`RepairsHistoryTable component when logged in as an agent should render 
 </DocumentFragment>
 `;
 
-exports[`RepairsHistoryTable component when logged in as an authorisation manager should render properly 1`] = `
+exports[`WorkOrdersHistoryTable component when logged in as an authorisation manager should render properly 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"
   >
-    Repairs history
+    Work orders history
   </h2>
   <table
-    class="govuk-table lbh-table govuk-!-margin-top-5 repairs-history-table"
+    class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
     <thead
       class="govuk-table__head"
