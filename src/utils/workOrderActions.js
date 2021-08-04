@@ -58,4 +58,11 @@ export const WORK_ORDER_ACTIONS = [
       return status !== STATUS_CANCELLED.description
     }),
   },
+  {
+    href: 'print',
+    title: 'Print',
+    description: 'Print Job Ticket',
+    permittedRoles: [CONTRACTOR_ROLE],
+    permittedStatuses: WORK_ORDERS_STATUSES,
+  },
 ]

@@ -1402,6 +1402,27 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
                 Close Work Order
               </p>
             </div>
+            <div>
+              <input
+                aria-describedby="workOrderMenu-2-hint"
+                id="workOrderMenu-2"
+                name="workOrderMenu"
+                type="radio"
+                value="2"
+              />
+              <label
+                class="lbh-body-s undefined"
+                for="workOrderMenu-2"
+              >
+                Print
+              </label>
+              <p
+                class="lbh-body-xs undefined"
+                id="workOrderMenu-2-hint"
+              >
+                Print Job Ticket
+              </p>
+            </div>
           </fieldset>
         </details>
       </div>
