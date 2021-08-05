@@ -98,7 +98,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -513,7 +513,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -854,7 +854,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
 exports[`WorkOrderDetails component when logged in as a contract manager should render without a link to authorise a variation request when status is not variation pending approval 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -1269,7 +1269,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -1582,7 +1582,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
 exports[`WorkOrderDetails component when logged in as an agent should not render the work order action menu if work order is closed 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -1773,7 +1773,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
 exports[`WorkOrderDetails component when logged in as an agent should render migrated work order references correctly 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -2146,7 +2146,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -2519,7 +2519,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -2892,7 +2892,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
     </details>
   </div>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -3184,7 +3184,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
 exports[`WorkOrderDetails component when logged in as an authorisation manager should render without a link to authorise a new work order when status is not authorisation pending approval 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
