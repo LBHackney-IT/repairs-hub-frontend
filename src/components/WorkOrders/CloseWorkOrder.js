@@ -23,6 +23,7 @@ const CloseWorkOrder = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
+  const [totalPercentage, setTotalPercentage] = useState('')
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -141,24 +142,26 @@ const CloseWorkOrder = ({ reference }) => {
     setCloseWorkOrderFormPage(!CloseWorkOrderFormPage)
   }
 
+  const updateTotalPercentage = (percentageNumber) => {
+    setTotalPercentage(percentageNumber)
+  }
+
   const onGetToSummary = (e) => {
-    const properDate = convertToDateFormat(e)
-    setCompletionDate(properDate)
-
-    const operativeIds = Object.entries(e)
-      .filter(([key]) => key.match(/^operativeId-\d+$/))
-      .map(([, value]) => Number.parseInt(value))
-
-    setSelectedOperatives(
-      operativeIds.map((operativeId) =>
-        availableOperatives.find((operative) => operative.id === operativeId)
+      const properDate = convertToDateFormat(e)
+      setCompletionDate(properDate)
+      const operativeIds = Object.entries(e)
+        .filter(([key]) => key.match(/^operativeId-\d+$/))
+        .map(([, value]) => Number.parseInt(value))
+      setSelectedOperatives(
+        operativeIds.map((operativeId) =>
+          availableOperatives.find((operative) => operative.id === operativeId)
+        )
       )
-    )
-    setReason(e.reason)
-    setNotes(e.notes)
-    setDateToShow(e.date)
-    changeCurrentPage()
-    setCompletionTime(e.time)
+      setReason(e.reason)
+      setNotes(e.notes)
+      setDateToShow(e.date)
+      changeCurrentPage()
+      setCompletionTime(e.time)
   }
 
   return (
@@ -182,6 +185,7 @@ const CloseWorkOrder = ({ reference }) => {
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
+                  updateTotalPercentage={updateTotalPercentage}
                 />
               )}
               {!CloseWorkOrderFormPage && (

@@ -17,12 +17,17 @@ describe('SelectOperatives component', () => {
     },
   ]
 
+  const props = {
+    updateTotalPercentage: jest.fn()
+  }
+
   it('should render properly', () => {
     const { asFragment } = render(
       <SelectOperatives
         assignedOperativesToWorkOrder={[operatives[0]]}
         availableOperatives={operatives}
         register={() => {}}
+        updateTotalPercentage={props.updateTotalPercentage}
       />
     )
     expect(asFragment()).toMatchSnapshot()

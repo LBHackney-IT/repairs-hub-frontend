@@ -5,9 +5,12 @@ import Select from '../Form/Select/Select'
 const SelectPercentage = ({
   updatePercentages,
   operativeIndex,
+  name,
   assignedOperativesToWorkOrder,
   allOperatives,
   operativeNameIsSelected,
+  errors,
+  register,
 }) => {
   const isOnlyOneOperative = (allOperatives) => {
     return allOperatives.length === 1
@@ -23,9 +26,15 @@ const SelectPercentage = ({
         assignedOperativesToWorkOrder === 1)
     ) {
       return '100%'
-    } else if (assignedOperativesToWorkOrder === 2 && allOperatives.length === 2) {
+    } else if (
+      assignedOperativesToWorkOrder === 2 &&
+      allOperatives.length === 2
+    ) {
       return '50%'
-    } else if (assignedOperativesToWorkOrder === 3 && allOperatives.length === 3) {
+    } else if (
+      assignedOperativesToWorkOrder === 3 &&
+      allOperatives.length === 3
+    ) {
       return '33.3%'
     }
     return '—'
@@ -56,6 +65,9 @@ const SelectPercentage = ({
   }
 
   const onChange = (e) => {
+    if (errors && errors.percentage) {
+      delete errors['percentage']
+    }
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
   }
@@ -72,10 +84,7 @@ const SelectPercentage = ({
     if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
-    } else if (
-		allOperatives.length !== 3 &&
-      selectedPercentage === '33.3%'
-    ) {
+    } else if (allOperatives.length !== 3 && selectedPercentage === '33.3%') {
       setSelectedPercentage('—')
       updatePercentages(operativeIndex, '—')
     }
@@ -85,12 +94,14 @@ const SelectPercentage = ({
     <>
       <div className="select_percentage">
         <Select
-          label=" percentage"
-          name="percentage"
+          label="Work done"
+          name={name}
           options={getPossiblePercentages(allOperatives)}
           value={selectedPercentage}
           disabled={isOnlyOneOperative(allOperatives)}
           onChange={onChange}
+          error={errors && errors[name]}
+          register={register}
         />
       </div>
     </>

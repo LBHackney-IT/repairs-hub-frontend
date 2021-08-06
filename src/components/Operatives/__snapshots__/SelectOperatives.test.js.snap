@@ -18,7 +18,7 @@ exports[`SelectOperatives component should render properly 1`] = `
       >
         <div>
           <div
-            class="govuk-form-group lbh-form-group"
+            class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
             id="operative-0-form-group"
           >
             <label
@@ -75,20 +75,20 @@ exports[`SelectOperatives component should render properly 1`] = `
         >
           <div
             class="govuk-form-group lbh-form-group"
-            id="percentage-form-group"
+            id="operative-percentage-0-form-group"
           >
             <label
               class="govuk-label lbh-label"
-              for="percentage"
+              for="operative-percentage-0"
             >
-               percentage 
+              Work done 
             </label>
             <select
               class="govuk-select lbh-select undefined"
-              data-testid="percentage"
+              data-testid="operative-percentage-0"
               disabled=""
-              id="percentage"
-              name="percentage"
+              id="operative-percentage-0"
+              name="operative-percentage-0"
             >
               <option
                 value=""

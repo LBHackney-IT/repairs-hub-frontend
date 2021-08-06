@@ -29,7 +29,7 @@ const OperativeDataList = ({
     const newOperativeId = Array.isArray(idMatch)
       ? idMatch[idMatch.length - 1]
       : ''
-      isOperativeNameSelected(true)
+    isOperativeNameSelected(true)
     setSelectedOperativeId(newOperativeId)
   }
 
@@ -49,7 +49,7 @@ const OperativeDataList = ({
             },
           })}
           error={errors && errors[name]}
-          // additionalDivClasses={['govuk-!-display-inline-block']}
+          additionalDivClasses={['govuk-!-display-inline-block']}
         />
 
         <div>
@@ -57,7 +57,7 @@ const OperativeDataList = ({
             <a
               className="lbh-link"
               href="#"
-              onClick={() => removeOperativeHandler(index)}
+              onClick={(e) => removeOperativeHandler(index, e)}
             >
               - Remove operative from list
             </a>

@@ -178,7 +178,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           >
             <div>
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
                 id="operative-0-form-group"
               >
                 <label
@@ -225,19 +225,19 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             >
               <div
                 class="govuk-form-group lbh-form-group"
-                id="percentage-form-group"
+                id="operative-percentage-0-form-group"
               >
                 <label
                   class="govuk-label lbh-label"
-                  for="percentage"
+                  for="operative-percentage-0"
                 >
-                   percentage 
+                  Work done 
                 </label>
                 <select
                   class="govuk-select lbh-select undefined"
-                  data-testid="percentage"
-                  id="percentage"
-                  name="percentage"
+                  data-testid="operative-percentage-0"
+                  id="operative-percentage-0"
+                  name="operative-percentage-0"
                 >
                   <option
                     value=""
@@ -300,7 +300,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           >
             <div>
               <div
-                class="govuk-form-group lbh-form-group"
+                class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
                 id="operative-1-form-group"
               >
                 <label
@@ -354,19 +354,19 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             >
               <div
                 class="govuk-form-group lbh-form-group"
-                id="percentage-form-group"
+                id="operative-percentage-1-form-group"
               >
                 <label
                   class="govuk-label lbh-label"
-                  for="percentage"
+                  for="operative-percentage-1"
                 >
-                   percentage 
+                  Work done 
                 </label>
                 <select
                   class="govuk-select lbh-select undefined"
-                  data-testid="percentage"
-                  id="percentage"
-                  name="percentage"
+                  data-testid="operative-percentage-1"
+                  id="operative-percentage-1"
+                  name="operative-percentage-1"
                 >
                   <option
                     value=""

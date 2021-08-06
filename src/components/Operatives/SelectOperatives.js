@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useEffect, useState } from 'react'
+import cx from 'classnames'
 import OperativeDataList from './OperativeDataList'
 import SelectPercentage from '../WorkOrders/SelectPercentage'
 import { GridRow, GridColumn } from '../Layout/Grid'
@@ -9,10 +10,13 @@ const SelectOperatives = ({
   availableOperatives,
   register,
   errors,
+  updateTotalPercentage,
 }) => {
   const [allOperatives, setAllOperatives] = useState(
     // Add at least one slot for an operative
-    assignedOperativesToWorkOrder.length > 0 ? assignedOperativesToWorkOrder : [null]
+    assignedOperativesToWorkOrder.length > 0
+      ? assignedOperativesToWorkOrder
+      : [null]
   )
   const [operativeNameIsSelected, setOperativeNameIsSelected] = useState(false)
 
@@ -42,14 +46,13 @@ const SelectOperatives = ({
     caculateInitialPercentage(assignedOperativesToWorkOrder.length)
   )
 
-  //check that all are 33%, then all should be 33%
-  //for errors
   const calculateTotalPercentage = (
     selOperatives,
     operativesIndexPercentages
   ) => {
+    //not using rounding logic in case options are (33.3, 33.3 and 30, then it will round it to 100, and it is not correct)
     if (
-      selOperatives.length == 3 &&
+      selOperatives.length === 3 &&
       operativesIndexPercentages[0] === '33.3%' &&
       operativesIndexPercentages[1] === '33.3%' &&
       operativesIndexPercentages[2] === '33.3%'
@@ -61,9 +64,6 @@ const SelectOperatives = ({
         if (operativesIndexPercentages[activeOperativeIndex] == '—') {
           return 0
         }
-        console.log('*********')
-        console.log(operativesIndexPercentages)
-        console.log(activeOperativeIndex)
         return parseInt(
           operativesIndexPercentages[activeOperativeIndex].slice(0, -1)
         )
@@ -76,18 +76,25 @@ const SelectOperatives = ({
   const updatePercentages = (operativeIndex, selectedPercentage) => {
     updatedPercentages[operativeIndex] = selectedPercentage
     setUpdatedPercentages(updatedPercentages)
-    console.log('calling update percentages')
-    console.log(
-      calculateTotalPercentage(allOperatives, updatedPercentages)
-    )
+    updateTotalPercentage(calculateTotalPercentage(allOperatives, updatedPercentages))
   }
 
   return (
     <>
-      <div className="operatives">
+      <div
+        className={cx('operatives', {
+          'govuk-form-group--error': errors && errors.percentage,
+        })}
+      >
         <p className="govuk-heading-m">
           Search by operative name and select from the list
         </p>
+        {errors && errors.percentage && (
+          <span class="govuk-error-message lbh-error-message">
+            <span class="govuk-visually-hidden">Error:</span>{' '}
+            {errors.percentage.message}
+          </span>
+        )}
 
         {allOperatives.map((operative, index) => {
           return (
@@ -120,18 +127,12 @@ const SelectOperatives = ({
                     index === allOperatives.length - 1 &&
                     allOperatives.length > assignedOperativesToWorkOrder.length
                   }
-                  removeOperativeHandler={(operativeIndex) => {
+                  removeOperativeHandler={(operativeIndex, e) => {
+                    e.preventDefault()
                     let newSelectedOperatives = [
                       ...allOperatives.slice(0, operativeIndex),
                       ...allOperatives.slice(operativeIndex + 1),
                     ]
-                    //move this function call => on submit validation
-                    console.log(
-                      calculateTotalPercentage(
-                        newSelectedOperatives,
-                        updatedPercentages
-                      )
-                    )
                     setAllOperatives(newSelectedOperatives)
                   }}
                   isOperativeNameSelected={isOperativeNameSelected}
@@ -141,9 +142,25 @@ const SelectOperatives = ({
                 <SelectPercentage
                   updatePercentages={updatePercentages}
                   operativeIndex={index}
-                  assignedOperativesToWorkOrder={assignedOperativesToWorkOrder.length}
+                  name={`operative-percentage-${index}`}
+                  assignedOperativesToWorkOrder={
+                    assignedOperativesToWorkOrder.length
+                  }
                   allOperatives={allOperatives}
                   operativeNameIsSelected={operativeNameIsSelected}
+                  errors={errors}
+                  register={register('percentage', {
+                    validate: (_) => {
+                      return (
+                        calculateTotalPercentage(
+                          allOperatives,
+                          updatedPercentages
+                        ) === 100 ||
+                        'Work done total across operatives must be equal to 100%'
+                      )
+                    },
+                  })}
+                  updatedPercentages={updatedPercentages}
                 />
               </GridColumn>
             </GridRow>
@@ -158,6 +175,7 @@ SelectOperatives.propTypes = {
   assignedOperativesToWorkOrder: PropTypes.array.isRequired,
   availableOperatives: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
+  updateTotalPercentage: PropTypes.func.isRequired,
 }
 
 export default SelectOperatives

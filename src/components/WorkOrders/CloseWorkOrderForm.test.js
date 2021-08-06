@@ -22,6 +22,7 @@ describe('CloseWorkOrderForm component', () => {
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
+    updateTotalPercentage: jest.fn(),
   }
 
   it('should render properly', () => {
@@ -36,6 +37,7 @@ describe('CloseWorkOrderForm component', () => {
         operativeAssignmentMandatory={true}
         assignedOperativesToWorkOrder={props.operatives}
         availableOperatives={props.availableOperatives}
+        updateTotalPercentage={props.updateTotalPercentage}
       />
     )
     expect(asFragment()).toMatchSnapshot()
