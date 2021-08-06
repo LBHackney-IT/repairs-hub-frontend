@@ -5,7 +5,7 @@ import Select from '../Form/Select/Select'
 const SelectPercentage = ({
   updatePercentages,
   operativeIndex,
-  name,
+  index,
   assignedOperativesToWorkOrder,
   allOperatives,
   operativeNameIsSelected,
@@ -65,8 +65,8 @@ const SelectPercentage = ({
   }
 
   const onChange = (e) => {
-    if (errors && errors.percentage) {
-      delete errors['percentage']
+    if (errors && errors[`percentage-${operativeIndex}`]) {
+      delete errors[`percentage-${operativeIndex}`]
     }
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
@@ -82,8 +82,8 @@ const SelectPercentage = ({
       allOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
     if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
-      if (errors && errors.percentage) {
-        delete errors['percentage']
+      if (errors && errors[`percentage-${operativeIndex}`]) {
+        delete errors[`percentage-${operativeIndex}`]
       }
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
@@ -98,12 +98,11 @@ const SelectPercentage = ({
       <div className="select_percentage">
         <Select
           label="Work done"
-          name={name}
+          name={`percentage-${index}`}
           options={getPossiblePercentages(allOperatives)}
           value={selectedPercentage}
           disabled={isOnlyOneOperative(allOperatives)}
           onChange={onChange}
-          error={errors && errors[name]}
           register={register}
         />
       </div>

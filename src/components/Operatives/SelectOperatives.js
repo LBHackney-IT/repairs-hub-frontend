@@ -89,16 +89,16 @@ const SelectOperatives = ({
     <>
       <div
         className={cx('operatives', {
-          'govuk-form-group--error': errors && errors.percentage,
+          'govuk-form-group--error': errors && errors['percentage-0'],
         })}
       >
         <p className="govuk-heading-m">
           Search by operative name and select from the list
         </p>
-        {errors && errors.percentage && (
+        {errors && errors['percentage-0'] && (
           <span class="govuk-error-message lbh-error-message">
             <span class="govuk-visually-hidden">Error:</span>{' '}
-            {errors.percentage.message}
+            {errors['percentage-0'].message}
           </span>
         )}
 
@@ -147,15 +147,16 @@ const SelectOperatives = ({
               <GridColumn width="one-third">
                 <SelectPercentage
                   updatePercentages={updatePercentages}
+                  key={index}
+                  index={index}
                   operativeIndex={index}
-                  name={`operative-percentage-${index}`}
                   assignedOperativesToWorkOrder={
                     assignedOperativesToWorkOrder.length
                   }
                   allOperatives={allOperatives}
                   operativeNameIsSelected={operativeNameIsSelected}
                   errors={errors}
-                  register={register('percentage', {
+                  register={register({
                     validate: (_) => {
                       return (
                         calculateTotalPercentage(
@@ -166,7 +167,6 @@ const SelectOperatives = ({
                       )
                     },
                   })}
-                  updatedPercentages={updatedPercentages}
                 />
               </GridColumn>
             </GridRow>

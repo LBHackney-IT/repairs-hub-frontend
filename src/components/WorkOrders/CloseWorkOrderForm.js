@@ -69,7 +69,6 @@ const CloseWorkOrderForm = ({
 
           {operativeAssignmentMandatory && (
             <SelectOperatives
-              name="percentage"
               assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
               availableOperatives={availableOperatives}
               register={register}
