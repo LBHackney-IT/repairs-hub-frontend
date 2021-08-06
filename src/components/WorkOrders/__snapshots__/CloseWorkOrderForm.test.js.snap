@@ -283,9 +283,9 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                     10%
                   </option>
                   <option
-                    value="—"
+                    value="-"
                   >
-                    —
+                    -
                   </option>
                 </select>
               </div>
@@ -412,9 +412,9 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                     10%
                   </option>
                   <option
-                    value="—"
+                    value="-"
                   >
-                    —
+                    -
                   </option>
                 </select>
               </div>

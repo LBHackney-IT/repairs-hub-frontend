@@ -98,6 +98,11 @@ exports[`SelectOperatives component should render properly 1`] = `
               >
                 100%
               </option>
+              <option
+                value="-"
+              >
+                -
+              </option>
             </select>
           </div>
         </div>

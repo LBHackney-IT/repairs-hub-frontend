@@ -18,7 +18,7 @@ describe('SelectOperatives component', () => {
   ]
 
   const props = {
-    updateTotalPercentage: jest.fn()
+    updateTotalPercentage: jest.fn(),
   }
 
   it('should render properly', () => {

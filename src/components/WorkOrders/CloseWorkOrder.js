@@ -147,21 +147,21 @@ const CloseWorkOrder = ({ reference }) => {
   }
 
   const onGetToSummary = (e) => {
-      const properDate = convertToDateFormat(e)
-      setCompletionDate(properDate)
-      const operativeIds = Object.entries(e)
-        .filter(([key]) => key.match(/^operativeId-\d+$/))
-        .map(([, value]) => Number.parseInt(value))
-      setSelectedOperatives(
-        operativeIds.map((operativeId) =>
-          availableOperatives.find((operative) => operative.id === operativeId)
-        )
+    const properDate = convertToDateFormat(e)
+    setCompletionDate(properDate)
+    const operativeIds = Object.entries(e)
+      .filter(([key]) => key.match(/^operativeId-\d+$/))
+      .map(([, value]) => Number.parseInt(value))
+    setSelectedOperatives(
+      operativeIds.map((operativeId) =>
+        availableOperatives.find((operative) => operative.id === operativeId)
       )
-      setReason(e.reason)
-      setNotes(e.notes)
-      setDateToShow(e.date)
-      changeCurrentPage()
-      setCompletionTime(e.time)
+    )
+    setReason(e.reason)
+    setNotes(e.notes)
+    setDateToShow(e.date)
+    changeCurrentPage()
+    setCompletionTime(e.time)
   }
 
   return (

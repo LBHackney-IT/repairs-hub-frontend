@@ -37,7 +37,7 @@ const SelectOperatives = ({
     }
     let operativeIndexPercentages = {}
     for (let i = 0; i < currentOperativesNumber; i++) {
-      operativeIndexPercentages[i] = '—'
+      operativeIndexPercentages[i] = '-'
     }
     return operativeIndexPercentages
   }
@@ -61,12 +61,16 @@ const SelectOperatives = ({
     }
     return [...Array(selOperatives.length).keys()]
       .map((activeOperativeIndex) => {
-        if (operativesIndexPercentages[activeOperativeIndex] == '—') {
+        if (
+          operativesIndexPercentages[activeOperativeIndex] == '-' ||
+          Object.keys(operativesIndexPercentages).length === 0
+        ) {
           return 0
+        } else {
+          return parseInt(
+            operativesIndexPercentages[activeOperativeIndex].slice(0, -1)
+          )
         }
-        return parseInt(
-          operativesIndexPercentages[activeOperativeIndex].slice(0, -1)
-        )
       })
       .reduce((a, b) => {
         return a + b
@@ -76,7 +80,9 @@ const SelectOperatives = ({
   const updatePercentages = (operativeIndex, selectedPercentage) => {
     updatedPercentages[operativeIndex] = selectedPercentage
     setUpdatedPercentages(updatedPercentages)
-    updateTotalPercentage(calculateTotalPercentage(allOperatives, updatedPercentages))
+    updateTotalPercentage(
+      calculateTotalPercentage(allOperatives, updatedPercentages)
+    )
   }
 
   return (
@@ -120,7 +126,7 @@ const SelectOperatives = ({
                   addOperativeHandler={(e) => {
                     e.preventDefault()
                     setAllOperatives([...allOperatives, null])
-                    updatedPercentages[allOperatives.length] = '—'
+                    updatedPercentages[allOperatives.length] = '-'
                   }}
                   showRemoveOperative={
                     index > 0 &&

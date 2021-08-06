@@ -37,7 +37,7 @@ const SelectPercentage = ({
     ) {
       return '33.3%'
     }
-    return '—'
+    return '-'
   }
   const [selectedPercentage, setSelectedPercentage] = useState(
     getDefaultPercentage(allOperatives)
@@ -45,7 +45,7 @@ const SelectPercentage = ({
 
   const getPossiblePercentages = (allOperatives) => {
     if (isOnlyOneOperative(allOperatives)) {
-      return ['100%']
+      return ['100%', '-']
     } else if (allOperatives.length == 3) {
       return [
         '100%',
@@ -57,10 +57,10 @@ const SelectPercentage = ({
         '33.3%',
         '20%',
         '10%',
-        '—',
+        '-',
       ]
     } else {
-      return ['100%', '90%', '80%', '50%', '40%', '30%', '20%', '10%', '—']
+      return ['100%', '90%', '80%', '50%', '40%', '30%', '20%', '10%', '-']
     }
   }
 
@@ -82,11 +82,14 @@ const SelectPercentage = ({
       allOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
     if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
+      if (errors && errors.percentage) {
+        delete errors['percentage']
+      }
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
     } else if (allOperatives.length !== 3 && selectedPercentage === '33.3%') {
-      setSelectedPercentage('—')
-      updatePercentages(operativeIndex, '—')
+      setSelectedPercentage('-')
+      updatePercentages(operativeIndex, '-')
     }
   }, [allOperatives, operativeNameIsSelected])
 
