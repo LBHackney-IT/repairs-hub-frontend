@@ -93,6 +93,7 @@ const SelectPercentage = ({
     }
   }, [allOperatives, operativeNameIsSelected])
 
+  let isDisabled = isOnlyOneOperative(allOperatives)
   return (
     <>
       <div className="select_percentage">
@@ -101,10 +102,24 @@ const SelectPercentage = ({
           name={`percentage-${index}`}
           options={getPossiblePercentages(allOperatives)}
           value={selectedPercentage}
-          disabled={isOnlyOneOperative(allOperatives)}
+          disabled={isDisabled}
           onChange={onChange}
           register={register}
         />
+        {/* Disabled elements are not sent on onSubmit, so if the element is disabled
+            we create another hidden input with the same name and the same value. 
+            This one will be sent */}
+        {isDisabled && (
+          <div style={{ display: 'none' }}>
+            <Select
+              label="Work done"
+              name={`percentage-${index}`}
+              options={getPossiblePercentages(allOperatives)}
+              value={selectedPercentage}
+              register={register}
+            />
+          </div>
+        )}
       </div>
     </>
   )

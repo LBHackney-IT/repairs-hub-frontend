@@ -105,6 +105,41 @@ exports[`SelectOperatives component should render properly 1`] = `
               </option>
             </select>
           </div>
+          <div
+            style="display: none;"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+              id="percentage-0-form-group"
+            >
+              <label
+                class="govuk-label lbh-label"
+                for="percentage-0"
+              >
+                Work done 
+              </label>
+              <select
+                class="govuk-select lbh-select undefined"
+                data-testid="percentage-0"
+                id="percentage-0"
+                name="percentage-0"
+              >
+                <option
+                  value=""
+                />
+                <option
+                  value="100%"
+                >
+                  100%
+                </option>
+                <option
+                  value="-"
+                >
+                  -
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </div>
