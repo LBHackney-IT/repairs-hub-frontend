@@ -19,7 +19,7 @@ describe('getWorkOrders', () => {
     expect(response).toEqual(responseData)
     expect(mockAxios.get).toHaveBeenCalledTimes(1)
     expect(mockAxios.get).toHaveBeenCalledWith('/api/workOrders/', {
-      params: { PageNumber: 1, PageSize: 10, StatusCode: [90, 50] },
+      params: { PageNumber: 1, PageSize: 10, StatusCode: [90, 50], IncludeHistorical: false },
       paramsSerializer,
     })
   })
