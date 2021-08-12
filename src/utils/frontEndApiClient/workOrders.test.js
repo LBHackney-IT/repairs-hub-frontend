@@ -55,6 +55,7 @@ describe('getWorkOrders', () => {
         Priorities: [1, 2],
         TradeCodes: ['PL'],
         ContractorReference: 'PCL',
+        IncludeHistorical: false,
       },
       paramsSerializer,
     })
