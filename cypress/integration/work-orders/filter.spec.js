@@ -22,14 +22,20 @@ describe('Filter work orders', () => {
 
     // No work orders for work cancelled
     cy.intercept(
-      { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=30&IncludeHistorical=false' },
+      {
+        path:
+          '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=30&IncludeHistorical=false',
+      },
       { body: [] }
     )
 
     // Work complete (50)
     cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
-        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&IncludeHistorical=false' },
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&IncludeHistorical=false',
+        },
         workOrders.filter((workOrder) => workOrder.status === 'Work complete')
       )
     })
@@ -37,7 +43,10 @@ describe('Filter work orders', () => {
     // Variation Pending Approval (90)
     cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
-        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90&IncludeHistorical=false' },
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90&IncludeHistorical=false',
+        },
         workOrders.filter(
           (workOrder) => workOrder.status === 'Variation Pending Approval'
         )
@@ -78,7 +87,10 @@ describe('Filter work orders', () => {
     // Work order with Emergency priority
     cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
-        { path: '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2&IncludeHistorical=false' },
+        {
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2&IncludeHistorical=false',
+        },
         workOrders.filter(
           (workOrder) => workOrder.priority === '2 [E] EMERGENCY'
         )
@@ -90,7 +102,7 @@ describe('Filter work orders', () => {
       cy.intercept(
         {
           path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL',
+            '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL&IncludeHistorical=false',
         },
         workOrders.filter(
           (workOrder) =>
@@ -731,7 +743,9 @@ describe('Filter work orders', () => {
     })
 
     it('Saves selected filters in localStorage as the default filter preset', () => {
-      cy.visit('/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false')
+      cy.visit(
+        '/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false'
+      )
       cy.wait('@filters')
       cy.wait('@workOrdersInProgressVariationPendingApprovalEmergency')
 

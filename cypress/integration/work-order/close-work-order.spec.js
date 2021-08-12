@@ -15,7 +15,11 @@ describe('Closing a work order', () => {
       ).as('workOrderFilters')
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false' },
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
+        },
         { fixture: 'workOrders/workOrders.json' }
       ).as('workOrders')
 
