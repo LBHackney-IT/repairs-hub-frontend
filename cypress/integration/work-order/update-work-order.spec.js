@@ -13,7 +13,7 @@ describe('Contractor update a work order', () => {
       }
     )
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+      { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false' },
       { fixture: 'workOrders/workOrders.json' }
     )
 
@@ -33,7 +33,7 @@ describe('Contractor update a work order', () => {
       {
         method: 'GET',
         path:
-          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
       },
       { body: [] }
     )

@@ -84,7 +84,7 @@ describe('Home page', () => {
             cy.intercept(
               {
                 method: 'GET',
-                path: '/api/workOrders/?PageSize=10&PageNumber=1',
+                path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
               },
               {
                 fixture: 'workOrders/workOrders.json',

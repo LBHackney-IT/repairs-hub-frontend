@@ -29,7 +29,7 @@ describe('Filter work orders', () => {
     // Work complete (50)
     cy.fixture('workOrders/workOrders.json').then((workOrders) => {
       cy.intercept(
-        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50' },
+        { path: '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&IncludeHistorical=false' },
         workOrders.filter((workOrder) => workOrder.status === 'Work complete')
       )
     })
@@ -49,7 +49,7 @@ describe('Filter work orders', () => {
       cy.intercept(
         {
           path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&StatusCode=90',
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&StatusCode=90&IncludeHistorical=false',
         },
         workOrders.filter(
           (workOrder) =>
@@ -64,7 +64,7 @@ describe('Filter work orders', () => {
       cy.intercept(
         {
           path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2',
+            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false',
         },
         workOrders.filter(
           (workOrder) =>
