@@ -13,7 +13,10 @@ describe('Filter work orders', () => {
 
     // All work orders
     cy.intercept(
-      { path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false' },
+      {
+        path:
+          '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
+      },
       { fixture: 'workOrders/workOrders.json' }
     )
 

@@ -16,7 +16,7 @@ export const getWorkOrders = async (pageNumber = 1, options) => {
       ...(options.ContractorReference && {
         ContractorReference: options.ContractorReference,
       }),
-      IncludeHistorical: false
+      IncludeHistorical: false,
     },
     paramsSerializer,
   })
@@ -34,7 +34,6 @@ export const getWorkOrdersForProperty = async (
       PageSize: PAGE_SIZE_AGENTS,
       PageNumber: pageNumber,
       sort: SORT_BY_FOR_PROPERTY,
-
     },
   })
 
