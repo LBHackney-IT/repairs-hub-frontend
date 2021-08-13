@@ -1,12 +1,7 @@
 .print-work-order {
-  .rear-image {
+  #rear-image {
     width: 100%;
     height: 100%;
-  }
-
-  .image-container {
-    position: relative;
-    height: 100vh;
   }
 
   @media screen {
@@ -121,12 +116,15 @@
     }
 
     .sor-changes {
+      page-break-after: always;
+
       .title {
         display: inline-block;
       }
 
       .recharge {
         float: right;
+        vertical-align: middle;
 
         .checkbox {
           display: inline-block;

@@ -19,6 +19,10 @@ describe('Show work order page', () => {
       { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { body: [] }
+    )
+    cy.intercept(
       {
         method: 'GET',
         path:
@@ -165,6 +169,10 @@ describe('Show work order page', () => {
         cy.intercept(
           { method: 'GET', path: '/api/properties/00089473' },
           { fixture: 'properties/property.json' }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+          { body: [] }
         )
         cy.intercept(
           {

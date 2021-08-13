@@ -3,7 +3,7 @@
 exports[`Tabs component should render properly 1`] = `
 <DocumentFragment>
   <div
-    class="govuk-tabs lbh-tabs"
+    class="govuk-tabs lbh-tabs govuk-!-display-none-print"
     data-module="govuk-tabs"
   >
     <h2

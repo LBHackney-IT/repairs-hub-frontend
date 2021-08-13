@@ -86,6 +86,14 @@ describe('Show property', () => {
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrder')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { body: [] }
+      )
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { body: [] }
+      )
 
       // Mock many properties for the first page of results
       let properties = [...Array(50).keys()]

@@ -2,8 +2,6 @@ import PropTypes from 'prop-types'
 import WarningText from '../Template/WarningText'
 import { WorkOrder } from '../../models/workOrder'
 import { formatDateTime } from 'src/utils/time'
-import Button from '../Form/Button/Button'
-const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const PrintJobTicketDetails = ({
   workOrder,
@@ -14,13 +12,6 @@ const PrintJobTicketDetails = ({
 }) => {
   return (
     <>
-      <Button
-        onClick={() => {
-          window.print()
-        }}
-        label="Print Work Order"
-        className="govuk-!-display-none-print"
-      ></Button>
       <div className="print-work-order">
         <div>
           <h1 className="lbh-heading-h1 display-inline govuk-!-font-weight-bold">
@@ -147,8 +138,7 @@ const PrintJobTicketDetails = ({
                   <td className="lbh-heading-h5">Appointment Notes</td>
                   {workOrder.appointment && (
                     <td className="lbh-body-s">
-                      {workOrder.appointment['note'] ||
-                        'None None None None None None None None None None'}
+                      {workOrder.appointment['note'] || 'None'}
                     </td>
                   )}
                 </tr>
@@ -206,14 +196,12 @@ const PrintJobTicketDetails = ({
 
             <tbody className="lbh-body-s govuk">
               {tasksAndSors.map((entry, index) => (
-                <>
-                  <tr key={index}>
-                    <td>{entry.code}</td>
-                    <td>{entry.description}</td>
-                    <td>{entry.quantity}</td>
-                    <td></td>
-                  </tr>
-                </>
+                <tr key={index}>
+                  <td>{entry.code}</td>
+                  <td>{entry.description}</td>
+                  <td>{entry.quantity}</td>
+                  <td></td>
+                </tr>
               ))}
             </tbody>
           </table>
@@ -225,7 +213,7 @@ const PrintJobTicketDetails = ({
           </h3>
           <div className="recharge govuk-!-margin-top-0">
             <span className="checkbox"></span>
-            <span className="lbh-body-s govuk-!-font-weight-bold">
+            <span className="lbh-body-m govuk-!-font-weight-bold">
               Recharge
             </span>
           </div>
@@ -258,11 +246,7 @@ const PrintJobTicketDetails = ({
           </table>
         </div>
 
-        <img
-          className="rear-image"
-          src={`${NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL}/work-order-rear.png`}
-          alt="Work order back page"
-        />
+        <div id="rear-image-container"></div>
       </div>
     </>
   )

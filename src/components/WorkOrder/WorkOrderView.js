@@ -7,11 +7,14 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 import Tabs from '../Tabs'
 import { WorkOrder } from '../../models/workOrder'
+import { sortObjectsByDateKey } from '../../utils/date'
+import PrintJobTicketDetails from './PrintJobTicketDetails'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
+  const [tasksAndSors, setTasksAndSors] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [schedulerSessionId, setSchedulerSessionId] = useState()
@@ -23,6 +26,26 @@ const WorkOrderView = ({ workOrderReference }) => {
     'Pending variation',
     'Work orders history',
   ]
+
+  const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
+
+  const printClickHandler = (e) => {
+    e.preventDefault()
+
+    if (document.getElementById('rear-image')) {
+      window.print()
+    } else {
+      const workOrderRearImage = document.createElement('img')
+      workOrderRearImage.src = `${NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL}/work-order-rear.png`
+      workOrderRearImage.id = 'rear-image'
+
+      workOrderRearImage.addEventListener('load', () => window.print())
+
+      document
+        .getElementById('rear-image-container')
+        .appendChild(workOrderRearImage)
+    }
+  }
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -36,6 +59,15 @@ const WorkOrderView = ({ workOrderReference }) => {
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
       })
+
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}/tasks`,
+      })
+
+      setTasksAndSors(
+        sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
+      )
 
       // Call getOrCreateSchedulerSessionId if it is a DRS work order
       if (workOrder.externalAppointmentManagementUrl) {
@@ -88,20 +120,28 @@ const WorkOrderView = ({ workOrderReference }) => {
             workOrder && (
               <>
                 <WorkOrderDetails
-                  propertyReference={property.propertyReference}
+                  property={property}
                   workOrder={workOrder}
-                  address={property.address}
                   tenure={tenure}
-                  subTypeDescription={property.hierarchyType.subTypeDescription}
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
-                  canRaiseRepair={property.canRaiseRepair}
                   schedulerSessionId={schedulerSessionId}
+                  tasksAndSors={tasksAndSors}
+                  printClickHandler={printClickHandler}
                 />
                 <Tabs
                   tabsList={tabsList}
                   propertyReference={property.propertyReference}
                   workOrderReference={workOrderReference}
+                  tasksAndSors={tasksAndSors}
+                />
+                {/* Only displayed for print media */}
+                <PrintJobTicketDetails
+                  workOrder={workOrder}
+                  address={property.address}
+                  tmoName={property.tmoName}
+                  tenure={tenure}
+                  tasksAndSors={tasksAndSors}
                 />
               </>
             )}
