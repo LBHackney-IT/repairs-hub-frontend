@@ -77,6 +77,7 @@ jobs:
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
             export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             export NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL=$PUBLIC_STATIC_IMAGES_BUCKET_URL_DEVELOPMENT
+            export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_DEVELOPMENT
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
 
   build-deploy-staging:
@@ -90,6 +91,7 @@ jobs:
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
             export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             export NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL=$PUBLIC_STATIC_IMAGES_BUCKET_URL_STAGING
+            export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
@@ -102,6 +104,7 @@ jobs:
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_PRODUCTION
             export NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME=$DRS_SESSION_COOKIE_NAME
             export NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL=$PUBLIC_STATIC_IMAGES_BUCKET_URL_PRODUCTION
+            export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_PRODUCTION
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
 
   assume-role-development:

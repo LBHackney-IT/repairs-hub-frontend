@@ -64,5 +64,6 @@ export const WORK_ORDER_ACTIONS = [
     description: 'Print Job Ticket',
     permittedRoles: [CONTRACTOR_ROLE],
     permittedStatuses: WORK_ORDERS_STATUSES,
+    disabled: process.env.NEXT_PUBLIC_PRINTING_ENABLED !== 'true',
   },
 ]

@@ -22,7 +22,9 @@ const WorkOrderDetails = ({
 
   const workOrderActionMenu = () => {
     return WORK_ORDER_ACTIONS.filter((choice) => {
-      if (
+      if (choice.disabled) {
+        return false
+      } else if (
         choice.permittedRoles.some((role) => user.roles.includes(role)) &&
         choice.permittedStatuses.includes(workOrder.status)
       ) {
