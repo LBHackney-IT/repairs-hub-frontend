@@ -58,6 +58,7 @@ jobs:
           name: Run E2E With Lighthouse Audit
           command: |
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+            export NEXT_PUBLIC_PRINTING_ENABLED=true
             yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
