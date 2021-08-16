@@ -28,6 +28,7 @@ describe('SelectOperatives component', () => {
         availableOperatives={operatives}
         register={() => {}}
         updateTotalPercentage={props.updateTotalPercentage}
+        selectedPercentagesToShowOnEdit={[]}
       />
     )
     expect(asFragment()).toMatchSnapshot()

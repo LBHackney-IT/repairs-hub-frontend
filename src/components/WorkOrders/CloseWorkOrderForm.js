@@ -20,6 +20,7 @@ const CloseWorkOrderForm = ({
   date,
   reason,
   updateTotalPercentage,
+  selectedPercentagesToShowOnEdit,
 }) => {
   const { handleSubmit, register, control, errors } = useForm({})
 
@@ -74,6 +75,7 @@ const CloseWorkOrderForm = ({
               register={register}
               errors={errors}
               updateTotalPercentage={updateTotalPercentage}
+              selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
             />
           )}
 

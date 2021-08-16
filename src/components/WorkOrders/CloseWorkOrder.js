@@ -25,6 +25,10 @@ const CloseWorkOrder = ({ reference }) => {
   const [workOrder, setWorkOrder] = useState()
   const [totalPercentage, setTotalPercentage] = useState('')
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
+  const [
+    selectedPercentagesToShowOnEdit,
+    setSelectedPercentagesToShowOnEdit,
+  ] = useState([])
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -162,7 +166,7 @@ const CloseWorkOrder = ({ reference }) => {
         availableOperatives.find((operative) => operative.id === operativeId)
       )
     )
-
+    setSelectedPercentagesToShowOnEdit(percentages)
     setOperativesWithPercentages(
       operativeIds.map((operativeId, index) => {
         return {
@@ -202,6 +206,9 @@ const CloseWorkOrder = ({ reference }) => {
                   assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
                   updateTotalPercentage={updateTotalPercentage}
+                  selectedPercentagesToShowOnEdit={
+                    selectedPercentagesToShowOnEdit
+                  }
                 />
               )}
               {!CloseWorkOrderFormPage && (

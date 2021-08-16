@@ -11,13 +11,16 @@ const SelectPercentage = ({
   operativeNameIsSelected,
   errors,
   register,
+  preSelectedPercentages,
 }) => {
   const isOnlyOneOperative = (allOperatives) => {
     return allOperatives.length === 1
   }
 
   const getDefaultPercentage = (allOperatives) => {
-    if (
+    if (preSelectedPercentages) {
+      return preSelectedPercentages
+    } else if (
       (operativeIndex === 0 &&
         allOperatives.length === 1 &&
         operativeNameIsSelected) ||
@@ -108,6 +111,7 @@ const SelectPercentage = ({
   }, [allOperatives, operativeNameIsSelected, selectedPercentage])
 
   let isDisabled = isOnlyOneOperative(allOperatives)
+
   return (
     <>
       <div className="select_percentage">

@@ -11,6 +11,7 @@ const SelectOperatives = ({
   register,
   errors,
   updateTotalPercentage,
+  selectedPercentagesToShowOnEdit,
 }) => {
   const [allOperatives, setAllOperatives] = useState(
     // Add at least one slot for an operative
@@ -167,6 +168,9 @@ const SelectOperatives = ({
                       )
                     },
                   })}
+                  preSelectedPercentages={
+                    selectedPercentagesToShowOnEdit[index]
+                  }
                 />
               </GridColumn>
             </GridRow>
