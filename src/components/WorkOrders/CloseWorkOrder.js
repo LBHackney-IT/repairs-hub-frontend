@@ -24,6 +24,7 @@ const CloseWorkOrder = ({ reference }) => {
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
   const [totalPercentage, setTotalPercentage] = useState('')
+  const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -152,10 +153,25 @@ const CloseWorkOrder = ({ reference }) => {
     const operativeIds = Object.entries(e)
       .filter(([key]) => key.match(/^operativeId-\d+$/))
       .map(([, value]) => Number.parseInt(value))
+    const percentages = Object.entries(e)
+      .filter(([key]) => key.match(/^percentage-\d+$/))
+      .map(([, value]) => value)
+
     setSelectedOperatives(
       operativeIds.map((operativeId) =>
         availableOperatives.find((operative) => operative.id === operativeId)
       )
+    )
+
+    setOperativesWithPercentages(
+      operativeIds.map((operativeId, index) => {
+        return {
+          operative: availableOperatives.find(
+            (operative) => operative.id === operativeId
+          ),
+          percentage: percentages[index],
+        }
+      })
     )
     setReason(e.reason)
     setNotes(e.notes)
@@ -197,7 +213,10 @@ const CloseWorkOrder = ({ reference }) => {
                   reason={reason}
                   operativeNames={
                     workOrder.canAssignOperative &&
-                    selectedOperatives.map((operative) => operative.name)
+                    operativesWithPercentages &&
+                    operativesWithPercentages.map(
+                      (op) => `${op.operative.name} : ${op.percentage}`
+                    )
                   }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
