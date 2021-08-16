@@ -51,6 +51,8 @@ const SelectPercentage = ({
         '100%',
         '90%',
         '80%',
+        '70%',
+        '60%',
         '50%',
         '40%',
         '30%',
@@ -60,13 +62,25 @@ const SelectPercentage = ({
         '-',
       ]
     } else {
-      return ['100%', '90%', '80%', '50%', '40%', '30%', '20%', '10%', '-']
+      return [
+        '100%',
+        '90%',
+        '80%',
+        '70%',
+        '60%',
+        '50%',
+        '40%',
+        '30%',
+        '20%',
+        '10%',
+        '-',
+      ]
     }
   }
 
   const onChange = (e) => {
-    if (errors && errors[`percentage-${operativeIndex}`]) {
-      delete errors[`percentage-${operativeIndex}`]
+    if (errors && errors[`percentage-0`]) {
+      delete errors[`percentage-0`]
     }
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
@@ -91,7 +105,7 @@ const SelectPercentage = ({
       setSelectedPercentage('-')
       updatePercentages(operativeIndex, '-')
     }
-  }, [allOperatives, operativeNameIsSelected])
+  }, [allOperatives, operativeNameIsSelected, selectedPercentage])
 
   let isDisabled = isOnlyOneOperative(allOperatives)
   return (
