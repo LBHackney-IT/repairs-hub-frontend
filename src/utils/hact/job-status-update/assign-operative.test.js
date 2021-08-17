@@ -4,16 +4,25 @@ describe('buildOperativeAssignmentFormData', () => {
   it('builds the notes to post to the JobStatusUpdate endpoint in Repairs API', async () => {
     const operatives = [
       {
-        id: 1,
-        name: 'Operative A',
+        operative: {
+          id: 1,
+          name: 'Operative A',
+        },
+        percentage: '80%',
       },
       {
-        id: 2,
-        name: 'Operative B',
+        operative: {
+          id: 2,
+          name: 'Operative B',
+        },
+        percentage: '20%',
       },
       {
-        id: 3,
-        name: 'Operative C',
+        operative: {
+          id: 3,
+          name: 'Operative C',
+        },
+        percentage: '-',
       },
     ]
 
@@ -27,16 +36,19 @@ describe('buildOperativeAssignmentFormData', () => {
           identification: {
             number: 1,
           },
+          calculatedBonus: 80,
         },
         {
           identification: {
             number: 2,
           },
+          calculatedBonus: 20,
         },
         {
           identification: {
             number: 3,
           },
+          calculatedBonus: 0,
         },
       ],
       typeCode: '10',

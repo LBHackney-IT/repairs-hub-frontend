@@ -113,7 +113,7 @@ const CloseWorkOrder = ({ reference }) => {
     const deduplicatedOperatives = uniqueArrayValues(
       operativeIds
     ).map((operativeId) =>
-      selectedOperatives.find((operative) => operative.id === operativeId)
+      operativesWithPercentages.find((op) => op.operative.id === operativeId)
     )
 
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(

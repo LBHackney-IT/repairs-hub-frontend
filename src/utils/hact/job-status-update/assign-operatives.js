@@ -6,10 +6,12 @@ export const buildOperativeAssignmentFormData = (
     relatedWorkOrderReference: {
       id: workOrderReference,
     },
-    operativesAssigned: operatives.map((operative) => ({
+    operativesAssigned: operatives.map((op) => ({
       identification: {
-        number: operative.id,
+        number: op.operative.id,
       },
+      calculatedBonus:
+        op.percentage == '-' ? 0 : parseFloat(op.percentage.slice(0, -1)),
     })),
     typeCode: '10',
   }
