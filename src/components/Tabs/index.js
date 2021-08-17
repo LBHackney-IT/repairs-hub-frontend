@@ -6,7 +6,12 @@ import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
 import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
 
-const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
+const Tabs = ({
+  tabsList,
+  propertyReference,
+  workOrderReference,
+  tasksAndSors,
+}) => {
   const router = useRouter()
 
   const formatTabNameToId = (tabName) => {
@@ -39,6 +44,7 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
           <TasksAndSorsView
             workOrderReference={workOrderReference}
             tabName={tabName}
+            tasksAndSors={tasksAndSors}
           />
         )
       case 'notes-tab':
@@ -68,7 +74,10 @@ const Tabs = ({ tabsList, propertyReference, workOrderReference }) => {
   let activeTabId = formatTabNameToId(activeTab)
 
   return (
-    <div className="govuk-tabs lbh-tabs" data-module="govuk-tabs">
+    <div
+      className="govuk-tabs lbh-tabs govuk-!-display-none-print"
+      data-module="govuk-tabs"
+    >
       <h2 className="govuk-tabs__title">Contents</h2>
 
       <ul className="govuk-tabs__list hackney-tabs-list">

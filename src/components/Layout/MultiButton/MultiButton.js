@@ -73,6 +73,7 @@ const MultiButton = ({
         className={`govuk-button lbh-button ${
           secondary && 'govuk-button--secondary lbh-button--secondary'
         } ${s.button}`}
+        onClick={selection?.onClickHandler}
       >
         {!secondary && (
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none">

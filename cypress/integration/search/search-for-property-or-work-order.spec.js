@@ -2,7 +2,7 @@
 
 import 'cypress-audit/commands'
 
-describe('Search by work order reference, postcode or address', () => {
+describe('Search', () => {
   context('When logged in user is an agent', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
@@ -77,12 +77,13 @@ describe('Search by work order reference, postcode or address', () => {
     })
 
     describe('Search by work order reference', () => {
-      context('Displays the page for a work order', () => {
+      context('When supplied a valid work order reference', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000012' },
             { fixture: 'workOrders/workOrder.json' }
           )
+
           cy.intercept(
             { method: 'GET', path: '/api/properties/00012345' },
             { fixture: 'properties/property.json' }
@@ -96,7 +97,7 @@ describe('Search by work order reference, postcode or address', () => {
             { body: [] }
           )
           cy.intercept(
-            { method: 'GET', path: 'workOrders/10000012/tasks' },
+            { method: 'GET', path: '/api/workOrders/10000012/tasks' },
             { body: [] }
           )
 
@@ -110,19 +111,15 @@ describe('Search by work order reference, postcode or address', () => {
           cy.visit('/work-orders/10000012')
         })
 
-        it('Work order header with reference number', () => {
+        it('Displays information about the work order and property', () => {
           cy.get('.lbh-heading-h1').within(() => {
             cy.contains('Work order: 10000012')
           })
-        })
 
-        it('Repair description', () => {
           cy.get('.lbh-body-m').within(() => {
             cy.contains('This is an urgent repair description')
           })
-        })
 
-        it('Property details', () => {
           cy.get('.property-details-main-section').within(() => {
             cy.contains('Dwelling')
             cy.contains('16 Pitcairn House').should(
@@ -147,11 +144,6 @@ describe('Search by work order reference, postcode or address', () => {
             ]
           )
 
-          // Run lighthouse audit for accessibility report
-          cy.audit()
-        })
-
-        it('Work order details', () => {
           cy.get('.work-order-info').within(() => {
             cy.contains('Status: In Progress')
             cy.contains('Priority: U - Urgent (5 Working days)')
@@ -167,7 +159,7 @@ describe('Search by work order reference, postcode or address', () => {
         })
       })
 
-      context('Displays an error for wrong work order reference', () => {
+      context('When supplied an invalid work order reference', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/00000000' },
@@ -183,7 +175,6 @@ describe('Search by work order reference, postcode or address', () => {
 
           cy.visit('/')
 
-          // Search by postcode
           cy.get('.govuk-input').clear().type('00000000')
           cy.get('[type="submit"]').contains('Search').click()
           cy.url().should('contains', 'work-orders/00000000')
@@ -193,7 +184,7 @@ describe('Search by work order reference, postcode or address', () => {
           cy.wait('@repairs_with_error')
         })
 
-        it('Error message', () => {
+        it('Displays an error message', () => {
           cy.get('.govuk-error-message').within(() => {
             cy.contains('Could not find a work order with reference 00000000')
           })
@@ -212,7 +203,6 @@ describe('Search by work order reference, postcode or address', () => {
 
     describe('Search by work order reference', () => {
       beforeEach(() => {
-        // Viewing the home page
         cy.intercept(
           { method: 'GET', path: '/api/filter/WorkOrder' },
           {
@@ -224,7 +214,6 @@ describe('Search by work order reference, postcode or address', () => {
           { fixture: 'workOrders/workOrders.json' }
         )
 
-        // Viewing the work order page
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },
           { fixture: 'workOrders/workOrder.json' }
@@ -241,12 +230,15 @@ describe('Search by work order reference, postcode or address', () => {
           },
           { body: [] }
         )
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+          { body: [] }
+        )
 
         cy.visit('/')
       })
 
       it('navigates to the work order page', () => {
-        // Search by work order ref
         cy.contains('Search').click()
         cy.get('.govuk-input').clear().type('10000012')
         cy.get('[type="submit"]').contains('Search').click()

@@ -19,6 +19,10 @@ describe('Managing work order appointments', () => {
       { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { body: [] }
+    )
+    cy.intercept(
       {
         method: 'GET',
         path:

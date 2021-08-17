@@ -1,0 +1,155 @@
+.print-work-order {
+  #rear-image {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen {
+    display: none;
+  }
+
+  display: block !important;
+  height: 0px;
+  overflow: hidden;
+
+  @media print {
+    & {
+      height: auto;
+    }
+  }
+
+  @media print {
+    @page {
+      size: A4;
+      margin: 0.5cm;
+    }
+
+    & {
+      -webkit-print-color-adjust: exact !important;
+    }
+
+    .header-tables {
+      border: 2px solid black;
+      background-color: #e2e2e2;
+
+      table:first-child {
+        border-right: 1px solid black;
+      }
+
+      td:first-child {
+        padding-left: 18px;
+      }
+    }
+
+    .lbh-heading-h3 {
+      background-color: #e2e2e2;
+    }
+
+    .header-tables,
+    .customer-information {
+      display: flow-root;
+
+      table {
+        width: 50%;
+        float: left;
+      }
+    }
+
+    .customer-information {
+      td:last-child {
+        padding-right: 65px;
+      }
+    }
+
+    .sors {
+      width: 100%;
+      border-collapse: collapse;
+
+      th {
+        text-align: left;
+      }
+
+      th:not(:first-child),
+      td:not(:first-child) {
+        padding-left: 10px;
+      }
+
+      th,
+      td {
+        padding-top: 8px;
+        padding-bottom: 8px;
+      }
+
+      tbody tr {
+        border-bottom: 1px solid grey;
+      }
+
+      thead {
+        border-bottom: 1px solid black;
+      }
+    }
+
+    .logo {
+      margin-top: 12px;
+      float: right;
+      vertical-align: center;
+    }
+
+    .checkbox {
+      display: inline-block;
+      vertical-align: middle;
+      border: 2px solid black;
+      height: 28px;
+      width: 28px;
+      margin-right: 10px;
+    }
+
+    .no-access,
+    .attended-times {
+      display: inline-block;
+    }
+
+    .attended-times {
+      .checkbox {
+        color: #e2e2e2;
+      }
+    }
+
+    .sor-changes {
+      page-break-after: always;
+
+      .title {
+        display: inline-block;
+      }
+
+      .recharge {
+        float: right;
+        vertical-align: middle;
+
+        .checkbox {
+          display: inline-block;
+          border: 1px solid black;
+          height: 28px;
+          width: 28px;
+          margin-right: 10px;
+        }
+      }
+
+      .print-table {
+        td,
+        th {
+          border: 1px solid gray;
+          padding-left: 20px;
+          vertical-align: middle;
+        }
+        tr {
+          height: 52px;
+        }
+        width: 100%;
+        border: 1px solid black;
+        border-collapse: inherit;
+        empty-cells: show;
+      }
+    }
+  }
+}

@@ -7,10 +7,12 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'colours';
 @import 'layout';
 @import 'show-env-names';
+@import 'main';
 
 @import 'components/header';
 @import 'components/property-details';
-@import 'components/work-orders';
+@import 'components/work-orders/work-orders';
+@import 'components/work-orders/print';
 @import 'components/tabs';
 @import 'components/notes';
 @import 'components/pagination';

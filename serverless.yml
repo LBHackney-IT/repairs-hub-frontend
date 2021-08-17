@@ -88,6 +88,10 @@ resources:
                 HTTPPort: 80
                 HTTPSPort: 443
                 OriginProtocolPolicy: https-only
+    staticImagesBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: repairs-hub-${opt:stage}-static-images
 
 custom:
   domain-name:
