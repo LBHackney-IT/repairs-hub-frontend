@@ -107,6 +107,11 @@ const CloseWorkOrder = ({ reference }) => {
     getCloseWorkOrder()
   }, [])
 
+  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
+    return opsAndPercentages
+      .map((op) => `${op.operative.name} : ${op.percentage}`)
+      .join(', ')
+  }
   const onJobSubmit = async () => {
     const operativeIds = selectedOperatives.map((operative) => operative.id)
 
@@ -125,9 +130,9 @@ const CloseWorkOrder = ({ reference }) => {
       deduplicatedOperatives.length > 0
         ? [
             notes,
-            `Assigned operatives ${deduplicatedOperatives
-              .map((operative) => operative.name)
-              .join(', ')}`,
+            `Assigned operatives ${operativesAndPercentagesForNotes(
+              deduplicatedOperatives
+            )}`,
           ]
             .filter((s) => s)
             .join(' - ')
