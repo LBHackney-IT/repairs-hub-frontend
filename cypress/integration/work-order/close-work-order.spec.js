@@ -400,7 +400,7 @@ describe('Closing a work order', () => {
             .contains(/Add operative from list/)
             .click()
 
-          cy.get('input[list]').eq(3).type('Operative Y [25]') // Intentional duplicate
+          cy.get('input[list]').eq(3).type('Operative Z [26]')
 
           cy.get('input[list]').should('have.length', 4)
         })
@@ -434,7 +434,7 @@ describe('Closing a work order', () => {
           .parent()
           .within(() => {
             cy.contains(
-              'Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Y : -'
+              'Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -'
             )
           })
 
@@ -467,6 +467,12 @@ describe('Closing a work order', () => {
                 },
                 calculatedBonus: 10,
               },
+              {
+                identification: {
+                  number: 26,
+                },
+                calculatedBonus: 0,
+              },
             ],
             typeCode: '10',
           })
@@ -486,7 +492,7 @@ describe('Closing a work order', () => {
                 typeCode: '70',
                 otherType: 'complete',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative Y : 70%, Operative A : 20%, Operative B : 10%',
+                  'Work order closed - A note - Assigned operatives Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -',
                 eventTime: '2020-11-06T13:01:00.000Z',
               },
             ],

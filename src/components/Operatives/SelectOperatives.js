@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import cx from 'classnames'
 import OperativeDataList from './OperativeDataList'
 import SelectPercentage from '../WorkOrders/SelectPercentage'
@@ -21,7 +21,14 @@ const SelectOperatives = ({
   )
   const [operativeNameIsSelected, setOperativeNameIsSelected] = useState(false)
 
-  //check if operative name is selected (rename the function)
+  const onSelectedOperative = (operativeId, index) => {
+    allOperatives[index] = availableOperatives.find(
+      (operative) => operative.id === parseInt(operativeId)
+    )
+
+    setAllOperatives(allOperatives)
+  }
+
   const isOperativeNameSelected = (nameWasSelected) => {
     setOperativeNameIsSelected(nameWasSelected)
   }
@@ -143,6 +150,8 @@ const SelectOperatives = ({
                     setAllOperatives(newSelectedOperatives)
                   }}
                   isOperativeNameSelected={isOperativeNameSelected}
+                  onSelectedOperative={onSelectedOperative}
+                  allOperatives={allOperatives}
                 />
               </GridColumn>
               <GridColumn width="one-third">
@@ -158,7 +167,7 @@ const SelectOperatives = ({
                   operativeNameIsSelected={operativeNameIsSelected}
                   errors={errors}
                   register={register({
-                    validate: (_) => {
+                    validate: () => {
                       return (
                         calculateTotalPercentage(
                           allOperatives,

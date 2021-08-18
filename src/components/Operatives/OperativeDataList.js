@@ -16,6 +16,8 @@ const OperativeDataList = ({
   showRemoveOperative,
   removeOperativeHandler,
   isOperativeNameSelected,
+  allOperatives,
+  onSelectedOperative,
 }) => {
   const [selectedOperativeName, setSelectedOperativeName] = useState(value)
   const [selectedOperativeId, setSelectedOperativeId] = useState(operativeId)
@@ -31,6 +33,7 @@ const OperativeDataList = ({
       : ''
     isOperativeNameSelected(true)
     setSelectedOperativeId(newOperativeId)
+    onSelectedOperative(newOperativeId, index)
   }
 
   return (
@@ -45,7 +48,16 @@ const OperativeDataList = ({
           register={register({
             validate: (value) => {
               setSelectedOperativeName(value)
-              return options.includes(value) || 'Please select an operative'
+              if (!options.includes(value)) {
+                return 'Please select an operative'
+              } else if (
+                !allOperatives.includes(null) &&
+                !allOperatives.includes(undefined) &&
+                allOperatives.filter((op) => op.id == selectedOperativeId)
+                  .length > 1
+              ) {
+                return 'This operative has already been added'
+              }
             },
           })}
           error={errors && errors[name]}

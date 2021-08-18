@@ -9,7 +9,6 @@ import { buildCloseWorkOrderData } from '../../utils/hact/work-order-complete/cl
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontend-api-client/requests'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/job-status-update/assign-operatives'
-import { uniqueArrayValues } from '../../utils/helpers/array'
 import { WorkOrder } from '../../models/work-order'
 
 const CloseWorkOrder = ({ reference }) => {
@@ -113,25 +112,17 @@ const CloseWorkOrder = ({ reference }) => {
       .join(', ')
   }
   const onJobSubmit = async () => {
-    const operativeIds = selectedOperatives.map((operative) => operative.id)
-
-    const deduplicatedOperatives = uniqueArrayValues(
-      operativeIds
-    ).map((operativeId) =>
-      operativesWithPercentages.find((op) => op.operative.id === operativeId)
-    )
-
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       reference,
-      deduplicatedOperatives
+      operativesWithPercentages
     )
 
     const fullNotes =
-      deduplicatedOperatives.length > 0
+      operativesWithPercentages.length > 0
         ? [
             notes,
             `Assigned operatives ${operativesAndPercentagesForNotes(
-              deduplicatedOperatives
+              operativesWithPercentages
             )}`,
           ]
             .filter((s) => s)
