@@ -18,7 +18,7 @@ const SelectPercentage = ({
   }
 
   const getDefaultPercentage = (allOperatives) => {
-    if (preSelectedPercentages) {
+    if (preSelectedPercentages && allOperatives.length !== 1) {
       return preSelectedPercentages
     } else if (
       (operativeIndex === 0 &&
@@ -82,9 +82,10 @@ const SelectPercentage = ({
   }
 
   const onChange = (e) => {
-    if (errors && errors[`percentage-0`]) {
-      delete errors[`percentage-0`]
-    }
+    // if (errors && errors[`percentage-0`]) {
+    //   delete errors[`percentage-0`]
+    //   delete errors[`percentage-${operativeIndex}`]
+    // }
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
   }
@@ -98,10 +99,15 @@ const SelectPercentage = ({
       operativeIndex === 0 &&
       allOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
-    if (onlyOneOperativeAndSelectedOperative || onlyOneAssignedOperative) {
-      if (errors && errors[`percentage-${operativeIndex}`]) {
-        delete errors[`percentage-${operativeIndex}`]
-      }
+    let some = preSelectedPercentages && allOperatives.length === 1
+    if (
+      onlyOneOperativeAndSelectedOperative ||
+      onlyOneAssignedOperative ||
+      some
+    ) {
+      // if (errors && errors[`percentage-${operativeIndex}`]) {
+      //   delete errors[`percentage-${operativeIndex}`]
+      // }
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
     } else if (allOperatives.length !== 3 && selectedPercentage === '33.3%') {

@@ -63,7 +63,13 @@ const OperativeDataList = ({
           error={errors && errors[name]}
           additionalDivClasses={['govuk-!-display-inline-block']}
         />
-
+        <div>
+          {showAddOperative && (
+            <a className="lbh-link" href="#" onClick={addOperativeHandler}>
+              + Add operative from list
+            </a>
+          )}
+        </div>
         <div>
           {showRemoveOperative && (
             <a
@@ -82,14 +88,6 @@ const OperativeDataList = ({
           ref={register}
           value={selectedOperativeId}
         />
-      </div>
-
-      <div>
-        {showAddOperative && (
-          <a className="lbh-link" href="#" onClick={addOperativeHandler}>
-            + Add operative from list
-          </a>
-        )}
       </div>
     </>
   )

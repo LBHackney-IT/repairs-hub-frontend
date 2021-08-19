@@ -208,6 +208,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 </datalist>
               </div>
               <div />
+              <div />
               <input
                 id="operativeId-0"
                 name="operativeId-0"
@@ -215,7 +216,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 value="1"
               />
             </div>
-            <div />
           </div>
           <div
             class="govuk-grid-column-one-third"
@@ -339,21 +339,28 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                   />
                 </datalist>
               </div>
-              <div />
+              <div>
+                <a
+                  class="lbh-link"
+                  href="#"
+                >
+                  + Add operative from list
+                </a>
+              </div>
+              <div>
+                <a
+                  class="lbh-link"
+                  href="#"
+                >
+                  - Remove operative from list
+                </a>
+              </div>
               <input
                 id="operativeId-1"
                 name="operativeId-1"
                 type="hidden"
                 value="2"
               />
-            </div>
-            <div>
-              <a
-                class="lbh-link"
-                href="#"
-              >
-                + Add operative from list
-              </a>
             </div>
           </div>
           <div

@@ -36,16 +36,21 @@ const SelectOperatives = ({
   const formatOperativeOptionText = (id, name) => `${name} [${id}]`
 
   const caculateInitialPercentage = (currentOperativesNumber) => {
-    if (currentOperativesNumber === 1) {
-      return { 0: '100%' }
+    if (selectedPercentagesToShowOnEdit.length > 0) {
+      return selectedPercentagesToShowOnEdit
+    } else if (currentOperativesNumber === 1) {
+      return ['100%']
     } else if (currentOperativesNumber === 2) {
-      return { 0: '50%', 1: '50%' }
+      return ['50%', '50%']
     } else if (currentOperativesNumber === 3) {
-      return { 0: '33.3%', 1: '33.3%', 2: '33.3%' }
+      return ['33.3%', '33.3%', '33.3%']
+    } else if (currentOperativesNumber === 0) {
+      //for the cases when there are no assigned operatives
+      return ['-']
     }
-    let operativeIndexPercentages = {}
+    let operativeIndexPercentages = []
     for (let i = 0; i < currentOperativesNumber; i++) {
-      operativeIndexPercentages[i] = '-'
+      operativeIndexPercentages.push('-')
     }
     return operativeIndexPercentages
   }
@@ -134,12 +139,12 @@ const SelectOperatives = ({
                   addOperativeHandler={(e) => {
                     e.preventDefault()
                     setAllOperatives([...allOperatives, null])
-                    updatedPercentages[allOperatives.length] = '-'
+                    let newSelectedPercentages = updatedPercentages
+                    newSelectedPercentages.push('-')
+                    setUpdatedPercentages(newSelectedPercentages)
                   }}
                   showRemoveOperative={
-                    index > 0 &&
-                    index === allOperatives.length - 1 &&
-                    allOperatives.length > assignedOperativesToWorkOrder.length
+                    index > 0 && index === allOperatives.length - 1
                   }
                   removeOperativeHandler={(operativeIndex, e) => {
                     e.preventDefault()
@@ -147,6 +152,11 @@ const SelectOperatives = ({
                       ...allOperatives.slice(0, operativeIndex),
                       ...allOperatives.slice(operativeIndex + 1),
                     ]
+                    let newSelectedPercentages = [
+                      ...updatedPercentages.slice(0, operativeIndex),
+                      ...updatedPercentages.slice(operativeIndex + 1),
+                    ]
+                    setUpdatedPercentages(newSelectedPercentages)
                     setAllOperatives(newSelectedOperatives)
                   }}
                   isOperativeNameSelected={isOperativeNameSelected}
