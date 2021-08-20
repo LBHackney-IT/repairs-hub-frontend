@@ -27,6 +27,8 @@ const CloseWorkOrder = ({ reference }) => {
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
 
+  const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
+
   const makePostRequest = async (
     workOrderCompleteFormData,
     operativeAssignmentFormData
@@ -145,9 +147,15 @@ const CloseWorkOrder = ({ reference }) => {
     const properDate = convertToDateFormat(e)
     setCompletionDate(properDate)
 
-    const operativeIds = Object.entries(e)
-      .filter(([key]) => key.match(/^operativeId-\d+$/))
-      .map(([, value]) => Number.parseInt(value))
+    const operativeIds = Object.keys(e)
+      .filter((k) => k.match(/operative-\d+/))
+      .map((operativeKey) => {
+        const matches = e[operativeKey].match(OPERATIVE_ID_REGEX)
+
+        if (Array.isArray(matches)) {
+          return Number.parseInt(matches[matches.length - 1])
+        }
+      })
 
     setSelectedOperatives(
       operativeIds.map((operativeId) =>

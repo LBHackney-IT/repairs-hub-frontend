@@ -44,12 +44,6 @@ exports[`SelectOperatives component should render properly 1`] = `
           />
         </datalist>
       </div>
-      <input
-        id="operativeId-0"
-        name="operativeId-0"
-        type="hidden"
-        value="1"
-      />
     </div>
     <div>
       <a
