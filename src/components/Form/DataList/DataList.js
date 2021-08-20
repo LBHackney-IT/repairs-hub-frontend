@@ -17,6 +17,7 @@ const DataList = ({
   required,
   labelMessage,
   value,
+  defaultValue,
   additionalDivClasses,
 }) => {
   useEffect(() => {
@@ -60,6 +61,7 @@ const DataList = ({
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         onChange={(e) => onChange && onChange(e)}
+        defaultValue={defaultValue}
         {...(value && { value })}
       />
 
