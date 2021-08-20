@@ -200,7 +200,7 @@ const PrintJobTicketDetails = ({
                   <td>{entry.code}</td>
                   <td>{entry.description}</td>
                   <td>{entry.quantity}</td>
-                  <td></td>
+                  <td>{entry.standardMinuteValue}</td>
                 </tr>
               ))}
             </tbody>
