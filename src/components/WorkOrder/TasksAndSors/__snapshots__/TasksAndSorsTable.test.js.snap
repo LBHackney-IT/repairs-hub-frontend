@@ -57,6 +57,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         >
           Cost (est.)
         </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          SMV
+        </th>
       </tr>
     </thead>
     <tbody
@@ -96,6 +102,11 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         >
           £40.30
         </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          25
+        </td>
       </tr>
       <tr
         class="govuk-table__row lbh-body-s"
@@ -131,6 +142,11 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         >
           £5.60
         </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          30
+        </td>
       </tr>
       <tr
         class="govuk-table__row lbh-body-s"
@@ -165,6 +181,11 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           £36.55
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          15
         </td>
       </tr>
     </tbody>
@@ -219,6 +240,12 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         >
           Cost (est.)
         </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          SMV
+        </th>
       </tr>
     </thead>
     <tbody
@@ -257,6 +284,11 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           £20.15
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          10
         </td>
       </tr>
     </tbody>

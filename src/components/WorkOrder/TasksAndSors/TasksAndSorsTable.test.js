@@ -13,6 +13,7 @@ describe('TasksAndSorsTable component', () => {
         originalQuantity: 1,
         quantity: 2,
         cost: 20.15,
+        standardMinuteValue: 10,
       },
     ],
     latestTasksAndSors: [
@@ -24,6 +25,7 @@ describe('TasksAndSorsTable component', () => {
         originalQuantity: 1,
         quantity: 2,
         cost: 20.15,
+        standardMinuteValue: 25,
       },
       {
         code: 'DES5R005',
@@ -33,6 +35,7 @@ describe('TasksAndSorsTable component', () => {
         originalQuantity: null,
         quantity: 4,
         cost: 1.4,
+        standardMinuteValue: 30,
       },
       {
         code: 'DES5R013',
@@ -42,6 +45,7 @@ describe('TasksAndSorsTable component', () => {
         originalQuantity: null,
         quantity: 5,
         cost: 7.31,
+        standardMinuteValue: 15,
       },
     ],
   }

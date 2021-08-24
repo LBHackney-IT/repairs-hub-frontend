@@ -22,6 +22,9 @@ const TasksAndSorsTable = ({
             <TH scope="col" type="numeric">
               Cost (est.)
             </TH>
+            <TH scope="col" type="numeric">
+              SMV
+            </TH>
           </TR>
         </THead>
         <TBody>
