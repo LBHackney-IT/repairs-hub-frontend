@@ -4,7 +4,7 @@ exports[`PropertyDetails component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <a
-      class="govuk-back-link lbh-back-link"
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back

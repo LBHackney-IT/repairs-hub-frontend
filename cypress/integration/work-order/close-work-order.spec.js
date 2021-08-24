@@ -32,6 +32,10 @@ describe('Closing a work order', () => {
         )
       })
       cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+        { body: [] }
+      )
+      cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
       )

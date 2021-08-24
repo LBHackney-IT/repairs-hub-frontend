@@ -4,7 +4,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
 <DocumentFragment>
   <div>
     <a
-      class="govuk-back-link lbh-back-link"
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
@@ -201,12 +201,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               />
             </datalist>
           </div>
-          <input
-            id="operativeId-0"
-            name="operativeId-0"
-            type="hidden"
-            value="1"
-          />
         </div>
         <div />
         <div>
@@ -247,12 +241,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           >
             -
           </button>
-          <input
-            id="operativeId-1"
-            name="operativeId-1"
-            type="hidden"
-            value="2"
-          />
         </div>
         <div>
           <a

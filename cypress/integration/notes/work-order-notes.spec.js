@@ -26,6 +26,10 @@ describe('Notes', () => {
       { fixture: 'workOrders/notes.json' }
     )
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { body: [] }
+    )
+    cy.intercept(
       { method: 'POST', path: '/api/jobStatusUpdate' },
       { body: '' }
     ).as('apiCheck')

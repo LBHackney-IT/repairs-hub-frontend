@@ -3,7 +3,7 @@
 exports[`RaiseWorkOrderForm component should render properly 1`] = `
 <DocumentFragment>
   <a
-    class="govuk-back-link lbh-back-link"
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
     role="button"
   >
     Back
@@ -86,6 +86,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
             id="trade"
             list="autocomplete-list-trade"
             name="trade"
+            value=""
           />
           <datalist
             id="autocomplete-list-trade"

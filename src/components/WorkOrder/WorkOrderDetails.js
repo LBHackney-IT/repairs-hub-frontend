@@ -10,25 +10,34 @@ import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '../../models/workOrder'
 
 const WorkOrderDetails = ({
-  propertyReference,
+  property,
   workOrder,
-  address,
-  subTypeDescription,
   locationAlerts,
   personAlerts,
   tenure,
-  canRaiseRepair,
   schedulerSessionId,
+  printClickHandler,
 }) => {
   const { user } = useContext(UserContext)
 
   const workOrderActionMenu = () => {
     return WORK_ORDER_ACTIONS.filter((choice) => {
-      if (
+      if (choice.disabled) {
+        return false
+      } else if (
         choice.permittedRoles.some((role) => user.roles.includes(role)) &&
         choice.permittedStatuses.includes(workOrder.status)
       ) {
-        return choice
+        return true
+      }
+    }).map((action) => {
+      if (action.href === 'print') {
+        return {
+          ...action,
+          onClickHandler: printClickHandler,
+        }
+      } else {
+        return action
       }
     })
   }
@@ -37,53 +46,53 @@ const WorkOrderDetails = ({
 
   return (
     <>
-      <BackButton />
+      <div className="govuk-!-display-none-print">
+        <BackButton />
 
-      <GridRow>
-        <GridColumn width="two-thirds">
-          <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-            Work order: {workOrder.reference.toString().padStart(8, '0')}
-          </h1>
-        </GridColumn>
-        <GridColumn width="one-third">
-          {currentWorkOrderActionMenu?.length > 0 && !workOrder.closedDated && (
-            <MultiButton
-              name="workOrderMenu"
-              label="Select work order"
-              secondary={false}
-              choices={currentWorkOrderActionMenu}
-              workOrderReference={workOrder.reference}
-            />
-          )}
-        </GridColumn>
-      </GridRow>
-      <p className="lbh-body-m">{workOrder.description}</p>
+        <GridRow>
+          <GridColumn width="two-thirds">
+            <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
+              Work order: {workOrder.reference.toString().padStart(8, '0')}
+            </h1>
+          </GridColumn>
+          <GridColumn width="one-third">
+            {currentWorkOrderActionMenu?.length > 0 &&
+              !workOrder.closedDated && (
+                <MultiButton
+                  name="workOrderMenu"
+                  label="Select work order"
+                  secondary={false}
+                  choices={currentWorkOrderActionMenu}
+                  workOrderReference={workOrder.reference}
+                />
+              )}
+          </GridColumn>
+        </GridRow>
+        <p className="lbh-body-m">{workOrder.description}</p>
 
-      <WorkOrderHeader
-        propertyReference={propertyReference}
-        workOrder={workOrder}
-        address={address}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
-        subTypeDescription={subTypeDescription}
-        tenure={tenure}
-        hasLinkToProperty={true}
-        canRaiseRepair={canRaiseRepair}
-        schedulerSessionId={schedulerSessionId}
-      />
+        <WorkOrderHeader
+          propertyReference={property.propertyReference}
+          workOrder={workOrder}
+          address={property.address}
+          locationAlerts={locationAlerts}
+          personAlerts={personAlerts}
+          subTypeDescription={property.hierarchyType.subTypeDescription}
+          tenure={tenure}
+          hasLinkToProperty={true}
+          canRaiseRepair={property.canRaiseRepair}
+          schedulerSessionId={schedulerSessionId}
+        />
+      </div>
     </>
   )
 }
 
 WorkOrderDetails.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
+  property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  address: PropTypes.object.isRequired,
-  subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
 }
 
 export default WorkOrderDetails

@@ -105,15 +105,13 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={new WorkOrder(workOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -126,15 +124,13 @@ describe('WorkOrderDetails component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={new WorkOrder(migratedWorkOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -144,20 +140,18 @@ describe('WorkOrderDetails component', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={
               new WorkOrder({
                 ...workOrderData,
                 closedDated: '2021-01-22T18:15:00.00000',
               })
             }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -185,15 +179,13 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={new WorkOrder(workOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -221,15 +213,13 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={new WorkOrder(workOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -256,20 +246,18 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={
               new WorkOrder({
                 ...workOrderData,
                 status: 'Variation Pending Approval',
               })
             }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -277,21 +265,18 @@ describe('WorkOrderDetails component', () => {
     })
 
     it('should render without a link to authorise a variation request when status is not variation pending approval', () => {
-      // Work order status is In Progress
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
             }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -319,15 +304,13 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={new WorkOrder(workOrderData)}
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -354,20 +337,18 @@ describe('WorkOrderDetails component', () => {
             workOrderReference={workOrderData.reference}
           />
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={
               new WorkOrder({
                 ...workOrderData,
                 status: 'Authorisation Pending Approval',
               })
             }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )
@@ -375,21 +356,18 @@ describe('WorkOrderDetails component', () => {
     })
 
     it('should render without a link to authorise a new work order when status is not authorisation pending approval', () => {
-      // Work order status is In Progress
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
           <WorkOrderDetails
-            propertyReference={props.property.propertyReference}
+            property={props.property}
             workOrder={
               new WorkOrder({ ...workOrderData, status: 'In Progress' })
             }
-            address={props.property.address}
-            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tasksAndSors={[]}
             tenure={props.tenure}
             locationAlerts={props.alerts.locationAlert}
             personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
-            canRaiseRepair={props.property.canRaiseRepair}
           />
         </UserContext.Provider>
       )

@@ -29,7 +29,7 @@ const HeaderComponent = ({ serviceName }) => {
       process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() == 'development'
     ) {
       return (
-        <section className="text-for-env-note">
+        <section className="text-for-env-note govuk-!-display-none-print">
           <div className="lbh-container">
             <h3>
               {`This is not live, this is a test environment`.toUpperCase()}
@@ -47,7 +47,7 @@ const HeaderComponent = ({ serviceName }) => {
         Skip to main content
       </a>
       <header
-        className={`lbh-header ${cx(
+        className={`lbh-header govuk-!-display-none-print ${cx(
           process.env.NEXT_PUBLIC_ENV_NAME == 'staging'
             ? 'lbh-header--purple'
             : ''
@@ -115,7 +115,7 @@ const HeaderComponent = ({ serviceName }) => {
           </div>
         </div>
       </header>
-      <div className="govuk-phase-banner lbh-phase-banner lbh-container">
+      <div className="govuk-phase-banner lbh-phase-banner lbh-container govuk-!-display-none-print">
         <p className="govuk-phase-banner__content">
           <strong className="govuk-tag govuk-phase-banner__content__tag lbh-tag">
             Beta

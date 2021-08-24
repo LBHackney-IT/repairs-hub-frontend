@@ -58,4 +58,17 @@ export const WORK_ORDER_ACTIONS = [
       return status !== STATUS_CANCELLED.description
     }),
   },
+  {
+    href: 'print',
+    title: 'Print',
+    description: 'Print Job Ticket',
+    permittedRoles: [
+      AGENT_ROLE,
+      AUTHORISATION_MANAGER_ROLE,
+      CONTRACT_MANAGER_ROLE,
+      CONTRACTOR_ROLE,
+    ],
+    permittedStatuses: WORK_ORDERS_STATUSES,
+    disabled: process.env.NEXT_PUBLIC_PRINTING_ENABLED !== 'true',
+  },
 ]

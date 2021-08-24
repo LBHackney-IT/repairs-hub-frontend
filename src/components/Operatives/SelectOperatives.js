@@ -22,21 +22,23 @@ const SelectOperatives = ({
           Search by operative name and select from the list
         </p>
 
-        {selectedOperatives.map((operative, index) => {
+        {selectedOperatives.map((selectedOperative, index) => {
           return (
             <OperativeDataList
               key={index}
               label={`Operative name ${index + 1} *`}
               name={`operative-${index}`}
-              value={
-                operative
-                  ? formatOperativeOptionText(operative.id, operative.name)
+              selectedOperative={
+                selectedOperative
+                  ? formatOperativeOptionText(
+                      selectedOperative.id,
+                      selectedOperative.name
+                    )
                   : ''
               }
               options={availableOperatives.map((operative) =>
                 formatOperativeOptionText(operative.id, operative.name)
               )}
-              operativeId={operative ? operative.id : -1}
               index={index}
               register={register}
               errors={errors}
