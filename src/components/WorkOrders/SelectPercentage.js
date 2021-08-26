@@ -9,7 +9,6 @@ const SelectPercentage = ({
   assignedOperativesToWorkOrder,
   allOperatives,
   operativeNameIsSelected,
-  errors,
   register,
   preSelectedPercentages,
 }) => {
@@ -82,10 +81,8 @@ const SelectPercentage = ({
   }
 
   const onChange = (e) => {
-    // if (errors && errors[`percentage-0`]) {
-    //   delete errors[`percentage-0`]
-    //   delete errors[`percentage-${operativeIndex}`]
-    // }
+    // if percentage errors, then update state and percentages
+    // then trigger validation
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
   }
@@ -105,9 +102,6 @@ const SelectPercentage = ({
       onlyOneAssignedOperative ||
       some
     ) {
-      // if (errors && errors[`percentage-${operativeIndex}`]) {
-      //   delete errors[`percentage-${operativeIndex}`]
-      // }
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
     } else if (allOperatives.length !== 3 && selectedPercentage === '33.3%') {
@@ -131,7 +125,7 @@ const SelectPercentage = ({
           register={register}
         />
         {/* Disabled elements are not sent on onSubmit, so if the element is disabled
-            we create another hidden input with the same name and the same value. 
+            we create another hidden input with the same name and the same value.
             This one will be sent */}
         {isDisabled && (
           <div style={{ display: 'none' }}>

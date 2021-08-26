@@ -22,7 +22,14 @@ const CloseWorkOrderForm = ({
   updateTotalPercentage,
   selectedPercentagesToShowOnEdit,
 }) => {
-  const { handleSubmit, register, control, errors } = useForm({})
+  const {
+    handleSubmit,
+    register,
+    control,
+    errors,
+    trigger,
+    getValues,
+  } = useForm({})
 
   return (
     <>
@@ -76,6 +83,8 @@ const CloseWorkOrderForm = ({
               errors={errors}
               updateTotalPercentage={updateTotalPercentage}
               selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
+              trigger={trigger}
+              getValues={getValues}
             />
           )}
 

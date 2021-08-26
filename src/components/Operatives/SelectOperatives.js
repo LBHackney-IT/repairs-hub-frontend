@@ -12,6 +12,8 @@ const SelectOperatives = ({
   errors,
   updateTotalPercentage,
   selectedPercentagesToShowOnEdit,
+  trigger,
+  getValues,
 }) => {
   const [allOperatives, setAllOperatives] = useState(
     // Add at least one slot for an operative
@@ -96,24 +98,43 @@ const SelectOperatives = ({
     updateTotalPercentage(
       calculateTotalPercentage(allOperatives, updatedPercentages)
     )
+
+    if (errors && errors[`percentage-0`]) {
+      trigger()
+    }
+  }
+
+  const duplicateOperativeErrors = (errors) => {
+    return Object.entries(errors).some(
+      ([a, b]) =>
+        a.match(/operative/) && b['message'].match(/already been added/)
+    )
   }
 
   return (
     <>
       <div
         className={cx('operatives', {
-          'govuk-form-group--error': errors && errors['percentage-0'],
+          'govuk-form-group--error':
+            errors &&
+            (errors['percentage-0'] || duplicateOperativeErrors(errors)),
         })}
       >
         <p className="govuk-heading-m">
           Search by operative name and select from the list
         </p>
-        {errors && errors['percentage-0'] && (
-          <span class="govuk-error-message lbh-error-message">
-            <span class="govuk-visually-hidden">Error:</span>{' '}
-            {errors['percentage-0'].message}
-          </span>
-        )}
+
+        {errors &&
+          (errors['percentage-0'] || duplicateOperativeErrors(errors)) && (
+            <span class="govuk-error-message lbh-error-message">
+              <span class="govuk-visually-hidden">Error:</span>{' '}
+              {errors['percentage-0']?.message}
+              {
+                Object.entries(errors).find(([a, _]) => a.match(/operative/))
+                  ?.message
+              }
+            </span>
+          )}
 
         {allOperatives.map((operative, index) => {
           return (
@@ -162,6 +183,7 @@ const SelectOperatives = ({
                   isOperativeNameSelected={isOperativeNameSelected}
                   onSelectedOperative={onSelectedOperative}
                   allOperatives={allOperatives}
+                  getValues={getValues}
                 />
               </GridColumn>
               <GridColumn width="one-third">

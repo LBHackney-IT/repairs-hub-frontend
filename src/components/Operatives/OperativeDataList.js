@@ -18,6 +18,7 @@ const OperativeDataList = ({
   isOperativeNameSelected,
   allOperatives,
   onSelectedOperative,
+  getValues,
 }) => {
   const [selectedOperativeName, setSelectedOperativeName] = useState(value)
   const [selectedOperativeId, setSelectedOperativeId] = useState(operativeId)
@@ -53,8 +54,11 @@ const OperativeDataList = ({
               } else if (
                 !allOperatives.includes(null) &&
                 !allOperatives.includes(undefined) &&
-                allOperatives.filter((op) => op.id == selectedOperativeId)
-                  .length > 1
+                Object.entries(getValues())
+                  .filter(
+                    ([k]) => k !== `operative-${index}` && k.match(/operative-/)
+                  )
+                  .some(([_id, name], i) => name === value && i < index)
               ) {
                 return 'This operative has already been added'
               }
