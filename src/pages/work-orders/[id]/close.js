@@ -1,6 +1,6 @@
 import Meta from '../../../components/Meta'
 import CloseWorkOrder from '../../../components/WorkOrders/CloseWorkOrder'
-import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
+import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../models/user'
 
 const WorkOrderClosePage = ({ query }) => {
   return (

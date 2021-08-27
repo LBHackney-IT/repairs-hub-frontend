@@ -11,9 +11,9 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
 
   // redact contact information for contractor responses
   if (
-    user.hasAgentPermissions ||
-    user.hasContractManagerPermissions ||
-    user.hasAuthorisationManagerPermissions
+    user.hasAgentPermissions() ||
+    user.hasContractManagerPermissions() ||
+    user.hasAuthorisationManagerPermissions()
   ) {
     res.status(HttpStatus.OK).json(data)
   } else {

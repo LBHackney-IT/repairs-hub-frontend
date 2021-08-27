@@ -29,7 +29,7 @@ export const getServerSideProps = async (ctx) => {
 
   const user = isAuthorised(ctx)
 
-  if (user && user.hasAnyPermissions) {
+  if (user && user.hasAnyPermissions()) {
     console.log(ctx.res)
     redirectToHome(ctx.res)
   }

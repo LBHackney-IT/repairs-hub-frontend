@@ -1,6 +1,6 @@
 import Meta from '../../../components/Meta'
 import UpdateWorkOrder from '../../../components/WorkOrders/UpdateWorkOrder'
-import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
+import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../models/user'
 
 const WorkOrderUpdatePage = ({ query }) => {
   return (

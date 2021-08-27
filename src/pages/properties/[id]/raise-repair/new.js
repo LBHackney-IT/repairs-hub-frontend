@@ -4,7 +4,7 @@ import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '../../../../utils/user'
+} from '../../../../models/user'
 
 const RaiseRepairPage = ({ query }) => {
   return <RaiseWorkOrderFormView propertyReference={query.id} />

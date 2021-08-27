@@ -1,5 +1,5 @@
 import MyApp from '../src/pages/_app'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../src/utils/user'
+import { AGENT_ROLE, CONTRACTOR_ROLE } from '../src/models/user'
 
 import { createRequest, createResponse } from 'node-mocks-http'
 import jsonwebtoken from 'jsonwebtoken'
@@ -44,11 +44,6 @@ describe('MyApp.getInitialProps', () => {
           name: 'name',
           email: 'name@example.com',
           roles: ['agent'],
-          hasAgentPermissions: true,
-          hasContractorPermissions: false,
-          hasContractManagerPermissions: false,
-          hasAuthorisationManagerPermissions: false,
-          hasAnyPermissions: true,
         })
 
         expect(accessDenied).toBe(false)

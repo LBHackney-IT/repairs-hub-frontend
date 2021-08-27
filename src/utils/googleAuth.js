@@ -71,7 +71,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
 
     const user = new User(name, email, groups)
 
-    if (!user.hasAnyPermissions) {
+    if (!user.hasAnyPermissions()) {
       return withRedirect && redirectToAcessDenied(res)
     }
 

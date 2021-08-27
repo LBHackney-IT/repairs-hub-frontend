@@ -4,7 +4,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
-} from 'src/utils/user'
+} from 'src/models/user'
 
 describe('PropertyPage.permittedRoles', () => {
   ;[AGENT_ROLE, CONTRACT_MANAGER_ROLE, AUTHORISATION_MANAGER_ROLE].forEach(

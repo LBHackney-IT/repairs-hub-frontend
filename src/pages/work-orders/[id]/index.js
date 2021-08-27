@@ -5,7 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
-} from '../../../utils/user'
+} from '../../../models/user'
 
 const WorkOrderPage = ({ query }) => {
   return (

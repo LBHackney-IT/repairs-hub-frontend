@@ -8,7 +8,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '../utils/user'
+} from '../models/user'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)

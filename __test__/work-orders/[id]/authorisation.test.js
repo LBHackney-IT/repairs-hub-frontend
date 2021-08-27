@@ -5,7 +5,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from 'src/utils/user'
+} from 'src/models/user'
 
 describe('AuthorisationPage.permittedRoles', () => {
   ;[AUTHORISATION_MANAGER_ROLE].forEach((role) => {

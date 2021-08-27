@@ -3,7 +3,7 @@ import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '../../../utils/user'
+} from '../../../models/user'
 
 const PropertyPage = ({ query }) => {
   return <PropertyView propertyReference={query.id} />

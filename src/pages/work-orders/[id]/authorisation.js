@@ -1,4 +1,4 @@
-import { AUTHORISATION_MANAGER_ROLE } from '../../../utils/user'
+import { AUTHORISATION_MANAGER_ROLE } from '../../../models/user'
 import AuthorisationView from '../../../components/WorkOrder/Authorisation/AuthorisationView'
 import Meta from '../../../components/Meta'
 

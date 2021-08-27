@@ -27,9 +27,7 @@ describe('isAuthorised', () => {
       expect(user).toMatchObject({
         name: 'name',
         email: 'name@example.com',
-        hasAgentPermissions: true,
-        hasContractorPermissions: false,
-        hasAnyPermissions: true,
+        roles: ['agent'],
       })
     })
   })

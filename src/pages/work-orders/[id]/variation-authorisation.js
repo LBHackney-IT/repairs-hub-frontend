@@ -1,4 +1,4 @@
-import { CONTRACT_MANAGER_ROLE } from '../../../utils/user'
+import { CONTRACT_MANAGER_ROLE } from '../../../models/user'
 import VariationAuthorisationView from '../../../components/WorkOrder/Authorisation/VariationAuthorisationView'
 import Meta from '../../../components/Meta'
 
