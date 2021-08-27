@@ -1,10 +1,5 @@
 import * as HttpStatus from 'http-status-codes'
 import {
-  AGENT_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  CONTRACT_MANAGER_ROLE,
-} from '../../../utils/user'
-import {
   serviceAPIRequest,
   authoriseServiceAPIRequest,
 } from '../../../utils/serviceApiClient'
@@ -16,9 +11,9 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
 
   // redact contact information for contractor responses
   if (
-    user.hasRole(AGENT_ROLE) ||
-    user.hasRole(CONTRACT_MANAGER_ROLE) ||
-    user.hasRole(AUTHORISATION_MANAGER_ROLE)
+    user.hasAgentPermissions ||
+    user.hasContractManagerPermissions ||
+    user.hasAuthorisationManagerPermissions
   ) {
     res.status(HttpStatus.OK).json(data)
   } else {
