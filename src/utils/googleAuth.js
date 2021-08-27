@@ -1,6 +1,6 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
-import { buildUser } from './user'
+import { User } from '../models/user'
 
 const { GSSO_TOKEN_NAME } = process.env
 
@@ -69,7 +69,7 @@ export const isAuthorised = ({ req, res }, withRedirect = false) => {
       HACKNEY_JWT_SECRET
     )
 
-    const user = buildUser(name, email, groups)
+    const user = new User(name, email, groups)
 
     if (!user.hasAnyPermissions) {
       return withRedirect && redirectToAcessDenied(res)
