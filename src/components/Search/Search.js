@@ -7,11 +7,12 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import Meta from '../Meta'
-import { canAccessWorkOrder } from '../../utils/userPermissions'
+// import { canAccessWorkOrder } from '../../utils/userPermissions'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
-  const canSearchForProperty = user && canAccessWorkOrder(user)
+  debugger
+  const canSearchForProperty = user && user.canAccessWorkOrder()
   const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)

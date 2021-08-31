@@ -6,7 +6,6 @@ import UserContext from '../../UserContext/UserContext'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '../../../utils/statusCodes'
 import Collapsible from '../../Layout/Collapsible/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
-import { canSeeAllFilters } from '../../../utils/userPermissions'
 
 const WorkOrdersFilter = ({
   loading,
@@ -47,7 +46,7 @@ const WorkOrdersFilter = ({
   }
 
   const statusFilterOptions = () => {
-    if (user && canSeeAllFilters(user)) {
+    if (user && user.canSeeAllFilters()) {
       return filters.Status
     } else {
       return filters.Status.filter(

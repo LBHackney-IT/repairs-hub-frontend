@@ -4,7 +4,7 @@ import { PAGE_SIZE_AGENTS } from 'src/utils/frontEndApiClient/workOrders'
 import UserContext from '../../UserContext/UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
-import { canAccessWorkOrder } from '../../../utils/userPermissions'
+// import { canAccessWorkOrder } from '../../../utils/userPermissions'
 
 const WorkOrdersHistoryTable = ({
   workOrders,
@@ -44,7 +44,7 @@ const WorkOrdersHistoryTable = ({
       <Table className="govuk-!-margin-top-5 work-orders-history-table">
         <THead>
           <TR className="lbh-body">
-            {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
+            {user && user.canAccessWorkOrder() && <TH scope="col">Reference</TH>}
             <TH scope="col">Date raised</TH>
             <TH scope="col">Trade</TH>
             <TH scope="col">Status</TH>

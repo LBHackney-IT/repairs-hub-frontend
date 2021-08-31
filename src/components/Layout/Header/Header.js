@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
 import cx from 'classnames'
-import { canManageJobs } from '../../../utils/userPermissions'
+// import { canManageJobs } from '../../../utils/userPermissions'
 
 const HeaderComponent = ({ serviceName }) => {
   const { user } = useContext(UserContext)
@@ -99,7 +99,7 @@ const HeaderComponent = ({ serviceName }) => {
             </div>
             {user && (
               <div className="lbh-header__links">
-                {user && canManageJobs(user) && (
+                {user && user.canManageJobs() && (
                   <a id="manage" href="/">
                     Manage work orders
                   </a>

@@ -26,6 +26,44 @@ export class User {
   }
 
   // Public methods
+  canManageJobs() {
+    return (this.hasContractorPermissions() || !this.hasAgentPermissions())
+  }
+
+  canSeeAllFilters() {
+    return (
+      !this.hasContractorPermissions() ||
+      this.hasAgentPermissions() ||
+      this.hasAuthorisationManagerPermissions() ||
+      this.hasContractManagerPermissions()
+    )
+  }
+
+  canSeeAppointmentDetailsInfo() {
+    return (
+      this.hasAgentPermissions() ||
+      this.hasContractorPermissions() ||
+      this.hasContractManagerPermissions()
+    )
+  }
+
+  canScheduleAppointment() {
+    return (
+      this.hasAgentPermissions() ||
+      this.hasContractManagerPermissions() ||
+      this.hasAuthorisationManagerPermissions()
+    )
+  }
+
+  canAccessWorkOrder() {
+    return (
+      this.hasAgentPermissions() ||
+      this.hasContractManagerPermissions() ||
+      this.hasAuthorisationManagerPermissions()
+    )
+  }
+
+
   hasRole(r) {
     return this.roles.includes(r)
   }

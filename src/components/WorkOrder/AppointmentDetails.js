@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import UserContext from '../UserContext/UserContext'
 import { dateToStr } from '../../utils/date'
 import { STATUS_CANCELLED } from '../../utils/statusCodes'
-import {
-  canSeeAppointmentDetailsInfo,
-  canScheduleAppointment,
-} from '../../utils/userPermissions'
+// import {
+//   canSeeAppointmentDetailsInfo,
+//   canScheduleAppointment,
+// } from '../../utils/userPermissions'
 import { WorkOrder } from '../../models/workOrder'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/workOrderStatusUpdate/notesForm'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
@@ -65,20 +65,20 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   }
 
   return (
-    (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
+    (user.canScheduleAppointment() || user.canSeeAppointmentDetailsInfo()) && (
       <div className="appointment-details">
         <p className="govuk-!-font-size-14">Appointment details</p>
         <div className="lbh-body-s govuk-!-margin-0">
           {user && (
             <>
-              {canSeeAppointmentDetailsInfo(user) &&
+              {user.canSeeAppointmentDetailsInfo() &&
                 workOrder.appointment &&
                 workOrder.status !== STATUS_CANCELLED &&
                 appointmentDetailsInfoHtml()}
-              {canScheduleAppointment(user) &&
+              {user.canScheduleAppointment() &&
                 workOrder.canBeScheduled() &&
                 scheduleAppointmentHtml(workOrder.appointment)}
-              {canSeeAppointmentDetailsInfo(user) &&
+              {user.canSeeAppointmentDetailsInfo() &&
                 !workOrder.appointment &&
                 !workOrder.canBeScheduled() && (
                   <p className="lbh-!-font-weight-bold">Not applicable</p>
