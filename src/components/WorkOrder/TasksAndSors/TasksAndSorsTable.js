@@ -1,12 +1,22 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsRow from './TasksAndSorsRow'
-import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
+import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
+import Collapsible from 'src/components/Layout/Collapsible/Collapsible'
+import { formatDateTime } from '../../../utils/time'
+import { calculateTotalCost } from '../../../utils/helpers/calculations'
 
 const TasksAndSorsTable = ({
   latestTasksAndSors,
   originalTasksAndSors,
   tabName,
 }) => {
+  const calculateTotalSMV = (tasks, neededElement) => {
+    return tasks.reduce((a, task) => {
+      let cost = task[neededElement] ? task[neededElement] : 0
+      return a + cost
+    }, 0)
+  }
+
   const buildTable = (tasks, isOriginal = false) => {
     return (
       <>
@@ -14,7 +24,6 @@ const TasksAndSorsTable = ({
           <TR className="lbh-body">
             <TH scope="col">SOR</TH>
             <TH scope="col">Description</TH>
-            <TH scope="col">Date added</TH>
             <TH scope="col">Quantity (est.)</TH>
             <TH scope="col" type="numeric">
               Unit cost
@@ -38,24 +47,51 @@ const TasksAndSorsTable = ({
               {...entry}
             />
           ))}
+          <TR index={undefined} className="lbh-body-s">
+            <TD>{}</TD>
+            <TD>{}</TD>
+            <TD>{}</TD>
+            <TD type="numeric">
+              <strong>Total</strong>
+            </TD>
+            <TD type="numeric">
+              <strong>£ {calculateTotalCost(tasks, 'cost', 'quantity')}</strong>
+            </TD>
+            <TD type="numeric">
+              <strong>{calculateTotalSMV(tasks, 'standardMinuteValue')}</strong>
+            </TD>
+          </TR>
         </TBody>
       </>
     )
   }
 
+  const displayReadableDate = (tasks) => {
+    return `Added on ${formatDateTime(tasks[tasks.length - 1].dateAdded)}`
+  }
+  //add function that shows date correctly
+
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
 
-      <h4 className="lbh-heading-h4">Latest Tasks and SORs</h4>
+      <h4 className="lbh-heading-h4">
+        Latest Tasks and SORs{' '}
+        {latestTasksAndSors ? displayReadableDate(latestTasksAndSors) : ''}
+      </h4>
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
       </Table>
-
-      <h4 className="lbh-heading-h4">Original Tasks and SORs</h4>
-      <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
-        {buildTable(originalTasksAndSors, true)}
-      </Table>
+      <Collapsible
+        heading={`Original Tasks and SORs 
+        ${
+          originalTasksAndSors ? displayReadableDate(originalTasksAndSors) : ''
+        }`}
+      >
+        <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
+          {buildTable(originalTasksAndSors, true)}
+        </Table>
+      </Collapsible>
     </>
   )
 }
