@@ -22,9 +22,9 @@ export const buildUser = (name, email, authServiceGroups) => {
     return groupNames.map((groupName) => {
       if (isAgentGroupName(groupName)) {
         return AGENT_ROLE
-      } else if (groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME) {
+      } else if (isContractManagerGroupName(groupName)) {
         return CONTRACT_MANAGER_ROLE
-      } else if (groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME) {
+      } else if (isAuthorisationManagerGroupName(groupName)) {
         return AUTHORISATION_MANAGER_ROLE
       } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
@@ -39,10 +39,16 @@ export const buildUser = (name, email, authServiceGroups) => {
   const isContractorGroupName = (groupName) =>
     !!contractorGroupRegex.test(groupName)
 
+  const isContractManagerGroupName = (groupName) =>
+    groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME
+
+  const isAuthorisationManagerGroupName = (groupName) =>
+    groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME
+
   const groupNames = authServiceGroups.filter(
     (groupName) =>
-      groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME ||
-      groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME ||
+      isContractManagerGroupName(groupName) ||
+      isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
       isContractorGroupName(groupName)
   )
