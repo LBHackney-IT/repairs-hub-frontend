@@ -4,6 +4,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
+  OPERATIVE_ROLE,
 } from 'src/utils/user'
 
 describe('PropertyPage.permittedRoles', () => {
@@ -14,7 +15,7 @@ describe('PropertyPage.permittedRoles', () => {
       })
     }
   )
-  ;[CONTRACTOR_ROLE].forEach((role) => {
+  ;[CONTRACTOR_ROLE, OPERATIVE_ROLE].forEach((role) => {
     it(`does not permit the ${role} role to access the page`, () => {
       expect(PropertyPage.permittedRoles).not.toContain(role)
     })
