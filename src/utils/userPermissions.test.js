@@ -4,6 +4,7 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
   canAccessWorkOrder,
+  canSeeWorkOrders,
 } from './userPermissions'
 
 describe('canManageJobs', () => {
@@ -142,6 +143,34 @@ describe('canAccessWorkOrder', () => {
     }
     it('returns false', () => {
       expect(canAccessWorkOrder(user)).toBe(false)
+    })
+  })
+})
+
+describe('canSeeWorkOrders', () => {
+  describe('when user allowed to access work orders', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasContractorPermissions: true,
+      hasAuthorisationManagerPermissions: true,
+      hasContractManagerPermissions: true,
+    }
+    it('returns true', () => {
+      expect(canSeeWorkOrders(user)).toBe(true)
+    })
+  })
+
+  describe('when user NOT allowed to access work orders', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasContractorPermissions: false,
+      hasAuthorisationManagerPermissions: false,
+      hasContractManagerPermissions: false,
+    }
+    it('returns false', () => {
+      expect(canSeeWorkOrders(user)).toBe(false)
     })
   })
 })
