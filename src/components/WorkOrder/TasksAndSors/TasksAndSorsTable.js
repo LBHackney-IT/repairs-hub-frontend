@@ -81,8 +81,15 @@ const TasksAndSorsTable = ({
     )
   }
 
-  const displayReadableDate = (tasks) => {
-    return `Added on ${formatDateTime(tasks[tasks.length - 1].dateAdded)}`
+  const displayReadableDate = (tasks, isOriginal = false) => {
+    if (isOriginal || !tasksWereUpdated) {
+      return `Added on ${formatDateTime(tasks[0].dateAdded)}`
+    } else {
+      let latestUpdatedTask = tasks.reduce((a, b) => {
+        return new Date(a.dateUpdated) > new Date(b.dateUpdated) ? a : b
+      })
+      return `Added on ${formatDateTime(latestUpdatedTask.dateUpdated)}`
+    }
   }
 
   return (
@@ -96,12 +103,17 @@ const TasksAndSorsTable = ({
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
       </Table>
+      <br />
+      <br />
       {tasksWereUpdated ? (
         <Collapsible
           heading={`Original Tasks and SORs 
         ${
-          originalTasksAndSors ? displayReadableDate(originalTasksAndSors) : ''
+          originalTasksAndSors
+            ? displayReadableDate(originalTasksAndSors, true)
+            : ''
         }`}
+          onTasksAndSorsTab={true}
         >
           <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
             {buildTable(originalTasksAndSors, true)}

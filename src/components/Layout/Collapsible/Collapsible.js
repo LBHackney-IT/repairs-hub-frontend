@@ -1,13 +1,20 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const Collapsible = ({
   heading,
   children,
   contentMargin,
   collapsableDivClassName,
+  onTasksAndSorsTab,
 }) => {
   const [open, setOpen] = useState(true)
+
+  useEffect(() => {
+    if (onTasksAndSorsTab) {
+      setOpen(!open)
+    }
+  }, [])
 
   return (
     <section className="lbh-collapsible">
@@ -36,6 +43,7 @@ Collapsible.propTypes = {
   children: PropTypes.object.isRequired,
   contentMargin: PropTypes.string,
   collapsableDivClassName: PropTypes.string,
+  onTasksAndSorsTab: PropTypes.bool,
 }
 
 export default Collapsible

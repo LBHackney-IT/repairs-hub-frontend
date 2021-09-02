@@ -9,6 +9,12 @@ const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
     return !tasks.every(originalQuantityIsEqualToCurrentQuantity)
   }
 
+  const sortTasksByDates = (tasks) => {
+    return tasks.sort(function (a, b) {
+      return new Date(b.dateAdded) - new Date(a.dateAdded)
+    })
+  }
+
   return (
     tasksAndSors && (
       <TasksAndSorsTable
@@ -18,8 +24,8 @@ const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
                 whereas original refers to the tasks and sors that originated from
                 the raise repair form, along with its original quantity
               **/
-        latestTasksAndSors={tasksAndSors}
-        originalTasksAndSors={originalTasksAndSors}
+        latestTasksAndSors={sortTasksByDates(tasksAndSors)}
+        originalTasksAndSors={sortTasksByDates(originalTasksAndSors)}
         tabName={tabName}
         tasksWereUpdated={areTasksUpdated(tasksAndSors)}
       />
