@@ -9,7 +9,6 @@ import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/clos
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
-import { uniqueArrayValues } from '../../utils/helpers/array'
 import { WorkOrder } from '../../models/workOrder'
 
 const CloseWorkOrder = ({ reference }) => {
@@ -23,6 +22,12 @@ const CloseWorkOrder = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
+  // const [totalPercentage, setTotalPercentage] = useState('')
+  const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
+  const [
+    selectedPercentagesToShowOnEdit,
+    setSelectedPercentagesToShowOnEdit,
+  ] = useState([])
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
   const router = useRouter()
@@ -103,27 +108,24 @@ const CloseWorkOrder = ({ reference }) => {
     getCloseWorkOrder()
   }, [])
 
+  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
+    return opsAndPercentages
+      .map((op) => `${op.operative.name} : ${op.percentage}`)
+      .join(', ')
+  }
   const onJobSubmit = async () => {
-    const operativeIds = selectedOperatives.map((operative) => operative.id)
-
-    const deduplicatedOperatives = uniqueArrayValues(
-      operativeIds
-    ).map((operativeId) =>
-      selectedOperatives.find((operative) => operative.id === operativeId)
-    )
-
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       reference,
-      deduplicatedOperatives
+      operativesWithPercentages
     )
 
     const fullNotes =
-      deduplicatedOperatives.length > 0
+      operativesWithPercentages.length > 0
         ? [
             notes,
-            `Assigned operatives ${deduplicatedOperatives
-              .map((operative) => operative.name)
-              .join(', ')}`,
+            `Assigned operatives ${operativesAndPercentagesForNotes(
+              operativesWithPercentages
+            )}`,
           ]
             .filter((s) => s)
             .join(' - ')
@@ -157,10 +159,25 @@ const CloseWorkOrder = ({ reference }) => {
         }
       })
 
+    const percentages = Object.entries(e)
+      .filter(([key]) => key.match(/^percentage-\d+$/))
+      .map(([, value]) => value)
+
     setSelectedOperatives(
       operativeIds.map((operativeId) =>
         availableOperatives.find((operative) => operative.id === operativeId)
       )
+    )
+    setSelectedPercentagesToShowOnEdit(percentages)
+    setOperativesWithPercentages(
+      operativeIds.map((operativeId, index) => {
+        return {
+          operative: availableOperatives.find(
+            (operative) => operative.id === operativeId
+          ),
+          percentage: percentages[index],
+        }
+      })
     )
     setReason(e.reason)
     setNotes(e.notes)
@@ -188,9 +205,12 @@ const CloseWorkOrder = ({ reference }) => {
                   date={completionDate}
                   reason={reason}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
-                  currentOperatives={selectedOperatives}
+                  assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
                   dateRaised={workOrder.dateRaised}
+                  selectedPercentagesToShowOnEdit={
+                    selectedPercentagesToShowOnEdit
+                  }
                 />
               )}
               {!CloseWorkOrderFormPage && (
@@ -202,7 +222,10 @@ const CloseWorkOrder = ({ reference }) => {
                   reason={reason}
                   operativeNames={
                     workOrder.canAssignOperative &&
-                    selectedOperatives.map((operative) => operative.name)
+                    operativesWithPercentages &&
+                    operativesWithPercentages.map(
+                      (op) => `${op.operative.name} : ${op.percentage}`
+                    )
                   }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
