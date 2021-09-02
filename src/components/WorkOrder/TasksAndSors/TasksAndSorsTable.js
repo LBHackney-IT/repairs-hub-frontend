@@ -9,13 +9,14 @@ const TasksAndSorsTable = ({
   latestTasksAndSors,
   originalTasksAndSors,
   tabName,
+  tasksWereUpdated,
 }) => {
-  const calculateTotalSMV = (tasks, neededElement) => {
-    return tasks.reduce((a, task) => {
-      let cost = task[neededElement] ? task[neededElement] : 0
-      return a + cost
-    }, 0)
-  }
+  // const calculateTotalSMV = (tasks, neededElement) => {
+  //   return tasks.reduce((a, task) => {
+  //     let cost = task[neededElement] ? task[neededElement] : 0
+  //     return a + cost
+  //   }, 0)
+  // }
 
   const buildTable = (tasks, isOriginal = false) => {
     return (
@@ -32,7 +33,7 @@ const TasksAndSorsTable = ({
               Cost (est.)
             </TH>
             <TH scope="col" type="numeric">
-              SMV
+              Total SMV
             </TH>
           </TR>
         </THead>
@@ -41,6 +42,7 @@ const TasksAndSorsTable = ({
             <TasksAndSorsRow
               key={index}
               index={index}
+              isOriginal={isOriginal}
               taskQuantity={
                 isOriginal ? entry.originalQuantity : entry.quantity
               }
@@ -55,10 +57,23 @@ const TasksAndSorsTable = ({
               <strong>Total</strong>
             </TD>
             <TD type="numeric">
-              <strong>£ {calculateTotalCost(tasks, 'cost', 'quantity')}</strong>
+              <strong>
+                £{' '}
+                {calculateTotalCost(
+                  tasks,
+                  'cost',
+                  `${isOriginal ? 'originalQuantity' : 'quantity'}`
+                ).toFixed(2)}
+              </strong>
             </TD>
             <TD type="numeric">
-              <strong>{calculateTotalSMV(tasks, 'standardMinuteValue')}</strong>
+              <strong>
+                {calculateTotalCost(
+                  tasks,
+                  `${isOriginal ? 'originalQuantity' : 'quantity'}`,
+                  'standardMinuteValue'
+                )}
+              </strong>
             </TD>
           </TR>
         </TBody>
@@ -69,7 +84,6 @@ const TasksAndSorsTable = ({
   const displayReadableDate = (tasks) => {
     return `Added on ${formatDateTime(tasks[tasks.length - 1].dateAdded)}`
   }
-  //add function that shows date correctly
 
   return (
     <>
@@ -82,16 +96,20 @@ const TasksAndSorsTable = ({
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
       </Table>
-      <Collapsible
-        heading={`Original Tasks and SORs 
+      {tasksWereUpdated ? (
+        <Collapsible
+          heading={`Original Tasks and SORs 
         ${
           originalTasksAndSors ? displayReadableDate(originalTasksAndSors) : ''
         }`}
-      >
-        <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
-          {buildTable(originalTasksAndSors, true)}
-        </Table>
-      </Collapsible>
+        >
+          <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
+            {buildTable(originalTasksAndSors, true)}
+          </Table>
+        </Collapsible>
+      ) : (
+        ''
+      )}
     </>
   )
 }
@@ -99,6 +117,7 @@ const TasksAndSorsTable = ({
 TasksAndSorsTable.propTypes = {
   tabName: PropTypes.string.isRequired,
   originalTasksAndSors: PropTypes.array.isRequired,
+  tasksWereUpdated: PropTypes.bool.isRequired,
   latestTasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string,

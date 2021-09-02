@@ -55,7 +55,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__header govuk-table__header--numeric"
           scope="col"
         >
-          SMV
+          Total SMV
         </th>
       </tr>
     </thead>
@@ -94,7 +94,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
         >
-          25
+           50
         </td>
       </tr>
       <tr
@@ -129,7 +129,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
         >
-          30
+           120
         </td>
       </tr>
       <tr
@@ -164,7 +164,7 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
         >
-          15
+           75
         </td>
       </tr>
       <tr
@@ -190,168 +190,18 @@ exports[`TasksAndSorsTable component should render properly 1`] = `
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           <strong>
-            £ 82.44999999999999
+            £ 82.45
           </strong>
         </td>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           <strong>
-            70
+            245
           </strong>
         </td>
       </tr>
     </tbody>
   </table>
-  <section
-    class="lbh-collapsible"
-  >
-    <div
-      aria-expanded="true"
-      class="lbh-collapsible__button undefined"
-    >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
-      >
-        Original Tasks and SORs 
-        Added on 3 Feb 2021, 11:33
-      </h2>
-      <svg
-        height="10"
-        viewBox="0 0 17 10"
-        width="17"
-      >
-        <path
-          d="M2 1.5L8.5 7.5L15 1.5"
-          stroke-width="3"
-        />
-      </svg>
-    </div>
-    <div
-      class="lbh-collapsible__content undefined"
-    >
-      <table
-        class="govuk-table lbh-table govuk-!-margin-top-5 original-tasks-and-sors-table"
-      >
-        <thead
-          class="govuk-table__head"
-        >
-          <tr
-            class="govuk-table__row lbh-body"
-          >
-            <th
-              class="govuk-table__header"
-              scope="col"
-            >
-              SOR
-            </th>
-            <th
-              class="govuk-table__header"
-              scope="col"
-            >
-              Description
-            </th>
-            <th
-              class="govuk-table__header"
-              scope="col"
-            >
-              Quantity (est.)
-            </th>
-            <th
-              class="govuk-table__header govuk-table__header--numeric"
-              scope="col"
-            >
-              Unit cost
-            </th>
-            <th
-              class="govuk-table__header govuk-table__header--numeric"
-              scope="col"
-            >
-              Cost (est.)
-            </th>
-            <th
-              class="govuk-table__header govuk-table__header--numeric"
-              scope="col"
-            >
-              SMV
-            </th>
-          </tr>
-        </thead>
-        <tbody
-          class="govuk-table__body"
-        >
-          <tr
-            class="govuk-table__row lbh-body-s"
-            data-row-id="0"
-          >
-            <td
-              class="govuk-table__cell"
-            >
-              DES5R006
-            </td>
-            <td
-              class="govuk-table__cell"
-            >
-              Urgent call outs
-            </td>
-            <td
-              class="govuk-table__cell"
-            >
-              1
-            </td>
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              £20.15
-            </td>
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              £20.15
-            </td>
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              10
-            </td>
-          </tr>
-          <tr
-            class="govuk-table__row lbh-body-s"
-          >
-            <td
-              class="govuk-table__cell"
-            />
-            <td
-              class="govuk-table__cell"
-            />
-            <td
-              class="govuk-table__cell"
-            />
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              <strong>
-                Total
-              </strong>
-            </td>
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              <strong>
-                £ 40.3
-              </strong>
-            </td>
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
-            >
-              <strong>
-                10
-              </strong>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
 </DocumentFragment>
 `;
