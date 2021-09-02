@@ -22,6 +22,7 @@ describe('CloseWorkOrderForm component', () => {
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
+    selectedPercentagesToShowOnEdit: [],
   }
 
   it('should render properly', () => {
@@ -34,8 +35,9 @@ describe('CloseWorkOrderForm component', () => {
         date={props.date}
         reason={props.reason}
         operativeAssignmentMandatory={true}
-        currentOperatives={props.operatives}
+        assignedOperativesToWorkOrder={props.operatives}
         availableOperatives={props.availableOperatives}
+        selectedPercentagesToShowOnEdit={props.selectedPercentagesToShowOnEdit}
       />
     )
     expect(asFragment()).toMatchSnapshot()
