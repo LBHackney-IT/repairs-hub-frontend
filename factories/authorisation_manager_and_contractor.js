@@ -10,6 +10,7 @@ export const authorisationManagerAndContractorUserFactory = Factory.define(
     hasContractorPermissions: true,
     hasContractManagerPermissions: false,
     hasAuthorisationManagerPermissions: true,
+    hasOperativePermissions: false,
     hasAnyPermissions: true,
   })
 )

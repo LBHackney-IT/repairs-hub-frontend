@@ -9,6 +9,7 @@ export const agentUserFactory = Factory.define(() => ({
   hasContractorPermissions: false,
   hasContractManagerPermissions: false,
   hasAuthorisationManagerPermissions: false,
+  hasOperativePermissions: false,
   hasAnyPermissions: true,
 }))
 
