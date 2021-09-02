@@ -104,6 +104,19 @@ Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
   )
 })
 
+Cypress.Commands.add('loginWithOperativeRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_OPERATIVE')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie('hackneyToken', gssoTestKey)
+  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hubUser/operative.json' }
+  )
+})
+
 Cypress.Commands.add('logout', () => {
   cy.get('#signout').contains('Sign out')
   cy.clearCookie('hackneyToken')

@@ -438,4 +438,79 @@ describe('Home page', () => {
       })
     }
   )
+
+  context('When an operative is logged in', () => {
+    beforeEach(() => {
+      cy.loginWithOperativeRole()
+    })
+
+    it('Displays content in the header', () => {
+      cy.visit('/')
+
+      // Header component
+      cy.get('.lbh-header__service-name').contains('Repairs Hub')
+      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+
+      // Manage work orders link
+      cy.get('#manage')
+        .contains('Manage work orders')
+        .should('have.attr', 'href', '/')
+
+      // Search link
+      cy.get('#search')
+        .contains('Search')
+        .should('have.attr', 'href', '/search')
+
+      // Logout component
+      cy.get('#signout')
+        .contains('Sign out')
+        .should('have.attr', 'href', '/logout')
+    })
+
+    context('When they have work orders attached to them', () => {
+      beforeEach(() => {
+        cy.clock(new Date('June 11 2021 13:49:15Z'))
+
+        //Stub request with operative's work orders response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/operatives/hu0001/workorders',
+          },
+          {
+            fixture: 'operatives/workOrders.json',
+          }
+        ).as('operativesWorkOrders')
+
+        cy.visit('/')
+        cy.wait('@operativesWorkOrders')
+      })
+
+      it('Displays work order appointments slots and priority', () => {
+        cy.get('.lbh-heading-h1').contains('Friday, 11 June')
+
+        cy.get('.lbh-list').within(() => {
+          cy.get('.appointment-details').within(() => {
+            cy.contains('08:00-13:00')
+            cy.contains('5 [N] NORMAL')
+          })
+          cy.get('.appointment-details').within(() => {
+            cy.contains('12:00-18:00')
+            cy.contains('2 [E] EMERGENCY')
+          })
+        })
+      })
+    })
+
+    context("When they don't have work orders attached to them", () => {
+      it('Displays a warning info box', () => {
+        cy.visit('/')
+
+        cy.get('.schedule-warning').within(() => {
+          cy.get('.lbh-body-s').contains('No work orders displayed')
+          cy.get('.lbh-body-xs').contains('Please contact your supervisor')
+        })
+      })
+    })
+  })
 })

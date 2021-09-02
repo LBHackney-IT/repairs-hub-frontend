@@ -269,6 +269,7 @@ describe('/api/[...path]', () => {
         'api/appointments',
         'api/operatives',
         'api/operatives/12345',
+        'api/operatives/12345/workorders',
         'api/workOrders',
         'api/workOrders/01234567',
         'api/workOrders/01234567/variation-tasks',

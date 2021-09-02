@@ -42,3 +42,7 @@ export const canSeeWorkOrders = (user) => {
     user.hasContractManagerPermissions
   )
 }
+
+export const canSeeOperativeWorkOrders = (user) => {
+  return user.hasOperativePermissions
+}
