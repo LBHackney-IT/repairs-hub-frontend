@@ -11,13 +11,6 @@ const TasksAndSorsTable = ({
   tabName,
   tasksWereUpdated,
 }) => {
-  // const calculateTotalSMV = (tasks, neededElement) => {
-  //   return tasks.reduce((a, task) => {
-  //     let cost = task[neededElement] ? task[neededElement] : 0
-  //     return a + cost
-  //   }, 0)
-  // }
-
   const buildTable = (tasks, isOriginal = false) => {
     return (
       <>

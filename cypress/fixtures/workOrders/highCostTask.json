@@ -4,10 +4,12 @@
     "code": "MWP5R005",
     "description": "REPAIR STEEL DOOR",
     "dateAdded": "2021-05-20T14:06:46.179519Z",
+    "dateUpdated": null,
     "quantity": 5,
     "cost": 203.04,
     "status": "Unknown",
     "original": true,
-    "originalQuantity": 5
+    "originalQuantity": 5,
+    "standardMinuteValue": 15
   }
 ]
