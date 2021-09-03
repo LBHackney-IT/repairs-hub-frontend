@@ -4,6 +4,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  OPERATIVE_ROLE,
 } from 'src/utils/user'
 
 describe('WorkOrderUpdatePage.permittedRoles', () => {
@@ -12,7 +13,7 @@ describe('WorkOrderUpdatePage.permittedRoles', () => {
       expect(WorkOrderUpdatePage.permittedRoles).toContain(role)
     })
   })
-  ;[AGENT_ROLE, AUTHORISATION_MANAGER_ROLE].forEach((role) => {
+  ;[AGENT_ROLE, AUTHORISATION_MANAGER_ROLE, OPERATIVE_ROLE].forEach((role) => {
     it(`does not permit the ${role} role to access the page`, () => {
       expect(WorkOrderUpdatePage.permittedRoles).not.toContain(role)
     })

@@ -9,6 +9,7 @@ export const contractManagerUserFactory = Factory.define(() => ({
   hasContractorPermissions: false,
   hasContractManagerPermissions: true,
   hasAuthorisationManagerPermissions: false,
+  hasOperativePermissions: false,
   hasAnyPermissions: true,
 }))
 

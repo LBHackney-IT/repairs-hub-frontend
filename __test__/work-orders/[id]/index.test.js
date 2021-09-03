@@ -4,6 +4,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
+  OPERATIVE_ROLE,
 } from 'src/utils/user'
 
 describe('WorkOrderPage.permittedRoles', () => {
@@ -15,6 +16,11 @@ describe('WorkOrderPage.permittedRoles', () => {
   ].forEach((role) => {
     it(`permits the ${role} role to access the page`, () => {
       expect(WorkOrderPage.permittedRoles).toContain(role)
+    })
+  })
+  ;[OPERATIVE_ROLE].forEach((role) => {
+    it(`does not permit the ${role} role to access the page`, () => {
+      expect(WorkOrderPage.permittedRoles).not.toContain(role)
     })
   })
 })

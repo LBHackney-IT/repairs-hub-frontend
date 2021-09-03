@@ -2,11 +2,13 @@ export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
+export const OPERATIVE_ROLE = 'operative'
 
 export const buildUser = (name, email, authServiceGroups) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
+    OPERATIVES_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -22,12 +24,14 @@ export const buildUser = (name, email, authServiceGroups) => {
     return groupNames.map((groupName) => {
       if (isAgentGroupName(groupName)) {
         return AGENT_ROLE
-      } else if (groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME) {
+      } else if (isContractManagerGroupName(groupName)) {
         return CONTRACT_MANAGER_ROLE
-      } else if (groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME) {
+      } else if (isAuthorisationManagerGroupName(groupName)) {
         return AUTHORISATION_MANAGER_ROLE
       } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
+      } else if (isOperativeGroupName(groupName)) {
+        return OPERATIVE_ROLE
       }
 
       console.log(`User group name not recognised: ${groupName}`)
@@ -39,12 +43,22 @@ export const buildUser = (name, email, authServiceGroups) => {
   const isContractorGroupName = (groupName) =>
     !!contractorGroupRegex.test(groupName)
 
+  const isContractManagerGroupName = (groupName) =>
+    groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME
+
+  const isAuthorisationManagerGroupName = (groupName) =>
+    groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME
+
+  const isOperativeGroupName = (groupName) =>
+    groupName === OPERATIVES_GOOGLE_GROUPNAME
+
   const groupNames = authServiceGroups.filter(
     (groupName) =>
-      groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME ||
-      groupName === AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME ||
+      isContractManagerGroupName(groupName) ||
+      isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
-      isContractorGroupName(groupName)
+      isContractorGroupName(groupName) ||
+      isOperativeGroupName(groupName)
   )
 
   const roles = rolesFromGroups(groupNames)
@@ -60,6 +74,7 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasContractorPermissions: hasRole(CONTRACTOR_ROLE),
     hasContractManagerPermissions: hasRole(CONTRACT_MANAGER_ROLE),
     hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
+    hasOperativePermissions: hasRole(OPERATIVE_ROLE),
     hasAnyPermissions: roles.length > 0,
   }
 }

@@ -9,6 +9,7 @@ export const multipleContractorUserFactory = Factory.define(() => ({
   hasContractorPermissions: true,
   hasContractManagerPermissions: false,
   hasAuthorisationManagerPermissions: false,
+  hasOperativePermissions: false,
   hasAnyPermissions: true,
 }))
 
