@@ -42,7 +42,14 @@ const TasksAndSorsTable = ({
               {...entry}
             />
           ))}
-          <TR index={undefined} className="lbh-body-s">
+          <TR
+            index={
+              isOriginal
+                ? originalTasksAndSors.length
+                : latestTasksAndSors.length
+            }
+            className="lbh-body-s"
+          >
             <TD>{}</TD>
             <TD>{}</TD>
             <TD>{}</TD>
@@ -51,7 +58,7 @@ const TasksAndSorsTable = ({
             </TD>
             <TD type="numeric">
               <strong>
-                £{' '}
+                £
                 {calculateTotalCost(
                   tasks,
                   'cost',
@@ -91,7 +98,9 @@ const TasksAndSorsTable = ({
 
       <h4 className="lbh-heading-h4">
         Latest Tasks and SORs{' '}
-        {latestTasksAndSors ? displayReadableDate(latestTasksAndSors) : ''}
+        {latestTasksAndSors && latestTasksAndSors.length > 0
+          ? displayReadableDate(latestTasksAndSors)
+          : ''}
       </h4>
       <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
         {buildTable(latestTasksAndSors)}
@@ -102,7 +111,7 @@ const TasksAndSorsTable = ({
         <Collapsible
           heading={`Original Tasks and SORs 
         ${
-          originalTasksAndSors
+          originalTasksAndSors && originalTasksAndSors.length > 0
             ? displayReadableDate(originalTasksAndSors, true)
             : ''
         }`}

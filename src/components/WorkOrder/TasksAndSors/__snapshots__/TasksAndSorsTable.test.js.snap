@@ -169,6 +169,7 @@ exports[`TasksAndSorsTable component should render properly 2 tables: Latest and
       </tr>
       <tr
         class="govuk-table__row lbh-body-s"
+        data-row-id="3"
       >
         <td
           class="govuk-table__cell"
@@ -190,7 +191,7 @@ exports[`TasksAndSorsTable component should render properly 2 tables: Latest and
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           <strong>
-            £ 82.45
+            £82.45
           </strong>
         </td>
         <td
@@ -320,6 +321,7 @@ exports[`TasksAndSorsTable component should render properly 2 tables: Latest and
           </tr>
           <tr
             class="govuk-table__row lbh-body-s"
+            data-row-id="1"
           >
             <td
               class="govuk-table__cell"
@@ -341,7 +343,7 @@ exports[`TasksAndSorsTable component should render properly 2 tables: Latest and
               class="govuk-table__cell govuk-table__cell--numeric"
             >
               <strong>
-                £ 20.15
+                £20.15
               </strong>
             </td>
             <td
@@ -458,6 +460,7 @@ exports[`TasksAndSorsTable component should render properly: only Latest table i
       </tr>
       <tr
         class="govuk-table__row lbh-body-s"
+        data-row-id="1"
       >
         <td
           class="govuk-table__cell"
@@ -479,7 +482,7 @@ exports[`TasksAndSorsTable component should render properly: only Latest table i
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           <strong>
-            £ 40.30
+            £40.30
           </strong>
         </td>
         <td
