@@ -26,8 +26,8 @@ const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
               **/
         latestTasksAndSors={sortTasksByDates(tasksAndSors)}
         originalTasksAndSors={sortTasksByDates(originalTasksAndSors)}
-        tabName={tabName}
         tasksWereUpdated={areTasksUpdated(tasksAndSors)}
+        tabName={tabName}
       />
     )
   )
