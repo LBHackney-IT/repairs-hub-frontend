@@ -3,7 +3,7 @@ import TasksAndSorsRow from './TasksAndSorsRow'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Collapsible from 'src/components/Layout/Collapsible/Collapsible'
 import { formatDateTime } from '../../../utils/time'
-import { calculateTotalCost } from '../../../utils/helpers/calculations'
+import { calculateTotal } from '../../../utils/helpers/calculations'
 
 const TasksAndSorsTable = ({
   latestTasksAndSors,
@@ -59,7 +59,7 @@ const TasksAndSorsTable = ({
             <TD type="numeric">
               <strong>
                 £
-                {calculateTotalCost(
+                {calculateTotal(
                   tasks,
                   'cost',
                   `${isOriginal ? 'originalQuantity' : 'quantity'}`
@@ -68,7 +68,7 @@ const TasksAndSorsTable = ({
             </TD>
             <TD type="numeric">
               <strong>
-                {calculateTotalCost(
+                {calculateTotal(
                   tasks,
                   `${isOriginal ? 'originalQuantity' : 'quantity'}`,
                   'standardMinuteValue'

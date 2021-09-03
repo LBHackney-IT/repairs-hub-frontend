@@ -14,7 +14,7 @@ import {
   buildAuthorisationApprovedFormData,
   buildAuthorisationRejectedFormData,
 } from '../../../utils/hact/workOrderStatusUpdate/authorisation'
-import { calculateTotalCost } from '../../../utils/helpers/calculations'
+import { calculateTotal } from '../../../utils/helpers/calculations'
 import { WorkOrder } from '../../../models/workOrder'
 
 const AuthorisationView = ({ workOrderReference }) => {
@@ -90,7 +90,7 @@ const AuthorisationView = ({ workOrderReference }) => {
 
       setRaiseSpendLimit(parseFloat(user.raiseLimit))
 
-      const totalCost = calculateTotalCost(tasksAndSors, 'cost', 'quantity')
+      const totalCost = calculateTotal(tasksAndSors, 'cost', 'quantity')
 
       if (totalCost.toFixed(2) > parseFloat(user.raiseLimit)) {
         setOverSpendLimit(true)

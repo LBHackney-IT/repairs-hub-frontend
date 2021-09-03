@@ -40,7 +40,7 @@ describe('SummaryUpdateWorkOrder component', () => {
     ],
     onFormSubmit: jest.fn(),
     changeStep: jest.fn(),
-    calculateTotalCost: jest.fn(),
+    calculateTotal: jest.fn(),
     variationReason: 'More work is necessary',
   }
 

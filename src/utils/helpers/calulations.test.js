@@ -1,11 +1,11 @@
 import {
-  calculateTotalCost,
+  calculateTotal,
   calculateCostBeforeVariation,
   calculateChangeInCost,
   calculateTotalVariedCost,
 } from './calculations'
 
-describe('calculateTotalCost', () => {
+describe('calculateTotal', () => {
   const arrayOfObjects = [
     { code: '21000019', cost: '2', quantity: 1 },
     { code: '21000029', cost: '5', quantity: 2 },
@@ -15,9 +15,7 @@ describe('calculateTotalCost', () => {
   ]
 
   it('returns total from cost and quantity fields in array of objects', () => {
-    expect(calculateTotalCost(arrayOfObjects, 'cost', 'quantity')).toEqual(
-      71.55
-    )
+    expect(calculateTotal(arrayOfObjects, 'cost', 'quantity')).toEqual(71.55)
   })
 })
 
