@@ -5,6 +5,7 @@ import { longMonthWeekday } from '../../utils/date'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { GridColumn, GridRow } from '../Layout/Grid'
+import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 import Meta from '../Meta'
 
 const OperativeWorkOrdersView = () => {
@@ -57,26 +58,9 @@ const OperativeWorkOrdersView = () => {
                 {longMonthWeekday(currentDate)}{' '}
               </h1>
               {operativeWorkOrders?.length ? (
-                <ol className="lbh-list">
-                  {operativeWorkOrders.map((operativeWorkOrder, index) => (
-                    <li
-                      key={index}
-                      className="green-info-box"
-                      data-note-id={index}
-                    >
-                      <div class="appointment-details">
-                        <p className="lbh-body lbh-!-font-weight-bold text-white">{`${operativeWorkOrder.appointment.start}-${operativeWorkOrder.appointment.end}`}</p>
-
-                        <p className="lbh-body lbh-!-font-weight-bold text-white">
-                          {operativeWorkOrder.priority}
-                        </p>
-                      </div>
-                      <p className="middle-right">
-                        <i className="arrow right"></i>
-                      </p>
-                    </li>
-                  ))}
-                </ol>
+                <OperativeWorkOrderListItem
+                  operativeWorkOrders={operativeWorkOrders}
+                />
               ) : (
                 <div className="schedule-warning govuk-inset-text lbh-inset-text">
                   <div className="lbh-warning-text govuk-warning-text">
