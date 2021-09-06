@@ -1,3 +1,37 @@
 .lbh-header__service-name {
   font-family: $govuk-font-family;
 }
+
+.lbh-header__links {
+  display: none;
+
+  @include govuk-media-query($from: tablet) {
+    display: flex;
+  }
+}
+
+.lbh-header__wrapper--stacked {
+  display: flex;
+}
+
+.burger {
+  cursor: pointer;
+  display: inline-block;
+
+  @include govuk-media-query($from: tablet) {
+    display: none;
+  }
+}
+
+.lbh-header__logo {
+  @include govuk-media-query($until: tablet) {
+    @include lbh-rem(width, 109);
+    @include lbh-rem(height, 20);
+  }
+}
+
+.lbh-header__title {
+  @include govuk-media-query($until: tablet) {
+    margin: 0;
+  }
+}
