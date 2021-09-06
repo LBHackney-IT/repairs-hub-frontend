@@ -1,14 +1,10 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsTable from './TasksAndSorsTable'
 import { sortArrayByDate } from '../../../utils/helpers/array'
+import { areTasksUpdated } from '../../../utils/tasks'
 
 const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
-  const areTasksUpdated = (tasks) => {
-    const originalQuantityIsEqualToCurrentQuantity = (task) =>
-      task.originalQuantity === task.quantity
-    return !tasks.every(originalQuantityIsEqualToCurrentQuantity)
-  }
 
   return (
     tasksAndSors &&
