@@ -1,4 +1,4 @@
-export const calculateTotalCost = (
+export const calculateTotal = (
   arrayOfObjects,
   costAttribute,
   quantityAttribute

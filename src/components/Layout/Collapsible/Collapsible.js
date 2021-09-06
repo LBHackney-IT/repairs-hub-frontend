@@ -6,8 +6,9 @@ const Collapsible = ({
   children,
   contentMargin,
   collapsableDivClassName,
+  startClosed,
 }) => {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(!startClosed)
 
   return (
     <section className="lbh-collapsible">
@@ -36,6 +37,7 @@ Collapsible.propTypes = {
   children: PropTypes.object.isRequired,
   contentMargin: PropTypes.string,
   collapsableDivClassName: PropTypes.string,
+  onTasksAndSorsTab: PropTypes.bool,
 }
 
 export default Collapsible

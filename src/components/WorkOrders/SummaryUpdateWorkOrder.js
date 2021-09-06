@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { PrimarySubmitButton } from '../Form'
-import { calculateTotalCost } from '../../utils/helpers/calculations'
+import { calculateTotal } from '../../utils/helpers/calculations'
 import { buildUpdateWorkOrder } from '../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import UpdateSummaryRateScheduleItems from './RateScheduleItems/UpdateSummaryRateScheduleItems'
 import WarningText from '../Template/WarningText'
@@ -34,15 +34,11 @@ const SummaryUpdateWorkOrder = ({
 
   const original = {
     description: ORIGINAL_COST,
-    cost: calculateTotalCost(originalTasks, 'cost', 'originalQuantity'),
+    cost: calculateTotal(originalTasks, 'cost', 'originalQuantity'),
   }
   const total = {
     description: TOTAL_COST,
-    cost: calculateTotalCost(
-      latestTasks.concat(addedTasks),
-      'cost',
-      'quantity'
-    ),
+    cost: calculateTotal(latestTasks.concat(addedTasks), 'cost', 'quantity'),
   }
   const totalVaried = {
     description: TOTAL_VARIED_COST,

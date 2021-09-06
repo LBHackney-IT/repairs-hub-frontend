@@ -3,7 +3,7 @@ import { useState, Fragment } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
 import Spinner from '../../Spinner/Spinner'
-import { calculateTotalCost } from '../../../utils/helpers/calculations'
+import { calculateTotal } from '../../../utils/helpers/calculations'
 
 const RateScheduleItemView = ({
   sorCodes,
@@ -35,7 +35,7 @@ const RateScheduleItemView = ({
   }
 
   const updateTotalCost = (rateScheduleItemCosts) => {
-    setTotalCost(calculateTotalCost(rateScheduleItemCosts, 'cost', 'quantity'))
+    setTotalCost(calculateTotal(rateScheduleItemCosts, 'cost', 'quantity'))
   }
 
   const onQuantityInput = (index, event) => {

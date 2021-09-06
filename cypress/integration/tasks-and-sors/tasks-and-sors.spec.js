@@ -36,61 +36,73 @@ describe('Tasks and SORs', () => {
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
-      cy.contains('Latest Tasks and SORs')
+      cy.contains('Latest Tasks and SORs Added on 5 Feb 2021, 09:33')
       cy.get('.govuk-table.latest-tasks-and-sors-table').within(() => {
         // Tasks and SORS table headers
         cy.contains('th', 'SOR')
         cy.contains('th', 'Description')
-        cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
         cy.contains('th', 'Unit cost')
         cy.contains('th', 'Cost (est.)')
+        cy.contains('th', 'Total SMV')
 
         // Tasks and SORS table rows
         cy.get('[data-row-id="0"]').within(() => {
           cy.contains('DES5R013')
           cy.contains('Inspect additional sec entrance')
-          cy.contains('3 Feb 2021, 11:33')
           cy.contains('5')
           cy.contains('0')
           cy.contains('0')
+          cy.contains('75')
         })
         cy.get('[data-row-id="1"]').within(() => {
           cy.contains('DES5R005')
           cy.contains('Normal call outs')
-          cy.contains('3 Feb 2021, 11:23')
           cy.contains('4')
           cy.contains('0')
           cy.contains('0')
+          cy.contains('60')
         })
         cy.get('[data-row-id="2"]').within(() => {
           cy.contains('DES5R006')
           cy.contains('Urgent call outs')
-          cy.contains('3 Feb 2021, 09:33')
           cy.contains('2')
           cy.contains('10')
           cy.contains('20')
+          cy.contains('30')
+        })
+
+        cy.get('[data-row-id="3"]').within(() => {
+          cy.contains('Total')
+          cy.contains('£20.00')
+          cy.contains('165')
         })
       })
 
-      cy.contains('Original Tasks and SORs')
+      cy.contains('Original Tasks and SORs Added on 3 Feb 2021, 09:33')
       cy.get('.govuk-table.original-tasks-and-sors-table').within(() => {
         // Tasks and SORS table headers
         cy.contains('th', 'SOR')
         cy.contains('th', 'Description')
-        cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
         cy.contains('th', 'Unit cost')
         cy.contains('th', 'Cost (est.)')
+        cy.contains('th', 'Total SMV')
 
         // Tasks and SORS table rows
         cy.get('[data-row-id="0"]').within(() => {
           cy.contains('DES5R006')
           cy.contains('Urgent call outs')
-          cy.contains('3 Feb 2021, 09:33')
           cy.contains('1')
           cy.contains('10')
           cy.contains('10')
+          cy.contains('15')
+        })
+
+        cy.get('[data-row-id="1"]').within(() => {
+          cy.contains('Total')
+          cy.contains('£10.00')
+          cy.contains('15')
         })
       })
     })
@@ -110,10 +122,10 @@ describe('Tasks and SORs', () => {
         // Tasks and SORS table headers
         cy.contains('th', 'SOR')
         cy.contains('th', 'Description')
-        cy.contains('th', 'Date added')
         cy.contains('th', 'Quantity (est.)')
         cy.contains('th', 'Unit cost')
         cy.contains('th', 'Cost (est.)')
+        cy.contains('th', 'Total SMV')
       })
     })
 
