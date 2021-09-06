@@ -8,7 +8,9 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
+  OPERATIVE_ROLE,
 } from '../utils/user'
+import { canSeeWorkOrders } from '../utils/userPermissions'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -16,12 +18,7 @@ const Home = ({ query }) => {
   const [loading, setLoading] = useState(true)
 
   const HomeView = () => {
-    if (
-      user &&
-      (user.hasContractorPermissions ||
-        user.hasAuthorisationManagerPermissions ||
-        user.hasContractManagerPermissions)
-    ) {
+    if (user && canSeeWorkOrders(user)) {
       // Use saved filter preset in local storage as the default applied filters (if present)
       const defaultFilters = JSON.parse(
         localStorage.getItem('RH - default work order filters')
@@ -81,6 +78,7 @@ Home.permittedRoles = [
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
+  OPERATIVE_ROLE,
 ]
 
 export default Home

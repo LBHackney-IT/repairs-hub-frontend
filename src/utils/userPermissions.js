@@ -34,3 +34,11 @@ export const canAccessWorkOrder = (user) => {
     user.hasAuthorisationManagerPermissions
   )
 }
+
+export const canSeeWorkOrders = (user) => {
+  return (
+    user.hasContractorPermissions ||
+    user.hasAuthorisationManagerPermissions ||
+    user.hasContractManagerPermissions
+  )
+}
