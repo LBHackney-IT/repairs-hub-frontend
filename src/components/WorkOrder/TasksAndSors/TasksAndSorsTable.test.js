@@ -54,7 +54,7 @@ describe('TasksAndSorsTable component', () => {
     ],
   }
 
-  it('should render properly 2 tables: Latest and Original', () => {
+  it('renders latest and original tables when tasksWereUpdated prop is true', () => {
     const { asFragment } = render(
       <TasksAndSorsTable
         originalTasksAndSors={props.originalTasksAndSors}
@@ -66,7 +66,7 @@ describe('TasksAndSorsTable component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should render properly: only Latest table is shown', () => {
+  it('renders the latest table only, when tasksWereUpdated prop is false', () => {
     const { asFragment } = render(
       <TasksAndSorsTable
         originalTasksAndSors={props.originalTasksAndSors}

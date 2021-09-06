@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TasksAndSorsTable component should render properly 2 tables: Latest and Original 1`] = `
+exports[`TasksAndSorsTable component renders latest and original tables when tasksWereUpdated prop is true 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"
@@ -361,7 +361,7 @@ exports[`TasksAndSorsTable component should render properly 2 tables: Latest and
 </DocumentFragment>
 `;
 
-exports[`TasksAndSorsTable component should render properly: only Latest table is shown 1`] = `
+exports[`TasksAndSorsTable component renders the latest table only, when tasksWereUpdated prop is false 1`] = `
 <DocumentFragment>
   <h2
     class="lbh-heading-h2"

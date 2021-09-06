@@ -115,7 +115,7 @@ const TasksAndSorsTable = ({
             ? displayReadableDate(originalTasksAndSors, true)
             : ''
         }`}
-          onTasksAndSorsTab={true}
+          startClosed={true}
         >
           <Table className="govuk-!-margin-top-5 original-tasks-and-sors-table">
             {buildTable(originalTasksAndSors, true)}

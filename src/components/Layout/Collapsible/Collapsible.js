@@ -1,20 +1,14 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 const Collapsible = ({
   heading,
   children,
   contentMargin,
   collapsableDivClassName,
-  onTasksAndSorsTab,
+  startClosed,
 }) => {
-  const [open, setOpen] = useState(true)
-
-  useEffect(() => {
-    if (onTasksAndSorsTab) {
-      setOpen(!open)
-    }
-  }, [])
+  const [open, setOpen] = useState(!startClosed)
 
   return (
     <section className="lbh-collapsible">

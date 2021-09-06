@@ -1,5 +1,3 @@
-// rename this function to something like : calculateTotal,
-// since we use it to calculate total cost and total SMV
 export const calculateTotal = (
   arrayOfObjects,
   costAttribute,
