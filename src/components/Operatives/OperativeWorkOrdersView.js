@@ -6,6 +6,7 @@ import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
+import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
 
 const OperativeWorkOrdersView = () => {
@@ -62,27 +63,10 @@ const OperativeWorkOrdersView = () => {
                   operativeWorkOrders={operativeWorkOrders}
                 />
               ) : (
-                <div className="warning-info-box govuk-inset-text lbh-inset-text">
-                  <div className="lbh-warning-text govuk-warning-text">
-                    <span
-                      className="govuk-warning-text__icon"
-                      aria-hidden="true"
-                    >
-                      !
-                    </span>
-                    <div className="govuk-warning-text__text">
-                      <span className="govuk-warning-text__assistive">
-                        Warning
-                      </span>
-                      <p className="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold">
-                        No work orders displayed
-                      </p>
-                      <p className="lbh-body-xs govuk-!-margin-top-1">
-                        Please contact your supervisor
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <WarningInfoBox
+                  header="No work orders displayed"
+                  text="Please contact your supervisor"
+                />
               )}
               {error && <ErrorMessage label={error} />}
             </>
