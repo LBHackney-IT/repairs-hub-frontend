@@ -1,6 +1,6 @@
 const ScheduleWarning = ({ hasExistingAppointment }) => {
   return (
-    <div className="schedule-warning govuk-inset-text lbh-inset-text">
+    <div className="warning-info-box govuk-inset-text lbh-inset-text">
       <div className="lbh-warning-text govuk-warning-text">
         <span className="govuk-warning-text__icon" aria-hidden="true">
           !
