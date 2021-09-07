@@ -84,7 +84,13 @@ const Layout = ({ children }) => {
           </div>
         )}
 
-        <div className="lbh-container govuk-!-margin-top-5">{children}</div>
+        <div
+          className={cx('lbh-container', 'govuk-!-margin-top-5', {
+            'govuk-!-display-none': mobileMenuOpen,
+          })}
+        >
+          {children}
+        </div>
       </main>
     </>
   )

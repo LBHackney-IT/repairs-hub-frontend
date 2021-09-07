@@ -18,7 +18,11 @@ describe('Header', () => {
             user: agent,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
@@ -35,7 +39,11 @@ describe('Header', () => {
             user: contractor,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
@@ -52,7 +60,11 @@ describe('Header', () => {
             user: agentAndContractor,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
@@ -69,7 +81,11 @@ describe('Header', () => {
             user: contractManager,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
@@ -86,7 +102,11 @@ describe('Header', () => {
             user: authorisationManager,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
@@ -105,7 +125,11 @@ describe('Header', () => {
             user: null,
           }}
         >
-          <Header serviceName={serviceName} />
+          <Header
+            serviceName={serviceName}
+            toggleMobileMenu={jest.fn()}
+            mobileMenuOpen={false}
+          />
         </UserContext.Provider>
       )
 
