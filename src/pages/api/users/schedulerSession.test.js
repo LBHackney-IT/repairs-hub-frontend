@@ -6,14 +6,18 @@ jest.mock('../../../utils/soapRequestClient')
 
 import schedulerSessionEndpoint from './schedulerSession'
 
-const { HACKNEY_JWT_SECRET, GSSO_TOKEN_NAME } = process.env
+const {
+  HACKNEY_JWT_SECRET,
+  GSSO_TOKEN_NAME,
+  AGENTS_GOOGLE_GROUPNAME,
+} = process.env
 
 describe('GET /api/users/schedulerSession', () => {
   const signedCookie = jsonwebtoken.sign(
     {
       name: 'name',
       email: 'name@example.com',
-      groups: ['repairs-hub-agents-staging'],
+      groups: [AGENTS_GOOGLE_GROUPNAME],
     },
     HACKNEY_JWT_SECRET
   )

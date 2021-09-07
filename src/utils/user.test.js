@@ -8,6 +8,8 @@ import {
 } from './user'
 
 const {
+  AGENTS_GOOGLE_GROUPNAME,
+  CONTRACTORS_GOOGLE_GROUPNAME,
   CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
   OPERATIVES_GOOGLE_GROUPNAME,
@@ -15,7 +17,7 @@ const {
 
 describe('buildUser', () => {
   describe('when called with a single agent group name', () => {
-    const user = buildUser('', '', ['repairs-hub-agents-staging'])
+    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
@@ -49,9 +51,7 @@ describe('buildUser', () => {
   })
 
   describe('when called with a single contractor group name', () => {
-    const user = buildUser('', '', [
-      'repairs-hub-contractors-alphatrack-staging',
-    ])
+    const user = buildUser('', '', [CONTRACTORS_GOOGLE_GROUPNAME])
 
     describe('hasContractorPermissions', () => {
       it('returns true', () => {
@@ -184,7 +184,7 @@ describe('buildUser', () => {
   })
 
   describe('hasRole', () => {
-    const user = buildUser('', '', ['repairs-hub-agents-staging'])
+    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
     describe('when the supplied role maps to the group name for the user', () => {
       it('returns true', () => {
@@ -219,7 +219,7 @@ describe('buildUser', () => {
 
   describe('hasAnyPermissions', () => {
     describe('when the group name for the user maps to a recognised role', () => {
-      const user = buildUser('', '', ['repairs-hub-agents-staging'])
+      const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
 
       it('returns true', () => {
         expect(user.hasAnyPermissions).toBe(true)
