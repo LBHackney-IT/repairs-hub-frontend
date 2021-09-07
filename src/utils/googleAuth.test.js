@@ -2,7 +2,11 @@ import { isAuthorised, deleteSessions } from './googleAuth'
 import jsonwebtoken from 'jsonwebtoken'
 import { createRequest, createResponse } from 'node-mocks-http'
 
-const { HACKNEY_JWT_SECRET, GSSO_TOKEN_NAME } = process.env
+const {
+  HACKNEY_JWT_SECRET,
+  GSSO_TOKEN_NAME,
+  AGENTS_GOOGLE_GROUPNAME,
+} = process.env
 
 describe('isAuthorised', () => {
   describe('when the request contains a JWT signed with the known secret', () => {
@@ -10,7 +14,7 @@ describe('isAuthorised', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: ['repairs-hub-agents-staging'],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )

@@ -13,6 +13,7 @@ const {
   REPAIRS_SERVICE_API_KEY,
   HACKNEY_JWT_SECRET,
   GSSO_TOKEN_NAME,
+  AGENTS_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('/api/[...path]', () => {
@@ -33,7 +34,7 @@ describe('/api/[...path]', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: ['repairs-hub-agents-staging'],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET + 'messedWithSecret'
     )
@@ -58,7 +59,7 @@ describe('/api/[...path]', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: ['repairs-hub-agents-staging'],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )
