@@ -51,7 +51,7 @@ const Layout = ({ children }) => {
               {user && canManageJobs(user) && (
                 <li>
                   <a
-                    className="lbh-link"
+                    className="lbh-link lbh-body-l"
                     id="manage"
                     onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                     href="/"
@@ -62,7 +62,7 @@ const Layout = ({ children }) => {
               )}
               <li>
                 <a
-                  className="lbh-link"
+                  className="lbh-link lbh-body-l"
                   id="search"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   href="/search"
@@ -72,7 +72,7 @@ const Layout = ({ children }) => {
               </li>
               <li>
                 <a
-                  className="lbh-link"
+                  className="lbh-link lbh-body-l"
                   id="signout"
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                   href="/logout"

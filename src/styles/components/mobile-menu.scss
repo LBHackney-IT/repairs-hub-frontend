@@ -13,23 +13,17 @@
   .mobile-menu {
     list-style: none;
     background-color: black;
-    padding: 2em;
+    padding: 2em 1em;
 
-    li {
-      margin: 0;
+    a {
+      color: lbh-colour('lbh-white');
 
-      a {
-        @include lbh-link-common;
-        @include lbh-body-m;
+      &:visited {
         color: lbh-colour('lbh-white');
-
-        &:visited {
-          color: lbh-colour('lbh-white');
-        }
       }
     }
 
-    li + li {
+    a + a {
       padding-top: 2em;
     }
   }
