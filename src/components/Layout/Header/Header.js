@@ -26,7 +26,11 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
   }
 
   const showDevelopmentNote = () => {
-    if (process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase() !== 'production') {
+    if (
+      !['production', 'test'].includes(
+        process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase()
+      )
+    ) {
       return (
         <section className="text-for-env-note govuk-!-display-none-print">
           <div className="lbh-container">
