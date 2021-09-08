@@ -13,6 +13,8 @@ const {
   GSSO_TOKEN_NAME,
   REPAIRS_SERVICE_API_KEY,
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
+  CONTRACTORS_GOOGLE_GROUPNAME,
+  AGENTS_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('GET /api/properties/[id] contact information redaction', () => {
@@ -50,7 +52,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: ['repairs-hub-agents-staging'],
+        groups: [AGENTS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )
@@ -168,7 +170,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       {
         name: 'name',
         email: 'name@example.com',
-        groups: ['repairs-hub-contractors-alphatrack-staging'],
+        groups: [CONTRACTORS_GOOGLE_GROUPNAME],
       },
       HACKNEY_JWT_SECRET
     )
