@@ -1,7 +1,3 @@
-export const canManageJobs = (user) => {
-  return user.hasContractorPermissions || !user.hasAgentPermissions
-}
-
 export const canSeeAllFilters = (user) => {
   return (
     !user.hasContractorPermissions ||

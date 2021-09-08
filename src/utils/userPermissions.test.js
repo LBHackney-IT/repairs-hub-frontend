@@ -1,5 +1,4 @@
 import {
-  canManageJobs,
   canSeeAllFilters,
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
@@ -7,32 +6,6 @@ import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
 } from './userPermissions'
-
-describe('canManageJobs', () => {
-  describe('when user is allowed to manage jobs', () => {
-    const user = {
-      name: 'Test Testerston',
-      email: 'test@test.com',
-      hasContractorPermissions: true,
-      hasAgentPermissions: false,
-    }
-    it('returns true', () => {
-      expect(canManageJobs(user)).toBe(true)
-    })
-  })
-
-  describe('when user are NOT allowed to manage jobs', () => {
-    const user = {
-      name: 'Test Testerston',
-      email: 'test@test.com',
-      hasContractorPermissions: false,
-      hasAgentPermissions: true,
-    }
-    it('returns false', () => {
-      expect(canManageJobs(user)).toBe(false)
-    })
-  })
-})
 
 describe('canSeeAllFilters', () => {
   describe('when user can see all filters', () => {
