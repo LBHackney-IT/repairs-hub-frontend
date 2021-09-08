@@ -36,6 +36,23 @@
   }
 }
 
+.lbh-header__wrapper {
+  align-items: center;
+}
+
 .development-header .lbh-header__main {
   background-color: repairs-hub-colour('dark-green');
+}
+
+.lbh-header__logo-container,
+.lbh-header__service-name {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.lbh-header__service-name {
+  @include govuk-media-query($until: tablet) {
+    padding-left: 10px;
+    font-weight: 600;
+  }
 }
