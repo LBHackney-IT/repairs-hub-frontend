@@ -25,31 +25,13 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
     return user && <div className="lbh-header__links">{headerLinks()}</div>
   }
 
-  const envNamefiltering = () => {
-    if (
-      process.env.NEXT_PUBLIC_ENV_NAME &&
-      process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() !== 'production'
-    ) {
-      return (
-        <div
-          className={`lbh-body-m govuk-!-margin-0 env-name env-${process.env.NEXT_PUBLIC_ENV_NAME}`}
-        >
-          <span>{process.env.NEXT_PUBLIC_ENV_NAME.toUpperCase()}</span>
-        </div>
-      )
-    }
-  }
-
   const showDevelopmentNote = () => {
-    if (
-      process.env.NEXT_PUBLIC_ENV_NAME &&
-      process.env.NEXT_PUBLIC_ENV_NAME.toLowerCase() == 'development'
-    ) {
+    if (process.env.NEXT_PUBLIC_ENV_NAME?.toLowerCase() !== 'production') {
       return (
         <section className="text-for-env-note govuk-!-display-none-print">
           <div className="lbh-container">
             <h3>
-              {`This is not live, this is a test environment`.toUpperCase()}
+              {`This is not live, this is ${process.env.NEXT_PUBLIC_ENV_NAME}`.toUpperCase()}
             </h3>
           </div>
         </section>
@@ -64,11 +46,12 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
         Skip to main content
       </a>
       <header
-        className={`lbh-header govuk-!-display-none-print ${cx(
-          process.env.NEXT_PUBLIC_ENV_NAME == 'staging'
-            ? 'lbh-header--purple'
-            : ''
-        )}`}
+        className={`lbh-header govuk-!-display-none-print ${cx({
+          'lbh-header--purple': process.env.NEXT_PUBLIC_ENV_NAME === 'staging',
+          'development-header': ['localdev', 'development'].includes(
+            process.env.NEXT_PUBLIC_ENV_NAME
+          ),
+        })}`}
       >
         <div className="lbh-header__main">
           <div className="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked">
@@ -112,7 +95,6 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
                 </a>
               </Link>
             </div>
-            {envNamefiltering()}
             {user && (
               <>
                 {showHeaderLinks()}
