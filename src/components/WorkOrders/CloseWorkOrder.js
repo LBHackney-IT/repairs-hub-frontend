@@ -22,7 +22,6 @@ const CloseWorkOrder = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
-  // const [totalPercentage, setTotalPercentage] = useState('')
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -110,7 +109,10 @@ const CloseWorkOrder = ({ reference }) => {
 
   const operativesAndPercentagesForNotes = (opsAndPercentages) => {
     return opsAndPercentages
-      .map((op) => `${op.operative.name} : ${op.percentage}`)
+      .map(
+        (op) =>
+          `${op.operative.name}${op.percentage ? ` : ${op.percentage}` : ''}`
+      )
       .join(', ')
   }
   const onJobSubmit = async () => {
@@ -224,7 +226,10 @@ const CloseWorkOrder = ({ reference }) => {
                     workOrder.canAssignOperative &&
                     operativesWithPercentages &&
                     operativesWithPercentages.map(
-                      (op) => `${op.operative.name} : ${op.percentage}`
+                      (op) =>
+                        `${op.operative.name}${
+                          op.percentage ? ` : ${op.percentage}` : ''
+                        }`
                     )
                   }
                   changeStep={changeCurrentPage}
