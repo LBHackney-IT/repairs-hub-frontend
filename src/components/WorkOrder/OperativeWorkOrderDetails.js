@@ -14,11 +14,12 @@ const WorkOrderDetails = ({
 }) => {
   return (
     <>
-      <div class="govuk-panel govuk-panel--confirmation lbh-panel">
-        <h2 class="govuk-panel__title">
-          {longMonthWeekday(workOrder.appointment.date)}{' '}
+      <div class="govuk-panel govuk-panel--confirmation lbh-panel appointment-info">
+        <h3 class="lbh-heading-h2">
+          {longMonthWeekday(workOrder.appointment.date)}
+          <br />
           {workOrder.appointment.start}-{workOrder.appointment.end}
-        </h2>
+        </h3>
       </div>
       <div className="govuk-!-display-none-print">
         <BackButton />
