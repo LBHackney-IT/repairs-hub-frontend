@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { beginningOfDay } from '../../utils/time'
@@ -59,9 +60,14 @@ const OperativeWorkOrdersView = () => {
                 {longMonthWeekday(currentDate)}{' '}
               </h1>
               {operativeWorkOrders?.length ? (
-                <OperativeWorkOrderListItem
-                  operativeWorkOrders={operativeWorkOrders}
-                />
+                <ol className="lbh-list">
+                  {operativeWorkOrders.map((operativeWorkOrder, index) => (
+                    <OperativeWorkOrderListItem
+                      key={index}
+                      operativeWorkOrder={operativeWorkOrder}
+                    />
+                  ))}
+                </ol>
               ) : (
                 <WarningInfoBox
                   header="No work orders displayed"
@@ -75,6 +81,10 @@ const OperativeWorkOrdersView = () => {
       </GridRow>
     </>
   )
+}
+
+OperativeWorkOrderListItem.propTypes = {
+  operativeWorkOrders: PropTypes.object.isRequired,
 }
 
 export default OperativeWorkOrdersView
