@@ -5,7 +5,7 @@ import { agent } from 'factories/agent'
 import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
-import { agentAndContractor } from 'factories/agent_and_contractor'
+import { agentAndContractorUserFactory } from 'factories/agent_and_contractor'
 
 describe('Header', () => {
   const serviceName = 'Hackney Header'
@@ -49,7 +49,7 @@ describe('Header', () => {
       const { getByText, queryByText } = render(
         <UserContext.Provider
           value={{
-            user: agentAndContractor,
+            user: agentAndContractorUserFactory,
           }}
         >
           <Header serviceName={serviceName} />
