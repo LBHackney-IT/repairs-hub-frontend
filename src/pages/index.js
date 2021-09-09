@@ -10,6 +10,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
+  DLO_OPERATIVE_ROLE
 } from '../utils/user'
 import {
   canSeeWorkOrders,
@@ -85,6 +86,7 @@ Home.permittedRoles = [
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
+  DLO_OPERATIVE_ROLE
 ]
 
 export default Home
