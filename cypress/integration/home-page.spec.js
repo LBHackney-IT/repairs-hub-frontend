@@ -452,14 +452,10 @@ describe('Home page', () => {
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
       // Manage work orders link
-      cy.get('#manage')
-        .contains('Manage work orders')
-        .should('have.attr', 'href', '/')
+      cy.contains('Manage work orders').should('not.exist')
 
       // Search link
-      cy.get('#search')
-        .contains('Search')
-        .should('have.attr', 'href', '/search')
+      cy.contains('Search').should('not.exist')
 
       // Logout component
       cy.get('#signout')
