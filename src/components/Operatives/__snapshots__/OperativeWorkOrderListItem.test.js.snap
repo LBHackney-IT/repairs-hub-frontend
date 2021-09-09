@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
+<DocumentFragment>
+  <li
+    class="green-info-box"
+  >
+    <div
+      class="appointment-details"
+    >
+      <p
+        class="lbh-body lbh-!-font-weight-bold text-white"
+      >
+        08:00-13:00
+      </p>
+      <p
+        class="lbh-body lbh-!-font-weight-bold text-white"
+      >
+        5 [N] NORMAL
+      </p>
+    </div>
+    <p
+      class="middle-right"
+    >
+      <i
+        class="arrow right"
+      />
+    </p>
+  </li>
+</DocumentFragment>
+`;
