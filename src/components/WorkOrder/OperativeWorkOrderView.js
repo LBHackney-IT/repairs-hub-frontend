@@ -4,49 +4,19 @@ import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
-import Tabs from '../Tabs'
 import { WorkOrder } from '../../models/workOrder'
 import { sortObjectsByDateKey } from '../../utils/date'
+import TasksAndSorsView from './TasksAndSors/TasksAndSorsView'
 
 const OperativeWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
-  const [tenure, setTenure] = useState({})
-  const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const tabsList = [
-    'Tasks and SORs',
-    'Notes',
-    'Pending variation',
-    'Work orders history',
-  ]
 
-  const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
-
-  const printClickHandler = (e) => {
-    e.preventDefault()
-
-    if (document.getElementById('rear-image')) {
-      window.print()
-    } else {
-      const workOrderRearImage = document.createElement('img')
-      workOrderRearImage.src = `${NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL}/work-order-rear.png`
-      workOrderRearImage.id = 'rear-image'
-
-      workOrderRearImage.addEventListener('load', () => window.print())
-
-      document
-        .getElementById('rear-image-container')
-        .appendChild(workOrderRearImage)
-    }
-  }
-
-  const getWorkOrderView = async (workOrderReference) => {
+  const getOperativeWorkOrderView = async (workOrderReference) => {
     setError(null)
 
     try {
@@ -68,17 +38,9 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
 
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order
-      if (workOrder.externalAppointmentManagementUrl) {
-        const schedulerSessionId = await getOrCreateSchedulerSessionId()
-        setSchedulerSessionId(schedulerSessionId)
-      }
-
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
-      setLocationAlerts(propertyObject.alerts.locationAlert)
       setPersonAlerts(propertyObject.alerts.personAlert)
-      if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
       setProperty(null)
@@ -101,7 +63,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getWorkOrderView(workOrderReference)
+    getOperativeWorkOrderView(workOrderReference)
   }, [])
 
   return (
@@ -113,26 +75,21 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
           {property &&
             property.address &&
             property.hierarchyType &&
-            tenure &&
-            locationAlerts &&
             personAlerts &&
             workOrder && (
               <>
                 <OperativeWorkOrderDetails
                   property={property}
                   workOrder={workOrder}
-                  tenure={tenure}
-                  locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
-                  schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
-                  printClickHandler={printClickHandler}
                 />
-                <Tabs
-                  tabsList={tabsList}
-                  propertyReference={property.propertyReference}
+
+                <TasksAndSorsView
                   workOrderReference={workOrderReference}
+                  tabName={'Tasks and SORs'}
                   tasksAndSors={tasksAndSors}
+                  showOperativeTasksAndSorsTable={true}
                 />
               </>
             )}

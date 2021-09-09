@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { TR, TD } from '../../Layout/Table'
 
 const tasksAndSorsRow = ({
+  showOperativeTasksAndSorsRow,
   code,
   description,
   taskQuantity,
@@ -11,27 +12,36 @@ const tasksAndSorsRow = ({
   quantity,
   isOriginal,
   originalQuantity,
-}) => (
-  <TR index={index} className="lbh-body-s">
-    <TD>{code}</TD>
-    <TD>{description}</TD>
-    <TD>{taskQuantity}</TD>
-    <TD type="numeric">{taskQuantity === 0 ? '-' : `£${cost}`}</TD>
-    <TD type="numeric">
-      {taskQuantity === 0
-        ? '-'
-        : `£${parseFloat(cost * taskQuantity).toFixed(2)}`}
-    </TD>
-    <TD type="numeric">
-      {' '}
-      {taskQuantity === 0
-        ? '-'
-        : isOriginal
-        ? standardMinuteValue * originalQuantity
-        : standardMinuteValue * quantity}
-    </TD>
-  </TR>
-)
+}) => {
+  return !showOperativeTasksAndSorsRow ? (
+    <TR index={index} className="lbh-body-s">
+      <TD>{code}</TD>
+      <TD>{description}</TD>
+      <TD>{taskQuantity}</TD>
+      <TD type="numeric">{taskQuantity === 0 ? '-' : `£${cost}`}</TD>
+      <TD type="numeric">
+        {taskQuantity === 0
+          ? '-'
+          : `£${parseFloat(cost * taskQuantity).toFixed(2)}`}
+      </TD>
+      <TD type="numeric">
+        {' '}
+        {taskQuantity === 0
+          ? '-'
+          : isOriginal
+          ? standardMinuteValue * originalQuantity
+          : standardMinuteValue * quantity}
+      </TD>
+    </TR>
+  ) : (
+    <TR index={index} className="lbh-body-s">
+      <TD>{taskQuantity}</TD>
+      <TD>{code}</TD>
+      <TD>{description}</TD>
+      <TD type="numeric">{standardMinuteValue * quantity}</TD>
+    </TR>
+  )
+}
 
 tasksAndSorsRow.propTypes = {
   code: PropTypes.string.isRequired,
