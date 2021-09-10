@@ -1,0 +1,30 @@
+.mobile-menu-container {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+  @include govuk-media-query($from: tablet) {
+    display: none;
+  }
+
+  .mobile-menu {
+    list-style: none;
+    background-color: black;
+    padding: 2em 1em;
+
+    a {
+      color: lbh-colour('lbh-white');
+
+      &:visited {
+        color: lbh-colour('lbh-white');
+      }
+    }
+
+    a + a {
+      padding-top: 2em;
+    }
+  }
+}
