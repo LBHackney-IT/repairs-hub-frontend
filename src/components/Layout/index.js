@@ -2,12 +2,14 @@ import { useContext, useState } from 'react'
 import UserContext from '../UserContext/UserContext'
 import HeaderComponent from './Header/Header'
 import cx from 'classnames'
-import { HEADER_LINKS } from '../../utils/headerLinks'
+import { headerLinksForUser } from '../../utils/headerLinks'
 
 const Layout = ({ children }) => {
   const { user } = useContext(UserContext)
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  console.log(user)
 
   return (
     <>
@@ -49,25 +51,19 @@ const Layout = ({ children }) => {
           <div className="mobile-menu-container">
             <ol className="mobile-menu">
               {user &&
-                HEADER_LINKS.map((link) => {
-                  if (
-                    link.permittedRoles.some((role) =>
-                      user.roles.includes(role)
-                    )
-                  ) {
-                    return (
-                      <li>
-                        <a
-                          id={link.id}
-                          href={`/${link.href}`}
-                          className="lbh-link lbh-body-l"
-                          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        >
-                          {link.description}
-                        </a>
-                      </li>
-                    )
-                  }
+                headerLinksForUser(user).map((link) => {
+                  return (
+                    <li>
+                      <a
+                        id={link.id}
+                        href={`/${link.href}`}
+                        className="lbh-link lbh-body-l"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                      >
+                        {link.description}
+                      </a>
+                    </li>
+                  )
                 })}
             </ol>
           </div>

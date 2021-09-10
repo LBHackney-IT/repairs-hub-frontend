@@ -3,21 +3,19 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext/UserContext'
 import cx from 'classnames'
-import { HEADER_LINKS } from 'src/utils/headerLinks'
+import { headerLinksForUser } from 'src/utils/headerLinks'
 import MobileMenuButton from './MobileMenuButton'
 
 const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
   const { user } = useContext(UserContext)
 
   const headerLinks = () => {
-    return HEADER_LINKS.map((link) => {
-      if (link.permittedRoles.some((role) => user.roles.includes(role))) {
-        return (
-          <a id={link.id} href={`/${link.href}`}>
-            {link.description}
-          </a>
-        )
-      }
+    return headerLinksForUser(user).map((link, index) => {
+      return (
+        <a id={link.id} href={`/${link.href}`} key={index}>
+          {link.description}
+        </a>
+      )
     })
   }
 

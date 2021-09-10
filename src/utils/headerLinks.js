@@ -6,7 +6,7 @@ import {
   OPERATIVE_ROLE,
 } from './user'
 
-export const HEADER_LINKS = [
+const HEADER_LINKS = [
   {
     href: '',
     id: 'manage',
@@ -41,3 +41,15 @@ export const HEADER_LINKS = [
     ],
   },
 ]
+
+export const headerLinksForUser = (user) => {
+  return HEADER_LINKS.filter((link) =>
+    link.permittedRoles.some((role) => user.roles.includes(role))
+  ).map((link) => {
+    return {
+      href: link.href,
+      id: link.id,
+      description: link.description,
+    }
+  })
+}
