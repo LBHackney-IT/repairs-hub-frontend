@@ -97,8 +97,8 @@ const PrintJobTicketDetails = ({
                 <td className="lbh-body-s">
                   {address.addressLine}
                   <br />
-                  {address?.streetSuffix}
-                  <br />
+                  {address.streetSuffix && address.streetSuffix}
+                  {address.streetSuffix && <br />}
                   {address.postalCode}
                 </td>
               </tr>
