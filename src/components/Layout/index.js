@@ -49,9 +49,9 @@ const Layout = ({ children }) => {
           <div className="mobile-menu-container">
             <ol className="mobile-menu">
               {user &&
-                headerLinksForUser(user).map((link) => {
+                headerLinksForUser(user).map((link, index) => {
                   return (
-                    <li>
+                    <li key={index}>
                       <a
                         id={link.id}
                         href={`/${link.href}`}
