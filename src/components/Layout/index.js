@@ -9,8 +9,6 @@ const Layout = ({ children }) => {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
-  console.log(user)
-
   return (
     <>
       <HeaderComponent
