@@ -15,7 +15,7 @@ describe('CloseWorkOrderForm component', () => {
 
   const props = {
     reference: 10000012,
-    onGetToSummary: jest.fn(),
+    onSubmit: jest.fn(),
     notes: 'this is a note',
     time: '14:30',
     date: new Date('2021-01-12T16:24:26.632Z'),
@@ -29,7 +29,7 @@ describe('CloseWorkOrderForm component', () => {
     const { asFragment } = render(
       <CloseWorkOrderForm
         reference={props.reference}
-        onGetToSummary={props.onGetToSummary}
+        onSubmit={props.onSubmit}
         notes={props.notes}
         time={props.time}
         date={props.date}
@@ -38,6 +38,7 @@ describe('CloseWorkOrderForm component', () => {
         assignedOperativesToWorkOrder={props.operatives}
         availableOperatives={props.availableOperatives}
         selectedPercentagesToShowOnEdit={props.selectedPercentagesToShowOnEdit}
+        closingByProxy={true}
       />
     )
     expect(asFragment()).toMatchSnapshot()

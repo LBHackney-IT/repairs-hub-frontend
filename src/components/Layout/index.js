@@ -3,11 +3,18 @@ import UserContext from '../UserContext/UserContext'
 import HeaderComponent from './Header/Header'
 import cx from 'classnames'
 import { headerLinksForUser } from '../../utils/headerLinks'
+import Cookies from 'universal-cookie'
 
 const Layout = ({ children }) => {
   const { user } = useContext(UserContext)
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const cookies = new Cookies()
+
+  let justAttendedWorkOrder = cookies.get(
+    process.env.NEXT_PUBLIC_WORK_ORDER_SESSION_COOKIE_NAME
+  )
 
   return (
     <>
@@ -65,6 +72,16 @@ const Layout = ({ children }) => {
                 })}
             </ol>
           </div>
+        )}
+
+        {justAttendedWorkOrder && (
+          <div className="modal-window">{`Work order ${
+            justAttendedWorkOrder?.id
+          } successfully ${
+            justAttendedWorkOrder?.reason === 'No Access'
+              ? 'closed with no access'
+              : 'completed'
+          }`}</div>
         )}
 
         <div

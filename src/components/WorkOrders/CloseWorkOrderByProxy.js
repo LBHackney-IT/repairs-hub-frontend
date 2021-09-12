@@ -207,7 +207,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
               {CloseWorkOrderFormPage && (
                 <CloseWorkOrderForm
                   reference={workOrder.reference}
-                  onGetToSummary={onGetToSummary}
+                  onSubmit={onGetToSummary}
                   notes={notes}
                   time={completionTime}
                   date={completionDate}
@@ -219,6 +219,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   selectedPercentagesToShowOnEdit={
                     selectedPercentagesToShowOnEdit
                   }
+                  closingByProxy={true}
                 />
               )}
               {!CloseWorkOrderFormPage && (
