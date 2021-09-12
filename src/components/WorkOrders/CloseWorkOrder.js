@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { WorkOrder } from '../../models/workOrder'
 import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeWorkOrder'
-import Cookies from 'universal-cookie'
+import FlashMessageContext from '../FlashMessageContext/FlashMessageContext'
 
 const CloseWorkOrder = ({ reference }) => {
   const router = useRouter()
+
+  const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -27,15 +29,10 @@ const CloseWorkOrder = ({ reference }) => {
         requestData: workOrderCompleteFormData,
       })
 
-      const cookies = new Cookies()
-
-      cookies.set(
-        process.env.NEXT_PUBLIC_WORK_ORDER_SESSION_COOKIE_NAME,
-        JSON.stringify({ id: reference, reason: reason }),
-        {
-          path: '/',
-          maxAge: 60 * 5, // 5 minutes
-        }
+      setModalFlashMessage(
+        `Work order ${reference} successfully ${
+          reason === 'No Access' ? 'closed with no access' : 'completed'
+        }`
       )
 
       router.push('/')

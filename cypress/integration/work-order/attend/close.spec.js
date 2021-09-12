@@ -31,6 +31,7 @@ describe('Closing my own work order', () => {
 
   it('confirms success and returns me to the index', () => {
     cy.visit('work-orders/10000012/close')
+
     cy.wait('@workOrderRequest')
 
     cy.get('.govuk-button').contains('Close work order').click()
@@ -46,6 +47,8 @@ describe('Closing my own work order', () => {
     cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed') // Checking by value, not text
 
     cy.get('.govuk-button').contains('Close work order').click()
+
+    cy.wait('@workOrderCompleteRequest')
 
     cy.get('@workOrderCompleteRequest')
       .its('request.body')
@@ -65,9 +68,13 @@ describe('Closing my own work order', () => {
         ],
       })
 
-    cy.get('.modal-window').within(() => {
+    cy.get('.modal-container').within(() => {
       cy.contains('Work order 10000012 successfully completed')
+
+      cy.get('[data-testid="modal-close"]').click()
     })
+
+    cy.get('.modal-container').should('not.exist')
 
     cy.get('.lbh-heading-h1').contains('Friday, 11 June')
   })

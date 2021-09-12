@@ -11,6 +11,7 @@ import { canAccessWorkOrder } from '../../utils/userPermissions'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
+
   const canSearchForProperty = user && canAccessWorkOrder(user)
   const [searchQuery, setSearchQuery] = useState('')
   const [properties, setProperties] = useState([])
