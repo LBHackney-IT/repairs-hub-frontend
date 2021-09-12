@@ -4,11 +4,11 @@ import 'cypress-audit/commands'
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
-} from '../../../src/utils/statusCodes'
+} from '../../../../src/utils/statusCodes'
 
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
-describe('Managing work order appointments', () => {
+describe('Rescheduling work order appointments', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
@@ -35,7 +35,7 @@ describe('Managing work order appointments', () => {
     )
   })
 
-  describe('Rescheduling a work order within Repairs Hub', () => {
+  describe('within Repairs Hub', () => {
     beforeEach(() => {
       cy.intercept(
         {
@@ -195,7 +195,7 @@ describe('Managing work order appointments', () => {
     })
   })
 
-  describe('Rescheduling a work order in DRS', () => {
+  describe('in DRS', () => {
     context('When the work order is not in a closed state', () => {
       beforeEach(() => {
         cy.fixture('workOrders/withAppointment.json')
