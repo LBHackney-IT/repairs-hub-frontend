@@ -32,12 +32,27 @@ describe('Global navigation links', () => {
 
   context('when the viewport is for wider than mobile', () => {
     beforeEach(() => {
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/workOrders?*',
+        },
+        { body: [] }
+      ).as('workOrdersRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/filter/WorkOrder' },
+        { fixture: 'filter/workOrder.json' }
+      ).as('filtersRequest')
+
       cy.loginWithContractorRole()
+
       cy.visit('/')
-      cy.intercept('*', { body: {} })
     })
 
     it('displays relevant links', () => {
+      cy.wait(['@filtersRequest', '@workOrdersRequest'])
+
       cy.get('.lbh-header__service-name').contains('Repairs Hub')
       cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
 
