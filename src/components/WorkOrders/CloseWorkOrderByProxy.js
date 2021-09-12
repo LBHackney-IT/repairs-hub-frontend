@@ -11,7 +11,13 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
 import { WorkOrder } from '../../models/workOrder'
 
-const CloseWorkOrder = ({ reference }) => {
+// Named this way because this component exists to allow supervisors
+// to close work orders on behalf of (i.e. a proxy for) an operative.
+//
+// Typically this means a supervisor is copying information from
+// another source to close this work order.
+
+const CloseWorkOrderByProxy = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
   const [completionTime, setCompletionTime] = useState('')
   const [dateToShow, setDateToShow] = useState('')
@@ -245,8 +251,8 @@ const CloseWorkOrder = ({ reference }) => {
   )
 }
 
-CloseWorkOrder.propTypes = {
+CloseWorkOrderByProxy.propTypes = {
   reference: PropTypes.string.isRequired,
 }
 
-export default CloseWorkOrder
+export default CloseWorkOrderByProxy

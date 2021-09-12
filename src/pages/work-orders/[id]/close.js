@@ -1,12 +1,12 @@
 import Meta from '../../../components/Meta'
-import CloseWorkOrder from '../../../components/WorkOrders/CloseWorkOrder'
+import CloseWorkOrderByProxy from '../../../components/WorkOrders/CloseWorkOrderByProxy'
 import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 
 const WorkOrderClosePage = ({ query }) => {
   return (
     <>
       <Meta title={`Close Work Order ${query.id}`} />
-      <CloseWorkOrder reference={query.id} />
+      <CloseWorkOrderByProxy reference={query.id} />
     </>
   )
 }
