@@ -12,14 +12,14 @@ import {
   OPERATIVE_ROLE,
 } from '../../../utils/user'
 
-import { canSeeWorkOrders } from '../../../utils/userPermissions'
+import { canSeeWorkOrder } from '../../../utils/userPermissions'
 
 const WorkOrderPage = ({ query }) => {
   const { user } = useContext(UserContext)
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />
-      {user && canSeeWorkOrders(user) ? (
+      {user && canSeeWorkOrder(user) ? (
         <WorkOrderView workOrderReference={query.id} />
       ) : (
         <OperativeWorkOrderView workOrderReference={query.id} />
