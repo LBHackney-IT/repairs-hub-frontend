@@ -71,7 +71,16 @@ const Layout = ({ children }) => {
         )}
 
         {modalFlashMessage && (
-          <div className="modal-container">
+          <div
+            className="modal-container"
+            onClick={(e) => {
+              const isOutsideClick = !e.target.closest('.modal-panel')
+
+              if (isOutsideClick) {
+                setModalFlashMessage('')
+              }
+            }}
+          >
             <div className="modal-panel">
               <div className="close-icon-container">
                 <div
