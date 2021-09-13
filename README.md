@@ -90,3 +90,7 @@ The serverless service includes the following:
 - a single serverless function: repairs-hub-frontend
 - Description of the Cloudfront CDN in CloudFormation
 - Custom subdomain under hackney.gov.uk
+
+## How to deploy and what to check first
+
+See https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables
