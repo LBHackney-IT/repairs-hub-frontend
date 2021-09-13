@@ -399,6 +399,8 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').uncheck()
       cy.get('[type="submit"]').contains('Apply filters').click()
 
+      cy.wait('@filters')
+
       // All work orders
       cy.get('[data-ref=10000040]')
       cy.get('[data-ref=10000035]')
@@ -418,6 +420,8 @@ describe('Filter work orders', () => {
       })
       cy.get('.govuk-checkboxes').find('[name="TradeCodes.PL"]').check()
       cy.get('[type="submit"]').contains('Apply filters').click()
+
+      cy.wait('@filters')
 
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.PCL"]')
