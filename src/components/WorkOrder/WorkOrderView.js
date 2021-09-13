@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
@@ -9,8 +9,13 @@ import Tabs from '../Tabs'
 import { WorkOrder } from '../../models/workOrder'
 import { sortObjectsByDateKey } from '../../utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
+import OperativeWorkOrderDetails from '../Operatives/OperativeWorkOrderDetails'
+import TasksAndSorsView from './TasksAndSors/TasksAndSorsView'
+import UserContext from '../UserContext/UserContext'
+import { canSeeWorkOrder } from '../../utils/userPermissions'
 
 const WorkOrderView = ({ workOrderReference }) => {
+  const { user } = useContext(UserContext)
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
@@ -99,6 +104,63 @@ const WorkOrderView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
+  const renderOperativeWorkOrder = () => {
+    return (
+      <>
+        <OperativeWorkOrderDetails
+          property={property}
+          workOrder={workOrder}
+          personAlerts={personAlerts}
+          tasksAndSors={tasksAndSors}
+        />
+
+        <TasksAndSorsView
+          workOrderReference={workOrderReference}
+          tabName={'Tasks and SORs'}
+          tasksAndSors={tasksAndSors}
+          showOperativeTasksAndSorsTable={true}
+        />
+      </>
+    )
+  }
+
+  const renderWorkOrder = () => {
+    return (
+      <>
+        <WorkOrderDetails
+          property={property}
+          workOrder={workOrder}
+          tenure={tenure}
+          locationAlerts={locationAlerts}
+          personAlerts={personAlerts}
+          schedulerSessionId={schedulerSessionId}
+          tasksAndSors={tasksAndSors}
+          printClickHandler={printClickHandler}
+        />
+        <Tabs
+          tabsList={tabsList}
+          propertyReference={property.propertyReference}
+          workOrderReference={workOrderReference}
+          tasksAndSors={tasksAndSors}
+        />
+        {/* Only displayed for print media */}
+        <PrintJobTicketDetails
+          workOrder={workOrder}
+          address={property.address}
+          tmoName={property.tmoName}
+          tenure={tenure}
+          tasksAndSors={tasksAndSors}
+        />
+      </>
+    )
+  }
+
+  const renderWorkOrderView = () => {
+    return user && canSeeWorkOrder(user)
+      ? renderWorkOrder()
+      : renderOperativeWorkOrder()
+  }
+
   useEffect(() => {
     setLoading(true)
 
@@ -117,34 +179,8 @@ const WorkOrderView = ({ workOrderReference }) => {
             tenure &&
             locationAlerts &&
             personAlerts &&
-            workOrder && (
-              <>
-                <WorkOrderDetails
-                  property={property}
-                  workOrder={workOrder}
-                  tenure={tenure}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
-                  schedulerSessionId={schedulerSessionId}
-                  tasksAndSors={tasksAndSors}
-                  printClickHandler={printClickHandler}
-                />
-                <Tabs
-                  tabsList={tabsList}
-                  propertyReference={property.propertyReference}
-                  workOrderReference={workOrderReference}
-                  tasksAndSors={tasksAndSors}
-                />
-                {/* Only displayed for print media */}
-                <PrintJobTicketDetails
-                  workOrder={workOrder}
-                  address={property.address}
-                  tmoName={property.tmoName}
-                  tenure={tenure}
-                  tasksAndSors={tasksAndSors}
-                />
-              </>
-            )}
+            workOrder &&
+            renderWorkOrderView()}
           {error && <ErrorMessage label={error} />}
         </>
       )}

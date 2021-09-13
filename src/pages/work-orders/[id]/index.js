@@ -1,8 +1,5 @@
 import Meta from '../../../components/Meta'
 import WorkOrderView from '../../../components/WorkOrder/WorkOrderView'
-import OperativeWorkOrderView from '../../../components/WorkOrder/OperativeWorkOrderView'
-import UserContext from '../../../components/UserContext/UserContext'
-import { useContext } from 'react'
 
 import {
   AGENT_ROLE,
@@ -12,18 +9,11 @@ import {
   OPERATIVE_ROLE,
 } from '../../../utils/user'
 
-import { canSeeWorkOrder } from '../../../utils/userPermissions'
-
 const WorkOrderPage = ({ query }) => {
-  const { user } = useContext(UserContext)
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />
-      {user && canSeeWorkOrder(user) ? (
-        <WorkOrderView workOrderReference={query.id} />
-      ) : (
-        <OperativeWorkOrderView workOrderReference={query.id} />
-      )}
+      <WorkOrderView workOrderReference={query.id} />
     </>
   )
 }
