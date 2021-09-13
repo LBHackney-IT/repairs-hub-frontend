@@ -1,0 +1,3 @@
+.govuk-grid-column-one-half {
+  @include govuk-grid-column(one-half, $at: mobile);
+}

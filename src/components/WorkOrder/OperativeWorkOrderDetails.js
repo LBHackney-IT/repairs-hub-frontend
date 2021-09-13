@@ -10,28 +10,29 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
     alerts.forEach((alert) => allAlerts.push(alert.type))
     return allAlerts.toString()
   }
+
   return (
     <>
-      <div class="govuk-panel govuk-panel--confirmation lbh-panel appointment-info">
+      <div className="govuk-panel govuk-panel--confirmation lbh-panel appointment-info">
         {workOrder.appointment ? (
-          <h3 class="lbh-heading-h3">
+          <h3 className="lbh-heading-h3">
             {longMonthWeekday(workOrder.appointment.date)}
             <br />
             {workOrder.appointment.start}-{workOrder.appointment.end}
           </h3>
         ) : (
-          <h3 class="lbh-heading-h3">No appointment</h3>
+          <h3 className="lbh-heading-h3">No appointment</h3>
         )}
       </div>
       <BackButton />
 
       <GridRow>
-        <GridColumn width="one-half-at-mobile">
+        <GridColumn width="one-half">
           <div className="lbh-heading-h3">
             WO {workOrder.reference.toString().padStart(8, '0')}
           </div>
         </GridColumn>
-        <GridColumn width="one-half-at-mobile" className="allign-grid-column">
+        <GridColumn width="one-half" className="allign-grid-column">
           {workOrder.isHigherPriority() ? (
             <div className="lbh-body text-dark-red ">
               {' '}
@@ -48,20 +49,27 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
       <div className="lbh-heading-h3">Description</div>
       <p className="govuk-body">{workOrder.description}</p>
 
+      {workOrder.plannerComments && (
+        <>
+          <div className="lbh-heading-h3">Planner Comment</div>
+          <p className="govuk-body">{workOrder.plannerComments}</p>
+        </>
+      )}
+
       {personAlerts.length > 0 && (
         <GridRow>
-          <GridColumn width="one-half-at-mobile">
-            <div className="lbh-heading-h2">Caut. contact</div>
+          <GridColumn width="one-half">
+            <div className="lbh-heading-h3">Caut. contact</div>
           </GridColumn>
-          <GridColumn width="one-half-at-mobile" className="allign-grid-column">
-            <div class="govuk-warning-text lbh-warning-text">
+          <GridColumn width="one-half" className="allign-grid-column">
+            <div className="govuk-warning-text lbh-warning-text">
               <span
-                class="govuk-warning-text__icon caut-contact-icon"
+                class="govuk-warning-text__icon caut-contact--icon"
                 aria-hidden="true"
               >
                 !
               </span>
-              <strong class="govuk-warning-text__text caut-contact-text">
+              <strong className="govuk-warning-text__text caut-contact--text">
                 {showCautContacts(personAlerts)}
               </strong>
             </div>
@@ -69,10 +77,10 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
         </GridRow>
       )}
       <GridRow>
-        <GridColumn width="one-half-at-mobile">
-          <div className="lbh-heading-h2">Address</div>
+        <GridColumn width="one-half">
+          <div className="lbh-heading-h3">Address</div>
         </GridColumn>
-        <GridColumn width="one-half-at-mobile" className="allign-grid-column">
+        <GridColumn width="one-half" className="allign-grid-column">
           <div className="lbh-body">
             {property.address.shortAddress} {property.address.postalCode}
           </div>
@@ -81,10 +89,10 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
 
       {workOrder.callerName && (
         <GridRow>
-          <GridColumn width="one-half-at-mobile">
-            <div className="lbh-heading-h2">Contact</div>
+          <GridColumn width="one-half">
+            <div className="lbh-heading-h3">Contact</div>
           </GridColumn>
-          <GridColumn width="one-half-at-mobile" className="allign-grid-column">
+          <GridColumn width="one-half" className="allign-grid-column">
             <div className="lbh-body">{workOrder.callerName}</div>
           </GridColumn>
         </GridRow>
@@ -92,10 +100,10 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
 
       {workOrder.callerNumber && (
         <GridRow>
-          <GridColumn width="one-half-at-mobile">
-            <div className="lbh-heading-h2">Telephone no</div>
+          <GridColumn width="one-half">
+            <div className="lbh-heading-h3">Telephone no</div>
           </GridColumn>
-          <GridColumn width="one-half-at-mobile" className="allign-grid-column">
+          <GridColumn width="one-half" className="allign-grid-column">
             <div className="lbh-body">{workOrder.callerNumber}</div>
           </GridColumn>
         </GridRow>
@@ -103,10 +111,10 @@ const WorkOrderDetails = ({ property, workOrder, personAlerts }) => {
 
       {workOrder.appointment && workOrder.appointment.note && (
         <GridRow>
-          <GridColumn width="one-half-at-mobile">
-            <div className="lbh-heading-h2">Comment</div>
+          <GridColumn width="one-half">
+            <div className="lbh-heading-h3">Comment</div>
           </GridColumn>
-          <GridColumn width="one-half-at-mobile" className="allign-grid-column">
+          <GridColumn width="one-half" className="allign-grid-column">
             <div className="lbh-body">{workOrder.appointment.note}</div>
           </GridColumn>
         </GridRow>

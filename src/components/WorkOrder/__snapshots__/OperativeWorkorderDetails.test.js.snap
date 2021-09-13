@@ -23,7 +23,7 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
         class="lbh-heading-h3"
@@ -32,7 +32,7 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="lbh-body"
@@ -55,28 +55,28 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
-        class="lbh-heading-h2"
+        class="lbh-heading-h3"
       >
         Caut. contact
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="govuk-warning-text lbh-warning-text"
       >
         <span
           aria-hidden="true"
-          class="govuk-warning-text__icon caut-contact-icon"
+          class="govuk-warning-text__icon caut-contact--icon"
         >
           !
         </span>
         <strong
-          class="govuk-warning-text__text caut-contact-text"
+          class="govuk-warning-text__text caut-contact--text"
         >
           DIS
         </strong>
@@ -87,16 +87,16 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
-        class="lbh-heading-h2"
+        class="lbh-heading-h3"
       >
         Address
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="lbh-body"
@@ -109,16 +109,16 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
-        class="lbh-heading-h2"
+        class="lbh-heading-h3"
       >
         Contact
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="lbh-body"
@@ -131,16 +131,16 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
-        class="lbh-heading-h2"
+        class="lbh-heading-h3"
       >
         Telephone no
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="lbh-body"
@@ -153,16 +153,16 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="govuk-grid-row undefined"
   >
     <div
-      class="govuk-grid-column-one-half-at-mobile"
+      class="govuk-grid-column-one-half"
     >
       <div
-        class="lbh-heading-h2"
+        class="lbh-heading-h3"
       >
         Comment
       </div>
     </div>
     <div
-      class="govuk-grid-column-one-half-at-mobile allign-grid-column"
+      class="govuk-grid-column-one-half allign-grid-column"
     >
       <div
         class="lbh-body"

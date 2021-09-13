@@ -379,13 +379,32 @@ describe('Home page', () => {
         cy.get('.lbh-heading-h1').contains('Friday, 11 June')
 
         cy.get('.lbh-list').within(() => {
-          cy.get('.appointment-details').within(() => {
-            cy.contains('08:00-13:00')
-            cy.contains('5 [N] NORMAL')
+          cy.get('[data-id=0]').within(() => {
+            cy.get('.appointment-details').within(() => {
+              cy.contains('08:00-13:00')
+              cy.contains('5 [N] NORMAL')
+            })
+            cy.get('.middle-right').within(() => {
+              cy.get('.arrow').should(
+                'have.attr',
+                'href',
+                '/work-orders/10000621'
+              )
+            })
           })
-          cy.get('.appointment-details').within(() => {
-            cy.contains('12:00-18:00')
-            cy.contains('2 [E] EMERGENCY')
+
+          cy.get('[data-id=1]').within(() => {
+            cy.get('.appointment-details').within(() => {
+              cy.contains('12:00-18:00')
+              cy.contains('2 [E] EMERGENCY')
+            })
+            cy.get('.middle-right').within(() => {
+              cy.get('.arrow').should(
+                'have.attr',
+                'href',
+                '/work-orders/10000625'
+              )
+            })
           })
         })
       })

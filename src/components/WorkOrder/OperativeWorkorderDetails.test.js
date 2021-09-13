@@ -17,6 +17,7 @@ describe('OperativeWorkOrderDetails component', () => {
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
+    plannerComment: 'planner comment',
     appointment: {
       date: '2021-09-03',
       description: 'AM Slot',

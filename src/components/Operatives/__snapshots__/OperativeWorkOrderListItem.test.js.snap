@@ -4,6 +4,7 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
 <DocumentFragment>
   <li
     class="green-info-box"
+    data-id="0"
   >
     <div
       class="appointment-details"
@@ -19,13 +20,15 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
         5 [N] NORMAL
       </p>
     </div>
-    <p
+    <div
       class="middle-right"
     >
-      <i
+      <a
         class="arrow right"
+        href="/work-orders/10000621"
+        id="arrow-right"
       />
-    </p>
+    </div>
   </li>
 </DocumentFragment>
 `;

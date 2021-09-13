@@ -11,16 +11,14 @@
 }
 
 .caut-contact-icon {
-  background: repairs-hub-colour('dark-red');
-  border: 3px solid repairs-hub-colour('dark-red');
-}
-.caut-contact-text {
-  color: repairs-hub-colour('dark-red');
-}
+  &--icon {
+    background: repairs-hub-colour('dark-red');
+    border: 3px solid repairs-hub-colour('dark-red');
+  }
 
-// Customising the breakpoint where width percentage is applied
-.govuk-grid-column-one-half-at-mobile {
-  @include govuk-grid-column(one-half, $at: mobile);
+  &--text {
+    color: repairs-hub-colour('dark-red');
+  }
 }
 
 .allign-grid-column {

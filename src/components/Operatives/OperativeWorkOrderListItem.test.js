@@ -30,6 +30,7 @@ describe('OperativeWorkOrderListItem component', () => {
     const { asFragment } = render(
       <OperativeWorkOrderListItem
         operativeWorkOrder={props.operativeWorkOrder}
+        index={0}
       />
     )
     expect(asFragment()).toMatchSnapshot()
