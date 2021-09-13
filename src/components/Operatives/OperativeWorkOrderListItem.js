@@ -1,7 +1,11 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const OperativeWorkOrderListItem = ({ operativeWorkOrder, index }) => {
+const OperativeWorkOrderListItem = ({
+  operativeWorkOrder,
+  index,
+  statusText,
+}) => {
   return (
     <>
       <Link href={`/work-orders/${operativeWorkOrder.reference}`}>
@@ -13,6 +17,7 @@ const OperativeWorkOrderListItem = ({ operativeWorkOrder, index }) => {
               {operativeWorkOrder.priority}
             </p>
           </div>
+          {statusText && <div className="status-text">{statusText}</div>}
           <div className="middle-right">
             <a className="arrow right"></a>
           </div>
@@ -25,6 +30,7 @@ const OperativeWorkOrderListItem = ({ operativeWorkOrder, index }) => {
 OperativeWorkOrderListItem.propTypes = {
   operativeWorkOrder: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
+  statusText: PropTypes.string,
 }
 
 export default OperativeWorkOrderListItem

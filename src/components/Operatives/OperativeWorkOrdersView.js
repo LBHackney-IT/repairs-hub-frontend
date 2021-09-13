@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { beginningOfDay } from '../../utils/time'
@@ -66,6 +65,17 @@ const OperativeWorkOrdersView = () => {
                       key={index}
                       operativeWorkOrder={operativeWorkOrder}
                       index={index}
+                      statusText={(() => {
+                        const status = operativeWorkOrder.status.toLowerCase()
+
+                        if (status === 'no access') {
+                          return 'Closed'
+                        } else if (status === 'work complete') {
+                          return 'Completed'
+                        } else {
+                          return ''
+                        }
+                      })()}
                     />
                   ))}
                 </ol>
@@ -82,10 +92,6 @@ const OperativeWorkOrdersView = () => {
       </GridRow>
     </>
   )
-}
-
-OperativeWorkOrderListItem.propTypes = {
-  operativeWorkOrders: PropTypes.object.isRequired,
 }
 
 export default OperativeWorkOrdersView
