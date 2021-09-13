@@ -7,15 +7,6 @@ describe('Closing my own work order', () => {
   beforeEach(() => {
     cy.clock(now)
 
-    cy.intercept('/api/workOrders/10000012', {
-      fixture: 'workOrders/workOrder.json',
-    }).as('workOrderRequest')
-
-    cy.intercept(
-      { method: 'POST', path: '/api/workOrderComplete' },
-      { body: '' }
-    ).as('workOrderCompleteRequest')
-
     cy.intercept(
       {
         method: 'GET',
@@ -24,13 +15,40 @@ describe('Closing my own work order', () => {
       {
         fixture: 'operatives/workOrders.json',
       }
-    ).as('workOrderIndex')
+    ).as('workOrderIndexRequest')
+
+    cy.intercept('/api/workOrders/10000621', {
+      fixture: 'workOrders/workOrder.json',
+    }).as('workOrderRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    ).as('propertyRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000621/tasks' },
+      { fixture: 'workOrders/tasksAndSors.json' }
+    ).as('tasksRequest')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrderComplete' },
+      { body: '' }
+    ).as('workOrderCompleteRequest')
 
     cy.loginWithOperativeRole()
   })
 
   it('confirms success and returns me to the index', () => {
-    cy.visit('work-orders/10000012/close')
+    cy.visit('/')
+
+    cy.wait('@workOrderIndexRequest')
+
+    cy.get('.arrow.right').eq(0).click()
+
+    cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+
+    cy.contains('a', 'Confirm').click()
 
     cy.wait('@workOrderRequest')
 
@@ -38,7 +56,7 @@ describe('Closing my own work order', () => {
 
     cy.get('#notes').type('I attended')
 
-    cy.url().should('match', /work-orders\/10000012\/close$/)
+    cy.url().should('match', /work-orders\/10000621\/close$/)
 
     cy.get('.govuk-form-group--error').contains(
       'Please select a reason for closing the work order'
@@ -54,7 +72,7 @@ describe('Closing my own work order', () => {
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
-          id: '10000012',
+          id: '10000621',
           description: '',
           allocatedBy: '',
         },
@@ -69,7 +87,7 @@ describe('Closing my own work order', () => {
       })
 
     cy.get('.modal-container').within(() => {
-      cy.contains('Work order 10000012 successfully completed')
+      cy.contains('Work order 10000621 successfully completed')
 
       cy.get('[data-testid="modal-close"]').click()
     })

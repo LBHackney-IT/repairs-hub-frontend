@@ -13,6 +13,7 @@ import OperativeWorkOrderDetails from '../Operatives/OperativeWorkOrderDetails'
 import TasksAndSorsView from './TasksAndSors/TasksAndSorsView'
 import UserContext from '../UserContext/UserContext'
 import { canSeeWorkOrder } from '../../utils/userPermissions'
+import Link from 'next/link'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const { user } = useContext(UserContext)
@@ -113,13 +114,22 @@ const WorkOrderView = ({ workOrderReference }) => {
           personAlerts={personAlerts}
           tasksAndSors={tasksAndSors}
         />
-
         <TasksAndSorsView
           workOrderReference={workOrderReference}
           tabName={'Tasks and SORs'}
           tasksAndSors={tasksAndSors}
           showOperativeTasksAndSorsTable={true}
         />
+        <Link href={`/work-orders/${workOrderReference}/close`}>
+          <a
+            role="button"
+            draggable="false"
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+          >
+            Confirm
+          </a>
+        </Link>
       </>
     )
   }
