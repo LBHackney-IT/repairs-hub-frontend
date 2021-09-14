@@ -39,6 +39,10 @@
       td:first-child {
         padding-left: 18px;
       }
+
+      td:last-child {
+        padding-right: 18px;
+      }
     }
 
     .lbh-heading-h3 {
@@ -50,7 +54,7 @@
       display: flow-root;
 
       .lbh-body-s {
-        padding-left: 120px;
+        padding-left: 50px;
       }
 
       table {
@@ -58,6 +62,10 @@
         display: inline-block;
         vertical-align: top;
       }
+    }
+
+    .header-tables table {
+      min-height: 100px;
     }
 
     .customer-information {
@@ -134,8 +142,8 @@
         .checkbox {
           display: inline-block;
           border: 1px solid black;
-          height: 28px;
-          width: 28px;
+          height: 20px;
+          width: 20px;
           margin-right: 10px;
         }
       }
