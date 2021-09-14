@@ -65,6 +65,7 @@ const OperativeWorkOrdersView = () => {
                     <OperativeWorkOrderListItem
                       key={index}
                       operativeWorkOrder={operativeWorkOrder}
+                      index={index}
                     />
                   ))}
                 </ol>

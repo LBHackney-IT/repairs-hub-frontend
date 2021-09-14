@@ -61,7 +61,7 @@ export const toISODate = (date) => {
 
 export const longMonthWeekday = (date) => {
   if (date) {
-    return date.toLocaleDateString('en-GB', {
+    return new Date(date).toLocaleDateString('en-GB', {
       month: 'long',
       weekday: 'long',
       day: 'numeric',
