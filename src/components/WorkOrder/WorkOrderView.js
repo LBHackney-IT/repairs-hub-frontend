@@ -15,6 +15,7 @@ import { canSeeWorkOrder } from '../../utils/userPermissions'
 import Link from 'next/link'
 import { sortArrayByDate } from '../../utils/helpers/array'
 import OperativeTasksAndSorsTable from './TasksAndSors/OperativeTasksAndSorsTable'
+import WarningInfoBox from '../Template/WarningInfoBox'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const { user } = useContext(UserContext)
@@ -119,6 +120,11 @@ const WorkOrderView = ({ workOrderReference }) => {
         <OperativeTasksAndSorsTable
           tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
           tabName={'Tasks and SORs'}
+        />
+
+        <WarningInfoBox
+          header="Need to make a change?"
+          text="Any changes to the work order must be made on paper."
         />
 
         <Link href={`/work-orders/${workOrderReference}/close`}>
