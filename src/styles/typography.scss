@@ -1,3 +1,9 @@
+.lbh-body {
+  @include govuk-media-query($until: tablet) {
+    margin-top: 1em;
+  }
+}
+
 .lbh-heading-h1 {
   @include govuk-media-query($until: tablet) {
     font-size: 20px;
@@ -15,8 +21,8 @@
   }
 }
 
-.lbh-button__start-icon{
+.lbh-button__start-icon {
   @include govuk-media-query($until: tablet) {
-    display: none
+    display: none;
   }
 }
