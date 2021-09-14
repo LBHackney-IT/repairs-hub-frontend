@@ -5,7 +5,7 @@ import WarningText from '../Template/WarningText'
 import PageAnnouncement from '../Template/PageAnnouncement'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/workOrderStatusUpdate/notesForm'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import UserContext from '../UserContext/UserContext'
+import UserContext from '../UserContext'
 
 const SuccessPage = ({ ...props }) => {
   const { user } = useContext(UserContext)

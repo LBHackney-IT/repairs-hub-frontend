@@ -1,13 +1,13 @@
 import PropTypes from 'prop-types'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 import { useState, useEffect, useContext } from 'react'
-import Spinner from '../Spinner/Spinner'
-import ErrorMessage from '../Errors/ErrorMessage/ErrorMessage'
+import Spinner from '../Spinner'
+import ErrorMessage from '../Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { WorkOrder } from '../../models/workOrder'
 import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeWorkOrder'
-import FlashMessageContext from '../FlashMessageContext/FlashMessageContext'
+import FlashMessageContext from '../FlashMessageContext'
 
 const CloseWorkOrder = ({ reference }) => {
   const router = useRouter()

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import TextArea from './TextArea'
+import TextArea from '.'
 import { useState } from 'react'
 
 const CharacterCountLimitedTextArea = ({

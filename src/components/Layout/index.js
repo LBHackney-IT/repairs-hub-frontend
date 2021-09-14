@@ -1,9 +1,9 @@
 import { useContext, useState } from 'react'
-import UserContext from '../UserContext/UserContext'
-import HeaderComponent from './Header/Header'
+import UserContext from '../UserContext'
+import HeaderComponent from './Header'
 import cx from 'classnames'
 import { headerLinksForUser } from '../../utils/headerLinks'
-import FlashMessageContext from '../FlashMessageContext/FlashMessageContext'
+import FlashMessageContext from '../FlashMessageContext'
 
 const Layout = ({ children }) => {
   const { user } = useContext(UserContext)

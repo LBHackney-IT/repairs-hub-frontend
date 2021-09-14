@@ -1,8 +1,8 @@
 import Search from '../components/Search/Search'
-import Spinner from '../components/Spinner/Spinner'
+import Spinner from '../components/Spinner'
 import WorkOrdersView from '../components/WorkOrders/WorkOrdersView'
 import OperativeWorkOrdersView from '../components/Operatives/OperativeWorkOrdersView'
-import UserContext from '../components/UserContext/UserContext'
+import UserContext from '../components/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import {
   AGENT_ROLE,

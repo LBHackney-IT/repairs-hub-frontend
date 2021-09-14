@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import Meta from '../../../components/Meta'
-import UserContext from '../../../components/UserContext/UserContext'
+import UserContext from '../../../components/UserContext'
 import CloseWorkOrderByProxy from '../../../components/WorkOrders/CloseWorkOrderByProxy'
 import CloseWorkOrder from '../../../components/WorkOrders/CloseWorkOrder'
 import {

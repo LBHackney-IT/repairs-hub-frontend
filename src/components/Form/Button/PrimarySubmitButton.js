@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Button from './Button'
+import Button from '.'
 
 // Primary submit buttons have their own <div>
 // to separate them from the rest of the form

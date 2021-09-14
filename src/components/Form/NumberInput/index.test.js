@@ -1,12 +1,12 @@
+import NumberInput from '.'
 import { fireEvent, render } from '@testing-library/react'
-import TextArea from './TextArea'
 
-describe('TextArea component', () => {
-  it('should render properly', () => {
-    const inputName = 'my-text-area'
-    const inputLabel = 'My text area'
+describe('NumberInput', () => {
+  it('renders a number input', () => {
+    const inputName = 'my-number-input'
+    const inputLabel = 'My Input'
     const { getByLabelText } = render(
-      <TextArea name={inputName} label={inputLabel} />
+      <NumberInput name={inputName} label={inputLabel} />
     )
 
     const labelRegex = new RegExp(`s*${inputLabel}s*`)
@@ -21,17 +21,13 @@ describe('TextArea component', () => {
     let newValue = ''
     const myAction = jest.fn((e) => (newValue = e.target.value))
     const { getByLabelText } = render(
-      <TextArea
-        name={'my-text-area'}
-        label={'My text area'}
-        onChange={myAction}
-      />
+      <NumberInput name={'my-input'} label={'My Input'} onChange={myAction} />
     )
 
-    fireEvent.change(getByLabelText(/\s*My text area\s*/), {
-      target: { value: 'hello' },
+    fireEvent.change(getByLabelText(/\s*My Input\s*/), {
+      target: { value: '2423242526' },
     })
 
-    expect(newValue).toEqual('hello')
+    expect(newValue).toEqual('2423242526')
   })
 })

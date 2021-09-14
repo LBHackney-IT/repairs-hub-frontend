@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import BackButton from '../Layout/BackButton/BackButton'
+import BackButton from '../Layout/BackButton'
 import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
