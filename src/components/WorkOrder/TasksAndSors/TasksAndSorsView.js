@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import TasksAndSorsTable from './TasksAndSorsTable'
 import { sortArrayByDate } from '../../../utils/helpers/array'
 import { areTasksUpdated } from '../../../utils/tasks'
-import OperativeTasksAndSorsTable from './OperativeTaskAndSorsTable'
+import OperativeTasksAndSorsTable from './OperativeTasksAndSorsTable'
 
 const TasksAndSorsView = ({
   tabName,

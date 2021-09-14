@@ -371,6 +371,39 @@ describe('Home page', () => {
           }
         ).as('operativesWorkOrders')
 
+        //Stub request with operative's work order response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders/10000621',
+          },
+          {
+            fixture: 'operatives/workOrder.json',
+          }
+        ).as('operativesWorkOrder')
+
+        //Stub request with property response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/properties/00012345',
+          },
+          {
+            fixture: 'properties/property.json',
+          }
+        ).as('property')
+
+        //Stub request with task response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders/10000621/tasks',
+          },
+          {
+            fixture: 'workOrders/task.json',
+          }
+        ).as('task')
+
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
       })
@@ -384,13 +417,6 @@ describe('Home page', () => {
               cy.contains('08:00-13:00')
               cy.contains('5 [N] NORMAL')
             })
-            cy.get('.middle-right').within(() => {
-              cy.get('.arrow').should(
-                'have.attr',
-                'href',
-                '/work-orders/10000621'
-              )
-            })
           })
 
           cy.get('[data-id=1]').within(() => {
@@ -398,14 +424,11 @@ describe('Home page', () => {
               cy.contains('12:00-18:00')
               cy.contains('2 [E] EMERGENCY')
             })
-            cy.get('.middle-right').within(() => {
-              cy.get('.arrow').should(
-                'have.attr',
-                'href',
-                '/work-orders/10000625'
-              )
-            })
           })
+          // check that when clicked on WO it takes user to Operative WO view page
+          cy.get('[data-id=0]').click()
+          cy.wait(['@operativesWorkOrder', '@property', '@task'])
+          cy.contains('WO 10000621')
         })
       })
     })

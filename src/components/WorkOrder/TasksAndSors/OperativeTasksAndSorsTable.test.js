@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import OperativeTasksAndSorsTable from './OperativeTaskAndSorsTable'
+import OperativeTasksAndSorsTable from './OperativeTasksAndSorsTable'
 
 describe('OperativeTasksAndSorsTable component', () => {
   const props = {
