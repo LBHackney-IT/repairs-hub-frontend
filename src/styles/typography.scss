@@ -14,3 +14,9 @@
     margin-top: 1em;
   }
 }
+
+.lbh-button__start-icon{
+  @include govuk-media-query($until: tablet) {
+    display: none
+  }
+}
