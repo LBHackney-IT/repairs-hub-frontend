@@ -17,7 +17,11 @@ const OperativeWorkOrderListItem = ({
               {operativeWorkOrder.priority}
             </p>
           </div>
-          {statusText && <div className="status-text">{statusText}</div>}
+          {statusText && (
+            <div className="lbh-body lbh-!-font-weight-bold text-white status-text">
+              {statusText}
+            </div>
+          )}
           <div className="middle-right">
             <a className="arrow right"></a>
           </div>

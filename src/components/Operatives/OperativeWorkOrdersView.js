@@ -49,7 +49,7 @@ const OperativeWorkOrdersView = () => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <GridRow className="lbh-body-s">
+      <GridRow className="lbh-body-s operative-work-orders">
         <GridColumn width="full">
           {loading ? (
             <Spinner />
