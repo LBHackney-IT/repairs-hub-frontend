@@ -1,0 +1,5 @@
+.lbh-heading-h1 {
+  @include govuk-media-query($until: tablet) {
+    font-size: 20px;
+  }
+}
