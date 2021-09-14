@@ -1,6 +1,7 @@
 import Search from '../components/Search/Search'
 import Spinner from '../components/Spinner/Spinner'
 import WorkOrdersView from '../components/WorkOrders/WorkOrdersView'
+import OperativeWorkOrdersView from '../components/Operatives/OperativeWorkOrdersView'
 import UserContext from '../components/UserContext/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -10,7 +11,10 @@ import {
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
 } from '../utils/user'
-import { canSeeWorkOrders } from '../utils/userPermissions'
+import {
+  canSeeWorkOrders,
+  canSeeOperativeWorkOrders,
+} from '../utils/userPermissions'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -34,6 +38,8 @@ const Home = ({ query }) => {
       } else {
         return <WorkOrdersView query={query} />
       }
+    } else if (user && canSeeOperativeWorkOrders(user)) {
+      return <OperativeWorkOrdersView />
     } else {
       if (Object.entries(query).length === 0) {
         return <Search />

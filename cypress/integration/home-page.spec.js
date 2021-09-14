@@ -29,27 +29,11 @@ describe('Home page', () => {
     })
 
     it('Shows the search page', () => {
-      // Header component
-      cy.get('.lbh-header__service-name').contains('Repairs Hub')
-      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-      // Search link
-      cy.get('#search')
-        .contains('Search')
-        .should('have.attr', 'href', '/search')
-
-      // Logout component
-      cy.get('#signout')
-        .contains('Sign out')
-        .should('have.attr', 'href', '/logout')
-
-      // Search for property component
       cy.get('.lbh-heading-h1').contains('Find repair work order or property')
       cy.get('.govuk-label').contains(
         'Search by work order reference, postcode or address'
       )
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
 
@@ -73,7 +57,6 @@ describe('Home page', () => {
       context(
         'Displays work order details, reference, date raised, last update, priority, property and description',
         () => {
-          //Stub request with work orders response
           beforeEach(() => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
@@ -95,27 +78,6 @@ describe('Home page', () => {
             cy.loginWithContractorRole()
             cy.visit('/')
             cy.wait('@workOrders')
-          })
-
-          it('displays content in the header', () => {
-            // Header component
-            cy.get('.lbh-header__service-name').contains('Repairs Hub')
-            cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-            // Manage work orders link
-            cy.get('#manage')
-              .contains('Manage work orders')
-              .should('have.attr', 'href', '/')
-
-            // Search link
-            cy.get('#search')
-              .contains('Search')
-              .should('have.attr', 'href', '/search')
-
-            // Logout component
-            cy.get('#signout')
-              .contains('Sign out')
-              .should('have.attr', 'href', '/logout')
           })
 
           it('Displays the first page of repairs', () => {
@@ -165,7 +127,6 @@ describe('Home page', () => {
       context(
         'Displays work order details, reference, date raised, last update, priority, property and description',
         () => {
-          //Stub request with work orders response
           beforeEach(() => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
@@ -189,27 +150,6 @@ describe('Home page', () => {
             cy.wait('@workOrders')
           })
 
-          it('displays content in the header', () => {
-            // Header component
-            cy.get('.lbh-header__service-name').contains('Repairs Hub')
-            cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-            // Manage work orders link
-            cy.get('#manage')
-              .contains('Manage work orders')
-              .should('have.attr', 'href', '/')
-
-            // Search link
-            cy.get('#search')
-              .contains('Search')
-              .should('have.attr', 'href', '/search')
-
-            // Logout component
-            cy.get('#signout')
-              .contains('Sign out')
-              .should('have.attr', 'href', '/logout')
-          })
-
           it('Displays the first page of repairs', () => {
             cy.get('.govuk-table').within(() => {
               cy.contains('th', 'Reference')
@@ -236,7 +176,7 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Next').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
+
             cy.audit()
           })
 
@@ -244,7 +184,7 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
+
             cy.audit()
           })
         }
@@ -257,7 +197,6 @@ describe('Home page', () => {
       context(
         'Displays work order details, reference, date raised, last update, priority, property and description',
         () => {
-          //Stub request with work orders response
           beforeEach(() => {
             cy.intercept(
               { method: 'GET', path: '/api/filter/WorkOrder' },
@@ -281,27 +220,6 @@ describe('Home page', () => {
             cy.wait('@workOrders')
           })
 
-          it('displays content in the header', () => {
-            // Header component
-            cy.get('.lbh-header__service-name').contains('Repairs Hub')
-            cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-            // Manage work orders link
-            cy.get('#manage')
-              .contains('Manage work orders')
-              .should('have.attr', 'href', '/')
-
-            // Search link
-            cy.get('#search')
-              .contains('Search')
-              .should('have.attr', 'href', '/search')
-
-            // Logout component
-            cy.get('#signout')
-              .contains('Sign out')
-              .should('have.attr', 'href', '/logout')
-          })
-
           it('Displays the first page of repairs', () => {
             cy.get('.govuk-table').within(() => {
               cy.contains('th', 'Reference')
@@ -328,7 +246,7 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Next').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
+
             cy.audit()
           })
 
@@ -336,7 +254,7 @@ describe('Home page', () => {
             cy.get('.page-navigation').within(() => {
               cy.contains('Previous').should('not.exist')
             })
-            // Run lighthouse audit for accessibility report
+
             cy.audit()
           })
         }
@@ -375,27 +293,6 @@ describe('Home page', () => {
               cy.wait('@workOrders')
             })
 
-            it('displays content in the header', () => {
-              // Header component
-              cy.get('.lbh-header__service-name').contains('Repairs Hub')
-              cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-              // Manage work orders link
-              cy.get('#manage')
-                .contains('Manage work orders')
-                .should('have.attr', 'href', '/')
-
-              // Search link
-              cy.get('#search')
-                .contains('Search')
-                .should('have.attr', 'href', '/search')
-
-              // Logout component
-              cy.get('#signout')
-                .contains('Sign out')
-                .should('have.attr', 'href', '/logout')
-            })
-
             it('Displays the first page of repairs', () => {
               cy.get('.govuk-table').within(() => {
                 cy.contains('th', 'Reference')
@@ -422,7 +319,7 @@ describe('Home page', () => {
               cy.get('.page-navigation').within(() => {
                 cy.contains('Next').should('not.exist')
               })
-              // Run lighthouse audit for accessibility report
+
               cy.audit()
             })
 
@@ -430,7 +327,7 @@ describe('Home page', () => {
               cy.get('.page-navigation').within(() => {
                 cy.contains('Previous').should('not.exist')
               })
-              // Run lighthouse audit for accessibility report
+
               cy.audit()
             })
           }
@@ -438,4 +335,114 @@ describe('Home page', () => {
       })
     }
   )
+
+  context('When an operative is logged in', () => {
+    beforeEach(() => {
+      cy.loginWithOperativeRole()
+    })
+
+    it('Displays content in the header', () => {
+      cy.visit('/')
+
+      cy.get('.lbh-header__service-name').contains('Repairs Hub')
+      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
+
+      cy.contains('Manage work orders').should('not.exist')
+
+      cy.contains('Search').should('not.exist')
+
+      cy.get('#signout')
+        .contains('Sign out')
+        .should('have.attr', 'href', '/logout')
+    })
+
+    context('When they have work orders attached to them', () => {
+      beforeEach(() => {
+        cy.clock(new Date('June 11 2021 13:49:15Z'))
+
+        //Stub request with operative's work orders response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/operatives/hu0001/workorders',
+          },
+          {
+            fixture: 'operatives/workOrders.json',
+          }
+        ).as('operativesWorkOrders')
+
+        //Stub request with operative's work order response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders/10000621',
+          },
+          {
+            fixture: 'operatives/workOrder.json',
+          }
+        ).as('operativesWorkOrder')
+
+        //Stub request with property response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/properties/00012345',
+          },
+          {
+            fixture: 'properties/property.json',
+          }
+        ).as('property')
+
+        //Stub request with task response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders/10000621/tasks',
+          },
+          {
+            fixture: 'workOrders/task.json',
+          }
+        ).as('task')
+
+        cy.visit('/')
+        cy.wait('@operativesWorkOrders')
+      })
+
+      it('Displays work order appointments slots and priority', () => {
+        cy.get('.lbh-heading-h1').contains('Friday, 11 June')
+
+        cy.get('.lbh-list').within(() => {
+          cy.get('[data-id=0]').within(() => {
+            cy.get('.appointment-details').within(() => {
+              cy.contains('08:00-13:00')
+              cy.contains('5 [N] NORMAL')
+            })
+          })
+
+          cy.get('[data-id=1]').within(() => {
+            cy.get('.appointment-details').within(() => {
+              cy.contains('12:00-18:00')
+              cy.contains('2 [E] EMERGENCY')
+            })
+          })
+          // check that when clicked on WO it takes user to Operative WO view page
+          cy.get('[data-id=0]').click()
+        })
+        cy.wait(['@operativesWorkOrder', '@property', '@task'])
+        cy.contains('WO 10000621')
+        cy.get('div[class*="Multibutton"]').should('not.exist')
+      })
+    })
+
+    context("When they don't have work orders attached to them", () => {
+      it('Displays a warning info box', () => {
+        cy.visit('/')
+
+        cy.get('.warning-info-box').within(() => {
+          cy.get('.lbh-body-s').contains('No work orders displayed')
+          cy.get('.lbh-body-xs').contains('Please contact your supervisor')
+        })
+      })
+    })
+  })
 })

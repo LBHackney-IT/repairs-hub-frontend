@@ -9,20 +9,23 @@ describe('Authorisation workflow for a work order', () => {
   beforeEach(() => {
     cy.loginWithAuthorisationManagerRole()
 
-    cy.fixture('hubUser/user.json').then((user) => {
-      user.raiseLimit = 1000
-      cy.intercept({ method: 'GET', path: '/api/hub-user' }, { body: user })
-    })
+    cy.fixture('hubUser/user.json')
+      .then((user) => {
+        user.raiseLimit = 1000
+        cy.intercept({ method: 'GET', path: '/api/hub-user' }, { body: user })
+      })
+      .as('hubUserRequest')
 
-    // Stub requests
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    )
+    ).as('propertyRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
-    )
+    ).as('workOrderRequest')
+
     cy.intercept(
       {
         method: 'GET',
@@ -34,7 +37,7 @@ describe('Authorisation workflow for a work order', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
       { fixture: 'workOrders/task.json' }
-    ).as('tasks-and-sors-request')
+    ).as('tasksAndSorsRequest')
 
     cy.intercept(
       { method: 'POST', url: '/api/jobStatusUpdate' },
@@ -44,10 +47,9 @@ describe('Authorisation workflow for a work order', () => {
 
   context('When logged in as an authorisation manager', () => {
     it('Rejects to authorise work order', () => {
-      // Visit work order page
       cy.visit('/work-orders/10000012')
 
-      cy.wait('@tasks-and-sors-request')
+      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksAndSorsRequest'])
 
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
@@ -59,7 +61,7 @@ describe('Authorisation workflow for a work order', () => {
       cy.contains('This work order requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
-      cy.wait('@tasks-and-sors-request')
+      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest', '@workOrderRequest'])
 
       // Notes is a mandatory field for a rejection
       cy.get('Add notes').should('not.exist')
@@ -103,20 +105,23 @@ describe('Authorisation workflow for a work order', () => {
         cy.contains('Back to dashboard').should('have.attr', 'href', '/')
       })
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
 
     it('Authorises work order', () => {
       cy.clock(now)
-      // Visit work order page
+
       cy.visit('/work-orders/10000012')
+
+      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksAndSorsRequest'])
 
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
           .should('have.attr', 'href', '/work-orders/10000012/authorisation')
           .click()
       })
+
+      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest', '@workOrderRequest'])
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')
@@ -161,10 +166,15 @@ describe('Authorisation workflow for a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
-      )
+      ).as('nonPendingWorkOrderRequest')
 
-      // Visit work order page
       cy.visit('/work-orders/10000012')
+
+      cy.wait([
+        '@nonPendingWorkOrderRequest',
+        '@propertyRequest',
+        '@tasksAndSorsRequest',
+      ])
 
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation').should('not.exist')
@@ -178,7 +188,8 @@ describe('Authorisation workflow for a work order', () => {
       ).as('highCostTasks')
 
       cy.visit('/work-orders/10000012/authorisation')
-      cy.wait('@highCostTasks')
+
+      cy.wait(['@hubUserRequest', '@highCostTasks', '@workOrderRequest'])
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')
@@ -220,7 +231,6 @@ describe('Authorisation workflow for a work order', () => {
     })
 
     it('Can not authorise (approve) work order if over target date', () => {
-      // Visit work order page
       cy.visit('/work-orders/10000012/authorisation')
 
       cy.contains('Authorisation request: 10000012')

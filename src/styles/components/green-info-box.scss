@@ -1,0 +1,19 @@
+.green-info-box {
+  background: repairs-hub-colour('dark-green');
+  border-radius: 5px;
+  position: relative;
+  padding: 10px;
+  overflow-y: auto;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+
+  .middle-right {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

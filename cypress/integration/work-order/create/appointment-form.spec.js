@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { NORMAL_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
-import { STATUS_CANCELLED } from '../../../src/utils/statusCodes'
+import { NORMAL_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
+import { STATUS_CANCELLED } from '../../../../src/utils/statusCodes'
 
 // Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')

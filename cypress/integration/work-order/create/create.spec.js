@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { EMERGENCY_PRIORITY_CODE } from '../../../src/utils/helpers/priorities'
+import { EMERGENCY_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
 
 describe('Raise repair form', () => {
   beforeEach(() => {

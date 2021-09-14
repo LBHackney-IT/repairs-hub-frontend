@@ -1,23 +1,29 @@
 .env {
   &-name {
-    border: 2px solid;
-    padding: 5px;
-    margin-left: 10px;
+    color: white;
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+
+    span {
+      padding: 0 5px 0 5px;
+    }
   }
 
-  &-development {
-    border-color: repairs-hub-colour('dark-green');
+  &-development span {
+    background-color: repairs-hub-colour('dark-green');
   }
 
-  &-staging {
-    border-color: repairs-hub-colour('orange');
+  &-staging span {
+    background-color: repairs-hub-colour('orange');
   }
 
-  &-localdev {
-    border-color: repairs-hub-colour('orange');
+  &-localdev span {
+    background-color: repairs-hub-colour('orange');
   }
 }
 
 .text-for-env-note {
   background-color: red;
+  text-align: center;
 }

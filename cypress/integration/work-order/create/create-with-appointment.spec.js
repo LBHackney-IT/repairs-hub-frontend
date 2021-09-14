@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 import {
   EMERGENCY_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
-} from '../../../src/utils/helpers/priorities'
+} from '../../../../src/utils/helpers/priorities'
 // Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 

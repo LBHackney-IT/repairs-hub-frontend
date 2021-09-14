@@ -97,8 +97,8 @@ const PrintJobTicketDetails = ({
                 <td className="lbh-body-s">
                   {address.addressLine}
                   <br />
-                  {address?.streetSuffix}
-                  <br />
+                  {address.streetSuffix && address.streetSuffix}
+                  {address.streetSuffix && <br />}
                   {address.postalCode}
                 </td>
               </tr>
@@ -183,6 +183,17 @@ const PrintJobTicketDetails = ({
               {workOrder.description}
             </span>
           </div>
+
+          {workOrder.plannerComments && (
+            <div className="govuk-!-margin-top-4">
+              <h5 className="lbh-heading-h5 display-inline">
+                Planner comments
+              </h5>
+              <span className="lbh-body-s govuk-!-margin-left-4">
+                {workOrder.plannerComments}
+              </span>
+            </div>
+          )}
 
           <table className="sors govuk-!-margin-top-6 govuk-!-margin-bottom-3">
             <thead>

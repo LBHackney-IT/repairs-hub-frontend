@@ -1,37 +1,11 @@
 import {
-  canManageJobs,
   canSeeAllFilters,
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
   canAccessWorkOrder,
   canSeeWorkOrders,
+  canSeeOperativeWorkOrders,
 } from './userPermissions'
-
-describe('canManageJobs', () => {
-  describe('when user is allowed to manage jobs', () => {
-    const user = {
-      name: 'Test Testerston',
-      email: 'test@test.com',
-      hasContractorPermissions: true,
-      hasAgentPermissions: false,
-    }
-    it('returns true', () => {
-      expect(canManageJobs(user)).toBe(true)
-    })
-  })
-
-  describe('when user are NOT allowed to manage jobs', () => {
-    const user = {
-      name: 'Test Testerston',
-      email: 'test@test.com',
-      hasContractorPermissions: false,
-      hasAgentPermissions: true,
-    }
-    it('returns false', () => {
-      expect(canManageJobs(user)).toBe(false)
-    })
-  })
-})
 
 describe('canSeeAllFilters', () => {
   describe('when user can see all filters', () => {
@@ -171,6 +145,30 @@ describe('canSeeWorkOrders', () => {
     }
     it('returns false', () => {
       expect(canSeeWorkOrders(user)).toBe(false)
+    })
+  })
+})
+
+describe('canSeeOperativeWorkOrders', () => {
+  describe('when user allowed to access operative work orders', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasOperativePermissions: true,
+    }
+    it('returns true', () => {
+      expect(canSeeOperativeWorkOrders(user)).toBe(true)
+    })
+  })
+
+  describe('when user NOT allowed to access operative work orders', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasOperativePermissions: false,
+    }
+    it('returns false', () => {
+      expect(canSeeOperativeWorkOrders(user)).toBe(false)
     })
   })
 })
