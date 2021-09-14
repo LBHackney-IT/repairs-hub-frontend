@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react'
-import MobileMenuButton from './MobileMenuButton'
+import MobileMenuButton from '.'
 
 describe('MobileMenuButton', () => {
   it('runs the supplied function when clicked', () => {
