@@ -57,12 +57,12 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
         <GridColumn width="one-half" className="align-grid-column">
           <div className="govuk-warning-text lbh-warning-text">
             <span
-              class="govuk-warning-text__icon caut-contact--icon"
+              class="govuk-warning-text__icon person-alert--icon"
               aria-hidden="true"
             >
               !
             </span>
-            <strong className="govuk-warning-text__text caut-contact--text">
+            <strong className="govuk-warning-text__text person-alert--text">
               {personAlerts.map((alert) => alert.type).join(',')}
             </strong>
           </div>

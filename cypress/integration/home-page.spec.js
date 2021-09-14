@@ -427,9 +427,10 @@ describe('Home page', () => {
           })
           // check that when clicked on WO it takes user to Operative WO view page
           cy.get('[data-id=0]').click()
-          cy.wait(['@operativesWorkOrder', '@property', '@task'])
-          cy.contains('WO 10000621')
         })
+        cy.wait(['@operativesWorkOrder', '@property', '@task'])
+        cy.contains('WO 10000621')
+        cy.get('div[class*="Multibutton"]').should('not.exist')
       })
     })
 
