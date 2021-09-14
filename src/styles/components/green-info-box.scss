@@ -9,6 +9,15 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+
+  .status-text {
+    color: white;
+    margin-left: auto;
+    margin-right: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
   .middle-right {
     margin: 0;

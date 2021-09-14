@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 
-describe('Closing a work order', () => {
+describe('Closing a work order on behalf of an operative', () => {
   beforeEach(() => {
     cy.intercept(
       {

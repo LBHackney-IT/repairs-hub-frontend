@@ -11,7 +11,8 @@ import SelectOperatives from '../Operatives/SelectOperatives'
 
 const CloseWorkOrderForm = ({
   reference,
-  onGetToSummary,
+  closingByProxy,
+  onSubmit,
   availableOperatives,
   assignedOperativesToWorkOrder,
   operativeAssignmentMandatory,
@@ -31,20 +32,37 @@ const CloseWorkOrderForm = ({
     getValues,
   } = useForm({})
 
+  const CLOSURE_STATUS_OPTIONS = [
+    {
+      text: closingByProxy ? 'Work Order Completed' : 'Completed',
+      value: 'Work Order Completed',
+    },
+    {
+      text: closingByProxy ? 'No Access' : 'No access',
+      value: 'No Access',
+    },
+  ]
+
   return (
     <>
       <div>
         <BackButton />
-        <h1 className="lbh-heading-h1">Close work order: {reference}</h1>
-        <form role="form" onSubmit={handleSubmit(onGetToSummary)}>
+
+        <h1 className="lbh-heading-h1">
+          {closingByProxy
+            ? `Close work order: ${reference}`
+            : 'Close work order'}
+        </h1>
+
+        <form role="form" onSubmit={handleSubmit(onSubmit)}>
           <Radios
             label="Select reason for closing"
             name="reason"
-            options={['Work Order Completed', 'No Access'].map((r) => {
+            options={CLOSURE_STATUS_OPTIONS.map((r) => {
               return {
-                text: r,
-                value: r,
-                defaultChecked: r == reason,
+                text: r.text,
+                value: r.value,
+                defaultChecked: r.value === reason,
               }
             })}
             register={register({
@@ -52,36 +70,42 @@ const CloseWorkOrderForm = ({
             })}
             error={errors && errors.reason}
           />
-          <DatePicker
-            name="date"
-            label="Select completion date"
-            hint="For example, 15/05/2021"
-            register={register({
-              required: 'Please pick completion date',
-              validate: {
-                isInThePast: (value) =>
-                  isPast(new Date(value)) ||
-                  'Please select a date that is in the past',
-                isLaterThanRaisedDate: (value) =>
-                  new Date(value) >
-                    new Date(new Date(dateRaised).toDateString()) ||
-                  `Completion date must be on or after ${new Date(
-                    dateRaised
-                  ).toLocaleDateString('en-GB')}`,
-              },
-            })}
-            error={errors && errors.date}
-            defaultValue={date ? date.toISOString().split('T')[0] : null}
-          />
-          <TimeInput
-            name="time"
-            label="Completion time"
-            hint="Use 24h format. For example, 14:30"
-            control={control}
-            register={register}
-            defaultValue={time}
-            error={errors && errors.time}
-          />
+
+          {/* When closing on operative's behalf, you need to supply the date / time of closure */}
+          {closingByProxy && (
+            <>
+              <DatePicker
+                name="date"
+                label="Select completion date"
+                hint="For example, 15/05/2021"
+                register={register({
+                  required: 'Please pick completion date',
+                  validate: {
+                    isInThePast: (value) =>
+                      isPast(new Date(value)) ||
+                      'Please select a date that is in the past',
+                    isLaterThanRaisedDate: (value) =>
+                      new Date(value) >
+                        new Date(new Date(dateRaised).toDateString()) ||
+                      `Completion date must be on or after ${new Date(
+                        dateRaised
+                      ).toLocaleDateString('en-GB')}`,
+                  },
+                })}
+                error={errors && errors.date}
+                defaultValue={date ? date.toISOString().split('T')[0] : null}
+              />
+              <TimeInput
+                name="time"
+                label="Completion time"
+                hint="Use 24h format. For example, 14:30"
+                control={control}
+                register={register}
+                defaultValue={time}
+                error={errors && errors.time}
+              />
+            </>
+          )}
 
           {operativeAssignmentMandatory && (
             <SelectOperatives
@@ -98,11 +122,15 @@ const CloseWorkOrderForm = ({
           <TextArea
             name="notes"
             label="Add notes"
+            label={closingByProxy ? 'Add notes' : 'Final report'}
             register={register}
             error={errors && errors.notes}
             defaultValue={notes}
           />
-          <PrimarySubmitButton label="Submit" />
+
+          <PrimarySubmitButton
+            label={closingByProxy ? 'Submit' : 'Close work order'}
+          />
         </form>
       </div>
     </>
@@ -111,7 +139,7 @@ const CloseWorkOrderForm = ({
 
 CloseWorkOrderForm.propTypes = {
   reference: PropTypes.number.isRequired,
-  onGetToSummary: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   notes: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(Date),
