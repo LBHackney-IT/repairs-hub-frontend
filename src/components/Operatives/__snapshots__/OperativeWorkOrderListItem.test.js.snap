@@ -15,9 +15,9 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
         08:00-13:00
       </p>
       <p
-        class="lbh-body lbh-!-font-weight-bold text-white"
+        class="lbh-body lbh-!-font-weight-bold text-white capitalize"
       >
-        5 [N] NORMAL
+        normal
       </p>
     </div>
     <div

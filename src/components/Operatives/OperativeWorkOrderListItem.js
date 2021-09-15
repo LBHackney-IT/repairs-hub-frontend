@@ -13,8 +13,8 @@ const OperativeWorkOrderListItem = ({
           <div className="appointment-details">
             <p className="lbh-body lbh-!-font-weight-bold text-white">{`${operativeWorkOrder.appointment.start}-${operativeWorkOrder.appointment.end}`}</p>
 
-            <p className="lbh-body lbh-!-font-weight-bold text-white">
-              {operativeWorkOrder.priority}
+            <p className="lbh-body lbh-!-font-weight-bold text-white capitalize">
+              {operativeWorkOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
           </div>
           {statusText && (
