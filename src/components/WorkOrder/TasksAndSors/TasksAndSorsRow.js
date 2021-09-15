@@ -34,7 +34,7 @@ const tasksAndSorsRow = ({
       </TD>
     </TR>
   ) : (
-    <TR index={index} className="lbh-body-s">
+    <TR index={index} className="lbh-body">
       <TD>{taskQuantity}</TD>
       <TD>{code}</TD>
       <TD>{description}</TD>

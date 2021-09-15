@@ -48,7 +48,7 @@ const CloseWorkOrderForm = ({
       <div>
         <BackButton />
 
-        <h1 className="lbh-heading-h1">
+        <h1 className="lbh-heading-h2">
           {closingByProxy
             ? `Close work order: ${reference}`
             : 'Close work order'}

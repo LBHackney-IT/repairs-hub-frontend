@@ -10,10 +10,11 @@ import { WorkOrder } from '../../models/workOrder'
 import { sortObjectsByDateKey } from '../../utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import OperativeWorkOrderDetails from '../Operatives/OperativeWorkOrderDetails'
-import TasksAndSorsView from './TasksAndSors/TasksAndSorsView'
 import UserContext from '../UserContext/UserContext'
 import { canSeeWorkOrder } from '../../utils/userPermissions'
 import Link from 'next/link'
+import { sortArrayByDate } from '../../utils/helpers/array'
+import OperativeTasksAndSorsTable from './TasksAndSors/OperativeTasksAndSorsTable'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const { user } = useContext(UserContext)
@@ -114,12 +115,12 @@ const WorkOrderView = ({ workOrderReference }) => {
           personAlerts={personAlerts}
           tasksAndSors={tasksAndSors}
         />
-        <TasksAndSorsView
-          workOrderReference={workOrderReference}
+
+        <OperativeTasksAndSorsTable
+          tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
           tabName={'Tasks and SORs'}
-          tasksAndSors={tasksAndSors}
-          showOperativeTasksAndSorsTable={true}
         />
+
         <Link href={`/work-orders/${workOrderReference}/close`}>
           <a
             role="button"
