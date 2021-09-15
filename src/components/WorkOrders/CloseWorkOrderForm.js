@@ -8,6 +8,10 @@ import TimeInput from '../Form/TimeInput/TimeInput'
 import TextArea from '../Form/TextArea/TextArea'
 import Radios from '../Form/Radios/Radios'
 import SelectOperatives from '../Operatives/SelectOperatives'
+import { canAttendOwnWorkOrder } from '../../utils/userPermissions'
+import { useContext } from 'react'
+import UserContext from '../UserContext/UserContext'
+import WarningInfoBox from '../Template/WarningInfoBox'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -31,6 +35,8 @@ const CloseWorkOrderForm = ({
     trigger,
     getValues,
   } = useForm({})
+
+  const { user } = useContext(UserContext)
 
   const CLOSURE_STATUS_OPTIONS = [
     {
@@ -127,6 +133,15 @@ const CloseWorkOrderForm = ({
             error={errors && errors.notes}
             defaultValue={notes}
           />
+
+          {canAttendOwnWorkOrder(user) && (
+            <div className="govuk-!-margin-top-8">
+              <WarningInfoBox
+                header="Need to make a change?"
+                text="Any changes to the work order must be made on paper."
+              />
+            </div>
+          )}
 
           <PrimarySubmitButton
             label={closingByProxy ? 'Submit' : 'Close work order'}
