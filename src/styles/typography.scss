@@ -1,9 +1,3 @@
-.lbh-body {
-  @include govuk-media-query($until: tablet) {
-    margin-top: 1em;
-  }
-}
-
 .lbh-heading-h1 {
   @include govuk-media-query($until: tablet) {
     font-size: 20px;
