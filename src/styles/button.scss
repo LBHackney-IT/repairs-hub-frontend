@@ -1,0 +1,16 @@
+.lbh-button {
+  @include govuk-media-query($until: tablet) {
+    width: 226px;
+    height: 51px;
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 0.875rem;
+    margin-top: 1em;
+  }
+}
+
+.lbh-button__start-icon {
+  @include govuk-media-query($until: tablet) {
+    display: none;
+  }
+}

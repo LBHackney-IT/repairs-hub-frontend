@@ -418,7 +418,7 @@ describe('Home page', () => {
             .eq(0)
             .within(() => {
               cy.contains('08:00-13:00')
-              cy.contains('5 [N] NORMAL')
+              cy.contains('normal')
             })
         })
 
@@ -426,14 +426,14 @@ describe('Home page', () => {
           .eq(1)
           .within(() => {
             cy.contains('12:00-18:00')
-            cy.contains('2 [E] EMERGENCY')
+            cy.contains('emergency')
           })
 
         cy.get('li')
           .eq(2)
           .within(() => {
             cy.contains('16:00-18:00')
-            cy.contains('2 [E] EMERGENCY')
+            cy.contains('emergency')
             cy.contains('Completed')
           })
 
@@ -441,7 +441,7 @@ describe('Home page', () => {
           .eq(3)
           .within(() => {
             cy.contains('17:00-18:00')
-            cy.contains('2 [E] EMERGENCY')
+            cy.contains('emergency')
             cy.contains('Closed')
           })
 

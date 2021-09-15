@@ -9,6 +9,7 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'show-env-names';
 @import 'main';
 @import 'typography';
+@import 'button';
 
 @import 'components/header';
 @import 'components/phase-banner';
@@ -27,6 +28,7 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'table-row';
 @import 'components/circle-tag';
 @import 'components/mobile-menu';
-@import 'components/operative-work-order';
+@import 'components/operative/work-order';
+@import 'components/operative/work-orders';
 @import 'components/grid';
 @import 'components/info-modal';

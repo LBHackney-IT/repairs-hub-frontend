@@ -1,0 +1,13 @@
+.operative-work-orders {
+  .govuk-grid-column-full {
+    @include govuk-media-query($until: tablet) {
+      padding: 0;
+    }
+
+    h1 {
+      @include govuk-media-query($until: tablet) {
+        padding: 0 15px;
+      }
+    }
+  }
+}
