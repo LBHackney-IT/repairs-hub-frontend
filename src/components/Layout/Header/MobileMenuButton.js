@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 
-const MobileMenuButton = ({ toggleMobileMenu, mobileMenuOpen }) => {
+const MobileMenuButton = ({ onClick, mobileMenuOpen }) => {
   return (
     <div
       className="burger govuk-!-margin-top-1"
       data-testid="mobile-menu-button"
-      onClick={toggleMobileMenu}
+      onClick={onClick}
     >
       {mobileMenuOpen ? (
         <svg
@@ -55,7 +55,7 @@ const MobileMenuButton = ({ toggleMobileMenu, mobileMenuOpen }) => {
 }
 
 MobileMenuButton.propTypes = {
-  toggleMobileMenu: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
   mobileMenuOpen: PropTypes.bool.isRequired,
 }
 
