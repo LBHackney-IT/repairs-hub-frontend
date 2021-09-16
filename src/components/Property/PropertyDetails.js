@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
 import PropertyDetailsGrid from './PropertyDetailsGrid'
 import BackButton from '../Layout/BackButton/BackButton'
+import { isCurrentTimeOutOfHours } from '../../utils/helpers/completionDateTimes'
+import Link from 'next/link'
 
 const PropertyDetails = ({
   propertyReference,
@@ -26,6 +28,21 @@ const PropertyDetails = ({
           propertyReference={propertyReference}
         />
       </div>
+
+      {isCurrentTimeOutOfHours() && (
+        <div>
+          <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK}>
+            <a
+              target="_blank"
+              rel="noopener"
+              className="lbh-link lbh-body-l lbh-!-font-weight-medium"
+            >
+              Out of hours note
+            </a>
+          </Link>
+        </div>
+      )}
+
       <PropertyDetailsGrid
         propertyReference={propertyReference}
         address={address}
