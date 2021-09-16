@@ -123,8 +123,8 @@ const SelectOperatives = ({
 
         {errors &&
           (errors['percentage-0'] || duplicateOperativeErrors(errors)) && (
-            <span class="govuk-error-message lbh-error-message">
-              <span class="govuk-visually-hidden">Error:</span>{' '}
+            <span className="govuk-error-message lbh-error-message">
+              <span className="govuk-visually-hidden">Error:</span>{' '}
               {errors['percentage-0']?.message}
               {
                 Object.entries(errors).find(([a]) => a.match(/operative/))

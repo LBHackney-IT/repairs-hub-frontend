@@ -61,7 +61,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
           <GridColumn width="one-half" className="align-grid-column">
             <div className="govuk-warning-text lbh-warning-text">
               <span
-                class="govuk-warning-text__icon person-alert--icon"
+                className="govuk-warning-text__icon person-alert--icon"
                 aria-hidden="true"
               >
                 !
