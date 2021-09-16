@@ -1,4 +1,7 @@
-import { calculateCompletionDateTime } from './completionDateTimes'
+import {
+  calculateCompletionDateTime,
+  isCurrentTimeOutOfHours,
+} from './completionDateTimes'
 import MockDate from 'mockdate'
 import {
   EMERGENCY_PRIORITY_CODE,
@@ -358,6 +361,106 @@ describe('calculateCompletionDateTime', () => {
         expect(calculateCompletionDateTime(priorityCode)).toEqual(
           new Date('Wednesday 28 July 2021 09:00:00Z')
         )
+      })
+    })
+  })
+})
+
+describe('isCurrentTimeOutOfHours', () => {
+  beforeEach(() => {
+    mockBankHolidays.mockReturnValue({
+      'england-and-wales': {
+        division: 'england-and-wales',
+        events: [],
+      },
+    })
+  })
+
+  afterEach(() => {
+    MockDate.reset()
+  })
+
+  describe('when today is a bank holiday', () => {
+    beforeEach(() => {
+      const dateTime = new Date('Thursday 16 September 2021 09:00:00Z')
+      MockDate.set(dateTime)
+
+      mockBankHolidays.mockReturnValue({
+        'england-and-wales': {
+          division: 'england-and-wales',
+          events: [
+            {
+              title: 'Fake bank holiday',
+              date: '2021-09-16',
+            },
+          ],
+        },
+      })
+    })
+
+    it('returns true', () => {
+      expect(isCurrentTimeOutOfHours()).toEqual(true)
+    })
+  })
+
+  describe('when today is a weekend day', () => {
+    beforeEach(() => {
+      const dateTime = new Date('Saturday 18 September 2021 09:00:00')
+
+      MockDate.set(dateTime)
+    })
+
+    it('returns true', () => {
+      expect(isCurrentTimeOutOfHours()).toEqual(true)
+    })
+  })
+
+  describe('when today is a working day', () => {
+    describe('and current time is before 0800', () => {
+      beforeEach(() => {
+        const dateTime = new Date('Thursday 16 September 2021 07:59:00')
+
+        MockDate.set(dateTime)
+      })
+
+      it('returns true', () => {
+        expect(isCurrentTimeOutOfHours()).toEqual(true)
+      })
+    })
+
+    describe('and current time is after 1800', () => {
+      beforeEach(() => {
+        const dateTime = new Date('Thursday 16 September 2021 18:01:00')
+
+        MockDate.set(dateTime)
+      })
+
+      it('returns true', () => {
+        expect(isCurrentTimeOutOfHours()).toEqual(true)
+      })
+    })
+
+    describe('and current time is just after 0800', () => {
+      beforeEach(() => {
+        const dateTime = new Date('Thursday 16 September 2021 08:01:00')
+
+        MockDate.set(dateTime)
+      })
+
+      it('returns false', () => {
+        expect(isCurrentTimeOutOfHours()).toEqual(false)
+      })
+    })
+
+    describe('and current time is just before 1800', () => {
+      beforeEach(() => {
+        const dateTime = new Date('Thursday 16 September 2021 17:59:00')
+
+        MockDate.set(dateTime)
+      })
+
+      it('returns false', () => {
+        expect(isCurrentTimeOutOfHours()).toEqual(false)
       })
     })
   })

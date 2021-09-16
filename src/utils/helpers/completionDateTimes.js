@@ -1,6 +1,16 @@
 import { priorityCodeCompletionTimes } from '../hact/helpers/priorityCodes'
-import { isSaturday, addDays, subDays, isWeekend, format } from 'date-fns'
+import {
+  isSaturday,
+  addDays,
+  subDays,
+  isWeekend,
+  format,
+  getHours,
+} from 'date-fns'
 import { bankHolidays } from './bankHolidays'
+
+const WORKDAY_START_HOUR = 8
+const WORKDAY_END_HOUR = 18
 
 export const isBankHoliday = (date) => {
   const formattedDate = format(date, 'yyyy-MM-dd')
@@ -11,7 +21,24 @@ export const isBankHoliday = (date) => {
   )
 }
 
-const isNonWorkingDay = (date) => isWeekend(date) || isBankHoliday(date)
+export const isCurrentTimeOutOfHours = () => {
+  const now = new Date()
+
+  if (isNonWorkingDay(now)) {
+    return true
+  } else {
+    if (
+      getHours(now) < WORKDAY_START_HOUR ||
+      getHours(now) >= WORKDAY_END_HOUR
+    ) {
+      return true
+    }
+  }
+
+  return false
+}
+
+export const isNonWorkingDay = (date) => isWeekend(date) || isBankHoliday(date)
 
 // Returns supplied start date plus however many calendar days we loop over to satisfy
 // the required number of working days.
