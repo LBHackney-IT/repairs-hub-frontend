@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import UserContext from '../UserContext/UserContext'
+import UserContext from '../UserContext'
 import { dateToStr } from '../../utils/date'
 import { STATUS_CANCELLED } from '../../utils/statusCodes'
 import {

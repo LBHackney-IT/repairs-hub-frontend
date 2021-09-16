@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
-import Spinner from '../../Spinner/Spinner'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
 import { useState, useEffect } from 'react'
-import BackButton from '../../Layout/BackButton/BackButton'
-import Radios from '../../Form/Radios/Radios'
+import BackButton from '../../Layout/BackButton'
+import Radios from '../../Form/Radios'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
 } from '../../../utils/hact/workOrderStatusUpdate/authorisation'
-import SuccessPage from '../../SuccessPage/SuccessPage'
+import SuccessPage from '../../SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'

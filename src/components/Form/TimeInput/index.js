@@ -2,7 +2,7 @@ import { useState, useEffect, forwardRef } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Controller } from 'react-hook-form'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import ErrorMessage from '../../Errors/ErrorMessage'
 
 const getInitialTime = (value) => {
   const time = value?.split(':') || ['', '']

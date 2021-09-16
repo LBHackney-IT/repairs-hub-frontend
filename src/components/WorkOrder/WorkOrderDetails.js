@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import UserContext from '../UserContext/UserContext'
+import UserContext from '../UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
-import BackButton from '../Layout/BackButton/BackButton'
-import MultiButton from '../Layout/MultiButton/MultiButton'
+import BackButton from '../Layout/BackButton'
+import MultiButton from '../Layout/MultiButton'
 
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '../../models/workOrder'

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
-import Radios from '../../Form/Radios/Radios'
+import Radios from '../../Form/Radios'
 import { TextArea } from '../../Form'
 import { useForm } from 'react-hook-form'
-import Button from 'src/components/Form/Button/Button'
+import Button from 'src/components/Form/Button'
 
 const TimeSlotForm = ({
   onGetToSummary,

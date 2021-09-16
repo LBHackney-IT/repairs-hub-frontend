@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import WorkOrderInfoTable from '../WorkOrderInfoTable'
-import BackButton from '../../Layout/BackButton/BackButton'
+import BackButton from '../../Layout/BackButton'
 import { buildCancelWorkOrderFormData } from '../../../utils/hact/workOrderComplete/cancelWorkOrderForm'
 import WarningText from '../../Template/WarningText'
 import {

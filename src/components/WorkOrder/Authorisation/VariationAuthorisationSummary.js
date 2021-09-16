@@ -6,7 +6,7 @@ import {
 import { longDateToStr } from '../../../utils/date'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Status from '../Status'
-import Collapsible from 'src/components/Layout/Collapsible/Collapsible'
+import Collapsible from 'src/components/Layout/Collapsible'
 
 const VariationAuthorisationSummary = ({
   variationTasks,

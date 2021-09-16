@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import Header from './Header'
-import UserContext from '../../UserContext/UserContext'
+import Header from '.'
+import UserContext from '../../UserContext'
 import { agentAndContractor } from 'factories/agent_and_contractor'
 
 describe('Header', () => {

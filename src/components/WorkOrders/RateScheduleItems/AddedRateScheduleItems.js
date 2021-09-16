@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { Fragment, useState } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
-import Spinner from '../../Spinner/Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import Spinner from '../../Spinner'
 import { getSorCode } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
 
 const AddedRateScheduleItems = ({

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { agent } from '../../../factories/agent'
-import UserContext from '../UserContext/UserContext'
+import UserContext from '../UserContext'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 
 describe('CloseWorkOrderForm component', () => {

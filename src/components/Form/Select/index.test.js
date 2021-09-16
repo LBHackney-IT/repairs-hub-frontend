@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react'
-import Select from './Select'
+import Select from '.'
 
 describe('Select component', () => {
   const props = {

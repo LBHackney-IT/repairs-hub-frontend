@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { PrimarySubmitButton } from '../../Form'
-import Button from 'src/components/Form/Button/Button'
+import Button from 'src/components/Form/Button'
 
 const AppointmentSummary = ({
   timeSlot,
