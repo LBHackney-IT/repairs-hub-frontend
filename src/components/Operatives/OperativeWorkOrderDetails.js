@@ -124,9 +124,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
 OperativeWorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
-  tenure: PropTypes.object.isRequired,
 }
 
 export default OperativeWorkOrderDetails

@@ -381,4 +381,52 @@ describe('Show property', () => {
       cy.audit()
     })
   })
+
+  describe('Out of hours link', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('workOrder')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+        },
+        { body: [] }
+      ).as('workOrdersHistory')
+    })
+
+    context('when the current time is out of working hours', () => {
+      beforeEach(() => {
+        cy.clock(new Date('Thursday 16 September 2021 18:01:00'))
+
+        cy.visit('/properties/00012345')
+        cy.wait(['@workOrdersHistory', '@workOrder'])
+      })
+
+      it('displays a link', () => {
+        cy.contains('a', 'Out of hours note').should(
+          'have.attr',
+          'href',
+          Cypress.env('NEXT_PUBLIC_OUT_OF_HOURS_LINK')
+        )
+      })
+    })
+
+    context('when the current time is within working hours', () => {
+      beforeEach(() => {
+        cy.clock(new Date('Thursday 16 September 2021 08:01:00'))
+
+        cy.visit('/properties/00012345')
+        cy.wait(['@workOrdersHistory', '@workOrder'])
+      })
+
+      it('does not display a link', () => {
+        cy.contains('a', 'Out of hours note').should('not.exist')
+      })
+    })
+  })
 })
