@@ -87,6 +87,24 @@ const PrintJobTicketDetails = ({
                   </td>
                 )}
               </tr>
+              {workOrder.operatives.length > 0 &&
+                workOrder.appointment &&
+                workOrder.appointmentStartTimePassed() && (
+                  <>
+                    <tr>
+                      <td className="lbh-heading-h5 govuk-!-padding-top-2">
+                        {workOrder.operatives.length > 1
+                          ? 'Operatives'
+                          : 'Operative'}
+                      </td>
+                      <td className="lbh-body-s">
+                        {`${workOrder.operatives
+                          .map((operative) => operative.name)
+                          .join(', ')}`}
+                      </td>
+                    </tr>
+                  </>
+                )}
             </tbody>
           </table>
 
