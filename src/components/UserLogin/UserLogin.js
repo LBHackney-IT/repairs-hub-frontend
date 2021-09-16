@@ -11,7 +11,7 @@ const UserLogin = ({ gssoUrl, submitText }) => {
         >
           {submitText}
           <svg
-            className="govuk-button__start-icon"
+            className="govuk-button__start-icon lbh-button__start-icon"
             xmlns="http://www.w3.org/2000/svg"
             width="17.5"
             height="19"

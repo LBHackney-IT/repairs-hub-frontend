@@ -27,7 +27,7 @@ const OperativeTasksAndSorsTable = ({ tasksAndSors, tabName }) => {
               {...entry}
             />
           ))}
-          <TR index={tasksAndSors.length} className="lbh-body-s">
+          <TR index={tasksAndSors.length} className="lbh-body">
             <TD>{}</TD>
             <TD>{}</TD>
             <TD type="numeric">
@@ -46,8 +46,8 @@ const OperativeTasksAndSorsTable = ({ tasksAndSors, tabName }) => {
 
   return (
     <>
-      <h2 className="lbh-heading-h2">{tabName}</h2>
-      <Table className="govuk-!-margin-top-5 latest-tasks-and-sors-table">
+      <h4 className="lbh-heading-h4">{tabName}</h4>
+      <Table className="latest-tasks-and-sors-table govuk-!-margin-top-0">
         {buildTable(tasksAndSors)}
       </Table>
       <br />

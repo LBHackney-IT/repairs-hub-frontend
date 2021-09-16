@@ -94,7 +94,7 @@ const TasksAndSorsTable = ({
 
   return (
     <>
-      <h2 className="lbh-heading-h2">{tabName}</h2>
+      <h2 className="lbh-heading-h2 tab-title">{tabName}</h2>
 
       <h4 className="lbh-heading-h4">
         Latest Tasks and SORs{' '}
@@ -109,7 +109,7 @@ const TasksAndSorsTable = ({
       <br />
       {tasksWereUpdated ? (
         <Collapsible
-          heading={`Original Tasks and SORs 
+          heading={`Original Tasks and SORs
         ${
           originalTasksAndSors && originalTasksAndSors.length > 0
             ? displayReadableDate(originalTasksAndSors, true)

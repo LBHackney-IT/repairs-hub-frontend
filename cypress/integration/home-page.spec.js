@@ -408,26 +408,45 @@ describe('Home page', () => {
         cy.wait('@operativesWorkOrders')
       })
 
-      it('Displays work order appointments slots and priority', () => {
+      it('Displays work order appointments, priority and any closed status', () => {
         cy.get('.lbh-heading-h1').contains('Friday, 11 June')
 
+        cy.get('.appointment-details').should('have.length', 4)
+
         cy.get('.lbh-list').within(() => {
-          cy.get('[data-id=0]').within(() => {
-            cy.get('.appointment-details').within(() => {
+          cy.get('li')
+            .eq(0)
+            .within(() => {
               cy.contains('08:00-13:00')
-              cy.contains('5 [N] NORMAL')
+              cy.contains('normal')
             })
+        })
+
+        cy.get('li')
+          .eq(1)
+          .within(() => {
+            cy.contains('12:00-18:00')
+            cy.contains('emergency')
           })
 
-          cy.get('[data-id=1]').within(() => {
-            cy.get('.appointment-details').within(() => {
-              cy.contains('12:00-18:00')
-              cy.contains('2 [E] EMERGENCY')
-            })
+        cy.get('li')
+          .eq(2)
+          .within(() => {
+            cy.contains('16:00-18:00')
+            cy.contains('emergency')
+            cy.contains('Completed')
           })
-          // check that when clicked on WO it takes user to Operative WO view page
-          cy.get('[data-id=0]').click()
-        })
+
+        cy.get('li')
+          .eq(3)
+          .within(() => {
+            cy.contains('17:00-18:00')
+            cy.contains('emergency')
+            cy.contains('Closed')
+          })
+
+        cy.get('[data-id=0]').click()
+
         cy.wait(['@operativesWorkOrder', '@property', '@task'])
         cy.contains('WO 10000621')
         cy.get('div[class*="Multibutton"]').should('not.exist')
@@ -435,8 +454,22 @@ describe('Home page', () => {
     })
 
     context("When they don't have work orders attached to them", () => {
+      beforeEach(() => {
+        //Stub request with operative's work orders response
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/operatives/hu0001/workorders',
+          },
+          {
+            body: [],
+          }
+        ).as('operativesWorkOrders')
+      })
+
       it('Displays a warning info box', () => {
         cy.visit('/')
+        cy.wait('@operativesWorkOrders')
 
         cy.get('.warning-info-box').within(() => {
           cy.get('.lbh-body-s').contains('No work orders displayed')

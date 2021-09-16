@@ -2,4 +2,14 @@
   @media print {
     padding: 0;
   }
+
+  @include govuk-media-query($until: tablet) {
+    padding-top: 18px;
+  }
+}
+
+.lbh-body {
+  @include govuk-media-query($until: tablet) {
+    margin-top: 1em;
+  }
 }

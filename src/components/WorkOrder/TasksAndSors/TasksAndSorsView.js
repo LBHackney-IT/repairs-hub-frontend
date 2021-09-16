@@ -2,19 +2,13 @@ import PropTypes from 'prop-types'
 import TasksAndSorsTable from './TasksAndSorsTable'
 import { sortArrayByDate } from '../../../utils/helpers/array'
 import { areTasksUpdated } from '../../../utils/tasks'
-import OperativeTasksAndSorsTable from './OperativeTasksAndSorsTable'
 
-const TasksAndSorsView = ({
-  tabName,
-  tasksAndSors,
-  showOperativeTasksAndSorsTable,
-}) => {
+const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
 
   return (
     tasksAndSors &&
-    tasksAndSors.length > 0 &&
-    (!showOperativeTasksAndSorsTable ? (
+    tasksAndSors.length > 0 && (
       <TasksAndSorsTable
         /**
                 Latest refers to the latest (live) tasks and sors against the work order,
@@ -30,17 +24,11 @@ const TasksAndSorsView = ({
         tasksWereUpdated={areTasksUpdated(tasksAndSors)}
         tabName={tabName}
       />
-    ) : (
-      <OperativeTasksAndSorsTable
-        tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
-        tabName={tabName}
-      />
-    ))
+    )
   )
 }
 
 TasksAndSorsView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
   tabName: PropTypes.string.isRequired,
 }
 

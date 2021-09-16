@@ -1,6 +1,6 @@
 import { Factory } from 'fishery'
 
-export const operativeUserFactory = Factory.define(() => ({
+const operativeUserFactory = Factory.define(() => ({
   name: 'An Agent',
   email: 'an.agent@hackney.gov.uk',
   roles: ['operative'],

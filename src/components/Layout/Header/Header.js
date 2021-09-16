@@ -30,23 +30,23 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
       )
     ) {
       return (
-        <section className="text-for-env-note govuk-!-display-none-print">
+        <div className="text-for-env-note govuk-!-display-none-print govuk-!-margin-0">
           <div className="lbh-container">
             <h3>
               {`This is not live, this is ${process.env.NEXT_PUBLIC_ENV_NAME}`.toUpperCase()}
             </h3>
           </div>
-        </section>
+        </div>
       )
     }
   }
 
   return (
     <>
-      {showDevelopmentNote()}
       <a href="#main-content" className="govuk-skip-link lbh-skip-link">
         Skip to main content
       </a>
+      {showDevelopmentNote()}
       <header
         className={`lbh-header govuk-!-display-none-print ${cx({
           'lbh-header--purple': process.env.NEXT_PUBLIC_ENV_NAME === 'staging',
@@ -102,7 +102,10 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
                 {showHeaderLinks()}
 
                 <MobileMenuButton
-                  toggleMobileMenu={toggleMobileMenu}
+                  onClick={() => {
+                    window.scroll({ top: 0, left: 0, behavior: 'auto' })
+                    toggleMobileMenu()
+                  }}
                   mobileMenuOpen={mobileMenuOpen}
                 />
               </>

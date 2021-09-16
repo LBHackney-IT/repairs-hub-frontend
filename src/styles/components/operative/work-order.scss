@@ -1,0 +1,42 @@
+.operative-work-order {
+  .appointment-info {
+    position: relative;
+    margin-left: -2rem;
+    margin-right: -1rem;
+    margin-top: -40px;
+    min-height: 0;
+    text-align: left;
+    h3 {
+      color: white;
+    }
+  }
+
+  .person-alert {
+    &--icon {
+      background: repairs-hub-colour('dark-red');
+      border: 3px solid repairs-hub-colour('dark-red');
+    }
+
+    &--text {
+      color: repairs-hub-colour('dark-red');
+    }
+  }
+
+  .align-grid-column {
+    margin-top: 0rem;
+  }
+
+  .priority-text {
+    text-align: right;
+    text-transform: capitalize;
+    font-size: 20px;
+
+    .lbh-heading-h3 {
+      font-weight: normal;
+    }
+  }
+
+  .property-name {
+    font-weight: 600;
+  }
+}

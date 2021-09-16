@@ -10,9 +10,12 @@ import { WorkOrder } from '../../models/workOrder'
 import { sortObjectsByDateKey } from '../../utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import OperativeWorkOrderDetails from '../Operatives/OperativeWorkOrderDetails'
-import TasksAndSorsView from './TasksAndSors/TasksAndSorsView'
 import UserContext from '../UserContext/UserContext'
 import { canSeeWorkOrder } from '../../utils/userPermissions'
+import Link from 'next/link'
+import { sortArrayByDate } from '../../utils/helpers/array'
+import OperativeTasksAndSorsTable from './TasksAndSors/OperativeTasksAndSorsTable'
+import WarningInfoBox from '../Template/WarningInfoBox'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const { user } = useContext(UserContext)
@@ -114,12 +117,26 @@ const WorkOrderView = ({ workOrderReference }) => {
           tasksAndSors={tasksAndSors}
         />
 
-        <TasksAndSorsView
-          workOrderReference={workOrderReference}
+        <OperativeTasksAndSorsTable
+          tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
           tabName={'Tasks and SORs'}
-          tasksAndSors={tasksAndSors}
-          showOperativeTasksAndSorsTable={true}
         />
+
+        <WarningInfoBox
+          header="Need to make a change?"
+          text="Any changes to the work order must be made on paper."
+        />
+
+        <Link href={`/work-orders/${workOrderReference}/close`}>
+          <a
+            role="button"
+            draggable="false"
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+          >
+            Confirm
+          </a>
+        </Link>
       </>
     )
   }

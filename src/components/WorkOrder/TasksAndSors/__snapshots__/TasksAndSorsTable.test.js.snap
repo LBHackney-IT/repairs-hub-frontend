@@ -3,7 +3,7 @@
 exports[`TasksAndSorsTable component renders latest and original tables when tasksWereUpdated prop is true 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-h2"
+    class="lbh-heading-h2 tab-title"
   >
     Tasks and SORs
   </h2>
@@ -216,7 +216,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
       <h2
         class="lbh-heading-h2 lbh-collapsible__heading"
       >
-        Original Tasks and SORs 
+        Original Tasks and SORs
         Added on 3 Feb 2021, 11:33
       </h2>
       <svg
@@ -364,7 +364,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
 exports[`TasksAndSorsTable component renders the latest table only, when tasksWereUpdated prop is false 1`] = `
 <DocumentFragment>
   <h2
-    class="lbh-heading-h2"
+    class="lbh-heading-h2 tab-title"
   >
     Tasks and SORs
   </h2>

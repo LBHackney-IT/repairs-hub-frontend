@@ -1,3 +1,4 @@
+import { OPERATIVE_ROLE } from './user'
 import {
   canSeeAllFilters,
   canSeeAppointmentDetailsInfo,
@@ -5,6 +6,7 @@ import {
   canAccessWorkOrder,
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
+  canAttendOwnWorkOrder,
 } from './userPermissions'
 
 describe('canSeeAllFilters', () => {
@@ -169,6 +171,30 @@ describe('canSeeOperativeWorkOrders', () => {
     }
     it('returns false', () => {
       expect(canSeeOperativeWorkOrders(user)).toBe(false)
+    })
+  })
+})
+
+describe('canAttendOwnWorkOrder', () => {
+  let user
+
+  describe('when the user has only an operative role', () => {
+    beforeEach(() => {
+      user = { roles: [OPERATIVE_ROLE] }
+    })
+
+    it('returns true', () => {
+      expect(canAttendOwnWorkOrder(user)).toBe(true)
+    })
+  })
+
+  describe('when the user does not just have the operative role', () => {
+    beforeEach(() => {
+      user = { roles: [OPERATIVE_ROLE, 'another_role'] }
+    })
+
+    it('returns false', () => {
+      expect(canAttendOwnWorkOrder(user)).toBe(false)
     })
   })
 })

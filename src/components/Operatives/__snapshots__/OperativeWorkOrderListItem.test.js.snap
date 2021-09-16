@@ -10,14 +10,14 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       class="appointment-details"
     >
       <p
-        class="lbh-body lbh-!-font-weight-bold text-white"
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
       >
         08:00-13:00
       </p>
       <p
-        class="lbh-body lbh-!-font-weight-bold text-white"
+        class="lbh-body lbh-!-font-weight-bold text-white govuk-!-margin-0 capitalize"
       >
-        5 [N] NORMAL
+        normal
       </p>
     </div>
     <div
