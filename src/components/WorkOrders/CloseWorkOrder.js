@@ -23,7 +23,7 @@ const CloseWorkOrder = ({ reference }) => {
     setLoading(true)
 
     try {
-      frontEndApiRequest({
+      await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
         requestData: workOrderCompleteFormData,
