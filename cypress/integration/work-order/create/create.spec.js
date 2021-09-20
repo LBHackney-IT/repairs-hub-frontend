@@ -136,7 +136,7 @@ describe('Raise repair form', () => {
       cy.get('select[id="rateScheduleItems[0][code]"]').should('be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select a contractor
-      cy.get('#contractor').select('HH General Building Repair - H01')
+      cy.get('#contractor').type('HH General Building Repair - H01')
       // SOR select is no longer disabled
       cy.get('select[id="rateScheduleItems[0][code]"]').should(
         'not.be.disabled'
@@ -163,7 +163,7 @@ describe('Raise repair form', () => {
       })
       // Select valid trade
       cy.get('#trade').clear().type('Plumbing - PL')
-      cy.get('#contractor').select('HH General Building Repair - H01')
+      cy.get('#contractor').type('HH General Building Repair - H01')
 
       // Select SOR code with no priority attached
       cy.get('select[id="rateScheduleItems[0][code]"]').select(
@@ -572,7 +572,7 @@ describe('Raise repair form', () => {
     // Select a trade
     cy.get('#trade').type('Plumbing - PL')
     // Select a contractor
-    cy.get('#contractor').select('HH General Building Repair - H01')
+    cy.get('#contractor').type('HH General Building Repair - H01')
     // Select an SOR with no cost
     cy.get('select[id="rateScheduleItems[0][code]"]').select(
       'DES5R003 - Immediate call outs'

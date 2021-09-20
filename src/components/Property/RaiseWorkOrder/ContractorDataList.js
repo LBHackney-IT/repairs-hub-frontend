@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { Select } from '../../Form'
+import { DataList } from '../../Form'
 
-const ContractorSelect = ({
+const ContractorDataList = ({
   loading,
   contractors,
   register,
@@ -25,7 +25,7 @@ const ContractorSelect = ({
         <Spinner />
       ) : (
         <>
-          <Select
+          <DataList
             name="contractor"
             label="Contractor"
             options={contractorList}
@@ -47,7 +47,7 @@ const ContractorSelect = ({
   )
 }
 
-ContractorSelect.propTypes = {
+ContractorDataList.propTypes = {
   contractors: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
@@ -55,4 +55,4 @@ ContractorSelect.propTypes = {
   disabled: PropTypes.bool.isRequired,
 }
 
-export default ContractorSelect
+export default ContractorDataList

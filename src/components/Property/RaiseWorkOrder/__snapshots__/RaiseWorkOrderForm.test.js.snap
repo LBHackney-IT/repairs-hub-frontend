@@ -122,18 +122,22 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
               >
                 *
               </span>
+               
             </label>
-            <select
+            <input
+              aria-disabled="true"
+              autocomplete="off"
               class="govuk-select lbh-select govuk-!-width-one-half"
               data-testid="contractor"
               disabled=""
               id="contractor"
+              list="autocomplete-list-contractor"
               name="contractor"
-            >
-              <option
-                value=""
-              />
-            </select>
+              value=""
+            />
+            <datalist
+              id="autocomplete-list-contractor"
+            />
           </div>
         </div>
         <input
