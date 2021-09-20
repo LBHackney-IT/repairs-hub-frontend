@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import SuccessPage from './SuccessPage'
+import SuccessPage from '.'
 import { user } from 'factories/agent'
-import UserContext from '../UserContext/UserContext'
+import UserContext from '../UserContext'
 
 describe('SuccessPage component', () => {
   describe('Approving / Rejecting a work order', () => {

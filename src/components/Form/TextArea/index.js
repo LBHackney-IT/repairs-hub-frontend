@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import ErrorMessage from '../../Errors/ErrorMessage'
 
 const TextArea = ({
   label,

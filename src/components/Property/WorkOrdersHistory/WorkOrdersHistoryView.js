@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
-import Spinner from '../../Spinner/Spinner'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
 import { getWorkOrdersForProperty } from '../../../utils/frontEndApiClient/workOrders'
 
 const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import TenureDetails from '../TenureDetails'
-import BackButton from '../../Layout/BackButton/BackButton'
+import BackButton from '../../Layout/BackButton'
 import {
   Select,
   PrimarySubmitButton,

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import Spinner from '../../Spinner/Spinner'
-import ErrorMessage from '../../Errors/ErrorMessage/ErrorMessage'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
 import { Select } from '../../Form'
 
 const ContractorSelect = ({

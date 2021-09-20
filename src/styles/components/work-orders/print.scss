@@ -32,8 +32,8 @@
       border: 2px solid black;
       background-color: #e2e2e2;
 
-      table:last-child {
-        border-left: 1px solid black;
+      table:first-child {
+        border-right: 1px solid black;
       }
 
       td:first-child {

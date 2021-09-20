@@ -82,7 +82,7 @@ describe('Show work order page', () => {
     cy.audit()
   })
 
-  context('When the work order has been assigned operatives', () => {
+  context('When the work order has been assigned one operative', () => {
     beforeEach(() => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.operatives = [
@@ -90,12 +90,6 @@ describe('Show work order page', () => {
             id: 0,
             payrollNumber: '0',
             name: 'Operative 1',
-            trades: ['DE'],
-          },
-          {
-            id: 1,
-            payrollNumber: '1',
-            name: 'Operative 2',
             trades: ['DE'],
           },
         ]
@@ -128,7 +122,6 @@ describe('Show work order page', () => {
         })
 
         cy.contains('Operative 1').should('not.exist')
-        cy.contains('Operative 2').should('not.exist')
       })
     })
 
@@ -145,10 +138,63 @@ describe('Show work order page', () => {
           cy.contains('19 Mar 2021, 12:00-18:00')
         })
 
-        cy.contains('Operatives: Operative 1, Operative 2')
+        cy.contains('Operative: Operative 1')
       })
     })
   })
+
+  context(
+    'When the work order has been assigned more than one operative',
+    () => {
+      beforeEach(() => {
+        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+          workOrder.operatives = [
+            {
+              id: 0,
+              payrollNumber: '0',
+              name: 'Operative 1',
+              trades: ['DE'],
+            },
+            {
+              id: 1,
+              payrollNumber: '1',
+              name: 'Operative 2',
+              trades: ['DE'],
+            },
+          ]
+
+          workOrder.appointment = {
+            date: '2021-03-19',
+            description: 'PM Slot',
+            end: '18:00',
+            start: '12:00',
+          }
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000012' },
+            { body: workOrder }
+          )
+        })
+      })
+
+      context('And the appointment start time is in the past', () => {
+        beforeEach(() => {
+          cy.clock(new Date('March 19 2021 12:01:00Z'))
+        })
+
+        it('Shows the assigned operatives', () => {
+          cy.visit('/work-orders/10000012')
+
+          cy.get('.appointment-details').within(() => {
+            cy.contains('Appointment details')
+            cy.contains('19 Mar 2021, 12:00-18:00')
+          })
+
+          cy.contains('Operatives: Operative 1, Operative 2')
+        })
+      })
+    }
+  )
 
   context(
     'When the work order has work orders on Work orders history tab',

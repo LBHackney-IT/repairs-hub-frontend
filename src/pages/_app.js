@@ -9,7 +9,7 @@ import {
   AUTH_WHITELIST,
 } from '../utils/googleAuth'
 
-import UserContext from '../components/UserContext/UserContext'
+import UserContext from '../components/UserContext'
 import Meta from '../components/Meta'
 
 if (typeof window !== 'undefined') {
@@ -27,7 +27,10 @@ class MyApp extends App {
     return (
       <>
         <UserContext.Provider value={{ user: this.props.userDetails }}>
-          <Layout>
+          <Layout
+            serviceName="Repairs Hub"
+            feedbackLink="mailto:repairshub.feedback@hackney.gov.uk"
+          >
             <Meta />
 
             <ComponentToRender

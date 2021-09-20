@@ -1,12 +1,12 @@
-import Button from './Button/Button'
-import PrimarySubmitButton from './Button/PrimarySubmitButton'
-import Select from './Select/Select'
-import TextArea from './TextArea/TextArea'
-import CharacterCountLimitedTextArea from './TextArea/CharacterCountLimitedTextArea'
-import TextInput from './TextInput/TextInput'
-import DataList from './DataList/DataList'
-import Checkbox from './Checkbox/Checkbox'
-import Radio from './Radios/Radios'
+import Button from './Button'
+import PrimarySubmitButton from './PrimarySubmitButton'
+import Select from './Select'
+import TextArea from './TextArea'
+import CharacterCountLimitedTextArea from './CharacterCountLimitedTextArea'
+import TextInput from './TextInput'
+import DataList from './DataList'
+import Checkbox from './Checkbox'
+import Radio from './Radios'
 
 export {
   Button,

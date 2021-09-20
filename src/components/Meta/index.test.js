@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import Meta from './Meta'
+import Meta from '.'
 
 jest.mock('next/head', () => {
   return {

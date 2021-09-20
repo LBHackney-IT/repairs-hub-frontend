@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import UserContext from '../../UserContext/UserContext'
+import UserContext from '../../UserContext'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import { agent } from 'factories/agent'
 import { contractor } from 'factories/contractor'

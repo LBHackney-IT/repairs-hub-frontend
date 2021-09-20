@@ -1,6 +1,6 @@
 import ProperTypes from 'prop-types'
 import { useEffect, useState } from 'react'
-import Select from '../Form/Select/Select'
+import Select from '../Form/Select'
 
 const SelectPercentage = ({
   updatePercentages,

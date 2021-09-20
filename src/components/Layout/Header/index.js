@@ -1,10 +1,10 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import UserContext from '../../UserContext/UserContext'
+import UserContext from '../../UserContext'
 import cx from 'classnames'
 import { headerLinksForUser } from 'src/utils/headerLinks'
-import MobileMenuButton from './MobileMenuButton'
+import MobileMenuButton from '../MobileMenuButton'
 
 const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
   const { user } = useContext(UserContext)

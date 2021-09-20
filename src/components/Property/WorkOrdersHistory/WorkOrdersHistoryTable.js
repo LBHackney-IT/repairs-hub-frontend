@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { PAGE_SIZE_AGENTS } from 'src/utils/frontEndApiClient/workOrders'
-import UserContext from '../../UserContext/UserContext'
+import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '../../../utils/userPermissions'

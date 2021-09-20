@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
 import PropertyDetailsGrid from './PropertyDetailsGrid'
-import BackButton from '../Layout/BackButton/BackButton'
+import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOutOfHours } from '../../utils/helpers/completionDateTimes'
 import Link from 'next/link'
 

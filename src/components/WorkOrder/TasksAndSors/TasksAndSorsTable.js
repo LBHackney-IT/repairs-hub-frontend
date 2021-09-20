@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsRow from './TasksAndSorsRow'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
-import Collapsible from 'src/components/Layout/Collapsible/Collapsible'
+import Collapsible from 'src/components/Layout/Collapsible'
 import { formatDateTime } from '../../../utils/time'
 import { calculateTotal } from '../../../utils/helpers/calculations'
 

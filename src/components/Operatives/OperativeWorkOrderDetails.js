@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import BackButton from '../Layout/BackButton/BackButton'
+import BackButton from '../Layout/BackButton'
 import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
@@ -61,7 +61,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
           <GridColumn width="one-half" className="align-grid-column">
             <div className="govuk-warning-text lbh-warning-text">
               <span
-                class="govuk-warning-text__icon person-alert--icon"
+                className="govuk-warning-text__icon person-alert--icon"
                 aria-hidden="true"
               >
                 !
