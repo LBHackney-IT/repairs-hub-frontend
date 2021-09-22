@@ -127,26 +127,24 @@ describe('Raise repair form', () => {
     cy.get('#repair-request-form').within(() => {
       // Expect contractors and sor code selection to be disabled until trade selected
       cy.get('#contractor').should('be.disabled')
-      cy.get('select[id="rateScheduleItems[0][code]"]').should('be.disabled')
+      cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select a trade (<datalist> required typed input for testing)
       cy.get('#trade').type('Plumbing - PL')
       // Contractor select is no longer disabled but sor code selection still is
       cy.get('#contractor').should('not.be.disabled')
-      cy.get('select[id="rateScheduleItems[0][code]"]').should('be.disabled')
+      cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select a contractor
-      cy.get('#contractor').select('HH General Building Repair - H01')
+      cy.get('#contractor').type('HH General Building Repair - H01')
       // SOR select is no longer disabled
-      cy.get('select[id="rateScheduleItems[0][code]"]').should(
-        'not.be.disabled'
-      )
+      cy.get('input[id="rateScheduleItems[0][code]"]').should('not.be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
         'not.be.disabled'
       )
       // Priority disabled until SOR is selected
       cy.get('#priorityDescription').should('be.disabled')
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
+      cy.get('input[id="rateScheduleItems[0][code]"]').type(
         'INP5R001 - Pre insp of wrks by Constructr'
       )
       cy.get('#priorityDescription').should('not.be.disabled')
@@ -154,7 +152,7 @@ describe('Raise repair form', () => {
       // Selecting no trade clears contractor and SOR code select options
       cy.get('#trade').clear()
       cy.get('#contractor').should('be.disabled')
-      cy.get('select[id="rateScheduleItems[0][code]"]').should('be.disabled')
+      cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select trade not included in list
       cy.get('#trade').type('Fake trade')
@@ -163,19 +161,19 @@ describe('Raise repair form', () => {
       })
       // Select valid trade
       cy.get('#trade').clear().type('Plumbing - PL')
-      cy.get('#contractor').select('HH General Building Repair - H01')
+      cy.get('#contractor').type('HH General Building Repair - H01')
 
       // Select SOR code with no priority attached
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
+      cy.get('input[id="rateScheduleItems[0][code]"]').type(
         'INP5R001 - Pre insp of wrks by Constructr'
       )
       // Does not autopopulate priority description
       cy.get('#priorityDescription').should('have.value', '')
 
       // Select SOR code with priority attached
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R003 - Immediate call outs'
-      )
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R003 - Immediate call outs')
       // Autopopulates priority description
       cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Removes Task Priority validation errors
@@ -184,9 +182,9 @@ describe('Raise repair form', () => {
       )
 
       // Select another SOR code
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R004 - Emergency call out')
       // Autopopulates priority description
       cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
 
@@ -201,15 +199,15 @@ describe('Raise repair form', () => {
       ).should('not.exist')
 
       // Select blank SOR Code
-      cy.get('select[id="rateScheduleItems[0][code]"]').select('')
+      cy.get('input[id="rateScheduleItems[0][code]"]').clear()
       cy.get(
         'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('Please select an SOR code')
       })
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R005 - Normal call outs'
-      )
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R005 - Normal call outs')
 
       // Enter a blank quantity
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('x')
@@ -278,23 +276,23 @@ describe('Raise repair form', () => {
       cy.get('.remove-rate-schedule-item').contains('-')
 
       // Select SOR Code from dropdown
-      cy.get('select[id="rateScheduleItems[1][code]"]').select(
-        'DES5R013 - Inspect additional sec entrance'
-      )
+      cy.get('input[id="rateScheduleItems[1][code]"]')
+        .clear()
+        .type('DES5R013 - Inspect additional sec entrance')
       // Priority description should remain same because inspection is a lower priority than normal
       cy.get('#priorityDescription').should('have.value', '5 [N] NORMAL')
       // Add another SOR code with higher priority
       cy.contains('+ Add another SOR code').click()
-      cy.get('select[id="rateScheduleItems[2][code]"]').select(
+      cy.get('input[id="rateScheduleItems[2][code]"]').type(
         'DES5R003 - Immediate call outs'
       )
       // Autopopulates priority description with the highest priority
       cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Add another SOR code with an emergency priority
       cy.contains('+ Add another SOR code').click()
-      cy.get('select[id="rateScheduleItems[3][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
+      cy.get('input[id="rateScheduleItems[3][code]"]')
+        .clear()
+        .type('DES5R004 - Emergency call out')
       cy.get('#priorityDescription').should('have.value', '1 [I] IMMEDIATE')
       // Remove SOR code at index 2
       cy.get('button[id="remove-rate-schedule-item-2"]').click()
@@ -304,9 +302,9 @@ describe('Raise repair form', () => {
       // Autopopulates priority description with the remaining highest priority
       cy.get('#priorityDescription').should('have.value', '5 [N] NORMAL')
       // Select SOR code with emergency priority at index 1
-      cy.get('select[id="rateScheduleItems[1][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
+      cy.get('input[id="rateScheduleItems[1][code]"]')
+        .clear()
+        .type('DES5R004 - Emergency call out')
       cy.get('#priorityDescription').should('have.value', '2 [E] EMERGENCY')
 
       // Try to submit form without quantity for this SOR code at index 1
@@ -319,16 +317,16 @@ describe('Raise repair form', () => {
         cy.contains('Please enter a quantity')
       })
       // Remove SOR code at index 1
-      cy.get('select[id="rateScheduleItems[1][code]"]').select('')
+      cy.get('input[id="rateScheduleItems[1][code]"]').clear()
       cy.get(
         'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('Please select an SOR code')
       })
       // Enter SOR code and quantity
-      cy.get('select[id="rateScheduleItems[1][code]"]').select(
-        'DES5R005 - Normal call outs'
-      )
+      cy.get('input[id="rateScheduleItems[1][code]"]')
+        .clear()
+        .type('DES5R005 - Normal call outs')
       cy.get(
         'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
       ).should('not.exist')
@@ -338,23 +336,23 @@ describe('Raise repair form', () => {
       ).should('not.exist')
       // Add another SOR code
       cy.contains('+ Add another SOR code').click()
-      cy.get('select[id="rateScheduleItems[2][code]"]').select(
-        'DES5R006 - Urgent call outs'
-      )
+      cy.get('input[id="rateScheduleItems[2][code]"]')
+        .clear()
+        .type('DES5R006 - Urgent call outs')
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('2')
       // Delete the SOR code at the targeted index
       cy.get('button[id="remove-rate-schedule-item-1"]').click()
-      cy.get('select[id="rateScheduleItems[1][code]"]').should('not.exist')
+      cy.get('input[id="rateScheduleItems[1][code]"]').should('not.exist')
       cy.get('input[id="rateScheduleItems[1][quantity]"]').should('not.exist')
       cy.get('input[id="rateScheduleItems[1][description]"]').should(
         'not.exist'
       )
       // Remaining SOR codes
       cy.get('button[id="remove-rate-schedule-item-1"]').should('not.exist')
-      cy.get('select[id="rateScheduleItems[0][code]"]').select(
-        'DES5R004 - Emergency call out'
-      )
-      cy.get('select[id="rateScheduleItems[0][code]"]').should(
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R004 - Emergency call out')
+      cy.get('input[id="rateScheduleItems[0][code]"]').should(
         'have.value',
         'DES5R004 - Emergency call out'
       )
@@ -363,7 +361,7 @@ describe('Raise repair form', () => {
         '1'
       )
       cy.get('button[id="remove-rate-schedule-item-0"]').should('not.exist')
-      cy.get('select[id="rateScheduleItems[2][code]"]').should(
+      cy.get('input[id="rateScheduleItems[2][code]"]').should(
         'have.value',
         'DES5R006 - Urgent call outs'
       )
@@ -572,9 +570,9 @@ describe('Raise repair form', () => {
     // Select a trade
     cy.get('#trade').type('Plumbing - PL')
     // Select a contractor
-    cy.get('#contractor').select('HH General Building Repair - H01')
+    cy.get('#contractor').type('HH General Building Repair - H01')
     // Select an SOR with no cost
-    cy.get('select[id="rateScheduleItems[0][code]"]').select(
+    cy.get('input[id="rateScheduleItems[0][code]"]').type(
       'DES5R003 - Immediate call outs'
     )
     cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
@@ -583,7 +581,7 @@ describe('Raise repair form', () => {
 
     // Select an SOR with cost: £50.17
     cy.contains('+ Add another SOR code').click()
-    cy.get('select[id="rateScheduleItems[1][code]"]').select(
+    cy.get('input[id="rateScheduleItems[1][code]"]').type(
       '20060020 - BATHROOM PLUMBING REPAIRS'
     )
     // Select a quantity to make total 50.17 x 5 = 250.85
@@ -602,7 +600,7 @@ describe('Raise repair form', () => {
 
     // Add another SOR with cost: £5.80
     cy.contains('+ Add another SOR code').click()
-    cy.get('select[id="rateScheduleItems[2][code]"]').select(
+    cy.get('input[id="rateScheduleItems[2][code]"]').type(
       '20060030 - KITCHEN PLUMBING REPAIRS'
     )
     // Add quantity of 1 to make total 200.68 + (5.80 x 9) = 252.88

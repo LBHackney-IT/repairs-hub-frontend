@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
-import ContractorSelect from './ContractorSelect'
+import ContractorDataList from './ContractorDataList'
 import { getContractors } from '../../../utils/frontEndApiClient/contractors'
 import { getSorCodes } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
 
@@ -116,7 +116,7 @@ const TradeContractorRateScheduleItemView = ({
         value={tradeCode}
       />
 
-      <ContractorSelect
+      <ContractorDataList
         loading={loadingContractors}
         contractors={contractors}
         onContractorSelect={onContractorSelect}

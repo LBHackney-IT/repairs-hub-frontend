@@ -112,9 +112,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.get('select[id="rateScheduleItems[0][code]"]').select(
+        cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R006 - Urgent call outs'
         )
 
@@ -253,9 +253,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.get('select[id="rateScheduleItems[0][code]"]').select(
+        cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
         )
 
@@ -459,9 +459,9 @@ describe('Schedule appointment form', () => {
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').select('HH General Building Repair - H01')
+          cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+          cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R005 - Normal call outs'
           )
 
@@ -523,9 +523,9 @@ describe('Schedule appointment form', () => {
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').select('HH General Building Repair - H01')
+          cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+          cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R006 - Urgent call outs'
           )
 
@@ -569,9 +569,9 @@ describe('Schedule appointment form', () => {
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').select('HH General Building Repair - H01')
+          cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+          cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R003 - Immediate call outs'
           )
 
@@ -609,9 +609,9 @@ describe('Schedule appointment form', () => {
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').select('HH General Building Repair - H01')
+          cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+          cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R004 - Emergency call out'
           )
 
@@ -656,9 +656,9 @@ describe('Schedule appointment form', () => {
 
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').select('HH General Building Repair - H01')
+          cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('select[id="rateScheduleItems[0][code]"]').select(
+          cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R005 - Normal call outs'
           )
 
