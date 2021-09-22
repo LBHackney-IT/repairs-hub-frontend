@@ -1,6 +1,110 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PropertyDetails component should render properly 1`] = `
+exports[`PropertyDetails component when the date is after out of hours should show the link should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <h1
+      class="lbh-heading-h1 govuk-!-margin-bottom-2"
+    >
+      Dwelling: 16 Pitcairn House
+    </h1>
+    <div>
+      <span
+        class="lbh-heading-h2 text-green"
+      >
+        <a
+          class="lbh-link"
+          href="/properties/00012345/raise-repair/new"
+        >
+          <strong>
+            Raise a work order on this dwelling
+          </strong>
+        </a>
+      </span>
+    </div>
+    <div>
+      <a
+        class="lbh-link lbh-body-l lbh-!-font-weight-medium"
+        href="https://hackney.gov.uk"
+        rel="noopener"
+        target="_blank"
+      >
+        Out of hours note
+      </a>
+    </div>
+    <div
+      class="govuk-grid-row"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body-s"
+        >
+          <div
+            class="property-details-main-section"
+          >
+            <span
+              class="govuk-!-font-size-14"
+            >
+              Property details
+            </span>
+            <br />
+            <div
+              class="lbh-!-font-weight-bold"
+            >
+              16 Pitcairn House
+              <br />
+              St Thomass Square
+              <br />
+              <span
+                class="govuk-!-font-size-14"
+              >
+                E9 6PT
+              </span>
+            </div>
+          </div>
+          <ul
+            class="lbh-list hackney-property-alerts"
+          >
+            <li
+              class="bg-dark-green"
+            >
+              Tenure: Secure
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Address Alert: Property Under Disrepair (
+              <strong>
+                DIS
+              </strong>
+              )
+            </li>
+            <li
+              class="bg-orange"
+            >
+              Contact Alert: Property Under Disrepair (
+              <strong>
+                DIS
+              </strong>
+              )
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PropertyDetails component when the date is before out of hours does not show the link should render properly 1`] = `
 <DocumentFragment>
   <div>
     <a
