@@ -108,9 +108,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.get('select[id="rateScheduleItems[0][code]"]').select(
+        cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
         )
 
@@ -362,9 +362,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
-        cy.get('#contractor').select('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.get('select[id="rateScheduleItems[0][code]"]').select(
+        cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
         )
 

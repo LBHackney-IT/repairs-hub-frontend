@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../Layout/Grid'
-import { Select, TextInput } from '../Form'
+import { DataList, TextInput } from '../Form'
 
 const RateScheduleItem = ({
   onChange,
@@ -20,7 +20,7 @@ const RateScheduleItem = ({
   hiddenDescriptionValue,
   cost,
 }) => {
-  let FormComponent = isTextInput ? TextInput : Select
+  let FormComponent = isTextInput ? TextInput : DataList
 
   return (
     <>
