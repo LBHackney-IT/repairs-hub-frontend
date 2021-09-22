@@ -3,6 +3,7 @@ import BackButton from '../Layout/BackButton'
 import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
+import Link from 'next/link'
 
 const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
   <>
@@ -56,7 +57,11 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => (
       {personAlerts.length > 0 && (
         <GridRow>
           <GridColumn width="one-half">
-            <div className="lbh-heading-h5">Caut. contact</div>
+            <Link
+              href={`/work-orders/${workOrder.reference}/cautionary-contact`}
+            >
+              <a className="lbh-heading-h5 lbh-link">Caut. contact</a>
+            </Link>
           </GridColumn>
           <GridColumn width="one-half" className="align-grid-column">
             <div className="govuk-warning-text lbh-warning-text">

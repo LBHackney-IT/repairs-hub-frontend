@@ -60,11 +60,12 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="lbh-heading-h5"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="/work-orders/10000621/cautionary-contact"
         >
           Caut. contact
-        </div>
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
