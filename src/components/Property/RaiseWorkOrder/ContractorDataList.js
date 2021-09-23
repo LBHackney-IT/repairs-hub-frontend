@@ -28,6 +28,7 @@ const ContractorDataList = ({
           <DataList
             name="contractor"
             label="Contractor"
+            labelMessage="- Search by name or code"
             options={contractorList}
             onChange={onContractorSelect}
             disabled={disabled}

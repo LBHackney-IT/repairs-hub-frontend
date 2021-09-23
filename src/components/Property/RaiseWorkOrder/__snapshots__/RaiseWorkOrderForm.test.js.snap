@@ -123,6 +123,9 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                 *
               </span>
                
+              <span>
+                 - Search by name or code
+              </span>
             </label>
             <input
               aria-disabled="true"
