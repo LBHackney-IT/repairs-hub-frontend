@@ -8,12 +8,12 @@ const PhaseBanner = ({ feedbackLink }) => {
           Beta
         </strong>
         <span className="govuk-phase-banner__text">
-          This is our new website design - it's work in progress.
+          This is a new service - your
           <span> </span>
-          <a href={feedbackLink} title="Tell us what you think">
-            Tell us what you think
-          </a>
-          , your feedback will help us to improve it.
+          <a href={feedbackLink} title="feedback">
+            feedback
+          </a>{' '}
+          will help us to improve it.
         </span>
       </p>
     </div>
