@@ -54,7 +54,7 @@ const RateScheduleItem = ({
               },
             })}
             error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
-            widthClass="govuk-!-width-full"
+            widthClass="govuk-!-margin-top-0 govuk-!-width-full"
           />
 
           <input

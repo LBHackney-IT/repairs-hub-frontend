@@ -224,7 +224,7 @@ exports[`UpdateWorkOrderForm component should render properly 1`] = `
               </span>
             </label>
             <input
-              class="govuk-input lbh-input govuk-!-width-full"
+              class="govuk-input lbh-input govuk-!-margin-top-0 govuk-!-width-full"
               id="rateScheduleItems[undefined][code]"
               name="rateScheduleItems[undefined][code]"
               options="DES5R004"
