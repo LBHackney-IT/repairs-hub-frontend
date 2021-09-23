@@ -32,6 +32,7 @@ const RateScheduleItem = ({
           <FormComponent
             name={`rateScheduleItems[${index}][code]`}
             label="SOR Code"
+            labelMessage="- Search by code or description"
             options={sorCodesList}
             defaultValue={code ?? ''}
             disabled={disabled}
