@@ -31,6 +31,10 @@ describe('headerLinksForUser', () => {
 
       expect(links).toEqual([
         expect.objectContaining({
+          description: 'Cautionary Contact',
+          href: 'cautionary-contact',
+        }),
+        expect.objectContaining({
           description: 'Sign out',
           href: 'logout',
         }),
