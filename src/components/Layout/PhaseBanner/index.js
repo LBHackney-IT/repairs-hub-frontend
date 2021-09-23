@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 const PhaseBanner = ({ feedbackLink }) => {
   return (
@@ -10,9 +11,9 @@ const PhaseBanner = ({ feedbackLink }) => {
         <span className="govuk-phase-banner__text">
           This is a new service - your
           <span> </span>
-          <a href={feedbackLink} title="feedback">
-            feedback
-          </a>{' '}
+          <Link href={feedbackLink}>
+            <a title="feedback">feedback</a>
+          </Link>{' '}
           will help us to improve it.
         </span>
       </p>
