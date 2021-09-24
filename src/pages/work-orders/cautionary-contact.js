@@ -2,7 +2,11 @@ import CautionaryContactView from '../../components/CautionaryContact/Cautionary
 import { OPERATIVE_ROLE } from '../../utils/user'
 
 const CautionaryContactPage = ({ query }) => {
-  return <CautionaryContactView cautContact={query.cautContact} />
+  if (Object.entries(query).length === 0) {
+    return <CautionaryContactView />
+  } else {
+    return <CautionaryContactView query={query} />
+  }
 }
 export const getServerSideProps = async (ctx) => {
   const { query } = ctx
