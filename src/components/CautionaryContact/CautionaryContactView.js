@@ -6,7 +6,13 @@ const CautionaryContactView = (query) => {
     <>
       <BackButton />
       <h3 className="lbh-heading-h3">Cautionary contact</h3>
-      <CautionaryContactTable codes={query ? query.query.cautContact : false} />
+      <CautionaryContactTable
+        codes={
+          query && query.query && query.query.cautContact
+            ? query.query.cautContact
+            : false
+        }
+      />
     </>
   )
 }

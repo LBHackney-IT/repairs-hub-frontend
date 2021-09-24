@@ -13,7 +13,7 @@ const CautionaryContactTable = (codes) => {
         <TBody>
           {CAUTIONARY_CONTACT.map((entry, index) => (
             <TR key={index} index={index}>
-              {codes && codes.codes.includes(entry.code) ? (
+              {codes && codes.codes && codes.codes.includes(entry.code) ? (
                 <>
                   <TD className="highlight-for-existing-code">{entry.code}</TD>
                   <TD className="highlight-for-existing-code">
