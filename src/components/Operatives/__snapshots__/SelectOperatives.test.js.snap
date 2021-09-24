@@ -23,7 +23,7 @@ exports[`SelectOperatives component should render properly 1`] = `
         </label>
         <input
           autocomplete="off"
-          class="govuk-select lbh-select undefined"
+          class="govuk-select lbh-select govuk-!-width-full"
           data-testid="operative-0"
           id="operative-0"
           list="autocomplete-list-operative-0"

@@ -123,6 +123,9 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                 *
               </span>
                
+              <span>
+                 - Search by name or code
+              </span>
             </label>
             <input
               aria-disabled="true"
@@ -172,11 +175,14 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                       *
                     </span>
                      
+                    <span>
+                       - Search by code or description
+                    </span>
                   </label>
                   <input
                     aria-disabled="true"
                     autocomplete="off"
-                    class="govuk-select lbh-select govuk-!-width-full"
+                    class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
                     data-testid="rateScheduleItems[0][code]"
                     disabled=""
                     id="rateScheduleItems[0][code]"
