@@ -29,7 +29,7 @@ const HEADER_LINKS = [
     ],
   },
   {
-    href: 'cautionary-contact',
+    href: 'work-orders/cautionary-contact',
     id: 'cautionary-contact',
     description: 'Cautionary Contact',
     permittedRoles: [OPERATIVE_ROLE],

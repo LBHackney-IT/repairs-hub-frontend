@@ -62,7 +62,7 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
       >
         <a
           class="lbh-heading-h5 lbh-link"
-          href="/work-orders/10000621/cautionary-contact"
+          href="#"
         >
           Caut. contact
         </a>
