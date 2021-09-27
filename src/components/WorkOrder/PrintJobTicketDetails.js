@@ -58,46 +58,44 @@ const PrintJobTicketDetails = ({
           <table className="govuk-!-padding-top-2 govuk-!-padding-bottom-2">
             <tbody>
               <tr>
-                <td className="lbh-heading-h5">Work Order Number</td>
                 <td className="lbh-body-s">
+                  <strong>Work order number: </strong>
                   {workOrder.reference.toString().padStart(8, '0')}
                 </td>
               </tr>
               <tr>
-                <td className="lbh-heading-h5 govuk-!-padding-top-2">
-                  Appointment Date
+                <td className="lbh-body-s">
+                  <strong>Appointment date: </strong>
+                  {workOrder.appointment && (
+                    <>
+                      {
+                        formatDateTime(
+                          new Date(workOrder.appointment['date'])
+                        ).split(',')[0]
+                      }
+                    </>
+                  )}
                 </td>
-                {workOrder.appointment && (
-                  <td className="lbh-body-s">
-                    {
-                      formatDateTime(
-                        new Date(workOrder.appointment['date'])
-                      ).split(',')[0]
-                    }
-                  </td>
-                )}
               </tr>
               <tr>
-                <td className="lbh-heading-h5 govuk-!-padding-top-2">
-                  Appointment Slot
+                <td className="lbh-body-s">
+                  <strong>Appointment slot: </strong>
+                  {workOrder.appointment && (
+                    <>{workOrder?.appointment['description']}</>
+                  )}
                 </td>
-                {workOrder.appointment && (
-                  <td className="lbh-body-s">
-                    {workOrder?.appointment['description']}
-                  </td>
-                )}
               </tr>
               {workOrder.operatives.length > 0 &&
                 workOrder.appointment &&
                 workOrder.appointmentStartTimePassed() && (
                   <>
                     <tr>
-                      <td className="lbh-heading-h5 govuk-!-padding-top-2">
-                        {workOrder.operatives.length > 1
-                          ? 'Operatives'
-                          : 'Operative'}
-                      </td>
                       <td className="lbh-body-s">
+                        <strong>
+                          {workOrder.operatives.length > 1
+                            ? 'Operatives'
+                            : 'Operative'}
+                        </strong>
                         {`${workOrder.operatives
                           .map((operative) => operative.name)
                           .join(', ')}`}
@@ -111,8 +109,8 @@ const PrintJobTicketDetails = ({
           <table className="govuk-!-margin-top-0 govuk-!-padding-top-2 govuk-!-padding-bottom-2">
             <tbody>
               <tr>
-                <td className="lbh-heading-h5">Address</td>
                 <td className="lbh-body-s">
+                  <strong>Address: </strong>
                   {address.addressLine}
                   <br />
                   {address.streetSuffix && address.streetSuffix}
@@ -121,8 +119,10 @@ const PrintJobTicketDetails = ({
                 </td>
               </tr>
               <tr>
-                <td className="lbh-heading-h5">Neighbourhood</td>
-                <td className="lbh-body-s">{tmoName}</td>
+                <td className="lbh-body-s">
+                  <strong>Neighbourhood: </strong>
+                  {tmoName}
+                </td>
               </tr>
             </tbody>
           </table>
@@ -137,15 +137,17 @@ const PrintJobTicketDetails = ({
             <table>
               <tbody>
                 <tr>
-                  <td className="lbh-heading-h5">Name</td>
-                  <td className="lbh-body-s">{workOrder.callerName}</td>
+                  <td className="lbh-body-s">
+                    <strong>Name: </strong>
+                    {workOrder.callerName}
+                  </td>
                 </tr>
 
                 <tr>
-                  <td className="lbh-heading-h5 govuk-!-padding-top-2">
-                    Phone no
+                  <td className="lbh-body-s">
+                    <strong>Phone number: </strong>
+                    {workOrder.callerNumber}
                   </td>
-                  <td className="lbh-body-s">{workOrder.callerNumber}</td>
                 </tr>
               </tbody>
             </table>
@@ -153,12 +155,12 @@ const PrintJobTicketDetails = ({
             <table className="govuk-!-margin-top-0">
               <tbody>
                 <tr>
-                  <td className="lbh-heading-h5">Appointment Notes</td>
-                  {workOrder.appointment && (
-                    <td className="lbh-body-s">
-                      {workOrder.appointment['note'] || 'None'}
-                    </td>
-                  )}
+                  <td className="lbh-body-s">
+                    <strong>Appointment notes: </strong>
+                    {workOrder.appointment && (
+                      <>{workOrder.appointment['note'] || 'None'}</>
+                    )}
+                  </td>
                 </tr>
               </tbody>
             </table>
@@ -176,40 +178,38 @@ const PrintJobTicketDetails = ({
 
           <div className="job-fields">
             <div className="display-inline">
-              <h5 className="lbh-heading-h5 display-inline">Trade</h5>
-              <span className="lbh-body-s govuk-!-margin-left-4">
+              <p className="lbh-body-s display-inline">
+                <strong>Trade: </strong>
                 {workOrder.tradeCode}
-              </span>
+              </p>
             </div>
-            <div className="display-inline govuk-!-margin-left-9">
-              <h5 className="lbh-heading-h5 display-inline">Contract</h5>
-              <span className="lbh-body-s govuk-!-margin-left-4">
+            <div className="display-inline govuk-!-margin-left-4">
+              <p className="lbh-body-s display-inline">
+                <strong>Contract: </strong>
                 {workOrder.contractorReference}
-              </span>
+              </p>
             </div>
-            <div className="display-inline govuk-!-margin-left-9">
-              <h5 className="lbh-heading-h5 display-inline">Priority</h5>
-              <span className="lbh-body-s govuk-!-margin-left-4">
+            <div className="display-inline govuk-!-margin-left-4">
+              <p className="lbh-body-s display-inline">
+                <strong>Priority: </strong>
                 {workOrder.priority}
-              </span>
+              </p>
             </div>
           </div>
 
           <div className="govuk-!-margin-top-4">
-            <h5 className="lbh-heading-h5 display-inline">Job description</h5>
-            <span className="lbh-body-s govuk-!-margin-left-4">
+            <p className="lbh-body-s display-inline">
+              <strong>Job description: </strong>
               {workOrder.description}
-            </span>
+            </p>
           </div>
 
           {workOrder.plannerComments && (
             <div className="govuk-!-margin-top-4">
-              <h5 className="lbh-heading-h5 display-inline">
-                Planner comments
-              </h5>
-              <span className="lbh-body-s govuk-!-margin-left-4">
+              <p className="lbh-body-s display-inline">
+                <strong>Planner comments: </strong>
                 {workOrder.plannerComments}
-              </span>
+              </p>
             </div>
           )}
 
@@ -232,45 +232,6 @@ const PrintJobTicketDetails = ({
                   <td>{entry.standardMinuteValue}</td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="sor-changes">
-          <h3 className="lbh-heading-h3 govuk-!-font-weight-bold display-inline">
-            SOR changes
-          </h3>
-          <div className="recharge govuk-!-margin-top-0">
-            <span className="checkbox"></span>
-            <span className="lbh-body-m govuk-!-font-weight-bold">
-              Recharge
-            </span>
-          </div>
-
-          <table className="print-table govuk-table">
-            <thead>
-              <tr>
-                <th className="govuk-table__header lbh-body-s">SOR</th>
-                <th className="govuk-table__header lbh-body-s">Description</th>
-                <th className="govuk-table__header lbh-body-s">Units</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
-              <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
             </tbody>
           </table>
         </div>
