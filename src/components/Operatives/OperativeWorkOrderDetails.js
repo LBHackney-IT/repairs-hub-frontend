@@ -72,6 +72,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
               <a
                 className="lbh-heading-h5 lbh-link"
                 href="#"
+                id="caut-contact"
                 onClick={redirectToCautContactPage}
               >
                 Caut. contact
