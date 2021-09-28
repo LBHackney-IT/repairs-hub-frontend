@@ -305,7 +305,7 @@ describe('Show work order page', () => {
       cy.wait('@operativesWorkOrders')
     })
 
-    it('shows list of caut contact page with highlited codes', () => {
+    it('shows list of cautionary contact page with highlighted codes', () => {
       cy.visit('work-orders/10000621')
 
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
@@ -315,35 +315,33 @@ describe('Show work order page', () => {
 
       //cautionary contact page
 
-      cy.contains('Cautionary contac')
+      cy.contains('Cautionary contact')
       cy.get('[data-row-id=15]').within(() => {
-        cy.get('.highlight-for-existing-code').contains('CV')
-        cy.get('.highlight-for-existing-code').contains('No Lone Visits')
+        cy.get('.text-dark-red').contains('CV')
+        cy.get('.text-dark-red').contains('No Lone Visits')
       })
 
       cy.get('[data-row-id=23]').within(() => {
-        cy.get('.highlight-for-existing-code').contains('VA')
-        cy.get('.highlight-for-existing-code').contains(
-          'Verbal Abuse or Threat of'
-        )
+        cy.get('.text-dark-red').contains('VA')
+        cy.get('.text-dark-red').contains('Verbal Abuse or Threat of')
       })
     })
 
-    it('shows list of caut contact page without highlited codes', () => {
+    it('shows list of cautionary contact page without highlighted codes', () => {
       cy.visit('/')
 
       cy.get('a[id="cautionary-contact"]').click()
 
       //cautionary contact page
-      cy.contains('Cautionary contac')
+      cy.contains('Cautionary contact')
       cy.get('[data-row-id=15]').within(() => {
-        cy.get('.highlight-for-existing-code').should('not.exist')
-        cy.get('.highlight-for-existing-code').should('not.exist')
+        cy.get('.text-dark-red').should('not.exist')
+        cy.get('.text-dark-red').should('not.exist')
       })
 
       cy.get('[data-row-id=23]').within(() => {
-        cy.get('.highlight-for-existing-code').should('not.exist')
-        cy.get('.highlight-for-existing-code').should('not.exist')
+        cy.get('.text-dark-red').should('not.exist')
+        cy.get('.text-dark-red').should('not.exist')
       })
     })
   })

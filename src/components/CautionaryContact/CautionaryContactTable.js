@@ -16,10 +16,10 @@ const CautionaryContactTable = ({ cautionaryContacts, query }) => {
             <TR key={index} index={index}>
               {query && query.includes(cautionaryContact.code) ? (
                 <>
-                  <TD className="highlight-for-existing-code">
+                  <TD className="text-dark-red lbh-!-font-weight-bold">
                     {cautionaryContact.code}
                   </TD>
-                  <TD className="highlight-for-existing-code">
+                  <TD className="text-dark-red lbh-!-font-weight-bold">
                     {cautionaryContact.description}
                   </TD>
                 </>
@@ -36,6 +36,7 @@ const CautionaryContactTable = ({ cautionaryContacts, query }) => {
     </>
   )
 }
+
 CautionaryContactTable.propTypes = {
   cautionaryContacts: PropTypes.arrayOf(
     PropTypes.shape({

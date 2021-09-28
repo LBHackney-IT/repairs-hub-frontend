@@ -6,6 +6,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
 } from 'src/utils/user'
+
 describe('CautionaryContactPage.permittedRoles', () => {
   ;[OPERATIVE_ROLE].forEach((role) => {
     it(`permits the ${role} role to access the page`, () => {
