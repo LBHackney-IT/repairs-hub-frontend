@@ -93,8 +93,8 @@ const PrintJobTicketDetails = ({
                       <td className="lbh-body-s">
                         <strong>
                           {workOrder.operatives.length > 1
-                            ? 'Operatives'
-                            : 'Operative'}
+                            ? 'Operatives: '
+                            : 'Operative: '}
                         </strong>
                         {`${workOrder.operatives
                           .map((operative) => operative.name)
