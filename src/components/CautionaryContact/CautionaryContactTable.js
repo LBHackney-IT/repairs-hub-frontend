@@ -44,7 +44,7 @@ CautionaryContactTable.propTypes = {
       description: PropTypes.string.isRequired,
     })
   ).isRequired,
-  query: PropTypes.string,
+  query: PropTypes.array,
 }
 
 export default CautionaryContactTable

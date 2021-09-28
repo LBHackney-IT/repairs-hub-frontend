@@ -17,6 +17,7 @@ export const getServerSideProps = async (ctx) => {
     },
   }
 }
+
 CautionaryContactPage.permittedRoles = [OPERATIVE_ROLE]
 
 export default CautionaryContactPage
