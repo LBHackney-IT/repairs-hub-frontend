@@ -85,24 +85,24 @@ const PrintJobTicketDetails = ({
                   )}
                 </td>
               </tr>
-              {workOrder.operatives.length > 0 &&
-                workOrder.appointment &&
-                workOrder.appointmentStartTimePassed() && (
-                  <>
-                    <tr>
-                      <td className="lbh-body-s">
-                        <strong>
-                          {workOrder.operatives.length > 1
-                            ? 'Operatives: '
-                            : 'Operative: '}
-                        </strong>
+              <tr>
+                <td className="lbh-body-s">
+                  <strong>
+                    {workOrder.operatives.length > 1
+                      ? 'Operatives: '
+                      : 'Operative: '}
+                  </strong>
+                  {workOrder.operatives.length > 0 &&
+                    workOrder.appointment &&
+                    workOrder.appointmentStartTimePassed() && (
+                      <>
                         {`${workOrder.operatives
                           .map((operative) => operative.name)
                           .join(', ')}`}
-                      </td>
-                    </tr>
-                  </>
-                )}
+                      </>
+                    )}
+                </td>
+              </tr>
             </tbody>
           </table>
 
@@ -204,14 +204,12 @@ const PrintJobTicketDetails = ({
             </p>
           </div>
 
-          {workOrder.plannerComments && (
-            <div className="govuk-!-margin-top-4">
-              <p className="lbh-body-s display-inline">
-                <strong>Planner comments: </strong>
-                {workOrder.plannerComments}
-              </p>
-            </div>
-          )}
+          <div className="govuk-!-margin-top-4">
+            <p className="lbh-body-s display-inline">
+              <strong>Planner comments: </strong>
+              {workOrder.plannerComments}
+            </p>
+          </div>
 
           <table className="sors govuk-!-margin-top-6 govuk-!-margin-bottom-3">
             <thead>
