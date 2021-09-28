@@ -32,6 +32,7 @@ const RateScheduleItem = ({
           <FormComponent
             name={`rateScheduleItems[${index}][code]`}
             label="SOR Code"
+            labelMessage="- Search by code or description"
             options={sorCodesList}
             defaultValue={code ?? ''}
             disabled={disabled}
@@ -54,7 +55,7 @@ const RateScheduleItem = ({
               },
             })}
             error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
-            widthClass="govuk-!-width-full"
+            widthClass="govuk-!-margin-top-0 govuk-!-width-full"
           />
 
           <input
