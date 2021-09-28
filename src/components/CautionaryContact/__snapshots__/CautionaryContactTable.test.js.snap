@@ -1,18 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CautionaryContactView component when logged in as an operative and has NO queries should render properly: with NO highlithed codes 1`] = `
+exports[`CautionaryContactTable component when logged in as an operative and has NO queries should render properly: with NO highlithed codes 1`] = `
 <DocumentFragment>
-  <a
-    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
-    role="button"
-  >
-    Back
-  </a>
-  <h3
-    class="lbh-heading-h3"
-  >
-    Cautionary contact
-  </h3>
   <table
     class="govuk-table lbh-table"
   >
@@ -404,19 +393,8 @@ exports[`CautionaryContactView component when logged in as an operative and has 
 </DocumentFragment>
 `;
 
-exports[`CautionaryContactView component when logged in as an operative and has queries should render properly: with highlithed codes 1`] = `
+exports[`CautionaryContactTable component when logged in as an operative and has queries should render properly: with highlithed codes 1`] = `
 <DocumentFragment>
-  <a
-    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
-    role="button"
-  >
-    Back
-  </a>
-  <h3
-    class="lbh-heading-h3"
-  >
-    Cautionary contact
-  </h3>
   <table
     class="govuk-table lbh-table"
   >
@@ -448,12 +426,12 @@ exports[`CautionaryContactView component when logged in as an operative and has 
         data-row-id="0"
       >
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           DAT
         </td>
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           [Temporary] Dangerous Animals
         </td>
@@ -478,12 +456,12 @@ exports[`CautionaryContactView component when logged in as an operative and has 
         data-row-id="2"
       >
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           CIT
         </td>
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           [Temporary] No Lone Interviews
         </td>
@@ -793,12 +771,12 @@ exports[`CautionaryContactView component when logged in as an operative and has 
         data-row-id="23"
       >
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           VA
         </td>
         <td
-          class="govuk-table__cell highlight-for-existing-code"
+          class="govuk-table__cell"
         >
           Verbal Abuse or Threat of
         </td>

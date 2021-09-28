@@ -8,11 +8,11 @@ import { useRouter } from 'next/router'
 const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
   const router = useRouter()
 
-  const redirectToCautContactPage = () => {
+  const cautContactURL = () => {
     router.push({
       pathname: `/work-orders/cautionary-contact`,
       query: {
-        cautContact: personAlerts.map((alert) => alert.type),
+        cautContactCodes: personAlerts.map((alert) => alert.type),
       },
     })
   }
@@ -73,7 +73,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
                 className="lbh-heading-h5 lbh-link"
                 href="#"
                 id="caut-contact"
-                onClick={redirectToCautContactPage}
+                onClick={cautContactURL}
               >
                 Caut. contact
               </a>
