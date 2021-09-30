@@ -5,9 +5,8 @@ import { formatDateTime } from 'src/utils/time'
 
 const PrintJobTicketDetails = ({
   workOrder,
-  address,
+  property,
   tenure,
-  tmoName,
   tasksAndSors,
 }) => {
   return (
@@ -111,17 +110,18 @@ const PrintJobTicketDetails = ({
               <tr>
                 <td className="lbh-body-s">
                   <strong>Address: </strong>
-                  {address.addressLine}
+                  {property.address.addressLine}
                   <br />
-                  {address.streetSuffix && address.streetSuffix}
-                  {address.streetSuffix && <br />}
-                  {address.postalCode}
+                  {property.address.streetSuffix &&
+                    property.address.streetSuffix}
+                  {property.address.streetSuffix && <br />}
+                  {property.address.postalCode}
                 </td>
               </tr>
               <tr>
                 <td className="lbh-body-s">
                   <strong>Neighbourhood: </strong>
-                  {tmoName}
+                  {property.tmoName}
                 </td>
               </tr>
             </tbody>
@@ -242,9 +242,16 @@ const PrintJobTicketDetails = ({
 
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  address: PropTypes.object.isRequired,
-  tmoName: PropTypes.object,
+  property: PropTypes.object.isRequired,
   tenure: PropTypes.object.isRequired,
+  tasksAndSors: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      description: PropTypes.string,
+      quantity: PropTypes.number,
+      standardMinuteValue: PropTypes.number,
+    })
+  ).isRequired,
 }
 
 export default PrintJobTicketDetails
