@@ -6,9 +6,13 @@ import { formatDateTime } from 'src/utils/time'
 const PrintJobTicketDetails = ({
   workOrder,
   property,
-  tenure,
+  personAlerts,
   tasksAndSors,
 }) => {
+  const getPersonAlertsType = () => {
+    return personAlerts.map((alert) => alert.type)
+  }
+
   return (
     <>
       <div className="print-work-order">
@@ -167,7 +171,7 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {tenure.typeCode && <WarningText text={tenure.typeCode} />}
+        {getPersonAlertsType() && <WarningText text={getPersonAlertsType()} />}
 
         <hr />
 
@@ -243,7 +247,7 @@ const PrintJobTicketDetails = ({
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   property: PropTypes.object.isRequired,
-  tenure: PropTypes.object.isRequired,
+  personAlerts: PropTypes.array.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string,

@@ -164,7 +164,7 @@ const WorkOrderView = ({ workOrderReference }) => {
         <PrintJobTicketDetails
           workOrder={workOrder}
           property={property}
-          tenure={tenure}
+          personAlerts={personAlerts}
           tasksAndSors={tasksAndSors}
         />
       </>
