@@ -344,5 +344,36 @@ describe('Show work order page', () => {
         cy.get('.text-dark-red').should('not.exist')
       })
     })
+
+    it('shows links to expand description text, if text is more than 3 lines', () => {
+      cy.visit('work-orders/10000621')
+
+      cy.wait(['@operativesWorkOrder', '@property', '@task'])
+      cy.contains('WO 10000621')
+
+      // contains not full description, checks for css class that hides the rest of the text (.truncate)
+      cy.contains('Description')
+      cy.get('.truncate').within(() => {
+        cy.contains(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+        )
+      })
+      cy.get('a').contains('show more').click()
+      //css class responsible for hiding the rest of the text should not exist
+      cy.get('.truncate').should('not.exist')
+      cy.get('a').contains('show more').should('not.exist')
+      //full text
+      cy.contains(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      )
+
+      cy.get('a').contains('show less').click()
+      //hides full text
+      cy.get('.truncate').within(() => {
+        cy.contains(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+        )
+      })
+    })
   })
 })

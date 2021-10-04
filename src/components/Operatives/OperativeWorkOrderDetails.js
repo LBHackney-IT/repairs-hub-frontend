@@ -4,9 +4,12 @@ import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
+import { useCallback, useState } from 'react'
 
 const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
   const router = useRouter()
+  const [textOverflow, setTextOverflow] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
 
   const cautContactURL = () => {
     router.push({
@@ -16,6 +19,22 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
       },
     })
   }
+
+  const onShowMoreClick = () => {
+    setIsExpanded(true)
+  }
+
+  const onShowLessClick = () => {
+    setIsExpanded(false)
+  }
+
+  const pRef = useCallback((node) => {
+    if (node != null) {
+      if (node.scrollHeight > node.clientHeight) {
+        setTextOverflow(true)
+      }
+    }
+  })
 
   return (
     <>
@@ -57,8 +76,35 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
           </GridColumn>
         </GridRow>
         <div className="lbh-heading-h5">Description</div>
-        <p className="govuk-body">{workOrder.description}</p>
-
+        <p
+          ref={pRef}
+          className={`govuk-body govuk-!-margin-bottom-0 ${
+            isExpanded ? '' : 'truncate'
+          }`}
+        >
+          {workOrder.description}
+        </p>
+        {textOverflow ? (
+          !isExpanded ? (
+            <a
+              className="govuk-body lbh-link"
+              href="#"
+              onClick={onShowMoreClick}
+            >
+              show more
+            </a>
+          ) : (
+            <a
+              className="govuk-body lbh-link"
+              href="#"
+              onClick={onShowLessClick}
+            >
+              show less
+            </a>
+          )
+        ) : (
+          ''
+        )}
         {workOrder.plannerComments && (
           <>
             <div className="lbh-heading-h5">Planner Comment</div>

@@ -40,3 +40,11 @@
     font-weight: 600;
   }
 }
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line-clamp, 3);
+  -webkit-box-orient: vertical;
+  word-break: var(--word-break, 'none');
+  overflow: hidden;
+}
