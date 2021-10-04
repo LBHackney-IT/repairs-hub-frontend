@@ -6,11 +6,19 @@ import { formatDateTime } from 'src/utils/time'
 const PrintJobTicketDetails = ({
   workOrder,
   property,
+  locationAlerts,
   personAlerts,
   tasksAndSors,
 }) => {
-  const getPersonAlertsType = () => {
-    return personAlerts.map((alert) => alert.type)
+  const getCautionaryAlertsType = () => {
+    let cautionaryAlerts = [...locationAlerts, ...personAlerts].map(
+      (cautionaryAlert) => cautionaryAlert.type
+    )
+    let uniqueCautionaryAlertsType = [...new Set(cautionaryAlerts)]
+
+    return uniqueCautionaryAlertsType.length > 1
+      ? uniqueCautionaryAlertsType.join(', ')
+      : uniqueCautionaryAlertsType.join('')
   }
 
   return (
@@ -171,7 +179,9 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {getPersonAlertsType() && <WarningText text={getPersonAlertsType()} />}
+        {getCautionaryAlertsType() && (
+          <WarningText text={getCautionaryAlertsType()} />
+        )}
 
         <hr />
 
@@ -247,6 +257,7 @@ const PrintJobTicketDetails = ({
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   property: PropTypes.object.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
   personAlerts: PropTypes.array.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
