@@ -5,11 +5,22 @@ import { formatDateTime } from 'src/utils/time'
 
 const PrintJobTicketDetails = ({
   workOrder,
-  address,
-  tenure,
-  tmoName,
+  property,
+  locationAlerts,
+  personAlerts,
   tasksAndSors,
 }) => {
+  const getCautionaryAlertsType = () => {
+    let cautionaryAlerts = [...locationAlerts, ...personAlerts].map(
+      (cautionaryAlert) => cautionaryAlert.type
+    )
+    let uniqueCautionaryAlertsType = [...new Set(cautionaryAlerts)]
+
+    return uniqueCautionaryAlertsType.length > 1
+      ? uniqueCautionaryAlertsType.join(', ')
+      : uniqueCautionaryAlertsType.join('')
+  }
+
   return (
     <>
       <div className="print-work-order">
@@ -111,17 +122,18 @@ const PrintJobTicketDetails = ({
               <tr>
                 <td className="lbh-body-s">
                   <strong>Address: </strong>
-                  {address.addressLine}
+                  {property.address.addressLine}
                   <br />
-                  {address.streetSuffix && address.streetSuffix}
-                  {address.streetSuffix && <br />}
-                  {address.postalCode}
+                  {property.address.streetSuffix &&
+                    property.address.streetSuffix}
+                  {property.address.streetSuffix && <br />}
+                  {property.address.postalCode}
                 </td>
               </tr>
               <tr>
                 <td className="lbh-body-s">
                   <strong>Neighbourhood: </strong>
-                  {tmoName}
+                  {property.tmoName}
                 </td>
               </tr>
             </tbody>
@@ -167,7 +179,9 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {tenure.typeCode && <WarningText text={tenure.typeCode} />}
+        {getCautionaryAlertsType() && (
+          <WarningText text={getCautionaryAlertsType()} />
+        )}
 
         <hr />
 
@@ -242,9 +256,17 @@ const PrintJobTicketDetails = ({
 
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  address: PropTypes.object.isRequired,
-  tmoName: PropTypes.object,
-  tenure: PropTypes.object.isRequired,
+  property: PropTypes.object.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
+  personAlerts: PropTypes.array.isRequired,
+  tasksAndSors: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      description: PropTypes.string,
+      quantity: PropTypes.number,
+      standardMinuteValue: PropTypes.number,
+    })
+  ).isRequired,
 }
 
 export default PrintJobTicketDetails
