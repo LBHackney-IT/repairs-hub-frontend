@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { Table, THead, TBody, TR, TH, TD } from '../Layout/Table'
 
-const CautionaryContactTable = ({ cautionaryContacts, query }) => {
+const CautionaryAlertsTable = ({ cautionaryAlerts, query }) => {
   return (
     <>
       <Table>
@@ -12,21 +12,21 @@ const CautionaryContactTable = ({ cautionaryContacts, query }) => {
           </TR>
         </THead>
         <TBody>
-          {cautionaryContacts.map((cautionaryContact, index) => (
+          {cautionaryAlerts.map((cautionaryAlert, index) => (
             <TR key={index} index={index}>
-              {query && query.includes(cautionaryContact.code) ? (
+              {query && query.includes(cautionaryAlert.code) ? (
                 <>
                   <TD className="text-dark-red lbh-!-font-weight-bold">
-                    {cautionaryContact.code}
+                    {cautionaryAlert.code}
                   </TD>
                   <TD className="text-dark-red lbh-!-font-weight-bold">
-                    {cautionaryContact.description}
+                    {cautionaryAlert.description}
                   </TD>
                 </>
               ) : (
                 <>
-                  <TD>{cautionaryContact.code}</TD>
-                  <TD>{cautionaryContact.description}</TD>
+                  <TD>{cautionaryAlert.code}</TD>
+                  <TD>{cautionaryAlert.description}</TD>
                 </>
               )}
             </TR>
@@ -37,8 +37,8 @@ const CautionaryContactTable = ({ cautionaryContacts, query }) => {
   )
 }
 
-CautionaryContactTable.propTypes = {
-  cautionaryContacts: PropTypes.arrayOf(
+CautionaryAlertsTable.propTypes = {
+  cautionaryAlerts: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string.isRequired,
       description: PropTypes.string.isRequired,
@@ -47,4 +47,4 @@ CautionaryContactTable.propTypes = {
   query: PropTypes.array,
 }
 
-export default CautionaryContactTable
+export default CautionaryAlertsTable
