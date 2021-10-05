@@ -1,3 +1,10 @@
+import AWSXRay from 'aws-xray-sdk'
+import http from 'http'
+import https from 'https'
+
+AWSXRay.captureHTTPsGlobal(http)
+AWSXRay.captureHTTPsGlobal(https)
+
 import cookie from 'cookie'
 import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
