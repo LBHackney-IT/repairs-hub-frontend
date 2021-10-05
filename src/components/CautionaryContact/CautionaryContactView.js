@@ -1,6 +1,6 @@
 import BackButton from '../Layout/BackButton'
 import CautionaryContactTable from './CautionaryContactTable'
-import { CAUTIONARY_CONTACT } from '../../utils/cautContactAlertsDescription'
+import { CAUTIONARY_CONTACT } from '../../utils/cautContactAlerts'
 
 const CautionaryContactView = (searchQuery) => {
   const cautionaryContacts = CAUTIONARY_CONTACT

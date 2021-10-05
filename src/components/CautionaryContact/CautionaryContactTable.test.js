@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
 import CautionaryContactTable from './CautionaryContactTable'
 import { operative } from 'factories/operative'
-import { CAUTIONARY_CONTACT } from '../../utils/cautContactAlertsDescription'
+import { CAUTIONARY_CONTACT } from '../../utils/cautContactAlerts'
 
 describe('CautionaryContactTable component', () => {
   const props = {

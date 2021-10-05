@@ -95,4 +95,32 @@ export const CAUTIONARY_CONTACT = [
     code: 'VA',
     description: 'Verbal Abuse or Threat of',
   },
+  {
+    code: 'APT',
+    description: 'Adapted Property',
+  },
+  {
+    code: 'VOID',
+    description: 'Property is VOID',
+  },
+  {
+    code: 'DIS',
+    description: 'Property Under Disrepair',
+  },
+  {
+    code: 'TERM',
+    description:
+      'Tenant has requested termination of tenancy please refer calls to housing officer',
+  },
 ]
+
+export const getCautionaryAlertsType = (locationAlerts, personAlerts) => {
+  let cautionaryAlerts = [...locationAlerts, ...personAlerts].map(
+    (cautionaryAlert) => cautionaryAlert.type
+  )
+  let uniqueCautionaryAlertsType = [...new Set(cautionaryAlerts)]
+
+  return uniqueCautionaryAlertsType.length > 1
+    ? uniqueCautionaryAlertsType.join(', ')
+    : uniqueCautionaryAlertsType.join('')
+}

@@ -114,6 +114,7 @@ const WorkOrderView = ({ workOrderReference }) => {
           property={property}
           workOrder={workOrder}
           personAlerts={personAlerts}
+          locationAlerts={locationAlerts}
           tasksAndSors={tasksAndSors}
         />
 

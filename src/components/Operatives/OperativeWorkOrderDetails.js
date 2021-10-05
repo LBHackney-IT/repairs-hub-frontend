@@ -5,8 +5,14 @@ import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
+import { getCautionaryAlertsType } from '../../utils/cautContactAlerts'
 
-const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
+const OperativeWorkOrderDetails = ({
+  property,
+  workOrder,
+  personAlerts,
+  locationAlerts,
+}) => {
   const router = useRouter()
   const [textOverflow, setTextOverflow] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
@@ -15,7 +21,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
     router.push({
       pathname: `/work-orders/cautionary-contact`,
       query: {
-        cautContactCodes: personAlerts.map((alert) => alert.type),
+        cautContactCodes: getCautionaryAlertsType(locationAlerts, personAlerts),
       },
     })
   }
@@ -112,7 +118,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
           </>
         )}
 
-        {personAlerts.length > 0 && (
+        {(personAlerts.length > 0 || locationAlerts.length > 0) && (
           <GridRow>
             <GridColumn width="one-half">
               <a
@@ -133,7 +139,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
                   !
                 </span>
                 <strong className="govuk-warning-text__text person-alert--text">
-                  {personAlerts.map((alert) => alert.type).join(',')}
+                  {getCautionaryAlertsType(locationAlerts, personAlerts)}
                 </strong>
               </div>
             </GridColumn>
@@ -192,6 +198,7 @@ OperativeWorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   personAlerts: PropTypes.array.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
 }
 
 export default OperativeWorkOrderDetails
