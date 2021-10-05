@@ -1,4 +1,4 @@
-export const CAUTIONARY_CONTACT = [
+export const CAUTIONARY_ALERTS = [
   {
     code: 'DAT',
     description: '[Temporary] Dangerous Animals',

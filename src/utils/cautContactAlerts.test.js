@@ -1,7 +1,7 @@
 import { getCautionaryAlertsType } from './cautContactAlerts'
 
 describe('getCautionaryAlertsType', () => {
-  it('combines two arrays of alerts and returns types of alerts', () => {
+  it('combines two arrays of alerts and returns unique types of alerts', () => {
     const locationAlerts = [
       {
         type: 'DAT',
