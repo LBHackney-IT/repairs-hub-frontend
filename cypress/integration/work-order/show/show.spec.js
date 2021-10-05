@@ -305,17 +305,17 @@ describe('Show work order page', () => {
       cy.wait('@operativesWorkOrders')
     })
 
-    it('shows list of cautionary contact page with highlighted codes', () => {
+    it('shows list of cautionary alerts page with highlighted codes', () => {
       cy.visit('work-orders/10000621')
 
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
       cy.contains('WO 10000621')
       cy.get('div[class*="Multibutton"]').should('not.exist')
-      cy.get('a[id="caut-contact"]').click()
+      cy.get('a[id="caut-alerts"]').click()
 
-      //cautionary contact page
+      //cautionary alerts page
 
-      cy.contains('Cautionary contact')
+      cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').contains('CV')
         cy.get('.text-dark-red').contains('No Lone Visits')
@@ -327,13 +327,13 @@ describe('Show work order page', () => {
       })
     })
 
-    it('shows list of cautionary contact page without highlighted codes', () => {
+    it('shows list of cautionary alerts page without highlighted codes', () => {
       cy.visit('/')
 
-      cy.get('a[id="cautionary-contact"]').click()
+      cy.get('a[id="cautionary-alerts"]').click()
 
-      //cautionary contact page
-      cy.contains('Cautionary contact')
+      //cautionary alerts page
+      cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').should('not.exist')
         cy.get('.text-dark-red').should('not.exist')

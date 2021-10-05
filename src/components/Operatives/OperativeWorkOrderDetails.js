@@ -19,7 +19,7 @@ const OperativeWorkOrderDetails = ({
 
   const cautContactURL = () => {
     router.push({
-      pathname: `/work-orders/cautionary-contact`,
+      pathname: `/work-orders/cautionary-alerts`,
       query: {
         cautContactCodes: getCautionaryAlertsType(locationAlerts, personAlerts),
       },
@@ -124,10 +124,10 @@ const OperativeWorkOrderDetails = ({
               <a
                 className="lbh-heading-h5 lbh-link"
                 href="#"
-                id="caut-contact"
+                id="caut-alerts"
                 onClick={cautContactURL}
               >
-                Caut. contact
+                Caut. alerts
               </a>
             </GridColumn>
             <GridColumn width="one-half" className="align-grid-column">

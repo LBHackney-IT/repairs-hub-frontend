@@ -63,9 +63,9 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
         <a
           class="lbh-heading-h5 lbh-link"
           href="#"
-          id="caut-contact"
+          id="caut-alerts"
         >
-          Caut. contact
+          Caut. alerts
         </a>
       </div>
       <div
