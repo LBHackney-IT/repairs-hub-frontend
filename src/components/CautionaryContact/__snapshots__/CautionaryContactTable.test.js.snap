@@ -388,6 +388,66 @@ exports[`CautionaryContactTable component when logged in as an operative and has
           Verbal Abuse or Threat of
         </td>
       </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="24"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          APT
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Adapted Property
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="25"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          VOID
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Property is VOID
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="26"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DIS
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Property Under Disrepair
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="27"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          TERM
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Tenant has requested termination of tenancy please refer calls to housing officer
+        </td>
+      </tr>
     </tbody>
   </table>
 </DocumentFragment>
@@ -779,6 +839,66 @@ exports[`CautionaryContactTable component when logged in as an operative and has
           class="govuk-table__cell"
         >
           Verbal Abuse or Threat of
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="24"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          APT
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Adapted Property
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="25"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          VOID
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Property is VOID
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="26"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          DIS
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Property Under Disrepair
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row"
+        data-row-id="27"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          TERM
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          Tenant has requested termination of tenancy please refer calls to housing officer
         </td>
       </tr>
     </tbody>

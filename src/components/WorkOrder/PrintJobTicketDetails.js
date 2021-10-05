@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import WarningText from '../Template/WarningText'
 import { WorkOrder } from '../../models/workOrder'
 import { formatDateTime } from 'src/utils/time'
+import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
 
 const PrintJobTicketDetails = ({
   workOrder,
@@ -10,17 +11,6 @@ const PrintJobTicketDetails = ({
   personAlerts,
   tasksAndSors,
 }) => {
-  const getCautionaryAlertsType = () => {
-    let cautionaryAlerts = [...locationAlerts, ...personAlerts].map(
-      (cautionaryAlert) => cautionaryAlert.type
-    )
-    let uniqueCautionaryAlertsType = [...new Set(cautionaryAlerts)]
-
-    return uniqueCautionaryAlertsType.length > 1
-      ? uniqueCautionaryAlertsType.join(', ')
-      : uniqueCautionaryAlertsType.join('')
-  }
-
   return (
     <>
       <div className="print-work-order">
@@ -179,8 +169,10 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {getCautionaryAlertsType() && (
-          <WarningText text={getCautionaryAlertsType()} />
+        {getCautionaryAlertsType(locationAlerts, personAlerts) && (
+          <WarningText
+            text={getCautionaryAlertsType(locationAlerts, personAlerts)}
+          />
         )}
 
         <hr />

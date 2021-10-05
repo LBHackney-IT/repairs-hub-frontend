@@ -83,7 +83,7 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
           <strong
             class="govuk-warning-text__text person-alert--text"
           >
-            DIS
+            CIT, DIS
           </strong>
         </div>
       </div>

@@ -54,6 +54,14 @@ describe('OperativeWorkOrderDetails component', () => {
           endDate: null,
         },
       ],
+      locationAlerts: [
+        {
+          type: 'CIT',
+          comments: '[Temporary] No Lone Interviews',
+          startDate: '2011-08-16',
+          endDate: null,
+        },
+      ],
     },
   }
 
@@ -64,6 +72,7 @@ describe('OperativeWorkOrderDetails component', () => {
           property={props.property}
           workOrder={new WorkOrder(workOrderData)}
           personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
         />
       )
       expect(asFragment()).toMatchSnapshot()
