@@ -16,12 +16,16 @@ const OperativeWorkOrderDetails = ({
   const router = useRouter()
   const [textOverflow, setTextOverflow] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
+  const cautionaryAlertsType = getCautionaryAlertsType(
+    locationAlerts,
+    personAlerts
+  )
 
   const cautContactURL = () => {
     router.push({
       pathname: `/work-orders/cautionary-contact`,
       query: {
-        cautContactCodes: getCautionaryAlertsType(locationAlerts, personAlerts),
+        cautContactCodes: cautionaryAlertsType,
       },
     })
   }
@@ -118,7 +122,7 @@ const OperativeWorkOrderDetails = ({
           </>
         )}
 
-        {(personAlerts.length > 0 || locationAlerts.length > 0) && (
+        {cautionaryAlertsType && (
           <GridRow>
             <GridColumn width="one-half">
               <a
@@ -139,7 +143,7 @@ const OperativeWorkOrderDetails = ({
                   !
                 </span>
                 <strong className="govuk-warning-text__text person-alert--text">
-                  {getCautionaryAlertsType(locationAlerts, personAlerts)}
+                  {cautionaryAlertsType}
                 </strong>
               </div>
             </GridColumn>

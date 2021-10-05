@@ -11,6 +11,11 @@ const PrintJobTicketDetails = ({
   personAlerts,
   tasksAndSors,
 }) => {
+  const cautionaryAlertsType = getCautionaryAlertsType(
+    locationAlerts,
+    personAlerts
+  )
+
   return (
     <>
       <div className="print-work-order">
@@ -169,11 +174,7 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {getCautionaryAlertsType(locationAlerts, personAlerts) && (
-          <WarningText
-            text={getCautionaryAlertsType(locationAlerts, personAlerts)}
-          />
-        )}
+        {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
 
         <hr />
 
