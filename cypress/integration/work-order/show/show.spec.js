@@ -305,17 +305,17 @@ describe('Show work order page', () => {
       cy.wait('@operativesWorkOrders')
     })
 
-    it('shows list of cautionary contact page with highlighted codes', () => {
+    it('shows list of cautionary alerts page with highlighted codes', () => {
       cy.visit('work-orders/10000621')
 
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
       cy.contains('WO 10000621')
       cy.get('div[class*="Multibutton"]').should('not.exist')
-      cy.get('a[id="caut-contact"]').click()
+      cy.get('a[id="caut-alerts"]').click()
 
-      //cautionary contact page
+      //cautionary alerts page
 
-      cy.contains('Cautionary contact')
+      cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').contains('CV')
         cy.get('.text-dark-red').contains('No Lone Visits')
@@ -327,13 +327,13 @@ describe('Show work order page', () => {
       })
     })
 
-    it('shows list of cautionary contact page without highlighted codes', () => {
+    it('shows list of cautionary alerts page without highlighted codes', () => {
       cy.visit('/')
 
-      cy.get('a[id="cautionary-contact"]').click()
+      cy.get('a[id="cautionary-alerts"]').click()
 
-      //cautionary contact page
-      cy.contains('Cautionary contact')
+      //cautionary alerts page
+      cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').should('not.exist')
         cy.get('.text-dark-red').should('not.exist')
@@ -342,6 +342,37 @@ describe('Show work order page', () => {
       cy.get('[data-row-id=23]').within(() => {
         cy.get('.text-dark-red').should('not.exist')
         cy.get('.text-dark-red').should('not.exist')
+      })
+    })
+
+    it('shows links to expand description text, if text is more than 3 lines', () => {
+      cy.visit('work-orders/10000621')
+
+      cy.wait(['@operativesWorkOrder', '@property', '@task'])
+      cy.contains('WO 10000621')
+
+      // contains not full description, checks for css class that hides the rest of the text (.truncate)
+      cy.contains('Description')
+      cy.get('.truncate').within(() => {
+        cy.contains(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+        )
+      })
+      cy.get('a').contains('show more').click()
+      //css class responsible for hiding the rest of the text should not exist
+      cy.get('.truncate').should('not.exist')
+      cy.get('a').contains('show more').should('not.exist')
+      //full text
+      cy.contains(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      )
+
+      cy.get('a').contains('show less').click()
+      //hides full text
+      cy.get('.truncate').within(() => {
+        cy.contains(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+        )
       })
     })
   })

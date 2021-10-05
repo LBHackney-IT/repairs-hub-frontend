@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
-import CautionaryContactTable from './CautionaryContactTable'
+import CautionaryAlertsTable from './CautionaryAlertsTable'
 import { operative } from 'factories/operative'
-import { CAUTIONARY_CONTACT } from '../../utils/cautContactAlertsDescription'
+import { CAUTIONARY_ALERTS } from '../../utils/cautionaryAlerts'
 
-describe('CautionaryContactTable component', () => {
+describe('CautionaryAlertsTable component', () => {
   const props = {
-    cautionaryContacts: CAUTIONARY_CONTACT,
+    cautionaryAlerts: CAUTIONARY_ALERTS,
     query: ['VA', 'DAT', 'CIT'],
   }
 
@@ -14,9 +14,7 @@ describe('CautionaryContactTable component', () => {
     it('should render properly: with NO highlithed codes', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: operative }}>
-          <CautionaryContactTable
-            cautionaryContacts={props.cautionaryContacts}
-          />
+          <CautionaryAlertsTable cautionaryAlerts={props.cautionaryAlerts} />
         </UserContext.Provider>
       )
       expect(asFragment()).toMatchSnapshot()
@@ -27,8 +25,8 @@ describe('CautionaryContactTable component', () => {
     it('should render properly: with highlithed codes', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: operative }}>
-          <CautionaryContactTable
-            cautionaryContacts={props.cautionaryContacts}
+          <CautionaryAlertsTable
+            cautionaryAlerts={props.cautionaryAlerts}
             query={props.query.cautContact}
           />
         </UserContext.Provider>

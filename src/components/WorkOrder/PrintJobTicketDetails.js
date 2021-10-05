@@ -2,14 +2,20 @@ import PropTypes from 'prop-types'
 import WarningText from '../Template/WarningText'
 import { WorkOrder } from '../../models/workOrder'
 import { formatDateTime } from 'src/utils/time'
+import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
 
 const PrintJobTicketDetails = ({
   workOrder,
-  address,
-  tenure,
-  tmoName,
+  property,
+  locationAlerts,
+  personAlerts,
   tasksAndSors,
 }) => {
+  const cautionaryAlertsType = getCautionaryAlertsType(
+    locationAlerts,
+    personAlerts
+  )
+
   return (
     <>
       <div className="print-work-order">
@@ -111,17 +117,18 @@ const PrintJobTicketDetails = ({
               <tr>
                 <td className="lbh-body-s">
                   <strong>Address: </strong>
-                  {address.addressLine}
+                  {property.address.addressLine}
                   <br />
-                  {address.streetSuffix && address.streetSuffix}
-                  {address.streetSuffix && <br />}
-                  {address.postalCode}
+                  {property.address.streetSuffix &&
+                    property.address.streetSuffix}
+                  {property.address.streetSuffix && <br />}
+                  {property.address.postalCode}
                 </td>
               </tr>
               <tr>
                 <td className="lbh-body-s">
                   <strong>Neighbourhood: </strong>
-                  {tmoName}
+                  {property.tmoName}
                 </td>
               </tr>
             </tbody>
@@ -167,7 +174,7 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {tenure.typeCode && <WarningText text={tenure.typeCode} />}
+        {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
 
         <hr />
 
@@ -242,9 +249,17 @@ const PrintJobTicketDetails = ({
 
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  address: PropTypes.object.isRequired,
-  tmoName: PropTypes.object,
-  tenure: PropTypes.object.isRequired,
+  property: PropTypes.object.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
+  personAlerts: PropTypes.array.isRequired,
+  tasksAndSors: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      description: PropTypes.string,
+      quantity: PropTypes.number,
+      standardMinuteValue: PropTypes.number,
+    })
+  ).isRequired,
 }
 
 export default PrintJobTicketDetails

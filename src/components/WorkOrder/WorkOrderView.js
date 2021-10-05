@@ -114,6 +114,7 @@ const WorkOrderView = ({ workOrderReference }) => {
           property={property}
           workOrder={workOrder}
           personAlerts={personAlerts}
+          locationAlerts={locationAlerts}
           tasksAndSors={tasksAndSors}
         />
 
@@ -163,9 +164,9 @@ const WorkOrderView = ({ workOrderReference }) => {
         {/* Only displayed for print media */}
         <PrintJobTicketDetails
           workOrder={workOrder}
-          address={property.address}
-          tmoName={property.tmoName}
-          tenure={tenure}
+          property={property}
+          locationAlerts={locationAlerts}
+          personAlerts={personAlerts}
           tasksAndSors={tasksAndSors}
         />
       </>

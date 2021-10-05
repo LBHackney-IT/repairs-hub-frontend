@@ -1,4 +1,4 @@
-import CautionaryContactPage from 'src/pages/work-orders/cautionary-contact'
+import CautionaryAlertsPage from 'src/pages/work-orders/cautionary-alerts'
 import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
@@ -7,10 +7,10 @@ import {
   OPERATIVE_ROLE,
 } from 'src/utils/user'
 
-describe('CautionaryContactPage.permittedRoles', () => {
+describe('CautionaryAlertsPage.permittedRoles', () => {
   ;[OPERATIVE_ROLE].forEach((role) => {
     it(`permits the ${role} role to access the page`, () => {
-      expect(CautionaryContactPage.permittedRoles).toContain(role)
+      expect(CautionaryAlertsPage.permittedRoles).toContain(role)
     })
   })
   ;[
@@ -20,7 +20,7 @@ describe('CautionaryContactPage.permittedRoles', () => {
     CONTRACT_MANAGER_ROLE,
   ].forEach((role) => {
     it(`does not permit the ${role} role to access the page`, () => {
-      expect(CautionaryContactPage.permittedRoles).not.toContain(role)
+      expect(CautionaryAlertsPage.permittedRoles).not.toContain(role)
     })
   })
 })

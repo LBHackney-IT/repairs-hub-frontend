@@ -4,18 +4,47 @@ import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
+import { useCallback, useState } from 'react'
+import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
 
-const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
+const OperativeWorkOrderDetails = ({
+  property,
+  workOrder,
+  personAlerts,
+  locationAlerts,
+}) => {
   const router = useRouter()
+  const [textOverflow, setTextOverflow] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(false)
+  const cautionaryAlertsType = getCautionaryAlertsType(
+    locationAlerts,
+    personAlerts
+  )
 
   const cautContactURL = () => {
     router.push({
-      pathname: `/work-orders/cautionary-contact`,
+      pathname: `/work-orders/cautionary-alerts`,
       query: {
-        cautContactCodes: personAlerts.map((alert) => alert.type),
+        cautContactCodes: cautionaryAlertsType,
       },
     })
   }
+
+  const onShowMoreClick = () => {
+    setIsExpanded(true)
+  }
+
+  const onShowLessClick = () => {
+    setIsExpanded(false)
+  }
+
+  const pRef = useCallback((node) => {
+    if (node != null) {
+      if (node.scrollHeight > node.clientHeight) {
+        setTextOverflow(true)
+      }
+    }
+  })
 
   return (
     <>
@@ -57,8 +86,35 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
           </GridColumn>
         </GridRow>
         <div className="lbh-heading-h5">Description</div>
-        <p className="govuk-body">{workOrder.description}</p>
-
+        <p
+          ref={pRef}
+          className={`govuk-body govuk-!-margin-bottom-0 ${
+            isExpanded ? '' : 'truncate'
+          }`}
+        >
+          {workOrder.description}
+        </p>
+        {textOverflow ? (
+          !isExpanded ? (
+            <a
+              className="govuk-body lbh-link"
+              href="#"
+              onClick={onShowMoreClick}
+            >
+              show more
+            </a>
+          ) : (
+            <a
+              className="govuk-body lbh-link"
+              href="#"
+              onClick={onShowLessClick}
+            >
+              show less
+            </a>
+          )
+        ) : (
+          ''
+        )}
         {workOrder.plannerComments && (
           <>
             <div className="lbh-heading-h5">Planner Comment</div>
@@ -66,16 +122,16 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
           </>
         )}
 
-        {personAlerts.length > 0 && (
+        {cautionaryAlertsType && (
           <GridRow>
             <GridColumn width="one-half">
               <a
                 className="lbh-heading-h5 lbh-link"
                 href="#"
-                id="caut-contact"
+                id="caut-alerts"
                 onClick={cautContactURL}
               >
-                Caut. contact
+                Caut. alerts
               </a>
             </GridColumn>
             <GridColumn width="one-half" className="align-grid-column">
@@ -87,7 +143,7 @@ const OperativeWorkOrderDetails = ({ property, workOrder, personAlerts }) => {
                   !
                 </span>
                 <strong className="govuk-warning-text__text person-alert--text">
-                  {personAlerts.map((alert) => alert.type).join(',')}
+                  {cautionaryAlertsType}
                 </strong>
               </div>
             </GridColumn>
@@ -146,6 +202,7 @@ OperativeWorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   personAlerts: PropTypes.array.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
 }
 
 export default OperativeWorkOrderDetails
