@@ -1,4 +1,4 @@
-import { getCautionaryAlertsType } from './cautContactAlerts'
+import { getCautionaryAlertsType } from './cautionaryAlerts'
 
 describe('getCautionaryAlertsType', () => {
   it('combines two arrays of alerts and returns unique types of alerts', () => {

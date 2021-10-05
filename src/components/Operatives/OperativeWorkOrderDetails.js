@@ -5,7 +5,7 @@ import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { getCautionaryAlertsType } from '../../utils/cautContactAlerts'
+import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
 
 const OperativeWorkOrderDetails = ({
   property,

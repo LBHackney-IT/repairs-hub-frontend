@@ -1,6 +1,6 @@
 import BackButton from '../Layout/BackButton'
 import CautionaryContactTable from './CautionaryContactTable'
-import { CAUTIONARY_ALERTS } from '../../utils/cautContactAlerts'
+import { CAUTIONARY_ALERTS } from '../../utils/cautionaryAlerts'
 
 const CautionaryContactView = (searchQuery) => {
   const queryParams = searchQuery?.query?.cautContactCodes || []
