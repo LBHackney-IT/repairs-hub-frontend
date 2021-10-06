@@ -336,6 +336,8 @@ describe('Filter work orders', () => {
       // Navigate to url directly again with emergency priority query parameter
       cy.visit('/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2')
 
+      cy.wait('@filters')
+
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
         cy.contains('2 [E] EMERGENCY')
@@ -447,6 +449,11 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
       cy.get('[type="submit"]').contains('Apply filters').click()
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
