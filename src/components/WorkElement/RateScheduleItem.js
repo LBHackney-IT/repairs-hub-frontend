@@ -13,15 +13,12 @@ const RateScheduleItem = ({
   code,
   quantity,
   disabled,
-  isTextInput,
   onBlur,
   onInputChange,
   description,
   hiddenDescriptionValue,
   cost,
 }) => {
-  let FormComponent = isTextInput ? TextInput : DataList
-
   return (
     <>
       <GridRow
@@ -29,7 +26,7 @@ const RateScheduleItem = ({
         id={`rate-schedule-item-${index}`}
       >
         <GridColumn width="two-thirds">
-          <FormComponent
+          <DataList
             name={`rateScheduleItems[${index}][code]`}
             label="SOR Code"
             labelMessage="- Search by code or description"
@@ -41,18 +38,9 @@ const RateScheduleItem = ({
             required={true}
             selected={code ?? ''}
             register={register({
-              required: isTextInput
-                ? 'Please enter an SOR code'
-                : 'Please select an SOR code',
-              validate: (value) => {
-                let sorCodesListValid = sorCodesList.includes(value)
-
-                if (!isTextInput && !sorCodesListValid) {
-                  return 'SOR code is not valid'
-                } else {
-                  return sorCodesListValid
-                }
-              },
+              required: 'Please select an SOR code',
+              validate: (value) =>
+                sorCodesList.includes(value) || 'SOR code is not valid',
             })}
             error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
             widthClass="govuk-!-margin-top-0 govuk-!-width-full"
@@ -136,7 +124,6 @@ RateScheduleItem.propTypes = {
   description: PropTypes.string,
   cost: PropTypes.number,
   disabled: PropTypes.bool,
-  isTextInput: PropTypes.bool,
 }
 
 export default RateScheduleItem
