@@ -9,7 +9,7 @@ const workOrderReference = '00012345'
 
 describe('Authorisation for a variation request', () => {
   describe('buildVariationAuthorisationApprovedFormData', () => {
-    it('builds the UpdateWorkOrder form data to post to the Repairs API', () => {
+    it('builds the WorkOrderUpdate form data to post to the Repairs API', () => {
       const authorisationJobFormData = {
         relatedWorkOrderReference: {
           id: '00012345',
@@ -26,7 +26,7 @@ describe('Authorisation for a variation request', () => {
   })
 
   describe('buildVariationAuthorisationRejectedFormData', () => {
-    it('builds the UpdateWorkOrder form data to post to the Repairs API', () => {
+    it('builds the WorkOrderUpdate form data to post to the Repairs API', () => {
       const formData = {
         note: 'Can not approve it',
       }

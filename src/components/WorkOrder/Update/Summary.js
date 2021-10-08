@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
-import { PrimarySubmitButton } from '../Form'
-import { calculateTotal } from '../../utils/helpers/calculations'
-import { buildUpdateWorkOrder } from '../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
-import UpdateSummaryRateScheduleItems from './RateScheduleItems/UpdateSummaryRateScheduleItems'
-import WarningText from '../Template/WarningText'
+import { PrimarySubmitButton } from '../../Form'
+import { calculateTotal } from '../../../utils/helpers/calculations'
+import { buildWorkOrderUpdate } from '../../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import UpdateSummaryRateScheduleItems from '../RateScheduleItems/UpdateSummaryRateScheduleItems'
+import WarningText from '../../Template/WarningText'
 
-const UpdateWorkOrderSummary = ({
+const WorkOrderUpdateSummary = ({
   reference,
   onFormSubmit,
   varySpendLimit,
@@ -18,14 +18,14 @@ const UpdateWorkOrderSummary = ({
   const onSubmit = async () => {
     // The API validates whether the total variation cost is over the logged in
     // user's vary spend limit & updates WO status to 'Pending Approval' if true
-    const UpdateWorkOrderFormData = buildUpdateWorkOrder(
+    const WorkOrderUpdateFormData = buildWorkOrderUpdate(
       latestTasks,
       addedTasks,
       reference,
       variationReason
     )
 
-    onFormSubmit(UpdateWorkOrderFormData, overSpendLimit)
+    onFormSubmit(WorkOrderUpdateFormData, overSpendLimit)
   }
 
   const ORIGINAL_COST = 'Original cost'
@@ -80,7 +80,7 @@ const UpdateWorkOrderSummary = ({
   )
 }
 
-UpdateWorkOrderSummary.propTypes = {
+WorkOrderUpdateSummary.propTypes = {
   reference: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   varySpendLimit: PropTypes.number.isRequired,
@@ -91,4 +91,4 @@ UpdateWorkOrderSummary.propTypes = {
   variationReason: PropTypes.string.isRequired,
 }
 
-export default UpdateWorkOrderSummary
+export default WorkOrderUpdateSummary
