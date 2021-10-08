@@ -10,7 +10,7 @@ import { updateExistingTasksQuantities } from '../../utils/updateTasks'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/apiResponses'
 import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
 
-const UpdateWorkOrder = ({ reference }) => {
+const UpdateWorkOrderView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [currentUser, setCurrentUser] = useState({})
@@ -177,8 +177,8 @@ const UpdateWorkOrder = ({ reference }) => {
   )
 }
 
-UpdateWorkOrder.propTypes = {
+UpdateWorkOrderView.propTypes = {
   reference: PropTypes.string.isRequired,
 }
 
-export default UpdateWorkOrder
+export default UpdateWorkOrderView
