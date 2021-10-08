@@ -5,7 +5,7 @@ import BackButton from '../Layout/BackButton'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import UpdateWorkOrderForm from './UpdateWorkOrderForm'
-import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
+import UpdateWorkOrderSummary from './UpdateWorkOrderSummary'
 import { updateExistingTasksQuantities } from '../../utils/updateTasks'
 import { isSpendLimitReachedResponse } from '../../utils/helpers/apiResponses'
 import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
@@ -157,7 +157,7 @@ const UpdateWorkOrderView = ({ reference }) => {
                 </>
               )}
               {showSummaryPage && !showUpdateSuccess && (
-                <SummaryUpdateWorkOrder
+                <UpdateWorkOrderSummary
                   latestTasks={tasks}
                   originalTasks={originalTasks}
                   addedTasks={addedTasks}

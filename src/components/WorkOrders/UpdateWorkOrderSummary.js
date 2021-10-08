@@ -5,7 +5,7 @@ import { buildUpdateWorkOrder } from '../../utils/hact/workOrderStatusUpdate/upd
 import UpdateSummaryRateScheduleItems from './RateScheduleItems/UpdateSummaryRateScheduleItems'
 import WarningText from '../Template/WarningText'
 
-const SummaryUpdateWorkOrder = ({
+const UpdateWorkOrderSummary = ({
   reference,
   onFormSubmit,
   varySpendLimit,
@@ -80,7 +80,7 @@ const SummaryUpdateWorkOrder = ({
   )
 }
 
-SummaryUpdateWorkOrder.propTypes = {
+UpdateWorkOrderSummary.propTypes = {
   reference: PropTypes.string.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
   varySpendLimit: PropTypes.number.isRequired,
@@ -91,4 +91,4 @@ SummaryUpdateWorkOrder.propTypes = {
   variationReason: PropTypes.string.isRequired,
 }
 
-export default SummaryUpdateWorkOrder
+export default UpdateWorkOrderSummary
