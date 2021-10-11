@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import UpdateWorkOrderForm from './UpdateWorkOrderForm'
+import WorkOrderUpdateForm from './Form'
 
-describe('UpdateWorkOrderForm component', () => {
+describe('WorkOrderUpdateForm component', () => {
   const props = {
     propertyReference: '000012345',
     originalTasks: [
@@ -39,7 +39,7 @@ describe('UpdateWorkOrderForm component', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <UpdateWorkOrderForm
+      <WorkOrderUpdateForm
         propertyReference={props.propertyReference}
         originalTasks={props.originalTasks}
         latestTasks={props.latestTasks}

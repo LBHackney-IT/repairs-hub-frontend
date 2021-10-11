@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UpdateWorkOrderForm component should render properly 1`] = `
+exports[`WorkOrderUpdateForm component should render properly 1`] = `
 <DocumentFragment>
   <form
     id="repair-request-form"

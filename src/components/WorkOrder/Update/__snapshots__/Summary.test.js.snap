@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SummaryUpdateWorkOrder component should render properly over vary spend limit 1`] = `
+exports[`WorkOrderUpdateSummary component should render properly over vary spend limit 1`] = `
 <DocumentFragment>
   <div>
     <h1
@@ -331,7 +331,7 @@ exports[`SummaryUpdateWorkOrder component should render properly over vary spend
 </DocumentFragment>
 `;
 
-exports[`SummaryUpdateWorkOrder component should render properly within vary spend limit 1`] = `
+exports[`WorkOrderUpdateSummary component should render properly within vary spend limit 1`] = `
 <DocumentFragment>
   <div>
     <h1

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UpdateWorkOrderSuccess component should render properly does not require authorisation 1`] = `
+exports[`WorkOrderUpdateSuccess component should render properly does not require authorisation 1`] = `
 <DocumentFragment>
   <div>
     <div
@@ -44,7 +44,7 @@ exports[`UpdateWorkOrderSuccess component should render properly does not requir
 </DocumentFragment>
 `;
 
-exports[`UpdateWorkOrderSuccess component should render properly requires authorisation 1`] = `
+exports[`WorkOrderUpdateSuccess component should render properly requires authorisation 1`] = `
 <DocumentFragment>
   <div>
     <div

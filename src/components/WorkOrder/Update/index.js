@@ -1,16 +1,16 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import Spinner from '../Spinner'
-import BackButton from '../Layout/BackButton'
-import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import UpdateWorkOrderForm from './UpdateWorkOrderForm'
-import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
-import { updateExistingTasksQuantities } from '../../utils/updateTasks'
-import { isSpendLimitReachedResponse } from '../../utils/helpers/apiResponses'
-import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
+import Spinner from '../../Spinner'
+import BackButton from '../../Layout/BackButton'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
+import { updateExistingTasksQuantities } from '../../../utils/updateTasks'
+import { isSpendLimitReachedResponse } from '../../../utils/helpers/apiResponses'
+import WorkOrderUpdateForm from './Form'
+import WorkOrderUpdateSummary from './Summary'
+import WorkOrderUpdateSuccess from './Success'
 
-const UpdateWorkOrder = ({ reference }) => {
+const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [currentUser, setCurrentUser] = useState({})
@@ -77,7 +77,7 @@ const UpdateWorkOrder = ({ reference }) => {
     setLoading(false)
   }
 
-  const getUpdateWorkOrderForm = async (reference) => {
+  const getWorkOrderUpdateForm = async (reference) => {
     setError(null)
 
     try {
@@ -115,7 +115,7 @@ const UpdateWorkOrder = ({ reference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getUpdateWorkOrderForm(reference)
+    getWorkOrderUpdateForm(reference)
   }, [])
 
   return (
@@ -128,7 +128,7 @@ const UpdateWorkOrder = ({ reference }) => {
             <>
               {showUpdateSuccess && (
                 <>
-                  <UpdateWorkOrderSuccess
+                  <WorkOrderUpdateSuccess
                     workOrderReference={reference}
                     requiresAuthorisation={overSpendLimit}
                   />
@@ -141,7 +141,7 @@ const UpdateWorkOrder = ({ reference }) => {
                     Update work order: {reference}
                   </h1>
 
-                  <UpdateWorkOrderForm
+                  <WorkOrderUpdateForm
                     latestTasks={tasks}
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
@@ -157,7 +157,7 @@ const UpdateWorkOrder = ({ reference }) => {
                 </>
               )}
               {showSummaryPage && !showUpdateSuccess && (
-                <SummaryUpdateWorkOrder
+                <WorkOrderUpdateSummary
                   latestTasks={tasks}
                   originalTasks={originalTasks}
                   addedTasks={addedTasks}
@@ -177,8 +177,8 @@ const UpdateWorkOrder = ({ reference }) => {
   )
 }
 
-UpdateWorkOrder.propTypes = {
+WorkOrderUpdateView.propTypes = {
   reference: PropTypes.string.isRequired,
 }
 
-export default UpdateWorkOrder
+export default WorkOrderUpdateView

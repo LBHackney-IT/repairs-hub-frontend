@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
+import WorkOrderUpdateSuccess from './Success'
 
-describe('UpdateWorkOrderSuccess component', () => {
+describe('WorkOrderUpdateSuccess component', () => {
   const props = {
     workOrderReference: '10000012',
   }
@@ -9,7 +9,7 @@ describe('UpdateWorkOrderSuccess component', () => {
   describe('should render properly', () => {
     it('requires authorisation', () => {
       const { asFragment } = render(
-        <UpdateWorkOrderSuccess
+        <WorkOrderUpdateSuccess
           workOrderReference={props.workOrderReference}
           requiresAuthorisation={true}
         />
@@ -20,7 +20,7 @@ describe('UpdateWorkOrderSuccess component', () => {
 
     it('does not require authorisation', () => {
       const { asFragment } = render(
-        <UpdateWorkOrderSuccess
+        <WorkOrderUpdateSuccess
           workOrderReference={props.workOrderReference}
           requiresAuthorisation={false}
         />

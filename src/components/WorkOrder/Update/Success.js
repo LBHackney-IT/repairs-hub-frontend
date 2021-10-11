@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import cx from 'classnames'
 
-const UpdateWorkOrderSuccess = ({
+const WorkOrderUpdateSuccess = ({
   workOrderReference,
   requiresAuthorisation,
 }) => {
@@ -47,9 +47,9 @@ const UpdateWorkOrderSuccess = ({
   )
 }
 
-UpdateWorkOrderSuccess.propTypes = {
+WorkOrderUpdateSuccess.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   requiresAuthorisation: PropTypes.bool.isRequired,
 }
 
-export default UpdateWorkOrderSuccess
+export default WorkOrderUpdateSuccess

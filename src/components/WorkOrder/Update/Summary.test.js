@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
+import WorkOrderUpdateSummary from './Summary'
 
-describe('SummaryUpdateWorkOrder component', () => {
+describe('WorkOrderUpdateSummary component', () => {
   const props = {
     reference: '10000012',
     originalTasks: [
@@ -47,7 +47,7 @@ describe('SummaryUpdateWorkOrder component', () => {
   describe('should render properly', () => {
     it('within vary spend limit', () => {
       const { asFragment } = render(
-        <SummaryUpdateWorkOrder
+        <WorkOrderUpdateSummary
           reference={props.reference}
           onFormSubmit={props.onFormSubmit}
           originalTasks={props.originalTasks}
@@ -63,7 +63,7 @@ describe('SummaryUpdateWorkOrder component', () => {
 
     it('over vary spend limit', () => {
       const { asFragment } = render(
-        <SummaryUpdateWorkOrder
+        <WorkOrderUpdateSummary
           reference={props.reference}
           onFormSubmit={props.onFormSubmit}
           originalTasks={props.originalTasks}
