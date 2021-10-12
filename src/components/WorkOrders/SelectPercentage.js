@@ -91,7 +91,7 @@ const SelectPercentage = ({
   const calculateSMV = (percentage) => {
     return percentage === '-'
       ? '-'
-      : Math.ceil(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
+      : Math.round(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
   }
   const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
 
