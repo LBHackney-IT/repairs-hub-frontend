@@ -102,12 +102,6 @@ const RateScheduleItem = ({
           </div>
         )}
       </GridRow>
-
-      {description && (
-        <div className="sor-code-summary">
-          <p className="lbh-body-s">SOR code summary: {description}</p>
-        </div>
-      )}
     </>
   )
 }
