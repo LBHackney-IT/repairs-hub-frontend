@@ -124,7 +124,6 @@ AddedRateScheduleItems.propTypes = {
   addedTasks: PropTypes.array.isRequired,
   sorCodes: PropTypes.array.isRequired,
   isContractorUpdatePage: PropTypes.bool.isRequired,
-  propertyReference: PropTypes.string.isRequired,
 }
 
 export default AddedRateScheduleItems
