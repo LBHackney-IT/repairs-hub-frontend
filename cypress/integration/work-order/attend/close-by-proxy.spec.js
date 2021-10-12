@@ -276,7 +276,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
   })
 
-  describe('When the order requires operative assignment', () => {
+  describe.only('When the order requires operative assignment', () => {
     describe('And the workorder has existing operatives assigned', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
@@ -385,6 +385,14 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('select').eq(0).should('have.value', '33.3%')
           cy.get('select').eq(1).should('have.value', '33.3%')
           cy.get('select').eq(2).should('have.value', '33.3%')
+        })
+
+        cy.get('.smv-read-only').within(() => {
+          cy.get('div').should('have.length', 3)
+
+          cy.get('.smv-0').eq(0).should('have.value', '20')
+          cy.get('.smv-1').eq(1).should('have.value', '20')
+          cy.get('.smv-2').eq(2).should('have.value', '20')
         })
 
         cy.get('[type="submit"]').contains('Submit').click()
