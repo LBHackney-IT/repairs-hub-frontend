@@ -13,7 +13,6 @@ const RateScheduleItem = ({
   code,
   quantity,
   disabled,
-  onBlur,
   onInputChange,
   description,
   hiddenDescriptionValue,
@@ -34,7 +33,6 @@ const RateScheduleItem = ({
             defaultValue={code ?? ''}
             disabled={disabled}
             onChange={(event) => onChange && onChange(index, event)}
-            onBlur={(event) => onBlur && onBlur(index, event)}
             required={true}
             selected={code ?? ''}
             register={register({
