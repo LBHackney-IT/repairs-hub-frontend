@@ -85,7 +85,15 @@ const SelectPercentage = ({
     // then trigger validation
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
+    setSmv(calculateSMV(e.target.value))
   }
+
+  const calculateSMV = (percentage) => {
+    return percentage === '-'
+      ? '-'
+      : Math.round(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
+  }
+  const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
 
   useEffect(() => {
     let onlyOneOperativeAndSelectedOperative =
@@ -104,14 +112,16 @@ const SelectPercentage = ({
     ) {
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
+      setSmv(60)
     } else if (
       selectedOperatives.length !== 3 &&
       selectedPercentage === '33.3%'
     ) {
       setSelectedPercentage('-')
       updatePercentages(operativeIndex, '-')
+      setSmv('-')
     }
-  }, [selectedOperatives, operativeNameIsSelected, selectedPercentage])
+  }, [selectedOperatives, operativeNameIsSelected, selectedPercentage, smv])
 
   let isDisabled = isOnlyOneOperative(selectedOperatives)
 
@@ -141,6 +151,16 @@ const SelectPercentage = ({
             />
           </div>
         )}
+      </div>
+      <div className="smv-read-only govuk-!-display-inline-block govuk-!-margin-left-4">
+        <label className="govuk-label lbh-label">SMV</label>
+        <div>
+          <span
+            className={`smv-${index} govuk-!-font-size-30 govuk-!-margin-left-1`}
+          >
+            {smv}
+          </span>
+        </div>
       </div>
     </>
   )
