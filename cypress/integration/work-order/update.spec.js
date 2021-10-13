@@ -56,42 +56,10 @@ describe('Contractor update a work order', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes/PLP5R082?propertyReference=00012345?contractorReference=SCC',
+          '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
       },
-      { fixture: 'scheduleOfRates/code.json' }
-    ).as('sorCodeRequest')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes/FAKECODE?propertyReference=00012345?contractorReference=SCC',
-      },
-      (req) => {
-        req.reply({
-          statusCode: 404,
-          body: {
-            message: 'Could not find SOR code',
-          },
-        })
-      }
-    ).as('sorCodeNotFound')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes/ANOTHERFAKECODE?propertyReference=00012345?contractorReference=SCC',
-      },
-      (req) => {
-        req.reply({
-          statusCode: 404,
-          body: {
-            message: 'Could not find SOR code',
-          },
-        })
-      }
-    ).as('sorCodeNotFound')
+      { fixture: 'scheduleOfRates/codes.json' }
+    ).as('sorCodesRequest')
 
     cy.intercept(
       { method: 'POST', path: '/api/jobStatusUpdate' },
@@ -114,12 +82,11 @@ describe('Contractor update a work order', () => {
         .click()
     })
 
-    cy.wait('@taskListRequest')
+    cy.wait(['@taskListRequest', '@sorCodesRequest'])
 
-    // Update page
     cy.contains('Update work order: 10000040')
 
-    cy.contains('+ Add another SOR code').click()
+    cy.get('a').contains('+ Add another SOR code').click()
 
     cy.get('form').within(() => {
       cy.get('[type="submit"]').contains('Next').click()
@@ -128,7 +95,7 @@ describe('Contractor update a work order', () => {
     cy.get(
       'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
     ).within(() => {
-      cy.contains('Please enter an SOR code')
+      cy.contains('Please select an SOR code')
     })
     cy.get(
       'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
@@ -140,16 +107,13 @@ describe('Contractor update a work order', () => {
     })
 
     cy.get('#repair-request-form').within(() => {
-      // Enter multiple invalid SOR codes
       cy.get('input[id="rateScheduleItems[0][code]"]').type('fakecode')
       cy.get(
         'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
       )
       cy.get('[type="submit"]').contains('Next').click()
-      cy.wait('@sorCodeNotFound')
-      cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: FAKECODE')
-      })
+
+      cy.get('.govuk-error-message').eq(0).contains('SOR code is not valid')
 
       cy.contains('+ Add another SOR code').click()
       cy.get('input[id="rateScheduleItems[1][code]"]').type('anotherfakecode')
@@ -157,15 +121,11 @@ describe('Contractor update a work order', () => {
         'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
       )
       cy.get('[type="submit"]').contains('Next').click()
-      cy.wait('@sorCodeNotFound')
-      cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: FAKECODE')
-      })
-      cy.get('[data-error-id="error-1"]').within(() => {
-        cy.contains('Could not find SOR code: ANOTHERFAKECODE')
-      })
 
-      // Enter a non-number quantity
+      cy.get('.govuk-error-message').eq(0).contains('SOR code is not valid')
+
+      cy.get('.govuk-error-message').eq(1).contains('Please enter a quantity')
+
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('x')
 
       cy.get('[type="submit"]').contains('Next').click()
@@ -251,7 +211,8 @@ describe('Contractor update a work order', () => {
         .click()
     })
 
-    cy.wait('@taskListRequest')
+    cy.wait(['@taskListRequest', '@sorCodesRequest'])
+
     cy.get('#repair-request-form').within(() => {
       // Enter a non-number quantity
       cy.get('#quantity-0-form-group').within(() => {
@@ -349,7 +310,7 @@ describe('Contractor update a work order', () => {
   it('allows to update quantity, edit and add new sor codes', () => {
     cy.visit('/work-orders/10000040/update')
 
-    cy.wait('@taskListRequest')
+    cy.wait(['@taskListRequest', '@sorCodesRequest'])
 
     cy.get('#repair-request-form').within(() => {
       cy.get('#original-rate-schedule-items').within(() => {
@@ -396,38 +357,11 @@ describe('Contractor update a work order', () => {
     })
     cy.get('#repair-request-form').within(() => {
       cy.get('.lbh-link').click()
-      // Enter in full SOR Code and blur text input
-      cy.get('input[id="rateScheduleItems[0][code]"]').type('PLP5R082').blur()
-      cy.wait('@sorCodeRequest')
-      cy.get('.sor-code-summary').within(() => {
-        cy.contains('SOR code summary: RE ENAMEL ANY SIZE BATH')
-      })
-      // Enter case insensitive SOR code
-      cy.get('input[id="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('plp5R082')
-        .blur()
-      cy.wait('@sorCodeRequest')
-      cy.get('.sor-code-summary').within(() => {
-        cy.contains('SOR code summary: RE ENAMEL ANY SIZE BATH')
-      })
 
-      // Enter invalid SOR Code
-      cy.get('input[id="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('fakecode')
-        .blur()
-      cy.wait('@sorCodeNotFound')
-      cy.get('.sor-code-summary').should('not.exist')
-      cy.get('[data-error-id="error-0"]').within(() => {
-        cy.contains('Could not find SOR code: FAKECODE')
-      })
-      // Enter valid SOR code
-      cy.get('input[id="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('PLP5R082')
-        .blur()
-      cy.wait('@sorCodeRequest')
+      cy.get('input[id="rateScheduleItems[0][code]"]').type(
+        'PLP5R082 - RE ENAMEL ANY SIZE BATH'
+      )
+
       cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('5')
 
       cy.get('[type="submit"]').contains('Next').click()

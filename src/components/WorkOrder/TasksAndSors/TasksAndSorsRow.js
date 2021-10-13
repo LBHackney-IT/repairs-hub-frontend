@@ -51,8 +51,8 @@ tasksAndSorsRow.propTypes = {
   index: PropTypes.number.isRequired,
   standardMinuteValue: PropTypes.number.isRequired,
   quantity: PropTypes.number.isRequired,
-  isOriginal: PropTypes.bool.isRequired,
-  originalQuantity: PropTypes.number.isRequired,
+  isOriginal: PropTypes.bool,
+  originalQuantity: PropTypes.number,
 }
 
 export default tasksAndSorsRow

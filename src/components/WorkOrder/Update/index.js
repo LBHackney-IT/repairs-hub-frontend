@@ -4,6 +4,7 @@ import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
+import { getSorCodes } from 'src/utils/frontEndApiClient/scheduleOfRates/codes'
 import { updateExistingTasksQuantities } from '../../../utils/updateTasks'
 import { isSpendLimitReachedResponse } from '../../../utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
@@ -16,8 +17,7 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [propertyReference, setPropertyReference] = useState('')
-  const [contractorReference, setContractorReference] = useState('')
+  const [sorCodes, setSorCodes] = useState([])
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
@@ -94,16 +94,20 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: `/api/workOrders/${reference}/tasks`,
       })
 
+      const sorCodes = await getSorCodes(
+        workOrder.tradeCode,
+        workOrder.propertyReference,
+        workOrder.contractorReference
+      )
+
       setCurrentUser(currentUser)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
-      setPropertyReference(workOrder.propertyReference)
-      setContractorReference(workOrder.contractorReference)
+      setSorCodes(sorCodes)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
-      setPropertyReference(null)
-      setContractorReference(null)
+      setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -124,7 +128,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {currentUser && tasks && propertyReference && (
+          {currentUser && tasks && sorCodes && (
             <>
               {showUpdateSuccess && (
                 <>
@@ -142,11 +146,10 @@ const WorkOrderUpdateView = ({ reference }) => {
                   </h1>
 
                   <WorkOrderUpdateForm
+                    sorCodes={sorCodes}
                     latestTasks={tasks}
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
-                    propertyReference={propertyReference}
-                    contractorReference={contractorReference}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }

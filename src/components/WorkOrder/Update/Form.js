@@ -6,11 +6,10 @@ import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItem
 import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
 
 const WorkOrderUpdateForm = ({
+  sorCodes,
   latestTasks,
   originalTasks,
   addedTasks,
-  propertyReference,
-  contractorReference,
   onGetToSummary,
   setVariationReason,
   variationReason,
@@ -32,12 +31,11 @@ const WorkOrderUpdateForm = ({
           errors={errors}
         />
         <AddedRateScheduleItems
+          sorCodes={sorCodes}
           register={register}
           errors={errors}
           addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
-          propertyReference={propertyReference}
-          contractorReference={contractorReference}
         />
         <CharacterCountLimitedTextArea
           name="variationReason"
@@ -58,10 +56,10 @@ const WorkOrderUpdateForm = ({
 }
 
 WorkOrderUpdateForm.propTypes = {
+  sorCodes: PropTypes.array.isRequired,
   latestTasks: PropTypes.array.isRequired,
   originalTasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array.isRequired,
-  propertyReference: PropTypes.string.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   setVariationReason: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,

@@ -2,22 +2,17 @@ import PropTypes from 'prop-types'
 import { Fragment, useState } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import Spinner from '../../Spinner'
-import { getSorCode } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
 
 const AddedRateScheduleItems = ({
+  sorCodes,
   register,
   errors,
   addedTasks,
   isContractorUpdatePage,
-  propertyReference,
-  contractorReference,
 }) => {
-  const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
-  const [sorCodesList, setSorCodesList] = useState(
-    addedTasks.map((item) => item.code)
+  const sorCodesList = sorCodes.map(
+    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
   )
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
 
@@ -26,6 +21,7 @@ const AddedRateScheduleItems = ({
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
   }
+
   const removeRateScheduleItem = (index) => {
     let filtered = rateScheduleItems.filter((e) => e.id != index)
     setRateScheduleItems([...filtered])
@@ -41,6 +37,7 @@ const AddedRateScheduleItems = ({
 
     if (rateScheduleItemAtSameIndex) {
       rateScheduleItemAtSameIndex[attribute] = value
+      setRateScheduleItems([...rateScheduleItems])
     } else {
       setRateScheduleItems((rateScheduleItems) => [
         ...rateScheduleItems,
@@ -56,37 +53,16 @@ const AddedRateScheduleItems = ({
     }
   }
 
-  const findSorCode = async (sorCodeQuery, index) => {
-    setLoading(true)
-    setError(null)
+  const findSorCode = (sorCodeQuery, index) => {
+    const sorCode = sorCodes.find((code) => {
+      return code.code === sorCodeQuery
+    })
 
-    try {
-      const sorCode = await getSorCode(
-        sorCodeQuery,
-        propertyReference,
-        contractorReference
-      )
-
-      if (sorCode) {
-        updateRateScheduleItem(index, 'description', sorCode.shortDescription)
-        updateRateScheduleItem(index, 'cost', parseFloat(sorCode.cost))
-        findRateScheduleItem(index).error = ''
-        setSorCodesList([...new Set([...sorCodesList, sorCode.code])])
-      }
-    } catch (e) {
-      console.error('An error has occured:', e.response)
-      findRateScheduleItem(index).description = ''
-
-      if (e.response?.status === 404) {
-        updateRateScheduleItem(index, 'error', sorCodeQuery)
-      } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-        )
-      }
+    if (sorCode) {
+      updateRateScheduleItem(index, 'description', sorCode.shortDescription)
+      updateRateScheduleItem(index, 'cost', parseFloat(sorCode.cost))
+      findRateScheduleItem(index).error = ''
     }
-
-    setLoading(false)
   }
 
   const showRateScheduleItems = (items) => {
@@ -94,22 +70,24 @@ const AddedRateScheduleItems = ({
       return (
         <Fragment key={`rateScheduleItems~${item.id}`}>
           <RateScheduleItem
+            sorCodesList={sorCodesList}
+            register={register}
+            errors={errors}
             code={item.code}
+            key={item.id}
+            index={item.id}
             description={item.description}
             hiddenDescriptionValue={true}
             quantity={item.quantity}
             cost={item.cost && parseFloat(item.cost)}
-            register={register}
-            errors={errors}
-            key={item.id}
-            index={item.id}
             showRemoveRateScheduleItem={isContractorUpdatePage}
             removeRateScheduleItem={removeRateScheduleItem}
             isContractorUpdatePage={isContractorUpdatePage}
-            isTextInput={true}
-            onBlur={() =>
-              updateRateScheduleItem(item.id, 'code', event.target.value.trim())
-            }
+            onChange={(index, event) => {
+              const selectedCode = event.target.value.split(' - ')[0]
+
+              updateRateScheduleItem(item.id, 'code', selectedCode)
+            }}
             onInputChange={() => {
               updateRateScheduleItem(
                 item.id,
@@ -117,7 +95,6 @@ const AddedRateScheduleItems = ({
                 parseFloat(event.target.value)
               )
             }}
-            sorCodesList={sorCodesList}
           />
 
           {item?.error && (
@@ -133,17 +110,10 @@ const AddedRateScheduleItems = ({
 
   return (
     <div className="govuk-!-padding-bottom-5">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {showRateScheduleItems(rateScheduleItems)}
-          {error && <ErrorMessage label={error} />}
-          <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-            + Add another SOR code
-          </a>
-        </>
-      )}
+      {showRateScheduleItems(rateScheduleItems)}
+      <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+        + Add another SOR code
+      </a>
     </div>
   )
 }
@@ -152,8 +122,8 @@ AddedRateScheduleItems.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   addedTasks: PropTypes.array.isRequired,
+  sorCodes: PropTypes.array.isRequired,
   isContractorUpdatePage: PropTypes.bool.isRequired,
-  propertyReference: PropTypes.string.isRequired,
 }
 
 export default AddedRateScheduleItems
