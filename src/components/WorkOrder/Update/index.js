@@ -1,23 +1,23 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import Spinner from '../Spinner'
-import BackButton from '../Layout/BackButton'
-import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import UpdateWorkOrderForm from './UpdateWorkOrderForm'
-import SummaryUpdateWorkOrder from './SummaryUpdateWorkOrder'
-import { updateExistingTasksQuantities } from '../../utils/updateTasks'
-import { isSpendLimitReachedResponse } from '../../utils/helpers/apiResponses'
-import UpdateWorkOrderSuccess from './UpdateWorkOrderSuccess'
+import Spinner from '../../Spinner'
+import BackButton from '../../Layout/BackButton'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
+import { getSorCodes } from 'src/utils/frontEndApiClient/scheduleOfRates/codes'
+import { updateExistingTasksQuantities } from '../../../utils/updateTasks'
+import { isSpendLimitReachedResponse } from '../../../utils/helpers/apiResponses'
+import WorkOrderUpdateForm from './Form'
+import WorkOrderUpdateSummary from './Summary'
+import WorkOrderUpdateSuccess from './Success'
 
-const UpdateWorkOrder = ({ reference }) => {
+const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [propertyReference, setPropertyReference] = useState('')
-  const [contractorReference, setContractorReference] = useState('')
+  const [sorCodes, setSorCodes] = useState([])
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
@@ -77,7 +77,7 @@ const UpdateWorkOrder = ({ reference }) => {
     setLoading(false)
   }
 
-  const getUpdateWorkOrderForm = async (reference) => {
+  const getWorkOrderUpdateForm = async (reference) => {
     setError(null)
 
     try {
@@ -94,16 +94,20 @@ const UpdateWorkOrder = ({ reference }) => {
         path: `/api/workOrders/${reference}/tasks`,
       })
 
+      const sorCodes = await getSorCodes(
+        workOrder.tradeCode,
+        workOrder.propertyReference,
+        workOrder.contractorReference
+      )
+
       setCurrentUser(currentUser)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
-      setPropertyReference(workOrder.propertyReference)
-      setContractorReference(workOrder.contractorReference)
+      setSorCodes(sorCodes)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
-      setPropertyReference(null)
-      setContractorReference(null)
+      setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -115,7 +119,7 @@ const UpdateWorkOrder = ({ reference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getUpdateWorkOrderForm(reference)
+    getWorkOrderUpdateForm(reference)
   }, [])
 
   return (
@@ -124,11 +128,11 @@ const UpdateWorkOrder = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {currentUser && tasks && propertyReference && (
+          {currentUser && tasks && sorCodes && (
             <>
               {showUpdateSuccess && (
                 <>
-                  <UpdateWorkOrderSuccess
+                  <WorkOrderUpdateSuccess
                     workOrderReference={reference}
                     requiresAuthorisation={overSpendLimit}
                   />
@@ -141,12 +145,11 @@ const UpdateWorkOrder = ({ reference }) => {
                     Update work order: {reference}
                   </h1>
 
-                  <UpdateWorkOrderForm
+                  <WorkOrderUpdateForm
+                    sorCodes={sorCodes}
                     latestTasks={tasks}
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
-                    propertyReference={propertyReference}
-                    contractorReference={contractorReference}
                     showAdditionalRateScheduleItems={
                       showAdditionalRateScheduleItems
                     }
@@ -157,7 +160,7 @@ const UpdateWorkOrder = ({ reference }) => {
                 </>
               )}
               {showSummaryPage && !showUpdateSuccess && (
-                <SummaryUpdateWorkOrder
+                <WorkOrderUpdateSummary
                   latestTasks={tasks}
                   originalTasks={originalTasks}
                   addedTasks={addedTasks}
@@ -177,8 +180,8 @@ const UpdateWorkOrder = ({ reference }) => {
   )
 }
 
-UpdateWorkOrder.propTypes = {
+WorkOrderUpdateView.propTypes = {
   reference: PropTypes.string.isRequired,
 }
 
-export default UpdateWorkOrder
+export default WorkOrderUpdateView

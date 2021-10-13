@@ -1,16 +1,15 @@
 import PropTypes from 'prop-types'
-import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../Form'
+import { PrimarySubmitButton, CharacterCountLimitedTextArea } from '../../Form'
 import { useForm } from 'react-hook-form'
-import OriginalRateScheduleItems from './RateScheduleItems/OriginalRateScheduleItems'
-import LatestRateScheduleItems from './RateScheduleItems/LatestRateScheduleItems'
-import AddedRateScheduleItems from './RateScheduleItems/AddedRateScheduleItems'
+import OriginalRateScheduleItems from '../RateScheduleItems/OriginalRateScheduleItems'
+import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItems'
+import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
 
-const UpdateWorkOrderForm = ({
+const WorkOrderUpdateForm = ({
+  sorCodes,
   latestTasks,
   originalTasks,
   addedTasks,
-  propertyReference,
-  contractorReference,
   onGetToSummary,
   setVariationReason,
   variationReason,
@@ -32,12 +31,11 @@ const UpdateWorkOrderForm = ({
           errors={errors}
         />
         <AddedRateScheduleItems
+          sorCodes={sorCodes}
           register={register}
           errors={errors}
           addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
-          propertyReference={propertyReference}
-          contractorReference={contractorReference}
         />
         <CharacterCountLimitedTextArea
           name="variationReason"
@@ -57,14 +55,14 @@ const UpdateWorkOrderForm = ({
   )
 }
 
-UpdateWorkOrderForm.propTypes = {
+WorkOrderUpdateForm.propTypes = {
+  sorCodes: PropTypes.array.isRequired,
   latestTasks: PropTypes.array.isRequired,
   originalTasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array.isRequired,
-  propertyReference: PropTypes.string.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   setVariationReason: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,
 }
 
-export default UpdateWorkOrderForm
+export default WorkOrderUpdateForm

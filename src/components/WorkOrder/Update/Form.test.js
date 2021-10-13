@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import UpdateWorkOrderForm from './UpdateWorkOrderForm'
+import WorkOrderUpdateForm from './Form'
 
-describe('UpdateWorkOrderForm component', () => {
+describe('WorkOrderUpdateForm component', () => {
   const props = {
     propertyReference: '000012345',
     originalTasks: [
@@ -39,7 +39,7 @@ describe('UpdateWorkOrderForm component', () => {
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <UpdateWorkOrderForm
+      <WorkOrderUpdateForm
         propertyReference={props.propertyReference}
         originalTasks={props.originalTasks}
         latestTasks={props.latestTasks}
@@ -47,6 +47,25 @@ describe('UpdateWorkOrderForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
+        sorCodes={[
+          {
+            code: 'DES5R003',
+            shortDescription: 'Immediate call outs',
+            priority: {
+              priorityCode: 1,
+              description: '1 [I] IMMEDIATE',
+            },
+            cost: 0,
+          },
+          {
+            code: 'DES5R004',
+            shortDescription: 'Emergency call out',
+            priority: {
+              priorityCode: 2,
+              description: '2 [E] EMERGENCY',
+            },
+          },
+        ]}
       />
     )
     expect(asFragment()).toMatchSnapshot()

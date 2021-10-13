@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UpdateWorkOrderForm component should render properly 1`] = `
+exports[`WorkOrderUpdateForm component should render properly 1`] = `
 <DocumentFragment>
   <form
     id="repair-request-form"
@@ -222,16 +222,30 @@ exports[`UpdateWorkOrderForm component should render properly 1`] = `
               >
                 *
               </span>
+               
+              <span>
+                 - Search by code or description
+              </span>
             </label>
             <input
-              class="govuk-input lbh-input govuk-!-margin-top-0 govuk-!-width-full"
+              autocomplete="off"
+              class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+              data-testid="rateScheduleItems[undefined][code]"
               id="rateScheduleItems[undefined][code]"
-              labelmessage="- Search by code or description"
+              list="autocomplete-list-rateScheduleItems[undefined][code]"
               name="rateScheduleItems[undefined][code]"
-              options="DES5R004"
-              type="text"
               value="DES5R004"
             />
+            <datalist
+              id="autocomplete-list-rateScheduleItems[undefined][code]"
+            >
+              <option
+                value="DES5R003 - Immediate call outs"
+              />
+              <option
+                value="DES5R004 - Emergency call out"
+              />
+            </datalist>
           </div>
           <input
             id="rateScheduleItems[undefined][description]"
