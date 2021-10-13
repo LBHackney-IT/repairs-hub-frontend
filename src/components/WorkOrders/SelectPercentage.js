@@ -45,6 +45,13 @@ const SelectPercentage = ({
     getDefaultPercentage(selectedOperatives)
   )
 
+  const calculateSMV = (percentage) => {
+    return percentage === '-'
+      ? '-'
+      : Math.round(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
+  }
+  const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
+
   const getPossiblePercentages = (selectedOperatives) => {
     if (isOnlyOneOperative(selectedOperatives)) {
       return ['100%', '-']
@@ -87,13 +94,6 @@ const SelectPercentage = ({
     updatePercentages(operativeIndex, e.target.value)
     setSmv(calculateSMV(e.target.value))
   }
-
-  const calculateSMV = (percentage) => {
-    return percentage === '-'
-      ? '-'
-      : Math.round(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
-  }
-  const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
 
   useEffect(() => {
     let onlyOneOperativeAndSelectedOperative =
