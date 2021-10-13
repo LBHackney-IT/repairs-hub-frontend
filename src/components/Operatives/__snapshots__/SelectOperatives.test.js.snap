@@ -123,12 +123,14 @@ exports[`SelectOperatives component should render properly 1`] = `
         >
           SMV
         </label>
-        <div>
-          <span
-            class="smv-0 govuk-!-font-size-30 govuk-!-margin-left-1"
+        <div
+          class="smv-splitting-page"
+        >
+          <label
+            class="smv-0 govuk-label lbh-label govuk-!-margin-left-1"
           >
             60
-          </span>
+          </label>
         </div>
       </div>
     </div>

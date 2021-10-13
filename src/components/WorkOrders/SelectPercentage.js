@@ -154,12 +154,12 @@ const SelectPercentage = ({
       </div>
       <div className="smv-read-only govuk-!-display-inline-block govuk-!-margin-left-4">
         <label className="govuk-label lbh-label">SMV</label>
-        <div>
-          <span
-            className={`smv-${index} govuk-!-font-size-30 govuk-!-margin-left-1`}
+        <div className="smv-splitting-page">
+          <label
+            className={`smv-${index} govuk-label lbh-label govuk-!-margin-left-1`}
           >
             {smv}
-          </span>
+          </label>
         </div>
       </div>
     </>
