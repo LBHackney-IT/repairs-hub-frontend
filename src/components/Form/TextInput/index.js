@@ -13,13 +13,18 @@ const TextInput = ({
   required,
   onBlur,
   defaultValue,
+  additionalDivClasses,
   ...otherProps
 }) => (
   <div
     id={`${name}-form-group`}
-    className={cx('govuk-form-group lbh-form-group', {
-      'govuk-form-group--error': error,
-    })}
+    className={cx(
+      'govuk-form-group lbh-form-group',
+      {
+        'govuk-form-group--error': error,
+      },
+      additionalDivClasses
+    )}
   >
     <label className="govuk-label lbh-label" htmlFor={name}>
       {label} {required && <span className="govuk-required">*</span>}
