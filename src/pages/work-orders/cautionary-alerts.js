@@ -1,4 +1,5 @@
 import CautionaryAlertsView from '../../components/CautionaryAlerts/CautionaryAlertsView'
+import { getQueryProps } from '../../utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '../../utils/user'
 
 const CautionaryAlertsPage = ({ query }) => {
@@ -8,15 +9,8 @@ const CautionaryAlertsPage = ({ query }) => {
     return <CautionaryAlertsView query={query} />
   }
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 CautionaryAlertsPage.permittedRoles = [OPERATIVE_ROLE]
 

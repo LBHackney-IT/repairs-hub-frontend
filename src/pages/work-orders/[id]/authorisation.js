@@ -1,6 +1,7 @@
 import { AUTHORISATION_MANAGER_ROLE } from '../../../utils/user'
 import AuthorisationView from '../../../components/WorkOrder/Authorisation/AuthorisationView'
 import Meta from '../../../components/Meta'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 
 const AuthorisationPage = ({ query }) => {
   return (
@@ -10,15 +11,8 @@ const AuthorisationPage = ({ query }) => {
     </>
   )
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 AuthorisationPage.permittedRoles = [AUTHORISATION_MANAGER_ROLE]
 

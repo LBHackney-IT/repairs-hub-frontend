@@ -5,6 +5,7 @@ import {
 } from 'src/utils/user'
 import Meta from '../../../../components/Meta'
 import AppointmentView from '../../../../components/WorkOrder/Appointment/AppointmentView'
+import { getQueryProps } from '../../../../utils/helpers/serverSideProps'
 
 const AppointmentPage = ({ query }) => {
   return (
@@ -19,15 +20,8 @@ const AppointmentPage = ({ query }) => {
     </>
   )
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 AppointmentPage.permittedRoles = [
   AGENT_ROLE,

@@ -1,5 +1,6 @@
 import Meta from '../../../components/Meta'
 import WorkOrderUpdateView from '../../../components/WorkOrder/Update'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 
 const WorkOrderUpdatePage = ({ query }) => {
@@ -10,15 +11,8 @@ const WorkOrderUpdatePage = ({ query }) => {
     </>
   )
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 WorkOrderUpdatePage.permittedRoles = [CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE]
 

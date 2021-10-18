@@ -1,6 +1,7 @@
 import { CONTRACT_MANAGER_ROLE } from '../../../utils/user'
 import VariationAuthorisationView from '../../../components/WorkOrder/Authorisation/VariationAuthorisationView'
 import Meta from '../../../components/Meta'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 
 const VariationAuthorisationPage = ({ query }) => {
   return (
@@ -10,15 +11,8 @@ const VariationAuthorisationPage = ({ query }) => {
     </>
   )
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 VariationAuthorisationPage.permittedRoles = [CONTRACT_MANAGER_ROLE]
 
