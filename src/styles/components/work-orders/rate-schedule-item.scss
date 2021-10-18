@@ -1,0 +1,30 @@
+.rate-schedule-item--sor-code {
+  @include govuk-media-query($from: tablet) {
+    width: 66.66666%;
+    display: inline-block;
+  }
+}
+
+.rate-schedule-item--quantity {
+  display: inline-block;
+
+  @include govuk-media-query($from: tablet) {
+    padding-left: 30px;
+    width: 33.33333%;
+  }
+}
+
+.rate-schedule-item > div {
+  box-sizing: border-box;
+}
+
+.rate-schedule-item {
+  position: relative;
+}
+
+.remove-rate-schedule-item {
+  position: absolute;
+  left: 103%;
+  top: 70px;
+  display: inline-block;
+}

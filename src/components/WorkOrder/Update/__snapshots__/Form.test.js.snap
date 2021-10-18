@@ -202,92 +202,83 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
       class="govuk-!-padding-bottom-5"
     >
       <div
-        class="govuk-grid-row rate-schedule-item display-flex align-items-center position-relative"
-        id="rate-schedule-item-undefined"
+        class="rate-schedule-item govuk-!-margin-top-0"
       >
         <div
-          class="govuk-grid-column-two-thirds"
+          class="govuk-form-group lbh-form-group rate-schedule-item--sor-code"
+          id="rateScheduleItems[undefined][code]-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
-            id="rateScheduleItems[undefined][code]-form-group"
+          <label
+            class="govuk-label lbh-label"
+            for="rateScheduleItems[undefined][code]"
           >
-            <label
-              class="govuk-label lbh-label"
-              for="rateScheduleItems[undefined][code]"
+            SOR Code 
+            <span
+              class="govuk-required"
             >
-              SOR Code 
-              <span
-                class="govuk-required"
-              >
-                *
-              </span>
-               
-              <span>
-                 - Search by code or description
-              </span>
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
-              data-testid="rateScheduleItems[undefined][code]"
-              id="rateScheduleItems[undefined][code]"
-              list="autocomplete-list-rateScheduleItems[undefined][code]"
-              name="rateScheduleItems[undefined][code]"
-              value="DES5R004"
-            />
-            <datalist
-              id="autocomplete-list-rateScheduleItems[undefined][code]"
-            >
-              <option
-                value="DES5R003 - Immediate call outs"
-              />
-              <option
-                value="DES5R004 - Emergency call out"
-              />
-            </datalist>
-          </div>
+              *
+            </span>
+             
+            <span>
+               - Search by code or description
+            </span>
+          </label>
           <input
-            id="rateScheduleItems[undefined][description]"
-            name="rateScheduleItems[undefined][description]"
-            type="hidden"
-            value=""
+            autocomplete="off"
+            class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+            data-testid="rateScheduleItems[undefined][code]"
+            id="rateScheduleItems[undefined][code]"
+            list="autocomplete-list-rateScheduleItems[undefined][code]"
+            name="rateScheduleItems[undefined][code]"
+            value="DES5R004"
           />
+          <datalist
+            id="autocomplete-list-rateScheduleItems[undefined][code]"
+          >
+            <option
+              value="DES5R003 - Immediate call outs"
+            />
+            <option
+              value="DES5R004 - Emergency call out"
+            />
+          </datalist>
+        </div>
+        <input
+          id="rateScheduleItems[undefined][description]"
+          name="rateScheduleItems[undefined][description]"
+          type="hidden"
+          value=""
+        />
+        <input
+          id="rateScheduleItems[undefined][cost]"
+          name="rateScheduleItems[undefined][cost]"
+          type="hidden"
+        />
+        <div
+          class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
+          id="rateScheduleItems[undefined][quantity]-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="rateScheduleItems[undefined][quantity]"
+          >
+            Quantity 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
           <input
-            id="rateScheduleItems[undefined][cost]"
-            name="rateScheduleItems[undefined][cost]"
-            type="hidden"
+            class="govuk-input lbh-input govuk-!-width-full"
+            id="rateScheduleItems[undefined][quantity]"
+            name="rateScheduleItems[undefined][quantity]"
+            type="text"
+            value="2"
           />
         </div>
         <div
-          class="govuk-grid-column-one-third"
-        >
-          <div
-            class="govuk-form-group lbh-form-group"
-            id="rateScheduleItems[undefined][quantity]-form-group"
-          >
-            <label
-              class="govuk-label lbh-label"
-              for="rateScheduleItems[undefined][quantity]"
-            >
-              Quantity 
-              <span
-                class="govuk-required"
-              >
-                *
-              </span>
-            </label>
-            <input
-              class="govuk-input lbh-input govuk-!-width-full"
-              id="rateScheduleItems[undefined][quantity]"
-              name="rateScheduleItems[undefined][quantity]"
-              type="text"
-              value="2"
-            />
-          </div>
-        </div>
-        <div
-          class="remove-rate-schedule-item position-absolute right-negative-3"
+          class="remove-rate-schedule-item govuk-!-margin-0"
         >
           <button
             class="cursor-pointer"
