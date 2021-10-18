@@ -1,5 +1,6 @@
 import Meta from '../../../components/Meta'
 import CancelWorkOrderView from '../../../components/WorkOrder/CancelWorkOrder/CancelWorkOrderView'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
@@ -15,15 +16,7 @@ const WorkOrderCancelPage = ({ query }) => {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 WorkOrderCancelPage.permittedRoles = [
   AGENT_ROLE,

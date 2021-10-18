@@ -15,6 +15,7 @@ import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
 } from '../utils/userPermissions'
+import { getQueryProps } from '../utils/helpers/serverSideProps'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -69,15 +70,7 @@ const Home = ({ query }) => {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query: query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 Home.permittedRoles = [
   AGENT_ROLE,

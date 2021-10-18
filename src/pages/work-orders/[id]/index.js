@@ -1,5 +1,6 @@
 import Meta from '../../../components/Meta'
 import WorkOrderView from '../../../components/WorkOrder/WorkOrderView'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 
 import {
   AGENT_ROLE,
@@ -18,15 +19,7 @@ const WorkOrderPage = ({ query }) => {
   )
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 WorkOrderPage.permittedRoles = [
   AGENT_ROLE,
