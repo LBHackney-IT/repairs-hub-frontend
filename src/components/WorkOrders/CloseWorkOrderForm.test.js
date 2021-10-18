@@ -25,6 +25,7 @@ describe('CloseWorkOrderForm component', () => {
     availableOperatives: operatives,
     reason: 'No Access',
     selectedPercentagesToShowOnEdit: [],
+    totalSMVs: 76,
   }
 
   it('should render properly', () => {
@@ -48,6 +49,7 @@ describe('CloseWorkOrderForm component', () => {
             props.selectedPercentagesToShowOnEdit
           }
           closingByProxy={true}
+          totalSMV={props.totalSMVs}
         />
       </UserContext.Provider>
     )

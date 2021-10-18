@@ -128,9 +128,7 @@ exports[`SelectOperatives component should render properly 1`] = `
         >
           <label
             class="smv-0 govuk-label lbh-label govuk-!-margin-left-1"
-          >
-            60
-          </label>
+          />
         </div>
       </div>
     </div>

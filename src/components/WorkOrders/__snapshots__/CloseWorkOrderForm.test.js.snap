@@ -295,7 +295,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               <label
                 class="smv-0 govuk-label lbh-label govuk-!-margin-left-1"
               >
-                30
+                38
               </label>
             </div>
           </div>
@@ -425,7 +425,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               <label
                 class="smv-1 govuk-label lbh-label govuk-!-margin-left-1"
               >
-                30
+                38
               </label>
             </div>
           </div>

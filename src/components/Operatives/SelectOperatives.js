@@ -12,6 +12,7 @@ const SelectOperatives = ({
   selectedPercentagesToShowOnEdit,
   trigger,
   getValues,
+  totalSMV,
 }) => {
   const [selectedOperatives, setSelectedOperatives] = useState(
     // Add at least one slot for an operative
@@ -187,6 +188,7 @@ const SelectOperatives = ({
                     preSelectedPercentages={
                       selectedPercentagesToShowOnEdit[index]
                     }
+                    totalSMV={totalSMV}
                   />
                 </>
               )}
@@ -238,6 +240,7 @@ SelectOperatives.propTypes = {
   assignedOperativesToWorkOrder: PropTypes.array.isRequired,
   availableOperatives: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
+  totalSMV: PropTypes.number.isRequired,
 }
 
 export default SelectOperatives

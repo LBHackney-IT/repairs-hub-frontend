@@ -220,6 +220,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                     selectedPercentagesToShowOnEdit
                   }
                   closingByProxy={true}
+                  totalSMV={workOrder.totalSMVs}
                 />
               )}
               {!CloseWorkOrderFormPage && (
