@@ -49,7 +49,13 @@ const SelectPercentage = ({
   const calculateSMV = (percentage) => {
     return percentage === '-'
       ? '-'
-      : (parseFloat(percentage.split('%')[0]) * 0.01 * totalSMV).toFixed(2)
+      : strippingZeroes(
+          (parseFloat(percentage.split('%')[0]) * 0.01 * totalSMV).toFixed(2)
+        )
+  }
+
+  const strippingZeroes = (number) => {
+    return number.replace(/\.00$/, '')
   }
   const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
 
