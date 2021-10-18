@@ -11,6 +11,7 @@ const SelectPercentage = ({
   operativeNameIsSelected,
   register,
   preSelectedPercentages,
+  totalSMV,
 }) => {
   const isOnlyOneOperative = (selectedOperatives) => {
     return selectedOperatives.length === 1
@@ -48,7 +49,7 @@ const SelectPercentage = ({
   const calculateSMV = (percentage) => {
     return percentage === '-'
       ? '-'
-      : Math.round(parseFloat(percentage.split('%')[0]) * 0.01 * 60)
+      : (parseFloat(percentage.split('%')[0]) * 0.01 * totalSMV).toFixed(2)
   }
   const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
 
@@ -112,7 +113,7 @@ const SelectPercentage = ({
     ) {
       setSelectedPercentage('100%')
       updatePercentages(operativeIndex, '100%')
-      setSmv(60)
+      setSmv(totalSMV)
     } else if (
       selectedOperatives.length !== 3 &&
       selectedPercentage === '33.3%'
@@ -169,6 +170,7 @@ const SelectPercentage = ({
 SelectPercentage.prototype = {
   operativesNumber: ProperTypes.number,
   operativeIndex: ProperTypes.number,
+  totalSMV: ProperTypes.number.isRequired,
 }
 
 export default SelectPercentage
