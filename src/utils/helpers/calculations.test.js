@@ -4,7 +4,6 @@ import {
   calculateChangeInCost,
   calculateTotalVariedCost,
   calculateSMV,
-  strippingZeroes,
 } from './calculations'
 
 describe('calculateTotal', () => {
@@ -90,11 +89,11 @@ describe('calculateTotalVariedCost', () => {
   })
 })
 
-describe('calculateSMV and strippingZeroes', () => {
-  it('returns 25.31', () => {
+describe('calculateSMV', () => {
+  it('returns a number matching the percentage proportion including decimal points => 25.31', () => {
     expect(calculateSMV('33.3%', 76)).toEqual('25.31')
   })
-  it('returns 38', () => {
+  it('returns a number matching the percentage proportion without decimals when none are calculated => 38', () => {
     expect(calculateSMV('50%', 76)).toEqual('38')
   })
 })
