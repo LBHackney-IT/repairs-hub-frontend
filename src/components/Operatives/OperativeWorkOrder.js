@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types'
+import { WorkOrder } from '../../models/workOrder'
 import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
 import OperativeTasksAndSorsTable from '../WorkOrder/TasksAndSors/OperativeTasksAndSorsTable'
 import WarningInfoBox from '../Template/WarningInfoBox'
@@ -109,6 +111,22 @@ const OperativeWorkOrder = ({
       )}
     </>
   )
+}
+
+OperativeWorkOrder.propTypes = {
+  workOrderReference: PropTypes.string.isRequired,
+  property: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
+  personAlerts: PropTypes.array.isRequired,
+  locationAlerts: PropTypes.array.isRequired,
+  tasksAndSors: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.string,
+      description: PropTypes.string,
+      quantity: PropTypes.number,
+      standardMinuteValue: PropTypes.number,
+    })
+  ).isRequired,
 }
 
 export default OperativeWorkOrder
