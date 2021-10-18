@@ -3,6 +3,8 @@ import {
   calculateCostBeforeVariation,
   calculateChangeInCost,
   calculateTotalVariedCost,
+  calculateSMV,
+  strippingZeroes,
 } from './calculations'
 
 describe('calculateTotal', () => {
@@ -85,5 +87,14 @@ describe('calculateTotalVariedCost', () => {
 
   it('returns change is cost', () => {
     expect(calculateTotalVariedCost(arrayOfObjects)).toEqual(300)
+  })
+})
+
+describe('calculateSMV and strippingZeroes', () => {
+  it('returns 25.31', () => {
+    expect(calculateSMV('33.3%', 76)).toEqual('25.31')
+  })
+  it('returns 38', () => {
+    expect(calculateSMV('50%', 76)).toEqual('38')
   })
 })

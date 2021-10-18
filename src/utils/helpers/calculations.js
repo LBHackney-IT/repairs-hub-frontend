@@ -30,3 +30,15 @@ export const calculateTotalVariedCost = (tasks) => {
     return acc + task.variedQuantity * cost
   }, 0)
 }
+
+export const strippingZeroes = (number) => {
+  return number.replace(/\.00$/, '')
+}
+
+export const calculateSMV = (percentage, totalSMV) => {
+  return percentage === '-'
+    ? '-'
+    : strippingZeroes(
+        (parseFloat(percentage.split('%')[0]) * 0.01 * totalSMV).toFixed(2)
+      )
+}

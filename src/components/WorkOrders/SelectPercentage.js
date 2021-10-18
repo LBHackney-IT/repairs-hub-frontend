@@ -1,6 +1,7 @@
 import ProperTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import Select from '../Form/Select'
+import { calculateSMV } from '../../utils/helpers/calculations'
 
 const SelectPercentage = ({
   updatePercentages,
@@ -46,18 +47,7 @@ const SelectPercentage = ({
     getDefaultPercentage(selectedOperatives)
   )
 
-  const calculateSMV = (percentage) => {
-    return percentage === '-'
-      ? '-'
-      : strippingZeroes(
-          (parseFloat(percentage.split('%')[0]) * 0.01 * totalSMV).toFixed(2)
-        )
-  }
-
-  const strippingZeroes = (number) => {
-    return number.replace(/\.00$/, '')
-  }
-  const [smv, setSmv] = useState(calculateSMV(selectedPercentage))
+  const [smv, setSmv] = useState(calculateSMV(selectedPercentage, totalSMV))
 
   const getPossiblePercentages = (selectedOperatives) => {
     if (isOnlyOneOperative(selectedOperatives)) {
@@ -99,7 +89,7 @@ const SelectPercentage = ({
     // then trigger validation
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
-    setSmv(calculateSMV(e.target.value))
+    setSmv(calculateSMV(e.target.value, totalSMV))
   }
 
   useEffect(() => {
