@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { TR, TD } from '../../Layout/Table'
+import Link from 'next/link'
 
 const tasksAndSorsRow = ({
   showOperativeTasksAndSorsRow,
@@ -12,6 +13,7 @@ const tasksAndSorsRow = ({
   quantity,
   isOriginal,
   originalQuantity,
+  sorLink,
 }) => {
   return !showOperativeTasksAndSorsRow ? (
     <TR index={index} className="lbh-body-s">
@@ -36,8 +38,16 @@ const tasksAndSorsRow = ({
   ) : (
     <TR index={index} className="lbh-body">
       <TD>{taskQuantity}</TD>
-      <TD>{code}</TD>
-      <TD>{description}</TD>
+      <TD>
+        <Link href={sorLink}>
+          <a className="govuk-link">{code}</a>
+        </Link>
+      </TD>
+      <TD>
+        <Link href={sorLink}>
+          <a className="govuk-link">{description}</a>
+        </Link>
+      </TD>
       <TD type="numeric">{standardMinuteValue * quantity}</TD>
     </TR>
   )

@@ -6,6 +6,7 @@ describe('OperativeTasksAndSorsTable component', () => {
     tabName: 'Tasks and SORs',
     tasksAndSors: [
       {
+        id: 1,
         code: 'DES5R006',
         description: 'Urgent call outs',
         dateAdded: new Date('2021-02-03T11:33:35.757339'),
@@ -17,6 +18,7 @@ describe('OperativeTasksAndSorsTable component', () => {
         standardMinuteValue: 25,
       },
       {
+        id: 2,
         code: 'DES5R005',
         description: 'Normal call outs',
         dateAdded: new Date('2021-02-03T11:33:35.814437'),
@@ -28,6 +30,7 @@ describe('OperativeTasksAndSorsTable component', () => {
         standardMinuteValue: 30,
       },
       {
+        id: 3,
         code: 'DES5R013',
         description: 'Inspect additional sec entrance',
         dateAdded: new Date('2021-02-03T11:33:35.757339'),
@@ -46,6 +49,7 @@ describe('OperativeTasksAndSorsTable component', () => {
       <OperativeTasksAndSorsTable
         tasksAndSors={props.tasksAndSors}
         tabName={props.tabName}
+        workOrderReference="10000000"
       />
     )
     expect(asFragment()).toMatchSnapshot()
