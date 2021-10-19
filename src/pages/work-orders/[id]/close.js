@@ -9,6 +9,7 @@ import {
   OPERATIVE_ROLE,
 } from '../../../utils/user'
 import { canAttendOwnWorkOrder } from '../../../utils/userPermissions'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 
 const WorkOrderClosePage = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -24,15 +25,8 @@ const WorkOrderClosePage = ({ query }) => {
     </>
   )
 }
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
 
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 WorkOrderClosePage.permittedRoles = [
   CONTRACTOR_ROLE,

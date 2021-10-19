@@ -18,5 +18,6 @@
   "contractorReference": "SCC",
   "operatives": [],
   "externalAppointmentManagementUrl": null,
-  "canAssignOperative": false
+  "canAssignOperative": false,
+  "totalSMVs": 76
 }

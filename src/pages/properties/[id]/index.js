@@ -1,4 +1,5 @@
 import PropertyView from '../../../components/Property/PropertyView'
+import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
@@ -9,15 +10,7 @@ const PropertyPage = ({ query }) => {
   return <PropertyView propertyReference={query.id} />
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 PropertyPage.permittedRoles = [
   AGENT_ROLE,

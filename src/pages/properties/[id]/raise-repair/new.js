@@ -1,4 +1,5 @@
 import RaiseWorkOrderFormView from '../../../../components/Property/RaiseWorkOrder/RaiseWorkOrderFormView'
+import { getQueryProps } from '../../../../utils/helpers/serverSideProps'
 
 import {
   AGENT_ROLE,
@@ -10,15 +11,7 @@ const RaiseRepairPage = ({ query }) => {
   return <RaiseWorkOrderFormView propertyReference={query.id} />
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 RaiseRepairPage.permittedRoles = [
   AGENT_ROLE,

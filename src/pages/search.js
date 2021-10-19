@@ -5,6 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
 } from '../utils/user'
+import { getQueryProps } from '../utils/helpers/serverSideProps'
 
 const SearchPage = ({ query }) => {
   if (Object.entries(query).length === 0) {
@@ -14,15 +15,7 @@ const SearchPage = ({ query }) => {
   }
 }
 
-export const getServerSideProps = async (ctx) => {
-  const { query } = ctx
-
-  return {
-    props: {
-      query,
-    },
-  }
-}
+export const getServerSideProps = getQueryProps
 
 SearchPage.permittedRoles = [
   AGENT_ROLE,
