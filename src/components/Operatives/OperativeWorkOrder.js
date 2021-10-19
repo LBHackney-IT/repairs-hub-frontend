@@ -32,7 +32,17 @@ const OperativeWorkOrder = ({
         header="Need to make a change?"
         text="Any changes to the work order must be made on paper."
       />
-
+      <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+        <a
+          role="button"
+          draggable="false"
+          class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+          data-module="govuk-button"
+        >
+          Add new SOR
+        </a>
+      </Link>
+      <br></br>
       <Link href={`/work-orders/${workOrderReference}/close`}>
         <a
           role="button"
