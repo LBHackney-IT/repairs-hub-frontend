@@ -19,6 +19,16 @@ describe('OperativeWorkOrder component', () => {
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
     plannerComment: 'planner comment',
+    operatives: [
+      {
+        id: 1,
+        payrollNumber: 'test001',
+        name: 'Test',
+        trades: [],
+        jobPercentage: 100,
+      },
+    ],
+    totalSMVs: 76,
     appointment: {
       date: '2021-09-03',
       description: 'AM Slot',

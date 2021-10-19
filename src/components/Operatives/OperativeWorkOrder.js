@@ -22,6 +22,7 @@ const OperativeWorkOrder = ({
   locationAlerts,
   tasksAndSors,
 }) => {
+  const operativesCount = workOrder.operatives.length
   const { register, errors, handleSubmit } = useForm()
   const [error, setError] = useState()
 
@@ -79,6 +80,19 @@ const OperativeWorkOrder = ({
           Add new SOR
         </a>
       </Link>
+      <br></br>
+      {operativesCount === 1 && (
+        <Link href={`/work-orders/${workOrderReference}/operatives/new`}>
+          <a
+            role="button"
+            draggable="false"
+            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            data-module="govuk-button"
+          >
+            Add operatives
+          </a>
+        </Link>
+      )}
       <br></br>
 
       {error && <ErrorMessage label={error} />}
