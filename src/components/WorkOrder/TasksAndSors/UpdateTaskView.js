@@ -8,10 +8,12 @@ import { PrimarySubmitButton, TextInput } from '../../Form'
 import { buildWorkOrderUpdate } from '../../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import AppointmentHeader from '../AppointmentHeader'
 
 const UpdateTaskView = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState({})
   const [task, setTask] = useState({})
+  const [workOrder, setWorkOrder] = useState({})
 
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -58,6 +60,13 @@ const UpdateTaskView = ({ workOrderReference, taskId }) => {
     setError(null)
 
     try {
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+
+      setWorkOrder(workOrder)
+
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
@@ -85,6 +94,7 @@ const UpdateTaskView = ({ workOrderReference, taskId }) => {
 
   return (
     <>
+      <AppointmentHeader workOrder={workOrder} />
       <BackButton />
       <h3 className="lbh-heading-h3">Update SOR</h3>
       {loading ? (
