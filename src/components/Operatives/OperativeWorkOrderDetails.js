@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types'
 import BackButton from '../Layout/BackButton'
-import { longMonthWeekday } from '../../utils/date'
 import { WorkOrder } from '../../models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
 import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
+import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 
 const OperativeWorkOrderDetails = ({
   property,
@@ -49,17 +49,7 @@ const OperativeWorkOrderDetails = ({
   return (
     <>
       <div className="operative-work-order">
-        <div className="govuk-panel govuk-panel--confirmation lbh-panel appointment-info">
-          {workOrder.appointment ? (
-            <h3 className="lbh-heading-h3">
-              {longMonthWeekday(workOrder.appointment.date)}
-              <br />
-              {workOrder.appointment.start}-{workOrder.appointment.end}
-            </h3>
-          ) : (
-            <h3 className="lbh-heading-h3">No appointment</h3>
-          )}
-        </div>
+        <AppointmentHeader workOrder={workOrder} />
         <BackButton />
 
         <GridRow>
