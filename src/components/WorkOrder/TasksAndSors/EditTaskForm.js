@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
 
-const UpdateTaskView = ({ workOrderReference, taskId }) => {
+const EditTaskForm = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState({})
   const [task, setTask] = useState({})
   const [workOrder, setWorkOrder] = useState({})
@@ -149,4 +149,4 @@ const UpdateTaskView = ({ workOrderReference, taskId }) => {
   )
 }
 
-export default UpdateTaskView
+export default EditTaskForm

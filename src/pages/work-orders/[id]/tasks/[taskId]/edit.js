@@ -1,14 +1,14 @@
 import { OPERATIVE_ROLE } from '../../../../../utils/user'
 import Meta from '../../../../../components/Meta'
 import { getQueryProps } from '../../../../../utils/helpers/serverSideProps'
-import UpdateTaskView from '../../../../../components/WorkOrder/TasksAndSors/UpdateTaskView'
+import EditTaskForm from '../../../../../components/WorkOrder/TasksAndSors/EditTaskForm'
 
 const EditWorkOrderTaskPage = ({ query }) => {
   return (
     <>
       <Meta title={`Update Work Order ${query.id}`} />
 
-      <UpdateTaskView workOrderReference={query.id} taskId={query.taskId} />
+      <EditTaskForm workOrderReference={query.id} taskId={query.taskId} />
     </>
   )
 }
