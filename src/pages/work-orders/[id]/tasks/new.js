@@ -1,5 +1,5 @@
 import Meta from '../../../../components/Meta'
-import NewTaskView from '../../../../components/Operatives/NewTaskView'
+import NewTaskForm from '../../../../components/Operatives/NewTaskForm'
 import { getQueryProps } from '../../../../utils/helpers/serverSideProps'
 
 import { OPERATIVE_ROLE } from '../../../../utils/user'
@@ -8,7 +8,7 @@ const NewTaskPage = ({ query }) => {
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />
-      <NewTaskView workOrderReference={query.id} />
+      <NewTaskForm workOrderReference={query.id} />
     </>
   )
 }
