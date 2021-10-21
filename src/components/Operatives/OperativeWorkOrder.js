@@ -23,6 +23,7 @@ const OperativeWorkOrder = ({
       />
 
       <OperativeTasksAndSorsTable
+        workOrderReference={workOrderReference}
         tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
         tabName={'Tasks and SORs'}
       />

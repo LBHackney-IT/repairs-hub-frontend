@@ -27,7 +27,9 @@ export const buildWorkOrderUpdate = (
     relatedWorkOrderReference: {
       id: reference,
     },
-    comments: `Variation reason: ${variationReason}`,
+    ...(variationReason && {
+      comments: `Variation reason: ${variationReason}`,
+    }),
     // From HACT JobStatusUpdateTypeCode:
     // 80 - More specific SOR codes identified
     typeCode: '80',

@@ -6,7 +6,7 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="operative-work-order"
   >
     <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-info"
+      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
     >
       <h3
         class="lbh-heading-h3"
