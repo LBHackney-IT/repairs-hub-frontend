@@ -19,7 +19,18 @@
       "end": "13:00",
       "reason": null,
       "note": null
-    }
+    },
+    "canAssignOperative" : true,
+    "totalSMVs" : 76,
+    "operatives" : [
+      {
+        "id": 1,
+        "payrollNumber": "hu0001",
+        "name": "Hackney User",
+        "trades": [],
+        "jobPercentage": 100
+      }
+    ]
   },
   {
     "reference": 10000625,
@@ -41,7 +52,18 @@
       "end": "18:00",
       "reason": null,
       "note": null
-    }
+    },
+    "canAssignOperative" : true,
+    "totalSMVs" : 76,
+    "operatives" : [
+      {
+        "id": 1,
+        "payrollNumber": "hu0001",
+        "name": "Hackney User",
+        "trades": [],
+        "jobPercentage": 100
+      }
+    ]
   },
   {
     "reference": 10000626,
@@ -62,7 +84,18 @@
       "end": "18:00",
       "reason": null,
       "note": null
-    }
+    },
+    "canAssignOperative" : true,
+    "totalSMVs" : 76,
+    "operatives" : [
+      {
+        "id": 1,
+        "payrollNumber": "hu0001",
+        "name": "Hackney User",
+        "trades": [],
+        "jobPercentage": 100
+      }
+    ]
   },
   {
     "reference": 10000626,
@@ -83,6 +116,17 @@
       "end": "18:00",
       "reason": null,
       "note": null
-    }
+    },
+    "canAssignOperative" : true,
+    "totalSMVs" : 76,
+    "operatives" : [
+      {
+        "id": 1,
+        "payrollNumber": "hu0001",
+        "name": "Hackney User",
+        "trades": [],
+        "jobPercentage": 100
+      }
+    ]
   }
 ]
