@@ -68,6 +68,7 @@ describe('/api/[...path]', () => {
       'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
+      Authorization: signedCookie,
     }
 
     describe('reflects errors from the service API', () => {

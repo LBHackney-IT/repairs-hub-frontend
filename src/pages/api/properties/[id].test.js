@@ -61,6 +61,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
+      Authorization: signedCookie,
     }
 
     test('the response can include full contact information', async () => {
@@ -120,6 +121,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
+      Authorization: signedCookie,
     }
 
     test('the response can include full contact information', async () => {
@@ -179,6 +181,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
       'Content-Type': 'application/json',
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': signedCookie,
+      Authorization: signedCookie,
     }
 
     test('response contact information is redacted', async () => {
