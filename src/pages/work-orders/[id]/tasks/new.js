@@ -1,13 +1,12 @@
 import Meta from '../../../../components/Meta'
 import NewTaskForm from '../../../../components/Operatives/NewTaskForm'
 import { getQueryProps } from '../../../../utils/helpers/serverSideProps'
-
 import { OPERATIVE_ROLE } from '../../../../utils/user'
 
 const NewTaskPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Work Order ${query.id}`} />
+      <Meta title={`Add New Work Order ${query.id}`} />
       <NewTaskForm workOrderReference={query.id} />
     </>
   )
