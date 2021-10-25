@@ -318,6 +318,16 @@ exports[`OperativeWorkOrder component should render work order elements with a c
     </div>
   </div>
   <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
+  <a
     class="govuk-button lbh-button"
     data-module="govuk-button"
     draggable="false"
@@ -681,6 +691,16 @@ exports[`OperativeWorkOrder component should render work order elements with a f
       </div>
     </div>
   </div>
+  <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
@@ -1044,6 +1064,16 @@ exports[`OperativeWorkOrder component should render work order elements with a f
       </div>
     </div>
   </div>
+  <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
