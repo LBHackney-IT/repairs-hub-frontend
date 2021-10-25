@@ -103,7 +103,7 @@ RateScheduleItem.propTypes = {
   errors: PropTypes.object.isRequired,
   index: PropTypes.number,
   showRemoveRateScheduleItem: PropTypes.bool.isRequired,
-  removeRateScheduleItem: PropTypes.func.isRequired,
+  removeRateScheduleItem: PropTypes.func,
   code: PropTypes.string,
   quantity: PropTypes.number,
   description: PropTypes.string,
