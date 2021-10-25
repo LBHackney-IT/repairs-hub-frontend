@@ -3,7 +3,11 @@ import TasksAndSorsRow from './TasksAndSorsRow'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import { calculateTotal } from '../../../utils/helpers/calculations'
 
-const OperativeTasksAndSorsTable = ({ tasksAndSors, tabName }) => {
+const OperativeTasksAndSorsTable = ({
+  tasksAndSors,
+  tabName,
+  workOrderReference,
+}) => {
   const buildTable = (tasks) => {
     return (
       <>
@@ -24,6 +28,7 @@ const OperativeTasksAndSorsTable = ({ tasksAndSors, tabName }) => {
               key={index}
               index={index}
               taskQuantity={entry.quantity}
+              sorLink={`/work-orders/${workOrderReference}/tasks/${entry.id}/edit`}
               {...entry}
             />
           ))}

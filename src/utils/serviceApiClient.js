@@ -34,6 +34,7 @@ export const serviceAPIRequest = cache(
     const headers = {
       'x-api-key': REPAIRS_SERVICE_API_KEY,
       'x-hackney-user': token,
+      Authorization: token,
       'Content-Type': 'application/json',
     }
 
@@ -51,6 +52,7 @@ export const serviceAPIRequest = cache(
             ...request.headers,
             'x-api-key': '[REMOVED]',
             'x-hackney-user': '[REMOVED]',
+            Authorization: '[REMOVED]',
           },
         })
       )

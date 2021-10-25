@@ -1,0 +1,1121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OperativeWorkOrder component should render work order elements with a close link when unvaried 1`] = `
+<DocumentFragment>
+  <div
+    class="operative-work-order"
+  >
+    <div
+      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    >
+      <h3
+        class="lbh-heading-h3"
+      >
+        Friday, 3 September
+        <br />
+        08:00-13:00
+      </h3>
+    </div>
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+          WO 10000621
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column priority-text"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+           normal
+        </div>
+      </div>
+    </div>
+    <div
+      class="lbh-heading-h5"
+    >
+      Description
+    </div>
+    <p
+      class="govuk-body govuk-!-margin-bottom-0 truncate"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
+        >
+          Caut. alerts
+        </a>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
+          >
+            CIT, DIS
+          </strong>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Address
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          16 Pitcairn House  St Thomass Square E9 6PT
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Contact
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          Test Testerson
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Telephone no
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          07856432
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Comment
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          School run
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Tasks and SORs
+  </h4>
+  <table
+    class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Qty
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          SMV
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          2
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            DES5R006
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            Urgent call outs
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          30
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="1"
+      >
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            SMV total
+          </strong>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            30
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <br />
+  <div
+    class="warning-info-box govuk-inset-text lbh-inset-text"
+  >
+    <div
+      class="lbh-warning-text govuk-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <div
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-warning-text__assistive"
+        >
+          Warning
+        </span>
+        <p
+          class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+        >
+          Need to make a change?
+        </p>
+        <p
+          class="lbh-body-xs govuk-!-margin-top-1"
+        >
+          Any changes to the work order must be made on paper.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
+  <a
+    class="govuk-button lbh-button"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/close"
+    role="button"
+  >
+    Confirm
+  </a>
+</DocumentFragment>
+`;
+
+exports[`OperativeWorkOrder component should render work order elements with a form and variation reason when an SOR is added 1`] = `
+<DocumentFragment>
+  <div
+    class="operative-work-order"
+  >
+    <div
+      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    >
+      <h3
+        class="lbh-heading-h3"
+      >
+        Friday, 3 September
+        <br />
+        08:00-13:00
+      </h3>
+    </div>
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+          WO 10000621
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column priority-text"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+           normal
+        </div>
+      </div>
+    </div>
+    <div
+      class="lbh-heading-h5"
+    >
+      Description
+    </div>
+    <p
+      class="govuk-body govuk-!-margin-bottom-0 truncate"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
+        >
+          Caut. alerts
+        </a>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
+          >
+            CIT, DIS
+          </strong>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Address
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          16 Pitcairn House  St Thomass Square E9 6PT
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Contact
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          Test Testerson
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Telephone no
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          07856432
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Comment
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          School run
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Tasks and SORs
+  </h4>
+  <table
+    class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Qty
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          SMV
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          4
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+          >
+            DES5R005
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+          >
+            Normal call outs
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          60
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="1"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          1
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            DES5R006
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            Urgent call outs
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          15
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="2"
+      >
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            SMV total
+          </strong>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            75
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <br />
+  <div
+    class="warning-info-box govuk-inset-text lbh-inset-text"
+  >
+    <div
+      class="lbh-warning-text govuk-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <div
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-warning-text__assistive"
+        >
+          Warning
+        </span>
+        <p
+          class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+        >
+          Need to make a change?
+        </p>
+        <p
+          class="lbh-body-xs govuk-!-margin-top-1"
+        >
+          Any changes to the work order must be made on paper.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
+  <form>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="variationReason-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="variationReason"
+      >
+        Variation reason 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <textarea
+        aria-describedby="variationReason-hint variationReason-error"
+        class="govuk-textarea lbh-textarea"
+        id="variationReason"
+        name="variationReason"
+        placeholder="Write a reason for the variation..."
+        rows="4"
+      />
+    </div>
+    <span
+      aria-live="polite"
+      class="govuk-hint govuk-character-count__message"
+    >
+      You have 250 characters remaining.
+    </span>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Confirm
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;
+
+exports[`OperativeWorkOrder component should render work order elements with a form and variation reason when an SOR is varied 1`] = `
+<DocumentFragment>
+  <div
+    class="operative-work-order"
+  >
+    <div
+      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    >
+      <h3
+        class="lbh-heading-h3"
+      >
+        Friday, 3 September
+        <br />
+        08:00-13:00
+      </h3>
+    </div>
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+          WO 10000621
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column priority-text"
+      >
+        <div
+          class="lbh-heading-h3"
+        >
+           normal
+        </div>
+      </div>
+    </div>
+    <div
+      class="lbh-heading-h5"
+    >
+      Description
+    </div>
+    <p
+      class="govuk-body govuk-!-margin-bottom-0 truncate"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
+        >
+          Caut. alerts
+        </a>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="govuk-warning-text lbh-warning-text"
+        >
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
+          >
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
+          >
+            CIT, DIS
+          </strong>
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Address
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          16 Pitcairn House  St Thomass Square E9 6PT
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Contact
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          Test Testerson
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Telephone no
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          07856432
+        </div>
+      </div>
+    </div>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-one-half"
+      >
+        <div
+          class="lbh-body property-name"
+        >
+          Comment
+        </div>
+      </div>
+      <div
+        class="govuk-grid-column-one-half align-grid-column"
+      >
+        <div
+          class="lbh-body"
+        >
+          School run
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Tasks and SORs
+  </h4>
+  <table
+    class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
+  >
+    <thead
+      class="govuk-table__head"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+      >
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Qty
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          SOR
+        </th>
+        <th
+          class="govuk-table__header"
+          scope="col"
+        >
+          Description
+        </th>
+        <th
+          class="govuk-table__header govuk-table__header--numeric"
+          scope="col"
+        >
+          SMV
+        </th>
+      </tr>
+    </thead>
+    <tbody
+      class="govuk-table__body"
+    >
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="0"
+      >
+        <td
+          class="govuk-table__cell"
+        >
+          4
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            DES5R006
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell"
+        >
+          <a
+            class="govuk-link"
+            href="/work-orders/10000000/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+          >
+            Urgent call outs
+          </a>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          60
+        </td>
+      </tr>
+      <tr
+        class="govuk-table__row lbh-body"
+        data-row-id="1"
+      >
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell"
+        />
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            SMV total
+          </strong>
+        </td>
+        <td
+          class="govuk-table__cell govuk-table__cell--numeric"
+        >
+          <strong>
+            60
+          </strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <br />
+  <div
+    class="warning-info-box govuk-inset-text lbh-inset-text"
+  >
+    <div
+      class="lbh-warning-text govuk-warning-text"
+    >
+      <span
+        aria-hidden="true"
+        class="govuk-warning-text__icon"
+      >
+        !
+      </span>
+      <div
+        class="govuk-warning-text__text"
+      >
+        <span
+          class="govuk-warning-text__assistive"
+        >
+          Warning
+        </span>
+        <p
+          class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+        >
+          Need to make a change?
+        </p>
+        <p
+          class="lbh-body-xs govuk-!-margin-top-1"
+        >
+          Any changes to the work order must be made on paper.
+        </p>
+      </div>
+    </div>
+  </div>
+  <a
+    class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+    data-module="govuk-button"
+    draggable="false"
+    href="/work-orders/10000000/tasks/new"
+    role="button"
+  >
+    Add new SOR
+  </a>
+  <br />
+  <form>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="variationReason-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="variationReason"
+      >
+        Variation reason 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <textarea
+        aria-describedby="variationReason-hint variationReason-error"
+        class="govuk-textarea lbh-textarea"
+        id="variationReason"
+        name="variationReason"
+        placeholder="Write a reason for the variation..."
+        rows="4"
+      />
+    </div>
+    <span
+      aria-live="polite"
+      class="govuk-hint govuk-character-count__message"
+    >
+      You have 250 characters remaining.
+    </span>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Confirm
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;

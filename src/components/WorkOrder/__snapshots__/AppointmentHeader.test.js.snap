@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppointmentHeader component should render info text when there is no appointment 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+  >
+    <h3
+      class="lbh-heading-h3"
+    >
+      No appointment
+    </h3>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`AppointmentHeader component should render the date when the appointment has one 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+  >
+    <h3
+      class="lbh-heading-h3"
+    >
+      Friday, 19 March
+      <br />
+      12:00-18:00
+    </h3>
+  </div>
+</DocumentFragment>
+`;
