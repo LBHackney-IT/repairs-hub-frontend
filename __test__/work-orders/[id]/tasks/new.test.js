@@ -19,7 +19,7 @@ describe('NewTaskPage.permittedRoles', () => {
     })
   })
   ;[OPERATIVE_ROLE].forEach((role) => {
-    it(`does not permit the ${role} role to access the page`, () => {
+    it(`does permit the ${role} role to access the page`, () => {
       expect(NewTaskPage.permittedRoles).toContain(role)
     })
   })
