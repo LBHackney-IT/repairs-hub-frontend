@@ -37,7 +37,7 @@ describe('OperativeTasksAndSorsTable component', () => {
         dateUpdated: new Date('2021-02-04T11:33:35.799566'),
         original: true,
         originalQuantity: 3,
-        quantity: 5,
+        quantity: 0,
         cost: 7.31,
         standardMinuteValue: 15,
       },
