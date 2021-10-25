@@ -604,6 +604,69 @@ describe('Updating a work order', () => {
       cy.url().should('contain', '/work-orders/10000621')
     })
 
+    it('allows editing of an existing task quantity with a "Remove SOR" shortcut', () => {
+      cy.visit('/work-orders/10000621')
+
+      cy.get('.latest-tasks-and-sors-table').within(() => {
+        cy.get('a').contains('DES5R006').click()
+      })
+
+      cy.url().should(
+        'contain',
+        '/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit'
+      )
+
+      cy.get('form').within(() => {
+        cy.contains('DES5R006 - Urgent call outs')
+
+        cy.get('#quantity').should('have.value', '2')
+
+        cy.get('button').contains('Remove SOR').click()
+      })
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          typeCode: '80',
+          moreSpecificSORCode: {
+            rateScheduleItem: [
+              {
+                // updated code - new quantity
+                id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+                customCode: 'DES5R006',
+                customName: 'Urgent call outs',
+                quantity: {
+                  amount: [0],
+                },
+              },
+              {
+                // existing code - unchanged
+                id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
+                customCode: 'DES5R005',
+                customName: 'Normal call outs',
+                quantity: {
+                  amount: [4],
+                },
+              },
+              {
+                // existing code - unchanged
+                id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
+                customCode: 'DES5R013',
+                customName: 'Inspect additional sec entrance',
+                quantity: {
+                  amount: [5],
+                },
+              },
+            ],
+          },
+        })
+
+      cy.url().should('contain', '/work-orders/10000621')
+    })
+
     it('allows adding new SOR', () => {
       cy.visit('/work-orders/10000621')
       cy.contains('Add new SOR').click()

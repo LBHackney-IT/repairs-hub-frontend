@@ -21,13 +21,11 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
 
   const { register, errors, handleSubmit } = useForm()
 
-  const onFormSubmit = async (formData) => {
+  const onFormSubmit = async (quantity) => {
     setLoading(true)
 
     const latestTasks = tasks.map((task) => {
-      return task.id === taskId
-        ? { ...task, quantity: formData.quantity }
-        : task
+      return task.id === taskId ? { ...task, quantity: quantity } : task
     })
 
     const workOrderUpdateFormData = buildWorkOrderUpdate(
@@ -101,7 +99,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
         <Spinner />
       ) : (
         <>
-          <form onSubmit={handleSubmit(onFormSubmit)}>
+          <form onSubmit={handleSubmit((data) => onFormSubmit(data.quantity))}>
             <GridColumn width="two-thirds">
               <p className="govuk-body-m">SOR Code and name</p>
               <p className="govuk-body-m">
@@ -139,6 +137,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
                 })}
               />
             </GridColumn>
+            <button onClick={() => onFormSubmit(0)}>Remove SOR</button>
             <PrimarySubmitButton label="Confirm" />
           </form>
 
