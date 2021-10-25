@@ -592,5 +592,89 @@ describe('Updating a work order', () => {
 
       cy.url().should('contain', '/work-orders/10000621')
     })
+
+    it('allows adding new SOR', () => {
+      cy.visit('/work-orders/10000621')
+      cy.contains('Add new SOR').click()
+
+      cy.url().should('contain', '/work-orders/10000621/tasks/new')
+
+      // when form submitted without any value
+      cy.get('form').within(() => {
+        cy.get('[type="submit"]').contains('Confirm').click()
+      })
+
+      cy.get(
+        'div[id="rateScheduleItems[operative][code]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Please select an SOR code')
+      })
+      cy.get(
+        'div[id="rateScheduleItems[operative][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Please enter a quantity')
+      })
+
+      cy.get('form').within(() => {
+        cy.get('input[id="rateScheduleItems[operative][code]"]')
+          .clear()
+          .type('DES5R003 - Immediate Call outs')
+        cy.get('input[id="rateScheduleItems[operative][quantity]"]')
+          .clear()
+          .type('3')
+
+        cy.get('button').contains('Confirm').click()
+      })
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          typeCode: '80',
+          moreSpecificSORCode: {
+            rateScheduleItem: [
+              {
+                // existing code - unchanged
+                id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+                customCode: 'DES5R006',
+                customName: 'Urgent call outs',
+                quantity: {
+                  amount: [2],
+                },
+              },
+              {
+                // existing code - unchanged
+                id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
+                customCode: 'DES5R005',
+                customName: 'Normal call outs',
+                quantity: {
+                  amount: [4],
+                },
+              },
+              {
+                // existing code - unchanged
+                id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
+                customCode: 'DES5R013',
+                customName: 'Inspect additional sec entrance',
+                quantity: {
+                  amount: [5],
+                },
+              },
+              {
+                // new added code
+                customCode: 'DES5R003',
+                customName: 'Immediate Call outs',
+                quantity: {
+                  amount: [3],
+                },
+              },
+            ],
+          },
+        })
+
+      cy.url().should('contain', '/work-orders/10000621')
+    })
   })
 })
