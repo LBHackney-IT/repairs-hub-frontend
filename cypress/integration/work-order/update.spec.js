@@ -540,6 +540,8 @@ describe('Updating a work order', () => {
         cy.get('a').contains('DES5R006').click()
       })
 
+      cy.wait(['@workOrderRequest', '@tasksRequest'])
+
       cy.url().should(
         'contain',
         '/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit'
