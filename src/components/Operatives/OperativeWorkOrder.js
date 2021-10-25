@@ -71,7 +71,7 @@ const OperativeWorkOrder = ({
         <a
           role="button"
           draggable="false"
-          class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+          className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
           data-module="govuk-button"
         >
           Add new SOR
