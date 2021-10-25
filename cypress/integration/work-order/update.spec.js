@@ -522,6 +522,15 @@ describe('Updating a work order', () => {
         { method: 'POST', path: '/api/jobStatusUpdate' },
         { body: '' }
       ).as('jobStatusUpdateRequest')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+        },
+        { fixture: 'scheduleOfRates/codes.json' }
+      ).as('sorCodesRequest')
     })
 
     it('allows editing of an existing task quantity', () => {
@@ -597,6 +606,8 @@ describe('Updating a work order', () => {
       cy.visit('/work-orders/10000621')
       cy.contains('Add new SOR').click()
 
+      cy.wait('@sorCodesRequest')
+
       cy.url().should('contain', '/work-orders/10000621/tasks/new')
 
       // when form submitted without any value
@@ -618,7 +629,7 @@ describe('Updating a work order', () => {
       cy.get('form').within(() => {
         cy.get('input[id="rateScheduleItems[operative][code]"]')
           .clear()
-          .type('DES5R003 - Immediate Call outs')
+          .type('DES5R003 - Immediate call outs')
         cy.get('input[id="rateScheduleItems[operative][quantity]"]')
           .clear()
           .type('3')
@@ -665,7 +676,7 @@ describe('Updating a work order', () => {
               {
                 // new added code
                 customCode: 'DES5R003',
-                customName: 'Immediate Call outs',
+                customName: 'Immediate call outs',
                 quantity: {
                   amount: [3],
                 },
