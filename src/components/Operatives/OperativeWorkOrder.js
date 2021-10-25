@@ -94,6 +94,19 @@ const OperativeWorkOrder = ({
         </Link>
       )}
       <br></br>
+      {operativesCount > 1 && (
+        <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
+          <a
+            role="button"
+            draggable="false"
+            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            data-module="govuk-button"
+          >
+            Update operatives
+          </a>
+        </Link>
+      )}
+      <br></br>
 
       {error && <ErrorMessage label={error} />}
 
