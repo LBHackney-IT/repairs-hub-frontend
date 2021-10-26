@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { TR, TD } from '../../Layout/Table'
 import Link from 'next/link'
+import cx from 'classnames'
 
 const tasksAndSorsRow = ({
   showOperativeTasksAndSorsRow,
@@ -36,7 +37,10 @@ const tasksAndSorsRow = ({
       </TD>
     </TR>
   ) : (
-    <TR index={index} className="lbh-body">
+    <TR
+      index={index}
+      className={cx('lbh-body', { 'zero-quantity-row': taskQuantity === 0 })}
+    >
       <TD>{taskQuantity}</TD>
       <TD>
         <Link href={sorLink}>

@@ -3,8 +3,8 @@ import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import BackButton from '../../Layout/BackButton'
 import Spinner from '../../Spinner'
 import { useForm } from 'react-hook-form'
-import { GridColumn } from '../../Layout/Grid'
-import { PrimarySubmitButton, TextInput } from '../../Form'
+import { GridColumn, GridRow } from '../../Layout/Grid'
+import { Button, PrimarySubmitButton, TextInput } from '../../Form'
 import { buildWorkOrderUpdate } from '../../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
@@ -21,13 +21,11 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
 
   const { register, errors, handleSubmit } = useForm()
 
-  const onFormSubmit = async (formData) => {
+  const onFormSubmit = async (quantity) => {
     setLoading(true)
 
     const latestTasks = tasks.map((task) => {
-      return task.id === taskId
-        ? { ...task, quantity: formData.quantity }
-        : task
+      return task.id === taskId ? { ...task, quantity: quantity } : task
     })
 
     const workOrderUpdateFormData = buildWorkOrderUpdate(
@@ -101,45 +99,56 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
         <Spinner />
       ) : (
         <>
-          <form onSubmit={handleSubmit(onFormSubmit)}>
-            <GridColumn width="two-thirds">
-              <p className="govuk-body-m">SOR Code and name</p>
-              <p className="govuk-body-m">
-                {[task.code, task.description].filter(Boolean).join(' - ')}
-              </p>
-              <input
-                id="sor-id"
-                name="sor-id"
-                type="hidden"
-                value={task.id}
-                ref={register}
-              />
-            </GridColumn>
-            <GridColumn width="one-third">
-              <TextInput
-                name={'quantity'}
-                label="Quantity"
-                additionalDivClasses="update-task-quantity"
-                error={errors && errors?.['quantity']}
-                defaultValue={task.quantity}
-                register={register({
-                  required: 'Please enter a quantity',
-                  validate: (value) => {
-                    const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
-                    if (isNaN(value)) {
-                      return 'Quantity must be a number'
-                    } else if (value < 0) {
-                      return 'Quantity must be 0 or more'
-                    } else if (!maxTwoDecimalPoints.test(value)) {
-                      return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
-                    } else {
-                      return true
-                    }
-                  },
-                })}
-              />
-            </GridColumn>
-            <PrimarySubmitButton label="Confirm" />
+          <form onSubmit={handleSubmit((data) => onFormSubmit(data.quantity))}>
+            <GridRow>
+              <GridColumn width="two-thirds">
+                <p className="govuk-body-m">SOR Code and name</p>
+                <p className="govuk-body-m">
+                  {[task.code, task.description].filter(Boolean).join(' - ')}
+                </p>
+                <input
+                  id="sor-id"
+                  name="sor-id"
+                  type="hidden"
+                  value={task.id}
+                  ref={register}
+                />
+              </GridColumn>
+              <GridColumn width="one-third">
+                <TextInput
+                  name={'quantity'}
+                  label="Quantity"
+                  additionalDivClasses="update-task-quantity"
+                  error={errors && errors?.['quantity']}
+                  defaultValue={task.quantity}
+                  register={register({
+                    required: 'Please enter a quantity',
+                    validate: (value) => {
+                      const maxTwoDecimalPoints = /^(?=.*\d)\d*(?:\.\d{1,2})?$/
+                      if (isNaN(value)) {
+                        return 'Quantity must be a number'
+                      } else if (value < 0) {
+                        return 'Quantity must be 0 or more'
+                      } else if (!maxTwoDecimalPoints.test(value)) {
+                        return 'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+                      } else {
+                        return true
+                      }
+                    },
+                  })}
+                />
+              </GridColumn>
+            </GridRow>
+            <Button
+              isSecondary={true}
+              onClick={() => onFormSubmit(0)}
+              label="Remove SOR"
+              className="govuk-!-margin-top-9"
+            ></Button>
+            <PrimarySubmitButton
+              label="Confirm"
+              className="govuk-!-margin-top-0"
+            />
           </form>
 
           {error && <ErrorMessage label={error} />}

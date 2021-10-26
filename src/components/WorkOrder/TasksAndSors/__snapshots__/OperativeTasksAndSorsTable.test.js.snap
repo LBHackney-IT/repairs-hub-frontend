@@ -116,13 +116,13 @@ exports[`OperativeTasksAndSorsTable component renders tasks and SORs table prope
         </td>
       </tr>
       <tr
-        class="govuk-table__row lbh-body"
+        class="govuk-table__row lbh-body zero-quantity-row"
         data-row-id="2"
       >
         <td
           class="govuk-table__cell"
         >
-          5
+          0
         </td>
         <td
           class="govuk-table__cell"
@@ -147,7 +147,7 @@ exports[`OperativeTasksAndSorsTable component renders tasks and SORs table prope
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
         >
-          75
+          0
         </td>
       </tr>
       <tr
@@ -171,7 +171,7 @@ exports[`OperativeTasksAndSorsTable component renders tasks and SORs table prope
           class="govuk-table__cell govuk-table__cell--numeric"
         >
           <strong>
-            245
+            170
           </strong>
         </td>
       </tr>
