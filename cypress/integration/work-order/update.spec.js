@@ -889,7 +889,7 @@ describe('Updating a work order', () => {
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000621' },
           { body: workOrder }
-        ).as('workOrderRequest')
+        ).as('workOrderRequestMultipleOperatives')
       })
 
       cy.intercept(
@@ -898,13 +898,17 @@ describe('Updating a work order', () => {
       ).as('operatives')
 
       cy.visit('/work-orders/10000621')
-      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+      cy.wait([
+        '@workOrderRequestMultipleOperatives',
+        '@tasksRequest',
+        '@propertyRequest',
+      ])
 
       cy.get('a').contains('Add operatives').should('not.exist')
 
       cy.get('a').contains('Update operatives').click()
 
-      cy.wait(['@operatives', '@workOrderRequest'])
+      cy.wait(['@operatives', '@workOrderRequestMultipleOperatives'])
 
       cy.get('.operatives').within(() => {
         cy.get('input[list]').should('have.length', 3)
