@@ -380,7 +380,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
         })
         //checks percentage
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').should('have.length', 3)
 
           cy.get('select').eq(0).should('have.value', '33.3%')
@@ -443,7 +443,7 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         //tatal of split percentages is more than 100
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
           cy.get('select').eq(2).select('30%')
@@ -466,7 +466,7 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         //now total is 100
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
           cy.get('select').eq(2).select('10%')
@@ -632,7 +632,7 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         // should add 100% by default
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).should('have.value', '100%')
         })
         //should have smv as 76

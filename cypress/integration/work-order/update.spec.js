@@ -797,7 +797,7 @@ describe('Updating a work order', () => {
         cy.get('input[list]').eq(2).type('Operative C [3]')
       })
 
-      cy.get('.select_percentage').within(() => {
+      cy.get('.select-percentage').within(() => {
         cy.get('select').should('have.length', 3)
 
         cy.get('select').eq(0).should('have.value', '100%')
@@ -813,7 +813,7 @@ describe('Updating a work order', () => {
         cy.contains('Work done total across operatives must be equal to 100%')
       })
 
-      cy.get('.select_percentage').within(() => {
+      cy.get('.select-percentage').within(() => {
         cy.get('select').eq(0).select('50%')
         cy.get('select').eq(1).select('50%')
         cy.get('select').eq(2).select('-')

@@ -45,7 +45,7 @@ exports[`SelectOperatives component should render properly 1`] = `
         </datalist>
       </div>
       <div
-        class="select_percentage govuk-!-display-inline-block govuk-!-margin-left-4"
+        class="select-percentage govuk-!-display-inline-block govuk-!-margin-left-4"
       >
         <div
           class="govuk-form-group lbh-form-group"

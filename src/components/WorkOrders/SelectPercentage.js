@@ -124,7 +124,7 @@ const SelectPercentage = ({
 
   return (
     <>
-      <div className="select_percentage govuk-!-display-inline-block govuk-!-margin-left-4">
+      <div className="select-percentage govuk-!-display-inline-block govuk-!-margin-left-4">
         <Select
           label="Work done"
           name={`percentage-${index}`}
