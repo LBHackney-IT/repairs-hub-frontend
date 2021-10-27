@@ -776,7 +776,7 @@ describe('Updating a work order', () => {
       cy.visit('/work-orders/10000621')
       cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
 
-      cy.get('a').contains('Add operatives').click()
+      cy.contains('a', 'Add operatives').click()
 
       cy.wait(['@operatives', '@workOrderRequest'])
 
@@ -904,9 +904,9 @@ describe('Updating a work order', () => {
         '@propertyRequest',
       ])
 
-      cy.get('a').contains('Add operatives').should('not.exist')
+      cy.contains('a', 'Add operatives').should('not.exist')
 
-      cy.get('a').contains('Update operatives').click()
+      cy.contains('a', 'Update operatives').click()
 
       cy.wait(['@operatives', '@workOrderRequestMultipleOperatives'])
 
