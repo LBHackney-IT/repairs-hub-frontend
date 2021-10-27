@@ -40,7 +40,7 @@ const OperativeDataList = ({
           },
         })}
         error={errors && errors[name]}
-        additionalDivClasses={['govuk-!-display-inline-block']}
+        additionalDivClasses={['operative-datalist']}
         widthClass="govuk-!-width-full"
       />
     </>

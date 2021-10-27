@@ -819,13 +819,11 @@ describe('Updating a work order', () => {
         cy.get('select').eq(2).select('-')
       })
 
-      cy.get('.smv-read-only').within(() => {
-        cy.get('div').should('have.length', 3)
+      cy.get('.smv-read-only').should('have.length', 3)
 
-        cy.get('.smv-0').contains('38')
-        cy.get('.smv-1').contains('38')
-        cy.get('.smv-2').contains('-')
-      })
+      cy.get('.smv-read-only').eq(0).contains('38')
+      cy.get('.smv-read-only').eq(1).contains('38')
+      cy.get('.smv-read-only').eq(2).contains('-')
 
       cy.get('[type="submit"]').contains('Confirm').click()
 
@@ -917,7 +915,7 @@ describe('Updating a work order', () => {
         cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
       })
 
-      cy.get('.select_percentage').within(() => {
+      cy.get('.select-percentage').within(() => {
         cy.get('select').should('have.length', 3)
 
         cy.get('select').eq(0).should('have.value', '50%')
@@ -926,19 +924,17 @@ describe('Updating a work order', () => {
       })
 
       // Update percentage
-      cy.get('.select_percentage').within(() => {
+      cy.get('.select-percentage').within(() => {
         cy.get('select').eq(0).select('30%')
         cy.get('select').eq(1).select('20%')
         cy.get('select').eq(2).select('50%')
       })
 
-      cy.get('.smv-read-only').within(() => {
-        cy.get('div').should('have.length', 3)
+      cy.get('.smv-read-only').should('have.length', 3)
 
-        cy.get('.smv-0').contains('22.80')
-        cy.get('.smv-1').contains('15.20')
-        cy.get('.smv-2').contains('38')
-      })
+      cy.get('.smv-read-only').eq(0).contains('22.80')
+      cy.get('.smv-read-only').eq(1).contains('15.20')
+      cy.get('.smv-read-only').eq(2).contains('38')
 
       cy.get('[type="submit"]').contains('Confirm').click()
 

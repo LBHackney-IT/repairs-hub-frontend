@@ -124,7 +124,7 @@ const SelectPercentage = ({
 
   return (
     <>
-      <div className="select-percentage govuk-!-display-inline-block govuk-!-margin-left-4">
+      <div className="select-percentage">
         <Select
           label="Work done"
           name={`percentage-${index}`}
@@ -149,15 +149,10 @@ const SelectPercentage = ({
           </div>
         )}
       </div>
-      <div className="smv-read-only govuk-!-display-inline-block govuk-!-margin-left-4">
-        <label className="govuk-label lbh-label">SMV</label>
-        <div className="smv-splitting-page">
-          <label
-            className={`smv-${index} govuk-label lbh-label govuk-!-margin-left-1`}
-          >
-            {smv}
-          </label>
-        </div>
+      <div className="smv-read-only">
+        <p className="lbh-body smv-read-only--label">SMV</p>
+
+        <p className="lbh-body smv-read-only--value">{smv}</p>
       </div>
     </>
   )

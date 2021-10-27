@@ -12,7 +12,7 @@ exports[`SelectOperatives component should render properly 1`] = `
     </p>
     <div>
       <div
-        class="govuk-form-group lbh-form-group govuk-!-display-inline-block"
+        class="govuk-form-group lbh-form-group operative-datalist"
         id="operative-0-form-group"
       >
         <label
@@ -45,7 +45,7 @@ exports[`SelectOperatives component should render properly 1`] = `
         </datalist>
       </div>
       <div
-        class="select-percentage govuk-!-display-inline-block govuk-!-margin-left-4"
+        class="select-percentage"
       >
         <div
           class="govuk-form-group lbh-form-group"
@@ -116,20 +116,16 @@ exports[`SelectOperatives component should render properly 1`] = `
         </div>
       </div>
       <div
-        class="smv-read-only govuk-!-display-inline-block govuk-!-margin-left-4"
+        class="smv-read-only"
       >
-        <label
-          class="govuk-label lbh-label"
+        <p
+          class="lbh-body smv-read-only--label"
         >
           SMV
-        </label>
-        <div
-          class="smv-splitting-page"
-        >
-          <label
-            class="smv-0 govuk-label lbh-label govuk-!-margin-left-1"
-          />
-        </div>
+        </p>
+        <p
+          class="lbh-body smv-read-only--value"
+        />
       </div>
     </div>
     <div>
