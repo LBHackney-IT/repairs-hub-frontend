@@ -13,6 +13,7 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { buildWorkOrderUpdate } from '../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
+import OperativeList from './OperativeList'
 
 const OperativeWorkOrder = ({
   workOrderReference,
