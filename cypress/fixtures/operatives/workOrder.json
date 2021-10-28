@@ -18,5 +18,16 @@
     "end": "13:00",
     "reason": null,
     "note": "School run"
-  }
+  },
+  "canAssignOperative" : true,
+  "totalSMVs" : 76,
+  "operatives" : [
+    {
+      "id": 1,
+      "payrollNumber": "hu0001",
+      "name": "Hackney User",
+      "trades": [],
+      "jobPercentage": 100
+    }
+  ]
 }

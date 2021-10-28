@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "payrollNumber": "OP001",
+    "name": "Operative A",
+    "trades": [],
+    "jobPercentage": 0
+  },
+  {
+    "id": 2,
+    "payrollNumber": "OP002",
+    "name": "Operative B",
+    "trades": [],
+    "jobPercentage": 0
+  },
+  {
+    "id": 3,
+    "payrollNumber": "OP003",
+    "name": "Operative C",
+    "trades": [],
+    "jobPercentage": 0
+  },
+  {
+    "id": 25,
+    "payrollNumber": "OP025",
+    "name": "Operative Y",
+    "trades": [],
+    "jobPercentage": 0
+  },
+  {
+    "id": 26,
+    "payrollNumber": "OP026",
+    "name": "Operative Z",
+    "trades": [],
+    "jobPercentage": 0
+  }
+]
