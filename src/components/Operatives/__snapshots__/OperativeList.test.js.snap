@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`OperativeList component should render operative list, each as an individual link 1`] = `
+<DocumentFragment>
+  <h4
+    class="lbh-heading-h4"
+  >
+    Operatives
+  </h4>
+  <dl
+    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  >
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <a
+          class="govuk-link"
+          href="/work-orders/10000621/operatives/new"
+        >
+          Test1 - 50%
+        </a>
+        <br />
+        <br />
+        <a
+          class="govuk-link"
+          href="/work-orders/10000621/operatives/new"
+        >
+          Test2 - 100%
+        </a>
+        <br />
+        <br />
+      </dd>
+    </div>
+  </dl>
+</DocumentFragment>
+`;
