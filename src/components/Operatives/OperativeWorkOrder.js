@@ -106,6 +106,10 @@ const OperativeWorkOrder = ({
           )
         })}
       </ol>
+      {/* <OperativeList
+        operatives={workOrder.operatives}
+        workOrderReference={workOrderReference}
+      /> */}
 
       <WarningInfoBox
         header="Need to make a change?"

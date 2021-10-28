@@ -4,26 +4,28 @@ import Link from 'next/link'
 const OperativeList = ({ operatives, workOrderReference }) => {
   return (
     <>
-      <h1 className="lbh-heading-h3">Operatives</h1>
-      <dl class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list">
+      <h4 className="lbh-heading-h4">Operatives</h4>
+      <dl class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row">
           <dd class="govuk-summary-list__value">
-            {operatives.map((operative, index) => (
-              <>
-                <Link
-                  href={`/work-orders/${workOrderReference}/operatives/edit`}
-                  index={index}
-                >
-                  <a class="govuk-body govuk-link">
-                    {operative.payrollNumber} {operative.name}
-                    {operative.jobPercentage
-                      ? `- ${operative.jobPercentage}`
-                      : ''}
-                  </a>
-                </Link>
-                <br />
-              </>
-            ))}
+            {operatives.map((operative) => {
+              const percentageDisplay = operative.jobPercentage
+                ? `${operative.jobPercentage}%`
+                : 'N/A'
+              return (
+                <>
+                  <Link
+                    href={`/work-orders/${workOrderReference}/operatives/new`}
+                  >
+                    <a className="govuk-link">
+                      {[operative.name, percentageDisplay].join(' - ')}
+                    </a>
+                  </Link>
+                  <br />
+                  <br />
+                </>
+              )
+            })}
           </dd>
         </div>
       </dl>

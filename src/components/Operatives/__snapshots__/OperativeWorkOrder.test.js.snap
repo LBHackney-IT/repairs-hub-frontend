@@ -289,16 +289,34 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
   >
     Operatives
   </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  <dl
+    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <li>
-      Test1 - 50%
-    </li>
-    <li>
-      Test2 - 100%
-    </li>
-  </ol>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <a
+          class="govuk-link"
+          href="/work-orders/10000000/operatives/new"
+        >
+          Test1 - 50%
+        </a>
+        <br />
+        <br />
+        <a
+          class="govuk-link"
+          href="/work-orders/10000000/operatives/new"
+        >
+          Test2 - 100%
+        </a>
+        <br />
+        <br />
+      </dd>
+    </div>
+  </dl>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -652,13 +670,26 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Operatives
   </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  <dl
+    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <li>
-      Test - 100%
-    </li>
-  </ol>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <a
+          class="govuk-link"
+          href="/work-orders/10000000/operatives/new"
+        >
+          Test - 100%
+        </a>
+        <br />
+        <br />
+      </dd>
+    </div>
+  </dl>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1047,13 +1078,26 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Operatives
   </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  <dl
+    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <li>
-      Test - 100%
-    </li>
-  </ol>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <a
+          class="govuk-link"
+          href="/work-orders/10000000/operatives/new"
+        >
+          Test - 100%
+        </a>
+        <br />
+        <br />
+      </dd>
+    </div>
+  </dl>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1441,13 +1485,26 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Operatives
   </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  <dl
+    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <li>
-      Test - 100%
-    </li>
-  </ol>
+    <div
+      class="govuk-summary-list__row"
+    >
+      <dd
+        class="govuk-summary-list__value"
+      >
+        <a
+          class="govuk-link"
+          href="/work-orders/10000000/operatives/new"
+        >
+          Test - 100%
+        </a>
+        <br />
+        <br />
+      </dd>
+    </div>
+  </dl>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
