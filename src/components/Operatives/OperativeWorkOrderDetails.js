@@ -40,7 +40,7 @@ const OperativeWorkOrderDetails = ({
 
   const pRef = useCallback((node) => {
     if (node != null) {
-      if (node.scrollHeight > node.clientHeight) {
+      if (node.scrollHeight > node.clientHeight + 1) {
         setTextOverflow(true)
       }
     }
