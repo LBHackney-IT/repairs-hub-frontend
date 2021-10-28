@@ -299,7 +299,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
         class="govuk-summary-list__value"
       >
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-0"
           href="/work-orders/10000000/operatives/new"
         >
           Test1 - 50%
@@ -307,7 +307,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
         <br />
         <br />
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-1"
           href="/work-orders/10000000/operatives/new"
         >
           Test2 - 100%
@@ -680,7 +680,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
         class="govuk-summary-list__value"
       >
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-0"
           href="/work-orders/10000000/operatives/new"
         >
           Test - 100%
@@ -1088,7 +1088,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
         class="govuk-summary-list__value"
       >
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-0"
           href="/work-orders/10000000/operatives/new"
         >
           Test - 100%
@@ -1495,7 +1495,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
         class="govuk-summary-list__value"
       >
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-0"
           href="/work-orders/10000000/operatives/new"
         >
           Test - 100%

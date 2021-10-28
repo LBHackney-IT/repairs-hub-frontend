@@ -375,5 +375,17 @@ describe('Show work order page', () => {
         )
       })
     })
+
+    it('shows list of operatives, each one as a link', () => {
+      cy.visit('work-orders/10000621')
+
+      cy.wait(['@operativesWorkOrder', '@property', '@task'])
+      cy.contains('WO 10000621')
+
+      cy.contains('Operatives')
+
+      cy.get('.operative-link-0').contains('Hackney User - 100%')
+      // cy.get('.operative-link-0').contains('Hackney User - 100%').should('have.attr', 'href', '/work-orders/10000621/operatives/new')
+    })
   })
 })

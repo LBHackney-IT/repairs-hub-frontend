@@ -8,7 +8,7 @@ const OperativeList = ({ operatives, workOrderReference }) => {
       <dl class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row">
           <dd class="govuk-summary-list__value">
-            {operatives.map((operative) => {
+            {operatives.map((operative, index) => {
               const percentageDisplay = operative.jobPercentage
                 ? `${operative.jobPercentage}%`
                 : 'N/A'
@@ -17,7 +17,7 @@ const OperativeList = ({ operatives, workOrderReference }) => {
                   <Link
                     href={`/work-orders/${workOrderReference}/operatives/new`}
                   >
-                    <a className="govuk-link">
+                    <a className={`govuk-link operative-link-${index}`}>
                       {[operative.name, percentageDisplay].join(' - ')}
                     </a>
                   </Link>

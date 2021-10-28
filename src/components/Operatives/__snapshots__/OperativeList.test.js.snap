@@ -17,7 +17,7 @@ exports[`OperativeList component should render operative list, each as an indivi
         class="govuk-summary-list__value"
       >
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-0"
           href="/work-orders/10000621/operatives/new"
         >
           Test1 - 50%
@@ -25,7 +25,7 @@ exports[`OperativeList component should render operative list, each as an indivi
         <br />
         <br />
         <a
-          class="govuk-link"
+          class="govuk-link operative-link-1"
           href="/work-orders/10000621/operatives/new"
         >
           Test2 - 100%
