@@ -1,0 +1,48 @@
+.smv-read-only {
+  @include govuk-media-query($from: tablet) {
+    display: inline-block;
+    margin-left: 2em;
+    background-color: none;
+    .smv-read-only--value {
+      margin-top: 0.95em;
+    }
+  }
+
+  @include govuk-media-query($until: tablet) {
+    margin-top: 0.6em;
+    background-color: lbh-colour('lbh-grey-4');
+    padding: 0.8em 6px;
+    p {
+      margin: 0;
+      display: inline-block;
+      font-weight: 600;
+    }
+  }
+  .smv-read-only--value {
+    text-align: center;
+
+    @include govuk-media-query($until: tablet) {
+      margin-left: 2em;
+    }
+  }
+}
+
+.select-percentage {
+  @include govuk-media-query($from: tablet) {
+    display: inline-block;
+
+    margin-left: 2em;
+  }
+
+  @include govuk-media-query($until: tablet) {
+    select {
+      width: 50%;
+    }
+  }
+}
+
+.operative-datalist {
+  @include govuk-media-query($from: tablet) {
+    display: inline-block;
+  }
+}

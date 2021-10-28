@@ -380,21 +380,20 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
         })
         //checks percentage
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').should('have.length', 3)
 
           cy.get('select').eq(0).should('have.value', '33.3%')
           cy.get('select').eq(1).should('have.value', '33.3%')
           cy.get('select').eq(2).should('have.value', '33.3%')
         })
-        //checks smv
-        cy.get('.smv-read-only').within(() => {
-          cy.get('div').should('have.length', 3)
 
-          cy.get('.smv-0').contains('25.31')
-          cy.get('.smv-1').contains('25.31')
-          cy.get('.smv-2').contains('25.31')
-        })
+        //checks smv
+        cy.get('.smv-read-only').should('have.length', 3)
+
+        cy.get('.smv-read-only').eq(0).contains('25.31')
+        cy.get('.smv-read-only').eq(1).contains('25.31')
+        cy.get('.smv-read-only').eq(2).contains('25.31')
 
         cy.get('[type="submit"]').contains('Submit').click()
 
@@ -442,22 +441,20 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').should('have.length', 4)
         })
 
-        //tatal of split percentages is more than 100
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
           cy.get('select').eq(2).select('30%')
           cy.get('select').eq(3).select('10%')
         })
 
-        cy.get('.smv-read-only').within(() => {
-          cy.get('div').should('have.length', 4)
+        //total of split percentages is more than 100
+        cy.get('.smv-read-only').should('have.length', 4)
 
-          cy.get('.smv-0').contains('53.20')
-          cy.get('.smv-1').contains('15.20')
-          cy.get('.smv-2').contains('22.80')
-          cy.get('.smv-3').contains('7.60')
-        })
+        cy.get('.smv-read-only').eq(0).contains('53.20')
+        cy.get('.smv-read-only').eq(1).contains('15.20')
+        cy.get('.smv-read-only').eq(2).contains('22.80')
+        cy.get('.smv-read-only').eq(3).contains('7.60')
 
         cy.get('[type="submit"]').contains('Submit').click()
 
@@ -466,21 +463,19 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         //now total is 100
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
           cy.get('select').eq(2).select('10%')
           cy.get('select').eq(3).select('-')
         })
 
-        cy.get('.smv-read-only').within(() => {
-          cy.get('div').should('have.length', 4)
+        cy.get('.smv-read-only').should('have.length', 4)
 
-          cy.get('.smv-0').contains('53.20')
-          cy.get('.smv-1').contains('15.20')
-          cy.get('.smv-2').contains('7.60')
-          cy.get('.smv-3').contains('-')
-        })
+        cy.get('.smv-read-only').eq(0).contains('53.20')
+        cy.get('.smv-read-only').eq(1).contains('15.20')
+        cy.get('.smv-read-only').eq(2).contains('7.60')
+        cy.get('.smv-read-only').eq(3).contains('-')
 
         cy.get('[type="submit"]').contains('Submit').click()
 
@@ -632,15 +627,14 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         // should add 100% by default
-        cy.get('.select_percentage').within(() => {
+        cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).should('have.value', '100%')
         })
         //should have smv as 76
-        cy.get('.smv-read-only').within(() => {
-          cy.get('div').should('have.length', 1)
 
-          cy.get('.smv-0').contains('76')
-        })
+        cy.get('.smv-read-only').should('have.length', 1)
+
+        cy.get('.smv-read-only').eq(0).contains('76')
 
         cy.get('[type="submit"]').contains('Submit').click()
 
