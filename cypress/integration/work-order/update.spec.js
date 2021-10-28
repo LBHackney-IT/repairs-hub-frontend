@@ -504,10 +504,6 @@ describe('Updating a work order', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
 
-      cy.intercept('/api/workOrders/10000621', {
-        fixture: 'workOrders/workOrder.json',
-      }).as('workOrderRequest')
-
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
@@ -531,6 +527,24 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
+
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.canAssignOperative = true
+        workOrder.totalSMVs = 76
+        workOrder.operatives = [
+          {
+            id: 1,
+            payrollNumber: 'OP001',
+            name: 'Operative A',
+            trades: [],
+            jobPercentage: 0,
+          },
+        ]
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621' },
+          { body: workOrder }
+        ).as('workOrderRequest')
+      })
     })
 
     it('allows editing of an existing task quantity', () => {
@@ -751,6 +765,211 @@ describe('Updating a work order', () => {
         })
 
       cy.url().should('contain', '/work-orders/10000621')
+    })
+
+    it('allows adding operatives with percentage splits', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/operatives' },
+        { fixture: 'operatives/operatives.json' }
+      ).as('operatives')
+
+      cy.visit('/work-orders/10000621')
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+
+      cy.contains('a', 'Add operatives').click()
+
+      cy.wait(['@operatives', '@workOrderRequest'])
+
+      cy.get('.operatives').within(() => {
+        cy.get('input[list]').should('have.length', 1)
+        cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
+
+        cy.get('a')
+          .contains(/Add operative from list/)
+          .click()
+        cy.get('a')
+          .contains(/Add operative from list/)
+          .click()
+
+        cy.get('input[list]').should('have.length', 3)
+
+        cy.get('input[list]').eq(1).type('Operative B [2]')
+        cy.get('input[list]').eq(2).type('Operative C [3]')
+      })
+
+      cy.get('.select_percentage').within(() => {
+        cy.get('select').should('have.length', 3)
+
+        cy.get('select').eq(0).should('have.value', '100%')
+        cy.get('select').eq(1).should('have.value', '-')
+        cy.get('select').eq(2).should('have.value', '-')
+
+        cy.get('select').eq(1).select('20%')
+      })
+
+      cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.get('.operatives').within(() => {
+        cy.contains('Work done total across operatives must be equal to 100%')
+      })
+
+      cy.get('.select_percentage').within(() => {
+        cy.get('select').eq(0).select('50%')
+        cy.get('select').eq(1).select('50%')
+        cy.get('select').eq(2).select('-')
+      })
+
+      cy.get('.smv-read-only').within(() => {
+        cy.get('div').should('have.length', 3)
+
+        cy.get('.smv-0').contains('38')
+        cy.get('.smv-1').contains('38')
+        cy.get('.smv-2').contains('-')
+      })
+
+      cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          operativesAssigned: [
+            {
+              identification: {
+                number: 1,
+              },
+              calculatedBonus: 50,
+            },
+            {
+              identification: {
+                number: 2,
+              },
+              calculatedBonus: 50,
+            },
+            {
+              identification: {
+                number: 3,
+              },
+              calculatedBonus: 0,
+            },
+          ],
+          typeCode: '10',
+        })
+    })
+
+    it('allows updating operatives with percentage splits', () => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.canAssignOperative = true
+        workOrder.totalSMVs = 76
+        workOrder.operatives = [
+          {
+            id: 1,
+            payrollNumber: 'OP001',
+            name: 'Operative A',
+            trades: [],
+            jobPercentage: 50,
+          },
+          {
+            id: 2,
+            payrollNumber: 'OP002',
+            name: 'Operative B',
+            trades: [],
+            jobPercentage: 50,
+          },
+          {
+            id: 3,
+            payrollNumber: 'OP003',
+            name: 'Operative C',
+            trades: [],
+            jobPercentage: 0,
+          },
+        ]
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621' },
+          { body: workOrder }
+        ).as('workOrderRequestMultipleOperatives')
+      })
+
+      cy.intercept(
+        { method: 'GET', path: '/api/operatives' },
+        { fixture: 'operatives/operatives.json' }
+      ).as('operatives')
+
+      cy.visit('/work-orders/10000621')
+      cy.wait([
+        '@workOrderRequestMultipleOperatives',
+        '@tasksRequest',
+        '@propertyRequest',
+      ])
+
+      cy.contains('a', 'Add operatives').should('not.exist')
+
+      cy.contains('a', 'Update operatives').click()
+
+      cy.wait(['@operatives', '@workOrderRequestMultipleOperatives'])
+
+      cy.get('.operatives').within(() => {
+        cy.get('input[list]').should('have.length', 3)
+        cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
+        cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
+        cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
+      })
+
+      cy.get('.select_percentage').within(() => {
+        cy.get('select').should('have.length', 3)
+
+        cy.get('select').eq(0).should('have.value', '50%')
+        cy.get('select').eq(1).should('have.value', '50%')
+        cy.get('select').eq(2).should('have.value', '')
+      })
+
+      // Update percentage
+      cy.get('.select_percentage').within(() => {
+        cy.get('select').eq(0).select('30%')
+        cy.get('select').eq(1).select('20%')
+        cy.get('select').eq(2).select('50%')
+      })
+
+      cy.get('.smv-read-only').within(() => {
+        cy.get('div').should('have.length', 3)
+
+        cy.get('.smv-0').contains('22.80')
+        cy.get('.smv-1').contains('15.20')
+        cy.get('.smv-2').contains('38')
+      })
+
+      cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          operativesAssigned: [
+            {
+              identification: {
+                number: 1,
+              },
+              calculatedBonus: 30,
+            },
+            {
+              identification: {
+                number: 2,
+              },
+              calculatedBonus: 20,
+            },
+            {
+              identification: {
+                number: 3,
+              },
+              calculatedBonus: 50,
+            },
+          ],
+          typeCode: '10',
+        })
     })
   })
 })
