@@ -103,7 +103,7 @@ const OperativeFormView = ({ workOrderReference }) => {
     )
     setSelectedPercentagesToShowOnEdit(percentages)
 
-    let operativesWithPercentages = operativeIds.map((operativeId, index) => {
+    const operativesWithPercentages = operativeIds.map((operativeId, index) => {
       return {
         operative: availableOperatives.find(
           (operative) => operative.id === operativeId
