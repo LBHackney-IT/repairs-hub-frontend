@@ -65,6 +65,16 @@ const OperativeWorkOrder = ({
         tabName={'Tasks and SORs'}
       />
 
+      <h4 className="lbh-heading-h4">Operatives</h4>
+      <ol className="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
+        {workOrder.operatives.map((operative) => {
+          const percentageDisplay = operative.jobPercentage
+            ? `${operative.jobPercentage}%`
+            : '?'
+          return <li>{[operative.name, percentageDisplay].join(' - ')}</li>
+        })}
+      </ol>
+
       <WarningInfoBox
         header="Need to make a change?"
         text="Any changes to the work order must be made on paper."
