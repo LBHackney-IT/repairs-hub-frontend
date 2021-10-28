@@ -284,6 +284,21 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
   </table>
   <br />
   <br />
+  <h4
+    class="lbh-heading-h4"
+  >
+    Operatives
+  </h4>
+  <ol
+    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  >
+    <li>
+      Test1 - 50%
+    </li>
+    <li>
+      Test2 - 100%
+    </li>
+  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -634,6 +649,18 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
+  <h4
+    class="lbh-heading-h4"
+  >
+    Operatives
+  </h4>
+  <ol
+    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  >
+    <li>
+      Test - 100%
+    </li>
+  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1019,6 +1046,18 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
+  <h4
+    class="lbh-heading-h4"
+  >
+    Operatives
+  </h4>
+  <ol
+    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  >
+    <li>
+      Test - 100%
+    </li>
+  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1403,6 +1442,18 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
+  <h4
+    class="lbh-heading-h4"
+  >
+    Operatives
+  </h4>
+  <ol
+    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  >
+    <li>
+      Test - 100%
+    </li>
+  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
