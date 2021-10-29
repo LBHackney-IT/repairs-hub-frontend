@@ -94,11 +94,15 @@ const OperativeWorkOrder = ({
 
       <h4 className="lbh-heading-h4">Operatives</h4>
       <ol className="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
-        {workOrder.operatives.map((operative) => {
+        {workOrder.operatives.map((operative, index) => {
           const percentageDisplay = operative.jobPercentage
             ? `${operative.jobPercentage}%`
             : '?'
-          return <li>{[operative.name, percentageDisplay].join(' - ')}</li>
+          return (
+            <li key={index}>
+              {[operative.name, percentageDisplay].join(' - ')}
+            </li>
+          )
         })}
       </ol>
 
