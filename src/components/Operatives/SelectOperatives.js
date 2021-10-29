@@ -13,6 +13,7 @@ const SelectOperatives = ({
   trigger,
   getValues,
   totalSMV,
+  currentUserPayrollNumber,
 }) => {
   const [selectedOperatives, setSelectedOperatives] = useState(
     // Add at least one slot for an operative
@@ -135,11 +136,19 @@ const SelectOperatives = ({
           )}
 
         {selectedOperatives.map((selectedOperative, index) => {
+          const operativeIsCurrentUser =
+            currentUserPayrollNumber &&
+            currentUserPayrollNumber === selectedOperative?.payrollNumber
+
           return (
             <div key={index}>
               <OperativeDataList
                 label={`Operative name ${index + 1} *`}
-                name={`operative-${index}`}
+                name={
+                  operativeIsCurrentUser
+                    ? `operative-disabled-${index}`
+                    : `operative-${index}`
+                }
                 selectedOperative={
                   selectedOperative
                     ? formatOperativeOptionText(
@@ -159,6 +168,7 @@ const SelectOperatives = ({
                 onSelectedOperative={onSelectedOperative}
                 selectedOperatives={selectedOperatives}
                 getValues={getValues}
+                {...(operativeIsCurrentUser && { disabled: 'disabled' })}
               />
 
               {process.env.NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED ===

@@ -10,6 +10,7 @@ const OperativeForm = ({
   availableOperatives,
   selectedPercentagesToShowOnEdit,
   totalSMV,
+  currentUserPayrollNumber,
 }) => {
   const { handleSubmit, register, errors, trigger, getValues } = useForm({})
 
@@ -30,6 +31,7 @@ const OperativeForm = ({
             trigger={trigger}
             getValues={getValues}
             totalSMV={totalSMV}
+            currentUserPayrollNumber={currentUserPayrollNumber}
           />
 
           <PrimarySubmitButton label={'Confirm'} />

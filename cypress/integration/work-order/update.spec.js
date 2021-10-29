@@ -519,6 +519,13 @@ describe('Updating a work order', () => {
         { body: '' }
       ).as('jobStatusUpdateRequest')
 
+      cy.fixture('hubUser/user.json')
+        .then((user) => {
+          user.operativePayrollNumber = 'OP001'
+          cy.intercept({ method: 'GET', path: '/api/hub-user' }, { body: user })
+        })
+        .as('hubUserRequest')
+
       cy.intercept(
         {
           method: 'GET',
@@ -782,7 +789,14 @@ describe('Updating a work order', () => {
 
       cy.get('.operatives').within(() => {
         cy.get('input[list]').should('have.length', 1)
-        cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
+        cy.get('input[list]')
+          .eq(0)
+          .should('have.value', 'Operative A [1]')
+          .should('be.disabled')
+        cy.get('select')
+          .eq(0)
+          .should('have.value', '100%')
+          .should('be.disabled')
 
         cy.get('a')
           .contains(/Add operative from list/)
@@ -863,16 +877,16 @@ describe('Updating a work order', () => {
         workOrder.totalSMVs = 76
         workOrder.operatives = [
           {
-            id: 1,
-            payrollNumber: 'OP001',
-            name: 'Operative A',
+            id: 2,
+            payrollNumber: 'OP002',
+            name: 'Operative B',
             trades: [],
             jobPercentage: 50,
           },
           {
-            id: 2,
-            payrollNumber: 'OP002',
-            name: 'Operative B',
+            id: 1,
+            payrollNumber: 'OP001',
+            name: 'Operative A',
             trades: [],
             jobPercentage: 50,
           },
@@ -911,6 +925,8 @@ describe('Updating a work order', () => {
       cy.get('.operatives').within(() => {
         cy.get('input[list]').should('have.length', 3)
         cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
+        cy.get('input[list]').eq(0).should('be.disabled')
+
         cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
         cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
       })

@@ -22,6 +22,7 @@ const OperativeWorkOrder = ({
   personAlerts,
   locationAlerts,
   tasksAndSors,
+  currentUserPayrollNumber,
 }) => {
   const operativesCount = workOrder.operatives.length
   const { register, errors, handleSubmit } = useForm()
@@ -73,6 +74,7 @@ const OperativeWorkOrder = ({
             {linkText}
           </a>
         </Link>
+        <br />
       </>
     )
   }
@@ -95,6 +97,7 @@ const OperativeWorkOrder = ({
 
       <OperativeList
         operatives={workOrder.operatives}
+        currentUserPayrollNumber={currentUserPayrollNumber}
         workOrderReference={workOrderReference}
       />
 

@@ -11,6 +11,7 @@ const OperativeDataList = ({
   errors,
   isOperativeNameSelected,
   getValues,
+  disabled,
 }) => {
   const onChange = () => {
     isOperativeNameSelected(true)
@@ -42,7 +43,17 @@ const OperativeDataList = ({
         error={errors && errors[name]}
         additionalDivClasses={['operative-datalist']}
         widthClass="govuk-!-width-full"
+        disabled={disabled}
       />
+
+      {disabled && (
+        <input
+          name={`operative-${index}`}
+          type="hidden"
+          value={selectedOperative}
+          ref={register}
+        />
+      )}
     </>
   )
 }
