@@ -49,6 +49,33 @@ const OperativeWorkOrder = ({
     }
   }
 
+  const renderOperativeManagementLink = (operativesCount) => {
+    let path, linkText
+
+    if (operativesCount <= 1) {
+      path = 'new'
+      linkText = 'Add operatives'
+    } else {
+      path = 'edit'
+      linkText = 'Update operatives'
+    }
+
+    return (
+      <>
+        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
+          <a
+            role="button"
+            draggable="false"
+            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            data-module="govuk-button"
+          >
+            {linkText}
+          </a>
+        </Link>
+      </>
+    )
+  }
+
   return (
     <>
       <OperativeWorkOrderDetails
@@ -91,32 +118,9 @@ const OperativeWorkOrder = ({
         </a>
       </Link>
       <br></br>
-      {operativesCount === 1 && (
-        <Link href={`/work-orders/${workOrderReference}/operatives/new`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            data-module="govuk-button"
-          >
-            Add operatives
-          </a>
-        </Link>
-      )}
-      <br></br>
-      {operativesCount > 1 && (
-        <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            data-module="govuk-button"
-          >
-            Update operatives
-          </a>
-        </Link>
-      )}
-      <br></br>
+
+      {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED === 'true' &&
+        renderOperativeManagementLink(operativesCount)}
 
       {error && <ErrorMessage label={error} />}
 

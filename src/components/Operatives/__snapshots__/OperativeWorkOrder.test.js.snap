@@ -342,7 +342,6 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
     Add new SOR
   </a>
   <br />
-  <br />
   <a
     class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
     data-module="govuk-button"
@@ -352,7 +351,6 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
   >
     Update operatives
   </a>
-  <br />
   <a
     class="govuk-button lbh-button"
     data-module="govuk-button"
@@ -713,8 +711,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
-  <br />
-  <br />
   <a
     class="govuk-button lbh-button"
     data-module="govuk-button"
@@ -1110,8 +1106,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
-  <br />
-  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
@@ -1506,8 +1500,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
-  <br />
-  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
