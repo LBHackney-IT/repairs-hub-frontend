@@ -7,33 +7,25 @@ exports[`OperativeList component should render operative list, each as an indivi
   >
     Operatives
   </h4>
-  <dl
-    class="govuk-summary-list govuk-summary-list--no-border lbh-summary-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+  <ol
+    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <div
-      class="govuk-summary-list__row"
-    >
-      <dd
-        class="govuk-summary-list__value"
+    <li>
+      <a
+        class="govuk-link"
+        href="/work-orders/10000621/operatives/new"
       >
-        <a
-          class="govuk-link operative-link-0"
-          href="/work-orders/10000621/operatives/new"
-        >
-          Test1 - 50%
-        </a>
-        <br />
-        <br />
-        <a
-          class="govuk-link operative-link-1"
-          href="/work-orders/10000621/operatives/new"
-        >
-          Test2 - 100%
-        </a>
-        <br />
-        <br />
-      </dd>
-    </div>
-  </dl>
+         Test1 - 50%
+      </a>
+    </li>
+    <li>
+      <a
+        class="govuk-link"
+        href="/work-orders/10000621/operatives/new"
+      >
+         Test2 - 100%
+      </a>
+    </li>
+  </ol>
 </DocumentFragment>
 `;

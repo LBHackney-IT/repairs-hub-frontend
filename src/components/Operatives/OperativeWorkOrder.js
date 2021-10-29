@@ -93,23 +93,10 @@ const OperativeWorkOrder = ({
         tabName={'Tasks and SORs'}
       />
 
-      <h4 className="lbh-heading-h4">Operatives</h4>
-      <ol className="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
-        {workOrder.operatives.map((operative, index) => {
-          const percentageDisplay = operative.jobPercentage
-            ? `${operative.jobPercentage}%`
-            : '?'
-          return (
-            <li key={index}>
-              {[operative.name, percentageDisplay].join(' - ')}
-            </li>
-          )
-        })}
-      </ol>
-      {/* <OperativeList
+      <OperativeList
         operatives={workOrder.operatives}
         workOrderReference={workOrderReference}
-      /> */}
+      />
 
       <WarningInfoBox
         header="Need to make a change?"
