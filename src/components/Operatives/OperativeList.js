@@ -1,12 +1,20 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
+import { sortOperativesWithPayrollFirst } from '../../utils/helpers/operatives'
 
-const OperativeList = ({ operatives, workOrderReference }) => {
+const OperativeList = ({
+  operatives,
+  currentUserPayrollNumber,
+  workOrderReference,
+}) => {
   return (
     <>
       <h4 className="lbh-heading-h4">Operatives</h4>
       <ol className="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9">
-        {operatives.map((operative, index) => {
+        {sortOperativesWithPayrollFirst(
+          operatives,
+          currentUserPayrollNumber
+        ).map((operative, index) => {
           const percentageDisplay = operative.jobPercentage
             ? `${operative.jobPercentage}%`
             : 'N/A'

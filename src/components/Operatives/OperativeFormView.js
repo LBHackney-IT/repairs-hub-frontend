@@ -7,12 +7,14 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
 import { WorkOrder } from '../../models/workOrder'
 import OperativeForm from './OperativeForm'
+import { sortOperativesWithPayrollFirst } from '../../utils/helpers/operatives'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [workOrder, setWorkOrder] = useState()
+  const [currentUser, setCurrentUser] = useState({})
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [
@@ -26,7 +28,7 @@ const OperativeFormView = ({ workOrderReference }) => {
     setLoading(true)
 
     try {
-      frontEndApiRequest({
+      await frontEndApiRequest({
         method: 'post',
         path: `/api/jobStatusUpdate`,
         requestData: operativeAssignmentFormData,
@@ -46,15 +48,28 @@ const OperativeFormView = ({ workOrderReference }) => {
     setError(null)
 
     try {
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+
+      setCurrentUser(currentUser)
+
       const workOrder = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
 
       setWorkOrder(new WorkOrder(workOrder))
-      setSelectedOperatives(workOrder.operatives)
+
+      const sortedOperatives = sortOperativesWithPayrollFirst(
+        workOrder.operatives,
+        currentUser.operativePayrollNumber
+      )
+
+      setSelectedOperatives(sortedOperatives)
       setSelectedPercentagesToShowOnEdit(
-        workOrder.operatives.map((o) => `${o.jobPercentage}%`)
+        sortedOperatives.map((o) => `${o.jobPercentage}%`)
       )
 
       const operatives = await frontEndApiRequest({
@@ -145,6 +160,7 @@ const OperativeFormView = ({ workOrderReference }) => {
                   selectedPercentagesToShowOnEdit
                 }
                 totalSMV={workOrder.totalSMVs}
+                currentUserPayrollNumber={currentUser?.operativePayrollNumber}
               />
               {error && <ErrorMessage label={error} />}
             </>

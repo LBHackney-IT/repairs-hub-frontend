@@ -361,6 +361,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
   >
     Update operatives
   </a>
+  <br />
   <a
     class="govuk-button lbh-button"
     data-module="govuk-button"
@@ -726,6 +727,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
+  <br />
   <a
     class="govuk-button lbh-button"
     data-module="govuk-button"
@@ -1126,6 +1128,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
+  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
@@ -1525,6 +1528,7 @@ exports[`OperativeWorkOrder component with single operative should render work o
   >
     Add operatives
   </a>
+  <br />
   <form>
     <div
       class="govuk-form-group lbh-form-group"
