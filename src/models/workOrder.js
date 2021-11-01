@@ -1,4 +1,4 @@
-import { isSameDay } from 'date-fns'
+import { formatISO, isSameDay } from 'date-fns'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -31,7 +31,7 @@ export class WorkOrder {
       : this.status
   }
 
-  appointmentStartTimePassed = () => {
+  appointmentISODatePassed = () => {
     if (
       !this.appointment ||
       !this.appointment.date ||
@@ -40,13 +40,14 @@ export class WorkOrder {
       return false
     }
 
-    const currentTime = new Date().getTime()
+    const currentISODate = formatISO(new Date(), { representation: 'date' })
 
-    const appointmentStartTime = new Date(
-      `${this.appointment.date}T${this.appointment.start}`
-    ).getTime()
+    const appointmentISODate = formatISO(
+      new Date(`${this.appointment.date}T${this.appointment.start}`),
+      { representation: 'date' }
+    )
 
-    return currentTime > appointmentStartTime
+    return currentISODate >= appointmentISODate
   }
 
   appointmentIsToday = () => {

@@ -58,7 +58,7 @@ const WorkOrderHeader = ({
         )}
         {workOrder.operatives.length > 0 &&
           workOrder.appointment &&
-          workOrder.appointmentStartTimePassed() && (
+          workOrder.appointmentISODatePassed() && (
             <Operatives operatives={workOrder.operatives} />
           )}
       </div>

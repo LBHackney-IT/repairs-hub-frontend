@@ -66,14 +66,14 @@ describe('WorkOrder', () => {
     })
   })
 
-  describe('appointmentStartTimePassed()', () => {
+  describe('appointmentISODatePassed()', () => {
     it('returns false when there is no appointment', () => {
       const workOrder = new WorkOrder()
 
-      expect(workOrder.appointmentStartTimePassed()).toBe(false)
+      expect(workOrder.appointmentISODatePassed()).toBe(false)
     })
 
-    it('returns true when the current time is past the appointment start time', () => {
+    it('returns true when the current date is the same as the appointment start date with past time', () => {
       const now = new Date()
 
       const date = format(now, 'yyyy-MM-dd')
@@ -83,10 +83,10 @@ describe('WorkOrder', () => {
 
       MockDate.set(addMinutes(now, 1))
 
-      expect(workOrder.appointmentStartTimePassed()).toBe(true)
+      expect(workOrder.appointmentISODatePassed()).toBe(true)
     })
 
-    it('returns false when the current time is before the appointment start time', () => {
+    it('returns true when the current date is the same as the appointment start date with before time', () => {
       const now = new Date()
 
       const date = format(now, 'yyyy-MM-dd')
@@ -96,7 +96,20 @@ describe('WorkOrder', () => {
 
       MockDate.set(subMinutes(now, 1))
 
-      expect(workOrder.appointmentStartTimePassed()).toBe(false)
+      expect(workOrder.appointmentISODatePassed()).toBe(true)
+    })
+
+    it('returns false when the current date is before the appointment date', () => {
+      const now = new Date()
+
+      const date = format(now, 'yyyy-MM-dd')
+      const start = format(now, 'HH:mm')
+
+      const workOrder = new WorkOrder({ appointment: { date, start } })
+
+      MockDate.set(subDays(now, 1))
+
+      expect(workOrder.appointmentISODatePassed()).toBe(false)
     })
   })
 

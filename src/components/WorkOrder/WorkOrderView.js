@@ -16,6 +16,7 @@ import OperativeWorkOrder from '../Operatives/OperativeWorkOrder'
 const WorkOrderView = ({ workOrderReference }) => {
   const { user } = useContext(UserContext)
   const [property, setProperty] = useState({})
+  const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
@@ -69,6 +70,13 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+
+      setCurrentUser(currentUser)
+
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
@@ -113,6 +121,7 @@ const WorkOrderView = ({ workOrderReference }) => {
           personAlerts={personAlerts}
           locationAlerts={locationAlerts}
           tasksAndSors={tasksAndSors}
+          currentUserPayrollNumber={currentUser?.operativePayrollNumber}
         />
       </>
     )
