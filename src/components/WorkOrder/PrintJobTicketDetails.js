@@ -100,7 +100,7 @@ const PrintJobTicketDetails = ({
                   </strong>
                   {workOrder.operatives.length > 0 &&
                     workOrder.appointment &&
-                    workOrder.appointmentStartTimePassed() && (
+                    workOrder.appointmentISODatePassed() && (
                       <>
                         {`${workOrder.operatives
                           .map((operative) => operative.name)

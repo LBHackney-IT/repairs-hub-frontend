@@ -109,39 +109,64 @@ describe('Show work order page', () => {
         })
       })
 
-      context('And the appointment start time is in the future', () => {
-        beforeEach(() => {
-          cy.clock(new Date('March 19 2021 11:59:00Z'))
-        })
+      context(
+        'When the appointment is on the same date as current date',
+        () => {
+          context('And start time is in the future of currentTime', () => {
+            beforeEach(() => {
+              cy.clock(new Date('March 19 2021 11:59:00Z'))
+            })
 
-        it('Does not show the assigned operatives', () => {
-          cy.visit('/work-orders/10000012')
+            it('Shows the assigned operatives', () => {
+              cy.visit('/work-orders/10000012')
 
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Appointment details')
-            cy.contains('19 Mar 2021, 12:00-18:00')
+              cy.get('.appointment-details').within(() => {
+                cy.contains('Appointment details')
+                cy.contains('19 Mar 2021, 12:00-18:00')
+              })
+
+              cy.contains('Operative: Operative 1')
+            })
           })
 
-          cy.contains('Operative 1').should('not.exist')
-        })
-      })
+          context('And start time is in the past of currentTime', () => {
+            beforeEach(() => {
+              cy.clock(new Date('March 19 2021 12:01:00Z'))
+            })
 
-      context('And the appointment start time is in the past', () => {
-        beforeEach(() => {
-          cy.clock(new Date('March 19 2021 12:01:00Z'))
-        })
+            it('Shows the assigned operatives', () => {
+              cy.visit('/work-orders/10000012')
 
-        it('Shows the assigned operatives', () => {
-          cy.visit('/work-orders/10000012')
+              cy.get('.appointment-details').within(() => {
+                cy.contains('Appointment details')
+                cy.contains('19 Mar 2021, 12:00-18:00')
+              })
 
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Appointment details')
-            cy.contains('19 Mar 2021, 12:00-18:00')
+              cy.contains('Operative: Operative 1')
+            })
+          })
+        }
+      )
+
+      context(
+        'And the appointment start dateTime is in the past of currentTime',
+        () => {
+          beforeEach(() => {
+            cy.clock(new Date('March 18 2021 11:59:00Z'))
           })
 
-          cy.contains('Operative: Operative 1')
-        })
-      })
+          it('Does not show the assigned operatives', () => {
+            cy.visit('/work-orders/10000012')
+
+            cy.get('.appointment-details').within(() => {
+              cy.contains('Appointment details')
+              cy.contains('19 Mar 2021, 12:00-18:00')
+            })
+
+            cy.contains('Operative 1').should('not.exist')
+          })
+        }
+      )
     })
 
     context(
