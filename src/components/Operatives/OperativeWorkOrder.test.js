@@ -3,8 +3,8 @@ import { WorkOrder } from '../../models/workOrder'
 import OperativeWorkOrder from './OperativeWorkOrder'
 
 describe('OperativeWorkOrder component with single operative', () => {
-  const workOrder = {
-    reference: 10000621,
+  const workOrderData = {
+    reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
     lastUpdated: null,
     priority: '5 [N] Normal',
@@ -75,12 +75,14 @@ describe('OperativeWorkOrder component with single operative', () => {
     },
   }
 
+  const workOrder = new WorkOrder(workOrderData)
+
   it('should render work order elements with a close link when unvaried', () => {
     const { asFragment } = render(
       <OperativeWorkOrder
-        workOrderReference={10000000}
+        workOrderReference={workOrder.reference}
         property={props.property}
-        workOrder={new WorkOrder(workOrder)}
+        workOrder={workOrder}
         personAlerts={props.alerts.personAlert}
         locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
@@ -106,9 +108,9 @@ describe('OperativeWorkOrder component with single operative', () => {
   it('should render work order elements with a form and variation reason when an SOR is varied', () => {
     const { asFragment } = render(
       <OperativeWorkOrder
-        workOrderReference={10000000}
+        workOrderReference={workOrder.reference}
         property={props.property}
-        workOrder={new WorkOrder(workOrder)}
+        workOrder={workOrder}
         personAlerts={props.alerts.personAlert}
         locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
@@ -134,9 +136,9 @@ describe('OperativeWorkOrder component with single operative', () => {
   it('should render work order elements with a form and variation reason when an SOR is added', () => {
     const { asFragment } = render(
       <OperativeWorkOrder
-        workOrderReference={10000000}
+        workOrderReference={workOrder.reference}
         property={props.property}
-        workOrder={new WorkOrder(workOrder)}
+        workOrder={workOrder}
         personAlerts={props.alerts.personAlert}
         locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
@@ -174,8 +176,8 @@ describe('OperativeWorkOrder component with single operative', () => {
 })
 
 describe('OperativeWorkOrder component with multiple operatives', () => {
-  const workOrder = {
-    reference: 10000621,
+  const workOrderData = {
+    reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
     lastUpdated: null,
     priority: '5 [N] Normal',
@@ -253,12 +255,14 @@ describe('OperativeWorkOrder component with multiple operatives', () => {
     },
   }
 
+  const workOrder = new WorkOrder(workOrderData)
+
   it('should render work order elements with an Update operative link', () => {
     const { asFragment } = render(
       <OperativeWorkOrder
-        workOrderReference={10000000}
+        workOrderReference={workOrder.reference}
         property={props.property}
-        workOrder={new WorkOrder(workOrder)}
+        workOrder={workOrder}
         personAlerts={props.alerts.personAlert}
         locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
