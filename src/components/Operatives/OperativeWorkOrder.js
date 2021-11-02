@@ -14,6 +14,7 @@ import { buildWorkOrderUpdate } from '../../utils/hact/workOrderStatusUpdate/upd
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
 import OperativeList from './OperativeList'
+import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '../../utils/statusCodes'
 
 const OperativeWorkOrder = ({
   workOrderReference,
@@ -103,53 +104,59 @@ const OperativeWorkOrder = ({
         />
       )}
 
-      <WarningInfoBox
-        header="Need to make a change?"
-        text="Any changes to the work order must be made on paper."
-      />
-
-      <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-        <a
-          role="button"
-          draggable="false"
-          className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-          data-module="govuk-button"
-        >
-          Add new SOR
-        </a>
-      </Link>
-      <br />
-
-      {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED === 'true' &&
-        renderOperativeManagementLink(operativesCount)}
-
-      {error && <ErrorMessage label={error} />}
-
-      {areTasksUpdated(tasksAndSors) ? (
-        <form onSubmit={handleSubmit(onFormSubmit)}>
-          <CharacterCountLimitedTextArea
-            name="variationReason"
-            maxLength={250}
-            requiredText="Please enter a reason"
-            label="Variation reason"
-            placeholder="Write a reason for the variation..."
-            required={true}
-            register={register}
-            error={errors && errors.variationReason}
-          />
-          <PrimarySubmitButton label="Confirm" />
-        </form>
+      {CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(workOrder.status) ? (
+        <>
+          <h4 className="lbh-heading-h4">Status</h4>
+          <h5 className="lbh-heading-h5">{workOrder.status}</h5>
+          <br />
+        </>
       ) : (
-        <Link href={`/work-orders/${workOrderReference}/close`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button lbh-button"
-            data-module="govuk-button"
-          >
-            Confirm
-          </a>
-        </Link>
+        <>
+          <WarningInfoBox
+            header="Need to make a change?"
+            text="Any changes to the work order must be made on paper."
+          />
+          <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+            <a
+              role="button"
+              draggable="false"
+              className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+              data-module="govuk-button"
+            >
+              Add new SOR
+            </a>
+          </Link>
+          <br />
+          {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
+            'true' && renderOperativeManagementLink(operativesCount)}
+          {error && <ErrorMessage label={error} />}
+          {areTasksUpdated(tasksAndSors) ? (
+            <form onSubmit={handleSubmit(onFormSubmit)}>
+              <CharacterCountLimitedTextArea
+                name="variationReason"
+                maxLength={250}
+                requiredText="Please enter a reason"
+                label="Variation reason"
+                placeholder="Write a reason for the variation..."
+                required={true}
+                register={register}
+                error={errors && errors.variationReason}
+              />
+              <PrimarySubmitButton label="Confirm" />
+            </form>
+          ) : (
+            <Link href={`/work-orders/${workOrderReference}/close`}>
+              <a
+                role="button"
+                draggable="false"
+                className="govuk-button lbh-button"
+                data-module="govuk-button"
+              >
+                Confirm
+              </a>
+            </Link>
+          )}
+        </>
       )}
     </>
   )

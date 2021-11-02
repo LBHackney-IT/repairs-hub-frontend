@@ -55,3 +55,8 @@ export const CLOSED_STATUS_DESCRIPTIONS = [
   STATUS_COMPLETE.description,
   STATUS_NO_ACCESS.description,
 ]
+
+export const CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES = [
+  STATUS_COMPLETE.description,
+  STATUS_NO_ACCESS.description,
+]
