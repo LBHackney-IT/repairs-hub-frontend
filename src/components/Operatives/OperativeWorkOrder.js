@@ -118,7 +118,7 @@ const OperativeWorkOrder = ({
           Add new SOR
         </a>
       </Link>
-      <br></br>
+      <br />
 
       {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED === 'true' &&
         renderOperativeManagementLink(operativesCount)}
