@@ -295,7 +295,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
     <li>
       <a
         class="govuk-link"
-        href="/work-orders/10000000/operatives/new"
+        href="/work-orders/10000000/operatives/edit"
       >
          Test1 - 50%
       </a>
@@ -303,7 +303,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
     <li>
       <a
         class="govuk-link"
-        href="/work-orders/10000000/operatives/new"
+        href="/work-orders/10000000/operatives/edit"
       >
          Test2 - 100%
       </a>
@@ -658,23 +658,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
-  <h4
-    class="lbh-heading-h4"
-  >
-    Operatives
-  </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-  >
-    <li>
-      <a
-        class="govuk-link"
-        href="/work-orders/10000000/operatives/new"
-      >
-         Test - 100%
-      </a>
-    </li>
-  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1059,23 +1042,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
-  <h4
-    class="lbh-heading-h4"
-  >
-    Operatives
-  </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-  >
-    <li>
-      <a
-        class="govuk-link"
-        href="/work-orders/10000000/operatives/new"
-      >
-         Test - 100%
-      </a>
-    </li>
-  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >
@@ -1459,23 +1425,6 @@ exports[`OperativeWorkOrder component with single operative should render work o
   </table>
   <br />
   <br />
-  <h4
-    class="lbh-heading-h4"
-  >
-    Operatives
-  </h4>
-  <ol
-    class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-  >
-    <li>
-      <a
-        class="govuk-link"
-        href="/work-orders/10000000/operatives/new"
-      >
-         Test - 100%
-      </a>
-    </li>
-  </ol>
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
   >

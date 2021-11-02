@@ -95,11 +95,13 @@ const OperativeWorkOrder = ({
         tabName={'Tasks and SORs'}
       />
 
-      <OperativeList
-        operatives={workOrder.operatives}
-        currentUserPayrollNumber={currentUserPayrollNumber}
-        workOrderReference={workOrderReference}
-      />
+      {operativesCount > 1 && (
+        <OperativeList
+          operatives={workOrder.operatives}
+          currentUserPayrollNumber={currentUserPayrollNumber}
+          workOrderReference={workOrderReference}
+        />
+      )}
 
       <WarningInfoBox
         header="Need to make a change?"

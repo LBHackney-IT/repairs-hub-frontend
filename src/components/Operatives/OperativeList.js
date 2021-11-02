@@ -21,7 +21,7 @@ const OperativeList = ({
           return process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
             'true' ? (
             <li key={index}>
-              <Link href={`/work-orders/${workOrderReference}/operatives/new`}>
+              <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
                 <a className="govuk-link">
                   {' '}
                   {[operative.name, percentageDisplay].join(' - ')}
