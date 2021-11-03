@@ -3,8 +3,8 @@ import { WorkOrder } from '../../models/workOrder'
 import OperativeWorkOrder from './OperativeWorkOrder'
 
 describe('OperativeWorkOrder component with single operative', () => {
-  const workOrder = {
-    reference: 10000621,
+  const workOrderData = {
+    reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
     lastUpdated: null,
     priority: '5 [N] Normal',
@@ -75,107 +75,181 @@ describe('OperativeWorkOrder component with single operative', () => {
     },
   }
 
-  it('should render work order elements with a close link when unvaried', () => {
-    const { asFragment } = render(
-      <OperativeWorkOrder
-        workOrderReference={10000000}
-        property={props.property}
-        workOrder={new WorkOrder(workOrder)}
-        personAlerts={props.alerts.personAlert}
-        locationAlerts={props.alerts.locationAlerts}
-        tasksAndSors={[
-          {
-            id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-            code: 'DES5R006',
-            description: 'Urgent call outs',
-            dateAdded: '2021-02-03T09:33:35.757339',
-            dateUpdated: '2021-02-05T09:33:35.757339',
-            quantity: 2,
-            cost: 10,
-            status: 'Unknown',
-            original: true,
-            originalQuantity: 2,
-            standardMinuteValue: 15,
-          },
-        ]}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('when has status In Progress', () => {
+    const workOrder = new WorkOrder(workOrderData)
+
+    it('should render work order elements with a close link when unvaried', () => {
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render work order elements with a form and variation reason when an SOR is varied', () => {
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 4, // updated quantity
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should render work order elements with a form and variation reason when an SOR is added', () => {
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 1,
+              cost: 10,
+              status: 'Unknown',
+              original: false, // newly added
+              originalQuantity: null,
+              standardMinuteValue: 15,
+            },
+            {
+              id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
+              code: 'DES5R005',
+              description: 'Normal call outs',
+              dateAdded: '2021-02-03T11:23:35.814437',
+              dateUpdated: '2021-02-03T11:23:35.814437',
+              quantity: 4,
+              cost: 0,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 4,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('should render work order elements with a form and variation reason when an SOR is varied', () => {
-    const { asFragment } = render(
-      <OperativeWorkOrder
-        workOrderReference={10000000}
-        property={props.property}
-        workOrder={new WorkOrder(workOrder)}
-        personAlerts={props.alerts.personAlert}
-        locationAlerts={props.alerts.locationAlerts}
-        tasksAndSors={[
-          {
-            id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-            code: 'DES5R006',
-            description: 'Urgent call outs',
-            dateAdded: '2021-02-03T09:33:35.757339',
-            dateUpdated: '2021-02-05T09:33:35.757339',
-            quantity: 4, // updated quantity
-            cost: 10,
-            status: 'Unknown',
-            original: true,
-            originalQuantity: 2,
-            standardMinuteValue: 15,
-          },
-        ]}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('when has status Work Complete', () => {
+    beforeAll(() => {
+      workOrderData.status = 'Work Complete'
+    })
+
+    it('should render work order elements with Status Work Complete', () => {
+      const workOrder = new WorkOrder(workOrderData)
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 
-  it('should render work order elements with a form and variation reason when an SOR is added', () => {
-    const { asFragment } = render(
-      <OperativeWorkOrder
-        workOrderReference={10000000}
-        property={props.property}
-        workOrder={new WorkOrder(workOrder)}
-        personAlerts={props.alerts.personAlert}
-        locationAlerts={props.alerts.locationAlerts}
-        tasksAndSors={[
-          {
-            id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-            code: 'DES5R006',
-            description: 'Urgent call outs',
-            dateAdded: '2021-02-03T09:33:35.757339',
-            dateUpdated: '2021-02-05T09:33:35.757339',
-            quantity: 1,
-            cost: 10,
-            status: 'Unknown',
-            original: false, // newly added
-            originalQuantity: null,
-            standardMinuteValue: 15,
-          },
-          {
-            id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
-            code: 'DES5R005',
-            description: 'Normal call outs',
-            dateAdded: '2021-02-03T11:23:35.814437',
-            dateUpdated: '2021-02-03T11:23:35.814437',
-            quantity: 4,
-            cost: 0,
-            status: 'Unknown',
-            original: true,
-            originalQuantity: 4,
-            standardMinuteValue: 15,
-          },
-        ]}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  describe('when has status No Access', () => {
+    beforeAll(() => {
+      workOrderData.status = 'No Access'
+    })
+
+    it('should render work order elements with Status No Access', () => {
+      const workOrder = new WorkOrder(workOrderData)
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })
 
 describe('OperativeWorkOrder component with multiple operatives', () => {
-  const workOrder = {
-    reference: 10000621,
+  const workOrderData = {
+    reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
     lastUpdated: null,
     priority: '5 [N] Normal',
@@ -253,12 +327,14 @@ describe('OperativeWorkOrder component with multiple operatives', () => {
     },
   }
 
+  const workOrder = new WorkOrder(workOrderData)
+
   it('should render work order elements with an Update operative link', () => {
     const { asFragment } = render(
       <OperativeWorkOrder
-        workOrderReference={10000000}
+        workOrderReference={workOrder.reference}
         property={props.property}
-        workOrder={new WorkOrder(workOrder)}
+        workOrder={workOrder}
         personAlerts={props.alerts.personAlert}
         locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
