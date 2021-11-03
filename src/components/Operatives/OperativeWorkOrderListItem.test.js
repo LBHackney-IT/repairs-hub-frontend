@@ -9,6 +9,7 @@ describe('OperativeWorkOrderListItem component', () => {
       lastUpdated: null,
       priority: '5 [N] NORMAL',
       property: '17 Pitcairn House  St Thomass Square',
+      propertyPostCode: 'L53 GS',
       owner: 'Herts Heritage Ltd',
       description: 'r',
       propertyReference: '00023405',
