@@ -13,7 +13,7 @@ exports[`OperativeList component should render operative list, each as an indivi
     <li>
       <a
         class="govuk-link"
-        href="/work-orders/10000621/operatives/new"
+        href="/work-orders/10000621/operatives/edit"
       >
          Test1 - 50%
       </a>
@@ -21,7 +21,7 @@ exports[`OperativeList component should render operative list, each as an indivi
     <li>
       <a
         class="govuk-link"
-        href="/work-orders/10000621/operatives/new"
+        href="/work-orders/10000621/operatives/edit"
       >
          Test2 - 100%
       </a>

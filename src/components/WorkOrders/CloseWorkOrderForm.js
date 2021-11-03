@@ -91,8 +91,8 @@ const CloseWorkOrderForm = ({
                     isInThePast: (value) =>
                       isPast(new Date(value)) ||
                       'Please select a date that is in the past',
-                    isLaterThanRaisedDate: (value) =>
-                      new Date(value) >
+                    isEqualOrLaterThanRaisedDate: (value) =>
+                      new Date(value) >=
                         new Date(new Date(dateRaised).toDateString()) ||
                       `Completion date must be on or after ${new Date(
                         dateRaised

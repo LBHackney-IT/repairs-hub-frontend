@@ -178,6 +178,5 @@ exports[`OperativeTasksAndSorsTable component renders tasks and SORs table prope
     </tbody>
   </table>
   <br />
-  <br />
 </DocumentFragment>
 `;

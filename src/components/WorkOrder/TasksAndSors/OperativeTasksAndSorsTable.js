@@ -56,7 +56,6 @@ const OperativeTasksAndSorsTable = ({
         {buildTable(tasksAndSors)}
       </Table>
       <br />
-      <br />
     </>
   )
 }

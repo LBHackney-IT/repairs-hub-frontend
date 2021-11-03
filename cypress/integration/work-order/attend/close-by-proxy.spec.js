@@ -105,6 +105,30 @@ describe('Closing a work order on behalf of an operative', () => {
       })
     })
 
+    it('does not show errors when the raised date is on the completed date', () => {
+      cy.visit('/work-orders/10000040/close')
+
+      cy.get('form').within(() => {
+        cy.get('[type="radio"]').first().check()
+        cy.get('#date').type('2021-01-18') //Raised on 2021-01-18, 15:28
+        cy.get('#time').within(() => {
+          cy.get('#time-time').type('12')
+          cy.get('#time-minutes').type('45')
+        })
+        cy.get('#notes').type('test')
+        cy.get('[type="submit"]').contains('Submit').click()
+      })
+
+      cy.contains('Summary of updates to work order')
+      cy.get('.govuk-table__row').contains('Completion time')
+      cy.get('.govuk-table__row').contains('2021/01/18')
+      cy.get('.govuk-table__row').contains('12:45')
+      cy.get('.govuk-table__row').contains('Reason')
+      cy.get('.govuk-table__row').contains('Work Order Completed')
+      cy.get('.govuk-table__row').contains('Notes')
+      cy.get('.govuk-table__row').contains('test')
+    })
+
     it('submits the form with inputs that are invalid', () => {
       cy.visit('/work-orders/10000040/close')
 

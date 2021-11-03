@@ -16,6 +16,12 @@ const OperativeWorkOrderListItem = ({
             <p className="lbh-body lbh-!-font-weight-bold text-white govuk-!-margin-0 capitalize">
               {operativeWorkOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
+            <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white">
+              {operativeWorkOrder.property}
+            </p>
+            <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white">
+              {operativeWorkOrder.propertyPostCode}
+            </p>
           </div>
           {statusText && (
             <div className="lbh-body lbh-!-font-weight-bold text-white status-text">

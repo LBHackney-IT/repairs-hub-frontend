@@ -536,6 +536,7 @@ describe('Updating a work order', () => {
       ).as('sorCodesRequest')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
         workOrder.operatives = [
@@ -552,6 +553,16 @@ describe('Updating a work order', () => {
           { body: workOrder }
         ).as('workOrderRequest')
       })
+    })
+
+    it('does not show link list of operatives, when there is only one', () => {
+      cy.visit('work-orders/10000621')
+
+      cy.contains('WO 10000621')
+
+      cy.contains('Operatives').should('not.exist')
+
+      cy.get('a').contains('Hackney User - 100%').should('not.exist')
     })
 
     it('allows editing of an existing task quantity', () => {
@@ -873,6 +884,7 @@ describe('Updating a work order', () => {
 
     it('allows updating operatives with percentage splits', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
         workOrder.operatives = [
@@ -889,13 +901,6 @@ describe('Updating a work order', () => {
             name: 'Operative A',
             trades: [],
             jobPercentage: 50,
-          },
-          {
-            id: 3,
-            payrollNumber: 'OP003',
-            name: 'Operative C',
-            trades: [],
-            jobPercentage: 0,
           },
         ]
         cy.intercept(
@@ -918,31 +923,56 @@ describe('Updating a work order', () => {
 
       cy.contains('a', 'Add operatives').should('not.exist')
 
+      cy.contains('WO 10000621')
+
+      cy.contains('Operatives')
+
+      cy.contains('a', 'Operative A - 50%').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000621/operatives/edit'
+      )
+      cy.contains('a', 'Operative B - 50%').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000621/operatives/edit'
+      )
+
       cy.contains('a', 'Update operatives').click()
 
       cy.wait(['@operatives', '@workOrderRequestMultipleOperatives'])
 
       cy.get('.operatives').within(() => {
-        cy.get('input[list]').should('have.length', 3)
+        cy.get('input[list]').should('have.length', 2)
         cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
         cy.get('input[list]').eq(0).should('be.disabled')
 
         cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
-        cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
       })
 
       cy.get('.select-percentage').within(() => {
-        cy.get('select').should('have.length', 3)
+        cy.get('select').should('have.length', 2)
 
         cy.get('select').eq(0).should('have.value', '50%')
         cy.get('select').eq(1).should('have.value', '50%')
-        cy.get('select').eq(2).should('have.value', '')
       })
 
-      // Update percentage
+      // Update percentage of current operatives
       cy.get('.select-percentage').within(() => {
         cy.get('select').eq(0).select('30%')
         cy.get('select').eq(1).select('20%')
+      })
+
+      // Add operative
+      cy.get('a')
+        .contains(/Add operative from list/)
+        .click()
+
+      cy.get('input[list]').eq(2).type('Operative C [3]')
+
+      // Update percentage of new operative
+      cy.get('.select-percentage').within(() => {
+        cy.get('select').should('have.length', 3)
         cy.get('select').eq(2).select('50%')
       })
 
