@@ -15,6 +15,7 @@ const tasksAndSorsRow = ({
   isOriginal,
   originalQuantity,
   sorLink,
+  readOnly,
 }) => {
   return !showOperativeTasksAndSorsRow ? (
     <TR index={index} className="lbh-body-s">
@@ -42,16 +43,25 @@ const tasksAndSorsRow = ({
       className={cx('lbh-body', { 'zero-quantity-row': taskQuantity === 0 })}
     >
       <TD>{taskQuantity}</TD>
-      <TD>
-        <Link href={sorLink}>
-          <a className="govuk-link">{code}</a>
-        </Link>
-      </TD>
-      <TD>
-        <Link href={sorLink}>
-          <a className="govuk-link">{description}</a>
-        </Link>
-      </TD>
+      {readOnly ? (
+        <>
+          <TD>{code}</TD>
+          <TD>{description}</TD>
+        </>
+      ) : (
+        <>
+          <TD>
+            <Link href={sorLink}>
+              <a className="govuk-link">{code}</a>
+            </Link>
+          </TD>
+          <TD>
+            <Link href={sorLink}>
+              <a className="govuk-link">{description}</a>
+            </Link>
+          </TD>
+        </>
+      )}
       <TD type="numeric">{standardMinuteValue * quantity}</TD>
     </TR>
   )

@@ -1752,22 +1752,12 @@ exports[`OperativeWorkOrder component with single operative when has status No A
         <td
           class="govuk-table__cell"
         >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-          >
-            DES5R006
-          </a>
+          DES5R006
         </td>
         <td
           class="govuk-table__cell"
         >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-          >
-            Urgent call outs
-          </a>
+          Urgent call outs
         </td>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
@@ -2049,22 +2039,12 @@ exports[`OperativeWorkOrder component with single operative when has status Work
         <td
           class="govuk-table__cell"
         >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-          >
-            DES5R006
-          </a>
+          DES5R006
         </td>
         <td
           class="govuk-table__cell"
         >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-          >
-            Urgent call outs
-          </a>
+          Urgent call outs
         </td>
         <td
           class="govuk-table__cell govuk-table__cell--numeric"
