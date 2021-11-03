@@ -19,6 +19,16 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       >
         normal
       </p>
+      <p
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+      >
+        17 Pitcairn House  St Thomass Square
+      </p>
+      <p
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+      >
+        L53 GS
+      </p>
     </div>
     <div
       class="middle-right"
