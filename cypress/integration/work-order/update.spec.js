@@ -53,13 +53,30 @@ describe('Updating a work order', () => {
         ).as('taskListRequest')
       })
 
+      //this checks if url has params "isRaisableTrue"
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          pathname: '/api/schedule-of-rates/codes',
+          query: {
+            tradeCode: 'DE',
+            propertyReference: '00012345',
+            contractorReference: 'SCC',
+          },
         },
-        { fixture: 'scheduleOfRates/codes.json' }
+        (req) => {
+          if (req.url.includes('isRaisable=true')) {
+            req.reply({
+              statusCode: 200,
+              fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json',
+            })
+          } else {
+            req.reply({
+              statusCode: 200,
+              fixture: 'scheduleOfRates/codes.json',
+            })
+          }
+        }
       ).as('sorCodesRequest')
 
       cy.intercept(
@@ -526,13 +543,30 @@ describe('Updating a work order', () => {
         })
         .as('hubUserRequest')
 
+      //this checks if url has params "isRaisableTrue"
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          pathname: '/api/schedule-of-rates/codes',
+          query: {
+            tradeCode: 'DE',
+            propertyReference: '00012345',
+            contractorReference: 'SCC',
+          },
         },
-        { fixture: 'scheduleOfRates/codes.json' }
+        (req) => {
+          if (req.url.includes('isRaisable=true')) {
+            req.reply({
+              statusCode: 200,
+              fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json',
+            })
+          } else {
+            req.reply({
+              statusCode: 200,
+              fixture: 'scheduleOfRates/codes.json',
+            })
+          }
+        }
       ).as('sorCodesRequest')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {

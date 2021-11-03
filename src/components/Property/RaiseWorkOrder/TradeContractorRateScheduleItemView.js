@@ -85,7 +85,12 @@ const TradeContractorRateScheduleItemView = ({
     setGetSorCodesError(null)
 
     try {
-      const sorCodes = await getSorCodes(tradeCode, propertyRef, contractorRef)
+      const sorCodes = await getSorCodes(
+        tradeCode,
+        propertyRef,
+        contractorRef,
+        true
+      )
 
       setSorCodes(sorCodes)
       setRateScheduleItemDisabled(false)

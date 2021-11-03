@@ -26,14 +26,33 @@ describe('Raise repair form', () => {
       },
       { fixture: 'contractors/contractors.json' }
     )
+
+    //this checks if url has params "isRaisableTrue"
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01',
+        pathname: '/api/schedule-of-rates/codes',
+        query: {
+          tradeCode: 'PL',
+          propertyReference: '00012345',
+          contractorReference: 'H01',
+        },
       },
-      { fixture: 'scheduleOfRates/codes.json' }
+      (req) => {
+        if (req.url.includes('isRaisable=true')) {
+          req.reply({
+            statusCode: 200, // default
+            fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json',
+          })
+        } else {
+          req.reply({
+            statusCode: 200, // default
+            fixture: 'scheduleOfRates/codes.json',
+          })
+        }
+      }
     )
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }

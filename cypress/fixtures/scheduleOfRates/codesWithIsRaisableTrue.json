@@ -1,0 +1,47 @@
+[
+  {
+    "code": "PLP5R082",
+    "shortDescription": "RE ENAMEL ANY SIZE BATH",
+    "longDescription": "Prepare and reenamel surface of bath including removing and replacing plumbing fittings as required  Any size bath",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    },
+    "cost": 148.09
+  },
+  {
+    "code": "20000030",
+    "shortDescription": "DAYWORK PLUMBER BAND 3",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    }
+  },
+  {
+    "code": "20060020",
+    "shortDescription": "BATHROOM PLUMBING REPAIRS",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    },
+    "cost": 50.17
+  },
+  {
+    "code": "20060030",
+    "shortDescription": "KITCHEN PLUMBING REPAIRS",
+    "priority": {
+      "priorityCode": 4,
+      "description": "5 [N] NORMAL"
+    },
+    "cost": 5.8
+  },
+  {
+    "code": "DES5R003",
+    "shortDescription": "Immediate call outs",
+    "priority": {
+      "priorityCode": 1,
+      "description": "1 [I] IMMEDIATE"
+    },
+    "cost": 0
+  }
+]
