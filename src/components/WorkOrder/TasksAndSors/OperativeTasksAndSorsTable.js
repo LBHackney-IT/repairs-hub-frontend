@@ -7,6 +7,7 @@ const OperativeTasksAndSorsTable = ({
   tasksAndSors,
   tabName,
   workOrderReference,
+  readOnly,
 }) => {
   const buildTable = (tasks) => {
     return (
@@ -28,6 +29,7 @@ const OperativeTasksAndSorsTable = ({
               key={index}
               index={index}
               taskQuantity={entry.quantity}
+              readOnly={readOnly}
               sorLink={`/work-orders/${workOrderReference}/tasks/${entry.id}/edit`}
               {...entry}
             />

@@ -26,6 +26,9 @@ const OperativeWorkOrder = ({
   currentUserPayrollNumber,
 }) => {
   const operativesCount = workOrder.operatives.length
+  const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
+    workOrder.status
+  )
   const { register, errors, handleSubmit } = useForm()
   const [error, setError] = useState()
 
@@ -94,6 +97,7 @@ const OperativeWorkOrder = ({
         workOrderReference={workOrderReference}
         tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
         tabName={'Tasks and SORs'}
+        readOnly={readOnly}
       />
 
       {operativesCount > 1 && (
@@ -104,7 +108,7 @@ const OperativeWorkOrder = ({
         />
       )}
 
-      {CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(workOrder.status) ? (
+      {readOnly ? (
         <>
           <h4 className="lbh-heading-h4">Status</h4>
           <h5 className="lbh-heading-h5">{workOrder.status}</h5>
