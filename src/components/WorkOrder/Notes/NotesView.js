@@ -4,8 +4,8 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
-import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
-import { sortObjectsByDateKey } from '../../../utils/date'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { sortObjectsByDateKey } from '@/utils/date'
 
 const NotesView = ({ workOrderReference, tabName }) => {
   const [notes, setNotes] = useState([])

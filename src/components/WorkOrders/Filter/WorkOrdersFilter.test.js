@@ -8,7 +8,7 @@ import { multipleContractor } from 'factories/multiple_contractor'
 import { agentAndContractor } from 'factories/agent_and_contractor'
 import { authorisationManagerAndContractor } from 'factories/authorisation_manager_and_contractor'
 import { contractManagerAndContractor } from 'factories/authorisation_manager_and_contractor'
-import { SelectedFilterOptions } from '../../../utils/helpers/filter'
+import { SelectedFilterOptions } from '@/utils/helpers/filter'
 
 describe('WorkOrdersFilter component', () => {
   const props = {

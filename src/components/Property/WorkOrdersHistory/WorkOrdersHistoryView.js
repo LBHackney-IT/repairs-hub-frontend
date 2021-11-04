@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { getWorkOrdersForProperty } from '../../../utils/frontEndApiClient/workOrders'
+import { getWorkOrdersForProperty } from '@/utils/frontEndApiClient/workOrders'
 
 const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [pageNumber, setPageNumber] = useState(1)

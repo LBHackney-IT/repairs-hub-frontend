@@ -4,7 +4,7 @@ import {
   IMMEDIATE_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
-} from '../../../utils/helpers/priorities'
+} from '@/utils/helpers/priorities'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 
 describe('RaiseWorkOrderForm component', () => {

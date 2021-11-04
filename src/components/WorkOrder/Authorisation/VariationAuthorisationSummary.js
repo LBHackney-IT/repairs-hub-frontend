@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import {
   calculateCostBeforeVariation,
   calculateChangeInCost,
-} from '../../../utils/helpers/calculations'
-import { longDateToStr } from '../../../utils/date'
+} from '@/utils/helpers/calculations'
+import { longDateToStr } from '@/utils/date'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Status from '../Status'
 import Collapsible from 'src/components/Layout/Collapsible'

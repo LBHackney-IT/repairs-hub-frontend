@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import { WorkOrder } from '../../models/workOrder'
-import { formatDateTime } from '../../utils/time'
+import { WorkOrder } from '@/models/workOrder'
+import { formatDateTime } from '@/utils/time'
 
 const WorkOrderInfo = ({ workOrder }) => {
   return (

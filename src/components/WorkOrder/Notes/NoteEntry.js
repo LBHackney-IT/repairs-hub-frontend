@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { formatDateTime } from '../../../utils/time'
+import { formatDateTime } from '@/utils/time'
 
 const NoteInfo = ({ time, user, email }) => {
   return (

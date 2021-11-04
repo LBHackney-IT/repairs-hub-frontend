@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import { sortOperativesWithPayrollFirst } from '../../utils/helpers/operatives'
+import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
 
 const OperativeList = ({
   operatives,

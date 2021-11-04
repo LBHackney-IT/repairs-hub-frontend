@@ -2,12 +2,12 @@ import { formatISO, isSameDay } from 'date-fns'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
-} from '../utils/helpers/priorities'
+} from '@/utils/helpers/priorities'
 
 import {
   CLOSED_STATUS_DESCRIPTIONS,
   STATUS_COMPLETE,
-} from '../utils/statusCodes'
+} from '@/utils/statusCodes'
 
 export class WorkOrder {
   constructor(workOrderData) {

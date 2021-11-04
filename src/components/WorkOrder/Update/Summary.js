@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { PrimarySubmitButton } from '../../Form'
-import { calculateTotal } from '../../../utils/helpers/calculations'
-import { buildWorkOrderUpdate } from '../../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { calculateTotal } from '@/utils/helpers/calculations'
+import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import UpdateSummaryRateScheduleItems from '../RateScheduleItems/UpdateSummaryRateScheduleItems'
 import WarningText from '../../Template/WarningText'
 

@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
-} from '../../../utils/helpers/priorities'
+} from '@/utils/helpers/priorities'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 
 describe('CancelWorkOrderForm component', () => {

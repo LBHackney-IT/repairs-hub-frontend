@@ -1,15 +1,15 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext'
-import { dateToStr } from '../../utils/date'
-import { STATUS_CANCELLED } from '../../utils/statusCodes'
+import { dateToStr } from '@/utils/date'
+import { STATUS_CANCELLED } from '@/utils/statusCodes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
-} from '../../utils/userPermissions'
-import { WorkOrder } from '../../models/workOrder'
-import { buildDataFromScheduleAppointment } from '../../utils/hact/workOrderStatusUpdate/notesForm'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+} from '@/utils/userPermissions'
+import { WorkOrder } from '@/models/workOrder'
+import { buildDataFromScheduleAppointment } from '@/utils/hact/workOrderStatusUpdate/notesForm'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 

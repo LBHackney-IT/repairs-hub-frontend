@@ -1,7 +1,7 @@
-import { OPERATIVE_ROLE } from '../../../../../utils/user'
-import Meta from '../../../../../components/Meta'
-import { getQueryProps } from '../../../../../utils/helpers/serverSideProps'
-import EditTaskForm from '../../../../../components/WorkOrder/TasksAndSors/EditTaskForm'
+import { OPERATIVE_ROLE } from '@/utils/user'
+import Meta from '@/components/Meta'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import EditTaskForm from '@/components/WorkOrder/TasksAndSors/EditTaskForm'
 
 const EditWorkOrderTaskPage = ({ query }) => {
   return (

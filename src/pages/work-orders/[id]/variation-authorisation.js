@@ -1,7 +1,7 @@
-import { CONTRACT_MANAGER_ROLE } from '../../../utils/user'
-import VariationAuthorisationView from '../../../components/WorkOrder/Authorisation/VariationAuthorisationView'
-import Meta from '../../../components/Meta'
-import { getQueryProps } from '../../../utils/helpers/serverSideProps'
+import { CONTRACT_MANAGER_ROLE } from '@/utils/user'
+import VariationAuthorisationView from '@/components/WorkOrder/Authorisation/VariationAuthorisationView'
+import Meta from '@/components/Meta'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 const VariationAuthorisationPage = ({ query }) => {
   return (

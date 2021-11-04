@@ -5,9 +5,9 @@ import PropertiesTable from '../Properties/PropertiesTable'
 import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
-import { canAccessWorkOrder } from '../../utils/userPermissions'
+import { canAccessWorkOrder } from '@/utils/userPermissions'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
