@@ -28,9 +28,9 @@ describe('Schedule appointment form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
-      { fixture: 'scheduleOfRates/codes.json' }
+      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
