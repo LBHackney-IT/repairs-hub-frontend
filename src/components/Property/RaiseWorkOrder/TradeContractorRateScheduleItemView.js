@@ -4,7 +4,7 @@ import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
 import { getContractors } from '../../../utils/frontEndApiClient/contractors'
-import { getSorCodes } from '../../../utils/frontEndApiClient/scheduleOfRates/codes'
+import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -85,7 +85,16 @@ const TradeContractorRateScheduleItemView = ({
     setGetSorCodesError(null)
 
     try {
-      const sorCodes = await getSorCodes(tradeCode, propertyRef, contractorRef)
+      const sorCodes = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/schedule-of-rates/codes',
+        params: {
+          tradeCode: tradeCode,
+          propertyReference: propertyRef,
+          contractorReference: contractorRef,
+          isRaisable: true,
+        },
+      })
 
       setSorCodes(sorCodes)
       setRateScheduleItemDisabled(false)
