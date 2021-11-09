@@ -20,6 +20,11 @@ module.exports = {
   moduleDirectories: ['node_modules', '.'],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': '<rootDir>/src/styles/__mocks__/styleMock.js',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
+    '^@/hooks/(.*)$': '<rootDir>/src/hooks/$1',
+    '^@/models/(.*)$': '<rootDir>/src/models/$1',
+    '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
+    '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
   reporters: [
     ['jest-clean-console-reporter', { rules: reporterRules }],

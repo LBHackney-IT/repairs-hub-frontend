@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
-import { WorkOrder } from '../../models/workOrder'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
+import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
-import { sortOperativesWithPayrollFirst } from '../../utils/helpers/operatives'
+import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()

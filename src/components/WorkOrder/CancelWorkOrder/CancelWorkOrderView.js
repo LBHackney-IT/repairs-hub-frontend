@@ -4,8 +4,8 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
-import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
-import { WorkOrder } from '../../../models/workOrder'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { WorkOrder } from '@/models/workOrder'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})

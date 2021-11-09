@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import { TextArea, PrimarySubmitButton } from '../../Form'
-import { buildNoteFormData } from '../../../utils/hact/workOrderStatusUpdate/notesForm'
+import { buildNoteFormData } from '@/utils/hact/workOrderStatusUpdate/notesForm'
 
 const NotesForm = ({
   onFormSubmit,

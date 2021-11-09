@@ -1,6 +1,6 @@
 import { act, render } from '@testing-library/react'
 import Tabs from './index'
-import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
+import { enableGOVUKFrontendJavascript } from '@/utils/govuk'
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -9,7 +9,7 @@ jest.mock('next/router', () => ({
     }
   },
 }))
-jest.mock('../../utils/govuk')
+jest.mock('@/utils/govuk')
 
 describe('Tabs component', () => {
   const funcSpy = jest.fn()

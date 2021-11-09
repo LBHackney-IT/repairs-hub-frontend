@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsTable from './TasksAndSorsTable'
-import { sortArrayByDate } from '../../../utils/helpers/array'
-import { areTasksUpdated } from '../../../utils/tasks'
+import { sortArrayByDate } from '@/utils/helpers/array'
+import { areTasksUpdated } from '@/utils/tasks'
 
 const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)

@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import UserContext from '../../UserContext'
 import Status from '../../WorkOrder/Status'
-import { dateToStr } from '../../../utils/date'
-import { extractTimeFromDate } from '../../../utils/time'
+import { dateToStr } from '@/utils/date'
+import { extractTimeFromDate } from '@/utils/time'
 import { TR, TD } from '../../Layout/Table'
-import { canAccessWorkOrder } from '../../../utils/userPermissions'
+import { canAccessWorkOrder } from '@/utils/userPermissions'
 
 const WorkOrdersHistoryRow = ({
   reference,

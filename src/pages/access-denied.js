@@ -1,6 +1,6 @@
-import { redirectToHome, isAuthorised } from '../utils/googleAuth'
-import AccessDenied from '../components/AccessDenied'
-import Meta from '../components/Meta'
+import { redirectToHome, isAuthorised } from '@/utils/googleAuth'
+import AccessDenied from '@/components/AccessDenied'
+import Meta from '@/components/Meta'
 
 const AccessDeniedPage = () => (
   <>

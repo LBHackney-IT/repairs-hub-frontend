@@ -4,7 +4,7 @@ import WorkOrdersHistoryView from '../Property/WorkOrdersHistory/WorkOrdersHisto
 import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
-import { enableGOVUKFrontendJavascript } from '../../utils/govuk'
+import { enableGOVUKFrontendJavascript } from '@/utils/govuk'
 
 const Tabs = ({
   tabsList,

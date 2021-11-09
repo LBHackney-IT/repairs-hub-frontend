@@ -1,5 +1,5 @@
-import { deleteSessions } from '../utils/googleAuth'
-import { closeDRSSession } from '../utils/scheduling/drs/webServices/sessions'
+import { deleteSessions } from '@/utils/googleAuth'
+import { closeDRSSession } from '@/utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
 import {
   AGENT_ROLE,
@@ -7,7 +7,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '../utils/user'
+} from '@/utils/user'
 
 const Logout = () => null
 

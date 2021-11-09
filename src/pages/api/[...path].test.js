@@ -2,7 +2,7 @@ import axios from 'axios'
 import jsonwebtoken from 'jsonwebtoken'
 import * as HttpStatus from 'http-status-codes'
 import { createRequest, createResponse } from 'node-mocks-http'
-import { paramsSerializer } from '../../utils/urls'
+import { paramsSerializer } from '@/utils/urls'
 
 import catchAllEndpoint from './[...path].js'
 

@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 import { useState, useEffect } from 'react'
-import { convertToDateFormat } from '../../utils/date'
+import { convertToDateFormat } from '@/utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeWorkOrder'
+import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
-import { WorkOrder } from '../../models/workOrder'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
+import { WorkOrder } from '@/models/workOrder'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.

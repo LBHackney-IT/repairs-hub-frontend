@@ -1,6 +1,6 @@
-import Meta from '../../../components/Meta'
-import WorkOrderView from '../../../components/WorkOrder/WorkOrderView'
-import { getQueryProps } from '../../../utils/helpers/serverSideProps'
+import Meta from '@/components/Meta'
+import WorkOrderView from '@/components/WorkOrder/WorkOrderView'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 import {
   AGENT_ROLE,
@@ -8,7 +8,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '../../../utils/user'
+} from '@/utils/user'
 
 const WorkOrderPage = ({ query }) => {
   return (

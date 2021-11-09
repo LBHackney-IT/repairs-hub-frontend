@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Tabs from '../Tabs'
 import Meta from '../Meta'
 

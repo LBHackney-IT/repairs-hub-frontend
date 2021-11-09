@@ -8,14 +8,14 @@ import { TextArea, PrimarySubmitButton } from '../../Form'
 import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
-} from '../../../utils/hact/workOrderStatusUpdate/authorisation'
+} from '@/utils/hact/workOrderStatusUpdate/authorisation'
 import SuccessPage from '../../SuccessPage'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
-import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
-import { calculateTotalVariedCost } from '../../../utils/helpers/calculations'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
 
 const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()

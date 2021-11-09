@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
-import useLocalStorage from '../../../hooks/useLocalStorage'
-import useClickOutside from '../../../hooks/useClickOutside'
-import s from '../../../styles/components/MultiButton.module.scss'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import useClickOutside from '@/hooks/useClickOutside'
+import s from '@/styles/components/MultiButton.module.scss'
 
 const Choice = ({ name, value, currentValue, onChange, label, hint }) => (
   <div className={s.option}>

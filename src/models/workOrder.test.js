@@ -5,12 +5,12 @@ import {
   IMMEDIATE_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
-} from '../utils/helpers/priorities'
+} from '@/utils/helpers/priorities'
 import {
   CLOSED_STATUS_DESCRIPTIONS,
   STATUS_COMPLETE,
   WORK_ORDERS_STATUSES,
-} from '../utils/statusCodes'
+} from '@/utils/statusCodes'
 import { WorkOrder } from './workOrder'
 import MockDate from 'mockdate'
 

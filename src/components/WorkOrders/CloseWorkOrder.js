@@ -4,9 +4,9 @@ import { useState, useEffect, useContext } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { WorkOrder } from '../../models/workOrder'
-import { buildCloseWorkOrderData } from '../../utils/hact/workOrderComplete/closeWorkOrder'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { WorkOrder } from '@/models/workOrder'
+import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import FlashMessageContext from '../FlashMessageContext'
 
 const CloseWorkOrder = ({ reference }) => {

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 
 describe('OperativeWorkOrderDetails component', () => {
   let workOrderData = {
