@@ -1,6 +1,7 @@
 export const buildOperativeAssignmentFormData = (
   workOrderReference,
-  operatives
+  operatives,
+  operativesNotes
 ) => {
   return {
     relatedWorkOrderReference: {
@@ -15,6 +16,9 @@ export const buildOperativeAssignmentFormData = (
           op.percentage == '-' ? 0 : parseFloat(op.percentage.slice(0, -1)),
       }),
     })),
+    ...(operativesNotes && {
+      comments: `Work order updated - ${operativesNotes}`,
+    }),
     typeCode: '10',
   }
 }

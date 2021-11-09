@@ -96,6 +96,15 @@ const OperativeFormView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
+  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
+    return opsAndPercentages
+      .map(
+        (op) =>
+          `${op.operative.name}${op.percentage ? ` : ${op.percentage}` : ''}`
+      )
+      .join(', ')
+  }
+
   const onSubmit = (e) => {
     const operativeIds = Object.keys(e)
       .filter((k) => k.match(/operative-\d+/))
@@ -127,9 +136,16 @@ const OperativeFormView = ({ workOrderReference }) => {
       }
     })
 
+    const operativesAssignedNote =
+      operativesWithPercentages.length > 0 &&
+      `Assigned operatives ${operativesAndPercentagesForNotes(
+        operativesWithPercentages
+      )}`
+
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       workOrderReference,
-      operativesWithPercentages
+      operativesWithPercentages,
+      operativesAssignedNote
     )
 
     makePostRequest(operativeAssignmentFormData)

@@ -878,6 +878,8 @@ describe('Updating a work order', () => {
               calculatedBonus: 0,
             },
           ],
+          comments:
+            'Work order updated - Assigned operatives Operative A : 50%, Operative B : 50%, Operative C : -',
           typeCode: '10',
         })
     })
@@ -1010,6 +1012,8 @@ describe('Updating a work order', () => {
               calculatedBonus: 50,
             },
           ],
+          comments:
+            'Work order updated - Assigned operatives Operative A : 30%, Operative B : 20%, Operative C : 50%',
           typeCode: '10',
         })
     })
