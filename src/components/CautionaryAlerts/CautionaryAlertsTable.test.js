@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
 import CautionaryAlertsTable from './CautionaryAlertsTable'
 import { operative } from 'factories/operative'
-import { CAUTIONARY_ALERTS } from '../../utils/cautionaryAlerts'
+import { CAUTIONARY_ALERTS } from '@/utils/cautionaryAlerts'
 
 describe('CautionaryAlertsTable component', () => {
   const props = {

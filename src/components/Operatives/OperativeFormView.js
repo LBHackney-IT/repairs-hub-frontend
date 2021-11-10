@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { buildOperativeAssignmentFormData } from '../../utils/hact/workOrderStatusUpdate/assignOperatives'
-import { WorkOrder } from '../../models/workOrder'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
+import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
-import { sortOperativesWithPayrollFirst } from '../../utils/helpers/operatives'
+import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
@@ -96,6 +96,15 @@ const OperativeFormView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
+  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
+    return opsAndPercentages
+      .map(
+        (op) =>
+          `${op.operative.name}${op.percentage ? ` : ${op.percentage}` : ''}`
+      )
+      .join(', ')
+  }
+
   const onSubmit = (e) => {
     const operativeIds = Object.keys(e)
       .filter((k) => k.match(/operative-\d+/))
@@ -127,9 +136,16 @@ const OperativeFormView = ({ workOrderReference }) => {
       }
     })
 
+    const operativesAssignedNote =
+      operativesWithPercentages.length > 0 &&
+      `Assigned operatives ${operativesAndPercentagesForNotes(
+        operativesWithPercentages
+      )}`
+
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       workOrderReference,
-      operativesWithPercentages
+      operativesWithPercentages,
+      operativesAssignedNote
     )
 
     makePostRequest(operativeAssignmentFormData)

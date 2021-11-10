@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import BackButton from '../Layout/BackButton'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { useCallback, useState } from 'react'
-import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
+import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 
 const OperativeWorkOrderDetails = ({

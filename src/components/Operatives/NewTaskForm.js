@@ -2,13 +2,13 @@ import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { getSorCodes } from 'src/utils/frontEndApiClient/scheduleOfRates/codes'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildWorkOrderUpdate } from '../../utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)

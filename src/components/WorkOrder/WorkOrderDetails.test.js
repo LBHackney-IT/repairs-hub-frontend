@@ -6,8 +6,8 @@ import { agent } from 'factories/agent'
 import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
-import { URGENT_PRIORITY_CODE } from '../../utils/helpers/priorities'
-import { WorkOrder } from '../../models/workOrder'
+import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
+import { WorkOrder } from '@/models/workOrder'
 
 describe('WorkOrderDetails component', () => {
   let workOrderData = {

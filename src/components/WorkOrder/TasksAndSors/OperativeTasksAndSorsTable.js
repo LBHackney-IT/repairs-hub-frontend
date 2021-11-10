@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsRow from './TasksAndSorsRow'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
-import { calculateTotal } from '../../../utils/helpers/calculations'
+import { calculateTotal } from '@/utils/helpers/calculations'
 
 const OperativeTasksAndSorsTable = ({
   tasksAndSors,

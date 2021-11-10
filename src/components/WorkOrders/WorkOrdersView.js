@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import WorkOrdersTable from './WorkOrdersTable'
-import { getWorkOrders } from '../../utils/frontEndApiClient/workOrders'
+import { getWorkOrders } from '@/utils/frontEndApiClient/workOrders'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
-import { setFilterOptions } from '../../utils/helpers/filter'
+import { setFilterOptions } from '@/utils/helpers/filter'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import Meta from '../Meta'
 

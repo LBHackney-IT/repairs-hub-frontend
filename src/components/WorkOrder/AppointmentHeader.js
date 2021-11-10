@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { longMonthWeekday } from '../../utils/date'
+import { longMonthWeekday } from '@/utils/date'
 
 const AppointmentHeader = ({ workOrder }) => {
   return (

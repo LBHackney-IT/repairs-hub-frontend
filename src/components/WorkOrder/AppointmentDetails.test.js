@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
 import AppointmentDetails from './AppointmentDetails'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 
 const workOrderData = {
   reference: 10000012,

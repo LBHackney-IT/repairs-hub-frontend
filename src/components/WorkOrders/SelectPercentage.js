@@ -1,7 +1,7 @@
 import ProperTypes from 'prop-types'
 import { useEffect, useState } from 'react'
 import Select from '../Form/Select'
-import { calculateSMV } from '../../utils/helpers/calculations'
+import { calculateSMV } from '@/utils/helpers/calculations'
 
 const SelectPercentage = ({
   updatePercentages,

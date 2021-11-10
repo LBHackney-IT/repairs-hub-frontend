@@ -1,11 +1,11 @@
-import Search from '../components/Search/Search'
+import Search from '@/components/Search/Search'
 import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '../utils/user'
-import { getQueryProps } from '../utils/helpers/serverSideProps'
+} from '@/utils/user'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 const SearchPage = ({ query }) => {
   if (Object.entries(query).length === 0) {

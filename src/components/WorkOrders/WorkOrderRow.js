@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import { dateToStr } from '../../utils/date'
-import { extractTimeFromDate } from '../../utils/time'
+import { dateToStr } from '@/utils/date'
+import { extractTimeFromDate } from '@/utils/time'
 import Link from 'next/link'
 import { TR, TD } from '../Layout/Table'
 

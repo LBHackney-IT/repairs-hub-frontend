@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 import OperativeWorkOrder from './OperativeWorkOrder'
 
 describe('OperativeWorkOrder component with single operative', () => {

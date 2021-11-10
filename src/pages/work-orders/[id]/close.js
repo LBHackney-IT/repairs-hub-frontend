@@ -1,15 +1,15 @@
 import { useContext } from 'react'
-import Meta from '../../../components/Meta'
-import UserContext from '../../../components/UserContext'
-import CloseWorkOrderByProxy from '../../../components/WorkOrders/CloseWorkOrderByProxy'
-import CloseWorkOrder from '../../../components/WorkOrders/CloseWorkOrder'
+import Meta from '@/components/Meta'
+import UserContext from '@/components/UserContext'
+import CloseWorkOrderByProxy from '@/components/WorkOrders/CloseWorkOrderByProxy'
+import CloseWorkOrder from '@/components/WorkOrders/CloseWorkOrder'
 import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '../../../utils/user'
-import { canAttendOwnWorkOrder } from '../../../utils/userPermissions'
-import { getQueryProps } from '../../../utils/helpers/serverSideProps'
+} from '@/utils/user'
+import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 const WorkOrderClosePage = ({ query }) => {
   const { user } = useContext(UserContext)

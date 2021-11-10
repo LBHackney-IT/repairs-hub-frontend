@@ -2,7 +2,7 @@ import { render } from '@testing-library/react'
 import WorkOrderHeader from './WorkOrderHeader'
 import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 
 describe('WorkOrderHeader component', () => {
   let workOrderData = {

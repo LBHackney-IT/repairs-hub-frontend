@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import WarningText from '../Template/WarningText'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
-import { getCautionaryAlertsType } from '../../utils/cautionaryAlerts'
+import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 
 const PrintJobTicketDetails = ({
   workOrder,

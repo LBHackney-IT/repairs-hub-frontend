@@ -4,7 +4,7 @@ import UserContext from '../UserContext'
 import HeaderComponent from './Header'
 import PhaseBanner from './PhaseBanner'
 import cx from 'classnames'
-import { headerLinksForUser } from '../../utils/headerLinks'
+import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
 
 const Layout = ({ serviceName, feedbackLink, children }) => {

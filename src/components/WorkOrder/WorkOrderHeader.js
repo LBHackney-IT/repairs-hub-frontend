@@ -5,7 +5,7 @@ import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
-import { WorkOrder } from '../../models/workOrder'
+import { WorkOrder } from '@/models/workOrder'
 
 const WorkOrderHeader = ({
   propertyReference,
