@@ -39,7 +39,6 @@ class MyApp extends App {
             />
           </Layout>
         </UserContext.Provider>
-        <script src="/js/govuk.js"></script>
       </>
     )
   }

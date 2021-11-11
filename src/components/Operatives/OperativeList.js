@@ -6,6 +6,7 @@ const OperativeList = ({
   operatives,
   currentUserPayrollNumber,
   workOrderReference,
+  readOnly,
 }) => {
   return (
     <>
@@ -18,29 +19,46 @@ const OperativeList = ({
           const percentageDisplay = operative.jobPercentage
             ? `${operative.jobPercentage}%`
             : 'N/A'
+          const operativeDisplay = [operative.name, percentageDisplay].join(
+            ' - '
+          )
           return process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-            'true' ? (
-            <li key={index}>
-              <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
-                <a className="govuk-link">
-                  {' '}
-                  {[operative.name, percentageDisplay].join(' - ')}
-                </a>
-              </Link>
-            </li>
+            'true' && !readOnly ? (
+            <OperativeListLinkItem
+              index={index}
+              workOrderReference={workOrderReference}
+              operativeDisplay={operativeDisplay}
+            />
           ) : (
-            <li key={index}>
-              {[operative.name, percentageDisplay].join(' - ')}
-            </li>
+            <OperativeListItem
+              index={index}
+              operativeDisplay={operativeDisplay}
+            />
           )
         })}
       </ol>
     </>
   )
 }
+const OperativeListLinkItem = ({
+  index,
+  workOrderReference,
+  operativeDisplay,
+}) => (
+  <li key={index}>
+    <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
+      <a className="govuk-link">{operativeDisplay}</a>
+    </Link>
+  </li>
+)
+
+const OperativeListItem = ({ index, operativeDisplay }) => (
+  <li key={index}>{operativeDisplay}</li>
+)
 
 OperativeList.propTypes = {
   operatives: PropTypes.array,
+  readOnly: PropTypes.bool.isRequired,
 }
 
 export default OperativeList

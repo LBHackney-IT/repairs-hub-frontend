@@ -72,6 +72,7 @@ OperativeTasksAndSorsTable.propTypes = {
       standardMinuteValue: PropTypes.number,
     })
   ).isRequired,
+  readOnly: PropTypes.bool.isRequired,
 }
 
 export default OperativeTasksAndSorsTable

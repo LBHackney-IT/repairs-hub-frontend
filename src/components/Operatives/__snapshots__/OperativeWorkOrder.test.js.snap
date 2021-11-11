@@ -296,7 +296,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
         class="govuk-link"
         href="/work-orders/10000621/operatives/edit"
       >
-         Test1 - 50%
+        Test1 - 50%
       </a>
     </li>
     <li>
@@ -304,7 +304,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
         class="govuk-link"
         href="/work-orders/10000621/operatives/edit"
       >
-         Test2 - 100%
+        Test2 - 100%
       </a>
     </li>
   </ol>
