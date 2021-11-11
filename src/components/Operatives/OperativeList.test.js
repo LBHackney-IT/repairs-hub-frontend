@@ -26,6 +26,17 @@ describe('OperativeList component', () => {
       <OperativeList
         workOrderReference={10000621}
         operatives={props.operatives}
+        readOnly={false}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+  it('should render operative list, without links', () => {
+    const { asFragment } = render(
+      <OperativeList
+        workOrderReference={10000621}
+        operatives={props.operatives}
+        readOnly={true}
       />
     )
     expect(asFragment()).toMatchSnapshot()

@@ -105,6 +105,7 @@ const OperativeWorkOrder = ({
           operatives={workOrder.operatives}
           currentUserPayrollNumber={currentUserPayrollNumber}
           workOrderReference={workOrderReference}
+          readOnly={readOnly}
         />
       )}
 
