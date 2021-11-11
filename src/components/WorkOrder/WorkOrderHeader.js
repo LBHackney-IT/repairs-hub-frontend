@@ -6,6 +6,7 @@ import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
+import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -18,6 +19,10 @@ const WorkOrderHeader = ({
   canRaiseRepair,
   schedulerSessionId,
 }) => {
+  const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
+    workOrder.status
+  )
+
   return (
     <div className="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6">
       <div className="govuk-grid-column-one-third">
@@ -57,10 +62,8 @@ const WorkOrderHeader = ({
           </div>
         )}
         {workOrder.operatives.length > 0 &&
-          workOrder.appointment &&
-          workOrder.appointmentISODatePassed() && (
-            <Operatives operatives={workOrder.operatives} />
-          )}
+          ((workOrder.appointment && workOrder.appointmentISODatePassed()) ||
+            readOnly) && <Operatives operatives={workOrder.operatives} />}
       </div>
     </div>
   )
