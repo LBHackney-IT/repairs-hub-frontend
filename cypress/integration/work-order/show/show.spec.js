@@ -223,6 +223,87 @@ describe('Show work order page', () => {
     )
 
     context(
+      'When the work order has been assigned more than one operative',
+      () => {
+        context('With status Work Complete', () => {
+          beforeEach(() => {
+            cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+              workOrder.operatives = [
+                {
+                  id: 0,
+                  payrollNumber: '0',
+                  name: 'Operative 1',
+                  trades: ['DE'],
+                },
+                {
+                  id: 1,
+                  payrollNumber: '1',
+                  name: 'Operative 2',
+                  trades: ['DE'],
+                },
+              ]
+              workOrder.status = 'Work Complete'
+
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000012' },
+                { body: workOrder }
+              )
+            })
+          })
+
+          it('Shows the assigned operatives', () => {
+            cy.visit('/work-orders/10000012')
+
+            cy.get('.appointment-details').within(() => {
+              cy.contains('Appointment details')
+              cy.contains('Not applicable')
+            })
+
+            cy.contains('Operatives: Operative 1, Operative 2')
+          })
+        })
+
+        context('With status No Access', () => {
+          beforeEach(() => {
+            cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+              workOrder.operatives = [
+                {
+                  id: 0,
+                  payrollNumber: '0',
+                  name: 'Operative 1',
+                  trades: ['DE'],
+                },
+                {
+                  id: 1,
+                  payrollNumber: '1',
+                  name: 'Operative 2',
+                  trades: ['DE'],
+                },
+              ]
+              workOrder.status = 'No Access'
+
+              cy.intercept(
+                { method: 'GET', path: '/api/workOrders/10000012' },
+                { body: workOrder }
+              )
+            })
+          })
+
+          it('Shows the assigned operatives', () => {
+            cy.visit('/work-orders/10000012')
+
+            cy.get('.appointment-details').within(() => {
+              cy.contains('Appointment details')
+              cy.contains('Not applicable')
+            })
+
+            cy.contains('Operatives: Operative 1, Operative 2')
+          })
+        })
+      }
+    )
+
+    context(
       'When the work order has work orders on Work orders history tab',
       () => {
         beforeEach(() => {

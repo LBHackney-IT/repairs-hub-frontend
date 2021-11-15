@@ -3,6 +3,7 @@ import WarningText from '../Template/WarningText'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
+import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 
 const PrintJobTicketDetails = ({
   workOrder,
@@ -14,6 +15,9 @@ const PrintJobTicketDetails = ({
   const cautionaryAlertsType = getCautionaryAlertsType(
     locationAlerts,
     personAlerts
+  )
+  const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
+    workOrder.status
   )
 
   return (
@@ -99,8 +103,9 @@ const PrintJobTicketDetails = ({
                       : 'Operative: '}
                   </strong>
                   {workOrder.operatives.length > 0 &&
-                    workOrder.appointment &&
-                    workOrder.appointmentISODatePassed() && (
+                    ((workOrder.appointment &&
+                      workOrder.appointmentISODatePassed()) ||
+                      readOnly) && (
                       <>
                         {`${workOrder.operatives
                           .map((operative) => operative.name)

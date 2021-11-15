@@ -104,6 +104,47 @@ describe('WorkOrderHeader component', () => {
       )
       expect(asFragment()).toMatchSnapshot()
     })
+
+    describe('when has operatives without appointment', () => {
+      it('should show Operatives', () => {
+        //WorkOrder status: Work Complete
+        const operatives = [
+          {
+            id: 0,
+            payrollNumber: '0',
+            name: 'Operative 1',
+            trades: ['DE'],
+          },
+          {
+            id: 1,
+            payrollNumber: '1',
+            name: 'Operative 2',
+            trades: ['DE'],
+          },
+        ]
+
+        const { asFragment } = render(
+          <UserContext.Provider value={{ user: agent }}>
+            <WorkOrderHeader
+              propertyReference={props.property.propertyReference}
+              workOrder={
+                new WorkOrder({ ...workOrderData, operatives: operatives })
+              }
+              address={props.property.address}
+              subTypeDescription={
+                props.property.hierarchyType.subTypeDescription
+              }
+              locationAlerts={props.alerts.locationAlert}
+              personAlerts={props.alerts.personAlert}
+              tenure={props.tenure}
+              canRaiseRepair={props.property.canRaiseRepair}
+              schedulerSessionId={props.schedulerSessionId}
+            />
+          </UserContext.Provider>
+        )
+        expect(asFragment()).toMatchSnapshot()
+      })
+    })
   })
 
   describe('when workOrder is in Progress', () => {
