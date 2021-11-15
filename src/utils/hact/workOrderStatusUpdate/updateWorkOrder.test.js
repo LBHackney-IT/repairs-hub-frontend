@@ -58,4 +58,41 @@ describe('buildWorkOrderUpdate', () => {
 
     expect(response).toEqual(WorkOrderUpdateFormData)
   })
+
+  it('builds the WorkOrderUpdate form data to post to the Repairs API without adding comments', () => {
+    const WorkOrderUpdateFormData = {
+      relatedWorkOrderReference: {
+        id: '00012345',
+      },
+      typeCode: '80',
+      moreSpecificSORCode: {
+        rateScheduleItem: [
+          {
+            id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbf',
+            customCode: 'XXXX003',
+            customName: 'Immediate call outs',
+            quantity: {
+              amount: [Number.parseFloat('1')],
+            },
+          },
+          {
+            customCode: 'XXXX004',
+            customName: 'Emergency call out',
+            quantity: {
+              amount: [Number.parseFloat('3.5')],
+            },
+          },
+        ],
+      },
+    }
+
+    const response = buildWorkOrderUpdate(
+      latestTasks,
+      addedTasks,
+      reference,
+      ''
+    )
+    expect(response.comments).toBeUndefined
+    expect(response).toEqual(WorkOrderUpdateFormData)
+  })
 })
