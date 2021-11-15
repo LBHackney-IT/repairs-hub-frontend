@@ -25,13 +25,13 @@ const OperativeList = ({
           return process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
             'true' && !readOnly ? (
             <OperativeListLinkItem
-              index={index}
+              key={index}
               workOrderReference={workOrderReference}
               operativeDisplay={operativeDisplay}
             />
           ) : (
             <OperativeListItem
-              index={index}
+              key={index}
               operativeDisplay={operativeDisplay}
             />
           )
@@ -40,21 +40,15 @@ const OperativeList = ({
     </>
   )
 }
-const OperativeListLinkItem = ({
-  index,
-  workOrderReference,
-  operativeDisplay,
-}) => (
-  <li key={index}>
+const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
+  <li>
     <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
       <a className="govuk-link">{operativeDisplay}</a>
     </Link>
   </li>
 )
 
-const OperativeListItem = ({ index, operativeDisplay }) => (
-  <li key={index}>{operativeDisplay}</li>
-)
+const OperativeListItem = ({ operativeDisplay }) => <li>{operativeDisplay}</li>
 
 OperativeList.propTypes = {
   operatives: PropTypes.array,
