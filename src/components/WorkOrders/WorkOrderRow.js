@@ -17,22 +17,22 @@ const WorkOrderRow = ({
     reference={reference}
     className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
   >
-    <TD>
+    <TD className="table-font-size">
       <Link href={`/work-orders/${reference}`}>
         <a className="lbh-link">{reference}</a>
       </Link>
     </TD>
-    <TD>
+    <TD className="table-font-size">
       {dateRaised ? dateToStr(dateRaised) : '—'}
       <div className="work-order-hours">
         {dateRaised ? extractTimeFromDate(dateRaised) : ''}
       </div>
     </TD>
-    <TD>{priority}</TD>
-    <TD>{property}</TD>
-    <TD>{status}</TD>
-    <TD>{tradeDescription}</TD>
-    <TD className="description">{description}</TD>
+    <TD className="table-font-size">{priority}</TD>
+    <TD className="table-font-size">{property}</TD>
+    <TD className="table-font-size">{status}</TD>
+    <TD className="table-font-size">{tradeDescription}</TD>
+    <TD className="description table-font-size">{description}</TD>
   </TR>
 )
 

@@ -9,11 +9,11 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -38,11 +38,11 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -531,11 +531,11 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -560,11 +560,11 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -985,11 +985,11 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -1014,11 +1014,11 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -1423,11 +1423,11 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -1452,11 +1452,11 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -1945,11 +1945,11 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -1974,11 +1974,11 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -2451,11 +2451,11 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -2480,11 +2480,11 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
@@ -2889,11 +2889,11 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
       aria-expanded="true"
       class="lbh-collapsible__button filter-collapsible"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Filters
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -2918,11 +2918,11 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             aria-expanded="true"
             class="lbh-collapsible__button filter-collapsible"
           >
-            <h2
-              class="lbh-heading-h2 lbh-collapsible__heading"
+            <h3
+              class="lbh-heading-h3 lbh-collapsible__heading"
             >
               Selected filters
-            </h2>
+            </h3>
             <svg
               height="10"
               viewBox="0 0 17 10"
