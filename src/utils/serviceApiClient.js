@@ -48,6 +48,7 @@ export const serviceAPIRequest = cache(
         'Starting Service API request:',
         JSON.stringify({
           ...request,
+          data: request.data,
           headers: {
             ...request.headers,
             'x-api-key': '[REMOVED]',
