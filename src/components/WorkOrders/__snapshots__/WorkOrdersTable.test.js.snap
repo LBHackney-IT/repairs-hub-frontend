@@ -18,43 +18,43 @@ exports[`WorkOrdersTable component should render properly 1`] = `
           class="govuk-table__row lbh-body"
         >
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Reference
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
-            Date raised
+            Date raised
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Priority
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Property
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Status
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Trade
           </th>
           <th
-            class="govuk-table__header"
+            class="govuk-table__header table-font-size"
             scope="col"
           >
             Description
@@ -69,7 +69,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
           data-ref="10000012"
         >
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             <a
               class="lbh-link"
@@ -79,7 +79,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             </a>
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             12 Jan 2021
             <div
@@ -89,27 +89,27 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             </div>
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             2 [E] EMERGENCY
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             1 Pitcairn House St Thomass Square
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             In Progress
           </td>
           <td
-            class="govuk-table__cell"
+            class="govuk-table__cell table-font-size"
           >
             Electrical - EL
           </td>
           <td
-            class="govuk-table__cell description"
+            class="govuk-table__cell description table-font-size"
           >
             ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
           </td>
