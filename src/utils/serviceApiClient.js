@@ -44,6 +44,9 @@ export const serviceAPIRequest = cache(
 
     // Log request
     api.interceptors.request.use((request) => {
+      request.data &&
+        console.info('Submitting data:', JSON.stringify(request.data))
+
       console.info(
         'Starting Service API request:',
         JSON.stringify({
