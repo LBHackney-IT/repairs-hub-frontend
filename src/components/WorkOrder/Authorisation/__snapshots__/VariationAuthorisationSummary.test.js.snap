@@ -14,11 +14,11 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
       aria-expanded="true"
       class="lbh-collapsible__button original-sors"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Original SORs
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
@@ -95,11 +95,11 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
       aria-expanded="true"
       class="lbh-collapsible__button updated-sors"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Updated Tasks SORs
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
