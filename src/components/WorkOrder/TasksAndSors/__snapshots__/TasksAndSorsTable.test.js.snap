@@ -213,12 +213,12 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
       aria-expanded="false"
       class="lbh-collapsible__button undefined"
     >
-      <h2
-        class="lbh-heading-h2 lbh-collapsible__heading"
+      <h3
+        class="lbh-heading-h3 lbh-collapsible__heading"
       >
         Original Tasks and SORs
         Added on 3 Feb 2021, 11:33
-      </h2>
+      </h3>
       <svg
         height="10"
         viewBox="0 0 17 10"
