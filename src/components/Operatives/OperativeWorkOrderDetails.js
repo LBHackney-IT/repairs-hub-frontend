@@ -79,7 +79,9 @@ const OperativeWorkOrderDetails = ({
         <p
           ref={pRef}
           className={`govuk-body govuk-!-margin-bottom-0 ${
-            isExpanded ? '' : 'truncate'
+            isExpanded
+              ? ''
+              : 'truncate-description truncate-line--work-order-view'
           }`}
         >
           {workOrder.description}

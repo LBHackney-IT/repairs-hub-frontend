@@ -29,14 +29,21 @@
   }
 }
 
-.truncate {
+.truncate-description {
   display: -webkit-box;
-  -webkit-line-clamp: var(--line-clamp, 3);
   -webkit-box-orient: vertical;
   word-break: var(--word-break, 'none');
   overflow: hidden;
 }
+.truncate-line {
+  &--work-order-view {
+    -webkit-line-clamp: var(--line-clamp, 3);
+  }
 
+  &--table-view {
+    -webkit-line-clamp: var(--line-clamp, 5);
+  }
+}
 .update-task-quantity {
   width: 50%;
 }

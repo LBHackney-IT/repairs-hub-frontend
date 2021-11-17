@@ -457,16 +457,16 @@ describe('Show work order page', () => {
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
       cy.contains('WO 10000621')
 
-      // contains not full description, checks for css class that hides the rest of the text (.truncate)
+      // contains not full description, checks for css class that hides the rest of the text (.truncate-line--work-order-view)
       cy.contains('Description')
-      cy.get('.truncate').within(() => {
+      cy.get('.truncate-line--work-order-view').within(() => {
         cy.contains(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
         )
       })
       cy.get('a').contains('show more').click()
       //css class responsible for hiding the rest of the text should not exist
-      cy.get('.truncate').should('not.exist')
+      cy.get('.truncate-line--work-order-view').should('not.exist')
       cy.get('a').contains('show more').should('not.exist')
       //full text
       cy.contains(
@@ -475,7 +475,7 @@ describe('Show work order page', () => {
 
       cy.get('a').contains('show less').click()
       //hides full text
-      cy.get('.truncate').within(() => {
+      cy.get('.truncate-line--work-order-view').within(() => {
         cy.contains(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
         )
