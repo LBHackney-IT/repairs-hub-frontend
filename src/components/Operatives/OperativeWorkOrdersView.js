@@ -59,26 +59,29 @@ const OperativeWorkOrdersView = () => {
                 {longMonthWeekday(currentDate)}{' '}
               </h1>
               {operativeWorkOrders?.length ? (
-                <ol className="lbh-list">
-                  {operativeWorkOrders.map((operativeWorkOrder, index) => (
-                    <OperativeWorkOrderListItem
-                      key={index}
-                      operativeWorkOrder={operativeWorkOrder}
-                      index={index}
-                      statusText={(() => {
-                        const status = operativeWorkOrder.status.toLowerCase()
+                <>
+                  <h3 className="lbh-heading-h3">Work orders</h3>
+                  <ol className="lbh-list">
+                    {operativeWorkOrders.map((operativeWorkOrder, index) => (
+                      <OperativeWorkOrderListItem
+                        key={index}
+                        operativeWorkOrder={operativeWorkOrder}
+                        index={index}
+                        statusText={(() => {
+                          const status = operativeWorkOrder.status.toLowerCase()
 
-                        if (status === 'no access') {
-                          return 'Closed'
-                        } else if (status === 'work complete') {
-                          return 'Completed'
-                        } else {
-                          return ''
-                        }
-                      })()}
-                    />
-                  ))}
-                </ol>
+                          if (status === 'no access') {
+                            return 'Closed'
+                          } else if (status === 'work complete') {
+                            return 'Completed'
+                          } else {
+                            return ''
+                          }
+                        })()}
+                      />
+                    ))}
+                  </ol>
+                </>
               ) : (
                 <WarningInfoBox
                   header="No work orders displayed"

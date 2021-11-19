@@ -1,5 +1,8 @@
-.green-info-box {
-  background: repairs-hub-colour('dark-green');
+.appointment-info-box {
+  border-top: 8px solid repairs-hub-colour('dark-green');
+  border-bottom: 2px solid repairs-hub-colour('dark-green');
+  border-right: 2px solid repairs-hub-colour('dark-green');
+  border-left: 2px solid repairs-hub-colour('dark-green');
   position: relative;
   padding: 15px;
   overflow-y: auto;

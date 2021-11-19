@@ -3,34 +3,39 @@
 exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
 <DocumentFragment>
   <li
-    class="green-info-box"
+    class="appointment-info-box"
     data-id="0"
   >
     <div
       class="appointment-details"
     >
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+      <h3
+        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline "
       >
         08:00-13:00
-      </p>
+      </h3>
       <p
-        class="lbh-body lbh-!-font-weight-bold text-white govuk-!-margin-0 capitalize"
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize"
       >
         normal
       </p>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+      <a
+        class="lbh-link"
+        href="https://maps.google.com/maps?q=17 Pitcairn House  St Thomass Square L53 GS"
       >
-        17 Pitcairn House  St Thomass Square
-      </p>
+        <p
+          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0"
+        >
+          17 Pitcairn House  St Thomass Square
+        </p>
+        <p
+          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0"
+        >
+          L53 GS
+        </p>
+      </a>
       <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
-      >
-        L53 GS
-      </p>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+        class="lbh-body govuk-!-margin-0"
       >
         Lorem ipsum dolor sit amet, consectetur efficitur.
       </p>
