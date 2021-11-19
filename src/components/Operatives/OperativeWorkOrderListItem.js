@@ -22,6 +22,9 @@ const OperativeWorkOrderListItem = ({
             <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white">
               {operativeWorkOrder.propertyPostCode}
             </p>
+            <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white">
+              {operativeWorkOrder.description}
+            </p>
           </div>
           {statusText && (
             <div className="lbh-body lbh-!-font-weight-bold text-white status-text">

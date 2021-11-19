@@ -29,6 +29,11 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       >
         L53 GS
       </p>
+      <p
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+      >
+        Lorem ipsum dolor sit amet, consectetur efficitur.
+      </p>
     </div>
     <div
       class="middle-right"

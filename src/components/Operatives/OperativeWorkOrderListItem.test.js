@@ -11,7 +11,7 @@ describe('OperativeWorkOrderListItem component', () => {
       property: '17 Pitcairn House  St Thomass Square',
       propertyPostCode: 'L53 GS',
       owner: 'Herts Heritage Ltd',
-      description: 'r',
+      description: 'Lorem ipsum dolor sit amet, consectetur efficitur.',
       propertyReference: '00023405',
       tradeCode: 'PL',
       tradeDescription: 'Plumbing - PL',
