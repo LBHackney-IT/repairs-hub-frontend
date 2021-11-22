@@ -31,7 +31,6 @@ const OperativeWorkOrdersView = () => {
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
 
-
       const workOrders = data.map((wo) => new WorkOrder(wo))
 
       setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
@@ -82,7 +81,7 @@ const OperativeWorkOrdersView = () => {
         <Spinner />
       ) : (
         <>
-          {inProgressWorkOrders.length || visitedWorkOrders.length ? (
+          {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list">
                 {renderWorkOrderListItems(inProgressWorkOrders)}
