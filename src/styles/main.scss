@@ -4,7 +4,7 @@
   }
 
   @include govuk-media-query($until: tablet) {
-    padding-top: 18px;
+    padding-top: 0;
   }
 }
 

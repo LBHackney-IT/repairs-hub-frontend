@@ -19,7 +19,7 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
         >
           <div className="appointment-details">
             <div>
-              <h3 className="lbh-heading-h3 appointment-time lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">
+              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
                 {`${workOrder.appointment.start} – ${workOrder.appointment.end}`}
               </h3>
 
@@ -32,13 +32,13 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
             </div>
             <p
               className={cx(
-                'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize'
+                'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
               )}
             >
               {workOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
             <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
-            <p className="lbh-body govuk-!-margin-0">
+            <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 ">
               {workOrder.propertyPostCode}
             </p>
             <p className="lbh-body govuk-!-margin-0 truncate">

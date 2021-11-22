@@ -75,7 +75,10 @@ const OperativeWorkOrdersView = () => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <h1 className="lbh-heading-h1">{longMonthWeekday(currentDate)} </h1>
+      <div className="operative-work-list-header">
+        <h1 className="lbh-heading-h1">{longMonthWeekday(currentDate)} </h1>
+      </div>
+
       <h3 className="lbh-heading-h3">Work orders</h3>
       {loading ? (
         <Spinner />
