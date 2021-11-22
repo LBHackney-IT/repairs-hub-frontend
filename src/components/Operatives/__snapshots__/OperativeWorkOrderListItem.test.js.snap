@@ -3,7 +3,7 @@
 exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
 <DocumentFragment>
   <li
-    class="appointment-info-box"
+    class="appointment-info-box appointment-info-box--active"
     data-id="0"
   >
     <div

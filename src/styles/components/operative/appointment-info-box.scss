@@ -1,8 +1,4 @@
 .appointment-info-box {
-  border-top: 8px solid repairs-hub-colour('dark-green');
-  border-bottom: 2px solid repairs-hub-colour('dark-green');
-  border-right: 2px solid repairs-hub-colour('dark-green');
-  border-left: 2px solid repairs-hub-colour('dark-green');
   position: relative;
   padding: 15px;
   overflow-y: auto;
@@ -11,6 +7,17 @@
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+
+  &--active {
+    border-top: 8px solid repairs-hub-colour('dark-green');
+    border-bottom: 2px solid repairs-hub-colour('dark-green');
+    border-right: 2px solid repairs-hub-colour('dark-green');
+    border-left: 2px solid repairs-hub-colour('dark-green');
+  }
+
+  &--inactive {
+    background-color: repairs-hub-colour('light-grey');
+  }
 
   .status-text {
     margin-left: auto;

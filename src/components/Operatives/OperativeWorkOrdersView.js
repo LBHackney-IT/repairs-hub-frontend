@@ -30,6 +30,11 @@ const OperativeWorkOrdersView = () => {
       })
 
       setOperativeWorkOrders(data)
+      setOperativeWorkOrders(
+        data.sort((wo) =>
+          wo.status === 'No Access' || wo.status === 'Work Complete' ? 1 : -1
+        )
+      )
     } catch (e) {
       setOperativeWorkOrders(null)
       console.error('An error has occured:', e.response)

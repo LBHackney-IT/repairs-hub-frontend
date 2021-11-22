@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Status from '../WorkOrder/Status'
+import cx from 'classnames'
 
 const OperativeWorkOrderListItem = ({
   operativeWorkOrder,
@@ -10,7 +11,16 @@ const OperativeWorkOrderListItem = ({
   return (
     <>
       <Link href={`/work-orders/${operativeWorkOrder.reference}`}>
-        <li data-id={index} className="appointment-info-box">
+        <li
+          data-id={index}
+          className={cx(
+            'appointment-info-box',
+            operativeWorkOrder.status === 'No Access' ||
+              operativeWorkOrder.status === 'Work complete'
+              ? 'appointment-info-box--inactive'
+              : 'appointment-info-box--active'
+          )}
+        >
           <div className="appointment-details">
             <div>
               <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">
