@@ -12,28 +12,23 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       <h3
         class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline "
       >
-        08:00-13:00
+        08:00 – 13:00
       </h3>
       <p
         class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize"
       >
         normal
       </p>
-      <a
-        class="lbh-link"
-        href="https://maps.google.com/maps?q=17 Pitcairn House  St Thomass Square L53 GS"
+      <p
+        class="lbh-body govuk-!-margin-0"
       >
-        <p
-          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0"
-        >
-          17 Pitcairn House  St Thomass Square
-        </p>
-        <p
-          class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0"
-        >
-          L53 GS
-        </p>
-      </a>
+        17 Pitcairn House  St Thomass Square
+      </p>
+      <p
+        class="lbh-body govuk-!-margin-0"
+      >
+        L53 GS
+      </p>
       <p
         class="lbh-body govuk-!-margin-0"
       >
@@ -41,9 +36,9 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       </p>
     </div>
     <div
-      class="middle-right"
+      class="govuk-!-margin-0"
     >
-      <a
+      <span
         class="arrow right"
       />
     </div>

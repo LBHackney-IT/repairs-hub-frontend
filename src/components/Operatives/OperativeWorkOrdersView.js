@@ -4,7 +4,6 @@ import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { GridColumn, GridRow } from '../Layout/Grid'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
@@ -49,50 +48,48 @@ const OperativeWorkOrdersView = () => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <GridRow className="lbh-body-s operative-work-orders">
-        <GridColumn width="full">
-          {loading ? (
-            <Spinner />
-          ) : (
+      <h1 className="lbh-heading-h1">{longMonthWeekday(currentDate)} </h1>
+      <h3 className="lbh-heading-h3">Work orders</h3>
+      {/* <GridRow className="lbh-body-s operative-work-orders">
+        <GridColumn width="full"> */}
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {operativeWorkOrders?.length ? (
             <>
-              <h1 className="lbh-heading-h1">
-                {longMonthWeekday(currentDate)}{' '}
-              </h1>
-              {operativeWorkOrders?.length ? (
-                <>
-                  <h3 className="lbh-heading-h3">Work orders</h3>
-                  <ol className="lbh-list">
-                    {operativeWorkOrders.map((operativeWorkOrder, index) => (
-                      <OperativeWorkOrderListItem
-                        key={index}
-                        operativeWorkOrder={operativeWorkOrder}
-                        index={index}
-                        statusText={(() => {
-                          const status = operativeWorkOrder.status.toLowerCase()
+              <ol className="lbh-list">
+                {operativeWorkOrders.map((operativeWorkOrder, index) => (
+                  <OperativeWorkOrderListItem
+                    key={index}
+                    operativeWorkOrder={operativeWorkOrder}
+                    index={index}
+                    statusText={(() => {
+                      const status = operativeWorkOrder.status.toLowerCase()
 
-                          if (status === 'no access') {
-                            return 'Closed'
-                          } else if (status === 'work complete') {
-                            return 'Completed'
-                          } else {
-                            return ''
-                          }
-                        })()}
-                      />
-                    ))}
-                  </ol>
-                </>
-              ) : (
-                <WarningInfoBox
-                  header="No work orders displayed"
-                  text="Please contact your supervisor"
-                />
-              )}
-              {error && <ErrorMessage label={error} />}
+                      if (status === 'no access') {
+                        return 'Closed'
+                      } else if (status === 'work complete') {
+                        return 'Completed'
+                      } else {
+                        return ''
+                      }
+                    })()}
+                  />
+                ))}
+              </ol>
             </>
+          ) : (
+            <WarningInfoBox
+              header="No work orders displayed"
+              text="Please contact your supervisor"
+            />
           )}
-        </GridColumn>
-      </GridRow>
+          {error && <ErrorMessage label={error} />}
+        </>
+      )}
+      {/* </GridColumn>
+      </GridRow> */}
     </>
   )
 }

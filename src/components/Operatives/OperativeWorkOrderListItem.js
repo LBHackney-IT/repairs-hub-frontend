@@ -13,29 +13,26 @@ const OperativeWorkOrderListItem = ({
         <li data-id={index} className="appointment-info-box">
           <div className="appointment-details">
             <>
-              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">{`${operativeWorkOrder.appointment.start}-${operativeWorkOrder.appointment.end}`}</h3>
+              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">{`${operativeWorkOrder.appointment.start} – ${operativeWorkOrder.appointment.end}`}</h3>
               {statusText && <Status status={statusText} />}
             </>
             <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize">
               {operativeWorkOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
-            <a
-              className="lbh-link"
-              href={`https://maps.google.com/maps?q=${operativeWorkOrder.property} ${operativeWorkOrder.propertyPostCode}`}
-            >
-              <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0">
-                {operativeWorkOrder.property}
-              </p>
-              <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0">
-                {operativeWorkOrder.propertyPostCode}
-              </p>
-            </a>
+
+            <p className="lbh-body govuk-!-margin-0">
+              {operativeWorkOrder.property}
+            </p>
+            <p className="lbh-body govuk-!-margin-0">
+              {operativeWorkOrder.propertyPostCode}
+            </p>
+
             <p className="lbh-body govuk-!-margin-0">
               {operativeWorkOrder.description}
             </p>
           </div>
-          <div className="middle-right">
-            <a className="arrow right"></a>
+          <div className="govuk-!-margin-0">
+            <span className="arrow right"></span>
           </div>
         </li>
       </Link>
