@@ -2,29 +2,25 @@ import PropTypes from 'prop-types'
 import Link from 'next/link'
 import Status from '../WorkOrder/Status'
 import cx from 'classnames'
+import { WorkOrder } from '../../models/workOrder'
 
-const OperativeWorkOrderListItem = ({
-  operativeWorkOrder,
-  index,
-  statusText,
-}) => {
+const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
   return (
     <>
-      <Link href={`/work-orders/${operativeWorkOrder.reference}`}>
+      <Link href={`/work-orders/${workOrder.reference}`}>
         <li
           data-id={index}
           className={cx(
             'appointment-info-box',
-            operativeWorkOrder.status === 'No Access' ||
-              operativeWorkOrder.status === 'Work complete'
+            workOrder.hasBeenVisited()
               ? 'appointment-info-box--inactive'
               : 'appointment-info-box--active'
           )}
         >
           <div className="appointment-details">
             <div>
-              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">
-                {`${operativeWorkOrder.appointment.start} – ${operativeWorkOrder.appointment.end}`}
+              <h3 className="lbh-heading-h3 appointment-time lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">
+                {`${workOrder.appointment.start} – ${workOrder.appointment.end}`}
               </h3>
 
               {statusText && (
@@ -34,20 +30,19 @@ const OperativeWorkOrderListItem = ({
                 />
               )}
             </div>
-
-            <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize">
-              {operativeWorkOrder.priority.toLowerCase().split(' ').slice(-1)}
+            <p
+              className={cx(
+                'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize'
+              )}
+            >
+              {workOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
-
+            <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
             <p className="lbh-body govuk-!-margin-0">
-              {operativeWorkOrder.property}
+              {workOrder.propertyPostCode}
             </p>
-            <p className="lbh-body govuk-!-margin-0">
-              {operativeWorkOrder.propertyPostCode}
-            </p>
-
             <p className="lbh-body govuk-!-margin-0 truncate">
-              {operativeWorkOrder.description}
+              {workOrder.description}
             </p>
           </div>
           <div className="govuk-!-margin-0">
@@ -60,7 +55,7 @@ const OperativeWorkOrderListItem = ({
 }
 
 OperativeWorkOrderListItem.propTypes = {
-  operativeWorkOrder: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   index: PropTypes.number.isRequired,
   statusText: PropTypes.string,
 }

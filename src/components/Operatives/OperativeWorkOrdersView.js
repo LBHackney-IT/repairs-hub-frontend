@@ -7,10 +7,12 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
+import { WorkOrder } from '../../models/workOrder'
 
 const OperativeWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
-  const [operativeWorkOrders, setOperativeWorkOrders] = useState([])
+  const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
+  const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -29,14 +31,14 @@ const OperativeWorkOrdersView = () => {
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
 
-      setOperativeWorkOrders(data)
-      setOperativeWorkOrders(
-        data.sort((wo) =>
-          wo.status === 'No Access' || wo.status === 'Work Complete' ? 1 : -1
-        )
-      )
+
+      const workOrders = data.map((wo) => new WorkOrder(wo))
+
+      setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
+      setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
     } catch (e) {
-      setOperativeWorkOrders(null)
+      setInProgressWorkOrders(null)
+      setVisitedWorkOrders(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -50,38 +52,41 @@ const OperativeWorkOrdersView = () => {
     getOperativeWorkOrderView()
   }, [])
 
+  const renderWorkOrderListItems = (workOrders) => {
+    return workOrders.map((workOrder, index) => (
+      <OperativeWorkOrderListItem
+        key={index}
+        workOrder={workOrder}
+        index={index}
+        statusText={(() => {
+          const status = workOrder.status.toLowerCase()
+
+          if (status === 'no access') {
+            return 'Closed'
+          } else if (status === 'work complete') {
+            return 'Completed'
+          } else {
+            return ''
+          }
+        })()}
+      />
+    ))
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
       <h1 className="lbh-heading-h1">{longMonthWeekday(currentDate)} </h1>
       <h3 className="lbh-heading-h3">Work orders</h3>
-      {/* <GridRow className="lbh-body-s operative-work-orders">
-        <GridColumn width="full"> */}
       {loading ? (
         <Spinner />
       ) : (
         <>
-          {operativeWorkOrders?.length ? (
+          {inProgressWorkOrders.length || visitedWorkOrders.length ? (
             <>
               <ol className="lbh-list">
-                {operativeWorkOrders.map((operativeWorkOrder, index) => (
-                  <OperativeWorkOrderListItem
-                    key={index}
-                    operativeWorkOrder={operativeWorkOrder}
-                    index={index}
-                    statusText={(() => {
-                      const status = operativeWorkOrder.status.toLowerCase()
-
-                      if (status === 'no access') {
-                        return 'Closed'
-                      } else if (status === 'work complete') {
-                        return 'Completed'
-                      } else {
-                        return ''
-                      }
-                    })()}
-                  />
-                ))}
+                {renderWorkOrderListItems(inProgressWorkOrders)}
+                {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
           ) : (
@@ -93,8 +98,6 @@ const OperativeWorkOrdersView = () => {
           {error && <ErrorMessage label={error} />}
         </>
       )}
-      {/* </GridColumn>
-      </GridRow> */}
     </>
   )
 }
