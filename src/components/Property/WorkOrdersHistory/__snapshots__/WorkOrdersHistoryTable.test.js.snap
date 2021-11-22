@@ -93,9 +93,9 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an immediate repair description 
+            This is an immediate repair description
           </p>
         </td>
       </tr>
@@ -141,9 +141,9 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an urgent repair description 
+            This is an urgent repair description
           </p>
         </td>
       </tr>
@@ -229,9 +229,9 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an immediate repair description 
+            This is an immediate repair description
           </p>
         </td>
       </tr>
@@ -267,9 +267,9 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an urgent repair description 
+            This is an urgent repair description
           </p>
         </td>
       </tr>
@@ -371,9 +371,9 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an immediate repair description 
+            This is an immediate repair description
           </p>
         </td>
       </tr>
@@ -419,9 +419,9 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an urgent repair description 
+            This is an urgent repair description
           </p>
         </td>
       </tr>
@@ -523,9 +523,9 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an immediate repair description 
+            This is an immediate repair description
           </p>
         </td>
       </tr>
@@ -571,9 +571,9 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
           class="govuk-table__cell description"
         >
           <p
-            class="truncate-description truncate-line--table-view"
+            class="truncate-description truncate-line-5"
           >
-            This is an urgent repair description 
+            This is an urgent repair description
           </p>
         </td>
       </tr>

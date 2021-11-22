@@ -112,9 +112,9 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             class="govuk-table__cell description table-font-size"
           >
             <p
-              class="truncate-description truncate-line--table-view"
+              class="truncate-description truncate-line-5"
             >
-              ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in 
+              ALPHA- Pitcairn house op stucl behind carpark gates from power network pls remedy AND Communal: Door entry; Residents locked out/in
             </p>
           </td>
         </tr>

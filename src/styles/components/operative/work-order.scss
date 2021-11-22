@@ -35,15 +35,14 @@
   word-break: var(--word-break, 'none');
   overflow: hidden;
 }
-.truncate-line {
-  &--work-order-view {
-    -webkit-line-clamp: var(--line-clamp, 3);
-  }
-
-  &--table-view {
-    -webkit-line-clamp: var(--line-clamp, 5);
-  }
+.truncate-line-3 {
+  -webkit-line-clamp: var(--line-clamp, 3);
 }
+
+.truncate-line-5 {
+  -webkit-line-clamp: var(--line-clamp, 5);
+}
+
 .update-task-quantity {
   width: 50%;
 }

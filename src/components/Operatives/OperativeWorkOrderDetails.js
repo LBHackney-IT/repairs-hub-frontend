@@ -3,9 +3,9 @@ import BackButton from '../Layout/BackButton'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
-import { useCallback, useState } from 'react'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import AppointmentHeader from '../WorkOrder/AppointmentHeader'
+import TruncateText from '../Layout/TruncateText/TruncateText'
 
 const OperativeWorkOrderDetails = ({
   property,
@@ -14,8 +14,6 @@ const OperativeWorkOrderDetails = ({
   locationAlerts,
 }) => {
   const router = useRouter()
-  const [textOverflow, setTextOverflow] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
   const cautionaryAlertsType = getCautionaryAlertsType(
     locationAlerts,
     personAlerts
@@ -29,22 +27,6 @@ const OperativeWorkOrderDetails = ({
       },
     })
   }
-
-  const onShowMoreClick = () => {
-    setIsExpanded(true)
-  }
-
-  const onShowLessClick = () => {
-    setIsExpanded(false)
-  }
-
-  const pRef = useCallback((node) => {
-    if (node != null) {
-      if (node.scrollHeight > node.clientHeight + 1) {
-        setTextOverflow(true)
-      }
-    }
-  })
 
   return (
     <>
@@ -76,37 +58,13 @@ const OperativeWorkOrderDetails = ({
           </GridColumn>
         </GridRow>
         <div className="lbh-heading-h5">Description</div>
-        <p
-          ref={pRef}
-          className={`govuk-body govuk-!-margin-bottom-0 ${
-            isExpanded
-              ? ''
-              : 'truncate-description truncate-line--work-order-view'
-          }`}
-        >
-          {workOrder.description}
-        </p>
-        {textOverflow ? (
-          !isExpanded ? (
-            <a
-              className="govuk-body lbh-link"
-              href="#"
-              onClick={onShowMoreClick}
-            >
-              show more
-            </a>
-          ) : (
-            <a
-              className="govuk-body lbh-link"
-              href="#"
-              onClick={onShowLessClick}
-            >
-              show less
-            </a>
-          )
-        ) : (
-          ''
-        )}
+        <TruncateText
+          text={workOrder.description}
+          numberOfLines="3"
+          pTagClassName={'govuk-body govuk-!-margin-bottom-0'}
+          linkClassName={'govuk-body'}
+        ></TruncateText>
+
         {workOrder.plannerComments && (
           <>
             <div className="lbh-heading-h5">Planner Comment</div>

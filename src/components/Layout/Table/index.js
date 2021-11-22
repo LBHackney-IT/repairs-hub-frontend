@@ -1,5 +1,5 @@
 import cx from 'classnames'
-import { useCallback, useState } from 'react'
+import TruncateText from '../TruncateText/TruncateText'
 
 export const Table = (props) => (
   <table className={cx('govuk-table lbh-table', props.className)}>
@@ -45,24 +45,6 @@ export const TH = (props) => (
 )
 
 export const TD = (props) => {
-  const [textOverflow, setTextOverflow] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
-
-  const onShowMoreClick = () => {
-    setIsExpanded(true)
-  }
-
-  const onShowLessClick = () => {
-    setIsExpanded(false)
-  }
-  const pRef = useCallback((node) => {
-    if (node != null) {
-      if (node.scrollHeight > node.clientHeight + 1) {
-        setTextOverflow(true)
-      }
-    }
-  })
-
   return props.className && props.className.includes('description') ? (
     <>
       <td
@@ -75,35 +57,11 @@ export const TD = (props) => {
           props.className
         )}
       >
-        <p
-          ref={pRef}
-          className={cx(
-            isExpanded ? '' : 'truncate-description truncate-line--table-view'
-          )}
-        >
-          {props.children}{' '}
-        </p>
-        {textOverflow ? (
-          !isExpanded ? (
-            <a
-              className={cx('lbh-link', props.classNames)}
-              href="#"
-              onClick={onShowMoreClick}
-            >
-              show more
-            </a>
-          ) : (
-            <a
-              className="govuk-table__cell lbh-link"
-              href="#"
-              onClick={onShowLessClick}
-            >
-              show less
-            </a>
-          )
-        ) : (
-          ''
-        )}
+        <TruncateText
+          text={props.children}
+          numberOfLines="5"
+          linkClassName={props.className}
+        ></TruncateText>
       </td>
     </>
   ) : (
