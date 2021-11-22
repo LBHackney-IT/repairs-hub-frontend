@@ -11,10 +11,10 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
         <li
           data-id={index}
           className={cx(
-            'appointment-info-box',
+            'operative-work-order-list-item',
             workOrder.hasBeenVisited()
-              ? 'appointment-info-box--inactive'
-              : 'appointment-info-box--active'
+              ? 'operative-work-order-list-item--inactive'
+              : 'operative-work-order-list-item--active'
           )}
         >
           <div className="appointment-details">
