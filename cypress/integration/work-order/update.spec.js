@@ -281,7 +281,7 @@ describe('Updating a work order', () => {
             id: '10000040',
           },
           typeCode: '80',
-          comments: 'Variation reason: Needs more work',
+          comments: 'Needs more work',
           moreSpecificSORCode: {
             rateScheduleItem: [
               {
@@ -450,7 +450,7 @@ describe('Updating a work order', () => {
             id: '10000040',
           },
           typeCode: '80',
-          comments: 'Variation reason: Needs more work',
+          comments: 'Needs more work',
           moreSpecificSORCode: {
             rateScheduleItem: [
               {
