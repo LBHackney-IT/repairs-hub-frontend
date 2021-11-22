@@ -36,7 +36,7 @@ const OperativeWorkOrderListItem = ({
               {operativeWorkOrder.propertyPostCode}
             </p>
 
-            <p className="lbh-body govuk-!-margin-0">
+            <p className="lbh-body govuk-!-margin-0 truncate">
               {operativeWorkOrder.description}
             </p>
           </div>

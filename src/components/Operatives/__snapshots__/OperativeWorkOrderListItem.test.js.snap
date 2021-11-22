@@ -32,7 +32,7 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
         L53 GS
       </p>
       <p
-        class="lbh-body govuk-!-margin-0"
+        class="lbh-body govuk-!-margin-0 truncate"
       >
         Lorem ipsum dolor sit amet, consectetur efficitur.
       </p>
