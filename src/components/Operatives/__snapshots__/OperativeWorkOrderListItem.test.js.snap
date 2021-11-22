@@ -3,7 +3,7 @@
 exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
 <DocumentFragment>
   <li
-    class="operative-work-order-list-item operative-work-order-list-item--active"
+    class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
     data-id="0"
   >
     <div
@@ -27,7 +27,7 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
         17 Pitcairn House  St Thomass Square
       </p>
       <p
-        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 "
+        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
       >
         L53 GS
       </p>

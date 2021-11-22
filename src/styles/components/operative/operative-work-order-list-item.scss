@@ -1,12 +1,9 @@
 .operative-work-order-list-item {
-  position: relative;
   padding: 15px;
-  overflow-y: auto;
-  min-height: 0;
-  width: 100%;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  margin-top: 15px;
 
   &--active {
     border-top: 8px solid repairs-hub-colour('dark-green');

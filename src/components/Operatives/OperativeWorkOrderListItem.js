@@ -11,6 +11,7 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
         <li
           data-id={index}
           className={cx(
+            'govuk-!-margin-top-3',
             'operative-work-order-list-item',
             workOrder.hasBeenVisited()
               ? 'operative-work-order-list-item--inactive'
@@ -38,7 +39,7 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
               {workOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>
             <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
-            <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 ">
+            <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8">
               {workOrder.propertyPostCode}
             </p>
             <p className="lbh-body govuk-!-margin-0 truncate">
