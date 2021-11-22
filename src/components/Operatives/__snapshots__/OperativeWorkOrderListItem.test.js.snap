@@ -9,11 +9,13 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
     <div
       class="appointment-details"
     >
-      <h3
-        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline "
-      >
-        08:00 – 13:00
-      </h3>
+      <div>
+        <h3
+          class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline "
+        >
+          08:00 – 13:00
+        </h3>
+      </div>
       <p
         class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize"
       >

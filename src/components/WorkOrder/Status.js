@@ -1,19 +1,23 @@
 import PropTypes from 'prop-types'
+import cx from 'classnames'
 
-const Status = ({ status }) => (
+const Status = ({ text, className }) => (
   <>
     <span
-      className={`govuk-tag lbh-tag lbh-tag--status-${status
-        .replace(/\s+/g, '-')
-        .toLowerCase()}`}
+      className={cx(
+        `govuk-tag lbh-tag lbh-tag--status-${text
+          .replace(/\s+/g, '-')
+          .toLowerCase()}`,
+        className
+      )}
     >
-      {status}
+      {text}
     </span>
   </>
 )
 
 Status.propTypes = {
-  status: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
 }
 
 export default Status

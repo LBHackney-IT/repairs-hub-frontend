@@ -18,4 +18,14 @@
     margin-top: 0;
     margin-bottom: 0;
   }
+
+  .lbh-tag {
+    font-weight: 600;
+    vertical-align: top;
+  }
+
+  .lbh-tag--status-closed,
+  .lbh-tag--status-completed {
+    background-color: repairs-hub-colour('dark-grey');
+  }
 }

@@ -12,10 +12,19 @@ const OperativeWorkOrderListItem = ({
       <Link href={`/work-orders/${operativeWorkOrder.reference}`}>
         <li data-id={index} className="appointment-info-box">
           <div className="appointment-details">
-            <>
-              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">{`${operativeWorkOrder.appointment.start} – ${operativeWorkOrder.appointment.end}`}</h3>
-              {statusText && <Status status={statusText} />}
-            </>
+            <div>
+              <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline ">
+                {`${operativeWorkOrder.appointment.start} – ${operativeWorkOrder.appointment.end}`}
+              </h3>
+
+              {statusText && (
+                <Status
+                  text={statusText}
+                  className="govuk-!-margin-top-0 govuk-!-margin-left-2 uppercase"
+                />
+              )}
+            </div>
+
             <p className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 capitalize">
               {operativeWorkOrder.priority.toLowerCase().split(' ').slice(-1)}
             </p>

@@ -126,7 +126,7 @@ const VariationAuthorisationSummary = ({
               ? variationTasks.tasks.map((task, index) => (
                   <TR index={index} key={index}>
                     <TD>
-                      <Status status={sorStatus(task)} />
+                      <Status text={sorStatus(task)} />
                     </TD>
                     <TD>
                       {task.code}
