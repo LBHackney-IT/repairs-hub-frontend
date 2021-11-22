@@ -59,13 +59,23 @@ export const toISODate = (date) => {
   return date.toISOString().substring(0, 10)
 }
 
-export const longMonthWeekday = (date) => {
+export function longMonthWeekday(date, { commaSeparated = true } = {}) {
   if (date) {
-    return new Date(date).toLocaleDateString('en-GB', {
-      month: 'long',
-      weekday: 'long',
-      day: 'numeric',
-    })
+    return commaSeparated === true
+      ? new Date(date).toLocaleDateString('en-GB', {
+          month: 'long',
+          weekday: 'long',
+          day: 'numeric',
+        })
+      : [
+          new Date(date).toLocaleDateString('en-GB', {
+            weekday: 'long',
+          }),
+          new Date(date).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+          }),
+        ].join(' ')
   }
 }
 

@@ -409,7 +409,7 @@ describe('Home page', () => {
       })
 
       it('Displays work order appointments, priority and any closed status', () => {
-        cy.get('.lbh-heading-h1').contains('Friday, 11 June')
+        cy.get('.lbh-heading-h1').contains('Friday 11 June')
 
         cy.get('.appointment-details').should('have.length', 4)
 

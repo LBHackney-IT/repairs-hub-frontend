@@ -76,7 +76,9 @@ const OperativeWorkOrdersView = () => {
     <>
       <Meta title="Manage work orders" />
       <div className="operative-work-list-header">
-        <h1 className="lbh-heading-h1">{longMonthWeekday(currentDate)} </h1>
+        <h1 className="lbh-heading-h1">
+          {longMonthWeekday(currentDate, { commaSeparated: false })}
+        </h1>
       </div>
 
       <h3 className="lbh-heading-h3">Work orders</h3>
