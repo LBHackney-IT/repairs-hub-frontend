@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PriorityText component renders the text with any supplied additional classes 1`] = `
+<DocumentFragment>
+  <span
+    class="stayClassy"
+  >
+    Priority
+  </span>
+</DocumentFragment>
+`;
+
+exports[`PriorityText component when the work order is higher priority renders the text with a highlight class 1`] = `
+<DocumentFragment>
+  <span
+    class="text-dark-red"
+  >
+    Priority
+  </span>
+</DocumentFragment>
+`;
+
+exports[`PriorityText component when the work order is not higher priority renders the text without a highlight class 1`] = `
+<DocumentFragment>
+  <span
+    class=""
+  >
+    Priority
+  </span>
+</DocumentFragment>
+`;
