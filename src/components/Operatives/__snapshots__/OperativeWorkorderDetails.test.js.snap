@@ -6,23 +6,6 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
     class="operative-work-order"
   >
     <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
-    >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
-    <a
-      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
-      role="button"
-    >
-      Back
-    </a>
-    <div
       class="govuk-grid-row undefined"
     >
       <div

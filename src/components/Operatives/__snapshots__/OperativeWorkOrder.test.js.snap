@@ -3,25 +3,29 @@
 exports[`OperativeWorkOrder component with multiple operatives should render work order elements with an Update operative link 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >
@@ -376,25 +380,29 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
 exports[`OperativeWorkOrder component with single operative when has status In Progress should render work order elements with a close link when unvaried 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >
@@ -724,25 +732,29 @@ exports[`OperativeWorkOrder component with single operative when has status In P
 exports[`OperativeWorkOrder component with single operative when has status In Progress should render work order elements with a form and variation reason when an SOR is added 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >
@@ -1141,25 +1153,29 @@ exports[`OperativeWorkOrder component with single operative when has status In P
 exports[`OperativeWorkOrder component with single operative when has status In Progress should render work order elements with a form and variation reason when an SOR is varied 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >
@@ -1523,25 +1539,29 @@ exports[`OperativeWorkOrder component with single operative when has status In P
 exports[`OperativeWorkOrder component with single operative when has status No Access should render work order elements with Status No Access 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >
@@ -1810,25 +1830,29 @@ exports[`OperativeWorkOrder component with single operative when has status No A
 exports[`OperativeWorkOrder component with single operative when has status Work Complete should render work order elements with Status Work Complete 1`] = `
 <DocumentFragment>
   <div
-    class="operative-work-order"
+    class="mobile-working-title-banner"
   >
-    <div
-      class="govuk-panel govuk-panel--confirmation lbh-panel appointment-header"
+    <h3
+      class="lbh-heading-h3"
     >
-      <h3
-        class="lbh-heading-h3"
-      >
-        Friday, 3 September
-        <br />
-        08:00-13:00
-      </h3>
-    </div>
+      Friday, 3 September
+      <br />
+      08:00 – 13:00
+    </h3>
+  </div>
+  <div
+    class="govuk-!-margin-top-4"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
     >
       Back
     </a>
+  </div>
+  <div
+    class="operative-work-order"
+  >
     <div
       class="govuk-grid-row undefined"
     >

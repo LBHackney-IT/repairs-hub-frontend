@@ -15,6 +15,8 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
 import OperativeList from './OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
+import AppointmentHeader from '../WorkOrder/AppointmentHeader'
+import BackButton from '../Layout/BackButton'
 
 const OperativeWorkOrder = ({
   workOrderReference,
@@ -85,6 +87,12 @@ const OperativeWorkOrder = ({
 
   return (
     <>
+      <AppointmentHeader workOrder={workOrder} />
+
+      <div className="govuk-!-margin-top-4">
+        <BackButton />
+      </div>
+
       <OperativeWorkOrderDetails
         property={property}
         workOrder={workOrder}
