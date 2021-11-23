@@ -16,13 +16,6 @@
     background-color: repairs-hub-colour('light-grey');
   }
 
-  .status-text {
-    margin-left: auto;
-    margin-right: 20px;
-    margin-top: 0;
-    margin-bottom: 0;
-  }
-
   .lbh-tag {
     font-weight: 600;
     vertical-align: top;
@@ -35,5 +28,11 @@
 
   .appointment-time {
     font-size: 24px;
+  }
+
+  .appointment-details {
+    p {
+      font-size: 18px;
+    }
   }
 }
