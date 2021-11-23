@@ -15,6 +15,12 @@ export class WorkOrder {
     Object.assign(this, workOrderData)
   }
 
+  priorityText = () => {
+    const lowerCase = this.priority.toLowerCase().split(' ').slice(-1)[0]
+
+    return lowerCase.charAt(0).toUpperCase() + lowerCase.slice(1)
+  }
+
   isHigherPriority = () => {
     return (
       this.priorityCode === EMERGENCY_PRIORITY_CODE ||

@@ -16,6 +16,14 @@ import { WorkOrder } from './workOrder'
 import MockDate from 'mockdate'
 
 describe('WorkOrder', () => {
+  describe('priorityText()', () => {
+    it('returns the priority with the last space-separated word capitalised', () => {
+      const workOrder = new WorkOrder({ priority: 'other words URGENT' })
+
+      expect(workOrder.priorityText()).toBe('Urgent')
+    })
+  })
+
   describe('isHigherPriority()', () => {
     ;[IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].forEach((code) => {
       it('returns true', () => {
