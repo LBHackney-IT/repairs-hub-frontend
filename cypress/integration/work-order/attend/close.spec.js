@@ -161,7 +161,7 @@ describe('Closing my own work order', () => {
           relatedWorkOrderReference: {
             id: '10000621',
           },
-          comments: 'Variation reason: More work was needed',
+          comments: 'More work was needed',
           typeCode: '80',
           moreSpecificSORCode: {
             rateScheduleItem: [
