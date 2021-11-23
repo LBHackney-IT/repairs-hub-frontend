@@ -1,5 +1,4 @@
 import cx from 'classnames'
-import TruncateText from '../TruncateText/TruncateText'
 
 export const Table = (props) => (
   <table className={cx('govuk-table lbh-table', props.className)}>
@@ -44,38 +43,17 @@ export const TH = (props) => (
   </th>
 )
 
-export const TD = (props) => {
-  return props.className && props.className.includes('description') ? (
-    <>
-      <td
-        className={cx(
-          'govuk-table__cell',
-          props.width ? `govuk-!-width-${props.width}` : null,
-          props.padding ? `govuk-!-padding-${props.padding}` : null,
-          props.type ? `govuk-table__cell--${props.type}` : null,
-          props.border ? `border-${props.border}` : null,
-          props.className
-        )}
-      >
-        <TruncateText
-          text={props.children}
-          numberOfLines="5"
-          linkClassName={props.className}
-        ></TruncateText>
-      </td>
-    </>
-  ) : (
-    <td
-      className={cx(
-        'govuk-table__cell',
-        props.width ? `govuk-!-width-${props.width}` : null,
-        props.padding ? `govuk-!-padding-${props.padding}` : null,
-        props.type ? `govuk-table__cell--${props.type}` : null,
-        props.border ? `border-${props.border}` : null,
-        props.className
-      )}
-    >
-      {props.children}
-    </td>
-  )
-}
+export const TD = (props) => (
+  <td
+    className={cx(
+      'govuk-table__cell',
+      props.width ? `govuk-!-width-${props.width}` : null,
+      props.padding ? `govuk-!-padding-${props.padding}` : null,
+      props.type ? `govuk-table__cell--${props.type}` : null,
+      props.border ? `border-${props.border}` : null,
+      props.className
+    )}
+  >
+    {props.children}
+  </td>
+)

@@ -5,7 +5,7 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import AppointmentHeader from '../WorkOrder/AppointmentHeader'
-import TruncateText from '../Layout/TruncateText/TruncateText'
+import TruncateText from '../Layout/TruncateText'
 
 const OperativeWorkOrderDetails = ({
   property,

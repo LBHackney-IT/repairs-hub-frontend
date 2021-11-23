@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import TruncateText from './TruncateText'
+import TruncateText from '.'
 
 describe('TruncateText component', () => {
   const props = {
