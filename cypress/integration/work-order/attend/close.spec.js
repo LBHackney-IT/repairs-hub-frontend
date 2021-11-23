@@ -45,7 +45,7 @@ describe('Closing my own work order', () => {
 
       cy.wait('@workOrderIndexRequest')
 
-      cy.get('.arrow.right').eq(0).click()
+      cy.get('.arrow.right').eq(1).click()
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
@@ -95,7 +95,7 @@ describe('Closing my own work order', () => {
 
       cy.get('.modal-container').should('not.exist')
 
-      cy.get('.lbh-heading-h1').contains('Friday, 11 June')
+      cy.get('.lbh-heading-h1').contains('Friday 11 June')
     })
   })
 

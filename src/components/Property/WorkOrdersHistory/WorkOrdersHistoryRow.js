@@ -42,7 +42,7 @@ const WorkOrdersHistoryRow = ({
       </TD>
       <TD>{tradeDescription}</TD>
       <TD>
-        <Status status={status} />
+        <Status text={status} />
       </TD>
       <TD className="description">{description}</TD>
     </TR>
