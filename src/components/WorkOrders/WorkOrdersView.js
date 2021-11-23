@@ -84,9 +84,9 @@ const WorkOrdersView = ({ query }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <GridRow>
+      <GridRow className="manage-work-orders">
         <GridColumn
-          width="one-third"
+          width="one-quarter"
           className="filter-container govuk-!-padding-0"
         >
           <WorkOrdersFilterView
@@ -96,7 +96,7 @@ const WorkOrdersView = ({ query }) => {
           />
         </GridColumn>
 
-        <GridColumn width="two-thirds">
+        <GridColumn width="three-quarters">
           {loading ? (
             <Spinner />
           ) : (
