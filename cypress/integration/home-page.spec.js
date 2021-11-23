@@ -417,9 +417,9 @@ describe('Home page', () => {
           cy.get('li')
             .eq(0)
             .within(() => {
-              cy.contains('08:00 – 13:00')
-              cy.contains('normal')
-              cy.contains('17 Pitcairn House St Thomass Square')
+              cy.contains('12:00 – 18:00')
+              cy.contains('emergency')
+              cy.contains('18 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
@@ -427,9 +427,9 @@ describe('Home page', () => {
           cy.get('li')
             .eq(1)
             .within(() => {
-              cy.contains('12:00 – 18:00')
-              cy.contains('emergency')
-              cy.contains('18 Pitcairn House St Thomass Square')
+              cy.contains('08:00 – 13:00')
+              cy.contains('normal')
+              cy.contains('17 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
@@ -456,7 +456,7 @@ describe('Home page', () => {
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
 
-          cy.get('li').eq(0).click()
+          cy.get('li').eq(1).click()
         })
 
         cy.wait(['@operativesWorkOrder', '@property', '@task'])

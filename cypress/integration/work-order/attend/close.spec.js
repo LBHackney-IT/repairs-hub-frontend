@@ -45,7 +45,7 @@ describe('Closing my own work order', () => {
 
       cy.wait('@workOrderIndexRequest')
 
-      cy.get('.arrow.right').eq(0).click()
+      cy.get('.arrow.right').eq(1).click()
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
