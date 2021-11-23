@@ -3,37 +3,44 @@
 exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
 <DocumentFragment>
   <li
-    class="green-info-box"
+    class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
     data-id="0"
   >
     <div
       class="appointment-details"
     >
+      <div>
+        <h3
+          class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
+        >
+          08:00 – 13:00
+        </h3>
+      </div>
       <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
-      >
-        08:00-13:00
-      </p>
-      <p
-        class="lbh-body lbh-!-font-weight-bold text-white govuk-!-margin-0 capitalize"
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
       >
         normal
       </p>
       <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+        class="lbh-body govuk-!-margin-0"
       >
         17 Pitcairn House  St Thomass Square
       </p>
       <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 text-white"
+        class="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8"
       >
         L53 GS
       </p>
+      <p
+        class="lbh-body govuk-!-margin-0 truncate"
+      >
+        Lorem ipsum dolor sit amet, consectetur efficitur.
+      </p>
     </div>
     <div
-      class="middle-right"
+      class="govuk-!-margin-0"
     >
-      <a
+      <span
         class="arrow right"
       />
     </div>

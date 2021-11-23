@@ -6,6 +6,7 @@ import {
 
 import {
   CLOSED_STATUS_DESCRIPTIONS,
+  CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
   STATUS_COMPLETE,
 } from '@/utils/statusCodes'
 
@@ -75,4 +76,7 @@ export class WorkOrder {
 
     return currentTime > targetTime
   }
+
+  hasBeenVisited = () =>
+    CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(this.status)
 }

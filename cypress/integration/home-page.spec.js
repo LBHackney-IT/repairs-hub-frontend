@@ -409,7 +409,7 @@ describe('Home page', () => {
       })
 
       it('Displays work order appointments, priority and any closed status', () => {
-        cy.get('.lbh-heading-h1').contains('Friday, 11 June')
+        cy.get('.lbh-heading-h1').contains('Friday 11 June')
 
         cy.get('.appointment-details').should('have.length', 4)
 
@@ -417,43 +417,47 @@ describe('Home page', () => {
           cy.get('li')
             .eq(0)
             .within(() => {
-              cy.contains('08:00-13:00')
+              cy.contains('12:00 – 18:00')
+              cy.contains('emergency')
+              cy.contains('18 Pitcairn House St Thomass Square')
+              cy.contains('L53 GS')
+              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
+            })
+
+          cy.get('li')
+            .eq(1)
+            .within(() => {
+              cy.contains('08:00 – 13:00')
               cy.contains('normal')
               cy.contains('17 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
+              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
+
+          cy.get('li')
+            .eq(2)
+            .within(() => {
+              cy.contains('16:00 – 18:00')
+              cy.contains('emergency')
+              cy.contains('Completed')
+              cy.contains('19 Pitcairn House St Thomass Square')
+              cy.contains('L53 GS')
+              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
+            })
+
+          cy.get('li')
+            .eq(3)
+            .within(() => {
+              cy.contains('17:00 – 18:00')
+              cy.contains('emergency')
+              cy.contains('Closed')
+              cy.contains('20 Pitcairn House St Thomass Square')
+              cy.contains('L53 GS')
+              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
+            })
+
+          cy.get('li').eq(1).click()
         })
-
-        cy.get('li')
-          .eq(1)
-          .within(() => {
-            cy.contains('12:00-18:00')
-            cy.contains('emergency')
-            cy.contains('18 Pitcairn House St Thomass Square')
-            cy.contains('L53 GS')
-          })
-
-        cy.get('li')
-          .eq(2)
-          .within(() => {
-            cy.contains('16:00-18:00')
-            cy.contains('emergency')
-            cy.contains('Completed')
-            cy.contains('19 Pitcairn House St Thomass Square')
-            cy.contains('L53 GS')
-          })
-
-        cy.get('li')
-          .eq(3)
-          .within(() => {
-            cy.contains('17:00-18:00')
-            cy.contains('emergency')
-            cy.contains('Closed')
-            cy.contains('20 Pitcairn House St Thomass Square')
-            cy.contains('L53 GS')
-          })
-
-        cy.get('[data-id=0]').click()
 
         cy.wait(['@operativesWorkOrder', '@property', '@task'])
         cy.contains('WO 10000621')

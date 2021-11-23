@@ -197,6 +197,16 @@ describe('longMonthWeekday', () => {
 
     expect(longMonthWeekday(date)).toEqual('Friday, 26 February')
   })
+
+  it('does not separate the date with a comma if the option is supplied', () => {
+    const date = new Date(
+      'Fri Feb 26 2021 00:00:00 GMT+0000 (Greenwich Mean Time)'
+    )
+
+    expect(longMonthWeekday(date, { commaSeparated: false })).toEqual(
+      'Friday 26 February'
+    )
+  })
 })
 
 describe('longDateToStr', () => {

@@ -1,9 +1,10 @@
 import { render } from '@testing-library/react'
+import { WorkOrder } from '../../models/workOrder'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 
 describe('OperativeWorkOrderListItem component', () => {
   const props = {
-    operativeWorkOrder: {
+    workOrder: {
       reference: 10000621,
       dateRaised: '2021-06-11T13:49:15.878796Z',
       lastUpdated: null,
@@ -11,7 +12,7 @@ describe('OperativeWorkOrderListItem component', () => {
       property: '17 Pitcairn House  St Thomass Square',
       propertyPostCode: 'L53 GS',
       owner: 'Herts Heritage Ltd',
-      description: 'r',
+      description: 'Lorem ipsum dolor sit amet, consectetur efficitur.',
       propertyReference: '00023405',
       tradeCode: 'PL',
       tradeDescription: 'Plumbing - PL',
@@ -30,7 +31,7 @@ describe('OperativeWorkOrderListItem component', () => {
   it('should render operativeWorkOrderListItem', () => {
     const { asFragment } = render(
       <OperativeWorkOrderListItem
-        operativeWorkOrder={props.operativeWorkOrder}
+        workOrder={new WorkOrder(props.workOrder)}
         index={0}
       />
     )

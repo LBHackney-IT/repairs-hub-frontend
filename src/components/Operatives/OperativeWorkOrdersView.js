@@ -4,14 +4,15 @@ import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { GridColumn, GridRow } from '../Layout/Grid'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
+import { WorkOrder } from '../../models/workOrder'
 
 const OperativeWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
-  const [operativeWorkOrders, setOperativeWorkOrders] = useState([])
+  const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
+  const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -30,9 +31,13 @@ const OperativeWorkOrdersView = () => {
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
 
-      setOperativeWorkOrders(data)
+      const workOrders = data.map((wo) => new WorkOrder(wo))
+
+      setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
+      setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
     } catch (e) {
-      setOperativeWorkOrders(null)
+      setInProgressWorkOrders(null)
+      setVisitedWorkOrders(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -46,50 +51,57 @@ const OperativeWorkOrdersView = () => {
     getOperativeWorkOrderView()
   }, [])
 
+  const renderWorkOrderListItems = (workOrders) => {
+    return workOrders.map((workOrder, index) => (
+      <OperativeWorkOrderListItem
+        key={index}
+        workOrder={workOrder}
+        index={index}
+        statusText={(() => {
+          const status = workOrder.status.toLowerCase()
+
+          if (status === 'no access') {
+            return 'Closed'
+          } else if (status === 'work complete') {
+            return 'Completed'
+          } else {
+            return ''
+          }
+        })()}
+      />
+    ))
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
-      <GridRow className="lbh-body-s operative-work-orders">
-        <GridColumn width="full">
-          {loading ? (
-            <Spinner />
-          ) : (
-            <>
-              <h1 className="lbh-heading-h1">
-                {longMonthWeekday(currentDate)}{' '}
-              </h1>
-              {operativeWorkOrders?.length ? (
-                <ol className="lbh-list">
-                  {operativeWorkOrders.map((operativeWorkOrder, index) => (
-                    <OperativeWorkOrderListItem
-                      key={index}
-                      operativeWorkOrder={operativeWorkOrder}
-                      index={index}
-                      statusText={(() => {
-                        const status = operativeWorkOrder.status.toLowerCase()
+      <div className="operative-work-list-header">
+        <h1 className="lbh-heading-h1">
+          {longMonthWeekday(currentDate, { commaSeparated: false })}
+        </h1>
+      </div>
 
-                        if (status === 'no access') {
-                          return 'Closed'
-                        } else if (status === 'work complete') {
-                          return 'Completed'
-                        } else {
-                          return ''
-                        }
-                      })()}
-                    />
-                  ))}
-                </ol>
-              ) : (
-                <WarningInfoBox
-                  header="No work orders displayed"
-                  text="Please contact your supervisor"
-                />
-              )}
-              {error && <ErrorMessage label={error} />}
+      <h3 className="lbh-heading-h3">Work orders</h3>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
+            <>
+              <ol className="lbh-list">
+                {renderWorkOrderListItems(inProgressWorkOrders)}
+                {renderWorkOrderListItems(visitedWorkOrders)}
+              </ol>
             </>
+          ) : (
+            <WarningInfoBox
+              header="No work orders displayed"
+              text="Please contact your supervisor"
+            />
           )}
-        </GridColumn>
-      </GridRow>
+          {error && <ErrorMessage label={error} />}
+        </>
+      )}
     </>
   )
 }

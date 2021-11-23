@@ -1,5 +1,19 @@
 .lbh-heading-h1 {
   @include govuk-media-query($until: tablet) {
-    font-size: 20px;
+    font-size: 24px;
   }
+}
+
+.lbh-heading-h3 {
+  @include govuk-media-query($until: tablet) {
+    font-size: 24px;
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.uppercase {
+  text-transform: uppercase;
 }

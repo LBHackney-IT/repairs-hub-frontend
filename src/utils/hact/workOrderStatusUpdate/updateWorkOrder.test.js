@@ -27,7 +27,7 @@ describe('buildWorkOrderUpdate', () => {
         id: '00012345',
       },
       typeCode: '80',
-      comments: 'Variation reason: More work is required',
+      comments: 'More work is required',
       moreSpecificSORCode: {
         rateScheduleItem: [
           {
