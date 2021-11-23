@@ -8,6 +8,7 @@ import {
 } from '@/utils/helpers/priorities'
 import {
   CLOSED_STATUS_DESCRIPTIONS,
+  CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
   STATUS_COMPLETE,
   WORK_ORDERS_STATUSES,
 } from '@/utils/statusCodes'
@@ -193,6 +194,22 @@ describe('WorkOrder', () => {
 
         expect(workOrder.appointmentIsToday()).toBe(false)
       })
+    })
+  })
+
+  describe('hasBeenVisited()', () => {
+    CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.forEach((status) => {
+      it(`returns true when the status is ${status}`, () => {
+        const workOrder = new WorkOrder({ status })
+
+        expect(workOrder.hasBeenVisited()).toBe(true)
+      })
+    })
+
+    it('returns false for a non visited status', () => {
+      const workOrder = new WorkOrder({ status: 'In Progress' })
+
+      expect(workOrder.hasBeenVisited()).toBe(false)
     })
   })
 })
