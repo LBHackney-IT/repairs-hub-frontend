@@ -6,7 +6,9 @@ const AppointmentHeader = ({ workOrder }) => {
     <div className="mobile-working-title-banner">
       {workOrder.appointment ? (
         <h3 className="lbh-heading-h3">
-          {longMonthWeekday(workOrder.appointment.date)}
+          {longMonthWeekday(workOrder.appointment.date, {
+            commaSeparated: false,
+          })}
           <br />
           {`${workOrder.appointment.start} – ${workOrder.appointment.end}`}
         </h3>

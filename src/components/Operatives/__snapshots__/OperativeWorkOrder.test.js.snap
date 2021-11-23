@@ -8,7 +8,7 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>
@@ -385,7 +385,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>
@@ -737,7 +737,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>
@@ -1158,7 +1158,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>
@@ -1544,7 +1544,7 @@ exports[`OperativeWorkOrder component with single operative when has status No A
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>
@@ -1835,7 +1835,7 @@ exports[`OperativeWorkOrder component with single operative when has status Work
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 3 September
+      Friday 3 September
       <br />
       08:00 – 13:00
     </h3>

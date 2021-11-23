@@ -22,7 +22,7 @@ exports[`AppointmentHeader component should render the date when the appointment
     <h3
       class="lbh-heading-h3"
     >
-      Friday, 19 March
+      Friday 19 March
       <br />
       12:00 – 18:00
     </h3>
