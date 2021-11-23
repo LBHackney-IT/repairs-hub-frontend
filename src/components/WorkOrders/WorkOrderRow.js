@@ -3,6 +3,7 @@ import { dateToStr } from '@/utils/date'
 import { extractTimeFromDate } from '@/utils/time'
 import Link from 'next/link'
 import { TR, TD } from '../Layout/Table'
+import TruncateText from '../Layout/TruncateText'
 
 const WorkOrderRow = ({
   reference,
@@ -32,7 +33,13 @@ const WorkOrderRow = ({
     <TD className="table-font-size">{property}</TD>
     <TD className="table-font-size">{status}</TD>
     <TD className="table-font-size">{tradeDescription}</TD>
-    <TD className="description table-font-size">{description}</TD>
+    <TD className="description table-font-size">
+      <TruncateText
+        text={description}
+        numberOfLines="5"
+        linkClassName="description table-font-size"
+      ></TruncateText>
+    </TD>
   </TR>
 )
 
