@@ -1,10 +1,8 @@
 import PropTypes from 'prop-types'
-import BackButton from '../Layout/BackButton'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
-import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 import TruncateText from '../Layout/TruncateText'
 
 const OperativeWorkOrderDetails = ({
@@ -31,9 +29,6 @@ const OperativeWorkOrderDetails = ({
   return (
     <>
       <div className="operative-work-order">
-        <AppointmentHeader workOrder={workOrder} />
-        <BackButton />
-
         <GridRow>
           <GridColumn width="one-half">
             <div className="lbh-heading-h3">

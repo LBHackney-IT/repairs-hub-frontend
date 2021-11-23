@@ -75,7 +75,7 @@ const OperativeWorkOrdersView = () => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <div className="operative-work-list-header">
+      <div className="mobile-working-title-banner">
         <h1 className="lbh-heading-h1">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
         </h1>
