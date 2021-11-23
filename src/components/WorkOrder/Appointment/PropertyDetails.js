@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
 import TenureDetails from '../../Property/TenureDetails'
 
-const AppointmentHeader = ({
+const PropertyDetails = ({
   address,
   subTypeDescription,
   locationAlerts,
@@ -28,7 +28,7 @@ const AppointmentHeader = ({
   )
 }
 
-AppointmentHeader.propTypes = {
+PropertyDetails.propTypes = {
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   locationAlerts: PropTypes.array.isRequired,
@@ -37,4 +37,4 @@ AppointmentHeader.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
 }
 
-export default AppointmentHeader
+export default PropertyDetails
