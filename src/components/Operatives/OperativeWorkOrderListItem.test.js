@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import { WorkOrder } from '../../models/workOrder'
+import { NORMAL_PRIORITY_CODE } from '../../utils/helpers/priorities'
 import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
 
 describe('OperativeWorkOrderListItem component', () => {
@@ -9,6 +10,7 @@ describe('OperativeWorkOrderListItem component', () => {
       dateRaised: '2021-06-11T13:49:15.878796Z',
       lastUpdated: null,
       priority: '5 [N] NORMAL',
+      priorityCode: NORMAL_PRIORITY_CODE,
       property: '17 Pitcairn House  St Thomass Square',
       propertyPostCode: 'L53 GS',
       owner: 'Herts Heritage Ltd',

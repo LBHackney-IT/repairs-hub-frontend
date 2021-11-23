@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import TruncateText from '../Layout/TruncateText'
+import PriorityText from '../WorkOrder/PriorityText'
 
 const OperativeWorkOrderDetails = ({
   property,
@@ -29,17 +30,7 @@ const OperativeWorkOrderDetails = ({
             width="one-half"
             className="align-grid-column priority-text"
           >
-            {workOrder.isHigherPriority() ? (
-              <div className="text-dark-red lbh-heading-h3">
-                {' '}
-                {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-              </div>
-            ) : (
-              <div className="lbh-heading-h3">
-                {' '}
-                {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-              </div>
-            )}
+            <PriorityText workOrder={workOrder} className="lbh-heading-h3" />
           </GridColumn>
         </GridRow>
         <div className="lbh-heading-h5">Description</div>

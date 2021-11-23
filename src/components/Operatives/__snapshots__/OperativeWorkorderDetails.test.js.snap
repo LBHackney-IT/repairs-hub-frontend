@@ -20,11 +20,11 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div

@@ -3,6 +3,7 @@ import Link from 'next/link'
 import Status from '../WorkOrder/Status'
 import cx from 'classnames'
 import { WorkOrder } from '../../models/workOrder'
+import PriorityText from '../WorkOrder/PriorityText'
 
 const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
   return (
@@ -31,13 +32,12 @@ const OperativeWorkOrderListItem = ({ workOrder, index, statusText }) => {
                 />
               )}
             </div>
-            <p
-              className={cx(
-                'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
-              )}
-            >
-              {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-            </p>
+
+            <PriorityText
+              workOrder={workOrder}
+              className="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2"
+            />
+
             <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
             <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8">
               {workOrder.propertyPostCode}

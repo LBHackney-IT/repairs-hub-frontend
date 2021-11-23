@@ -41,11 +41,11 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div
@@ -430,11 +430,11 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div
@@ -794,11 +794,11 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div
@@ -1227,11 +1227,11 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div
@@ -1625,11 +1625,11 @@ exports[`OperativeWorkOrder component with single operative when has status No A
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div
@@ -1928,11 +1928,11 @@ exports[`OperativeWorkOrder component with single operative when has status Work
       <div
         class="govuk-grid-column-one-half align-grid-column priority-text"
       >
-        <div
+        <span
           class="lbh-heading-h3"
         >
-           normal
-        </div>
+          Normal
+        </span>
       </div>
     </div>
     <div

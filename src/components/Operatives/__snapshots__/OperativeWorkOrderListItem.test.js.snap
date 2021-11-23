@@ -16,11 +16,11 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
           08:00 – 13:00
         </h3>
       </div>
-      <p
-        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
+      <span
+        class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2"
       >
-        normal
-      </p>
+        Normal
+      </span>
       <p
         class="lbh-body govuk-!-margin-0"
       >
