@@ -418,7 +418,7 @@ describe('Home page', () => {
             .eq(0)
             .within(() => {
               cy.contains('12:00 – 18:00')
-              cy.contains('emergency')
+              cy.contains('Emergency')
               cy.contains('18 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
@@ -428,7 +428,7 @@ describe('Home page', () => {
             .eq(1)
             .within(() => {
               cy.contains('08:00 – 13:00')
-              cy.contains('normal')
+              cy.contains('Normal')
               cy.contains('17 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
@@ -438,7 +438,7 @@ describe('Home page', () => {
             .eq(2)
             .within(() => {
               cy.contains('16:00 – 18:00')
-              cy.contains('emergency')
+              cy.contains('Emergency')
               cy.contains('Completed')
               cy.contains('19 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
@@ -449,7 +449,7 @@ describe('Home page', () => {
             .eq(3)
             .within(() => {
               cy.contains('17:00 – 18:00')
-              cy.contains('emergency')
+              cy.contains('Emergency')
               cy.contains('Closed')
               cy.contains('20 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
