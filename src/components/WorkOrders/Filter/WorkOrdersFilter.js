@@ -95,7 +95,7 @@ const WorkOrdersFilter = ({
 
   const selectedFilterOptions = () => {
     if (Object.keys(selectedFilters).length === 0) {
-      return <p className="lbh-body-m">You have no selected filters</p>
+      return <p className="lbh-body-s">You have no selected filters</p>
     }
 
     return Object.keys(selectedFilters).map((filterCategory) => {
@@ -117,13 +117,17 @@ const WorkOrdersFilter = ({
       <div className="selected-filters govuk-!-padding-bottom-2">
         <div className="govuk-!-padding-2">
           <div>
-            <a className="lbh-link" href="#" onClick={(e) => clearFilters(e)}>
+            <a
+              className="lbh-link lbh-body-xs"
+              href="#"
+              onClick={(e) => clearFilters(e)}
+            >
               Clear filters
             </a>
           </div>
           <div>
             <a
-              className="lbh-link"
+              className="lbh-link lbh-body-xs"
               href="#"
               onClick={(e) => saveAppliedFiltersToLocalStorage(e)}
             >
@@ -132,7 +136,7 @@ const WorkOrdersFilter = ({
           </div>
           <div>
             <a
-              className="lbh-link"
+              className="lbh-link lbh-body-xs"
               href="#"
               onClick={(e) => removeAppliedFiltersFromLocalStorage(e)}
             >
@@ -163,7 +167,7 @@ const WorkOrdersFilter = ({
         {showContractorFilters() && (
           <div className="border-bottom-grey">
             <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-              <legend className="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3">
+              <legend className="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3">
                 Contractor
               </legend>
 
@@ -174,6 +178,7 @@ const WorkOrdersFilter = ({
                 {filters.Contractors.map((contractor, index) => (
                   <Checkbox
                     className="govuk-!-margin-0"
+                    labelClassName="lbh-body-xs"
                     key={index}
                     name={`ContractorReference.${contractor.key}`}
                     label={contractor.description}
@@ -196,7 +201,7 @@ const WorkOrdersFilter = ({
 
         <div className="border-bottom-grey">
           <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
               Status
             </legend>
 
@@ -207,6 +212,7 @@ const WorkOrdersFilter = ({
               {statusFilterOptions().map((status, index) => (
                 <Checkbox
                   className="govuk-!-margin-0"
+                  labelClassName="lbh-body-xs"
                   key={index}
                   name={`StatusCode.${status.key}`}
                   label={status.description}
@@ -226,7 +232,7 @@ const WorkOrdersFilter = ({
 
         <div className="border-bottom-grey">
           <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
               Priority
             </legend>
 
@@ -237,6 +243,7 @@ const WorkOrdersFilter = ({
               {filters.Priority.map((priority, index) => (
                 <Checkbox
                   className="govuk-!-margin-0"
+                  labelClassName="lbh-body-xs"
                   key={index}
                   name={`Priorities.${priority.key}`}
                   label={priority.description}
@@ -253,7 +260,7 @@ const WorkOrdersFilter = ({
 
         <div className="border-bottom-grey">
           <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-            <legend className="govuk-fieldset__legend govuk-fieldset__legend--m">
+            <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
               Trade
             </legend>
 
@@ -264,6 +271,7 @@ const WorkOrdersFilter = ({
               {filters.Trades.map((trade, index) => (
                 <Checkbox
                   className="govuk-!-margin-0"
+                  labelClassName="lbh-body-xs"
                   key={index}
                   name={`TradeCodes.${trade.key}`}
                   label={trade.description}

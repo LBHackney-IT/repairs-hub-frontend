@@ -9,6 +9,7 @@ const Checkbox = ({
   checked,
   className,
   hidden,
+  labelClassName,
 }) => (
   <div
     className={cx(`govuk-checkboxes__item ${className}`, {
@@ -25,7 +26,10 @@ const Checkbox = ({
       ref={register}
       {...(checked && { defaultChecked: checked })}
     />
-    <label className="govuk-label govuk-checkboxes__label" htmlFor={name}>
+    <label
+      className={cx('govuk-label govuk-checkboxes__label', labelClassName)}
+      htmlFor={name}
+    >
       {label}
     </label>
   </div>
@@ -36,6 +40,7 @@ Checkbox.propTypes = {
   name: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
+  labelClassName: PropTypes.string,
 }
 
 export default Checkbox
