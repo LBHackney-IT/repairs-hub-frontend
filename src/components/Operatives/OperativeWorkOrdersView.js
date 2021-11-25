@@ -11,6 +11,7 @@ import { WorkOrder } from '../../models/workOrder'
 
 const OperativeWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
+  const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
   const [error, setError] = useState()
@@ -25,6 +26,8 @@ const OperativeWorkOrdersView = () => {
         method: 'get',
         path: '/api/hub-user',
       })
+
+      setCurrentUser(currentUser)
 
       const data = await frontEndApiRequest({
         method: 'get',
@@ -68,6 +71,7 @@ const OperativeWorkOrdersView = () => {
             return ''
           }
         })()}
+        currentUser={currentUser}
       />
     ))
   }
@@ -88,7 +92,7 @@ const OperativeWorkOrdersView = () => {
         <>
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
-              <ol className="lbh-list">
+              <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(inProgressWorkOrders)}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>

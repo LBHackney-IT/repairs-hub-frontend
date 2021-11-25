@@ -32,6 +32,7 @@ describe('OperativeWorkOrderListItem component', () => {
     const { asFragment } = render(
       <OperativeWorkOrderListItem
         workOrder={new WorkOrder(props.workOrder)}
+        currentUser={{ operativePayrollNumber: 1 }}
         index={0}
       />
     )
