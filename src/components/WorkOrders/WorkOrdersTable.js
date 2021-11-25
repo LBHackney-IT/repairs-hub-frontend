@@ -11,25 +11,25 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
     <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <THead>
         <TR className="lbh-body">
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Reference
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Date&nbsp;raised
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Priority
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Property
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Status
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Trade
           </TH>
-          <TH scope="col" className="table-font-size">
+          <TH scope="col" className="lbh-body-xs">
             Description
           </TH>
         </TR>

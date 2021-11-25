@@ -65,7 +65,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -73,7 +73,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -81,7 +81,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -180,7 +180,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3"
             >
               Contractor
             </legend>
@@ -199,7 +199,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.AVP"
                 >
                   Avonline Network (A) Ltd
@@ -216,7 +216,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.PCL"
                 >
                   Purdy Contracts (P) Ltd
@@ -232,7 +232,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.SCC"
                 >
                   Alphatrack (S) Systems Lt
@@ -248,7 +248,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -267,7 +267,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -283,7 +283,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -299,7 +299,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -315,7 +315,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
                   Authorisation Pending Approval
@@ -331,7 +331,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -347,7 +347,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -363,7 +363,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -389,7 +389,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -408,7 +408,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -425,7 +425,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -441,7 +441,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -459,7 +459,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -475,7 +475,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -491,7 +491,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -507,7 +507,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -587,7 +587,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -595,7 +595,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -603,7 +603,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -702,7 +702,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -721,7 +721,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -737,7 +737,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -753,7 +753,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -769,7 +769,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
                   Authorisation Pending Approval
@@ -785,7 +785,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -801,7 +801,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -817,7 +817,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -843,7 +843,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -862,7 +862,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -879,7 +879,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -895,7 +895,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -913,7 +913,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -929,7 +929,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -945,7 +945,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -961,7 +961,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -1041,7 +1041,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -1049,7 +1049,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -1057,7 +1057,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -1156,7 +1156,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -1175,7 +1175,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -1191,7 +1191,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -1207,7 +1207,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -1223,7 +1223,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -1239,7 +1239,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -1255,7 +1255,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -1281,7 +1281,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -1300,7 +1300,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -1317,7 +1317,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -1333,7 +1333,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -1351,7 +1351,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -1367,7 +1367,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -1383,7 +1383,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -1399,7 +1399,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -1479,7 +1479,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -1487,7 +1487,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -1495,7 +1495,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -1594,7 +1594,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3"
             >
               Contractor
             </legend>
@@ -1613,7 +1613,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.AVP"
                 >
                   Avonline Network (A) Ltd
@@ -1630,7 +1630,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.PCL"
                 >
                   Purdy Contracts (P) Ltd
@@ -1646,7 +1646,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.SCC"
                 >
                   Alphatrack (S) Systems Lt
@@ -1662,7 +1662,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -1681,7 +1681,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -1697,7 +1697,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -1713,7 +1713,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -1729,7 +1729,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
                   Authorisation Pending Approval
@@ -1745,7 +1745,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -1761,7 +1761,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -1777,7 +1777,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -1803,7 +1803,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -1822,7 +1822,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -1839,7 +1839,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -1855,7 +1855,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -1873,7 +1873,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -1889,7 +1889,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -1905,7 +1905,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -1921,7 +1921,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -2001,7 +2001,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -2009,7 +2009,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -2017,7 +2017,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -2116,7 +2116,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3"
             >
               Contractor
             </legend>
@@ -2135,7 +2135,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.AVP"
                 >
                   Avonline Network (A) Ltd
@@ -2152,7 +2152,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.PCL"
                 >
                   Purdy Contracts (P) Ltd
@@ -2168,7 +2168,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.SCC"
                 >
                   Alphatrack (S) Systems Lt
@@ -2184,7 +2184,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -2203,7 +2203,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -2219,7 +2219,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -2235,7 +2235,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -2251,7 +2251,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -2267,7 +2267,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -2283,7 +2283,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -2309,7 +2309,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -2328,7 +2328,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -2345,7 +2345,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -2361,7 +2361,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -2379,7 +2379,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -2395,7 +2395,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -2411,7 +2411,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -2427,7 +2427,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -2507,7 +2507,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -2515,7 +2515,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -2523,7 +2523,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -2622,7 +2622,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -2641,7 +2641,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -2657,7 +2657,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -2673,7 +2673,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -2689,7 +2689,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -2705,7 +2705,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -2721,7 +2721,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -2747,7 +2747,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -2766,7 +2766,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -2783,7 +2783,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -2799,7 +2799,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -2817,7 +2817,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -2833,7 +2833,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -2849,7 +2849,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -2865,7 +2865,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
@@ -2945,7 +2945,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Clear filters
@@ -2953,7 +2953,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Save selected filters as my default preset
@@ -2961,7 +2961,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 </div>
                 <div>
                   <a
-                    class="lbh-link"
+                    class="lbh-link lbh-body-xs"
                     href="#"
                   >
                     Remove saved default filter preset
@@ -3060,7 +3060,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-!-padding-top-3"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s govuk-!-padding-top-3"
             >
               Contractor
             </legend>
@@ -3079,7 +3079,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.AVP"
                 >
                   Avonline Network (A) Ltd
@@ -3096,7 +3096,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.PCL"
                 >
                   Purdy Contracts (P) Ltd
@@ -3112,7 +3112,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="ContractorReference.SCC"
                 >
                   Alphatrack (S) Systems Lt
@@ -3128,7 +3128,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Status
             </legend>
@@ -3147,7 +3147,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
                   In Progress
@@ -3163,7 +3163,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.50"
                 >
                   Complete
@@ -3179,7 +3179,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
                   Work Cancelled
@@ -3195,7 +3195,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
                   Authorisation Pending Approval
@@ -3211,7 +3211,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
                   Variation Pending Approval
@@ -3227,7 +3227,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
                   Variation Approved
@@ -3243,7 +3243,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
                   Variation Rejected
@@ -3269,7 +3269,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Priority
             </legend>
@@ -3288,7 +3288,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.1"
                 >
                   Immediate
@@ -3305,7 +3305,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="Priorities.2"
                 >
                   Emergency
@@ -3321,7 +3321,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
             class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
           >
             <legend
-              class="govuk-fieldset__legend govuk-fieldset__legend--m"
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
               Trade
             </legend>
@@ -3339,7 +3339,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.DE"
                 >
                   DOOR ENTRY ENGINEER
@@ -3355,7 +3355,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.EL"
                 >
                   Electrical
@@ -3371,7 +3371,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.GL"
                 >
                   Glazing
@@ -3387,7 +3387,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   type="checkbox"
                 />
                 <label
-                  class="govuk-label govuk-checkboxes__label"
+                  class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="TradeCodes.PL"
                 >
                   Plumbing
