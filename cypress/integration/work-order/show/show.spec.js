@@ -430,7 +430,7 @@ describe('Show work order page', () => {
     })
 
     it('shows links to expand description text, if text is more than 3 lines', () => {
-      cy.visit('work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
       cy.contains('WO 10000621')

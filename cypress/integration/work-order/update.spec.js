@@ -556,7 +556,7 @@ describe('Updating a work order', () => {
     })
 
     it('does not show link list of operatives, when there is only one', () => {
-      cy.visit('work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.contains('WO 10000621')
 
@@ -566,7 +566,7 @@ describe('Updating a work order', () => {
     })
 
     it('allows editing of an existing task quantity', () => {
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.get('.latest-tasks-and-sors-table').within(() => {
         cy.get('a').contains('DES5R006').click()
@@ -637,7 +637,7 @@ describe('Updating a work order', () => {
     })
 
     it('allows editing of an existing task quantity with a "Remove SOR" shortcut', () => {
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.get('.latest-tasks-and-sors-table').within(() => {
         cy.get('a').contains('DES5R006').click()
@@ -700,7 +700,7 @@ describe('Updating a work order', () => {
     })
 
     it('allows adding new SOR', () => {
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
       cy.contains('Add new SOR').click()
 
       cy.wait('@sorCodesRequest')
@@ -791,7 +791,7 @@ describe('Updating a work order', () => {
         { fixture: 'operatives/operatives.json' }
       ).as('operatives')
 
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
       cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
 
       cy.contains('a', 'Add operatives').click()
@@ -916,7 +916,7 @@ describe('Updating a work order', () => {
         { fixture: 'operatives/operatives.json' }
       ).as('operatives')
 
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
       cy.wait([
         '@workOrderRequestMultipleOperatives',
         '@tasksRequest',
