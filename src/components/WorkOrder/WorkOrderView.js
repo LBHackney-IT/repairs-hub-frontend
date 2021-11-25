@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
@@ -9,14 +9,9 @@ import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
-import UserContext from '../UserContext'
-import { canSeeWorkOrder } from '@/utils/userPermissions'
-import OperativeWorkOrder from '../Operatives/OperativeWorkOrder'
 
 const WorkOrderView = ({ workOrderReference }) => {
-  const { user } = useContext(UserContext)
   const [property, setProperty] = useState({})
-  const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
@@ -70,13 +65,6 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
-
-      setCurrentUser(currentUser)
-
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
@@ -111,59 +99,6 @@ const WorkOrderView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
-  const renderOperativeWorkOrder = () => {
-    return (
-      <>
-        <OperativeWorkOrder
-          workOrderReference={workOrderReference}
-          property={property}
-          workOrder={workOrder}
-          personAlerts={personAlerts}
-          locationAlerts={locationAlerts}
-          tasksAndSors={tasksAndSors}
-          currentUserPayrollNumber={currentUser?.operativePayrollNumber}
-        />
-      </>
-    )
-  }
-
-  const renderWorkOrder = () => {
-    return (
-      <>
-        <WorkOrderDetails
-          property={property}
-          workOrder={workOrder}
-          tenure={tenure}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
-          schedulerSessionId={schedulerSessionId}
-          tasksAndSors={tasksAndSors}
-          printClickHandler={printClickHandler}
-        />
-        <Tabs
-          tabsList={tabsList}
-          propertyReference={property.propertyReference}
-          workOrderReference={workOrderReference}
-          tasksAndSors={tasksAndSors}
-        />
-        {/* Only displayed for print media */}
-        <PrintJobTicketDetails
-          workOrder={workOrder}
-          property={property}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
-          tasksAndSors={tasksAndSors}
-        />
-      </>
-    )
-  }
-
-  const renderWorkOrderView = () => {
-    return user && canSeeWorkOrder(user)
-      ? renderWorkOrder()
-      : renderOperativeWorkOrder()
-  }
-
   useEffect(() => {
     setLoading(true)
 
@@ -182,8 +117,34 @@ const WorkOrderView = ({ workOrderReference }) => {
             tenure &&
             locationAlerts &&
             personAlerts &&
-            workOrder &&
-            renderWorkOrderView()}
+            workOrder && (
+              <>
+                <WorkOrderDetails
+                  property={property}
+                  workOrder={workOrder}
+                  tenure={tenure}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
+                  schedulerSessionId={schedulerSessionId}
+                  tasksAndSors={tasksAndSors}
+                  printClickHandler={printClickHandler}
+                />
+                <Tabs
+                  tabsList={tabsList}
+                  propertyReference={property.propertyReference}
+                  workOrderReference={workOrderReference}
+                  tasksAndSors={tasksAndSors}
+                />
+                {/* Only displayed for print media */}
+                <PrintJobTicketDetails
+                  workOrder={workOrder}
+                  property={property}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
+                  tasksAndSors={tasksAndSors}
+                />
+              </>
+            )}
           {error && <ErrorMessage label={error} />}
         </>
       )}

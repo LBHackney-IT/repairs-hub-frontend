@@ -71,22 +71,6 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
     setLoading(false)
   }
 
-  const renderOperativeWorkOrder = () => {
-    return (
-      <>
-        <OperativeWorkOrder
-          workOrderReference={workOrderReference}
-          property={property}
-          workOrder={workOrder}
-          personAlerts={personAlerts}
-          locationAlerts={locationAlerts}
-          tasksAndSors={tasksAndSors}
-          currentUserPayrollNumber={currentUser?.operativePayrollNumber}
-        />
-      </>
-    )
-  }
-
   useEffect(() => {
     setLoading(true)
 
@@ -105,8 +89,19 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
             tenure &&
             locationAlerts &&
             personAlerts &&
-            workOrder &&
-            renderOperativeWorkOrder()}
+            workOrder && (
+              <>
+                <OperativeWorkOrder
+                  workOrderReference={workOrderReference}
+                  property={property}
+                  workOrder={workOrder}
+                  personAlerts={personAlerts}
+                  locationAlerts={locationAlerts}
+                  tasksAndSors={tasksAndSors}
+                  currentUserPayrollNumber={currentUser?.operativePayrollNumber}
+                />
+              </>
+            )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
