@@ -14,7 +14,7 @@ const CautionaryAlertsTable = ({ cautionaryAlerts, query }) => {
         <TBody>
           {cautionaryAlerts.map((cautionaryAlert, index) => (
             <TR key={index} index={index}>
-              {query && query.includes(cautionaryAlert.code) ? (
+              {query && query.includes(cautionaryAlert.description) ? (
                 <>
                   <TD className="text-dark-red lbh-!-font-weight-bold">
                     {cautionaryAlert.code}
