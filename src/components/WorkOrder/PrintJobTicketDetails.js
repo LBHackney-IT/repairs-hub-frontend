@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import WarningText from '../Template/WarningText'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 
 const PrintJobTicketDetails = ({
@@ -12,10 +11,13 @@ const PrintJobTicketDetails = ({
   personAlerts,
   tasksAndSors,
 }) => {
-  const cautionaryAlertsType = getCautionaryAlertsType(
-    locationAlerts,
-    personAlerts
-  )
+  const cautionaryAlertComments = (() => {
+    const comments = [locationAlerts, personAlerts]
+      .flat(1)
+      .map((alert) => alert.comments)
+    return [...new Set(comments)]
+  })()
+
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -179,7 +181,9 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
+        {cautionaryAlertComments.map((comment, index) => (
+          <WarningText key={index} text={comment} />
+        ))}
 
         <hr />
 
