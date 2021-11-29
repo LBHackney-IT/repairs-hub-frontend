@@ -1,8 +1,6 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
-import { useRouter } from 'next/router'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import TruncateText from '../Layout/TruncateText'
 
 const OperativeWorkOrderDetails = ({
@@ -11,20 +9,12 @@ const OperativeWorkOrderDetails = ({
   personAlerts,
   locationAlerts,
 }) => {
-  const router = useRouter()
-  const cautionaryAlertsType = getCautionaryAlertsType(
-    locationAlerts,
-    personAlerts
-  )
-
-  const cautContactURL = () => {
-    router.push({
-      pathname: `/work-orders/cautionary-alerts`,
-      query: {
-        cautContactCodes: cautionaryAlertsType,
-      },
-    })
-  }
+  const cautionaryAlertComments = (() => {
+    const comments = [locationAlerts, personAlerts]
+      .flat(1)
+      .map((alert) => alert.comments)
+    return [...new Set(comments)]
+  })()
 
   return (
     <>
@@ -67,29 +57,29 @@ const OperativeWorkOrderDetails = ({
           </>
         )}
 
-        {cautionaryAlertsType && (
+        {cautionaryAlertComments.length > 0 && (
           <GridRow>
             <GridColumn width="one-half">
-              <a
-                className="lbh-heading-h5 lbh-link"
-                href="#"
-                id="caut-alerts"
-                onClick={cautContactURL}
-              >
-                Caut. alerts
-              </a>
+              <div className="govuk-warning-text lbh-warning-text">
+                <span className="govuk-warning-text__icon" aria-hidden="true">
+                  !
+                </span>
+                <strong className="govuk-warning-text__text">
+                  <span className="govuk-warning-text__assistive">Warning</span>
+                  Caut. alerts
+                </strong>
+              </div>
             </GridColumn>
             <GridColumn width="one-half" className="align-grid-column">
               <div className="govuk-warning-text lbh-warning-text">
-                <span
-                  className="govuk-warning-text__icon person-alert--icon"
-                  aria-hidden="true"
-                >
-                  !
-                </span>
-                <strong className="govuk-warning-text__text person-alert--text">
-                  {cautionaryAlertsType}
-                </strong>
+                {cautionaryAlertComments.map((comment, index) => (
+                  <p
+                    key={index}
+                    className="lbh-body lbh-!-font-weight-bold text-dark-red"
+                  >
+                    {comment}
+                  </p>
+                ))}
               </div>
             </GridColumn>
           </GridRow>
