@@ -101,6 +101,7 @@ describe('OperativeWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={1}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -129,6 +130,7 @@ describe('OperativeWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={1}
         />
       )
       expect(asFragment()).toMatchSnapshot()
