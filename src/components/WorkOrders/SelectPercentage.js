@@ -109,7 +109,7 @@ const SelectPercentage = ({
       selectedOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
     let some = preSelectedPercentages && selectedOperatives.length === 1
-    if (!showSplitByOperative && selectedOperativePercentage) {
+    if (showSplitByOperative && selectedOperativePercentage) {
       setSelectedPercentage(`${selectedOperativePercentage.toString()}%`)
       updatePercentages(
         operativeIndex,
