@@ -43,26 +43,13 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -70,16 +57,17 @@ exports[`OperativeWorkOrderDetails component when on operative-index-page should
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
