@@ -1,51 +1,22 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
-import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
-import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
-import PrintJobTicketDetails from './PrintJobTicketDetails'
+import OperativeWorkOrder from '../Operatives/OperativeWorkOrder'
 
-const WorkOrderView = ({ workOrderReference }) => {
+const OperativeWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
+  const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
-  const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const tabsList = [
-    'Tasks and SORs',
-    'Notes',
-    'Pending variation',
-    'Work orders history',
-  ]
-
-  const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
-
-  const printClickHandler = (e) => {
-    e.preventDefault()
-
-    if (document.getElementById('rear-image')) {
-      window.print()
-    } else {
-      const workOrderRearImage = document.createElement('img')
-      workOrderRearImage.src = `${NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL}/work-order-rear.png`
-      workOrderRearImage.id = 'rear-image'
-
-      workOrderRearImage.addEventListener('load', () => window.print())
-
-      document
-        .getElementById('rear-image-container')
-        .appendChild(workOrderRearImage)
-    }
-  }
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -65,15 +36,16 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+
+      setCurrentUser(currentUser)
+
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
-
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order
-      if (workOrder.externalAppointmentManagementUrl) {
-        const schedulerSessionId = await getOrCreateSchedulerSessionId()
-        setSchedulerSessionId(schedulerSessionId)
-      }
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
@@ -119,29 +91,14 @@ const WorkOrderView = ({ workOrderReference }) => {
             personAlerts &&
             workOrder && (
               <>
-                <WorkOrderDetails
-                  property={property}
-                  workOrder={workOrder}
-                  tenure={tenure}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
-                  schedulerSessionId={schedulerSessionId}
-                  tasksAndSors={tasksAndSors}
-                  printClickHandler={printClickHandler}
-                />
-                <Tabs
-                  tabsList={tabsList}
-                  propertyReference={property.propertyReference}
+                <OperativeWorkOrder
                   workOrderReference={workOrderReference}
-                  tasksAndSors={tasksAndSors}
-                />
-                {/* Only displayed for print media */}
-                <PrintJobTicketDetails
-                  workOrder={workOrder}
                   property={property}
-                  locationAlerts={locationAlerts}
+                  workOrder={workOrder}
                   personAlerts={personAlerts}
+                  locationAlerts={locationAlerts}
                   tasksAndSors={tasksAndSors}
+                  currentUserPayrollNumber={currentUser?.operativePayrollNumber}
                 />
               </>
             )}
@@ -152,8 +109,8 @@ const WorkOrderView = ({ workOrderReference }) => {
   )
 }
 
-WorkOrderView.propTypes = {
+OperativeWorkOrderView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
 }
 
-export default WorkOrderView
+export default OperativeWorkOrderView

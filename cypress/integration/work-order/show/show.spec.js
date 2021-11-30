@@ -411,6 +411,28 @@ describe('Show work order page', () => {
       cy.wait('@operativesWorkOrders')
     })
 
+    it('shows list of cautionary alerts page with highlighted codes', () => {
+      cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait(['@operativesWorkOrder', '@property', '@task'])
+      cy.contains('WO 10000621')
+      cy.get('div[class*="Multibutton"]').should('not.exist')
+      cy.get('a[id="caut-alerts"]').click()
+
+      //cautionary alerts page
+
+      cy.contains('Cautionary alerts')
+      cy.get('[data-row-id=15]').within(() => {
+        cy.get('.text-dark-red').contains('CV')
+        cy.get('.text-dark-red').contains('No Lone Visits')
+      })
+
+      cy.get('[data-row-id=23]').within(() => {
+        cy.get('.text-dark-red').contains('VA')
+        cy.get('.text-dark-red').contains('Verbal Abuse or Threat of')
+      })
+    })
+
     it('shows list of cautionary alerts page without highlighted codes', () => {
       cy.visit('/')
 
@@ -430,7 +452,7 @@ describe('Show work order page', () => {
     })
 
     it('shows links to expand description text, if text is more than 3 lines', () => {
-      cy.visit('work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@operativesWorkOrder', '@property', '@task'])
       cy.contains('WO 10000621')

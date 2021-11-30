@@ -141,7 +141,7 @@ describe('Closing my own work order', () => {
     })
 
     it('requires a variation reason and includes a jobStatusUpdate call', () => {
-      cy.visit('/work-orders/10000621')
+      cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 

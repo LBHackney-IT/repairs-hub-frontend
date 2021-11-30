@@ -64,26 +64,13 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -91,16 +78,17 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
@@ -453,26 +441,13 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -480,16 +455,17 @@ exports[`OperativeWorkOrder component with single operative when has status In P
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
@@ -817,26 +793,13 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -844,16 +807,17 @@ exports[`OperativeWorkOrder component with single operative when has status In P
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
@@ -1250,26 +1214,13 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -1277,16 +1228,17 @@ exports[`OperativeWorkOrder component with single operative when has status In P
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
@@ -1648,26 +1600,13 @@ exports[`OperativeWorkOrder component with single operative when has status No A
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -1675,16 +1614,17 @@ exports[`OperativeWorkOrder component with single operative when has status No A
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
@@ -1951,26 +1891,13 @@ exports[`OperativeWorkOrder component with single operative when has status Work
       <div
         class="govuk-grid-column-one-half"
       >
-        <div
-          class="govuk-warning-text lbh-warning-text"
+        <a
+          class="lbh-heading-h5 lbh-link"
+          href="#"
+          id="caut-alerts"
         >
-          <span
-            aria-hidden="true"
-            class="govuk-warning-text__icon"
-          >
-            !
-          </span>
-          <strong
-            class="govuk-warning-text__text"
-          >
-            <span
-              class="govuk-warning-text__assistive"
-            >
-              Warning
-            </span>
-            Caut. alerts
-          </strong>
-        </div>
+          Caut. alerts
+        </a>
       </div>
       <div
         class="govuk-grid-column-one-half align-grid-column"
@@ -1978,16 +1905,17 @@ exports[`OperativeWorkOrder component with single operative when has status Work
         <div
           class="govuk-warning-text lbh-warning-text"
         >
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+          <span
+            aria-hidden="true"
+            class="govuk-warning-text__icon person-alert--icon"
           >
-            [Temporary] No Lone Interviews
-          </p>
-          <p
-            class="lbh-body lbh-!-font-weight-bold text-dark-red"
+            !
+          </span>
+          <strong
+            class="govuk-warning-text__text person-alert--text"
           >
-            Property Under Disrepair
-          </p>
+            CIT, DIS
+          </strong>
         </div>
       </div>
     </div>
