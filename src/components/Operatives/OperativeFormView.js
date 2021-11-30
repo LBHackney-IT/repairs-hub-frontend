@@ -34,7 +34,9 @@ const OperativeFormView = ({ workOrderReference }) => {
         requestData: operativeAssignmentFormData,
       })
 
-      router.push(`/work-orders/${workOrderReference}`)
+      router.push(
+        `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
+      )
     } catch (e) {
       console.error(e)
       setError(

@@ -13,6 +13,7 @@ import AppointmentHeader from '../AppointmentHeader'
 const EditTaskForm = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState({})
   const [task, setTask] = useState({})
+  const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
 
   const router = useRouter()
@@ -41,7 +42,9 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
         requestData: workOrderUpdateFormData,
       })
 
-      router.push(`/work-orders/${workOrderReference}`)
+      router.push(
+        `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
+      )
     } catch (e) {
       console.error(e)
 
@@ -62,6 +65,13 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
+
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+
+      setCurrentUser(currentUser)
 
       setWorkOrder(workOrder)
 
