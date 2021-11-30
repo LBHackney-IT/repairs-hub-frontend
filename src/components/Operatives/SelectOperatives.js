@@ -14,6 +14,7 @@ const SelectOperatives = ({
   getValues,
   totalSMV,
   currentUserPayrollNumber,
+  jobIsSplitByOperative,
 }) => {
   const [selectedOperatives, setSelectedOperatives] = useState(
     // Add at least one slot for an operative
@@ -199,6 +200,10 @@ const SelectOperatives = ({
                       selectedPercentagesToShowOnEdit[index]
                     }
                     totalSMV={totalSMV}
+                    selectedOperativePercentage={
+                      selectedOperative.jobPercentage
+                    }
+                    jobIsSplitByOperative={jobIsSplitByOperative}
                   />
                 </>
               )}
@@ -251,6 +256,7 @@ SelectOperatives.propTypes = {
   availableOperatives: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   totalSMV: PropTypes.number.isRequired,
+  jobIsSplitByOperative: PropTypes.bool.isRequired,
 }
 
 export default SelectOperatives

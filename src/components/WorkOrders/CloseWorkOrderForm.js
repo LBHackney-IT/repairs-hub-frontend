@@ -27,6 +27,7 @@ const CloseWorkOrderForm = ({
   dateRaised,
   selectedPercentagesToShowOnEdit,
   totalSMV,
+  jobIsSplitByOperative,
 }) => {
   const {
     handleSubmit,
@@ -124,6 +125,7 @@ const CloseWorkOrderForm = ({
               trigger={trigger}
               getValues={getValues}
               totalSMV={totalSMV}
+              jobIsSplitByOperative={jobIsSplitByOperative}
             />
           )}
 
@@ -163,6 +165,7 @@ CloseWorkOrderForm.propTypes = {
   reason: PropTypes.string,
   dateRaised: PropTypes.string,
   totalSMV: PropTypes.number.isRequired,
+  jobIsSplitByOperative: PropTypes.bool.isRequired,
 }
 
 export default CloseWorkOrderForm
