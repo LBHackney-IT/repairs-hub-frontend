@@ -20,6 +20,175 @@ describe('Closing a work order on behalf of an operative', () => {
     ).as('workOrderFilters')
   })
 
+  describe.only('Workorder has existing operatives assigned and job split was done by operative', () => {
+    beforeEach(() => {
+      cy.loginWithContractorRole()
+
+      // Viewing the home page
+      cy.intercept(
+        { method: 'GET', path: '/api/filter/WorkOrder' },
+        {
+          fixture: 'filter/workOrder.json',
+        }
+      ).as('workOrderFilters')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+        { fixture: 'workOrders/workOrders.json' }
+      ).as('workOrders')
+
+      // Viewing the work order page
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000040
+        workOrder.canAssignOperative = true
+        workOrder.totalSMVs = 76
+        workOrder.operatives = [
+          {
+            id: 1,
+            jobPercentage: 40,
+            name: 'Operative A',
+          },
+          {
+            id: 2,
+            jobPercentage: 60,
+            name: 'Operative B',
+          },
+        ]
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040' },
+          { body: workOrder }
+        ).as('workOrder')
+      })
+
+      cy.intercept(
+        { method: 'GET', path: '/api/operatives' },
+        {
+          body: [
+            {
+              id: 3,
+              name: 'Operative C',
+            },
+            {
+              id: 25,
+              name: 'Operative Y',
+            },
+            {
+              id: 26,
+              name: 'Operative Z',
+            },
+          ],
+        }
+      ).as('operatives')
+
+      // Submitting the update
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrderComplete' },
+        { body: '' }
+      ).as('workOrderCompleteRequest')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/jobStatusUpdate' },
+        { body: '' }
+      ).as('jobStatusUpdateRequest')
+    })
+
+    it('closes work order with existing pre-split by operative', () => {
+      cy.visit('/work-orders/10000040/close')
+
+      cy.wait('@workOrder')
+      cy.wait('@operatives')
+
+      cy.get('[type="radio"]').first().check()
+      cy.get('#date').type('2021-01-19')
+      cy.get('#time').within(() => {
+        cy.get('#time-time').type('13')
+        cy.get('#time-minutes').type('01')
+      })
+      cy.get('#notes').type('A note')
+
+      cy.get('.operatives').within(() => {
+        cy.get('input[list]').should('have.length', 2)
+
+        cy.get('input[list]').eq(0).should('have.value', 'Operative A [1]')
+        cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
+      })
+
+      //checks percentage
+      cy.get('.select-percentage').within(() => {
+        cy.get('select').should('have.length', 2)
+
+        cy.get('select').eq(0).should('have.value', '40%')
+        cy.get('select').eq(1).should('have.value', '60%')
+      })
+
+      //checks smv
+      cy.get('.smv-read-only').should('have.length', 2)
+
+      cy.get('.smv-read-only').eq(0).contains('30.40')
+      cy.get('.smv-read-only').eq(1).contains('45.60')
+
+      cy.get('[type="submit"]').contains('Submit').click()
+
+      cy.get('.govuk-table__row')
+        .contains('Operatives')
+        .parent()
+        .within(() => {
+          cy.contains('Operative A : 40%, Operative B : 60%')
+        })
+
+      cy.get('[type="submit"]').contains('Confirm and close').click()
+
+      cy.wait('@jobStatusUpdateRequest')
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000040',
+          },
+          operativesAssigned: [
+            {
+              identification: {
+                number: 1,
+              },
+              calculatedBonus: 40,
+            },
+            {
+              identification: {
+                number: 2,
+              },
+              calculatedBonus: 60,
+            },
+          ],
+          typeCode: '10',
+        })
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: '10000040',
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '70',
+              otherType: 'complete',
+              comments:
+                'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
+              eventTime: '2021-01-19T13:01:00.000Z',
+            },
+          ],
+        })
+
+      cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
+
+      cy.audit()
+    })
+  })
+
   describe('When the work order does not require operative assignment', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
