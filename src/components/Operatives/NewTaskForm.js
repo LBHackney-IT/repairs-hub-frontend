@@ -13,6 +13,7 @@ import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateW
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [currentUser, setCurrentUser] = useState({})
   const [sorCodes, setSorCodes] = useState([])
   const [existingTasks, setExistingTasks] = useState({})
   const { register, handleSubmit, errors } = useForm()
@@ -32,6 +33,13 @@ const NewTaskForm = ({ workOrderReference }) => {
         workOrder.contractorReference
       )
       setSorCodes(sorCodes)
+
+      const currentUser = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/hub-user',
+      })
+
+      setCurrentUser(currentUser)
 
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
@@ -72,7 +80,9 @@ const NewTaskForm = ({ workOrderReference }) => {
         requestData: workOrderUpdateFormData,
       })
 
-      router.push(`/work-orders/${workOrderReference}`)
+      router.push(
+        `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
+      )
     } catch (e) {
       console.error(e)
 

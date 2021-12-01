@@ -98,7 +98,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
                   personAlerts={personAlerts}
                   locationAlerts={locationAlerts}
                   tasksAndSors={tasksAndSors}
-                  currentUserPayrollNumber={currentUser?.operativePayrollNumber}
+                  currentUserPayrollNumber={currentUser.operativePayrollNumber}
                 />
               </>
             )}

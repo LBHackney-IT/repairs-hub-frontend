@@ -34,7 +34,9 @@ const OperativeFormView = ({ workOrderReference }) => {
         requestData: operativeAssignmentFormData,
       })
 
-      router.push(`/work-orders/${workOrderReference}`)
+      router.push(
+        `/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrderReference}`
+      )
     } catch (e) {
       console.error(e)
       setError(
@@ -176,7 +178,7 @@ const OperativeFormView = ({ workOrderReference }) => {
                   selectedPercentagesToShowOnEdit
                 }
                 totalSMV={workOrder.totalSMVs}
-                currentUserPayrollNumber={currentUser?.operativePayrollNumber}
+                currentUserPayrollNumber={currentUser.operativePayrollNumber}
               />
               {error && <ErrorMessage label={error} />}
             </>

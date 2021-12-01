@@ -593,6 +593,8 @@ describe('Updating a work order', () => {
         cy.get('button').contains('Confirm').click()
       })
 
+      cy.wait('@jobStatusUpdateRequest')
+
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
@@ -633,7 +635,9 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.url().should('contain', '/work-orders/10000621')
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+
+      cy.contains('WO 10000621')
     })
 
     it('allows editing of an existing task quantity with a "Remove SOR" shortcut', () => {
@@ -782,7 +786,9 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.url().should('contain', '/work-orders/10000621')
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+
+      cy.contains('WO 10000621')
     })
 
     it('allows adding operatives with percentage splits', () => {
@@ -882,6 +888,10 @@ describe('Updating a work order', () => {
             'Work order updated - Assigned operatives Operative A : 50%, Operative B : 50%, Operative C : -',
           typeCode: '10',
         })
+
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+
+      cy.contains('WO 10000621')
     })
 
     it('allows updating operatives with percentage splits', () => {
@@ -1016,6 +1026,14 @@ describe('Updating a work order', () => {
             'Work order updated - Assigned operatives Operative A : 30%, Operative B : 20%, Operative C : 50%',
           typeCode: '10',
         })
+
+      cy.wait([
+        '@workOrderRequestMultipleOperatives',
+        '@tasksRequest',
+        '@propertyRequest',
+      ])
+
+      cy.contains('WO 10000621')
     })
   })
 })
