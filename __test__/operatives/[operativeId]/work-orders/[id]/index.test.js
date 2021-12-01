@@ -5,7 +5,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
 } from 'src/utils/user'
-import OperativeWorkOrderPage from '../../../../../src/pages/operatives/[operativeId]/work-orders/[id]'
+import OperativeWorkOrderPage from '@/pages/operatives/[operativeId]/work-orders/[id]'
 
 describe('OperativeWorkOrderPage.permittedRoles', () => {
   ;[OPERATIVE_ROLE].forEach((role) => {
