@@ -178,7 +178,7 @@ const OperativeFormView = ({ workOrderReference }) => {
                   selectedPercentagesToShowOnEdit
                 }
                 totalSMV={workOrder.totalSMVs}
-                currentUserPayrollNumber={currentUser?.operativePayrollNumber}
+                currentUserPayrollNumber={currentUser.operativePayrollNumber}
               />
               {error && <ErrorMessage label={error} />}
             </>
