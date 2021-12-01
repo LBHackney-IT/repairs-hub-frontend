@@ -12,7 +12,7 @@ const OperativeWorkOrderListItem = ({
 }) => {
   return (
     <Link
-      href={`/operatives/${currentUser?.operativePayrollNumber}/work-orders/${workOrder.reference}`}
+      href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
     >
       <li
         data-id={index}

@@ -47,7 +47,9 @@ const OperativeWorkOrder = ({
         ),
       })
 
-      router.push(`/work-orders/${workOrderReference}/close`)
+      router.push(
+        `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`
+      )
     } catch (e) {
       console.error(e)
 
@@ -158,7 +160,9 @@ const OperativeWorkOrder = ({
               <PrimarySubmitButton label="Confirm" />
             </form>
           ) : (
-            <Link href={`/work-orders/${workOrderReference}/close`}>
+            <Link
+              href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
+            >
               <a
                 role="button"
                 draggable="false"

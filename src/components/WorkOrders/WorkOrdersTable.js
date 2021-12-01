@@ -15,7 +15,7 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
             Reference
           </TH>
           <TH scope="col" className="lbh-body-xs">
-            Date&nbsp;raised
+            Date raised
           </TH>
           <TH scope="col" className="lbh-body-xs">
             Priority
