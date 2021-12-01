@@ -27,7 +27,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Date raised
+            Date raised
           </th>
           <th
             class="govuk-table__header lbh-body-xs"
