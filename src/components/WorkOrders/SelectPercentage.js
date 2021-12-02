@@ -19,7 +19,7 @@ const SelectPercentage = ({
   const isOnlyOneOperative = (selectedOperatives) => {
     return selectedOperatives.length === 1
   }
-  //this logic works, I need to pass is_split flag and on change change it to false
+
   const [showSplitByOperative, setShowSplitByOperative] = useState(
     jobIsSplitByOperative
   )

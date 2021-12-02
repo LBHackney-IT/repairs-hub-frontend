@@ -201,7 +201,7 @@ const SelectOperatives = ({
                     }
                     totalSMV={totalSMV}
                     selectedOperativePercentage={
-                      selectedOperative.jobPercentage
+                      selectedOperative ? selectedOperative.jobPercentage : null
                     }
                     jobIsSplitByOperative={jobIsSplitByOperative}
                   />
