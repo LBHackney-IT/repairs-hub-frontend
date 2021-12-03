@@ -147,7 +147,8 @@ const OperativeFormView = ({ workOrderReference }) => {
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       workOrderReference,
       operativesWithPercentages,
-      operativesAssignedNote
+      operativesAssignedNote,
+      true
     )
 
     makePostRequest(operativeAssignmentFormData)

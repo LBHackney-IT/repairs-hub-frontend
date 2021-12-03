@@ -13,10 +13,16 @@ const SelectPercentage = ({
   register,
   preSelectedPercentages,
   totalSMV,
+  selectedOperativePercentage,
+  jobIsSplitByOperative,
 }) => {
   const isOnlyOneOperative = (selectedOperatives) => {
     return selectedOperatives.length === 1
   }
+
+  const [showSplitByOperative, setShowSplitByOperative] = useState(
+    jobIsSplitByOperative
+  )
 
   const getDefaultPercentage = (selectedOperatives) => {
     if (preSelectedPercentages && selectedOperatives.length !== 1) {
@@ -87,6 +93,7 @@ const SelectPercentage = ({
   const onChange = (e) => {
     // if percentage errors, then update state and percentages
     // then trigger validation
+    setShowSplitByOperative(false)
     setSelectedPercentage(e.target.value)
     updatePercentages(operativeIndex, e.target.value)
     setSmv(calculateSMV(e.target.value, totalSMV))
@@ -102,7 +109,11 @@ const SelectPercentage = ({
       selectedOperatives.length === 1 &&
       assignedOperativesToWorkOrder === 1
     let some = preSelectedPercentages && selectedOperatives.length === 1
-    if (
+    if (showSplitByOperative && selectedOperativePercentage) {
+      setSelectedPercentage(`${selectedOperativePercentage}%`)
+      updatePercentages(operativeIndex, `${selectedOperativePercentage}%`)
+      setSmv(calculateSMV(`${selectedOperativePercentage}%`, totalSMV))
+    } else if (
       onlyOneOperativeAndSelectedOperative ||
       onlyOneAssignedOperative ||
       some
@@ -162,6 +173,8 @@ SelectPercentage.prototype = {
   operativesNumber: ProperTypes.number,
   operativeIndex: ProperTypes.number,
   totalSMV: ProperTypes.number.isRequired,
+  jobIsSplitByOperative: ProperTypes.bool.isRequired,
+  selectedOperativePercentage: ProperTypes.any,
 }
 
 export default SelectPercentage
