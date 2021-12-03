@@ -2,7 +2,7 @@ export const buildOperativeAssignmentFormData = (
   workOrderReference,
   operatives,
   operativesNotes,
-  is_split
+  isSplit
 ) => {
   return {
     relatedWorkOrderReference: {
@@ -20,7 +20,7 @@ export const buildOperativeAssignmentFormData = (
     ...(operativesNotes && {
       comments: `Work order updated - ${operativesNotes}`,
     }),
-    ...(is_split && { is_split: is_split }),
+    ...(isSplit && { isSplit: isSplit }),
     typeCode: '10',
   }
 }

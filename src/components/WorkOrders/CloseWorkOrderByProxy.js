@@ -221,7 +221,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   }
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
-                  jobIsSplitByOperative={workOrder.is_split}
+                  jobIsSplitByOperative={workOrder.isSplit}
                 />
               )}
               {!CloseWorkOrderFormPage && (

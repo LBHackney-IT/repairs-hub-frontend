@@ -599,7 +599,7 @@ describe('Closing a work order on behalf of an operative', () => {
           workOrder.reference = 10000040
           workOrder.canAssignOperative = true
           workOrder.totalSMVs = 76
-          workOrder.is_split = true
+          workOrder.isSplit = true
           workOrder.operatives = [
             {
               id: 1,
