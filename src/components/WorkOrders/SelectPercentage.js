@@ -110,14 +110,9 @@ const SelectPercentage = ({
       assignedOperativesToWorkOrder === 1
     let some = preSelectedPercentages && selectedOperatives.length === 1
     if (showSplitByOperative && selectedOperativePercentage) {
-      setSelectedPercentage(`${selectedOperativePercentage.toString()}%`)
-      updatePercentages(
-        operativeIndex,
-        `${selectedOperativePercentage.toString()}%`
-      )
-      setSmv(
-        calculateSMV(`${selectedOperativePercentage.toString()}%`, totalSMV)
-      )
+      setSelectedPercentage(`${selectedOperativePercentage}%`)
+      updatePercentages(operativeIndex, `${selectedOperativePercentage}%`)
+      setSmv(calculateSMV(`${selectedOperativePercentage}%`, totalSMV))
     } else if (
       onlyOneOperativeAndSelectedOperative ||
       onlyOneAssignedOperative ||
