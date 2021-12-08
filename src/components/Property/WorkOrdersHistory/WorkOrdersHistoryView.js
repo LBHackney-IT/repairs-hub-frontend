@@ -5,7 +5,7 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
-export const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
+const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
 
 const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -61,6 +61,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
           tabName={tabName}
           pageNumber={pageNumber}
           loadMoreWorkOrders={loadMoreWorkOrders}
+          pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
         />
       )
     }
