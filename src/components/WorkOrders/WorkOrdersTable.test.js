@@ -30,6 +30,7 @@ describe('WorkOrdersTable component', () => {
           workOrders={props.workOrders}
           pageNumber={props.pageNumber}
           handlePageClick={props.handlePageClick}
+          pageSize={2}
         />
       </UserContext.Provider>
     )

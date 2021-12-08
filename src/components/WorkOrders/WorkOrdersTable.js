@@ -2,9 +2,13 @@ import PropTypes from 'prop-types'
 import WorkOrderRow from './WorkOrderRow'
 import { Button } from '../Form'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
-import { WORK_ORDERS_MANAGEMENT_PAGE_SIZE } from './WorkOrdersView'
 
-const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
+const WorkOrdersTable = ({
+  workOrders,
+  pageNumber,
+  handlePageClick,
+  pageSize,
+}) => (
   <div>
     <h1 className="lbh-heading-h1">Manage work orders</h1>
 
@@ -48,7 +52,7 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
           type="submit"
         />
       )}
-      {pageNumber && workOrders.length >= WORK_ORDERS_MANAGEMENT_PAGE_SIZE && (
+      {pageNumber && workOrders.length >= pageSize && (
         <Button
           label="Next page"
           onClick={() => handlePageClick(pageNumber + 1)}
@@ -74,6 +78,7 @@ WorkOrdersTable.propTypes = {
   ).isRequired,
   pageNumber: PropTypes.number,
   handlePageClick: PropTypes.func,
+  pageSize: PropTypes.number.isRequired,
 }
 
 export default WorkOrdersTable

@@ -10,7 +10,7 @@ import Meta from '../Meta'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
 
-export const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
+const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 
 const WorkOrdersView = ({ query }) => {
   const router = useRouter()
@@ -131,6 +131,7 @@ const WorkOrdersView = ({ query }) => {
                     workOrders={workOrders}
                     pageNumber={pageNumber}
                     handlePageClick={handlePageClick}
+                    pageSize={WORK_ORDERS_MANAGEMENT_PAGE_SIZE}
                   />
                 </>
               )}
