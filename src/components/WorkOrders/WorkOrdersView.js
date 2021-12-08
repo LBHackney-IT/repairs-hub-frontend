@@ -1,13 +1,16 @@
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import WorkOrdersTable from './WorkOrdersTable'
-import { getWorkOrders } from '@/utils/frontEndApiClient/workOrders'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import WorkOrdersFilterView from './Filter/WorkOrdersFilterView'
 import { setFilterOptions } from '@/utils/helpers/filter'
 import { GridColumn, GridRow } from '../Layout/Grid'
 import Meta from '../Meta'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { paramsSerializer } from '@/utils/urls'
+
+export const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 
 const WorkOrdersView = ({ query }) => {
   const router = useRouter()
@@ -42,9 +45,30 @@ const WorkOrdersView = ({ query }) => {
     setError(null)
 
     try {
-      const data = await getWorkOrders(pageNumber, filterOptions)
+      const workOrders = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/workOrders/',
+        params: {
+          PageSize: WORK_ORDERS_MANAGEMENT_PAGE_SIZE,
+          PageNumber: pageNumber,
+          ...(filterOptions.StatusCode && {
+            StatusCode: filterOptions.StatusCode,
+          }),
+          ...(filterOptions.Priorities && {
+            Priorities: filterOptions.Priorities,
+          }),
+          ...(filterOptions.TradeCodes && {
+            TradeCodes: filterOptions.TradeCodes,
+          }),
+          ...(filterOptions.ContractorReference && {
+            ContractorReference: filterOptions.ContractorReference,
+          }),
+          IncludeHistorical: false,
+        },
+        paramsSerializer,
+      })
 
-      setWorkOrders(data)
+      setWorkOrders(workOrders)
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)

@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import WorkOrderRow from './WorkOrderRow'
-import { PAGE_SIZE_CONTRACTORS } from 'src/utils/frontEndApiClient/workOrders'
 import { Button } from '../Form'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
+import { WORK_ORDERS_MANAGEMENT_PAGE_SIZE } from './WorkOrdersView'
 
 const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
   <div>
@@ -48,7 +48,7 @@ const WorkOrdersTable = ({ workOrders, pageNumber, handlePageClick }) => (
           type="submit"
         />
       )}
-      {pageNumber && workOrders.length >= PAGE_SIZE_CONTRACTORS && (
+      {pageNumber && workOrders.length >= WORK_ORDERS_MANAGEMENT_PAGE_SIZE && (
         <Button
           label="Next page"
           onClick={() => handlePageClick(pageNumber + 1)}
