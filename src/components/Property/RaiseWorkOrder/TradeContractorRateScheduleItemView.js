@@ -3,7 +3,6 @@ import { useState } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
-import { getContractors } from '@/utils/frontEndApiClient/contractors'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 const TradeContractorRateScheduleItemView = ({
@@ -64,7 +63,14 @@ const TradeContractorRateScheduleItemView = ({
     setGetContractorsError(null)
 
     try {
-      const contractors = await getContractors(propertyReference, tradeCode)
+      const contractors = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/contractors',
+        params: {
+          propertyReference: propertyReference,
+          tradeCode: tradeCode,
+        },
+      })
 
       setContractors(contractors)
       setContractorSelectDisabled(false)
