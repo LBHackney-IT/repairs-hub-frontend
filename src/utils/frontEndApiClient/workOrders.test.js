@@ -1,4 +1,4 @@
-import { getWorkOrders, getWorkOrdersForProperty } from './workOrders'
+import { getWorkOrders } from './workOrders'
 import mockAxios from 'axios'
 import { paramsSerializer } from '../urls'
 
@@ -58,31 +58,6 @@ describe('getWorkOrders', () => {
         IncludeHistorical: false,
       },
       paramsSerializer,
-    })
-  })
-})
-
-describe('getWorkOrdersForProperty', () => {
-  it('calls the Next JS API', async () => {
-    const responseData = { data: 'test' }
-
-    mockAxios.get.mockImplementationOnce(() =>
-      Promise.resolve({
-        data: responseData,
-      })
-    )
-
-    const response = await getWorkOrdersForProperty('1')
-
-    expect(response).toEqual(responseData)
-    expect(mockAxios.get).toHaveBeenCalledTimes(1)
-    expect(mockAxios.get).toHaveBeenCalledWith('/api/workOrders/', {
-      params: {
-        propertyReference: '1',
-        PageSize: 50,
-        PageNumber: 1,
-        sort: 'dateraised:desc',
-      },
     })
   })
 })

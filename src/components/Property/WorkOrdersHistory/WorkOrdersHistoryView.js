@@ -3,7 +3,9 @@ import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { getWorkOrdersForProperty } from '@/utils/frontEndApiClient/workOrders'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+
+export const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
 
 const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -15,7 +17,17 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
     setError(null)
 
     try {
-      const data = await getWorkOrdersForProperty(propertyReference, pageNumber)
+      const data = await frontEndApiRequest({
+        path: '/api/workOrders/',
+        method: 'get',
+        params: {
+          propertyReference: propertyReference,
+          PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
+          PageNumber: pageNumber,
+          sort: 'dateraised:desc',
+        },
+      })
+
       setWorkOrders([...workOrders, ...data])
     } catch (e) {
       setWorkOrders(null)
