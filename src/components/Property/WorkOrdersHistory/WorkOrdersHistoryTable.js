@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import PropTypes from 'prop-types'
-import { PAGE_SIZE_AGENTS } from 'src/utils/frontEndApiClient/workOrders'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
@@ -11,12 +10,13 @@ const WorkOrdersHistoryTable = ({
   tabName,
   pageNumber,
   loadMoreWorkOrders,
+  pageSize,
 }) => {
   const { user } = useContext(UserContext)
 
   const moreWorkOrdersAvailable = () => {
     // TODO: Replace with a real count from the API
-    const maxWorkOrders = pageNumber * PAGE_SIZE_AGENTS
+    const maxWorkOrders = pageNumber * pageSize
 
     return workOrders.length >= maxWorkOrders
   }
@@ -74,8 +74,8 @@ WorkOrdersHistoryTable.propTypes = {
     })
   ).isRequired,
   pageNumber: PropTypes.number,
-  pageSizeAgents: PropTypes.number,
   loadMoreWorkOrders: PropTypes.func,
+  pageSize: PropTypes.number.isRequired,
 }
 
 export default WorkOrdersHistoryTable

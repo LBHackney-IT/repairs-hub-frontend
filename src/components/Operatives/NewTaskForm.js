@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import { getSorCodes } from 'src/utils/frontEndApiClient/scheduleOfRates/codes'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
@@ -27,11 +26,17 @@ const NewTaskForm = ({ workOrderReference }) => {
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
-      const sorCodes = await getSorCodes(
-        workOrder.tradeCode,
-        workOrder.propertyReference,
-        workOrder.contractorReference
-      )
+
+      const sorCodes = await frontEndApiRequest({
+        path: '/api/schedule-of-rates/codes',
+        method: 'get',
+        params: {
+          tradeCode: workOrder.tradeCode,
+          propertyReference: workOrder.propertyReference,
+          contractorReference: workOrder.contractorReference,
+        },
+      })
+
       setSorCodes(sorCodes)
 
       const currentUser = await frontEndApiRequest({

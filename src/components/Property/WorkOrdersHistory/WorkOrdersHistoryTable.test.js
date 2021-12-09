@@ -44,6 +44,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            pageSize={1}
           />
         </UserContext.Provider>
       )
@@ -58,6 +59,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            pageSize={1}
           />
         </UserContext.Provider>
       )
@@ -72,6 +74,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            pageSize={1}
           />
         </UserContext.Provider>
       )
@@ -86,6 +89,7 @@ describe('WorkOrdersHistoryTable component', () => {
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}
+            pageSize={1}
           />
         </UserContext.Provider>
       )
