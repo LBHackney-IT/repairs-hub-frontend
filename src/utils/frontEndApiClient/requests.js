@@ -10,7 +10,7 @@ export const frontEndApiRequest = async ({
     method: method,
     url: path,
     params: params,
-    data: requestData,
+    ...(requestData && { data: requestData }),
   })
 
   return data
