@@ -55,8 +55,6 @@ describe('WorkOrderDetails component', () => {
         streetSuffix: 'St Thomass Square',
       },
       hierarchyType: {
-        levelCode: '7',
-        subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
       canRaiseRepair: true,

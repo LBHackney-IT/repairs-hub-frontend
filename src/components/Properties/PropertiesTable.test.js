@@ -13,8 +13,6 @@ describe('PropertiesTable component', () => {
           streetSuffix: 'St Thomass Square',
         },
         hierarchyType: {
-          levelCode: '7',
-          subTypeCode: 'DWE',
           subTypeDescription: 'Dwelling',
         },
       },
@@ -27,8 +25,6 @@ describe('PropertiesTable component', () => {
           streetSuffix: 'St Thomass Square',
         },
         hierarchyType: {
-          levelCode: '7',
-          subTypeCode: 'DWE',
           subTypeDescription: 'Dwelling',
         },
       },
