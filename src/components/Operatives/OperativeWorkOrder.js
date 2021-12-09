@@ -8,7 +8,11 @@ import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { CharacterCountLimitedTextArea, PrimarySubmitButton } from '../Form'
+import {
+  CharacterCountLimitedTextArea,
+  PrimarySubmitButton,
+  Checkbox,
+} from '../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import ErrorMessage from '../Errors/ErrorMessage'
@@ -109,6 +113,16 @@ const OperativeWorkOrder = ({
         tabName={'Tasks and SORs'}
         readOnly={readOnly}
       />
+
+      {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' && (
+        <Checkbox
+          className="govuk-!-margin-0"
+          labelClassName="lbh-body-xs overtime-checkbox"
+          name="overtime"
+          label="Overtime work order"
+          register={register}
+        />
+      )}
 
       {operativesCount > 1 && (
         <OperativeList
