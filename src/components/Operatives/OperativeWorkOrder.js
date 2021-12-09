@@ -21,6 +21,7 @@ import OperativeList from './OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 import BackButton from '../Layout/BackButton'
+import { isCurrentTimeOperativeOvertime } from '../../utils/helpers/completionDateTimes'
 
 const OperativeWorkOrder = ({
   workOrderReference,
@@ -114,15 +115,16 @@ const OperativeWorkOrder = ({
         readOnly={readOnly}
       />
 
-      {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' && (
-        <Checkbox
-          className="govuk-!-margin-0"
-          labelClassName="lbh-body-xs overtime-checkbox"
-          name="overtime"
-          label="Overtime work order"
-          register={register}
-        />
-      )}
+      {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
+        isCurrentTimeOperativeOvertime(
+          <Checkbox
+            className="govuk-!-margin-0"
+            labelClassName="lbh-body-xs overtime-checkbox"
+            name="overtime"
+            label="Overtime work order"
+            register={register}
+          />
+        )}
 
       {operativesCount > 1 && (
         <OperativeList
