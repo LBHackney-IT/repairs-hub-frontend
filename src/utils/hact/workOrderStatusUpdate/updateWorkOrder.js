@@ -2,7 +2,8 @@ export const buildWorkOrderUpdate = (
   latestTasks,
   addedTasks,
   reference,
-  variationReason
+  variationReason,
+  isOvertimeChecked
 ) => {
   const buildRateScheduleItems = (tasks, existing = false) => {
     return tasks.map((task) => {
@@ -31,6 +32,7 @@ export const buildWorkOrderUpdate = (
       variationReason.length && {
         comments: variationReason,
       }),
+    ...(isOvertimeChecked && { isOvertime: isOvertimeChecked }),
     // From HACT JobStatusUpdateTypeCode:
     // 80 - More specific SOR codes identified
     typeCode: '80',
