@@ -161,9 +161,12 @@ const OperativeWorkOrder = ({
             </a>
           </Link>
           <br />
+
           {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
             'true' && renderOperativeManagementLink(operativesCount)}
+
           {error && <ErrorMessage label={error} />}
+
           {areTasksUpdated(tasksAndSors) ? (
             <form onSubmit={handleSubmit(onFormSubmit)}>
               <CharacterCountLimitedTextArea
@@ -176,6 +179,7 @@ const OperativeWorkOrder = ({
                 register={register}
                 error={errors && errors.variationReason}
               />
+
               <PrimarySubmitButton label="Confirm" />
             </form>
           ) : (

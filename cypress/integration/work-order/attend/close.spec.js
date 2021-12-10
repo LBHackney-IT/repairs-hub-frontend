@@ -2,7 +2,74 @@
 import 'cypress-audit/commands'
 
 describe('Closing my own work order', () => {
-  const now = new Date('June 11 2021 13:49:15Z')
+  const now = new Date('Friday June 11 2021 13:49:15Z')
+
+  context('when the current time is outside of working hours', () => {
+    beforeEach(() => {
+      cy.clock(new Date(now).setHours(16, 0, 1))
+
+      cy.intercept('/api/workOrders/10000621', {
+        fixture: 'workOrders/workOrder.json',
+      }).as('workOrderRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('propertyRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000621/tasks' },
+        { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
+      ).as('tasksRequest')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/jobStatusUpdate' },
+        { body: '' }
+      ).as('jobStatusUpdateRequest')
+
+      cy.loginWithOperativeRole()
+    })
+
+    it.only('the operative can set the work as overtime', () => {
+      cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+
+      cy.contains('[type="checkbox"]').should('not.be.checked')
+
+      cy.contains('.overtime-checkbox', 'Overtime work order').check()
+
+      cy.contains('a', 'Confirm').click()
+
+      cy.wait('@jobStatusUpdateRequest')
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          comments: 'More work was needed',
+          typeCode: '80',
+          moreSpecificSORCode: {
+            rateScheduleItem: [
+              {
+                id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
+                customCode: 'DES5R013',
+                customName: 'Inspect additional sec entrance',
+                quantity: {
+                  amount: [5],
+                },
+              },
+            ],
+          },
+        })
+    })
+  })
+
+  context('when the current time is within working hours', () => {
+    it('the operative cannot set the work as overtime', () => {})
+  })
 
   context('when the job is completed without variation', () => {
     beforeEach(() => {
