@@ -8,6 +8,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
+import { PropertyListItem } from '@/models/propertyListItem'
 
 const Search = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -43,11 +44,14 @@ const Search = ({ query }) => {
     setError(null)
 
     try {
-      const data = await frontEndApiRequest({
+      const properties = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/?q=${searchQuery}`,
       })
-      setProperties(data)
+
+      setProperties(
+        properties.map((property) => new PropertyListItem(property))
+      )
     } catch (e) {
       setProperties(null)
       console.error('An error has occured:', e.response)
