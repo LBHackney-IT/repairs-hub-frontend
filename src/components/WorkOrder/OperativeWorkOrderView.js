@@ -17,6 +17,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [isOvertimeChecked, setIsOvertimeChecked] = useState()
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -51,6 +52,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
       setProperty(propertyObject.property)
       setLocationAlerts(propertyObject.alerts.locationAlert)
       setPersonAlerts(propertyObject.alerts.personAlert)
+      setIsOvertimeChecked(workOrder.isOvertime)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
@@ -99,6 +101,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
                   locationAlerts={locationAlerts}
                   tasksAndSors={tasksAndSors}
                   currentUserPayrollNumber={currentUser.operativePayrollNumber}
+                  isOvertimeChecked={isOvertimeChecked}
                 />
               </>
             )}

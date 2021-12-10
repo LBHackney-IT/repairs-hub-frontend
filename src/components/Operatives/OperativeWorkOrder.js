@@ -31,6 +31,7 @@ const OperativeWorkOrder = ({
   locationAlerts,
   tasksAndSors,
   currentUserPayrollNumber,
+  isOvertimeChecked,
 }) => {
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
@@ -48,7 +49,8 @@ const OperativeWorkOrder = ({
           tasksAndSors,
           [],
           workOrderReference,
-          formData.variationReason
+          formData.variationReason,
+          formData.overtime
         ),
       })
 
@@ -116,12 +118,13 @@ const OperativeWorkOrder = ({
       />
 
       {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-        isCurrentTimeOperativeOvertime(
+        isCurrentTimeOperativeOvertime() && (
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs overtime-checkbox"
             name="overtime"
             label="Overtime work order"
+            checked={isOvertimeChecked}
             register={register}
           />
         )}
@@ -176,18 +179,20 @@ const OperativeWorkOrder = ({
               <PrimarySubmitButton label="Confirm" />
             </form>
           ) : (
-            <Link
-              href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
-            >
-              <a
-                role="button"
-                draggable="false"
-                className="govuk-button lbh-button"
-                data-module="govuk-button"
+            <form onClick={handleSubmit(onFormSubmit)}>
+              <Link
+                href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
               >
-                Confirm
-              </a>
-            </Link>
+                <a
+                  role="button"
+                  draggable="false"
+                  className="govuk-button lbh-button"
+                  data-module="govuk-button"
+                >
+                  Confirm
+                </a>
+              </Link>
+            </form>
           )}
         </>
       )}
@@ -209,6 +214,7 @@ OperativeWorkOrder.propTypes = {
       standardMinuteValue: PropTypes.number,
     })
   ).isRequired,
+  isOvertimeChecked: PropTypes.bool.isRequired,
 }
 
 export default OperativeWorkOrder
