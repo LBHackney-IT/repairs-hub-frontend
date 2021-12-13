@@ -31,7 +31,6 @@ const OperativeWorkOrder = ({
   locationAlerts,
   tasksAndSors,
   currentUserPayrollNumber,
-  isOvertimeChecked,
 }) => {
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
@@ -50,7 +49,7 @@ const OperativeWorkOrder = ({
           [],
           workOrderReference,
           formData.variationReason,
-          formData.overtime
+          formData.isOvertime
         ),
       })
 
@@ -122,9 +121,9 @@ const OperativeWorkOrder = ({
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs overtime-checkbox"
-            name="overtime"
+            name="isOvertime"
             label="Overtime work order"
-            checked={isOvertimeChecked}
+            checked={workOrder.isOvertime}
             register={register}
           />
         )}
@@ -214,7 +213,6 @@ OperativeWorkOrder.propTypes = {
       standardMinuteValue: PropTypes.number,
     })
   ).isRequired,
-  isOvertimeChecked: PropTypes.bool.isRequired,
 }
 
 export default OperativeWorkOrder
