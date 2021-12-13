@@ -37,7 +37,7 @@ const Checkbox = ({
     {hintText && (
       <span
         id="government-gateway-item-hint"
-        class="govuk-hint govuk-checkboxes__hint lbh-hint"
+        className="govuk-hint govuk-checkboxes__hint lbh-hint"
       >
         {hintText}
       </span>
