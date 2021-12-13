@@ -194,6 +194,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.AVP"
                   id="ContractorReference.AVP"
                   name="ContractorReference.AVP"
                   type="checkbox"
@@ -211,6 +212,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.PCL"
                   id="ContractorReference.PCL"
                   name="ContractorReference.PCL"
                   type="checkbox"
@@ -227,6 +229,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.SCC"
                   id="ContractorReference.SCC"
                   name="ContractorReference.SCC"
                   type="checkbox"
@@ -262,6 +265,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -278,6 +282,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -294,6 +299,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -310,6 +316,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1010"
                   id="StatusCode.1010"
                   name="StatusCode.1010"
                   type="checkbox"
@@ -326,6 +333,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -342,6 +350,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -358,6 +367,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -403,6 +413,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -420,6 +431,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -454,6 +466,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -470,6 +483,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -486,6 +500,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -502,6 +517,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -716,6 +732,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -732,6 +749,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -748,6 +766,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -764,6 +783,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1010"
                   id="StatusCode.1010"
                   name="StatusCode.1010"
                   type="checkbox"
@@ -780,6 +800,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -796,6 +817,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -812,6 +834,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -857,6 +880,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -874,6 +898,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -908,6 +933,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -924,6 +950,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -940,6 +967,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -956,6 +984,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -1170,6 +1199,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -1186,6 +1216,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -1202,6 +1233,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -1218,6 +1250,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -1234,6 +1267,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -1250,6 +1284,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -1295,6 +1330,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -1312,6 +1348,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -1346,6 +1383,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -1362,6 +1400,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -1378,6 +1417,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -1394,6 +1434,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -1608,6 +1649,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.AVP"
                   id="ContractorReference.AVP"
                   name="ContractorReference.AVP"
                   type="checkbox"
@@ -1625,6 +1667,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.PCL"
                   id="ContractorReference.PCL"
                   name="ContractorReference.PCL"
                   type="checkbox"
@@ -1641,6 +1684,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.SCC"
                   id="ContractorReference.SCC"
                   name="ContractorReference.SCC"
                   type="checkbox"
@@ -1676,6 +1720,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -1692,6 +1737,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -1708,6 +1754,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -1724,6 +1771,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1010"
                   id="StatusCode.1010"
                   name="StatusCode.1010"
                   type="checkbox"
@@ -1740,6 +1788,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -1756,6 +1805,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -1772,6 +1822,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -1817,6 +1868,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -1834,6 +1886,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -1868,6 +1921,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -1884,6 +1938,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -1900,6 +1955,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -1916,6 +1972,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -2130,6 +2187,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.AVP"
                   id="ContractorReference.AVP"
                   name="ContractorReference.AVP"
                   type="checkbox"
@@ -2147,6 +2205,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.PCL"
                   id="ContractorReference.PCL"
                   name="ContractorReference.PCL"
                   type="checkbox"
@@ -2163,6 +2222,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.SCC"
                   id="ContractorReference.SCC"
                   name="ContractorReference.SCC"
                   type="checkbox"
@@ -2198,6 +2258,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -2214,6 +2275,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -2230,6 +2292,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -2246,6 +2309,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -2262,6 +2326,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -2278,6 +2343,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -2323,6 +2389,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -2340,6 +2407,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -2374,6 +2442,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -2390,6 +2459,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -2406,6 +2476,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -2422,6 +2493,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -2636,6 +2708,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -2652,6 +2725,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -2668,6 +2742,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -2684,6 +2759,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -2700,6 +2776,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -2716,6 +2793,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -2761,6 +2839,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -2778,6 +2857,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -2812,6 +2892,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -2828,6 +2909,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -2844,6 +2926,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -2860,6 +2943,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"
@@ -3074,6 +3158,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.AVP"
                   id="ContractorReference.AVP"
                   name="ContractorReference.AVP"
                   type="checkbox"
@@ -3091,6 +3176,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.PCL"
                   id="ContractorReference.PCL"
                   name="ContractorReference.PCL"
                   type="checkbox"
@@ -3107,6 +3193,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="ContractorReference.SCC"
                   id="ContractorReference.SCC"
                   name="ContractorReference.SCC"
                   type="checkbox"
@@ -3142,6 +3229,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.80"
                   id="StatusCode.80"
                   name="StatusCode.80"
                   type="checkbox"
@@ -3158,6 +3246,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.50"
                   id="StatusCode.50"
                   name="StatusCode.50"
                   type="checkbox"
@@ -3174,6 +3263,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.30"
                   id="StatusCode.30"
                   name="StatusCode.30"
                   type="checkbox"
@@ -3190,6 +3280,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1010"
                   id="StatusCode.1010"
                   name="StatusCode.1010"
                   type="checkbox"
@@ -3206,6 +3297,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.90"
                   id="StatusCode.90"
                   name="StatusCode.90"
                   type="checkbox"
@@ -3222,6 +3314,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1080"
                   id="StatusCode.1080"
                   name="StatusCode.1080"
                   type="checkbox"
@@ -3238,6 +3331,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="StatusCode.1090"
                   id="StatusCode.1090"
                   name="StatusCode.1090"
                   type="checkbox"
@@ -3283,6 +3377,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.1"
                   id="Priorities.1"
                   name="Priorities.1"
                   type="checkbox"
@@ -3300,6 +3395,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
+                  data-testid="Priorities.2"
                   id="Priorities.2"
                   name="Priorities.2"
                   type="checkbox"
@@ -3334,6 +3430,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.DE"
                   id="TradeCodes.DE"
                   name="TradeCodes.DE"
                   type="checkbox"
@@ -3350,6 +3447,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.EL"
                   id="TradeCodes.EL"
                   name="TradeCodes.EL"
                   type="checkbox"
@@ -3366,6 +3464,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.GL"
                   id="TradeCodes.GL"
                   name="TradeCodes.GL"
                   type="checkbox"
@@ -3382,6 +3481,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
               >
                 <input
                   class="govuk-checkboxes__input"
+                  data-testid="TradeCodes.PL"
                   id="TradeCodes.PL"
                   name="TradeCodes.PL"
                   type="checkbox"

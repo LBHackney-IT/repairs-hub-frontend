@@ -1123,6 +1123,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <textarea
         aria-describedby="variationReason-hint variationReason-error"
         class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
         id="variationReason"
         name="variationReason"
         placeholder="Write a reason for the variation..."
@@ -1509,6 +1510,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <textarea
         aria-describedby="variationReason-hint variationReason-error"
         class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
         id="variationReason"
         name="variationReason"
         placeholder="Write a reason for the variation..."

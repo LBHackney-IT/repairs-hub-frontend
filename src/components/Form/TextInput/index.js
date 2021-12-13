@@ -41,6 +41,7 @@ const TextInput = ({
       })}
       id={name}
       name={name}
+      data-testid={name}
       type={type}
       ref={register}
       aria-describedby={hint && `${name}-hint`}
