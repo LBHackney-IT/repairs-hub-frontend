@@ -25,6 +25,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [isOvertime, setIsOvertime] = useState(false)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
@@ -139,14 +140,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
             .join(' - ')
         : notes
 
-    const CloseWorkOrderFormData = buildCloseWorkOrderData(
+    const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
       fullNotes,
       reference,
-      reason
+      reason,
+      isOvertime
     )
 
-    makePostRequest(CloseWorkOrderFormData, operativeAssignmentFormData)
+    makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
   }
 
   const changeCurrentPage = () => {
@@ -190,6 +192,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setReason(e.reason)
     setNotes(e.notes)
     setDateToShow(e.date)
+    setIsOvertime(e.isOvertime)
     changeCurrentPage()
     setCompletionTime(e.time)
   }
@@ -222,6 +225,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
+                  isOvertime={workOrder.isOvertime}
                 />
               )}
               {!CloseWorkOrderFormPage && (
@@ -243,6 +247,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
+                  isOvertime={isOvertime}
                 />
               )}
               {error && <ErrorMessage label={error} />}

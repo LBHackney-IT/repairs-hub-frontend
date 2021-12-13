@@ -50,6 +50,7 @@ describe('CloseWorkOrderForm component', () => {
           }
           closingByProxy={true}
           totalSMV={props.totalSMVs}
+          isOvertime={true}
         />
       </UserContext.Provider>
     )

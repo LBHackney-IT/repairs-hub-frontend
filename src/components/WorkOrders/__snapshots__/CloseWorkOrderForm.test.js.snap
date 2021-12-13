@@ -445,6 +445,24 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         </div>
       </div>
       <div
+        class="govuk-checkboxes__item govuk-!-margin-0"
+      >
+        <input
+          checked=""
+          class="govuk-checkboxes__input"
+          data-testid="isOvertime"
+          id="isOvertime"
+          name="isOvertime"
+          type="checkbox"
+        />
+        <label
+          class="govuk-label govuk-checkboxes__label lbh-body-xs overtime-checkbox"
+          for="isOvertime"
+        >
+          Overtime work order
+        </label>
+      </div>
+      <div
         class="govuk-form-group lbh-form-group"
         id="notes-form-group"
       >

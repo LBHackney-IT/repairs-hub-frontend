@@ -33,14 +33,16 @@ describe('Closing a work order on behalf of an operative', () => {
         { fixture: 'workOrders/workOrders.json' }
       ).as('workOrders')
 
-      // Viewing the work order page
-      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-        workOrder.reference = 10000040
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
-          { body: workOrder }
-        )
-      })
+      cy.fixture('workOrders/workOrder.json')
+        .then((workOrder) => {
+          workOrder.reference = 10000040
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000040' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
+
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000040/tasks' },
         { body: [] }
@@ -48,9 +50,8 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
-      )
+      ).as('property')
 
-      // Submitting the update
       cy.intercept(
         { method: 'POST', path: '/api/workOrderComplete' },
         { body: '' }
@@ -60,9 +61,13 @@ describe('Closing a work order on behalf of an operative', () => {
     it('takes you to close page', () => {
       cy.visit('/')
 
+      cy.wait(['@workOrderFilters', '@workOrders'])
+
       cy.get('.govuk-table__cell').within(() => {
         cy.contains('a', '10000040').click()
       })
+
+      cy.wait('@workOrder')
 
       cy.get('[data-testid="details"]').contains('Close').click({ force: true })
 
@@ -73,7 +78,7 @@ describe('Closing a work order on behalf of an operative', () => {
       })
     })
 
-    it('shows errors when submit with no inputs', () => {
+    it('shows errors when attempting submission with no inputs', () => {
       cy.visit('/work-orders/10000040/close')
 
       cy.get('form').within(() => {
@@ -87,7 +92,7 @@ describe('Closing a work order on behalf of an operative', () => {
       })
     })
 
-    it('shows errors when the raised date is after the completed date', () => {
+    it('shows errors when the supplied completion date is before the raised date', () => {
       cy.visit('/work-orders/10000040/close')
 
       cy.get('form').within(() => {
@@ -102,6 +107,25 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('form').within(() => {
         cy.contains('Completion date must be on or after 18/01/2021')
+      })
+    })
+
+    it('shows errors when the supplied completion date is in the future', () => {
+      cy.visit('/work-orders/10000040/close')
+
+      cy.get('form').within(() => {
+        cy.get('#date').type('2028-01-15')
+        cy.get('#time').within(() => {
+          cy.get('#time-time').type('32')
+          cy.get('#time-minutes').type('66')
+        })
+        cy.get('#notes').type('test')
+        cy.get('[type="submit"]').contains('Submit').click()
+      })
+
+      cy.get('form').within(() => {
+        cy.contains('Please select a date that is in the past')
+        cy.contains('Please enter a valid time')
       })
     })
 
@@ -129,26 +153,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-table__row').contains('test')
     })
 
-    it('submits the form with inputs that are invalid', () => {
-      cy.visit('/work-orders/10000040/close')
-
-      cy.get('form').within(() => {
-        cy.get('#date').type('2028-01-15')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('32')
-          cy.get('#time-minutes').type('66')
-        })
-        cy.get('#notes').type('test')
-        cy.get('[type="submit"]').contains('Submit').click()
-      })
-      // Check validation or similar messages - to check, reuse existing if possible
-      cy.get('form').within(() => {
-        cy.contains('Please select a date that is in the past')
-        cy.contains('Please enter a valid time')
-      })
-    })
-
-    it('submits the form with valid inputs and allows to edit them from summary page', () => {
+    it('submits the form with valid inputs and allows editing from the summary page', () => {
       cy.visit('/work-orders/10000040/close')
 
       cy.get('.operatives').should('not.exist')
@@ -227,6 +232,7 @@ describe('Closing a work order on behalf of an operative', () => {
               comments:
                 'Work order closed - This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
               eventTime: '2021-02-19T13:01:00.000Z',
+              isOvertime: false,
             },
           ],
         })
@@ -238,11 +244,8 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
-
-    // Closing work order becasue of No Access
 
     it('submits the form with closing reason: No Access', () => {
       cy.visit('/work-orders/10000040/close')
@@ -288,6 +291,7 @@ describe('Closing a work order on behalf of an operative', () => {
               otherType: 'complete',
               comments: 'Work order closed - Tenant was not at home',
               eventTime: '2021-01-19T13:01:00.000Z',
+              isOvertime: false,
             },
           ],
         })
@@ -295,8 +299,41 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.location('pathname').should('equal', '/')
       cy.contains('Manage work orders')
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
+    })
+
+    it('allows specifying an order as overtime', () => {
+      cy.visit('/work-orders/10000040/close')
+
+      cy.get('.operatives').should('not.exist')
+
+      cy.get('form').within(() => {
+        cy.get('[type="radio"]').last().check()
+
+        cy.get('#date').type('2021-01-23')
+
+        cy.get('#time').within(() => {
+          cy.get('#time-time').type('12')
+          cy.get('#time-minutes').type('00')
+        })
+
+        cy.get('[data-testid="isOvertime"]').check()
+
+        cy.get('#notes').type('This has been repaired during overtime.')
+        cy.get('[type="submit"]').contains('Submit').click()
+      })
+
+      cy.contains('th', 'Overtime').parent().contains('Yes')
+
+      cy.get('[type="submit"]').contains('Confirm and close').click()
+
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should(
+          'have.deep.nested.property',
+          'jobStatusUpdates[0].isOvertime',
+          true
+        )
     })
   })
 
@@ -568,6 +605,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: false,
               },
             ],
           })
@@ -746,6 +784,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: false,
               },
             ],
           })
@@ -885,6 +924,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y : 100%',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: false,
               },
             ],
           })
