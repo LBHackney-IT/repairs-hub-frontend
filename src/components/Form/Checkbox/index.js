@@ -24,6 +24,7 @@ const Checkbox = ({
       name={name}
       type="checkbox"
       ref={register}
+      data-testid={name}
       {...(checked && { defaultChecked: checked })}
     />
     <label

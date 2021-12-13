@@ -77,6 +77,7 @@ const TimeInput = forwardRef(
                   )}
                   id={`${name}-time`}
                   name={`${name}-time`}
+                  data-testid={`${name}-time`}
                   type="text"
                   ref={register}
                   pattern="^\d{1,2}$"
@@ -107,6 +108,7 @@ const TimeInput = forwardRef(
                   )}
                   id={`${name}-minutes`}
                   name={`${name}-minutes`}
+                  data-testid={`${name}-minutes`}
                   type="text"
                   ref={register}
                   pattern="^\d{1,2}$"

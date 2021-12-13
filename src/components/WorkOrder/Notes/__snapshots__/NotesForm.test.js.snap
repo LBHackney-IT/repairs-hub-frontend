@@ -70,6 +70,7 @@ exports[`NotesForm component should render properly when display form is true 1`
           <textarea
             aria-describedby="note-hint note-error"
             class="govuk-textarea lbh-textarea"
+            data-testid="note"
             id="note"
             name="note"
             placeholder="Write a new note..."

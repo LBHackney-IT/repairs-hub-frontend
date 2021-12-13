@@ -55,6 +55,7 @@ const Radio = ({
               type="radio"
               value={value}
               ref={register}
+              data-testid={name}
               aria-describedby={hint && `${name}-hint`}
               defaultChecked={defaultChecked}
               {...otherProps}

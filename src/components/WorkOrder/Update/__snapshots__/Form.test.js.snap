@@ -35,6 +35,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
                   id="originalRateScheduleItems[0][code]"
                   name="originalRateScheduleItems[0][code]"
@@ -58,6 +59,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
                   id="originalRateScheduleItems[0][quantity]"
                   name="originalRateScheduleItems[0][quantity]"
@@ -102,6 +104,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
+                  data-testid="sor-code-0"
                   disabled=""
                   id="sor-code-0"
                   name="sor-code-0"
@@ -131,6 +134,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input quantity-0 govuk-!-width-full"
+                  data-testid="quantity-0"
                   id="quantity-0"
                   name="quantity-0"
                   type="text"
@@ -155,6 +159,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
+                  data-testid="sor-code-1"
                   disabled=""
                   id="sor-code-1"
                   name="sor-code-1"
@@ -184,6 +189,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input quantity-1 govuk-!-width-full"
+                  data-testid="quantity-1"
                   id="quantity-1"
                   name="quantity-1"
                   type="text"
@@ -271,6 +277,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
           </label>
           <input
             class="govuk-input lbh-input govuk-!-width-full"
+            data-testid="rateScheduleItems[undefined][quantity]"
             id="rateScheduleItems[undefined][quantity]"
             name="rateScheduleItems[undefined][quantity]"
             type="text"
@@ -314,6 +321,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
       <textarea
         aria-describedby="variationReason-hint variationReason-error"
         class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
         id="variationReason"
         name="variationReason"
         placeholder="Write a reason for the variation..."

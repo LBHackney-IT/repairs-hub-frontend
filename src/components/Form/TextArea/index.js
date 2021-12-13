@@ -44,6 +44,7 @@ const TextArea = ({
       name={name}
       type={type}
       ref={register}
+      data-testid={name}
       rows={rows}
       aria-describedby={`${name}-hint ${name}-error`}
       value={value}

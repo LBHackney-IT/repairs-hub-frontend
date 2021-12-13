@@ -35,6 +35,7 @@ const DatePicker = ({
         className={cx(`govuk-input govuk-input--width-10`, {
           'govuk-input--error': error,
         })}
+        data-testid={name}
         type="date"
         ref={register}
         name={name}
