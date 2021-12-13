@@ -117,7 +117,8 @@ const OperativeWorkOrder = ({
       />
 
       {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-        isCurrentTimeOperativeOvertime() && (
+        isCurrentTimeOperativeOvertime() &&
+        !readOnly && (
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs overtime-checkbox"
@@ -139,6 +140,9 @@ const OperativeWorkOrder = ({
 
       {readOnly ? (
         <>
+          {workOrder.isOvertime && (
+            <h4 className="lbh-heading-h4">Overtime work order</h4>
+          )}
           <h4 className="lbh-heading-h4">Status</h4>
           <h5 className="lbh-heading-h5">{workOrder.status}</h5>
           <br />

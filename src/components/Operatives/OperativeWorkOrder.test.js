@@ -178,9 +178,10 @@ describe('OperativeWorkOrder component with single operative', () => {
     })
   })
 
-  describe('when has status Work Complete', () => {
+  describe('when has status Work Complete and work is overtime', () => {
     beforeAll(() => {
       workOrderData.status = 'Work Complete'
+      workOrderData.isOvertime = true
     })
 
     it('should render work order elements with Status Work Complete', () => {
