@@ -126,6 +126,7 @@ const OperativeWorkOrder = ({
             label="Overtime work order"
             checked={workOrder.isOvertime}
             register={register}
+            hintText="(SMVs not included in Bonus)"
           />
         )}
 
