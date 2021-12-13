@@ -77,7 +77,7 @@ export const serviceAPIRequest = cache(
       url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
       params: queryParams,
       paramsSerializer,
-      data: request.body,
+      ...(request.body && { data: request.body }),
     })
 
     if (cacheRequest && request.cache) {

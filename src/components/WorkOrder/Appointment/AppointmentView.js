@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getAvailableAppointments } from '@/utils/frontEndApiClient/appointments'
 import { beginningOfDay, beginningOfWeek, daysAfter } from '@/utils/time'
 import BackButton from '../../Layout/BackButton'
 import PropertyDetails from './PropertyDetails'
@@ -12,6 +11,7 @@ import AppointmentCalendar from './AppointmentCalendar'
 import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '@/models/workOrder'
+import { toISODate } from '../../../utils/date'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
@@ -58,11 +58,16 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       const currentDate = beginningOfDay(new Date())
       const startOfCalendar = beginningOfWeek(currentDate)
       const endOfCalendar = daysAfter(startOfCalendar, 34)
-      const availableAppointments = await getAvailableAppointments(
-        workOrderReference,
-        startOfCalendar,
-        endOfCalendar
-      )
+
+      const availableAppointments = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/appointments',
+        params: {
+          workOrderReference: workOrderReference,
+          fromDate: toISODate(startOfCalendar),
+          toDate: toISODate(endOfCalendar),
+        },
+      })
 
       setWorkOrder(workOrder)
       setTasksAndSors(tasksAndSors)

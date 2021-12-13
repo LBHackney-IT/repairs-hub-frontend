@@ -5,12 +5,14 @@ export const frontEndApiRequest = async ({
   path,
   params,
   requestData,
+  paramsSerializer,
 }) => {
   const { data } = await axios({
     method: method,
     url: path,
     params: params,
-    data: requestData,
+    ...(requestData && { data: requestData }),
+    ...(paramsSerializer && { paramsSerializer }),
   })
 
   return data

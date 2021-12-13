@@ -4,7 +4,6 @@ import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getSorCodes } from 'src/utils/frontEndApiClient/scheduleOfRates/codes'
 import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
@@ -94,11 +93,15 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: `/api/workOrders/${reference}/tasks`,
       })
 
-      const sorCodes = await getSorCodes(
-        workOrder.tradeCode,
-        workOrder.propertyReference,
-        workOrder.contractorReference
-      )
+      const sorCodes = await frontEndApiRequest({
+        path: '/api/schedule-of-rates/codes',
+        method: 'get',
+        params: {
+          tradeCode: workOrder.tradeCode,
+          propertyReference: workOrder.propertyReference,
+          contractorReference: workOrder.contractorReference,
+        },
+      })
 
       setCurrentUser(currentUser)
       setTasks(tasks)
