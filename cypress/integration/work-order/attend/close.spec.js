@@ -38,7 +38,64 @@ describe('Closing my own work order', () => {
 
       cy.get('[data-testid=isOvertime]').check()
 
-      cy.contains('a', 'Confirm').click()
+      cy.wait('@jobStatusUpdateRequest')
+
+      cy.get('@jobStatusUpdateRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000621',
+          },
+          comments: 'Overtime, SMVs not included in Bonus',
+          isOvertime: true,
+          typeCode: '80',
+          moreSpecificSORCode: {
+            rateScheduleItem: [
+              {
+                id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
+                customCode: 'DES5R013',
+                customName: 'Inspect additional sec entrance',
+                quantity: {
+                  amount: [5],
+                },
+              },
+              {
+                id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
+                customCode: 'DES5R005',
+                customName: 'Normal call outs',
+                quantity: {
+                  amount: [4],
+                },
+              },
+              {
+                id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+                customCode: 'DES5R006',
+                customName: 'Urgent call outs',
+                quantity: {
+                  amount: [2],
+                },
+              },
+            ],
+          },
+        })
+    })
+
+    it('the operative can set back to not overtime', () => {
+      cy.intercept('/api/workOrders/10000621', {
+        fixture: 'workOrders/workOrderWithOvertime',
+      }).as('workOrderWithOvertimeRequest')
+
+      cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait([
+        '@workOrderWithOvertimeRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
+      cy.get('[data-testid=isOvertime]').should('be.checked')
+
+      cy.get('[data-testid=isOvertime]').uncheck()
 
       cy.wait('@jobStatusUpdateRequest')
 
@@ -48,7 +105,8 @@ describe('Closing my own work order', () => {
           relatedWorkOrderReference: {
             id: '10000621',
           },
-          isOvertime: true,
+          isOvertime: false,
+          comments: 'Not Overtime, SMVs included in Bonus',
           typeCode: '80',
           moreSpecificSORCode: {
             rateScheduleItem: [

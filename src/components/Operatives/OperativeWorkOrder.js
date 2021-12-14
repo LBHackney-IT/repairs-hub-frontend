@@ -39,6 +39,32 @@ const OperativeWorkOrder = ({
   const { register, errors, handleSubmit } = useForm()
   const [error, setError] = useState()
 
+  const onOvertimeToggled = async (toggleData) => {
+    const notes = toggleData.isOvertime
+      ? 'Overtime, SMVs not included in Bonus'
+      : 'Not Overtime, SMVs included in Bonus'
+    try {
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: buildWorkOrderUpdate(
+          tasksAndSors,
+          [],
+          workOrderReference,
+          notes,
+          toggleData.isOvertime,
+          true
+        ),
+      })
+    } catch (e) {
+      console.error(e)
+
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
+    }
+  }
+
   const onFormSubmit = async (formData) => {
     try {
       await frontEndApiRequest({
@@ -49,7 +75,8 @@ const OperativeWorkOrder = ({
           [],
           workOrderReference,
           formData.variationReason,
-          formData.isOvertime
+          formData.isOvertime,
+          true
         ),
       })
 
@@ -119,15 +146,17 @@ const OperativeWorkOrder = ({
       {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
         isCurrentTimeOperativeOvertime() &&
         !readOnly && (
-          <Checkbox
-            className="govuk-!-margin-0"
-            labelClassName="lbh-body-xs display-flex"
-            name="isOvertime"
-            label="Overtime work order"
-            checked={workOrder.isOvertime}
-            register={register}
-            hintText="(SMVs not included in Bonus)"
-          />
+          <form onClick={handleSubmit(onOvertimeToggled)}>
+            <Checkbox
+              className="govuk-!-margin-0"
+              labelClassName="lbh-body-xs display-flex"
+              name="isOvertime"
+              label="Overtime work order"
+              checked={workOrder.isOvertime}
+              register={register}
+              hintText="(SMVs not included in Bonus)"
+            />
+          </form>
         )}
 
       {operativesCount > 1 && (
@@ -183,20 +212,18 @@ const OperativeWorkOrder = ({
               <PrimarySubmitButton label="Confirm" />
             </form>
           ) : (
-            <form onClick={handleSubmit(onFormSubmit)}>
-              <Link
-                href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
+            <Link
+              href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
+            >
+              <a
+                role="button"
+                draggable="false"
+                className="govuk-button lbh-button"
+                data-module="govuk-button"
               >
-                <a
-                  role="button"
-                  draggable="false"
-                  className="govuk-button lbh-button"
-                  data-module="govuk-button"
-                >
-                  Confirm
-                </a>
-              </Link>
-            </form>
+                Confirm
+              </a>
+            </Link>
           )}
         </>
       )}

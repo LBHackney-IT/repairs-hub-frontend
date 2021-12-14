@@ -365,17 +365,15 @@ exports[`OperativeWorkOrder component with multiple operatives should render wor
     Update operatives
   </a>
   <br />
-  <form>
-    <a
-      class="govuk-button lbh-button"
-      data-module="govuk-button"
-      draggable="false"
-      href="/operatives/undefined/work-orders/10000621/close"
-      role="button"
-    >
-      Confirm
-    </a>
-  </form>
+  <a
+    class="govuk-button lbh-button"
+    data-module="govuk-button"
+    draggable="false"
+    href="/operatives/undefined/work-orders/10000621/close"
+    role="button"
+  >
+    Confirm
+  </a>
 </DocumentFragment>
 `;
 
@@ -719,17 +717,15 @@ exports[`OperativeWorkOrder component with single operative when has status In P
     Add operatives
   </a>
   <br />
-  <form>
-    <a
-      class="govuk-button lbh-button"
-      data-module="govuk-button"
-      draggable="false"
-      href="/operatives/1/work-orders/10000621/close"
-      role="button"
-    >
-      Confirm
-    </a>
-  </form>
+  <a
+    class="govuk-button lbh-button"
+    data-module="govuk-button"
+    draggable="false"
+    href="/operatives/1/work-orders/10000621/close"
+    role="button"
+  >
+    Confirm
+  </a>
 </DocumentFragment>
 `;
 
