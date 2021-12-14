@@ -9,6 +9,8 @@ import {
   isWithinInterval,
 } from 'date-fns'
 import { bankHolidays } from './bankHolidays'
+import { lowPriorityHolidays } from './lowPriorityHolidays'
+import { LOW_PRIORITY_CODES } from './priorities'
 
 const WORKDAY_START_HOUR = 8
 const WORKDAY_END_HOUR = 18
@@ -39,11 +41,25 @@ export const isCurrentTimeOutOfHours = () => {
   return false
 }
 
-export const isNonWorkingDay = (date) => isWeekend(date) || isBankHoliday(date)
+export const isNonWorkingDay = (date, lowPriority = false) =>
+  isWeekend(date) ||
+  isBankHoliday(date) ||
+  (lowPriority && isLowPriorityHoliday(date))
+
+// Sometimes Hackney have holidays which only apply to low priority orders.
+const isLowPriorityHoliday = (date) => {
+  const formattedDate = format(date, 'yyyy-MM-dd')
+
+  return lowPriorityHolidays.some((holiday) => holiday === formattedDate)
+}
 
 // Returns supplied start date plus however many calendar days we loop over to satisfy
 // the required number of working days.
-const dateAfterCountWorkingDays = (startDate, targetWorkingDaysCount) => {
+const dateAfterCountWorkingDays = ({
+  startDate,
+  targetWorkingDaysCount,
+  lowPriority,
+}) => {
   let workingDaysCount = 0
   let calendarDaysCount = 0
 
@@ -52,7 +68,7 @@ const dateAfterCountWorkingDays = (startDate, targetWorkingDaysCount) => {
 
     const date = addDays(startDate, calendarDaysCount)
 
-    if (!isNonWorkingDay(date)) {
+    if (!isNonWorkingDay(date, lowPriority)) {
       workingDaysCount += 1
     }
   }
@@ -80,7 +96,11 @@ export const calculateCompletionDateTime = (priorityCode) => {
       now = subDays(now, 1)
     }
 
-    return dateAfterCountWorkingDays(now, completionTargetWorkingDays)
+    return dateAfterCountWorkingDays({
+      startDate: now,
+      targetWorkingDaysCount: completionTargetWorkingDays,
+      lowPriority: LOW_PRIORITY_CODES.includes(priorityCode),
+    })
   }
 }
 
