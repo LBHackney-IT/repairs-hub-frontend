@@ -5,7 +5,10 @@ import { convertToDateFormat } from '@/utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import {
+  buildCloseWorkOrderData,
+  buildWorkOrderCompleteNotes,
+} from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
@@ -85,6 +88,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         path: `/api/workOrders/${reference}`,
       })
       setWorkOrder(new WorkOrder(workOrder))
+      setIsOvertime(workOrder.isOvertime)
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
@@ -114,31 +118,17 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     getCloseWorkOrder()
   }, [])
 
-  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
-    return opsAndPercentages
-      .map(
-        (op) =>
-          `${op.operative.name}${op.percentage ? ` : ${op.percentage}` : ''}`
-      )
-      .join(', ')
-  }
   const onJobSubmit = async () => {
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       reference,
       operativesWithPercentages
     )
 
-    const fullNotes =
-      operativesWithPercentages.length > 0
-        ? [
-            notes,
-            `Assigned operatives ${operativesAndPercentagesForNotes(
-              operativesWithPercentages
-            )}`,
-          ]
-            .filter((s) => s)
-            .join(' - ')
-        : notes
+    let fullNotes = buildWorkOrderCompleteNotes(
+      notes,
+      operativesWithPercentages,
+      isOvertime
+    )
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
@@ -225,7 +215,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
-                  isOvertime={workOrder.isOvertime}
+                  isOvertime={isOvertime}
                 />
               )}
               {!CloseWorkOrderFormPage && (

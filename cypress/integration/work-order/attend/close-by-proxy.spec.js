@@ -327,11 +327,21 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
+      cy.wait('@apiCheck')
       cy.get('@apiCheck')
         .its('request.body')
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].isOvertime',
+          true
+        )
+
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should(
+          'have.deep.nested.property',
+          'jobStatusUpdates[0].comments',
+          'Work order closed - This has been repaired during overtime. - Overtime',
           true
         )
     })
@@ -432,6 +442,8 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('#time-minutes').type('01')
         })
         cy.get('#notes').type('A note')
+
+        cy.get('[data-testid="isOvertime"]').check()
 
         cy.get('.operatives').within(() => {
           cy.get('input[list]').should('have.length', 3)
@@ -603,9 +615,9 @@ describe('Closing a work order on behalf of an operative', () => {
                 typeCode: '70',
                 otherType: 'complete',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative Y : 70%, Operative A : 20%, Operative B : 10%, Operative Z : -',
+                  'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime',
                 eventTime: '2021-01-19T13:01:00.000Z',
-                isOvertime: false,
+                isOvertime: true,
               },
             ],
           })
