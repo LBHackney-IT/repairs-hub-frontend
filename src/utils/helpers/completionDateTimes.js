@@ -6,6 +6,7 @@ import {
   isWeekend,
   format,
   getHours,
+  isWithinInterval,
 } from 'date-fns'
 import { bankHolidays } from './bankHolidays'
 
@@ -80,5 +81,23 @@ export const calculateCompletionDateTime = (priorityCode) => {
     }
 
     return dateAfterCountWorkingDays(now, completionTargetWorkingDays)
+  }
+}
+
+export const isCurrentTimeOperativeOvertime = () => {
+  return isOperativeOverTime(new Date())
+}
+
+export const isOperativeOverTime = (date) => {
+  const startOfOperativeDay = new Date(date).setHours(8, 0, 0)
+  const endOfOperativeDay = new Date(date).setHours(16, 0, 0)
+
+  if (isNonWorkingDay(date)) {
+    return true
+  } else {
+    return !isWithinInterval(date, {
+      start: startOfOperativeDay,
+      end: endOfOperativeDay,
+    })
   }
 }
