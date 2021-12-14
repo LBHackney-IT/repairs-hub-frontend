@@ -134,11 +134,12 @@ const CloseWorkOrderForm = ({
             closingByProxy && (
               <Checkbox
                 className="govuk-!-margin-0"
-                labelClassName="lbh-body-xs overtime-checkbox"
+                labelClassName="lbh-body-xs display-flex"
                 name="isOvertime"
                 label="Overtime work order"
                 checked={isOvertime}
                 register={register}
+                hintText="(SMVs not included in Bonus)"
               />
             )}
 

@@ -295,6 +295,14 @@ describe('OperativeWorkOrder component with single operative', () => {
 })
 
 describe('OperativeWorkOrder component with multiple operatives', () => {
+  beforeEach(() => {
+    MockDate.set(new Date('Monday 13 December 2021 18:00'))
+  })
+
+  afterEach(() => {
+    MockDate.reset()
+  })
+
   const workOrderData = {
     reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',

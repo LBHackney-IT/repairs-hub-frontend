@@ -456,11 +456,17 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           type="checkbox"
         />
         <label
-          class="govuk-label govuk-checkboxes__label lbh-body-xs overtime-checkbox"
+          class="govuk-label govuk-checkboxes__label lbh-body-xs display-flex"
           for="isOvertime"
         >
           Overtime work order
         </label>
+        <span
+          class="govuk-hint govuk-checkboxes__hint lbh-hint"
+          id="government-gateway-item-hint"
+        >
+          (SMVs not included in Bonus)
+        </span>
       </div>
       <div
         class="govuk-form-group lbh-form-group"
