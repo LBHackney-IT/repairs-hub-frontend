@@ -14,7 +14,7 @@ export const buildScheduleWorkOrderFormData = (formData) => {
       priorityCode: Number.parseInt(formData.priorityCode),
       priorityDescription: formData.priorityDescription,
       requiredCompletionDateTime: calculateCompletionDateTime(
-        formData.priorityCode
+        Number.parseInt(formData.priorityCode)
       ),
       numberOfDays:
         priorityCodeCompletionTimes[formData.priorityCode].numberOfDays,
