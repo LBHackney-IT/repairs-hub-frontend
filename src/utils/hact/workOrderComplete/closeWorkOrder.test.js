@@ -1,4 +1,8 @@
-import { buildCloseWorkOrderData } from './closeWorkOrder'
+import {
+  buildCloseWorkOrderData,
+  buildWorkOrderCompleteNotes,
+} from './closeWorkOrder'
+
 describe('buildCloseWorkOrderData', () => {
   const completionDate = new Date(
     'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
@@ -58,5 +62,53 @@ describe('buildCloseWorkOrderData', () => {
       'No Access'
     )
     expect(response).toEqual(CloseWorkOrderFormData)
+  })
+})
+
+describe('buildWorkOrderCompleteNotes', () => {
+  describe('when there are operative percentages', () => {
+    describe('and isOvertime is false', () => {
+      it('includes names and percentages in the note', () => {
+        expect(
+          buildWorkOrderCompleteNotes(
+            'Comment from user',
+            [
+              { operative: { name: 'operativeA' }, percentage: 'percentage1' },
+              { operative: { name: 'operativeB' }, percentage: 'percentage2' },
+            ],
+            false
+          )
+        ).toEqual(
+          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2'
+        )
+      })
+    })
+
+    describe('and isOvertime is true', () => {
+      it('includes names without percentages and mentions overtime in the note', () => {
+        expect(
+          buildWorkOrderCompleteNotes(
+            'Comment from user',
+            [
+              { operative: { name: 'operativeA' }, percentage: 'percentage1' },
+              { operative: { name: 'operativeB' }, percentage: 'percentage2' },
+            ],
+            true
+          )
+        ).toEqual(
+          'Comment from user - Assigned operatives operativeA, operativeB - Overtime'
+        )
+      })
+    })
+  })
+
+  describe('when there are no operative percentages', () => {
+    describe('and isOvertime is true', () => {
+      it('mentions overtime in the notes', () => {
+        expect(
+          buildWorkOrderCompleteNotes('Comment from user', {}, true)
+        ).toEqual('Comment from user - Overtime')
+      })
+    })
   })
 })

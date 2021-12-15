@@ -54,6 +54,31 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__header"
               scope="row"
             >
+              Overtime
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              Yes
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="lbh-link"
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
               Operatives
             </th>
             <td

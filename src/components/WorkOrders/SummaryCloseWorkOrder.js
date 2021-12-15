@@ -12,6 +12,7 @@ const SummaryCloseWorkOrder = ({
   changeStep,
   reason,
   operativeNames,
+  isOvertime,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -27,6 +28,15 @@ const SummaryCloseWorkOrder = ({
               <TD>
                 {date.split('-').join('/')} {time}
               </TD>
+              <TD>
+                <a className="lbh-link" onClick={changeStep} href="#">
+                  Edit
+                </a>
+              </TD>
+            </TR>
+            <TR>
+              <TH scope="row">Overtime</TH>
+              <TD>{isOvertime ? 'Yes' : 'No'}</TD>
               <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
@@ -78,6 +88,7 @@ SummaryCloseWorkOrder.propTypes = {
   date: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
   reason: PropTypes.string.isRequired,
+  isOvertime: PropTypes.bool.isRequired,
 }
 
 export default SummaryCloseWorkOrder
