@@ -10,6 +10,7 @@ const Checkbox = ({
   className,
   hidden,
   labelClassName,
+  hintText,
 }) => (
   <div
     className={cx(`govuk-checkboxes__item ${className}`, {
@@ -24,6 +25,7 @@ const Checkbox = ({
       name={name}
       type="checkbox"
       ref={register}
+      data-testid={name}
       {...(checked && { defaultChecked: checked })}
     />
     <label
@@ -32,6 +34,14 @@ const Checkbox = ({
     >
       {label}
     </label>
+    {hintText && (
+      <span
+        id="government-gateway-item-hint"
+        class="govuk-hint govuk-checkboxes__hint lbh-hint"
+      >
+        {hintText}
+      </span>
+    )}
   </div>
 )
 
@@ -41,6 +51,7 @@ Checkbox.propTypes = {
   register: PropTypes.func.isRequired,
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
   labelClassName: PropTypes.string,
+  hintText: PropTypes.string,
 }
 
 export default Checkbox

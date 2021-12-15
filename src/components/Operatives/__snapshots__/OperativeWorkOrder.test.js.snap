@@ -1123,6 +1123,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <textarea
         aria-describedby="variationReason-hint variationReason-error"
         class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
         id="variationReason"
         name="variationReason"
         placeholder="Write a reason for the variation..."
@@ -1509,6 +1510,7 @@ exports[`OperativeWorkOrder component with single operative when has status In P
       <textarea
         aria-describedby="variationReason-hint variationReason-error"
         class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
         id="variationReason"
         name="variationReason"
         placeholder="Write a reason for the variation..."
@@ -1816,6 +1818,11 @@ exports[`OperativeWorkOrder component with single operative when has status No A
   <h4
     class="lbh-heading-h4"
   >
+    Overtime work order
+  </h4>
+  <h4
+    class="lbh-heading-h4"
+  >
     Status
   </h4>
   <h5
@@ -1827,7 +1834,7 @@ exports[`OperativeWorkOrder component with single operative when has status No A
 </DocumentFragment>
 `;
 
-exports[`OperativeWorkOrder component with single operative when has status Work Complete should render work order elements with Status Work Complete 1`] = `
+exports[`OperativeWorkOrder component with single operative when has status Work Complete and work is overtime should render work order elements with Status Work Complete 1`] = `
 <DocumentFragment>
   <div
     class="mobile-working-title-banner"
@@ -2104,6 +2111,11 @@ exports[`OperativeWorkOrder component with single operative when has status Work
     </tbody>
   </table>
   <br />
+  <h4
+    class="lbh-heading-h4"
+  >
+    Overtime work order
+  </h4>
   <h4
     class="lbh-heading-h4"
   >

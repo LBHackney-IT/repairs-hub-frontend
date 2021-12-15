@@ -217,6 +217,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                 </label>
                 <input
                   class="govuk-input lbh-input govuk-!-width-full"
+                  data-testid="rateScheduleItems[0][quantity]"
                   disabled=""
                   id="rateScheduleItems[0][quantity]"
                   name="rateScheduleItems[0][quantity]"
@@ -305,6 +306,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           <textarea
             aria-describedby="descriptionOfWork-hint descriptionOfWork-error"
             class="govuk-textarea lbh-textarea"
+            data-testid="descriptionOfWork"
             id="descriptionOfWork"
             name="descriptionOfWork"
             rows="4"
@@ -374,6 +376,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           </label>
           <input
             class="govuk-input lbh-input undefined"
+            data-testid="callerName"
             id="callerName"
             name="callerName"
             type="text"
@@ -397,6 +400,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           </label>
           <input
             class="govuk-input lbh-input undefined"
+            data-testid="contactNumber"
             id="contactNumber"
             name="contactNumber"
             type="text"

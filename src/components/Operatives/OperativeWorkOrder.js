@@ -8,7 +8,11 @@ import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { CharacterCountLimitedTextArea, PrimarySubmitButton } from '../Form'
+import {
+  CharacterCountLimitedTextArea,
+  PrimarySubmitButton,
+  Checkbox,
+} from '../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import ErrorMessage from '../Errors/ErrorMessage'
@@ -17,6 +21,7 @@ import OperativeList from './OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 import BackButton from '../Layout/BackButton'
+import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
 
 const OperativeWorkOrder = ({
   workOrderReference,
@@ -34,6 +39,32 @@ const OperativeWorkOrder = ({
   const { register, errors, handleSubmit } = useForm()
   const [error, setError] = useState()
 
+  const onOvertimeToggled = async (toggleData) => {
+    const notes = toggleData.isOvertime
+      ? 'Overtime, SMVs not included in Bonus'
+      : 'Not Overtime, SMVs included in Bonus'
+    try {
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/jobStatusUpdate`,
+        requestData: buildWorkOrderUpdate(
+          tasksAndSors,
+          [],
+          workOrderReference,
+          notes,
+          toggleData.isOvertime,
+          true
+        ),
+      })
+    } catch (e) {
+      console.error(e)
+
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
+    }
+  }
+
   const onFormSubmit = async (formData) => {
     try {
       await frontEndApiRequest({
@@ -43,7 +74,9 @@ const OperativeWorkOrder = ({
           tasksAndSors,
           [],
           workOrderReference,
-          formData.variationReason
+          formData.variationReason,
+          formData.isOvertime,
+          true
         ),
       })
 
@@ -110,6 +143,22 @@ const OperativeWorkOrder = ({
         readOnly={readOnly}
       />
 
+      {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
+        isCurrentTimeOperativeOvertime() &&
+        !readOnly && (
+          <form onClick={handleSubmit(onOvertimeToggled)}>
+            <Checkbox
+              className="govuk-!-margin-0"
+              labelClassName="lbh-body-xs display-flex"
+              name="isOvertime"
+              label="Overtime work order"
+              checked={workOrder.isOvertime}
+              register={register}
+              hintText="(SMVs not included in Bonus)"
+            />
+          </form>
+        )}
+
       {operativesCount > 1 && (
         <OperativeList
           operatives={workOrder.operatives}
@@ -121,6 +170,9 @@ const OperativeWorkOrder = ({
 
       {readOnly ? (
         <>
+          {workOrder.isOvertime && (
+            <h4 className="lbh-heading-h4">Overtime work order</h4>
+          )}
           <h4 className="lbh-heading-h4">Status</h4>
           <h5 className="lbh-heading-h5">{workOrder.status}</h5>
           <br />

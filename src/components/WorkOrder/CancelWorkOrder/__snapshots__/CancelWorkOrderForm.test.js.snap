@@ -117,6 +117,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             <textarea
               aria-describedby="cancelReason-hint cancelReason-error"
               class="govuk-textarea lbh-textarea"
+              data-testid="cancelReason"
               id="cancelReason"
               name="cancelReason"
               rows="4"
@@ -323,6 +324,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             <textarea
               aria-describedby="cancelReason-hint cancelReason-error"
               class="govuk-textarea lbh-textarea"
+              data-testid="cancelReason"
               id="cancelReason"
               name="cancelReason"
               rows="4"
@@ -529,6 +531,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             <textarea
               aria-describedby="cancelReason-hint cancelReason-error"
               class="govuk-textarea lbh-textarea"
+              data-testid="cancelReason"
               id="cancelReason"
               name="cancelReason"
               rows="4"
