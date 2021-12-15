@@ -20,6 +20,14 @@ jest.mock('./bankHolidays', () => ({
   },
 }))
 
+const mockLowPriorityHolidays = jest.fn()
+
+jest.mock('./lowPriorityHolidays', () => ({
+  get lowPriorityHolidays() {
+    return mockLowPriorityHolidays()
+  },
+}))
+
 describe('calculateCompletionDateTime', () => {
   beforeEach(() => {
     mockBankHolidays.mockReturnValue({
@@ -27,6 +35,8 @@ describe('calculateCompletionDateTime', () => {
         events: [],
       },
     })
+
+    mockLowPriorityHolidays.mockReturnValue([])
   })
 
   describe('when the priority code represents an immediate order', () => {
@@ -169,6 +179,26 @@ describe('calculateCompletionDateTime', () => {
         )
       })
     })
+
+    describe('and the work order is created when there are imminent low priority holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockLowPriorityHolidays.mockReturnValue(['2021-06-28']) // the following Monday
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time for the same time on the configured number of working days from now without including the low priority holiday', () => {
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Monday 28 June 2021 09:00:00Z')
+        )
+      })
+    })
   })
 
   describe('when the priority code represents an urgent order', () => {
@@ -259,6 +289,27 @@ describe('calculateCompletionDateTime', () => {
 
       it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
         // 5 working days into the future, as if the order had been raised on Friday and with the bank holiday accounted for
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Monday 5 July 2021 09:00:00Z')
+        )
+      })
+    })
+
+    describe('and the work order is created when there are imminent low priority holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockLowPriorityHolidays.mockReturnValue(['2021-06-28'])
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day with low priority holiday respected', () => {
+        // 5 working days into the future, as if the order had been raised on Friday and with the low priority holiday accounted for
         expect(calculateCompletionDateTime(priorityCode)).toEqual(
           new Date('Monday 5 July 2021 09:00:00Z')
         )
@@ -360,6 +411,27 @@ describe('calculateCompletionDateTime', () => {
 
       it('sets the target time as if the order had been raised on the preceding working day with bank holiday respected', () => {
         // 21 working days into the future, as if the order had been raised on Friday and with the 2 bank holidays accounted for
+        expect(calculateCompletionDateTime(priorityCode)).toEqual(
+          new Date('Wednesday 28 July 2021 09:00:00Z')
+        )
+      })
+    })
+
+    describe('and the work order is created when there are imminent low priority holidays', () => {
+      const dateTime = new Date('Saturday 26 June 2021 09:00:00Z')
+
+      beforeEach(() => {
+        MockDate.set(dateTime)
+
+        mockLowPriorityHolidays.mockReturnValue(['2021-06-28', '2021-07-26'])
+      })
+
+      afterEach(() => {
+        MockDate.reset()
+      })
+
+      it('sets the target time as if the order had been raised on the preceding working day with low priority holidays respected', () => {
+        // 21 working days into the future, as if the order had been raised on Friday and with the 2 low priority holidays accounted for
         expect(calculateCompletionDateTime(priorityCode)).toEqual(
           new Date('Wednesday 28 July 2021 09:00:00Z')
         )
