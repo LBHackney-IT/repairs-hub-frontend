@@ -5,7 +5,11 @@ import { convertToDateFormat } from '@/utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import {
+  buildCloseWorkOrderData,
+  buildWorkOrderCompleteNotes,
+} from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
@@ -25,9 +29,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [isOvertime, setIsOvertime] = useState(false)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
+  const [tasksAndSors, setTasksAndSors] = useState([])
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -46,25 +52,37 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setLoading(true)
 
     try {
-      if (workOrder.canAssignOperative) {
+      const requests = [
+        ...(workOrder.canAssignOperative
+          ? [
+              frontEndApiRequest({
+                method: 'post',
+                path: `/api/jobStatusUpdate`,
+                requestData: operativeAssignmentFormData,
+              }),
+            ]
+          : []),
         frontEndApiRequest({
           method: 'post',
           path: `/api/jobStatusUpdate`,
-          requestData: operativeAssignmentFormData,
-        }).then(() => {
-          frontEndApiRequest({
-            method: 'post',
-            path: `/api/workOrderComplete`,
-            requestData: workOrderCompleteFormData,
-          })
-        })
-      } else {
+          requestData: buildWorkOrderUpdate(
+            tasksAndSors,
+            [],
+            reference,
+            '',
+            isOvertime,
+            true
+          ),
+        }),
         frontEndApiRequest({
           method: 'post',
           path: `/api/workOrderComplete`,
           requestData: workOrderCompleteFormData,
-        })
-      }
+        }),
+      ]
+
+      for (const request of requests) await request
+
       router.push('/')
     } catch (e) {
       console.error(e)
@@ -83,7 +101,16 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
+
       setWorkOrder(new WorkOrder(workOrder))
+      setIsOvertime(workOrder.isOvertime)
+
+      const tasksAndSors = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${reference}/tasks`,
+      })
+
+      setTasksAndSors(tasksAndSors)
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
@@ -113,40 +140,26 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     getCloseWorkOrder()
   }, [])
 
-  const operativesAndPercentagesForNotes = (opsAndPercentages) => {
-    return opsAndPercentages
-      .map(
-        (op) =>
-          `${op.operative.name}${op.percentage ? ` : ${op.percentage}` : ''}`
-      )
-      .join(', ')
-  }
   const onJobSubmit = async () => {
     const operativeAssignmentFormData = buildOperativeAssignmentFormData(
       reference,
       operativesWithPercentages
     )
 
-    const fullNotes =
-      operativesWithPercentages.length > 0
-        ? [
-            notes,
-            `Assigned operatives ${operativesAndPercentagesForNotes(
-              operativesWithPercentages
-            )}`,
-          ]
-            .filter((s) => s)
-            .join(' - ')
-        : notes
+    let fullNotes = buildWorkOrderCompleteNotes(
+      notes,
+      operativesWithPercentages,
+      isOvertime
+    )
 
-    const CloseWorkOrderFormData = buildCloseWorkOrderData(
+    const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
       fullNotes,
       reference,
       reason
     )
 
-    makePostRequest(CloseWorkOrderFormData, operativeAssignmentFormData)
+    makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
   }
 
   const changeCurrentPage = () => {
@@ -190,6 +203,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setReason(e.reason)
     setNotes(e.notes)
     setDateToShow(e.date)
+    setIsOvertime(e.isOvertime)
     changeCurrentPage()
     setCompletionTime(e.time)
   }
@@ -222,6 +236,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
+                  isOvertime={isOvertime}
                 />
               )}
               {!CloseWorkOrderFormPage && (
@@ -243,6 +258,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
+                  isOvertime={isOvertime}
                 />
               )}
               {error && <ErrorMessage label={error} />}

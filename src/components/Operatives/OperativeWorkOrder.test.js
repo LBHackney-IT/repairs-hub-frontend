@@ -1,6 +1,7 @@
 import { render } from '@testing-library/react'
 import { WorkOrder } from '@/models/workOrder'
 import OperativeWorkOrder from './OperativeWorkOrder'
+import MockDate from 'mockdate'
 
 describe('OperativeWorkOrder component with single operative', () => {
   const workOrderData = {
@@ -74,6 +75,14 @@ describe('OperativeWorkOrder component with single operative', () => {
       ],
     },
   }
+
+  beforeEach(() => {
+    MockDate.set(new Date('Monday 13 December 2021 12:00'))
+  })
+
+  afterEach(() => {
+    MockDate.reset()
+  })
 
   describe('when has status In Progress', () => {
     const workOrder = new WorkOrder(workOrderData)
@@ -248,9 +257,52 @@ describe('OperativeWorkOrder component with single operative', () => {
       expect(asFragment()).toMatchSnapshot()
     })
   })
+
+  describe('when the current time is overtime', () => {
+    beforeEach(() => {
+      MockDate.set(new Date('Monday 13 December 2021 07:59'))
+    })
+
+    it('renders an overtime check box', () => {
+      const workOrder = new WorkOrder(workOrderData)
+      const { asFragment } = render(
+        <OperativeWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          personAlerts={props.alerts.personAlert}
+          locationAlerts={props.alerts.locationAlerts}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
 })
 
 describe('OperativeWorkOrder component with multiple operatives', () => {
+  beforeEach(() => {
+    MockDate.set(new Date('Monday 13 December 2021 18:00'))
+  })
+
+  afterEach(() => {
+    MockDate.reset()
+  })
+
   const workOrderData = {
     reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',

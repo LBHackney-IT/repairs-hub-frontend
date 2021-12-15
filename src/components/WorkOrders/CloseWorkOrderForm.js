@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { PrimarySubmitButton } from '../Form'
+import { Checkbox, PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import DatePicker from '../Form/DatePicker'
 import isPast from 'date-fns/isPast'
@@ -28,6 +28,7 @@ const CloseWorkOrderForm = ({
   selectedPercentagesToShowOnEdit,
   totalSMV,
   jobIsSplitByOperative,
+  isOvertime,
 }) => {
   const {
     handleSubmit,
@@ -129,6 +130,19 @@ const CloseWorkOrderForm = ({
             />
           )}
 
+          {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
+            closingByProxy && (
+              <Checkbox
+                className="govuk-!-margin-0"
+                labelClassName="lbh-body-xs display-flex"
+                name="isOvertime"
+                label="Overtime work order"
+                checked={isOvertime}
+                register={register}
+                hintText="(SMVs not included in Bonus)"
+              />
+            )}
+
           <TextArea
             name="notes"
             label="Add notes"
@@ -166,6 +180,7 @@ CloseWorkOrderForm.propTypes = {
   dateRaised: PropTypes.string,
   totalSMV: PropTypes.number.isRequired,
   jobIsSplitByOperative: PropTypes.bool.isRequired,
+  isOvertime: PropTypes.bool.isRequired,
 }
 
 export default CloseWorkOrderForm
