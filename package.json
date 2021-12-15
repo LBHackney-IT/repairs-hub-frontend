@@ -77,11 +77,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && yarn test:unit"
+      "pre-commit": ""
     }
   },
   "lint-staged": {
-    "**/*.{js,jsx}": "eslint --fix",
-    "**/*.{js,jsx,css,scss,md}": "prettier --write --list-different"
+    "**/*.{js,jsx}": "",
+    "**/*.{js,jsx,css,scss,md}": ""
   }
 }

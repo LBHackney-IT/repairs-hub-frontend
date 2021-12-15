@@ -44,6 +44,9 @@ const OperativeWorkOrderListItem = ({
           >
             {workOrder.priority.toLowerCase().split(' ').slice(-1)}
           </p>
+          <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
+            {`WO ${workOrder.reference}`}
+          </h3>
           <p className="lbh-body govuk-!-margin-0">{workOrder.property}</p>
           <p className="lbh-body govuk-!-margin-0 govuk-!-margin-bottom-8">
             {workOrder.propertyPostCode}

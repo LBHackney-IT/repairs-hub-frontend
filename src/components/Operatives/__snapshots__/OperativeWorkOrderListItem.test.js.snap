@@ -21,6 +21,11 @@ exports[`OperativeWorkOrderListItem component should render operativeWorkOrderLi
       >
         normal
       </p>
+      <h3
+        class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
+      >
+        WO 10000621
+      </h3>
       <p
         class="lbh-body govuk-!-margin-0"
       >
