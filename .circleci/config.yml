@@ -87,6 +87,7 @@ jobs:
             export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED=$OPERATIVE_SPLITTING_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_DEVELOPMENT
+            export NEXT_PUBLIC_CAN_CHOOSE_OVERTIME=$NEXT_PUBLIC_CAN_CHOOSE_OVERTIME_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage development
 
   build-deploy-staging:
@@ -104,6 +105,7 @@ jobs:
             export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_STAGING
             export NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED=$OPERATIVE_SPLITTING_ENABLED_STAGING
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_STAGING
+            export NEXT_PUBLIC_CAN_CHOOSE_OVERTIME=$NEXT_PUBLIC_CAN_CHOOSE_OVERTIME_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage staging
 
   build-deploy-production:
@@ -121,6 +123,7 @@ jobs:
             export NEXT_PUBLIC_PRINTING_ENABLED=$PRINTING_ENABLED_PRODUCTION
             export NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED=$OPERATIVE_SPLITTING_ENABLED_PRODUCTION
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_PRODUCTION
+            export NEXT_PUBLIC_CAN_CHOOSE_OVERTIME=$NEXT_PUBLIC_CAN_CHOOSE_OVERTIME_PRODUCTION
             yarn build && yarn --production=true && sudo npm i -g serverless && sls deploy --stage production
 
   assume-role-development:
