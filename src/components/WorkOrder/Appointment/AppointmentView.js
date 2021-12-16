@@ -57,7 +57,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       })
       const currentDate = beginningOfDay(new Date())
       const startOfCalendar = beginningOfWeek(currentDate)
-      const endOfCalendar = daysAfter(startOfCalendar, 34)
+      const endOfCalendar = daysAfter(startOfCalendar, 41)
 
       const availableAppointments = await frontEndApiRequest({
         method: 'get',

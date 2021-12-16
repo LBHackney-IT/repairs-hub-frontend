@@ -22,7 +22,7 @@ const AppointmentCalendar = ({
   const [slots, setSlots] = useState(null)
   const [onSummaryPage, setOnSummaryPage] = useState(false)
 
-  const dates = [0, 1, 2, 3, 4].map((week) =>
+  const dates = [0, 1, 2, 3, 4, 5].map((week) =>
     [0, 1, 2, 3, 4, 5, 6].map((day) =>
       daysAfter(startOfCalendar, day + week * 7)
     )
