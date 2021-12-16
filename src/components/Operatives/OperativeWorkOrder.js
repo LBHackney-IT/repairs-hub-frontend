@@ -39,33 +39,10 @@ const OperativeWorkOrder = ({
   const { register, errors, handleSubmit } = useForm()
   const [error, setError] = useState()
 
-  const onOvertimeToggled = async (toggleData) => {
-    const notes = toggleData.isOvertime
-      ? 'Overtime, SMVs not included in Bonus'
-      : 'Not Overtime, SMVs included in Bonus'
-    try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: buildWorkOrderUpdate(
-          tasksAndSors,
-          [],
-          workOrderReference,
-          notes,
-          toggleData.isOvertime,
-          true
-        ),
-      })
-    } catch (e) {
-      console.error(e)
-
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
-    }
-  }
-
   const onFormSubmit = async (formData) => {
+    const isOvertime = formData.isOvertime || false
+    const variationReason = formData.variationReason || ''
+
     try {
       await frontEndApiRequest({
         method: 'post',
@@ -74,8 +51,8 @@ const OperativeWorkOrder = ({
           tasksAndSors,
           [],
           workOrderReference,
-          formData.variationReason,
-          formData.isOvertime,
+          variationReason,
+          isOvertime,
           true
         ),
       })
@@ -128,25 +105,25 @@ const OperativeWorkOrder = ({
         <BackButton />
       </div>
 
-      <OperativeWorkOrderDetails
-        property={property}
-        workOrder={workOrder}
-        personAlerts={personAlerts}
-        locationAlerts={locationAlerts}
-        tasksAndSors={tasksAndSors}
-      />
+      <form onSubmit={handleSubmit(onFormSubmit)}>
+        <OperativeWorkOrderDetails
+          property={property}
+          workOrder={workOrder}
+          personAlerts={personAlerts}
+          locationAlerts={locationAlerts}
+          tasksAndSors={tasksAndSors}
+        />
 
-      <OperativeTasksAndSorsTable
-        workOrderReference={workOrderReference}
-        tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
-        tabName={'Tasks and SORs'}
-        readOnly={readOnly}
-      />
+        <OperativeTasksAndSorsTable
+          workOrderReference={workOrderReference}
+          tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
+          tabName={'Tasks and SORs'}
+          readOnly={readOnly}
+        />
 
-      {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-        isCurrentTimeOperativeOvertime() &&
-        !readOnly && (
-          <form onClick={handleSubmit(onOvertimeToggled)}>
+        {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
+          isCurrentTimeOperativeOvertime() &&
+          !readOnly && (
             <Checkbox
               className="govuk-!-margin-0"
               labelClassName="lbh-body-xs display-flex"
@@ -156,49 +133,54 @@ const OperativeWorkOrder = ({
               register={register}
               hintText="(SMVs not included in Bonus)"
             />
-          </form>
+          )}
+
+        {operativesCount > 1 && (
+          <OperativeList
+            operatives={workOrder.operatives}
+            currentUserPayrollNumber={currentUserPayrollNumber}
+            workOrderReference={workOrderReference}
+            readOnly={readOnly}
+          />
         )}
 
-      {operativesCount > 1 && (
-        <OperativeList
-          operatives={workOrder.operatives}
-          currentUserPayrollNumber={currentUserPayrollNumber}
-          workOrderReference={workOrderReference}
-          readOnly={readOnly}
-        />
-      )}
+        {readOnly && (
+          <>
+            {workOrder.isOvertime && (
+              <h4 className="lbh-heading-h4">Overtime work order</h4>
+            )}
+            <h4 className="lbh-heading-h4">Status</h4>
+            <h5 className="lbh-heading-h5">{workOrder.status}</h5>
+            <br />
+          </>
+        )}
 
-      {readOnly ? (
-        <>
-          {workOrder.isOvertime && (
-            <h4 className="lbh-heading-h4">Overtime work order</h4>
-          )}
-          <h4 className="lbh-heading-h4">Status</h4>
-          <h5 className="lbh-heading-h5">{workOrder.status}</h5>
-          <br />
-        </>
-      ) : (
-        <>
-          <WarningInfoBox
-            header="Need to make a change?"
-            text="Any changes to the work order must be made on paper."
-          />
-          <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-            <a
-              role="button"
-              draggable="false"
-              className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-              data-module="govuk-button"
-            >
-              Add new SOR
-            </a>
-          </Link>
-          <br />
-          {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-            'true' && renderOperativeManagementLink(operativesCount)}
-          {error && <ErrorMessage label={error} />}
-          {areTasksUpdated(tasksAndSors) ? (
-            <form onSubmit={handleSubmit(onFormSubmit)}>
+        {!readOnly && (
+          <>
+            <WarningInfoBox
+              header="Need to make a change?"
+              text="Any changes to the work order must be made on paper."
+            />
+
+            <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+              <a
+                role="button"
+                draggable="false"
+                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                data-module="govuk-button"
+              >
+                Add new SOR
+              </a>
+            </Link>
+
+            <br />
+
+            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
+              'true' && renderOperativeManagementLink(operativesCount)}
+
+            {error && <ErrorMessage label={error} />}
+
+            {areTasksUpdated(tasksAndSors) && (
               <CharacterCountLimitedTextArea
                 name="variationReason"
                 maxLength={250}
@@ -209,24 +191,12 @@ const OperativeWorkOrder = ({
                 register={register}
                 error={errors && errors.variationReason}
               />
-              <PrimarySubmitButton label="Confirm" />
-            </form>
-          ) : (
-            <Link
-              href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`}
-            >
-              <a
-                role="button"
-                draggable="false"
-                className="govuk-button lbh-button"
-                data-module="govuk-button"
-              >
-                Confirm
-              </a>
-            </Link>
-          )}
-        </>
-      )}
+            )}
+
+            <PrimarySubmitButton label="Confirm" />
+          </>
+        )}
+      </form>
     </>
   )
 }
