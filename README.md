@@ -31,7 +31,11 @@ Install the dependencies:
 yarn install
 ```
 
-### Logging in
+### Environment variables
+
+Create your `.env` file from `.env.sample`. You will need to grab some secrets from the team.
+
+### Authentication setup
 
 First, you need a `@hackney.gov.uk` Google account in the right groups to log in. Speak to Hackney IT if you don't have these.
 
@@ -40,8 +44,6 @@ Next, you need to tell your computer to run the app from a `hackney.gov.uk` doma
 ```
 127.0.0.1       localdev.hackney.gov.uk
 ```
-
-Lastly, create your `.env` file from `.env.sample`. You will need to grab some secrets from the team.
 
 ### Tests
 
