@@ -396,8 +396,13 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000032]').should('not.exist')
 
       // Uncheck emergency checkbox and now we should see all the work orders
-      cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').uncheck()
-      cy.get('[type="submit"]').contains('Apply filters').click()
+      cy.get('.govuk-checkboxes')
+        .find('[name="Priorities.2"]')
+        .uncheck({ force: true })
+      cy.get('[data-cy=apply-filters]')
+        .contains('Apply filters')
+        .click({ force: true })
+      //cy.get('[type="submit"]').contains('Apply filters').click({force: true})
 
       cy.wait('@filters')
 
@@ -416,9 +421,11 @@ describe('Filter work orders', () => {
         .find('[name="ContractorReference.PCL"]')
         .check()
       cy.get('.trade-filters').within(() => {
-        cy.contains('Show all 6').click()
+        cy.contains('Show all 6').click({ force: true })
       })
-      cy.get('.govuk-checkboxes').find('[name="TradeCodes.PL"]').check()
+      cy.get('.govuk-checkboxes')
+        .find('[name="TradeCodes.PL"]')
+        .check({ force: true })
       cy.get('[type="submit"]').contains('Apply filters').click()
 
       cy.wait('@filters')
