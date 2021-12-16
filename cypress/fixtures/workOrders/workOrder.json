@@ -19,5 +19,6 @@
   "operatives": [],
   "externalAppointmentManagementUrl": null,
   "canAssignOperative": false,
-  "totalSMVs": 76
+  "totalSMVs": 76,
+  "isOvertime": false
 }

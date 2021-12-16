@@ -75,7 +75,7 @@ const CloseWorkOrder = ({ reference }) => {
   const onSubmit = async (data) => {
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      data.notes,
+      `${data.notes}${workOrder.isOvertime ? ' - Overtime' : ''}`,
       reference,
       data.reason
     )
