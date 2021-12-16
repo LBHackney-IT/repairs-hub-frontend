@@ -87,7 +87,7 @@ describe('OperativeWorkOrder component with single operative', () => {
   describe('when has status In Progress', () => {
     const workOrder = new WorkOrder(workOrderData)
 
-    it('should render work order elements with a close link when unvaried', () => {
+    it('should render work order elements when unvaried without a variation textbox', () => {
       const { asFragment } = render(
         <OperativeWorkOrder
           workOrderReference={workOrder.reference}
