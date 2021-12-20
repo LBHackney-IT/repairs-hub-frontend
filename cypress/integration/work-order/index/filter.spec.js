@@ -216,7 +216,7 @@ describe('Filter work orders', () => {
 
       // Filter by work order complete
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').check()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
@@ -233,7 +233,7 @@ describe('Filter work orders', () => {
 
       // Filter by work order complete and Variation Pending Approval
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
@@ -251,7 +251,7 @@ describe('Filter work orders', () => {
 
       // Remove filter by work order complete
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').uncheck()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.get('[data-ref=10000030]').within(() => {
         cy.contains('Variation Pending Approval')
@@ -266,7 +266,7 @@ describe('Filter work orders', () => {
       // Add filter by work order in progress and emergency priority
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
@@ -322,7 +322,7 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').uncheck()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').uncheck()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.30"]').check()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.get('[data-ref=10000037]').should('not.exist')
       cy.get('[data-ref=10000036]').should('not.exist')
@@ -383,7 +383,7 @@ describe('Filter work orders', () => {
       // Uncheck all status options and now we should see all emergency work orders
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').uncheck()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').uncheck()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       // Only emergency priority work orders
       cy.get('[data-ref=10000040]').within(() => {
@@ -396,12 +396,8 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000032]').should('not.exist')
 
       // Uncheck emergency checkbox and now we should see all the work orders
-      cy.get('.govuk-checkboxes')
-        .find('[name="Priorities.2"]')
-        .uncheck({ force: true })
-      cy.get('[data-cy=apply-filters]')
-        .contains('Apply filters')
-        .click({ force: true })
+      cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').uncheck()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.wait('@filters')
 
@@ -420,12 +416,10 @@ describe('Filter work orders', () => {
         .find('[name="ContractorReference.PCL"]')
         .check()
       cy.get('.trade-filters').within(() => {
-        cy.contains('Show all 6').click({ force: true })
+        cy.contains('Show all 6').click()
       })
-      cy.get('.govuk-checkboxes')
-        .find('[name="TradeCodes.PL"]')
-        .check({ force: true })
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('.govuk-checkboxes').find('[name="TradeCodes.PL"]').check()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.wait('@filters')
 
@@ -452,7 +446,12 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
-      cy.get('[data-cy=apply-filters]').contains('Apply filters').click()
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.wait([
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+        '@filters',
+      ])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
