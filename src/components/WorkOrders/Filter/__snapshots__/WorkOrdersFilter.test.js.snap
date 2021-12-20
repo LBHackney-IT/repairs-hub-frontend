@@ -167,8 +167,8 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -706,8 +706,8 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -1174,8 +1174,8 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -1625,8 +1625,8 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -2164,8 +2164,8 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -2686,8 +2686,8 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters
@@ -3137,8 +3137,8 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
         >
           <button
             class="govuk-button lbh-button"
-            data-cy="apply-filters"
             data-module="govuk-button"
+            data-testid="apply-filters"
             type="submit"
           >
             Apply filters

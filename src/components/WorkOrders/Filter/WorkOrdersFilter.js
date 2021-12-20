@@ -161,7 +161,11 @@ const WorkOrdersFilter = ({
         />
 
         <div className="govuk-!-padding-left-2 govuk-!-margin-top-0">
-          <Button label="Apply filters" type="submit" data-cy="apply-filters" />
+          <Button
+            label="Apply filters"
+            type="submit"
+            data-testid="apply-filters"
+          />
         </div>
 
         {showContractorFilters() && (
