@@ -75,9 +75,9 @@ const TimeInput = forwardRef(
                       'govuk-input--error': error,
                     }
                   )}
-                  id={`${name}-time`}
-                  name={`${name}-time`}
-                  data-testid={`${name}-time`}
+                  id={`${name}-hour`}
+                  name={`${name}-hour`}
+                  data-testid={`${name}-hour`}
                   type="text"
                   ref={register}
                   pattern="^\d{1,2}$"

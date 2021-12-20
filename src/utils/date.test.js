@@ -108,12 +108,7 @@ describe('date', () => {
 
 describe('convertToDateFormat', () => {
   it('creates a date', () => {
-    const stringToFormat = {
-      date: '2021-01-20',
-      time: '12:12:00',
-    }
-
-    expect(convertToDateFormat(stringToFormat)).toEqual(
+    expect(convertToDateFormat('2021-01-20', '12:12:00')).toEqual(
       new Date('2021-01-20T12:12:00.00')
     )
   })

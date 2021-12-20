@@ -97,7 +97,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <fieldset
-          aria-describedby="time-hint"
+          aria-describedby="completionTime-hint"
           class="govuk-fieldset lbh-fieldset"
           role="group"
         >
@@ -108,13 +108,13 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           </legend>
           <span
             class="govuk-hint lbh-hint"
-            id="time-hint"
+            id="completionTime-hint"
           >
             Use 24h format. For example, 14:30
           </span>
           <div
             class="govuk-date-input lbh-date-input"
-            id="time"
+            id="completionTime"
           >
             <div
               class="govuk-date-input__item"
@@ -124,16 +124,16 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               >
                 <label
                   class="govuk-label lbh-label govuk-date-input__label"
-                  for="time-hour"
+                  for="completionTime-hour"
                 >
                   Hour
                 </label>
                 <input
                   class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="time-time"
-                  id="time-time"
+                  data-testid="completionTime-hour"
+                  id="completionTime-hour"
                   inputmode="numeric"
-                  name="time-time"
+                  name="completionTime-hour"
                   pattern="^\\\\d{1,2}$"
                   type="text"
                   value="14"
@@ -148,16 +148,16 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               >
                 <label
                   class="govuk-label lbh-label govuk-date-input__label"
-                  for="time-minutes"
+                  for="completionTime-minutes"
                 >
                   Minutes
                 </label>
                 <input
                   class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="time-minutes"
-                  id="time-minutes"
+                  data-testid="completionTime-minutes"
+                  id="completionTime-minutes"
                   inputmode="numeric"
-                  name="time-minutes"
+                  name="completionTime-minutes"
                   pattern="^\\\\d{1,2}$"
                   type="text"
                   value="30"

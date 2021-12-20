@@ -11,7 +11,6 @@ describe('Closing a work order on behalf of an operative', () => {
       { body: [] }
     )
 
-    // Viewing the home page
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       {
@@ -87,6 +86,8 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when attempting submission with no inputs', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('form').within(() => {
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -101,12 +102,14 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when the supplied completion date is before the raised date', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('form').within(() => {
         cy.get('#date').type('2021-01-17') //Raised on 2021-01-18
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('32')
-          cy.get('#time-minutes').type('66')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').type('32')
+        cy.get('[data-testid=completionTime-minutes]').type('66')
+
         cy.get('#notes').type('test')
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -119,12 +122,14 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when the supplied completion date is in the future', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('form').within(() => {
         cy.get('#date').type('2028-01-15')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('32')
-          cy.get('#time-minutes').type('66')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').type('32')
+        cy.get('[data-testid=completionTime-minutes]').type('66')
+
         cy.get('#notes').type('test')
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -138,13 +143,15 @@ describe('Closing a work order on behalf of an operative', () => {
     it('does not show errors when the raised date is on the completed date', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('form').within(() => {
         cy.get('[type="radio"]').first().check()
         cy.get('#date').type('2021-01-18') //Raised on 2021-01-18, 15:28
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('12')
-          cy.get('#time-minutes').type('45')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').type('12')
+        cy.get('[data-testid=completionTime-minutes]').type('45')
+
         cy.get('#notes').type('test')
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -162,6 +169,8 @@ describe('Closing a work order on behalf of an operative', () => {
     it('submits the form with valid inputs and allows editing from the summary page', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('.operatives').should('not.exist')
 
       // Enter 19 Janurary 2021 at 14:45
@@ -173,12 +182,13 @@ describe('Closing a work order on behalf of an operative', () => {
         //choose No Access reason
         cy.get('[type="radio"]').last().check()
         cy.get('#date').type('2021-01-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').clear()
-          cy.get('#time-minutes').clear()
-          cy.get('#time-time').type('14')
-          cy.get('#time-minutes').type('45')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('14')
+        cy.get('[data-testid=completionTime-minutes]').type('45')
+
         cy.get('#notes').type('This has been repaired.')
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -198,12 +208,13 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('form').within(() => {
         cy.get('[type="radio"]').first().check()
         cy.get('#date').type('2021-02-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').clear()
-          cy.get('#time-minutes').clear()
-          cy.get('#time-time').type('13')
-          cy.get('#time-minutes').type('01')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('13')
+        cy.get('[data-testid=completionTime-minutes]').type('01')
+
         cy.get('#notes').type(
           'This has been repaired and I forgot I did it on a completely different date and time.'
         )
@@ -222,6 +233,8 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-table__row').contains('Operatives').should('not.exist')
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
+
+      cy.wait(['@jobStatusUpdateRequest', '@apiCheck'])
 
       cy.get('@apiCheck')
         .its('request.body')
@@ -255,21 +268,25 @@ describe('Closing a work order on behalf of an operative', () => {
     it('submits the form with closing reason: No Access', () => {
       cy.visit('/work-orders/10000040/close')
 
-      // Enter 19 January 2021 at 13:01
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('form').within(() => {
         cy.get('[type="radio"]')
           .first()
           .should('have.value', 'Work Order Completed')
-        cy.get('[type="radio"]').last().should('have.value', 'No Access')
+
         //choose No Access reason
+        cy.get('[type="radio"]').last().should('have.value', 'No Access')
         cy.get('[type="radio"]').last().check()
+
         cy.get('#date').type('2021-01-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').clear()
-          cy.get('#time-minutes').clear()
-          cy.get('#time-time').type('13')
-          cy.get('#time-minutes').type('01')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('13')
+        cy.get('[data-testid=completionTime-minutes]').type('01')
+
         cy.get('#notes').type('Tenant was not at home')
         cy.get('[type="submit"]').contains('Submit').click()
       })
@@ -281,6 +298,8 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-table__row').contains('Notes')
       cy.get('.govuk-table__row').contains('Tenant was not at home')
       cy.get('[type="submit"]').contains('Confirm and close').click()
+
+      cy.wait(['@jobStatusUpdateRequest', '@apiCheck'])
 
       cy.get('@apiCheck')
         .its('request.body')
@@ -300,6 +319,8 @@ describe('Closing a work order on behalf of an operative', () => {
           ],
         })
 
+      cy.wait(['@workOrderFilters', '@workOrders'])
+
       cy.location('pathname').should('equal', '/')
       cy.contains('Manage work orders')
 
@@ -309,6 +330,8 @@ describe('Closing a work order on behalf of an operative', () => {
     it('allows specifying an order as overtime', () => {
       cy.visit('/work-orders/10000040/close')
 
+      cy.wait(['@workOrder', '@tasksRequest'])
+
       cy.get('.operatives').should('not.exist')
 
       cy.get('form').within(() => {
@@ -316,10 +339,8 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('#date').type('2021-01-23')
 
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('12')
-          cy.get('#time-minutes').type('00')
-        })
+        cy.get('[data-testid=completionTime-hour]').type('12')
+        cy.get('[data-testid=completionTime-minutes]').type('00')
 
         cy.get('[data-testid="isOvertime"]').check()
 
@@ -355,19 +376,18 @@ describe('Closing a work order on behalf of an operative', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
 
-        // Viewing the home page
         cy.intercept(
           { method: 'GET', path: '/api/filter/WorkOrder' },
           {
             fixture: 'filter/workOrder.json',
           }
         ).as('workOrderFilters')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
           { fixture: 'workOrders/workOrders.json' }
         ).as('workOrders')
 
-        // Viewing the work order page
         cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           workOrder.reference = 10000040
           workOrder.canAssignOperative = true
@@ -435,16 +455,17 @@ describe('Closing a work order on behalf of an operative', () => {
       it('requires total value of split % to be 100', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest'])
-
-        cy.wait('@operatives')
+        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
 
         cy.get('[type="radio"]').last().check()
         cy.get('#date').type('2021-01-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('13')
-          cy.get('#time-minutes').type('01')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('13')
+        cy.get('[data-testid=completionTime-minutes]').type('01')
+
         cy.get('#notes').type('A note')
 
         cy.get('[data-testid="isOvertime"]').check()
@@ -456,7 +477,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
           cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
         })
-        //checks percentage
+
         cy.get('.select-percentage').within(() => {
           cy.get('select').should('have.length', 3)
 
@@ -465,7 +486,6 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('select').eq(2).should('have.value', '33.3%')
         })
 
-        //checks smv
         cy.get('.smv-read-only').should('have.length', 3)
 
         cy.get('.smv-read-only').eq(0).contains('25.31')
@@ -518,6 +538,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').should('have.length', 4)
         })
 
+        // total of split percentages is more than 100
         cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
@@ -525,7 +546,6 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('select').eq(3).select('10%')
         })
 
-        //total of split percentages is more than 100
         cy.get('.smv-read-only').should('have.length', 4)
 
         cy.get('.smv-read-only').eq(0).contains('53.20')
@@ -539,7 +559,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('Work done total across operatives must be equal to 100%')
         })
 
-        //now total is 100
+        // now total is 100
         cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).select('70%')
           cy.get('select').eq(1).select('20%')
@@ -640,19 +660,18 @@ describe('Closing a work order on behalf of an operative', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
 
-        // Viewing the home page
         cy.intercept(
           { method: 'GET', path: '/api/filter/WorkOrder' },
           {
             fixture: 'filter/workOrder.json',
           }
         ).as('workOrderFilters')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
           { fixture: 'workOrders/workOrders.json' }
         ).as('workOrders')
 
-        // Viewing the work order page
         cy.fixture('workOrders/workOrder.json').then((workOrder) => {
           workOrder.reference = 10000040
           workOrder.canAssignOperative = true
@@ -704,7 +723,6 @@ describe('Closing a work order on behalf of an operative', () => {
           }
         ).as('operatives')
 
-        // Submitting the update
         cy.intercept(
           { method: 'POST', path: '/api/workOrderComplete' },
           { body: '' }
@@ -719,16 +737,17 @@ describe('Closing a work order on behalf of an operative', () => {
       it('closes work order with existing pre-split by operative', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest'])
-
-        cy.wait('@operatives')
+        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
 
         cy.get('[type="radio"]').first().check()
         cy.get('#date').type('2021-01-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('13')
-          cy.get('#time-minutes').type('01')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('13')
+        cy.get('[data-testid=completionTime-minutes]').type('01')
+
         cy.get('#notes').type('A note')
 
         cy.get('.operatives').within(() => {
@@ -738,7 +757,6 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
         })
 
-        //checks percentage
         cy.get('.select-percentage').within(() => {
           cy.get('select').should('have.length', 2)
 
@@ -746,7 +764,6 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('select').eq(1).should('have.value', '60%')
         })
 
-        //checks smv
         cy.get('.smv-read-only').should('have.length', 2)
 
         cy.get('.smv-read-only').eq(0).contains('30.40')
@@ -863,9 +880,7 @@ describe('Closing a work order on behalf of an operative', () => {
       it('requires the submission of at least one operative', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest'])
-
-        cy.wait('@operatives')
+        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
 
         cy.get('.operatives').within(() => {
           cy.get('input[list]').should('have.length', 1)
@@ -883,10 +898,13 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('[type="radio"]').last().check()
         cy.get('#date').type('2021-01-19')
-        cy.get('#time').within(() => {
-          cy.get('#time-time').type('13')
-          cy.get('#time-minutes').type('01')
-        })
+
+        cy.get('[data-testid=completionTime-hour]').clear()
+        cy.get('[data-testid=completionTime-minutes]').clear()
+
+        cy.get('[data-testid=completionTime-hour]').type('13')
+        cy.get('[data-testid=completionTime-minutes]').type('01')
+
         cy.get('#notes').type('A note')
 
         cy.get('.operatives').within(() => {
@@ -898,7 +916,6 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('.select-percentage').within(() => {
           cy.get('select').eq(0).should('have.value', '100%')
         })
-        //should have smv as 76
 
         cy.get('.smv-read-only').should('have.length', 1)
 
