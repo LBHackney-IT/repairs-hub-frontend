@@ -26,8 +26,8 @@ export const convertFormat = (date) => {
   return `${values[0]}-${values[1]}-${values[2]}`
 }
 
-export const convertToDateFormat = (string) => {
-  const dateAsString = `${string.date}T${string.time}`
+export const convertToDateFormat = (dateString, timeString) => {
+  const dateAsString = `${dateString}T${timeString}`
   return convertDate(dateAsString)
 }
 
