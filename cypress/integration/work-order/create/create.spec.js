@@ -60,51 +60,11 @@ describe('Raise repair form', () => {
     ).as('apiCheck')
   })
 
-  it('Fill out work order task details form to raise a work order', () => {
-    cy.visit('/properties/00012345')
+  it('Validates missing form inputs', () => {
+    cy.visit('/properties/00012345/raise-repair/new')
 
-    cy.wait('@propertyRequest')
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
 
-    cy.get('.lbh-heading-h2')
-      .contains('Raise a work order on this dwelling')
-      .click()
-
-    cy.wait([
-      '@workOrdersRequest',
-      '@propertyRequest',
-      '@sorPrioritiesRequest',
-      '@tradesRequest',
-    ])
-
-    cy.url().should('contains', 'properties/00012345/raise-repair/new')
-
-    cy.get('.govuk-caption-l').contains('New repair')
-    cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
-
-    cy.checkForTenureDetails(
-      'Tenure: Secure',
-      ['Address Alert: Property Under Disrepair (DIS)'],
-      [
-        'Contact Alert: No Lone Visits (CV)',
-        'Contact Alert: Verbal Abuse or Threat of (VA)',
-      ]
-    )
-
-    cy.get('.govuk-table')
-      .contains('Contacts')
-      .parent()
-      .within(() => {
-        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
-        cy.get('tbody>tr').eq(0).contains('00000111111')
-        cy.get('tbody>tr').eq(0).contains('00000222222')
-
-        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
-        cy.get('tbody>tr').eq(1).contains('00000666666')
-      })
-
-    cy.get('.lbh-heading-h2').contains('Work order task details')
-
-    // Try to submit form without entering required fields
     cy.get('[type="submit"]')
       .contains('Create work order')
       .click({ force: true })
@@ -138,8 +98,53 @@ describe('Raise repair form', () => {
     cy.get('#descriptionOfWork-form-group .govuk-error-message').within(() => {
       cy.contains('Please enter a repair description')
     })
+  })
 
-    // Fill out form
+  it('Shows property contact details in a table', () => {
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.get('.govuk-table')
+      .contains('Contacts')
+      .parent()
+      .within(() => {
+        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
+        cy.get('tbody>tr').eq(0).contains('00000111111')
+        cy.get('tbody>tr').eq(0).contains('00000222222')
+
+        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
+        cy.get('tbody>tr').eq(1).contains('00000666666')
+      })
+  })
+
+  it('Submits work order task details to raise a work order', () => {
+    cy.visit('/properties/00012345')
+
+    cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+    cy.get('.lbh-heading-h2')
+      .contains('Raise a work order on this dwelling')
+      .click()
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.url().should('contains', 'properties/00012345/raise-repair/new')
+
+    cy.get('.govuk-caption-l').contains('New repair')
+    cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
+
+    cy.checkForTenureDetails(
+      'Tenure: Secure',
+      ['Address Alert: Property Under Disrepair (DIS)'],
+      [
+        'Contact Alert: No Lone Visits (CV)',
+        'Contact Alert: Verbal Abuse or Threat of (VA)',
+      ]
+    )
+
+    cy.get('.lbh-heading-h2').contains('Work order task details')
+
     cy.get('#repair-request-form').within(() => {
       // Expect contractors and sor code selection to be disabled until trade selected
       cy.get('#contractor').should('be.disabled')
@@ -178,6 +183,9 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select trade not included in list
       cy.get('#trade').type('Fake trade')
+
+      cy.get('[type="submit"]').contains('Create work order').click()
+
       cy.get('#trade-form-group .govuk-error-message').within(() => {
         cy.contains('Trade is not valid')
       })
@@ -574,7 +582,7 @@ describe('Raise repair form', () => {
     cy.audit()
   })
 
-  it('Display warning text when over the raise limit and submit for high cost authorisation', () => {
+  it('Submits an order above the user raise limit for authorisation', () => {
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
       {
@@ -679,6 +687,7 @@ describe('Raise repair form', () => {
         cy.contains('10102030')
       })
     })
+
     // Warning text as this work order is over the raise limit
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.get('.govuk-warning-text__text').contains(
