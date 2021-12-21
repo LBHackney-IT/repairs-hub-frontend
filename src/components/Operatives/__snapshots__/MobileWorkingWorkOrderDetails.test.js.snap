@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OperativeWorkOrderDetails component when on operative-index-page should render properly work order 1`] = `
+exports[`MobileWorkingWorkOrderDetails component when on operative-index-page should render properly work order 1`] = `
 <DocumentFragment>
   <div
     class="operative-work-order"

@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
-import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
+import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
 
-describe('OperativeWorkOrderDetails component', () => {
+describe('MobileWorkingWorkOrderDetails component', () => {
   let workOrderData = {
     reference: 10000621,
     dateRaised: '2021-06-11T13:49:15.878796Z',
@@ -68,7 +68,7 @@ describe('OperativeWorkOrderDetails component', () => {
   describe('when on operative-index-page', () => {
     it('should render properly work order', () => {
       const { asFragment } = render(
-        <OperativeWorkOrderDetails
+        <MobileWorkingWorkOrderDetails
           property={props.property}
           workOrder={new WorkOrder(workOrderData)}
           personAlerts={props.alerts.personAlert}

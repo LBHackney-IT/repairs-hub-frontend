@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
-import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
+import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import OperativeTasksAndSorsTable from '../WorkOrder/TasksAndSors/OperativeTasksAndSorsTable'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
@@ -106,7 +106,7 @@ const MobileWorkingWorkOrder = ({
       </div>
 
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <OperativeWorkOrderDetails
+        <MobileWorkingWorkOrderDetails
           property={property}
           workOrder={workOrder}
           personAlerts={personAlerts}
