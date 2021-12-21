@@ -16,8 +16,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
+          path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
         },
         { fixture: 'workOrders/workOrders.json' }
       )
@@ -37,8 +36,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
         },
         { body: [] }
       )
@@ -56,8 +54,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          path: '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
@@ -529,8 +526,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          path: '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
@@ -660,6 +656,8 @@ describe('Updating a work order', () => {
         cy.get('button').contains('Remove SOR').click()
       })
 
+      cy.wait('@jobStatusUpdateRequest')
+
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
@@ -737,6 +735,7 @@ describe('Updating a work order', () => {
 
         cy.get('button').contains('Confirm').click()
       })
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
@@ -857,6 +856,8 @@ describe('Updating a work order', () => {
       cy.get('.smv-read-only').eq(2).contains('-')
 
       cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
@@ -996,6 +997,8 @@ describe('Updating a work order', () => {
       cy.get('.smv-read-only').eq(2).contains('38')
 
       cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
