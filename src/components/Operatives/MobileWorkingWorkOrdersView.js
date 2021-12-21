@@ -9,7 +9,7 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
 import { WorkOrder } from '../../models/workOrder'
 
-const OperativeWorkOrdersView = () => {
+const MobileWorkingWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
   const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
@@ -110,4 +110,4 @@ const OperativeWorkOrdersView = () => {
   )
 }
 
-export default OperativeWorkOrdersView
+export default MobileWorkingWorkOrdersView

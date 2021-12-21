@@ -1,7 +1,7 @@
 import Search from '@/components/Search/Search'
 import Spinner from '@/components/Spinner'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
-import OperativeWorkOrdersView from '@/components/Operatives/OperativeWorkOrdersView'
+import MobileWorkingWorkOrdersView from '@/components/Operatives/MobileWorkingWorkOrdersView'
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import {
@@ -40,7 +40,7 @@ const Home = ({ query }) => {
         return <WorkOrdersView query={query} />
       }
     } else if (user && canSeeOperativeWorkOrders(user)) {
-      return <OperativeWorkOrdersView />
+      return <MobileWorkingWorkOrdersView />
     } else {
       if (Object.entries(query).length === 0) {
         return <Search />
