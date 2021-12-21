@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OperativeWorkOrderListItem component should render operativeWorkOrderListItem 1`] = `
+exports[`MobileWorkingWorkOrderListItem component should render MobileWorkingWorkOrderListItem 1`] = `
 <DocumentFragment>
   <li
     class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"

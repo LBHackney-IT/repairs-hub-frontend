@@ -4,7 +4,7 @@ import Status from '../WorkOrder/Status'
 import cx from 'classnames'
 import { WorkOrder } from '../../models/workOrder'
 
-const OperativeWorkOrderListItem = ({
+const MobileWorkingWorkOrderListItem = ({
   workOrder,
   index,
   statusText,
@@ -63,11 +63,11 @@ const OperativeWorkOrderListItem = ({
   )
 }
 
-OperativeWorkOrderListItem.propTypes = {
+MobileWorkingWorkOrderListItem.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   index: PropTypes.number.isRequired,
   currentUser: PropTypes.object.isRequired,
   statusText: PropTypes.string,
 }
 
-export default OperativeWorkOrderListItem
+export default MobileWorkingWorkOrderListItem

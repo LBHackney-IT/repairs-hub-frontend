@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
 import { WorkOrder } from '../../models/workOrder'
-import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
+import MobileWorkingWorkOrderListItem from './MobileWorkingWorkOrderListItem'
 
-describe('OperativeWorkOrderListItem component', () => {
+describe('MobileWorkingWorkOrderListItem component', () => {
   const props = {
     workOrder: {
       reference: 10000621,
@@ -28,9 +28,9 @@ describe('OperativeWorkOrderListItem component', () => {
     },
   }
 
-  it('should render operativeWorkOrderListItem', () => {
+  it('should render MobileWorkingWorkOrderListItem', () => {
     const { asFragment } = render(
-      <OperativeWorkOrderListItem
+      <MobileWorkingWorkOrderListItem
         workOrder={new WorkOrder(props.workOrder)}
         currentUser={{ operativePayrollNumber: 1 }}
         index={0}
