@@ -23,7 +23,7 @@ import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
 
-const OperativeWorkOrder = ({
+const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
   workOrder,
@@ -201,7 +201,7 @@ const OperativeWorkOrder = ({
   )
 }
 
-OperativeWorkOrder.propTypes = {
+MobileWorkingWorkOrder.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
@@ -217,4 +217,4 @@ OperativeWorkOrder.propTypes = {
   ).isRequired,
 }
 
-export default OperativeWorkOrder
+export default MobileWorkingWorkOrder
