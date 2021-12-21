@@ -16,7 +16,8 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
+          path:
+            '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
         },
         { fixture: 'workOrders/workOrders.json' }
       )
@@ -36,7 +37,8 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
         },
         { body: [] }
       )
@@ -54,7 +56,8 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          path:
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
@@ -526,7 +529,8 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+          path:
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
