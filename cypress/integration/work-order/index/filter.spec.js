@@ -414,7 +414,7 @@ describe('Filter work orders', () => {
       // Filter by trade and contractor
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.PCL"]')
-        .check()
+        .check({ force: true })
       cy.get('.trade-filters').within(() => {
         cy.contains('Show all 6').click()
       })
