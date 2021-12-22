@@ -31,7 +31,7 @@ yarn install
 
 ### Environment variables
 
-Create your `.env` file from `.env.sample`. You will need to grab some secrets from the team.
+Create a `.env` file. You will need to grab some secrets from the team.
 
 ### Authentication
 
@@ -81,10 +81,10 @@ Run an individual Cypress spec can be run using the following command:
 yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
-## Continuous Delivery
+## Deployments
 
 Our serverless deployment service is configured in [serverless.yml](serverless.yml).
 
-## Deployment Tips
+Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all).
 
-See https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables
+See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables)
