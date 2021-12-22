@@ -1,33 +1,31 @@
 # Hackney Repairs Hub frontend
 
-This is the Hackney Repairs frontend application which allows agents to securely access information from Hackney Repairs API about Hackney properties, and to raise new repair requests.
+Allows agents and managers to raise, review, approve and close work orders.
 
-## Preflight
+Allows operatives to sign in to a "mobile working" view, see upcoming jobs and complete them.
 
-### How it's made
+### Dependencies
 
 It's a [Next.js](https://nextjs.org) app that works with:
 
-- Hackney's [repairs API](https://github.com/LBHackney-IT/repairs-api)
+- [Repairs API](https://github.com/LBHackney-IT/repairs-api-dotnet)
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
 
-It's built using [Hackney Design System](https://github.com/LBHackney-IT/lbh-frontend).
+It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Development Setup
 
 ### Clone the project
 
 ```sh
-$ git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
+git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
 ```
-
-## Building the project for local development
 
 The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
 
-### Setup
-
 Install the dependencies:
 
-```bash
+```sh
 yarn install
 ```
 
@@ -35,15 +33,25 @@ yarn install
 
 Create your `.env` file from `.env.sample`. You will need to grab some secrets from the team.
 
-### Authentication setup
+### Authentication
 
-First, you need a `@hackney.gov.uk` Google account in the right groups to log in. Speak to Hackney IT if you don't have these.
+You need a `@hackney.gov.uk` Google account with the correct Google group membership to log in. Speak to Hackney IT if you don't have this.
 
 Next, you need to tell your computer to run the app from a `hackney.gov.uk` domain. Let's use `localdev.hackney.gov.uk`. You will need to add the following line to your `/etc/hosts` file:
 
 ```
 127.0.0.1       localdev.hackney.gov.uk
 ```
+
+### Run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
 
 ### Tests
 
@@ -67,32 +75,16 @@ The full test suite including unit tests and system tests can be run using follo
 yarn tests
 ```
 
-Individual Cypress end to end spec file using headlessly in the Electron default browser can be run using the following command:
+Run an individual Cypress spec can be run using the following command:
 
 ```
 yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
-### Run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-```
-
-Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
-
 ## Continuous Delivery
 
 Our serverless deployment service is configured in [serverless.yml](serverless.yml).
 
-The serverless service includes the following:
-
-- a single serverless function: repairs-hub-frontend
-- Description of the Cloudfront CDN in CloudFormation
-- Custom subdomain under hackney.gov.uk
-
-## How to deploy and what to check first
+## Deployment Tips
 
 See https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables
