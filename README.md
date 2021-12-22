@@ -31,7 +31,9 @@ yarn install
 
 ### Environment variables
 
-Create a `.env` file. You will need to grab some secrets from the team.
+Create a `.env` file. You will need to grab several secrets from the team to include.
+
+If you need to add or change a variable, first see the 'Managing environment variables' section, below.
 
 ### Authentication
 
@@ -80,6 +82,41 @@ Run an individual Cypress spec can be run using the following command:
 ```
 yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
+
+## Managing environment variables
+
+### Types of environment variables
+
+This project makes use of two types of environment variables:
+
+1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
+2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
+
+### Where values are set
+
+This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
+
+Variables are referenced and stored in the following places:
+
+- dotenv files (either `.sample.env` or `.env`)
+- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
+- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [Cypress project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
+  These references are made using the cypress `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
+- AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
+
+### Tests
+
+When running unit tests, only the `sample.env` file is used to set environment variables. This is true for both local and CI builds.
+
+When running integration tests locally, the .env file is used.
+
+When running integration tests on Circle CI, values are from the Circle project settings and from hardcoded values in the CircleCI config file.
+
+### Local and deployed applications
+
+When running the application locally, the .env file is used for setting environment variables.
+
+When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in Cypress project settings.
 
 ## Deployments
 
