@@ -74,6 +74,8 @@ describe('Authorisation workflow for a work order', () => {
       cy.get('#note').type('Far too expensive!')
       cy.get('[type="submit"]').contains('Submit').click()
 
+      cy.wait('@apiCheck')
+
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -131,6 +133,7 @@ describe('Authorisation workflow for a work order', () => {
       cy.get('[type="submit"]').contains('Submit').click()
 
       cy.wait('@apiCheck')
+
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
