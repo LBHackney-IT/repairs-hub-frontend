@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
-import OperativeWorkOrderDetails from './OperativeWorkOrderDetails'
+import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import OperativeTasksAndSorsTable from '../WorkOrder/TasksAndSors/OperativeTasksAndSorsTable'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ import AppointmentHeader from '../WorkOrder/AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
 
-const OperativeWorkOrder = ({
+const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
   workOrder,
@@ -106,7 +106,7 @@ const OperativeWorkOrder = ({
       </div>
 
       <form onSubmit={handleSubmit(onFormSubmit)}>
-        <OperativeWorkOrderDetails
+        <MobileWorkingWorkOrderDetails
           property={property}
           workOrder={workOrder}
           personAlerts={personAlerts}
@@ -201,7 +201,7 @@ const OperativeWorkOrder = ({
   )
 }
 
-OperativeWorkOrder.propTypes = {
+MobileWorkingWorkOrder.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
@@ -217,4 +217,4 @@ OperativeWorkOrder.propTypes = {
   ).isRequired,
 }
 
-export default OperativeWorkOrder
+export default MobileWorkingWorkOrder

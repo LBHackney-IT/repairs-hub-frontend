@@ -5,7 +5,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
-import OperativeWorkOrder from '../Operatives/OperativeWorkOrder'
+import MobileWorkingWorkOrder from '../Operatives/MobileWorkingWorkOrder'
 
 const OperativeWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -91,7 +91,7 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
             personAlerts &&
             workOrder && (
               <>
-                <OperativeWorkOrder
+                <MobileWorkingWorkOrder
                   workOrderReference={workOrderReference}
                   property={property}
                   workOrder={workOrder}

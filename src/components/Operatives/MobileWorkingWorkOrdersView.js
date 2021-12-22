@@ -4,12 +4,12 @@ import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
+import MobileWorkingWorkOrderListItem from './MobileWorkingWorkOrderListItem'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
 import { WorkOrder } from '../../models/workOrder'
 
-const OperativeWorkOrdersView = () => {
+const MobileWorkingWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
   const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
@@ -56,7 +56,7 @@ const OperativeWorkOrdersView = () => {
 
   const renderWorkOrderListItems = (workOrders) => {
     return workOrders.map((workOrder, index) => (
-      <OperativeWorkOrderListItem
+      <MobileWorkingWorkOrderListItem
         key={index}
         workOrder={workOrder}
         index={index}
@@ -110,4 +110,4 @@ const OperativeWorkOrdersView = () => {
   )
 }
 
-export default OperativeWorkOrdersView
+export default MobileWorkingWorkOrdersView

@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import TruncateText from '../Layout/TruncateText'
 
-const OperativeWorkOrderDetails = ({
+const MobileWorkingWorkOrderDetails = ({
   property,
   workOrder,
   personAlerts,
@@ -143,11 +143,11 @@ const OperativeWorkOrderDetails = ({
   )
 }
 
-OperativeWorkOrderDetails.propTypes = {
+MobileWorkingWorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   personAlerts: PropTypes.array.isRequired,
   locationAlerts: PropTypes.array.isRequired,
 }
 
-export default OperativeWorkOrderDetails
+export default MobileWorkingWorkOrderDetails
