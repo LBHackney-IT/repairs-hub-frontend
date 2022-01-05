@@ -9,7 +9,6 @@ import {
   buildCloseWorkOrderData,
   buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
@@ -33,7 +32,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
-  const [tasksAndSors, setTasksAndSors] = useState([])
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -52,36 +50,19 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setLoading(true)
 
     try {
-      const requests = [
-        ...(workOrder.canAssignOperative
-          ? [
-              frontEndApiRequest({
-                method: 'post',
-                path: `/api/jobStatusUpdate`,
-                requestData: operativeAssignmentFormData,
-              }),
-            ]
-          : []),
-        frontEndApiRequest({
+      if (workOrder.canAssignOperative) {
+        await frontEndApiRequest({
           method: 'post',
           path: `/api/jobStatusUpdate`,
-          requestData: buildWorkOrderUpdate(
-            tasksAndSors,
-            [],
-            reference,
-            '',
-            isOvertime,
-            true
-          ),
-        }),
-        frontEndApiRequest({
-          method: 'post',
-          path: `/api/workOrderComplete`,
-          requestData: workOrderCompleteFormData,
-        }),
-      ]
+          requestData: operativeAssignmentFormData,
+        })
+      }
 
-      for (const request of requests) await request
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrderComplete`,
+        requestData: workOrderCompleteFormData,
+      })
 
       router.push('/')
     } catch (e) {
@@ -104,13 +85,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
       setWorkOrder(new WorkOrder(workOrder))
       setIsOvertime(workOrder.isOvertime)
-
-      const tasksAndSors = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}/tasks`,
-      })
-
-      setTasksAndSors(tasksAndSors)
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
@@ -156,7 +130,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       completionDate,
       fullNotes,
       reference,
-      reason
+      reason,
+      isOvertime
     )
 
     makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)

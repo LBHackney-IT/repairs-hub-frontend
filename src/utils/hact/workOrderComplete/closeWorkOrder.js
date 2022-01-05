@@ -2,7 +2,8 @@ export const buildCloseWorkOrderData = (
   completionDate,
   notes,
   reference,
-  reason
+  reason,
+  isOvertime
 ) => {
   return {
     workOrderReference: {
@@ -16,6 +17,7 @@ export const buildCloseWorkOrderData = (
         otherType: 'complete',
         comments: `Work order closed - ${notes}`,
         eventTime: completionDate,
+        isOvertime,
       },
     ],
   }
