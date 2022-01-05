@@ -15,9 +15,8 @@
   }
 
   .priority-text {
-    text-align: right;
     text-transform: capitalize;
-    font-size: 18px;
+    font-size: 20px;
 
     .lbh-heading-h3 {
       font-weight: 500;
@@ -26,6 +25,15 @@
 
   .property-name {
     font-weight: 600;
+  }
+
+  .work-order-information {
+    background-color: repairs-hub-colour('light-grey');
+    padding: 10px;
+    padding-top: 5px;
+  }
+  .aligh-grid-row {
+    margin-top: 0;
   }
 }
 

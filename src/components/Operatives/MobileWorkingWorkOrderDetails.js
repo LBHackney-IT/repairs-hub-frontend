@@ -29,30 +29,23 @@ const MobileWorkingWorkOrderDetails = ({
   return (
     <>
       <div className="operative-work-order">
-        <GridRow>
-          <GridColumn width="one-half">
-            <div className="lbh-heading-h3">
-              WO&nbsp;{workOrder.reference.toString().padStart(8, '0')}
+        <div className="lbh-heading-h1">
+          WO&nbsp;{workOrder.reference.toString().padStart(8, '0')}
+        </div>
+        <div className="priority-text govuk-!-margin-top-0">
+          {workOrder.isHigherPriority() ? (
+            <div className="text-dark-red lbh-heading-h3">
+              {' '}
+              {workOrder.priority.toLowerCase().split(' ').slice(-1)}
             </div>
-          </GridColumn>
-          <GridColumn
-            width="one-half"
-            className="align-grid-column priority-text"
-          >
-            {workOrder.isHigherPriority() ? (
-              <div className="text-dark-red lbh-heading-h3">
-                {' '}
-                {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-              </div>
-            ) : (
-              <div className="lbh-heading-h3">
-                {' '}
-                {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-              </div>
-            )}
-          </GridColumn>
-        </GridRow>
-        <div className="lbh-heading-h5">Description</div>
+          ) : (
+            <div className="lbh-heading-h3">
+              {' '}
+              {workOrder.priority.toLowerCase().split(' ').slice(-1)}
+            </div>
+          )}
+        </div>
+        <div className="lbh-heading-h4">Description</div>
         <TruncateText
           text={workOrder.description}
           numberOfLines="3"
@@ -66,78 +59,79 @@ const MobileWorkingWorkOrderDetails = ({
             <p className="govuk-body">{workOrder.plannerComments}</p>
           </>
         )}
+        <div className="work-order-information">
+          {cautionaryAlertsType && (
+            <GridRow className="aligh-grid-row">
+              <GridColumn width="one-half">
+                <a
+                  className="lbh-heading-h5 lbh-link"
+                  href="#"
+                  id="caut-alerts"
+                  onClick={cautContactURL}
+                >
+                  Caut. alerts
+                </a>
+              </GridColumn>
+              <GridColumn width="one-half" className="align-grid-column">
+                <div className="govuk-warning-text lbh-warning-text">
+                  <span
+                    className="govuk-warning-text__icon person-alert--icon"
+                    aria-hidden="true"
+                  >
+                    !
+                  </span>
+                  <strong className="govuk-warning-text__text person-alert--text">
+                    {cautionaryAlertsType}
+                  </strong>
+                </div>
+              </GridColumn>
+            </GridRow>
+          )}
 
-        {cautionaryAlertsType && (
-          <GridRow>
+          <GridRow className="aligh-grid-row">
             <GridColumn width="one-half">
-              <a
-                className="lbh-heading-h5 lbh-link"
-                href="#"
-                id="caut-alerts"
-                onClick={cautContactURL}
-              >
-                Caut. alerts
-              </a>
+              <div className="lbh-body property-name">Address</div>
             </GridColumn>
             <GridColumn width="one-half" className="align-grid-column">
-              <div className="govuk-warning-text lbh-warning-text">
-                <span
-                  className="govuk-warning-text__icon person-alert--icon"
-                  aria-hidden="true"
-                >
-                  !
-                </span>
-                <strong className="govuk-warning-text__text person-alert--text">
-                  {cautionaryAlertsType}
-                </strong>
+              <div className="lbh-body">
+                {property.address.shortAddress} {property.address.postalCode}
               </div>
             </GridColumn>
           </GridRow>
-        )}
 
-        <GridRow>
-          <GridColumn width="one-half">
-            <div className="lbh-body property-name">Address</div>
-          </GridColumn>
-          <GridColumn width="one-half" className="align-grid-column">
-            <div className="lbh-body">
-              {property.address.shortAddress} {property.address.postalCode}
-            </div>
-          </GridColumn>
-        </GridRow>
+          {workOrder.callerName && (
+            <GridRow className="aligh-grid-row">
+              <GridColumn width="one-half">
+                <div className="lbh-body property-name">Contact</div>
+              </GridColumn>
+              <GridColumn width="one-half" className="align-grid-column">
+                <div className="lbh-body">{workOrder.callerName}</div>
+              </GridColumn>
+            </GridRow>
+          )}
 
-        {workOrder.callerName && (
-          <GridRow>
-            <GridColumn width="one-half">
-              <div className="lbh-body property-name">Contact</div>
-            </GridColumn>
-            <GridColumn width="one-half" className="align-grid-column">
-              <div className="lbh-body">{workOrder.callerName}</div>
-            </GridColumn>
-          </GridRow>
-        )}
+          {workOrder.callerNumber && (
+            <GridRow className="aligh-grid-row">
+              <GridColumn width="one-half">
+                <div className="lbh-body property-name">Telephone no</div>
+              </GridColumn>
+              <GridColumn width="one-half" className="align-grid-column">
+                <div className="lbh-body">{workOrder.callerNumber}</div>
+              </GridColumn>
+            </GridRow>
+          )}
 
-        {workOrder.callerNumber && (
-          <GridRow>
-            <GridColumn width="one-half">
-              <div className="lbh-body property-name">Telephone no</div>
-            </GridColumn>
-            <GridColumn width="one-half" className="align-grid-column">
-              <div className="lbh-body">{workOrder.callerNumber}</div>
-            </GridColumn>
-          </GridRow>
-        )}
-
-        {workOrder.appointment && workOrder.appointment.note && (
-          <GridRow>
-            <GridColumn width="one-half">
-              <div className="lbh-body property-name">Comment</div>
-            </GridColumn>
-            <GridColumn width="one-half" className="align-grid-column">
-              <div className="lbh-body">{workOrder.appointment.note}</div>
-            </GridColumn>
-          </GridRow>
-        )}
+          {workOrder.appointment && workOrder.appointment.note && (
+            <GridRow className="aligh-grid-row">
+              <GridColumn width="one-half">
+                <div className="lbh-body property-name">Comment</div>
+              </GridColumn>
+              <GridColumn width="one-half" className="align-grid-column">
+                <div className="lbh-body">{workOrder.appointment.note}</div>
+              </GridColumn>
+            </GridRow>
+          )}
+        </div>
       </div>
     </>
   )
