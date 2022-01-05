@@ -12,6 +12,8 @@ import FlashMessageContext from '../FlashMessageContext'
 const CloseWorkOrder = ({ reference }) => {
   const router = useRouter()
 
+  const isOvertime = !!router.query?.isOvertime || false
+
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [loading, setLoading] = useState(false)
@@ -75,9 +77,10 @@ const CloseWorkOrder = ({ reference }) => {
   const onSubmit = async (data) => {
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      `${data.notes}${workOrder.isOvertime ? ' - Overtime' : ''}`,
+      `${data.notes}${isOvertime ? ' - Overtime' : ''}`,
       reference,
-      data.reason
+      data.reason,
+      isOvertime
     )
 
     makePostRequest(closeWorkOrderFormData, data.reason)

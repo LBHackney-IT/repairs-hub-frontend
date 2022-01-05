@@ -41,25 +41,26 @@ const MobileWorkingWorkOrder = ({
 
   const onFormSubmit = async (formData) => {
     const isOvertime = formData.isOvertime || false
-    const variationReason = formData.variationReason || ''
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: buildWorkOrderUpdate(
-          tasksAndSors,
-          [],
-          workOrderReference,
-          variationReason,
-          isOvertime,
-          true
-        ),
-      })
+      if (formData.variationReason) {
+        await frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: buildWorkOrderUpdate(
+            tasksAndSors,
+            [],
+            workOrderReference,
+            formData.variationReason,
+            true
+          ),
+        })
+      }
 
-      router.push(
-        `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`
-      )
+      router.push({
+        pathname: `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`,
+        query: { isOvertime },
+      })
     } catch (e) {
       console.error(e)
 
