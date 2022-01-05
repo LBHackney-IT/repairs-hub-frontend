@@ -178,112 +178,96 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            2
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              DES5R006
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              Urgent call outs
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            30
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                DES5R006
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                Urgent call outs
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               30
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 30
+      </h3>
+      <br />
+    </div>
     <div
       class="govuk-checkboxes__item govuk-!-margin-0"
     >
@@ -389,7 +373,7 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button"
+        class="govuk-button lbh-button mobile-work-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -578,112 +562,96 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            2
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              DES5R006
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              Urgent call outs
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            30
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                DES5R006
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                Urgent call outs
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               30
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 30
+      </h3>
+      <br />
+    </div>
     <div
       class="warning-info-box govuk-inset-text lbh-inset-text"
     >
@@ -741,7 +709,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button"
+        class="govuk-button lbh-button mobile-work-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -930,147 +898,131 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            4
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              DES5R005
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              Normal call outs
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            60
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            1
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+            <td
+              class="govuk-table__cell"
             >
-              DES5R006
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              4
+            </td>
+            <td
+              class="govuk-table__cell"
             >
-              Urgent call outs
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+              >
+                DES5R005
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
+              >
+                Normal call outs
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
+              60
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="1"
           >
-            15
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="2"
-        >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
-              75
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            <td
+              class="govuk-table__cell"
+            >
+              1
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                DES5R006
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                Urgent call outs
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
+              15
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 75
+      </h3>
+      <br />
+    </div>
     <div
       class="warning-info-box govuk-inset-text lbh-inset-text"
     >
@@ -1159,7 +1111,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button"
+        class="govuk-button lbh-button mobile-work-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -1348,112 +1300,96 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            4
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              DES5R006
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            <a
-              class="govuk-link"
-              href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
             >
-              Urgent call outs
-            </a>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            60
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              4
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                DES5R006
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
+              >
+                Urgent call outs
+              </a>
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               60
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 60
+      </h3>
+      <br />
+    </div>
     <div
       class="warning-info-box govuk-inset-text lbh-inset-text"
     >
@@ -1542,7 +1478,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button"
+        class="govuk-button lbh-button mobile-work-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -1731,102 +1667,86 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            2
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            DES5R006
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            Urgent call outs
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            30
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              DES5R006
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              Urgent call outs
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               30
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 30
+      </h3>
+      <br />
+    </div>
     <h4
       class="lbh-heading-h4"
     >
@@ -2025,102 +1945,86 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            2
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            DES5R006
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            Urgent call outs
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            30
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              DES5R006
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              Urgent call outs
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               30
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 30
+      </h3>
+      <br />
+    </div>
     <h4
       class="lbh-heading-h4"
     >
@@ -2319,102 +2223,86 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
         </div>
       </div>
     </div>
-    <h4
-      class="lbh-heading-h4"
+    <div
+      class="operative-work-order-task-and-sors-table"
     >
-      Tasks and SORs
-    </h4>
-    <table
-      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-    >
-      <thead
-        class="govuk-table__head"
+      <h2
+        class="lbh-heading-h2"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-        >
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Qty
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            SOR
-          </th>
-          <th
-            class="govuk-table__header"
-            scope="col"
-          >
-            Description
-          </th>
-          <th
-            class="govuk-table__header govuk-table__header--numeric"
-            scope="col"
-          >
-            SMV
-          </th>
-        </tr>
-      </thead>
-      <tbody
-        class="govuk-table__body"
+        Tasks and SORs
+      </h2>
+      <table
+        class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
       >
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="0"
+        <thead
+          class="govuk-table__head"
         >
-          <td
-            class="govuk-table__cell"
+          <tr
+            class="govuk-table__row lbh-body"
           >
-            2
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            DES5R006
-          </td>
-          <td
-            class="govuk-table__cell"
-          >
-            Urgent call outs
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            30
-          </td>
-        </tr>
-        <tr
-          class="govuk-table__row lbh-body"
-          data-row-id="1"
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Qty
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              SOR
+            </th>
+            <th
+              class="govuk-table__header"
+              scope="col"
+            >
+              Description
+            </th>
+            <th
+              class="govuk-table__header govuk-table__header--numeric"
+              scope="col"
+            >
+              SMV
+            </th>
+          </tr>
+        </thead>
+        <tbody
+          class="govuk-table__body"
         >
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell"
-          />
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
+          <tr
+            class="govuk-table__row lbh-body"
+            data-row-id="0"
           >
-            <strong>
-              SMV total
-            </strong>
-          </td>
-          <td
-            class="govuk-table__cell govuk-table__cell--numeric"
-          >
-            <strong>
+            <td
+              class="govuk-table__cell"
+            >
+              2
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              DES5R006
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              Urgent call outs
+            </td>
+            <td
+              class="govuk-table__cell govuk-table__cell--numeric"
+            >
               30
-            </strong>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <br />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <h3
+        class="lbh-heading-h3 background-wrap-color"
+      >
+        SMV total 30
+      </h3>
+      <br />
+    </div>
     <h4
       class="lbh-heading-h4"
     >
