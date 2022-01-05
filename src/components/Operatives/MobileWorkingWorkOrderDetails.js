@@ -32,7 +32,7 @@ const MobileWorkingWorkOrderDetails = ({
         <GridRow>
           <GridColumn width="one-half">
             <div className="lbh-heading-h3">
-              WO {workOrder.reference.toString().padStart(8, '0')}
+              WO&nbsp;{workOrder.reference.toString().padStart(8, '0')}
             </div>
           </GridColumn>
           <GridColumn
