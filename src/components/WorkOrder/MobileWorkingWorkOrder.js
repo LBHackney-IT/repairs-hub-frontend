@@ -51,8 +51,7 @@ const MobileWorkingWorkOrder = ({
             tasksAndSors,
             [],
             workOrderReference,
-            formData.variationReason,
-            true
+            formData.variationReason
           ),
         })
       }
