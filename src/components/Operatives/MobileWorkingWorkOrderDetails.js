@@ -29,9 +29,9 @@ const MobileWorkingWorkOrderDetails = ({
   return (
     <>
       <div className="operative-work-order">
-        <div className="lbh-heading-h1">
+        <h1 className="lbh-heading-h1">
           WO&nbsp;{workOrder.reference.toString().padStart(8, '0')}
-        </div>
+        </h1>
         <div className="priority-text govuk-!-margin-top-0">
           {workOrder.isHigherPriority() ? (
             <div className="text-dark-red lbh-heading-h3">

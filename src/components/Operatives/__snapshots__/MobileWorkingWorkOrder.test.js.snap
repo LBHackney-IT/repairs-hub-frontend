@@ -27,11 +27,11 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -411,11 +411,11 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -747,11 +747,11 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -1149,11 +1149,11 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -1516,11 +1516,11 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -1794,11 +1794,11 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >
@@ -2072,11 +2072,11 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
     <div
       class="operative-work-order"
     >
-      <div
+      <h1
         class="lbh-heading-h1"
       >
         WO 10000621
-      </div>
+      </h1>
       <div
         class="priority-text govuk-!-margin-top-0"
       >

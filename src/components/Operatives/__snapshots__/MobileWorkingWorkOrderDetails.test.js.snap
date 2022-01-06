@@ -5,11 +5,11 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
   <div
     class="operative-work-order"
   >
-    <div
+    <h1
       class="lbh-heading-h1"
     >
       WO 10000621
-    </div>
+    </h1>
     <div
       class="priority-text govuk-!-margin-top-0"
     >
