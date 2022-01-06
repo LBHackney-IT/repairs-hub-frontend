@@ -373,7 +373,7 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button mobile-work-button"
+        class="govuk-button lbh-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -709,7 +709,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button mobile-work-button"
+        class="govuk-button lbh-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -1111,7 +1111,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button mobile-work-button"
+        class="govuk-button lbh-button"
         data-module="govuk-button"
         type="submit"
       >
@@ -1478,7 +1478,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-form-group lbh-form-group"
     >
       <button
-        class="govuk-button lbh-button mobile-work-button"
+        class="govuk-button lbh-button"
         data-module="govuk-button"
         type="submit"
       >

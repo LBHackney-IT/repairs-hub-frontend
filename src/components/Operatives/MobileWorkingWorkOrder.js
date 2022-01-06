@@ -192,10 +192,7 @@ const MobileWorkingWorkOrder = ({
               />
             )}
 
-            <PrimarySubmitButton
-              label="Confirm"
-              className="mobile-work-button"
-            />
+            <PrimarySubmitButton label="Confirm" />
           </>
         )}
       </form>
