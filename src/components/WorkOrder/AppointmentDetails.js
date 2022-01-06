@@ -8,7 +8,7 @@ import {
   canScheduleAppointment,
 } from '@/utils/userPermissions'
 import { WorkOrder } from '@/models/workOrder'
-import { buildDataFromScheduleAppointment } from '@/utils/hact/workOrderStatusUpdate/notesForm'
+import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'

@@ -11,7 +11,7 @@ import {
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { buildOperativeAssignmentFormData } from '@/utils/hact/workOrderStatusUpdate/assignOperatives'
+import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
 
 // Named this way because this component exists to allow supervisors

@@ -7,7 +7,7 @@ import BackButton from '../Layout/BackButton'
 import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildWorkOrderUpdate } from '@/utils/hact/jobStatusUpdate/updateWorkOrder'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)

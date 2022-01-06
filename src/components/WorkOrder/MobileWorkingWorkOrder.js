@@ -14,7 +14,7 @@ import {
   Checkbox,
 } from '../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildWorkOrderUpdate } from '@/utils/hact/jobStatusUpdate/updateWorkOrder'
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
 import OperativeList from '../Operatives/OperativeList'
