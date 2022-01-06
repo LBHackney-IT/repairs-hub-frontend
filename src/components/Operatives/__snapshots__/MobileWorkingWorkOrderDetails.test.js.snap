@@ -13,17 +13,17 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
     <div
       class="priority-text govuk-!-margin-top-0"
     >
-      <div
+      <h3
         class="lbh-heading-h3"
       >
          normal
-      </div>
+      </h3>
     </div>
-    <div
+    <h4
       class="lbh-heading-h4"
     >
       Description
-    </div>
+    </h4>
     <p
       class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
     >

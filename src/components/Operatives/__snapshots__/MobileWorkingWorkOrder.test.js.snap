@@ -35,17 +35,17 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -419,17 +419,17 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -755,17 +755,17 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -1157,17 +1157,17 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -1524,17 +1524,17 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -1802,17 +1802,17 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >
@@ -2080,17 +2080,17 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
       <div
         class="priority-text govuk-!-margin-top-0"
       >
-        <div
+        <h3
           class="lbh-heading-h3"
         >
            normal
-        </div>
+        </h3>
       </div>
-      <div
+      <h4
         class="lbh-heading-h4"
       >
         Description
-      </div>
+      </h4>
       <p
         class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
       >

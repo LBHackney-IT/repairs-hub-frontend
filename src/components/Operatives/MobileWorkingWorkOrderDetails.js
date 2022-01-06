@@ -34,18 +34,18 @@ const MobileWorkingWorkOrderDetails = ({
         </h1>
         <div className="priority-text govuk-!-margin-top-0">
           {workOrder.isHigherPriority() ? (
-            <div className="text-dark-red lbh-heading-h3">
+            <h3 className="text-dark-red lbh-heading-h3">
               {' '}
               {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-            </div>
+            </h3>
           ) : (
-            <div className="lbh-heading-h3">
+            <h3 className="lbh-heading-h3">
               {' '}
               {workOrder.priority.toLowerCase().split(' ').slice(-1)}
-            </div>
+            </h3>
           )}
         </div>
-        <div className="lbh-heading-h4">Description</div>
+        <h4 className="lbh-heading-h4">Description</h4>
         <TruncateText
           text={workOrder.description}
           numberOfLines="3"
@@ -55,7 +55,7 @@ const MobileWorkingWorkOrderDetails = ({
 
         {workOrder.plannerComments && (
           <>
-            <div className="lbh-heading-h5">Planner Comment</div>
+            <h5 className="lbh-heading-h5">Planner Comment</h5>
             <p className="govuk-body">{workOrder.plannerComments}</p>
           </>
         )}
