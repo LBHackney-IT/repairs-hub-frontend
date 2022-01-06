@@ -61,7 +61,7 @@ const MobileWorkingWorkOrderDetails = ({
         )}
         <div className="work-order-information">
           {cautionaryAlertsType && (
-            <GridRow className="aligh-grid-row">
+            <GridRow className="align-grid-row">
               <GridColumn width="one-half">
                 <a
                   className="lbh-heading-h5 lbh-link"
@@ -88,7 +88,7 @@ const MobileWorkingWorkOrderDetails = ({
             </GridRow>
           )}
 
-          <GridRow className="aligh-grid-row">
+          <GridRow className="align-grid-row">
             <GridColumn width="one-half">
               <div className="lbh-body property-name">Address</div>
             </GridColumn>
@@ -100,7 +100,7 @@ const MobileWorkingWorkOrderDetails = ({
           </GridRow>
 
           {workOrder.callerName && (
-            <GridRow className="aligh-grid-row">
+            <GridRow className="align-grid-row">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Contact</div>
               </GridColumn>
@@ -111,7 +111,7 @@ const MobileWorkingWorkOrderDetails = ({
           )}
 
           {workOrder.callerNumber && (
-            <GridRow className="aligh-grid-row">
+            <GridRow className="align-grid-row">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Telephone no</div>
               </GridColumn>
@@ -122,7 +122,7 @@ const MobileWorkingWorkOrderDetails = ({
           )}
 
           {workOrder.appointment && workOrder.appointment.note && (
-            <GridRow className="aligh-grid-row">
+            <GridRow className="align-grid-row">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Comment</div>
               </GridColumn>
