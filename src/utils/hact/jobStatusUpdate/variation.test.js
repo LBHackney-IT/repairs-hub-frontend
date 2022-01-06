@@ -1,6 +1,6 @@
-import { buildWorkOrderUpdate } from './updateWorkOrder'
+import { buildVariationFormData } from './variation'
 
-describe('buildWorkOrderUpdate', () => {
+describe('buildVariationFormData', () => {
   const latestTasks = [
     {
       id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -49,7 +49,7 @@ describe('buildWorkOrderUpdate', () => {
       },
     }
 
-    const response = buildWorkOrderUpdate(
+    const response = buildVariationFormData(
       latestTasks,
       addedTasks,
       reference,
@@ -86,7 +86,7 @@ describe('buildWorkOrderUpdate', () => {
       },
     }
 
-    const response = buildWorkOrderUpdate(
+    const response = buildVariationFormData(
       latestTasks,
       addedTasks,
       reference,

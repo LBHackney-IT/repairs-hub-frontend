@@ -1,4 +1,4 @@
-export const buildWorkOrderUpdate = (
+export const buildVariationFormData = (
   latestTasks,
   addedTasks,
   reference,

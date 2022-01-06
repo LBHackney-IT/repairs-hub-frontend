@@ -7,7 +7,7 @@ import BackButton from '../Layout/BackButton'
 import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { buildWorkOrderUpdate } from '@/utils/hact/jobStatusUpdate/updateWorkOrder'
+import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
@@ -72,7 +72,7 @@ const NewTaskForm = ({ workOrderReference }) => {
       },
     ]
 
-    const workOrderUpdateFormData = buildWorkOrderUpdate(
+    const workOrderUpdateFormData = buildVariationFormData(
       existingTasks,
       newTask,
       workOrderReference

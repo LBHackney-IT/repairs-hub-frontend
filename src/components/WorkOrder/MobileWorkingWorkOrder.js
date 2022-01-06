@@ -14,7 +14,7 @@ import {
   Checkbox,
 } from '../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { buildWorkOrderUpdate } from '@/utils/hact/jobStatusUpdate/updateWorkOrder'
+import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
 import OperativeList from '../Operatives/OperativeList'
@@ -47,7 +47,7 @@ const MobileWorkingWorkOrder = ({
         await frontEndApiRequest({
           method: 'post',
           path: `/api/jobStatusUpdate`,
-          requestData: buildWorkOrderUpdate(
+          requestData: buildVariationFormData(
             tasksAndSors,
             [],
             workOrderReference,
