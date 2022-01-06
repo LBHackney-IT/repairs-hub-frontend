@@ -7,25 +7,27 @@ describe('Raise repair form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub request for raise a work order form page
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    )
+    ).as('propertyRequest')
+
     cy.intercept(
       {
         method: 'GET',
         path: '/api/workOrders?*',
       },
       { body: [] }
-    )
+    ).as('workOrdersRequest')
+
     cy.intercept(
       {
         method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
-    )
+    ).as('contractorsRequest')
+
     cy.intercept(
       {
         method: 'GET',
@@ -33,15 +35,17 @@ describe('Raise repair form', () => {
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    )
+    ).as('sorCodesRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
-    )
+    ).as('sorPrioritiesRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
       { fixture: 'scheduleOfRates/trades.json' }
-    )
+    ).as('tradesRequest')
 
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
@@ -56,16 +60,77 @@ describe('Raise repair form', () => {
     ).as('apiCheck')
   })
 
-  it('Fill out work order task details form to raise a work order', () => {
-    // Click link to raise a work order
+  it('Validates missing form inputs', () => {
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.get('[type="submit"]')
+      .contains('Create work order')
+      .click({ force: true })
+
+    cy.get('#trade-form-group .govuk-error-message').within(() => {
+      cy.contains('Please select a trade')
+    })
+
+    cy.get('#contractor-form-group .govuk-error-message').within(() => {
+      cy.contains('Please select a contractor')
+    })
+
+    cy.get(
+      'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
+    ).within(() => {
+      cy.contains('Please select an SOR code')
+    })
+
+    cy.get(
+      'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
+    ).within(() => {
+      cy.contains('Please enter a quantity')
+    })
+
+    cy.get('#priorityDescription-form-group .govuk-error-message').within(
+      () => {
+        cy.contains('Please select a priority')
+      }
+    )
+
+    cy.get('#descriptionOfWork-form-group .govuk-error-message').within(() => {
+      cy.contains('Please enter a repair description')
+    })
+  })
+
+  it('Shows property contact details in a table', () => {
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.get('.govuk-table')
+      .contains('Contacts')
+      .parent()
+      .within(() => {
+        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
+        cy.get('tbody>tr').eq(0).contains('00000111111')
+        cy.get('tbody>tr').eq(0).contains('00000222222')
+
+        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
+        cy.get('tbody>tr').eq(1).contains('00000666666')
+      })
+  })
+
+  it('Submits work order task details to raise a work order', () => {
     cy.visit('/properties/00012345')
+
+    cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
     cy.get('.lbh-heading-h2')
       .contains('Raise a work order on this dwelling')
       .click()
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
     cy.url().should('contains', 'properties/00012345/raise-repair/new')
 
-    // Property address details with tenure and alerts information
     cy.get('.govuk-caption-l').contains('New repair')
     cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
@@ -78,52 +143,8 @@ describe('Raise repair form', () => {
       ]
     )
 
-    // Property contact information table
-    cy.get('.govuk-table')
-      .contains('Contacts')
-      .parent()
-      .within(() => {
-        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
-        cy.get('tbody>tr').eq(0).contains('00000111111')
-        cy.get('tbody>tr').eq(0).contains('00000222222')
-
-        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
-        cy.get('tbody>tr').eq(1).contains('00000666666')
-      })
-
     cy.get('.lbh-heading-h2').contains('Work order task details')
 
-    // Form section
-    // Try to submit form without entering required fields
-    cy.get('[type="submit"]')
-      .contains('Create work order')
-      .click({ force: true })
-    cy.get('#trade-form-group .govuk-error-message').within(() => {
-      cy.contains('Please select a trade')
-    })
-    cy.get('#contractor-form-group .govuk-error-message').within(() => {
-      cy.contains('Please select a contractor')
-    })
-    cy.get(
-      'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
-    ).within(() => {
-      cy.contains('Please select an SOR code')
-    })
-    cy.get(
-      'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
-    ).within(() => {
-      cy.contains('Please enter a quantity')
-    })
-    cy.get('#priorityDescription-form-group .govuk-error-message').within(
-      () => {
-        cy.contains('Please select a priority')
-      }
-    )
-    cy.get('#descriptionOfWork-form-group .govuk-error-message').within(() => {
-      cy.contains('Please enter a repair description')
-    })
-
-    // Fill out form
     cy.get('#repair-request-form').within(() => {
       // Expect contractors and sor code selection to be disabled until trade selected
       cy.get('#contractor').should('be.disabled')
@@ -131,12 +152,18 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select a trade (<datalist> required typed input for testing)
       cy.get('#trade').type('Plumbing - PL')
+
+      cy.wait('@contractorsRequest')
+
       // Contractor select is no longer disabled but sor code selection still is
       cy.get('#contractor').should('not.be.disabled')
       cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select a contractor
       cy.get('#contractor').type('HH General Building Repair - H01')
+
+      cy.wait('@sorCodesRequest')
+
       // SOR select is no longer disabled
       cy.get('input[id="rateScheduleItems[0][code]"]').should('not.be.disabled')
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
@@ -156,12 +183,20 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
       // Select trade not included in list
       cy.get('#trade').type('Fake trade')
+
+      cy.get('[type="submit"]').contains('Create work order').click()
+
       cy.get('#trade-form-group .govuk-error-message').within(() => {
         cy.contains('Trade is not valid')
       })
       // Select valid trade
       cy.get('#trade').clear().type('Plumbing - PL')
+
+      cy.wait('@contractorsRequest')
+
       cy.get('#contractor').type('HH General Building Repair - H01')
+
+      cy.wait('@sorCodesRequest')
 
       // Select SOR code with no priority attached
       cy.get('input[id="rateScheduleItems[0][code]"]').type(
@@ -311,6 +346,7 @@ describe('Raise repair form', () => {
       cy.get('[type="submit"]')
         .contains('Create work order')
         .click({ force: true })
+
       cy.get(
         'div[id="rateScheduleItems[1][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
@@ -418,7 +454,7 @@ describe('Raise repair form', () => {
       .contains('Create work order')
       .click({ force: true })
 
-    cy.wait('@apiCheck').then(({ request }) => {
+    cy.wait('@apiCheck', { timeout: 6000 }).then(({ request }) => {
       const referenceIdUuid = request.body.reference[0].id
       const requiredCompletionDateTime =
         request.body.priority.requiredCompletionDateTime
@@ -546,7 +582,7 @@ describe('Raise repair form', () => {
     cy.audit()
   })
 
-  it('Display warning text when over the raise limit and submit for high cost authorisation', () => {
+  it('Submits an order above the user raise limit for authorisation', () => {
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
       {
@@ -559,18 +595,23 @@ describe('Raise repair form', () => {
       }
     ).as('apiCheck')
 
-    // Navigate to the raise repair form
     cy.visit('/properties/00012345/raise-repair/new')
 
-    // Select a trade
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
     cy.get('#trade').type('Plumbing - PL')
-    // Select a contractor
+    cy.wait('@contractorsRequest')
+
     cy.get('#contractor').type('HH General Building Repair - H01')
+    cy.wait('@sorCodesRequest')
+
     // Select an SOR with no cost
     cy.get('input[id="rateScheduleItems[0][code]"]').type(
       'DES5R003 - Immediate call outs'
     )
+
     cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
+
     // Within user's raise limit so no warning text is displayed
     cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
 
@@ -634,6 +675,8 @@ describe('Raise repair form', () => {
     // Submit form for high cost (over raise limit) authorisation
     cy.get('[type="submit"]').contains('Create work order').click()
 
+    cy.wait('@apiCheck')
+
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
@@ -644,6 +687,7 @@ describe('Raise repair form', () => {
         cy.contains('10102030')
       })
     })
+
     // Warning text as this work order is over the raise limit
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.get('.govuk-warning-text__text').contains(
