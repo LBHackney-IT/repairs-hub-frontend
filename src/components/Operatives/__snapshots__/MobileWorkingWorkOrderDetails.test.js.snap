@@ -33,7 +33,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
       class="work-order-information"
     >
       <div
-        class="govuk-grid-row align-grid-row"
+        class="govuk-grid-row govuk-!-margin-top-0"
       >
         <div
           class="govuk-grid-column-one-half"
@@ -47,7 +47,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
           </a>
         </div>
         <div
-          class="govuk-grid-column-one-half align-grid-column"
+          class="govuk-grid-column-one-half govuk-!-margin-top-0"
         >
           <div
             class="govuk-warning-text lbh-warning-text"
@@ -67,7 +67,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
         </div>
       </div>
       <div
-        class="govuk-grid-row align-grid-row"
+        class="govuk-grid-row govuk-!-margin-top-0"
       >
         <div
           class="govuk-grid-column-one-half"
@@ -89,7 +89,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
         </div>
       </div>
       <div
-        class="govuk-grid-row align-grid-row"
+        class="govuk-grid-row govuk-!-margin-top-0"
       >
         <div
           class="govuk-grid-column-one-half"
@@ -111,7 +111,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
         </div>
       </div>
       <div
-        class="govuk-grid-row align-grid-row"
+        class="govuk-grid-row govuk-!-margin-top-0"
       >
         <div
           class="govuk-grid-column-one-half"
@@ -133,7 +133,7 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
         </div>
       </div>
       <div
-        class="govuk-grid-row align-grid-row"
+        class="govuk-grid-row govuk-!-margin-top-0"
       >
         <div
           class="govuk-grid-column-one-half"

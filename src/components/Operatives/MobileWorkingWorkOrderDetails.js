@@ -61,7 +61,7 @@ const MobileWorkingWorkOrderDetails = ({
         )}
         <div className="work-order-information">
           {cautionaryAlertsType && (
-            <GridRow className="align-grid-row">
+            <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <a
                   className="lbh-heading-h5 lbh-link"
@@ -72,7 +72,7 @@ const MobileWorkingWorkOrderDetails = ({
                   Caut. alerts
                 </a>
               </GridColumn>
-              <GridColumn width="one-half" className="align-grid-column">
+              <GridColumn width="one-half" className="govuk-!-margin-top-0">
                 <div className="govuk-warning-text lbh-warning-text">
                   <span
                     className="govuk-warning-text__icon person-alert--icon"
@@ -88,7 +88,7 @@ const MobileWorkingWorkOrderDetails = ({
             </GridRow>
           )}
 
-          <GridRow className="align-grid-row">
+          <GridRow className="govuk-!-margin-top-0">
             <GridColumn width="one-half">
               <div className="lbh-body property-name">Address</div>
             </GridColumn>
@@ -100,7 +100,7 @@ const MobileWorkingWorkOrderDetails = ({
           </GridRow>
 
           {workOrder.callerName && (
-            <GridRow className="align-grid-row">
+            <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Contact</div>
               </GridColumn>
@@ -111,7 +111,7 @@ const MobileWorkingWorkOrderDetails = ({
           )}
 
           {workOrder.callerNumber && (
-            <GridRow className="align-grid-row">
+            <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Telephone no</div>
               </GridColumn>
@@ -122,7 +122,7 @@ const MobileWorkingWorkOrderDetails = ({
           )}
 
           {workOrder.appointment && workOrder.appointment.note && (
-            <GridRow className="align-grid-row">
+            <GridRow className="govuk-!-margin-top-0">
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Comment</div>
               </GridColumn>
