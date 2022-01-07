@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
-import OperativeTasksAndSorsTable from '../WorkOrder/TasksAndSors/OperativeTasksAndSorsTable'
+import MobileWorkingTasksAndSorsTable from '../WorkOrder/TasksAndSors/MobileWorkingTasksAndSorsTable'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
@@ -113,7 +113,7 @@ const MobileWorkingWorkOrder = ({
           tasksAndSors={tasksAndSors}
         />
 
-        <OperativeTasksAndSorsTable
+        <MobileWorkingTasksAndSorsTable
           workOrderReference={workOrderReference}
           tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
           tabName={'Tasks and SORs'}
