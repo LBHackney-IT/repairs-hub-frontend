@@ -43,11 +43,11 @@ const CloseWorkOrderForm = ({
 
   const CLOSURE_STATUS_OPTIONS = [
     {
-      text: closingByProxy ? 'Work Order Completed' : 'Completed',
+      text: 'Completed',
       value: 'Work Order Completed',
     },
     {
-      text: closingByProxy ? 'No Access' : 'No access',
+      text: 'No access',
       value: 'No Access',
     },
   ]
@@ -161,9 +161,7 @@ const CloseWorkOrderForm = ({
             </div>
           )}
 
-          <PrimarySubmitButton
-            label={closingByProxy ? 'Submit' : 'Close work order'}
-          />
+          <PrimarySubmitButton label="Close work order" />
         </form>
       </div>
     </>

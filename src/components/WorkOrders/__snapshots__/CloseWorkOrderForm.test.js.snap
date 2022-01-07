@@ -45,7 +45,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               class="govuk-label lbh-label govuk-radios__label"
               for="reason_Work Order Completed"
             >
-              Work Order Completed
+              Completed
             </label>
           </div>
           <div
@@ -64,7 +64,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               class="govuk-label lbh-label govuk-radios__label"
               for="reason_No Access"
             >
-              No Access
+              No access
             </label>
           </div>
         </div>
@@ -497,7 +497,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           data-module="govuk-button"
           type="submit"
         >
-          Submit
+          Close work order
         </button>
       </div>
     </form>
