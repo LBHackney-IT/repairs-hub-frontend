@@ -89,7 +89,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.wait(['@workOrder', '@tasksRequest'])
 
       cy.get('form').within(() => {
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
       cy.contains('Summary of updates to work order').should('not.exist')
       cy.get('form').within(() => {
@@ -111,7 +111,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-minutes]').type('66')
 
         cy.get('#notes').type('test')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
 
       cy.get('form').within(() => {
@@ -131,7 +131,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-minutes]').type('66')
 
         cy.get('#notes').type('test')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
 
       cy.get('form').within(() => {
@@ -153,7 +153,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-minutes]').type('45')
 
         cy.get('#notes').type('test')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
 
       cy.contains('Summary of updates to work order')
@@ -161,7 +161,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-table__row').contains('2021/01/18')
       cy.get('.govuk-table__row').contains('12:45')
       cy.get('.govuk-table__row').contains('Reason')
-      cy.get('.govuk-table__row').contains('Work Order Completed')
+      cy.get('.govuk-table__row').contains('Completed')
       cy.get('.govuk-table__row').contains('Notes')
       cy.get('.govuk-table__row').contains('test')
     })
@@ -190,7 +190,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-minutes]').type('45')
 
         cy.get('#notes').type('This has been repaired.')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
       cy.contains('Summary of updates to work order')
       cy.get('.govuk-table__row').contains('Completion time')
@@ -218,13 +218,13 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('#notes').type(
           'This has been repaired and I forgot I did it on a completely different date and time.'
         )
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
       cy.get('.govuk-table__row').contains('Completion time')
       cy.get('.govuk-table__row').contains('2021/02/19')
       cy.get('.govuk-table__row').contains('13:01')
       cy.get('.govuk-table__row').contains('Reason')
-      cy.get('.govuk-table__row').contains('Work Order Completed')
+      cy.get('.govuk-table__row').contains('Completed')
       cy.get('.govuk-table__row').contains('Notes')
       cy.get('.govuk-table__row').contains(
         'This has been repaired and I forgot I did it on a completely different date and time.'
@@ -288,7 +288,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-minutes]').type('01')
 
         cy.get('#notes').type('Tenant was not at home')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
       cy.get('.govuk-table__row').contains('Completion time')
       cy.get('.govuk-table__row').contains('2021/01/19')
@@ -345,7 +345,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid="isOvertime"]').check()
 
         cy.get('#notes').type('This has been repaired during overtime.')
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
       })
 
       cy.contains('th', 'Overtime').parent().contains('Yes')
@@ -492,7 +492,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('.smv-read-only').eq(1).contains('25.31')
         cy.get('.smv-read-only').eq(2).contains('25.31')
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.govuk-table__row')
           .contains('Operatives')
@@ -510,7 +510,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(2).clear()
         })
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.operatives').within(() => {
           cy.get('#operative-0-form-group').contains(
@@ -553,7 +553,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('.smv-read-only').eq(2).contains('22.80')
         cy.get('.smv-read-only').eq(3).contains('7.60')
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.operatives').within(() => {
           cy.contains('Work done total across operatives must be equal to 100%')
@@ -574,7 +574,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('.smv-read-only').eq(2).contains('7.60')
         cy.get('.smv-read-only').eq(3).contains('-')
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.govuk-table__row')
           .contains('Operatives')
@@ -769,7 +769,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('.smv-read-only').eq(0).contains('30.40')
         cy.get('.smv-read-only').eq(1).contains('45.60')
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.govuk-table__row')
           .contains('Operatives')
@@ -888,7 +888,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.get('input[list]').eq(0).should('have.value', '')
         })
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.operatives').within(() => {
           cy.get('#operative-0-form-group').contains(
@@ -921,7 +921,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('.smv-read-only').eq(0).contains('76')
 
-        cy.get('[type="submit"]').contains('Submit').click()
+        cy.get('[type="submit"]').contains('Close work order').click()
 
         cy.get('.govuk-table__row')
           .contains('Operatives')
