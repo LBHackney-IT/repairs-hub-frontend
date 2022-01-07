@@ -1,7 +1,7 @@
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
-import OperativeWorkOrderView from '../../../../../components/WorkOrder/OperativeWorkOrderView'
+import MobileWorkOrderView from '../../../../../components/WorkOrder/MobileWorkOrderView'
 
 const OperativeWorkOrderPage = ({ query }) => {
   // This page was created so users in operative and other groups
@@ -12,7 +12,7 @@ const OperativeWorkOrderPage = ({ query }) => {
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />
-      <OperativeWorkOrderView workOrderReference={query.id} />
+      <MobileWorkOrderView workOrderReference={query.id} />
     </>
   )
 }

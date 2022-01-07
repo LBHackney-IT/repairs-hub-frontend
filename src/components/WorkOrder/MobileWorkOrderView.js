@@ -7,7 +7,7 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from '../Operatives/MobileWorkingWorkOrder'
 
-const OperativeWorkOrderView = ({ workOrderReference }) => {
+const MobileWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
@@ -109,8 +109,8 @@ const OperativeWorkOrderView = ({ workOrderReference }) => {
   )
 }
 
-OperativeWorkOrderView.propTypes = {
+MobileWorkOrderView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
 }
 
-export default OperativeWorkOrderView
+export default MobileWorkOrderView
