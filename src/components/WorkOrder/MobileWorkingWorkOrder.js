@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
-import OperativeTasksAndSorsTable from '../WorkOrder/TasksAndSors/OperativeTasksAndSorsTable'
+import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
@@ -17,9 +17,9 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
-import OperativeList from './OperativeList'
+import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
-import AppointmentHeader from '../WorkOrder/AppointmentHeader'
+import AppointmentHeader from './AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
 
@@ -113,7 +113,7 @@ const MobileWorkingWorkOrder = ({
           tasksAndSors={tasksAndSors}
         />
 
-        <OperativeTasksAndSorsTable
+        <MobileWorkingTasksAndSorsTable
           workOrderReference={workOrderReference}
           tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
           tabName={'Tasks and SORs'}
