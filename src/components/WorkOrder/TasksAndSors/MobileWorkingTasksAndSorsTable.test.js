@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
-import OperativeTasksAndSorsTable from './OperativeTasksAndSorsTable'
+import MobileWorkingTasksAndSorsTable from './MobileWorkingTasksAndSorsTable'
 
-describe('OperativeTasksAndSorsTable component', () => {
+describe('MobileWorkingTasksAndSorsTable component', () => {
   const props = {
     tabName: 'Tasks and SORs',
     tasksAndSors: [
@@ -46,7 +46,7 @@ describe('OperativeTasksAndSorsTable component', () => {
 
   it('renders tasks and SORs table properly', () => {
     const { asFragment } = render(
-      <OperativeTasksAndSorsTable
+      <MobileWorkingTasksAndSorsTable
         tasksAndSors={props.tasksAndSors}
         tabName={props.tabName}
         workOrderReference="10000000"

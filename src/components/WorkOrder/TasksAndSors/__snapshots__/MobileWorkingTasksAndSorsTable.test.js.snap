@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`OperativeTasksAndSorsTable component renders tasks and SORs table properly 1`] = `
+exports[`MobileWorkingTasksAndSorsTable component renders tasks and SORs table properly 1`] = `
 <DocumentFragment>
   <h4
     class="lbh-heading-h4"

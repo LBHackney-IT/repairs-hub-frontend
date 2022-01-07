@@ -3,7 +3,7 @@ import TasksAndSorsRow from './TasksAndSorsRow'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import { calculateTotal } from '@/utils/helpers/calculations'
 
-const OperativeTasksAndSorsTable = ({
+const MobileWorkingTasksAndSorsTable = ({
   tasksAndSors,
   tabName,
   workOrderReference,
@@ -62,7 +62,7 @@ const OperativeTasksAndSorsTable = ({
   )
 }
 
-OperativeTasksAndSorsTable.propTypes = {
+MobileWorkingTasksAndSorsTable.propTypes = {
   tabName: PropTypes.string.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
@@ -75,4 +75,4 @@ OperativeTasksAndSorsTable.propTypes = {
   readOnly: PropTypes.bool.isRequired,
 }
 
-export default OperativeTasksAndSorsTable
+export default MobileWorkingTasksAndSorsTable
