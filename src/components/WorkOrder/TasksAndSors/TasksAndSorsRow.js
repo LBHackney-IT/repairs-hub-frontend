@@ -18,7 +18,7 @@ const tasksAndSorsRow = ({
   readOnly,
 }) => {
   return !showOperativeTasksAndSorsRow ? (
-    <TR index={index} className="lbh-body-s">
+    <TR index={index} className="lbh-body">
       <TD>{code}</TD>
       <TD>{description}</TD>
       <TD>{taskQuantity}</TD>

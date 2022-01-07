@@ -80,9 +80,9 @@ const MobileWorkingWorkOrdersView = () => {
     <>
       <Meta title="Manage work orders" />
       <div className="mobile-working-title-banner">
-        <h1 className="lbh-heading-h1">
+        <h2 className="lbh-heading-h2">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
-        </h1>
+        </h2>
       </div>
 
       <h3 className="lbh-heading-h3">Work orders</h3>

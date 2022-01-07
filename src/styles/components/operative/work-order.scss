@@ -15,17 +15,18 @@
   }
 
   .priority-text {
-    text-align: right;
     text-transform: capitalize;
     font-size: 20px;
-
-    .lbh-heading-h3 {
-      font-weight: normal;
-    }
   }
 
   .property-name {
     font-weight: 600;
+  }
+
+  .work-order-information {
+    background-color: repairs-hub-colour('light-grey');
+    padding: 10px;
+    padding-top: 5px;
   }
 }
 
@@ -45,4 +46,14 @@
 
 .update-task-quantity {
   width: 50%;
+}
+
+.operative-work-order-task-and-sors-table {
+  .lbh-heading-h3 {
+    text-align: right;
+  }
+  .background-wrap-color {
+    background-color: repairs-hub-colour('lighest-lbh-grey');
+    padding: 10px;
+  }
 }

@@ -190,7 +190,7 @@ describe('Closing my own work order', () => {
 
         cy.get('.modal-container').should('not.exist')
 
-        cy.get('.lbh-heading-h1').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
     }
   )

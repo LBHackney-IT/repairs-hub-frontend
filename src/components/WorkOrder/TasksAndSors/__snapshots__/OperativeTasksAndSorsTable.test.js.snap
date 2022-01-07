@@ -2,181 +2,165 @@
 
 exports[`OperativeTasksAndSorsTable component renders tasks and SORs table properly 1`] = `
 <DocumentFragment>
-  <h4
-    class="lbh-heading-h4"
+  <div
+    class="operative-work-order-task-and-sors-table"
   >
-    Tasks and SORs
-  </h4>
-  <table
-    class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
-  >
-    <thead
-      class="govuk-table__head"
+    <h2
+      class="lbh-heading-h2"
     >
-      <tr
-        class="govuk-table__row lbh-body"
-      >
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Qty
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          SOR
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Description
-        </th>
-        <th
-          class="govuk-table__header govuk-table__header--numeric"
-          scope="col"
-        >
-          SMV
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="govuk-table__body"
+      Tasks and SORs
+    </h2>
+    <table
+      class="govuk-table lbh-table latest-tasks-and-sors-table govuk-!-margin-top-0"
     >
-      <tr
-        class="govuk-table__row lbh-body"
-        data-row-id="0"
+      <thead
+        class="govuk-table__head"
       >
-        <td
-          class="govuk-table__cell"
+        <tr
+          class="govuk-table__row lbh-body"
         >
-          2
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/1/edit"
+          <th
+            class="govuk-table__header"
+            scope="col"
           >
-            DES5R006
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/1/edit"
+            Qty
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
           >
-            Urgent call outs
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
-        >
-          50
-        </td>
-      </tr>
-      <tr
-        class="govuk-table__row lbh-body"
-        data-row-id="1"
+            SOR
+          </th>
+          <th
+            class="govuk-table__header"
+            scope="col"
+          >
+            Description
+          </th>
+          <th
+            class="govuk-table__header govuk-table__header--numeric"
+            scope="col"
+          >
+            SMV
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="govuk-table__body"
       >
-        <td
-          class="govuk-table__cell"
+        <tr
+          class="govuk-table__row lbh-body"
+          data-row-id="0"
         >
-          4
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/2/edit"
+          <td
+            class="govuk-table__cell"
           >
-            DES5R005
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/2/edit"
+            2
+          </td>
+          <td
+            class="govuk-table__cell"
           >
-            Normal call outs
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
-        >
-          120
-        </td>
-      </tr>
-      <tr
-        class="govuk-table__row lbh-body zero-quantity-row"
-        data-row-id="2"
-      >
-        <td
-          class="govuk-table__cell"
-        >
-          0
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/3/edit"
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/1/edit"
+            >
+              DES5R006
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell"
           >
-            DES5R013
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          <a
-            class="govuk-link"
-            href="/work-orders/10000000/tasks/3/edit"
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/1/edit"
+            >
+              Urgent call outs
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell govuk-table__cell--numeric"
           >
-            Inspect additional sec entrance
-          </a>
-        </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+            50
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row lbh-body"
+          data-row-id="1"
         >
-          0
-        </td>
-      </tr>
-      <tr
-        class="govuk-table__row lbh-body"
-        data-row-id="3"
-      >
-        <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          <td
+            class="govuk-table__cell"
+          >
+            4
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/2/edit"
+            >
+              DES5R005
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/2/edit"
+            >
+              Normal call outs
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell govuk-table__cell--numeric"
+          >
+            120
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row lbh-body zero-quantity-row"
+          data-row-id="2"
         >
-          <strong>
-            SMV total
-          </strong>
-        </td>
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
-        >
-          <strong>
-            170
-          </strong>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <br />
+          <td
+            class="govuk-table__cell"
+          >
+            0
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/3/edit"
+            >
+              DES5R013
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="govuk-link"
+              href="/work-orders/10000000/tasks/3/edit"
+            >
+              Inspect additional sec entrance
+            </a>
+          </td>
+          <td
+            class="govuk-table__cell govuk-table__cell--numeric"
+          >
+            0
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <h3
+      class="lbh-heading-h3 background-wrap-color"
+    >
+      SMV total 170
+    </h3>
+    <br />
+  </div>
 </DocumentFragment>
 `;

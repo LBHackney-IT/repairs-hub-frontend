@@ -100,7 +100,6 @@ const MobileWorkingWorkOrder = ({
   return (
     <>
       <AppointmentHeader workOrder={workOrder} />
-
       <div className="govuk-!-margin-top-4">
         <BackButton />
       </div>
