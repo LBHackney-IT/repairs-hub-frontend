@@ -1,7 +1,7 @@
 import Search from '@/components/Search/Search'
 import Spinner from '@/components/Spinner'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
-import MobileWorkingWorkOrdersView from '@/components/Operatives/MobileWorkingWorkOrdersView'
+import MobileWorkingWorkOrdersView from '@/components/WorkOrders/MobileWorkingWorkOrdersView'
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import {

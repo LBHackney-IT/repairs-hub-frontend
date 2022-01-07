@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Link from 'next/link'
-import Status from '../WorkOrder/Status'
+import Status from './Status'
 import cx from 'classnames'
 import { WorkOrder } from '../../models/workOrder'
 
