@@ -5,7 +5,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
-import MobileWorkingWorkOrder from '../Operatives/MobileWorkingWorkOrder'
+import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 
 const MobileWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
