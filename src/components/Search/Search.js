@@ -92,7 +92,9 @@ const Search = ({ query }) => {
 
           <div className="govuk-form-group lbh-form-group">
             <form>
-              <label className="govuk-label lbh-label">{searchLabelText}</label>
+              <label htmlFor={'input-search'} className="govuk-label lbh-label">
+                {searchLabelText}
+              </label>
               <input
                 className="govuk-input lbh-input govuk-input--width-10"
                 id="input-search"
