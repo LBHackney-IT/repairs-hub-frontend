@@ -5,11 +5,11 @@ exports[`AppointmentHeader component should render info text when there is no ap
   <div
     class="mobile-working-title-banner"
   >
-    <h3
-      class="lbh-heading-h3"
+    <h2
+      class="lbh-heading-h2"
     >
       No appointment
-    </h3>
+    </h2>
   </div>
 </DocumentFragment>
 `;
@@ -19,13 +19,13 @@ exports[`AppointmentHeader component should render the date when the appointment
   <div
     class="mobile-working-title-banner"
   >
-    <h3
-      class="lbh-heading-h3"
+    <h2
+      class="lbh-heading-h2"
     >
       Friday 19 March
       <br />
       12:00 – 18:00
-    </h3>
+    </h2>
   </div>
 </DocumentFragment>
 `;

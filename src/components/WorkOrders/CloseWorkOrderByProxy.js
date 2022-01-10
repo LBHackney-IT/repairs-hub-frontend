@@ -167,7 +167,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   }
 
   const onGetToSummary = (e) => {
-    const properDate = convertToDateFormat(e)
+    const properDate = convertToDateFormat(e.date, e.completionTime)
     setCompletionDate(properDate)
 
     const operativeIds = Object.keys(e)
@@ -205,7 +205,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setDateToShow(e.date)
     setIsOvertime(e.isOvertime)
     changeCurrentPage()
-    setCompletionTime(e.time)
+    setCompletionTime(e.completionTime)
   }
 
   return (

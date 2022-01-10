@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react'
 import { WorkOrder } from '@/models/workOrder'
-import OperativeWorkOrder from './OperativeWorkOrder'
+import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
 
-describe('OperativeWorkOrder component with single operative', () => {
+describe('MobileWorkingWorkOrder component with single operative', () => {
   const workOrderData = {
     reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
@@ -89,7 +89,7 @@ describe('OperativeWorkOrder component with single operative', () => {
 
     it('should render work order elements when unvaried without a variation textbox', () => {
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -118,7 +118,7 @@ describe('OperativeWorkOrder component with single operative', () => {
 
     it('should render work order elements with a form and variation reason when an SOR is varied', () => {
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -147,7 +147,7 @@ describe('OperativeWorkOrder component with single operative', () => {
 
     it('should render work order elements with a form and variation reason when an SOR is added', () => {
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -196,7 +196,7 @@ describe('OperativeWorkOrder component with single operative', () => {
     it('should render work order elements with Status Work Complete', () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -231,7 +231,7 @@ describe('OperativeWorkOrder component with single operative', () => {
     it('should render work order elements with Status No Access', () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -266,7 +266,7 @@ describe('OperativeWorkOrder component with single operative', () => {
     it('renders an overtime check box', () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
-        <OperativeWorkOrder
+        <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
@@ -294,7 +294,7 @@ describe('OperativeWorkOrder component with single operative', () => {
   })
 })
 
-describe('OperativeWorkOrder component with multiple operatives', () => {
+describe('MobileWorkingWorkOrder component with multiple operatives', () => {
   beforeEach(() => {
     MockDate.set(new Date('Monday 13 December 2021 18:00'))
   })
@@ -386,7 +386,7 @@ describe('OperativeWorkOrder component with multiple operatives', () => {
 
   it('should render work order elements with an Update operative link', () => {
     const { asFragment } = render(
-      <OperativeWorkOrder
+      <MobileWorkingWorkOrder
         workOrderReference={workOrder.reference}
         property={props.property}
         workOrder={workOrder}

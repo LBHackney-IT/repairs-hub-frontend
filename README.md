@@ -1,49 +1,59 @@
 # Hackney Repairs Hub frontend
 
-This is the Hackney Repairs frontend application which allows agents to securely access information from Hackney Repairs API about Hackney properties, and to raise new repair requests.
+Allows agents and managers to raise, review, approve and close work orders.
 
-## Preflight
+Allows operatives to sign in to a "mobile working" view, see upcoming jobs and complete them.
 
-### How it's made
+### Dependencies
 
 It's a [Next.js](https://nextjs.org) app that works with:
 
-- Hackney's [repairs API](https://github.com/LBHackney-IT/repairs-api)
+- [Repairs API](https://github.com/LBHackney-IT/repairs-api-dotnet)
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
 
-It's built using [Hackney Design System](https://github.com/LBHackney-IT/lbh-frontend).
+It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Development Setup
 
 ### Clone the project
 
 ```sh
-$ git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
+git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
 ```
-
-## Building the project for local development
 
 The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
 
-### Setup
-
 Install the dependencies:
 
-```bash
+```sh
 yarn install
 ```
 
 ### Environment variables
 
-Create your `.env` file from `.env.sample`. You will need to grab some secrets from the team.
+Create a `.env` file. You will need to grab several secrets from the team to include.
 
-### Authentication setup
+If you need to add or change a variable, first see the 'Managing environment variables' section, below.
 
-First, you need a `@hackney.gov.uk` Google account in the right groups to log in. Speak to Hackney IT if you don't have these.
+### Authentication
+
+You need a `@hackney.gov.uk` Google account with the correct Google group membership to log in. Speak to Hackney IT if you don't have this.
 
 Next, you need to tell your computer to run the app from a `hackney.gov.uk` domain. Let's use `localdev.hackney.gov.uk`. You will need to add the following line to your `/etc/hosts` file:
 
 ```
 127.0.0.1       localdev.hackney.gov.uk
 ```
+
+### Run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
 
 ### Tests
 
@@ -67,32 +77,51 @@ The full test suite including unit tests and system tests can be run using follo
 yarn tests
 ```
 
-Individual Cypress end to end spec file using headlessly in the Electron default browser can be run using the following command:
+Run an individual Cypress spec can be run using the following command:
 
 ```
 yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
-### Run the development server:
+## Managing environment variables
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+### Types of environment variables
 
-Open [http://localhost:5000](http://localhost:5000) with your browser to see the result.
+This project makes use of two types of environment variables:
 
-## Continuous Delivery
+1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
+2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
+
+### Where values are set
+
+This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
+
+Variables are referenced and stored in the following places:
+
+- dotenv files (either `.sample.env` or `.env`)
+- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
+- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [Cypress project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
+  These references are made using the cypress `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
+- AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
+
+### Tests
+
+When running unit tests, only the `sample.env` file is used to set environment variables. This is true for both local and CI builds.
+
+When running integration tests locally, the .env file is used.
+
+When running integration tests on Circle CI, values are from the Circle project settings and from hardcoded values in the CircleCI config file.
+
+### Local and deployed applications
+
+When running the application locally, the .env file is used for setting environment variables.
+
+When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in Cypress project settings.
+
+## Deployments
 
 Our serverless deployment service is configured in [serverless.yml](serverless.yml).
 
-The serverless service includes the following:
+Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all).
 
-- a single serverless function: repairs-hub-frontend
-- Description of the Cloudfront CDN in CloudFormation
-- Custom subdomain under hackney.gov.uk
-
-## How to deploy and what to check first
-
-See https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables
+See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables)

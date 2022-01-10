@@ -660,6 +660,8 @@ describe('Updating a work order', () => {
         cy.get('button').contains('Remove SOR').click()
       })
 
+      cy.wait('@jobStatusUpdateRequest')
+
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
@@ -737,6 +739,7 @@ describe('Updating a work order', () => {
 
         cy.get('button').contains('Confirm').click()
       })
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
@@ -857,6 +860,8 @@ describe('Updating a work order', () => {
       cy.get('.smv-read-only').eq(2).contains('-')
 
       cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')
@@ -996,6 +1001,8 @@ describe('Updating a work order', () => {
       cy.get('.smv-read-only').eq(2).contains('38')
 
       cy.get('[type="submit"]').contains('Confirm').click()
+
+      cy.wait('@jobStatusUpdateRequest')
 
       cy.get('@jobStatusUpdateRequest')
         .its('request.body')

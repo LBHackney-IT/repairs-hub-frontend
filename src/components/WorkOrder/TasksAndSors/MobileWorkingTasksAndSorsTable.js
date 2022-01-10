@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import TasksAndSorsRow from './TasksAndSorsRow'
-import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
+import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { calculateTotal } from '@/utils/helpers/calculations'
 
-const OperativeTasksAndSorsTable = ({
+const MobileWorkingTasksAndSorsTable = ({
   tasksAndSors,
   tabName,
   workOrderReference,
@@ -34,35 +34,27 @@ const OperativeTasksAndSorsTable = ({
               {...entry}
             />
           ))}
-          <TR index={tasksAndSors.length} className="lbh-body">
-            <TD>{}</TD>
-            <TD>{}</TD>
-            <TD type="numeric">
-              <strong>SMV total</strong>
-            </TD>
-            <TD type="numeric">
-              <strong>
-                {calculateTotal(tasks, 'quantity', 'standardMinuteValue')}
-              </strong>
-            </TD>
-          </TR>
         </TBody>
       </>
     )
   }
 
   return (
-    <>
-      <h4 className="lbh-heading-h4">{tabName}</h4>
+    <div className="operative-work-order-task-and-sors-table">
+      <h2 className="lbh-heading-h2">{tabName}</h2>
       <Table className="latest-tasks-and-sors-table govuk-!-margin-top-0">
         {buildTable(tasksAndSors)}
       </Table>
+      <h3 className="lbh-heading-h3 background-wrap-color">
+        SMV total{' '}
+        {calculateTotal(tasksAndSors, 'quantity', 'standardMinuteValue')}
+      </h3>
       <br />
-    </>
+    </div>
   )
 }
 
-OperativeTasksAndSorsTable.propTypes = {
+MobileWorkingTasksAndSorsTable.propTypes = {
   tabName: PropTypes.string.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
@@ -75,4 +67,4 @@ OperativeTasksAndSorsTable.propTypes = {
   readOnly: PropTypes.bool.isRequired,
 }
 
-export default OperativeTasksAndSorsTable
+export default MobileWorkingTasksAndSorsTable

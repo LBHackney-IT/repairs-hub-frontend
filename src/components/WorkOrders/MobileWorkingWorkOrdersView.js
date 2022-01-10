@@ -4,12 +4,12 @@ import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import OperativeWorkOrderListItem from './OperativeWorkOrderListItem'
+import MobileWorkingWorkOrderListItem from '../WorkOrder/MobileWorkingWorkOrderListItem'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import Meta from '../Meta'
 import { WorkOrder } from '../../models/workOrder'
 
-const OperativeWorkOrdersView = () => {
+const MobileWorkingWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
   const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
@@ -56,7 +56,7 @@ const OperativeWorkOrdersView = () => {
 
   const renderWorkOrderListItems = (workOrders) => {
     return workOrders.map((workOrder, index) => (
-      <OperativeWorkOrderListItem
+      <MobileWorkingWorkOrderListItem
         key={index}
         workOrder={workOrder}
         index={index}
@@ -80,9 +80,9 @@ const OperativeWorkOrdersView = () => {
     <>
       <Meta title="Manage work orders" />
       <div className="mobile-working-title-banner">
-        <h1 className="lbh-heading-h1">
+        <h2 className="lbh-heading-h2">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
-        </h1>
+        </h2>
       </div>
 
       <h3 className="lbh-heading-h3">Work orders</h3>
@@ -110,4 +110,4 @@ const OperativeWorkOrdersView = () => {
   )
 }
 
-export default OperativeWorkOrdersView
+export default MobileWorkingWorkOrdersView

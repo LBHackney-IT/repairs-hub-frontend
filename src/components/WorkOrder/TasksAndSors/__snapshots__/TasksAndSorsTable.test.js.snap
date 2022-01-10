@@ -63,7 +63,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row lbh-body-s"
+        class="govuk-table__row lbh-body"
         data-row-id="0"
       >
         <td
@@ -98,7 +98,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
         </td>
       </tr>
       <tr
-        class="govuk-table__row lbh-body-s"
+        class="govuk-table__row lbh-body"
         data-row-id="1"
       >
         <td
@@ -133,7 +133,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
         </td>
       </tr>
       <tr
-        class="govuk-table__row lbh-body-s"
+        class="govuk-table__row lbh-body"
         data-row-id="2"
       >
         <td
@@ -285,7 +285,7 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
           class="govuk-table__body"
         >
           <tr
-            class="govuk-table__row lbh-body-s"
+            class="govuk-table__row lbh-body"
             data-row-id="0"
           >
             <td
@@ -424,7 +424,7 @@ exports[`TasksAndSorsTable component renders the latest table only, when tasksWe
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row lbh-body-s"
+        class="govuk-table__row lbh-body"
         data-row-id="0"
       >
         <td

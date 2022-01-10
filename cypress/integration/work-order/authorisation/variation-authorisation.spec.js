@@ -71,6 +71,8 @@ describe('Contract manager can authorise variation', () => {
     cy.get('#note').type('Can not approve it')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
+    cy.wait('@apiCheck')
+
     cy.get('@apiCheck')
       .its('request.body')
       .should('deep.equal', {
@@ -116,6 +118,8 @@ describe('Contract manager can authorise variation', () => {
     // When click approve default comments appear
     cy.get('[type="radio"]').check('Approve request')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
+
+    cy.wait('@apiCheck')
 
     cy.get('@apiCheck')
       .its('request.body')
@@ -252,6 +256,8 @@ describe('Contract manager can authorise variation', () => {
     // Rejects with comments post request goes through
     cy.get('#note').type('Can not approve it')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
+
+    cy.wait('@apiCheck')
 
     cy.get('@apiCheck')
       .its('request.body')

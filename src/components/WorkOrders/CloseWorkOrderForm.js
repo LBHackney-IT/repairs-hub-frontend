@@ -43,11 +43,11 @@ const CloseWorkOrderForm = ({
 
   const CLOSURE_STATUS_OPTIONS = [
     {
-      text: closingByProxy ? 'Work Order Completed' : 'Completed',
+      text: 'Completed',
       value: 'Work Order Completed',
     },
     {
-      text: closingByProxy ? 'No Access' : 'No access',
+      text: 'No access',
       value: 'No Access',
     },
   ]
@@ -105,13 +105,13 @@ const CloseWorkOrderForm = ({
                 defaultValue={date ? date.toISOString().split('T')[0] : null}
               />
               <TimeInput
-                name="time"
+                name="completionTime"
                 label="Completion time"
                 hint="Use 24h format. For example, 14:30"
                 control={control}
                 register={register}
                 defaultValue={time}
-                error={errors && errors.time}
+                error={errors && errors.completionTime}
               />
             </>
           )}
@@ -161,9 +161,7 @@ const CloseWorkOrderForm = ({
             </div>
           )}
 
-          <PrimarySubmitButton
-            label={closingByProxy ? 'Submit' : 'Close work order'}
-          />
+          <PrimarySubmitButton label="Close work order" />
         </form>
       </div>
     </>
