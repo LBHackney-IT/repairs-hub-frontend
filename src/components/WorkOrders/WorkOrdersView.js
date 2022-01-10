@@ -25,7 +25,6 @@ const WorkOrdersView = ({ query }) => {
     const setFilters = setFilterOptions(formData)
     setAppliedFilters(setFilters)
     updateUrlQueryParams(setFilters)
-    workOrderView(1, setFilters)
   }
 
   const clearFilters = (e) => {
@@ -37,7 +36,6 @@ const WorkOrdersView = ({ query }) => {
 
     setAppliedFilters({})
     updateUrlQueryParams({})
-    workOrderView(1)
   }
 
   const workOrderView = async (pageNumber, filterOptions = {}) => {
