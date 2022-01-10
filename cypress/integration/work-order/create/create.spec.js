@@ -454,7 +454,7 @@ describe('Raise repair form', () => {
       .contains('Create work order')
       .click({ force: true })
 
-    cy.wait('@apiCheck', { timeout: 6000 }).then(({ request }) => {
+    cy.wait('@apiCheck', { requestTimeout: 6000 }).then(({ request }) => {
       const referenceIdUuid = request.body.reference[0].id
       const requiredCompletionDateTime =
         request.body.priority.requiredCompletionDateTime
