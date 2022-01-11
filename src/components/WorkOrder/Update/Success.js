@@ -36,6 +36,14 @@ const WorkOrderUpdateSuccess = ({
         </li>
 
         <li>
+          <Link href={`/work-orders/${workOrderReference}/close`}>
+            <a className="lbh-link">
+              <strong>Close work order</strong>
+            </a>
+          </Link>
+        </li>
+
+        <li>
           <Link href="/">
             <a className="lbh-link">
               <strong>View work orders dashboard</strong>
