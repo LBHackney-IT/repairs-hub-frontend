@@ -784,7 +784,7 @@ describe('Filter work orders', () => {
       cy.loginWithContractManagerRole()
     })
 
-    it.only('Saves selected filters in localStorage as the default filter preset', () => {
+    it('Saves selected filters in localStorage as the default filter preset', () => {
       cy.visit(
         '/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false'
       )
