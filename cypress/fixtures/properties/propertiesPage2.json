@@ -1,0 +1,11 @@
+{
+  "total": 11,
+  "properties": [
+    {
+      "propertyReference": "00000011",
+      "address": "11 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    }
+  ]
+}

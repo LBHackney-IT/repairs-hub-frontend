@@ -50,8 +50,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
         streetSuffix: 'St Thomass Square',
       },
       hierarchyType: {
-        levelCode: '7',
-        subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
       canRaiseRepair: true,
@@ -356,8 +354,6 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         streetSuffix: 'St Thomass Square',
       },
       hierarchyType: {
-        levelCode: '7',
-        subTypeCode: 'DWE',
         subTypeDescription: 'Dwelling',
       },
       canRaiseRepair: true,

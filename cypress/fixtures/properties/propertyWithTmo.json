@@ -8,8 +8,6 @@
       "streetSuffix": "Test Estate"
     },
     "hierarchyType": {
-      "levelCode": "7",
-      "subTypeCode": "DWE",
       "subTypeDescription": "Dwelling"
     },
     "tmoName": "Testing TMO",

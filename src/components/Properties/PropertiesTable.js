@@ -2,14 +2,9 @@ import PropTypes from 'prop-types'
 import PropertyRow from '../Property/PropertyRow'
 import { Table, THead, TBody, TR, TH } from '../Layout/Table'
 
-const PropertiesTable = ({ properties, query }) => (
+const PropertiesTable = ({ properties }) => (
   <div>
-    <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-
     <Table className="govuk-!-margin-top-5">
-      <caption className="govuk-table__caption lbh-heading-h3 lbh-table__caption">
-        We found {properties.length} matching results for: {decodeURI(query)}
-      </caption>
       <THead>
         <TR className="lbh-body">
           <TH scope="col">Address</TH>
@@ -30,12 +25,12 @@ const PropertiesTable = ({ properties, query }) => (
 PropertiesTable.propTypes = {
   properties: PropTypes.arrayOf(
     PropTypes.shape({
-      propertyReference: PropTypes.string,
-      address: PropTypes.object.isRequired,
-      hierarchyType: PropTypes.object.isRequired,
+      propertyReference: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      postalCode: PropTypes.string.isRequired,
+      propertyType: PropTypes.string.isRequired,
     })
   ).isRequired,
-  query: PropTypes.string.isRequired,
 }
 
 export default PropertiesTable
