@@ -9,17 +9,29 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
+import Pagination from '../Layout/Pagination'
 
 const Search = ({ query }) => {
+  const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
+  const { NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH } = process.env
+
+  let decodedQueryParamSearchText = query?.searchText
+    ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
+    : ''
+
+  const pageNumber = query?.pageNumber
+
   const { user } = useContext(UserContext)
+  const router = useRouter()
 
   const canSearchForProperty = user && canAccessWorkOrder(user)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [searchTextInput, setSearchTextInput] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const router = useRouter()
-  const workOrderReferenceRegex = /^[0-9]{7,10}$/g
+  const [searchHitTotal, setSearchHitTotal] = useState()
+
+  const WORK_ORDER_REFERENCE_REGEX = /^[0-9]{7,10}$/g
 
   const searchHeadingText = canSearchForProperty
     ? 'Find repair work order or property'
@@ -29,32 +41,54 @@ const Search = ({ query }) => {
     : 'Search by work order reference'
 
   useEffect(() => {
-    if (query) {
-      if (workOrderReferenceRegex.test(query) || !canSearchForProperty) {
-        workOrderUrl(decodeURI(query.q))
+    if (decodedQueryParamSearchText) {
+      if (
+        WORK_ORDER_REFERENCE_REGEX.test(decodedQueryParamSearchText) ||
+        !canSearchForProperty
+      ) {
+        workOrderUrl(decodedQueryParamSearchText)
       } else {
-        setSearchQuery(decodeURI(query.q))
-        searchForProperties(query.q)
+        setSearchTextInput(decodedQueryParamSearchText)
+        searchForProperties(decodedQueryParamSearchText, pageNumber)
       }
     }
   }, [])
 
-  const searchForProperties = async (searchQuery) => {
+  useEffect(() => {
+    if (pageNumber && searchTextInput) {
+      searchForProperties(searchTextInput, pageNumber)
+    }
+  }, [pageNumber])
+
+  const searchForProperties = async (searchQuery, pageNumber) => {
     setLoading(true)
     setError(null)
 
     try {
-      const properties = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/?q=${searchQuery}`,
-      })
+      if (searchQuery) {
+        const propertiesData = await frontEndApiRequest({
+          method: 'get',
+          path: '/api/properties/search',
+          params: {
+            searchText: searchQuery,
+            ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
+            ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
+          },
+        })
 
-      setProperties(
-        properties.map((property) => new PropertyListItem(property))
-      )
+        setSearchHitTotal(parseInt(propertiesData.total))
+
+        setProperties(
+          propertiesData.properties.map(
+            (property) => new PropertyListItem(property)
+          )
+        )
+      } else {
+        setSearchHitTotal(0)
+        setProperties([])
+      }
     } catch (e) {
       setProperties(null)
-      console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -66,25 +100,24 @@ const Search = ({ query }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
 
-    if (workOrderReferenceRegex.test(searchQuery) || !canSearchForProperty) {
-      workOrderUrl(searchQuery)
+    if (
+      WORK_ORDER_REFERENCE_REGEX.test(searchTextInput) ||
+      !canSearchForProperty
+    ) {
+      workOrderUrl(searchTextInput)
     } else {
-      propertiesURL(searchQuery)
-      searchQuery && searchForProperties(searchQuery)
+      router.push({
+        pathname: '/search',
+        query: {
+          searchText: searchTextInput,
+        },
+      })
+      searchForProperties(searchTextInput, 1)
     }
   }
 
-  const propertiesURL = (searchQuery) => {
-    router.push({
-      pathname: '/search',
-      query: {
-        q: encodeURI(searchQuery),
-      },
-    })
-  }
-
-  const workOrderUrl = (searchQuery) => {
-    router.push(`/work-orders/${searchQuery}`)
+  const workOrderUrl = (reference) => {
+    router.push(`/work-orders/${reference}`)
   }
 
   return (
@@ -104,8 +137,8 @@ const Search = ({ query }) => {
                 id="input-search"
                 name="search-name"
                 type="text"
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
+                value={searchTextInput}
+                onChange={(event) => setSearchTextInput(event.target.value)}
               />
               <PrimarySubmitButton label="Search" onClick={handleSubmit} />
             </form>
@@ -117,8 +150,57 @@ const Search = ({ query }) => {
         ) : (
           <>
             {properties?.length > 0 && (
-              <PropertiesTable properties={properties} query={searchQuery} />
+              <>
+                <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+
+                {NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true' ? (
+                  <>
+                    <h3 className="lbh-heading-h3">
+                      {`We found ${
+                        properties.length
+                      } matching results for: ${decodeURI(
+                        decodedQueryParamSearchText
+                      )}`}
+                    </h3>
+                    <PropertiesTable properties={properties} />
+                  </>
+                ) : (
+                  <>
+                    <Pagination
+                      total={searchHitTotal}
+                      currentPage={parseInt(pageNumber) || 1}
+                      pageSize={parseInt(NEXT_PUBLIC_PROPERTIES_PAGE_SIZE)}
+                      url={{
+                        pathname: '/search',
+                        query: {
+                          searchText: searchTextInput,
+                          pageNumber,
+                        },
+                      }}
+                    />
+                    <PropertiesTable properties={properties} />
+                    <Pagination
+                      total={searchHitTotal}
+                      currentPage={parseInt(pageNumber) || 1}
+                      pageSize={parseInt(NEXT_PUBLIC_PROPERTIES_PAGE_SIZE)}
+                      url={{
+                        pathname: '/search',
+                        query: {
+                          searchText: searchTextInput,
+                          pageNumber,
+                        },
+                      }}
+                      className="govuk-!-margin-top-8"
+                    />
+                  </>
+                )}
+              </>
             )}
+
+            {searchHitTotal === 0 && (
+              <p className="lbh-body">No results found</p>
+            )}
+
             {error && <ErrorMessage label={error} />}
           </>
         )}
