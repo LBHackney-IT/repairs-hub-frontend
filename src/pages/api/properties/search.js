@@ -13,7 +13,7 @@ export default authoriseServiceAPIRequest(async (req, res) => {
     propertySearchPath = ['properties']
   } else {
     searchTextKey = 'searchText'
-    propertySearchPath = ['search']
+    propertySearchPath = ['properties', 'search']
   }
 
   req.query = {
