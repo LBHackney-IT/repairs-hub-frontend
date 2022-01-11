@@ -6,9 +6,13 @@ import PhaseBanner from './PhaseBanner'
 import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
+import { useRouter } from 'next/router'
+import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
 const Layout = ({ serviceName, feedbackLink, children }) => {
   const { user } = useContext(UserContext)
+  const router = useRouter()
+  const MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER = ['/login', '/']
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -21,8 +25,12 @@ const Layout = ({ serviceName, feedbackLink, children }) => {
         toggleMobileMenu={() => setMobileMenuOpen(!mobileMenuOpen)}
         mobileMenuOpen={mobileMenuOpen}
       />
-
-      {!mobileMenuOpen && <PhaseBanner feedbackLink={feedbackLink} />}
+      {MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER.includes(router.pathname) &&
+        canAttendOwnWorkOrder(user) &&
+        !mobileMenuOpen && <PhaseBanner feedbackLink={feedbackLink} />}
+      {!canAttendOwnWorkOrder(user) && !mobileMenuOpen && (
+        <PhaseBanner feedbackLink={feedbackLink} />
+      )}
 
       <main
         className={cx('lbh-main-wrapper', {
