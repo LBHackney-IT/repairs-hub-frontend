@@ -1,0 +1,65 @@
+{
+  "total": 11,
+  "properties": [
+    {
+      "propertyReference": "00000001",
+      "address": "1 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000002",
+      "address": "2 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000003",
+      "address": "3 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000004",
+      "address": "4 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000005",
+      "address": "5 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000006",
+      "address": "6 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000007",
+      "address": "7 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000008",
+      "address": "8 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000009",
+      "address": "9 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    },
+    {
+      "propertyReference": "00000010",
+      "address": "10 Test House Test Square",
+      "postCode": "E8 1EA",
+      "propertyType": "Dwelling"
+    }
+  ]
+}

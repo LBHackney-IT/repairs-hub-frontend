@@ -3,17 +3,9 @@
 exports[`PropertiesTable component should render properly 1`] = `
 <DocumentFragment>
   <div>
-    <hr
-      class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
-    />
     <table
       class="govuk-table lbh-table govuk-!-margin-top-5"
     >
-      <caption
-        class="govuk-table__caption lbh-heading-h3 lbh-table__caption"
-      >
-        We found 2 matching results for: E9 6PT
-      </caption>
       <thead
         class="govuk-table__head"
       >

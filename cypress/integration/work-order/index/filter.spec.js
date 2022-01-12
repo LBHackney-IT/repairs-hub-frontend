@@ -3,114 +3,116 @@
 import 'cypress-audit/commands'
 
 describe('Filter work orders', () => {
-  // Stub work orders and work orders filter response
   beforeEach(() => {
-    // Work order filters
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       { fixture: 'filter/workOrder.json' }
     ).as('filters')
 
-    // All work orders
     cy.intercept(
       {
         path:
           '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
       },
       { fixture: 'workOrders/workOrders.json' }
-    )
+    ).as('workOrders')
 
-    // No work orders for work cancelled
     cy.intercept(
       {
         path:
           '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=30&IncludeHistorical=false',
       },
       { body: [] }
-    )
+    ).as('workOrdersCancelled')
 
-    // Work complete (50)
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&IncludeHistorical=false',
-        },
-        workOrders.filter((workOrder) => workOrder.status === 'Work complete')
-      )
-    })
-
-    // Variation Pending Approval (90)
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90&IncludeHistorical=false',
-        },
-        workOrders.filter(
-          (workOrder) => workOrder.status === 'Variation Pending Approval'
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&IncludeHistorical=false',
+          },
+          workOrders.filter((workOrder) => workOrder.status === 'Work complete')
         )
-      )
-    })
+      })
+      .as('workOrdersComplete')
 
-    // Work Complete (50) and Variation Pending Approval (90)
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&StatusCode=90&IncludeHistorical=false',
-        },
-        workOrders.filter(
-          (workOrder) =>
-            workOrder.status === 'Work complete' ||
-            workOrder.status === 'Variation Pending Approval'
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=90&IncludeHistorical=false',
+          },
+          workOrders.filter(
+            (workOrder) => workOrder.status === 'Variation Pending Approval'
+          )
         )
-      )
-    })
+      })
+      .as('workOrdersVariationPendingApproval')
 
-    // In Progress (80) and Variation Pending Approval (90) and Emergency priority
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false',
-        },
-        workOrders.filter(
-          (workOrder) =>
-            (workOrder.status === 'In progress' ||
-              workOrder.status === 'Variation Pending Approval') &&
-            workOrder.priority === '2 [E] EMERGENCY'
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=50&StatusCode=90&IncludeHistorical=false',
+          },
+          workOrders.filter(
+            (workOrder) =>
+              workOrder.status === 'Work complete' ||
+              workOrder.status === 'Variation Pending Approval'
+          )
         )
-      ).as('workOrdersInProgressVariationPendingApprovalEmergency')
-    })
+      })
+      .as('workOrdersCompleteAndVariationPendingApproval')
 
-    // Work order with Emergency priority
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2&IncludeHistorical=false',
-        },
-        workOrders.filter(
-          (workOrder) => workOrder.priority === '2 [E] EMERGENCY'
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false',
+          },
+          workOrders.filter(
+            (workOrder) =>
+              (workOrder.status === 'In progress' ||
+                workOrder.status === 'Variation Pending Approval') &&
+              workOrder.priority === '2 [E] EMERGENCY'
+          )
         )
-      )
-    })
+      })
+      .as('workOrdersInProgressVariationPendingApprovalEmergency')
 
-    // Work order with Plumbing and Purdys
-    cy.fixture('workOrders/workOrders.json').then((workOrders) => {
-      cy.intercept(
-        {
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL&IncludeHistorical=false',
-        },
-        workOrders.filter(
-          (workOrder) =>
-            workOrder.tradeCode === 'PL' &&
-            workOrder.owner === 'Purdy Contracts (P) Ltd'
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&Priorities=2&IncludeHistorical=false',
+          },
+          workOrders.filter(
+            (workOrder) => workOrder.priority === '2 [E] EMERGENCY'
+          )
         )
-      )
-    })
+      })
+      .as('workOrdersEmergency')
+
+    cy.fixture('workOrders/workOrders.json')
+      .then((workOrders) => {
+        cy.intercept(
+          {
+            path:
+              '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL&IncludeHistorical=false',
+          },
+          workOrders.filter(
+            (workOrder) =>
+              workOrder.tradeCode === 'PL' &&
+              workOrder.owner === 'Purdy Contracts (P) Ltd'
+          )
+        )
+      })
+      .as('workOrdersPlumbingAndPurdy')
   })
 
   context('When logged in as a contract manager', () => {
@@ -120,7 +122,7 @@ describe('Filter work orders', () => {
     })
 
     it('Filter work orders', () => {
-      cy.wait('@filters')
+      cy.wait(['@filters', '@workOrders'])
 
       // Status filter options
       cy.get('.govuk-checkboxes')
@@ -158,6 +160,7 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="Priorities.4"]')
         .should('not.be.checked')
+
       // Contractor filter options
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.AVP"]')
@@ -171,6 +174,7 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.H01"]')
         .should('not.be.checked')
+
       // Trade filter options
       cy.get('.govuk-checkboxes')
         .find('[name="TradeCodes.AD"]')
@@ -218,6 +222,10 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
+      cy.url().should('contains', '/?pageNumber=1&StatusCode=50')
+
+      cy.wait(['@filters', '@workOrdersComplete'])
+
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
       })
@@ -229,11 +237,12 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000040]').should('not.exist')
       cy.get('[data-ref=10000032]').should('not.exist')
 
-      cy.url().should('contains', '/?pageNumber=1&StatusCode=50')
-
       // Filter by work order complete and Variation Pending Approval
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.url().should('contains', '/?pageNumber=1&StatusCode=50&StatusCode=90')
+      cy.wait(['@filters', '@workOrdersCompleteAndVariationPendingApproval'])
 
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
@@ -247,11 +256,13 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000035]').should('not.exist')
       cy.get('[data-ref=10000040]').should('not.exist')
 
-      cy.url().should('contains', '/?pageNumber=1&StatusCode=50&StatusCode=90')
-
       // Remove filter by work order complete
       cy.get('.govuk-checkboxes').find('[name="StatusCode.50"]').uncheck()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.url().should('contains', '/?pageNumber=1&StatusCode=90')
+
+      cy.wait(['@filters', '@workOrdersVariationPendingApproval'])
 
       cy.get('[data-ref=10000030]').within(() => {
         cy.contains('Variation Pending Approval')
@@ -261,12 +272,20 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000035]').should('not.exist')
       cy.get('[data-ref=10000040]').should('not.exist')
 
-      cy.url().should('contains', '/?pageNumber=1&StatusCode=90')
-
       // Add filter by work order in progress and emergency priority
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.url().should(
+        'contains',
+        '/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2'
+      )
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
@@ -278,13 +297,10 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000030]').should('not.exist')
       cy.get('[data-ref=10000032]').should('not.exist')
 
-      cy.url().should(
-        'contains',
-        '/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2'
-      )
-
       // Navigate directly to URL with query parameters
       cy.visit('/?pageNumber=1&StatusCode=50&StatusCode=90')
+
+      cy.wait(['@filters', '@workOrdersCompleteAndVariationPendingApproval'])
 
       cy.get('[data-ref=10000037]').within(() => {
         cy.contains('Work complete')
@@ -324,6 +340,10 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.30"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
+      cy.url().should('contains', '/?pageNumber=1&StatusCode=30')
+
+      cy.wait(['@filters', '@workOrdersCancelled'])
+
       cy.get('[data-ref=10000037]').should('not.exist')
       cy.get('[data-ref=10000036]').should('not.exist')
       cy.get('[data-ref=10000035]').should('not.exist')
@@ -331,10 +351,13 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000030]').should('not.exist')
       cy.get('[data-ref=10000032]').should('not.exist')
 
-      cy.url().should('contains', '/?pageNumber=1&StatusCode=30')
-
       // Navigate to url directly again with emergency priority query parameter
       cy.visit('/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2')
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('In progress')
@@ -385,6 +408,8 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').uncheck()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
+      cy.wait(['@filters', '@workOrdersEmergency'])
+
       // Only emergency priority work orders
       cy.get('[data-ref=10000040]').within(() => {
         cy.contains('2 [E] EMERGENCY')
@@ -399,7 +424,9 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').uncheck()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
-      cy.wait('@filters')
+      cy.url().should('contains', '/?pageNumber=1')
+
+      cy.wait(['@filters', '@workOrders'])
 
       // All work orders
       cy.get('[data-ref=10000040]')
@@ -408,8 +435,6 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000037]')
       cy.get('[data-ref=10000030]')
       cy.get('[data-ref=10000032]')
-
-      cy.url().should('contains', '/?pageNumber=1')
 
       // Filter by trade and contractor
       cy.get('.govuk-checkboxes')
@@ -421,7 +446,7 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes').find('[name="TradeCodes.PL"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
-      cy.wait('@filters')
+      cy.wait(['@filters', '@workOrdersPlumbingAndPurdy'])
 
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.PCL"]')
@@ -440,20 +465,18 @@ describe('Filter work orders', () => {
     })
 
     it('Clears all filters', () => {
-      cy.wait('@filters')
+      cy.wait(['@filters', '@workOrders'])
 
-      // Check a few filter options
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
       cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
       cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
 
       cy.wait([
-        '@workOrdersInProgressVariationPendingApprovalEmergency',
         '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
       ])
 
-      // Selected filters summary
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Contractor').should('not.exist')
         cy.get('#selected-filters-Status').within(() => {
@@ -493,6 +516,7 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="StatusCode.1090"]')
         .should('not.be.checked')
+
       // Priority filter options
       cy.get('.govuk-checkboxes')
         .find('[name="Priorities.1"]')
@@ -508,6 +532,10 @@ describe('Filter work orders', () => {
         .should('not.be.checked')
 
       cy.contains('Clear filters').click()
+
+      cy.url().should('contains', '/?pageNumber=1')
+
+      cy.wait(['@filters', '@workOrders'])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
@@ -559,23 +587,28 @@ describe('Filter work orders', () => {
       cy.get('.govuk-checkboxes')
         .find('[name="Priorities.4"]')
         .should('not.be.checked')
-
-      cy.url().should('contains', '/?pageNumber=1')
     })
   })
 
   context('When logged in as a contractor in one contractor group', () => {
     beforeEach(() => {
-      cy.fixture('filter/workOrder.json').then((filters) => {
-        filters.Contractors.splice(1)
-        cy.intercept({ method: 'GET', path: '/api/filter/WorkOrder' }, filters)
-      })
+      cy.fixture('filter/workOrder.json')
+        .then((filters) => {
+          filters.Contractors.splice(1)
+          cy.intercept(
+            { method: 'GET', path: '/api/filter/WorkOrder' },
+            filters
+          )
+        })
+        .as('filters')
 
       cy.loginWithContractorRole()
       cy.visit('/')
     })
 
     it('Lists all filtering options with the exception of the contractors filter', () => {
+      cy.wait(['@filters', '@workOrders'])
+
       // No contractor filter
       cy.get('#contractor-filters').should('not.exist')
       cy.get('.govuk-checkboxes')
@@ -664,7 +697,7 @@ describe('Filter work orders', () => {
       })
 
       it('Lists all filtering options and displays contractors filter', () => {
-        cy.wait('@filters')
+        cy.wait(['@filters', '@workOrders'])
 
         // Contractor filter options
         cy.get('#contractor-filters').should('exist')
@@ -755,8 +788,10 @@ describe('Filter work orders', () => {
       cy.visit(
         '/?pageNumber=1&StatusCode=80&StatusCode=90&Priorities=2&IncludeHistorical=false'
       )
-      cy.wait('@filters')
-      cy.wait('@workOrdersInProgressVariationPendingApprovalEmergency')
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
@@ -790,6 +825,11 @@ describe('Filter work orders', () => {
       })
 
       cy.visit('/')
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       // Selected filters summary
       // Expect saved default filters to be applied
@@ -838,7 +878,10 @@ describe('Filter work orders', () => {
         '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":"2"}'
       )
       cy.visit('/')
-      cy.wait('@filters')
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
 
       // Save selected filters to localStorage
       cy.get('.selected-filters').within(() => {

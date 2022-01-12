@@ -32,6 +32,16 @@ exports[`WorkOrderUpdateSuccess component should render properly does not requir
       <li>
         <a
           class="lbh-link"
+          href="/work-orders/10000012/close"
+        >
+          <strong>
+            Close work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
           href="/"
         >
           <strong>
@@ -70,6 +80,16 @@ exports[`WorkOrderUpdateSuccess component should render properly requires author
         >
           <strong>
             View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
+          href="/work-orders/10000012/close"
+        >
+          <strong>
+            Close work order
           </strong>
         </a>
       </li>

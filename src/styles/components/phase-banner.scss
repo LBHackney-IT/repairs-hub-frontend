@@ -1,7 +1,0 @@
-.lbh-phase-banner {
-  display: none;
-
-  @include govuk-media-query($from: tablet) {
-    display: block;
-  }
-}

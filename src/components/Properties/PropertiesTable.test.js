@@ -6,39 +6,22 @@ describe('PropertiesTable component', () => {
     properties: [
       {
         propertyReference: '00012345',
-        address: {
-          shortAddress: '16 Pitcairn House  St Thomass Square',
-          postalCode: 'E9 6PT',
-          addressLine: '16 Pitcairn House',
-          streetSuffix: 'St Thomass Square',
-        },
-        hierarchyType: {
-          levelCode: '7',
-          subTypeCode: 'DWE',
-          subTypeDescription: 'Dwelling',
-        },
+        address: '16 Pitcairn House  St Thomass Square',
+        postalCode: 'E9 6PT',
+        propertyType: 'Dwelling',
       },
       {
         propertyReference: '00012346',
-        address: {
-          shortAddress: '1 Pitcairn House  St Thomass Square',
-          postalCode: 'E9 6PT',
-          addressLine: '1 Pitcairn House',
-          streetSuffix: 'St Thomass Square',
-        },
-        hierarchyType: {
-          levelCode: '7',
-          subTypeCode: 'DWE',
-          subTypeDescription: 'Dwelling',
-        },
+        address: '1 Pitcairn House  St Thomass Square',
+        postalCode: 'E9 6PT',
+        propertyType: 'Dwelling',
       },
     ],
-    query: 'E9 6PT',
   }
 
   it('should render properly', () => {
     const { asFragment } = render(
-      <PropertiesTable properties={props.properties} query={props.query} />
+      <PropertiesTable properties={props.properties} />
     )
     expect(asFragment()).toMatchSnapshot()
   })
