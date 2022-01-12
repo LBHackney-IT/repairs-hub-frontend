@@ -310,6 +310,11 @@ describe('Updating a work order', () => {
           'href',
           '/work-orders/10000040'
         )
+        cy.contains('Close work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000040/close'
+        )
         cy.contains('View work orders dashboard').should(
           'have.attr',
           'href',
@@ -487,6 +492,11 @@ describe('Updating a work order', () => {
           'have.attr',
           'href',
           '/work-orders/10000040'
+        )
+        cy.contains('Close work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000040/close'
         )
         cy.contains('View work orders dashboard').should(
           'have.attr',
