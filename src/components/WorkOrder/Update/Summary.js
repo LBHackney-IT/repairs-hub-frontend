@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { PrimarySubmitButton } from '../../Form'
 import { calculateTotal } from '@/utils/helpers/calculations'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import UpdateSummaryRateScheduleItems from '../RateScheduleItems/UpdateSummaryRateScheduleItems'
 import WarningText from '../../Template/WarningText'
 
@@ -18,7 +18,7 @@ const WorkOrderUpdateSummary = ({
   const onSubmit = async () => {
     // The API validates whether the total variation cost is over the logged in
     // user's vary spend limit & updates WO status to 'Pending Approval' if true
-    const WorkOrderUpdateFormData = buildWorkOrderUpdate(
+    const WorkOrderUpdateFormData = buildVariationFormData(
       latestTasks,
       addedTasks,
       reference,

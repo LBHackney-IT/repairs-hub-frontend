@@ -4,64 +4,63 @@ import {
 } from './closeWorkOrder'
 
 describe('buildCloseWorkOrderData', () => {
-  const completionDate = new Date(
-    'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
-  )
-  const notes = 'hello'
-  const reference = '00012346'
+  const completionDate = new Date()
 
-  //typeCode 0 for Work Order Completed
-  it('builds the ScheduleWorkOrder form data to post to the Repairs API with typeCode 0', async () => {
-    const CloseWorkOrderFormData = {
-      workOrderReference: {
-        id: reference,
-        description: '',
-        allocatedBy: '',
-      },
+  it('builds form data with workOrderReference and jobStatusUpdate attributes', () => {
+    expect(
+      buildCloseWorkOrderData(
+        completionDate,
+        'A note',
+        '00000001',
+        'Reason',
+        true
+      )
+    ).toEqual({
+      workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
       jobStatusUpdates: [
         {
           typeCode: '0',
           otherType: 'complete',
-          comments: `Work order closed - ${notes}`,
+          comments: 'Work order closed - A note',
           eventTime: completionDate,
+          isOvertime: true,
         },
       ],
-    }
-
-    const response = buildCloseWorkOrderData(
-      completionDate,
-      notes,
-      reference,
-      'Work Order Completed'
-    )
-    expect(response).toEqual(CloseWorkOrderFormData)
+    })
   })
 
-  //typeCode 70 for No Access
-  it('builds the ScheduleWorkOrder form data to post to the Repairs API with typeCode 70', async () => {
-    const CloseWorkOrderFormData = {
-      workOrderReference: {
-        id: reference,
-        description: '',
-        allocatedBy: '',
-      },
-      jobStatusUpdates: [
-        {
-          typeCode: '70',
-          otherType: 'complete',
-          comments: `Work order closed - ${notes}`,
-          eventTime: completionDate,
-        },
-      ],
-    }
-
+  it('has a typeCode of 0 when supplied a reason of "Work Order Completed"', async () => {
     const response = buildCloseWorkOrderData(
       completionDate,
-      notes,
-      reference,
-      'No Access'
+      'A note',
+      '00000001',
+      'Work Order Completed',
+      true
     )
-    expect(response).toEqual(CloseWorkOrderFormData)
+    expect(response.jobStatusUpdates[0].typeCode).toEqual('0')
+  })
+
+  it('has a typeCode of 70 when supplied a reason of "No Access"', async () => {
+    const response = buildCloseWorkOrderData(
+      completionDate,
+      'A note',
+      '00000001',
+      'No Access',
+      true
+    )
+    expect(response.jobStatusUpdates[0].typeCode).toEqual('70')
+  })
+
+  it('includes the supplied overtime value in the jobStatusUpdate', () => {
+    const response = buildCloseWorkOrderData(
+      completionDate,
+      'A note',
+      '00000001',
+      'Work Order Completed',
+      false
+    )
+
+    expect(response.jobStatusUpdates[0].isOvertime).toEqual(false)
   })
 })
 
