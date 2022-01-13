@@ -94,65 +94,16 @@ describe('Closing my own work order', () => {
 
         cy.get('[data-testid=isOvertime]').check()
 
-        cy.fixture('workOrders/workOrder.json')
-          .then((workOrder) => {
-            workOrder.isOvertime = true
-            cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000621' },
-              { body: workOrder }
-            )
-          })
-          .as('workOrderOvertimeRequest')
-
         cy.contains('button', 'Confirm').click()
-
-        cy.wait('@jobStatusUpdateRequest')
-
-        cy.get('@jobStatusUpdateRequest')
-          .its('request.body')
-          .should('deep.equal', {
-            relatedWorkOrderReference: {
-              id: '10000621',
-            },
-            isOvertime: true,
-            typeCode: '80',
-            moreSpecificSORCode: {
-              rateScheduleItem: [
-                {
-                  id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
-                  customCode: 'DES5R013',
-                  customName: 'Inspect additional sec entrance',
-                  quantity: {
-                    amount: [5],
-                  },
-                },
-                {
-                  id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
-                  customCode: 'DES5R005',
-                  customName: 'Normal call outs',
-                  quantity: {
-                    amount: [4],
-                  },
-                },
-                {
-                  id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-                  customCode: 'DES5R006',
-                  customName: 'Urgent call outs',
-                  quantity: {
-                    amount: [2],
-                  },
-                },
-              ],
-            },
-          })
-
-        cy.wait('@workOrderOvertimeRequest')
 
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.get('#notes').type('I attended')
 
-        cy.url().should('match', /work-orders\/10000621\/close$/)
+        cy.url().should(
+          'match',
+          /work-orders\/10000621\/close\?isOvertime=true$/
+        )
 
         cy.get('.govuk-form-group--error').contains(
           'Please select a reason for closing the work order'
@@ -178,6 +129,7 @@ describe('Closing my own work order', () => {
                 otherType: 'complete',
                 comments: 'Work order closed - I attended - Overtime',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
+                isOvertime: true,
               },
             ],
           })
@@ -262,7 +214,6 @@ describe('Closing my own work order', () => {
             id: '10000621',
           },
           comments: 'More work was needed',
-          isOvertime: true,
           typeCode: '80',
           moreSpecificSORCode: {
             rateScheduleItem: [
@@ -294,7 +245,7 @@ describe('Closing my own work order', () => {
           },
         })
 
-      cy.url().should('match', /work-orders\/10000621\/close$/)
+      cy.url().should('match', /work-orders\/10000621\/close\?isOvertime=true$/)
     })
   })
 })

@@ -14,7 +14,7 @@ import {
   Checkbox,
 } from '../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import ErrorMessage from '../Errors/ErrorMessage'
 import router from 'next/router'
 import OperativeList from '../Operatives/OperativeList'
@@ -41,25 +41,25 @@ const MobileWorkingWorkOrder = ({
 
   const onFormSubmit = async (formData) => {
     const isOvertime = formData.isOvertime || false
-    const variationReason = formData.variationReason || ''
 
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: buildWorkOrderUpdate(
-          tasksAndSors,
-          [],
-          workOrderReference,
-          variationReason,
-          isOvertime,
-          true
-        ),
-      })
+      if (formData.variationReason) {
+        await frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: buildVariationFormData(
+            tasksAndSors,
+            [],
+            workOrderReference,
+            formData.variationReason
+          ),
+        })
+      }
 
-      router.push(
-        `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`
-      )
+      router.push({
+        pathname: `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`,
+        query: { isOvertime },
+      })
     } catch (e) {
       console.error(e)
 

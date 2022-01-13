@@ -5,7 +5,7 @@ import Spinner from '../../Spinner'
 import { useForm } from 'react-hook-form'
 import { GridColumn, GridRow } from '../../Layout/Grid'
 import { Button, PrimarySubmitButton, TextInput } from '../../Form'
-import { buildWorkOrderUpdate } from '@/utils/hact/workOrderStatusUpdate/updateWorkOrder'
+import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
@@ -29,7 +29,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
       return task.id === taskId ? { ...task, quantity: quantity } : task
     })
 
-    const workOrderUpdateFormData = buildWorkOrderUpdate(
+    const workOrderUpdateFormData = buildVariationFormData(
       latestTasks,
       [], // no new tasks
       workOrderReference

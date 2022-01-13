@@ -4,7 +4,7 @@ import AppointmentSummary from './AppointmentSummary'
 import { useState } from 'react'
 import { buildScheduleAppointmentData } from '@/utils/hact/workOrderSchedule/scheduleAppointment'
 import { getAppointmentReference } from '@/utils/appointments'
-import { buildDataFromScheduleAppointment } from '@/utils/hact/workOrderStatusUpdate/notesForm'
+import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 
 const ChooseTimeSlotView = ({
   date,

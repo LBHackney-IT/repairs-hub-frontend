@@ -86,7 +86,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when attempting submission with no inputs', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('form').within(() => {
         cy.get('[type="submit"]').contains('Close work order').click()
@@ -102,7 +102,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when the supplied completion date is before the raised date', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('form').within(() => {
         cy.get('#date').type('2021-01-17') //Raised on 2021-01-18
@@ -122,7 +122,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('shows errors when the supplied completion date is in the future', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('form').within(() => {
         cy.get('#date').type('2028-01-15')
@@ -143,7 +143,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('does not show errors when the raised date is on the completed date', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('form').within(() => {
         cy.get('[type="radio"]').first().check()
@@ -169,7 +169,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('submits the form with valid inputs and allows editing from the summary page', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('.operatives').should('not.exist')
 
@@ -234,7 +234,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
-      cy.wait(['@jobStatusUpdateRequest', '@apiCheck'])
+      cy.wait('@apiCheck')
 
       cy.get('@apiCheck')
         .its('request.body')
@@ -251,6 +251,7 @@ describe('Closing a work order on behalf of an operative', () => {
               comments:
                 'Work order closed - This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
               eventTime: '2021-02-19T13:01:00.000Z',
+              isOvertime: false,
             },
           ],
         })
@@ -260,7 +261,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.location('pathname').should('equal', '/')
       cy.contains('Manage work orders')
 
-      cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 1)
+      cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
 
       cy.audit()
     })
@@ -268,7 +269,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('submits the form with closing reason: No Access', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait('@workOrder')
 
       cy.get('form').within(() => {
         cy.get('[type="radio"]')
@@ -299,7 +300,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-table__row').contains('Tenant was not at home')
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
-      cy.wait(['@jobStatusUpdateRequest', '@apiCheck'])
+      cy.wait('@apiCheck')
 
       cy.get('@apiCheck')
         .its('request.body')
@@ -315,6 +316,7 @@ describe('Closing a work order on behalf of an operative', () => {
               otherType: 'complete',
               comments: 'Work order closed - Tenant was not at home',
               eventTime: '2021-01-19T13:01:00.000Z',
+              isOvertime: false,
             },
           ],
         })
@@ -330,7 +332,7 @@ describe('Closing a work order on behalf of an operative', () => {
     it('allows specifying an order as overtime', () => {
       cy.visit('/work-orders/10000040/close')
 
-      cy.wait(['@workOrder', '@tasksRequest'])
+      cy.wait(['@workOrder'])
 
       cy.get('.operatives').should('not.exist')
 
@@ -352,12 +354,6 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
-      cy.wait('@jobStatusUpdateRequest')
-
-      cy.get('@jobStatusUpdateRequest')
-        .its('request.body')
-        .should('have.deep.nested.property', 'isOvertime', true)
-
       cy.wait('@apiCheck')
 
       cy.get('@apiCheck')
@@ -365,7 +361,14 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'Work order closed - This has been repaired during overtime. - Overtime',
+          'Work order closed - This has been repaired during overtime. - Overtime'
+        )
+
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should(
+          'have.deep.nested.property',
+          'jobStatusUpdates[0].isOvertime',
           true
         )
     })
@@ -455,7 +458,7 @@ describe('Closing a work order on behalf of an operative', () => {
       it('requires total value of split % to be 100', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
+        cy.wait(['@workOrder', '@operatives'])
 
         cy.get('[type="radio"]').last().check()
         cy.get('#date').type('2021-01-19')
@@ -587,47 +590,40 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('[type="submit"]').contains('Confirm and close').click()
 
-        cy.wait(['@jobStatusUpdateRequest', '@jobStatusUpdateRequest']).spread(
-          (operativesRequest, overtimeRequest) => {
-            cy.wrap(operativesRequest)
-              .its('request.body')
-              .should('deep.equal', {
-                relatedWorkOrderReference: {
-                  id: '10000040',
+        cy.wait('@jobStatusUpdateRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000040',
+            },
+            operativesAssigned: [
+              {
+                identification: {
+                  number: 25,
                 },
-                operativesAssigned: [
-                  {
-                    identification: {
-                      number: 25,
-                    },
-                    calculatedBonus: 70,
-                  },
-                  {
-                    identification: {
-                      number: 1,
-                    },
-                    calculatedBonus: 20,
-                  },
-                  {
-                    identification: {
-                      number: 2,
-                    },
-                    calculatedBonus: 10,
-                  },
-                  {
-                    identification: {
-                      number: 26,
-                    },
-                    calculatedBonus: 0,
-                  },
-                ],
-                typeCode: '10',
-              })
-            cy.wrap(overtimeRequest)
-              .its('request.body')
-              .should('have.deep.nested.property', 'isOvertime', true)
-          }
-        )
+                calculatedBonus: 70,
+              },
+              {
+                identification: {
+                  number: 1,
+                },
+                calculatedBonus: 20,
+              },
+              {
+                identification: {
+                  number: 2,
+                },
+                calculatedBonus: 10,
+              },
+              {
+                identification: {
+                  number: 26,
+                },
+                calculatedBonus: 0,
+              },
+            ],
+            typeCode: '10',
+          })
 
         cy.wait('@workOrderCompleteRequest')
 
@@ -646,11 +642,12 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: true,
               },
             ],
           })
 
-        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 2)
+        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
         cy.audit()
       })
@@ -737,7 +734,7 @@ describe('Closing a work order on behalf of an operative', () => {
       it('closes work order with existing pre-split by operative', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
+        cy.wait(['@workOrder', '@operatives'])
 
         cy.get('[type="radio"]').first().check()
         cy.get('#date').type('2021-01-19')
@@ -780,36 +777,28 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('[type="submit"]').contains('Confirm and close').click()
 
-        cy.wait(['@jobStatusUpdateRequest', '@jobStatusUpdateRequest']).spread(
-          (operativesRequest, overtimeRequest) => {
-            cy.wrap(operativesRequest)
-              .its('request.body')
-              .should('deep.equal', {
-                relatedWorkOrderReference: {
-                  id: '10000040',
+        cy.wait('@jobStatusUpdateRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000040',
+            },
+            operativesAssigned: [
+              {
+                identification: {
+                  number: 1,
                 },
-                operativesAssigned: [
-                  {
-                    identification: {
-                      number: 1,
-                    },
-                    calculatedBonus: 40,
-                  },
-                  {
-                    identification: {
-                      number: 2,
-                    },
-                    calculatedBonus: 60,
-                  },
-                ],
-                typeCode: '10',
-              })
-
-            cy.wrap(overtimeRequest)
-              .its('request.body')
-              .should('have.deep.nested.property', 'isOvertime', false)
-          }
-        )
+                calculatedBonus: 40,
+              },
+              {
+                identification: {
+                  number: 2,
+                },
+                calculatedBonus: 60,
+              },
+            ],
+            typeCode: '10',
+          })
 
         cy.wait('@workOrderCompleteRequest')
 
@@ -828,11 +817,12 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: false,
               },
             ],
           })
 
-        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 2)
+        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
         cy.audit()
       })
@@ -880,7 +870,7 @@ describe('Closing a work order on behalf of an operative', () => {
       it('requires the submission of at least one operative', () => {
         cy.visit('/work-orders/10000040/close')
 
-        cy.wait(['@workOrder', '@tasksRequest', '@operatives'])
+        cy.wait(['@workOrder', '@operatives'])
 
         cy.get('.operatives').within(() => {
           cy.get('input[list]').should('have.length', 1)
@@ -932,30 +922,22 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('[type="submit"]').contains('Confirm and close').click()
 
-        cy.wait(['@jobStatusUpdateRequest', '@jobStatusUpdateRequest']).spread(
-          (operativesRequest, overtimeRequest) => {
-            cy.wrap(operativesRequest)
-              .its('request.body')
-              .should('deep.equal', {
-                relatedWorkOrderReference: {
-                  id: '10000040',
+        cy.wait('@jobStatusUpdateRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            relatedWorkOrderReference: {
+              id: '10000040',
+            },
+            operativesAssigned: [
+              {
+                identification: {
+                  number: 25,
                 },
-                operativesAssigned: [
-                  {
-                    identification: {
-                      number: 25,
-                    },
-                    calculatedBonus: 100,
-                  },
-                ],
-                typeCode: '10',
-              })
-
-            cy.wrap(overtimeRequest)
-              .its('request.body')
-              .should('have.deep.nested.property', 'isOvertime', false)
-          }
-        )
+                calculatedBonus: 100,
+              },
+            ],
+            typeCode: '10',
+          })
 
         cy.wait('@workOrderCompleteRequest')
 
@@ -974,11 +956,12 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y : 100%',
                 eventTime: '2021-01-19T13:01:00.000Z',
+                isOvertime: false,
               },
             ],
           })
 
-        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 2)
+        cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
         cy.audit()
       })
