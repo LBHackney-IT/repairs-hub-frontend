@@ -11,7 +11,7 @@ describe('Pagination', () => {
         <Pagination total={15} pageSize={5} currentPage={2} {...otherProps} />
       )
 
-      screen.getByText('Showing 6—10 of 15 results')
+      screen.getByText('Showing 6–10 of 15 results')
     })
   })
 

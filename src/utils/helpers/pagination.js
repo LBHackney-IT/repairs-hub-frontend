@@ -13,7 +13,7 @@ export const paginationSummary = ({
   const currentPageLastItemIndex =
     pageSize > total ? total : currentPageFirstItemIndex + pageSize - 1
 
-  return `Showing ${currentPageFirstItemIndex}—${Math.min(
+  return `Showing ${currentPageFirstItemIndex}–${Math.min(
     currentPageLastItemIndex,
     total
   )} of ${total} results`
