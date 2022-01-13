@@ -96,6 +96,8 @@ describe('Closing my own work order', () => {
 
         cy.contains('button', 'Confirm').click()
 
+        cy.wait('@workOrderRequest')
+
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.get('#notes').type('I attended')
