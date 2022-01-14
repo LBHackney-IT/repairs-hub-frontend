@@ -93,7 +93,7 @@ describe('Search', () => {
           cy.wait('@propertyPostcodeSearchPage1')
 
           cy.get('nav.lbh-pagination').contains(
-            `Showing 1—${totalPageSize} of ${totalResults} results`
+            `Showing 1–${totalPageSize} of ${totalResults} results`
           )
 
           cy.get('.govuk-table__head').within(() => {
@@ -143,7 +143,7 @@ describe('Search', () => {
           cy.wait('@propertyPostcodeSearchPage2')
 
           cy.get('nav.lbh-pagination').contains(
-            `Showing ${totalResults}—${totalResults} of ${totalResults} results`
+            `Showing ${totalResults}–${totalResults} of ${totalResults} results`
           )
 
           cy.get('.govuk-table__body').within(() => {
@@ -177,7 +177,7 @@ describe('Search', () => {
 
           cy.wait('@propertyAddressSearch')
 
-          cy.get('nav.lbh-pagination').contains('Showing 1—1 of 1 results')
+          cy.get('nav.lbh-pagination').contains('Showing 1–1 of 1 results')
 
           cy.get('.govuk-table__body').within(() => {
             cy.get('tr').should('have.length', 1)
