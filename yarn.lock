@@ -2563,6 +2563,15 @@ cypress-audit@^0.2.3:
     lighthouse "^6.3.0"
     pa11y "^5.3.0"
 
+cypress-dotenv-flow@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/cypress-dotenv-flow/-/cypress-dotenv-flow-1.2.2.tgz#3ca9e9a0a9fecd7205ba9e87c0c929527518e53e"
+  integrity sha512-KGlNbRlabDhosu20HEURaLllblgRRP4hTrFDD2Gxx5OFfteuJj6jmUozhOmyDBvW5wO3wSj5mBcRQYTbvsh7Ew==
+  dependencies:
+    camelcase "^5.3.1"
+    dotenv-parse-variables "^0.2.3"
+    lodash.clonedeep "^2.0.0"
+
 cypress-dotenv@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/cypress-dotenv/-/cypress-dotenv-1.2.2.tgz#c40f23a11648382a79029c718594d2c793494f4e"
@@ -2864,12 +2873,24 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv-flow@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/dotenv-flow/-/dotenv-flow-3.2.0.tgz#a5d79dd60ddb6843d457a4874aaf122cf659a8b7"
+  integrity sha512-GEB6RrR4AbqDJvNSFrYHqZ33IKKbzkvLYiD5eo4+9aFXr4Y4G+QaFrB/fNp0y6McWBmvaPn3ZNjIufnj8irCtg==
+  dependencies:
+    dotenv "^8.0.0"
+
 dotenv-parse-variables@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/dotenv-parse-variables/-/dotenv-parse-variables-0.2.3.tgz#9f509c74b952f3c8dbfda6674fb060398d0ed7fc"
   integrity sha512-cuog/uu2sD6AGTExLldBqN4kUWNjGG86cSpYGYgZrzgSiy37HkB3OOpMv7cTiQ7SKCMu8WryUS9P6lqwrh0pLg==
   dependencies:
     debug "^4.1.1"
+
+dotenv@^8.0.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
 
 dotenv@^8.2.0:
   version "8.6.0"

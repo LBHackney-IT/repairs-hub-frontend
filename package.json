@@ -59,6 +59,8 @@
     "cypress": "^7.5.0",
     "cypress-audit": "^0.2.3",
     "cypress-dotenv": "^1.2.2",
+    "cypress-dotenv-flow": "^1.2.2",
+    "dotenv-flow": "^3.2.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-cypress": "^2.11.2",
