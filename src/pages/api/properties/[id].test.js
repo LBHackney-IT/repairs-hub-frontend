@@ -13,8 +13,8 @@ const {
   GSSO_TOKEN_NAME,
   REPAIRS_SERVICE_API_KEY,
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
   AGENTS_GOOGLE_GROUPNAME,
+  CONTRACTORS_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('GET /api/properties/[id] contact information redaction', () => {

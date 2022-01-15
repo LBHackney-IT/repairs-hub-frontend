@@ -31,9 +31,15 @@ yarn install
 
 ### Environment variables
 
-Create a `.env` file. You will need to grab several secrets from the team to include.
+Create the following files to store local secrets (which are gitignored):
 
-If you need to add or change a variable, first see the 'Managing environment variables' section, below.
+- `.env`
+- `.env.local`
+- `.env.test.local`
+
+Add variables based on comments in the committed .env files. Most of the important values to be assigned to these are found within AWS Parameter store for the development account. Ask a team member if unsure.
+
+If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section, below.
 
 ### Authentication
 
@@ -98,25 +104,19 @@ This project sets environment variables in multiple places. Which values are use
 
 Variables are referenced and stored in the following places:
 
-- dotenv files (either `.sample.env` or `.env`)
+- dotenv files with .env.defaults as the fallback, .env as a gitignored first priority, then local gitignored env files
 - Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
-- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [Cypress project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
-  These references are made using the cypress `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
+- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
+  These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
 - AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
 
 ### Tests
 
-When running unit tests, only the `sample.env` file is used to set environment variables. This is true for both local and CI builds.
+When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
 
-When running integration tests locally, the .env file is used.
+### Deployed applications
 
-When running integration tests on Circle CI, values are from the Circle project settings and from hardcoded values in the CircleCI config file.
-
-### Local and deployed applications
-
-When running the application locally, the .env file is used for setting environment variables.
-
-When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in Cypress project settings.
+When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in CirceCI project settings.
 
 ## Deployments
 

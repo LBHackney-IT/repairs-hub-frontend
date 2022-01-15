@@ -16,7 +16,7 @@
  * @type {Cypress.PluginConfig}
  */
 const { lighthouse, prepareAudit } = require('cypress-audit')
-const dotenvPlugin = require('cypress-dotenv')
+const dotenvFlowPlugin = require('cypress-dotenv-flow')
 const fs = require('fs')
 const path = require('path')
 
@@ -35,6 +35,7 @@ const storeData = async (data, filepath) => {
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
   let testTitle
 
   on('before:browser:launch', (browser = {}, launchOptions) => {
@@ -61,6 +62,10 @@ module.exports = (on, config) => {
     }),
   })
 
-  config = dotenvPlugin(config)
+  config = dotenvFlowPlugin(config)
+
+  // Assign some vars so we can access them via Cypress.env
+  config.env.GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
+
   return config
 }
