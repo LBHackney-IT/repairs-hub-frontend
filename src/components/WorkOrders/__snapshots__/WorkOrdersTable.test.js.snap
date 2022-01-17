@@ -104,7 +104,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             <span
               class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs"
             >
-              In Progress
+              In progress
             </span>
           </td>
           <td
