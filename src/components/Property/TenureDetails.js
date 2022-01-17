@@ -20,7 +20,11 @@ const TenureDetails = ({
       <ul className="lbh-list hackney-property-alerts">
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
         <Alerts alerts={locationAlerts} alertType="Address" />
-        <TenureDetail text="TMO" detail={tmoName} />
+        {tmoName == 'London Borough of Hackney' ? (
+          ''
+        ) : (
+          <TenureDetail text="TMO" detail={tmoName} />
+        )}
         <Alerts alerts={personAlerts} alertType="Contact" />
       </ul>
     )
