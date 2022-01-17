@@ -382,6 +382,30 @@ describe('Show property', () => {
     })
   })
 
+  context(
+    'Does not display TMO name if TMO is London Borough of Hackney',
+    () => {
+      beforeEach(() => {
+        // Stub request with property response
+        cy.fixture('properties/propertyWithTmo.json')
+          .then((property) => {
+            property.tmoName = 'London Borough of Hackney'
+            cy.intercept(
+              { method: 'GET', path: '/api/properties/00012345' },
+              { body: property }
+            )
+          })
+          .as('property')
+
+        cy.visit('/properties/00012345')
+        cy.wait('@property')
+      })
+      it('does NOT show TMO details', () => {
+        cy.contains('London Borough of Hackney').should('not.exist')
+      })
+    }
+  )
+
   describe('Out of hours link', () => {
     beforeEach(() => {
       cy.intercept(
