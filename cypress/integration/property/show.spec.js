@@ -400,11 +400,6 @@ describe('Show property', () => {
         cy.visit('/properties/00012345')
         cy.wait('@property')
       })
-
-      it('shows property address in the heading', () => {
-        cy.get('.lbh-heading-h1').contains('12 Test Street')
-      })
-
       it('does NOT show TMO details', () => {
         cy.contains('London Borough of Hackney').should('not.exist')
       })

@@ -10,6 +10,9 @@ const TenureDetails = ({
   personAlerts,
   tmoName,
 }) => {
+  //Properties with TMO names set to this value aren't actually TMOs
+  const TMO_HACKNEY_DEFAULT = 'London Borough of Hackney'
+
   if (
     (tenure && Object.keys(tenure).length > 0) ||
     locationAlerts.length > 0 ||
@@ -20,9 +23,7 @@ const TenureDetails = ({
       <ul className="lbh-list hackney-property-alerts">
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
         <Alerts alerts={locationAlerts} alertType="Address" />
-        {tmoName == 'London Borough of Hackney' ? (
-          ''
-        ) : (
+        {tmoName !== TMO_HACKNEY_DEFAULT && (
           <TenureDetail text="TMO" detail={tmoName} />
         )}
         <Alerts alerts={personAlerts} alertType="Contact" />
