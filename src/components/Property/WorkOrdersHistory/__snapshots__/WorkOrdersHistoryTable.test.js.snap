@@ -52,7 +52,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000012"
       >
         <td
@@ -96,7 +96,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000013"
       >
         <td
@@ -190,7 +190,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000012"
       >
         <td
@@ -224,7 +224,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000013"
       >
         <td
@@ -314,7 +314,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000012"
       >
         <td
@@ -358,7 +358,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000013"
       >
         <td
@@ -458,7 +458,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
       class="govuk-table__body"
     >
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000012"
       >
         <td
@@ -502,7 +502,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
         </td>
       </tr>
       <tr
-        class="govuk-table__row govuk-table__row--clickable lbh-body-s"
+        class="govuk-table__row govuk-table__row--clickable lbh-body-s work-order-status-colours"
         data-ref="10000013"
       >
         <td

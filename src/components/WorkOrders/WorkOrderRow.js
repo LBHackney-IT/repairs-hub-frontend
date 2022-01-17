@@ -4,6 +4,7 @@ import { extractTimeFromDate } from '@/utils/time'
 import Link from 'next/link'
 import { TR, TD } from '../Layout/Table'
 import TruncateText from '../Layout/TruncateText'
+import Status from '../WorkOrder/Status'
 
 const WorkOrderRow = ({
   reference,
@@ -16,7 +17,7 @@ const WorkOrderRow = ({
 }) => (
   <TR
     reference={reference}
-    className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+    className="govuk-table__row--clickable lbh-body-s hackney-work-order-table work-order-status-colours"
   >
     <TD className="lbh-body-xs">
       <Link href={`/work-orders/${reference}`}>
@@ -31,7 +32,9 @@ const WorkOrderRow = ({
     </TD>
     <TD className="lbh-body-xs">{priority}</TD>
     <TD className="lbh-body-xs">{property}</TD>
-    <TD className="lbh-body-xs">{status}</TD>
+    <TD>
+      <Status text={status} className="lbh-body-xs" />
+    </TD>
     <TD className="lbh-body-xs">{tradeDescription}</TD>
     <TD className="description lbh-body-xs">
       <TruncateText

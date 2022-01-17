@@ -20,7 +20,7 @@ const WorkOrdersHistoryRow = ({
   return (
     <TR
       reference={reference}
-      className="govuk-table__row--clickable lbh-body-s"
+      className="govuk-table__row--clickable lbh-body-s work-order-status-colours"
     >
       {user && canAccessWorkOrder(user) && (
         <TD>

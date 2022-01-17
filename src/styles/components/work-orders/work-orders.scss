@@ -15,19 +15,8 @@
   }
 }
 
-.work-orders-history-table {
-  tbody {
-    vertical-align: top;
-  }
-
+.work-order-status-colours {
   td {
-    white-space: nowrap;
-    &.description {
-      white-space: normal;
-      max-width: 400px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
     .lbh-tag {
       &--status-in-progress {
         background-color: repairs-hub-colour('blue');
@@ -58,6 +47,22 @@
         background-color: repairs-hub-colour('dark-red');
         color: repairs-hub-colour('white');
       }
+    }
+  }
+}
+
+.work-orders-history-table {
+  tbody {
+    vertical-align: top;
+  }
+
+  td {
+    white-space: nowrap;
+    &.description {
+      white-space: normal;
+      max-width: 400px;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 }
