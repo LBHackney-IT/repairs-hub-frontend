@@ -11,8 +11,9 @@ import FlashMessageContext from '../FlashMessageContext'
 
 const CloseWorkOrder = ({ reference }) => {
   const router = useRouter()
+  const query = router.query
 
-  const isOvertime = !!router.query?.isOvertime || false
+  const isOvertime = query?.isOvertime === 'true' || false
 
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
