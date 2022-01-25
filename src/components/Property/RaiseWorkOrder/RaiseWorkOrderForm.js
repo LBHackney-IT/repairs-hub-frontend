@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import TenureDetails from '../TenureDetails'
 import BackButton from '../../Layout/BackButton'
 import {
-  Select,
   PrimarySubmitButton,
   CharacterCountLimitedTextArea,
   TextInput,
@@ -15,6 +14,7 @@ import WarningText from '../../Template/WarningText'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
+import SelectPriority from './SelectPriority'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -32,6 +32,8 @@ const RaiseWorkOrderForm = ({
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
+  const PRIORITY_CODES_WITHOUT_DRS = ['5']
+
 
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
@@ -94,7 +96,7 @@ const RaiseWorkOrderForm = ({
         }
 
         setPriorityCode(
-          getPriorityObjectByDescription(description)?.priorityCode
+          getPriorityObjectByDescription(description)?.priorityCode.toString()
         )
 
         setValue(
@@ -149,25 +151,14 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
             />
-            <Select
-              name="priorityCode"
-              label="Task priority"
-              options={priorities.map((priority) => ({
-                text: priority.description,
-                value: priority.priorityCode.toString(),
-              }))}
-              onChange={onPrioritySelect}
-              disabled={true}
-              required={true}
-              register={register({
-                required: 'Please select a priority',
-                validate: (value) =>
-                  priorities
-                    .map((p) => p.priorityCode)
-                    .includes(parseInt(value)) || 'Priority is not valid',
-              })}
-              error={errors && errors.priorityCode}
-              widthClass="govuk-!-width-full"
+
+            <SelectPriority
+              priorities={priorities}
+              onPrioritySelect={onPrioritySelect}
+              register={register}
+              errors={errors}
+              priorityCode={priorityCode}
+              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
             />
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"

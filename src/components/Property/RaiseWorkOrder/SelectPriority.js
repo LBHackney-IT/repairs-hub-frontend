@@ -1,43 +1,46 @@
 import PropTypes from 'prop-types'
 import { Select } from '../../Form'
+import { useState } from 'react'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 
 const SelectPriority = ({
-  priorityList,
+  priorities,
   onPrioritySelect,
   register,
   errors,
   priorityCode,
+  priorityCodesWithoutDrs,
 }) => {
-  const PLANNED_PRIORITY = 5
-  console.log('we have priority now')
-  console.log(priorityCode)
+  const [drsScheduled, setDrsScheduled] = useState(false)
+
+  const onSelect = (e) => {
+    setDrsScheduled(priorityCodesWithoutDrs.includes(e.target.value))
+    onPrioritySelect(e)
+  }
+
   return (
     <>
       <Select
-        name="priorityDescription"
+        name="priorityCode"
         label="Task priority"
-        options={priorityList}
-        onChange={onPrioritySelect}
+        options={priorities.map((priority) => ({
+          text: priority.description,
+          value: priority.priorityCode.toString(),
+        }))}
+        onChange={onSelect}
         disabled={true}
         required={true}
         register={register({
           required: 'Please select a priority',
           validate: (value) =>
-            priorityList.includes(value) || 'Priority is not valid',
+            priorities
+              .map((p) => p.priorityCode)
+              .includes(parseInt(value)) || 'Priority is not valid',
         })}
         error={errors && errors.priorityDescription}
         widthClass="govuk-!-width-full"
       />
-      <input
-        id="priorityCode"
-        name="priorityCode"
-        label="priorityCode"
-        type="hidden"
-        value={priorityCode}
-        ref={register}
-      />
-      {priorityCode == PLANNED_PRIORITY && (
+      {(drsScheduled || priorityCode == '5') && (
         <>
           <br />
           <WarningInfoBox
