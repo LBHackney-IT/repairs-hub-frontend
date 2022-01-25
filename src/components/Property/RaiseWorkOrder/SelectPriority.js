@@ -33,11 +33,10 @@ const SelectPriority = ({
         register={register({
           required: 'Please select a priority',
           validate: (value) =>
-            priorities
-              .map((p) => p.priorityCode)
-              .includes(parseInt(value)) || 'Priority is not valid',
+            priorities.map((p) => p.priorityCode).includes(parseInt(value)) ||
+            'Priority is not valid',
         })}
-        error={errors && errors.priorityDescription}
+        error={errors && errors.priorityCode}
         widthClass="govuk-!-width-full"
       />
       {(drsScheduled || priorityCode == '5') && (
@@ -54,7 +53,7 @@ const SelectPriority = ({
 }
 
 SelectPriority.propTypes = {
-  priorityList: PropTypes.array.isRequired,
+  priorities: PropTypes.array.isRequired,
   onPrioritySelect: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,

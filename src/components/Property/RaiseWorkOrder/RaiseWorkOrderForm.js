@@ -34,7 +34,6 @@ const RaiseWorkOrderForm = ({
   const [priorityCode, setPriorityCode] = useState('')
   const PRIORITY_CODES_WITHOUT_DRS = ['5']
 
-
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
 

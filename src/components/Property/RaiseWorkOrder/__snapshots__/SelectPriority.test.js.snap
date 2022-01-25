@@ -4,11 +4,11 @@ exports[`SelectPriority component should render with Info Box 1`] = `
 <DocumentFragment>
   <div
     class="govuk-form-group lbh-form-group"
-    id="priorityDescription-form-group"
+    id="priorityCode-form-group"
   >
     <label
       class="govuk-label lbh-label"
-      for="priorityDescription"
+      for="priorityCode"
     >
       Task priority 
       <span
@@ -19,10 +19,10 @@ exports[`SelectPriority component should render with Info Box 1`] = `
     </label>
     <select
       class="govuk-select lbh-select govuk-!-width-full"
-      data-testid="priorityDescription"
+      data-testid="priorityCode"
       disabled=""
-      id="priorityDescription"
-      name="priorityDescription"
+      id="priorityCode"
+      name="priorityCode"
     >
       <option
         value=""
@@ -54,13 +54,6 @@ exports[`SelectPriority component should render with Info Box 1`] = `
       </option>
     </select>
   </div>
-  <input
-    id="priorityCode"
-    label="priorityCode"
-    name="priorityCode"
-    type="hidden"
-    value="5"
-  />
   <br />
   <div
     class="warning-info-box govuk-inset-text lbh-inset-text"
@@ -102,11 +95,11 @@ exports[`SelectPriority component should render without Info Box 1`] = `
 <DocumentFragment>
   <div
     class="govuk-form-group lbh-form-group"
-    id="priorityDescription-form-group"
+    id="priorityCode-form-group"
   >
     <label
       class="govuk-label lbh-label"
-      for="priorityDescription"
+      for="priorityCode"
     >
       Task priority 
       <span
@@ -117,10 +110,10 @@ exports[`SelectPriority component should render without Info Box 1`] = `
     </label>
     <select
       class="govuk-select lbh-select govuk-!-width-full"
-      data-testid="priorityDescription"
+      data-testid="priorityCode"
       disabled=""
-      id="priorityDescription"
-      name="priorityDescription"
+      id="priorityCode"
+      name="priorityCode"
     >
       <option
         value=""
@@ -152,12 +145,5 @@ exports[`SelectPriority component should render without Info Box 1`] = `
       </option>
     </select>
   </div>
-  <input
-    id="priorityCode"
-    label="priorityCode"
-    name="priorityCode"
-    type="hidden"
-    value="2"
-  />
 </DocumentFragment>
 `;
