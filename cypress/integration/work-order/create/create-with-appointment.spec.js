@@ -382,6 +382,8 @@ describe('Schedule appointment form', () => {
       cy.get('[type="button"]')
         .contains('Book appointment')
         .click({ force: true })
+
+      cy.wait('@apiCheckAppointment')
       cy.get('@apiCheckAppointment')
         .its('request.body')
         .should('deep.equal', {
@@ -396,7 +398,8 @@ describe('Schedule appointment form', () => {
             allocatedBy: '',
           },
         })
-      //jobStatusUpdate api check - adding comments
+
+      cy.wait('@apiCheckjobStatus')
       cy.get('@apiCheckjobStatus')
         .its('request.body')
         .should('deep.equal', {
