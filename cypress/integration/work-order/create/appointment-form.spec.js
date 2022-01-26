@@ -115,7 +115,7 @@ describe('Schedule appointment form', () => {
         )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-        cy.get('#priorityDescription').select('5 [N] NORMAL')
+        cy.get('#priorityCode').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')
@@ -369,7 +369,7 @@ describe('Schedule appointment form', () => {
         )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-        cy.get('#priorityDescription').select('5 [N] NORMAL')
+        cy.get('#priorityCode').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')

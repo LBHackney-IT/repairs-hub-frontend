@@ -28,32 +28,32 @@ const RaiseWorkOrderForm = ({
   onFormSubmit,
   raiseLimit,
 }) => {
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors, setValue } = useForm()
   const [priorityCode, setPriorityCode] = useState('')
-  const priorityList = priorities.map((priority) => priority.description)
 
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
-    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData(formData)
+    const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
+      ...formData,
+      priorityDescription: getPriorityObjectByCode(formData.priorityCode)
+        .description,
+    })
 
     onFormSubmit(scheduleWorkOrderFormData)
   }
 
   const getPriorityObjectByDescription = (description) => {
-    return priorities.filter(
-      (priority) => priority.description == description
-    )[0]
+    return priorities.find((priority) => priority.description === description)
   }
+
   const getPriorityObjectByCode = (code) => {
-    return priorities.filter((priority) => priority.priorityCode == code)[0]
+    return priorities.find((priority) => priority.priorityCode == code)
   }
 
   const onPrioritySelect = (event) => {
-    const priorityObject = getPriorityObjectByDescription(event.target.value)
-
-    setPriorityCode(priorityObject?.priorityCode)
+    setPriorityCode(parseInt(event.target.value))
   }
 
   const updatePriority = (
@@ -67,28 +67,29 @@ const RaiseWorkOrderForm = ({
         ?.description
     }
 
-    if (priorityList.includes(description)) {
-      const existingCode = parseInt(
-        document.getElementById('priorityCode').value
-      )
+    if (getPriorityObjectByDescription(description)) {
       // Update priority when SOR code has priority attached if:
       // Priority description is blank, or there's only one sor code entry, or
       // when removing an SOR there's an existing entry with higher priority, or
       // the selected priority code is less than existing priority codes
       // (Higher priority as code gets lower)
+
       if (
-        !existingCode ||
+        !priorityCode ||
         rateScheduleItemsLength <= 1 ||
         existingHigherPriorityCode ||
-        code < existingCode
+        code < priorityCode
       ) {
-        if (errors?.priorityDescription) {
-          delete errors.priorityDescription
+        if (errors?.priorityCode) {
+          delete errors.priorityCode
         }
 
-        document.getElementById('priorityDescription').value = description
-
         setPriorityCode(
+          getPriorityObjectByDescription(description)?.priorityCode
+        )
+
+        setValue(
+          'priorityCode',
           getPriorityObjectByDescription(description)?.priorityCode
         )
       }
@@ -140,27 +141,24 @@ const RaiseWorkOrderForm = ({
               setTotalCost={setTotalCost}
             />
             <Select
-              name="priorityDescription"
+              name="priorityCode"
               label="Task priority"
-              options={priorityList}
+              options={priorities.map((priority) => ({
+                text: priority.description,
+                value: priority.priorityCode.toString(),
+              }))}
               onChange={onPrioritySelect}
               disabled={true}
               required={true}
               register={register({
                 required: 'Please select a priority',
                 validate: (value) =>
-                  priorityList.includes(value) || 'Priority is not valid',
+                  priorities
+                    .map((p) => p.priorityCode)
+                    .includes(parseInt(value)) || 'Priority is not valid',
               })}
-              error={errors && errors.priorityDescription}
+              error={errors && errors.priorityCode}
               widthClass="govuk-!-width-full"
-            />
-            <input
-              id="priorityCode"
-              name="priorityCode"
-              label="priorityCode"
-              type="hidden"
-              value={priorityCode}
-              ref={register}
             />
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"
