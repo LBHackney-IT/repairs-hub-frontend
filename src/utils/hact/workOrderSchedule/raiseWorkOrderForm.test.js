@@ -17,7 +17,7 @@ jest.mock('uuid', () => {
 })
 
 describe('buildRaiseWorkOrderFormData', () => {
-  const formData = {
+  const workOrderData = {
     rateScheduleItems: [
       {
         code: 'DES5R006 - Urgent call outs',
@@ -158,7 +158,7 @@ describe('buildRaiseWorkOrderFormData', () => {
       },
     }
 
-    const response = buildScheduleWorkOrderFormData(formData)
+    const response = buildScheduleWorkOrderFormData(workOrderData)
     expect(response).toEqual(scheduleWorkOrderFormData)
   })
 })

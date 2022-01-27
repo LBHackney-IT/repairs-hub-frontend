@@ -2,27 +2,27 @@ import { v4 as uuidv4 } from 'uuid'
 import { priorityCodeCompletionTimes } from '../helpers/priorityCodes'
 import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
 
-export const buildScheduleWorkOrderFormData = (formData) => {
+export const buildScheduleWorkOrderFormData = (workOrderData) => {
   return {
     reference: [
       {
         id: uuidv4(),
       },
     ],
-    descriptionOfWork: formData.descriptionOfWork,
+    descriptionOfWork: workOrderData.descriptionOfWork,
     priority: {
-      priorityCode: Number.parseInt(formData.priorityCode),
-      priorityDescription: formData.priorityDescription,
+      priorityCode: Number.parseInt(workOrderData.priorityCode),
+      priorityDescription: workOrderData.priorityDescription,
       requiredCompletionDateTime: calculateCompletionDateTime(
-        Number.parseInt(formData.priorityCode)
+        Number.parseInt(workOrderData.priorityCode)
       ),
       numberOfDays:
-        priorityCodeCompletionTimes[formData.priorityCode].numberOfDays,
+        priorityCodeCompletionTimes[workOrderData.priorityCode].numberOfDays,
     },
     workClass: {
       workClassCode: 0,
     },
-    workElement: formData.rateScheduleItems
+    workElement: workOrderData.rateScheduleItems
       .map((item) => {
         return [
           {
@@ -42,8 +42,8 @@ export const buildScheduleWorkOrderFormData = (formData) => {
                 // There is no 'other' type code to use so this appears to be the
                 // most generic one in the permitted list
                 code: 'SP',
-                customCode: formData.tradeCode,
-                customName: formData.trade,
+                customCode: workOrderData.tradeCode,
+                customName: workOrderData.trade,
               },
             ],
           },
@@ -53,14 +53,14 @@ export const buildScheduleWorkOrderFormData = (formData) => {
     site: {
       property: [
         {
-          propertyReference: formData.propertyReference,
+          propertyReference: workOrderData.propertyReference,
           address: {
-            addressLine: [formData.shortAddress],
-            postalCode: formData.postalCode,
+            addressLine: [workOrderData.shortAddress],
+            postalCode: workOrderData.postalCode,
           },
           reference: [
             {
-              id: formData.propertyReference,
+              id: workOrderData.propertyReference,
             },
           ],
         },
@@ -70,20 +70,20 @@ export const buildScheduleWorkOrderFormData = (formData) => {
       name: 'Hackney Housing',
     },
     assignedToPrimary: {
-      name: formData.contractor.split(' - ')[0],
+      name: workOrderData.contractor.split(' - ')[0],
       organization: {
         reference: [
           {
-            id: formData.contractorRef,
+            id: workOrderData.contractorRef,
           },
         ],
       },
     },
     customer: {
-      name: formData.callerName,
+      name: workOrderData.callerName,
       person: {
         name: {
-          full: formData.callerName,
+          full: workOrderData.callerName,
         },
         communication: [
           {
@@ -93,7 +93,7 @@ export const buildScheduleWorkOrderFormData = (formData) => {
               // Mobile Phone
               code: '60',
             },
-            value: formData.contactNumber,
+            value: workOrderData.contactNumber,
           },
         ],
       },
