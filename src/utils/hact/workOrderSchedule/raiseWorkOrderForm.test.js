@@ -16,7 +16,7 @@ jest.mock('uuid', () => {
   }
 })
 
-describe('buildRaiseWorkOrderFormData', () => {
+describe('buildScheduleWorkOrderFormData', () => {
   const workOrderData = {
     rateScheduleItems: [
       {
@@ -37,6 +37,7 @@ describe('buildRaiseWorkOrderFormData', () => {
     quantity: '1',
     priorityDescription: '4 [U] URGENT',
     priorityCode: URGENT_PRIORITY_CODE,
+    daysToComplete: 5,
     descriptionOfWork: 'This is an urgent test description',
     propertyReference: '00001234',
     shortAddress: '12 Pitcairn House',

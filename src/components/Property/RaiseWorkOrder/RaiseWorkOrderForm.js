@@ -35,10 +35,12 @@ const RaiseWorkOrderForm = ({
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
+    const priority = getPriorityObjectByCode(formData.priorityCode)
+
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
-      priorityDescription: getPriorityObjectByCode(formData.priorityCode)
-        .description,
+      priorityDescription: priority.description,
+      daysToComplete: priority.daysToComplete,
     })
 
     onFormSubmit(scheduleWorkOrderFormData)

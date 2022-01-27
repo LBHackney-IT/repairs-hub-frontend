@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid'
-import { priorityCodeCompletionTimes } from '../helpers/priorityCodes'
 import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
@@ -16,8 +15,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
       requiredCompletionDateTime: calculateCompletionDateTime(
         Number.parseInt(workOrderData.priorityCode)
       ),
-      numberOfDays:
-        priorityCodeCompletionTimes[workOrderData.priorityCode].numberOfDays,
+      numberOfDays: workOrderData.daysToComplete,
     },
     workClass: {
       workClassCode: 0,
