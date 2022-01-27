@@ -120,19 +120,17 @@ const MobileWorkingWorkOrder = ({
           readOnly={readOnly}
         />
 
-        {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-          isCurrentTimeOperativeOvertime() &&
-          !readOnly && (
-            <Checkbox
-              className="govuk-!-margin-0"
-              labelClassName="lbh-body-xs display-flex"
-              name="isOvertime"
-              label="Overtime work order"
-              checked={workOrder.isOvertime}
-              register={register}
-              hintText="(SMVs not included in Bonus)"
-            />
-          )}
+        {isCurrentTimeOperativeOvertime() && !readOnly && (
+          <Checkbox
+            className="govuk-!-margin-0"
+            labelClassName="lbh-body-xs display-flex"
+            name="isOvertime"
+            label="Overtime work order"
+            checked={workOrder.isOvertime}
+            register={register}
+            hintText="(SMVs not included in Bonus)"
+          />
+        )}
 
         {operativesCount > 1 && (
           <OperativeList
