@@ -28,20 +28,16 @@ describe('GET /api/properties/[id] contact information redaction', () => {
           property: {},
           alerts: {},
           tenure: {},
-          contacts: {
-            contacts: [
-              {
-                firstName: 'FirstName',
-                lastName: 'LastName',
-                phoneNumbers: ['0123456789', '0123456789'],
-              },
-              {
-                firstName: 'FirstName',
-                lastName: 'LastName',
-                phoneNumbers: ['0123456789', '0123456789'],
-              },
-            ],
-          },
+          contactDetails: [
+            {
+              fullName: 'FirstName LastName',
+              phoneNumbers: ['0123456789', '0123456789'],
+            },
+            {
+              fullName: 'FirstName LastName',
+              phoneNumbers: ['0123456789', '0123456789'],
+            },
+          ],
         },
       })
     )
@@ -90,20 +86,16 @@ describe('GET /api/properties/[id] contact information redaction', () => {
 
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData['contacts']).toEqual({
-        contacts: [
-          {
-            firstName: 'FirstName',
-            lastName: 'LastName',
-            phoneNumbers: ['0123456789', '0123456789'],
-          },
-          {
-            firstName: 'FirstName',
-            lastName: 'LastName',
-            phoneNumbers: ['0123456789', '0123456789'],
-          },
-        ],
-      })
+      expect(parsedData['contactDetails']).toEqual([
+        {
+          fullName: 'FirstName LastName',
+          phoneNumbers: ['0123456789', '0123456789'],
+        },
+        {
+          fullName: 'FirstName LastName',
+          phoneNumbers: ['0123456789', '0123456789'],
+        },
+      ])
     })
   })
 
@@ -150,20 +142,16 @@ describe('GET /api/properties/[id] contact information redaction', () => {
 
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData['contacts']).toEqual({
-        contacts: [
-          {
-            firstName: 'FirstName',
-            lastName: 'LastName',
-            phoneNumbers: ['0123456789', '0123456789'],
-          },
-          {
-            firstName: 'FirstName',
-            lastName: 'LastName',
-            phoneNumbers: ['0123456789', '0123456789'],
-          },
-        ],
-      })
+      expect(parsedData['contactDetails']).toEqual([
+        {
+          fullName: 'FirstName LastName',
+          phoneNumbers: ['0123456789', '0123456789'],
+        },
+        {
+          fullName: 'FirstName LastName',
+          phoneNumbers: ['0123456789', '0123456789'],
+        },
+      ])
     })
   })
 
@@ -209,7 +197,7 @@ describe('GET /api/properties/[id] contact information redaction', () => {
 
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData['contacts']).toEqual(['REMOVED'])
+      expect(parsedData['contactDetails']).toEqual(['REMOVED'])
     })
   })
 })
