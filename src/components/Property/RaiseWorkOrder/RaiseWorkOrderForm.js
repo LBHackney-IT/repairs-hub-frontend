@@ -13,6 +13,8 @@ import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleIt
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
+import { IMMEDIATE_PRIORITY_CODE } from '../../../utils/helpers/priorities'
+import { daysInHours } from '@/utils/time'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -41,6 +43,11 @@ const RaiseWorkOrderForm = ({
       ...formData,
       priorityDescription: priority.description,
       daysToComplete: priority.daysToComplete,
+      hoursToComplete:
+        // Hours can't be derived for immediates as they have 0 days for completion
+        priority.code === IMMEDIATE_PRIORITY_CODE
+          ? 2
+          : daysInHours(priority.daysToComplete),
     })
 
     onFormSubmit(scheduleWorkOrderFormData)
