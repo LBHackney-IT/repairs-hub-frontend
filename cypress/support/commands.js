@@ -117,13 +117,6 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
   )
 })
 
-Cypress.Commands.add('logout', () => {
-  cy.get('#signout').contains('Sign out')
-  cy.clearCookie('hackneyToken')
-
-  cy.getCookies().should('be.empty')
-})
-
 Cypress.Commands.add('requestsCountByUrl', (url) =>
   cy.wrap().then(() => {
     const requests = cy.state('requests') || []
