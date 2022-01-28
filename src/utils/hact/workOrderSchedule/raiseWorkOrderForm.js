@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
-import { LOW_PRIORITY_CODES } from '@/utils/helpers/priorities'
+import { HIGH_PRIORITY_CODES } from '@/utils/helpers/priorities'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
   return {
@@ -16,7 +16,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
       requiredCompletionDateTime: calculateCompletionDateTime({
         workingDays: workOrderData.daysToComplete,
         workingHours: workOrderData.hoursToComplete,
-        lowPriority: LOW_PRIORITY_CODES.includes(
+        lowPriority: !HIGH_PRIORITY_CODES.includes(
           Number.parseInt(workOrderData.priorityCode)
         ),
       }),
