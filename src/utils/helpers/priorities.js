@@ -8,7 +8,9 @@ export const HIGH_PRIORITY_CODES = [
   EMERGENCY_PRIORITY_CODE,
 ]
 
-export const priorityCodesRequiringAppointments = [
+// These are codes which should result in using the RH
+// booking calendar if the order is for an external contractor
+export const PRIORITY_CODES_REQUIRING_APPOINTMENTS = [
   URGENT_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
 ]
