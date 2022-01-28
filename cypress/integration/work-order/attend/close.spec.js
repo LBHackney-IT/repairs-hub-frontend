@@ -37,12 +37,51 @@ describe('Closing my own work order', () => {
       cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
-    it('overtime selection is not possible', () => {
+    it('overtime selection is not possible and closing makes a POST request for completion without overtime, confirms success, and returns me to the index', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
       cy.get('[data-testid=isOvertime]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('#notes').type('I attended')
+
+      cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: '10000621',
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'complete',
+              comments: 'Work order closed - I attended',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              isOvertime: false,
+            },
+          ],
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains('Work order 10000621 successfully completed')
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
   })
 
