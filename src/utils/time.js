@@ -41,3 +41,5 @@ export const daysAfter = (date, days) => {
 export const dateEqual = (date, otherDate) => {
   return date.getTime() === otherDate.getTime()
 }
+
+export const daysInHours = (days) => (!days || days < 1 ? 0 : days * 24)
