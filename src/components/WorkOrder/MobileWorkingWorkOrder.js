@@ -7,16 +7,11 @@ import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
-import { useState } from 'react'
 import {
   CharacterCountLimitedTextArea,
   PrimarySubmitButton,
   Checkbox,
 } from '../Form'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
-import ErrorMessage from '../Errors/ErrorMessage'
-import router from 'next/router'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
@@ -30,6 +25,7 @@ const MobileWorkingWorkOrder = ({
   personAlerts,
   locationAlerts,
   tasksAndSors,
+  onFormSubmit,
   currentUserPayrollNumber,
 }) => {
   const operativesCount = workOrder.operatives.length
@@ -37,37 +33,6 @@ const MobileWorkingWorkOrder = ({
     workOrder.status
   )
   const { register, errors, handleSubmit } = useForm()
-  const [error, setError] = useState()
-
-  const onFormSubmit = async (formData) => {
-    const isOvertime = formData.isOvertime || false
-
-    try {
-      if (formData.variationReason) {
-        await frontEndApiRequest({
-          method: 'post',
-          path: `/api/jobStatusUpdate`,
-          requestData: buildVariationFormData(
-            tasksAndSors,
-            [],
-            workOrderReference,
-            formData.variationReason
-          ),
-        })
-      }
-
-      router.push({
-        pathname: `/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/close`,
-        query: { isOvertime },
-      })
-    } catch (e) {
-      console.error(e)
-
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
-    }
-  }
 
   const renderOperativeManagementLink = (operativesCount) => {
     let path, linkText
@@ -120,19 +85,17 @@ const MobileWorkingWorkOrder = ({
           readOnly={readOnly}
         />
 
-        {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-          isCurrentTimeOperativeOvertime() &&
-          !readOnly && (
-            <Checkbox
-              className="govuk-!-margin-0"
-              labelClassName="lbh-body-xs display-flex"
-              name="isOvertime"
-              label="Overtime work order"
-              checked={workOrder.isOvertime}
-              register={register}
-              hintText="(SMVs not included in Bonus)"
-            />
-          )}
+        {isCurrentTimeOperativeOvertime() && !readOnly && (
+          <Checkbox
+            className="govuk-!-margin-0"
+            labelClassName="lbh-body-xs display-flex"
+            name="isOvertime"
+            label="Overtime work order"
+            checked={workOrder.isOvertime}
+            register={register}
+            hintText="(SMVs not included in Bonus)"
+          />
+        )}
 
         {operativesCount > 1 && (
           <OperativeList
@@ -177,8 +140,6 @@ const MobileWorkingWorkOrder = ({
             {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
               'true' && renderOperativeManagementLink(operativesCount)}
 
-            {error && <ErrorMessage label={error} />}
-
             {areTasksUpdated(tasksAndSors) && (
               <CharacterCountLimitedTextArea
                 name="variationReason"
@@ -214,6 +175,9 @@ MobileWorkingWorkOrder.propTypes = {
       standardMinuteValue: PropTypes.number,
     })
   ).isRequired,
+  onFormSubmit: PropTypes.func.isRequired,
+  error: PropTypes.string,
+  currentUserPayrollNumber: PropTypes.string.isRequired,
 }
 
 export default MobileWorkingWorkOrder

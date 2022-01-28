@@ -327,7 +327,6 @@ describe('Home page', () => {
       beforeEach(() => {
         cy.clock(new Date('June 11 2021 13:49:15Z'))
 
-        //Stub request with operative's work orders response
         cy.intercept(
           {
             method: 'GET',
@@ -338,7 +337,6 @@ describe('Home page', () => {
           }
         ).as('operativesWorkOrders')
 
-        //Stub request with operative's work order response
         cy.intercept(
           {
             method: 'GET',
@@ -349,7 +347,6 @@ describe('Home page', () => {
           }
         ).as('operativesWorkOrder')
 
-        //Stub request with property response
         cy.intercept(
           {
             method: 'GET',
@@ -360,7 +357,6 @@ describe('Home page', () => {
           }
         ).as('property')
 
-        //Stub request with task response
         cy.intercept(
           {
             method: 'GET',
@@ -370,12 +366,12 @@ describe('Home page', () => {
             fixture: 'workOrders/task.json',
           }
         ).as('task')
-
-        cy.visit('/')
-        cy.wait('@operativesWorkOrders')
       })
 
       it('Displays work order appointments, priority and any closed status', () => {
+        cy.visit('/')
+        cy.wait('@operativesWorkOrders')
+
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
 
         cy.get('.appointment-details').should('have.length', 4)
@@ -434,7 +430,6 @@ describe('Home page', () => {
 
     context("When they don't have work orders attached to them", () => {
       beforeEach(() => {
-        //Stub request with operative's work orders response
         cy.intercept(
           {
             method: 'GET',
