@@ -215,9 +215,11 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-hour]').type('13')
         cy.get('[data-testid=completionTime-minutes]').type('01')
 
-        cy.get('#notes').type(
-          'This has been repaired and I forgot I did it on a completely different date and time.'
-        )
+        cy.get('#notes')
+          .clear()
+          .type(
+            'This has been repaired and I forgot I did it on a completely different date and time.'
+          )
         cy.get('[type="submit"]').contains('Close work order').click()
       })
       cy.get('.govuk-table__row').contains('Completion time')
@@ -249,7 +251,7 @@ describe('Closing a work order on behalf of an operative', () => {
               typeCode: '0',
               otherType: 'complete',
               comments:
-                'Work order closed - This has been repaired.This has been repaired and I forgot I did it on a completely different date and time.',
+                'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
               eventTime: '2021-02-19T13:01:00.000Z',
               isOvertime: false,
             },

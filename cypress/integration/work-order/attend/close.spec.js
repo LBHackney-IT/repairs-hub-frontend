@@ -4,33 +4,35 @@ import 'cypress-audit/commands'
 describe('Closing my own work order', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
 
-  context('when the current time is within working hours', () => {
+  beforeEach(() => {
+    cy.intercept('/api/workOrders/10000621', {
+      fixture: 'workOrders/workOrder.json',
+    }).as('workOrderRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    ).as('propertyRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000621/tasks' },
+      { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
+    ).as('tasksRequest')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrderComplete' },
+      { body: '' }
+    ).as('workOrderCompleteRequest')
+
+    cy.loginWithOperativeRole()
+  })
+
+  context('during normal working hours', () => {
     beforeEach(() => {
       cy.clock(new Date(now).setHours(12, 0, 0))
-
-      cy.intercept('/api/workOrders/10000621', {
-        fixture: 'workOrders/workOrder.json',
-      }).as('workOrderRequest')
-
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      ).as('propertyRequest')
-
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000621/tasks' },
-        { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
-      ).as('tasksRequest')
-
-      cy.intercept(
-        { method: 'POST', path: '/api/jobStatusUpdate' },
-        { body: '' }
-      ).as('jobStatusUpdateRequest')
-
-      cy.loginWithOperativeRole()
     })
 
-    it('the operative cannot set the work as overtime', () => {
+    it('overtime selection is not possible', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
@@ -39,55 +41,14 @@ describe('Closing my own work order', () => {
     })
   })
 
-  context(
-    'when the job is completed without variation and operative can choose Overtime',
-    () => {
-      beforeEach(() => {
-        cy.clock(new Date(now).setHours(16, 0, 1))
+  context('when outside working hours (overtime could apply)', () => {
+    beforeEach(() => {
+      cy.clock(new Date(now).setHours(16, 0, 1))
+    })
 
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/operatives/hu0001/workorders',
-          },
-          {
-            fixture: 'operatives/workOrders.json',
-          }
-        ).as('workOrderIndexRequest')
-
-        cy.intercept('/api/workOrders/10000621', {
-          fixture: 'workOrders/workOrder.json',
-        }).as('workOrderRequest')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/property.json' }
-        ).as('propertyRequest')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/tasks' },
-          { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
-        ).as('tasksRequest')
-
-        cy.intercept(
-          { method: 'POST', path: '/api/jobStatusUpdate' },
-          { body: '' }
-        ).as('jobStatusUpdateRequest')
-
-        cy.intercept(
-          { method: 'POST', path: '/api/workOrderComplete' },
-          { body: '' }
-        ).as('workOrderCompleteRequest')
-
-        cy.loginWithOperativeRole()
-      })
-
-      it('confirms success and returns me to the index', () => {
-        cy.visit('/')
-
-        cy.wait('@workOrderIndexRequest')
-
-        cy.get('.arrow.right').eq(1).click()
+    context('and the overtime payment type is chosen', () => {
+      it('makes a POST request for completion with overtime, confirms success, and returns me to the index', () => {
+        cy.visit('/operatives/1/work-orders/10000621')
 
         cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
@@ -147,58 +108,11 @@ describe('Closing my own work order', () => {
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
-    }
-  )
+    })
 
-  context(
-    'when the job is completed without variation and operative does not choose Overtime',
-    () => {
-      beforeEach(() => {
-        cy.clock(new Date(now).setHours(16, 0, 1))
-
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/operatives/hu0001/workorders',
-          },
-          {
-            fixture: 'operatives/workOrders.json',
-          }
-        ).as('workOrderIndexRequest')
-
-        cy.intercept('/api/workOrders/10000621', {
-          fixture: 'workOrders/workOrder.json',
-        }).as('workOrderRequest')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/property.json' }
-        ).as('propertyRequest')
-
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/tasks' },
-          { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
-        ).as('tasksRequest')
-
-        cy.intercept(
-          { method: 'POST', path: '/api/jobStatusUpdate' },
-          { body: '' }
-        ).as('jobStatusUpdateRequest')
-
-        cy.intercept(
-          { method: 'POST', path: '/api/workOrderComplete' },
-          { body: '' }
-        ).as('workOrderCompleteRequest')
-
-        cy.loginWithOperativeRole()
-      })
-
-      it('confirms success and returns me to the index', () => {
-        cy.visit('/')
-
-        cy.wait('@workOrderIndexRequest')
-
-        cy.get('.arrow.right').eq(1).click()
+    context('when no particular payment type is chosen', () => {
+      it('makes a POST request for completion without overtime, confirm success, and returns me to the index', () => {
+        cy.visit('/operatives/1/work-orders/10000621')
 
         cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
@@ -256,108 +170,6 @@ describe('Closing my own work order', () => {
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
-    }
-  )
-
-  context('when the job is varied', () => {
-    beforeEach(() => {
-      cy.clock(new Date(now).setHours(16, 0, 1))
-
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/operatives/hu0001/workorders',
-        },
-        {
-          fixture: 'operatives/workOrders.json',
-        }
-      ).as('workOrderIndexRequest')
-
-      cy.intercept('/api/workOrders/10000621', {
-        fixture: 'workOrders/workOrder.json',
-      }).as('workOrderRequest')
-
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      ).as('propertyRequest')
-
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000621/tasks' },
-        { fixture: 'workOrders/tasksAndSors.json' }
-      ).as('tasksRequest')
-
-      cy.intercept(
-        { method: 'POST', path: '/api/jobStatusUpdate' },
-        { body: '' }
-      ).as('jobStatusUpdateRequest')
-
-      cy.intercept(
-        { method: 'POST', path: '/api/workOrderComplete' },
-        { body: '' }
-      ).as('workOrderCompleteRequest')
-
-      cy.loginWithOperativeRole()
-    })
-
-    it('requires a variation reason and includes a jobStatusUpdate call', () => {
-      cy.visit('/operatives/1/work-orders/10000621')
-
-      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
-
-      cy.get('form').within(() => {
-        cy.contains('button', 'Confirm').click()
-
-        cy.get('#variationReason-form-group').contains('Please enter a reason')
-
-        cy.get('textarea').type('More work was needed')
-
-        cy.get('[data-testid=isOvertime]').should('not.be.checked')
-
-        cy.get('[data-testid=isOvertime]').check()
-
-        cy.contains('button', 'Confirm').click()
-      })
-
-      cy.get('@jobStatusUpdateRequest')
-        .its('request.body')
-        .should('deep.equal', {
-          relatedWorkOrderReference: {
-            id: '10000621',
-          },
-          comments: 'More work was needed',
-          typeCode: '80',
-          moreSpecificSORCode: {
-            rateScheduleItem: [
-              {
-                id: 'cde7c53b-8947-414c-b88f-9c5e3d875cbh',
-                customCode: 'DES5R013',
-                customName: 'Inspect additional sec entrance',
-                quantity: {
-                  amount: [5],
-                },
-              },
-              {
-                id: 'bde7c53b-8947-414c-b88f-9c5e3d875cbg',
-                customCode: 'DES5R005',
-                customName: 'Normal call outs',
-                quantity: {
-                  amount: [4],
-                },
-              },
-              {
-                id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-                customCode: 'DES5R006',
-                customName: 'Urgent call outs',
-                quantity: {
-                  amount: [2],
-                },
-              },
-            ],
-          },
-        })
-
-      cy.url().should('match', /work-orders\/10000621\/close\?isOvertime=true$/)
     })
   })
 })
