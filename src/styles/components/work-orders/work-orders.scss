@@ -15,38 +15,36 @@
   }
 }
 
-.work-order-status-colours {
-  td {
-    .lbh-tag {
-      &--status-in-progress {
-        background-color: repairs-hub-colour('blue');
-        color: repairs-hub-colour('white');
-      }
-      &--status-work-complete,
-      &--status-locked {
-        background-color: repairs-hub-colour('white');
-        color: repairs-hub-colour('black');
-      }
-      &--status-work-cancelled,
-      &--status-no-access {
-        background-color: repairs-hub-colour('grey');
-        color: repairs-hub-colour('black');
-      }
-      &--status-pending-approval,
-      &--status-variation-pending-approval,
-      &--status-authorisation-pending-approval {
-        background-color: repairs-hub-colour('yellow');
-        color: repairs-hub-colour('black');
-        white-space: normal;
-      }
-      &--status-variation-approved {
-        background-color: repairs-hub-colour('dark-green');
-        color: repairs-hub-colour('white');
-      }
-      &--status-variation-rejected {
-        background-color: repairs-hub-colour('dark-red');
-        color: repairs-hub-colour('white');
-      }
+.work-order-status {
+  &.lbh-tag {
+    &--status-in-progress {
+      background-color: repairs-hub-colour('blue');
+      color: repairs-hub-colour('white');
+    }
+    &--status-work-complete,
+    &--status-locked {
+      background-color: repairs-hub-colour('white');
+      color: repairs-hub-colour('black');
+    }
+    &--status-work-cancelled,
+    &--status-no-access {
+      background-color: repairs-hub-colour('grey');
+      color: repairs-hub-colour('black');
+    }
+    &--status-pending-approval,
+    &--status-variation-pending-approval,
+    &--status-authorisation-pending-approval {
+      background-color: repairs-hub-colour('yellow');
+      color: repairs-hub-colour('black');
+      white-space: normal;
+    }
+    &--status-variation-approved {
+      background-color: repairs-hub-colour('dark-green');
+      color: repairs-hub-colour('white');
+    }
+    &--status-variation-rejected {
+      background-color: repairs-hub-colour('dark-red');
+      color: repairs-hub-colour('white');
     }
   }
 }

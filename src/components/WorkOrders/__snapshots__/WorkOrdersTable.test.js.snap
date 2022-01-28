@@ -65,7 +65,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
         class="govuk-table__body"
       >
         <tr
-          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table work-order-status-colours"
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
           data-ref="10000012"
         >
           <td
@@ -102,7 +102,7 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             class="govuk-table__cell"
           >
             <span
-              class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs"
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs work-order-status"
             >
               In progress
             </span>
