@@ -119,7 +119,7 @@ describe('Schedule appointment form', () => {
         )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-        cy.get('#priorityDescription').select('2 [E] EMERGENCY')
+        cy.get('#priorityCode').select('2 [E] EMERGENCY')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')
@@ -260,7 +260,7 @@ describe('Schedule appointment form', () => {
         )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-        cy.get('#priorityDescription').select('5 [N] NORMAL')
+        cy.get('#priorityCode').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
         cy.get('#contactNumber')
@@ -382,6 +382,8 @@ describe('Schedule appointment form', () => {
       cy.get('[type="button"]')
         .contains('Book appointment')
         .click({ force: true })
+
+      cy.wait('@apiCheckAppointment')
       cy.get('@apiCheckAppointment')
         .its('request.body')
         .should('deep.equal', {
@@ -396,7 +398,8 @@ describe('Schedule appointment form', () => {
             allocatedBy: '',
           },
         })
-      //jobStatusUpdate api check - adding comments
+
+      cy.wait('@apiCheckjobStatus')
       cy.get('@apiCheckjobStatus')
         .its('request.body')
         .should('deep.equal', {
@@ -466,7 +469,7 @@ describe('Schedule appointment form', () => {
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityDescription').select('5 [N] NORMAL')
+          cy.get('#priorityCode').select('5 [N] NORMAL')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('NA', { force: true })
           cy.get('#contactNumber')
@@ -530,7 +533,7 @@ describe('Schedule appointment form', () => {
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityDescription').select('4 [U] URGENT')
+          cy.get('#priorityCode').select('4 [U] URGENT')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('NA', { force: true })
           cy.get('#contactNumber')
@@ -576,7 +579,7 @@ describe('Schedule appointment form', () => {
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityDescription').select('1 [I] IMMEDIATE')
+          cy.get('#priorityCode').select('1 [I] IMMEDIATE')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('NA', { force: true })
           cy.get('#contactNumber')
@@ -616,7 +619,7 @@ describe('Schedule appointment form', () => {
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityDescription').select('2 [E] EMERGENCY')
+          cy.get('#priorityCode').select('2 [E] EMERGENCY')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('NA', { force: true })
           cy.get('#contactNumber')
@@ -663,7 +666,7 @@ describe('Schedule appointment form', () => {
           )
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityDescription').select('5 [N] NORMAL')
+          cy.get('#priorityCode').select('5 [N] NORMAL')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
           cy.get('#callerName').type('NA', { force: true })
           cy.get('#contactNumber')

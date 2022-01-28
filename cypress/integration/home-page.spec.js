@@ -3,25 +3,6 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
-  context('When user is not logged in', () => {
-    it('Redirects on the sign in page', () => {
-      cy.visit('/')
-
-      // Header component
-      cy.get('.lbh-header__service-name').contains('Repairs Hub')
-      cy.get('.lbh-header__title-link').should('have.attr', 'href', '/')
-
-      // UserLogin component
-      cy.get('.lbh-heading-h1').contains('Sign in')
-      cy.get('.lbh-body').contains(
-        'Please sign in with your Hackney email account.'
-      )
-
-      // Run lighthouse audit for accessibility report
-      cy.audit()
-    })
-  })
-
   context('When an agent is logged in', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
@@ -34,20 +15,6 @@ describe('Home page', () => {
         'Search by work order reference, postcode or address'
       )
 
-      cy.audit()
-    })
-
-    it('Redirects to sign in page once logout is clicked and the cookies are cleared', () => {
-      cy.logout()
-      cy.visit('/')
-
-      // UserLogin component
-      cy.get('.lbh-heading-h1').contains('Sign in')
-      cy.get('.lbh-body').contains(
-        'Please sign in with your Hackney email account.'
-      )
-
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
   })

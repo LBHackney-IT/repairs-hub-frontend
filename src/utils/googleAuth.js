@@ -32,7 +32,10 @@ export const deleteSessions = (res, options = { additionalCookies: {} }) => {
 
   const googleAuthCookie = {
     [GSSO_TOKEN_NAME]: {
-      domain: '.hackney.gov.uk',
+      domain:
+        process.env.NEXT_PUBLIC_ENV_NAME === 'test'
+          ? 'localhost'
+          : '.hackney.gov.uk',
       path: '/',
     },
   }

@@ -8,6 +8,7 @@ provider:
   timeout: 10
   region: eu-west-2
   stage: ${opt:stage}
+  lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
 
