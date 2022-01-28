@@ -15,6 +15,7 @@ import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/r
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
+import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -31,8 +32,7 @@ const RaiseWorkOrderForm = ({
   raiseLimit,
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
-  const [priorityCode, setPriorityCode] = useState('')
-  const PRIORITY_CODES_WITHOUT_DRS = ['5']
+  const [priorityCode, setPriorityCode] = useState()
 
   const [totalCost, setTotalCost] = useState('')
   const overSpendLimit = totalCost > raiseLimit
@@ -62,8 +62,8 @@ const RaiseWorkOrderForm = ({
     return priorities.find((priority) => priority.priorityCode == code)
   }
 
-  const onPrioritySelect = (event) => {
-    setPriorityCode(parseInt(event.target.value))
+  const onPrioritySelect = (code) => {
+    setPriorityCode(code)
   }
 
   const updatePriority = (
@@ -95,7 +95,7 @@ const RaiseWorkOrderForm = ({
         }
 
         setPriorityCode(
-          getPriorityObjectByDescription(description)?.priorityCode.toString()
+          getPriorityObjectByDescription(description)?.priorityCode
         )
 
         setValue(

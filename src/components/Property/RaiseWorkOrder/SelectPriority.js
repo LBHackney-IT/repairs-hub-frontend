@@ -11,11 +11,14 @@ const SelectPriority = ({
   priorityCode,
   priorityCodesWithoutDrs,
 }) => {
-  const [drsScheduled, setDrsScheduled] = useState(false)
+  const [drsScheduled, setDrsScheduled] = useState(
+    priorityCodesWithoutDrs.includes(priorityCode)
+  )
 
   const onSelect = (e) => {
-    setDrsScheduled(priorityCodesWithoutDrs.includes(e.target.value))
-    onPrioritySelect(e)
+    const selectedCode = parseInt(e.target.value)
+    setDrsScheduled(priorityCodesWithoutDrs.includes(selectedCode))
+    onPrioritySelect(selectedCode)
   }
 
   return (
@@ -39,7 +42,7 @@ const SelectPriority = ({
         error={errors && errors.priorityCode}
         widthClass="govuk-!-width-full"
       />
-      {(drsScheduled || priorityCode == '5') && (
+      {drsScheduled && (
         <>
           <br />
           <WarningInfoBox
@@ -57,7 +60,7 @@ SelectPriority.propTypes = {
   onPrioritySelect: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  priorityCode: PropTypes.string.isRequired,
+  priorityCode: PropTypes.number.isRequired,
 }
 
 export default SelectPriority

@@ -48,7 +48,7 @@ exports[`SelectPriority component should render with Info Box 1`] = `
         5 [N] NORMAL
       </option>
       <option
-        value="5"
+        value="9"
       >
         9 [P] PLANNED
       </option>
@@ -139,7 +139,7 @@ exports[`SelectPriority component should render without Info Box 1`] = `
         5 [N] NORMAL
       </option>
       <option
-        value="5"
+        value="9"
       >
         9 [P] PLANNED
       </option>
