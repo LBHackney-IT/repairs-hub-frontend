@@ -13,7 +13,7 @@ import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleIt
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
-import { IMMEDIATE_PRIORITY_CODE } from '../../../utils/helpers/priorities'
+import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 
 const RaiseWorkOrderForm = ({
