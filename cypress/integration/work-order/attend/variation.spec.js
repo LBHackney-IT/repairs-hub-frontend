@@ -83,6 +83,6 @@ context('when a variation is made', () => {
         },
       })
 
-    cy.url().should('match', /work-orders\/10000621\/close\?isOvertime=true$/)
+    cy.contains('h1', 'Close work order')
   })
 })

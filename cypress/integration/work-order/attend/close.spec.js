@@ -24,6 +24,11 @@ describe('Closing my own work order', () => {
       { body: '' }
     ).as('workOrderCompleteRequest')
 
+    cy.intercept(
+      { method: 'GET', path: '/api/operatives/hu0001/workorders' },
+      { body: [] }
+    )
+
     cy.loginWithOperativeRole()
   })
 
@@ -58,16 +63,9 @@ describe('Closing my own work order', () => {
 
         cy.contains('button', 'Confirm').click()
 
-        cy.wait('@workOrderRequest')
-
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.get('#notes').type('I attended')
-
-        cy.url().should(
-          'match',
-          /work-orders\/10000621\/close\?isOvertime=true$/
-        )
 
         cy.get('.govuk-form-group--error').contains(
           'Please select a reason for closing the work order'
@@ -120,16 +118,9 @@ describe('Closing my own work order', () => {
 
         cy.contains('button', 'Confirm').click()
 
-        cy.wait('@workOrderRequest')
-
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.get('#notes').type('I attended')
-
-        cy.url().should(
-          'match',
-          /work-orders\/10000621\/close\?isOvertime=false$/
-        )
 
         cy.get('.govuk-form-group--error').contains(
           'Please select a reason for closing the work order'
