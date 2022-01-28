@@ -6,7 +6,10 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { PRIORITY_CODES_REQUIRING_APPOINTMENTS } from '@/utils/helpers/priorities'
+import {
+  HIGH_PRIORITY_CODES,
+  PRIORITY_CODES_REQUIRING_APPOINTMENTS,
+} from '@/utils/helpers/priorities'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
@@ -62,11 +65,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       } else if (externallyManagedAppointment) {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
-        if (
-          !PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
-            formData.priority.priorityCode
-          )
-        ) {
+        if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
           setImmediateOrEmergencyDloRepairText(true)
         } else {
           const schedulerSessionId = await getOrCreateSchedulerSessionId()
