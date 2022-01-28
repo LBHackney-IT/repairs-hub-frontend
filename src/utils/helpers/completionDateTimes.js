@@ -1,4 +1,3 @@
-import { priorityCodeCompletionTimes } from '../hact/helpers/priorityCodes'
 import {
   isSaturday,
   addDays,
@@ -10,7 +9,6 @@ import {
 } from 'date-fns'
 import { bankHolidays } from './bankHolidays'
 import { lowPriorityHolidays } from './lowPriorityHolidays'
-import { LOW_PRIORITY_CODES } from './priorities'
 
 const WORKDAY_START_HOUR = 8
 const WORKDAY_END_HOUR = 18
@@ -76,19 +74,18 @@ const dateAfterCountWorkingDays = ({
   return addDays(startDate, calendarDaysCount)
 }
 
-export const calculateCompletionDateTime = (priorityCode) => {
-  const {
-    numberOfHours: completionTargetHours,
-    numberOfDays: completionTargetWorkingDays,
-  } = priorityCodeCompletionTimes[priorityCode]
-
+export const calculateCompletionDateTime = ({
+  workingDays,
+  workingHours = 0,
+  lowPriority = false,
+}) => {
   let now = new Date()
 
   if (
     // Immediates always have a target of 2 hours
-    completionTargetWorkingDays < 1
+    workingDays < 1
   ) {
-    return new Date(now.setHours(now.getHours() + completionTargetHours))
+    return new Date(now.setHours(now.getHours() + workingHours))
   } else {
     // For the purpose of target time calculation, treat an order raised on a Saturday
     // as if it had been raised on the preceding Friday.
@@ -98,8 +95,8 @@ export const calculateCompletionDateTime = (priorityCode) => {
 
     return dateAfterCountWorkingDays({
       startDate: now,
-      targetWorkingDaysCount: completionTargetWorkingDays,
-      lowPriority: LOW_PRIORITY_CODES.includes(priorityCode),
+      targetWorkingDaysCount: workingDays,
+      lowPriority,
     })
   }
 }
