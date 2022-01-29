@@ -7,16 +7,14 @@ import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
-import {
-  CharacterCountLimitedTextArea,
-  PrimarySubmitButton,
-  Checkbox,
-} from '../Form'
+import Radios from '@/components/Form/Radios'
+import { CharacterCountLimitedTextArea, PrimarySubmitButton } from '../Form'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
+import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -27,6 +25,7 @@ const MobileWorkingWorkOrder = ({
   tasksAndSors,
   onFormSubmit,
   currentUserPayrollNumber,
+  paymentType,
 }) => {
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
@@ -86,20 +85,32 @@ const MobileWorkingWorkOrder = ({
         />
 
         {isCurrentTimeOperativeOvertime() && !readOnly && (
-          <Checkbox
-            className="govuk-!-margin-0"
-            labelClassName="lbh-body-xs display-flex"
-            name="isOvertime"
-            label="Overtime work order"
-            checked={workOrder.isOvertime}
-            register={register}
-            hintText="(SMVs not included in Bonus)"
+          <Radios
+            label="Payment type"
+            name="paymentType"
+            options={[
+              {
+                text: 'Bonus calculation',
+                value: BONUS_PAYMENT_TYPE,
+                defaultChecked:
+                  !paymentType || paymentType === BONUS_PAYMENT_TYPE,
+              },
+              {
+                text: 'Overtime job (i.e. SMV not in Bonus calculation)',
+                value: OVERTIME_PAYMENT_TYPE,
+                defaultChecked: paymentType === OVERTIME_PAYMENT_TYPE,
+              },
+            ]}
+            register={register({
+              required: 'Provide payment type',
+            })}
+            error={errors && errors.paymentType}
           />
         )}
 
         {readOnly && (
           <>
-            {workOrder.isOvertime && (
+            {workOrder.paymentType === OVERTIME_PAYMENT_TYPE && (
               <h4 className="lbh-heading-h4">Overtime work order</h4>
             )}
             <h4 className="lbh-heading-h4">Status</h4>

@@ -11,6 +11,7 @@ import router from 'next/router'
 import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import CloseWorkOrderForm from '@/components/WorkOrders/CloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
+import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -25,7 +26,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
-  const [isOvertime, setIsOvertime] = useState(false)
+  const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
@@ -104,7 +105,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         })
       }
 
-      setIsOvertime(!!formData.isOvertime)
+      formData.paymentType && setPaymentType(formData.paymentType)
       setWorkOrderProgressedToClose(true)
     } catch (e) {
       console.error(e)
@@ -118,10 +119,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      `${data.notes}${isOvertime ? ' - Overtime' : ''}`,
+      `${data.notes}${
+        paymentType === OVERTIME_PAYMENT_TYPE ? ' - Overtime' : ''
+      }`,
       workOrderReference,
       data.reason,
-      isOvertime
+      paymentType
     )
 
     setLoading(true)
@@ -174,6 +177,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
                   error={error}
                   onFormSubmit={onWorkOrderProgressToCloseSubmit}
                   currentUserPayrollNumber={currentUser.operativePayrollNumber}
+                  paymentType={paymentType}
                 />
               </>
             )}
@@ -182,7 +186,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             <CloseWorkOrderForm
               reference={workOrder.reference}
               onSubmit={onWorkOrderCompleteSubmit}
-              isOvertime={isOvertime}
             />
           )}
 

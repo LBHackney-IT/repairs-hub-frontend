@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
+import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -131,7 +132,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       fullNotes,
       reference,
       reason,
-      isOvertime
+      isOvertime ? OVERTIME_PAYMENT_TYPE : BONUS_PAYMENT_TYPE
     )
 
     makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)

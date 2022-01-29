@@ -275,27 +275,56 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       <br />
     </div>
     <div
-      class="govuk-checkboxes__item govuk-!-margin-0"
+      class="govuk-form-group lbh-form-group"
     >
-      <input
-        class="govuk-checkboxes__input"
-        data-testid="isOvertime"
-        id="isOvertime"
-        name="isOvertime"
-        type="checkbox"
-      />
       <label
-        class="govuk-label govuk-checkboxes__label lbh-body-xs display-flex"
-        for="isOvertime"
+        class="govuk-label govuk-label--m"
+        for="paymentType"
       >
-        Overtime work order
+        Payment type 
       </label>
-      <span
-        class="govuk-hint govuk-checkboxes__hint lbh-hint"
-        id="government-gateway-item-hint"
+      <br />
+      <div
+        class="govuk-radios lbh-radios"
       >
-        (SMVs not included in Bonus)
-      </span>
+        <div
+          class="govuk-radios__item"
+        >
+          <input
+            checked=""
+            class="govuk-radios__input"
+            data-testid="paymentType"
+            id="paymentType_Bonus"
+            name="paymentType"
+            type="radio"
+            value="Bonus"
+          />
+          <label
+            class="govuk-label lbh-label govuk-radios__label"
+            for="paymentType_Bonus"
+          >
+            Bonus calculation
+          </label>
+        </div>
+        <div
+          class="govuk-radios__item"
+        >
+          <input
+            class="govuk-radios__input"
+            data-testid="paymentType"
+            id="paymentType_Overtime"
+            name="paymentType"
+            type="radio"
+            value="Overtime"
+          />
+          <label
+            class="govuk-label lbh-label govuk-radios__label"
+            for="paymentType_Overtime"
+          >
+            Overtime job (i.e. SMV not in Bonus calculation)
+          </label>
+        </div>
+      </div>
     </div>
     <div
       class="warning-info-box govuk-inset-text lbh-inset-text"

@@ -253,7 +253,7 @@ describe('Closing a work order on behalf of an operative', () => {
               comments:
                 'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
               eventTime: '2021-02-19T13:01:00.000Z',
-              isOvertime: false,
+              paymentType: 'Bonus',
             },
           ],
         })
@@ -318,7 +318,7 @@ describe('Closing a work order on behalf of an operative', () => {
               otherType: 'completed',
               comments: 'Work order closed - Tenant was not at home',
               eventTime: '2021-01-19T13:01:00.000Z',
-              isOvertime: false,
+              paymentType: 'Bonus',
             },
           ],
         })
@@ -370,8 +370,8 @@ describe('Closing a work order on behalf of an operative', () => {
         .its('request.body')
         .should(
           'have.deep.nested.property',
-          'jobStatusUpdates[0].isOvertime',
-          true
+          'jobStatusUpdates[0].paymentType',
+          'Overtime'
         )
     })
   })
@@ -644,7 +644,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime',
                 eventTime: '2021-01-19T13:01:00.000Z',
-                isOvertime: true,
+                paymentType: 'Overtime',
               },
             ],
           })
@@ -819,7 +819,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
                 eventTime: '2021-01-19T13:01:00.000Z',
-                isOvertime: false,
+                paymentType: 'Bonus',
               },
             ],
           })
@@ -958,7 +958,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y : 100%',
                 eventTime: '2021-01-19T13:01:00.000Z',
-                isOvertime: false,
+                paymentType: 'Bonus',
               },
             ],
           })

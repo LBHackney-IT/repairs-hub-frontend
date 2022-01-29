@@ -192,7 +192,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
   describe('when has status Work Completed and work is overtime', () => {
     beforeAll(() => {
       workOrderData.status = 'Work Completed'
-      workOrderData.isOvertime = true
+      workOrderData.paymentType = 'Overtime'
     })
 
     it('should render work order elements with Status Work Completed', () => {
