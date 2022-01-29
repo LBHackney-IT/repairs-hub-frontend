@@ -1,3 +1,8 @@
+import {
+  CLOSE_TO_BASE_PAYMENT_TYPE,
+  OVERTIME_PAYMENT_TYPE,
+} from '../../paymentTypes'
+
 export const buildCloseWorkOrderData = (
   completionDate,
   notes,
@@ -40,7 +45,7 @@ const operativesAndPercentagesForNotes = (
 export const buildWorkOrderCompleteNotes = (
   notes,
   operativesWithPercentages,
-  isOvertime = false
+  paymentType
 ) => {
   notes =
     operativesWithPercentages.length > 0
@@ -48,15 +53,17 @@ export const buildWorkOrderCompleteNotes = (
           notes,
           `Assigned operatives ${operativesAndPercentagesForNotes(
             operativesWithPercentages,
-            !isOvertime
+            paymentType !== OVERTIME_PAYMENT_TYPE
           )}`,
         ]
           .filter((s) => s)
           .join(' - ')
       : notes
 
-  if (isOvertime) {
+  if (paymentType === OVERTIME_PAYMENT_TYPE) {
     notes = `${notes} - Overtime`
+  } else if (paymentType === CLOSE_TO_BASE_PAYMENT_TYPE) {
+    notes = `${notes} - Closed to base (operative payment done)`
   }
 
   return notes

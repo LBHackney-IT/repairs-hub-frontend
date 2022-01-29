@@ -13,7 +13,6 @@ import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
-import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -29,7 +28,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
-  const [isOvertime, setIsOvertime] = useState(false)
+  const [paymentType, setPaymentType] = useState('')
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
@@ -85,7 +84,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       setWorkOrder(new WorkOrder(workOrder))
-      setIsOvertime(workOrder.isOvertime)
+      workOrder.paymentType && setPaymentType(workOrder.paymentType)
 
       if (workOrder.canAssignOperative) {
         setSelectedOperatives(workOrder.operatives)
@@ -124,7 +123,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     let fullNotes = buildWorkOrderCompleteNotes(
       notes,
       operativesWithPercentages,
-      isOvertime
+      paymentType
     )
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
@@ -132,7 +131,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       fullNotes,
       reference,
       reason,
-      isOvertime ? OVERTIME_PAYMENT_TYPE : BONUS_PAYMENT_TYPE
+      paymentType
     )
 
     makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
@@ -142,21 +141,24 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setCloseWorkOrderFormPage(!CloseWorkOrderFormPage)
   }
 
-  const onGetToSummary = (e) => {
-    const properDate = convertToDateFormat(e.date, e.completionTime)
+  const onGetToSummary = (formData) => {
+    const properDate = convertToDateFormat(
+      formData.date,
+      formData.completionTime
+    )
     setCompletionDate(properDate)
 
-    const operativeIds = Object.keys(e)
+    const operativeIds = Object.keys(formData)
       .filter((k) => k.match(/operative-\d+/))
       .map((operativeKey) => {
-        const matches = e[operativeKey].match(OPERATIVE_ID_REGEX)
+        const matches = formData[operativeKey].match(OPERATIVE_ID_REGEX)
 
         if (Array.isArray(matches)) {
           return Number.parseInt(matches[matches.length - 1])
         }
       })
 
-    const percentages = Object.entries(e)
+    const percentages = Object.entries(formData)
       .filter(([key]) => key.match(/^percentage-\d+$/))
       .map(([, value]) => value)
 
@@ -176,12 +178,12 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         }
       })
     )
-    setReason(e.reason)
-    setNotes(e.notes)
-    setDateToShow(e.date)
-    setIsOvertime(e.isOvertime)
+    setReason(formData.reason)
+    setNotes(formData.notes)
+    setDateToShow(formData.date)
+    setPaymentType(formData.paymentType)
     changeCurrentPage()
-    setCompletionTime(e.completionTime)
+    setCompletionTime(formData.completionTime)
   }
 
   return (
@@ -212,9 +214,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
-                  isOvertime={isOvertime}
+                  paymentType={paymentType}
                 />
               )}
+
               {!CloseWorkOrderFormPage && (
                 <SummaryCloseWorkOrder
                   onJobSubmit={onJobSubmit}
@@ -234,9 +237,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   }
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
-                  isOvertime={isOvertime}
+                  paymentType={paymentType}
                 />
               )}
+
               {error && <ErrorMessage label={error} />}
             </>
           )}

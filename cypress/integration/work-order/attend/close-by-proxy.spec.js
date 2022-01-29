@@ -109,11 +109,24 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.wait('@workOrder')
 
     cy.get('form').within(() => {
-      cy.get('[type="radio"]').first().check()
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Completed').click()
+        })
+
       cy.get('#date').type('2021-01-18') //Raised on 2021-01-18, 15:28
 
       cy.get('[data-testid=completionTime-hour]').type('12')
       cy.get('[data-testid=completionTime-minutes]').type('45')
+
+      cy.contains('Payment type')
+        .parent()
+        .within(() => {
+          cy.get('[value="Bonus"]').should('be.checked')
+          cy.get('[value="Overtime"]').should('not.be.checked')
+          cy.get('[value="CloseToBase"]').should('not.be.checked')
+        })
 
       cy.get('#notes').type('test')
       cy.get('[type="submit"]').contains('Close work order').click()
@@ -134,12 +147,14 @@ describe('Closing a work order on behalf of an operative', () => {
 
     // Enter 19 Janurary 2021 at 14:45
     cy.get('form').within(() => {
-      cy.get('[type="radio"]')
-        .first()
-        .should('have.value', 'Work Order Completed')
-      cy.get('[type="radio"]').last().should('have.value', 'No Access')
-      //choose No Access reason
-      cy.get('[type="radio"]').last().check()
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.get('[value="Work Order Completed"]').should('be.checked')
+
+          cy.contains('label', 'No access').click()
+        })
+
       cy.get('#date').type('2021-01-19')
 
       cy.get('[data-testid=completionTime-hour]').clear()
@@ -167,7 +182,12 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     cy.get('form').within(() => {
-      cy.get('[type="radio"]').first().check()
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Completed').click()
+        })
+
       cy.get('#date').type('2021-02-19')
 
       cy.get('[data-testid=completionTime-hour]').clear()
@@ -236,12 +256,11 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.wait('@workOrder')
 
     cy.get('form').within(() => {
-      cy.get('[type="radio"]')
-        .first()
-        .should('have.value', 'Work Order Completed')
-
-      cy.get('[type="radio"]').last().should('have.value', 'No Access')
-      cy.get('[type="radio"]').last().check()
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'No access').click()
+        })
 
       cy.get('#date').type('2021-01-19')
 
@@ -250,6 +269,16 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[data-testid=completionTime-hour]').type('13')
       cy.get('[data-testid=completionTime-minutes]').type('01')
+
+      cy.contains('Payment type')
+        .parent()
+        .within(() => {
+          cy.get('[value="Bonus"]').should('be.checked')
+          cy.get('[value="Overtime"]').should('not.be.checked')
+          cy.get('[value="CloseToBase"]').should('not.be.checked')
+
+          cy.contains('label', 'Close to base').click()
+        })
 
       cy.get('#notes').type('Tenant was not at home')
       cy.get('[type="submit"]').contains('Close work order').click()
@@ -262,6 +291,9 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('.govuk-table__row').contains('No Access')
     cy.get('.govuk-table__row').contains('Notes')
     cy.get('.govuk-table__row').contains('Tenant was not at home')
+
+    cy.contains('th', 'Payment type').parent().contains('Close to base')
+
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
     cy.wait('@apiCheck')
@@ -278,9 +310,10 @@ describe('Closing a work order on behalf of an operative', () => {
           {
             typeCode: '70',
             otherType: 'completed',
-            comments: 'Work order closed - Tenant was not at home',
+            comments:
+              'Work order closed - Tenant was not at home - Closed to base (operative payment done)',
             eventTime: '2021-01-19T13:01:00.000Z',
-            paymentType: 'Bonus',
+            paymentType: 'CloseToBase',
           },
         ],
       })
@@ -301,20 +334,28 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('.operatives').should('not.exist')
 
     cy.get('form').within(() => {
-      cy.get('[type="radio"]').last().check()
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Completed').click()
+        })
 
       cy.get('#date').type('2021-01-23')
 
       cy.get('[data-testid=completionTime-hour]').type('12')
       cy.get('[data-testid=completionTime-minutes]').type('00')
 
-      cy.get('[data-testid="isOvertime"]').check()
+      cy.contains('Payment type')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Overtime').click()
+        })
 
       cy.get('#notes').type('This has been repaired during overtime.')
       cy.get('[type="submit"]').contains('Close work order').click()
     })
 
-    cy.contains('th', 'Overtime').parent().contains('Yes')
+    cy.contains('th', 'Payment type').parent().contains('Overtime')
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -408,7 +449,12 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.wait(['@workOrder', '@operatives'])
 
-        cy.get('[type="radio"]').last().check()
+        cy.contains('Select reason for closing')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'No access').click()
+          })
+
         cy.get('#date').type('2021-01-19')
 
         cy.get('[data-testid=completionTime-hour]').clear()
@@ -419,7 +465,15 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.get('#notes').type('A note')
 
-        cy.get('[data-testid="isOvertime"]').check()
+        cy.contains('Payment type')
+          .parent()
+          .within(() => {
+            cy.get('[value="Bonus"]').should('be.checked')
+            cy.get('[value="Overtime"]').should('not.be.checked')
+            cy.get('[value="CloseToBase"]').should('not.be.checked')
+
+            cy.contains('label', 'Overtime').click()
+          })
 
         cy.get('.operatives').within(() => {
           cy.get('input[list]').should('have.length', 3)
@@ -682,7 +736,12 @@ describe('Closing a work order on behalf of an operative', () => {
 
         cy.wait(['@workOrder', '@operatives'])
 
-        cy.get('[type="radio"]').first().check()
+        cy.contains('Select reason for closing')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'Completed').click()
+          })
+
         cy.get('#date').type('2021-01-19')
 
         cy.get('[data-testid=completionTime-hour]').clear()
@@ -830,7 +889,12 @@ describe('Closing a work order on behalf of an operative', () => {
           )
         })
 
-        cy.get('[type="radio"]').last().check()
+        cy.contains('Select reason for closing')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'No access').click()
+          })
+
         cy.get('#date').type('2021-01-19')
 
         cy.get('[data-testid=completionTime-hour]').clear()

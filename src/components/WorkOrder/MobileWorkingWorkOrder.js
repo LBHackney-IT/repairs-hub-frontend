@@ -14,7 +14,11 @@ import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
-import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
+import {
+  BONUS_PAYMENT_TYPE,
+  OVERTIME_PAYMENT_TYPE,
+  PAYMENT_TYPE_FORM_DESCRIPTIONS,
+} from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -90,13 +94,13 @@ const MobileWorkingWorkOrder = ({
             name="paymentType"
             options={[
               {
-                text: 'Bonus calculation',
+                text: PAYMENT_TYPE_FORM_DESCRIPTIONS[BONUS_PAYMENT_TYPE],
                 value: BONUS_PAYMENT_TYPE,
                 defaultChecked:
                   !paymentType || paymentType === BONUS_PAYMENT_TYPE,
               },
               {
-                text: 'Overtime job (i.e. SMV not in Bonus calculation)',
+                text: PAYMENT_TYPE_FORM_DESCRIPTIONS[OVERTIME_PAYMENT_TYPE],
                 value: OVERTIME_PAYMENT_TYPE,
                 defaultChecked: paymentType === OVERTIME_PAYMENT_TYPE,
               },

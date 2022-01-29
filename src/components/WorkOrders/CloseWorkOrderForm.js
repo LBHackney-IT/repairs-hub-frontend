@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { Checkbox, PrimarySubmitButton } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import DatePicker from '../Form/DatePicker'
 import isPast from 'date-fns/isPast'
@@ -12,6 +12,12 @@ import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 import { useContext } from 'react'
 import UserContext from '../UserContext'
 import WarningInfoBox from '../Template/WarningInfoBox'
+import {
+  BONUS_PAYMENT_TYPE,
+  CLOSE_TO_BASE_PAYMENT_TYPE,
+  OVERTIME_PAYMENT_TYPE,
+  PAYMENT_TYPE_FORM_DESCRIPTIONS,
+} from '../../utils/paymentTypes'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -28,7 +34,7 @@ const CloseWorkOrderForm = ({
   selectedPercentagesToShowOnEdit,
   totalSMV,
   jobIsSplitByOperative,
-  isOvertime,
+  paymentType,
 }) => {
   const {
     handleSubmit,
@@ -131,14 +137,32 @@ const CloseWorkOrderForm = ({
           )}
 
           {closingByProxy && (
-            <Checkbox
-              className="govuk-!-margin-0"
-              labelClassName="lbh-body-xs display-flex"
-              name="isOvertime"
-              label="Overtime work order"
-              checked={isOvertime}
-              register={register}
-              hintText="(SMVs not included in Bonus)"
+            <Radios
+              label="Payment type"
+              name="paymentType"
+              options={[
+                {
+                  text: PAYMENT_TYPE_FORM_DESCRIPTIONS[BONUS_PAYMENT_TYPE],
+                  value: BONUS_PAYMENT_TYPE,
+                  defaultChecked:
+                    !paymentType || paymentType === BONUS_PAYMENT_TYPE,
+                },
+                {
+                  text: PAYMENT_TYPE_FORM_DESCRIPTIONS[OVERTIME_PAYMENT_TYPE],
+                  value: OVERTIME_PAYMENT_TYPE,
+                  defaultChecked: paymentType === OVERTIME_PAYMENT_TYPE,
+                },
+                {
+                  text:
+                    PAYMENT_TYPE_FORM_DESCRIPTIONS[CLOSE_TO_BASE_PAYMENT_TYPE],
+                  value: CLOSE_TO_BASE_PAYMENT_TYPE,
+                  defaultChecked: paymentType === CLOSE_TO_BASE_PAYMENT_TYPE,
+                },
+              ]}
+              register={register({
+                required: 'Provide payment type',
+              })}
+              error={errors && errors.paymentType}
             />
           )}
 
@@ -177,7 +201,7 @@ CloseWorkOrderForm.propTypes = {
   dateRaised: PropTypes.string,
   totalSMV: PropTypes.number.isRequired,
   jobIsSplitByOperative: PropTypes.bool.isRequired,
-  isOvertime: PropTypes.bool.isRequired,
+  paymentType: PropTypes.string,
 }
 
 export default CloseWorkOrderForm

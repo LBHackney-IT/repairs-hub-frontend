@@ -47,7 +47,7 @@ describe('buildCloseWorkOrderData', () => {
 
 describe('buildWorkOrderCompleteNotes', () => {
   describe('when there are operative percentages', () => {
-    describe('and isOvertime is false', () => {
+    describe('and paymentType is Bonus', () => {
       it('includes names and percentages in the note', () => {
         expect(
           buildWorkOrderCompleteNotes(
@@ -56,7 +56,7 @@ describe('buildWorkOrderCompleteNotes', () => {
               { operative: { name: 'operativeA' }, percentage: 'percentage1' },
               { operative: { name: 'operativeB' }, percentage: 'percentage2' },
             ],
-            false
+            'Bonus'
           )
         ).toEqual(
           'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2'
@@ -64,8 +64,8 @@ describe('buildWorkOrderCompleteNotes', () => {
       })
     })
 
-    describe('and isOvertime is true', () => {
-      it('includes names without percentages and mentions overtime in the note', () => {
+    describe('and paymentType is Overtime', () => {
+      it('includes overtime in the note but not percentages', () => {
         expect(
           buildWorkOrderCompleteNotes(
             'Comment from user',
@@ -73,20 +73,37 @@ describe('buildWorkOrderCompleteNotes', () => {
               { operative: { name: 'operativeA' }, percentage: 'percentage1' },
               { operative: { name: 'operativeB' }, percentage: 'percentage2' },
             ],
-            true
+            'Overtime'
           )
         ).toEqual(
           'Comment from user - Assigned operatives operativeA, operativeB - Overtime'
         )
       })
     })
+
+    describe('and paymentType is CloseToBase', () => {
+      it('includes close to base in the note', () => {
+        expect(
+          buildWorkOrderCompleteNotes(
+            'Comment from user',
+            [
+              { operative: { name: 'operativeA' }, percentage: 'percentage1' },
+              { operative: { name: 'operativeB' }, percentage: 'percentage2' },
+            ],
+            'CloseToBase'
+          )
+        ).toEqual(
+          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2 - Closed to base (operative payment done)'
+        )
+      })
+    })
   })
 
   describe('when there are no operative percentages', () => {
-    describe('and isOvertime is true', () => {
+    describe('and paymentType is Overtime', () => {
       it('mentions overtime in the notes', () => {
         expect(
-          buildWorkOrderCompleteNotes('Comment from user', {}, true)
+          buildWorkOrderCompleteNotes('Comment from user', {}, 'Overtime')
         ).toEqual('Comment from user - Overtime')
       })
     })

@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
+import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 
@@ -12,7 +13,7 @@ const SummaryCloseWorkOrder = ({
   changeStep,
   reason,
   operativeNames,
-  isOvertime,
+  paymentType,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -35,8 +36,8 @@ const SummaryCloseWorkOrder = ({
               </TD>
             </TR>
             <TR>
-              <TH scope="row">Overtime</TH>
-              <TD>{isOvertime ? 'Yes' : 'No'}</TD>
+              <TH scope="row">Payment type</TH>
+              <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType]}</TD>
               <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
@@ -88,7 +89,7 @@ SummaryCloseWorkOrder.propTypes = {
   date: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
   reason: PropTypes.string.isRequired,
-  isOvertime: PropTypes.bool.isRequired,
+  paymentType: PropTypes.string.isRequired,
 }
 
 export default SummaryCloseWorkOrder
