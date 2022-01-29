@@ -242,12 +242,12 @@ describe('Show work order page', () => {
 
         cy.get('a[id="tab_work-orders-history-tab"]').click()
 
-        cy.wait('@workOrdersHistory')
+        cy.wait('@workOrdersHistoryRequest')
 
         cy.contains('10000040').should(
           'have.attr',
           'href',
-          'work-orders/10000040'
+          '/work-orders/10000040'
         )
       })
     })
@@ -367,6 +367,49 @@ describe('Show work order page', () => {
         cy.contains(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
         )
+      })
+    })
+  })
+
+  describe('Work order actions', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrder.json' }
+      ).as('workOrderRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('propertyRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { body: [] }
+      ).as('tasksRequest')
+    })
+
+    context('When a contractor is logged in', () => {
+      beforeEach(() => {
+        cy.loginWithContractorRole()
+      })
+
+      it('contains a link to close the order', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait(['@workOrderRequest', '@tasksRequest'])
+
+        cy.get('[data-testid="details"]')
+          .contains('Close')
+          .click({ force: true })
+
+        cy.get('.govuk-grid-column-one-third').within(() => {
+          cy.contains('a', 'Close').should(
+            'have.attr',
+            'href',
+            '/work-orders/10000012/close'
+          )
+        })
       })
     })
   })
