@@ -297,31 +297,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
         (SMVs not included in Bonus)
       </span>
     </div>
-    <h4
-      class="lbh-heading-h4"
-    >
-      Operatives
-    </h4>
-    <ol
-      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-    >
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test1 - 50%
-        </a>
-      </li>
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test2 - 100%
-        </a>
-      </li>
-    </ol>
     <div
       class="warning-info-box govuk-inset-text lbh-inset-text"
     >
@@ -364,7 +339,31 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
     >
       Add new SOR
     </a>
-    <br />
+    <h4
+      class="lbh-heading-h4"
+    >
+      Operatives
+    </h4>
+    <ol
+      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
+    >
+      <li>
+        <a
+          class="govuk-link"
+          href="/work-orders/10000621/operatives/edit"
+        >
+          Test1 - 50%
+        </a>
+      </li>
+      <li>
+        <a
+          class="govuk-link"
+          href="/work-orders/10000621/operatives/edit"
+        >
+          Test2 - 100%
+        </a>
+      </li>
+    </ol>
     <a
       class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
       data-module="govuk-button"
@@ -706,7 +705,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     >
       Add new SOR
     </a>
-    <br />
     <a
       class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
       data-module="govuk-button"
@@ -1074,26 +1072,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
-    >
-      Add new SOR
-    </a>
-    <br />
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/new"
-      role="button"
-    >
-      Add operatives
-    </a>
-    <br />
     <div
       class="govuk-form-group lbh-form-group"
       id="variationReason-form-group"
@@ -1125,6 +1103,25 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     >
       You have 250 characters remaining.
     </span>
+    <a
+      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+      data-module="govuk-button"
+      draggable="false"
+      href="/work-orders/10000621/tasks/new"
+      role="button"
+    >
+      Add new SOR
+    </a>
+    <a
+      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+      data-module="govuk-button"
+      draggable="false"
+      href="/work-orders/10000621/operatives/new"
+      role="button"
+    >
+      Add operatives
+    </a>
+    <br />
     <div
       class="govuk-form-group lbh-form-group"
     >
@@ -1447,26 +1444,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         </div>
       </div>
     </div>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
-    >
-      Add new SOR
-    </a>
-    <br />
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/new"
-      role="button"
-    >
-      Add operatives
-    </a>
-    <br />
     <div
       class="govuk-form-group lbh-form-group"
       id="variationReason-form-group"
@@ -1498,6 +1475,25 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     >
       You have 250 characters remaining.
     </span>
+    <a
+      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+      data-module="govuk-button"
+      draggable="false"
+      href="/work-orders/10000621/tasks/new"
+      role="button"
+    >
+      Add new SOR
+    </a>
+    <a
+      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+      data-module="govuk-button"
+      draggable="false"
+      href="/work-orders/10000621/operatives/new"
+      role="button"
+    >
+      Add operatives
+    </a>
+    <br />
     <div
       class="govuk-form-group lbh-form-group"
     >

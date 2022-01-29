@@ -97,15 +97,6 @@ const MobileWorkingWorkOrder = ({
           />
         )}
 
-        {operativesCount > 1 && (
-          <OperativeList
-            operatives={workOrder.operatives}
-            currentUserPayrollNumber={currentUserPayrollNumber}
-            workOrderReference={workOrderReference}
-            readOnly={readOnly}
-          />
-        )}
-
         {readOnly && (
           <>
             {workOrder.isOvertime && (
@@ -124,22 +115,6 @@ const MobileWorkingWorkOrder = ({
               text="Any changes to the work order must be made on paper."
             />
 
-            <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-              <a
-                role="button"
-                draggable="false"
-                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                data-module="govuk-button"
-              >
-                Add new SOR
-              </a>
-            </Link>
-
-            <br />
-
-            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-              'true' && renderOperativeManagementLink(operativesCount)}
-
             {areTasksUpdated(tasksAndSors) && (
               <CharacterCountLimitedTextArea
                 name="variationReason"
@@ -152,6 +127,29 @@ const MobileWorkingWorkOrder = ({
                 error={errors && errors.variationReason}
               />
             )}
+
+            <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+              <a
+                role="button"
+                draggable="false"
+                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                data-module="govuk-button"
+              >
+                Add new SOR
+              </a>
+            </Link>
+
+            {operativesCount > 1 && (
+              <OperativeList
+                operatives={workOrder.operatives}
+                currentUserPayrollNumber={currentUserPayrollNumber}
+                workOrderReference={workOrderReference}
+                readOnly={readOnly}
+              />
+            )}
+
+            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
+              'true' && renderOperativeManagementLink(operativesCount)}
 
             <PrimarySubmitButton label="Confirm" />
           </>
