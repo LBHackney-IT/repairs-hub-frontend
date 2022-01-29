@@ -108,7 +108,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
-          currentUserPayrollNumber={1}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -137,7 +138,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
-          currentUserPayrollNumber={1}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -179,6 +181,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -215,6 +219,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -250,6 +256,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -285,6 +293,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -403,6 +413,8 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
             standardMinuteValue: 15,
           },
         ]}
+        currentUserPayrollNumber={'1'}
+        onFormSubmit={jest.fn()}
       />
     )
     expect(asFragment()).toMatchSnapshot()
