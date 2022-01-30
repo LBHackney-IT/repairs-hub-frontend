@@ -7,3 +7,17 @@ export const PAYMENT_TYPE_FORM_DESCRIPTIONS = {
   [OVERTIME_PAYMENT_TYPE]: 'Overtime job (i.e. SMV not in Bonus calculation)',
   [CLOSE_TO_BASE_PAYMENT_TYPE]: 'Close to base (operative payment done)',
 }
+
+export const optionsForPaymentType = ({
+  paymentTypes,
+  currentPaymentType,
+  defaultPaymentType = BONUS_PAYMENT_TYPE,
+}) => {
+  return paymentTypes.map((paymentType) => ({
+    text: PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType],
+    value: paymentType,
+    defaultChecked: currentPaymentType
+      ? paymentType === currentPaymentType
+      : paymentType === defaultPaymentType,
+  }))
+}

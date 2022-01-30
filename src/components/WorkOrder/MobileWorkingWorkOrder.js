@@ -16,7 +16,7 @@ import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTi
 import {
   BONUS_PAYMENT_TYPE,
   OVERTIME_PAYMENT_TYPE,
-  PAYMENT_TYPE_FORM_DESCRIPTIONS,
+  optionsForPaymentType,
 } from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrder = ({
@@ -90,19 +90,10 @@ const MobileWorkingWorkOrder = ({
           <Radios
             label="Payment type"
             name="paymentType"
-            options={[
-              {
-                text: PAYMENT_TYPE_FORM_DESCRIPTIONS[BONUS_PAYMENT_TYPE],
-                value: BONUS_PAYMENT_TYPE,
-                defaultChecked:
-                  !paymentType || paymentType === BONUS_PAYMENT_TYPE,
-              },
-              {
-                text: PAYMENT_TYPE_FORM_DESCRIPTIONS[OVERTIME_PAYMENT_TYPE],
-                value: OVERTIME_PAYMENT_TYPE,
-                defaultChecked: paymentType === OVERTIME_PAYMENT_TYPE,
-              },
-            ]}
+            options={optionsForPaymentType({
+              paymentTypes: [BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE],
+              currentPaymentType: paymentType,
+            })}
             register={register({
               required: 'Provide payment type',
             })}
