@@ -26,7 +26,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Select reason for closing 
         </label>
-        <br />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -453,7 +452,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Payment type 
         </label>
-        <br />
         <div
           class="govuk-radios lbh-radios"
         >

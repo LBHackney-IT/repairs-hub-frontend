@@ -283,7 +283,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       >
         Payment type 
       </label>
-      <br />
       <div
         class="govuk-radios lbh-radios"
       >
@@ -327,47 +326,18 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
       </div>
     </div>
     <div
-      class="warning-info-box govuk-inset-text lbh-inset-text"
+      class="govuk-!-margin-top-0"
     >
-      <div
-        class="lbh-warning-text govuk-warning-text"
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/tasks/new"
+        role="button"
       >
-        <span
-          aria-hidden="true"
-          class="govuk-warning-text__icon"
-        >
-          !
-        </span>
-        <div
-          class="govuk-warning-text__text"
-        >
-          <span
-            class="govuk-warning-text__assistive"
-          >
-            Warning
-          </span>
-          <p
-            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-          >
-            Need to make a change?
-          </p>
-          <p
-            class="lbh-body-xs govuk-!-margin-top-1"
-          >
-            Any changes to the work order must be made on paper.
-          </p>
-        </div>
-      </div>
+        Add new SOR
+      </a>
     </div>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
-    >
-      Add new SOR
-    </a>
     <h4
       class="lbh-heading-h4"
     >
@@ -393,16 +363,19 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
         </a>
       </li>
     </ol>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/edit"
-      role="button"
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Update operatives
-    </a>
-    <br />
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/edit"
+        role="button"
+      >
+        Update operatives
+      </a>
+    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >
@@ -693,57 +666,31 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <br />
     </div>
     <div
-      class="warning-info-box govuk-inset-text lbh-inset-text"
+      class="govuk-!-margin-top-0"
     >
-      <div
-        class="lbh-warning-text govuk-warning-text"
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/tasks/new"
+        role="button"
       >
-        <span
-          aria-hidden="true"
-          class="govuk-warning-text__icon"
-        >
-          !
-        </span>
-        <div
-          class="govuk-warning-text__text"
-        >
-          <span
-            class="govuk-warning-text__assistive"
-          >
-            Warning
-          </span>
-          <p
-            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-          >
-            Need to make a change?
-          </p>
-          <p
-            class="lbh-body-xs govuk-!-margin-top-1"
-          >
-            Any changes to the work order must be made on paper.
-          </p>
-        </div>
-      </div>
+        Add new SOR
+      </a>
     </div>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Add new SOR
-    </a>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/new"
-      role="button"
-    >
-      Add operatives
-    </a>
-    <br />
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/new"
+        role="button"
+      >
+        Add operatives
+      </a>
+    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >
@@ -1069,39 +1016,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <br />
     </div>
     <div
-      class="warning-info-box govuk-inset-text lbh-inset-text"
-    >
-      <div
-        class="lbh-warning-text govuk-warning-text"
-      >
-        <span
-          aria-hidden="true"
-          class="govuk-warning-text__icon"
-        >
-          !
-        </span>
-        <div
-          class="govuk-warning-text__text"
-        >
-          <span
-            class="govuk-warning-text__assistive"
-          >
-            Warning
-          </span>
-          <p
-            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-          >
-            Need to make a change?
-          </p>
-          <p
-            class="lbh-body-xs govuk-!-margin-top-1"
-          >
-            Any changes to the work order must be made on paper.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
       class="govuk-form-group lbh-form-group"
       id="variationReason-form-group"
     >
@@ -1132,25 +1046,32 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     >
       You have 250 characters remaining.
     </span>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Add new SOR
-    </a>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/new"
-      role="button"
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/tasks/new"
+        role="button"
+      >
+        Add new SOR
+      </a>
+    </div>
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Add operatives
-    </a>
-    <br />
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/new"
+        role="button"
+      >
+        Add operatives
+      </a>
+    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >
@@ -1441,39 +1362,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <br />
     </div>
     <div
-      class="warning-info-box govuk-inset-text lbh-inset-text"
-    >
-      <div
-        class="lbh-warning-text govuk-warning-text"
-      >
-        <span
-          aria-hidden="true"
-          class="govuk-warning-text__icon"
-        >
-          !
-        </span>
-        <div
-          class="govuk-warning-text__text"
-        >
-          <span
-            class="govuk-warning-text__assistive"
-          >
-            Warning
-          </span>
-          <p
-            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-          >
-            Need to make a change?
-          </p>
-          <p
-            class="lbh-body-xs govuk-!-margin-top-1"
-          >
-            Any changes to the work order must be made on paper.
-          </p>
-        </div>
-      </div>
-    </div>
-    <div
       class="govuk-form-group lbh-form-group"
       id="variationReason-form-group"
     >
@@ -1504,25 +1392,32 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     >
       You have 250 characters remaining.
     </span>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/tasks/new"
-      role="button"
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Add new SOR
-    </a>
-    <a
-      class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-      data-module="govuk-button"
-      draggable="false"
-      href="/work-orders/10000621/operatives/new"
-      role="button"
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/tasks/new"
+        role="button"
+      >
+        Add new SOR
+      </a>
+    </div>
+    <div
+      class="govuk-!-margin-top-0"
     >
-      Add operatives
-    </a>
-    <br />
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/new"
+        role="button"
+      >
+        Add operatives
+      </a>
+    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >

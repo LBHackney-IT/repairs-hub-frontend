@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
-import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
@@ -49,7 +48,7 @@ const MobileWorkingWorkOrder = ({
     }
 
     return (
-      <>
+      <div className="govuk-!-margin-top-0">
         <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
           <a
             role="button"
@@ -60,8 +59,7 @@ const MobileWorkingWorkOrder = ({
             {linkText}
           </a>
         </Link>
-        <br />
-      </>
+      </div>
     )
   }
 
@@ -125,11 +123,6 @@ const MobileWorkingWorkOrder = ({
 
         {!readOnly && (
           <>
-            <WarningInfoBox
-              header="Need to make a change?"
-              text="Any changes to the work order must be made on paper."
-            />
-
             {areTasksUpdated(tasksAndSors) && (
               <CharacterCountLimitedTextArea
                 name="variationReason"
@@ -143,16 +136,18 @@ const MobileWorkingWorkOrder = ({
               />
             )}
 
-            <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-              <a
-                role="button"
-                draggable="false"
-                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                data-module="govuk-button"
-              >
-                Add new SOR
-              </a>
-            </Link>
+            <div className="govuk-!-margin-top-0">
+              <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                <a
+                  role="button"
+                  draggable="false"
+                  className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                  data-module="govuk-button"
+                >
+                  Add new SOR
+                </a>
+              </Link>
+            </div>
 
             {operativesCount > 1 && (
               <OperativeList
