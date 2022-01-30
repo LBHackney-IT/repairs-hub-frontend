@@ -38,6 +38,17 @@ export const STATUS_NO_ACCESS = {
   description: 'No Access',
 }
 
+export const CLOSURE_STATUS_OPTIONS = [
+  {
+    text: 'Completed',
+    value: 'Work Order Completed',
+  },
+  {
+    text: 'No access',
+    value: 'No Access',
+  },
+]
+
 export const WORK_ORDERS_STATUSES = [
   STATUS_IN_PROGRESS.description,
   STATUS_COMPLETE.description,

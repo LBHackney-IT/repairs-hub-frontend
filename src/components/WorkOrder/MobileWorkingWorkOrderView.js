@@ -9,7 +9,7 @@ import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
 import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import CloseWorkOrderForm from '@/components/WorkOrders/CloseWorkOrderForm'
+import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
 import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
 
@@ -183,8 +183,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             )}
 
           {workOrderProgressedToClose && (
-            <CloseWorkOrderForm
-              reference={workOrder.reference}
+            <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
             />
           )}
