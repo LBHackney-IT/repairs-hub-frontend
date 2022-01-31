@@ -33,7 +33,7 @@ const MobileWorkingWorkOrderListItem = ({
             {statusText && (
               <Status
                 text={statusText}
-                className="work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2 uppercase"
+                className="work-order-status govuk-!-margin-top-0 govuk-!-margin-left-2"
               />
             )}
           </div>
