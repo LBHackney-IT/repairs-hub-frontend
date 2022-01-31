@@ -38,10 +38,6 @@ context('when a variation is made', () => {
 
       cy.get('textarea').type('More work was needed')
 
-      cy.get('[data-testid=isOvertime]').should('not.be.checked')
-
-      cy.get('[data-testid=isOvertime]').check()
-
       cy.contains('button', 'Confirm').click()
     })
 
