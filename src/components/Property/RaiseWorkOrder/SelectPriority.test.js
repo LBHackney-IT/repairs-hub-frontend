@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import SelectPriority from './SelectPriority'
 import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 
@@ -47,6 +47,23 @@ describe('SelectPriority component', () => {
     onPrioritySelect: jest.fn(),
     register: jest.fn(),
   }
+
+  it('should render with Info Box when Planned priority is selected', () => {
+    const { asFragment, queryByText, getByTestId } = render(
+      <SelectPriority
+        priorities={props.priorities}
+        onPrioritySelect={props.onPrioritySelect}
+        priorityCode={props.priorityCode}
+        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
+        register={props.register}
+      />
+    )
+    fireEvent.change(getByTestId('priorityCode'), { target: { value: 9 } })
+    expect(asFragment()).toMatchSnapshot()
+    expect(
+      queryByText("Planned work order don't go to DRS booking system")
+    ).toBeInTheDocument()
+  })
 
   it('should render without Info Box', () => {
     const { asFragment } = render(
