@@ -84,7 +84,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -128,7 +128,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -212,7 +212,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -246,7 +246,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contractor should 
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -346,7 +346,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -390,7 +390,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -490,7 +490,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>
@@ -534,7 +534,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
           class="govuk-table__cell"
         >
           <span
-            class="govuk-tag lbh-tag lbh-tag--status-in-progress"
+            class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
           >
             In progress
           </span>

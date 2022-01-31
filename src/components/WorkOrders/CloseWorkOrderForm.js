@@ -130,18 +130,17 @@ const CloseWorkOrderForm = ({
             />
           )}
 
-          {process.env.NEXT_PUBLIC_CAN_CHOOSE_OVERTIME === 'true' &&
-            closingByProxy && (
-              <Checkbox
-                className="govuk-!-margin-0"
-                labelClassName="lbh-body-xs display-flex"
-                name="isOvertime"
-                label="Overtime work order"
-                checked={isOvertime}
-                register={register}
-                hintText="(SMVs not included in Bonus)"
-              />
-            )}
+          {closingByProxy && (
+            <Checkbox
+              className="govuk-!-margin-0"
+              labelClassName="lbh-body-xs display-flex"
+              name="isOvertime"
+              label="Overtime work order"
+              checked={isOvertime}
+              register={register}
+              hintText="(SMVs not included in Bonus)"
+            />
+          )}
 
           <TextArea
             name="notes"

@@ -183,7 +183,7 @@ describe('Show property', () => {
           cy.contains('1 Feb 2021')
           cy.contains('11:02')
           cy.contains('DOOR ENTRY ENGINEER - DE')
-          cy.contains('In Progress')
+          cy.contains('In progress')
           cy.contains('The latest repair')
         })
         // Check the last row
