@@ -99,9 +99,13 @@ exports[`WorkOrdersTable component should render properly 1`] = `
             1 Pitcairn House St Thomass Square
           </td>
           <td
-            class="govuk-table__cell lbh-body-xs"
+            class="govuk-table__cell"
           >
-            In Progress
+            <span
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs work-order-status"
+            >
+              In progress
+            </span>
           </td>
           <td
             class="govuk-table__cell lbh-body-xs"

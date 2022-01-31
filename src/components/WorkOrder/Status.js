@@ -11,7 +11,7 @@ const Status = ({ text, className }) => (
         className
       )}
     >
-      {text}
+      {text.charAt(0) + text.slice(1).toLocaleLowerCase()}
     </span>
   </>
 )

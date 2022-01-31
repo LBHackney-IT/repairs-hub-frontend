@@ -251,7 +251,7 @@ describe('Filter work orders', () => {
         cy.contains('Work complete')
       })
       cy.get('[data-ref=10000030]').within(() => {
-        cy.contains('Variation Pending Approval')
+        cy.contains('Variation pending approval')
       })
       cy.get('[data-ref=10000035]').should('not.exist')
       cy.get('[data-ref=10000040]').should('not.exist')
@@ -265,7 +265,7 @@ describe('Filter work orders', () => {
       cy.wait(['@filters', '@workOrdersVariationPendingApproval'])
 
       cy.get('[data-ref=10000030]').within(() => {
-        cy.contains('Variation Pending Approval')
+        cy.contains('Variation pending approval')
       })
       cy.get('[data-ref=10000037]').should('not.exist')
       cy.get('[data-ref=10000036]').should('not.exist')
@@ -309,7 +309,7 @@ describe('Filter work orders', () => {
         cy.contains('Work complete')
       })
       cy.get('[data-ref=10000030]').within(() => {
-        cy.contains('Variation Pending Approval')
+        cy.contains('Variation pending approval')
       })
       cy.get('[data-ref=10000035]').should('not.exist')
       cy.get('[data-ref=10000040]').should('not.exist')
