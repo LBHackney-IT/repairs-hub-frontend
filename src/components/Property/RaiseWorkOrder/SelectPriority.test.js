@@ -77,7 +77,7 @@ describe('SelectPriority component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
-  it('should render with Info Box', () => {
+  it('should render with Info Box when task priority in Planned by default', () => {
     const { asFragment, queryByText } = render(
       <SelectPriority
         priorities={props.priorities}

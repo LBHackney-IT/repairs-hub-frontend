@@ -9,11 +9,6 @@ export const HIGH_PRIORITY_CODES = [
   IMMEDIATE_PRIORITY_CODE,
   EMERGENCY_PRIORITY_CODE,
 ]
-export const LOW_PRIORITY_CODES = [
-  URGENT_PRIORITY_CODE,
-  NORMAL_PRIORITY_CODE,
-  PLANNED_PRIORITY_CODE,
-]
 
 // These are codes which should result in using the RH
 // booking calendar if the order is for an external contractor

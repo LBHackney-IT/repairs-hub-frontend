@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SelectPriority component should render with Info Box 1`] = `
+exports[`SelectPriority component should render with Info Box when Planned priority is selected 1`] = `
 <DocumentFragment>
   <div
     class="govuk-form-group lbh-form-group"
@@ -91,7 +91,7 @@ exports[`SelectPriority component should render with Info Box 1`] = `
 </DocumentFragment>
 `;
 
-exports[`SelectPriority component should render with Info Box when Planned priority is selected 1`] = `
+exports[`SelectPriority component should render with Info Box when task priority in Planned by default 1`] = `
 <DocumentFragment>
   <div
     class="govuk-form-group lbh-form-group"
