@@ -128,7 +128,13 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
           <div
             class="lbh-body"
           >
-            07856432
+            <a
+              class="lbh-link"
+              href="tel:14107700900000"
+              id="telephone-no"
+            >
+              07700900000
+            </a>
           </div>
         </div>
       </div>
