@@ -11,11 +11,13 @@ const TruncateText = ({
   const [textOverflow, setTextOverflow] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const onShowMoreClick = () => {
+  const onShowMoreClick = (e) => {
+    e.preventDefault()
     setIsExpanded(true)
   }
 
-  const onShowLessClick = () => {
+  const onShowLessClick = (e) => {
+    e.preventDefault()
     setIsExpanded(false)
   }
 

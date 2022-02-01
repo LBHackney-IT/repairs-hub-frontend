@@ -116,7 +116,15 @@ const MobileWorkingWorkOrderDetails = ({
                 <div className="lbh-body property-name">Telephone no</div>
               </GridColumn>
               <GridColumn width="one-half" className="align-grid-column">
-                <div className="lbh-body">{workOrder.callerNumber}</div>
+                <div className="lbh-body">
+                  <a
+                    className="lbh-link"
+                    href={`tel:141${workOrder.callerNumber}`}
+                    id="telephone-no"
+                  >
+                    {workOrder.callerNumber}
+                  </a>
+                </div>
               </GridColumn>
             </GridRow>
           )}
