@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 const UserLogin = ({ gssoUrl, submitText }) => {
   return (
@@ -29,6 +30,13 @@ const UserLogin = ({ gssoUrl, submitText }) => {
 
         <p className="lbh-body">
           Please contact your manager if you have issues signing in.
+        </p>
+
+        <p className="lbh-body text-on-mobile-view">
+          If you have any issues with Repairs Hub, check our{' '}
+          <Link href="https://sites.google.com/hackney.gov.uk/repairshubsupport">
+            <a title="support-page">Support page.</a>
+          </Link>{' '}
         </p>
       </section>
     </>

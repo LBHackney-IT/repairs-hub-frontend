@@ -8,7 +8,7 @@ import {
 
 const HEADER_LINKS = [
   {
-    href: '',
+    href: '/',
     id: 'manage',
     description: 'Manage work orders',
     permittedRoles: [
@@ -18,7 +18,7 @@ const HEADER_LINKS = [
     ],
   },
   {
-    href: 'search',
+    href: '/search',
     id: 'search',
     description: 'Search',
     permittedRoles: [
@@ -29,13 +29,20 @@ const HEADER_LINKS = [
     ],
   },
   {
-    href: 'work-orders/cautionary-alerts',
+    href: '/work-orders/cautionary-alerts',
     id: 'cautionary-alerts',
     description: 'Cautionary Alerts',
     permittedRoles: [OPERATIVE_ROLE],
   },
+
   {
-    href: 'logout',
+    href: 'https://sites.google.com/hackney.gov.uk/repairshubsupport',
+    id: 'support-page',
+    description: 'Support',
+    permittedRoles: [OPERATIVE_ROLE],
+  },
+  {
+    href: '/logout',
     id: 'signout',
     description: 'Sign out',
     permittedRoles: [
