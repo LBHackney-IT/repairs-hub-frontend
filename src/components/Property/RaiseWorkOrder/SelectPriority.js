@@ -47,7 +47,7 @@ const SelectPriority = ({
           <br />
           <WarningInfoBox
             header="Planned priority"
-            text="Planned work order don't go to DRS booking system"
+            text="Planned work orders do not go to the DRS booking system"
           />
         </>
       )}

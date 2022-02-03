@@ -19,6 +19,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
         lowPriority: !HIGH_PRIORITY_CODES.includes(
           Number.parseInt(workOrderData.priorityCode)
         ),
+        plannedPriority: Number.parseInt(workOrderData.priorityCode) == 9,
       }),
       numberOfDays: workOrderData.daysToComplete,
     },
