@@ -32,9 +32,9 @@ const UserLogin = ({ gssoUrl, submitText }) => {
           Please contact your manager if you have issues signing in.
         </p>
 
-        <p className="lbh-body text-on-mobile-view">
+        <p className="lbh-body support-link">
           If you have any issues with Repairs Hub, check our{' '}
-          <Link href="https://sites.google.com/hackney.gov.uk/repairshubsupport">
+          <Link href={process.env.NEXT_PUBLIC_SUPPORT_LINK}>
             <a title="support-page">Support page.</a>
           </Link>{' '}
         </p>

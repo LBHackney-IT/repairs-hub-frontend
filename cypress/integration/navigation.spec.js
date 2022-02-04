@@ -21,6 +21,7 @@ describe('Global navigation links', () => {
 
         cy.get('li').contains('Search')
         cy.get('li').contains('Sign out')
+        cy.get('li').contains('Support page.')
       })
 
       cy.get('[data-testid="mobile-menu-button"]').click()
