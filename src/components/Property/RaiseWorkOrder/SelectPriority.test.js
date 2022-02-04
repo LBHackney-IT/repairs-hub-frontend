@@ -61,7 +61,7 @@ describe('SelectPriority component', () => {
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 9 } })
     expect(asFragment()).toMatchSnapshot()
     expect(
-      queryByText("Planned work order don't go to DRS booking system")
+      queryByText('Planned work orders do not go to the DRS booking system')
     ).toBeInTheDocument()
   })
 
@@ -90,7 +90,7 @@ describe('SelectPriority component', () => {
 
     expect(asFragment()).toMatchSnapshot()
     expect(
-      queryByText("Planned work order don't go to DRS booking system")
+      queryByText('Planned work orders do not go to the DRS booking system')
     ).toBeInTheDocument()
   })
 })

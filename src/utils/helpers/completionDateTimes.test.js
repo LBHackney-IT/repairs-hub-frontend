@@ -34,6 +34,28 @@ describe('calculateCompletionDateTime', () => {
     mockLowPriorityHolidays.mockReturnValue([])
   })
 
+  describe('when the plannedPriority is true', () => {
+    const dateTime = new Date('Monday 28 June 2021 17:00:00Z')
+    beforeEach(() => {
+      MockDate.set(dateTime)
+    })
+
+    afterEach(() => {
+      MockDate.reset()
+    })
+
+    it('adds the supplied number of working days or hours to calculate completion time', () => {
+      //planned priority is 365 calendar days
+      expect(
+        calculateCompletionDateTime({
+          workingDays: 365,
+          workingHours: 365 * 24,
+          lowPriority: false,
+          plannedPriority: true,
+        })
+      ).toEqual(new Date('Wednesday 28 June 2022 17:00:00Z'))
+    })
+  })
   describe('when there are no upcoming holidays', () => {
     describe('when today is a working day', () => {
       const dateTime = new Date('Monday 28 June 2021 17:00:00Z')

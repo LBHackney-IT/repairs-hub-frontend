@@ -83,7 +83,7 @@ exports[`SelectPriority component should render with Info Box when Planned prior
         <p
           class="lbh-body-xs govuk-!-margin-top-1"
         >
-          Planned work order don't go to DRS booking system
+          Planned work orders do not go to the DRS booking system
         </p>
       </div>
     </div>
@@ -174,7 +174,7 @@ exports[`SelectPriority component should render with Info Box when task priority
         <p
           class="lbh-body-xs govuk-!-margin-top-1"
         >
-          Planned work order don't go to DRS booking system
+          Planned work orders do not go to the DRS booking system
         </p>
       </div>
     </div>
