@@ -64,6 +64,7 @@ jobs:
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=true
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
