@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
+import { convertToSentenceCases } from '@/utils/helpers/textConverter'
 
 const Status = ({ text, className }) => (
   <>
@@ -11,7 +12,7 @@ const Status = ({ text, className }) => (
         className
       )}
     >
-      {text.charAt(0) + text.slice(1).toLocaleLowerCase()}
+      {convertToSentenceCases(text)}
     </span>
   </>
 )

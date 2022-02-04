@@ -7,6 +7,7 @@ import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Collapsible from '../../Layout/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
 import { canSeeAllFilters } from '@/utils/userPermissions'
+import { convertToSentenceCases } from '@/utils/helpers/textConverter'
 
 const WorkOrdersFilter = ({
   loading,
@@ -219,7 +220,7 @@ const WorkOrdersFilter = ({
                   labelClassName="lbh-body-xs"
                   key={index}
                   name={`StatusCode.${status.key}`}
-                  label={status.description}
+                  label={convertToSentenceCases(status.description)}
                   register={register}
                   checked={appliedFilters?.StatusCode?.includes(status.key)}
                   hidden={index >= CHECKBOX_NUMBER}
