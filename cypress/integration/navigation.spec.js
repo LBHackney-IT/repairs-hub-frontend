@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Global navigation links', () => {
   describe('when the viewport is for mobile', () => {
-    context('and logged is as Agent', () => {
+    context('and logged in as Agent', () => {
       beforeEach(() => {
         cy.viewport('iphone-x')
         cy.loginWithAgentRole()

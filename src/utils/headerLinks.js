@@ -36,7 +36,7 @@ const HEADER_LINKS = [
   },
 
   {
-    href: 'https://sites.google.com/hackney.gov.uk/repairshubsupport',
+    href: process.env.NEXT_PUBLIC_SUPPORT_LINK,
     id: 'support-page',
     description: 'Support',
     permittedRoles: [OPERATIVE_ROLE],
