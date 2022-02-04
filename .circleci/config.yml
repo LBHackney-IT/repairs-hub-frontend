@@ -64,6 +64,7 @@ jobs:
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=true
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
@@ -88,6 +89,7 @@ jobs:
             export NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED=$OPERATIVE_SPLITTING_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -107,6 +109,7 @@ jobs:
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_STAGING
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
+            export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -126,6 +129,7 @@ jobs:
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_PRODUCTION
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
+            export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:

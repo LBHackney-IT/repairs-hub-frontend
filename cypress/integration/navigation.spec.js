@@ -3,30 +3,52 @@
 import 'cypress-audit/commands'
 
 describe('Global navigation links', () => {
-  context('when the viewport is for mobile', () => {
-    beforeEach(() => {
-      cy.viewport('iphone-x')
-      cy.loginWithAgentRole()
-      cy.visit('/')
-    })
-
-    it('overlays the screen and displays relevant links', () => {
-      cy.get('.mobile-menu').should('not.exist')
-      cy.contains('Find repair work order or property')
-
-      cy.get('[data-testid="mobile-menu-button"]').click()
-
-      cy.get('.mobile-menu').within(() => {
-        cy.get('li').should('have.length', 2)
-
-        cy.get('li').contains('Search')
-        cy.get('li').contains('Sign out')
+  describe('when the viewport is for mobile', () => {
+    context('and logged in as Agent', () => {
+      beforeEach(() => {
+        cy.viewport('iphone-x')
+        cy.loginWithAgentRole()
+        cy.visit('/')
       })
 
-      cy.get('[data-testid="mobile-menu-button"]').click()
+      it('overlays the screen and displays relevant links', () => {
+        cy.get('.mobile-menu').should('not.exist')
+        cy.contains('Find repair work order or property')
 
-      cy.get('.mobile-menu').should('not.exist')
-      cy.contains('Find repair work order or property')
+        cy.get('[data-testid="mobile-menu-button"]').click()
+
+        cy.get('.mobile-menu').within(() => {
+          cy.get('li').should('have.length', 2)
+
+          cy.get('li').contains('Search')
+          cy.get('li').contains('Sign out')
+        })
+
+        cy.get('[data-testid="mobile-menu-button"]').click()
+
+        cy.get('.mobile-menu').should('not.exist')
+        cy.contains('Find repair work order or property')
+      })
+    })
+
+    context('and logged in as an Operative', () => {
+      beforeEach(() => {
+        cy.viewport('iphone-x')
+        cy.loginWithOperativeRole()
+        cy.visit('/')
+      })
+
+      it('overlays the screen and displays relevant links', () => {
+        cy.get('[data-testid="mobile-menu-button"]').click()
+
+        cy.get('.mobile-menu').within(() => {
+          cy.get('li').should('have.length', 3)
+
+          cy.get('li').contains('Cautionary Alerts')
+          cy.get('li').contains('Support')
+          cy.get('li').contains('Sign out')
+        })
+      })
     })
   })
 

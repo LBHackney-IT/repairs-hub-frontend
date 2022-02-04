@@ -15,11 +15,11 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Search',
-          href: 'search',
+          href: '/search',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
@@ -32,11 +32,15 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Cautionary Alerts',
-          href: 'work-orders/cautionary-alerts',
+          href: '/work-orders/cautionary-alerts',
+        }),
+        expect.objectContaining({
+          description: 'Support',
+          href: 'https://sites.google.com/hackney.gov.uk/repairshubsupport',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
@@ -49,15 +53,15 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Manage work orders',
-          href: '',
+          href: '/',
         }),
         expect.objectContaining({
           description: 'Search',
-          href: 'search',
+          href: '/search',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
@@ -70,15 +74,15 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Manage work orders',
-          href: '',
+          href: '/',
         }),
         expect.objectContaining({
           description: 'Search',
-          href: 'search',
+          href: '/search',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
@@ -91,15 +95,15 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Manage work orders',
-          href: '',
+          href: '/',
         }),
         expect.objectContaining({
           description: 'Search',
-          href: 'search',
+          href: '/search',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
@@ -112,15 +116,15 @@ describe('headerLinksForUser', () => {
       expect(links).toEqual([
         expect.objectContaining({
           description: 'Manage work orders',
-          href: '',
+          href: '/',
         }),
         expect.objectContaining({
           description: 'Search',
-          href: 'search',
+          href: '/search',
         }),
         expect.objectContaining({
           description: 'Sign out',
-          href: 'logout',
+          href: '/logout',
         }),
       ])
     })
