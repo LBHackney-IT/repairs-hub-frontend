@@ -275,7 +275,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -309,7 +309,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -326,7 +326,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
-                  Authorisation Pending Approval
+                  Authorisation pending approval
                 </label>
               </div>
               <div
@@ -343,7 +343,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -360,7 +360,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -377,7 +377,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -743,7 +743,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -777,7 +777,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -794,7 +794,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
-                  Authorisation Pending Approval
+                  Authorisation pending approval
                 </label>
               </div>
               <div
@@ -811,7 +811,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -828,7 +828,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -845,7 +845,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -1211,7 +1211,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -1245,7 +1245,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -1262,7 +1262,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -1279,7 +1279,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -1296,7 +1296,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -1733,7 +1733,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -1767,7 +1767,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -1784,7 +1784,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
-                  Authorisation Pending Approval
+                  Authorisation pending approval
                 </label>
               </div>
               <div
@@ -1801,7 +1801,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -1818,7 +1818,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -1835,7 +1835,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -2272,7 +2272,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -2306,7 +2306,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -2323,7 +2323,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -2340,7 +2340,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -2357,7 +2357,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -2723,7 +2723,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -2757,7 +2757,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -2774,7 +2774,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -2791,7 +2791,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -2808,7 +2808,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>
@@ -3245,7 +3245,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.80"
                 >
-                  In Progress
+                  In progress
                 </label>
               </div>
               <div
@@ -3279,7 +3279,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work Cancelled
+                  Work cancelled
                 </label>
               </div>
               <div
@@ -3296,7 +3296,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1010"
                 >
-                  Authorisation Pending Approval
+                  Authorisation pending approval
                 </label>
               </div>
               <div
@@ -3313,7 +3313,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.90"
                 >
-                  Variation Pending Approval
+                  Variation pending approval
                 </label>
               </div>
               <div
@@ -3330,7 +3330,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1080"
                 >
-                  Variation Approved
+                  Variation approved
                 </label>
               </div>
               <div
@@ -3347,7 +3347,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.1090"
                 >
-                  Variation Rejected
+                  Variation rejected
                 </label>
               </div>
             </div>

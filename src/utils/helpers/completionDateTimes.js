@@ -78,12 +78,15 @@ export const calculateCompletionDateTime = ({
   workingDays,
   workingHours = 0,
   lowPriority = false,
+  plannedPriority = false,
 }) => {
   let now = new Date()
 
   if (
     // Immediates always have a target of 2 hours
-    workingDays < 1
+    // Planned priority always have 365 calendar days to complete the task
+    workingDays < 1 ||
+    plannedPriority
   ) {
     return new Date(now.setHours(now.getHours() + workingHours))
   } else {
@@ -97,6 +100,7 @@ export const calculateCompletionDateTime = ({
       startDate: now,
       targetWorkingDaysCount: workingDays,
       lowPriority,
+      plannedPriority,
     })
   }
 }

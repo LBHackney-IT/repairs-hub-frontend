@@ -48,7 +48,7 @@ const Layout = ({ serviceName, feedbackLink, children }) => {
                     <li key={index}>
                       <a
                         id={link.id}
-                        href={`/${link.href}`}
+                        href={link.href}
                         className="lbh-link lbh-body-l"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                       >

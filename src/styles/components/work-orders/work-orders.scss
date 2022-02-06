@@ -21,7 +21,6 @@
       background-color: repairs-hub-colour('blue');
       color: repairs-hub-colour('white');
     }
-    &--status-work-complete,
     &--status-locked {
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');
@@ -49,6 +48,11 @@
     &--status-closed,
     &--status-completed {
       background-color: repairs-hub-colour('dark-grey');
+    }
+    &--status-work-complete {
+      background-color: repairs-hub-colour('white');
+      color: repairs-hub-colour('black');
+      border: 2px solid black;
     }
   }
 }

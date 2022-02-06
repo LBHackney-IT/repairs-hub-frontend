@@ -1,0 +1,5 @@
+.support-link {
+  @include govuk-media-query($from: tablet) {
+    display: none;
+  }
+}

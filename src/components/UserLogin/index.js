@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Link from 'next/link'
 
 const UserLogin = ({ gssoUrl, submitText }) => {
   return (
@@ -29,6 +30,13 @@ const UserLogin = ({ gssoUrl, submitText }) => {
 
         <p className="lbh-body">
           Please contact your manager if you have issues signing in.
+        </p>
+
+        <p className="lbh-body support-link">
+          If you have any issues with Repairs Hub, check our{' '}
+          <Link href={process.env.NEXT_PUBLIC_SUPPORT_LINK}>
+            <a title="support-page">Support page.</a>
+          </Link>{' '}
         </p>
       </section>
     </>
