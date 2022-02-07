@@ -23,9 +23,3 @@ Things you know need further follow on work but aren't in scope of this issue
 
 1. issue1
 2. issue2
-
-### Further testing or sign off required [OPTIONAL]
-
-e.g.
-
-1. product manager to sign off view templates
