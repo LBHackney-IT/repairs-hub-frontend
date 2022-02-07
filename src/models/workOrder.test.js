@@ -38,7 +38,10 @@ describe('WorkOrder', () => {
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
     ).forEach((status) => {
       it('returns true', () => {
-        const workOrder = new WorkOrder({ status })
+        const workOrder = new WorkOrder({
+          status,
+          priorityCode: NORMAL_PRIORITY_CODE,
+        })
 
         expect(workOrder.canBeScheduled()).toBe(true)
       })

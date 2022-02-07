@@ -15,7 +15,7 @@ describe('WorkOrderHeader component', () => {
     description: 'This is an urgent repair description',
     propertyReference: '00014888',
     status: 'Work Complete',
-    priorityCode: 'some code',
+    priorityCode: 3,
     raisedBy: 'Dummy Agent',
     target: '2021-01-23T18:30:00.00000',
     callerName: 'Jill Smith',
