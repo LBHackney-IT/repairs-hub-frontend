@@ -108,9 +108,9 @@ custom:
     staging: repairs-hub-staging.hackney.gov.uk
     production: repairs-hub.hackney.gov.uk
   certificate-arn:
-    development: arn:aws:acm:us-east-1:364864573329:certificate/d903d9e2-c3da-482b-8768-916ec09e461f
-    staging: arn:aws:acm:us-east-1:715003523189:certificate/8f7fa30c-a4e5-4775-b827-ade824a33c9a
-    production: arn:aws:acm:us-east-1:282997303675:certificate/a43b1303-83ff-496e-b7a2-a75fa3ebfe87
+    development: arn:aws:acm:us-east-1:364864573329:certificate/fc2125d7-c8b7-4837-8f68-ffa62c1dec54
+    staging: arn:aws:acm:us-east-1:715003523189:certificate/11327e5e-53d3-4b21-a613-f12ee0bed68d
+    production: arn:aws:acm:us-east-1:282997303675:certificate/852490a1-103e-41a9-bb86-79ecd88f2304
   securityGroups:
     development:
       - sg-08e28776da7918e4b
