@@ -46,7 +46,7 @@ const RaiseWorkOrderForm = ({
       daysToComplete: priority.daysToComplete,
       hoursToComplete:
         // Hours can't be derived for immediates as they have 0 days for completion
-        priority.code === IMMEDIATE_PRIORITY_CODE
+        priority.priorityCode === IMMEDIATE_PRIORITY_CODE
           ? 2
           : daysInHours(priority.daysToComplete),
     })

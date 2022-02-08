@@ -7,6 +7,9 @@
   tbody {
     vertical-align: top;
   }
+  p {
+    word-break: break-all;
+  }
   p.description {
     width: 200px;
     overflow: hidden;
@@ -46,9 +49,7 @@
       color: repairs-hub-colour('white');
     }
     &--status-closed,
-    &--status-completed {
-      background-color: repairs-hub-colour('dark-grey');
-    }
+    &--status-completed,
     &--status-work-complete {
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');

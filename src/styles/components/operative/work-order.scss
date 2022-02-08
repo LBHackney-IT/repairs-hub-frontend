@@ -33,7 +33,7 @@
 .truncate-description {
   display: -webkit-box;
   -webkit-box-orient: vertical;
-  word-break: var(--word-break, 'none');
+  word-break: break-all;
   overflow: hidden;
 }
 .truncate-line-3 {
