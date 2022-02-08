@@ -126,7 +126,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setPersonAlerts(data.alerts.personAlert)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(data.contactDetails)
+      setContacts(data.contacts)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
