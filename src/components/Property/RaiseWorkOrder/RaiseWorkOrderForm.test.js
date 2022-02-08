@@ -72,7 +72,7 @@ describe('RaiseWorkOrderForm component', () => {
         name: 'Plumbing',
       },
     ],
-    contactDetails: [],
+    contacts: [],
     onFormSubmit: jest.fn(),
   }
 
@@ -88,7 +88,7 @@ describe('RaiseWorkOrderForm component', () => {
         personAlerts={props.alerts.personAlert}
         priorities={props.priorities}
         trades={props.trades}
-        contacts={props.contactDetails}
+        contacts={props.contacts}
         onFormSubmit={props.onFormSubmit}
       />
     )
