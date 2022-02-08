@@ -2,6 +2,7 @@ import { formatISO, isSameDay } from 'date-fns'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
+  PRIORITY_CODES_REQUIRING_APPOINTMENTS,
 } from '@/utils/helpers/priorities'
 
 import {
@@ -22,8 +23,12 @@ export class WorkOrder {
     )
   }
 
+  isAppointmentRequired = () => {
+    return PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(this.priorityCode)
+  }
+
   canBeScheduled = () => {
-    return this.statusAllowsScheduling() && !this.isHigherPriority()
+    return this.statusAllowsScheduling() && this.isAppointmentRequired()
   }
 
   completionReason = () => {
