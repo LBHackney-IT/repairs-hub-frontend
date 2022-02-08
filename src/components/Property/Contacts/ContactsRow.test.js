@@ -3,12 +3,9 @@ import ContactsRow from './ContactsRow'
 
 describe('ContactsRow component', () => {
   const contact = {
-    fullName: 'Hugo Neves Ferreira',
-    phoneNumbers: [
-      { value: '00000111111' },
-      { value: '' },
-      { value: '00000333333' },
-    ],
+    firstName: 'Hugo Neves',
+    lastName: 'Ferreira',
+    phoneNumbers: ['00000111111', '', '00000333333'],
   }
 
   it('renders the name and available phone numbers in a row', async () => {
