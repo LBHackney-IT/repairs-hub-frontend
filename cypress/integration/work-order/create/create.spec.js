@@ -7,6 +7,8 @@ import {
   IMMEDIATE_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
 
+const now = new Date()
+
 describe('Raise repair form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
@@ -62,6 +64,8 @@ describe('Raise repair form', () => {
         },
       }
     ).as('apiCheck')
+
+    cy.clock(now)
   })
 
   it('Validates missing form inputs', () => {
@@ -481,8 +485,6 @@ describe('Raise repair form', () => {
 
     cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
       const referenceIdUuid = request.body.reference[0].id
-      const requiredCompletionDateTime =
-        request.body.priority.requiredCompletionDateTime
 
       cy.wrap(request.body).should('deep.equal', {
         reference: [{ id: referenceIdUuid }],
@@ -490,7 +492,7 @@ describe('Raise repair form', () => {
         priority: {
           priorityCode: EMERGENCY_PRIORITY_CODE,
           priorityDescription: '2 [E] EMERGENCY',
-          requiredCompletionDateTime: requiredCompletionDateTime,
+          requiredCompletionDateTime: addHours(now, 24).toISOString(),
           numberOfDays: 1,
         },
         workClass: { workClassCode: 0 },
@@ -608,10 +610,6 @@ describe('Raise repair form', () => {
   })
 
   it('Submits an immediate priority work order', () => {
-    const now = new Date()
-
-    cy.clock(now)
-
     cy.visit('/properties/00012345')
 
     cy.wait(['@propertyRequest', '@workOrdersRequest'])
