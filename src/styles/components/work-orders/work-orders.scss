@@ -46,9 +46,7 @@
       color: repairs-hub-colour('white');
     }
     &--status-closed,
-    &--status-completed {
-      background-color: repairs-hub-colour('dark-grey');
-    }
+    &--status-completed,
     &--status-work-complete {
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');
