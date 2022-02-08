@@ -5,6 +5,7 @@ import {
   IMMEDIATE_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
+  PLANNED_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
 import {
   CLOSED_STATUS_DESCRIPTIONS,
@@ -29,6 +30,27 @@ describe('WorkOrder', () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.isHigherPriority()).toBe(false)
+      })
+    })
+  })
+
+  describe('isAppointmentRequired()', () => {
+    ;[URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE].forEach((code) => {
+      it('returns true', () => {
+        const workOrder = new WorkOrder({ priorityCode: code })
+
+        expect(workOrder.isAppointmentRequired()).toBe(true)
+      })
+    })
+    ;[
+      IMMEDIATE_PRIORITY_CODE,
+      EMERGENCY_PRIORITY_CODE,
+      PLANNED_PRIORITY_CODE,
+    ].forEach((code) => {
+      it('returns false', () => {
+        const workOrder = new WorkOrder({ priorityCode: code })
+
+        expect(workOrder.isAppointmentRequired()).toBe(false)
       })
     })
   })

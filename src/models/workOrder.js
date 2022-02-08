@@ -24,7 +24,6 @@ export class WorkOrder {
   }
 
   isAppointmentRequired = () => {
-    console.log(this.priorityCode)
     return PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(this.priorityCode)
   }
 
