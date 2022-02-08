@@ -7,6 +7,9 @@
   tbody {
     vertical-align: top;
   }
+  p {
+    word-break: break-all;
+  }
   p.description {
     width: 200px;
     overflow: hidden;
