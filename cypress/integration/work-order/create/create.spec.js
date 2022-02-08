@@ -1,7 +1,13 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { EMERGENCY_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
+import { addHours } from 'date-fns'
+import {
+  EMERGENCY_PRIORITY_CODE,
+  IMMEDIATE_PRIORITY_CODE,
+} from '../../../../src/utils/helpers/priorities'
+
+const now = new Date()
 
 describe('Raise repair form', () => {
   beforeEach(() => {
@@ -58,6 +64,8 @@ describe('Raise repair form', () => {
         },
       }
     ).as('apiCheck')
+
+    cy.clock(now)
   })
 
   it('Validates missing form inputs', () => {
@@ -477,8 +485,6 @@ describe('Raise repair form', () => {
 
     cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
       const referenceIdUuid = request.body.reference[0].id
-      const requiredCompletionDateTime =
-        request.body.priority.requiredCompletionDateTime
 
       cy.wrap(request.body).should('deep.equal', {
         reference: [{ id: referenceIdUuid }],
@@ -486,7 +492,7 @@ describe('Raise repair form', () => {
         priority: {
           priorityCode: EMERGENCY_PRIORITY_CODE,
           priorityDescription: '2 [E] EMERGENCY',
-          requiredCompletionDateTime: requiredCompletionDateTime,
+          requiredCompletionDateTime: addHours(now, 24).toISOString(),
           numberOfDays: 1,
         },
         workClass: { workClassCode: 0 },
@@ -601,6 +607,57 @@ describe('Raise repair form', () => {
 
     // Run lighthouse audit for accessibility report
     cy.audit()
+  })
+
+  it('Submits an immediate priority work order', () => {
+    cy.visit('/properties/00012345')
+
+    cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+    cy.get('.lbh-heading-h2')
+      .contains('Raise a work order on this dwelling')
+      .click()
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.get('#repair-request-form').within(() => {
+      cy.get('#trade').type('Plumbing - PL')
+
+      cy.wait('@contractorsRequest')
+
+      cy.get('#contractor').type('HH General Building Repair - H01')
+
+      cy.wait('@sorCodesRequest')
+
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R003 - Immediate call outs')
+
+      // Autopopulates priority description
+      cy.get('#priorityCode')
+        .find('option:selected')
+        .should('have.text', '1 [I] IMMEDIATE')
+
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+
+      cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+      cy.get('[data-testid=callerName]').type('NA')
+      cy.get('[data-testid=contactNumber]').type('NA')
+
+      cy.get('[type="submit"]').contains('Create work order').click()
+    })
+
+    cy.wait('@apiCheck').then(({ request }) => {
+      cy.wrap(request.body).should('deep.include', {
+        priority: {
+          priorityCode: IMMEDIATE_PRIORITY_CODE,
+          priorityDescription: '1 [I] IMMEDIATE',
+          requiredCompletionDateTime: addHours(now, 2).toISOString(),
+          numberOfDays: 0,
+        },
+      })
+    })
   })
 
   it('Submits an order above the user raise limit for authorisation', () => {
