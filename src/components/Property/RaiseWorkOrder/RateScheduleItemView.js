@@ -27,7 +27,7 @@ const RateScheduleItemView = ({
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
   const sorCodesList = sorCodes.map(
-    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
+    (sorCode) => `${sorCode.id} - ${sorCode.title}`
   )
 
   const getSorCodeObject = (value) => {

@@ -4,6 +4,7 @@ import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import axios from 'axios'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -87,22 +88,50 @@ const TradeContractorRateScheduleItemView = ({
   }
 
   const getSorCodesData = async (tradeCode, propertyRef, contractorRef) => {
+    console.log(tradeCode, propertyRef, contractorRef)
+
     setLoadingSorCodes(true)
     setGetSorCodesError(null)
 
     try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/codes',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          isRaisable: true,
-        },
+      // const sorCodes = await frontEndApiRequest({
+      //   method: 'get',
+      //   path: '/api/schedule-of-rates/codes',
+      //   params: {
+      //     tradeCode: tradeCode,
+      //     propertyReference: propertyRef,
+      //     contractorReference: contractorRef,
+      //     isRaisable: true,
+      //   },
+      // })
+
+      const { data: sorCodes } = await axios({
+        method: 'GET',
+        url: 'https://jsonplaceholder.typicode.com/photos',
       })
 
-      setSorCodes(sorCodes)
+      const longListSorCodes = [
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+        sorCodes,
+      ]
+        .flat()
+        .map((sor, index) => {
+          return {
+            ...sor,
+            id: index,
+          }
+        })
+
+      setSorCodes(longListSorCodes)
+
       setRateScheduleItemDisabled(false)
     } catch (e) {
       setSorCodes([])
