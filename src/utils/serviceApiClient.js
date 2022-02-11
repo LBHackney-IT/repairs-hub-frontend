@@ -75,35 +75,44 @@ export const serviceAPIRequest = cache(
       return response
     })
 
-    const { data } = await api({
-      method: request.method,
-      headers,
-      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-      params: queryParams,
-      paramsSerializer,
-      ...(request.body && { data: request.body }),
-    })
+    try {
+      const { data } = await api({
+        method: request.method,
+        headers,
+        url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
+        params: queryParams,
+        paramsSerializer,
+        ...(request.body && { data: request.body }),
+      })
 
-    if (cacheRequest && request.cache) {
-      request.cache.set(cacheKey, { data })
+      if (cacheRequest && request.cache) {
+        request.cache.set(cacheKey, { data })
+      }
+
+      response.setHeader('Cache-Control', 'no-cache')
+      response.setHeader('X-Cache', 'MISS')
+
+      return data
+    } catch (error) {
+      const errorToThrow = new Error(error)
+
+      errorToThrow.response = error.response
+      throw errorToThrow
     }
-
-    response.setHeader('Cache-Control', 'no-cache')
-    response.setHeader('X-Cache', 'MISS')
-
-    return data
   }
 )
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {
-    const user = isAuthorised({ req })
-    if (!user) {
-      return res
-        .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Auth cookie missing.' })
-    }
     try {
+      const user = isAuthorised({ req })
+
+      if (!user) {
+        return res
+          .status(HttpStatus.UNAUTHORIZED)
+          .json({ message: 'Auth cookie missing.' })
+      }
+
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
@@ -131,12 +140,14 @@ export const authoriseServiceAPIRequest = (callBack) => {
       } else if (error.request) {
         // The request was made but no response was received
         logger.error('Cannot connect to Service API')
+
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'No response received from Service API' })
       } else {
         // Something happened in setting up the request that triggered an Error
         logger.error('API Client could not setup request', error.message)
+
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'API Client request setup error' })

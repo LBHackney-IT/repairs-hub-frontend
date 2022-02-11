@@ -82,6 +82,7 @@ describe('GET /api/users/schedulerSession', () => {
     expect(soapRequest).toHaveBeenCalledTimes(1)
 
     expect(res._getStatusCode()).toEqual(500)
+
     expect(JSON.parse(res._getData()).message).toContain('DRS error message')
   })
 })

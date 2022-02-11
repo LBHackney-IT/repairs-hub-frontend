@@ -12,8 +12,12 @@ export default authoriseServiceAPIRequest(async (req, res) => {
   } catch (e) {
     console.error(`Cannot create DRS Web Services session with error: ${e}`)
 
-    res.status(e?.status || HttpStatus.INTERNAL_SERVER_ERROR).json({
-      message: `Unable to connect to DRS Web Services to allow scheduling of this order (${e})`,
-    })
+    const errorToThrow = new Error(e)
+
+    errorToThrow.response = {
+      status: e?.status,
+      data: `Unable to connect to DRS Web Services to allow scheduling of this order (${e})`,
+    }
+    throw errorToThrow
   }
 })
