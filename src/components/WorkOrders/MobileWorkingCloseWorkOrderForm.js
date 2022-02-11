@@ -43,8 +43,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
 
           <div className="govuk-!-margin-top-8">
             <WarningInfoBox
-              header="Need to make a change?"
-              text="Any changes to the work order must be made on paper."
+              header="Other changes?"
+              text="Any follow on and material change must be made on paper."
             />
           </div>
 

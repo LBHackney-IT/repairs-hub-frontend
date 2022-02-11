@@ -112,12 +112,12 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
               <p
                 class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
               >
-                Need to make a change?
+                Other changes?
               </p>
               <p
                 class="lbh-body-xs govuk-!-margin-top-1"
               >
-                Any changes to the work order must be made on paper.
+                Any follow on and material change must be made on paper.
               </p>
             </div>
           </div>
