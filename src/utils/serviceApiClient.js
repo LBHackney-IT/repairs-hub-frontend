@@ -5,12 +5,16 @@ import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import { cache } from './middleware/cache'
 import { CACHE_MAX_AGE_IN_SECONDS } from './helpers/cache'
+import logger from 'loglevel'
 
 const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
   GSSO_TOKEN_NAME,
+  LOG_LEVEL,
 } = process.env
+
+logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
 export const serviceAPIRequest = cache(
   async (request, response, cacheRequest = false) => {
@@ -44,7 +48,7 @@ export const serviceAPIRequest = cache(
 
     // Log request
     api.interceptors.request.use((request) => {
-      console.info(
+      logger.debug(
         'Starting Service API request:',
         JSON.stringify({
           ...request,
@@ -62,7 +66,7 @@ export const serviceAPIRequest = cache(
 
     // Log successful responses
     api.interceptors.response.use((response) => {
-      console.info(
+      logger.debug(
         `Service API response: ${response.status} ${
           response.statusText
         } ${JSON.stringify(response.data)}`
@@ -106,7 +110,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
       const errorResponse = error.response
       if (errorResponse) {
         // The request was made and the server responded with a non-200 status
-        console.error(
+        logger.error(
           'Service API response',
           JSON.stringify({
             status: errorResponse?.status,
@@ -126,13 +130,13 @@ export const authoriseServiceAPIRequest = (callBack) => {
               .json({ message: errorResponse?.data || 'Service API error' })
       } else if (error.request) {
         // The request was made but no response was received
-        console.error('Cannot connect to Service API')
+        logger.error('Cannot connect to Service API')
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'No response received from Service API' })
       } else {
         // Something happened in setting up the request that triggered an Error
-        console.error('API Client could not setup request', error.message)
+        logger.error('API Client could not setup request', error.message)
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'API Client request setup error' })
