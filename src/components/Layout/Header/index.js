@@ -12,7 +12,12 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
   const headerLinks = () => {
     return headerLinksForUser(user).map((link, index) => {
       return (
-        <a id={link.id} href={link.href} key={index}>
+        <a
+          id={link.id}
+          href={link.href}
+          key={index}
+          target={link.id == 'support-page' ? '_blank' : ''}
+        >
           {link.description}
         </a>
       )

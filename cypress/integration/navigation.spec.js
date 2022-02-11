@@ -45,7 +45,9 @@ describe('Global navigation links', () => {
           cy.get('li').should('have.length', 3)
 
           cy.get('li').contains('Cautionary Alerts')
-          cy.get('li').contains('Support')
+          cy.get('li')
+            .contains('Support')
+            .should('have.attr', 'target', '_blank')
           cy.get('li').contains('Sign out')
         })
       })

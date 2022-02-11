@@ -51,6 +51,7 @@ const Layout = ({ serviceName, feedbackLink, children }) => {
                         href={link.href}
                         className="lbh-link lbh-body-l"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        target={link.id == 'support-page' ? '_blank' : ''}
                       >
                         {link.description}
                       </a>
