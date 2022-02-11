@@ -37,7 +37,7 @@ const SummaryCloseWorkOrder = ({
             </TR>
             <TR>
               <TH scope="row">Payment type</TH>
-              <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType]}</TD>
+              <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}</TD>
               <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit

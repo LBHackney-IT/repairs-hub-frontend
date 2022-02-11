@@ -3,9 +3,15 @@ export const OVERTIME_PAYMENT_TYPE = 'Overtime'
 export const CLOSE_TO_BASE_PAYMENT_TYPE = 'CloseToBase'
 
 export const PAYMENT_TYPE_FORM_DESCRIPTIONS = {
-  [BONUS_PAYMENT_TYPE]: 'Bonus calculation',
-  [OVERTIME_PAYMENT_TYPE]: 'Overtime job (i.e. SMV not in Bonus calculation)',
-  [CLOSE_TO_BASE_PAYMENT_TYPE]: 'Close to base (operative payment done)',
+  [BONUS_PAYMENT_TYPE]: { text: 'Bonus calculation' },
+  [OVERTIME_PAYMENT_TYPE]: {
+    text: 'Overtime work order',
+    hint: 'SMVs not included in Bonus',
+  },
+  [CLOSE_TO_BASE_PAYMENT_TYPE]: {
+    text: 'Close to base',
+    hint: 'Operative payment made',
+  },
 }
 
 export const optionsForPaymentType = ({
@@ -13,11 +19,16 @@ export const optionsForPaymentType = ({
   currentPaymentType,
   defaultPaymentType = BONUS_PAYMENT_TYPE,
 }) => {
-  return paymentTypes.map((paymentType) => ({
-    text: PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType],
-    value: paymentType,
-    defaultChecked: currentPaymentType
-      ? paymentType === currentPaymentType
-      : paymentType === defaultPaymentType,
-  }))
+  return paymentTypes.map((paymentType) => {
+    const paymentTypeTexts = PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType]
+
+    return {
+      text: paymentTypeTexts.text,
+      value: paymentType,
+      defaultChecked: currentPaymentType
+        ? paymentType === currentPaymentType
+        : paymentType === defaultPaymentType,
+      hint: paymentTypeTexts.hint,
+    }
+  })
 }
