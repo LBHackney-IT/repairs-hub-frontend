@@ -11,7 +11,10 @@ import router from 'next/router'
 import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
-import { BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE } from '@/utils/paymentTypes'
+import {
+  BONUS_PAYMENT_TYPE,
+  workOrderNoteFragmentForPaymentType,
+} from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -119,9 +122,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      `${data.notes}${
-        paymentType === OVERTIME_PAYMENT_TYPE ? ' - Overtime' : ''
-      }`,
+      [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
+        ' - '
+      ),
       workOrderReference,
       data.reason,
       paymentType

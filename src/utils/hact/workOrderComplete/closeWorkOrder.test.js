@@ -59,7 +59,7 @@ describe('buildWorkOrderCompleteNotes', () => {
             'Bonus'
           )
         ).toEqual(
-          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2'
+          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2 - Bonus calculation'
         )
       })
     })
@@ -76,7 +76,7 @@ describe('buildWorkOrderCompleteNotes', () => {
             'Overtime'
           )
         ).toEqual(
-          'Comment from user - Assigned operatives operativeA, operativeB - Overtime'
+          'Comment from user - Assigned operatives operativeA, operativeB - Overtime work order (SMVs not included in Bonus)'
         )
       })
     })
@@ -93,7 +93,7 @@ describe('buildWorkOrderCompleteNotes', () => {
             'CloseToBase'
           )
         ).toEqual(
-          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2 - Closed to base (operative payment done)'
+          'Comment from user - Assigned operatives operativeA : percentage1, operativeB : percentage2 - Close to base (Operative payment made)'
         )
       })
     })
@@ -104,7 +104,9 @@ describe('buildWorkOrderCompleteNotes', () => {
       it('mentions overtime in the notes', () => {
         expect(
           buildWorkOrderCompleteNotes('Comment from user', {}, 'Overtime')
-        ).toEqual('Comment from user - Overtime')
+        ).toEqual(
+          'Comment from user - Overtime work order (SMVs not included in Bonus)'
+        )
       })
     })
   })

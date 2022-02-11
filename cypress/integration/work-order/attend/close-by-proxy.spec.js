@@ -233,7 +233,7 @@ describe('Closing a work order on behalf of an operative', () => {
             typeCode: '0',
             otherType: 'completed',
             comments:
-              'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
+              'Work order closed - This has been repaired and I forgot I did it on a completely different date and time. - Bonus calculation',
             eventTime: '2021-02-19T13:01:00.000Z',
             paymentType: 'Bonus',
           },
@@ -311,7 +311,7 @@ describe('Closing a work order on behalf of an operative', () => {
             typeCode: '70',
             otherType: 'completed',
             comments:
-              'Work order closed - Tenant was not at home - Closed to base (operative payment done)',
+              'Work order closed - Tenant was not at home - Close to base (Operative payment made)',
             eventTime: '2021-01-19T13:01:00.000Z',
             paymentType: 'CloseToBase',
           },
@@ -366,7 +366,7 @@ describe('Closing a work order on behalf of an operative', () => {
       .should(
         'have.deep.nested.property',
         'jobStatusUpdates[0].comments',
-        'Work order closed - This has been repaired during overtime. - Overtime'
+        'Work order closed - This has been repaired during overtime. - Overtime work order (SMVs not included in Bonus)'
       )
 
     cy.get('@apiCheck')
@@ -642,7 +642,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 typeCode: '70',
                 otherType: 'completed',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime',
+                  'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime work order (SMVs not included in Bonus)',
                 eventTime: '2021-01-19T13:01:00.000Z',
                 paymentType: 'Overtime',
               },
@@ -820,7 +820,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 typeCode: '0',
                 otherType: 'completed',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
+                  'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60% - Bonus calculation',
                 eventTime: '2021-01-19T13:01:00.000Z',
                 paymentType: 'Bonus',
               },
@@ -962,7 +962,7 @@ describe('Closing a work order on behalf of an operative', () => {
                 typeCode: '70',
                 otherType: 'completed',
                 comments:
-                  'Work order closed - A note - Assigned operatives Operative Y : 100%',
+                  'Work order closed - A note - Assigned operatives Operative Y : 100% - Bonus calculation',
                 eventTime: '2021-01-19T13:01:00.000Z',
                 paymentType: 'Bonus',
               },

@@ -1,5 +1,5 @@
 import {
-  CLOSE_TO_BASE_PAYMENT_TYPE,
+  workOrderNoteFragmentForPaymentType,
   OVERTIME_PAYMENT_TYPE,
 } from '../../paymentTypes'
 
@@ -60,11 +60,5 @@ export const buildWorkOrderCompleteNotes = (
           .join(' - ')
       : notes
 
-  if (paymentType === OVERTIME_PAYMENT_TYPE) {
-    notes = `${notes} - Overtime`
-  } else if (paymentType === CLOSE_TO_BASE_PAYMENT_TYPE) {
-    notes = `${notes} - Closed to base (operative payment done)`
-  }
-
-  return notes
+  return [notes, workOrderNoteFragmentForPaymentType(paymentType)].join(' - ')
 }
