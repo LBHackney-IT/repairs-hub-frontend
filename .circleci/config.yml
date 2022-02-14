@@ -207,18 +207,20 @@ workflows:
             - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
+          # requires:
+          #   - tests
+          #   - e2e
           requires:
-            - tests
-            - e2e
+            - install-dependencies
           filters:
             branches:
-              only: develop
+              only: multi-sor-experiment
       - build-deploy-development:
           requires:
             - assume-role-development
           filters:
             branches:
-              only: develop
+              only: multi-sor-experiment
       - assume-role-staging:
           context: api-assume-role-staging-context
           requires:
