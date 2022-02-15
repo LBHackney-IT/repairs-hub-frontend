@@ -9,8 +9,12 @@ import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
 import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import CloseWorkOrderForm from '@/components/WorkOrders/CloseWorkOrderForm'
+import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
+import {
+  BONUS_PAYMENT_TYPE,
+  workOrderNoteFragmentForPaymentType,
+} from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -25,7 +29,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
-  const [isOvertime, setIsOvertime] = useState(false)
+  const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
@@ -104,7 +108,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         })
       }
 
-      setIsOvertime(!!formData.isOvertime)
+      formData.paymentType && setPaymentType(formData.paymentType)
       setWorkOrderProgressedToClose(true)
     } catch (e) {
       console.error(e)
@@ -118,10 +122,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      `${data.notes}${isOvertime ? ' - Overtime' : ''}`,
+      [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
+        ' - '
+      ),
       workOrderReference,
       data.reason,
-      isOvertime
+      paymentType
     )
 
     setLoading(true)
@@ -174,15 +180,14 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
                   error={error}
                   onFormSubmit={onWorkOrderProgressToCloseSubmit}
                   currentUserPayrollNumber={currentUser.operativePayrollNumber}
+                  paymentType={paymentType}
                 />
               </>
             )}
 
           {workOrderProgressedToClose && (
-            <CloseWorkOrderForm
-              reference={workOrder.reference}
+            <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
-              isOvertime={isOvertime}
             />
           )}
 

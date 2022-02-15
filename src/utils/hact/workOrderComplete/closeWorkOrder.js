@@ -1,9 +1,14 @@
+import {
+  workOrderNoteFragmentForPaymentType,
+  OVERTIME_PAYMENT_TYPE,
+} from '../../paymentTypes'
+
 export const buildCloseWorkOrderData = (
   completionDate,
   notes,
   reference,
   reason,
-  isOvertime
+  paymentType
 ) => {
   return {
     workOrderReference: {
@@ -17,7 +22,7 @@ export const buildCloseWorkOrderData = (
         otherType: 'completed',
         comments: `Work order closed - ${notes}`,
         eventTime: completionDate,
-        isOvertime,
+        paymentType,
       },
     ],
   }
@@ -40,7 +45,7 @@ const operativesAndPercentagesForNotes = (
 export const buildWorkOrderCompleteNotes = (
   notes,
   operativesWithPercentages,
-  isOvertime = false
+  paymentType
 ) => {
   notes =
     operativesWithPercentages.length > 0
@@ -48,16 +53,12 @@ export const buildWorkOrderCompleteNotes = (
           notes,
           `Assigned operatives ${operativesAndPercentagesForNotes(
             operativesWithPercentages,
-            !isOvertime
+            paymentType !== OVERTIME_PAYMENT_TYPE
           )}`,
         ]
           .filter((s) => s)
           .join(' - ')
       : notes
 
-  if (isOvertime) {
-    notes = `${notes} - Overtime`
-  }
-
-  return notes
+  return [notes, workOrderNoteFragmentForPaymentType(paymentType)].join(' - ')
 }

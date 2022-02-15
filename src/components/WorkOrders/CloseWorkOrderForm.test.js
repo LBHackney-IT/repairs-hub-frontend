@@ -48,9 +48,9 @@ describe('CloseWorkOrderForm component', () => {
           selectedPercentagesToShowOnEdit={
             props.selectedPercentagesToShowOnEdit
           }
-          closingByProxy={true}
           totalSMV={props.totalSMVs}
-          isOvertime={true}
+          jobIsSplitByOperative={false}
+          paymentType={'Overtime'}
         />
       </UserContext.Provider>
     )

@@ -26,7 +26,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         >
           Select reason for closing 
         </label>
-        <br />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -445,28 +444,87 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         </div>
       </div>
       <div
-        class="govuk-checkboxes__item govuk-!-margin-0"
+        class="govuk-form-group lbh-form-group"
       >
-        <input
-          checked=""
-          class="govuk-checkboxes__input"
-          data-testid="isOvertime"
-          id="isOvertime"
-          name="isOvertime"
-          type="checkbox"
-        />
         <label
-          class="govuk-label govuk-checkboxes__label lbh-body-xs display-flex"
-          for="isOvertime"
+          class="govuk-label govuk-label--m"
+          for="paymentType"
         >
-          Overtime work order
+          Payment type 
         </label>
-        <span
-          class="govuk-hint govuk-checkboxes__hint lbh-hint"
-          id="government-gateway-item-hint"
+        <div
+          class="govuk-radios lbh-radios"
         >
-          (SMVs not included in Bonus)
-        </span>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              data-testid="paymentType"
+              id="paymentType_Bonus"
+              name="paymentType"
+              type="radio"
+              value="Bonus"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="paymentType_Bonus"
+            >
+              Bonus calculation
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              aria-describedby="paymentType-overtime-hint"
+              checked=""
+              class="govuk-radios__input"
+              data-testid="paymentType"
+              id="paymentType_Overtime"
+              name="paymentType"
+              type="radio"
+              value="Overtime"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="paymentType_Overtime"
+            >
+              Overtime work order
+            </label>
+            <span
+              class="govuk-hint govuk-radios__hint"
+              id="paymentType-overtime-hint"
+            >
+              SMVs not included in Bonus
+            </span>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              aria-describedby="paymentType-closetobase-hint"
+              class="govuk-radios__input"
+              data-testid="paymentType"
+              id="paymentType_CloseToBase"
+              name="paymentType"
+              type="radio"
+              value="CloseToBase"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="paymentType_CloseToBase"
+            >
+              Close to base
+            </label>
+            <span
+              class="govuk-hint govuk-radios__hint"
+              id="paymentType-closetobase-hint"
+            >
+              Operative payment made
+            </span>
+          </div>
+        </div>
       </div>
       <div
         class="govuk-form-group lbh-form-group"

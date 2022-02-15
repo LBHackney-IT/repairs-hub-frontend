@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = `
+<DocumentFragment>
+  <div>
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <h1
+      class="lbh-heading-h2"
+    >
+      Close work order
+    </h1>
+    <form
+      role="form"
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label govuk-label--m"
+          for="reason"
+        >
+          Select reason for closing 
+        </label>
+        <div
+          class="govuk-radios lbh-radios"
+        >
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_Work Order Completed"
+              name="reason"
+              type="radio"
+              value="Work Order Completed"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_Work Order Completed"
+            >
+              Completed
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_No Access"
+              name="reason"
+              type="radio"
+              value="No Access"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_No Access"
+            >
+              No access
+            </label>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="notes-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="notes"
+        >
+          Final report 
+        </label>
+        <textarea
+          aria-describedby="notes-hint notes-error"
+          class="govuk-textarea lbh-textarea"
+          data-testid="notes"
+          id="notes"
+          name="notes"
+          rows="4"
+        />
+      </div>
+      <div
+        class="govuk-!-margin-top-8"
+      >
+        <div
+          class="warning-info-box govuk-inset-text lbh-inset-text"
+        >
+          <div
+            class="lbh-warning-text govuk-warning-text"
+          >
+            <span
+              aria-hidden="true"
+              class="govuk-warning-text__icon"
+            >
+              !
+            </span>
+            <div
+              class="govuk-warning-text__text"
+            >
+              <span
+                class="govuk-warning-text__assistive"
+              >
+                Warning
+              </span>
+              <p
+                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+              >
+                Other changes?
+              </p>
+              <p
+                class="lbh-body-xs govuk-!-margin-top-1"
+              >
+                Any follow on and material change must be made on paper.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <button
+          class="govuk-button lbh-button"
+          data-module="govuk-button"
+          type="submit"
+        >
+          Close work order
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

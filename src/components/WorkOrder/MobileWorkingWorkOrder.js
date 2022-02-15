@@ -2,21 +2,22 @@ import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
-import WarningInfoBox from '../Template/WarningInfoBox'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
-import {
-  CharacterCountLimitedTextArea,
-  PrimarySubmitButton,
-  Checkbox,
-} from '../Form'
+import Radios from '@/components/Form/Radios'
+import { CharacterCountLimitedTextArea, PrimarySubmitButton } from '../Form'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOperativeOvertime } from '@/utils/helpers/completionDateTimes'
+import {
+  BONUS_PAYMENT_TYPE,
+  OVERTIME_PAYMENT_TYPE,
+  optionsForPaymentType,
+} from '@/utils/paymentTypes'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -27,6 +28,7 @@ const MobileWorkingWorkOrder = ({
   tasksAndSors,
   onFormSubmit,
   currentUserPayrollNumber,
+  paymentType,
 }) => {
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
@@ -46,7 +48,7 @@ const MobileWorkingWorkOrder = ({
     }
 
     return (
-      <>
+      <div className="govuk-!-margin-top-0">
         <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
           <a
             role="button"
@@ -57,8 +59,7 @@ const MobileWorkingWorkOrder = ({
             {linkText}
           </a>
         </Link>
-        <br />
-      </>
+      </div>
     )
   }
 
@@ -86,29 +87,23 @@ const MobileWorkingWorkOrder = ({
         />
 
         {isCurrentTimeOperativeOvertime() && !readOnly && (
-          <Checkbox
-            className="govuk-!-margin-0"
-            labelClassName="lbh-body-xs display-flex"
-            name="isOvertime"
-            label="Overtime work order"
-            checked={workOrder.isOvertime}
-            register={register}
-            hintText="(SMVs not included in Bonus)"
-          />
-        )}
-
-        {operativesCount > 1 && (
-          <OperativeList
-            operatives={workOrder.operatives}
-            currentUserPayrollNumber={currentUserPayrollNumber}
-            workOrderReference={workOrderReference}
-            readOnly={readOnly}
+          <Radios
+            label="Payment type"
+            name="paymentType"
+            options={optionsForPaymentType({
+              paymentTypes: [BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE],
+              currentPaymentType: paymentType,
+            })}
+            register={register({
+              required: 'Provide payment type',
+            })}
+            error={errors && errors.paymentType}
           />
         )}
 
         {readOnly && (
           <>
-            {workOrder.isOvertime && (
+            {workOrder.paymentType === OVERTIME_PAYMENT_TYPE && (
               <h4 className="lbh-heading-h4">Overtime work order</h4>
             )}
             <h4 className="lbh-heading-h4">Status</h4>
@@ -119,27 +114,6 @@ const MobileWorkingWorkOrder = ({
 
         {!readOnly && (
           <>
-            <WarningInfoBox
-              header="Need to make a change?"
-              text="Any changes to the work order must be made on paper."
-            />
-
-            <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-              <a
-                role="button"
-                draggable="false"
-                className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                data-module="govuk-button"
-              >
-                Add new SOR
-              </a>
-            </Link>
-
-            <br />
-
-            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-              'true' && renderOperativeManagementLink(operativesCount)}
-
             {areTasksUpdated(tasksAndSors) && (
               <CharacterCountLimitedTextArea
                 name="variationReason"
@@ -152,6 +126,31 @@ const MobileWorkingWorkOrder = ({
                 error={errors && errors.variationReason}
               />
             )}
+
+            <div className="govuk-!-margin-top-0">
+              <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                <a
+                  role="button"
+                  draggable="false"
+                  className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                  data-module="govuk-button"
+                >
+                  Add new SOR
+                </a>
+              </Link>
+            </div>
+
+            {operativesCount > 1 && (
+              <OperativeList
+                operatives={workOrder.operatives}
+                currentUserPayrollNumber={currentUserPayrollNumber}
+                workOrderReference={workOrderReference}
+                readOnly={readOnly}
+              />
+            )}
+
+            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
+              'true' && renderOperativeManagementLink(operativesCount)}
 
             <PrimarySubmitButton label="Confirm" />
           </>
