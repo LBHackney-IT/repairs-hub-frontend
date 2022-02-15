@@ -10,7 +10,7 @@ export const STATUS_COMPLETE = {
 
 export const STATUS_CANCELLED = {
   code: 30,
-  description: 'Work Cancelled',
+  description: 'Cancelled',
 }
 
 export const STATUS_VARIATION_PENDING_APPROVAL = {
