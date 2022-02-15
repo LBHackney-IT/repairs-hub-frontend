@@ -10,6 +10,7 @@ const WorkOrdersFilterView = ({
   onFilterSubmit,
   appliedFilters,
   clearFilters,
+  onFilterRemove,
 }) => {
   const { register, handleSubmit } = useForm()
   const [loading, setLoading] = useState(false)
@@ -72,6 +73,7 @@ const WorkOrdersFilterView = ({
             appliedFilters={appliedFilters}
             clearFilters={clearFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={onFilterRemove}
           />
         </form>
       </div>

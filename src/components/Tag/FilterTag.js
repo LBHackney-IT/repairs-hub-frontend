@@ -1,9 +1,15 @@
 import PropTypes from 'prop-types'
 
-const FilterTag = ({ text }) => {
+const FilterTag = ({ text, index, category, onFilterRemove }) => {
+  const handleOnclick = () => {
+    onFilterRemove(category, index)
+  }
+
   return (
     <li>
-      <a className="lbh-body-xs filter-tag">{text}</a>
+      <a className="lbh-body-xs filter-tag" onClick={handleOnclick}>
+        {text}&nbsp;&nbsp;&nbsp;X
+      </a>
     </li>
   )
 }

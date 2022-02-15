@@ -38,6 +38,28 @@ const WorkOrdersView = ({ query }) => {
     updateUrlQueryParams({})
   }
 
+  const onFilterRemove = (category, indexNumber) => {
+    const updatedAppliedFilters = convertValuesOfObjectToArray(queryParams)
+    switch (category.toLowerCase()) {
+      case 'contractor':
+        updatedAppliedFilters.ContractorReference.splice(indexNumber, 1)
+        break
+      case 'priority':
+        updatedAppliedFilters.Priorities.splice(indexNumber, 1)
+        break
+      case 'status':
+        updatedAppliedFilters.StatusCode.splice(indexNumber, 1)
+        break
+      case 'trade':
+        updatedAppliedFilters.TradeCodes.splice(indexNumber, 1)
+        break
+    }
+
+    updateUrlQueryParams(updatedAppliedFilters)
+    delete updatedAppliedFilters['pageNumber']
+    setAppliedFilters(updatedAppliedFilters)
+  }
+
   const workOrderView = async (pageNumber, filterOptions = {}) => {
     setLoading(true)
     setError(null)
@@ -97,12 +119,22 @@ const WorkOrdersView = ({ query }) => {
         ...(filters?.Priorities && { Priorities: filters.Priorities }),
         ...(filters?.TradeCodes && { TradeCodes: filters.TradeCodes }),
         ...(filters?.ContractorReference && {
-          ContractorReference: filters.ContractorReference,
+          ContractorReference: [...filters.ContractorReference],
         }),
       },
     })
   }
+  const convertValuesOfObjectToArray = (object) => {
+    const newObject = Object.assign({}, object)
+    for (let [key, value] of Object.entries(newObject)) {
+      if (key === 'pageNumber') continue
 
+      if (!Array.isArray(value)) {
+        newObject[key] = [value]
+      }
+    }
+    return newObject
+  }
   return (
     <>
       <Meta title="Manage work orders" />
@@ -113,8 +145,9 @@ const WorkOrdersView = ({ query }) => {
         >
           <WorkOrdersFilterView
             onFilterSubmit={onFilterSubmit}
-            appliedFilters={queryParams}
+            appliedFilters={convertValuesOfObjectToArray(queryParams)}
             clearFilters={clearFilters}
+            onFilterRemove={onFilterRemove}
           />
         </GridColumn>
 

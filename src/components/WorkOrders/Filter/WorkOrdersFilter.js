@@ -16,6 +16,7 @@ const WorkOrdersFilter = ({
   appliedFilters,
   clearFilters,
   selectedFilters,
+  onFilterRemove,
 }) => {
   const { user } = useContext(UserContext)
 
@@ -105,7 +106,15 @@ const WorkOrdersFilter = ({
           <h4 className="lbh-heading-h4">{filterCategory}</h4>
           <ul className="filter-tags" id={`selected-filters-${filterCategory}`}>
             {selectedFilters[filterCategory].map((option, i) => {
-              return <FilterTag text={option} key={i} />
+              return (
+                <FilterTag
+                  text={option}
+                  key={i}
+                  index={i}
+                  category={filterCategory}
+                  onFilterRemove={onFilterRemove}
+                />
+              )
             })}
           </ul>
         </div>

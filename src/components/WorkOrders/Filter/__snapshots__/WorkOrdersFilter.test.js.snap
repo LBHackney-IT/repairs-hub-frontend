@@ -101,14 +101,14 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -127,7 +127,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -146,14 +146,14 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -640,14 +640,14 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -666,7 +666,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -685,14 +685,14 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -1108,14 +1108,14 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -1134,7 +1134,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -1153,14 +1153,14 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -1559,14 +1559,14 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -1585,7 +1585,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -1604,14 +1604,14 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -2098,14 +2098,14 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -2124,7 +2124,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -2143,14 +2143,14 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -2620,14 +2620,14 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -2646,7 +2646,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -2665,14 +2665,14 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
@@ -3071,14 +3071,14 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Purdy Contracts (P) Ltd
+                        Purdy Contracts (P) Ltd   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Avonline Network (A) Ltd
+                        Avonline Network (A) Ltd   X
                       </a>
                     </li>
                   </ul>
@@ -3097,7 +3097,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        In Progress
+                        In Progress   X
                       </a>
                     </li>
                   </ul>
@@ -3116,14 +3116,14 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Immediate
+                        Immediate   X
                       </a>
                     </li>
                     <li>
                       <a
                         class="lbh-body-xs filter-tag"
                       >
-                        Emergency
+                        Emergency   X
                       </a>
                     </li>
                   </ul>
