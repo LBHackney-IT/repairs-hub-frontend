@@ -54,12 +54,12 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__header"
               scope="row"
             >
-              Overtime
+              Payment type
             </th>
             <td
               class="govuk-table__cell"
             >
-              Yes
+              Overtime work order
             </td>
             <td
               class="govuk-table__cell"

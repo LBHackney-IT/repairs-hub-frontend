@@ -28,7 +28,7 @@
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');
     }
-    &--status-work-cancelled,
+    &--status-cancelled,
     &--status-no-access {
       background-color: repairs-hub-colour('grey');
       color: repairs-hub-colour('black');
@@ -52,7 +52,7 @@
       background-color: repairs-hub-colour('dark-grey');
     }
     &--status-completed,
-    &--status-work-complete {
+    &--status-work-completed {
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');
       border: 2px solid black;

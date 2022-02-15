@@ -108,7 +108,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
-          currentUserPayrollNumber={1}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -137,7 +138,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
-          currentUserPayrollNumber={1}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -179,19 +181,21 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
     })
   })
 
-  describe('when has status Work Complete and work is overtime', () => {
+  describe('when has status Work Completed and work is overtime', () => {
     beforeAll(() => {
-      workOrderData.status = 'Work Complete'
-      workOrderData.isOvertime = true
+      workOrderData.status = 'Work Completed'
+      workOrderData.paymentType = 'Overtime'
     })
 
-    it('should render work order elements with Status Work Complete', () => {
+    it('should render work order elements with Status Work Completed', () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder
@@ -215,6 +219,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -250,6 +256,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -285,6 +293,8 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
               standardMinuteValue: 15,
             },
           ]}
+          currentUserPayrollNumber={'1'}
+          onFormSubmit={jest.fn()}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -403,6 +413,8 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
             standardMinuteValue: 15,
           },
         ]}
+        currentUserPayrollNumber={'1'}
+        onFormSubmit={jest.fn()}
       />
     )
     expect(asFragment()).toMatchSnapshot()

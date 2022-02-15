@@ -10,19 +10,23 @@ describe('Show work order page', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
-      )
+      ).as('workOrderRequest')
+
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
-      )
+      ).as('propertyRequest')
+
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/notes' },
         { fixture: 'workOrders/notes.json' }
-      )
+      ).as('notesRequest')
+
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
         { body: [] }
-      )
+      ).as('tasksRequest')
+
       cy.intercept(
         {
           method: 'GET',
@@ -30,11 +34,13 @@ describe('Show work order page', () => {
             '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: [] }
-      )
+      ).as('workOrdersRequest')
     })
 
     it('Shows various details about the work order, property and assigned contractor', () => {
       cy.visit('/work-orders/10000012')
+
+      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
       cy.get('.lbh-heading-h1').within(() => {
         cy.contains('Work order: 10000012')
@@ -83,97 +89,10 @@ describe('Show work order page', () => {
       cy.audit()
     })
 
-    context('When the work order has been assigned one operative', () => {
+    context('When the work order has been assigned operatives', () => {
       beforeEach(() => {
-        cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-          workOrder.operatives = [
-            {
-              id: 0,
-              payrollNumber: '0',
-              name: 'Operative 1',
-              trades: ['DE'],
-            },
-          ]
-
-          workOrder.appointment = {
-            date: '2021-03-19',
-            description: 'PM Slot',
-            end: '18:00',
-            start: '12:00',
-          }
-
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
-            { body: workOrder }
-          )
-        })
-      })
-
-      context(
-        'When the appointment is on the same date as current date',
-        () => {
-          context('And start time is in the future of currentTime', () => {
-            beforeEach(() => {
-              cy.clock(new Date('March 19 2021 11:59:00Z'))
-            })
-
-            it('Shows the assigned operatives', () => {
-              cy.visit('/work-orders/10000012')
-
-              cy.get('.appointment-details').within(() => {
-                cy.contains('Appointment details')
-                cy.contains('19 Mar 2021, 12:00-18:00')
-              })
-
-              cy.contains('Operative: Operative 1')
-            })
-          })
-
-          context('And start time is in the past of currentTime', () => {
-            beforeEach(() => {
-              cy.clock(new Date('March 19 2021 12:01:00Z'))
-            })
-
-            it('Shows the assigned operatives', () => {
-              cy.visit('/work-orders/10000012')
-
-              cy.get('.appointment-details').within(() => {
-                cy.contains('Appointment details')
-                cy.contains('19 Mar 2021, 12:00-18:00')
-              })
-
-              cy.contains('Operative: Operative 1')
-            })
-          })
-        }
-      )
-
-      context(
-        'And the appointment start dateTime is in the past of currentTime',
-        () => {
-          beforeEach(() => {
-            cy.clock(new Date('March 18 2021 11:59:00Z'))
-          })
-
-          it('Does not show the assigned operatives', () => {
-            cy.visit('/work-orders/10000012')
-
-            cy.get('.appointment-details').within(() => {
-              cy.contains('Appointment details')
-              cy.contains('19 Mar 2021, 12:00-18:00')
-            })
-
-            cy.contains('Operative 1').should('not.exist')
-          })
-        }
-      )
-    })
-
-    context(
-      'When the work order has been assigned more than one operative',
-      () => {
-        beforeEach(() => {
-          cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        cy.fixture('workOrders/workOrder.json')
+          .then((workOrder) => {
             workOrder.operatives = [
               {
                 id: 0,
@@ -201,15 +120,23 @@ describe('Show work order page', () => {
               { body: workOrder }
             )
           })
-        })
+          .as('workOrderWithOperativesRequest')
+      })
 
-        context('And the appointment start time is in the past', () => {
+      context('When the appointment is today', () => {
+        context('And start time is in the future', () => {
           beforeEach(() => {
-            cy.clock(new Date('March 19 2021 12:01:00Z'))
+            cy.clock(new Date('March 19 2021 11:59:00Z'))
           })
 
           it('Shows the assigned operatives', () => {
             cy.visit('/work-orders/10000012')
+
+            cy.wait([
+              '@workOrderWithOperativesRequest',
+              '@propertyRequest',
+              '@tasksRequest',
+            ])
 
             cy.get('.appointment-details').within(() => {
               cy.contains('Appointment details')
@@ -219,150 +146,117 @@ describe('Show work order page', () => {
             cy.contains('Operatives: Operative 1, Operative 2')
           })
         })
-      }
-    )
 
-    context(
-      'When the work order has been assigned more than one operative',
-      () => {
-        context('With status Work Complete', () => {
+        context('And start time is in the past', () => {
           beforeEach(() => {
-            cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-              workOrder.operatives = [
-                {
-                  id: 0,
-                  payrollNumber: '0',
-                  name: 'Operative 1',
-                  trades: ['DE'],
-                },
-                {
-                  id: 1,
-                  payrollNumber: '1',
-                  name: 'Operative 2',
-                  trades: ['DE'],
-                },
-              ]
-              workOrder.status = 'Work Complete'
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012' },
-                { body: workOrder }
-              )
-            })
+            cy.clock(new Date('March 19 2021 12:01:00Z'))
           })
 
           it('Shows the assigned operatives', () => {
             cy.visit('/work-orders/10000012')
 
+            cy.wait([
+              '@workOrderWithOperativesRequest',
+              '@propertyRequest',
+              '@tasksRequest',
+            ])
+
             cy.get('.appointment-details').within(() => {
               cy.contains('Appointment details')
-              cy.contains('Not applicable')
+              cy.contains('19 Mar 2021, 12:00-18:00')
             })
 
             cy.contains('Operatives: Operative 1, Operative 2')
           })
         })
+      })
 
-        context('With status No Access', () => {
-          beforeEach(() => {
-            cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-              workOrder.operatives = [
-                {
-                  id: 0,
-                  payrollNumber: '0',
-                  name: 'Operative 1',
-                  trades: ['DE'],
-                },
-                {
-                  id: 1,
-                  payrollNumber: '1',
-                  name: 'Operative 2',
-                  trades: ['DE'],
-                },
-              ]
-              workOrder.status = 'No Access'
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012' },
-                { body: workOrder }
-              )
-            })
-          })
-
-          it('Shows the assigned operatives', () => {
-            cy.visit('/work-orders/10000012')
-
-            cy.get('.appointment-details').within(() => {
-              cy.contains('Appointment details')
-              cy.contains('Not applicable')
-            })
-
-            cy.contains('Operatives: Operative 1, Operative 2')
-          })
-        })
-      }
-    )
-
-    context(
-      'When the work order has work orders on Work orders history tab',
-      () => {
+      context('And the appointment was before today', () => {
         beforeEach(() => {
-          cy.intercept(
-            {
-              method: 'GET',
-              path:
-                '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-            },
-            { fixture: 'workOrders/workOrders.json' }
-          ).as('workOrdersHistory')
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
-            { fixture: 'workOrders/priorityImmediate.json' }
-          )
-          cy.intercept(
-            { method: 'GET', path: '/api/properties/00089473' },
-            { fixture: 'properties/property.json' }
-          )
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040/tasks' },
-            { body: [] }
-          )
-          cy.intercept(
-            {
-              method: 'GET',
-              path:
-                '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
-            },
-            { body: [] }
-          )
+          cy.clock(new Date('March 18 2021 11:59:00Z'))
+        })
 
+        it('Does not show the assigned operatives', () => {
           cy.visit('/work-orders/10000012')
-          // Tasks and SORs tab should be active
-          cy.get('.govuk-tabs__list-item--selected a').contains(
-            'Tasks and SORs'
-          )
-          // Now select Notes tab
-          cy.get('a[id="tab_work-orders-history-tab"]').click()
-          cy.wait('@workOrdersHistory')
-        })
 
-        it('Clicks the first work order of Work orders history', () => {
-          cy.contains('10000040').click()
-          cy.url().should('contains', 'work-orders/10000040')
+          cy.wait([
+            '@workOrderWithOperativesRequest',
+            '@propertyRequest',
+            '@tasksRequest',
+          ])
 
-          cy.get('.lbh-heading-h1').within(() => {
-            cy.contains('Work order: 10000040')
+          cy.get('.appointment-details').within(() => {
+            cy.contains('Appointment details')
+            cy.contains('19 Mar 2021, 12:00-18:00')
           })
+
+          cy.contains('Operatives: Operative 1, Operative 2').should(
+            'not.exist'
+          )
         })
-      }
-    )
+      })
+    })
+
+    context('When the associated property has historical work orders', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { fixture: 'workOrders/workOrders.json' }
+        ).as('workOrdersHistoryRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040' },
+          { fixture: 'workOrders/priorityImmediate.json' }
+        ).as('historicalWorkOrderRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00089473' },
+          { fixture: 'properties/property.json' }
+        ).as('propertyRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+          { body: [] }
+        ).as('tasksRequest')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: [] }
+        ).as('workOrdersRequest')
+      })
+
+      it('Lists the orders in the history tab', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+
+        cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+
+        cy.get('a[id="tab_work-orders-history-tab"]').click()
+
+        cy.wait('@workOrdersHistoryRequest')
+
+        cy.contains('10000040').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000040'
+        )
+      })
+    })
   })
 
   context('When logged in as an Operative', () => {
     beforeEach(() => {
       cy.clock(new Date('June 11 2021 13:49:15Z'))
 
-      //Stub request with operative's work orders response
       cy.intercept(
         {
           method: 'GET',
@@ -373,7 +267,6 @@ describe('Show work order page', () => {
         }
       ).as('operativesWorkOrders')
 
-      //Stub request with operative's work order response
       cy.intercept(
         {
           method: 'GET',
@@ -384,7 +277,6 @@ describe('Show work order page', () => {
         }
       ).as('operativesWorkOrder')
 
-      //Stub request with property response
       cy.intercept(
         {
           method: 'GET',
@@ -395,7 +287,6 @@ describe('Show work order page', () => {
         }
       ).as('property')
 
-      //Stub request with task response
       cy.intercept(
         {
           method: 'GET',
@@ -419,8 +310,6 @@ describe('Show work order page', () => {
       cy.get('div[class*="Multibutton"]').should('not.exist')
       cy.get('a[id="caut-alerts"]').click()
 
-      //cautionary alerts page
-
       cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').contains('CV')
@@ -438,7 +327,6 @@ describe('Show work order page', () => {
 
       cy.get('a[id="cautionary-alerts"]').click()
 
-      //cautionary alerts page
       cy.contains('Cautionary alerts')
       cy.get('[data-row-id=15]').within(() => {
         cy.get('.text-dark-red').should('not.exist')
@@ -479,6 +367,49 @@ describe('Show work order page', () => {
         cy.contains(
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
         )
+      })
+    })
+  })
+
+  describe('Work order actions', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrder.json' }
+      ).as('workOrderRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('propertyRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { body: [] }
+      ).as('tasksRequest')
+    })
+
+    context('When a contractor is logged in', () => {
+      beforeEach(() => {
+        cy.loginWithContractorRole()
+      })
+
+      it('contains a link to close the order', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait(['@workOrderRequest', '@tasksRequest'])
+
+        cy.get('[data-testid="details"]')
+          .contains('Close')
+          .click({ force: true })
+
+        cy.get('.govuk-grid-column-one-third').within(() => {
+          cy.contains('a', 'Close').should(
+            'have.attr',
+            'href',
+            '/work-orders/10000012/close'
+          )
+        })
       })
     })
   })

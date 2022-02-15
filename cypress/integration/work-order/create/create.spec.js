@@ -2,12 +2,13 @@
 
 import 'cypress-audit/commands'
 import { addHours } from 'date-fns'
+import { addDays } from 'date-fns/esm'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
 
-const now = new Date()
+const now = new Date('2022-02-11T12:00:00')
 
 describe('Raise repair form', () => {
   beforeEach(() => {
@@ -492,7 +493,9 @@ describe('Raise repair form', () => {
         priority: {
           priorityCode: EMERGENCY_PRIORITY_CODE,
           priorityDescription: '2 [E] EMERGENCY',
-          requiredCompletionDateTime: addHours(now, 24).toISOString(),
+          // Emergency priorities have a 24 hour *working day* target
+          // As today is a Friday, the target should be Monday.
+          requiredCompletionDateTime: addDays(now, 3).toISOString(),
           numberOfDays: 1,
         },
         workClass: { workClassCode: 0 },

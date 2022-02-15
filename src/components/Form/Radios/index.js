@@ -26,7 +26,6 @@ const Radio = ({
     <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
       {label} {required && <span className="govuk-required">*</span>}
     </label>
-    <br />
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
@@ -40,7 +39,7 @@ const Radio = ({
       })}
     >
       {options.map((option) => {
-        const { value, text, defaultChecked } =
+        const { value, text, defaultChecked, hint } =
           typeof option === 'string'
             ? { value: option, text: option, defaultChecked: false }
             : option
@@ -56,16 +55,29 @@ const Radio = ({
               value={value}
               ref={register}
               data-testid={name}
-              aria-describedby={hint && `${name}-hint`}
+              aria-describedby={
+                hint &&
+                `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
+              }
               defaultChecked={defaultChecked}
               {...otherProps}
             />
+
             <label
               className="govuk-label lbh-label govuk-radios__label"
               htmlFor={`${name}_${value}`}
             >
               {text}
             </label>
+
+            {hint && (
+              <span
+                id={`${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`}
+                className="govuk-hint govuk-radios__hint"
+              >
+                {hint}
+              </span>
+            )}
           </div>
         )
       })}

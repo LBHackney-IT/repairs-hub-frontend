@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Operatives component Renders a string with a prefix of "Operative" when passed one operative 1`] = `
+<DocumentFragment>
+  <p
+    class="lbh-body-xs"
+  >
+    Operative: Operative Name 1
+  </p>
+</DocumentFragment>
+`;
+
+exports[`Operatives component Renders a string with a prefix of "Operatives" when passed multiple operative 1`] = `
+<DocumentFragment>
+  <p
+    class="lbh-body-xs"
+  >
+    Operatives: Operative Name 1, Operative Name 2
+  </p>
+</DocumentFragment>
+`;

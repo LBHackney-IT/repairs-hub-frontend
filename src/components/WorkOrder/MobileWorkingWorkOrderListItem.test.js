@@ -32,7 +32,7 @@ describe('MobileWorkingWorkOrderListItem component', () => {
     const { asFragment } = render(
       <MobileWorkingWorkOrderListItem
         workOrder={new WorkOrder(props.workOrder)}
-        currentUser={{ operativePayrollNumber: 1 }}
+        currentUser={{ operativePayrollNumber: '1' }}
         index={0}
       />
     )

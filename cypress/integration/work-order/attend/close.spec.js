@@ -37,18 +37,19 @@ describe('Closing my own work order', () => {
       cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
-    it('overtime selection is not possible and closing makes a POST request for completion without overtime, confirms success, and returns me to the index', () => {
+    it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
-      cy.get('[data-testid=isOvertime]').should('not.exist')
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
 
       cy.contains('button', 'Confirm').click()
 
-      cy.get('#notes').type('I attended')
-
       cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed')
+
+      cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
 
@@ -65,10 +66,10 @@ describe('Closing my own work order', () => {
           jobStatusUpdates: [
             {
               typeCode: '0',
-              otherType: 'complete',
-              comments: 'Work order closed - I attended',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-              isOvertime: false,
+              paymentType: 'Bonus',
             },
           ],
         })
@@ -91,14 +92,16 @@ describe('Closing my own work order', () => {
     })
 
     context('and the overtime payment type is chosen', () => {
-      it('makes a POST request for completion with overtime, confirms success, and returns me to the index', () => {
+      it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
         cy.visit('/operatives/1/work-orders/10000621')
 
         cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
-        cy.get('[data-testid=isOvertime]').should('not.be.checked')
-
-        cy.get('[data-testid=isOvertime]').check()
+        cy.contains('Payment type')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'Overtime').click()
+          })
 
         cy.contains('button', 'Confirm').click()
 
@@ -127,10 +130,11 @@ describe('Closing my own work order', () => {
             jobStatusUpdates: [
               {
                 typeCode: '0',
-                otherType: 'complete',
-                comments: 'Work order closed - I attended - Overtime',
+                otherType: 'completed',
+                comments:
+                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                isOvertime: true,
+                paymentType: 'Overtime',
               },
             ],
           })
@@ -148,12 +152,16 @@ describe('Closing my own work order', () => {
     })
 
     context('when no particular payment type is chosen', () => {
-      it('makes a POST request for completion without overtime, confirm success, and returns me to the index', () => {
+      it('makes a POST request for completion with bonus payment type, confirm success, and returns me to the index', () => {
         cy.visit('/operatives/1/work-orders/10000621')
 
         cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
 
-        cy.get('[data-testid=isOvertime]').should('not.be.checked')
+        cy.contains('Payment type')
+          .parent()
+          .within(() => {
+            cy.get('[value="Bonus"]').should('be.checked')
+          })
 
         cy.contains('button', 'Confirm').click()
 
@@ -182,10 +190,10 @@ describe('Closing my own work order', () => {
             jobStatusUpdates: [
               {
                 typeCode: '0',
-                otherType: 'complete',
-                comments: 'Work order closed - I attended',
+                otherType: 'completed',
+                comments: 'Work order closed - I attended - Bonus calculation',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                isOvertime: false,
+                paymentType: 'Bonus',
               },
             ],
           })

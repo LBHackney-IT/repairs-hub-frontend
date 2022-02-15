@@ -24,7 +24,7 @@ describe('SummaryCloseWorkOrder component', () => {
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
         operativeNames={props.operatives}
-        isOvertime={true}
+        paymentType={'Overtime'}
       />
     )
     expect(asFragment()).toMatchSnapshot()

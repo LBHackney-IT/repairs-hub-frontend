@@ -20,5 +20,5 @@
   "externalAppointmentManagementUrl": null,
   "canAssignOperative": false,
   "totalSMVs": 76,
-  "isOvertime": false
+  "paymentType": "Bonus"
 }
