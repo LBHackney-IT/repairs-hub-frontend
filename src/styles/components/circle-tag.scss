@@ -11,12 +11,12 @@
   &--status-in-progress {
     background-color: repairs-hub-colour('blue');
   }
-  &--status-work-complete,
+  &--status-work-completed,
   &--status-locked {
     background-color: repairs-hub-colour('white');
     border: 1px solid black;
   }
-  &--status-work-cancelled {
+  &--status-cancelled {
     background-color: repairs-hub-colour('grey');
   }
   &--status-pending-approval,

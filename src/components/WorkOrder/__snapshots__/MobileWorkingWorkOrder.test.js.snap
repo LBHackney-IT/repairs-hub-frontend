@@ -1797,7 +1797,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
 </DocumentFragment>
 `;
 
-exports[`MobileWorkingWorkOrder component with single operative when has status Work Complete and work is overtime should render work order elements with Status Work Complete 1`] = `
+exports[`MobileWorkingWorkOrder component with single operative when has status Work Completed and work is overtime should render work order elements with Status Work Completed 1`] = `
 <DocumentFragment>
   <div
     class="mobile-working-title-banner"
@@ -2074,7 +2074,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h5
       class="lbh-heading-h5"
     >
-      Work Complete
+      Work Completed
     </h5>
     <br />
   </form>

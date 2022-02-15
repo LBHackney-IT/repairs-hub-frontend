@@ -164,7 +164,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
 </DocumentFragment>
 `;
 
-exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: Completed, date and time 1`] = `
+exports[`WorkOrderHeader component when workOrder status is Work Completed or No Access should show complition reason: Completed, date and time 1`] = `
 <DocumentFragment>
   <div
     class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
@@ -238,12 +238,12 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
-            class="circle-tag circle-tag--status-work-complete"
+            class="circle-tag circle-tag--status-work-completed"
           />
           <span
             class="lbh-!-font-weight-bold"
           >
-            Status: Work Complete
+            Status: Work Completed
           </span>
           <br />
           <span
@@ -327,7 +327,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
 </DocumentFragment>
 `;
 
-exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access should show complition reason: No Access, date and time 1`] = `
+exports[`WorkOrderHeader component when workOrder status is Work Completed or No Access should show complition reason: No Access, date and time 1`] = `
 <DocumentFragment>
   <div
     class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
@@ -490,7 +490,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
 </DocumentFragment>
 `;
 
-exports[`WorkOrderHeader component when workOrder status is Work Complete or No Access when has operatives without appointment should show Operatives 1`] = `
+exports[`WorkOrderHeader component when workOrder status is Work Completed or No Access when has operatives without appointment should show Operatives 1`] = `
 <DocumentFragment>
   <div
     class="lbh-body-s govuk-grid-row govuk-!-margin-bottom-6"
@@ -564,12 +564,12 @@ exports[`WorkOrderHeader component when workOrder status is Work Complete or No 
           class="lbh-body-s govuk-!-margin-bottom-2"
         >
           <span
-            class="circle-tag circle-tag--status-work-complete"
+            class="circle-tag circle-tag--status-work-completed"
           />
           <span
             class="lbh-!-font-weight-bold"
           >
-            Status: Work Complete
+            Status: Work Completed
           </span>
           <br />
           <span

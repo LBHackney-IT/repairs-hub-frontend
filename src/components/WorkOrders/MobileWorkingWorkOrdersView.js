@@ -65,7 +65,7 @@ const MobileWorkingWorkOrdersView = () => {
 
           if (status === 'no access') {
             return 'Closed'
-          } else if (status === 'work complete') {
+          } else if (status === 'work completed') {
             return 'Completed'
           } else {
             return ''
