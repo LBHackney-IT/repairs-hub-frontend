@@ -65,7 +65,7 @@ describe('Closing my own work order', () => {
           jobStatusUpdates: [
             {
               typeCode: '0',
-              otherType: 'complete',
+              otherType: 'completed',
               comments: 'Work order closed - I attended',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               isOvertime: false,
@@ -127,7 +127,7 @@ describe('Closing my own work order', () => {
             jobStatusUpdates: [
               {
                 typeCode: '0',
-                otherType: 'complete',
+                otherType: 'completed',
                 comments: 'Work order closed - I attended - Overtime',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 isOvertime: true,
@@ -182,7 +182,7 @@ describe('Closing my own work order', () => {
             jobStatusUpdates: [
               {
                 typeCode: '0',
-                otherType: 'complete',
+                otherType: 'completed',
                 comments: 'Work order closed - I attended',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 isOvertime: false,

@@ -249,7 +249,7 @@ describe('Closing a work order on behalf of an operative', () => {
           jobStatusUpdates: [
             {
               typeCode: '0',
-              otherType: 'complete',
+              otherType: 'completed',
               comments:
                 'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
               eventTime: '2021-02-19T13:01:00.000Z',
@@ -315,7 +315,7 @@ describe('Closing a work order on behalf of an operative', () => {
           jobStatusUpdates: [
             {
               typeCode: '70',
-              otherType: 'complete',
+              otherType: 'completed',
               comments: 'Work order closed - Tenant was not at home',
               eventTime: '2021-01-19T13:01:00.000Z',
               isOvertime: false,
@@ -640,7 +640,7 @@ describe('Closing a work order on behalf of an operative', () => {
             jobStatusUpdates: [
               {
                 typeCode: '70',
-                otherType: 'complete',
+                otherType: 'completed',
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime',
                 eventTime: '2021-01-19T13:01:00.000Z',
@@ -815,7 +815,7 @@ describe('Closing a work order on behalf of an operative', () => {
             jobStatusUpdates: [
               {
                 typeCode: '0',
-                otherType: 'complete',
+                otherType: 'completed',
                 comments:
                   'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60%',
                 eventTime: '2021-01-19T13:01:00.000Z',
@@ -954,7 +954,7 @@ describe('Closing a work order on behalf of an operative', () => {
             jobStatusUpdates: [
               {
                 typeCode: '70',
-                otherType: 'complete',
+                otherType: 'completed',
                 comments:
                   'Work order closed - A note - Assigned operatives Operative Y : 100%',
                 eventTime: '2021-01-19T13:01:00.000Z',

@@ -20,7 +20,7 @@ describe('buildCloseWorkOrderData', () => {
       jobStatusUpdates: [
         {
           typeCode: '0',
-          otherType: 'complete',
+          otherType: 'completed',
           comments: 'Work order closed - A note',
           eventTime: completionDate,
           isOvertime: true,

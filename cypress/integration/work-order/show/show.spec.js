@@ -225,7 +225,7 @@ describe('Show work order page', () => {
     context(
       'When the work order has been assigned more than one operative',
       () => {
-        context('With status Work Complete', () => {
+        context('With status Work Completed', () => {
           beforeEach(() => {
             cy.fixture('workOrders/workOrder.json').then((workOrder) => {
               workOrder.operatives = [
@@ -242,7 +242,7 @@ describe('Show work order page', () => {
                   trades: ['DE'],
                 },
               ]
-              workOrder.status = 'Work Complete'
+              workOrder.status = 'Work Completed'
 
               cy.intercept(
                 { method: 'GET', path: '/api/workOrders/10000012' },

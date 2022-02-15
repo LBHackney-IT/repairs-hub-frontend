@@ -14,7 +14,7 @@ export const buildCloseWorkOrderData = (
     jobStatusUpdates: [
       {
         typeCode: reason == 'No Access' ? '70' : '0',
-        otherType: 'complete',
+        otherType: 'completed',
         comments: `Work order closed - ${notes}`,
         eventTime: completionDate,
         isOvertime,

@@ -5,7 +5,7 @@ export const STATUS_IN_PROGRESS = {
 
 export const STATUS_COMPLETE = {
   code: 50,
-  description: 'Work Complete',
+  description: 'Work Completed',
 }
 
 export const STATUS_CANCELLED = {

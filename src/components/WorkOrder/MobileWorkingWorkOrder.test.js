@@ -185,13 +185,13 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
     })
   })
 
-  describe('when has status Work Complete and work is overtime', () => {
+  describe('when has status Work Completed and work is overtime', () => {
     beforeAll(() => {
-      workOrderData.status = 'Work Complete'
+      workOrderData.status = 'Work Completed'
       workOrderData.isOvertime = true
     })
 
-    it('should render work order elements with Status Work Complete', () => {
+    it('should render work order elements with Status Work Completed', () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder

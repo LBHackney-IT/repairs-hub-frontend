@@ -15,7 +15,7 @@ describe('WorkOrderHeader component', () => {
     owner: 'Alphatrack (S) Systems Lt',
     description: 'This is an urgent repair description',
     propertyReference: '00014888',
-    status: 'Work Complete',
+    status: 'Work Completed',
     priorityCode: URGENT_PRIORITY_CODE,
     raisedBy: 'Dummy Agent',
     target: '2021-01-23T18:30:00.00000',
@@ -64,9 +64,9 @@ describe('WorkOrderHeader component', () => {
     schedulerSessionId: '123',
   }
 
-  describe('when workOrder status is Work Complete or No Access', () => {
+  describe('when workOrder status is Work Completed or No Access', () => {
     it('should show complition reason: Completed, date and time', () => {
-      //WorkOrder status: Work Complete
+      //WorkOrder status: Work Completed
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
@@ -106,7 +106,7 @@ describe('WorkOrderHeader component', () => {
 
     describe('when has operatives without appointment', () => {
       it('should show Operatives', () => {
-        //WorkOrder status: Work Complete
+        //WorkOrder status: Work Completed
         const operatives = [
           {
             id: 0,
