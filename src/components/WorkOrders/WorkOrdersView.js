@@ -127,7 +127,7 @@ const WorkOrdersView = ({ query }) => {
   const convertValuesOfObjectToArray = (object) => {
     const newObject = Object.assign({}, object)
     for (let [key, value] of Object.entries(newObject)) {
-      if (key === 'pageNumber') continue
+      if (key === 'pageNumber' || key === 'IncludeHistorical') continue
 
       if (!Array.isArray(value)) {
         newObject[key] = [value]

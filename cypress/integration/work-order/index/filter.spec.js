@@ -814,7 +814,7 @@ describe('Filter work orders', () => {
             expect(
               localStorage.getItem('RH - default work order filters')
             ).to.equal(
-              '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":"2","IncludeHistorical":"false"}'
+              '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":["2"],"IncludeHistorical":"false"}'
             )
             cy.on('window:confirm', (string) => {
               expect(string).to.equal(
