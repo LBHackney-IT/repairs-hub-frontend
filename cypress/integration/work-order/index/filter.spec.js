@@ -464,6 +464,72 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000032]')
     })
 
+    it('Clears filters one by one', () => {
+      cy.wait(['@filters', '@workOrders'])
+      //SElect Status filters
+      cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
+      cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
+      //Select Priority filters
+      cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
+
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval')
+          cy.contains('In Progress')
+        })
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency')
+        })
+      })
+
+      //Removing filters manually one by one
+
+      //Removing Variation Pending Approval
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval X').click()
+        })
+      })
+      cy.url().should(
+        'eq',
+        'http://localhost:5001/?pageNumber=1&StatusCode=80&Priorities=2'
+      )
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval').should('not.exist')
+        })
+      })
+
+      //Removing In Progress
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('In Progress X').click()
+        })
+      })
+      cy.url().should('eq', 'http://localhost:5001/?pageNumber=1&Priorities=2')
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').should('not.exist')
+      })
+
+      //Removing In Progress
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency X').click()
+        })
+      })
+      cy.url().should('eq', 'http://localhost:5001/?pageNumber=1')
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Priority').should('not.exist')
+      })
+    })
+
     it('Clears all filters', () => {
       cy.wait(['@filters', '@workOrders'])
 
