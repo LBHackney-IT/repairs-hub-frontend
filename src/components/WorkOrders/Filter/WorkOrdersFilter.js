@@ -329,6 +329,7 @@ WorkOrdersFilter.propTypes = {
   appliedFilters: PropTypes.object,
   register: PropTypes.func.isRequired,
   clearFilters: PropTypes.func.isRequired,
+  onFilterRemove: PropTypes.func.isRequired,
 }
 
 export default WorkOrdersFilter

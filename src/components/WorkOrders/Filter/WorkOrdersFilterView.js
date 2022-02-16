@@ -86,6 +86,7 @@ const WorkOrdersFilterView = ({
 WorkOrdersFilterView.propTypes = {
   onFilterSubmit: PropTypes.func.isRequired,
   appliedFilters: PropTypes.object,
+  onFilterRemove: PropTypes.func.isRequired,
 }
 
 export default WorkOrdersFilterView

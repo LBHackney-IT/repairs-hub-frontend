@@ -28,7 +28,7 @@ describe('convertValuesOfObjectToArray', () => {
     Priority: 'High',
   }
 
-  it('returns object with values converted to array and skips values that we do not want to convert and keeps as string', () => {
+  it('returns object with values converted to array and skips values that we do not want to convert', () => {
     expect(
       convertValuesOfObjectToArray(objectWithStrings, [
         'pageNumber',

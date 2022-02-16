@@ -16,6 +16,9 @@ const FilterTag = ({ text, index, category, onFilterRemove }) => {
 
 FilterTag.propTypes = {
   text: PropTypes.string.isRequired,
+  onFilterRemove: PropTypes.func.isRequired,
+  category: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 }
 
 export default FilterTag
