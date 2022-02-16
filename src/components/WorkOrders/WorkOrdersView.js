@@ -9,6 +9,7 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import Meta from '../Meta'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
+import { convertValuesOfObjectToArray } from '@/utils/helpers/array'
 
 const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 
@@ -39,7 +40,10 @@ const WorkOrdersView = ({ query }) => {
   }
 
   const onFilterRemove = (category, indexNumber) => {
-    const updatedAppliedFilters = convertValuesOfObjectToArray(queryParams)
+    const updatedAppliedFilters = convertValuesOfObjectToArray(queryParams, [
+      'pageNumber',
+      'IncludeHistorical',
+    ])
     switch (category.toLowerCase()) {
       case 'contractor':
         updatedAppliedFilters.ContractorReference.splice(indexNumber, 1)
@@ -124,17 +128,7 @@ const WorkOrdersView = ({ query }) => {
       },
     })
   }
-  const convertValuesOfObjectToArray = (object) => {
-    const newObject = Object.assign({}, object)
-    for (let [key, value] of Object.entries(newObject)) {
-      if (key === 'pageNumber' || key === 'IncludeHistorical') continue
 
-      if (!Array.isArray(value)) {
-        newObject[key] = [value]
-      }
-    }
-    return newObject
-  }
   return (
     <>
       <Meta title="Manage work orders" />
@@ -145,7 +139,10 @@ const WorkOrdersView = ({ query }) => {
         >
           <WorkOrdersFilterView
             onFilterSubmit={onFilterSubmit}
-            appliedFilters={convertValuesOfObjectToArray(queryParams)}
+            appliedFilters={convertValuesOfObjectToArray(queryParams, [
+              'pageNumber',
+              'IncludeHistorical',
+            ])}
             clearFilters={clearFilters}
             onFilterRemove={onFilterRemove}
           />

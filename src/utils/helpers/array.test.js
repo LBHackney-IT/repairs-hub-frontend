@@ -1,4 +1,4 @@
-import { sortArrayByDate } from './array'
+import { sortArrayByDate, convertValuesOfObjectToArray } from './array'
 
 describe('sortArrayByDate', () => {
   const unsortedArray = [
@@ -17,5 +17,28 @@ describe('sortArrayByDate', () => {
       { code: '100002', dateAdded: '2021-02-02T09:33:35.757339' },
       { code: '100001', dateAdded: '2021-02-01T09:33:35.757339' },
     ])
+  })
+})
+
+describe('convertValuesOfObjectToArray', () => {
+  const objectWithStrings = {
+    pageNumber: '1',
+    IncludeHistorical: false,
+    Contractor: 'HO1',
+    Priority: 'High',
+  }
+
+  it('returns object with values converted to array and skips values that we do not want to convert and keeps as string', () => {
+    expect(
+      convertValuesOfObjectToArray(objectWithStrings, [
+        'pageNumber',
+        'IncludeHistorical',
+      ])
+    ).toEqual({
+      pageNumber: '1',
+      IncludeHistorical: false,
+      Contractor: ['HO1'],
+      Priority: ['High'],
+    })
   })
 })
