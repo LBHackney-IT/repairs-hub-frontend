@@ -518,7 +518,7 @@ describe('Filter work orders', () => {
         cy.get('#selected-filters-Status').should('not.exist')
       })
 
-      //Removing In Progress
+      //Removing Emergency
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Priority').within(() => {
           cy.contains('Emergency X').click()

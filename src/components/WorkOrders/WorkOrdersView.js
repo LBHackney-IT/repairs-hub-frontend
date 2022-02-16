@@ -123,7 +123,7 @@ const WorkOrdersView = ({ query }) => {
         ...(filters?.Priorities && { Priorities: filters.Priorities }),
         ...(filters?.TradeCodes && { TradeCodes: filters.TradeCodes }),
         ...(filters?.ContractorReference && {
-          ContractorReference: [...filters.ContractorReference],
+          ContractorReference: filters.ContractorReference,
         }),
       },
     })
