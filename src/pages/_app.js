@@ -2,6 +2,7 @@ import '@/styles/all.scss'
 import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
+import { configureScope } from '@sentry/nextjs'
 
 import {
   isAuthorised,
@@ -11,6 +12,10 @@ import {
 
 import UserContext from '@/components/UserContext'
 import Meta from '@/components/Meta'
+
+const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
+const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
+  process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
 
 if (typeof window !== 'undefined') {
   document.body.className = document.body.className
@@ -59,6 +64,20 @@ MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
   if (!userDetails) {
     return { accessDenied: true }
   }
+
+  configureScope((scope) => {
+    scope.addEventProcessor((event) => {
+      if (event.request?.cookies[GSSO_TOKEN_NAME]) {
+        event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
+      }
+
+      if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+        event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
+      }
+
+      return event
+    })
+  })
 
   if (userAuthorisedForPage(pageComponent, userDetails)) {
     return { userDetails, accessDenied: false }

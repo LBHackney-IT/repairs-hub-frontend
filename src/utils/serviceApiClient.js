@@ -14,6 +14,7 @@ const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
   GSSO_TOKEN_NAME,
+  NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
   LOG_LEVEL,
 } = process.env
 
@@ -115,6 +116,21 @@ export const authoriseServiceAPIRequest = (callBack) => {
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: 'Auth cookie missing.' })
       }
+
+      Sentry.configureScope((scope) => {
+        scope.addEventProcessor((event) => {
+          if (event.request?.cookies[GSSO_TOKEN_NAME]) {
+            event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
+          }
+
+          if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+            event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
+              '[REMOVED]'
+          }
+
+          return event
+        })
+      })
 
       // Call the function defined in the API route
       return await callBack(req, res, user)
