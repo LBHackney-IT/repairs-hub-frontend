@@ -91,6 +91,9 @@ jobs:
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=development
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -112,6 +115,9 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=staging
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -133,6 +139,9 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=production
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:

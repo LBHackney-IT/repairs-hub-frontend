@@ -71,7 +71,7 @@ MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
 }
 
 const userAuthorisedForPage = (component, user) => {
-  if (component.name === 'Error') {
+  if (component.name === 'RepairsHubError') {
     return true
   }
 

@@ -23,6 +23,7 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
+    "@sentry/nextjs": "^6.17.9",
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
     "date-fns": "^2.16.1",

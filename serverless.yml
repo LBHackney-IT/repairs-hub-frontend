@@ -50,6 +50,9 @@ functions:
       REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
       REPAIRS_SERVICE_API_KEY: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-key}
       REPAIRS_SERVICE_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-url}
+      SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
+      SENTRY_ENVIRONMENT: ${self:provider.stage}
+      SENTRY_RELEASE: ${env:CIRCLE_SHA1}
 
 resources:
   Resources:
