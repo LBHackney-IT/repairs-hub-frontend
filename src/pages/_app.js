@@ -2,7 +2,7 @@ import '@/styles/all.scss'
 import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
-import { configureScope } from '@sentry/nextjs'
+import { configureScope, setUser } from '@sentry/nextjs'
 
 import {
   isAuthorised,
@@ -25,9 +25,13 @@ if (typeof window !== 'undefined') {
 
 class MyApp extends App {
   render() {
-    const { Component, pageProps } = this.props
+    const { Component, pageProps, userDetails } = this.props
 
     const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
+
+    if (userDetails) {
+      setUser({ name: userDetails.name, email: userDetails.email })
+    }
 
     return (
       <>

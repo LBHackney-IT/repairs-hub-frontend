@@ -115,6 +115,8 @@ export const authoriseServiceAPIRequest = (callBack) => {
         return res
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: 'Auth cookie missing.' })
+      } else {
+        Sentry.setUser({ name: user.name, email: user.email })
       }
 
       Sentry.configureScope((scope) => {
