@@ -7,6 +7,9 @@ import { cache } from './middleware/cache'
 import { CACHE_MAX_AGE_IN_SECONDS } from './helpers/cache'
 import logger from 'loglevel'
 
+// Sentry doesn't load the config for API routes automatically
+import { Sentry } from '@/root/sentry.server.config'
+
 const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
@@ -116,6 +119,8 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
+      Sentry.captureException(error)
+
       const errorResponse = error.response
       if (errorResponse) {
         // The request was made and the server responded with a non-200 status
