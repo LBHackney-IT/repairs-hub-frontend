@@ -218,9 +218,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
-    cy.wait('@apiCheck')
-
-    cy.get('@apiCheck')
+    cy.wait('@apiCheck', { requestTimeout: 6000 })
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
