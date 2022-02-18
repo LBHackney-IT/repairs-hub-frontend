@@ -45,7 +45,7 @@ describe('SelectedFilterOptions', () => {
       },
       {
         key: '30',
-        description: 'Work Cancelled',
+        description: 'Cancelled',
       },
       {
         key: '1010',
