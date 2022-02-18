@@ -75,9 +75,11 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
                 workOrder.appointment &&
                 workOrder.status !== STATUS_CANCELLED &&
                 appointmentDetailsInfoHtml()}
+
               {canScheduleAppointment(user) &&
                 workOrder.canBeScheduled() &&
                 scheduleAppointmentHtml(workOrder.appointment)}
+
               {canSeeAppointmentDetailsInfo(user) &&
                 !workOrder.appointment &&
                 !workOrder.canBeScheduled() && (

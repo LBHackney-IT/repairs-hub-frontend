@@ -5,6 +5,7 @@ import {
   IMMEDIATE_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
+  SURVEY_PRIORITY_CODE,
   PLANNED_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
 import {
@@ -19,14 +20,19 @@ import MockDate from 'mockdate'
 describe('WorkOrder', () => {
   describe('isHigherPriority()', () => {
     ;[IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE].forEach((code) => {
-      it('returns true', () => {
+      it(`returns true when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.isHigherPriority()).toBe(true)
       })
     })
-    ;[URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE].forEach((code) => {
-      it('returns false', () => {
+    ;[
+      URGENT_PRIORITY_CODE,
+      NORMAL_PRIORITY_CODE,
+      SURVEY_PRIORITY_CODE,
+      PLANNED_PRIORITY_CODE,
+    ].forEach((code) => {
+      it(`returns false when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.isHigherPriority()).toBe(false)
@@ -35,19 +41,21 @@ describe('WorkOrder', () => {
   })
 
   describe('isAppointmentRequired()', () => {
-    ;[URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE].forEach((code) => {
-      it('returns true', () => {
-        const workOrder = new WorkOrder({ priorityCode: code })
+    ;[URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE, SURVEY_PRIORITY_CODE].forEach(
+      (code) => {
+        it(`returns true when the priorityCode is ${code}`, () => {
+          const workOrder = new WorkOrder({ priorityCode: code })
 
-        expect(workOrder.isAppointmentRequired()).toBe(true)
-      })
-    })
+          expect(workOrder.isAppointmentRequired()).toBe(true)
+        })
+      }
+    )
     ;[
       IMMEDIATE_PRIORITY_CODE,
       EMERGENCY_PRIORITY_CODE,
       PLANNED_PRIORITY_CODE,
     ].forEach((code) => {
-      it('returns false', () => {
+      it(`returns false when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.isAppointmentRequired()).toBe(false)
@@ -76,15 +84,19 @@ describe('WorkOrder', () => {
         expect(workOrder.canBeScheduled()).toBe(false)
       })
     })
-    ;[(URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE)].forEach((code) => {
-      it('returns true', () => {
+    ;[
+      (URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE, SURVEY_PRIORITY_CODE),
+    ].forEach((code) => {
+      it(`returns true when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.canBeScheduled()).toBe(true)
       })
     })
-    ;[(IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE)].forEach((code) => {
-      it('returns false', () => {
+    ;[
+      (IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE, PLANNED_PRIORITY_CODE),
+    ].forEach((code) => {
+      it(`returns false when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.canBeScheduled()).toBe(false)
