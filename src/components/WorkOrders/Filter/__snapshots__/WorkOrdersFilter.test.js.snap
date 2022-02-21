@@ -309,7 +309,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -777,7 +777,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -1245,7 +1245,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -1767,7 +1767,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -2306,7 +2306,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -2757,7 +2757,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
@@ -3279,7 +3279,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
                   for="StatusCode.30"
                 >
-                  Work cancelled
+                  Cancelled
                 </label>
               </div>
               <div
