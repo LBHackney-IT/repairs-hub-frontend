@@ -494,7 +494,15 @@ describe('Filter work orders', () => {
       //Removing Variation Pending Approval
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Status').within(() => {
-          cy.contains('Variation Pending Approval X').click()
+          cy.contains('li', 'Variation Pending Approval').within(() => {
+            cy.get('button')
+              .should(
+                'have.attr',
+                'aria-label',
+                'Remove Variation Pending Approval filter'
+              )
+              .click()
+          })
         })
       })
       cy.url().should(
@@ -510,7 +518,11 @@ describe('Filter work orders', () => {
       //Removing In Progress
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Status').within(() => {
-          cy.contains('In Progress X').click()
+          cy.contains('li', 'In Progress').within(() => {
+            cy.get('button')
+              .should('have.attr', 'aria-label', 'Remove In Progress filter')
+              .click()
+          })
         })
       })
       cy.url().should('eq', 'http://localhost:5001/?pageNumber=1&Priorities=2')
@@ -521,7 +533,11 @@ describe('Filter work orders', () => {
       //Removing Emergency
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Priority').within(() => {
-          cy.contains('Emergency X').click()
+          cy.contains('li', 'Emergency').within(() => {
+            cy.get('button')
+              .should('have.attr', 'aria-label', 'Remove Emergency filter')
+              .click()
+          })
         })
       })
       cy.url().should('eq', 'http://localhost:5001/?pageNumber=1')
