@@ -103,7 +103,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -131,7 +131,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -171,7 +171,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -211,7 +211,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -239,7 +239,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -747,7 +747,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -775,7 +775,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -815,7 +815,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -855,7 +855,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -883,7 +883,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1320,7 +1320,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1348,7 +1348,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1388,7 +1388,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1428,7 +1428,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1456,7 +1456,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1876,7 +1876,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1904,7 +1904,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1944,7 +1944,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -1984,7 +1984,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2012,7 +2012,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2520,7 +2520,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2548,7 +2548,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2588,7 +2588,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2628,7 +2628,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -2656,7 +2656,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3147,7 +3147,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3175,7 +3175,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3215,7 +3215,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3255,7 +3255,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3283,7 +3283,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3703,7 +3703,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       Purdy Contracts (P) Ltd
                       <button
                         aria-label="Remove Purdy Contracts (P) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3731,7 +3731,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       Avonline Network (A) Ltd
                       <button
                         aria-label="Remove Avonline Network (A) Ltd filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3771,7 +3771,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       In Progress
                       <button
                         aria-label="Remove In Progress filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3811,7 +3811,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       Immediate
                       <button
                         aria-label="Remove Immediate filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg
@@ -3839,7 +3839,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       Emergency
                       <button
                         aria-label="Remove Emergency filter"
-                        class="govuk-!-margin-left-2"
+                        class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
                         <svg

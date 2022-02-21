@@ -13,7 +13,7 @@ const FilterTag = ({ text, index, category, onFilterRemove }) => {
       <button
         type="button"
         aria-label={`Remove ${text} filter`}
-        className="govuk-!-margin-left-2"
+        className="govuk-!-margin-left-1 filter-remove-button"
         onClick={handleOnclick}
       >
         <svg
