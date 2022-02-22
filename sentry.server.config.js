@@ -14,7 +14,7 @@ const {
 
 Sentry.init({
   dsn: SENTRY_DSN,
-  tracesSampleRate: 1.0,
+  tracesSampleRate: 0.1,
   environment: SENTRY_ENVIRONMENT,
   release: SENTRY_RELEASE,
   debug: SENTRY_DEBUG === 'true',
