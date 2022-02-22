@@ -40,16 +40,14 @@
     "typeCode": "SEC",
     "typeDescription": "Secure"
   },
-  "contacts": [
+  "contactDetails": [
     {
-      "firstName": "Mark",
-      "lastName": "Gardner",
-      "phoneNumbers": ["00000111111", "00000222222"]
+      "fullName": "Mark Gardner",
+      "phoneNumbers": [{ "value": "00000111111" }, { "value": "00000222222" }]
     },
     {
-      "firstName": "Luam",
-      "lastName": "Berhane",
-      "phoneNumbers": ["00000666666"]
+      "fullName": "Luam Berhane",
+      "phoneNumbers": [{ "value": "00000666666" }]
     }
   ]
 }

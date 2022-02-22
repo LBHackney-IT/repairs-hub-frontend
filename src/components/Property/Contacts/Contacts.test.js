@@ -15,14 +15,16 @@ describe('Contacts component', () => {
   describe('when supplied with a list of contacts', () => {
     const contacts = [
       {
-        firstName: 'Mark',
-        lastName: 'Gardner',
-        phoneNumbers: ['00000111111', '00000222222', '00000333333'],
+        fullName: 'Mark Gardner',
+        phoneNumbers: [
+          { value: '00000111111' },
+          { value: '00000222222' },
+          { value: '00000333333' },
+        ],
       },
       {
-        firstName: 'Luam',
-        lastName: 'Berhane',
-        phoneNumbers: ['', '', '00000333333'],
+        fullName: 'Luam Berhane',
+        phoneNumbers: [{ value: '' }, { value: '' }, { value: '00000333333' }],
       },
     ]
 
