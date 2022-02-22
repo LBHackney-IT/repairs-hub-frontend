@@ -94,6 +94,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_ENVIRONMENT=development
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -118,6 +119,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_ENVIRONMENT=staging
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -142,6 +144,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_ENVIRONMENT=production
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:
