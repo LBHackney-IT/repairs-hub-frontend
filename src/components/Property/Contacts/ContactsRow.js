@@ -4,10 +4,10 @@ import { TR, TD } from '../../Layout/Table'
 const Row = ({ contact }) => {
   return (
     <TR>
-      <TD>{[contact?.firstName, contact?.lastName].join(' ')}</TD>
-      <TD>{contact.phoneNumbers[0]}</TD>
-      <TD>{contact.phoneNumbers[1]}</TD>
-      <TD>{contact.phoneNumbers[2]}</TD>
+      <TD>{[contact?.fullName]}</TD>
+      <TD>{contact.phoneNumbers[0]?.value}</TD>
+      <TD>{contact.phoneNumbers[1]?.value}</TD>
+      <TD>{contact.phoneNumbers[2]?.value}</TD>
     </TR>
   )
 }
