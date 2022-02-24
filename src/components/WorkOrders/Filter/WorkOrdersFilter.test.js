@@ -94,6 +94,7 @@ describe('WorkOrdersFilter component', () => {
     loading: false,
     register: jest.fn(),
     clearFilters: jest.fn(),
+    onFilterRemove: jest.fn(),
   }
 
   const selectedFilters = new SelectedFilterOptions(
@@ -112,6 +113,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -130,6 +132,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -148,6 +151,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -166,6 +170,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -192,6 +197,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -212,6 +218,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )
@@ -230,6 +237,7 @@ describe('WorkOrdersFilter component', () => {
             clearFilters={props.clearFilters}
             appliedFilters={props.appliedFilters}
             selectedFilters={selectedFilters}
+            onFilterRemove={props.onFilterRemove}
           />
         </UserContext.Provider>
       )

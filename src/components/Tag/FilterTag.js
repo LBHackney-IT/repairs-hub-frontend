@@ -8,8 +8,6 @@ const FilterTag = ({ text, index, category, onFilterRemove }) => {
 
   return (
     <li className="filter-tag lbh-body-xs">
-      {text}
-
       <button
         type="button"
         aria-label={`Remove ${text} filter`}
@@ -34,6 +32,7 @@ const FilterTag = ({ text, index, category, onFilterRemove }) => {
           ></path>
         </svg>
       </button>
+      {text}
     </li>
   )
 }
