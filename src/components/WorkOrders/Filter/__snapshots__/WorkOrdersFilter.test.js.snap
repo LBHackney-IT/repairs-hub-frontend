@@ -97,19 +97,61 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -123,12 +165,33 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -142,19 +205,61 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -636,19 +741,61 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -662,12 +809,33 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -681,19 +849,61 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -1104,19 +1314,61 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -1130,12 +1382,33 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -1149,19 +1422,61 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -1555,19 +1870,61 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -1581,12 +1938,33 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -1600,19 +1978,61 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -2094,19 +2514,61 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -2120,12 +2582,33 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -2139,19 +2622,61 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -2616,19 +3141,61 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -2642,12 +3209,33 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -2661,19 +3249,61 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>
@@ -3067,19 +3697,61 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                     class="filter-tags"
                     id="selected-filters-Contractor"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Purdy Contracts (P) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Purdy Contracts (P) Ltd
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Avonline Network (A) Ltd filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Avonline Network (A) Ltd
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Avonline Network (A) Ltd
                     </li>
                   </ul>
                 </div>
@@ -3093,12 +3765,33 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                     class="filter-tags"
                     id="selected-filters-Status"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove In Progress filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        In Progress
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      In Progress
                     </li>
                   </ul>
                 </div>
@@ -3112,19 +3805,61 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                     class="filter-tags"
                     id="selected-filters-Priority"
                   >
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Immediate filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Immediate
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Immediate
                     </li>
-                    <li>
-                      <a
-                        class="lbh-body-xs filter-tag"
+                    <li
+                      class="filter-tag lbh-body-xs"
+                    >
+                      <button
+                        aria-label="Remove Emergency filter"
+                        class="govuk-!-margin-left-1 filter-remove-button"
+                        type="button"
                       >
-                        Emergency
-                      </a>
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          height="12"
+                          viewBox="0 0 13 13"
+                          width="12"
+                        >
+                          <path
+                            d="M-0.0501709 1.36379L1.36404 -0.050415L12.6778 11.2633L11.2635 12.6775L-0.0501709 1.36379Z"
+                            fill="#0B0C0C"
+                          />
+                          <path
+                            d="M11.2635 -0.050293L12.6778 1.36392L1.36404 12.6776L-0.0501709 11.2634L11.2635 -0.050293Z"
+                            fill="#0B0C0C"
+                          />
+                        </svg>
+                      </button>
+                      Emergency
                     </li>
                   </ul>
                 </div>

@@ -15,7 +15,7 @@ describe('Filter work orders', () => {
           '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
       },
       { fixture: 'workOrders/workOrders.json' }
-    ).as('workOrders')
+    ).as('allFiltersRemoved')
 
     cy.intercept(
       {
@@ -24,6 +24,14 @@ describe('Filter work orders', () => {
       },
       { body: [] }
     ).as('workOrdersCancelled')
+
+    cy.intercept(
+      {
+        path:
+          '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&Priorities=2&IncludeHistorical=false',
+      },
+      { body: [] }
+    ).as('filtersWithoutVariationPendingApproval')
 
     cy.fixture('workOrders/workOrders.json')
       .then((workOrders) => {
@@ -122,7 +130,7 @@ describe('Filter work orders', () => {
     })
 
     it('Filter work orders', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // Status filter options
       cy.get('.govuk-checkboxes')
@@ -426,7 +434,7 @@ describe('Filter work orders', () => {
 
       cy.url().should('contains', '/?pageNumber=1')
 
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // All work orders
       cy.get('[data-ref=10000040]')
@@ -464,8 +472,91 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000032]')
     })
 
+    it('Clears filters one by one', () => {
+      cy.wait(['@filters', '@allFiltersRemoved'])
+
+      cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
+      cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
+      cy.get('.govuk-checkboxes').find('[name="Priorities.2"]').check()
+
+      cy.get('[data-testid=apply-filters]').contains('Apply filters').click()
+
+      cy.wait([
+        '@filters',
+        '@workOrdersInProgressVariationPendingApprovalEmergency',
+      ])
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval')
+          cy.contains('In Progress')
+        })
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('Emergency')
+        })
+      })
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('li', 'Variation Pending Approval').within(() => {
+            cy.get('button')
+              .should(
+                'have.attr',
+                'aria-label',
+                'Remove Variation Pending Approval filter'
+              )
+              .click()
+          })
+        })
+      })
+      cy.wait('@filtersWithoutVariationPendingApproval')
+
+      cy.url().should(
+        'eq',
+        'http://localhost:5001/?pageNumber=1&StatusCode=80&Priorities=2'
+      )
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('Variation Pending Approval').should('not.exist')
+        })
+      })
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').within(() => {
+          cy.contains('li', 'In Progress').within(() => {
+            cy.get('button')
+              .should('have.attr', 'aria-label', 'Remove In Progress filter')
+              .click()
+          })
+        })
+      })
+      cy.wait('@workOrdersEmergency')
+
+      cy.url().should('eq', 'http://localhost:5001/?pageNumber=1&Priorities=2')
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Status').should('not.exist')
+      })
+
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Priority').within(() => {
+          cy.contains('li', 'Emergency').within(() => {
+            cy.get('button')
+              .should('have.attr', 'aria-label', 'Remove Emergency filter')
+              .click()
+          })
+        })
+      })
+      cy.wait('@allFiltersRemoved')
+
+      cy.url().should('eq', 'http://localhost:5001/?pageNumber=1')
+      cy.get('.selected-filters').within(() => {
+        cy.get('#selected-filters-Priority').should('not.exist')
+      })
+    })
+
     it('Clears all filters', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
@@ -535,7 +626,7 @@ describe('Filter work orders', () => {
 
       cy.url().should('contains', '/?pageNumber=1')
 
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
@@ -607,7 +698,7 @@ describe('Filter work orders', () => {
     })
 
     it('Lists all filtering options with the exception of the contractors filter', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // No contractor filter
       cy.get('#contractor-filters').should('not.exist')
@@ -697,7 +788,7 @@ describe('Filter work orders', () => {
       })
 
       it('Lists all filtering options and displays contractors filter', () => {
-        cy.wait(['@filters', '@workOrders'])
+        cy.wait(['@filters', '@allFiltersRemoved'])
 
         // Contractor filter options
         cy.get('#contractor-filters').should('exist')
@@ -814,7 +905,7 @@ describe('Filter work orders', () => {
             expect(
               localStorage.getItem('RH - default work order filters')
             ).to.equal(
-              '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":"2","IncludeHistorical":"false"}'
+              '{"pageNumber":"1","StatusCode":["80","90"],"Priorities":["2"],"IncludeHistorical":"false"}'
             )
             cy.on('window:confirm', (string) => {
               expect(string).to.equal(

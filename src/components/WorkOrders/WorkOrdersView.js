@@ -9,6 +9,7 @@ import { GridColumn, GridRow } from '../Layout/Grid'
 import Meta from '../Meta'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
+import { convertValuesOfObjectToArray } from '@/utils/helpers/array'
 
 const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 
@@ -36,6 +37,31 @@ const WorkOrdersView = ({ query }) => {
 
     setAppliedFilters({})
     updateUrlQueryParams({})
+  }
+
+  const onFilterRemove = (category, indexNumber) => {
+    const updatedAppliedFilters = convertValuesOfObjectToArray(queryParams, [
+      'pageNumber',
+      'IncludeHistorical',
+    ])
+    switch (category.toLowerCase()) {
+      case 'contractor':
+        updatedAppliedFilters.ContractorReference.splice(indexNumber, 1)
+        break
+      case 'priority':
+        updatedAppliedFilters.Priorities.splice(indexNumber, 1)
+        break
+      case 'status':
+        updatedAppliedFilters.StatusCode.splice(indexNumber, 1)
+        break
+      case 'trade':
+        updatedAppliedFilters.TradeCodes.splice(indexNumber, 1)
+        break
+    }
+
+    updateUrlQueryParams(updatedAppliedFilters)
+    delete updatedAppliedFilters['pageNumber']
+    setAppliedFilters(updatedAppliedFilters)
   }
 
   const workOrderView = async (pageNumber, filterOptions = {}) => {
@@ -113,8 +139,12 @@ const WorkOrdersView = ({ query }) => {
         >
           <WorkOrdersFilterView
             onFilterSubmit={onFilterSubmit}
-            appliedFilters={queryParams}
+            appliedFilters={convertValuesOfObjectToArray(queryParams, [
+              'pageNumber',
+              'IncludeHistorical',
+            ])}
             clearFilters={clearFilters}
+            onFilterRemove={onFilterRemove}
           />
         </GridColumn>
 
