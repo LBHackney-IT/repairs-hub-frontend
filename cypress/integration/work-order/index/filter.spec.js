@@ -25,6 +25,15 @@ describe('Filter work orders', () => {
       { body: [] }
     ).as('workOrdersCancelled')
 
+    ///////
+    cy.intercept(
+      {
+        path:
+          '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&Priorities=2&IncludeHistorical=false',
+      },
+      { body: [] }
+    ).as('updatedFilters')
+
     cy.fixture('workOrders/workOrders.json')
       .then((workOrders) => {
         cy.intercept(
@@ -464,7 +473,7 @@ describe('Filter work orders', () => {
       cy.get('[data-ref=10000032]')
     })
 
-    it('Clears filters one by one', () => {
+    it.only('Clears filters one by one', () => {
       cy.wait(['@filters', '@workOrders'])
 
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
@@ -502,6 +511,7 @@ describe('Filter work orders', () => {
         })
       })
 
+      cy.wait('@updatedFilters')
       cy.url().should(
         'eq',
         'http://localhost:5001/?pageNumber=1&StatusCode=80&Priorities=2'
