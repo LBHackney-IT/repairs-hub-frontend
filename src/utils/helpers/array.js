@@ -8,3 +8,15 @@ export const sortArrayByDate = (array, dateAttribute) => {
     return new Date(b[dateAttribute]) - new Date(a[dateAttribute])
   })
 }
+
+export const convertValuesOfObjectToArray = (object, noNeedToConvert = []) => {
+  const newObject = Object.assign({}, object)
+  for (let [key, value] of Object.entries(newObject)) {
+    if (noNeedToConvert.includes(key)) continue
+
+    if (!Array.isArray(value)) {
+      newObject[key] = [value]
+    }
+  }
+  return newObject
+}
