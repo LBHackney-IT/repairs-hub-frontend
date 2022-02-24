@@ -13,6 +13,7 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -187,20 +188,26 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
             personAlerts &&
             priorities &&
             trades && (
-              <RaiseWorkOrderForm
-                propertyReference={propertyReference}
-                address={property.address}
-                hierarchyType={property.hierarchyType}
-                canRaiseRepair={property.canRaiseRepair}
-                tenure={tenure}
-                locationAlerts={locationAlerts}
-                personAlerts={personAlerts}
-                priorities={priorities}
-                trades={trades}
-                contacts={contacts}
-                onFormSubmit={onFormSubmit}
-                raiseLimit={currentUser?.raiseLimit}
-              />
+              <>
+                <WarningInfoBox
+                  header="This priority is currently under legal disrepair"
+                  text="Before raising a work order you must call the Legal Disrepair Team"
+                />
+                <RaiseWorkOrderForm
+                  propertyReference={propertyReference}
+                  address={property.address}
+                  hierarchyType={property.hierarchyType}
+                  canRaiseRepair={property.canRaiseRepair}
+                  tenure={tenure}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
+                  priorities={priorities}
+                  trades={trades}
+                  contacts={contacts}
+                  onFormSubmit={onFormSubmit}
+                  raiseLimit={currentUser?.raiseLimit}
+                />
+              </>
             )}
           {error && <ErrorMessage label={error} />}
         </>
