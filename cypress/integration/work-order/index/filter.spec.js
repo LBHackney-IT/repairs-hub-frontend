@@ -15,7 +15,7 @@ describe('Filter work orders', () => {
           '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
       },
       { fixture: 'workOrders/workOrders.json' }
-    ).as('workOrders')
+    ).as('allFiltersRemoved')
 
     cy.intercept(
       {
@@ -130,7 +130,7 @@ describe('Filter work orders', () => {
     })
 
     it('Filter work orders', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // Status filter options
       cy.get('.govuk-checkboxes')
@@ -434,7 +434,7 @@ describe('Filter work orders', () => {
 
       cy.url().should('contains', '/?pageNumber=1')
 
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // All work orders
       cy.get('[data-ref=10000040]')
@@ -473,7 +473,7 @@ describe('Filter work orders', () => {
     })
 
     it('Clears filters one by one', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
@@ -547,7 +547,7 @@ describe('Filter work orders', () => {
           })
         })
       })
-      cy.wait('@workOrders')
+      cy.wait('@allFiltersRemoved')
 
       cy.url().should('eq', 'http://localhost:5001/?pageNumber=1')
       cy.get('.selected-filters').within(() => {
@@ -556,7 +556,7 @@ describe('Filter work orders', () => {
     })
 
     it('Clears all filters', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       cy.get('.govuk-checkboxes').find('[name="StatusCode.90"]').check()
       cy.get('.govuk-checkboxes').find('[name="StatusCode.80"]').check()
@@ -626,7 +626,7 @@ describe('Filter work orders', () => {
 
       cy.url().should('contains', '/?pageNumber=1')
 
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // Selected filters summary
       cy.get('.selected-filters').within(() => {
@@ -698,7 +698,7 @@ describe('Filter work orders', () => {
     })
 
     it('Lists all filtering options with the exception of the contractors filter', () => {
-      cy.wait(['@filters', '@workOrders'])
+      cy.wait(['@filters', '@allFiltersRemoved'])
 
       // No contractor filter
       cy.get('#contractor-filters').should('not.exist')
@@ -788,7 +788,7 @@ describe('Filter work orders', () => {
       })
 
       it('Lists all filtering options and displays contractors filter', () => {
-        cy.wait(['@filters', '@workOrders'])
+        cy.wait(['@filters', '@allFiltersRemoved'])
 
         // Contractor filter options
         cy.get('#contractor-filters').should('exist')
