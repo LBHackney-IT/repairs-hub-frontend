@@ -25,6 +25,14 @@ describe('Filter work orders', () => {
       { body: [] }
     ).as('workOrdersCancelled')
 
+    cy.intercept(
+      {
+        path:
+          '/api/workOrders/?PageSize=10&PageNumber=1&StatusCode=80&Priorities=2&IncludeHistorical=false',
+      },
+      { body: [] }
+    ).as('filtersWithoutVariationPendingApproval')
+
     cy.fixture('workOrders/workOrders.json')
       .then((workOrders) => {
         cy.intercept(
@@ -501,6 +509,7 @@ describe('Filter work orders', () => {
           })
         })
       })
+      cy.wait('@filtersWithoutVariationPendingApproval')
 
       cy.url().should(
         'eq',
@@ -522,6 +531,7 @@ describe('Filter work orders', () => {
           })
         })
       })
+      cy.wait('@workOrdersEmergency')
 
       cy.url().should('eq', 'http://localhost:5001/?pageNumber=1&Priorities=2')
       cy.get('.selected-filters').within(() => {
@@ -537,6 +547,8 @@ describe('Filter work orders', () => {
           })
         })
       })
+      cy.wait('@workOrders')
+
       cy.url().should('eq', 'http://localhost:5001/?pageNumber=1')
       cy.get('.selected-filters').within(() => {
         cy.get('#selected-filters-Priority').should('not.exist')
