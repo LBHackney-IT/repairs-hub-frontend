@@ -44,6 +44,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -121,6 +122,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         path: '/api/hub-user',
       })
 
+      const isInLegalDisrepair = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/properties/legalDisrepair/${propertyReference}`,
+      })
+
       setTenure(data.tenure)
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
@@ -129,6 +135,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setTrades(trades)
       setContacts(data.contactDetails)
       setCurrentUser(user)
+      setIsInLegalDisrepair(isInLegalDisrepair)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
@@ -189,10 +196,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
             priorities &&
             trades && (
               <>
-                <WarningInfoBox
-                  header="This priority is currently under legal disrepair"
-                  text="Before raising a work order you must call the Legal Disrepair Team"
-                />
+                {isInLegalDisrepair && (
+                  <WarningInfoBox
+                    header="This priority is currently under legal disrepair"
+                    text="Before raising a work order you must call the Legal Disrepair Team"
+                  />
+                )}
                 <RaiseWorkOrderForm
                   propertyReference={propertyReference}
                   address={property.address}
