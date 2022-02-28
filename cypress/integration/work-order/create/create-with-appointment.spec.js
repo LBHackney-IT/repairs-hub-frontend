@@ -77,11 +77,6 @@ describe('Schedule appointment form', () => {
     ).as('availableAppointments')
 
     cy.intercept(
-      { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-      { body: false }
-    ).as('propertyIsNotInLegalDisrepair')
-
-    cy.intercept(
       { method: 'POST', path: '/api/appointments' },
       { body: '' }
     ).as('apiCheckAppointment')

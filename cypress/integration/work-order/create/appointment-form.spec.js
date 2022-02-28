@@ -41,11 +41,6 @@ describe('Schedule appointment form', () => {
       { fixture: 'scheduleOfRates/trades.json' }
     )
 
-    cy.intercept(
-      { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-      { body: false }
-    ).as('propertyIsNotInLegalDisrepair')
-
     cy.fixture('workOrders/workOrder.json')
       .then((workOrder) => {
         workOrder.target = targetTime

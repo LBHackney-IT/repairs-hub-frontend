@@ -43,7 +43,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -121,11 +120,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         path: '/api/hub-user',
       })
 
-      const isInLegalDisrepair = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/legalDisrepair/${propertyReference}`,
-      })
-
       setTenure(data.tenure)
       setProperty(data.property)
       setLocationAlerts(data.alerts.locationAlert)
@@ -134,7 +128,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setTrades(trades)
       setContacts(data.contactDetails)
       setCurrentUser(user)
-      setIsInLegalDisrepair(isInLegalDisrepair)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
@@ -207,7 +200,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
-                isInLegalDisrepair={isInLegalDisrepair}
               />
             )}
           {error && <ErrorMessage label={error} />}
