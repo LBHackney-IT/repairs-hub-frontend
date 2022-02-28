@@ -134,7 +134,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setTrades(trades)
       setContacts(data.contactDetails)
       setCurrentUser(user)
-      setIsInLegalDisrepair(isInLegalDisrepair)
+      setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
