@@ -43,7 +43,7 @@ describe('Schedule appointment form', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-      { body: false }
+      { body: { propertyIsInLegalDisrepair: false } }
     ).as('propertyIsNotInLegalDisrepair')
 
     cy.fixture('workOrders/workOrder.json')
