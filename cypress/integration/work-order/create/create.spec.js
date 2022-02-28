@@ -55,6 +55,11 @@ describe('Raise repair form', () => {
     ).as('tradesRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+      { body: false }
+    ).as('propertyIsNotInLegalDisrepair')
+
+    cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
       {
         body: {
@@ -72,7 +77,12 @@ describe('Raise repair form', () => {
   it('Validates missing form inputs', () => {
     cy.visit('/properties/00012345/raise-repair/new')
 
-    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+    cy.wait([
+      '@propertyRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+      '@propertyIsNotInLegalDisrepair',
+    ])
 
     cy.get('[type="submit"]')
       .contains('Create work order')
@@ -789,6 +799,38 @@ describe('Raise repair form', () => {
         '/properties/00012345'
       )
       cy.contains('Start a new search').should('have.attr', 'href', '/')
+    })
+  })
+
+  context('When property is in legal disrepair', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+        { fixture: 'properties/propertyInLegalDisrepair.json' }
+      ).as('propertyInLegalDisrepair')
+    })
+    it('Shows warning text', () => {
+      cy.visit('/properties/00012345')
+
+      cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+      cy.get('.lbh-heading-h2')
+        .contains('Raise a work order on this dwelling')
+        .click()
+
+      cy.wait([
+        '@propertyRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+        '@propertyInLegalDisrepair',
+      ])
+
+      cy.get('.warning-info-box').within(() => {
+        cy.contains('This property is currently under legal disrepair')
+        cy.contains(
+          'Before raising a work order you must call the Legal Disrepair Team'
+        )
+      })
     })
   })
 })
