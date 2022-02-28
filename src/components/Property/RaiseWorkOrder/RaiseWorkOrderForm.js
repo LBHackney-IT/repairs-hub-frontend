@@ -11,7 +11,6 @@ import {
 import TradeContractorRateScheduleItemView from './TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
-import WarningInfoBox from '../../Template/WarningInfoBox'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
@@ -31,7 +30,6 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
-  isInLegalDisrepair,
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const [priorityCode, setPriorityCode] = useState()
@@ -121,12 +119,7 @@ const RaiseWorkOrderForm = ({
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
-          {isInLegalDisrepair && (
-            <WarningInfoBox
-              header="This property is currently under legal disrepair"
-              text="Before raising a work order you must call the Legal Disrepair Team"
-            />
-          )}
+
           <div className="lbh-body-s">
             <TenureDetails
               canRaiseRepair={canRaiseRepair}
@@ -247,7 +240,6 @@ RaiseWorkOrderForm.propTypes = {
   trades: PropTypes.array.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  isInLegalDisrepair: PropTypes.bool.isRequired,
 }
 
 export default RaiseWorkOrderForm
