@@ -840,9 +840,10 @@ describe('Raise repair form', () => {
       beforeEach(() => {
         cy.intercept(
           { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-          { body: false }
+          { body: { propertyIsInLegalDisrepair: false } }
         ).as('propertyInLegalDisrepair')
       })
+
       it('Does not show warning text', () => {
         cy.visit('/properties/00012345')
 
@@ -863,6 +864,42 @@ describe('Raise repair form', () => {
       })
     }
   )
+
+  context('When legal disrepair request returns an error', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+        {
+          statusCode: 404,
+          body: {
+            message: 'Cannot fetch legal disrepairs',
+          },
+        }
+      ).as('propertyInLegalDisrepairError')
+    })
+
+    it('Shows a custom error message for legal disrepair', () => {
+      cy.visit('/properties/00012345')
+
+      cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+      cy.get('.lbh-heading-h2')
+        .contains('Raise a work order on this dwelling')
+        .click()
+
+      cy.wait([
+        '@propertyRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+        '@propertyInLegalDisrepairError',
+      ])
+
+      cy.get('.warning-info-box').should('not.exist')
+      cy.contains(
+        'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
+      )
+    })
+  })
 })
 
 // This is a "special" integration test to end-to-end test

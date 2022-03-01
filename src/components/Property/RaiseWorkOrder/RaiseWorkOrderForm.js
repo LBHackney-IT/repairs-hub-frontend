@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import TenureDetails from '../TenureDetails'
 import BackButton from '../../Layout/BackButton'
@@ -17,6 +17,9 @@ import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
 import SelectPriority from './SelectPriority'
 import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import Spinner from '@/components/Spinner'
+import ErrorMessage from '@/components/Errors/ErrorMessage'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -31,12 +34,14 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
-  isInLegalDisrepair,
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
+  const [loading, setLoading] = useState(false)
+  const [legalDisrepairError, setLegalDisRepairError] = useState()
   const [priorityCode, setPriorityCode] = useState()
 
   const [totalCost, setTotalCost] = useState('')
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
@@ -54,6 +59,23 @@ const RaiseWorkOrderForm = ({
     })
 
     onFormSubmit(scheduleWorkOrderFormData)
+  }
+
+  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/legalDisrepair/${propertyReference}`,
+    })
+      .then((isInLegalDisrepair) =>
+        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
+      )
+      .catch((error) => {
+        console.error('Error loading legal disrepair status:', error.response)
+        setLegalDisRepairError(
+          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setLoading(false))
   }
 
   const getPriorityObjectByDescription = (description) => {
@@ -112,6 +134,23 @@ const RaiseWorkOrderForm = ({
     }
   }
 
+  const renderLegalDisrepair = (isInLegalDisrepair) => {
+    return (
+      isInLegalDisrepair && (
+        <WarningInfoBox
+          header="This property is currently under legal disrepair"
+          text="Before raising a work order you must call the Legal Disrepair Team"
+        />
+      )
+    )
+  }
+
+  useEffect(() => {
+    setLoading(true)
+
+    getPropertyInfoOnLegalDisrepair(propertyReference)
+  }, [])
+
   return (
     <>
       <BackButton />
@@ -121,12 +160,11 @@ const RaiseWorkOrderForm = ({
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
-          {isInLegalDisrepair && (
-            <WarningInfoBox
-              header="This property is currently under legal disrepair"
-              text="Before raising a work order you must call the Legal Disrepair Team"
-            />
-          )}
+
+          {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
+
+          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+
           <div className="lbh-body-s">
             <TenureDetails
               canRaiseRepair={canRaiseRepair}
@@ -135,11 +173,9 @@ const RaiseWorkOrderForm = ({
               personAlerts={personAlerts}
             />
           </div>
-
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Work order task details
           </h2>
-
           <form
             role="form"
             id="repair-request-form"
@@ -247,7 +283,6 @@ RaiseWorkOrderForm.propTypes = {
   trades: PropTypes.array.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
-  isInLegalDisrepair: PropTypes.bool.isRequired,
 }
 
 export default RaiseWorkOrderForm
