@@ -104,10 +104,6 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.wait('@workOrder')
 
-    cy.visit('/work-orders/10000040/close')
-
-    cy.wait('@workOrder')
-
     cy.get('form').within(() => {
       cy.contains('Select reason for closing')
         .parent()
