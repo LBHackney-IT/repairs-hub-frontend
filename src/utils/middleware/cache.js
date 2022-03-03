@@ -19,7 +19,6 @@ const validateCacheRequest = (url) => {
   return Boolean(
     url.match(new RegExp('^.*/properties.*$')) ||
       url.match(new RegExp('^.*/schedule-of-rates/.*$')) ||
-      url.match(new RegExp('^.*/filter/.*$')) ||
       url.match(new RegExp('^.*/contractors.*$'))
   )
 }
