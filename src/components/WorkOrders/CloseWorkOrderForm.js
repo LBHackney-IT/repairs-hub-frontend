@@ -98,35 +98,39 @@ const CloseWorkOrderForm = ({
           />
 
           {operativeAssignmentMandatory && (
-            <SelectOperatives
-              assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
-              availableOperatives={availableOperatives}
-              register={register}
-              errors={errors}
-              selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
-              trigger={trigger}
-              getValues={getValues}
-              totalSMV={totalSMV}
-              jobIsSplitByOperative={jobIsSplitByOperative}
-            />
-          )}
+            <>
+              <SelectOperatives
+                assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
+                availableOperatives={availableOperatives}
+                register={register}
+                errors={errors}
+                selectedPercentagesToShowOnEdit={
+                  selectedPercentagesToShowOnEdit
+                }
+                trigger={trigger}
+                getValues={getValues}
+                totalSMV={totalSMV}
+                jobIsSplitByOperative={jobIsSplitByOperative}
+              />
 
-          <Radios
-            label="Payment type"
-            name="paymentType"
-            options={optionsForPaymentType({
-              paymentTypes: [
-                BONUS_PAYMENT_TYPE,
-                OVERTIME_PAYMENT_TYPE,
-                CLOSE_TO_BASE_PAYMENT_TYPE,
-              ],
-              currentPaymentType: paymentType,
-            })}
-            register={register({
-              required: 'Provide payment type',
-            })}
-            error={errors && errors.paymentType}
-          />
+              <Radios
+                label="Payment type"
+                name="paymentType"
+                options={optionsForPaymentType({
+                  paymentTypes: [
+                    BONUS_PAYMENT_TYPE,
+                    OVERTIME_PAYMENT_TYPE,
+                    CLOSE_TO_BASE_PAYMENT_TYPE,
+                  ],
+                  currentPaymentType: paymentType,
+                })}
+                register={register({
+                  required: 'Provide payment type',
+                })}
+                error={errors && errors.paymentType}
+              />
+            </>
+          )}
 
           <TextArea
             name="notes"

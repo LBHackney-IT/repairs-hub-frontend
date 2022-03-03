@@ -28,7 +28,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
-  const [paymentType, setPaymentType] = useState('')
+  const [paymentType, setPaymentType] = useState(null)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
@@ -84,9 +84,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       setWorkOrder(new WorkOrder(workOrder))
-      workOrder.paymentType && setPaymentType(workOrder.paymentType)
 
       if (workOrder.canAssignOperative) {
+        workOrder.paymentType && setPaymentType(workOrder.paymentType)
+
         setSelectedOperatives(workOrder.operatives)
 
         const operatives = await frontEndApiRequest({
@@ -181,7 +182,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setReason(formData.reason)
     setNotes(formData.notes)
     setDateToShow(formData.date)
-    setPaymentType(formData.paymentType)
+    formData.paymentType && setPaymentType(formData.paymentType)
     changeCurrentPage()
     setCompletionTime(formData.completionTime)
   }
