@@ -104,10 +104,6 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.wait('@workOrder')
 
-    cy.visit('/work-orders/10000040/close')
-
-    cy.wait('@workOrder')
-
     cy.get('form').within(() => {
       cy.contains('Select reason for closing')
         .parent()
@@ -324,7 +320,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.audit()
   })
 
-  it('allows specifying an order as overtime', () => {
+  it('allows specifying a payment type of overtime', () => {
     cy.visit('/work-orders/10000040/close')
 
     cy.wait(['@workOrder'])
@@ -373,6 +369,58 @@ describe('Closing a work order on behalf of an operative', () => {
         'have.deep.nested.property',
         'jobStatusUpdates[0].paymentType',
         'Overtime'
+      )
+  })
+
+  it('allows specifying a payment type of close to base', () => {
+    cy.visit('/work-orders/10000040/close')
+
+    cy.wait(['@workOrder'])
+
+    cy.get('.operatives').should('not.exist')
+
+    cy.get('form').within(() => {
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Completed').click()
+        })
+
+      cy.get('#date').type('2021-01-23')
+
+      cy.get('[data-testid=completionTime-hour]').type('12')
+      cy.get('[data-testid=completionTime-minutes]').type('00')
+
+      cy.contains('Payment type')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Close to base').click()
+        })
+
+      cy.get('#notes').type('A note')
+      cy.get('[type="submit"]').contains('Close work order').click()
+    })
+
+    cy.contains('th', 'Payment type').parent().contains('Close to base')
+
+    cy.get('[type="submit"]').contains('Confirm and close').click()
+
+    cy.wait('@apiCheck')
+
+    cy.get('@apiCheck')
+      .its('request.body')
+      .should(
+        'have.deep.nested.property',
+        'jobStatusUpdates[0].comments',
+        'Work order closed - A note - Close to base (Operative payment made)'
+      )
+
+    cy.get('@apiCheck')
+      .its('request.body')
+      .should(
+        'have.deep.nested.property',
+        'jobStatusUpdates[0].paymentType',
+        'CloseToBase'
       )
   })
 
