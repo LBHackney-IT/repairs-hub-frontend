@@ -34,6 +34,7 @@ const NewTaskForm = ({ workOrderReference }) => {
           tradeCode: workOrder.tradeCode,
           propertyReference: workOrder.propertyReference,
           contractorReference: workOrder.contractorReference,
+          showAdditionalTrades: true,
         },
       })
 

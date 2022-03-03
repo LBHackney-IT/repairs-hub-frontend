@@ -100,6 +100,7 @@ const WorkOrderUpdateView = ({ reference }) => {
           tradeCode: workOrder.tradeCode,
           propertyReference: workOrder.propertyReference,
           contractorReference: workOrder.contractorReference,
+          showAdditionalTrades: true,
         },
       })
 
