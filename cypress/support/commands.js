@@ -30,8 +30,12 @@ Cypress.Commands.add('loginWithAgentRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AGENT')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -43,8 +47,12 @@ Cypress.Commands.add('loginWithContractorRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACTOR_ALPHATRACK')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -56,8 +64,12 @@ Cypress.Commands.add('loginWithAgentAndContractorRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_DLO_CONTRACTOR')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -69,8 +81,12 @@ Cypress.Commands.add('loginWithMultipleContractorRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_MULTIPLE_CONTRACTOR')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -82,8 +98,12 @@ Cypress.Commands.add('loginWithContractManagerRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_CONTRACT_MANAGER')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -95,8 +115,12 @@ Cypress.Commands.add('loginWithAuthorisationManagerRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AUTHORISATION_MANAGER')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },
@@ -108,8 +132,12 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_OPERATIVE')
 
   cy.getCookies().should('be.empty')
-  cy.setCookie('hackneyToken', gssoTestKey)
-  cy.getCookie('hackneyToken').should('have.property', 'value', gssoTestKey)
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
 
   cy.intercept(
     { method: 'GET', path: '/api/hub-user' },

@@ -80,6 +80,7 @@ jobs:
       - run:
           name: deploy
           command: |
+            export NEXT_PUBLIC_NODE_ENV=production
             export NEXT_PUBLIC_ENV_NAME=development
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=$OUT_OF_HOURS_LINK_STAGING
@@ -90,6 +91,10 @@ jobs:
             export NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED=$NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=development
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -99,6 +104,7 @@ jobs:
       - run:
           name: deploy
           command: |
+            export NEXT_PUBLIC_NODE_ENV=production
             export NEXT_PUBLIC_ENV_NAME=staging
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_STAGING
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=$OUT_OF_HOURS_LINK_STAGING
@@ -110,6 +116,10 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=staging
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -119,6 +129,7 @@ jobs:
       - run:
           name: deploy
           command: |
+            export NEXT_PUBLIC_NODE_ENV=production
             export NEXT_PUBLIC_ENV_NAME=production
             export NEXT_PUBLIC_SCHEDULER_URL=$DRS_URL_PRODUCTION
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=$OUT_OF_HOURS_LINK_PRODUCTION
@@ -130,6 +141,10 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH=$NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH_PRODUCTION
             export NEXT_PUBLIC_SUPPORT_LINK=$SUPPORT_LINK
+            export NEXT_PUBLIC_SENTRY_ENVIRONMENT=production
+            export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
+            export NEXT_PUBLIC_SENTRY_DEBUG=false
+            export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:

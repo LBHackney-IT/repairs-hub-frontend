@@ -32,7 +32,7 @@ export const createDRSSession = async () => {
     )
   } else {
     throw new DRSError(
-      status,
+      statusCode,
       `DRS Web Services returned non-200 response: ${body}`
     )
   }
@@ -50,7 +50,7 @@ export const closeDRSSession = async (sessionID) => {
     return statusCode
   } else {
     throw new DRSError(
-      status,
+      statusCode,
       `DRS Web Services returned non-200 response: ${body}`
     )
   }

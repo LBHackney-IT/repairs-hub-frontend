@@ -25,11 +25,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+# CAUTION: do not remove .env unless you are certain all team members have
+# migrated to the local equivalents (the dotenv-flow approach).
 .env
 .env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*.local
 
 # vercel
 .vercel
@@ -41,3 +41,6 @@ cypress/reports
 
 # serverless
 .serverless
+
+# Sentry
+.sentryclirc

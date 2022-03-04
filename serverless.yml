@@ -26,8 +26,17 @@ functions:
         - src/lambda.js
         - next.config.js
         - public/**
-        - build/_next/**
+        - 'build/_next/BUILD_ID'
+        - 'build/_next/*.json'
+        - 'build/_next/server/**'
+        - 'build/_next/static/**'
         - node_modules/**
+        - '!node_modules/@next/swc-darwin-arm64'
+        - '!node_modules/@next/swc-darwin-x64'
+        - '!node_modules/@next/swc-linux-x64-gnu'
+        - '!node_modules/@next/swc-win32-x64-msvc'
+        - '!node_modules/@sentry/cli/sentry-cli'
+        - '!node_modules/leaflet'
     events:
       - http: ANY /
       - http: ANY /{proxy+}
@@ -35,20 +44,24 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
-      REPAIRS_SERVICE_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-url}
-      REPAIRS_SERVICE_API_KEY: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-key}
-      GSSO_URL: ${ssm:/repairs-hub/${self:provider.stage}/gsso-url}
-      GSSO_TOKEN_NAME: ${ssm:/repairs-hub/${self:provider.stage}/gsso-token-name}
-      HACKNEY_JWT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/hackney-jwt-secret}
       AGENTS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/agents-group-regex}
-      CONTRACTORS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-regex}
-      CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
-      OPERATIVES_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/operatives-group}
-      REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
+      CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
+      CONTRACTORS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-regex}
+      DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
       DRS_WEB_SERVICES_URL: ${ssm:/repairs-hub/${self:provider.stage}/drs-url}
       DRS_WEB_SERVICES_USERNAME: ${ssm:/repairs-hub/${self:provider.stage}/drs-login}
-      DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}
+      GSSO_TOKEN_NAME: ${ssm:/repairs-hub/${self:provider.stage}/gsso-token-name}
+      GSSO_URL: ${ssm:/repairs-hub/${self:provider.stage}/gsso-url}
+      HACKNEY_JWT_SECRET: ${ssm:/repairs-hub/${self:provider.stage}/hackney-jwt-secret}
+      NODE_ENV: production
+      OPERATIVES_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/operatives-group}
+      REDIRECT_URL: ${ssm:/repairs-hub/${self:provider.stage}/redirect-url}
+      REPAIRS_SERVICE_API_KEY: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-key}
+      REPAIRS_SERVICE_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/repairs-service-api-url}
+      SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
+      SENTRY_ENVIRONMENT: ${self:provider.stage}
+      SENTRY_RELEASE: ${env:CIRCLE_SHA1}
 
 resources:
   Resources:
