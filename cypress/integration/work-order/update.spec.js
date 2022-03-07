@@ -57,7 +57,7 @@ describe('Updating a work order', () => {
         {
           method: 'GET',
           path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
@@ -540,7 +540,7 @@ describe('Updating a work order', () => {
         {
           method: 'GET',
           path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC',
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
