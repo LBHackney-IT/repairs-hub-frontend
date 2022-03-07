@@ -34,6 +34,10 @@ export const optionsForPaymentType = ({
 }
 
 export const workOrderNoteFragmentForPaymentType = (paymentType) => {
+  if (!paymentType) {
+    return ''
+  }
+
   const paymentTypeText = PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType]
 
   return [

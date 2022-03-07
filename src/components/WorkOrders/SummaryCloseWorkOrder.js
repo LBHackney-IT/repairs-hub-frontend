@@ -35,15 +35,21 @@ const SummaryCloseWorkOrder = ({
                 </a>
               </TD>
             </TR>
+
             <TR>
               <TH scope="row">Payment type</TH>
-              <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}</TD>
+              <TD>
+                {paymentType
+                  ? PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text
+                  : 'N/A'}
+              </TD>
               <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
                 </a>
               </TD>
             </TR>
+
             {operativeNames && (
               <TR>
                 <TH scope="row">Operatives</TH>
@@ -55,6 +61,7 @@ const SummaryCloseWorkOrder = ({
                 </TD>
               </TR>
             )}
+
             <TR>
               <TH scope="row">Reason</TH>
               <TD>{reason}</TD>
@@ -64,6 +71,7 @@ const SummaryCloseWorkOrder = ({
                 </a>
               </TD>
             </TR>
+
             <TR>
               <TH scope="row">Notes</TH>
               <TD>{notes}</TD>
@@ -89,7 +97,7 @@ SummaryCloseWorkOrder.propTypes = {
   date: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
   reason: PropTypes.string.isRequired,
-  paymentType: PropTypes.string.isRequired,
+  paymentType: PropTypes.string,
 }
 
 export default SummaryCloseWorkOrder
