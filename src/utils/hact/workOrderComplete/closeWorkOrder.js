@@ -22,7 +22,7 @@ export const buildCloseWorkOrderData = (
         otherType: 'completed',
         comments: `Work order closed - ${notes}`,
         eventTime: completionDate,
-        paymentType,
+        ...(paymentType && { paymentType }),
       },
     ],
   }
@@ -60,5 +60,7 @@ export const buildWorkOrderCompleteNotes = (
           .join(' - ')
       : notes
 
-  return [notes, workOrderNoteFragmentForPaymentType(paymentType)].join(' - ')
+  return [notes, workOrderNoteFragmentForPaymentType(paymentType)]
+    .filter((x) => x)
+    .join(' - ')
 }

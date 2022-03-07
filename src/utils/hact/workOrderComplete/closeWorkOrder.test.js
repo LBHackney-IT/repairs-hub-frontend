@@ -100,13 +100,11 @@ describe('buildWorkOrderCompleteNotes', () => {
   })
 
   describe('when there are no operative percentages', () => {
-    describe('and paymentType is Overtime', () => {
-      it('mentions overtime in the notes', () => {
+    describe('and paymentType is null', () => {
+      it('returns the notes only', () => {
         expect(
-          buildWorkOrderCompleteNotes('Comment from user', {}, 'Overtime')
-        ).toEqual(
-          'Comment from user - Overtime work order (SMVs not included in Bonus)'
-        )
+          buildWorkOrderCompleteNotes('Comment from user', {}, null)
+        ).toEqual('Comment from user')
       })
     })
   })

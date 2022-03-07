@@ -5,12 +5,20 @@ import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
 import { cache } from './middleware/cache'
 import { CACHE_MAX_AGE_IN_SECONDS } from './helpers/cache'
+import logger from 'loglevel'
+
+// Sentry doesn't load the config for API routes automatically
+import { Sentry } from '@/root/sentry.server.config'
 
 const {
   REPAIRS_SERVICE_API_URL,
   REPAIRS_SERVICE_API_KEY,
   GSSO_TOKEN_NAME,
+  NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
+  LOG_LEVEL,
 } = process.env
+
+logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
 export const serviceAPIRequest = cache(
   async (request, response, cacheRequest = false) => {
@@ -44,7 +52,7 @@ export const serviceAPIRequest = cache(
 
     // Log request
     api.interceptors.request.use((request) => {
-      console.info(
+      logger.debug(
         'Starting Service API request:',
         JSON.stringify({
           ...request,
@@ -62,7 +70,7 @@ export const serviceAPIRequest = cache(
 
     // Log successful responses
     api.interceptors.response.use((response) => {
-      console.info(
+      logger.debug(
         `Service API response: ${response.status} ${
           response.statusText
         } ${JSON.stringify(response.data)}`
@@ -71,42 +79,70 @@ export const serviceAPIRequest = cache(
       return response
     })
 
-    const { data } = await api({
-      method: request.method,
-      headers,
-      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-      params: queryParams,
-      paramsSerializer,
-      ...(request.body && { data: request.body }),
-    })
+    try {
+      const { data } = await api({
+        method: request.method,
+        headers,
+        url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
+        params: queryParams,
+        paramsSerializer,
+        ...(request.body && { data: request.body }),
+      })
 
-    if (cacheRequest && request.cache) {
-      request.cache.set(cacheKey, { data })
+      if (cacheRequest && request.cache) {
+        request.cache.set(cacheKey, { data })
+      }
+
+      response.setHeader('Cache-Control', 'no-cache')
+      response.setHeader('X-Cache', 'MISS')
+
+      return data
+    } catch (error) {
+      const errorToThrow = new Error(error)
+
+      errorToThrow.response = error.response
+      throw errorToThrow
     }
-
-    response.setHeader('Cache-Control', 'no-cache')
-    response.setHeader('X-Cache', 'MISS')
-
-    return data
   }
 )
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {
-    const user = isAuthorised({ req })
-    if (!user) {
-      return res
-        .status(HttpStatus.UNAUTHORIZED)
-        .json({ message: 'Auth cookie missing.' })
-    }
     try {
+      const user = isAuthorised({ req })
+
+      if (!user) {
+        return res
+          .status(HttpStatus.UNAUTHORIZED)
+          .json({ message: 'Auth cookie missing.' })
+      } else {
+        Sentry.setUser({ name: user.name, email: user.email })
+      }
+
+      Sentry.configureScope((scope) => {
+        scope.addEventProcessor((event) => {
+          if (event.request?.cookies[GSSO_TOKEN_NAME]) {
+            event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
+          }
+
+          if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+            event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
+              '[REMOVED]'
+          }
+
+          return event
+        })
+      })
+
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
+      Sentry.captureException(error)
+
       const errorResponse = error.response
       if (errorResponse) {
         // The request was made and the server responded with a non-200 status
-        console.error(
+        logger.error(
           'Service API response',
           JSON.stringify({
             status: errorResponse?.status,
@@ -126,13 +162,15 @@ export const authoriseServiceAPIRequest = (callBack) => {
               .json({ message: errorResponse?.data || 'Service API error' })
       } else if (error.request) {
         // The request was made but no response was received
-        console.error('Cannot connect to Service API')
+        logger.error('Cannot connect to Service API')
+
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'No response received from Service API' })
       } else {
         // Something happened in setting up the request that triggered an Error
-        console.error('API Client could not setup request', error.message)
+        logger.error('API Client could not setup request', error.message)
+
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'API Client request setup error' })

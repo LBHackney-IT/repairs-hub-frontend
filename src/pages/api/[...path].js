@@ -9,7 +9,14 @@ import {
 // matching those on the service API endpoint so it can forward them
 // without any additional knowledge.
 export default authoriseServiceAPIRequest(async (req, res) => {
-  const data = await serviceAPIRequest(req, res)
+  try {
+    const data = await serviceAPIRequest(req, res)
 
-  res.status(HttpStatus.OK).json(data)
+    res.status(HttpStatus.OK).json(data)
+  } catch (error) {
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
+  }
 })

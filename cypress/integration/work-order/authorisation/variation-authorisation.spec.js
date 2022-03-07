@@ -283,7 +283,7 @@ describe('Contract manager can authorise variation', () => {
 
   //collapsible
   it('shows summary page and calculation of variation cost', () => {
-    cy.visit(`${Cypress.env('HOST')}/work-orders/10000012`)
+    cy.visit('/work-orders/10000012')
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })

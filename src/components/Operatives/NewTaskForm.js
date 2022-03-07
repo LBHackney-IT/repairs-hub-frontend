@@ -34,6 +34,8 @@ const NewTaskForm = ({ workOrderReference }) => {
           tradeCode: workOrder.tradeCode,
           propertyReference: workOrder.propertyReference,
           contractorReference: workOrder.contractorReference,
+          showAdditionalTrades:
+            process.env.NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED === 'true',
         },
       })
 

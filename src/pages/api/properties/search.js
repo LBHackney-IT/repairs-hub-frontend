@@ -23,11 +23,18 @@ export default authoriseServiceAPIRequest(async (req, res) => {
     pageNumber: req.query.pageNumber,
   }
 
-  let data = await serviceAPIRequest(req, res)
+  try {
+    let data = await serviceAPIRequest(req, res)
 
-  if (process.env.NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true') {
-    data = { properties: data, total: data.length }
+    if (process.env.NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true') {
+      data = { properties: data, total: data.length }
+    }
+
+    res.status(HttpStatus.OK).json(data)
+  } catch (error) {
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
   }
-
-  res.status(HttpStatus.OK).json(data)
 })
