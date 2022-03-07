@@ -32,6 +32,9 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     res.status(HttpStatus.OK).json(data)
   } catch (error) {
-    throw Error(error)
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
   }
 })
