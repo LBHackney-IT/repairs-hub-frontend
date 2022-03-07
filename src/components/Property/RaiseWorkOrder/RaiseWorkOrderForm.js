@@ -146,9 +146,11 @@ const RaiseWorkOrderForm = ({
   }
 
   useEffect(() => {
-    setLoading(true)
+    if (process.env.NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED === 'true') {
+      setLoading(true)
 
-    getPropertyInfoOnLegalDisrepair(propertyReference)
+      getPropertyInfoOnLegalDisrepair(propertyReference)
+    }
   }, [])
 
   return (
