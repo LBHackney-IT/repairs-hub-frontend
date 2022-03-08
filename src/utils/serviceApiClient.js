@@ -52,7 +52,7 @@ export const serviceAPIRequest = cache(
 
     // Log request
     api.interceptors.request.use((request) => {
-      logger.debug(
+      logger.info(
         'Starting Service API request:',
         JSON.stringify({
           ...request,
@@ -70,7 +70,7 @@ export const serviceAPIRequest = cache(
 
     // Log successful responses
     api.interceptors.response.use((response) => {
-      logger.debug(
+      logger.info(
         `Service API response: ${response.status} ${
           response.statusText
         } ${JSON.stringify(response.data)}`
