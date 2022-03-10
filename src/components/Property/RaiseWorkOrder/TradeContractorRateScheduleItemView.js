@@ -93,12 +93,13 @@ const TradeContractorRateScheduleItemView = ({
     try {
       const sorCodes = await frontEndApiRequest({
         method: 'get',
-        path: '/api/schedule-of-rates/codes',
+        path: '/api/fake/schedule-of-rates/codes',
         params: {
           tradeCode: tradeCode,
           propertyReference: propertyRef,
           contractorReference: contractorRef,
           isRaisable: true,
+          q: sorSearchQuery,
         },
       })
 

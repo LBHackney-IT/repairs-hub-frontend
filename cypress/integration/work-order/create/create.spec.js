@@ -35,14 +35,14 @@ describe('Raise repair form', () => {
       { fixture: 'contractors/contractors.json' }
     ).as('contractorsRequest')
 
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
-      },
-      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    ).as('sorCodesRequest')
+    // cy.intercept(
+    //   {
+    //     method: 'GET',
+    //     path:
+    //       '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
+    //   },
+    //   { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+    // ).as('sorCodesRequest')
 
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
@@ -128,6 +128,80 @@ describe('Raise repair form', () => {
         cy.get('tbody>tr').eq(1).contains('Luam Berhane')
         cy.get('tbody>tr').eq(1).contains('00000666666')
       })
+  })
+
+  it.only('SOR searching', () => {
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.get('#repair-request-form').within(() => {
+      cy.get('#trade').type('Plumbing - PL')
+
+      cy.wait('@contractorsRequest')
+
+      cy.get('#contractor').type('HH General Building Repair - H01')
+
+      // Three characters of input are required to trigger an SOR search
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('D')
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
+
+      cy.fixture('scheduleOfRates/codesWithIsRaisableTrue.json')
+        .then((codes) => {
+          codes = codes.filter((code) => /^DES/.test(code.code))
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/fake/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true&q=DES',
+            },
+            { body: codes }
+          )
+        })
+        .as('sorCodeSearchDESRequest')
+
+      cy.get('input[id="rateScheduleItems[0][code]"]').type('S')
+
+      cy.wait('@sorCodeSearchDESRequest')
+
+      cy.get('datalist#autocomplete-list-rateScheduleItems[0][code] option')
+        .first()
+        .should('have.text', 'DES5R003 - Immediate call outs')
+        .next()
+        .should('have.text', 'DES5R004 - Emergency call out')
+        .next()
+        .should('have.text', 'DES5R005 - Normal call outs')
+        .next()
+        .should('have.text', 'DES5R006 - Urgent call outs')
+
+      // Expect all returned codes to be available
+
+      // Autopopulates priority description
+      // cy.get('#priorityCode')
+      //   .find('option:selected')
+      //   .should('have.text', '1 [I] IMMEDIATE')
+
+      // cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+
+      // cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+      // cy.get('[data-testid=callerName]').type('NA')
+      // cy.get('[data-testid=contactNumber]').type('NA')
+
+      // cy.get('[type="submit"]').contains('Create work order').click()
+    })
+
+    // cy.wait('@apiCheck').then(({ request }) => {
+    //   cy.wrap(request.body).should('deep.include', {
+    //     priority: {
+    //       priorityCode: IMMEDIATE_PRIORITY_CODE,
+    //       priorityDescription: '1 [I] IMMEDIATE',
+    //       requiredCompletionDateTime: addHours(now, 2).toISOString(),
+    //       numberOfDays: 0,
+    //     },
+    //   })
+    // })
   })
 
   it('Submits work order task details to raise a work order', () => {
