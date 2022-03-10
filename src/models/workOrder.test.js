@@ -159,7 +159,8 @@ describe('WorkOrder', () => {
     })
 
     WORK_ORDERS_STATUSES.filter(
-      (status) => status !== STATUS_COMPLETED.description
+      (status) =>
+        status !== STATUS_COMPLETED.description && status !== 'Work Completed'
     ).forEach((status) => {
       it(`returns the status description when the status is ${status}`, () => {
         const workOrder = new WorkOrder({ status })

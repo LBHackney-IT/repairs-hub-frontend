@@ -58,6 +58,7 @@ export const WORK_ORDERS_STATUSES = [
   STATUS_VARIATION_APPROVED.description,
   STATUS_VARIATION_REJECTED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
 
 export const CLOSED_STATUS_DESCRIPTIONS = [
@@ -65,9 +66,11 @@ export const CLOSED_STATUS_DESCRIPTIONS = [
   STATUS_AUTHORISATION_PENDING_APPROVAL.description,
   STATUS_COMPLETED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
 
 export const CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES = [
   STATUS_COMPLETED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
