@@ -7,7 +7,7 @@ import {
 import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
-  STATUS_COMPLETE,
+  STATUS_COMPLETED,
 } from '@/utils/statusCodes'
 
 export class WorkOrder {
@@ -28,7 +28,7 @@ export class WorkOrder {
   }
 
   completionReason = () => {
-    return this.status === STATUS_COMPLETE.description
+    return this.status === STATUS_COMPLETED.description
       ? 'Completed'
       : this.status
   }
