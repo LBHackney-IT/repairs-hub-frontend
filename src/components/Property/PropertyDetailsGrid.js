@@ -25,6 +25,7 @@ const PropertyDetailsGrid = ({
             tenure={tenure}
             canRaiseRepair={canRaiseRepair}
             tmoName={tmoName}
+            propertyReference={propertyReference}
           />
         </div>
       </div>

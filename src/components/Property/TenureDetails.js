@@ -1,30 +1,124 @@
 import PropTypes from 'prop-types'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import Alerts from './Alerts'
 import Tenure from './Tenure'
 import TenureDetail from './TenureDetail'
+import { useEffect, useState } from 'react'
+import Spinner from '@/components/Spinner'
+import ErrorMessage from '@/components/Errors/ErrorMessage'
 
-const TenureDetails = ({ canRaiseRepair, tenure, tmoName }) => {
+const TenureDetails = ({
+  canRaiseRepair,
+  tenure,
+  tmoName,
+  propertyReference,
+  setParentLocationAlerts,
+  setParentPersonAlerts,
+}) => {
   //Properties with TMO names set to this value aren't actually TMOs
   const TMO_HACKNEY_DEFAULT = 'London Borough of Hackney'
 
-  if ((tenure && Object.keys(tenure).length > 0) || tmoName) {
-    return (
-      <ul className="lbh-list hackney-property-alerts">
-        <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
+  const [locationAlerts, setLocationAlerts] = useState([])
+  const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
+  const [locationAlertsError, setLocationAlertsError] = useState()
 
-        {tmoName !== TMO_HACKNEY_DEFAULT && (
-          <TenureDetail text="TMO" detail={tmoName} />
-        )}
-      </ul>
-    )
-  } else {
-    return ''
+  const [personAlerts, setPersonAlerts] = useState([])
+  const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
+  const [personAlertsError, setPersonAlertsError] = useState()
+
+  const getLocationAlerts = () => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${propertyReference}/location-alerts`,
+    })
+      .then((data) => {
+        setLocationAlerts(data.alerts)
+        setParentLocationAlerts && setParentLocationAlerts(data.alerts)
+      })
+      .catch((error) => {
+        console.error('Error loading location alerts status:', error.response)
+
+        setLocationAlertsError(
+          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setLocationAlertsLoading(false))
   }
+
+  const getPersonAlerts = (tenancyAgreementReference) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/${encodeURIComponent(
+        tenancyAgreementReference
+      )}/person-alerts`,
+    })
+      .then((data) => {
+        setPersonAlerts(data.alerts)
+        setParentPersonAlerts && setParentPersonAlerts(data.alerts)
+      })
+      .catch((error) => {
+        console.error('Error loading person alerts status:', error.response)
+
+        setPersonAlertsError(
+          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setPersonAlertsLoading(false))
+  }
+
+  const renderLocationAlerts = () =>
+    locationAlerts.length > 0 && (
+      <Alerts alerts={locationAlerts} alertType="Address" />
+    )
+
+  const renderPersonAlerts = () =>
+    personAlerts.length > 0 && (
+      <Alerts alerts={personAlerts} alertType="Contact" />
+    )
+
+  useEffect(() => {
+    setLocationAlertsLoading(true)
+    getLocationAlerts()
+    if (tenure?.tenancyAgreementReference) {
+      setPersonAlertsLoading(true)
+      getPersonAlerts(tenure.tenancyAgreementReference)
+    }
+  }, [])
+
+  return (
+    <ul className="lbh-list hackney-property-alerts">
+      {tenure && Object.keys(tenure).length > 0 && (
+        <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
+      )}
+
+      {locationAlertsLoading ? (
+        <Spinner resource="locationAlerts" />
+      ) : (
+        renderLocationAlerts()
+      )}
+      {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
+
+      {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
+        <TenureDetail text="TMO" detail={tmoName} />
+      )}
+
+      {personAlertsLoading ? (
+        <Spinner resource="personAlerts" />
+      ) : (
+        renderPersonAlerts()
+      )}
+      {personAlertsError && <ErrorMessage label={personAlertsError} />}
+    </ul>
+  )
 }
 
 TenureDetails.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   tmoName: PropTypes.string,
+  propertyReference: PropTypes.string.isRequired,
+  setParentLocationAlerts: PropTypes.func,
+  setParentPersonAlerts: PropTypes.func,
 }
 
 export default TenureDetails

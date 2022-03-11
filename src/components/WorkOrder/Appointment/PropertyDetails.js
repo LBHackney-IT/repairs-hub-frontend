@@ -7,6 +7,7 @@ const PropertyDetails = ({
   subTypeDescription,
   tenure,
   canRaiseRepair,
+  propertyReference,
 }) => {
   return (
     <GridRow className="lbh-body-s govuk-!-margin-bottom-2">
@@ -15,7 +16,11 @@ const PropertyDetails = ({
           {subTypeDescription}: {address.addressLine}
         </h1>
 
-        <TenureDetails tenure={tenure} canRaiseRepair={canRaiseRepair} />
+        <TenureDetails
+          tenure={tenure}
+          canRaiseRepair={canRaiseRepair}
+          propertyReference={propertyReference}
+        />
       </GridColumn>
     </GridRow>
   )
@@ -26,6 +31,7 @@ PropertyDetails.propTypes = {
   subTypeDescription: PropTypes.string.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
+  propertyReference: PropTypes.string.isRequired,
 }
 
 export default PropertyDetails

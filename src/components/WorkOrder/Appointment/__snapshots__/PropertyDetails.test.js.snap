@@ -21,6 +21,42 @@ exports[`PropertyDetails component should render properly 1`] = `
         >
           Tenure: Secure
         </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Location Alert 1 (
+          <strong>
+            type1
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Address Alert: Location Alert 2 (
+          <strong>
+            type2
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Person Alert 1 (
+          <strong>
+            type3
+          </strong>
+          )
+        </li>
+        <li
+          class="bg-orange"
+        >
+          Contact Alert: Person Alert 2 (
+          <strong>
+            type4
+          </strong>
+          )
+        </li>
       </ul>
     </div>
   </div>

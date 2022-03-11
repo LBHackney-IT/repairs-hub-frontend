@@ -15,6 +15,48 @@ describe('Closing my own work order', () => {
     ).as('propertyRequest')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/00012345/location-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type1',
+              comments: 'Location Alert 1',
+            },
+            {
+              type: 'type2',
+              comments: 'Location Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/tenancyAgreementRef1/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
+
+    cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000621/tasks' },
       { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
     ).as('tasksRequest')
@@ -40,7 +82,13 @@ describe('Closing my own work order', () => {
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
-      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
 
       cy.contains('Payment type').should('not.exist')
       cy.get('[data-testid="paymentType"]').should('not.exist')
@@ -95,7 +143,13 @@ describe('Closing my own work order', () => {
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
         cy.visit('/operatives/1/work-orders/10000621')
 
-        cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+        cy.wait([
+          '@workOrderRequest',
+          '@propertyRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
 
         cy.contains('Payment type')
           .parent()
@@ -155,7 +209,13 @@ describe('Closing my own work order', () => {
       it('makes a POST request for completion with bonus payment type, confirm success, and returns me to the index', () => {
         cy.visit('/operatives/1/work-orders/10000621')
 
-        cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksRequest'])
+        cy.wait([
+          '@workOrderRequest',
+          '@propertyRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
 
         cy.contains('Payment type')
           .parent()

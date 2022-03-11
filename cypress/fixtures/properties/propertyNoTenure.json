@@ -12,9 +12,5 @@
     },
     "canRaiseRepair": false
   },
-  "alerts": {
-    "locationAlert": [],
-    "personAlert": []
-  },
   "tenure": null
 }

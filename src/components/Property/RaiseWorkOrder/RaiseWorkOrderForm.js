@@ -166,7 +166,11 @@ const RaiseWorkOrderForm = ({
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
-            <TenureDetails canRaiseRepair={canRaiseRepair} tenure={tenure} />
+            <TenureDetails
+              canRaiseRepair={canRaiseRepair}
+              tenure={tenure}
+              propertyReference={propertyReference}
+            />
           </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Work order task details
