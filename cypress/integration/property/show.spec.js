@@ -35,7 +35,11 @@ describe('Show property', () => {
 
       it('shows can raise a work order link', () => {
         cy.get('.lbh-heading-h2').within(() => {
-          cy.contains('Raise a work order on this dwelling')
+          cy.contains('Raise a work order on this dwelling').should(
+            'have.attr',
+            'href',
+            '/properties/00012345/raise-repair/new'
+          )
         })
       })
 
