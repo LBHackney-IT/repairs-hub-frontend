@@ -1,11 +1,26 @@
-import { render } from '@testing-library/react'
+import {
+  render,
+  act,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import WorkOrderHeader from './WorkOrderHeader'
 import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
 import { WorkOrder } from '@/models/workOrder'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
+
 describe('WorkOrderHeader component', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   let workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
@@ -39,34 +54,16 @@ describe('WorkOrderHeader component', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      locationAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-02-16',
-          endDate: null,
-        },
-      ],
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
     },
     schedulerSessionId: '123',
   }
 
   describe('when workOrder status is Work Completed or No Access', () => {
-    it('should show complition reason: Completed, date and time', () => {
-      //WorkOrder status: Work Completed
+    it('should show complition reason: Completed, date and time', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
@@ -80,10 +77,17 @@ describe('WorkOrderHeader component', () => {
           />
         </UserContext.Provider>
       )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
-    it('should show complition reason: No Access, date and time', () => {
-      //WorkOrder status: No Access
+
+    it('should show complition reason: No Access, date and time', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
@@ -97,11 +101,18 @@ describe('WorkOrderHeader component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
 
     describe('when has operatives without appointment', () => {
-      it('should show Operatives', () => {
+      it('should show Operatives', async () => {
         //WorkOrder status: Work Completed
         const operatives = [
           {
@@ -135,14 +146,20 @@ describe('WorkOrderHeader component', () => {
             />
           </UserContext.Provider>
         )
+
+        await act(async () => {
+          await waitForElementToBeRemoved([
+            screen.getByTestId('spinner-locationAlerts'),
+            screen.getByTestId('spinner-personAlerts'),
+          ])
+        })
         expect(asFragment()).toMatchSnapshot()
       })
     })
   })
 
   describe('when workOrder is in Progress', () => {
-    it('should not show complition reason date and time', () => {
-      //WorkOrder status: In Progress
+    it('should not show complition reason date and time', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderHeader
@@ -158,6 +175,13 @@ describe('WorkOrderHeader component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })

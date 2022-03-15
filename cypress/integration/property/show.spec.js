@@ -19,6 +19,48 @@ describe('Show property', () => {
       },
       { body: [] }
     ).as('workOrdersHistory')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/00012345/location-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type1',
+              comments: 'Location Alert 1',
+            },
+            {
+              type: 'type2',
+              comments: 'Location Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/tenancyAgreementRef1/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
   })
 
   it('displays property details', () => {
@@ -287,6 +329,94 @@ describe('Show property', () => {
             'Cannot raise a work order on this property due to tenure type'
           )
         })
+      })
+    })
+  })
+
+  describe('Tenures and Alerts', () => {
+    it('shows Tenure and Alerts section', () => {
+      cy.visit('/properties/00012345')
+      cy.wait([
+        '@property',
+        '@workOrdersHistory',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.checkForTenureDetails(
+        'Tenure: Secure',
+        [
+          'Address Alert: Location Alert 1 (type1)',
+          'Address Alert: Location Alert 2 (type2)',
+        ],
+        [
+          'Contact Alert: Person Alert 1 (type3)',
+          'Contact Alert: Person Alert 2 (type4)',
+        ]
+      )
+    })
+
+    context('when the alerts API responds with an error', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/properties/00012345/location-alerts',
+          },
+          {
+            statusCode: 404,
+            body: {
+              message: 'Cannot fetch location alerts',
+            },
+          }
+        ).as('locationAlertsError')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/properties/tenancyAgreementRef1/person-alerts',
+          },
+          {
+            statusCode: 404,
+            body: {
+              message: 'Cannot fetch person alerts',
+            },
+          }
+        ).as('personAlertsError')
+      })
+
+      it('shows an error message in the place of the component', () => {
+        cy.visit('/properties/00012345')
+        cy.wait([
+          '@property',
+          '@workOrdersHistory',
+          '@locationAlertsError',
+          '@personAlertsError',
+        ])
+
+        // Some page content rendered
+        cy.contains('Dwelling: 16 Pitcairn House')
+
+        cy.get('.hackney-property-alerts').within(() => {
+          cy.contains('Cannot fetch location alerts')
+          cy.contains('Cannot fetch person alerts')
+        })
+      })
+    })
+
+    context('when the property has no tenure type', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/propertyNoTenure.json' }
+        ).as('propertyNoTenureType')
+
+        cy.visit('/properties/00012345')
+        cy.wait(['@propertyNoTenureType', '@locationAlerts'])
+      })
+
+      it('does not show Tenure', () => {
+        cy.contains('Tenure').should('not.exist')
       })
     })
   })

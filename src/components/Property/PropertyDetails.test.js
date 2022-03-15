@@ -1,7 +1,22 @@
-import { render } from '@testing-library/react'
+import {
+  render,
+  act,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
+
 describe('PropertyDetails component', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   const props = {
     property: {
       propertyReference: '00012345',
@@ -19,6 +34,7 @@ describe('PropertyDetails component', () => {
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
     },
   }
 
@@ -41,6 +57,14 @@ describe('PropertyDetails component', () => {
           tenure={props.tenure}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -64,6 +88,13 @@ describe('PropertyDetails component', () => {
           tenure={props.tenure}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })

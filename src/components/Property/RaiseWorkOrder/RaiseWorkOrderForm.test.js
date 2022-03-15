@@ -1,4 +1,9 @@
-import { render, act } from '@testing-library/react'
+import {
+  act,
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -7,7 +12,17 @@ import {
 } from '@/utils/helpers/priorities'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
+
 describe('RaiseWorkOrderForm component', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   const props = {
     property: {
       propertyReference: '00012345',
@@ -22,27 +37,10 @@ describe('RaiseWorkOrderForm component', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      locationAlert: [
-        {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
-          startDate: '2011-02-16',
-          endDate: null,
-        },
-      ],
-      personAlert: [
-        {
-          alertCode: 'DIS',
-          description: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
     },
     priorities: [
       {
@@ -77,21 +75,27 @@ describe('RaiseWorkOrderForm component', () => {
   }
 
   it('should render properly', async () => {
+    const { asFragment } = render(
+      <RaiseWorkOrderForm
+        propertyReference={props.property.propertyReference}
+        address={props.property.address}
+        hierarchyType={props.property.hierarchyType}
+        canRaiseRepair={props.property.canRaiseRepair}
+        tenure={props.tenure}
+        priorities={props.priorities}
+        trades={props.trades}
+        contacts={props.contactDetails}
+        onFormSubmit={props.onFormSubmit}
+      />
+    )
+
     await act(async () => {
-      const { asFragment } = render(
-        <RaiseWorkOrderForm
-          propertyReference={props.property.propertyReference}
-          address={props.property.address}
-          hierarchyType={props.property.hierarchyType}
-          canRaiseRepair={props.property.canRaiseRepair}
-          tenure={props.tenure}
-          priorities={props.priorities}
-          trades={props.trades}
-          contacts={props.contactDetails}
-          onFormSubmit={props.onFormSubmit}
-        />
-      )
-      expect(asFragment()).toMatchSnapshot()
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
     })
+
+    expect(asFragment()).toMatchSnapshot()
   })
 })

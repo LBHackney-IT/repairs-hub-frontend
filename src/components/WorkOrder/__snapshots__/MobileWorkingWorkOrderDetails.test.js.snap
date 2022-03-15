@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MobileWorkingWorkOrderDetails component when on operative-index-page should render properly work order 1`] = `
+exports[`MobileWorkingWorkOrderDetails component should render properly work order 1`] = `
 <DocumentFragment>
   <div
     class="operative-work-order"
@@ -32,6 +32,247 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
     <div
       class="work-order-information"
     >
+      <svg
+        data-testid="spinner-locationAlerts"
+        height="50"
+        stroke="#00703c"
+        viewBox="0 0 42 42"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            stroke-width="5"
+            transform="translate(3 3)"
+          >
+            <circle
+              cx="18"
+              cy="18"
+              r="18"
+              stroke-opacity=".5"
+            />
+            <path
+              d="M36 18c0-9.94-8.06-18-18-18"
+              transform="rotate(112.708 18 18)"
+            >
+              <animatetransform
+                attributeName="transform"
+                dur="1s"
+                from="0 18 18"
+                repeatCount="indefinite"
+                to="360 18 18"
+                type="rotate"
+              />
+            </path>
+          </g>
+        </g>
+      </svg>
+      <svg
+        data-testid="spinner-personAlerts"
+        height="50"
+        stroke="#00703c"
+        viewBox="0 0 42 42"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="none"
+          fill-rule="evenodd"
+        >
+          <g
+            stroke-width="5"
+            transform="translate(3 3)"
+          >
+            <circle
+              cx="18"
+              cy="18"
+              r="18"
+              stroke-opacity=".5"
+            />
+            <path
+              d="M36 18c0-9.94-8.06-18-18-18"
+              transform="rotate(112.708 18 18)"
+            >
+              <animatetransform
+                attributeName="transform"
+                dur="1s"
+                from="0 18 18"
+                repeatCount="indefinite"
+                to="360 18 18"
+                type="rotate"
+              />
+            </path>
+          </g>
+        </g>
+      </svg>
+      <div
+        class="govuk-grid-row govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="lbh-body property-name"
+          >
+            Address
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half align-grid-column"
+        >
+          <div
+            class="lbh-body"
+          >
+            16 Pitcairn House  St Thomass Square E9 6PT
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-row govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="lbh-body property-name"
+          >
+            Contact
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half align-grid-column"
+        >
+          <div
+            class="lbh-body"
+          >
+            Test Testerson
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-row govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="lbh-body property-name"
+          >
+            Telephone no
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half align-grid-column"
+        >
+          <div
+            class="lbh-body"
+          >
+            <a
+              class="lbh-link"
+              href="tel:14107700900000"
+              id="telephone-no"
+            >
+              07700900000
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="govuk-grid-row govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <div
+            class="lbh-body property-name"
+          >
+            Comment
+          </div>
+        </div>
+        <div
+          class="govuk-grid-column-one-half align-grid-column"
+        >
+          <div
+            class="lbh-body"
+          >
+            School run
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MobileWorkingWorkOrderDetails component should render properly work order 2`] = `
+<DocumentFragment>
+  <div
+    class="operative-work-order"
+  >
+    <h1
+      class="lbh-heading-h1"
+    >
+      WO 10000621
+    </h1>
+    <div
+      class="priority-text govuk-!-margin-top-0"
+    >
+      <h3
+        class="lbh-heading-h3"
+      >
+         normal
+      </h3>
+    </div>
+    <h4
+      class="lbh-heading-h4"
+    >
+      Description
+    </h4>
+    <p
+      class="govuk-body govuk-!-margin-bottom-0 truncate-description truncate-line-3"
+    >
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <div
+      class="work-order-information"
+    >
+      <div
+        class="govuk-grid-row govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-grid-column-one-half"
+        >
+          <a
+            class="lbh-heading-h5 lbh-link"
+            href="#"
+            id="caut-alerts"
+          >
+            Caut. alerts
+          </a>
+        </div>
+        <div
+          class="govuk-grid-column-one-half govuk-!-margin-top-0"
+        >
+          <div
+            class="govuk-warning-text lbh-warning-text"
+          >
+            <span
+              aria-hidden="true"
+              class="govuk-warning-text__icon person-alert--icon"
+            >
+              !
+            </span>
+            <strong
+              class="govuk-warning-text__text person-alert--text"
+            >
+              type1, type2, type3, type4
+            </strong>
+          </div>
+        </div>
+      </div>
       <div
         class="govuk-grid-row govuk-!-margin-top-0"
       >

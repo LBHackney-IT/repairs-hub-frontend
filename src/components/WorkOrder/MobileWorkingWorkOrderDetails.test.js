@@ -1,6 +1,15 @@
-import { render } from '@testing-library/react'
+import {
+  render,
+  act,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
+
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
 
 describe('MobileWorkingWorkOrderDetails component', () => {
   let workOrderData = {
@@ -43,17 +52,72 @@ describe('MobileWorkingWorkOrderDetails component', () => {
       },
       canRaiseRepair: true,
     },
+    tenure: {
+      tenancyAgreementReference: 'tenancyAgreementRef1',
+      typeCode: 'tenancyTypeCode',
+      typeDescription: 'tenancyTypeDescription',
+    },
   }
 
-  describe('when on operative-index-page', () => {
-    it('should render properly work order', () => {
-      const { asFragment } = render(
-        <MobileWorkingWorkOrderDetails
-          property={props.property}
-          workOrder={new WorkOrder(workOrderData)}
-        />
-      )
-      expect(asFragment()).toMatchSnapshot()
+  axios
+    .mockResolvedValueOnce({
+      data: {
+        alerts: [
+          {
+            type: 'type1',
+            comments: 'Location Alert 1',
+          },
+          {
+            type: 'type2',
+            comments: 'Location Alert 2',
+          },
+        ],
+      },
     })
+    .mockResolvedValueOnce({
+      data: {
+        alerts: [
+          {
+            type: 'type3',
+            comments: 'Person Alert 1',
+          },
+          {
+            type: 'type4',
+            comments: 'Person Alert 2',
+          },
+        ],
+      },
+    })
+
+  it('should render properly work order', async () => {
+    const { asFragment } = render(
+      <MobileWorkingWorkOrderDetails
+        property={props.property}
+        workOrder={new WorkOrder(workOrderData)}
+        tenure={props.tenure}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+
+    await act(async () => {
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+    })
+
+    expect(axios).toHaveBeenCalledTimes(2)
+
+    expect(axios).toHaveBeenCalledWith({
+      method: 'get',
+      url: '/api/properties/00012345/location-alerts',
+    })
+
+    expect(axios).toHaveBeenCalledWith({
+      method: 'get',
+      url: '/api/properties/tenancyAgreementRef1/person-alerts',
+    })
+
+    expect(asFragment()).toMatchSnapshot()
   })
 })

@@ -148,6 +148,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
                   tenure={tenure}
                   subTypeDescription={property.hierarchyType.subTypeDescription}
                   canRaiseRepair={property.canRaiseRepair}
+                  propertyReference={property.propertyReference}
                 />
                 <WorkOrderTasks tasks={tasksAndSors} />
                 {!availableAppointments.length ? (

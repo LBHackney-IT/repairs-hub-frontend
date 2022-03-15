@@ -114,13 +114,7 @@ export const CAUTIONARY_ALERTS = [
   },
 ]
 
-export const getCautionaryAlertsType = (locationAlerts, personAlerts) => {
-  let cautionaryAlerts = [...locationAlerts, ...personAlerts].map(
-    (cautionaryAlert) => cautionaryAlert.type
-  )
-  let uniqueCautionaryAlertsType = [...new Set(cautionaryAlerts)]
-
-  return uniqueCautionaryAlertsType.length > 1
-    ? uniqueCautionaryAlertsType.join(', ')
-    : uniqueCautionaryAlertsType.join('')
+export const getCautionaryAlertsType = (alerts) => {
+  const cautionaryAlerts = alerts.map((cautionaryAlert) => cautionaryAlert.type)
+  return [...new Set(cautionaryAlerts)]
 }

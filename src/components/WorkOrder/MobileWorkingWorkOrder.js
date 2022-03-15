@@ -27,6 +27,7 @@ const MobileWorkingWorkOrder = ({
   onFormSubmit,
   currentUserPayrollNumber,
   paymentType,
+  tenure,
 }) => {
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
@@ -73,6 +74,7 @@ const MobileWorkingWorkOrder = ({
           property={property}
           workOrder={workOrder}
           tasksAndSors={tasksAndSors}
+          tenure={tenure}
         />
 
         <MobileWorkingTasksAndSorsTable
@@ -171,6 +173,7 @@ MobileWorkingWorkOrder.propTypes = {
   onFormSubmit: PropTypes.func.isRequired,
   error: PropTypes.string,
   currentUserPayrollNumber: PropTypes.string.isRequired,
+  tenure: PropTypes.object,
 }
 
 export default MobileWorkingWorkOrder

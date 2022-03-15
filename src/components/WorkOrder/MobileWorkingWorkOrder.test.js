@@ -1,9 +1,24 @@
-import { render } from '@testing-library/react'
+import {
+  render,
+  act,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
 
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
+
 describe('MobileWorkingWorkOrder component with single operative', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   const workOrderData = {
     reference: '10000621',
     dateRaised: '2021-06-11T13:49:15.878796Z',
@@ -54,6 +69,11 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       },
       canRaiseRepair: true,
     },
+    tenure: {
+      typeCode: 'SEC',
+      typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
+    },
   }
 
   beforeEach(() => {
@@ -67,7 +87,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
   describe('when has status In Progress', () => {
     const workOrder = new WorkOrder(workOrderData)
 
-    it('should render work order elements when unvaried without a variation textbox', () => {
+    it('should render work order elements when unvaried without a variation textbox', async () => {
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
@@ -89,13 +109,22 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render work order elements with a form and variation reason when an SOR is varied', () => {
+    it('should render work order elements with a form and variation reason when an SOR is varied', async () => {
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
@@ -117,13 +146,22 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render work order elements with a form and variation reason when an SOR is added', () => {
+    it('should render work order elements with a form and variation reason when an SOR is added', async () => {
       const { asFragment } = render(
         <MobileWorkingWorkOrder
           workOrderReference={workOrder.reference}
@@ -158,9 +196,17 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -171,7 +217,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       workOrderData.paymentType = 'Overtime'
     })
 
-    it('should render work order elements with Status Work Completed', () => {
+    it('should render work order elements with Status Work Completed', async () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder
@@ -194,9 +240,17 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -206,7 +260,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       workOrderData.status = 'No Access'
     })
 
-    it('should render work order elements with Status No Access', () => {
+    it('should render work order elements with Status No Access', async () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder
@@ -229,9 +283,17 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -241,7 +303,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       MockDate.set(new Date('Monday 13 December 2021 07:59'))
     })
 
-    it('renders an overtime check box', () => {
+    it('renders an overtime check box', async () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder
@@ -264,15 +326,29 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
             },
           ]}
           currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
           onFormSubmit={jest.fn()}
         />
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
 })
 
 describe('MobileWorkingWorkOrder component with multiple operatives', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   beforeEach(() => {
     MockDate.set(new Date('Monday 13 December 2021 18:00'))
   })
@@ -338,11 +414,16 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
       },
       canRaiseRepair: true,
     },
+    tenure: {
+      typeCode: 'SEC',
+      typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
+    },
   }
 
   const workOrder = new WorkOrder(workOrderData)
 
-  it('should render work order elements with an Update operative link', () => {
+  it('should render work order elements with an Update operative link', async () => {
     const { asFragment } = render(
       <MobileWorkingWorkOrder
         workOrderReference={workOrder.reference}
@@ -364,9 +445,17 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
           },
         ]}
         currentUserPayrollNumber={'1'}
+        tenure={props.tenure}
         onFormSubmit={jest.fn()}
       />
     )
+
+    await act(async () => {
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+    })
     expect(asFragment()).toMatchSnapshot()
   })
 })

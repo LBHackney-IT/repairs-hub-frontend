@@ -13,9 +13,5 @@
     "tmoName": "Testing TMO",
     "canRaiseRepair": false
   },
-  "alerts": {
-    "locationAlert": [],
-    "personAlert": []
-  },
   "tenure": null
 }

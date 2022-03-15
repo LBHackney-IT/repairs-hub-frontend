@@ -167,6 +167,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
                 <MobileWorkingWorkOrder
                   workOrderReference={workOrderReference}
                   property={property}
+                  tenure={tenure}
                   workOrder={workOrder}
                   tasksAndSors={tasksAndSors}
                   error={error}
