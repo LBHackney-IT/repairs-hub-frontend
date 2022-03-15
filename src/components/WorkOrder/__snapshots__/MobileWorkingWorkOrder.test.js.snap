@@ -60,40 +60,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives should render
           <div
             class="govuk-grid-column-one-half"
           >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
             <div
               class="lbh-body property-name"
             >
@@ -458,40 +424,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
           <div
             class="govuk-grid-column-one-half"
           >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
             <div
               class="lbh-body property-name"
             >
@@ -767,40 +699,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <div
         class="work-order-information"
       >
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
         <div
           class="govuk-grid-row govuk-!-margin-top-0"
         >
@@ -1154,40 +1052,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
           <div
             class="govuk-grid-column-one-half"
           >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
             <div
               class="lbh-body property-name"
             >
@@ -1500,40 +1364,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
           <div
             class="govuk-grid-column-one-half"
           >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
             <div
               class="lbh-body property-name"
             >
@@ -1784,40 +1614,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
           <div
             class="govuk-grid-column-one-half"
           >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
             <div
               class="lbh-body property-name"
             >
@@ -2062,40 +1858,6 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
       <div
         class="work-order-information"
       >
-        <div
-          class="govuk-grid-row govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-grid-column-one-half"
-          >
-            <a
-              class="lbh-heading-h5 lbh-link"
-              href="#"
-              id="caut-alerts"
-            >
-              Caut. alerts
-            </a>
-          </div>
-          <div
-            class="govuk-grid-column-one-half govuk-!-margin-top-0"
-          >
-            <div
-              class="govuk-warning-text lbh-warning-text"
-            >
-              <span
-                aria-hidden="true"
-                class="govuk-warning-text__icon person-alert--icon"
-              >
-                !
-              </span>
-              <strong
-                class="govuk-warning-text__text person-alert--text"
-              >
-                CIT, DIS
-              </strong>
-            </div>
-          </div>
-        </div>
         <div
           class="govuk-grid-row govuk-!-margin-top-0"
         >

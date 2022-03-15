@@ -38,40 +38,6 @@ exports[`MobileWorkingWorkOrderDetails component when on operative-index-page sh
         <div
           class="govuk-grid-column-one-half"
         >
-          <a
-            class="lbh-heading-h5 lbh-link"
-            href="#"
-            id="caut-alerts"
-          >
-            Caut. alerts
-          </a>
-        </div>
-        <div
-          class="govuk-grid-column-one-half govuk-!-margin-top-0"
-        >
-          <div
-            class="govuk-warning-text lbh-warning-text"
-          >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon person-alert--icon"
-            >
-              !
-            </span>
-            <strong
-              class="govuk-warning-text__text person-alert--text"
-            >
-              CIT, DIS
-            </strong>
-          </div>
-        </div>
-      </div>
-      <div
-        class="govuk-grid-row govuk-!-margin-top-0"
-      >
-        <div
-          class="govuk-grid-column-one-half"
-        >
           <div
             class="lbh-body property-name"
           >

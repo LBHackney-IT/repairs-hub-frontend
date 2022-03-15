@@ -13,8 +13,6 @@ const WorkOrderHeader = ({
   workOrder,
   address,
   subTypeDescription,
-  locationAlerts,
-  personAlerts,
   tenure,
   canRaiseRepair,
   schedulerSessionId,
@@ -33,12 +31,7 @@ const WorkOrderHeader = ({
           hasLinkToProperty={true}
         />
 
-        <TenureDetails
-          tenure={tenure}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
-          canRaiseRepair={canRaiseRepair}
-        />
+        <TenureDetails tenure={tenure} canRaiseRepair={canRaiseRepair} />
       </div>
       <div className="govuk-grid-column-one-third">
         <WorkOrderInfo workOrder={workOrder} />
@@ -74,8 +67,6 @@ WorkOrderHeader.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
 }

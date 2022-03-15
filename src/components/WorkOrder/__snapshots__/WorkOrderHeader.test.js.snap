@@ -44,24 +44,6 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         >
           Tenure: Secure
         </li>
-        <li
-          class="bg-orange"
-        >
-          Address Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
       </ul>
     </div>
     <div
@@ -208,24 +190,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         >
           Tenure: Secure
         </li>
-        <li
-          class="bg-orange"
-        >
-          Address Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
       </ul>
     </div>
     <div
@@ -371,24 +335,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         >
           Tenure: Secure
         </li>
-        <li
-          class="bg-orange"
-        >
-          Address Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
       </ul>
     </div>
     <div
@@ -533,24 +479,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
           class="bg-dark-green"
         >
           Tenure: Secure
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Address Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
         </li>
       </ul>
     </div>

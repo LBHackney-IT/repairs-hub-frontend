@@ -1,31 +1,9 @@
 import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { GridColumn, GridRow } from '../Layout/Grid'
-import { useRouter } from 'next/router'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import TruncateText from '../Layout/TruncateText'
 
-const MobileWorkingWorkOrderDetails = ({
-  property,
-  workOrder,
-  personAlerts,
-  locationAlerts,
-}) => {
-  const router = useRouter()
-  const cautionaryAlertsType = getCautionaryAlertsType(
-    locationAlerts,
-    personAlerts
-  )
-
-  const cautContactURL = () => {
-    router.push({
-      pathname: `/work-orders/cautionary-alerts`,
-      query: {
-        cautContactCodes: cautionaryAlertsType,
-      },
-    })
-  }
-
+const MobileWorkingWorkOrderDetails = ({ property, workOrder }) => {
   return (
     <>
       <div className="operative-work-order">
@@ -60,34 +38,6 @@ const MobileWorkingWorkOrderDetails = ({
           </>
         )}
         <div className="work-order-information">
-          {cautionaryAlertsType && (
-            <GridRow className="govuk-!-margin-top-0">
-              <GridColumn width="one-half">
-                <a
-                  className="lbh-heading-h5 lbh-link"
-                  href="#"
-                  id="caut-alerts"
-                  onClick={cautContactURL}
-                >
-                  Caut. alerts
-                </a>
-              </GridColumn>
-              <GridColumn width="one-half" className="govuk-!-margin-top-0">
-                <div className="govuk-warning-text lbh-warning-text">
-                  <span
-                    className="govuk-warning-text__icon person-alert--icon"
-                    aria-hidden="true"
-                  >
-                    !
-                  </span>
-                  <strong className="govuk-warning-text__text person-alert--text">
-                    {cautionaryAlertsType}
-                  </strong>
-                </div>
-              </GridColumn>
-            </GridRow>
-          )}
-
           <GridRow className="govuk-!-margin-top-0">
             <GridColumn width="one-half">
               <div className="lbh-body property-name">Address</div>
@@ -148,8 +98,6 @@ const MobileWorkingWorkOrderDetails = ({
 MobileWorkingWorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  personAlerts: PropTypes.array.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
 }
 
 export default MobileWorkingWorkOrderDetails

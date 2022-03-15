@@ -16,8 +16,6 @@ import { toISODate } from '../../../utils/date'
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState({})
   const [availableAppointments, setAvailableAppointments] = useState([])
@@ -72,16 +70,12 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       setWorkOrder(workOrder)
       setTasksAndSors(tasksAndSors)
       setProperty(propertyObject.property)
-      setLocationAlerts(propertyObject.alerts.locationAlert)
-      setPersonAlerts(propertyObject.alerts.personAlert)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
       setAvailableAppointments(availableAppointments)
     } catch (e) {
       setWorkOrder(null)
       setTasksAndSors(null)
       setProperty(null)
-      setLocationAlerts(null)
-      setPersonAlerts(null)
       setTenure(null)
       setAvailableAppointments(null)
       console.error('An error has occured:', e.response)
@@ -153,8 +147,6 @@ const AppointmentView = ({ workOrderReference, successText }) => {
                   address={property.address}
                   tenure={tenure}
                   subTypeDescription={property.hierarchyType.subTypeDescription}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
                   canRaiseRepair={property.canRaiseRepair}
                 />
                 <WorkOrderTasks tasks={tasksAndSors} />

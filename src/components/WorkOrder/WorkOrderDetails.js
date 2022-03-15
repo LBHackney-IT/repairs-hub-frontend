@@ -12,8 +12,6 @@ import { WorkOrder } from '@/models/workOrder'
 const WorkOrderDetails = ({
   property,
   workOrder,
-  locationAlerts,
-  personAlerts,
   tenure,
   schedulerSessionId,
   printClickHandler,
@@ -74,8 +72,6 @@ const WorkOrderDetails = ({
           propertyReference={property.propertyReference}
           workOrder={workOrder}
           address={property.address}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
           hasLinkToProperty={true}
@@ -90,8 +86,6 @@ const WorkOrderDetails = ({
 WorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
 }
 

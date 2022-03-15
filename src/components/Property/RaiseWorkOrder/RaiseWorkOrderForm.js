@@ -26,8 +26,6 @@ const RaiseWorkOrderForm = ({
   address,
   hierarchyType,
   canRaiseRepair,
-  locationAlerts,
-  personAlerts,
   tenure,
   priorities,
   trades,
@@ -168,12 +166,7 @@ const RaiseWorkOrderForm = ({
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
-            <TenureDetails
-              canRaiseRepair={canRaiseRepair}
-              tenure={tenure}
-              locationAlerts={locationAlerts}
-              personAlerts={personAlerts}
-            />
+            <TenureDetails canRaiseRepair={canRaiseRepair} tenure={tenure} />
           </div>
           <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
             Work order task details
@@ -188,8 +181,6 @@ const RaiseWorkOrderForm = ({
               errors={errors}
               trades={trades}
               propertyReference={propertyReference}
-              register={register}
-              errors={errors}
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
@@ -279,8 +270,6 @@ RaiseWorkOrderForm.propTypes = {
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object,
   trades: PropTypes.array.isRequired,
   priorities: PropTypes.array.isRequired,

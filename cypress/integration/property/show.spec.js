@@ -291,61 +291,6 @@ describe('Show property', () => {
     })
   })
 
-  describe('Tenures and Alerts', () => {
-    it('shows Tenure and Alerts section', () => {
-      cy.visit('/properties/00012345')
-      cy.wait(['@property', '@workOrdersHistory'])
-
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        ['Address Alert: Property Under Disrepair (DIS)'],
-        [
-          'Contact Alert: No Lone Visits (CV)',
-          'Contact Alert: Verbal Abuse or Threat of (VA)',
-        ]
-      )
-    })
-
-    context('when there are important alerts', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyRepairNotRaisable.json' }
-        ).as('propertyWithImportantAlerts')
-      })
-
-      it('is displayed with a highlighted text', () => {
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyWithImportantAlerts'])
-
-        cy.get('.hackney-property-alerts li.bg-orange').within(() => {
-          cy.contains('Tenure: Leasehold (RTB)')
-        })
-      })
-    })
-
-    context('when the property has no tenure type', () => {
-      beforeEach(() => {
-        cy.intercept(
-          { method: 'GET', path: '/api/properties/00012345' },
-          { fixture: 'properties/propertyNoTenure.json' }
-        ).as('propertyNoTenureType')
-
-        cy.visit('/properties/00012345')
-        cy.wait(['@propertyNoTenureType'])
-      })
-
-      it('does not show property alerts', () => {
-        cy.get('.hackney-property-alerts').should('not.exist')
-      })
-
-      it('does not show Tenure', () => {
-        cy.get('.hackney-property-alerts').should('not.exist')
-        cy.contains('Tenure').should('not.exist')
-      })
-    })
-  })
-
   describe('TMO', () => {
     context('when the property has a valid TMO', () => {
       beforeEach(() => {

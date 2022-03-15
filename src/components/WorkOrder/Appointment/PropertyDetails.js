@@ -5,8 +5,6 @@ import TenureDetails from '../../Property/TenureDetails'
 const PropertyDetails = ({
   address,
   subTypeDescription,
-  locationAlerts,
-  personAlerts,
   tenure,
   canRaiseRepair,
 }) => {
@@ -17,12 +15,7 @@ const PropertyDetails = ({
           {subTypeDescription}: {address.addressLine}
         </h1>
 
-        <TenureDetails
-          tenure={tenure}
-          locationAlerts={locationAlerts}
-          personAlerts={personAlerts}
-          canRaiseRepair={canRaiseRepair}
-        />
+        <TenureDetails tenure={tenure} canRaiseRepair={canRaiseRepair} />
       </GridColumn>
     </GridRow>
   )
@@ -31,8 +24,6 @@ const PropertyDetails = ({
 PropertyDetails.propTypes = {
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
 }
