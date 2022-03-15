@@ -1,5 +1,120 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`SummaryCloseWorkOrder component does not show rows for operatives and payment type if absent 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="lbh-heading-h1"
+    >
+      Close work order: 10000012
+    </h1>
+    <form
+      role="form"
+    >
+      <h4
+        class="lbh-heading-h4"
+      >
+        Summary of updates to work order
+      </h4>
+      <table
+        class="govuk-table lbh-table"
+      >
+        <tbody
+          class="govuk-table__body"
+        >
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              Completion time
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              2021/02/03T11:33:35.757339 14:30
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="lbh-link"
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              Reason
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              No Access
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="lbh-link"
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header"
+              scope="row"
+            >
+              Notes
+            </th>
+            <td
+              class="govuk-table__cell"
+            >
+              this is a note
+            </td>
+            <td
+              class="govuk-table__cell"
+            >
+              <a
+                class="lbh-link"
+                href="#"
+              >
+                Edit
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <button
+          class="govuk-button lbh-button"
+          data-module="govuk-button"
+          type="submit"
+        >
+          Confirm and close
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`SummaryCloseWorkOrder component should render properly 1`] = `
 <DocumentFragment>
   <div>
