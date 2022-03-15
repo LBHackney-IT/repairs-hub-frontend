@@ -13,9 +13,7 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
@@ -77,8 +75,6 @@ const WorkOrderView = ({ workOrderReference }) => {
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
-      setLocationAlerts(propertyObject.alerts.locationAlert)
-      setPersonAlerts(propertyObject.alerts.personAlert)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
@@ -115,16 +111,12 @@ const WorkOrderView = ({ workOrderReference }) => {
             property.address &&
             property.hierarchyType &&
             tenure &&
-            locationAlerts &&
-            personAlerts &&
             workOrder && (
               <>
                 <WorkOrderDetails
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
                   schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
@@ -139,8 +131,6 @@ const WorkOrderView = ({ workOrderReference }) => {
                 <PrintJobTicketDetails
                   workOrder={workOrder}
                   property={property}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
                   tasksAndSors={tasksAndSors}
                 />
               </>

@@ -21,24 +21,6 @@ exports[`PropertyDetails component should render properly 1`] = `
         >
           Tenure: Secure
         </li>
-        <li
-          class="bg-orange"
-        >
-          Address Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Property Under Disrepair (
-          <strong>
-            DIS
-          </strong>
-          )
-        </li>
       </ul>
     </div>
   </div>

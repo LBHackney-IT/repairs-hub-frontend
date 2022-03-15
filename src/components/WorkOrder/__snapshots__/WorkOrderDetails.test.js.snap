@@ -328,24 +328,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
         </ul>
       </div>
       <div
@@ -789,24 +771,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
         </ul>
       </div>
       <div
@@ -1133,24 +1097,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             class="bg-dark-green"
           >
             Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
           </li>
         </ul>
       </div>
@@ -1553,24 +1499,6 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
         </ul>
       </div>
       <div
@@ -1731,24 +1659,6 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
             class="bg-dark-green"
           >
             Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
           </li>
         </ul>
       </div>
@@ -2043,24 +1953,6 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
             class="bg-dark-green"
           >
             Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
           </li>
         </ul>
       </div>
@@ -2442,24 +2334,6 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
         </ul>
       </div>
       <div
@@ -2839,24 +2713,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
             class="bg-dark-green"
           >
             Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
           </li>
         </ul>
       </div>
@@ -3259,24 +3115,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
         </ul>
       </div>
       <div
@@ -3554,24 +3392,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
             class="bg-dark-green"
           >
             Tenure: Secure
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert: Property Under Disrepair (
-            <strong>
-              DIS
-            </strong>
-            )
           </li>
         </ul>
       </div>

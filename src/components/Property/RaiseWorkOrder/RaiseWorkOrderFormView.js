@@ -16,8 +16,6 @@ import router from 'next/router'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [trades, setTrades] = useState([])
   const [priorities, setPriorities] = useState([])
@@ -122,8 +120,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
       setTenure(data.tenure)
       setProperty(data.property)
-      setLocationAlerts(data.alerts.locationAlert)
-      setPersonAlerts(data.alerts.personAlert)
       setPriorities(priorities)
       setTrades(trades)
       setContacts(data.contactDetails)
@@ -183,8 +179,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
             property.address &&
             property.hierarchyType &&
             property.canRaiseRepair &&
-            locationAlerts &&
-            personAlerts &&
             priorities &&
             trades && (
               <RaiseWorkOrderForm
@@ -193,8 +187,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 hierarchyType={property.hierarchyType}
                 canRaiseRepair={property.canRaiseRepair}
                 tenure={tenure}
-                locationAlerts={locationAlerts}
-                personAlerts={personAlerts}
                 priorities={priorities}
                 trades={trades}
                 contacts={contacts}

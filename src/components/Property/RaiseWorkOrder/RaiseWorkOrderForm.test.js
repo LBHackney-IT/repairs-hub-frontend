@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -76,22 +76,22 @@ describe('RaiseWorkOrderForm component', () => {
     onFormSubmit: jest.fn(),
   }
 
-  it('should render properly', () => {
-    const { asFragment } = render(
-      <RaiseWorkOrderForm
-        propertyReference={props.property.propertyReference}
-        address={props.property.address}
-        hierarchyType={props.property.hierarchyType}
-        canRaiseRepair={props.property.canRaiseRepair}
-        tenure={props.tenure}
-        locationAlerts={props.alerts.locationAlert}
-        personAlerts={props.alerts.personAlert}
-        priorities={props.priorities}
-        trades={props.trades}
-        contacts={props.contactDetails}
-        onFormSubmit={props.onFormSubmit}
-      />
-    )
-    expect(asFragment()).toMatchSnapshot()
+  it('should render properly', async () => {
+    await act(async () => {
+      const { asFragment } = render(
+        <RaiseWorkOrderForm
+          propertyReference={props.property.propertyReference}
+          address={props.property.address}
+          hierarchyType={props.property.hierarchyType}
+          canRaiseRepair={props.property.canRaiseRepair}
+          tenure={props.tenure}
+          priorities={props.priorities}
+          trades={props.trades}
+          contacts={props.contactDetails}
+          onFormSubmit={props.onFormSubmit}
+        />
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

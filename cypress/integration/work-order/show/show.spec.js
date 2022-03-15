@@ -65,15 +65,6 @@ describe('Show work order page', () => {
         cy.contains('E9 6PT')
       })
 
-      cy.checkForTenureDetails(
-        'Tenure: Secure',
-        ['Address Alert: Property Under Disrepair (DIS)'],
-        [
-          'Contact Alert: No Lone Visits (CV)',
-          'Contact Alert: Verbal Abuse or Threat of (VA)',
-        ]
-      )
-
       cy.get('.work-order-info').within(() => {
         cy.contains('Status: In Progress')
         cy.contains('Priority: U - Urgent (5 Working days)')
@@ -300,43 +291,6 @@ describe('Show work order page', () => {
       cy.loginWithOperativeRole()
       cy.visit('/')
       cy.wait('@operativesWorkOrders')
-    })
-
-    it('shows list of cautionary alerts page with highlighted codes', () => {
-      cy.visit('/operatives/1/work-orders/10000621')
-
-      cy.wait(['@operativesWorkOrder', '@property', '@task'])
-      cy.contains('WO 10000621')
-      cy.get('div[class*="Multibutton"]').should('not.exist')
-      cy.get('a[id="caut-alerts"]').click()
-
-      cy.contains('Cautionary alerts')
-      cy.get('[data-row-id=15]').within(() => {
-        cy.get('.text-dark-red').contains('CV')
-        cy.get('.text-dark-red').contains('No Lone Visits')
-      })
-
-      cy.get('[data-row-id=23]').within(() => {
-        cy.get('.text-dark-red').contains('VA')
-        cy.get('.text-dark-red').contains('Verbal Abuse or Threat of')
-      })
-    })
-
-    it('shows list of cautionary alerts page without highlighted codes', () => {
-      cy.visit('/')
-
-      cy.get('a[id="cautionary-alerts"]').click()
-
-      cy.contains('Cautionary alerts')
-      cy.get('[data-row-id=15]').within(() => {
-        cy.get('.text-dark-red').should('not.exist')
-        cy.get('.text-dark-red').should('not.exist')
-      })
-
-      cy.get('[data-row-id=23]').within(() => {
-        cy.get('.text-dark-red').should('not.exist')
-        cy.get('.text-dark-red').should('not.exist')
-      })
     })
 
     it('shows links to expand description text, if text is more than 3 lines', () => {

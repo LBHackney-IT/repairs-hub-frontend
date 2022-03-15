@@ -10,8 +10,6 @@ import Meta from '../Meta'
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
   const [address, setAddress] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -26,12 +24,11 @@ const PropertyView = ({ propertyReference }) => {
         path: `/api/properties/${propertyReference}`,
       })
 
-      const { property, alerts, tenure } = data
+      const { property, tenure } = data
 
       setProperty(property)
       setAddress(property.address)
-      setLocationAlerts(alerts.locationAlert)
-      setPersonAlerts(alerts.personAlert)
+
       tenure && setTenure(tenure)
     } catch (e) {
       setProperty(null)
@@ -57,31 +54,24 @@ const PropertyView = ({ propertyReference }) => {
       ) : (
         <>
           <Meta title={address.addressLine} />
-          {property &&
-            address &&
-            property.hierarchyType &&
-            tenure &&
-            locationAlerts &&
-            personAlerts && (
-              <>
-                <PropertyDetails
+          {property && address && property.hierarchyType && tenure && (
+            <>
+              <PropertyDetails
+                propertyReference={propertyReference}
+                address={address}
+                hierarchyType={property.hierarchyType}
+                canRaiseRepair={property.canRaiseRepair}
+                tenure={tenure}
+                tmoName={property.tmoName}
+              />
+              {property.canRaiseRepair && (
+                <Tabs
+                  tabsList={tabsList}
                   propertyReference={propertyReference}
-                  address={address}
-                  hierarchyType={property.hierarchyType}
-                  canRaiseRepair={property.canRaiseRepair}
-                  tenure={tenure}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
-                  tmoName={property.tmoName}
                 />
-                {property.canRaiseRepair && (
-                  <Tabs
-                    tabsList={tabsList}
-                    propertyReference={propertyReference}
-                  />
-                )}
-              </>
-            )}
+              )}
+            </>
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}

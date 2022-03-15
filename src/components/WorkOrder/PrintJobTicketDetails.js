@@ -1,21 +1,9 @@
 import PropTypes from 'prop-types'
-import WarningText from '../Template/WarningText'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
-import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 
-const PrintJobTicketDetails = ({
-  workOrder,
-  property,
-  locationAlerts,
-  personAlerts,
-  tasksAndSors,
-}) => {
-  const cautionaryAlertsType = getCautionaryAlertsType(
-    locationAlerts,
-    personAlerts
-  )
+const PrintJobTicketDetails = ({ workOrder, property, tasksAndSors }) => {
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -179,8 +167,6 @@ const PrintJobTicketDetails = ({
           </div>
         </div>
 
-        {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
-
         <hr />
 
         <div className="govuk-!-margin-top-4">
@@ -255,8 +241,6 @@ const PrintJobTicketDetails = ({
 PrintJobTicketDetails.propTypes = {
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   property: PropTypes.object.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string,

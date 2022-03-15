@@ -54,24 +54,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-      locationAlerts: [
-        {
-          type: 'CIT',
-          comments: '[Temporary] No Lone Interviews',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
   }
 
   beforeEach(() => {
@@ -91,8 +73,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -121,8 +101,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -151,8 +129,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -202,8 +178,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -239,8 +213,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -276,8 +248,6 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           workOrderReference={workOrder.reference}
           property={props.property}
           workOrder={workOrder}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
           tasksAndSors={[
             {
               id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
@@ -368,24 +338,6 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-      locationAlerts: [
-        {
-          type: 'CIT',
-          comments: '[Temporary] No Lone Interviews',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
   }
 
   const workOrder = new WorkOrder(workOrderData)
@@ -396,8 +348,6 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         workOrderReference={workOrder.reference}
         property={props.property}
         workOrder={workOrder}
-        personAlerts={props.alerts.personAlert}
-        locationAlerts={props.alerts.locationAlerts}
         tasksAndSors={[
           {
             id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',

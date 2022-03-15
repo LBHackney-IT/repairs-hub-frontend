@@ -74,8 +74,6 @@ describe('WorkOrderHeader component', () => {
             workOrder={new WorkOrder(workOrderData)}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             tenure={props.tenure}
             canRaiseRepair={props.property.canRaiseRepair}
             schedulerSessionId={props.schedulerSessionId}
@@ -93,8 +91,6 @@ describe('WorkOrderHeader component', () => {
             workOrder={new WorkOrder({ ...workOrderData, status: 'No Access' })}
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             tenure={props.tenure}
             canRaiseRepair={props.property.canRaiseRepair}
             schedulerSessionId={props.schedulerSessionId}
@@ -133,8 +129,6 @@ describe('WorkOrderHeader component', () => {
               subTypeDescription={
                 props.property.hierarchyType.subTypeDescription
               }
-              locationAlerts={props.alerts.locationAlert}
-              personAlerts={props.alerts.personAlert}
               tenure={props.tenure}
               canRaiseRepair={props.property.canRaiseRepair}
               schedulerSessionId={props.schedulerSessionId}
@@ -158,8 +152,6 @@ describe('WorkOrderHeader component', () => {
             }
             address={props.property.address}
             subTypeDescription={props.property.hierarchyType.subTypeDescription}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             tenure={props.tenure}
             canRaiseRepair={props.property.canRaiseRepair}
             schedulerSessionId={props.schedulerSessionId}

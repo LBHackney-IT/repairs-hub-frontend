@@ -10,8 +10,6 @@ const PropertyDetails = ({
   address,
   hierarchyType,
   canRaiseRepair,
-  locationAlerts,
-  personAlerts,
   tenure,
   tmoName,
 }) => {
@@ -46,8 +44,6 @@ const PropertyDetails = ({
       <PropertyDetailsGrid
         propertyReference={propertyReference}
         address={address}
-        locationAlerts={locationAlerts}
-        personAlerts={personAlerts}
         subTypeDescription="Property details"
         tenure={tenure}
         canRaiseRepair={canRaiseRepair}
@@ -63,8 +59,6 @@ PropertyDetails.propTypes = {
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   tmoName: PropTypes.string,
 }

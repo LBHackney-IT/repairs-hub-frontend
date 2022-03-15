@@ -22,9 +22,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
-  const [locationAlerts, setLocationAlerts] = useState([])
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -65,8 +63,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
-      setLocationAlerts(propertyObject.alerts.locationAlert)
-      setPersonAlerts(propertyObject.alerts.personAlert)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
@@ -166,16 +162,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             property.address &&
             property.hierarchyType &&
             tenure &&
-            locationAlerts &&
-            personAlerts &&
             workOrder && (
               <>
                 <MobileWorkingWorkOrder
                   workOrderReference={workOrderReference}
                   property={property}
                   workOrder={workOrder}
-                  personAlerts={personAlerts}
-                  locationAlerts={locationAlerts}
                   tasksAndSors={tasksAndSors}
                   error={error}
                   onFormSubmit={onWorkOrderProgressToCloseSubmit}
