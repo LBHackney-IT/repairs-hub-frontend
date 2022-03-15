@@ -35,20 +35,6 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           >
             Tenure: Secure
           </li>
-          <li
-            class="bg-orange"
-          >
-            Address Alert:  (
-            <strong />
-            )
-          </li>
-          <li
-            class="bg-orange"
-          >
-            Contact Alert:  (
-            <strong />
-            )
-          </li>
         </ul>
       </div>
       <h2

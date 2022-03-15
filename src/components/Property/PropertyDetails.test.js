@@ -16,24 +16,6 @@ describe('PropertyDetails component', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      locationAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-02-16',
-          endDate: null,
-        },
-      ],
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
@@ -57,8 +39,6 @@ describe('PropertyDetails component', () => {
           hierarchyType={props.property.hierarchyType}
           canRaiseRepair={props.property.canRaiseRepair}
           tenure={props.tenure}
-          locationAlerts={props.alerts.locationAlert}
-          personAlerts={props.alerts.personAlert}
         />
       )
       expect(asFragment()).toMatchSnapshot()
@@ -82,8 +62,6 @@ describe('PropertyDetails component', () => {
           hierarchyType={props.property.hierarchyType}
           canRaiseRepair={props.property.canRaiseRepair}
           tenure={props.tenure}
-          locationAlerts={props.alerts.locationAlert}
-          personAlerts={props.alerts.personAlert}
         />
       )
       expect(asFragment()).toMatchSnapshot()

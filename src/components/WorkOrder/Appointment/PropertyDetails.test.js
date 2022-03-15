@@ -46,8 +46,6 @@ describe('PropertyDetails component', () => {
         address={props.property.address}
         tenure={props.tenure}
         subTypeDescription={props.property.hierarchyType.subTypeDescription}
-        locationAlerts={props.alerts.locationAlert}
-        personAlerts={props.alerts.personAlert}
         canRaiseRepair={props.property.canRaiseRepair}
       />
     )

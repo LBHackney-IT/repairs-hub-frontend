@@ -23,8 +23,6 @@ const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
   workOrder,
-  personAlerts,
-  locationAlerts,
   tasksAndSors,
   onFormSubmit,
   currentUserPayrollNumber,
@@ -74,8 +72,6 @@ const MobileWorkingWorkOrder = ({
         <MobileWorkingWorkOrderDetails
           property={property}
           workOrder={workOrder}
-          personAlerts={personAlerts}
-          locationAlerts={locationAlerts}
           tasksAndSors={tasksAndSors}
         />
 
@@ -164,8 +160,6 @@ MobileWorkingWorkOrder.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  personAlerts: PropTypes.array.isRequired,
-  locationAlerts: PropTypes.array.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string,

@@ -43,24 +43,6 @@ describe('MobileWorkingWorkOrderDetails component', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-      locationAlerts: [
-        {
-          type: 'CIT',
-          comments: '[Temporary] No Lone Interviews',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
   }
 
   describe('when on operative-index-page', () => {
@@ -69,8 +51,6 @@ describe('MobileWorkingWorkOrderDetails component', () => {
         <MobileWorkingWorkOrderDetails
           property={props.property}
           workOrder={new WorkOrder(workOrderData)}
-          personAlerts={props.alerts.personAlert}
-          locationAlerts={props.alerts.locationAlerts}
         />
       )
       expect(asFragment()).toMatchSnapshot()

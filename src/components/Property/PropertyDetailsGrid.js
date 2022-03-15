@@ -6,8 +6,6 @@ const PropertyDetailsGrid = ({
   propertyReference,
   address,
   subTypeDescription,
-  locationAlerts,
-  personAlerts,
   tenure,
   hasLinkToProperty,
   canRaiseRepair,
@@ -25,8 +23,6 @@ const PropertyDetailsGrid = ({
           />
           <TenureDetails
             tenure={tenure}
-            locationAlerts={locationAlerts}
-            personAlerts={personAlerts}
             canRaiseRepair={canRaiseRepair}
             tmoName={tmoName}
           />
@@ -40,8 +36,6 @@ PropertyDetailsGrid.propTypes = {
   propertyReference: PropTypes.string,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string,
-  locationAlerts: PropTypes.array.isRequired,
-  personAlerts: PropTypes.array.isRequired,
   tenure: PropTypes.object.isRequired,
   hasLinkToProperty: PropTypes.bool,
   canRaiseRepair: PropTypes.bool,

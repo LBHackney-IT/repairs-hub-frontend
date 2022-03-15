@@ -107,8 +107,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={new WorkOrder(workOrderData)}
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -126,8 +124,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={new WorkOrder(migratedWorkOrderData)}
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -147,8 +143,6 @@ describe('WorkOrderDetails component', () => {
             }
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -181,8 +175,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={new WorkOrder(workOrderData)}
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -215,8 +207,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={new WorkOrder(workOrderData)}
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -253,8 +243,6 @@ describe('WorkOrderDetails component', () => {
             }
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -272,8 +260,6 @@ describe('WorkOrderDetails component', () => {
             }
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -306,8 +292,6 @@ describe('WorkOrderDetails component', () => {
             workOrder={new WorkOrder(workOrderData)}
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -344,8 +328,6 @@ describe('WorkOrderDetails component', () => {
             }
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
@@ -363,8 +345,6 @@ describe('WorkOrderDetails component', () => {
             }
             tasksAndSors={[]}
             tenure={props.tenure}
-            locationAlerts={props.alerts.locationAlert}
-            personAlerts={props.alerts.personAlert}
             hasLinkToProperty={true}
           />
         </UserContext.Provider>
