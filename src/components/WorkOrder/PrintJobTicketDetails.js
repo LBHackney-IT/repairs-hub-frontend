@@ -2,8 +2,21 @@ import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
+import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
+import WarningText from '@/components/Template/WarningText'
 
-const PrintJobTicketDetails = ({ workOrder, property, tasksAndSors }) => {
+const PrintJobTicketDetails = ({
+  workOrder,
+  property,
+  locationAlerts,
+  personAlerts,
+  tasksAndSors,
+}) => {
+  const cautionaryAlertsType = getCautionaryAlertsType([
+    ...locationAlerts,
+    ...personAlerts,
+  ]).join(', ')
+
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -166,6 +179,8 @@ const PrintJobTicketDetails = ({ workOrder, property, tasksAndSors }) => {
             </table>
           </div>
         </div>
+
+        {cautionaryAlertsType && <WarningText text={cautionaryAlertsType} />}
 
         <hr />
 

@@ -22,6 +22,48 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path: '/api/properties/00012345/location-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type1',
+              comments: 'Location Alert 1',
+            },
+            {
+              type: 'type2',
+              comments: 'Location Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/tenancyAgreementRef1/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
         path: '/api/workOrders?*',
       },
       { body: [] }
@@ -112,10 +154,31 @@ describe('Raise repair form', () => {
     })
   })
 
-  it('Shows property contact details in a table', () => {
+  it('Shows address, tenure, alerts and property contact information', () => {
     cy.visit('/properties/00012345/raise-repair/new')
 
-    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+    cy.wait([
+      '@propertyRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+      '@personAlerts',
+      '@locationAlerts',
+    ])
+
+    cy.get('.govuk-caption-l').contains('New repair')
+    cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
+
+    cy.checkForTenureDetails(
+      'Tenure: Secure',
+      [
+        'Address Alert: Location Alert 1 (type1)',
+        'Address Alert: Location Alert 2 (type2)',
+      ],
+      [
+        'Contact Alert: Person Alert 1 (type3)',
+        'Contact Alert: Person Alert 2 (type4)',
+      ]
+    )
 
     cy.get('.govuk-table')
       .contains('Contacts')
@@ -134,9 +197,6 @@ describe('Raise repair form', () => {
     cy.visit('/properties/00012345/raise-repair/new')
 
     cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
-
-    cy.get('.govuk-caption-l').contains('New repair')
-    cy.get('.lbh-heading-h1').contains('Dwelling: 16 Pitcairn House')
 
     cy.get('.lbh-heading-h2').contains('Work order task details')
 

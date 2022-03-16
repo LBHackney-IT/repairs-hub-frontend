@@ -12,12 +12,9 @@
     },
     "canRaiseRepair": false
   },
-  "alerts": {
-    "locationAlert": [],
-    "personAlert": []
-  },
   "tenure": {
     "typeCode": "LEA",
-    "typeDescription": "Leasehold (RTB)"
+    "typeDescription": "Leasehold (RTB)",
+    "tenancyAgreementReference": "tenancyAgreementRef1"
   }
 }

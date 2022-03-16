@@ -28,7 +28,6 @@ const PropertyView = ({ propertyReference }) => {
 
       setProperty(property)
       setAddress(property.address)
-
       tenure && setTenure(tenure)
     } catch (e) {
       setProperty(null)

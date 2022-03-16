@@ -1,4 +1,9 @@
-import { render } from '@testing-library/react'
+import {
+  render,
+  act,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
 import UserContext from '../UserContext'
 import WorkOrderDetails from './WorkOrderDetails'
 import MultiButton from '../Layout/MultiButton'
@@ -9,7 +14,17 @@ import { authorisationManager } from 'factories/authorisation_manager'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { WorkOrder } from '@/models/workOrder'
 
+const axios = require('axios')
+
+jest.mock('axios', () => jest.fn())
+
 describe('WorkOrderDetails component', () => {
+  axios.mockResolvedValue({
+    data: {
+      alerts: [],
+    },
+  })
+
   let workOrderData = {
     reference: 10000012,
     dateRaised: '2021-01-18T15:28:57.17811',
@@ -27,6 +42,7 @@ describe('WorkOrderDetails component', () => {
     callerNumber: '07700 900999',
     operatives: [],
   }
+
   let migratedWorkOrderData = {
     reference: 648707,
     dateRaised: '2014-02-22T07:58:20.37842',
@@ -59,32 +75,15 @@ describe('WorkOrderDetails component', () => {
       },
       canRaiseRepair: true,
     },
-    alerts: {
-      locationAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-02-16',
-          endDate: null,
-        },
-      ],
-      personAlert: [
-        {
-          type: 'DIS',
-          comments: 'Property Under Disrepair',
-          startDate: '2011-08-16',
-          endDate: null,
-        },
-      ],
-    },
     tenure: {
       typeCode: 'SEC',
       typeDescription: 'Secure',
+      tenancyAgreementReference: 'tenancyAgreementRef1',
     },
   }
 
   describe('when logged in as an agent', () => {
-    it('should render properly with a link to cancel work order', () => {
+    it('should render properly with a link to cancel work order', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <MultiButton
@@ -111,12 +110,17 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
 
-    //// if work order is 648707 then it should render is as 00648707 (with leading zeroes)
-
-    it('should render migrated work order references correctly', () => {
+    it('should render migrated work order references correctly', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
@@ -128,9 +132,18 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
+      // if work order is 648707 then it should render is as 00648707 (with leading zeroes)
       expect(asFragment()).toMatchSnapshot()
     })
-    it('should not render the work order action menu if work order is closed', () => {
+    it('should not render the work order action menu if work order is closed', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
           <WorkOrderDetails
@@ -147,12 +160,19 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
 
   describe('when logged in as a contractor', () => {
-    it('should render properly with a link to update work order', () => {
+    it('should render properly with a link to update work order', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractor }}>
           <MultiButton
@@ -179,12 +199,19 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
 
   describe('when logged in as a contract manager', () => {
-    it('should render properly with a link to cancel work order', () => {
+    it('should render properly with a link to cancel work order', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
           <MultiButton
@@ -211,10 +238,17 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render with a link to authorise a variation request when status is variation pending approval', () => {
+    it('should render with a link to authorise a variation request when status is variation pending approval', async () => {
       // Work order status is Variation Pending Approval
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
@@ -247,10 +281,17 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render without a link to authorise a variation request when status is not variation pending approval', () => {
+    it('should render without a link to authorise a variation request when status is not variation pending approval', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: contractManager }}>
           <WorkOrderDetails
@@ -264,12 +305,19 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
   })
 
   describe('when logged in as an authorisation manager', () => {
-    it('should render properly with a link to cancel work order', () => {
+    it('should render properly with a link to cancel work order', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
           <MultiButton
@@ -296,10 +344,16 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render with a link to authorise a new work order when status is authorisation pending approval', () => {
+    it('should render with a link to authorise a new work order when status is authorisation pending approval', async () => {
       // Work order status is Authorisation Pending Approval
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
@@ -332,10 +386,18 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
 
-    it('should render without a link to authorise a new work order when status is not authorisation pending approval', () => {
+    it('should render without a link to authorise a new work order when status is not authorisation pending approval', async () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: authorisationManager }}>
           <WorkOrderDetails
@@ -349,6 +411,13 @@ describe('WorkOrderDetails component', () => {
           />
         </UserContext.Provider>
       )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+
       expect(asFragment()).toMatchSnapshot()
     })
   })

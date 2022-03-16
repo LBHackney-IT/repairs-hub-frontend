@@ -14,6 +14,8 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState([])
+  const [locationAlerts, setLocationAlerts] = useState([])
+  const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
@@ -120,6 +122,8 @@ const WorkOrderView = ({ workOrderReference }) => {
                   schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
+                  setLocationAlerts={setLocationAlerts}
+                  setPersonAlerts={setPersonAlerts}
                 />
                 <Tabs
                   tabsList={tabsList}
@@ -132,6 +136,8 @@ const WorkOrderView = ({ workOrderReference }) => {
                   workOrder={workOrder}
                   property={property}
                   tasksAndSors={tasksAndSors}
+                  locationAlerts={locationAlerts}
+                  personAlerts={personAlerts}
                 />
               </>
             )}

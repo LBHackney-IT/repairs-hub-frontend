@@ -60,7 +60,7 @@ SelectPriority.propTypes = {
   onPrioritySelect: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
-  priorityCode: PropTypes.number.isRequired,
+  priorityCode: PropTypes.number,
 }
 
 export default SelectPriority
