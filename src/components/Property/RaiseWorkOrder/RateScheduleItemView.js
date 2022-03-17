@@ -1,20 +1,18 @@
 import PropTypes from 'prop-types'
 import { useState, Fragment } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
-import ErrorMessage from '../../Errors/ErrorMessage'
-import Spinner from '../../Spinner'
 import { calculateTotal } from '@/utils/helpers/calculations'
 
 const RateScheduleItemView = ({
-  sorCodes,
   register,
   errors,
   disabled,
   updatePriority,
   getPriorityObjectByCode,
-  loading,
-  apiError,
   setTotalCost,
+  sorCodeArrays,
+  setSorCodeArrays,
+  sorSearchRequest,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -26,8 +24,8 @@ const RateScheduleItemView = ({
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
-  const getSorCodeObject = (value) => {
-    return sorCodes.filter((a) => a.code == value)[0]
+  const getSorCodeObject = (value, index) => {
+    return sorCodeArrays[index].filter((a) => a.code == value)[0]
   }
 
   const updateTotalCost = (rateScheduleItemCosts) => {
@@ -68,7 +66,7 @@ const RateScheduleItemView = ({
   const onRateScheduleItemSelect = (index, code) => {
     document.getElementById('priorityCode').disabled = false
 
-    const sorCodeObject = getSorCodeObject(code)
+    const sorCodeObject = getSorCodeObject(code, index)
 
     if (sorCodeObject?.priority?.priorityCode) {
       const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
@@ -113,9 +111,17 @@ const RateScheduleItemView = ({
         arrayOfRateScheduleItemComponentIndexes.slice(-1)[0] + 1,
       ]
     )
+
+    setSorCodeArrays((sorCodeArrays) => [...sorCodeArrays, []])
   }
 
   const removeRateScheduleItem = (index) => {
+    setSorCodeArrays((sorCodeArrays) => {
+      sorCodeArrays[index] = []
+
+      return sorCodeArrays
+    })
+
     setArrayOfRateScheduleItemComponentIndexes(
       (arrayOfRateScheduleItemComponentIndexes) =>
         arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== index)
@@ -148,54 +154,50 @@ const RateScheduleItemView = ({
     }
   }
 
-  const rateScheduleItems = () => {
-    return arrayOfRateScheduleItemComponentIndexes.map((i) => {
-      return (
-        <Fragment key={`rateScheduleItem~${i}`}>
-          <RateScheduleItem
-            sorCodes={sorCodes}
-            register={register}
-            errors={errors}
-            disabled={disabled}
-            key={i}
-            index={i}
-            onRateScheduleItemChange={onRateScheduleItemSelect}
-            onQuantityChange={onQuantityChange}
-            showRemoveRateScheduleItem={i > 0}
-            removeRateScheduleItem={removeRateScheduleItem}
-          />
-        </Fragment>
-      )
-    })
-  }
-
   return (
     <div className="min-height-120 govuk-!-margin-bottom-6">
-      {loading ? (
-        <Spinner />
-      ) : (
-        <div>
-          {rateScheduleItems()}
-          {apiError && <ErrorMessage label={apiError} />}
+      <div>
+        {arrayOfRateScheduleItemComponentIndexes.map((i) => {
+          return (
+            <Fragment key={`rateScheduleItem~${i}`}>
+              <RateScheduleItem
+                sorCodes={sorCodeArrays[i] || []}
+                register={register}
+                errors={errors}
+                disabled={disabled}
+                key={i}
+                index={i}
+                onRateScheduleItemChange={onRateScheduleItemSelect}
+                onQuantityChange={onQuantityChange}
+                showRemoveRateScheduleItem={i > 0}
+                removeRateScheduleItem={removeRateScheduleItem}
+                sorSearchRequest={sorSearchRequest}
+                setSorCodes={(codes) =>
+                  setSorCodeArrays((sorCodeArrays) => [
+                    ...sorCodeArrays.slice(0, i),
+                    codes,
+                    ...sorCodeArrays.slice(i + 1),
+                  ])
+                }
+              />
+            </Fragment>
+          )
+        })}
 
-          <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-            + Add another SOR code
-          </a>
-        </div>
-      )}
+        <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+          + Add another SOR code
+        </a>
+      </div>
     </div>
   )
 }
 
 RateScheduleItemView.propTypes = {
-  sorCodes: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  apiError: PropTypes.bool,
 }
 
 export default RateScheduleItemView

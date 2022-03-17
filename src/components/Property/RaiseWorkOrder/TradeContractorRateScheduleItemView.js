@@ -13,34 +13,46 @@ const TradeContractorRateScheduleItemView = ({
   updatePriority,
   getPriorityObjectByCode,
   setTotalCost,
+  setValue,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
-  const [getSorCodesError, setGetSorCodesError] = useState()
   const [loadingContractors, setLoadingContractors] = useState(false)
-  const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [tradeCode, setTradeCode] = useState('')
   const [contractors, setContractors] = useState([])
   const [contractorReference, setContractorReference] = useState('')
-  const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
   const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
 
+  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
+
+  const resetSORs = () => {
+    sorCodeArrays.forEach((array, index) => {
+      setValue(`rateScheduleItems[${index}][code]`, '')
+      setValue(`rateScheduleItems[${index}][description]`, '')
+      setValue(`rateScheduleItems[${index}][cost]`, '')
+      setValue(`rateScheduleItems[${index}][quantity]`, '')
+    })
+
+    setSorCodeArrays((sorCodeArrays) => sorCodeArrays.map(() => []))
+  }
+
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
-    const tradeCode = trades.filter((trade) => trade.name === tradeName)[0]
+    const newTradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
-    setSorCodes([])
 
-    if (tradeCode?.length) {
-      setTradeCode(tradeCode)
-      getContractorsData(propertyReference, tradeCode)
+    if (newTradeCode?.length) {
+      setTradeCode(newTradeCode)
+
+      resetSORs()
+
+      getContractorsData(propertyReference, newTradeCode)
     } else {
       setContractorSelectDisabled(true)
       setRateScheduleItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
-    setLoadingSorCodes(false)
   }
 
   const onContractorSelect = (event) => {
@@ -51,7 +63,8 @@ const TradeContractorRateScheduleItemView = ({
 
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
-      getSorCodesData(tradeCode, propertyReference, contractorRef)
+      resetSORs()
+      setRateScheduleItemDisabled(false)
     } else {
       setRateScheduleItemDisabled(true)
       setContractorReference('')
@@ -86,34 +99,18 @@ const TradeContractorRateScheduleItemView = ({
     setLoadingContractors(false)
   }
 
-  const getSorCodesData = async (tradeCode, propertyRef, contractorRef) => {
-    setLoadingSorCodes(true)
-    setGetSorCodesError(null)
-
-    try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/codes',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          isRaisable: true,
-        },
-      })
-
-      setSorCodes(sorCodes)
-      setRateScheduleItemDisabled(false)
-    } catch (e) {
-      setSorCodes([])
-      console.error('An error has occured:', e.response)
-      setGetSorCodesError(
-        `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
-      )
-    }
-
-    setLoadingSorCodes(false)
-  }
+  const sorSearchRequest = (searchText) =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/schedule-of-rates/codes',
+      params: {
+        tradeCode: tradeCode,
+        propertyReference: propertyReference,
+        contractorReference: contractorReference,
+        isRaisable: true,
+        q: searchText,
+      },
+    })
 
   return (
     <>
@@ -150,16 +147,16 @@ const TradeContractorRateScheduleItemView = ({
       />
 
       <RateScheduleItemView
-        loading={loadingSorCodes}
-        sorCodes={sorCodes}
         disabled={rateScheduleItemDisabled}
         register={register}
         errors={errors}
         isContractorUpdatePage={false}
         updatePriority={updatePriority}
         getPriorityObjectByCode={getPriorityObjectByCode}
-        apiError={getSorCodesError}
         setTotalCost={setTotalCost}
+        sorCodeArrays={sorCodeArrays}
+        setSorCodeArrays={setSorCodeArrays}
+        sorSearchRequest={sorSearchRequest}
       />
     </>
   )
