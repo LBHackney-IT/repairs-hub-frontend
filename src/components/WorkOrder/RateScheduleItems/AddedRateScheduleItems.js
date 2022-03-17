@@ -83,7 +83,7 @@ const AddedRateScheduleItems = ({
             showRemoveRateScheduleItem={isContractorUpdatePage}
             removeRateScheduleItem={removeRateScheduleItem}
             isContractorUpdatePage={isContractorUpdatePage}
-            onChange={(index, event) => {
+            onRateScheduleItemChange={(index, event) => {
               const selectedCode = event.target.value.split(' - ')[0]
 
               updateRateScheduleItem(item.id, 'code', selectedCode)

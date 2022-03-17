@@ -2,8 +2,8 @@ import PropTypes from 'prop-types'
 import { DataList, TextInput } from '../Form'
 
 const RateScheduleItem = ({
-  onChange,
   sorCodesList,
+  onRateScheduleItemChange,
   register,
   errors,
   index,
@@ -27,7 +27,9 @@ const RateScheduleItem = ({
           options={sorCodesList}
           defaultValue={code ?? ''}
           disabled={disabled}
-          onChange={(event) => onChange && onChange(index, event)}
+          onChange={(event) =>
+            onRateScheduleItemChange && onRateScheduleItemChange(index, event)
+          }
           required={true}
           selected={code ?? ''}
           register={register({
@@ -84,6 +86,7 @@ const RateScheduleItem = ({
             },
           })}
         />
+
         {showRemoveRateScheduleItem && (
           <div className="remove-rate-schedule-item govuk-!-margin-0">
             <button
@@ -114,6 +117,7 @@ RateScheduleItem.propTypes = {
   cost: PropTypes.number,
   disabled: PropTypes.bool,
   onQuantityChange: PropTypes.func,
+  onRateScheduleItemChange: PropTypes.func,
 }
 
 export default RateScheduleItem
