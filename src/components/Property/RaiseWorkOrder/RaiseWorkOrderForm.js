@@ -40,6 +40,7 @@ const RaiseWorkOrderForm = ({
 
   const [totalCost, setTotalCost] = useState('')
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
@@ -189,6 +190,7 @@ const RaiseWorkOrderForm = ({
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
+              setValue={setValue}
             />
 
             <SelectPriority

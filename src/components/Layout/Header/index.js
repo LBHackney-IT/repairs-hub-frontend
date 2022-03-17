@@ -51,6 +51,7 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
       <a href="#main-content" className="govuk-skip-link lbh-skip-link">
         Skip to main content
       </a>
+
       {showDevelopmentNote()}
       <header
         className={`lbh-header govuk-!-display-none-print ${cx({

@@ -74,7 +74,6 @@ const AddedRateScheduleItems = ({
             key={item.id}
             index={item.id}
             description={item.description}
-            hiddenDescriptionValue={true}
             quantity={item.quantity}
             cost={item.cost && parseFloat(item.cost)}
             showRemoveRateScheduleItem={isContractorUpdatePage}

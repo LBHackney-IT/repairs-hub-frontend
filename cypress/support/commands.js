@@ -148,7 +148,7 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
 Cypress.Commands.add('requestsCountByUrl', (url) =>
   cy.wrap().then(() => {
     const requests = cy.state('requests') || []
-    return requests.filter((req) => req.xhr.url.match(new RegExp(`${url}$`)))
+    return requests.filter((req) => req.xhr.url.match(new RegExp(`${url}`)))
       .length
   })
 )
