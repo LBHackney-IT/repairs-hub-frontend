@@ -12,7 +12,7 @@ const RateScheduleItem = ({
   code,
   quantity,
   disabled,
-  onInputChange,
+  onQuantityChange,
   description,
   hiddenDescriptionValue,
   cost,
@@ -47,6 +47,7 @@ const RateScheduleItem = ({
           type="hidden"
           ref={register}
         />
+
         <input
           id={`rateScheduleItems[${index}][cost]`}
           name={`rateScheduleItems[${index}][cost]`}
@@ -54,6 +55,7 @@ const RateScheduleItem = ({
           type="hidden"
           ref={register}
         />
+
         <TextInput
           name={`rateScheduleItems[${index}][quantity]`}
           label="Quantity"
@@ -62,7 +64,9 @@ const RateScheduleItem = ({
           required={true}
           defaultValue={quantity ?? ''}
           additionalDivClasses="rate-schedule-item--quantity"
-          onChange={(event) => onInputChange && onInputChange(index, event)}
+          onChange={(event) =>
+            onQuantityChange && onQuantityChange(index, event)
+          }
           disabled={disabled}
           register={register({
             required: 'Please enter a quantity',
@@ -109,6 +113,7 @@ RateScheduleItem.propTypes = {
   description: PropTypes.string,
   cost: PropTypes.number,
   disabled: PropTypes.bool,
+  onQuantityChange: PropTypes.func,
 }
 
 export default RateScheduleItem

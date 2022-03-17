@@ -38,7 +38,7 @@ const RateScheduleItemView = ({
     setTotalCost(calculateTotal(rateScheduleItemCosts, 'cost', 'quantity'))
   }
 
-  const onQuantityInput = (index, event) => {
+  const onQuantityChange = (index, event) => {
     const quantity = parseFloat(event.target.value) || 0
     const costPerUnit = parseFloat(
       document.getElementById(`rateScheduleItems[${index}][cost]`).value
@@ -174,7 +174,7 @@ const RateScheduleItemView = ({
             key={i}
             index={i}
             onChange={onRateScheduleItemSelect}
-            onInputChange={onQuantityInput}
+            onQuantityChange={onQuantityChange}
             showRemoveRateScheduleItem={i > 0}
             removeRateScheduleItem={removeRateScheduleItem}
           />
