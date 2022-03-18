@@ -180,11 +180,13 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                 id="rateScheduleItems[0][description]"
                 name="rateScheduleItems[0][description]"
                 type="hidden"
+                value=""
               />
               <input
                 id="rateScheduleItems[0][cost]"
                 name="rateScheduleItems[0][cost]"
                 type="hidden"
+                value=""
               />
               <div
                 class="govuk-form-group lbh-form-group rate-schedule-item--quantity"

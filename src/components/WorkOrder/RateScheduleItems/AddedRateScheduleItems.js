@@ -11,9 +11,6 @@ const AddedRateScheduleItems = ({
   isContractorUpdatePage,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
-  const sorCodesList = sorCodes.map(
-    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
-  )
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
 
   const addRateScheduleItem = () => {
@@ -48,7 +45,7 @@ const AddedRateScheduleItems = ({
       ])
     }
 
-    if (attribute === 'code' && value.length > 0 && !existingCode) {
+    if (attribute === 'code' && value?.length > 0 && !existingCode) {
       findSorCode(value.toUpperCase(), index)
     }
   }
@@ -70,7 +67,7 @@ const AddedRateScheduleItems = ({
       return (
         <Fragment key={`rateScheduleItems~${item.id}`}>
           <RateScheduleItem
-            sorCodesList={sorCodesList}
+            sorCodes={sorCodes}
             register={register}
             errors={errors}
             code={item.code}
@@ -83,11 +80,9 @@ const AddedRateScheduleItems = ({
             showRemoveRateScheduleItem={isContractorUpdatePage}
             removeRateScheduleItem={removeRateScheduleItem}
             isContractorUpdatePage={isContractorUpdatePage}
-            onRateScheduleItemChange={(index, event) => {
-              const selectedCode = event.target.value.split(' - ')[0]
-
-              updateRateScheduleItem(item.id, 'code', selectedCode)
-            }}
+            onRateScheduleItemChange={(index, code) =>
+              updateRateScheduleItem(item.id, 'code', code)
+            }
             onInputChange={() => {
               updateRateScheduleItem(
                 item.id,

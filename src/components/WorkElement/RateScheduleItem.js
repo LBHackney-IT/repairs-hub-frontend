@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
+import { useState } from 'react'
 import { DataList, TextInput } from '../Form'
 
 const RateScheduleItem = ({
-  sorCodesList,
   onRateScheduleItemChange,
+  sorCodes,
   register,
   errors,
   index,
@@ -17,6 +18,18 @@ const RateScheduleItem = ({
   hiddenDescriptionValue,
   cost,
 }) => {
+  const sorOptions = sorCodes.map(
+    (sor) => `${sor.code} - ${sor.shortDescription}`
+  )
+
+  const sorCodesWithOptions = sorCodes.map((sor, index) => ({
+    ...sor,
+    optionText: sorOptions[index],
+  }))
+
+  const [sorDescription, setSorDescription] = useState()
+  const [sorCost, setSorCost] = useState()
+
   return (
     <>
       <div className="rate-schedule-item govuk-!-margin-top-0">
@@ -24,18 +37,31 @@ const RateScheduleItem = ({
           name={`rateScheduleItems[${index}][code]`}
           label="SOR Code"
           labelMessage="- Search by code or description"
-          options={sorCodesList}
+          options={sorOptions}
           defaultValue={code ?? ''}
           disabled={disabled}
-          onChange={(event) =>
-            onRateScheduleItemChange && onRateScheduleItemChange(index, event)
-          }
+          onChange={(event) => {
+            const value = event.target.value
+
+            const sorCode = sorCodesWithOptions.find(
+              (code) => code.optionText === value
+            )
+
+            if (sorCode) {
+              setSorDescription(sorCode.shortDescription)
+              setSorCost(sorCode.cost)
+            }
+
+            onRateScheduleItemChange &&
+              onRateScheduleItemChange(index, sorCode?.code)
+          }}
           required={true}
           selected={code ?? ''}
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
-              sorCodesList.includes(value) || 'SOR code is not valid',
+              sorOptions.some((text) => text.includes(value)) ||
+              'SOR code is not valid',
           })}
           error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
           widthClass="govuk-!-margin-top-0 govuk-!-width-full"
@@ -45,7 +71,9 @@ const RateScheduleItem = ({
         <input
           id={`rateScheduleItems[${index}][description]`}
           name={`rateScheduleItems[${index}][description]`}
-          {...(hiddenDescriptionValue && { value: description ?? '' })}
+          {...(hiddenDescriptionValue
+            ? { value: description ?? '' }
+            : { value: sorDescription })}
           type="hidden"
           ref={register}
         />
@@ -53,7 +81,7 @@ const RateScheduleItem = ({
         <input
           id={`rateScheduleItems[${index}][cost]`}
           name={`rateScheduleItems[${index}][cost]`}
-          {...(cost && { value: cost ?? '' })}
+          {...(cost ? { value: cost ?? '' } : { value: sorCost })}
           type="hidden"
           ref={register}
         />

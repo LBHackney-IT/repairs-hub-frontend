@@ -26,10 +26,6 @@ const RateScheduleItemView = ({
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
-  const sorCodesList = sorCodes.map(
-    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
-  )
-
   const getSorCodeObject = (value) => {
     return sorCodes.filter((a) => a.code == value)[0]
   }
@@ -69,20 +65,10 @@ const RateScheduleItemView = ({
     }
   }
 
-  const onRateScheduleItemSelect = (index, event) => {
+  const onRateScheduleItemSelect = (index, code) => {
     document.getElementById('priorityCode').disabled = false
 
-    const value = event.target.value.split(' - ')[0]
-    const sorCodeObject = getSorCodeObject(value)
-    const sorCodeDescription = sorCodeObject?.shortDescription || ''
-
-    // Set hidden description value
-    document.getElementById(
-      `rateScheduleItems[${index}][description]`
-    ).value = sorCodeDescription
-    // Set hidden cost value
-    document.getElementById(`rateScheduleItems[${index}][cost]`).value =
-      sorCodeObject?.cost
+    const sorCodeObject = getSorCodeObject(code)
 
     if (sorCodeObject?.priority?.priorityCode) {
       const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
@@ -167,7 +153,7 @@ const RateScheduleItemView = ({
       return (
         <Fragment key={`rateScheduleItem~${i}`}>
           <RateScheduleItem
-            sorCodesList={sorCodesList}
+            sorCodes={sorCodes}
             register={register}
             errors={errors}
             disabled={disabled}

@@ -259,6 +259,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
           id="rateScheduleItems[undefined][cost]"
           name="rateScheduleItems[undefined][cost]"
           type="hidden"
+          value=""
         />
         <div
           class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
