@@ -60,7 +60,6 @@ const DataList = ({
         aria-disabled={disabled}
         list={`autocomplete-list-${name}`}
         autoComplete="off"
-        onChange={(e) => onChange && onChange(e)}
         defaultValue={defaultValue}
         {...(value && { value })}
       />
