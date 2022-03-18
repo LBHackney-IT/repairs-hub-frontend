@@ -3,9 +3,9 @@ export const STATUS_IN_PROGRESS = {
   description: 'In Progress',
 }
 
-export const STATUS_COMPLETE = {
+export const STATUS_COMPLETED = {
   code: 50,
-  description: 'Work Completed',
+  description: 'Completed',
 }
 
 export const STATUS_CANCELLED = {
@@ -51,23 +51,26 @@ export const CLOSURE_STATUS_OPTIONS = [
 
 export const WORK_ORDERS_STATUSES = [
   STATUS_IN_PROGRESS.description,
-  STATUS_COMPLETE.description,
+  STATUS_COMPLETED.description,
   STATUS_CANCELLED.description,
   STATUS_VARIATION_PENDING_APPROVAL.description,
   STATUS_AUTHORISATION_PENDING_APPROVAL.description,
   STATUS_VARIATION_APPROVED.description,
   STATUS_VARIATION_REJECTED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
 
 export const CLOSED_STATUS_DESCRIPTIONS = [
   STATUS_CANCELLED.description,
   STATUS_AUTHORISATION_PENDING_APPROVAL.description,
-  STATUS_COMPLETE.description,
+  STATUS_COMPLETED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
 
 export const CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES = [
-  STATUS_COMPLETE.description,
+  STATUS_COMPLETED.description,
   STATUS_NO_ACCESS.description,
+  'Work Completed', // can be deleted following backend release of PR #641
 ]
