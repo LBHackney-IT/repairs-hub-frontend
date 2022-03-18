@@ -4,6 +4,7 @@ import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import BudgetCodeItemView from './BudgetCodeItemView'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -16,20 +17,26 @@ const TradeContractorRateScheduleItemView = ({
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
+  const [getBudgetCodesError, setGetBudgetCodesError] = useState()
   const [loadingContractors, setLoadingContractors] = useState(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
+  const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
   const [tradeCode, setTradeCode] = useState('')
   const [contractors, setContractors] = useState([])
+  const [budgetCodes, setBudgetCodes] = useState([])
   const [contractorReference, setContractorReference] = useState('')
+  const [budgetCodeSelected, setBudgetCodeSelected] = useState('')
   const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
   const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
+  const [budgetCodeItemDisabled, setBudgetCodeItemDisabled] = useState(true)
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
     const tradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
     setSorCodes([])
+    setBudgetCodes([])
 
     if (tradeCode?.length) {
       setTradeCode(tradeCode)
@@ -37,6 +44,7 @@ const TradeContractorRateScheduleItemView = ({
     } else {
       setContractorSelectDisabled(true)
       setRateScheduleItemDisabled(true)
+      setBudgetCodeItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
@@ -51,7 +59,8 @@ const TradeContractorRateScheduleItemView = ({
 
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
-      getSorCodesData(tradeCode, propertyReference, contractorRef)
+      getBudgetCodesData(tradeCode, propertyReference, contractorRef)
+      // getSorCodesData(tradeCode, propertyReference, contractorRef)
     } else {
       setRateScheduleItemDisabled(true)
       setContractorReference('')
@@ -84,6 +93,52 @@ const TradeContractorRateScheduleItemView = ({
     }
 
     setLoadingContractors(false)
+  }
+
+  const getBudgetCodesData = async (propertyReference, tradeCode) => {
+    setLoadingBudgetCodes(true)
+    setGetBudgetCodesError(null)
+
+    const budgetCodes = [1, 2, 3]
+    setBudgetCodes(budgetCodes)
+    setBudgetCodeItemDisabled(false)
+
+    //call to budget codes API
+    // try {
+    //   const budgetCodes = await frontEndApiRequest({
+    //     method: 'get',
+    //     path: '/api/budgetCodes',
+    //     params: {
+    //       propertyReference: propertyReference,
+    //       tradeCode: tradeCode,
+    //     },
+    //   })
+
+    //   setBudgetCodes(budgetCodes)
+    //   setBudgetCodeItemDisabled(false)
+    // } catch (e) {
+    //   setBudgetCodes([])
+    //   console.error('An error has occured:', e.response)
+    //   setGetBudgetCodesError(
+    //     `Oops an error occurred getting contractors with error status: ${e.response?.status}`
+    //   )
+    // }
+    setTimeout(() => {
+      setLoadingBudgetCodes(false)
+    }, 2000)
+  }
+
+  const onBudgetSelect = (event) => {
+    //need to check how thi will look like exactly
+    const budgetName = event.target.value
+    const budgetCode = budgetCodes.filter((code) => code == budgetName)
+
+    if (budgetCode?.length) {
+      setBudgetCodeSelected(budgetCode)
+      getSorCodesData(tradeCode, propertyReference, contractorReference)
+    } else {
+      setRateScheduleItemDisabled(true)
+    }
   }
 
   const getSorCodesData = async (tradeCode, propertyRef, contractorRef) => {
@@ -140,6 +195,41 @@ const TradeContractorRateScheduleItemView = ({
         register={register}
         errors={errors}
         apiError={getContractorsError}
+      />
+      <input
+        id="contractorRef"
+        name="contractorRef"
+        type="hidden"
+        ref={register}
+        value={contractorReference}
+      />
+      {/*TODO: check the user (only certain user group can assign budget code )*/}
+      {/*TODO: add method to userPermission file (userCanAssignBudget code: something like that*/}
+      {/*TODO: Budget code list appears based on which trade and contractor were selected*/}
+      {/*TODO: add hidden fields for values (maybe 2 hidden fields, depends what we get from b/e*/}
+      {/*TODO: check Capital code selection scenario (after all the logic is implemented*/}
+      {/*TODO: feature flag for budget code selection*/}
+      {/*TODO: add to .env and to user.js userGroup "Agent?"*/}
+      {/*TODO: work order fixture after we know what b/e response look like*/}
+      {/*TODO: test: check Neil's spike in github*/}
+      {/*TODO: Ask Raffaella about  'Authorisation and variation pages, pending authorisation tab' for design*/}
+
+      <BudgetCodeItemView
+        loading={loadingBudgetCodes}
+        register={register}
+        errors={errors}
+        apiError={getBudgetCodesError}
+        disabled={budgetCodeItemDisabled}
+        budgetCodes={budgetCodes}
+        onBudgetSelect={onBudgetSelect}
+      />
+      {/* put relevant info here, base on what b/e will give me*/}
+      <input
+        id="contractorRef"
+        name="contractorRef"
+        type="hidden"
+        ref={register}
+        value={contractorReference}
       />
       <input
         id="contractorRef"
