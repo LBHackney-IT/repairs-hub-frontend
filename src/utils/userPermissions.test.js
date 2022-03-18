@@ -7,6 +7,7 @@ import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
   canAttendOwnWorkOrder,
+  canAssignBudgetCode,
 } from './userPermissions'
 
 describe('canSeeAllFilters', () => {
@@ -195,6 +196,32 @@ describe('canAttendOwnWorkOrder', () => {
 
     it('returns false', () => {
       expect(canAttendOwnWorkOrder(user)).toBe(false)
+    })
+  })
+})
+
+describe('canAssignBudgetCode', () => {
+  describe('when the user has budget code officer permissions', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasBudgetCodeOfficerPermissions: true,
+    }
+
+    it('returns true', () => {
+      expect(canAssignBudgetCode(user)).toBe(true)
+    })
+  })
+
+  describe('when the user does not have budget code officer permissions', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasBudgetCodeOfficerPermissions: false,
+    }
+
+    it('returns false', () => {
+      expect(canAssignBudgetCode(user)).toBe(false)
     })
   })
 })

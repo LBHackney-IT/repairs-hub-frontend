@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BudgetCodeItemView component should render a datalist with formatted budget codes as options 1`] = `
+<DocumentFragment>
+  <div
+    class="min-height-100"
+  >
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="budgetCode-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="budgetCode"
+      >
+        Budget code 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+         
+        <span>
+           - Search by code
+        </span>
+      </label>
+      <input
+        aria-disabled="false"
+        autocomplete="off"
+        class="govuk-select lbh-select govuk-!-width-one-half"
+        data-testid="budgetCode"
+        id="budgetCode"
+        list="autocomplete-list-budgetCode"
+        name="budgetCode"
+        value=""
+      />
+      <datalist
+        id="autocomplete-list-budgetCode"
+      >
+        <option
+          value="H2555 - 200031 - Lifts Breakdown"
+        />
+        <option
+          value="H2555 - 200045 - DPA Electrical Insp Planned"
+        />
+      </datalist>
+    </div>
+    <input
+      id="budgetCodeId"
+      name="budgetCodeId"
+      type="hidden"
+      value=""
+    />
+  </div>
+</DocumentFragment>
+`;

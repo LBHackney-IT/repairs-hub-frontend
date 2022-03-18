@@ -106,5 +106,10 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
         ],
       },
     },
+    ...(workOrderData.budgetCodeId && {
+      budgetCode: {
+        id: workOrderData.budgetCodeId,
+      },
+    }),
   }
 }
