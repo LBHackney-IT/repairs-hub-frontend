@@ -11,7 +11,7 @@ import {
 import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
-  STATUS_COMPLETE,
+  STATUS_COMPLETED,
   WORK_ORDERS_STATUSES,
 } from '@/utils/statusCodes'
 import { WorkOrder } from './workOrder'
@@ -153,13 +153,14 @@ describe('WorkOrder', () => {
 
   describe('completionReason()', () => {
     it('returns Completed when the status is work complete', () => {
-      const workOrder = new WorkOrder({ status: STATUS_COMPLETE.description })
+      const workOrder = new WorkOrder({ status: STATUS_COMPLETED.description })
 
       expect(workOrder.completionReason()).toBe('Completed')
     })
 
     WORK_ORDERS_STATUSES.filter(
-      (status) => status !== STATUS_COMPLETE.description
+      (status) =>
+        status !== STATUS_COMPLETED.description && status !== 'Work Completed'
     ).forEach((status) => {
       it(`returns the status description when the status is ${status}`, () => {
         const workOrder = new WorkOrder({ status })
