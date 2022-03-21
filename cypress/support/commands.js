@@ -145,6 +145,24 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
   )
 })
 
+Cypress.Commands.add('loginWithBudgetCodeAgentRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_BUDGET_CODE_OFFICER')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    //TODO: is just user.json is enough? need to add anything else?
+    { fixture: 'hubUser/user.json' }
+  )
+})
+
 Cypress.Commands.add('requestsCountByUrl', (url) =>
   cy.wrap().then(() => {
     const requests = cy.state('requests') || []
