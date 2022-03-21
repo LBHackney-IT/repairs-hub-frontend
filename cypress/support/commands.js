@@ -145,7 +145,7 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
   )
 })
 
-Cypress.Commands.add('loginWithBudgetCodeAgentRole', () => {
+Cypress.Commands.add('loginWithBudgetCodeOfficer', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_BUDGET_CODE_OFFICER')
 
   cy.getCookies().should('be.empty')

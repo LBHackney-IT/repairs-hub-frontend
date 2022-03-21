@@ -6,16 +6,36 @@ import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 
-{/*TODO: check the user (only certain user group can assign budget code )*/}
-{/*TODO: add method to userPermission file (userCanAssignBudget code: something like that*/}
-{/*TODO: Budget code list appears based on which trade and contractor were selected*/}
-{/*TODO: add hidden fields for values (maybe 2 hidden fields, depends what we get from b/e*/}
-{/*TODO: check Capital code selection scenario (after all the logic is implemented*/}
-{/*TODO: feature flag for budget code selection*/}
-{/*TODO: add to .env and to user.js userGroup "Agent?"*/}
-{/*TODO: work order fixture after we know what b/e response look like*/}
-{/*TODO: test: check Neil's spike in github*/}
-{/*TODO: Ask Raffaella about  'Authorisation and variation pages, pending authorisation tab' for design*/}
+{
+  /*TODO: check the user (only certain user group can assign budget code )*/
+}
+{
+  /*TODO: add method to userPermission file (userCanAssignBudget code: something like that*/
+}
+{
+  /*TODO: Budget code list appears based on which trade and contractor were selected*/
+}
+{
+  /*TODO: add hidden fields for values (maybe 2 hidden fields, depends what we get from b/e*/
+}
+{
+  /*TODO: check Capital code selection scenario (after all the logic is implemented*/
+}
+{
+  /*TODO: feature flag for budget code selection*/
+}
+{
+  /*TODO: add to .env and to user.js userGroup "Agent?"*/
+}
+{
+  /*TODO: work order fixture after we know what b/e response look like*/
+}
+{
+  /*TODO: test: check Neil's spike in github*/
+}
+{
+  /*TODO: Ask Raffaella about  'Authorisation and variation pages, pending authorisation tab' for design*/
+}
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -108,7 +128,7 @@ const TradeContractorRateScheduleItemView = ({
     setLoadingContractors(false)
   }
 
-  const getBudgetCodesData = async (propertyReference, tradeCode) => {
+  const getBudgetCodesData = async () => {
     setLoadingBudgetCodes(true)
     setGetBudgetCodesError(null)
 
@@ -122,8 +142,7 @@ const TradeContractorRateScheduleItemView = ({
     //     method: 'get',
     //     path: '/api/budgetCodes',
     //     params: {
-    //       propertyReference: propertyReference,
-    //       tradeCode: tradeCode,
+    //       contractorReference: contractorReference,
     //     },
     //   })
 
@@ -235,14 +254,14 @@ const TradeContractorRateScheduleItemView = ({
         name="contractorRef"
         type="hidden"
         ref={register}
-        value={contractorReference}
+        value={budgetCodeSelected}
       />
       <input
         id="contractorRef"
         name="contractorRef"
         type="hidden"
         ref={register}
-        value={contractorReference}
+        value={budgetCodeSelected}
       />
 
       <RateScheduleItemView
