@@ -6,6 +6,17 @@ import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 
+{/*TODO: check the user (only certain user group can assign budget code )*/}
+{/*TODO: add method to userPermission file (userCanAssignBudget code: something like that*/}
+{/*TODO: Budget code list appears based on which trade and contractor were selected*/}
+{/*TODO: add hidden fields for values (maybe 2 hidden fields, depends what we get from b/e*/}
+{/*TODO: check Capital code selection scenario (after all the logic is implemented*/}
+{/*TODO: feature flag for budget code selection*/}
+{/*TODO: add to .env and to user.js userGroup "Agent?"*/}
+{/*TODO: work order fixture after we know what b/e response look like*/}
+{/*TODO: test: check Neil's spike in github*/}
+{/*TODO: Ask Raffaella about  'Authorisation and variation pages, pending authorisation tab' for design*/}
+
 const TradeContractorRateScheduleItemView = ({
   trades,
   propertyReference,
@@ -59,8 +70,10 @@ const TradeContractorRateScheduleItemView = ({
 
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
-      getBudgetCodesData(tradeCode, propertyReference, contractorRef)
-      // getSorCodesData(tradeCode, propertyReference, contractorRef)
+      //Here later also add check if user is the one that can assign budget code
+      process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true'
+        ? getBudgetCodesData(tradeCode, propertyReference, contractorRef)
+        : getSorCodesData(tradeCode, propertyReference, contractorRef)
     } else {
       setRateScheduleItemDisabled(true)
       setContractorReference('')
@@ -129,7 +142,7 @@ const TradeContractorRateScheduleItemView = ({
   }
 
   const onBudgetSelect = (event) => {
-    //need to check how thi will look like exactly
+    //need to check how this will look like exactly
     const budgetName = event.target.value
     const budgetCode = budgetCodes.filter((code) => code == budgetName)
 
@@ -203,26 +216,19 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
-      {/*TODO: check the user (only certain user group can assign budget code )*/}
-      {/*TODO: add method to userPermission file (userCanAssignBudget code: something like that*/}
-      {/*TODO: Budget code list appears based on which trade and contractor were selected*/}
-      {/*TODO: add hidden fields for values (maybe 2 hidden fields, depends what we get from b/e*/}
-      {/*TODO: check Capital code selection scenario (after all the logic is implemented*/}
-      {/*TODO: feature flag for budget code selection*/}
-      {/*TODO: add to .env and to user.js userGroup "Agent?"*/}
-      {/*TODO: work order fixture after we know what b/e response look like*/}
-      {/*TODO: test: check Neil's spike in github*/}
-      {/*TODO: Ask Raffaella about  'Authorisation and variation pages, pending authorisation tab' for design*/}
 
-      <BudgetCodeItemView
-        loading={loadingBudgetCodes}
-        register={register}
-        errors={errors}
-        apiError={getBudgetCodesError}
-        disabled={budgetCodeItemDisabled}
-        budgetCodes={budgetCodes}
-        onBudgetSelect={onBudgetSelect}
-      />
+      {/*Here later also add check if user is the one that can assign budget code*/}
+      {process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' && (
+        <BudgetCodeItemView
+          loading={loadingBudgetCodes}
+          register={register}
+          errors={errors}
+          apiError={getBudgetCodesError}
+          disabled={budgetCodeItemDisabled}
+          budgetCodes={budgetCodes}
+          onBudgetSelect={onBudgetSelect}
+        />
+      )}
       {/* put relevant info here, base on what b/e will give me*/}
       <input
         id="contractorRef"
