@@ -16,7 +16,7 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [sorCodes, setSorCodes] = useState([])
+  const [workOrder, setWorkOrder] = useState([])
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
@@ -76,6 +76,20 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
+  const sorSearchRequest = (searchText) =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/schedule-of-rates/codes',
+      params: {
+        tradeCode: workOrder.tradeCode,
+        propertyReference: workOrder.propertyReference,
+        contractorReference: workOrder.contractorReference,
+        showAdditionalTrades:
+          process.env.NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED === 'true',
+        q: searchText,
+      },
+    })
+
   const getWorkOrderUpdateForm = async (reference) => {
     setError(null)
 
@@ -84,35 +98,24 @@ const WorkOrderUpdateView = ({ reference }) => {
         method: 'get',
         path: '/api/hub-user',
       })
+
       const workOrder = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
+
       const tasks = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${reference}/tasks`,
       })
 
-      const sorCodes = await frontEndApiRequest({
-        path: '/api/schedule-of-rates/codes',
-        method: 'get',
-        params: {
-          tradeCode: workOrder.tradeCode,
-          propertyReference: workOrder.propertyReference,
-          contractorReference: workOrder.contractorReference,
-          showAdditionalTrades:
-            process.env.NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED === 'true',
-        },
-      })
-
+      setWorkOrder(workOrder)
       setCurrentUser(currentUser)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
-      setSorCodes(sorCodes)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
-      setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -133,7 +136,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {currentUser && tasks && sorCodes && (
+          {currentUser && tasks && (
             <>
               {showUpdateSuccess && (
                 <>
@@ -151,7 +154,6 @@ const WorkOrderUpdateView = ({ reference }) => {
                   </h1>
 
                   <WorkOrderUpdateForm
-                    sorCodes={sorCodes}
                     latestTasks={tasks}
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
@@ -161,6 +163,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                     onGetToSummary={onGetToSummary}
                     setVariationReason={setVariationReason}
                     variationReason={variationReason}
+                    sorSearchRequest={sorSearchRequest}
                   />
                 </>
               )}

@@ -28,7 +28,7 @@ describe('Schedule appointment form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true&q=*',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodes')
@@ -74,6 +74,30 @@ describe('Schedule appointment form', () => {
     ).as('workOrdersForProperty')
 
     cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/00012345/location-alerts',
+      },
+      {
+        body: {
+          alerts: [],
+        },
+      }
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/tenancyAgreementRef1/person-alerts',
+      },
+      {
+        body: {
+          alerts: [],
+        },
+      }
+    ).as('personAlerts')
+
+    cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
       {
         body: {
@@ -98,7 +122,7 @@ describe('Schedule appointment form', () => {
 
   context('There are available appointments', () => {
     beforeEach(() => {
-      cy.clock(now)
+      cy.clock(now, ['Date'])
 
       cy.intercept(
         {
@@ -127,11 +151,14 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.wait(['@sorCodes'])
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES')
+          .then((datalist) => {
+            cy.wait('@sorCodes')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'DES5R005 - Normal call outs'
-        )
+            cy.wrap(datalist).type('5R005 - Normal call outs')
+          })
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
 
@@ -364,7 +391,7 @@ describe('Schedule appointment form', () => {
 
   context('No available appointments', () => {
     beforeEach(() => {
-      cy.clock(now)
+      cy.clock(now, ['Date'])
 
       cy.intercept(
         {
@@ -393,11 +420,14 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.wait(['@sorCodes'])
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES')
+          .then((datalist) => {
+            cy.wait('@sorCodes')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'DES5R005 - Normal call outs'
-        )
+            cy.wrap(datalist).type('5R005 - Normal call outs')
+          })
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')

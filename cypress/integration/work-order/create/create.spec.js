@@ -213,8 +213,9 @@ describe('Raise repair form', () => {
       // Contractor select is no longer disabled but sor code selection still is
       cy.get('#contractor').should('not.be.disabled')
 
-      // cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
-      // cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
+      cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
+
       // Select a contractor
       cy.get('#contractor').type('HH General Building Repair - H01')
 
@@ -231,9 +232,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type(
-            '5R001 - Pre insp of wrks by Constructr{enter}'
-          )
+          cy.wrap(datalist).type('5R001 - Pre insp of wrks by Constructr')
         })
 
       cy.get('#priorityCode').should('not.be.disabled')
@@ -265,9 +264,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type(
-            '5R001 - Pre insp of wrks by Constructr{enter}'
-          )
+          cy.wrap(datalist).type('5R001 - Pre insp of wrks by Constructr')
         })
 
       // Does not autopopulate priority description
@@ -280,7 +277,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R003 - Immediate call outs{enter}')
+          cy.wrap(datalist).type('5R003 - Immediate call outs')
 
           // Autopopulates priority description
           cy.get('#priorityCode')
@@ -300,7 +297,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R004 - Emergency call out{enter}')
+          cy.wrap(datalist).type('5R004 - Emergency call out')
         })
 
       // Autopopulates priority description
@@ -332,7 +329,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R005 - Normal call outs{enter}')
+          cy.wrap(datalist).type('5R005 - Normal call outs')
         })
 
       // Enter a blank quantity
@@ -409,9 +406,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type(
-            '5R013 - Inspect additional sec entrance{enter}'
-          )
+          cy.wrap(datalist).type('5R013 - Inspect additional sec entrance')
         })
 
       // Priority description should remain same because inspection is a lower priority than normal
@@ -427,7 +422,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R003 - Immediate call outs{enter}')
+          cy.wrap(datalist).type('5R003 - Immediate call outs')
         })
       // Autopopulates priority description with the highest priority
       cy.get('#priorityCode')
@@ -444,7 +439,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R004 - Emergency call out{enter}')
+          cy.wrap(datalist).type('5R004 - Emergency call out')
         })
 
       cy.get('#priorityCode')
@@ -469,7 +464,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R004 - Emergency call out{enter}')
+          cy.wrap(datalist).type('5R004 - Emergency call out')
 
           cy.get('#priorityCode')
             .find('option:selected')
@@ -501,7 +496,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R005 - Normal call outs{enter}')
+          cy.wrap(datalist).type('5R005 - Normal call outs')
         })
 
       cy.get(
@@ -520,7 +515,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R006 - Urgent call outs{enter}')
+          cy.wrap(datalist).type('5R006 - Urgent call outs')
         })
 
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('2')
@@ -540,7 +535,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R004 - Emergency call out{enter}')
+          cy.wrap(datalist).type('5R004 - Emergency call out')
         })
 
       cy.get('input[id="rateScheduleItems[0][code]"]').should(
@@ -559,7 +554,7 @@ describe('Raise repair form', () => {
         .then((datalist) => {
           cy.wait('@sorCodesRequest')
 
-          cy.wrap(datalist).type('5R006 - Urgent call outs{enter}')
+          cy.wrap(datalist).type('5R006 - Urgent call outs')
         })
 
       cy.get('input[id="rateScheduleItems[2][quantity]"]').should(

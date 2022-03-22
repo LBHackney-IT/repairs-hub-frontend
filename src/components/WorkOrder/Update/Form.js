@@ -6,13 +6,13 @@ import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItem
 import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
 
 const WorkOrderUpdateForm = ({
-  sorCodes,
   latestTasks,
   originalTasks,
   addedTasks,
   onGetToSummary,
   setVariationReason,
   variationReason,
+  sorSearchRequest,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
@@ -25,18 +25,21 @@ const WorkOrderUpdateForm = ({
         onSubmit={handleSubmit(onGetToSummary)}
       >
         <OriginalRateScheduleItems originalTasks={originalTasks} />
+
         <LatestRateScheduleItems
           latestTasks={latestTasks}
           register={register}
           errors={errors}
         />
+
         <AddedRateScheduleItems
-          sorCodes={sorCodes}
           register={register}
           errors={errors}
           addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
+          sorSearchRequest={sorSearchRequest}
         />
+
         <CharacterCountLimitedTextArea
           name="variationReason"
           maxLength={250}
@@ -49,6 +52,7 @@ const WorkOrderUpdateForm = ({
           onChange={(event) => setVariationReason(event.target.value)}
           error={errors && errors.variationReason}
         />
+
         <PrimarySubmitButton label="Next" />
       </form>
     </>
@@ -56,12 +60,12 @@ const WorkOrderUpdateForm = ({
 }
 
 WorkOrderUpdateForm.propTypes = {
-  sorCodes: PropTypes.array.isRequired,
   latestTasks: PropTypes.array.isRequired,
   originalTasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   setVariationReason: PropTypes.func.isRequired,
+  sorSearchRequest: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,
 }
 

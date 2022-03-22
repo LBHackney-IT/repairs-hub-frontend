@@ -13,10 +13,25 @@ const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [currentUser, setCurrentUser] = useState({})
+  const [workOrder, setWorkOrder] = useState([])
   const [sorCodes, setSorCodes] = useState([])
   const [existingTasks, setExistingTasks] = useState({})
   const { register, handleSubmit, errors } = useForm()
   const router = useRouter()
+
+  const sorSearchRequest = (searchText) =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/schedule-of-rates/codes',
+      params: {
+        tradeCode: workOrder.tradeCode,
+        propertyReference: workOrder.propertyReference,
+        contractorReference: workOrder.contractorReference,
+        showAdditionalTrades:
+          process.env.NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED === 'true',
+        q: searchText,
+      },
+    })
 
   const getNewTaskForm = async (reference) => {
     setError(null)
@@ -27,19 +42,7 @@ const NewTaskForm = ({ workOrderReference }) => {
         path: `/api/workOrders/${reference}`,
       })
 
-      const sorCodes = await frontEndApiRequest({
-        path: '/api/schedule-of-rates/codes',
-        method: 'get',
-        params: {
-          tradeCode: workOrder.tradeCode,
-          propertyReference: workOrder.propertyReference,
-          contractorReference: workOrder.contractorReference,
-          showAdditionalTrades:
-            process.env.NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED === 'true',
-        },
-      })
-
-      setSorCodes(sorCodes)
+      setWorkOrder(workOrder)
 
       const currentUser = await frontEndApiRequest({
         method: 'get',
@@ -50,12 +53,11 @@ const NewTaskForm = ({ workOrderReference }) => {
 
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
+        path: `/api/workOrders/${reference}/tasks`,
       })
 
       setExistingTasks(tasksAndSors)
     } catch (e) {
-      setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -115,30 +117,30 @@ const NewTaskForm = ({ workOrderReference }) => {
       ) : (
         <>
           <BackButton />
-          {sorCodes && (
-            <>
-              <h1 className="lbh-heading-h2 govuk-!-margin-bottom-4">
-                New SOR
-              </h1>
-              <form
-                role="form"
-                id="repair-request-form"
-                onSubmit={handleSubmit(onFormSubmit)}
-              >
-                <RateScheduleItem
-                  sorCodes={sorCodes}
-                  register={register}
-                  showRemoveRateScheduleItem={false}
-                  removeRateScheduleIte={false}
-                  errors={errors}
-                  index={'operative'}
-                />
-                <div className="button-pair">
-                  <PrimarySubmitButton label="Confirm" />
-                </div>
-              </form>
-            </>
-          )}
+
+          <>
+            <h1 className="lbh-heading-h2 govuk-!-margin-bottom-4">New SOR</h1>
+            <form
+              role="form"
+              id="repair-request-form"
+              onSubmit={handleSubmit(onFormSubmit)}
+            >
+              <RateScheduleItem
+                sorCodes={sorCodes}
+                register={register}
+                showRemoveRateScheduleItem={false}
+                removeRateScheduleIte={false}
+                errors={errors}
+                index={'operative'}
+                sorSearchRequest={sorSearchRequest}
+                setSorCodes={setSorCodes}
+              />
+              <div className="button-pair">
+                <PrimarySubmitButton label="Confirm" />
+              </div>
+            </form>
+          </>
+
           {error && <ErrorMessage label={error} />}
         </>
       )}

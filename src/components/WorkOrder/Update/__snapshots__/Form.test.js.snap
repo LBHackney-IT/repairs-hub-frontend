@@ -240,14 +240,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
           />
           <datalist
             id="autocomplete-list-rateScheduleItems[undefined][code]"
-          >
-            <option
-              value="DES5R003 - Immediate call outs"
-            />
-            <option
-              value="DES5R004 - Emergency call out"
-            />
-          </datalist>
+          />
         </div>
         <input
           id="rateScheduleItems[undefined][description]"

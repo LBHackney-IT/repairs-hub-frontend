@@ -31,7 +31,7 @@ describe('Updating a work order', () => {
         {
           method: 'GET',
           path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true&q=*',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
@@ -45,7 +45,7 @@ describe('Updating a work order', () => {
     it('throws errors if input values are empty or not valid', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.contains('Update work order: 10000040')
 
@@ -164,7 +164,7 @@ describe('Updating a work order', () => {
     it('allows the user to update the work order by changing the existing quantity', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         // Enter a non-number quantity
@@ -274,7 +274,7 @@ describe('Updating a work order', () => {
     it('allows to update quantity, edit and add new sor codes', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#original-rate-schedule-items').within(() => {
@@ -324,9 +324,14 @@ describe('Updating a work order', () => {
       cy.get('#repair-request-form').within(() => {
         cy.get('.lbh-link').click()
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'PLP5R082 - RE ENAMEL ANY SIZE BATH'
-        )
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('PLP')
+          .then((datalist) => {
+            cy.wait('@sorCodesRequest')
+
+            cy.wrap(datalist).type('5R082 - RE ENAMEL ANY SIZE BATH')
+          })
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('5')
 
@@ -334,7 +339,7 @@ describe('Updating a work order', () => {
       })
 
       cy.contains('Summary of updates to work order')
-      // Check original tasks and SORS table
+
       cy.contains('Original Tasks and SORs')
       cy.get('.govuk-table.original-tasks-table').within(() => {
         cy.get('.govuk-table__head').within(() => {
@@ -351,7 +356,6 @@ describe('Updating a work order', () => {
         })
       })
 
-      // Check updated tasks and SORS table
       cy.contains('Updated Tasks and SORs')
       cy.get('.govuk-table.updated-tasks-table').within(() => {
         cy.get('.govuk-table__head').within(() => {
@@ -390,7 +394,6 @@ describe('Updating a work order', () => {
         cy.contains('Needs more work')
       })
 
-      // Warning text as logged in user's vary limit has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
           'Your variation cost exceeds £250 and will be sent for approval.'
@@ -428,7 +431,6 @@ describe('Updating a work order', () => {
           },
         })
 
-      // Confirmation screen
       cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
         cy.get('.govuk-panel__body').within(() => {
           cy.contains(
@@ -437,7 +439,6 @@ describe('Updating a work order', () => {
         })
       })
 
-      // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
         cy.contains('View work order').should(
           'have.attr',
@@ -515,10 +516,34 @@ describe('Updating a work order', () => {
         {
           method: 'GET',
           path:
-            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
+            '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true&q=*',
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/00012345/location-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('locationAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/tenancyAgreementRef1/person-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('personAlerts')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000621
@@ -733,7 +758,7 @@ describe('Updating a work order', () => {
 
       cy.contains('Add new SOR').click()
 
-      cy.wait(['@workOrderRequest', '@sorCodesRequest'])
+      cy.wait(['@workOrderRequest'])
 
       cy.url().should('contain', '/work-orders/10000621/tasks/new')
 
@@ -746,6 +771,7 @@ describe('Updating a work order', () => {
       ).within(() => {
         cy.contains('Please select an SOR code')
       })
+
       cy.get(
         'div[id="rateScheduleItems[operative][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
@@ -755,7 +781,13 @@ describe('Updating a work order', () => {
       cy.get('form').within(() => {
         cy.get('input[id="rateScheduleItems[operative][code]"]')
           .clear()
-          .type('DES5R003 - Immediate call outs')
+          .type('DES')
+          .then((datalist) => {
+            cy.wait('@sorCodesRequest')
+
+            cy.wrap(datalist).type('5R003 - Immediate call outs')
+          })
+
         cy.get('input[id="rateScheduleItems[operative][quantity]"]')
           .clear()
           .type('3')
