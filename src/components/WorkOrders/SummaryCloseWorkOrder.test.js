@@ -29,4 +29,19 @@ describe('SummaryCloseWorkOrder component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('does not show rows for operatives and payment type if absent', () => {
+    const { asFragment } = render(
+      <SummaryCloseWorkOrder
+        reference={props.reference}
+        notes={props.notes}
+        time={props.time}
+        date={props.date}
+        reason={props.reason}
+        onJobSubmit={props.onJobSubmit}
+        changeStep={props.changeStep}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })
