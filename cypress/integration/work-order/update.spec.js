@@ -6,7 +6,6 @@ describe('Updating a work order', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
-      // Viewing the home page
       cy.intercept(
         { method: 'GET', path: '/api/filter/WorkOrder' },
         {
@@ -22,7 +21,6 @@ describe('Updating a work order', () => {
         { fixture: 'workOrders/workOrders.json' }
       )
 
-      // Viewing the work order page
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
@@ -43,7 +41,6 @@ describe('Updating a work order', () => {
         { body: [] }
       )
 
-      // Updating the work order
       cy.fixture('workOrders/tasksAndSors.json').then((tasksAndSors) => {
         tasksAndSors.splice(1, 2)
 

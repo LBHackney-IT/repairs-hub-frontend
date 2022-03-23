@@ -83,7 +83,7 @@ const AddedRateScheduleItems = ({
             onRateScheduleItemChange={(index, code) =>
               updateRateScheduleItem(item.id, 'code', code)
             }
-            onInputChange={() => {
+            onQuantityChange={() => {
               updateRateScheduleItem(
                 item.id,
                 'quantity',
