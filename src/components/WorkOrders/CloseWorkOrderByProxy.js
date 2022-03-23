@@ -9,10 +9,10 @@ import {
   buildCloseWorkOrderData,
   buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
+import CloseWorkOrderSuccessPage from './CloseWorkOrderSuccessPage'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -39,7 +39,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   ] = useState([])
 
   const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
-  const router = useRouter()
+  const [formSuccess, setFormSuccess] = useState(false)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 
@@ -64,7 +64,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         requestData: workOrderCompleteFormData,
       })
 
-      router.push('/')
+      setFormSuccess(true)
+      setLoading(false)
     } catch (e) {
       console.error(e)
       setError(
@@ -197,7 +198,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
           {workOrder && (
             <>
-              {CloseWorkOrderFormPage && (
+              {CloseWorkOrderFormPage && !formSuccess && (
                 <CloseWorkOrderForm
                   reference={workOrder.reference}
                   onSubmit={onGetToSummary}
@@ -219,7 +220,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                 />
               )}
 
-              {!CloseWorkOrderFormPage && (
+              {!CloseWorkOrderFormPage && !formSuccess && (
                 <SummaryCloseWorkOrder
                   onJobSubmit={onJobSubmit}
                   notes={notes}
@@ -239,6 +240,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
                   paymentType={paymentType}
+                />
+              )}
+              {formSuccess && (
+                <CloseWorkOrderSuccessPage
+                  workOrderReference={workOrder.reference}
                 />
               )}
 
