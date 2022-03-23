@@ -226,12 +226,24 @@ describe('Closing a work order on behalf of an operative', () => {
         ],
       })
 
-    cy.wait(['@workOrderFilters', '@workOrders'])
-
-    cy.location('pathname').should('equal', '/')
-    cy.contains('Manage work orders')
-
     cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
+
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('You have closed work order 10000040')
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+    })
 
     cy.audit()
   })
@@ -293,10 +305,22 @@ describe('Closing a work order on behalf of an operative', () => {
     // no operative assignment request made
     cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
 
-    cy.wait(['@workOrderFilters', '@workOrders'])
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('You have closed work order 10000040')
+      })
+    })
 
-    cy.location('pathname').should('equal', '/')
-    cy.contains('Manage work orders')
+    // Actions to see relevant pages
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+    })
 
     cy.audit()
   })

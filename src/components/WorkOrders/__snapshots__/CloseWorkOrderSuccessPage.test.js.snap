@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CloseWorkOrderSuccessPage component should render properly shows the message with closing confirmation 1`] = `
+<DocumentFragment>
+  <div>
+    <div
+      class="govuk-panel govuk-panel--confirmation background-dark-green"
+    >
+      <div
+        class="govuk-panel__body"
+      >
+        <strong>
+          You have closed work order 10000012
+        </strong>
+      </div>
+    </div>
+    <ul
+      class="lbh-list govuk-!-margin-top-9"
+    >
+      <li>
+        <a
+          class="lbh-link"
+          href="/work-orders/10000012"
+        >
+          <strong>
+            View work order
+          </strong>
+        </a>
+      </li>
+      <li>
+        <a
+          class="lbh-link"
+          href="/"
+        >
+          <strong>
+            Manage work orders
+          </strong>
+        </a>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;

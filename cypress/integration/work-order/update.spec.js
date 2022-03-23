@@ -6,49 +6,26 @@ describe('Updating a work order', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
-      cy.intercept(
-        { method: 'GET', path: '/api/filter/WorkOrder' },
-        {
-          fixture: 'filter/workOrder.json',
-        }
-      )
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders/?PageSize=10&PageNumber=1&IncludeHistorical=false',
-        },
-        { fixture: 'workOrders/workOrders.json' }
-      )
+      cy.fixture('workOrders/workOrder.json')
+        .then((workOrder) => {
+          workOrder.reference = 10000040
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000040' },
+            { body: workOrder }
+          )
+        })
+        .as('workOrder')
 
-      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-        workOrder.reference = 10000040
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
-          { body: workOrder }
-        )
-      })
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      )
-      cy.intercept(
-        {
-          method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&IncludeHistorical=false',
-        },
-        { body: [] }
-      )
+      cy.fixture('workOrders/tasksAndSors.json')
+        .then((tasksAndSors) => {
+          tasksAndSors.splice(1, 2)
 
-      cy.fixture('workOrders/tasksAndSors.json').then((tasksAndSors) => {
-        tasksAndSors.splice(1, 2)
-
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040/tasks' },
-          { body: tasksAndSors }
-        ).as('taskListRequest')
-      })
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+            { body: tasksAndSors }
+          )
+        })
+        .as('taskListRequest')
 
       cy.intercept(
         {
@@ -66,23 +43,9 @@ describe('Updating a work order', () => {
     })
 
     it('throws errors if input values are empty or not valid', () => {
-      cy.visit('/')
+      cy.visit('/work-orders/10000040/update')
 
-      cy.get('.govuk-table__cell').within(() => {
-        cy.contains('a', '10000040').click()
-      })
-
-      cy.get('[data-testid="details"]')
-        .contains('Update')
-        .click({ force: true })
-
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Update')
-          .should('have.attr', 'href', '/work-orders/10000040/update')
-          .click()
-      })
-
-      cy.wait(['@taskListRequest', '@sorCodesRequest'])
+      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
 
       cy.contains('Update work order: 10000040')
 
@@ -97,11 +60,13 @@ describe('Updating a work order', () => {
       ).within(() => {
         cy.contains('Please select an SOR code')
       })
+
       cy.get(
         'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
         cy.contains('Please enter a quantity')
       })
+
       cy.get('#variationReason-form-group .govuk-error-message').within(() => {
         cy.contains('Please enter a reason')
       })
@@ -197,23 +162,9 @@ describe('Updating a work order', () => {
     })
 
     it('allows the user to update the work order by changing the existing quantity', () => {
-      cy.visit('/')
+      cy.visit('/work-orders/10000040/update')
 
-      cy.get('.govuk-table__cell').within(() => {
-        cy.contains('a', '10000040').click()
-      })
-
-      cy.get('[data-testid="details"]')
-        .contains('Update')
-        .click({ force: true })
-
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Update')
-          .should('have.attr', 'href', '/work-orders/10000040/update')
-          .click()
-      })
-
-      cy.wait(['@taskListRequest', '@sorCodesRequest'])
+      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         // Enter a non-number quantity
@@ -323,7 +274,7 @@ describe('Updating a work order', () => {
     it('allows to update quantity, edit and add new sor codes', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest'])
+      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#original-rate-schedule-items').within(() => {
@@ -349,7 +300,6 @@ describe('Updating a work order', () => {
           cy.get('input[id="quantity-0"]').clear().type('12')
         })
 
-        // Enter variation reason
         cy.get('#variationReason')
           .get('.govuk-textarea')
           .type('Needs more work')
@@ -370,6 +320,7 @@ describe('Updating a work order', () => {
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('3')
       })
+
       cy.get('#repair-request-form').within(() => {
         cy.get('.lbh-link').click()
 
@@ -399,6 +350,7 @@ describe('Updating a work order', () => {
           })
         })
       })
+
       // Check updated tasks and SORS table
       cy.contains('Updated Tasks and SORs')
       cy.get('.govuk-table.updated-tasks-table').within(() => {
@@ -432,10 +384,12 @@ describe('Updating a work order', () => {
           })
         })
       })
+
       cy.get('.variation-reason-summary').within(() => {
         cy.contains('Variation reason')
         cy.contains('Needs more work')
       })
+
       // Warning text as logged in user's vary limit has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
@@ -445,7 +399,7 @@ describe('Updating a work order', () => {
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
-      cy.get('@apiCheck')
+      cy.wait('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -536,6 +490,30 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
+          path: '/api/properties/00012345/location-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('locationAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/tenancyAgreementRef1/person-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('personAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
           path:
             '/api/schedule-of-rates/codes?tradeCode=DE&propertyReference=00012345&contractorReference=SCC&showAdditionalTrades=true',
         },
@@ -565,6 +543,13 @@ describe('Updating a work order', () => {
     it('does not show link list of operatives, when there is only one', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
       cy.contains('WO 10000621')
 
       cy.contains('Operatives').should('not.exist')
@@ -575,11 +560,18 @@ describe('Updating a work order', () => {
     it('allows editing of an existing task quantity', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
       cy.get('.latest-tasks-and-sors-table').within(() => {
         cy.get('a').contains('DES5R006').click()
       })
 
-      cy.wait(['@workOrderRequest', '@tasksRequest'])
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@hubUserRequest'])
 
       cy.url().should(
         'contain',
@@ -601,8 +593,6 @@ describe('Updating a work order', () => {
       })
 
       cy.wait('@jobStatusUpdateRequest')
-
-      cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -642,7 +632,12 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
 
       cy.contains('WO 10000621')
     })
@@ -650,9 +645,18 @@ describe('Updating a work order', () => {
     it('allows editing of an existing task quantity with a "Remove SOR" shortcut', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
       cy.get('.latest-tasks-and-sors-table').within(() => {
         cy.get('a').contains('DES5R006').click()
       })
+
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@hubUserRequest'])
 
       cy.url().should(
         'contain',
@@ -668,8 +672,6 @@ describe('Updating a work order', () => {
       })
 
       cy.wait('@jobStatusUpdateRequest')
-
-      cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -709,18 +711,32 @@ describe('Updating a work order', () => {
           },
         })
 
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
       cy.url().should('contain', '/work-orders/10000621')
     })
 
     it('allows adding new SOR', () => {
       cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait([
+        '@hubUserRequest',
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+      ])
+
       cy.contains('Add new SOR').click()
 
-      cy.wait('@sorCodesRequest')
+      cy.wait(['@workOrderRequest', '@sorCodesRequest'])
 
       cy.url().should('contain', '/work-orders/10000621/tasks/new')
 
-      // when form submitted without any value
       cy.get('form').within(() => {
         cy.get('[type="submit"]').contains('Confirm').click()
       })
@@ -746,9 +762,8 @@ describe('Updating a work order', () => {
 
         cy.get('button').contains('Confirm').click()
       })
-      cy.wait('@jobStatusUpdateRequest')
 
-      cy.get('@jobStatusUpdateRequest')
+      cy.wait('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -796,7 +811,12 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
+      cy.wait([
+        '@workOrderRequest',
+        '@tasksRequest',
+        '@propertyRequest',
+        '@hubUserRequest',
+      ])
 
       cy.contains('WO 10000621')
     })
@@ -808,11 +828,12 @@ describe('Updating a work order', () => {
       ).as('operatives')
 
       cy.visit('/operatives/1/work-orders/10000621')
+
       cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
 
       cy.contains('a', 'Add operatives').click()
 
-      cy.wait(['@operatives', '@workOrderRequest'])
+      cy.wait(['@operatives', '@workOrderRequest', '@hubUserRequest'])
 
       cy.get('.operatives').within(() => {
         cy.get('input[list]').should('have.length', 1)
@@ -869,8 +890,6 @@ describe('Updating a work order', () => {
       cy.get('[type="submit"]').contains('Confirm').click()
 
       cy.wait('@jobStatusUpdateRequest')
-
-      cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -957,6 +976,7 @@ describe('Updating a work order', () => {
         'href',
         '/work-orders/10000621/operatives/edit'
       )
+
       cy.contains('a', 'Operative B - 50%').should(
         'have.attr',
         'href',
@@ -988,7 +1008,6 @@ describe('Updating a work order', () => {
         cy.get('select').eq(1).select('20%')
       })
 
-      // Add operative
       cy.get('a')
         .contains(/Add operative from list/)
         .click()
@@ -1010,8 +1029,6 @@ describe('Updating a work order', () => {
       cy.get('[type="submit"]').contains('Confirm').click()
 
       cy.wait('@jobStatusUpdateRequest')
-
-      cy.get('@jobStatusUpdateRequest')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {

@@ -9,10 +9,10 @@ import {
   buildCloseWorkOrderData,
   buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import { useRouter } from 'next/router'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
+import CloseWorkOrderSuccessPage from './CloseWorkOrderSuccessPage'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -38,8 +38,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setSelectedPercentagesToShowOnEdit,
   ] = useState([])
 
-  const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
-  const router = useRouter()
+  const FORM_PAGE = 1
+  const SUMMARY_PAGE = 2
+  const CONFIRMATION_PAGE = 3
+
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 
@@ -64,7 +67,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         requestData: workOrderCompleteFormData,
       })
 
-      router.push('/')
+      setCurrentPage(CONFIRMATION_PAGE)
+      setLoading(false)
     } catch (e) {
       console.error(e)
       setError(
@@ -139,7 +143,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   }
 
   const changeCurrentPage = () => {
-    setCloseWorkOrderFormPage(!CloseWorkOrderFormPage)
+    setCurrentPage(FORM_PAGE)
   }
 
   const onGetToSummary = (formData) => {
@@ -183,7 +187,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setNotes(formData.notes)
     setDateToShow(formData.date)
     formData.paymentType && setPaymentType(formData.paymentType)
-    changeCurrentPage()
+    setCurrentPage(SUMMARY_PAGE)
     setCompletionTime(formData.completionTime)
   }
 
@@ -197,7 +201,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
           {workOrder && (
             <>
-              {CloseWorkOrderFormPage && (
+              {currentPage === FORM_PAGE && (
                 <CloseWorkOrderForm
                   reference={workOrder.reference}
                   onSubmit={onGetToSummary}
@@ -219,7 +223,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                 />
               )}
 
-              {!CloseWorkOrderFormPage && (
+              {currentPage === SUMMARY_PAGE && (
                 <SummaryCloseWorkOrder
                   onJobSubmit={onJobSubmit}
                   notes={notes}
@@ -239,6 +243,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
                   paymentType={paymentType}
+                />
+              )}
+              {currentPage === CONFIRMATION_PAGE && (
+                <CloseWorkOrderSuccessPage
+                  workOrderReference={workOrder.reference}
                 />
               )}
 

@@ -527,6 +527,29 @@ describe('Show work order page', () => {
           )
         })
       })
+
+      it('contains a link to update the order', () => {
+        cy.visit('/work-orders/10000012')
+
+        cy.wait([
+          '@workOrderRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
+
+        cy.get('[data-testid="details"]')
+          .contains('Update')
+          .click({ force: true })
+
+        cy.get('.govuk-grid-column-one-third').within(() => {
+          cy.contains('a', 'Update').should(
+            'have.attr',
+            'href',
+            '/work-orders/10000012/update'
+          )
+        })
+      })
     })
   })
 })
