@@ -4,7 +4,6 @@ import 'cypress-audit/commands'
 import { NORMAL_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
 import { STATUS_CANCELLED } from '../../../../src/utils/statusCodes'
 
-// Mock date
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 const targetTime = '2021-03-23T18:30:00.00000'
 
@@ -12,18 +11,19 @@ describe('Schedule appointment form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub request for raise a work order form page
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    )
+    ).as('property')
+
     cy.intercept(
       {
         method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
-    )
+    ).as('contractors')
+
     cy.intercept(
       {
         method: 'GET',
@@ -31,15 +31,17 @@ describe('Schedule appointment form', () => {
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    )
+    ).as('sorCodes')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
-    )
+    ).as('priorities')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
       { fixture: 'scheduleOfRates/trades.json' }
-    )
+    ).as('trades')
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
@@ -60,7 +62,8 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
       { fixture: 'workOrders/task.json' }
-    )
+    ).as('tasks')
+
     cy.intercept(
       {
         method: 'GET',
@@ -68,7 +71,7 @@ describe('Schedule appointment form', () => {
           '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
       { body: [] }
-    )
+    ).as('workOrdersForProperty')
 
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
@@ -81,10 +84,12 @@ describe('Schedule appointment form', () => {
         },
       }
     ).as('apiCheck')
+
     cy.intercept(
       { method: 'POST', path: '/api/appointments' },
       { body: '' }
     ).as('apiCheckAppointment')
+
     cy.intercept(
       { method: 'POST', path: '/api/jobStatusUpdate' },
       { body: '' }
@@ -107,30 +112,44 @@ describe('Schedule appointment form', () => {
     it('Schedules an appointment after raising a repair', () => {
       cy.visit('/properties/00012345')
 
+      cy.wait(['@property'])
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
         .click()
 
+      cy.wait(['@property', '@priorities', '@trades'])
+
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait(['@contractors'])
+
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+        cy.wait(['@sorCodes'])
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
         )
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+
         cy.get('#priorityCode').select('5 [N] NORMAL')
+
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+
         cy.get('#callerName').type('Bob Leek', { force: true })
+
         cy.get('#contactNumber')
           .clear({ force: true })
           .type('07788659111', { force: true })
+
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // Check body of post request, creates work order
-        cy.get('@apiCheck')
+
+        cy.wait('@apiCheck')
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
@@ -218,7 +237,7 @@ describe('Schedule appointment form', () => {
 
       //Appointment page with calendar
       cy.contains('Work order task details')
-      // availble slots are not shown
+
       cy.contains('#available-slots').should('not.exist')
 
       cy.get('.appointment-calendar').within(() => {
@@ -234,7 +253,7 @@ describe('Schedule appointment form', () => {
         cy.get('[type="radio"]')
           .last()
           .should('not.have.value', 'PM 12:00-4:00')
-        //press "cancel" button
+
         cy.get('[type="button"]').contains('Cancel').click({ force: true })
         //check that available slots dissapear
         cy.contains('Wednesday, 17 March').should('not.exist')
@@ -244,6 +263,7 @@ describe('Schedule appointment form', () => {
       cy.get('.appointment-calendar').within(() => {
         cy.get('.available').contains('11').click()
       })
+
       cy.get('form').within(() => {
         cy.contains('Thursday, 11 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
@@ -259,6 +279,7 @@ describe('Schedule appointment form', () => {
         cy.get('#comments').type('10 am works for me', { force: true })
         cy.get('[type="submit"]').contains('Add').click({ force: true })
       })
+
       // Summary page
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
@@ -268,6 +289,7 @@ describe('Schedule appointment form', () => {
         cy.contains('Comments: 10 am works for me')
         cy.get('[type="submit"]').contains('Change').click()
       })
+
       // Goes back to change slot and comments
       cy.get('form').within(() => {
         cy.contains('Thursday, 11 March')
@@ -291,15 +313,12 @@ describe('Schedule appointment form', () => {
         cy.contains('PM')
         cy.contains('Prefer 1pm appointment')
       })
+
       cy.get('[type="button"]')
         .contains('Book appointment')
         .click({ force: true })
 
-      //appointment api check
-
       cy.wait('@apiCheckAppointment')
-
-      cy.get('@apiCheckAppointment')
         .its('request.body')
         .should('deep.equal', {
           workOrderReference: {
@@ -314,9 +333,8 @@ describe('Schedule appointment form', () => {
           },
         })
 
+      // jobStatusUpdate api check - adding comments
       cy.wait('@apiCheckjobStatus')
-      //jobStatusUpdate api check - adding comments
-      cy.get('@apiCheckjobStatus')
         .its('request.body')
         .should('deep.equal', {
           relatedWorkOrderReference: {
@@ -328,7 +346,6 @@ describe('Schedule appointment form', () => {
           otherType: 'addNote',
         })
 
-      //success form
       cy.contains('Repair work order created')
       cy.contains('Work order number')
 
@@ -340,7 +357,7 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'View work order')
       cy.contains('a', 'Back to 16 Pitcairn House')
       cy.contains('a', 'Start a new search')
-      // Run lighthouse audit for accessibility report
+
       cy.audit()
     })
   })
@@ -361,13 +378,22 @@ describe('Schedule appointment form', () => {
     it('Should display message that no appointments are available', () => {
       cy.visit('/properties/00012345')
 
+      cy.wait(['@property'])
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
         .click()
 
+      cy.wait(['@property', '@priorities', '@trades'])
+
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait(['@contractors'])
+
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+        cy.wait(['@sorCodes'])
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
@@ -385,12 +411,10 @@ describe('Schedule appointment form', () => {
           .click({ force: true })
       })
 
-      cy.wait('@availableAppointments')
+      cy.wait(['@apiCheck', '@availableAppointments'])
 
-      // shows that there are no available appointments
       cy.get('#no-appointment').contains('No available appointments')
 
-      // Link back to work order
       cy.get('.lbh-list li').within(() => {
         cy.contains('View work order').should(
           'have.attr',
@@ -399,7 +423,6 @@ describe('Schedule appointment form', () => {
         )
       })
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
   })
