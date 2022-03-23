@@ -207,7 +207,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
-    cy.wait('@apiCheck', { requestTimeout: 6000 })
+    cy.wait('@apiCheck', { requestTimeout: 7000 })
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
@@ -1081,7 +1081,8 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[type="submit"]').contains('Close work order').click()
       })
 
-      cy.contains('th', 'Payment type').parent().contains('N/A')
+      cy.contains('th', 'Payment type').should('not.exist')
+      cy.contains('th', 'Operatives').should('not.exist')
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 

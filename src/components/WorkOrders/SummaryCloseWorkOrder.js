@@ -36,21 +36,19 @@ const SummaryCloseWorkOrder = ({
               </TD>
             </TR>
 
-            <TR>
-              <TH scope="row">Payment type</TH>
-              <TD>
-                {paymentType
-                  ? PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text
-                  : 'N/A'}
-              </TD>
-              <TD>
-                <a className="lbh-link" onClick={changeStep} href="#">
-                  Edit
-                </a>
-              </TD>
-            </TR>
+            {paymentType && (
+              <TR>
+                <TH scope="row">Payment type</TH>
+                <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}</TD>
+                <TD>
+                  <a className="lbh-link" onClick={changeStep} href="#">
+                    Edit
+                  </a>
+                </TD>
+              </TR>
+            )}
 
-            {operativeNames && (
+            {operativeNames?.length > 0 && (
               <TR>
                 <TH scope="row">Operatives</TH>
                 <TD>{operativeNames.join(', ')}</TD>

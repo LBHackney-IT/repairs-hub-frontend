@@ -126,9 +126,7 @@ const NewTaskForm = ({ workOrderReference }) => {
                 onSubmit={handleSubmit(onFormSubmit)}
               >
                 <RateScheduleItem
-                  sorCodesList={sorCodes.map(
-                    (sorCode) => `${sorCode.code} - ${sorCode.shortDescription}`
-                  )}
+                  sorCodes={sorCodes}
                   register={register}
                   showRemoveRateScheduleItem={false}
                   removeRateScheduleIte={false}
