@@ -9,9 +9,7 @@ exports[`CloseWorkOrderSuccessPage component should render properly shows the me
       <div
         class="govuk-panel__body"
       >
-        <strong
-          class=""
-        >
+        <strong>
           You have closed work order 10000012
         </strong>
       </div>

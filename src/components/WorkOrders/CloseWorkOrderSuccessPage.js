@@ -6,9 +6,7 @@ const CloseWorkOrderSuccessPage = ({ workOrderReference }) => {
     <div>
       <div className="govuk-panel govuk-panel--confirmation background-dark-green">
         <div className="govuk-panel__body">
-          <strong className="">
-            You have closed work order {workOrderReference}
-          </strong>
+          <strong>You have closed work order {workOrderReference}</strong>
         </div>
       </div>
 

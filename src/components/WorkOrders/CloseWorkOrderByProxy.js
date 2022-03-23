@@ -38,8 +38,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setSelectedPercentagesToShowOnEdit,
   ] = useState([])
 
-  const [CloseWorkOrderFormPage, setCloseWorkOrderFormPage] = useState(true)
-  const [formSuccess, setFormSuccess] = useState(false)
+  const FORM_PAGE = 1
+  const SUMMARY_PAGE = 2
+  const CONFIRMATION_PAGE = 3
+
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 
@@ -64,7 +67,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         requestData: workOrderCompleteFormData,
       })
 
-      setFormSuccess(true)
+      setCurrentPage(CONFIRMATION_PAGE)
       setLoading(false)
     } catch (e) {
       console.error(e)
@@ -140,7 +143,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   }
 
   const changeCurrentPage = () => {
-    setCloseWorkOrderFormPage(!CloseWorkOrderFormPage)
+    setCurrentPage(FORM_PAGE)
   }
 
   const onGetToSummary = (formData) => {
@@ -184,7 +187,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setNotes(formData.notes)
     setDateToShow(formData.date)
     formData.paymentType && setPaymentType(formData.paymentType)
-    changeCurrentPage()
+    setCurrentPage(SUMMARY_PAGE)
     setCompletionTime(formData.completionTime)
   }
 
@@ -198,7 +201,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
           {workOrder && (
             <>
-              {CloseWorkOrderFormPage && !formSuccess && (
+              {currentPage === FORM_PAGE && (
                 <CloseWorkOrderForm
                   reference={workOrder.reference}
                   onSubmit={onGetToSummary}
@@ -220,7 +223,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                 />
               )}
 
-              {!CloseWorkOrderFormPage && !formSuccess && (
+              {currentPage === SUMMARY_PAGE && (
                 <SummaryCloseWorkOrder
                   onJobSubmit={onJobSubmit}
                   notes={notes}
@@ -242,7 +245,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   paymentType={paymentType}
                 />
               )}
-              {formSuccess && (
+              {currentPage === CONFIRMATION_PAGE && (
                 <CloseWorkOrderSuccessPage
                   workOrderReference={workOrder.reference}
                 />
