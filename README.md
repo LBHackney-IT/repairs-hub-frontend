@@ -4,14 +4,28 @@ Allows agents and managers to raise, review, approve and close work orders.
 
 Allows operatives to sign in to a "mobile working" view, see upcoming jobs and complete them.
 
-### Dependencies
+## Dependencies
 
 It's a [Next.js](https://nextjs.org) app that works with:
 
-- [Repairs API](https://github.com/LBHackney-IT/repairs-api-dotnet)
+- [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet)
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
 
 It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+## Architecture
+
+### Node API and how it relates to the Service API
+
+This application includes a [Next JS API](https://nextjs.org/docs/api-routes/introduction) which is used for almost all API calls from the client.
+
+In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`).
+
+However, at the time of writing there are some exceptions to this:
+
+- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
+- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
+- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)
 
 ## Development Setup
 
