@@ -11,7 +11,7 @@
   &--status-in-progress {
     background-color: repairs-hub-colour('blue');
   }
-  &--status-work-completed,
+  &--status-completed,
   &--status-locked {
     background-color: repairs-hub-colour('white');
     border: 1px solid black;
