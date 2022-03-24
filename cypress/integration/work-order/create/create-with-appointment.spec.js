@@ -5,25 +5,26 @@ import {
   EMERGENCY_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
-// Mock date
+
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
 describe('Schedule appointment form', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub request for raise a work order, schedule appointment and view work order
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    )
+    ).as('property')
+
     cy.intercept(
       {
         method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
-    )
+    ).as('contractors')
+
     cy.intercept(
       {
         method: 'GET',
@@ -31,7 +32,8 @@ describe('Schedule appointment form', () => {
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    )
+    ).as('sorCodesPCL')
+
     cy.intercept(
       {
         method: 'GET',
@@ -39,27 +41,33 @@ describe('Schedule appointment form', () => {
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-    )
+    ).as('sorCodesH01')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/priorities' },
       { fixture: 'scheduleOfRates/priorities.json' }
-    )
+    ).as('priorities')
+
     cy.intercept(
       { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
       { fixture: 'scheduleOfRates/trades.json' }
-    )
+    ).as('trades')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030' },
       { fixture: 'workOrders/workOrder.json' }
-    )
+    ).as('workOrder')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/notes' },
       { fixture: 'workOrders/notes.json' }
-    )
+    ).as('notes')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
       { fixture: 'workOrders/task.json' }
-    )
+    ).as('tasks')
+
     cy.intercept(
       {
         method: 'GET',
@@ -67,7 +75,8 @@ describe('Schedule appointment form', () => {
           '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
       { body: [] }
-    )
+    ).as('workOrdersForProperty')
+
     cy.intercept(
       {
         method: 'GET',
@@ -85,6 +94,7 @@ describe('Schedule appointment form', () => {
       { method: 'POST', path: '/api/appointments' },
       { body: '' }
     ).as('apiCheckAppointment')
+
     cy.intercept(
       { method: 'POST', path: '/api/jobStatusUpdate' },
       { body: '' }
@@ -111,13 +121,22 @@ describe('Schedule appointment form', () => {
     it('Shows a success page right after a work order is created with an emergency priority', () => {
       cy.visit('/properties/00012345')
 
+      cy.wait(['@property'])
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
         .click()
 
+      cy.wait(['@property', '@priorities', '@trades'])
+
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait(['@contractors'])
+
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+        cy.wait(['@sorCodesPCL'])
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R006 - Urgent call outs'
@@ -133,8 +152,8 @@ describe('Schedule appointment form', () => {
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // Check body of post request, creates work order
-        cy.get('@apiCheck')
+
+        cy.wait('@apiCheck')
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
@@ -218,7 +237,6 @@ describe('Schedule appointment form', () => {
           })
       })
 
-      // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
         cy.get('.lbh-page-announcement__title').contains(
           'Repair work order created'
@@ -229,7 +247,6 @@ describe('Schedule appointment form', () => {
         })
       })
 
-      // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
         cy.contains('View work order').should(
           'have.attr',
@@ -244,7 +261,6 @@ describe('Schedule appointment form', () => {
         cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
 
-      // Run lighthouse audit for accessibility report
       cy.audit()
     })
 
@@ -252,13 +268,22 @@ describe('Schedule appointment form', () => {
     it('Shows an appointment booking page right after work order is created with a normal priority', () => {
       cy.visit('/properties/00012345')
 
+      cy.wait(['@property'])
+
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
         .click()
 
+      cy.wait(['@property', '@priorities', '@trades'])
+
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait(['@contractors'])
+
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+        cy.wait(['@sorCodesPCL'])
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'DES5R005 - Normal call outs'
@@ -271,11 +296,12 @@ describe('Schedule appointment form', () => {
         cy.get('#contactNumber')
           .clear({ force: true })
           .type('07788659111', { force: true })
+
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
-        // Check body of post request, creates work order
-        cy.get('@apiCheck')
+
+        cy.wait('@apiCheck')
           .its('request.body')
           .then((body) => {
             const referenceIdUuid = body.reference[0].id
@@ -435,7 +461,7 @@ describe('Schedule appointment form', () => {
     })
   })
 
-  describe('When the order is for a contrator whose appointments are managed externally', () => {
+  describe('When the order is for a contractor whose appointments are managed externally', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'POST', path: '/api/workOrders/schedule' },
@@ -458,16 +484,25 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Normal (N)', () => {
-      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
+
+        cy.wait(['@property'])
 
         cy.get('.lbh-heading-h2')
           .contains('Raise a work order on this dwelling')
           .click()
 
+        cy.wait(['@property', '@priorities', '@trades'])
+
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
+
+          cy.wait(['@contractors'])
+
           cy.get('#contractor').type('HH General Building Repair - H01')
+
+          cy.wait(['@sorCodesH01'])
 
           cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R005 - Normal call outs'
@@ -480,10 +515,13 @@ describe('Schedule appointment form', () => {
           cy.get('#contactNumber')
             .clear({ force: true })
             .type('NA', { force: true })
+
           cy.get('[type="submit"]')
             .contains('Create work order')
             .click({ force: true })
         })
+
+        cy.wait('@apiCheck')
 
         cy.contains('Repair work order created')
 
@@ -499,8 +537,6 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
 
         cy.wait('@apiCheckjobStatus')
-
-        cy.get('@apiCheckjobStatus')
           .its('request.body')
           .then((body) => {
             cy.wrap(body).should('deep.equal', {
@@ -522,16 +558,25 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Urgent (U)', () => {
-      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
+
+        cy.wait(['@property'])
 
         cy.get('.lbh-heading-h2')
           .contains('Raise a work order on this dwelling')
           .click()
 
+        cy.wait(['@property', '@priorities', '@trades'])
+
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
+
+          cy.wait(['@contractors'])
+
           cy.get('#contractor').type('HH General Building Repair - H01')
+
+          cy.wait(['@sorCodesH01'])
 
           cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R006 - Urgent call outs'
@@ -544,10 +589,13 @@ describe('Schedule appointment form', () => {
           cy.get('#contactNumber')
             .clear({ force: true })
             .type('NA', { force: true })
+
           cy.get('[type="submit"]')
             .contains('Create work order')
             .click({ force: true })
         })
+
+        cy.wait('@apiCheck')
 
         cy.contains('Repair work order created')
 
@@ -568,16 +616,25 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Immediate (I)', () => {
-      it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
+      it.only('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
+
+        cy.wait(['@property'])
 
         cy.get('.lbh-heading-h2')
           .contains('Raise a work order on this dwelling')
           .click()
 
+        cy.wait(['@property', '@priorities', '@trades'])
+
         cy.get('#repair-request-form').within(() => {
           cy.get('#trade').type('Plumbing - PL')
+
+          cy.wait(['@contractors'])
+
           cy.get('#contractor').type('HH General Building Repair - H01')
+
+          cy.wait(['@sorCodesH01'])
 
           cy.get('input[id="rateScheduleItems[0][code]"]').type(
             'DES5R003 - Immediate call outs'
@@ -590,10 +647,13 @@ describe('Schedule appointment form', () => {
           cy.get('#contactNumber')
             .clear({ force: true })
             .type('NA', { force: true })
+
           cy.get('[type="submit"]')
             .contains('Create work order')
             .click({ force: true })
         })
+
+        cy.wait('@apiCheck')
 
         cy.contains('Repair work order created')
 
