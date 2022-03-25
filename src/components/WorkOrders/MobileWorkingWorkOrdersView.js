@@ -64,8 +64,8 @@ const MobileWorkingWorkOrdersView = () => {
           const status = workOrder.status.toLowerCase()
 
           if (status === 'no access') {
-            return 'Closed'
-          } else if (status === 'work completed') {
+            return 'No access'
+          } else if (status === 'completed') {
             return 'Completed'
           } else {
             return ''
