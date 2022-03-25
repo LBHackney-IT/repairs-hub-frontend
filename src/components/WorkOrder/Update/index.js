@@ -11,11 +11,11 @@ import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
-import WorkOrderUpdateSuccess from './Success'
 import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   PURDY_CONTRACTOR_REFERENCE,
 } from '@/utils/constants'
+import SuccessPage from '../../SuccessPage/index'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -196,12 +196,13 @@ const WorkOrderUpdateView = ({ reference }) => {
           {currentUser && tasks && (
             <>
               {showUpdateSuccess && (
-                <>
-                  <WorkOrderUpdateSuccess
-                    workOrderReference={reference}
-                    requiresAuthorisation={overSpendLimit}
-                  />
-                </>
+                <SuccessPage
+                  workOrderReference={reference}
+                  requiresAuthorisation={overSpendLimit}
+                  showDashboardLink={true}
+                  linkToCloseWorkorder={true}
+                  action="update"
+                />
               )}
               {!showSummaryPage && !showUpdateSuccess && (
                 <>

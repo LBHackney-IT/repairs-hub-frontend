@@ -42,7 +42,7 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
         href="/"
       >
         <strong>
-          Back to dashboard
+          Manage work orders
         </strong>
       </a>
     </li>
@@ -92,7 +92,107 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
         href="/"
       >
         <strong>
-          Back to dashboard
+          Manage work orders
+        </strong>
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Cancel a work order should render a success screen with confirmation text and 3 links: View work order, New repair link and Start a new search 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Repair work order cancelled
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Work order number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        <strong>
+          View work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678/raise-repair/new"
+      >
+        <strong>
+          New repair for 12 Random Lane
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        <strong>
+          Start a new search
+        </strong>
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Close a work order should render a success screen with confirmation text and 2 links: View work order and Manage work orders 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation background-dark-green"
+  >
+    <div
+      class="govuk-panel__body"
+    >
+      <strong>
+        You have closed work order 10000012
+      </strong>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        <strong>
+          View work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        <strong>
+          Manage work orders
         </strong>
       </a>
     </li>
@@ -450,6 +550,106 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
       >
         <strong>
           Start a new search
+        </strong>
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Update a work order does not require authorisation 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation background-dark-green"
+  >
+    <div
+      class="govuk-panel__body"
+    >
+      <strong>
+        Work order 10000012 has been successfully updated
+      </strong>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        <strong>
+          View work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012/close"
+      >
+        <strong>
+          Close work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        <strong>
+          Manage work orders
+        </strong>
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Update a work order requires authorisation 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation background-yellow"
+  >
+    <div
+      class="govuk-panel__body text-black"
+    >
+      <strong>
+        Work order 10000012 requires authorisation and has been sent to a manager
+      </strong>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        <strong>
+          View work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012/close"
+      >
+        <strong>
+          Close work order
+        </strong>
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        <strong>
+          Manage work orders
         </strong>
       </a>
     </li>

@@ -104,7 +104,7 @@ describe('Authorisation workflow for a work order', () => {
           'href',
           '/work-orders/10000012'
         )
-        cy.contains('Back to dashboard').should('have.attr', 'href', '/')
+        cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })
 
       cy.audit()
@@ -161,7 +161,7 @@ describe('Authorisation workflow for a work order', () => {
           'href',
           '/work-orders/10000012'
         )
-        cy.contains('Back to dashboard').should('have.attr', 'href', '/')
+        cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })
     })
 

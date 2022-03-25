@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 import SuccessPage from '../../SuccessPage'
+// import SuccessPage from '@/components/SuccessPage/indexMain'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
@@ -13,6 +14,7 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
+import { generalLinks } from '@/utils/successPageLinks'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -55,6 +57,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
+    console.log(externallyManagedAppointment)
+    console.log(externalAppointmentManagementUrl)
 
     try {
       const {
@@ -183,6 +187,15 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                   immediateOrEmergencyDloRepairText
                 }
               />
+              {/* <SuccessPage
+                banner={
+                  <Panel
+                    title={successText}
+                    workOrderReference={workOrderReference}
+                  />
+                }
+                links={generalLinks(workOrderReference, property)}
+              /> */}
             </>
           )}
           {!formSuccess &&

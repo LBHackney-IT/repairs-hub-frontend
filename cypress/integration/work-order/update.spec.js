@@ -277,11 +277,7 @@ describe('Updating a work order', () => {
           'href',
           '/work-orders/10000040/close'
         )
-        cy.contains('View work orders dashboard').should(
-          'have.attr',
-          'href',
-          '/'
-        )
+        cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })
     })
 
@@ -481,11 +477,7 @@ describe('Updating a work order', () => {
           'href',
           '/work-orders/10000040/close'
         )
-        cy.contains('View work orders dashboard').should(
-          'have.attr',
-          'href',
-          '/'
-        )
+        cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })
 
       // Run lighthouse audit for accessibility report

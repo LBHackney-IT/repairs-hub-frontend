@@ -8,7 +8,8 @@ import BackButton from '../../Layout/BackButton'
 import PropertyDetails from './PropertyDetails'
 import WorkOrderTasks from './WorkOrderTasks'
 import AppointmentCalendar from './AppointmentCalendar'
-import ScheduleAppointmentSuccess from './ScheduleAppointmentSuccess'
+import SuccessPage from '@/components/SuccessPage/indexMain'
+import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '@/models/workOrder'
 import { toISODate } from '../../../utils/date'
@@ -166,13 +167,27 @@ const AppointmentView = ({ workOrderReference, successText }) => {
             )}
           {error && <ErrorMessage label={error} />}
           {scheduleAppointmentSuccess && (
-            <ScheduleAppointmentSuccess
-              title={successText}
-              property={property}
-              workOrderReference={workOrderReference}
-              dateSelected={dateSelected}
-              slot={slot}
-              comments={comments}
+            <SuccessPage
+              banner={
+                <Panel
+                  title={successText}
+                  workOrderReference={workOrderReference}
+                  dateSelected={dateSelected}
+                  slot={slot}
+                  comments={comments}
+                />
+              }
+              links={[
+                {
+                  href: `/work-orders/${workOrderReference}`,
+                  text: 'View work orde',
+                },
+                {
+                  href: `/properties/${property.propertyReference}`,
+                  text: `Back to ${property.address.addressLine}`,
+                },
+                { href: `/`, text: 'Start a new search' },
+              ]}
             />
           )}
         </>

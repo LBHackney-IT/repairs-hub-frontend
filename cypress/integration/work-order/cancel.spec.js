@@ -144,7 +144,7 @@ describe('Work order cancellations', () => {
 
         cy.contains('Start a new search').should('have.attr', 'href', '/')
 
-        cy.contains('Back to work order').should(
+        cy.contains('View work order').should(
           'have.attr',
           'href',
           '/work-orders/10000012'

@@ -6,6 +6,7 @@ import PageAnnouncement from '../Template/PageAnnouncement'
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import UserContext from '../UserContext'
+import cx from 'classnames'
 
 const SuccessPage = ({ ...props }) => {
   const { user } = useContext(UserContext)
@@ -23,13 +24,64 @@ const SuccessPage = ({ ...props }) => {
     })
   }
 
+  const bannerToShow = () => {
+    switch (props.action) {
+      case 'close':
+        return (
+          <div className="govuk-panel govuk-panel--confirmation background-dark-green">
+            <div className="govuk-panel__body">
+              <strong>
+                You have closed work order {props.workOrderReference}
+              </strong>
+            </div>
+          </div>
+        )
+      case 'update':
+        return (
+          <div
+            className={cx('govuk-panel govuk-panel--confirmation', {
+              'background-dark-green': !props.requiresAuthorisation,
+              'background-yellow': props.requiresAuthorisation,
+            })}
+          >
+            <div
+              className={cx('govuk-panel__body', {
+                'text-black': props.requiresAuthorisation,
+              })}
+            >
+              <strong>
+                {props.requiresAuthorisation
+                  ? `Work order ${props.workOrderReference} requires authorisation and has been sent to a manager`
+                  : `Work order ${props.workOrderReference} has been successfully updated`}
+              </strong>
+            </div>
+          </div>
+        )
+      case 'cancel':
+        return (
+          <div className="govuk-panel govuk-panel--confirmation lbh-panel">
+            <h1 className="govuk-panel__title">Repair work order cancelled</h1>
+            <div className="govuk-panel__body">
+              <p>Work order number</p>
+              <strong className="govuk-!-font-size-41">
+                {props.workOrderReference}
+              </strong>
+            </div>
+          </div>
+        )
+      default:
+        return (
+          <PageAnnouncement
+            title={props.text}
+            workOrderReference={props.workOrderReference}
+          />
+        )
+    }
+  }
+
   return (
     <>
-      <PageAnnouncement
-        title={props.text}
-        workOrderReference={props.workOrderReference}
-      />
-
+      {bannerToShow()}
       {props.authorisationPendingApproval && (
         <WarningText
           text={`Work order ${props.workOrderReference} requires authorisation. Please request authorisation from a manager.`}
@@ -75,7 +127,29 @@ const SuccessPage = ({ ...props }) => {
           </li>
         )}
 
-        {props.shortAddress && (
+        {props.raiseNewRepair && (
+          <li>
+            <Link
+              href={`/properties/${props.propertyReference}/raise-repair/new`}
+            >
+              <a className="lbh-link">
+                <strong>New repair for {props.shortAddress}</strong>
+              </a>
+            </Link>
+          </li>
+        )}
+
+        {props.linkToCloseWorkorder && (
+          <li>
+            <Link href={`/work-orders/${props.workOrderReference}/close`}>
+              <a className="lbh-link">
+                <strong>Close work order</strong>
+              </a>
+            </Link>
+          </li>
+        )}
+
+        {props.shortAddress && !props.raiseNewRepair && (
           <li>
             <Link href={`/properties/${props.propertyReference}`}>
               <a className="lbh-link">
@@ -99,7 +173,7 @@ const SuccessPage = ({ ...props }) => {
           <li>
             <Link href="/">
               <a className="lbh-link">
-                <strong>Back to dashboard</strong>
+                <strong>Manage work orders</strong>
               </a>
             </Link>
           </li>

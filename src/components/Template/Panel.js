@@ -4,7 +4,7 @@ export const Panel = (props) => (
   <div className="govuk-panel govuk-panel--confirmation lbh-panel">
     <h1 className="govuk-panel__title">{props.title}</h1>
     <div className="govuk-panel__body">
-      <p>Work order number</p>
+      <p>Reference number</p>
       <strong className="govuk-!-font-size-41">
         {props.workOrderReference}
       </strong>

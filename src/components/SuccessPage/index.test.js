@@ -120,4 +120,72 @@ describe('SuccessPage component', () => {
       })
     })
   })
+
+  describe('Close a work order', () => {
+    const props = {
+      workOrderReference: '10000012',
+      showDashboardLink: true,
+      action: 'close',
+    }
+
+    it('should render a success screen with confirmation text and 2 links: View work order and Manage work orders', () => {
+      const testProps = { ...props }
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <SuccessPage {...testProps} />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('Cancel a work order', () => {
+    const props = {
+      workOrderReference: '10000012',
+      propertyReference: '12345678',
+      shortAddress: '12 Random Lane',
+      raiseNewRepair: true,
+      showSearchLink: true,
+      action: 'cancel',
+    }
+
+    it('should render a success screen with confirmation text and 3 links: View work order, New repair link and Start a new search', () => {
+      const testProps = { ...props }
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <SuccessPage {...testProps} />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
+
+  describe('Update a work order', () => {
+    const props = {
+      workOrderReference: '10000012',
+      showDashboardLink: true,
+      linkToCloseWorkorder: true,
+      action: 'update',
+    }
+
+    it('requires authorisation', () => {
+      const testProps = { ...props, requiresAuthorisation: true }
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <SuccessPage {...testProps} />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('does not require authorisation', () => {
+      const testProps = { ...props, requiresAuthorisation: false }
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user }}>
+          <SuccessPage {...testProps} />
+        </UserContext.Provider>
+      )
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
 })
