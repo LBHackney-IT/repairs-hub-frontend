@@ -413,7 +413,7 @@ describe('Home page', () => {
             .within(() => {
               cy.contains('17:00 – 18:00')
               cy.contains('emergency')
-              cy.contains('Closed')
+              cy.contains('No access')
               cy.contains('20 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
