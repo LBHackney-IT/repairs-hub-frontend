@@ -4,12 +4,14 @@ import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Collapsible from 'src/components/Layout/Collapsible'
 import { formatDateTime } from '@/utils/time'
 import { calculateTotal } from '@/utils/helpers/calculations'
+import BudgetCode from '../BudgetCode'
 
 const TasksAndSorsTable = ({
   latestTasksAndSors,
   originalTasksAndSors,
   tabName,
   tasksWereUpdated,
+  budgetCode,
 }) => {
   const buildTable = (tasks, isOriginal = false) => {
     return (
@@ -50,13 +52,14 @@ const TasksAndSorsTable = ({
             }
             className="lbh-body-s"
           >
-            <TD>{}</TD>
-            <TD>{}</TD>
-            <TD>{}</TD>
-            <TD type="numeric">
+            <TD colSpan="2" className="border-none">
+              {<BudgetCode budgetCode={budgetCode} />}
+            </TD>
+            <TD className="border-none">{}</TD>
+            <TD type="numeric" className="border-none">
               <strong>Total</strong>
             </TD>
-            <TD type="numeric">
+            <TD type="numeric" className="border-none">
               <strong>
                 £
                 {calculateTotal(
@@ -66,7 +69,7 @@ const TasksAndSorsTable = ({
                 ).toFixed(2)}
               </strong>
             </TD>
-            <TD type="numeric">
+            <TD type="numeric" className="border-none">
               <strong>
                 {calculateTotal(
                   tasks,

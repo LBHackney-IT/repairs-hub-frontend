@@ -223,6 +223,7 @@ exports[`WorkOrderUpdateSummary component should render properly over vary spend
             id="original-cost"
           >
             <th
+              class="govuk-table__header border-none"
               scope="row"
             />
             <td
@@ -554,6 +555,7 @@ exports[`WorkOrderUpdateSummary component should render properly within vary spe
             id="original-cost"
           >
             <th
+              class="govuk-table__header border-none"
               scope="row"
             />
             <td

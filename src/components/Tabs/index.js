@@ -10,6 +10,7 @@ const Tabs = ({
   propertyReference,
   workOrderReference,
   tasksAndSors,
+  budgetCode,
 }) => {
   const router = useRouter()
 
@@ -45,6 +46,7 @@ const Tabs = ({
             workOrderReference={workOrderReference}
             tabName={tabName}
             tasksAndSors={tasksAndSors}
+            budgetCode={budgetCode}
           />
         )
       case 'notes-tab':

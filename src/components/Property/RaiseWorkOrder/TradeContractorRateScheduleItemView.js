@@ -36,10 +36,10 @@ const TradeContractorRateScheduleItemView = ({
 
   const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 
-  const isBudgetCodeRelevant = () =>
+  const isBudgetCodeRelevant = (contractorRef) =>
     process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
     canAssignBudgetCode(user) &&
-    contractorReference === PURDY_CONTRACTOR_REFERENCE
+    contractorRef === PURDY_CONTRACTOR_REFERENCE
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
@@ -70,7 +70,7 @@ const TradeContractorRateScheduleItemView = ({
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
 
-      isBudgetCodeRelevant()
+      isBudgetCodeRelevant(contractorRef)
         ? getBudgetCodesData(contractorRef)
         : getSorCodesData(tradeCode, propertyReference, contractorRef)
     } else {
@@ -194,7 +194,7 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
-      {isBudgetCodeRelevant() && (
+      {isBudgetCodeRelevant(contractorReference) && (
         <>
           <BudgetCodeItemView
             loading={loadingBudgetCodes}

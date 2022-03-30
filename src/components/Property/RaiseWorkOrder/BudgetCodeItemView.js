@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import { DataList } from '../../Form'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { formatBudgetCode } from '@/utils/helpers/budgetCodes'
+import { formatBudgetCodeForOption } from '@/utils/helpers/budgetCodes'
 import { useState } from 'react'
 
 const BudgetCodeItemView = ({
@@ -16,7 +16,9 @@ const BudgetCodeItemView = ({
   afterInvalidBudgetCodeSelected,
 }) => {
   const [budgetCodeSelected, setBudgetCodeSelected] = useState()
-  const budgetCodeOptions = budgetCodes.map((code) => formatBudgetCode(code))
+  const budgetCodeOptions = budgetCodes.map((code) =>
+    formatBudgetCodeForOption(code)
+  )
 
   const budgetCodesWithOptions = budgetCodes.map((code, index) => ({
     ...code,

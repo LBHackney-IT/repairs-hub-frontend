@@ -382,6 +382,8 @@ describe('Updating a work order', () => {
             cy.contains('Total cost')
             cy.contains('770.45')
           })
+          cy.contains('Budget code – Subjective:')
+          cy.contains('H2555 - 200108 Gutter Clearance')
         })
       })
 

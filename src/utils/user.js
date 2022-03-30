@@ -3,7 +3,6 @@ export const CONTRACTOR_ROLE = 'contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
-//think about better name : so it explaines what the role does
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 
 export const buildUser = (name, email, authServiceGroups) => {

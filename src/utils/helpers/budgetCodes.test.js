@@ -1,4 +1,16 @@
-import { formatBudgetCode } from './budgetCodes'
+import { formatBudgetCode, formatBudgetCodeForOption } from './budgetCodes'
+
+describe('formatBudgetCodeForOption', () => {
+  it('includes the externalCostCode, corporateSubjectiveCode and descriptionOfWorks', () => {
+    expect(
+      formatBudgetCodeForOption({
+        externalCostCode: 'costCode',
+        corporateSubjectiveCode: 'subjectiveCode',
+        descriptionOfWorks: 'description',
+      })
+    ).toEqual('costCode - subjectiveCode - description')
+  })
+})
 
 describe('formatBudgetCode', () => {
   it('includes the externalCostCode, corporateSubjectiveCode and descriptionOfWorks', () => {
@@ -8,6 +20,6 @@ describe('formatBudgetCode', () => {
         corporateSubjectiveCode: 'subjectiveCode',
         descriptionOfWorks: 'description',
       })
-    ).toEqual('costCode - subjectiveCode - description')
+    ).toEqual('costCode - subjectiveCode description')
   })
 })

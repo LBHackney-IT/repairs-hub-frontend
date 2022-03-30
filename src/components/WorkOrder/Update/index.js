@@ -26,6 +26,7 @@ const WorkOrderUpdateView = ({ reference }) => {
   ] = useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
+  const [budgetCode, setBudgetCode] = useState()
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -106,6 +107,7 @@ const WorkOrderUpdateView = ({ reference }) => {
       })
 
       setCurrentUser(currentUser)
+      setBudgetCode(workOrder.budgetCode)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setSorCodes(sorCodes)
@@ -174,6 +176,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   onFormSubmit={onFormSubmit}
                   changeStep={changeCurrentPage}
                   variationReason={variationReason}
+                  budgetCode={budgetCode}
                 />
               )}
             </>

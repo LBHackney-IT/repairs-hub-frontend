@@ -10,7 +10,6 @@ describe('Contract manager can authorise variation', () => {
       cy.intercept('GET', 'api/hub-user', user)
     })
 
-    // Stub requests
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -219,6 +218,8 @@ describe('Contract manager can authorise variation', () => {
     // Cost calculation
     cy.get('.calculated-cost').within(() => {
       cy.get('#cost-before-variation').within(() => {
+        cy.contains('Budget code – Subjective:')
+        cy.contains('H2555 - 200108 Gutter Clearance')
         cy.contains('td', 'Cost before variation')
         cy.contains('td', '£204.00')
       })

@@ -286,7 +286,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
         </tbody>
       </table>
       <table
-        class="govuk-table lbh-table lbh-table calculated-cost"
+        class="govuk-table lbh-table lbh-table calculated-cost govuk-!-margin-top-0"
       >
         <tbody
           class="govuk-table__body"
@@ -296,25 +296,17 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
             id="cost-before-variation"
           >
             <th
-              class="govuk-table__header"
+              class="govuk-table__header govuk-table__header border-none"
               scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
+            >
+              <p
+                class="govuk-body govuk-!-margin-bottom-0 lbh-!-font-weight-bold"
+              >
+                Budget code – Subjective:
+                <br />
+                H2555 - 200108 Gutter Clearance
+              </p>
+            </th>
             <td
               class="govuk-table__cell govuk-!-padding-top-3"
             >
@@ -333,23 +325,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
             id="change-in-cost"
           >
             <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
+              class="govuk-table__header border-none"
               scope="row"
             />
             <td
@@ -370,23 +346,7 @@ exports[`VariationAuthorisationSummary component should render properly 1`] = `
             id="total-cost-after-variation"
           >
             <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
-              scope="row"
-            />
-            <th
-              class="govuk-table__header"
+              class="govuk-table__header border-none"
               scope="row"
             />
             <td

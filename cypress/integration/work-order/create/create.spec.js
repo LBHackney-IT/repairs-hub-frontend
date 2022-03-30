@@ -153,6 +153,24 @@ describe('Raise repair form', () => {
     cy.get('#descriptionOfWork-form-group .govuk-error-message').within(() => {
       cy.contains('Please enter a repair description')
     })
+
+    cy.get('#repair-request-form').within(() => {
+      cy.get('#trade').type('Plumbing - PL')
+
+      cy.wait('@contractorsRequest')
+
+      cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+      cy.wait('@budgetCodesRequest')
+    })
+
+    cy.get('[type="submit"]')
+      .contains('Create work order')
+      .click({ force: true })
+
+    cy.get('#budgetCode-form-group .govuk-error-message').within(() => {
+      cy.contains('Please select a budget code')
+    })
   })
 
   it('Shows property contact details in a table', () => {
@@ -281,14 +299,6 @@ describe('Raise repair form', () => {
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
         cy.wait('@budgetCodesRequest')
-
-        cy.get('[type="submit"]')
-          .contains('Create work order')
-          .click({ force: true })
-
-        cy.get('#budgetCode-form-group .govuk-error-message').within(() => {
-          cy.contains('Please select a budget code')
-        })
 
         cy.get('[data-testid=budgetCode]').type(
           'H2555 - 200031 - Lifts Breakdown'

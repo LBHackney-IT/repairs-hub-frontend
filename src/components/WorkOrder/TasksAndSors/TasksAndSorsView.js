@@ -3,7 +3,7 @@ import TasksAndSorsTable from './TasksAndSorsTable'
 import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 
-const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
+const TasksAndSorsView = ({ tabName, tasksAndSors, budgetCode }) => {
   const originalTasksAndSors = tasksAndSors.filter((t) => t.original)
 
   return (
@@ -23,6 +23,7 @@ const TasksAndSorsView = ({ tabName, tasksAndSors }) => {
         )}
         tasksWereUpdated={areTasksUpdated(tasksAndSors)}
         tabName={tabName}
+        budgetCode={budgetCode}
       />
     )
   )
