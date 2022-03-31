@@ -13,7 +13,8 @@ const AddedRateScheduleItems = ({
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
 
-  const addRateScheduleItem = () => {
+  const addRateScheduleItem = (e) => {
+    e.preventDefault()
     rateScheduleItems.push({ id: nextFreeIndex })
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
