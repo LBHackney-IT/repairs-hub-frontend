@@ -7,11 +7,13 @@ import { longDateToStr } from '@/utils/date'
 import { Table, THead, TBody, TR, TH, TD } from '../../Layout/Table'
 import Status from '../Status'
 import Collapsible from 'src/components/Layout/Collapsible'
+import BudgetCode from '@/components/WorkOrder/BudgetCode'
 
 const VariationAuthorisationSummary = ({
   variationTasks,
   originalSors,
   totalCostAfterVariation,
+  budgetCode,
 }) => {
   const COST_BEFORE_VARIATION = 'Cost before variation'
   const TOTAL_VARIED_COST = 'Total cost after variation'
@@ -55,11 +57,17 @@ const VariationAuthorisationSummary = ({
           key={index}
           id={object.description.toLowerCase().replace(/\s/g, '-')}
         >
-          <TH scope="row">{}</TH>
-          <TH scope="row">{}</TH>
-          <TH scope="row">{}</TH>
-          <TH scope="row">{}</TH>
-          <TH scope="row">{}</TH>
+          {index === 0 ? (
+            <TH
+              scope="row"
+              colSpan="2"
+              className="govuk-table__header border-none"
+            >
+              <BudgetCode budgetCode={budgetCode} />
+            </TH>
+          ) : (
+            <TH scope="row" className="border-none" />
+          )}
 
           <TD
             padding="top-3"
@@ -147,7 +155,7 @@ const VariationAuthorisationSummary = ({
           </TBody>
         </Table>
 
-        <Table className="lbh-table calculated-cost">
+        <Table className="lbh-table calculated-cost govuk-!-margin-top-0">
           <TBody>{variationTasks.tasks ? showCostBreakdown() : ''}</TBody>
         </Table>
       </>
@@ -206,6 +214,7 @@ const VariationAuthorisationSummary = ({
 VariationAuthorisationSummary.propTypes = {
   variationTasks: PropTypes.object.isRequired,
   originalSors: PropTypes.array.isRequired,
+  budgetCode: PropTypes.object,
 }
 
 export default VariationAuthorisationSummary

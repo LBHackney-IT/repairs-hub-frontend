@@ -38,6 +38,10 @@
   &-bottom-grey {
     border-bottom: 2px solid lbh-colour('lbh-border');
   }
+
+  &-none {
+    border: none;
+  }
 }
 
 .cursor-pointer {

@@ -43,6 +43,13 @@ describe('VariationAuthorisationSummary component', () => {
       },
     ],
     totalCostAfterVariation: 16038.0,
+    budgetCode: {
+      id: 4,
+      externalCostCode: 'H2555',
+      costCode: null,
+      corporateSubjectiveCode: '200108',
+      descriptionOfWorks: 'Gutter Clearance',
+    },
   }
   it('should render properly', () => {
     const { asFragment } = render(
@@ -50,6 +57,7 @@ describe('VariationAuthorisationSummary component', () => {
         variationTasks={props.variationTasks}
         originalSors={props.originalSors}
         totalCostAfterVariation={props.totalCostAfterVariation}
+        budgetCode={props.budgetCode}
       />
     )
     expect(asFragment()).toMatchSnapshot()

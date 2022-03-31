@@ -32,6 +32,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     'Approve request',
     'Reject request',
   ])
+  const [budgetCode, setBudgetCode] = useState()
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
@@ -40,16 +41,23 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+
       const variationTasks = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/variation-tasks`,
       })
+
       const user = await frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
       })
 
       setVariationTasks(variationTasks)
+      setBudgetCode(workOrder.budgetCode)
       setVarySpendLimit(parseFloat(user.varyLimit))
 
       const totalCostAfterVariation = calculateTotalVariedCost(
@@ -168,6 +176,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                   variationTasks={variationTasks}
                   originalSors={originalSors}
                   totalCostAfterVariation={totalCostAfterVariation}
+                  budgetCode={budgetCode}
                 />
                 <br></br>
                 <br></br>

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
+import BudgetCode from '../BudgetCode'
 
 const UpdateSummaryRateScheduleItems = ({
   originalTasks,
@@ -10,6 +11,7 @@ const UpdateSummaryRateScheduleItems = ({
   originalCostObject,
   totalCostObject,
   totalVariedCostObject,
+  budgetCode,
 }) => {
   const showCostBreakdown = () => {
     return [originalCostObject, totalVariedCostObject, totalCostObject].map(
@@ -19,7 +21,14 @@ const UpdateSummaryRateScheduleItems = ({
           className="govuk-table__row"
           id={object.description.toLowerCase().replace(/\s/g, '-')}
         >
-          <th scope="row">{}</th>
+          {index === 0 ? (
+            <th scope="row" className="govuk-table__header border-none">
+              <BudgetCode budgetCode={budgetCode} />
+            </th>
+          ) : (
+            <th scope="row" />
+          )}
+
           <td
             className={cx('govuk-!-padding-top-3', {
               'border-top-black':
@@ -135,6 +144,7 @@ UpdateSummaryRateScheduleItems.propTypes = {
   originalCostObject: PropTypes.object.isRequired,
   totalCostObject: PropTypes.object.isRequired,
   totalVariedCostObject: PropTypes.object.isRequired,
+  budgetCode: PropTypes.object,
 }
 
 export default UpdateSummaryRateScheduleItems

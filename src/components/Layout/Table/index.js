@@ -53,6 +53,7 @@ export const TD = (props) => (
       props.border ? `border-${props.border}` : null,
       props.className
     )}
+    colSpan={props.colSpan}
   >
     {props.children}
   </td>

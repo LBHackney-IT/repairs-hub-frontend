@@ -3,12 +3,14 @@ export const CONTRACTOR_ROLE = 'contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
+export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 
 export const buildUser = (name, email, authServiceGroups) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
     OPERATIVES_GOOGLE_GROUPNAME,
+    BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -32,6 +34,8 @@ export const buildUser = (name, email, authServiceGroups) => {
         return CONTRACTOR_ROLE
       } else if (isOperativeGroupName(groupName)) {
         return OPERATIVE_ROLE
+      } else if (isBudgetCodeOfficerGroupName(groupName)) {
+        return BUDGET_CODE_OFFICER_ROLE
       }
 
       console.log(`User group name not recognised: ${groupName}`)
@@ -52,13 +56,17 @@ export const buildUser = (name, email, authServiceGroups) => {
   const isOperativeGroupName = (groupName) =>
     groupName === OPERATIVES_GOOGLE_GROUPNAME
 
+  const isBudgetCodeOfficerGroupName = (groupName) =>
+    groupName === BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME
+
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       isContractManagerGroupName(groupName) ||
       isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
       isContractorGroupName(groupName) ||
-      isOperativeGroupName(groupName)
+      isOperativeGroupName(groupName) ||
+      isBudgetCodeOfficerGroupName(groupName)
   )
 
   const roles = rolesFromGroups(groupNames)
@@ -76,5 +84,6 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),
     hasAnyPermissions: roles.length > 0,
+    hasBudgetCodeOfficerPermissions: hasRole(BUDGET_CODE_OFFICER_ROLE),
   }
 }

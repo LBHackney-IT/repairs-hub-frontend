@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import BudgetCodeItemView from './BudgetCodeItemView'
+import UserContext from '@/components/UserContext'
+import { canAssignBudgetCode } from '@/utils/userPermissions'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -16,20 +19,34 @@ const TradeContractorRateScheduleItemView = ({
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
+  const [getBudgetCodesError, setGetBudgetCodesError] = useState()
   const [loadingContractors, setLoadingContractors] = useState(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
+  const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
   const [tradeCode, setTradeCode] = useState('')
   const [contractors, setContractors] = useState([])
+  const [budgetCodes, setBudgetCodes] = useState([])
   const [contractorReference, setContractorReference] = useState('')
   const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
   const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
+  const [budgetCodeItemDisabled, setBudgetCodeItemDisabled] = useState(true)
+
+  const { user } = useContext(UserContext)
+
+  const PURDY_CONTRACTOR_REFERENCE = 'PCL'
+
+  const isBudgetCodeRelevant = (contractorRef) =>
+    process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+    canAssignBudgetCode(user) &&
+    contractorRef === PURDY_CONTRACTOR_REFERENCE
 
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
     const tradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
     setSorCodes([])
+    setBudgetCodes([])
 
     if (tradeCode?.length) {
       setTradeCode(tradeCode)
@@ -37,6 +54,7 @@ const TradeContractorRateScheduleItemView = ({
     } else {
       setContractorSelectDisabled(true)
       setRateScheduleItemDisabled(true)
+      setBudgetCodeItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
@@ -51,7 +69,10 @@ const TradeContractorRateScheduleItemView = ({
 
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
-      getSorCodesData(tradeCode, propertyReference, contractorRef)
+
+      isBudgetCodeRelevant(contractorRef)
+        ? getBudgetCodesData(contractorRef)
+        : getSorCodesData(tradeCode, propertyReference, contractorRef)
     } else {
       setRateScheduleItemDisabled(true)
       setContractorReference('')
@@ -84,6 +105,32 @@ const TradeContractorRateScheduleItemView = ({
     }
 
     setLoadingContractors(false)
+  }
+
+  const getBudgetCodesData = async (contractorReference) => {
+    setLoadingBudgetCodes(true)
+    setGetBudgetCodesError(null)
+
+    try {
+      const budgetCodes = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/workOrders/budget-codes',
+        params: {
+          contractorReference,
+        },
+      })
+
+      setBudgetCodes(budgetCodes)
+      setBudgetCodeItemDisabled(false)
+    } catch (e) {
+      setBudgetCodes([])
+      console.error('An error has occured:', e.response)
+      setGetBudgetCodesError(
+        `Oops an error occurred getting budget codes with error status: ${e.response?.status}`
+      )
+    } finally {
+      setLoadingBudgetCodes(false)
+    }
   }
 
   const getSorCodesData = async (tradeCode, propertyRef, contractorRef) => {
@@ -130,7 +177,6 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={tradeCode}
       />
-
       <ContractorDataList
         loading={loadingContractors}
         contractors={contractors}
@@ -148,7 +194,26 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
+      {isBudgetCodeRelevant(contractorReference) && (
+        <>
+          <BudgetCodeItemView
+            loading={loadingBudgetCodes}
+            errors={errors}
+            apiError={getBudgetCodesError}
+            disabled={budgetCodeItemDisabled}
+            budgetCodes={budgetCodes}
+            register={register}
+            afterValidBudgetCodeSelected={() => {
+              getSorCodesData(tradeCode, propertyReference, contractorReference)
 
+              setRateScheduleItemDisabled(false)
+            }}
+            afterInvalidBudgetCodeSelected={() =>
+              setRateScheduleItemDisabled(true)
+            }
+          />
+        </>
+      )}
       <RateScheduleItemView
         loading={loadingSorCodes}
         sorCodes={sorCodes}
