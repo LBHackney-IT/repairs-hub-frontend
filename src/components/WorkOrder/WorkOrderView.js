@@ -130,6 +130,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   propertyReference={property.propertyReference}
                   workOrderReference={workOrderReference}
                   tasksAndSors={tasksAndSors}
+                  budgetCode={workOrder.budgetCode}
                 />
                 {/* Only displayed for print media */}
                 <PrintJobTicketDetails

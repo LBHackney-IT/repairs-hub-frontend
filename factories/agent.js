@@ -10,6 +10,7 @@ const agentUserFactory = Factory.define(() => ({
   hasContractManagerPermissions: false,
   hasAuthorisationManagerPermissions: false,
   hasOperativePermissions: false,
+  hasBudgetCodeOfficerPermissions: true,
   hasAnyPermissions: true,
 }))
 

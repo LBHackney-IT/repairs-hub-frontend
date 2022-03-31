@@ -14,6 +14,7 @@ const WorkOrderUpdateSummary = ({
   addedTasks,
   changeStep,
   variationReason,
+  budgetCode,
 }) => {
   const onSubmit = async () => {
     // The API validates whether the total variation cost is over the logged in
@@ -61,6 +62,7 @@ const WorkOrderUpdateSummary = ({
           originalCostObject={original}
           totalCostObject={total}
           totalVariedCostObject={totalVaried}
+          budgetCode={budgetCode}
         />
 
         <div className="variation-reason-summary lbh-body-s govuk-!-margin-bottom-7">
@@ -89,6 +91,7 @@ WorkOrderUpdateSummary.propTypes = {
   addedTasks: PropTypes.array,
   changeStep: PropTypes.func.isRequired,
   variationReason: PropTypes.string.isRequired,
+  budgetCode: PropTypes.object,
 }
 
 export default WorkOrderUpdateSummary

@@ -67,6 +67,7 @@ jobs:
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED=true
             export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=true
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
@@ -99,6 +100,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED=$NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_DEVELOPMENT
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_DEVELOPMENT
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -126,6 +128,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED=$NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED_STAGING
             export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_STAGING
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -153,6 +156,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED=$NEXT_PUBLIC_UPDATING_MULTI_TRADES_ENABLED_PRODUCTION
             export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_PRODUCTION
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_PRODUCTION
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:

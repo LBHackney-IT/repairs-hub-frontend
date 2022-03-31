@@ -59,3 +59,6 @@ export const canAttendOwnWorkOrder = (user) => {
     ? user.roles.length === 1 && user.roles[0] === OPERATIVE_ROLE
     : false
 }
+
+export const canAssignBudgetCode = (user) =>
+  user.hasBudgetCodeOfficerPermissions

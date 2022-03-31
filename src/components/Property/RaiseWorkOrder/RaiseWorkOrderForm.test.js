@@ -11,6 +11,8 @@ import {
   URGENT_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
+import { agent } from 'factories/agent'
+import UserContext from '@/components/UserContext'
 
 const axios = require('axios')
 
@@ -76,17 +78,19 @@ describe('RaiseWorkOrderForm component', () => {
 
   it('should render properly', async () => {
     const { asFragment } = render(
-      <RaiseWorkOrderForm
-        propertyReference={props.property.propertyReference}
-        address={props.property.address}
-        hierarchyType={props.property.hierarchyType}
-        canRaiseRepair={props.property.canRaiseRepair}
-        tenure={props.tenure}
-        priorities={props.priorities}
-        trades={props.trades}
-        contacts={props.contactDetails}
-        onFormSubmit={props.onFormSubmit}
-      />
+      <UserContext.Provider value={{ user: agent }}>
+        <RaiseWorkOrderForm
+          propertyReference={props.property.propertyReference}
+          address={props.property.address}
+          hierarchyType={props.property.hierarchyType}
+          canRaiseRepair={props.property.canRaiseRepair}
+          tenure={props.tenure}
+          priorities={props.priorities}
+          trades={props.trades}
+          contacts={props.contactDetails}
+          onFormSubmit={props.onFormSubmit}
+        />
+      </UserContext.Provider>
     )
 
     await act(async () => {

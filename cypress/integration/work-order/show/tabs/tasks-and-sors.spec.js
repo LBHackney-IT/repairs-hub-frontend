@@ -6,7 +6,6 @@ describe('Tasks and SORs', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
 
-    // Stub requests
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
@@ -29,7 +28,7 @@ describe('Tasks and SORs', () => {
     )
   })
 
-  it('Displays tasks and sors relating to a work order', () => {
+  it('Displays tasks, sors and budget code relating to a work order', () => {
     cy.visit('/work-orders/10000012')
 
     cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
@@ -105,9 +104,11 @@ describe('Tasks and SORs', () => {
           cy.contains('15')
         })
       })
+
+      cy.contains('Budget code – Subjective:')
+      cy.contains('H2555 - 200108 Gutter Clearance')
     })
 
-    // Run lighthouse audit for accessibility report
     cy.audit()
   })
 
@@ -119,7 +120,6 @@ describe('Tasks and SORs', () => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
       cy.get('.govuk-table').within(() => {
-        // Tasks and SORS table headers
         cy.contains('th', 'SOR')
         cy.contains('th', 'Description')
         cy.contains('th', 'Quantity (est.)')
@@ -129,7 +129,6 @@ describe('Tasks and SORs', () => {
       })
     })
 
-    // Run lighthouse audit for accessibility report
     cy.audit()
   })
 })

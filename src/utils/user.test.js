@@ -13,6 +13,7 @@ const {
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
   OPERATIVES_GOOGLE_GROUPNAME,
   CONTRACTORS_GOOGLE_GROUPNAME,
+  BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
 } = process.env
 
 describe('buildUser', () => {
@@ -239,6 +240,86 @@ describe('buildUser', () => {
 
       it('returns false', () => {
         expect(user.hasAnyPermissions).toBe(false)
+      })
+    })
+  })
+
+  describe('when called with a single operative group name', () => {
+    const user = buildUser('', '', [OPERATIVES_GOOGLE_GROUPNAME])
+    describe('hasContractorPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAgentPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAgentPermissions).toBe(false)
+      })
+    })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractManagerPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAuthorisationManagerPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasAuthorisationManagerPermissions).toBe(false)
+      })
+    })
+
+    describe('hasOperativePermissions', () => {
+      it('returns true', () => {
+        expect(user.hasOperativePermissions).toBe(true)
+      })
+    })
+
+    describe('hasBudgetCodeOfficerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasBudgetCodeOfficerPermissions).toBe(false)
+      })
+    })
+  })
+
+  describe('when called with a single budget code officer group name', () => {
+    const user = buildUser('', '', [BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME])
+
+    describe('hasBudgetCodeOfficerPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasBudgetCodeOfficerPermissions).toBe(true)
+      })
+    })
+
+    describe('hasContractorPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAgentPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAgentPermissions).toBe(false)
+      })
+    })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractManagerPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAuthorisationManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAuthorisationManagerPermissions).toBe(false)
+      })
+    })
+
+    //check how to compact it into an array: all perissions that need to be false (user.apply...)
+    describe('hasOperativePermissions', () => {
+      it('returns false', () => {
+        expect(user.hasOperativePermissions).toBe(false)
       })
     })
   })

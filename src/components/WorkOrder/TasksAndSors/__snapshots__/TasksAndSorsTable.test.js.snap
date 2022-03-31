@@ -172,30 +172,28 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
         data-row-id="3"
       >
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell border-none"
+          colspan="2"
         />
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell border-none"
         />
         <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             Total
           </strong>
         </td>
         <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             £82.45
           </strong>
         </td>
         <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             245
@@ -324,30 +322,28 @@ exports[`TasksAndSorsTable component renders latest and original tables when tas
             data-row-id="1"
           >
             <td
-              class="govuk-table__cell"
+              class="govuk-table__cell border-none"
+              colspan="2"
             />
             <td
-              class="govuk-table__cell"
+              class="govuk-table__cell border-none"
             />
             <td
-              class="govuk-table__cell"
-            />
-            <td
-              class="govuk-table__cell govuk-table__cell--numeric"
+              class="govuk-table__cell govuk-table__cell--numeric border-none"
             >
               <strong>
                 Total
               </strong>
             </td>
             <td
-              class="govuk-table__cell govuk-table__cell--numeric"
+              class="govuk-table__cell govuk-table__cell--numeric border-none"
             >
               <strong>
                 £20.15
               </strong>
             </td>
             <td
-              class="govuk-table__cell govuk-table__cell--numeric"
+              class="govuk-table__cell govuk-table__cell--numeric border-none"
             >
               <strong>
                 10
@@ -463,30 +459,28 @@ exports[`TasksAndSorsTable component renders the latest table only, when tasksWe
         data-row-id="1"
       >
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell border-none"
+          colspan="2"
         />
         <td
-          class="govuk-table__cell"
+          class="govuk-table__cell border-none"
         />
         <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             Total
           </strong>
         </td>
         <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             £40.30
           </strong>
         </td>
         <td
-          class="govuk-table__cell govuk-table__cell--numeric"
+          class="govuk-table__cell govuk-table__cell--numeric border-none"
         >
           <strong>
             20
