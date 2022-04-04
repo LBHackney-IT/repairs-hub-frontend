@@ -484,7 +484,7 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Normal (N)', () => {
-      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
 
         cy.wait(['@property'])
@@ -558,7 +558,7 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Urgent (U)', () => {
-      it.only('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
         cy.visit('/properties/00012345')
 
         cy.wait(['@property'])
@@ -616,7 +616,7 @@ describe('Schedule appointment form', () => {
     })
 
     describe('and the priority is Immediate (I)', () => {
-      it.only('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
+      it('Shows a success page instead of the calendar with no link to the external scheduler but text informing that the repair has been sent directly to the planners', () => {
         cy.visit('/properties/00012345')
 
         cy.wait(['@property'])
