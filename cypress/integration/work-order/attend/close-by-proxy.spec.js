@@ -282,9 +282,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
-    cy.wait('@apiCheck')
-
-    cy.get('@apiCheck')
+    cy.wait('@apiCheck', { requestTimeout: 6000 })
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
@@ -405,8 +403,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
-      cy.get('@apiCheck')
         .its('request.body')
         .should(
           'have.deep.nested.property',
@@ -458,10 +454,8 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
-      cy.wait('@apiCheck')
-
       // Notes when closing with overtime do not include work percentage values
-      cy.get('@apiCheck')
+      cy.wait('@apiCheck')
         .its('request.body')
         .should(
           'have.deep.nested.property',
@@ -514,8 +508,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
-      cy.get('@apiCheck')
         .its('request.body')
         .should(
           'have.deep.nested.property',
@@ -756,8 +748,6 @@ describe('Closing a work order on behalf of an operative', () => {
             })
 
           cy.wait('@workOrderCompleteRequest')
-
-          cy.get('@workOrderCompleteRequest')
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
@@ -909,8 +899,6 @@ describe('Closing a work order on behalf of an operative', () => {
             })
 
           cy.wait('@workOrderCompleteRequest')
-
-          cy.get('@workOrderCompleteRequest')
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
@@ -1039,8 +1027,6 @@ describe('Closing a work order on behalf of an operative', () => {
             })
 
           cy.wait('@workOrderCompleteRequest')
-
-          cy.get('@workOrderCompleteRequest')
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
@@ -1111,8 +1097,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
-      cy.get('@apiCheck')
         .its('request.body')
         .should(
           'have.deep.nested.property',
