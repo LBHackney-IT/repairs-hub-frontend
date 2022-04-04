@@ -28,8 +28,7 @@
       background-color: repairs-hub-colour('white');
       color: repairs-hub-colour('black');
     }
-    &--status-cancelled,
-    &--status-no-access {
+    &--status-cancelled {
       background-color: repairs-hub-colour('grey');
       color: repairs-hub-colour('black');
     }
@@ -48,7 +47,8 @@
       background-color: repairs-hub-colour('dark-red');
       color: repairs-hub-colour('white');
     }
-    &--status-closed {
+    &--status-closed,
+    &--status-no-access {
       background-color: repairs-hub-colour('dark-grey');
     }
     &--status-completed,

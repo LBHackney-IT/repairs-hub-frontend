@@ -13,20 +13,6 @@ It's a [Next.js](https://nextjs.org) app that works with:
 
 It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
 
-## Architecture
-
-### Node API and how it relates to the Service API
-
-This application includes a [Next JS API](https://nextjs.org/docs/api-routes/introduction) which is used for almost all API calls from the client.
-
-In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`).
-
-However, at the time of writing there are some exceptions to this:
-
-- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
-- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
-- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)
-
 ## Development Setup
 
 ### Clone the project
@@ -116,15 +102,15 @@ This project makes use of two types of environment variables:
 
 This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
 
-Variables are referenced and stored in the following places:
+When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
 
-- dotenv files with .env.defaults as the fallback, .env as a gitignored first priority, then local gitignored env files
+In deployed environments, environment variables are used from the following places:
 - Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
 - Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
   These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
 - AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
 
-### Tests
+### CI Builds
 
 When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
 
@@ -139,3 +125,17 @@ Our serverless deployment service is configured in [serverless.yml](serverless.y
 Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all).
 
 See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables)
+
+## Architecture
+
+### Node API and how it relates to the Service API
+
+This application includes a [Next JS API](https://nextjs.org/docs/api-routes/introduction) which is used for almost all API calls from the client.
+
+In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`).
+
+However, at the time of writing there are some exceptions to this:
+
+- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
+- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
+- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)
