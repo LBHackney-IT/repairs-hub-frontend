@@ -60,7 +60,7 @@ const RateScheduleItem = ({
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
-              sorOptions.some((text) => text.includes(value)) ||
+              sorOptions.some((text) => text === value) ||
               'SOR code is not valid',
           })}
           error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
