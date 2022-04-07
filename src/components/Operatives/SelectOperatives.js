@@ -172,41 +172,34 @@ const SelectOperatives = ({
                 {...(operativeIsCurrentUser && { disabled: 'disabled' })}
               />
 
-              {process.env.NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED ===
-                'true' && (
-                <>
-                  <SelectPercentage
-                    updatePercentages={updatePercentages}
-                    index={index}
-                    operativeIndex={index}
-                    assignedOperativesToWorkOrder={
-                      assignedOperativesToWorkOrder.length
-                    }
-                    selectedOperatives={selectedOperatives}
-                    operativeNameIsSelected={operativeNameIsSelected}
-                    errors={errors}
-                    register={register({
-                      validate: () => {
-                        return (
-                          calculateTotalPercentage(
-                            selectedOperatives,
-                            updatedPercentages
-                          ) === 100 ||
-                          'Work done total across operatives must be equal to 100%'
-                        )
-                      },
-                    })}
-                    preSelectedPercentages={
-                      selectedPercentagesToShowOnEdit[index]
-                    }
-                    totalSMV={totalSMV}
-                    selectedOperativePercentage={
-                      selectedOperative ? selectedOperative.jobPercentage : null
-                    }
-                    jobIsSplitByOperative={jobIsSplitByOperative}
-                  />
-                </>
-              )}
+              <SelectPercentage
+                updatePercentages={updatePercentages}
+                index={index}
+                operativeIndex={index}
+                assignedOperativesToWorkOrder={
+                  assignedOperativesToWorkOrder.length
+                }
+                selectedOperatives={selectedOperatives}
+                operativeNameIsSelected={operativeNameIsSelected}
+                errors={errors}
+                register={register({
+                  validate: () => {
+                    return (
+                      calculateTotalPercentage(
+                        selectedOperatives,
+                        updatedPercentages
+                      ) === 100 ||
+                      'Work done total across operatives must be equal to 100%'
+                    )
+                  },
+                })}
+                preSelectedPercentages={selectedPercentagesToShowOnEdit[index]}
+                totalSMV={totalSMV}
+                selectedOperativePercentage={
+                  selectedOperative ? selectedOperative.jobPercentage : null
+                }
+                jobIsSplitByOperative={jobIsSplitByOperative}
+              />
             </div>
           )
         })}
