@@ -16,11 +16,21 @@ import {
   canSeeOperativeWorkOrders,
 } from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import { frontEndApiRequest } from '../utils/frontEndApiClient/requests'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(true)
+
+  useEffect(async () => {
+    const toggles = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/toggles`,
+    })
+
+    console.log(toggles)
+  }, [])
 
   const HomeView = () => {
     if (user && canSeeWorkOrders(user)) {
