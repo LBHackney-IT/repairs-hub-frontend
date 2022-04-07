@@ -62,7 +62,6 @@ jobs:
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-            export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=true
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             yarn e2e:audit
       - store_artifacts:
@@ -91,7 +90,6 @@ jobs:
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
-            export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_DEVELOPMENT
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
@@ -115,7 +113,6 @@ jobs:
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
-            export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_STAGING
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
@@ -139,7 +136,6 @@ jobs:
             export NEXT_PUBLIC_SENTRY_RELEASE=$CIRCLE_SHA1
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
-            export NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED=$NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED_PRODUCTION
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_PRODUCTION
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
