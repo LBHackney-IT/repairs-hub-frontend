@@ -348,6 +348,14 @@ describe('Raise repair form', () => {
 
         cy.wait('@sorCodesRequest')
 
+        cy.get('input[id="rateScheduleItems[0][code]"]').type('INP')
+
+        cy.get(
+          'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
+        ).within(() => {
+          cy.contains('SOR code is not valid')
+        })
+
         // Select SOR code with no priority attached
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
           'INP5R001 - Pre insp of wrks by Constructr'
