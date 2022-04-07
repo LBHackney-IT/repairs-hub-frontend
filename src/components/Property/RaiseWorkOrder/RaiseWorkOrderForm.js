@@ -144,11 +144,9 @@ const RaiseWorkOrderForm = ({
   }
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED === 'true') {
-      setLoading(true)
+    setLoading(true)
 
-      getPropertyInfoOnLegalDisrepair(propertyReference)
-    }
+    getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
 
   return (
@@ -271,13 +269,3 @@ const RaiseWorkOrderForm = ({
 
 RaiseWorkOrderForm.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  hierarchyType: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object,
-  trades: PropTypes.array.isRequired,
-  priorities: PropTypes.array.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-}
-
-export default RaiseWorkOrderForm
