@@ -22,8 +22,7 @@ const OperativeList = ({
           const operativeDisplay = [operative.name, percentageDisplay].join(
             ' - '
           )
-          return process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-            'true' && !readOnly ? (
+          return !readOnly ? (
             <OperativeListLinkItem
               key={index}
               workOrderReference={workOrderReference}

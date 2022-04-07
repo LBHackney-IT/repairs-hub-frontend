@@ -147,8 +147,7 @@ const MobileWorkingWorkOrder = ({
               />
             )}
 
-            {process.env.NEXT_PUBLIC_OPERATIVE_MANAGEMENT_MOBILE_ENABLED ===
-              'true' && renderOperativeManagementLink(operativesCount)}
+            {renderOperativeManagementLink(operativesCount)}
 
             <PrimarySubmitButton label="Confirm" />
           </>
