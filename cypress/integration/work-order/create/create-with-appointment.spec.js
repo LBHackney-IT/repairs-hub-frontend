@@ -100,7 +100,7 @@ describe('Schedule appointment form', () => {
       { body: '' }
     ).as('apiCheckjobStatus')
 
-    cy.clock(now)
+    cy.clock(now, ['Date'])
   })
 
   describe('When the order is for a contractor whose appointments are managed in repairs hub', () => {
@@ -136,11 +136,11 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.wait(['@sorCodesPCL'])
+        cy.wait('@sorCodesPCL')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'DES5R006 - Urgent call outs'
-        )
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R006 - Urgent call outs')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
@@ -233,6 +233,7 @@ describe('Schedule appointment form', () => {
                     ],
                   },
                 },
+                multiTradeWorkOrder: false,
               })
           })
       })
@@ -283,11 +284,11 @@ describe('Schedule appointment form', () => {
 
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.wait(['@sorCodesPCL'])
+        cy.wait('@sorCodesPCL')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'DES5R005 - Normal call outs'
-        )
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('DES5R005 - Normal call outs')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
@@ -381,6 +382,7 @@ describe('Schedule appointment form', () => {
                     ],
                   },
                 },
+                multiTradeWorkOrder: false,
               })
           })
       })
@@ -502,11 +504,11 @@ describe('Schedule appointment form', () => {
 
           cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait(['@sorCodesH01'])
+          cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            'DES5R005 - Normal call outs'
-          )
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R005 - Normal call outs')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('5 [N] NORMAL')
@@ -576,11 +578,11 @@ describe('Schedule appointment form', () => {
 
           cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait(['@sorCodesH01'])
+          cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            'DES5R006 - Urgent call outs'
-          )
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R006 - Urgent call outs')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('4 [U] URGENT')
@@ -634,11 +636,11 @@ describe('Schedule appointment form', () => {
 
           cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.wait(['@sorCodesH01'])
+          cy.wait('@sorCodesH01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            'DES5R003 - Immediate call outs'
-          )
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R003 - Immediate call outs')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('1 [I] IMMEDIATE')
@@ -679,9 +681,11 @@ describe('Schedule appointment form', () => {
           cy.get('#trade').type('Plumbing - PL')
           cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            'DES5R004 - Emergency call out'
-          )
+          cy.wait('@sorCodesH01')
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R004 - Emergency call out')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('2 [E] EMERGENCY')
@@ -726,9 +730,11 @@ describe('Schedule appointment form', () => {
           cy.get('#trade').type('Plumbing - PL')
           cy.get('#contractor').type('HH General Building Repair - H01')
 
-          cy.get('input[id="rateScheduleItems[0][code]"]').type(
-            'DES5R005 - Normal call outs'
-          )
+          cy.wait('@sorCodesH01')
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R005 - Normal call outs')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('5 [N] NORMAL')

@@ -7,6 +7,10 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
+import {
+  MULTITRADE_TRADE_CODE,
+  PURDY_CONTRACTOR_REFERENCE,
+} from '@/utils/constants'
 
 const TradeContractorRateScheduleItemView = ({
   trades,
@@ -16,6 +20,7 @@ const TradeContractorRateScheduleItemView = ({
   updatePriority,
   getPriorityObjectByCode,
   setTotalCost,
+  setValue,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -27,30 +32,49 @@ const TradeContractorRateScheduleItemView = ({
   const [contractors, setContractors] = useState([])
   const [budgetCodes, setBudgetCodes] = useState([])
   const [contractorReference, setContractorReference] = useState('')
-  const [sorCodes, setSorCodes] = useState([])
   const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
   const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
   const [budgetCodeItemDisabled, setBudgetCodeItemDisabled] = useState(true)
+  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
+
+  const [
+    orderRequiresIncrementalSearch,
+    setOrderRequiresIncrementalSearch,
+  ] = useState(false)
+
+  let multiTradeSORIncrementalSearchEnabled = null
 
   const { user } = useContext(UserContext)
-
-  const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 
   const isBudgetCodeRelevant = (contractorRef) =>
     process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
     canAssignBudgetCode(user) &&
     contractorRef === PURDY_CONTRACTOR_REFERENCE
 
+  const resetSORs = () => {
+    sorCodeArrays.forEach((array, index) => {
+      setValue(`rateScheduleItems[${index}][code]`, '')
+      setValue(`rateScheduleItems[${index}][description]`, '')
+      setValue(`rateScheduleItems[${index}][cost]`, '')
+      setValue(`rateScheduleItems[${index}][quantity]`, '')
+    })
+
+    setSorCodeArrays((sorCodeArrays) => sorCodeArrays.map(() => []))
+  }
+
   const onTradeSelect = (event) => {
     const tradeName = event.target.value.split(' - ')[0]
-    const tradeCode = trades.filter((trade) => trade.name === tradeName)[0]
+    const newTradeCode = trades.filter((trade) => trade.name === tradeName)[0]
       ?.code
-    setSorCodes([])
+
     setBudgetCodes([])
 
-    if (tradeCode?.length) {
-      setTradeCode(tradeCode)
-      getContractorsData(propertyReference, tradeCode)
+    if (newTradeCode?.length) {
+      setTradeCode(newTradeCode)
+
+      resetSORs()
+
+      getContractorsData(propertyReference, newTradeCode)
     } else {
       setContractorSelectDisabled(true)
       setRateScheduleItemDisabled(true)
@@ -58,10 +82,52 @@ const TradeContractorRateScheduleItemView = ({
       setContractors([])
       setTradeCode('')
     }
-    setLoadingSorCodes(false)
   }
 
-  const onContractorSelect = (event) => {
+  const incrementalSORSearchRequired = async (contractorRef, tradeCode) => {
+    const orderApplicable =
+      contractorRef === PURDY_CONTRACTOR_REFERENCE &&
+      tradeCode === MULTITRADE_TRADE_CODE
+
+    if (!orderApplicable) {
+      setOrderRequiresIncrementalSearch(false)
+      return false
+    }
+
+    if (multiTradeSORIncrementalSearchEnabled === null) {
+      const configurationData = await frontEndApiRequest({
+        method: 'GET',
+        path: '/api/toggles',
+      })
+
+      ;({
+        featureToggles: {
+          MultiTradeSORIncrementalSearch: multiTradeSORIncrementalSearchEnabled = false,
+        } = {},
+      } = configurationData[0] || {})
+    }
+
+    setOrderRequiresIncrementalSearch(
+      orderApplicable && multiTradeSORIncrementalSearchEnabled
+    )
+
+    return orderApplicable && multiTradeSORIncrementalSearchEnabled
+  }
+
+  const prepareSORData = async (contractorRef, tradeCode) => {
+    const incrementalSearch = await incrementalSORSearchRequired(
+      contractorRef,
+      tradeCode
+    )
+
+    if (incrementalSearch) {
+      resetSORs()
+    } else {
+      getSorCodesData(tradeCode, propertyReference, contractorRef)
+    }
+  }
+
+  const onContractorSelect = async (event) => {
     const contractorName = event.target.value.split(' - ')[0]
     const contractorRef = contractors.filter(
       (contractor) => contractor.contractorName === contractorName
@@ -70,9 +136,12 @@ const TradeContractorRateScheduleItemView = ({
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
 
-      isBudgetCodeRelevant(contractorRef)
-        ? getBudgetCodesData(contractorRef)
-        : getSorCodesData(tradeCode, propertyReference, contractorRef)
+      if (isBudgetCodeRelevant(contractorRef)) {
+        getBudgetCodesData(contractorRef)
+      } else {
+        await prepareSORData(contractorRef, tradeCode)
+        setRateScheduleItemDisabled(false)
+      }
     } else {
       setRateScheduleItemDisabled(true)
       setContractorReference('')
@@ -149,10 +218,10 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
-      setSorCodes(sorCodes)
+      setSorCodeArrays([sorCodes])
       setRateScheduleItemDisabled(false)
     } catch (e) {
-      setSorCodes([])
+      resetSORs()
       console.error('An error has occured:', e.response)
       setGetSorCodesError(
         `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
@@ -161,6 +230,22 @@ const TradeContractorRateScheduleItemView = ({
 
     setLoadingSorCodes(false)
   }
+
+  // When searching large numbers of SORs, we make an SOR request
+  // with a specific text filter.
+  const sorSearchRequest = (searchText) =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/schedule-of-rates/codes',
+      params: {
+        tradeCode: tradeCode,
+        propertyReference: propertyReference,
+        contractorReference: contractorReference,
+        isRaisable: true,
+        filter: searchText,
+        showAllTrades: true,
+      },
+    })
 
   return (
     <>
@@ -203,9 +288,8 @@ const TradeContractorRateScheduleItemView = ({
             disabled={budgetCodeItemDisabled}
             budgetCodes={budgetCodes}
             register={register}
-            afterValidBudgetCodeSelected={() => {
-              getSorCodesData(tradeCode, propertyReference, contractorReference)
-
+            afterValidBudgetCodeSelected={async () => {
+              await prepareSORData(contractorReference, tradeCode)
               setRateScheduleItemDisabled(false)
             }}
             afterInvalidBudgetCodeSelected={() =>
@@ -216,7 +300,6 @@ const TradeContractorRateScheduleItemView = ({
       )}
       <RateScheduleItemView
         loading={loadingSorCodes}
-        sorCodes={sorCodes}
         disabled={rateScheduleItemDisabled}
         register={register}
         errors={errors}
@@ -225,6 +308,9 @@ const TradeContractorRateScheduleItemView = ({
         getPriorityObjectByCode={getPriorityObjectByCode}
         apiError={getSorCodesError}
         setTotalCost={setTotalCost}
+        sorCodeArrays={sorCodeArrays}
+        setSorCodeArrays={setSorCodeArrays}
+        sorSearchRequest={orderRequiresIncrementalSearch && sorSearchRequest}
       />
     </>
   )

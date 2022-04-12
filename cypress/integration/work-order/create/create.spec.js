@@ -113,6 +113,19 @@ describe('Raise repair form', () => {
         },
       }
     ).as('apiCheck')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/toggles' },
+      {
+        body: [
+          {
+            featureToggles: { MultiTradeSORIncrementalSearch: true },
+          },
+        ],
+      }
+    ).as('featureToggle')
+
+    cy.clock(now, ['Date'])
   })
 
   it('Validates missing form inputs', () => {
@@ -173,26 +186,6 @@ describe('Raise repair form', () => {
     })
   })
 
-  it('Shows property contact details in a table', () => {
-    cy.loginWithAgentRole()
-
-    cy.visit('/properties/00012345/raise-repair/new')
-
-    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
-
-    cy.get('.govuk-table')
-      .contains('Contacts')
-      .parent()
-      .within(() => {
-        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
-        cy.get('tbody>tr').eq(0).contains('00000111111')
-        cy.get('tbody>tr').eq(0).contains('00000222222')
-
-        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
-        cy.get('tbody>tr').eq(1).contains('00000666666')
-      })
-  })
-
   it('Shows address, tenure, alerts and property contact information', () => {
     cy.loginWithAgentRole()
 
@@ -243,14 +236,6 @@ describe('Raise repair form', () => {
       ).as('propertyRequest')
 
       cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
-        },
-        { fixture: 'contractors/contractors.json' }
-      ).as('contractorsRequest')
-
-      cy.intercept(
         { method: 'GET', path: '/api/schedule-of-rates/priorities' },
         { fixture: 'scheduleOfRates/priorities.json' }
       ).as('sorPrioritiesRequest')
@@ -291,10 +276,12 @@ describe('Raise repair form', () => {
 
         // Contractor select is no longer disabled but sor code selection still is
         cy.get('#contractor').should('not.be.disabled')
+
         cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
         cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
           'be.disabled'
         )
+
         // Select a contractor
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
@@ -304,7 +291,7 @@ describe('Raise repair form', () => {
           'H2555 - 200031 - Lifts Breakdown'
         )
 
-        cy.wait('@sorCodesRequest')
+        cy.wait(['@sorCodesRequest'])
 
         // SOR select is no longer disabled
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
@@ -313,11 +300,14 @@ describe('Raise repair form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
           'not.be.disabled'
         )
+
         // Priority disabled until SOR is selected
         cy.get('#priorityCode').should('be.disabled')
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'INP5R001 - Pre insp of wrks by Constructr'
-        )
+
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('INP5R001 - Pre insp of wrks by Constructr{enter}')
+
         cy.get('#priorityCode').should('not.be.disabled')
 
         // Selecting no trade clears contractor and SOR code select options
@@ -327,6 +317,7 @@ describe('Raise repair form', () => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
           'be.disabled'
         )
+
         // Select trade not included in list
         cy.get('#trade').type('Fake trade')
 
@@ -335,6 +326,7 @@ describe('Raise repair form', () => {
         cy.get('#trade-form-group .govuk-error-message').within(() => {
           cy.contains('Trade is not valid')
         })
+
         // Select valid trade
         cy.get('#trade').clear().type('Plumbing - PL')
 
@@ -346,8 +338,6 @@ describe('Raise repair form', () => {
           'H2555 - 200108 - Gutter Clearance'
         )
 
-        cy.wait('@sorCodesRequest')
-
         cy.get('input[id="rateScheduleItems[0][code]"]').type('INP')
 
         cy.get(
@@ -357,16 +347,17 @@ describe('Raise repair form', () => {
         })
 
         // Select SOR code with no priority attached
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'INP5R001 - Pre insp of wrks by Constructr'
-        )
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('INP5R001 - Pre insp of wrks by Constructr')
+
         // Does not autopopulate priority description
         cy.get('#priorityCode').should('have.value', '')
 
         // Select SOR code with priority attached
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R003 - Immediate call outs')
+          .type('DES5R003 - Immediate call outs{enter}')
 
         // Autopopulates priority description
         cy.get('#priorityCode')
@@ -381,7 +372,8 @@ describe('Raise repair form', () => {
         // Select another SOR code
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R004 - Emergency call out')
+          .type('DES5R004 - Emergency call out{enter}')
+
         // Autopopulates priority description
         cy.get('#priorityCode')
           .find('option:selected')
@@ -404,9 +396,10 @@ describe('Raise repair form', () => {
         ).within(() => {
           cy.contains('Please select an SOR code')
         })
+
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R005 - Normal call outs')
+          .type('DES5R005 - Normal call outs{enter}')
 
         // Enter a blank quantity
         cy.get('input[id="rateScheduleItems[0][quantity]"]').type('x')
@@ -481,9 +474,11 @@ describe('Raise repair form', () => {
         cy.get('.remove-rate-schedule-item').contains('-')
 
         // Select SOR Code from dropdown
+
         cy.get('input[id="rateScheduleItems[1][code]"]')
           .clear()
-          .type('DES5R013 - Inspect additional sec entrance')
+          .type('DES5R013 - Inspect additional sec entrance{enter}')
+
         // Priority description should remain same because inspection is a lower priority than normal
         cy.get('#priorityCode')
           .find('option:selected')
@@ -491,9 +486,10 @@ describe('Raise repair form', () => {
 
         // Add another SOR code with higher priority
         cy.contains('+ Add another SOR code').click()
-        cy.get('input[id="rateScheduleItems[2][code]"]').type(
-          'DES5R003 - Immediate call outs'
-        )
+        cy.get('input[id="rateScheduleItems[2][code]"]')
+          .clear()
+          .type('DES5R003 - Immediate call outs{enter}')
+
         // Autopopulates priority description with the highest priority
         cy.get('#priorityCode')
           .find('option:selected')
@@ -501,9 +497,10 @@ describe('Raise repair form', () => {
 
         // Add another SOR code with an emergency priority
         cy.contains('+ Add another SOR code').click()
+
         cy.get('input[id="rateScheduleItems[3][code]"]')
           .clear()
-          .type('DES5R004 - Emergency call out')
+          .type('DES5R004 - Emergency call out{enter}')
 
         cy.get('#priorityCode')
           .find('option:selected')
@@ -519,10 +516,13 @@ describe('Raise repair form', () => {
         cy.get('#priorityCode')
           .find('option:selected')
           .should('have.text', '5 [N] NORMAL')
+
         // Select SOR code with emergency priority at index 1
+
         cy.get('input[id="rateScheduleItems[1][code]"]')
           .clear()
-          .type('DES5R004 - Emergency call out')
+          .type('DES5R004 - Emergency call out{enter}')
+
         cy.get('#priorityCode')
           .find('option:selected')
           .should('have.text', '2 [E] EMERGENCY')
@@ -545,21 +545,26 @@ describe('Raise repair form', () => {
           cy.contains('Please select an SOR code')
         })
         // Enter SOR code and quantity
+
         cy.get('input[id="rateScheduleItems[1][code]"]')
           .clear()
-          .type('DES5R005 - Normal call outs')
+          .type('DES5R005 - Normal call outs{enter}')
+
         cy.get(
           'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
         ).should('not.exist')
+
         cy.get('input[id="rateScheduleItems[1][quantity]"]').clear().type('3')
         cy.get(
           'div[id="rateScheduleItems[1][quantity]-form-group"] .govuk-error-message'
         ).should('not.exist')
         // Add another SOR code
         cy.contains('+ Add another SOR code').click()
-        cy.get('input[id="rateScheduleItems[2][code]"]')
+
+        cy.get('input[id="rateScheduleItems[1][code]"]')
           .clear()
-          .type('DES5R006 - Urgent call outs')
+          .type('DES5R006 - Urgent call outs{enter}')
+
         cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('2')
         // Delete the SOR code at the targeted index
         cy.get('button[id="remove-rate-schedule-item-1"]').click()
@@ -570,9 +575,11 @@ describe('Raise repair form', () => {
         )
         // Remaining SOR codes
         cy.get('button[id="remove-rate-schedule-item-1"]').should('not.exist')
+
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R004 - Emergency call out')
+          .type('DES5R004 - Emergency call out{enter}')
+
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
           'have.value',
           'DES5R004 - Emergency call out'
@@ -582,10 +589,11 @@ describe('Raise repair form', () => {
           '1'
         )
         cy.get('button[id="remove-rate-schedule-item-0"]').should('not.exist')
-        cy.get('input[id="rateScheduleItems[2][code]"]').should(
-          'have.value',
-          'DES5R006 - Urgent call outs'
-        )
+
+        cy.get('input[id="rateScheduleItems[2][code]"]')
+          .clear()
+          .type('DES5R006 - Urgent call outs')
+
         cy.get('input[id="rateScheduleItems[2][quantity]"]').should(
           'have.value',
           '2'
@@ -772,6 +780,314 @@ describe('Raise repair form', () => {
       cy.audit()
     })
 
+    describe("when the order is for the 'multi trade' trade and the contractor is Purdy", () => {
+      context('and the incremental multitrade SOR search toggle is on', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/toggles' },
+            {
+              body: [
+                {
+                  featureToggles: { MultiTradeSORIncrementalSearch: true },
+                },
+              ],
+            }
+          ).as('toggleRequest')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+            },
+            { fixture: 'contractors/contractors.json' }
+          ).as('contractorsRequest')
+        })
+
+        it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
+          cy.visit('/properties/00012345/raise-repair/new')
+
+          cy.wait([
+            '@propertyRequest',
+            '@sorPrioritiesRequest',
+            '@tradesRequest',
+          ])
+
+          cy.get('#repair-request-form').within(() => {
+            cy.get('#trade').type('Multi Trade - MU')
+
+            cy.wait('@contractorsRequest')
+
+            cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+            cy.wait('@budgetCodesRequest')
+
+            cy.get('[data-testid=budgetCode]').type(
+              'H2555 - 200031 - Lifts Breakdown'
+            )
+
+            cy.wait('@toggleRequest')
+
+            cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('D')
+
+            cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              0
+            )
+
+            cy.intercept(
+              {
+                method: 'GET',
+                path:
+                  '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true?filter=DES?showAllTrades=true',
+              },
+              {
+                body: [
+                  {
+                    code: 'DES5R003',
+                    shortDescription: 'Immediate call outs',
+                    priority: {
+                      priorityCode: 1,
+                      description: '1 [I] IMMEDIATE',
+                    },
+                    cost: 0,
+                  },
+                  {
+                    code: 'DES5R004',
+                    shortDescription: 'Emergency call out',
+                    priority: {
+                      priorityCode: 2,
+                      description: '2 [E] EMERGENCY',
+                    },
+                  },
+                ],
+              }
+            ).as('sorCodesRequestDES')
+
+            // Enter three characters, then clear and immediately re-enter them
+            cy.get('input[id="rateScheduleItems[0][code]"]')
+              .type('S')
+              .clear()
+              .type('DES')
+
+            cy.wait('@sorCodesRequestDES')
+
+            // The three-character input triggering an API request should have been debounced from 2 requests to just 1
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              1
+            )
+
+            cy.get('[data-testid="rateScheduleItems[0][code]"]')
+              .parent()
+              .find('datalist option')
+              .should('have.length', 2)
+              .first()
+              .should('have.attr', 'value', 'DES5R003 - Immediate call outs')
+              .next()
+              .should('have.attr', 'value', 'DES5R004 - Emergency call out')
+
+            // type the remainder of the code
+            cy.get('input[id="rateScheduleItems[0][code]"]').type(
+              '5R003 - Immediate call outs'
+            )
+
+            // Entering more than three characters does not trigger more API requests
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              1
+            )
+
+            cy.get('#priorityCode')
+              .find('option:selected')
+              .should('have.text', '1 [I] IMMEDIATE')
+
+            cy.contains('+ Add another SOR code').click()
+
+            cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
+
+            cy.wait('@sorCodesRequestDES')
+
+            cy.get('input[id="rateScheduleItems[1][code]"]').type(
+              '5R004 - Emergency call out'
+            )
+
+            cy.get('input[id="rateScheduleItems[0][quantity]"]')
+              .clear()
+              .type('1')
+
+            cy.get('input[id="rateScheduleItems[1][quantity]"]')
+              .clear()
+              .type('1')
+
+            cy.get('#descriptionOfWork')
+              .get('.govuk-textarea')
+              .type('A problem')
+
+            cy.get('[data-testid=callerName]').type('NA')
+            cy.get('[data-testid=contactNumber]').type('NA')
+
+            cy.get('[type="submit"]').contains('Create work order').click()
+          })
+
+          cy.wait('@apiCheck').then(({ request }) => {
+            const referenceIdUuid = request.body.reference[0].id
+
+            cy.wrap(request.body).should('deep.include', {
+              reference: [{ id: referenceIdUuid }],
+              descriptionOfWork: 'A problem',
+              priority: {
+                priorityCode: IMMEDIATE_PRIORITY_CODE,
+                priorityDescription: '1 [I] IMMEDIATE',
+                requiredCompletionDateTime: addHours(now, 2).toISOString(),
+                numberOfDays: 0,
+              },
+              workElement: [
+                {
+                  rateScheduleItem: [
+                    {
+                      customCode: 'DES5R003',
+                      customName: 'Immediate call outs',
+                      quantity: { amount: [1] },
+                    },
+                  ],
+                  trade: [
+                    {
+                      code: 'SP',
+                      customCode: 'MU',
+                      customName: 'Multi Trade - MU',
+                    },
+                  ],
+                },
+                {
+                  rateScheduleItem: [
+                    {
+                      customCode: 'DES5R004',
+                      customName: 'Emergency call out',
+                      quantity: { amount: [1] },
+                    },
+                  ],
+                  trade: [
+                    {
+                      code: 'SP',
+                      customCode: 'MU',
+                      customName: 'Multi Trade - MU',
+                    },
+                  ],
+                },
+              ],
+              site: {
+                property: [
+                  {
+                    propertyReference: '00012345',
+                    address: {
+                      addressLine: ['16 Pitcairn House  St Thomass Square'],
+                      postalCode: 'E9 6PT',
+                    },
+                    reference: [
+                      {
+                        id: '00012345',
+                      },
+                    ],
+                  },
+                ],
+              },
+              assignedToPrimary: {
+                name: 'Purdy Contracts (P) Ltd',
+                organization: {
+                  reference: [
+                    {
+                      id: 'PCL',
+                    },
+                  ],
+                },
+              },
+              budgetCode: { id: '1' },
+              multiTradeWorkOrder: true,
+            })
+          })
+        })
+      })
+
+      context('and the incremental multitrade SOR search toggle is off', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/toggles' },
+            {
+              body: [
+                {
+                  featureToggles: { MultiTradeSORIncrementalSearch: false },
+                },
+              ],
+            }
+          )
+        })
+
+        it('searches SOR codes after loading them all into a list', () => {
+          cy.visit('/properties/00012345')
+
+          cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+          cy.get('.lbh-heading-h2')
+            .contains('Raise a work order on this dwelling')
+            .click()
+
+          cy.wait([
+            '@propertyRequest',
+            '@sorPrioritiesRequest',
+            '@tradesRequest',
+          ])
+
+          cy.get('#repair-request-form').within(() => {
+            cy.get('#trade').type('Plumbing - PL')
+
+            cy.wait('@contractorsRequest')
+
+            cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+            cy.wait('@budgetCodesRequest')
+
+            cy.get('[data-testid=budgetCode]').type(
+              'H2555 - 200031 - Lifts Breakdown'
+            )
+
+            cy.wait('@sorCodesRequest')
+
+            cy.get('[data-testid="rateScheduleItems[0][code]"]')
+              .parent()
+              .find('datalist option')
+              .should('have.length', 7)
+              .first()
+              .should(
+                'have.attr',
+                'value',
+                '20060020 - BATHROOM PLUMBING REPAIRS'
+              )
+              .next()
+              .should(
+                'have.attr',
+                'value',
+                '20060030 - KITCHEN PLUMBING REPAIRS'
+              )
+              .next()
+              .should('have.attr', 'value', 'DES5R003 - Immediate call outs')
+              .next()
+              .should('have.attr', 'value', 'DES5R004 - Emergency call out')
+              .next()
+              .should('have.attr', 'value', 'DES5R005 - Normal call outs')
+              .next()
+              .should('have.attr', 'value', 'DES5R006 - Urgent call outs')
+              .next()
+              .should(
+                'have.attr',
+                'value',
+                'INP5R001 - Pre insp of wrks by Constructr'
+              )
+          })
+        })
+      })
+    })
+
     it('Submits an immediate priority work order', () => {
       cy.visit('/properties/00012345')
 
@@ -795,8 +1111,6 @@ describe('Raise repair form', () => {
         cy.get('[data-testid=budgetCode]').type(
           'H2555 - 200031 - Lifts Breakdown'
         )
-
-        cy.wait('@sorCodesRequest')
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
@@ -857,12 +1171,11 @@ describe('Raise repair form', () => {
         'H2555 - 200031 - Lifts Breakdown'
       )
 
-      cy.wait('@sorCodesRequest')
-
       // Select an SOR with no cost
-      cy.get('input[id="rateScheduleItems[0][code]"]').type(
-        'DES5R003 - Immediate call outs'
-      )
+
+      cy.get('input[id="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R003 - Immediate call outs')
 
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
 
@@ -871,11 +1184,14 @@ describe('Raise repair form', () => {
 
       // Select an SOR with cost: £50.17
       cy.contains('+ Add another SOR code').click()
-      cy.get('input[id="rateScheduleItems[1][code]"]').type(
-        '20060020 - BATHROOM PLUMBING REPAIRS'
-      )
+
+      cy.get('input[id="rateScheduleItems[1][code]"]')
+        .clear()
+        .type('20060020 - BATHROOM PLUMBING REPAIRS')
+
       // Select a quantity to make total 50.17 x 5 = 250.85
       cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
+
       // Warning text as user's raise limit (£250) has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
@@ -885,16 +1201,17 @@ describe('Raise repair form', () => {
 
       // Change quantity to make total 50.17 x 4 = 200.68
       cy.get('input[id="rateScheduleItems[1][quantity]"]').clear().type('4')
-      // Within user's raise limit so no warning text is displayed
-      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
 
       // Add another SOR with cost: £5.80
       cy.contains('+ Add another SOR code').click()
-      cy.get('input[id="rateScheduleItems[2][code]"]').type(
-        '20060030 - KITCHEN PLUMBING REPAIRS'
-      )
+
+      cy.get('input[id="rateScheduleItems[2][code]"]')
+        .clear()
+        .type('20060030 - KITCHEN PLUMBING REPAIRS')
+
       // Add quantity of 1 to make total 200.68 + (5.80 x 9) = 252.88
       cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
+
       // Warning text as user's raise limit (£250) has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
@@ -904,14 +1221,19 @@ describe('Raise repair form', () => {
 
       // Remove SOR at index 1 to make total cost 5.80 x 9 = 52.2
       cy.get('button[id="remove-rate-schedule-item-1"]').click()
+
       // Within user's raise limit so no warning text is displayed
       cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+
       // Edit quantity to 43 to make total 5.80 x 43 = 249.4
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('43')
+
       // Within user's raise limit so no warning text is displayed
       cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+
       // Edit quantity to 44 to make total 5.80 x 44 = 255.2
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('44')
+
       // Warning text as user's raise limit (£250) has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
@@ -984,8 +1306,6 @@ describe('Raise repair form', () => {
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
         cy.get('[data-testid=budgetCode]').should('not.exist')
-
-        cy.wait('@sorCodesRequest')
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()

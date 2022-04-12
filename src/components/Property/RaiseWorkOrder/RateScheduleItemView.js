@@ -1,12 +1,11 @@
 import PropTypes from 'prop-types'
 import { useState, Fragment } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
-import ErrorMessage from '../../Errors/ErrorMessage'
-import Spinner from '../../Spinner'
 import { calculateTotal } from '@/utils/helpers/calculations'
+import Spinner from '@/components/Spinner'
+import ErrorMessage from '@/components/Errors/ErrorMessage'
 
 const RateScheduleItemView = ({
-  sorCodes,
   register,
   errors,
   disabled,
@@ -15,6 +14,9 @@ const RateScheduleItemView = ({
   loading,
   apiError,
   setTotalCost,
+  sorCodeArrays,
+  setSorCodeArrays,
+  sorSearchRequest,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -26,8 +28,10 @@ const RateScheduleItemView = ({
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
-  const getSorCodeObject = (value) => {
-    return sorCodes.filter((a) => a.code == value)[0]
+  const getSorCodeObject = (value, index) => {
+    if (sorCodeArrays[index]) {
+      return sorCodeArrays[index].filter((a) => a.code == value)[0]
+    }
   }
 
   const updateTotalCost = (rateScheduleItemCosts) => {
@@ -68,7 +72,7 @@ const RateScheduleItemView = ({
   const onRateScheduleItemSelect = (index, code) => {
     document.getElementById('priorityCode').disabled = false
 
-    const sorCodeObject = getSorCodeObject(code)
+    const sorCodeObject = getSorCodeObject(code, index)
 
     if (sorCodeObject?.priority?.priorityCode) {
       const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
@@ -107,15 +111,34 @@ const RateScheduleItemView = ({
   const addRateScheduleItem = (e) => {
     e.preventDefault()
 
+    const newItemIndex =
+      arrayOfRateScheduleItemComponentIndexes.slice(-1)[0] + 1
+
     setArrayOfRateScheduleItemComponentIndexes(
       (arrayOfRateScheduleItemComponentIndexes) => [
         ...arrayOfRateScheduleItemComponentIndexes,
-        arrayOfRateScheduleItemComponentIndexes.slice(-1)[0] + 1,
+        newItemIndex,
       ]
     )
+
+    const newSorArray = sorSearchRequest
+      ? [] // will be populated on user input
+      : sorCodeArrays[0] // each additional SOR will have the same options
+
+    setSorCodeArrays((sorCodeArrays) => {
+      sorCodeArrays[newItemIndex] = newSorArray
+
+      return sorCodeArrays
+    })
   }
 
   const removeRateScheduleItem = (index) => {
+    setSorCodeArrays((sorCodeArrays) => {
+      sorCodeArrays[index] = []
+
+      return sorCodeArrays
+    })
+
     setArrayOfRateScheduleItemComponentIndexes(
       (arrayOfRateScheduleItemComponentIndexes) =>
         arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== index)
@@ -153,7 +176,7 @@ const RateScheduleItemView = ({
       return (
         <Fragment key={`rateScheduleItem~${i}`}>
           <RateScheduleItem
-            sorCodes={sorCodes}
+            sorCodes={sorCodeArrays[i] || []}
             register={register}
             errors={errors}
             disabled={disabled}
@@ -163,6 +186,14 @@ const RateScheduleItemView = ({
             onQuantityChange={onQuantityChange}
             showRemoveRateScheduleItem={i > 0}
             removeRateScheduleItem={removeRateScheduleItem}
+            sorSearchRequest={sorSearchRequest}
+            setSorCodes={(codes) =>
+              setSorCodeArrays((sorCodeArrays) => [
+                ...sorCodeArrays.slice(0, i),
+                codes,
+                ...sorCodeArrays.slice(i + 1),
+              ])
+            }
           />
         </Fragment>
       )
@@ -188,14 +219,11 @@ const RateScheduleItemView = ({
 }
 
 RateScheduleItemView.propTypes = {
-  sorCodes: PropTypes.array.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  apiError: PropTypes.bool,
 }
 
 export default RateScheduleItemView

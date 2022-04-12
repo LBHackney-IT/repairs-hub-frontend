@@ -187,6 +187,7 @@ const RaiseWorkOrderForm = ({
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
+              setValue={setValue}
             />
 
             <SelectPriority

@@ -236,7 +236,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
             id="rateScheduleItems[undefined][code]"
             list="autocomplete-list-rateScheduleItems[undefined][code]"
             name="rateScheduleItems[undefined][code]"
-            value="DES5R004"
+            value=""
           />
           <datalist
             id="autocomplete-list-rateScheduleItems[undefined][code]"

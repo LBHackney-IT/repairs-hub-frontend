@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types'
 import { useState } from 'react'
+import ErrorMessage from '../Errors/ErrorMessage'
 import { DataList, TextInput } from '../Form'
+import cx from 'classnames'
 
 const RateScheduleItem = ({
   onRateScheduleItemChange,
@@ -15,8 +17,9 @@ const RateScheduleItem = ({
   disabled,
   onQuantityChange,
   description,
-  hiddenDescriptionValue,
   cost,
+  setSorCodes,
+  sorSearchRequest,
 }) => {
   const sorOptions = sorCodes.map(
     (sor) => `${sor.code} - ${sor.shortDescription}`
@@ -27,12 +30,62 @@ const RateScheduleItem = ({
     optionText: sorOptions[index],
   }))
 
-  const [sorDescription, setSorDescription] = useState()
-  const [sorCost, setSorCost] = useState()
+  const [sorDescription, setSorDescription] = useState(description || '')
+  const [sorCost, setSorCost] = useState(cost || '')
+  const [sorCodesError, setSorCodesError] = useState()
+
+  let sorCodeSelectDebounceTimeout
+
+  const sorSearch = (textValue) => {
+    if (textValue.length < 3 && sorCodes.length > 0) {
+      setSorCodes([])
+    }
+
+    clearTimeout(sorCodeSelectDebounceTimeout)
+
+    if (textValue.length >= 3 && sorCodes.length === 0) {
+      sorCodeSelectDebounceTimeout = setTimeout(() => {
+        setSorCodesError(null)
+
+        sorSearchRequest(textValue)
+          .then((sorCodes) => {
+            setSorCodes(sorCodes)
+          })
+          .catch((e) => {
+            setSorCodes([])
+            console.error('An error has occured:', e.response)
+            setSorCodesError(
+              `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
+            )
+          })
+      }, 500)
+    }
+  }
+
+  const onSorInputChange = (event) => {
+    const textValue = event.target.value
+
+    const sorCode = sorCodesWithOptions.find(
+      (code) => code.optionText === textValue
+    )
+
+    if (sorCode) {
+      setSorDescription(sorCode.shortDescription)
+      setSorCost(sorCode.cost)
+    }
+
+    onRateScheduleItemChange && onRateScheduleItemChange(index, sorCode?.code)
+    sorSearchRequest && sorSearch(textValue)
+  }
 
   return (
     <>
-      <div className="rate-schedule-item govuk-!-margin-top-0">
+      <div
+        className={cx('rate-schedule-item', {
+          'govuk-!-margin-top-6': sorSearchRequest,
+          'govuk-!-margin-top-0': !sorSearchRequest,
+        })}
+      >
         <DataList
           name={`rateScheduleItems[${index}][code]`}
           label="SOR Code"
@@ -40,40 +93,31 @@ const RateScheduleItem = ({
           options={sorOptions}
           defaultValue={code ?? ''}
           disabled={disabled}
-          onChange={(event) => {
-            const value = event.target.value
-
-            const sorCode = sorCodesWithOptions.find(
-              (code) => code.optionText === value
-            )
-
-            if (sorCode) {
-              setSorDescription(sorCode.shortDescription)
-              setSorCost(sorCode.cost)
-            }
-
-            onRateScheduleItemChange &&
-              onRateScheduleItemChange(index, sorCode?.code)
-          }}
+          onChange={onSorInputChange}
           required={true}
-          selected={code ?? ''}
+          value={code ?? ''}
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
               sorOptions.some((text) => text === value) ||
               'SOR code is not valid',
           })}
+          {...(sorSearchRequest
+            ? {
+                hint: 'Enter the first three digits or letters to view results',
+              }
+            : {})}
           error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
           widthClass="govuk-!-margin-top-0 govuk-!-width-full"
           additionalDivClasses="rate-schedule-item--sor-code"
         />
 
+        {sorCodesError && <ErrorMessage label={sorCodesError} />}
+
         <input
           id={`rateScheduleItems[${index}][description]`}
           name={`rateScheduleItems[${index}][description]`}
-          {...(hiddenDescriptionValue
-            ? { value: description ?? '' }
-            : { value: sorDescription })}
+          value={sorDescription}
           type="hidden"
           ref={register}
         />
@@ -81,7 +125,7 @@ const RateScheduleItem = ({
         <input
           id={`rateScheduleItems[${index}][cost]`}
           name={`rateScheduleItems[${index}][cost]`}
-          {...(cost ? { value: cost ?? '' } : { value: sorCost })}
+          value={sorCost}
           type="hidden"
           ref={register}
         />
