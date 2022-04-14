@@ -29,7 +29,9 @@ Install the dependencies:
 yarn install
 ```
 
-### Environment variables
+### Local Environment Variables
+
+The project contains quite a few environment variables. If you are using VSCode, you may like to use the [dotENV extension](https://marketplace.visualstudio.com/items?itemName=mikestead.dotenv) for working with .env files.
 
 Create the following files to store local secrets (which are gitignored):
 
@@ -37,7 +39,11 @@ Create the following files to store local secrets (which are gitignored):
 - `.env.local`
 - `.env.test.local`
 
-Add variables based on comments in the committed .env files. Most of the important values to be assigned to these are found within AWS Parameter store for the development account. Ask a team member if unsure.
+Values for these are to be found in Hackney's passwords / secrets manager (1Password or similar). Ask a team member if unsure.
+
+When you run tests locally (`yarn test:unit` or `yarn e2e` and related commands), values are used from `.env.test.local`, `.env.test` and `.env`.
+
+When you run the application locally. values are used from `.env` and `.env.local`.
 
 If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section, below.
 
@@ -74,7 +80,15 @@ To keep the unit test output clear of known and expected console output we can 
 This application is using cypress, for end-to-end and integration tests and can be run using the following command:
 
 ```
-yarn test:e2e
+yarn test:e2e (non-interative)
+
+yarn e2e:interactive (interactive)
+```
+
+An individual Cypress spec can be run using the following command:
+
+```
+yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
 The full test suite including unit tests and system tests can be run using following command:
@@ -83,17 +97,9 @@ The full test suite including unit tests and system tests can be run using follo
 yarn tests
 ```
 
-Run an individual Cypress spec can be run using the following command:
-
-```
-yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
-```
-
-## Managing environment variables
+## Managing environment variables (including CI and deployed apps)
 
 ### Types of environment variables
-
-This project makes use of two types of environment variables:
 
 1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
 2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
@@ -102,17 +108,16 @@ This project makes use of two types of environment variables:
 
 This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
 
-When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
+Environment variable values are found in the following places (in addition to your local dotenv files):
 
-In deployed environments, environment variables are used from the following places:
-- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
+- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml). Typically used for non-secret vars.
 - Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
   These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
 - AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
 
 ### CI Builds
 
-When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
+When running integration tests on Circle CI, the CircleCI project settings and from hardcoded values in the CircleCI config file.
 
 ### Deployed applications
 

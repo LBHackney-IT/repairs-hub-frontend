@@ -66,6 +66,14 @@ module.exports = (on, config) => {
 
   // Assign some vars so we can access them via Cypress.env
   config.env.GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
+  config.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK =
+    process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK
+  config.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
+    process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
+  config.env.NEXT_PUBLIC_PROPERTIES_PAGE_SIZE =
+    process.env.NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+  config.env.PAGE_SIZE_CONTRACTORS = process.env.PAGE_SIZE_CONTRACTORS
+  config.env.PAGE_SIZE_AGENTS = process.env.PAGE_SIZE_AGENTS
 
   return config
 }
