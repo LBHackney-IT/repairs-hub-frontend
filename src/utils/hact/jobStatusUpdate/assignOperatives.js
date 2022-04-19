@@ -12,10 +12,8 @@ export const buildOperativeAssignmentFormData = (
       identification: {
         number: op.operative.id,
       },
-      ...(process.env.NEXT_PUBLIC_OPERATIVE_SPLITTING_ENABLED === 'true' && {
-        calculatedBonus:
-          op.percentage == '-' ? 0 : parseFloat(op.percentage.slice(0, -1)),
-      }),
+      calculatedBonus:
+        op.percentage == '-' ? 0 : parseFloat(op.percentage.slice(0, -1)),
     })),
     ...(operativesNotes && {
       comments: `Work order updated - ${operativesNotes}`,
