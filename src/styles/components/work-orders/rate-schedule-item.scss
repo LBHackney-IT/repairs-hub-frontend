@@ -9,8 +9,8 @@
   display: inline-block;
 
   @include govuk-media-query($from: tablet) {
-    padding-left: 30px;
-    width: 33.33333%;
+    padding-left: 15px;
+    width: 120px;
   }
 }
 
@@ -18,13 +18,7 @@
   box-sizing: border-box;
 }
 
-.rate-schedule-item {
-  position: relative;
-}
-
 .remove-rate-schedule-item {
-  position: absolute;
-  left: 103%;
-  top: 70px;
   display: inline-block;
+  padding-left: 15px;
 }

@@ -71,7 +71,6 @@ const AddedRateScheduleItems = ({
             sorCodes={sorCodes}
             register={register}
             errors={errors}
-            code={item.code}
             key={item.id}
             index={item.id}
             description={item.description}

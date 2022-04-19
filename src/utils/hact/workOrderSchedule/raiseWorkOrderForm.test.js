@@ -87,7 +87,9 @@ describe('buildScheduleWorkOrderFormData', () => {
       },
     })
 
-    const scheduleWorkOrderFormData = {
+    const response = buildScheduleWorkOrderFormData(workOrderData)
+
+    expect(response).toEqual({
       reference: [
         {
           id: 'aa757643-cf89-4247-a42c-8a035182feqd',
@@ -183,16 +185,40 @@ describe('buildScheduleWorkOrderFormData', () => {
           ],
         },
       },
-    }
+      multiTradeWorkOrder: false,
+    })
+  })
 
-    const response = buildScheduleWorkOrderFormData(workOrderData)
-    expect(response).toEqual(scheduleWorkOrderFormData)
+  describe('when the trade is not multi trade', () => {
+    it('multiTradeWorkOrder is false', () => {
+      const response = buildScheduleWorkOrderFormData({
+        ...workOrderData,
+        tradeCode: 'PL',
+      })
+
+      expect(response.multiTradeWorkOrder).toEqual(false)
+    })
+  })
+
+  describe('when the trade is  multi trade', () => {
+    it('multiTradeWorkOrder is true', () => {
+      const response = buildScheduleWorkOrderFormData({
+        ...workOrderData,
+        tradeCode: 'MU',
+      })
+
+      expect(response.multiTradeWorkOrder).toEqual(true)
+    })
   })
 
   it('builds the ScheduleWorkOrder form data to post to the Repairs API with Planned Priority', async () => {
     MockDate.set(new Date('Thu Jan 14 2021 18:16:20Z'))
 
-    const scheduleWorkOrderFormData = {
+    const response = buildScheduleWorkOrderFormData(
+      workOrderDataForPlannedPriority
+    )
+
+    expect(response).toEqual({
       reference: [
         {
           id: 'aa757643-cf89-4247-a42c-8a035182feqd',
@@ -272,11 +298,7 @@ describe('buildScheduleWorkOrderFormData', () => {
           ],
         },
       },
-    }
-
-    const response = buildScheduleWorkOrderFormData(
-      workOrderDataForPlannedPriority
-    )
-    expect(response).toEqual(scheduleWorkOrderFormData)
+      multiTradeWorkOrder: false,
+    })
   })
 })

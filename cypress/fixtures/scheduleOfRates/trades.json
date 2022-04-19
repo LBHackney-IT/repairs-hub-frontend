@@ -22,5 +22,9 @@
   {
     "code": "PL",
     "name": "Plumbing"
+  },
+  {
+    "code": "MU",
+    "name": "Multi Trade"
   }
 ]

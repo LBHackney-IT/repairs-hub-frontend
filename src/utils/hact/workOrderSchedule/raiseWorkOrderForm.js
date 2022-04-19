@@ -4,6 +4,7 @@ import {
   HIGH_PRIORITY_CODES,
   PLANNED_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
+import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
   return {
@@ -111,5 +112,6 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
         id: workOrderData.budgetCodeId,
       },
     }),
+    multiTradeWorkOrder: workOrderData.tradeCode === MULTITRADE_TRADE_CODE,
   }
 }
