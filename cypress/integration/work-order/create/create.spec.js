@@ -745,6 +745,7 @@ describe('Raise repair form', () => {
             },
           },
           budgetCode: { id: '4' },
+          multiTradeWorkOrder: false,
         })
       })
 
@@ -781,6 +782,16 @@ describe('Raise repair form', () => {
     })
 
     describe("when the order is for the 'multi trade' trade and the contractor is Purdy", () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+          },
+          { fixture: 'contractors/multiTradeContractors.json' }
+        ).as('multiTradeContractorsRequest')
+      })
+
       context('and the incremental multitrade SOR search toggle is on', () => {
         beforeEach(() => {
           cy.intercept(
@@ -793,17 +804,9 @@ describe('Raise repair form', () => {
               ],
             }
           ).as('toggleRequest')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-            },
-            { fixture: 'contractors/contractors.json' }
-          ).as('contractorsRequest')
         })
 
-        it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
+        it('Searches SOR codes after entering three characters with a debounced API request', () => {
           cy.visit('/properties/00012345/raise-repair/new')
 
           cy.wait([
@@ -815,7 +818,7 @@ describe('Raise repair form', () => {
           cy.get('#repair-request-form').within(() => {
             cy.get('#trade').type('Multi Trade - MU')
 
-            cy.wait('@contractorsRequest')
+            cy.wait('@multiTradeContractorsRequest')
 
             cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
@@ -1021,6 +1024,15 @@ describe('Raise repair form', () => {
               ],
             }
           )
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+            },
+            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+          ).as('sorCodesRequestMultiTrade')
         })
 
         it('searches SOR codes after loading them all into a list', () => {
@@ -1039,9 +1051,9 @@ describe('Raise repair form', () => {
           ])
 
           cy.get('#repair-request-form').within(() => {
-            cy.get('#trade').type('Plumbing - PL')
+            cy.get('#trade').type('Multi Trade - MU')
 
-            cy.wait('@contractorsRequest')
+            cy.wait('@multiTradeContractorsRequest')
 
             cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
@@ -1051,7 +1063,7 @@ describe('Raise repair form', () => {
               'H2555 - 200031 - Lifts Breakdown'
             )
 
-            cy.wait('@sorCodesRequest')
+            cy.wait('@sorCodesRequestMultiTrade')
 
             cy.get('[data-testid="rateScheduleItems[0][code]"]')
               .parent()

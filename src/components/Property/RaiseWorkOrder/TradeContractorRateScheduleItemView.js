@@ -162,7 +162,17 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
-      setContractors(contractors)
+      // Purdy have no SORs for multitrade so this is done
+      // to permit selection of Purdy
+      tradeCode === MULTITRADE_TRADE_CODE
+        ? setContractors([
+            ...contractors,
+            {
+              contractorReference: 'PCL',
+              contractorName: 'Purdy Contracts (P) Ltd',
+            },
+          ])
+        : setContractors(contractors)
       setContractorSelectDisabled(false)
     } catch (e) {
       setContractors([])

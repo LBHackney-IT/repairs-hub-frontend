@@ -1,0 +1,32 @@
+[
+  {
+    "contractorReference": "DEX",
+    "contractorName": "DECORATION ALLOWANCE",
+    "contractReference": null,
+    "contractCost": 0
+  },
+  {
+    "contractorReference": "H01",
+    "contractorName": "HH General Building Repair",
+    "contractReference": null,
+    "contractCost": 0
+  },
+  {
+    "contractorReference": "H09",
+    "contractorName": "HH Painting",
+    "contractReference": null,
+    "contractCost": 0
+  },
+  {
+    "contractorReference": "HHL",
+    "contractorName": "Herts Heritage Ltd",
+    "contractReference": null,
+    "contractCost": 0
+  },
+  {
+    "contractorReference": "FPS",
+    "contractorName": "Fairway Property Services",
+    "contractReference": null,
+    "contractCost": 0
+  }
+]
