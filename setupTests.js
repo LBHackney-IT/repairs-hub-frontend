@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom/extend-expect'
 
 import dotenvFlow from 'dotenv-flow'
-dotenvFlow.config({ silent: true })
+dotenvFlow.config({ silent: true, path: '.env.defaults' })
 
 // Mock Sentry module so tests can load API routes
 jest.mock('@sentry/nextjs', () => {
