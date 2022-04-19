@@ -471,7 +471,7 @@ describe('Raise repair form', () => {
         cy.get('.remove-rate-schedule-item').should('not.exist')
         cy.contains('+ Add another SOR code').click()
         // Remove link now exists for additional SOR code selector component
-        cy.get('.remove-rate-schedule-item').contains('-')
+        cy.get('.remove-rate-schedule-item').contains('Remove')
 
         // Select SOR Code from dropdown
 
@@ -601,7 +601,7 @@ describe('Raise repair form', () => {
         cy.get('#priorityCode')
           .find('option:selected')
           .should('have.text', '2 [E] EMERGENCY')
-        cy.get('button[id="remove-rate-schedule-item-2"]').contains('-')
+        cy.get('button[id="remove-rate-schedule-item-2"]').contains('Remove')
 
         // No warning if within raise limit
         cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')

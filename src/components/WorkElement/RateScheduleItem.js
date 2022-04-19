@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { DataList, TextInput } from '../Form'
-import cx from 'classnames'
 
 const RateScheduleItem = ({
   onRateScheduleItemChange,
@@ -80,12 +79,7 @@ const RateScheduleItem = ({
 
   return (
     <>
-      <div
-        className={cx('rate-schedule-item', {
-          'govuk-!-margin-top-6': sorSearchRequest,
-          'govuk-!-margin-top-0': !sorSearchRequest,
-        })}
-      >
+      <div className="rate-schedule-item govuk-!-margin-top-0">
         <DataList
           name={`rateScheduleItems[${index}][code]`}
           label="SOR Code"
@@ -102,9 +96,9 @@ const RateScheduleItem = ({
               sorOptions.some((text) => text === value) ||
               'SOR code is not valid',
           })}
-          {...(sorSearchRequest
+          {...(sorSearchRequest && index === 0
             ? {
-                hint: 'Enter the first three digits or letters to view results',
+                hint: 'Enter three characters to view results',
               }
             : {})}
           error={errors && errors.rateScheduleItems?.[`${index}`]?.code}
@@ -163,11 +157,11 @@ const RateScheduleItem = ({
           <div className="remove-rate-schedule-item govuk-!-margin-0">
             <button
               id={`remove-rate-schedule-item-${index}`}
-              className="cursor-pointer"
+              className="lbh-link"
               type="button"
               onClick={() => removeRateScheduleItem(index)}
             >
-              -
+              Remove
             </button>
           </div>
         )}
