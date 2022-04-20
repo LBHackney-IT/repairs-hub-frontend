@@ -144,11 +144,9 @@ const RaiseWorkOrderForm = ({
   }
 
   useEffect(() => {
-    if (process.env.NEXT_PUBLIC_LEGAL_DISREPAIR_INFO_ENABLED === 'true') {
-      setLoading(true)
+    setLoading(true)
 
-      getPropertyInfoOnLegalDisrepair(propertyReference)
-    }
+    getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
 
   return (
@@ -189,6 +187,7 @@ const RaiseWorkOrderForm = ({
               updatePriority={updatePriority}
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
+              setValue={setValue}
             />
 
             <SelectPriority

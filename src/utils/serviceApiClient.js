@@ -16,6 +16,7 @@ const {
   GSSO_TOKEN_NAME,
   NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME,
   LOG_LEVEL,
+  CONFIGURATION_API_URL,
 } = process.env
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
@@ -105,6 +106,61 @@ export const serviceAPIRequest = cache(
     }
   }
 )
+
+export const configurationAPIRequest = async (request) => {
+  const cookies = cookie.parse(request.headers.cookie ?? '')
+  const token = cookies[GSSO_TOKEN_NAME]
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
+  }
+
+  const api = axios.create()
+
+  // Log request
+  api.interceptors.request.use((request) => {
+    logger.info(
+      'Starting Configuration API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          Authorization: '[REMOVED]',
+        },
+      })
+    )
+
+    return request
+  })
+
+  // Log successful responses
+  api.interceptors.response.use((response) => {
+    logger.info(
+      `Configuration API response: ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
+    )
+
+    return response
+  })
+
+  try {
+    const { data } = await api({
+      method: request.method,
+      headers,
+      url: `${CONFIGURATION_API_URL}/api/v1/configuration`,
+      params: { types: 'RH' },
+    })
+
+    return data
+  } catch (error) {
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
+  }
+}
 
 export const authoriseServiceAPIRequest = (callBack) => {
   return async (req, res) => {
