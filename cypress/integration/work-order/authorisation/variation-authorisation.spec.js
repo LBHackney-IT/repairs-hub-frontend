@@ -361,13 +361,14 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  it('Can reject variation for Purdy contractor wirh unlimited characters for notes and will show summary page before submitting rejection', () => {
+  it('Can reject variation for Purdy contractor with unlimited characters for notes and will show summary page before submitting rejection', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusVariationPendingApprovalPurdy.json' }
-    )
+    ).as('workOrderPurdy')
 
     cy.visit('/work-orders/10000012/variation-authorisation')
+    cy.wait('@workOrderPurdy')
 
     cy.contains('Authorisation variation request: 10000012')
 
@@ -384,7 +385,7 @@ describe('Contract manager can authorise variation', () => {
     cy.contains(
       'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
     )
-    cy.contains('a', 'Edit rejection reason').click()
+    cy.contains('a', 'Edit rejection reason(s)').click()
 
     // go back to editing rejection reason
     cy.get('[type="radio"]').last().should('be.checked')

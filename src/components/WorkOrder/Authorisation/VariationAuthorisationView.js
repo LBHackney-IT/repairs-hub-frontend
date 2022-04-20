@@ -257,7 +257,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                               onClick={changeStatus}
                               className="float-right govuk-!-margin-top-3 lbh-link"
                             >
-                              Edit rejection reason
+                              Edit rejection reason(s)
                             </a>
                           </Link>
                         </span>

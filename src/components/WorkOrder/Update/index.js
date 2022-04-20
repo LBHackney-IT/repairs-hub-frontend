@@ -27,6 +27,7 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
+  const [contractorReference, setContractorReference] = useState()
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -110,6 +111,7 @@ const WorkOrderUpdateView = ({ reference }) => {
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
       setSorCodes(sorCodes)
+      setContractorReference(workOrder.contractorReference)
     } catch (e) {
       setCurrentUser(null)
       setTasks(null)
@@ -162,6 +164,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                     onGetToSummary={onGetToSummary}
                     setVariationReason={setVariationReason}
                     variationReason={variationReason}
+                    contractorReference={contractorReference}
                   />
                 </>
               )}

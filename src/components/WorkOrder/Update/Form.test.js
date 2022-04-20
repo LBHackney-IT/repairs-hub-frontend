@@ -1,5 +1,9 @@
 import { render } from '@testing-library/react'
 import WorkOrderUpdateForm from './Form'
+import {
+  PURDY_CONTRACTOR_REFERENCE,
+  MULTITRADE_TRADE_CODE,
+} from '@/utils/constants'
 
 describe('WorkOrderUpdateForm component', () => {
   const props = {
@@ -37,7 +41,7 @@ describe('WorkOrderUpdateForm component', () => {
     variationReason: 'More work is necessary',
   }
 
-  it('should render properly', () => {
+  it('should render properly with unlimited characters for variation reason, as contractor is Purdy', () => {
     const { asFragment } = render(
       <WorkOrderUpdateForm
         propertyReference={props.propertyReference}
@@ -47,6 +51,42 @@ describe('WorkOrderUpdateForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
+        contractorReference={PURDY_CONTRACTOR_REFERENCE}
+        sorCodes={[
+          {
+            code: 'DES5R003',
+            shortDescription: 'Immediate call outs',
+            priority: {
+              priorityCode: 1,
+              description: '1 [I] IMMEDIATE',
+            },
+            cost: 0,
+          },
+          {
+            code: 'DES5R004',
+            shortDescription: 'Emergency call out',
+            priority: {
+              priorityCode: 2,
+              description: '2 [E] EMERGENCY',
+            },
+          },
+        ]}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should render properly with 250 characters limit for variation reason', () => {
+    const { asFragment } = render(
+      <WorkOrderUpdateForm
+        propertyReference={props.propertyReference}
+        originalTasks={props.originalTasks}
+        latestTasks={props.latestTasks}
+        addedTasks={props.addedTasks}
+        onGetToSummary={props.onGetToSummary}
+        setVariationReason={props.setVariationReason}
+        variationReason={props.variationReason}
+        contractorReference={MULTITRADE_TRADE_CODE}
         sorCodes={[
           {
             code: 'DES5R003',
