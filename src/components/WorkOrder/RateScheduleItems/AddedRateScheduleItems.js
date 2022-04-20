@@ -4,11 +4,13 @@ import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
 const AddedRateScheduleItems = ({
-  sorCodes,
   register,
   errors,
   addedTasks,
   isContractorUpdatePage,
+  sorSearchRequest,
+  sorCodeArrays,
+  setSorCodeArrays,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
@@ -18,11 +20,23 @@ const AddedRateScheduleItems = ({
     rateScheduleItems.push({ id: nextFreeIndex })
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
+
+    const newSorArray = sorSearchRequest
+      ? [] // will be populated on user input
+      : sorCodeArrays[sorCodeArrays.length - 1] // each additional SOR will have the same options
+
+    setSorCodeArrays((sorCodeArrays) => [...sorCodeArrays, newSorArray])
   }
 
   const removeRateScheduleItem = (index) => {
     let filtered = rateScheduleItems.filter((e) => e.id != index)
     setRateScheduleItems([...filtered])
+
+    setSorCodeArrays((sorCodeArrays) => {
+      sorCodeArrays[index] = []
+
+      return sorCodeArrays
+    })
   }
 
   const findRateScheduleItem = (index) => {
@@ -52,7 +66,7 @@ const AddedRateScheduleItems = ({
   }
 
   const findSorCode = (sorCodeQuery, index) => {
-    const sorCode = sorCodes.find((code) => {
+    const sorCode = sorCodeArrays[index].find((code) => {
       return code.code === sorCodeQuery
     })
 
@@ -64,25 +78,24 @@ const AddedRateScheduleItems = ({
   }
 
   const showRateScheduleItems = (items) => {
-    return items.map((item) => {
+    return items.map((item, index) => {
       return (
         <Fragment key={`rateScheduleItems~${item.id}`}>
           <RateScheduleItem
-            sorCodes={sorCodes}
+            sorCodes={sorCodeArrays[index] || []}
             register={register}
             errors={errors}
             key={item.id}
             index={item.id}
             description={item.description}
-            hiddenDescriptionValue={true}
             quantity={item.quantity}
             cost={item.cost && parseFloat(item.cost)}
             showRemoveRateScheduleItem={isContractorUpdatePage}
             removeRateScheduleItem={removeRateScheduleItem}
             isContractorUpdatePage={isContractorUpdatePage}
-            onRateScheduleItemChange={(index, code) =>
+            onRateScheduleItemChange={(index, code) => {
               updateRateScheduleItem(item.id, 'code', code)
-            }
+            }}
             onQuantityChange={() => {
               updateRateScheduleItem(
                 item.id,
@@ -91,6 +104,14 @@ const AddedRateScheduleItems = ({
               )
             }}
             code={item.code}
+            sorSearchRequest={sorSearchRequest}
+            setSorCodes={(sorCodes) => {
+              setSorCodeArrays((sorCodeArrays) => [
+                ...sorCodeArrays.slice(0, index),
+                sorCodes,
+                ...sorCodeArrays.slice(index + 1),
+              ])
+            }}
           />
 
           {item?.error && (
@@ -107,6 +128,7 @@ const AddedRateScheduleItems = ({
   return (
     <div className="govuk-!-padding-bottom-5">
       {showRateScheduleItems(rateScheduleItems)}
+
       <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
         + Add another SOR code
       </a>
@@ -118,8 +140,9 @@ AddedRateScheduleItems.propTypes = {
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   addedTasks: PropTypes.array.isRequired,
-  sorCodes: PropTypes.array.isRequired,
   isContractorUpdatePage: PropTypes.bool.isRequired,
+  sorCodeArrays: PropTypes.array.isRequired,
+  setSorCodeArrays: PropTypes.func.isRequired,
 }
 
 export default AddedRateScheduleItems

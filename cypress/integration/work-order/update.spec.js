@@ -1,5 +1,9 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
+import {
+  MULTITRADE_TRADE_CODE,
+  PURDY_CONTRACTOR_REFERENCE,
+} from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
   context('As a contractor', () => {
@@ -45,7 +49,7 @@ describe('Updating a work order', () => {
     it('throws errors if input values are empty or not valid', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.contains('Update work order: 10000040')
 
@@ -164,7 +168,7 @@ describe('Updating a work order', () => {
     it('allows the user to update the work order by changing the existing quantity', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         // Enter a non-number quantity
@@ -274,7 +278,7 @@ describe('Updating a work order', () => {
     it('allows to update quantity, edit and add new sor codes', () => {
       cy.visit('/work-orders/10000040/update')
 
-      cy.wait(['@taskListRequest', '@sorCodesRequest', '@workOrder'])
+      cy.wait(['@taskListRequest', '@workOrder'])
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#original-rate-schedule-items').within(() => {
@@ -324,9 +328,9 @@ describe('Updating a work order', () => {
       cy.get('#repair-request-form').within(() => {
         cy.get('.lbh-link').click()
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'PLP5R082 - RE ENAMEL ANY SIZE BATH'
-        )
+        cy.get('input[id="rateScheduleItems[0][code]"]')
+          .clear()
+          .type('PLP5R082 - RE ENAMEL ANY SIZE BATH')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('5')
 
@@ -352,7 +356,7 @@ describe('Updating a work order', () => {
       })
 
       cy.contains('Summary of updates to work order')
-      // Check original tasks and SORS table
+
       cy.contains('Original Tasks and SORs')
       cy.get('.govuk-table.original-tasks-table').within(() => {
         cy.get('.govuk-table__head').within(() => {
@@ -369,7 +373,6 @@ describe('Updating a work order', () => {
         })
       })
 
-      // Check updated tasks and SORS table
       cy.contains('Updated Tasks and SORs')
       cy.get('.govuk-table.updated-tasks-table').within(() => {
         cy.get('.govuk-table__head').within(() => {
@@ -410,7 +413,6 @@ describe('Updating a work order', () => {
         cy.contains('Needs more work')
       })
 
-      // Warning text as logged in user's vary limit has been exceeded
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.contains(
           'Your variation cost exceeds £250 and will be sent for approval.'
@@ -448,7 +450,6 @@ describe('Updating a work order', () => {
           },
         })
 
-      // Confirmation screen
       cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
         cy.get('.govuk-panel__body').within(() => {
           cy.contains(
@@ -457,7 +458,6 @@ describe('Updating a work order', () => {
         })
       })
 
-      // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
         cy.contains('View work order').should(
           'have.attr',
@@ -478,6 +478,195 @@ describe('Updating a work order', () => {
 
       // Run lighthouse audit for accessibility report
       cy.audit()
+    })
+
+    context('for a Purdy order', () => {
+      beforeEach(() => {
+        cy.fixture('workOrders/workOrder.json')
+          .then((workOrder) => {
+            workOrder.contractorReference = PURDY_CONTRACTOR_REFERENCE
+            workOrder.tradeCode = MULTITRADE_TRADE_CODE
+            workOrder.reference = 10000040
+
+            cy.intercept(
+              { method: 'GET', path: '/api/workOrders/10000040' },
+              { body: workOrder }
+            )
+          })
+          .as('workOrder')
+      })
+
+      context('when the incremental multitrade SOR search toggle is on', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/toggles' },
+            {
+              body: [
+                {
+                  featureToggles: { MultiTradeSORIncrementalSearch: true },
+                },
+              ],
+            }
+          ).as('featureToggle')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAllTrades=true&filter=PLP',
+            },
+            {
+              body: [
+                {
+                  code: 'PLP00001',
+                  shortDescription: 'PLP first',
+                  priority: {
+                    priorityCode: 1,
+                    description: '1 [I] IMMEDIATE',
+                  },
+                  cost: 0,
+                },
+                {
+                  code: 'PLP00002',
+                  shortDescription: 'PLP second',
+                  priority: {
+                    priorityCode: 1,
+                    description: '1 [I] IMMEDIATE',
+                  },
+                  cost: 0,
+                },
+              ],
+            }
+          ).as('sorCodesRequestPLP')
+        })
+
+        it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
+          cy.visit('/work-orders/10000040/update')
+
+          cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
+
+          cy.get('#repair-request-form').within(() => {
+            cy.get('.lbh-link').click()
+
+            cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('P')
+
+            cy.get('input[id="rateScheduleItems[0][code]"]').type('L')
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              0
+            )
+
+            cy.get('input[id="rateScheduleItems[0][code]"]')
+              .clear()
+              .type('PLP')
+              .then(() => {
+                cy.wait('@sorCodesRequestPLP')
+              })
+
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              1
+            )
+
+            cy.get('[data-testid="rateScheduleItems[0][code]"]')
+              .parent()
+              .find('datalist option')
+              .should('have.length', 2)
+              .first()
+              .should('have.attr', 'value', 'PLP00001 - PLP first')
+              .next()
+              .should('have.attr', 'value', 'PLP00002 - PLP second')
+
+            cy.get('input[id="rateScheduleItems[0][code]"]').type(
+              '00001 - PLP first'
+            )
+
+            // Entering more than three characters does not trigger more API requests
+            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+              'eq',
+              1
+            )
+
+            cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
+
+            cy.get('#variationReason')
+              .get('.govuk-textarea')
+              .type('Needs more work')
+
+            cy.get('[type="submit"]').contains('Next').click()
+          })
+
+          cy.contains('Summary of updates to work order')
+
+          cy.contains('a', 'Edit').click()
+
+          cy.get('input[id="rateScheduleItems[0][code]"]').should(
+            'have.value',
+            'PLP00001 - PLP first'
+          )
+        })
+      })
+
+      context(
+        'when the incremental multitrade SOR search toggle is off',
+        () => {
+          beforeEach(() => {
+            cy.intercept(
+              { method: 'GET', path: '/api/toggles' },
+              {
+                body: [
+                  {
+                    featureToggles: {
+                      MultiTradeSORIncrementalSearch: false,
+                    },
+                  },
+                ],
+              }
+            ).as('featureToggle')
+
+            cy.intercept(
+              {
+                method: 'GET',
+                path:
+                  '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAdditionalTrades=true',
+              },
+              { fixture: 'scheduleOfRates/codes.json' }
+            ).as('sorCodesRequest')
+          })
+
+          it('searches SOR codes after loading them all into a list', () => {
+            cy.visit('/work-orders/10000040/update')
+
+            cy.wait([
+              '@taskListRequest',
+              '@workOrder',
+              '@featureToggle',
+              '@sorCodesRequest',
+            ])
+
+            cy.get('#repair-request-form').within(() => {
+              cy.get('.lbh-link').click()
+
+              cy.get('[data-testid="rateScheduleItems[0][code]"]')
+                .parent()
+                .find('datalist option')
+                .should('have.length', 10)
+                .first()
+                .should(
+                  'have.attr',
+                  'value',
+                  'PLP5R082 - RE ENAMEL ANY SIZE BATH'
+                )
+                .next()
+                .should(
+                  'have.attr',
+                  'value',
+                  '20000030 - DAYWORK PLUMBER BAND 3'
+                )
+            })
+          })
+        }
+      )
     })
   })
 
@@ -539,6 +728,30 @@ describe('Updating a work order', () => {
         },
         { fixture: 'scheduleOfRates/codes.json' }
       ).as('sorCodesRequest')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/00012345/location-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('locationAlerts')
+
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/tenancyAgreementRef1/person-alerts',
+        },
+        {
+          body: {
+            alerts: [],
+          },
+        }
+      ).as('personAlerts')
 
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000621
@@ -766,6 +979,7 @@ describe('Updating a work order', () => {
       ).within(() => {
         cy.contains('Please select an SOR code')
       })
+
       cy.get(
         'div[id="rateScheduleItems[operative][quantity]-form-group"] .govuk-error-message'
       ).within(() => {
@@ -776,6 +990,7 @@ describe('Updating a work order', () => {
         cy.get('input[id="rateScheduleItems[operative][code]"]')
           .clear()
           .type('DES5R003 - Immediate call outs')
+
         cy.get('input[id="rateScheduleItems[operative][quantity]"]')
           .clear()
           .type('3')
