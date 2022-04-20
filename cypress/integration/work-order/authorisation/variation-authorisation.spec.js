@@ -360,4 +360,72 @@ describe('Contract manager can authorise variation', () => {
       cy.contains('td', '£10')
     })
   })
+
+  it('Can reject variation for Purdy contractor wirh unlimited characters for notes and will show summary page before submitting rejection', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'workOrders/statusVariationPendingApprovalPurdy.json' }
+    )
+
+    cy.visit('/work-orders/10000012/variation-authorisation')
+
+    cy.contains('Authorisation variation request: 10000012')
+
+    cy.get('[type="radio"]').check('Reject request')
+
+    // Rejects with comments more than 250 characters post request goes through
+    cy.get('#note').type(
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
+    )
+    cy.get('[type="submit"]').contains('Continue').click({ force: true })
+
+    //showing summary text
+    cy.contains('You are rejecting the variation request')
+    cy.contains(
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
+    )
+    cy.contains('a', 'Edit rejection reason').click()
+
+    // go back to editing rejection reason
+    cy.get('[type="radio"]').last().should('be.checked')
+    cy.get('#note').should(
+      'have.value',
+      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
+    )
+    cy.get('#note')
+      .clear({ force: true })
+      .type(
+        'This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+        { force: true }
+      )
+    cy.get('[type="submit"]').contains('Continue').click({ force: true })
+    cy.contains(
+      'This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
+    )
+    cy.get('[type="submit"]').contains('Submit').click({ force: true })
+
+    cy.wait('@apiCheck')
+
+    cy.get('@apiCheck')
+      .its('request.body')
+      .should('deep.equal', {
+        relatedWorkOrderReference: {
+          id: '10000012',
+        },
+        comments:
+          'Variation rejected: This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+        typeCode: '125',
+      })
+
+    // Confirmation screen
+    cy.get('.lbh-page-announcement').within(() => {
+      cy.get('.lbh-page-announcement__title').contains(
+        'You have rejected a variation'
+      )
+      cy.get('.lbh-page-announcement__content').within(() => {
+        cy.contains('Work order number')
+        cy.contains('10000012')
+      })
+    })
+  })
 })
