@@ -333,6 +333,24 @@ describe('Updating a work order', () => {
         cy.get('[type="submit"]').contains('Next').click()
       })
 
+      cy.get('.govuk-table__row').within(() => {
+        cy.contains('Edit').click()
+      })
+
+      cy.get('#repair-request-form').within(() => {
+        cy.get('input[id="rateScheduleItems[0][code]"]').should(
+          'have.value',
+          'PLP5R082 - RE ENAMEL ANY SIZE BATH'
+        )
+
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').should(
+          'have.value',
+          '5'
+        )
+
+        cy.get('[type="submit"]').contains('Next').click()
+      })
+
       cy.contains('Summary of updates to work order')
       // Check original tasks and SORS table
       cy.contains('Original Tasks and SORs')

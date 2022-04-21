@@ -107,4 +107,38 @@ describe('WorkOrderUpdateForm component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('should render properly when there are no added tasks', () => {
+    const { asFragment } = render(
+      <WorkOrderUpdateForm
+        propertyReference={props.propertyReference}
+        originalTasks={props.originalTasks}
+        latestTasks={props.latestTasks}
+        addedTasks={[]}
+        onGetToSummary={props.onGetToSummary}
+        setVariationReason={props.setVariationReason}
+        variationReason={props.variationReason}
+        sorCodes={[
+          {
+            code: 'DES5R003',
+            shortDescription: 'Immediate call outs',
+            priority: {
+              priorityCode: 1,
+              description: '1 [I] IMMEDIATE',
+            },
+            cost: 0,
+          },
+          {
+            code: 'DES5R004',
+            shortDescription: 'Emergency call out',
+            priority: {
+              priorityCode: 2,
+              description: '2 [E] EMERGENCY',
+            },
+          },
+        ]}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })
