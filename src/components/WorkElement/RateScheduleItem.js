@@ -95,7 +95,7 @@ const RateScheduleItem = ({
               sorOptions.some((text) => text === value) ||
               'SOR code is not valid',
           })}
-          {...(sorSearchRequest && index === 0
+          {...(sorSearchRequest && (!index || index === 0)
             ? {
                 hint: 'Enter three characters to view results',
               }

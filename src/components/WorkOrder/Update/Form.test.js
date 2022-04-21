@@ -35,6 +35,8 @@ describe('WorkOrderUpdateForm component', () => {
     ],
     onGetToSummary: jest.fn(),
     setVariationReason: jest.fn(),
+    sorSearchRequest: jest.fn(),
+    setSorCodeArrays: jest.fn(),
     variationReason: 'More work is necessary',
   }
 
@@ -49,25 +51,28 @@ describe('WorkOrderUpdateForm component', () => {
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
         contractorReference={PURDY_CONTRACTOR_REFERENCE}
-        sorCodes={[
-          {
-            code: 'DES5R003',
-            shortDescription: 'Immediate call outs',
-            priority: {
-              priorityCode: 1,
-              description: '1 [I] IMMEDIATE',
+        sorCodeArrays={[
+          [
+            {
+              code: 'DES5R003',
+              shortDescription: 'Immediate call outs',
+              priority: {
+                priorityCode: 1,
+                description: '1 [I] IMMEDIATE',
+              },
+              cost: 0,
             },
-            cost: 0,
-          },
-          {
-            code: 'DES5R004',
-            shortDescription: 'Emergency call out',
-            priority: {
-              priorityCode: 2,
-              description: '2 [E] EMERGENCY',
+            {
+              code: 'DES5R004',
+              shortDescription: 'Emergency call out',
+              priority: {
+                priorityCode: 2,
+                description: '2 [E] EMERGENCY',
+              },
             },
-          },
+          ],
         ]}
+        setSorCodeArrays={props.setSorCodeArrays}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -84,25 +89,29 @@ describe('WorkOrderUpdateForm component', () => {
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
         contractorReference="ABC"
-        sorCodes={[
-          {
-            code: 'DES5R003',
-            shortDescription: 'Immediate call outs',
-            priority: {
-              priorityCode: 1,
-              description: '1 [I] IMMEDIATE',
+        sorCodeArrays={[
+          [
+            {
+              code: 'DES5R003',
+              shortDescription: 'Immediate call outs',
+              priority: {
+                priorityCode: 1,
+                description: '1 [I] IMMEDIATE',
+              },
+              cost: 0,
             },
-            cost: 0,
-          },
-          {
-            code: 'DES5R004',
-            shortDescription: 'Emergency call out',
-            priority: {
-              priorityCode: 2,
-              description: '2 [E] EMERGENCY',
+            {
+              code: 'DES5R004',
+              shortDescription: 'Emergency call out',
+              priority: {
+                priorityCode: 2,
+                description: '2 [E] EMERGENCY',
+              },
             },
-          },
+          ],
         ]}
+        sorSearchRequest={props.sorSearchRequest}
+        setSorCodeArrays={props.setSorCodeArrays}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -118,25 +127,29 @@ describe('WorkOrderUpdateForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
-        sorCodes={[
-          {
-            code: 'DES5R003',
-            shortDescription: 'Immediate call outs',
-            priority: {
-              priorityCode: 1,
-              description: '1 [I] IMMEDIATE',
+        sorCodeArrays={[
+          [
+            {
+              code: 'DES5R003',
+              shortDescription: 'Immediate call outs',
+              priority: {
+                priorityCode: 1,
+                description: '1 [I] IMMEDIATE',
+              },
+              cost: 0,
             },
-            cost: 0,
-          },
-          {
-            code: 'DES5R004',
-            shortDescription: 'Emergency call out',
-            priority: {
-              priorityCode: 2,
-              description: '2 [E] EMERGENCY',
+            {
+              code: 'DES5R004',
+              shortDescription: 'Emergency call out',
+              priority: {
+                priorityCode: 2,
+                description: '2 [E] EMERGENCY',
+              },
             },
-          },
+          ],
         ]}
+        setSorCodeArrays={props.setSorCodeArrays}
+        contractorReference={'ABC'}
       />
     )
     expect(asFragment()).toMatchSnapshot()

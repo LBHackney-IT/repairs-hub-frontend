@@ -491,7 +491,14 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                - Search by code or description
             </span>
           </label>
+          <span
+            class="govuk-hint lbh-hint"
+            id="rateScheduleItems[undefined][code]-hint"
+          >
+            Enter three characters to view results
+          </span>
           <input
+            aria-describedby="rateScheduleItems[undefined][code]-hint"
             autocomplete="off"
             class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
             data-testid="rateScheduleItems[undefined][code]"
