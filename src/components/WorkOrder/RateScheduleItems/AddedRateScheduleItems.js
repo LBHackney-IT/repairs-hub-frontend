@@ -90,6 +90,7 @@ const AddedRateScheduleItems = ({
                 parseFloat(event.target.value)
               )
             }}
+            code={item.code}
           />
 
           {item?.error && (

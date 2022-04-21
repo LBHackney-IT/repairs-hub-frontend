@@ -89,7 +89,6 @@ const RateScheduleItem = ({
           disabled={disabled}
           onChange={onSorInputChange}
           required={true}
-          value={code ?? ''}
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
