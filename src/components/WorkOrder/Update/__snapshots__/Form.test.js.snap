@@ -1,6 +1,627 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`WorkOrderUpdateForm component should render properly 1`] = `
+exports[`WorkOrderUpdateForm component should render properly when there are no added tasks 1`] = `
+<DocumentFragment>
+  <form
+    id="repair-request-form"
+    role="form"
+  >
+    <div>
+      <section
+        class="section"
+        id="original-rate-schedule-items"
+      >
+        <h2
+          class="lbh-heading-h2"
+        >
+          Original tasks and SORS raised with work order
+        </h2>
+        <div
+          class="govuk-grid-row original-rate-schedule-items align-items-center"
+        >
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="originalRateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="originalRateScheduleItems[0][code]"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][code]"
+                  disabled=""
+                  id="originalRateScheduleItems[0][code]"
+                  name="originalRateScheduleItems[0][code]"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="originalRateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="originalRateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][quantity]"
+                  disabled=""
+                  id="originalRateScheduleItems[0][quantity]"
+                  name="originalRateScheduleItems[0][quantity]"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
+    </div>
+    <div>
+      <section
+        class="section"
+        id="existing-rate-schedule-items"
+      >
+        <h2
+          class="lbh-heading-h2"
+        >
+          Latest tasks and SORS against the work order
+        </h2>
+        <div
+          class="govuk-grid-row rate-schedule-items align-items-center"
+        >
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="sor-code-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="sor-code-0"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
+                  data-testid="sor-code-0"
+                  disabled=""
+                  id="sor-code-0"
+                  name="sor-code-0"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-0"
+                name="original-rate-schedule-item-0"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="quantity-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="quantity-0"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input lbh-input quantity-0 govuk-!-width-full"
+                  data-testid="quantity-0"
+                  id="quantity-0"
+                  name="quantity-0"
+                  type="text"
+                  value="2"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="sor-code-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="sor-code-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
+                  data-testid="sor-code-1"
+                  disabled=""
+                  id="sor-code-1"
+                  name="sor-code-1"
+                  type="text"
+                  value="DES5R005"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-1"
+                name="original-rate-schedule-item-1"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="quantity-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="quantity-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input lbh-input quantity-1 govuk-!-width-full"
+                  data-testid="quantity-1"
+                  id="quantity-1"
+                  name="quantity-1"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
+    </div>
+    <div
+      class="govuk-!-padding-bottom-5"
+    >
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add another SOR code
+      </a>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="variationReason-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="variationReason"
+      >
+        Variation reason 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <textarea
+        aria-describedby="variationReason-hint variationReason-error"
+        class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
+        id="variationReason"
+        name="variationReason"
+        placeholder="Write a reason for the variation..."
+        rows="4"
+      >
+        More work is necessary
+      </textarea>
+    </div>
+    <span
+      aria-live="polite"
+      class="govuk-hint govuk-character-count__message"
+    >
+      You have 250 characters remaining.
+    </span>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderUpdateForm component should render properly with 250 characters limit for variation reason 1`] = `
+<DocumentFragment>
+  <form
+    id="repair-request-form"
+    role="form"
+  >
+    <div>
+      <section
+        class="section"
+        id="original-rate-schedule-items"
+      >
+        <h2
+          class="lbh-heading-h2"
+        >
+          Original tasks and SORS raised with work order
+        </h2>
+        <div
+          class="govuk-grid-row original-rate-schedule-items align-items-center"
+        >
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="originalRateScheduleItems[0][code]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="originalRateScheduleItems[0][code]"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][code]"
+                  disabled=""
+                  id="originalRateScheduleItems[0][code]"
+                  name="originalRateScheduleItems[0][code]"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="originalRateScheduleItems[0][quantity]-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="originalRateScheduleItems[0][quantity]"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input lbh-input undefined"
+                  data-testid="originalRateScheduleItems[0][quantity]"
+                  disabled=""
+                  id="originalRateScheduleItems[0][quantity]"
+                  name="originalRateScheduleItems[0][quantity]"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
+    </div>
+    <div>
+      <section
+        class="section"
+        id="existing-rate-schedule-items"
+      >
+        <h2
+          class="lbh-heading-h2"
+        >
+          Latest tasks and SORS against the work order
+        </h2>
+        <div
+          class="govuk-grid-row rate-schedule-items align-items-center"
+        >
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="sor-code-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="sor-code-0"
+                >
+                  SOR code 
+                </label>
+                <input
+                  class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
+                  data-testid="sor-code-0"
+                  disabled=""
+                  id="sor-code-0"
+                  name="sor-code-0"
+                  type="text"
+                  value="DES5R006"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-0"
+                name="original-rate-schedule-item-0"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="quantity-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="quantity-0"
+                >
+                  Quantity 
+                </label>
+                <input
+                  class="govuk-input lbh-input quantity-0 govuk-!-width-full"
+                  data-testid="quantity-0"
+                  id="quantity-0"
+                  name="quantity-0"
+                  type="text"
+                  value="2"
+                />
+              </div>
+            </div>
+          </div>
+          <div>
+            <div
+              class="govuk-grid-column-two-thirds"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="sor-code-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="sor-code-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
+                  data-testid="sor-code-1"
+                  disabled=""
+                  id="sor-code-1"
+                  name="sor-code-1"
+                  type="text"
+                  value="DES5R005"
+                />
+              </div>
+              <input
+                id="original-rate-schedule-item-1"
+                name="original-rate-schedule-item-1"
+                type="hidden"
+                value=""
+              />
+            </div>
+            <div
+              class="govuk-grid-column-one-third"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="quantity-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="quantity-1"
+                >
+                   
+                </label>
+                <input
+                  class="govuk-input lbh-input quantity-1 govuk-!-width-full"
+                  data-testid="quantity-1"
+                  id="quantity-1"
+                  name="quantity-1"
+                  type="text"
+                  value="1"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+      </section>
+    </div>
+    <div
+      class="govuk-!-padding-bottom-5"
+    >
+      <div
+        class="rate-schedule-item govuk-!-margin-top-0"
+      >
+        <div
+          class="govuk-form-group lbh-form-group rate-schedule-item--sor-code"
+          id="rateScheduleItems[undefined][code]-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="rateScheduleItems[undefined][code]"
+          >
+            SOR Code 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+             
+            <span>
+               - Search by code or description
+            </span>
+          </label>
+          <span
+            class="govuk-hint lbh-hint"
+            id="rateScheduleItems[undefined][code]-hint"
+          >
+            Enter three characters to view results
+          </span>
+          <input
+            aria-describedby="rateScheduleItems[undefined][code]-hint"
+            autocomplete="off"
+            class="govuk-select lbh-select govuk-!-margin-top-0 govuk-!-width-full"
+            data-testid="rateScheduleItems[undefined][code]"
+            id="rateScheduleItems[undefined][code]"
+            list="autocomplete-list-rateScheduleItems[undefined][code]"
+            name="rateScheduleItems[undefined][code]"
+            value="DES5R004"
+          />
+          <datalist
+            id="autocomplete-list-rateScheduleItems[undefined][code]"
+          >
+            <option
+              value="DES5R003 - Immediate call outs"
+            />
+            <option
+              value="DES5R004 - Emergency call out"
+            />
+          </datalist>
+        </div>
+        <input
+          id="rateScheduleItems[undefined][description]"
+          name="rateScheduleItems[undefined][description]"
+          type="hidden"
+          value=""
+        />
+        <input
+          id="rateScheduleItems[undefined][cost]"
+          name="rateScheduleItems[undefined][cost]"
+          type="hidden"
+          value=""
+        />
+        <div
+          class="govuk-form-group lbh-form-group rate-schedule-item--quantity"
+          id="rateScheduleItems[undefined][quantity]-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="rateScheduleItems[undefined][quantity]"
+          >
+            Quantity 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <input
+            class="govuk-input lbh-input govuk-!-width-full"
+            data-testid="rateScheduleItems[undefined][quantity]"
+            id="rateScheduleItems[undefined][quantity]"
+            name="rateScheduleItems[undefined][quantity]"
+            type="text"
+            value="2"
+          />
+        </div>
+        <div
+          class="remove-rate-schedule-item govuk-!-margin-0"
+        >
+          <button
+            class="lbh-link"
+            id="remove-rate-schedule-item-undefined"
+            type="button"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add another SOR code
+      </a>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="variationReason-form-group"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="variationReason"
+      >
+        Variation reason 
+        <span
+          class="govuk-required"
+        >
+          *
+        </span>
+      </label>
+      <textarea
+        aria-describedby="variationReason-hint variationReason-error"
+        class="govuk-textarea lbh-textarea"
+        data-testid="variationReason"
+        id="variationReason"
+        name="variationReason"
+        placeholder="Write a reason for the variation..."
+        rows="4"
+      >
+        More work is necessary
+      </textarea>
+    </div>
+    <span
+      aria-live="polite"
+      class="govuk-hint govuk-character-count__message"
+    >
+      You have 250 characters remaining.
+    </span>
+    <div
+      class="govuk-form-group lbh-form-group"
+    >
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Next
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;
+
+exports[`WorkOrderUpdateForm component should render properly with unlimited characters for variation reason, as contractor is Purdy 1`] = `
 <DocumentFragment>
   <form
     id="repair-request-form"
@@ -236,7 +857,7 @@ exports[`WorkOrderUpdateForm component should render properly 1`] = `
             id="rateScheduleItems[undefined][code]"
             list="autocomplete-list-rateScheduleItems[undefined][code]"
             name="rateScheduleItems[undefined][code]"
-            value=""
+            value="DES5R004"
           />
           <datalist
             id="autocomplete-list-rateScheduleItems[undefined][code]"

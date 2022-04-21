@@ -1,18 +1,26 @@
 import PropTypes from 'prop-types'
-import { PrimarySubmitButton, TextArea } from '../../Form'
+import {
+  PrimarySubmitButton,
+  TextArea,
+  CharacterCountLimitedTextArea,
+} from '../../Form'
 import { useForm } from 'react-hook-form'
 import OriginalRateScheduleItems from '../RateScheduleItems/OriginalRateScheduleItems'
 import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItems'
 import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
+import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 const WorkOrderUpdateForm = ({
-  sorCodes,
   latestTasks,
   originalTasks,
   addedTasks,
   onGetToSummary,
   setVariationReason,
   variationReason,
+  contractorReference,
+  sorSearchRequest,
+  sorCodeArrays,
+  setSorCodeArrays,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
@@ -25,30 +33,49 @@ const WorkOrderUpdateForm = ({
         onSubmit={handleSubmit(onGetToSummary)}
       >
         <OriginalRateScheduleItems originalTasks={originalTasks} />
+
         <LatestRateScheduleItems
           latestTasks={latestTasks}
           register={register}
           errors={errors}
         />
+
         <AddedRateScheduleItems
-          sorCodes={sorCodes}
           register={register}
           errors={errors}
           addedTasks={addedTasks}
           isContractorUpdatePage={isContractorUpdatePage}
+          sorSearchRequest={sorSearchRequest}
+          sorCodeArrays={sorCodeArrays}
+          setSorCodeArrays={setSorCodeArrays}
         />
-        <TextArea
-          name="variationReason"
-          value={variationReason}
-          label="Variation reason"
-          placeholder="Write a reason for the variation..."
-          required={true}
-          onChange={(event) => setVariationReason(event.target.value)}
-          register={register({
-            required: 'Please enter a reason',
-          })}
-          error={errors && errors.variationReason}
-        />
+        {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
+          <TextArea
+            name="variationReason"
+            value={variationReason}
+            label="Variation reason"
+            placeholder="Write a reason for the variation..."
+            required={true}
+            onChange={(event) => setVariationReason(event.target.value)}
+            register={register({
+              required: 'Please enter a reason',
+            })}
+            error={errors && errors.variationReason}
+          />
+        ) : (
+          <CharacterCountLimitedTextArea
+            name="variationReason"
+            maxLength={250}
+            value={variationReason}
+            requiredText="Please enter a reason"
+            label="Variation reason"
+            placeholder="Write a reason for the variation..."
+            required={true}
+            register={register}
+            onChange={(event) => setVariationReason(event.target.value)}
+            error={errors && errors.variationReason}
+          />
+        )}
         <PrimarySubmitButton label="Next" />
       </form>
     </>
@@ -56,13 +83,16 @@ const WorkOrderUpdateForm = ({
 }
 
 WorkOrderUpdateForm.propTypes = {
-  sorCodes: PropTypes.array.isRequired,
   latestTasks: PropTypes.array.isRequired,
   originalTasks: PropTypes.array.isRequired,
   addedTasks: PropTypes.array.isRequired,
   onGetToSummary: PropTypes.func.isRequired,
   setVariationReason: PropTypes.func.isRequired,
+  sorSearchRequest: PropTypes.func,
   variationReason: PropTypes.string.isRequired,
+  contractorReference: PropTypes.string.isRequired,
+  sorCodeArrays: PropTypes.array.isRequired,
+  setSorCodeArrays: PropTypes.func.isRequired,
 }
 
 export default WorkOrderUpdateForm

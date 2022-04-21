@@ -9,6 +9,7 @@ import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
 import WorkOrderUpdateSuccess from './Success'
+import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -16,7 +17,7 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [sorCodes, setSorCodes] = useState([])
+  const [workOrder, setWorkOrder] = useState()
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
@@ -27,6 +28,12 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
+  const [contractorReference, setContractorReference] = useState()
+  const [
+    orderRequiresIncrementalSearch,
+    setOrderRequiresIncrementalSearch,
+  ] = useState()
+  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -77,6 +84,45 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
+  const sorSearchRequest = (searchText) =>
+    frontEndApiRequest({
+      method: 'get',
+      path: '/api/schedule-of-rates/codes',
+      params: {
+        tradeCode: workOrder.tradeCode,
+        propertyReference: workOrder.propertyReference,
+        contractorReference: workOrder.contractorReference,
+        showAllTrades: true,
+        filter: searchText,
+      },
+    })
+
+  const incrementalSORSearchRequired = async (contractorRef) => {
+    const orderApplicable = contractorRef === PURDY_CONTRACTOR_REFERENCE
+
+    if (!orderApplicable) {
+      setOrderRequiresIncrementalSearch(false)
+      return false
+    }
+
+    const configurationData = await frontEndApiRequest({
+      method: 'GET',
+      path: '/api/toggles',
+    })
+
+    const {
+      featureToggles: {
+        MultiTradeSORIncrementalSearch: multiTradeSORIncrementalSearchEnabled = false,
+      } = {},
+    } = configurationData[0] || {}
+
+    setOrderRequiresIncrementalSearch(
+      orderApplicable && multiTradeSORIncrementalSearchEnabled
+    )
+
+    return orderApplicable && multiTradeSORIncrementalSearchEnabled
+  }
+
   const getWorkOrderUpdateForm = async (reference) => {
     setError(null)
 
@@ -85,35 +131,47 @@ const WorkOrderUpdateView = ({ reference }) => {
         method: 'get',
         path: '/api/hub-user',
       })
+
       const workOrder = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
+
       const tasks = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${reference}/tasks`,
       })
 
-      const sorCodes = await frontEndApiRequest({
-        path: '/api/schedule-of-rates/codes',
-        method: 'get',
-        params: {
-          tradeCode: workOrder.tradeCode,
-          propertyReference: workOrder.propertyReference,
-          contractorReference: workOrder.contractorReference,
-          showAdditionalTrades: true,
-        },
-      })
+      const multiTradeIncrementalSearch = await incrementalSORSearchRequired(
+        workOrder.contractorReference
+      )
 
+      if (!multiTradeIncrementalSearch) {
+        const sorCodes = await frontEndApiRequest({
+          path: '/api/schedule-of-rates/codes',
+          method: 'get',
+          params: {
+            tradeCode: workOrder.tradeCode,
+            propertyReference: workOrder.propertyReference,
+            contractorReference: workOrder.contractorReference,
+            showAdditionalTrades: true,
+          },
+        })
+
+        setSorCodeArrays([sorCodes])
+      }
+
+      setOrderRequiresIncrementalSearch(multiTradeIncrementalSearch)
+      setWorkOrder(workOrder)
       setCurrentUser(currentUser)
       setBudgetCode(workOrder.budgetCode)
       setTasks(tasks)
       setOriginalTasks(tasks.filter((t) => t.original))
-      setSorCodes(sorCodes)
+      setContractorReference(workOrder.contractorReference)
     } catch (e) {
       setCurrentUser(null)
+      setSorCodeArrays([[]])
       setTasks(null)
-      setSorCodes([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -134,7 +192,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         <Spinner />
       ) : (
         <>
-          {currentUser && tasks && sorCodes && (
+          {currentUser && tasks && (
             <>
               {showUpdateSuccess && (
                 <>
@@ -152,7 +210,6 @@ const WorkOrderUpdateView = ({ reference }) => {
                   </h1>
 
                   <WorkOrderUpdateForm
-                    sorCodes={sorCodes}
                     latestTasks={tasks}
                     originalTasks={originalTasks}
                     addedTasks={addedTasks}
@@ -162,6 +219,12 @@ const WorkOrderUpdateView = ({ reference }) => {
                     onGetToSummary={onGetToSummary}
                     setVariationReason={setVariationReason}
                     variationReason={variationReason}
+                    contractorReference={contractorReference}
+                    sorSearchRequest={
+                      orderRequiresIncrementalSearch && sorSearchRequest
+                    }
+                    sorCodeArrays={sorCodeArrays}
+                    setSorCodeArrays={setSorCodeArrays}
                   />
                 </>
               )}

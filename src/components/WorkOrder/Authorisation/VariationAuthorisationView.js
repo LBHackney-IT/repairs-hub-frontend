@@ -16,6 +16,7 @@ import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
+import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -32,6 +33,9 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     'Approve request',
     'Reject request',
   ])
+  const [showSummary, setShowSummary] = useState(false)
+  const [contractorIsPurdy, setContractorIsPurdy] = useState(false)
+  const [rejectionReasonToShow, setRejectionReasonToShow] = useState('')
   const [budgetCode, setBudgetCode] = useState()
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
@@ -58,6 +62,9 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
       setVariationTasks(variationTasks)
       setBudgetCode(workOrder.budgetCode)
+      setContractorIsPurdy(
+        workOrder.contractorReference === PURDY_CONTRACTOR_REFERENCE
+      )
       setVarySpendLimit(parseFloat(user.varyLimit))
 
       const totalCostAfterVariation = calculateTotalVariedCost(
@@ -108,12 +115,20 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   }
 
   const onSubmitForm = (e) => {
-    const formData =
-      e.options == 'Approve request'
-        ? buildVariationAuthorisationApprovedFormData(workOrderReference)
-        : buildVariationAuthorisationRejectedFormData(e, workOrderReference)
-    addConfirmationText()
-    makePostRequest(formData)
+    if (contractorIsPurdy && !showSummary) {
+      setShowSummary(true)
+      setRejectionReasonToShow(e.note)
+    } else {
+      if (!e.note) {
+        e.note = rejectionReasonToShow
+      }
+      const formData =
+        e.options == 'Approve request'
+          ? buildVariationAuthorisationApprovedFormData(workOrderReference)
+          : buildVariationAuthorisationRejectedFormData(e, workOrderReference)
+      addConfirmationText()
+      makePostRequest(formData)
+    }
   }
 
   const addConfirmationText = () => {
@@ -153,6 +168,11 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     getTasksAndSorsView(workOrderReference)
   }, [])
 
+  const showEditPage = (e) => {
+    e.preventDefault()
+    setShowSummary(false)
+  }
+
   return (
     <>
       {loading ? (
@@ -181,34 +201,73 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                 <br></br>
                 <br></br>
 
-                {overSpendLimit && (
+                {!showSummary && overSpendLimit && (
                   <WarningText
                     text={`Work order is over your vary limit of £${varySpendLimit}, please contact a manager to approve. You can still reject the variation request.`}
                   />
                 )}
 
                 <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
-                  <Radios
-                    label="This work order requires your authorisation"
-                    name="options"
-                    options={formActions}
-                    onChange={addNotes}
-                    register={register({
-                      required: 'Please select a process',
-                    })}
-                    error={errors && errors.options}
-                  />
-                  {!variationApproved && (
-                    <TextArea
-                      name="note"
-                      label="Add notes"
-                      register={register({
-                        required: 'Please add notes',
+                  {!showSummary && (
+                    <Radios
+                      label="This work order requires your authorisation"
+                      name="options"
+                      options={formActions.map((action) => {
+                        return {
+                          text: action,
+                          value: action,
+                          defaultChecked: !variationApproved,
+                        }
                       })}
-                      error={errors && errors.note}
+                      onChange={addNotes}
+                      register={register({
+                        required: 'Please select a process',
+                      })}
+                      error={errors && errors.options}
                     />
                   )}
-                  <PrimarySubmitButton label="Submit" />
+                  {!variationApproved && !showSummary && (
+                    <>
+                      <TextArea
+                        name="note"
+                        label="Add notes"
+                        register={register({
+                          required: 'Please add notes',
+                        })}
+                        error={errors && errors.note}
+                        defaultValue={rejectionReasonToShow}
+                      />
+                      {/*For now, only for Purdy contractors we are showing summary page*/}
+                      {contractorIsPurdy && !showSummary && (
+                        <PrimarySubmitButton label="Continue" />
+                      )}
+                    </>
+                  )}
+
+                  {contractorIsPurdy && showSummary && (
+                    <>
+                      <h3 className="lbh-heading-h3">
+                        You are rejecting the variation request
+                      </h3>
+                      <div className="lbh-stat">
+                        <span className="lbh-stat__caption">
+                          {rejectionReasonToShow}
+                          <Link href="#">
+                            <a
+                              onClick={showEditPage}
+                              className="float-right govuk-!-margin-top-3 lbh-link"
+                            >
+                              Edit rejection reason(s)
+                            </a>
+                          </Link>
+                        </span>
+                      </div>
+                    </>
+                  )}
+
+                  {(!contractorIsPurdy || showSummary) && (
+                    <PrimarySubmitButton label="Submit" />
+                  )}
                 </form>
                 {error && <ErrorMessage label={error} />}
               </div>

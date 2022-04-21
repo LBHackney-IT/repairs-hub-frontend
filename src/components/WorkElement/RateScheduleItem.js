@@ -89,14 +89,13 @@ const RateScheduleItem = ({
           disabled={disabled}
           onChange={onSorInputChange}
           required={true}
-          value={code ?? ''}
           register={register({
             required: 'Please select an SOR code',
             validate: (value) =>
               sorOptions.some((text) => text === value) ||
               'SOR code is not valid',
           })}
-          {...(sorSearchRequest && index === 0
+          {...(sorSearchRequest && (!index || index === 0)
             ? {
                 hint: 'Enter three characters to view results',
               }
