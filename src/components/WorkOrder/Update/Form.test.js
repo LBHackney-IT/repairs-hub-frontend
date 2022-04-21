@@ -1,9 +1,6 @@
 import { render } from '@testing-library/react'
 import WorkOrderUpdateForm from './Form'
-import {
-  PURDY_CONTRACTOR_REFERENCE,
-  MULTITRADE_TRADE_CODE,
-} from '@/utils/constants'
+import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 describe('WorkOrderUpdateForm component', () => {
   const props = {
@@ -86,7 +83,7 @@ describe('WorkOrderUpdateForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
-        contractorReference={MULTITRADE_TRADE_CODE}
+        contractorReference="ABC"
         sorCodes={[
           {
             code: 'DES5R003',

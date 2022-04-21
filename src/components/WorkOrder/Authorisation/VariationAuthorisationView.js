@@ -168,10 +168,9 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     getTasksAndSorsView(workOrderReference)
   }, [])
 
-  const changeStatus = (e) => {
+  const showEditPage = (e) => {
     e.preventDefault()
     setShowSummary(false)
-    console.log(e.target.value)
   }
 
   return (
@@ -238,6 +237,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                         error={errors && errors.note}
                         defaultValue={rejectionReasonToShow}
                       />
+                      {/*For now, only for Purdy contractors we are showing summary page*/}
                       {contractorIsPurdy && !showSummary && (
                         <PrimarySubmitButton label="Continue" />
                       )}
@@ -254,7 +254,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                           {rejectionReasonToShow}
                           <Link href="#">
                             <a
-                              onClick={changeStatus}
+                              onClick={showEditPage}
                               className="float-right govuk-!-margin-top-3 lbh-link"
                             >
                               Edit rejection reason(s)

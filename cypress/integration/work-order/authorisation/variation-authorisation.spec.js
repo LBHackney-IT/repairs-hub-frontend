@@ -374,36 +374,23 @@ describe('Contract manager can authorise variation', () => {
 
     cy.get('[type="radio"]').check('Reject request')
 
-    // Rejects with comments more than 250 characters post request goes through
-    cy.get('#note').type(
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
-    )
-    cy.get('[type="submit"]').contains('Continue').click({ force: true })
+    cy.wrap('x'.repeat(251)).as('longString')
+    cy.get('@longString').then((longString) => {
+      cy.get('#note').type(longString)
+      cy.get('[type="submit"]').contains('Continue').click({ force: true })
+      cy.contains('You are rejecting the variation request')
+      cy.contains(longString)
+      cy.contains('a', 'Edit rejection reason(s)').click()
 
-    //showing summary text
-    cy.contains('You are rejecting the variation request')
-    cy.contains(
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
-    )
-    cy.contains('a', 'Edit rejection reason(s)').click()
-
-    // go back to editing rejection reason
-    cy.get('[type="radio"]').last().should('be.checked')
-    cy.get('#note').should(
-      'have.value',
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
-    )
-    cy.get('#note')
-      .clear({ force: true })
-      .type(
-        'This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
-        { force: true }
-      )
-    cy.get('[type="submit"]').contains('Continue').click({ force: true })
-    cy.contains(
-      'This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.'
-    )
-    cy.get('[type="submit"]').contains('Submit').click({ force: true })
+      cy.get('[type="radio"]').last().should('be.checked')
+      cy.get('#note').should('have.value', longString)
+      cy.get('#note')
+        .clear({ force: true })
+        .type(`This work is too complicated: ${longString}`)
+      cy.get('[type="submit"]').contains('Continue').click({ force: true })
+      cy.contains(`This work is too complicated: ${longString}`)
+      cy.get('[type="submit"]').contains('Submit').click({ force: true })
+    })
 
     cy.wait('@apiCheck')
 
@@ -414,7 +401,7 @@ describe('Contract manager can authorise variation', () => {
           id: '10000012',
         },
         comments:
-          'Variation rejected: This work is too complicated: Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt, error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.',
+          'Variation rejected: This work is too complicated: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         typeCode: '125',
       })
 
