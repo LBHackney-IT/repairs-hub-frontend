@@ -390,20 +390,18 @@ describe('Contract manager can authorise variation', () => {
       cy.get('[type="submit"]').contains('Continue').click({ force: true })
       cy.contains(`This work is too complicated: ${longString}`)
       cy.get('[type="submit"]').contains('Submit').click({ force: true })
+      cy.wait('@apiCheck', { requestTimeout: 6000 })
+
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should('deep.equal', {
+          relatedWorkOrderReference: {
+            id: '10000012',
+          },
+          comments: `Variation rejected: This work is too complicated: ${longString}`,
+          typeCode: '125',
+        })
     })
-
-    cy.wait('@apiCheck')
-
-    cy.get('@apiCheck')
-      .its('request.body')
-      .should('deep.equal', {
-        relatedWorkOrderReference: {
-          id: '10000012',
-        },
-        comments:
-          'Variation rejected: This work is too complicated: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
-        typeCode: '125',
-      })
 
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
