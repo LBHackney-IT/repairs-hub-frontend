@@ -540,7 +540,7 @@ describe('Updating a work order', () => {
           ).as('sorCodesRequestPLP')
         })
 
-        it.only('Searches SOR codes after entering three characters with a debounced API request', () => {
+        it('Searches SOR codes after entering three characters with a debounced API request', () => {
           cy.visit('/work-orders/10000040/update')
 
           cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
