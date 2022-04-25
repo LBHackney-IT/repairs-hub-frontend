@@ -12,6 +12,7 @@ import {
 } from '@/utils/helpers/priorities'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 import { agent } from 'factories/agent'
+import { authorisationManager } from 'factories/authorisation_manager'
 import UserContext from '@/components/UserContext'
 
 const axios = require('axios')
@@ -79,6 +80,33 @@ describe('RaiseWorkOrderForm component', () => {
   it('should render properly', async () => {
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
+        <RaiseWorkOrderForm
+          propertyReference={props.property.propertyReference}
+          address={props.property.address}
+          hierarchyType={props.property.hierarchyType}
+          canRaiseRepair={props.property.canRaiseRepair}
+          tenure={props.tenure}
+          priorities={props.priorities}
+          trades={props.trades}
+          contacts={props.contactDetails}
+          onFormSubmit={props.onFormSubmit}
+        />
+      </UserContext.Provider>
+    )
+
+    await act(async () => {
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+    })
+
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should render without possibility to choose budget code', async () => {
+    const { asFragment } = render(
+      <UserContext.Provider value={{ user: authorisationManager }}>
         <RaiseWorkOrderForm
           propertyReference={props.property.propertyReference}
           address={props.property.address}
