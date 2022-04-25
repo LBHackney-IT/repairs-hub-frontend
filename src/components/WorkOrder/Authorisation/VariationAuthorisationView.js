@@ -18,6 +18,9 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
 import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
+const APPROVE_REQUEST = 'Approve request'
+const REJECT_REQUEST = 'Reject request'
+
 const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
@@ -30,13 +33,14 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [totalCostAfterVariation, setTotalCostAfterVariation] = useState()
   const [formActions, setFormActions] = useState([
-    'Approve request',
-    'Reject request',
+    APPROVE_REQUEST,
+    REJECT_REQUEST,
   ])
   const [showSummary, setShowSummary] = useState(false)
   const [contractorIsPurdy, setContractorIsPurdy] = useState(false)
   const [rejectionReasonToShow, setRejectionReasonToShow] = useState('')
   const [budgetCode, setBudgetCode] = useState()
+  const [selectedOption, setSelectedOption] = useState('')
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
@@ -74,7 +78,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
       if (totalCostAfterVariation.toFixed(2) > parseFloat(user.varyLimit)) {
         setOverSpendLimit(true)
-        setFormActions(['Reject request'])
+        setFormActions([REJECT_REQUEST])
       }
     } catch (e) {
       setVariationTasks(null)
@@ -123,7 +127,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
         e.note = rejectionReasonToShow
       }
       const formData =
-        e.options == 'Approve request'
+        e.options == APPROVE_REQUEST
           ? buildVariationAuthorisationApprovedFormData(workOrderReference)
           : buildVariationAuthorisationRejectedFormData(e, workOrderReference)
       addConfirmationText()
@@ -156,7 +160,8 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   }
 
   const addNotes = (e) => {
-    e.target.value == 'Reject request'
+    setSelectedOption(e.target.value)
+    e.target.value == REJECT_REQUEST
       ? setVariationApproved(false)
       : setVariationApproved(true)
   }
@@ -216,7 +221,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                         return {
                           text: action,
                           value: action,
-                          defaultChecked: !variationApproved,
+                          defaultChecked: action === selectedOption,
                         }
                       })}
                       onChange={addNotes}
@@ -265,7 +270,9 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                     </>
                   )}
 
-                  {(!contractorIsPurdy || showSummary) && (
+                  {(!contractorIsPurdy ||
+                    showSummary ||
+                    selectedOption === APPROVE_REQUEST) && (
                     <PrimarySubmitButton label="Submit" />
                   )}
                 </form>
