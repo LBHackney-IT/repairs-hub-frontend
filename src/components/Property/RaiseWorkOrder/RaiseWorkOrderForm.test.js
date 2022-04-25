@@ -104,7 +104,7 @@ describe('RaiseWorkOrderForm component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should render without possibility to choose budget code', async () => {
+  it('should render without possibility to choose budget code for a user without the budget code officer permission', async () => {
     const { asFragment } = render(
       <UserContext.Provider value={{ user: authorisationManager }}>
         <RaiseWorkOrderForm

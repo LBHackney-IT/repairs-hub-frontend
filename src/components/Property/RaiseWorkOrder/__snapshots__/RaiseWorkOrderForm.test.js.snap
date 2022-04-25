@@ -449,7 +449,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
 </DocumentFragment>
 `;
 
-exports[`RaiseWorkOrderForm component should render without possibility to choose budget code 1`] = `
+exports[`RaiseWorkOrderForm component should render without possibility to choose budget code for a user without the budget code officer permission 1`] = `
 <DocumentFragment>
   <a
     class="govuk-back-link lbh-back-link govuk-!-display-none-print"
