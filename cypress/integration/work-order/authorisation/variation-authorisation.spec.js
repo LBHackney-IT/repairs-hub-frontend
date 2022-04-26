@@ -384,6 +384,9 @@ describe('Contract manager can authorise variation', () => {
 
       cy.get('[type="radio"]').last().should('be.checked')
       cy.get('#note').should('have.value', longString)
+      cy.get('[type="radio"]').check('Approve request')
+      cy.get('[type="submit"]').contains('Submit')
+      cy.get('[type="radio"]').check('Reject request')
       cy.get('#note')
         .clear({ force: true })
         .type(`This work is too complicated: ${longString}`)
