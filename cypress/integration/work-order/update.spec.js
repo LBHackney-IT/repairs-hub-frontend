@@ -387,7 +387,9 @@ describe('Updating a work order', () => {
             cy.contains('0')
           })
           cy.get('tr[id="added-task-0"]').within(() => {
-            cy.contains('PLP5R082 - RE ENAMEL ANY SIZE BATH')
+            cy.get('.govuk-table__header').contains(
+              /^PLP5R082 - RE ENAMEL ANY SIZE BATH$/
+            )
             cy.contains('5')
             cy.contains('148.09')
           })

@@ -31,6 +31,7 @@ describe('WorkOrderUpdateForm component', () => {
       {
         code: 'DES5R004',
         quantity: 2,
+        description: 'Immediate call outs',
       },
     ],
     onGetToSummary: jest.fn(),
