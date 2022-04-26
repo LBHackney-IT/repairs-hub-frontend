@@ -43,7 +43,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         ? e.rateScheduleItems
             .filter((e) => e != null)
             .map((e, index) => {
-              return { id: index, ...e }
+              return { id: index, ...e, code: e.code.split(' - ')[0] }
             })
         : []
     )

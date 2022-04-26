@@ -75,6 +75,7 @@ const UpdateSummaryRateScheduleItems = ({
         <th scope="row" className="govuk-table__header">
           {[task.code, task.description].filter(Boolean).join(' - ')}
         </th>
+
         <td className="govuk-table__cell">
           {dataAttribute === 'original-task'
             ? task.originalQuantity

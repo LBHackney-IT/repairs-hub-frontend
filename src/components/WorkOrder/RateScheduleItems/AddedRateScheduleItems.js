@@ -103,7 +103,7 @@ const AddedRateScheduleItems = ({
                 parseFloat(event.target.value)
               )
             }}
-            code={item.code}
+            {...(item.code && { code: `${item.code} - ${item.description}` })}
             sorSearchRequest={sorSearchRequest}
             setSorCodes={(sorCodes) => {
               setSorCodeArrays((sorCodeArrays) => [
