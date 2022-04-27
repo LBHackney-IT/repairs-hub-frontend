@@ -17,6 +17,7 @@ const RateScheduleItemView = ({
   sorCodeArrays,
   setSorCodeArrays,
   sorSearchRequest,
+  setShowPageToAddMultiSORs,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -200,6 +201,11 @@ const RateScheduleItemView = ({
     })
   }
 
+  const changePageView = (e) => {
+    e.preventDefault()
+    setShowPageToAddMultiSORs(true)
+  }
+
   return (
     <div className="min-height-120 govuk-!-margin-bottom-6">
       {loading ? (
@@ -212,6 +218,13 @@ const RateScheduleItemView = ({
           <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
             + Add another SOR code
           </a>
+          <br />
+          <br />
+          {!disabled && (
+            <a className="lbh-link" href="#" onClick={changePageView}>
+              + Add multiple SOR code
+            </a>
+          )}
         </div>
       )}
     </div>

@@ -25,6 +25,7 @@ const TradeContractorRateScheduleItemView = ({
   getPriorityObjectByCode,
   setTotalCost,
   setValue,
+  setShowPageToAddMultiSORs,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -319,6 +320,7 @@ const TradeContractorRateScheduleItemView = ({
         sorCodeArrays={sorCodeArrays}
         setSorCodeArrays={setSorCodeArrays}
         sorSearchRequest={orderRequiresIncrementalSearch && sorSearchRequest}
+        setShowPageToAddMultiSORs={setShowPageToAddMultiSORs}
       />
     </>
   )

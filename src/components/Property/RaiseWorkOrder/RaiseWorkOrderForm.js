@@ -20,6 +20,7 @@ import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import AddMultipleSORs from './AddMultipleSORs'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -40,6 +41,7 @@ const RaiseWorkOrderForm = ({
 
   const [totalCost, setTotalCost] = useState('')
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [showPageToAddMultiSORs, setShowPageToAddMultiSORs] = useState(false)
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
@@ -151,119 +153,128 @@ const RaiseWorkOrderForm = ({
 
   return (
     <>
-      <BackButton />
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
-          <span className="govuk-caption-l lbh-caption">New repair</span>
-          <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-            {hierarchyType.subTypeDescription}: {address.addressLine}
-          </h1>
+      {showPageToAddMultiSORs ? (
+        <AddMultipleSORs />
+      ) : (
+        <>
+          <BackButton />
+          <div className="govuk-grid-row">
+            <div className="govuk-grid-column-two-thirds">
+              <span className="govuk-caption-l lbh-caption">New repair</span>
+              <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
+                {hierarchyType.subTypeDescription}: {address.addressLine}
+              </h1>
 
-          {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
+              {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
 
-          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
+              {legalDisrepairError && (
+                <ErrorMessage label={legalDisrepairError} />
+              )}
 
-          <div className="lbh-body-s">
-            <TenureDetails
-              canRaiseRepair={canRaiseRepair}
-              tenure={tenure}
-              propertyReference={propertyReference}
-            />
+              <div className="lbh-body-s">
+                <TenureDetails
+                  canRaiseRepair={canRaiseRepair}
+                  tenure={tenure}
+                  propertyReference={propertyReference}
+                />
+              </div>
+              <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
+                Work order task details
+              </h2>
+              <form
+                role="form"
+                id="repair-request-form"
+                onSubmit={handleSubmit(onSubmit)}
+              >
+                <TradeContractorRateScheduleItemView
+                  register={register}
+                  errors={errors}
+                  trades={trades}
+                  propertyReference={propertyReference}
+                  isContractorUpdatePage={false}
+                  updatePriority={updatePriority}
+                  getPriorityObjectByCode={getPriorityObjectByCode}
+                  setTotalCost={setTotalCost}
+                  setValue={setValue}
+                  setShowPageToAddMultiSORs={setShowPageToAddMultiSORs}
+                />
+
+                <SelectPriority
+                  priorities={priorities}
+                  onPrioritySelect={onPrioritySelect}
+                  register={register}
+                  errors={errors}
+                  priorityCode={priorityCode}
+                  priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
+                />
+                <CharacterCountLimitedTextArea
+                  name="descriptionOfWork"
+                  label="Repair description"
+                  required={true}
+                  maxLength={230}
+                  requiredText="Please enter a repair description"
+                  register={register}
+                  error={errors && errors.descriptionOfWork}
+                />
+                <input
+                  id="propertyReference"
+                  name="propertyReference"
+                  label="propertyReference"
+                  type="hidden"
+                  value={propertyReference}
+                  ref={register}
+                />
+                <input
+                  id="shortAddress"
+                  name="shortAddress"
+                  label="shortAddress"
+                  type="hidden"
+                  value={address.shortAddress}
+                  ref={register}
+                />
+                <input
+                  id="postalCode"
+                  name="postalCode"
+                  label="postalCode"
+                  type="hidden"
+                  value={address.postalCode}
+                  ref={register}
+                />
+                <Contacts contacts={contacts} />
+                <TextInput
+                  name="callerName"
+                  label="Caller name"
+                  required={true}
+                  register={register({
+                    required: 'Please add caller name',
+                    maxLength: {
+                      value: 50,
+                      message:
+                        'You have exceeded the maximum amount of 50 characters',
+                    },
+                  })}
+                  error={errors && errors.callerName}
+                />
+                <TextInput
+                  name="contactNumber"
+                  label="Contact number"
+                  required={true}
+                  register={register({
+                    required: 'Please add contact number',
+                  })}
+                  error={errors && errors.contactNumber}
+                />
+
+                {overSpendLimit && (
+                  <WarningText text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
+                )}
+
+                <PrimarySubmitButton label="Create work order" />
+              </form>
+            </div>
           </div>
-          <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
-            Work order task details
-          </h2>
-          <form
-            role="form"
-            id="repair-request-form"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <TradeContractorRateScheduleItemView
-              register={register}
-              errors={errors}
-              trades={trades}
-              propertyReference={propertyReference}
-              isContractorUpdatePage={false}
-              updatePriority={updatePriority}
-              getPriorityObjectByCode={getPriorityObjectByCode}
-              setTotalCost={setTotalCost}
-              setValue={setValue}
-            />
-
-            <SelectPriority
-              priorities={priorities}
-              onPrioritySelect={onPrioritySelect}
-              register={register}
-              errors={errors}
-              priorityCode={priorityCode}
-              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
-            />
-            <CharacterCountLimitedTextArea
-              name="descriptionOfWork"
-              label="Repair description"
-              required={true}
-              maxLength={230}
-              requiredText="Please enter a repair description"
-              register={register}
-              error={errors && errors.descriptionOfWork}
-            />
-            <input
-              id="propertyReference"
-              name="propertyReference"
-              label="propertyReference"
-              type="hidden"
-              value={propertyReference}
-              ref={register}
-            />
-            <input
-              id="shortAddress"
-              name="shortAddress"
-              label="shortAddress"
-              type="hidden"
-              value={address.shortAddress}
-              ref={register}
-            />
-            <input
-              id="postalCode"
-              name="postalCode"
-              label="postalCode"
-              type="hidden"
-              value={address.postalCode}
-              ref={register}
-            />
-            <Contacts contacts={contacts} />
-            <TextInput
-              name="callerName"
-              label="Caller name"
-              required={true}
-              register={register({
-                required: 'Please add caller name',
-                maxLength: {
-                  value: 50,
-                  message:
-                    'You have exceeded the maximum amount of 50 characters',
-                },
-              })}
-              error={errors && errors.callerName}
-            />
-            <TextInput
-              name="contactNumber"
-              label="Contact number"
-              required={true}
-              register={register({
-                required: 'Please add contact number',
-              })}
-              error={errors && errors.contactNumber}
-            />
-
-            {overSpendLimit && (
-              <WarningText text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
-            )}
-
-            <PrimarySubmitButton label="Create work order" />
-          </form>
-        </div>
-      </div>
+        </>
+      )}
     </>
   )
 }
