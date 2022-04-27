@@ -24,7 +24,7 @@ const AddMultipleSORs = () => {
           })}
           error={errors && errors.note}
         />
-        <PrimarySubmitButton label="Continue" />
+        <PrimarySubmitButton label="Submit" />
       </form>
     </>
   )

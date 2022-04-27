@@ -1508,6 +1508,34 @@ describe('Raise repair form', () => {
       )
     })
   })
+
+  context('When choosing to add multiple SOR codes option', () => {
+    beforeEach(() => {
+      cy.loginWithAgentRole()
+    })
+
+    it('does not allow budget code selection', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+      cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait('@contractorsRequest')
+
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.contains('+ Add multiple SOR codes').click()
+      })
+
+      cy.get('#repair-request-form').should('not.exist')
+
+      cy.contains('Add multiple SOR codes')
+      cy.get('#adding-multiple-sors-form').within(() => {
+        cy.contains('Enter SOR codes as a list:')
+      })
+    })
+  })
 })
 
 // This is a "special" integration test to end-to-end test

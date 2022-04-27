@@ -222,7 +222,7 @@ const RateScheduleItemView = ({
           <br />
           {!disabled && (
             <a className="lbh-link" href="#" onClick={changePageView}>
-              + Add multiple SOR code
+              + Add multiple SOR codes
             </a>
           )}
         </div>
