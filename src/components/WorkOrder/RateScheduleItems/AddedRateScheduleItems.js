@@ -124,6 +124,10 @@ const AddedRateScheduleItems = ({
       )
     })
   }
+  const changePageView = (e) => {
+    e.preventDefault()
+    setShowPageToAddMultiSORs(true)
+  }
 
   return (
     <div className="govuk-!-padding-bottom-5">
@@ -131,6 +135,9 @@ const AddedRateScheduleItems = ({
 
       <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
         + Add another SOR code
+      </a><br/><br/>
+      <a className="lbh-link" href="#" onClick={changePageView}>
+        + Add multiple SOR codes
       </a>
     </div>
   )
