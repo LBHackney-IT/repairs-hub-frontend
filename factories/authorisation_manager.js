@@ -10,6 +10,7 @@ const authorisationManagerUserFactory = Factory.define(() => ({
   hasContractManagerPermissions: false,
   hasAuthorisationManagerPermissions: true,
   hasOperativePermissions: false,
+  hasBudgetCodeOfficerPermissions: false,
   hasAnyPermissions: true,
 }))
 
