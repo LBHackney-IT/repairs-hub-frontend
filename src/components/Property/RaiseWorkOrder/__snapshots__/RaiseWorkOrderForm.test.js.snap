@@ -264,6 +264,8 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
             >
               + Add another SOR code
             </a>
+            <br />
+            <br />
           </div>
         </div>
         <div

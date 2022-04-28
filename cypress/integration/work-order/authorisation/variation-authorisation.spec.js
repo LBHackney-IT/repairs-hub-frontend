@@ -393,7 +393,7 @@ describe('Contract manager can authorise variation', () => {
       cy.get('[type="submit"]').contains('Continue').click({ force: true })
       cy.contains(`This work is too complicated: ${longString}`)
       cy.get('[type="submit"]').contains('Submit').click({ force: true })
-      cy.wait('@apiCheck', { requestTimeout: 7000 })
+      cy.wait('@apiCheck', { requestTimeout: 9000 })
 
       cy.get('@apiCheck')
         .its('request.body')
