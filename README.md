@@ -10,8 +10,13 @@ It's a [Next.js](https://nextjs.org) app that works with:
 
 - [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet)
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
+- DRS (third-party work scheduler)
 
 It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
+
+Serverless deployment is configured in [serverless.yml](serverless.yml).
+
+Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all), configured in [circleci/config.yml](/.circleci/config.yml).
 
 ## Development Setup
 
@@ -77,19 +82,87 @@ This application is using cypress, for end-to-end and integration tests and can 
 yarn test:e2e
 ```
 
-The full test suite including unit tests and system tests can be run using following command:
-
-```
-yarn tests
-```
-
 Run an individual Cypress spec can be run using the following command:
 
 ```
 yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
 ```
 
-## Managing environment variables
+The full test suite including unit tests and system tests can be run using following command:
+
+```
+yarn tests
+```
+
+## Pages, routes and the Node API
+
+#### Pages
+
+Next JS uses file-based routing. In order to work out how a URL maps to a specific page, look at the directory structure under `src/pages`. Dynamic URL parameters such as an order id are denoted using square brackets (e.g. `[id].js`), which capture the named parameter and make it available in the relevant page component.
+
+If a page maps to a url but also is the start of another url nested beneath it, an `index.js` file at that location is used. See table below for examples.
+
+#### API pages
+
+**Next JS includes a Node API.** In Repairs Hub we use this feature to forward requests to other APIs following authorisation of the user. In particular, the [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet) is used for the majority of upstream calls.
+
+Requests made from the frontend to a path starting `/api` will be routed to pages under the `src/pages/api` directory in the app (see table below). In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`) - the square brackets and dotted notation means that "catch-all" endpoint will handle any API request which does not match a more specific route. We use more specific Node API routes in a few places to help with feature toggling, data redaction based on user role, and url-encoding, or sending requests to APIs other than the service API.
+
+**This leads to an important "gotcha" while developing.** If an expected service API response does not match what's received by the frontend code, it's possible that a custom route in the intermediate Node API is processing or intercepting the request to change the received data. Check the API directory to see if there are any custom routes which might be transforming the request data.
+
+Some more specific routes at the time of writing are below:
+
+- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
+- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
+- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)
+
+## Example paths, route mapping and notes
+
+| path                                     | file location                                      | notes                                                                 |
+| ---------------------------------------- | -------------------------------------------------- | --------------------------------------------------------------------- |
+| `/`                                      | /src/pages/index.js                                | home page, user is displayed component based on role                  |
+| `/search`                                | /src/pages/search.js                               |                                                                       |
+| `/work-orders/1000000`                   | /src/pages/work-orders/[id]/index.js               | id accessible via query.id                                            |
+| `/properties/1000000/raise-repair/new`   | /properties/[id]/raise-repair/new                  | id accessible via query.id                                            |
+| `/work-orders/1000000/tasks/abc/edit.js` | /src/pages/work-orders/[id]/tasks/[taskId]/edit.js | id and taskID accessible via query.id and query.taskId                |
+| `/api/work-orders/1000000`               | /src/pages/api/[...path].js                        | The default ("catch-all") API route. Forwards to service API.         |
+| `/api/properties/1000000`                | /src/pages/api/properties/[id].js                  | Takes precedence over default API route. Redacts info for some users. |
+| `/api/toggles`                           | /src/pages/api/toggles.js                          | Calls configuration API                                               |
+| `/api/users/schedulerSession`            | /src/pages/api/users/schedulerSession.js           | Calls DRS to generate access token                                    |
+
+## User permissions and authorisation
+
+Repairs Hub depends on [Hackney's Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth) to provide a JWT representing the Hackney user.
+
+Permissions are based on membership of one or more Google groups created for the Repairs team, found after verifying the user's Google JWT in [`googleAuth.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/utils/googleAuth.js). The mappings between Google groups and roles within Repairs Hub is maintained within [`user.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/utils/user.js). Access to the logged-in user can be achieved by using [`UserContext.js`](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/components/UserContext/index.js).
+
+Refer to this [matrix of user page permissions](https://accounts.google.com/ServiceLogin/webreauth?service=wise&passive=1209600&continue=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1mYI10Er9f-gvFKiA5bryL5PvD3KZkuK6DyKPz12bZYw%2Fedit&followup=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1mYI10Er9f-gvFKiA5bryL5PvD3KZkuK6DyKPz12bZYw%2Fedit&ltmpl=sheets&authuser=0&flowName=GlifWebSignIn&flowEntry=ServiceLogin#gid=0) for an overview of the roles and page permissions.
+
+Access to an individual page is controlled by the `permittedRoles` attribute on the page component. For example, the home page can be accessed by everyone and contains [this list of permitted users](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/pages/index.js#L75-L81).
+
+Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/src/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
+
+## Environments and deployments
+
+Features and bugfixes should be raised against `develop`. Merging to develop [triggers automated deployment to the development environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L205). This can be used for developer or design previews.
+
+To update staging (and make the feature available for QA/UAT), make a PR from `develop` to `main`. Merging to `main` [triggers automated deployment to the staging environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L219).
+
+If the staging deployment above is successful, a production deploy is [pending manual approval in the Circle CI UI](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L221) before a deployment to the production environment.
+
+See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) when preparing a production release, including trigger a manual prodution deploy.
+
+## Feature toggles
+
+Our git branching strategy means that multiple features / bugfixes can be in the same merge commit to `main`. Some may be tested and approved, and some may not. To avoid a situation where an urgent, tested fix is blocked from release by testing of another feature, features should be behind feature toggles.
+
+We use the [configuration-api](https://github.com/LBHackney-IT/configuration-api) to provide new run-time toggles - see below for how to set them in the associated config repo. (Note, however, at the time of writing there are a small amount of feature toggles made by setting environment variables at build-time, but this technique is deprecated.)
+
+To add or edit a toggle, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files) to update the JSON object for every relevant environment. [Previous example PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) demonstrate this.
+
+You can use Cypress `intercept` commands (request stubbing) to enable or disable the relevant feature toggle in integration tests.
+
+## Environment variables
 
 ### Types of environment variables
 
@@ -105,6 +178,7 @@ This project sets environment variables in multiple places. Which values are use
 When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
 
 In deployed environments, environment variables are used from the following places:
+
 - Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
 - Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
   These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
@@ -117,25 +191,3 @@ When running integration tests on Circle CI, values are from dotenv files, the C
 ### Deployed applications
 
 When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in CirceCI project settings.
-
-## Deployments
-
-Our serverless deployment service is configured in [serverless.yml](serverless.yml).
-
-Continuous integration is managed with [CircleCI](https://app.circleci.com/pipelines/github/LBHackney-IT/repairs-hub-frontend?filter=all).
-
-See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables)
-
-## Architecture
-
-### Node API and how it relates to the Service API
-
-This application includes a [Next JS API](https://nextjs.org/docs/api-routes/introduction) which is used for almost all API calls from the client.
-
-In most cases, the API passes the request straight through to the backend service API using a "catch all" endpoint (`src/pages/api/[...path].js`).
-
-However, at the time of writing there are some exceptions to this:
-
-- Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
-- Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
-- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)

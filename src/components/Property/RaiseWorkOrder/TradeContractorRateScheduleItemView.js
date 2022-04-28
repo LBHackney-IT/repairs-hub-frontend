@@ -46,11 +46,6 @@ const TradeContractorRateScheduleItemView = ({
 
   const { user } = useContext(UserContext)
 
-  const isBudgetCodeRelevant = (contractorRef) =>
-    process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
-    canAssignBudgetCode(user) &&
-    contractorRef === PURDY_CONTRACTOR_REFERENCE
-
   const resetSORs = () => {
     sorCodeArrays.forEach((array, index) => {
       setValue(`rateScheduleItems[${index}][code]`, '')
@@ -136,7 +131,10 @@ const TradeContractorRateScheduleItemView = ({
     if (contractorRef?.length) {
       setContractorReference(contractorRef)
 
-      if (isBudgetCodeRelevant(contractorRef)) {
+      if (
+        process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+        canAssignBudgetCode(user)
+      ) {
         getBudgetCodesData(contractorRef)
       } else {
         await prepareSORData(contractorRef, tradeCode)
@@ -289,25 +287,26 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
-      {isBudgetCodeRelevant(contractorReference) && (
-        <>
-          <BudgetCodeItemView
-            loading={loadingBudgetCodes}
-            errors={errors}
-            apiError={getBudgetCodesError}
-            disabled={budgetCodeItemDisabled}
-            budgetCodes={budgetCodes}
-            register={register}
-            afterValidBudgetCodeSelected={async () => {
-              await prepareSORData(contractorReference, tradeCode)
-              setRateScheduleItemDisabled(false)
-            }}
-            afterInvalidBudgetCodeSelected={() =>
-              setRateScheduleItemDisabled(true)
-            }
-          />
-        </>
-      )}
+      {process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+        canAssignBudgetCode(user) && (
+          <>
+            <BudgetCodeItemView
+              loading={loadingBudgetCodes}
+              errors={errors}
+              apiError={getBudgetCodesError}
+              disabled={budgetCodeItemDisabled}
+              budgetCodes={budgetCodes}
+              register={register}
+              afterValidBudgetCodeSelected={async () => {
+                await prepareSORData(contractorReference, tradeCode)
+                setRateScheduleItemDisabled(false)
+              }}
+              afterInvalidBudgetCodeSelected={() =>
+                setRateScheduleItemDisabled(true)
+              }
+            />
+          </>
+        )}
       <RateScheduleItemView
         loading={loadingSorCodes}
         disabled={rateScheduleItemDisabled}
