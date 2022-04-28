@@ -70,7 +70,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('#note').type('Can not approve it')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 7000 })
+    cy.wait('@apiCheck', { requestTimeout: 9000 })
 
     cy.get('@apiCheck')
       .its('request.body')
@@ -118,7 +118,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('[type="radio"]').check('Approve request')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 7000 })
+    cy.wait('@apiCheck', { requestTimeout: 9000 })
 
     cy.get('@apiCheck')
       .its('request.body')
@@ -258,7 +258,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('#note').type('Can not approve it')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 7000 })
+    cy.wait('@apiCheck', { requestTimeout: 9000 })
 
     cy.get('@apiCheck')
       .its('request.body')
