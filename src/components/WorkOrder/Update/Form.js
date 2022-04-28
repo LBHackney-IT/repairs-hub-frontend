@@ -21,6 +21,7 @@ const WorkOrderUpdateForm = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
+  setCurrentPage,
 }) => {
   const { register, handleSubmit, errors } = useForm()
   const isContractorUpdatePage = true
@@ -48,6 +49,7 @@ const WorkOrderUpdateForm = ({
           sorSearchRequest={sorSearchRequest}
           sorCodeArrays={sorCodeArrays}
           setSorCodeArrays={setSorCodeArrays}
+          setCurrentPage={setCurrentPage}
         />
         {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
           <TextArea

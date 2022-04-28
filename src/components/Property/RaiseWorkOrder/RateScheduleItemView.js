@@ -17,7 +17,7 @@ const RateScheduleItemView = ({
   sorCodeArrays,
   setSorCodeArrays,
   sorSearchRequest,
-  setShowPageToAddMultiSORs,
+  setCurrentPage,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -28,6 +28,7 @@ const RateScheduleItemView = ({
     []
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
+  const ADDING_MULTIPLE_SOR_PAGE = 2
 
   const getSorCodeObject = (value, index) => {
     if (sorCodeArrays[index]) {
@@ -203,7 +204,7 @@ const RateScheduleItemView = ({
 
   const changePageView = (e) => {
     e.preventDefault()
-    setShowPageToAddMultiSORs(true)
+    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
   }
 
   return (

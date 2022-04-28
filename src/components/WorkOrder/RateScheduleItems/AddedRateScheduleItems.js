@@ -11,9 +11,11 @@ const AddedRateScheduleItems = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
+  setCurrentPage,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
+  const ADDING_MULTIPLE_SOR_PAGE = 2
 
   const addRateScheduleItem = (e) => {
     e.preventDefault()
@@ -126,7 +128,7 @@ const AddedRateScheduleItems = ({
   }
   const changePageView = (e) => {
     e.preventDefault()
-    setShowPageToAddMultiSORs(true)
+    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
   }
 
   return (
@@ -135,7 +137,9 @@ const AddedRateScheduleItems = ({
 
       <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
         + Add another SOR code
-      </a><br/><br/>
+      </a>
+      <br />
+      <br />
       <a className="lbh-link" href="#" onClick={changePageView}>
         + Add multiple SOR codes
       </a>

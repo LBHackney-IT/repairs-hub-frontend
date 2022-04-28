@@ -1,13 +1,19 @@
-import BackButton from '../../Layout/BackButton'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { useForm } from 'react-hook-form'
 
-const AddMultipleSORs = () => {
+const AddMultipleSORs = ({ setCurrentPage }) => {
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = () => {}
+  const FORM_PAGE = 1
   return (
     <>
-      <BackButton />
+      <a
+        className="govuk-back-link lbh-back-link govuk-!-display-none-print"
+        role="button"
+        onClick={() => setCurrentPage(FORM_PAGE)}
+      >
+        Back
+      </a>
       <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
         Add multiple SOR codes
       </h1>

@@ -213,6 +213,14 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
       >
         + Add another SOR code
       </a>
+      <br />
+      <br />
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
+      </a>
     </div>
     <div
       class="govuk-form-group lbh-form-group"
@@ -572,6 +580,14 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
       >
         + Add another SOR code
       </a>
+      <br />
+      <br />
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
+      </a>
     </div>
     <div
       class="govuk-form-group lbh-form-group"
@@ -923,6 +939,14 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
         href="#"
       >
         + Add another SOR code
+      </a>
+      <br />
+      <br />
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
       </a>
     </div>
     <div

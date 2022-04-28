@@ -13,6 +13,7 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
+import AddMultipleSORs from './AddMultipleSORs'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -22,7 +23,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [contacts, setContacts] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [formSuccess, setFormSuccess] = useState(false)
   const [
     authorisationPendingApproval,
     setAuthorisationPendingApproval,
@@ -41,6 +41,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
+
+  const FORM_PAGE = 1
+  const ADDING_MULTIPLE_SOR_PAGE = 2
+  const RAISE_SUCCESS_PAGE = 3
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -85,7 +90,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         return
       }
 
-      setFormSuccess(true)
+      setCurrentPage(RAISE_SUCCESS_PAGE)
     } catch (e) {
       console.error(e)
 
@@ -155,26 +160,28 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 title: `New repair at ${property.address.addressLine}`,
               })}
           />
-          {formSuccess && workOrderReference && property && (
-            <>
-              <SuccessPage
-                propertyReference={propertyReference}
-                workOrderReference={workOrderReference}
-                shortAddress={property.address.shortAddress}
-                text={'Repair work order created'}
-                showSearchLink={true}
-                authorisationPendingApproval={authorisationPendingApproval}
-                externalSchedulerLink={
-                  externallyManagedAppointment &&
-                  externalAppointmentManagementUrl
-                }
-                immediateOrEmergencyDloRepairText={
-                  immediateOrEmergencyDloRepairText
-                }
-              />
-            </>
-          )}
-          {!formSuccess &&
+          {currentPage === RAISE_SUCCESS_PAGE &&
+            workOrderReference &&
+            property && (
+              <>
+                <SuccessPage
+                  propertyReference={propertyReference}
+                  workOrderReference={workOrderReference}
+                  shortAddress={property.address.shortAddress}
+                  text={'Repair work order created'}
+                  showSearchLink={true}
+                  authorisationPendingApproval={authorisationPendingApproval}
+                  externalSchedulerLink={
+                    externallyManagedAppointment &&
+                    externalAppointmentManagementUrl
+                  }
+                  immediateOrEmergencyDloRepairText={
+                    immediateOrEmergencyDloRepairText
+                  }
+                />
+              </>
+            )}
+          {currentPage === FORM_PAGE &&
             property &&
             property.address &&
             property.hierarchyType &&
@@ -192,8 +199,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
+                setCurrentPage={setCurrentPage}
               />
             )}
+          {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
+            <AddMultipleSORs setCurrentPage={setCurrentPage} />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
