@@ -50,5 +50,22 @@ describe('Updating a work order', () => {
         cy.contains('Enter SOR codes as a list:')
       })
     })
+
+    it('throws an error', () => {
+      cy.visit('/work-orders/10000040/update')
+
+      cy.wait(['@taskListRequest', '@workOrder'])
+
+      cy.get('#repair-request-form').within(() => {
+        cy.contains('+ Add multiple SOR codes').click()
+      })
+
+      //when submitting without entering SOR codes
+      cy.get('#adding-multiple-sors-form').within(() => {
+        cy.contains('Enter SOR codes as a list:')
+        cy.contains('Submit').click()
+        cy.contains('Please enter SOR codes')
+      })
+    })
   })
 })

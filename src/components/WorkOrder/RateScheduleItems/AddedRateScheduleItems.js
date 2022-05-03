@@ -11,11 +11,10 @@ const AddedRateScheduleItems = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
-  setCurrentPage,
+  setPageToMultipleSORs,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
-  const ADDING_MULTIPLE_SOR_PAGE = 2
 
   const addRateScheduleItem = (e) => {
     e.preventDefault()
@@ -128,22 +127,24 @@ const AddedRateScheduleItems = ({
   }
   const changePageView = (e) => {
     e.preventDefault()
-    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+    setPageToMultipleSORs()
   }
 
   return (
-    <div className="govuk-!-padding-bottom-5">
-      {showRateScheduleItems(rateScheduleItems)}
+    <>
+      <div>
+        {showRateScheduleItems(rateScheduleItems)}
 
-      <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-        + Add another SOR code
-      </a>
-      <br />
-      <br />
-      <a className="lbh-link" href="#" onClick={changePageView}>
-        + Add multiple SOR codes
-      </a>
-    </div>
+        <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+          + Add another SOR code
+        </a>
+      </div>
+      <div>
+        <a className="lbh-link" href="#" onClick={changePageView}>
+          + Add multiple SOR codes
+        </a>
+      </div>
+    </>
   )
 }
 
@@ -154,6 +155,7 @@ AddedRateScheduleItems.propTypes = {
   isContractorUpdatePage: PropTypes.bool.isRequired,
   sorCodeArrays: PropTypes.array.isRequired,
   setSorCodeArrays: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default AddedRateScheduleItems

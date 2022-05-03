@@ -199,11 +199,15 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
-                setCurrentPage={setCurrentPage}
+                setPageToMultipleSORs={() =>
+                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                }
               />
             )}
           {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-            <AddMultipleSORs setCurrentPage={setCurrentPage} />
+            <AddMultipleSORs
+              setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+            />
           )}
           {error && <ErrorMessage label={error} />}
         </>

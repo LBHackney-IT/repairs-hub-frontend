@@ -1,16 +1,17 @@
+import PropTypes from 'prop-types'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { useForm } from 'react-hook-form'
 
-const AddMultipleSORs = ({ setCurrentPage }) => {
+const AddMultipleSORs = ({ setPageBackToFormView }) => {
   const { register, handleSubmit, errors } = useForm()
   const onSubmit = () => {}
-  const FORM_PAGE = 1
+
   return (
     <>
       <a
         className="govuk-back-link lbh-back-link govuk-!-display-none-print"
         role="button"
-        onClick={() => setCurrentPage(FORM_PAGE)}
+        onClick={() => setPageBackToFormView()}
       >
         Back
       </a>
@@ -26,7 +27,7 @@ const AddMultipleSORs = ({ setCurrentPage }) => {
           name="note"
           label="Enter SOR codes as a list:"
           register={register({
-            required: 'Please add notes',
+            required: 'Please enter SOR codes',
           })}
           error={errors && errors.note}
         />
@@ -34,6 +35,10 @@ const AddMultipleSORs = ({ setCurrentPage }) => {
       </form>
     </>
   )
+}
+
+AddMultipleSORs.propTypes = {
+  setPageBackToFormView: PropTypes.func.isRequired,
 }
 
 export default AddMultipleSORs

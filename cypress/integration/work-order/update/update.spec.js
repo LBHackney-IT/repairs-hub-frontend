@@ -4,7 +4,7 @@ import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
-} from '../../../src/utils/constants'
+} from '../../../../src/utils/constants'
 
 describe('Updating a work order', () => {
   context('As a contractor', () => {

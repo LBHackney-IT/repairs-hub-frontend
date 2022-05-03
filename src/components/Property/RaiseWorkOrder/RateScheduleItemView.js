@@ -17,7 +17,7 @@ const RateScheduleItemView = ({
   sorCodeArrays,
   setSorCodeArrays,
   sorSearchRequest,
-  setCurrentPage,
+  setPageToMultipleSORs,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
@@ -28,7 +28,6 @@ const RateScheduleItemView = ({
     []
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
-  const ADDING_MULTIPLE_SOR_PAGE = 2
 
   const getSorCodeObject = (value, index) => {
     if (sorCodeArrays[index]) {
@@ -204,7 +203,7 @@ const RateScheduleItemView = ({
 
   const changePageView = (e) => {
     e.preventDefault()
-    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+    setPageToMultipleSORs()
   }
 
   return (
@@ -212,21 +211,23 @@ const RateScheduleItemView = ({
       {loading ? (
         <Spinner />
       ) : (
-        <div>
-          {rateScheduleItems()}
-          {apiError && <ErrorMessage label={apiError} />}
+        <>
+          <div>
+            {rateScheduleItems()}
+            {apiError && <ErrorMessage label={apiError} />}
 
-          <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-            + Add another SOR code
-          </a>
-          <br />
-          <br />
-          {!disabled && (
-            <a className="lbh-link" href="#" onClick={changePageView}>
-              + Add multiple SOR codes
+            <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+              + Add another SOR code
             </a>
-          )}
-        </div>
+          </div>
+          <div>
+            {!disabled && (
+              <a className="lbh-link" href="#" onClick={changePageView}>
+                + Add multiple SOR codes
+              </a>
+            )}
+          </div>
+        </>
       )}
     </div>
   )
@@ -238,6 +239,7 @@ RateScheduleItemView.propTypes = {
   disabled: PropTypes.bool.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RateScheduleItemView

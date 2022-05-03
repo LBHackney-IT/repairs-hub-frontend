@@ -204,17 +204,15 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div>
       <a
         class="lbh-link"
         href="#"
       >
         + Add another SOR code
       </a>
-      <br />
-      <br />
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
@@ -474,9 +472,7 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div>
       <div
         class="rate-schedule-item govuk-!-margin-top-0"
       >
@@ -580,8 +576,8 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
       >
         + Add another SOR code
       </a>
-      <br />
-      <br />
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
@@ -841,9 +837,7 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div>
       <div
         class="rate-schedule-item govuk-!-margin-top-0"
       >
@@ -940,8 +934,8 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
       >
         + Add another SOR code
       </a>
-      <br />
-      <br />
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"

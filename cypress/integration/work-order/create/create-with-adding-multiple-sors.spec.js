@@ -88,5 +88,27 @@ describe('Raise repair form', () => {
         cy.contains('Enter SOR codes as a list:')
       })
     })
+
+    it('throws an error', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+      cy.get('#repair-request-form').within(() => {
+        cy.get('#trade').type('Plumbing - PL')
+
+        cy.wait('@contractorsRequest')
+
+        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.contains('+ Add multiple SOR codes').click()
+      })
+
+      //when submitting without entering SOR codes
+      cy.get('#adding-multiple-sors-form').within(() => {
+        cy.contains('Enter SOR codes as a list:')
+        cy.contains('Submit').click()
+        cy.contains('Please enter SOR codes')
+      })
+    })
   })
 })

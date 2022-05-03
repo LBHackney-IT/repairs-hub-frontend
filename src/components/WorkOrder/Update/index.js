@@ -231,7 +231,9 @@ const WorkOrderUpdateView = ({ reference }) => {
                     }
                     sorCodeArrays={sorCodeArrays}
                     setSorCodeArrays={setSorCodeArrays}
-                    setCurrentPage={setCurrentPage}
+                    setPageToMultipleSORs={() =>
+                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                    }
                   />
                 </>
               )}
@@ -249,7 +251,9 @@ const WorkOrderUpdateView = ({ reference }) => {
                 />
               )}
               {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-                <AddMultipleSORs setCurrentPage={setCurrentPage} />
+                <AddMultipleSORs
+                  setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+                />
               )}
             </>
           )}
