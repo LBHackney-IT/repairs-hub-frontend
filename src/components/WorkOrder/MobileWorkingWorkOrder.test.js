@@ -211,13 +211,13 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
     })
   })
 
-  describe('when has status Work Completed and work is overtime', () => {
+  describe('when has status Completed and work is overtime', () => {
     beforeAll(() => {
-      workOrderData.status = 'Work Completed'
+      workOrderData.status = 'Completed'
       workOrderData.paymentType = 'Overtime'
     })
 
-    it('should render work order elements with Status Work Completed', async () => {
+    it('should render work order elements with Status Completed', async () => {
       const workOrder = new WorkOrder(workOrderData)
       const { asFragment } = render(
         <MobileWorkingWorkOrder
@@ -386,7 +386,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
         payrollNumber: 'test002',
         name: 'Test2',
         trades: [],
-        jobPercentage: 100,
+        jobPercentage: 50,
       },
     ],
     totalSMVs: 76,
@@ -420,42 +420,84 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
       tenancyAgreementReference: 'tenancyAgreementRef1',
     },
   }
+  describe('when has status In Progress', () => {
+    const workOrder = new WorkOrder(workOrderData)
+    it('should render work order elements with an Update operative link', async () => {
+      const { asFragment } = render(
+        <MobileWorkingWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+          currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
+          onFormSubmit={jest.fn()}
+        />
+      )
 
-  const workOrder = new WorkOrder(workOrderData)
-
-  it('should render work order elements with an Update operative link', async () => {
-    const { asFragment } = render(
-      <MobileWorkingWorkOrder
-        workOrderReference={workOrder.reference}
-        property={props.property}
-        workOrder={workOrder}
-        tasksAndSors={[
-          {
-            id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
-            code: 'DES5R006',
-            description: 'Urgent call outs',
-            dateAdded: '2021-02-03T09:33:35.757339',
-            dateUpdated: '2021-02-05T09:33:35.757339',
-            quantity: 2,
-            cost: 10,
-            status: 'Unknown',
-            original: true,
-            originalQuantity: 2,
-            standardMinuteValue: 15,
-          },
-        ]}
-        currentUserPayrollNumber={'1'}
-        tenure={props.tenure}
-        onFormSubmit={jest.fn()}
-      />
-    )
-
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+      expect(asFragment()).toMatchSnapshot()
     })
-    expect(asFragment()).toMatchSnapshot()
+  })
+
+  describe('when has status Completed', () => {
+    beforeAll(() => {
+      workOrderData.status = 'Completed'
+    })
+
+    it('should render work order elements with Status Completed and operatives list', async () => {
+      const workOrder = new WorkOrder(workOrderData)
+      const { asFragment } = render(
+        <MobileWorkingWorkOrder
+          workOrderReference={workOrder.reference}
+          property={props.property}
+          workOrder={workOrder}
+          tasksAndSors={[
+            {
+              id: 'ade7c53b-8947-414c-b88f-9c5e3d875cbf',
+              code: 'DES5R006',
+              description: 'Urgent call outs',
+              dateAdded: '2021-02-03T09:33:35.757339',
+              dateUpdated: '2021-02-05T09:33:35.757339',
+              quantity: 2,
+              cost: 10,
+              status: 'Unknown',
+              original: true,
+              originalQuantity: 2,
+              standardMinuteValue: 15,
+            },
+          ]}
+          currentUserPayrollNumber={'1'}
+          tenure={props.tenure}
+          onFormSubmit={jest.fn()}
+        />
+      )
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

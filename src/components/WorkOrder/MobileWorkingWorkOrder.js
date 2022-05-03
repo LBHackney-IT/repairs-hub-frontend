@@ -18,6 +18,7 @@ import {
   OVERTIME_PAYMENT_TYPE,
   optionsForPaymentType,
 } from '@/utils/paymentTypes'
+import Status from './Status'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -104,8 +105,28 @@ const MobileWorkingWorkOrder = ({
             {workOrder.paymentType === OVERTIME_PAYMENT_TYPE && (
               <h4 className="lbh-heading-h4">Overtime work order</h4>
             )}
+            {operativesCount > 1 && (
+              <>
+                <h4 className="lbh-heading-h4">Operatives</h4>
+                <ol className="govuk-list govuk-!-margin-top-3">
+                  {workOrder.operatives.map((operative) => {
+                    const percentageDisplay = operative.jobPercentage
+                      ? `${operative.jobPercentage}%`
+                      : 'N/A'
+                    const operativeDisplay = [
+                      operative.name,
+                      percentageDisplay,
+                    ].join(' - ')
+                    return <li className="govuk-list">{operativeDisplay}</li>
+                  })}
+                </ol>
+              </>
+            )}
             <h4 className="lbh-heading-h4">Status</h4>
-            <h5 className="lbh-heading-h5">{workOrder.status}</h5>
+            <Status
+              text={workOrder.status}
+              className="work-order-status govuk-!-margin-top-2"
+            />
             <br />
           </>
         )}
