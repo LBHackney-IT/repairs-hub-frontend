@@ -47,7 +47,7 @@ const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
   </li>
 )
 
-const OperativeListItem = ({ operativeDisplay }) => <li className="govuk-list">{operativeDisplay}</li>
+const OperativeListItem = ({ operativeDisplay }) => <li>{operativeDisplay}</li>
 
 OperativeList.propTypes = {
   operatives: PropTypes.array,

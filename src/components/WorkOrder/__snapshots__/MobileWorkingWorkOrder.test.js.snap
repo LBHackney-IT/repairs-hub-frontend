@@ -238,14 +238,10 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     <ol
       class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
     >
-      <li
-        class="govuk-list"
-      >
+      <li>
         Test1 - 50%
       </li>
-      <li
-        class="govuk-list"
-      >
+      <li>
         Test2 - 50%
       </li>
     </ol>
