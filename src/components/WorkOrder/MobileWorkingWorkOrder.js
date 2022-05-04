@@ -106,21 +106,12 @@ const MobileWorkingWorkOrder = ({
               <h4 className="lbh-heading-h4">Overtime work order</h4>
             )}
             {operativesCount > 1 && (
-              <>
-                <h4 className="lbh-heading-h4">Operatives</h4>
-                <ol className="govuk-list govuk-!-margin-top-3">
-                  {workOrder.operatives.map((operative) => {
-                    const percentageDisplay = operative.jobPercentage
-                      ? `${operative.jobPercentage}%`
-                      : 'N/A'
-                    const operativeDisplay = [
-                      operative.name,
-                      percentageDisplay,
-                    ].join(' - ')
-                    return <li className="govuk-list">{operativeDisplay}</li>
-                  })}
-                </ol>
-              </>
+              <OperativeList
+                operatives={workOrder.operatives}
+                currentUserPayrollNumber={currentUserPayrollNumber}
+                workOrderReference={workOrderReference}
+                readOnly={readOnly}
+              />
             )}
             <h4 className="lbh-heading-h4">Status</h4>
             <Status

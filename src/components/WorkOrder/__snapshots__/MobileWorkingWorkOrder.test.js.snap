@@ -236,7 +236,7 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       Operatives
     </h4>
     <ol
-      class="govuk-list govuk-!-margin-top-3"
+      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
     >
       <li
         class="govuk-list"

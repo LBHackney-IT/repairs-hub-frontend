@@ -40,10 +40,14 @@ exports[`OperativeList component should render operative list, without links 1`]
   <ol
     class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
   >
-    <li>
+    <li
+      class="govuk-list"
+    >
       Test1 - 50%
     </li>
-    <li>
+    <li
+      class="govuk-list"
+    >
       Test2 - 100%
     </li>
   </ol>
