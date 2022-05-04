@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 import {
+  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
 } from '../../../src/utils/constants'
@@ -505,7 +506,9 @@ describe('Updating a work order', () => {
             {
               body: [
                 {
-                  featureToggles: { MultiTradeSORIncrementalSearch: true },
+                  featureToggles: {
+                    [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
+                  },
                 },
               ],
             }
@@ -619,7 +622,7 @@ describe('Updating a work order', () => {
                 body: [
                   {
                     featureToggles: {
-                      MultiTradeSORIncrementalSearch: false,
+                      [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: false,
                     },
                   },
                 ],
@@ -669,6 +672,39 @@ describe('Updating a work order', () => {
           })
         }
       )
+
+      context('when the toggle API request errors', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/toggles' },
+            {
+              statusCode: 500,
+            }
+          ).as('featureToggle')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAdditionalTrades=true',
+            },
+            { fixture: 'scheduleOfRates/codes.json' }
+          ).as('sorCodesRequest')
+        })
+
+        it('does not prevent loading of the form', () => {
+          cy.visit('/work-orders/10000040/update')
+
+          cy.wait([
+            '@taskListRequest',
+            '@workOrder',
+            '@featureToggle',
+            '@sorCodesRequest',
+          ])
+
+          cy.get('#repair-request-form')
+        })
+      })
     })
   })
 

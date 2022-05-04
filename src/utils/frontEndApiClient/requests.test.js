@@ -1,4 +1,4 @@
-import { frontEndApiRequest } from './requests'
+import { frontEndApiRequest, fetchFeatureToggles } from './requests'
 import axios from 'axios'
 jest.mock('axios', () => jest.fn())
 
@@ -46,6 +46,47 @@ describe('frontEndApiRequest`', () => {
       method: 'get',
       url: '/api/some_endpoint',
       params: { myParam: 1 },
+    })
+  })
+})
+
+describe('fetchFeatureToggles', () => {
+  describe('when the configuration API returns keys', () => {
+    beforeEach(() => {
+      axios.mockResolvedValueOnce({
+        data: [
+          {
+            featureToggles: { isIceCreamEnabled: true, isPizzaEnabled: false },
+          },
+        ],
+      })
+    })
+
+    it('returns an object with all toggles from the configuration API', async () => {
+      expect(await fetchFeatureToggles()).toEqual({
+        isIceCreamEnabled: true,
+        isPizzaEnabled: false,
+      })
+    })
+  })
+
+  describe('when the configuration API request errors', () => {
+    beforeEach(() => {
+      axios.mockImplementationOnce(() =>
+        Promise.reject({
+          response: { status: 500 },
+        })
+      )
+    })
+
+    it('catches the error, logs it, and returns an empty object', async () => {
+      const logSpy = jest.spyOn(global.console, 'error')
+
+      expect(await fetchFeatureToggles()).toEqual({})
+
+      expect(logSpy).toHaveBeenCalledWith(
+        expect.stringContaining('Error fetching toggles from configuration API')
+      )
     })
   })
 })

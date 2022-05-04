@@ -3,13 +3,19 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
 import WorkOrderUpdateSuccess from './Success'
-import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
+import {
+  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
+  PURDY_CONTRACTOR_REFERENCE,
+} from '@/utils/constants'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -105,16 +111,11 @@ const WorkOrderUpdateView = ({ reference }) => {
       return false
     }
 
-    const configurationData = await frontEndApiRequest({
-      method: 'GET',
-      path: '/api/toggles',
-    })
+    const featureToggles = await fetchFeatureToggles()
 
-    const {
-      featureToggles: {
-        MultiTradeSORIncrementalSearch: multiTradeSORIncrementalSearchEnabled = false,
-      } = {},
-    } = configurationData[0] || {}
+    const multiTradeSORIncrementalSearchEnabled = !!featureToggles[
+      MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
+    ]
 
     setOrderRequiresIncrementalSearch(
       orderApplicable && multiTradeSORIncrementalSearchEnabled
