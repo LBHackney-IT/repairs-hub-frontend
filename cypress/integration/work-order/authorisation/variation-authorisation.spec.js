@@ -13,19 +13,23 @@ describe('Contract manager can authorise variation', () => {
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    )
+    ).as('propertyRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/statusVariationPendingApproval.json' }
-    )
+    ).as('workOrderRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
       { fixture: 'workOrders/variationTasks.json' }
-    )
+    ).as('variationTasksRequest')
+
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
       { fixture: 'workOrders/tasksAndSors.json' }
-    )
+    ).as('tasksAndSorsRequest')
+
     cy.intercept(
       {
         method: 'GET',
@@ -33,15 +37,19 @@ describe('Contract manager can authorise variation', () => {
           '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
       { body: [] }
-    )
+    ).as('workOrdersRequest')
+
     cy.intercept(
       { method: 'POST', url: '/api/jobStatusUpdate' },
       { body: '' }
     ).as('apiCheck')
   })
 
-  it('Rejects work order variation', () => {
+  it('Rejects work order variation with a confirmation step', () => {
     cy.visit('/work-orders/10000012')
+
+    cy.wait(['@workOrderRequest', '@tasksAndSorsRequest', '@propertyRequest'])
+
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -56,23 +64,33 @@ describe('Contract manager can authorise variation', () => {
         .click()
     })
 
+    cy.wait([
+      '@workOrderRequest',
+      '@tasksAndSorsRequest',
+      '@variationTasksRequest',
+    ])
+
     cy.contains('Authorisation variation request: 10000012')
 
-    // Throws an error when rejected without comments
-    // Notes section appears when clicked "reject request"
     cy.get('Add notes').should('not.exist')
+
     cy.get('[type="radio"]').check('Reject request')
+
     cy.contains('Add notes')
-    cy.get('[type="submit"]').contains('Submit').click({ force: true })
+
+    cy.get('[type="submit"]').contains('Continue').click({ force: true })
+
     cy.contains('Please add notes')
 
-    // Rejects with comments post request goes through
     cy.get('#note').type('Can not approve it')
+
+    cy.get('[type="submit"]').contains('Continue').click({ force: true })
+
+    cy.contains('You are rejecting the variation request')
+
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
     cy.wait('@apiCheck', { requestTimeout: 8000 })
-
-    cy.get('@apiCheck')
       .its('request.body')
       .should('deep.equal', {
         relatedWorkOrderReference: {
@@ -82,7 +100,6 @@ describe('Contract manager can authorise variation', () => {
         typeCode: '125',
       })
 
-    // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
         'You have rejected a variation'
@@ -94,8 +111,11 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  it('Approves work order variation', () => {
+  it('Approves work order variation without a confirmation step', () => {
     cy.visit('/work-orders/10000012')
+
+    cy.wait(['@workOrderRequest', '@tasksAndSorsRequest', '@propertyRequest'])
+
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -109,6 +129,12 @@ describe('Contract manager can authorise variation', () => {
         )
         .click()
     })
+
+    cy.wait([
+      '@workOrderRequest',
+      '@tasksAndSorsRequest',
+      '@variationTasksRequest',
+    ])
 
     cy.contains('Authorisation variation request: 10000012')
 
@@ -141,9 +167,11 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  // summary page and calculation
-  it('shows summary page and calculation of variation cost', () => {
+  it('Shows summary page and calculation of variation cost', () => {
     cy.visit('/work-orders/10000012')
+
+    cy.wait(['@workOrderRequest', '@tasksAndSorsRequest', '@propertyRequest'])
+
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -157,6 +185,12 @@ describe('Contract manager can authorise variation', () => {
         )
         .click()
     })
+
+    cy.wait([
+      '@workOrderRequest',
+      '@tasksAndSorsRequest',
+      '@variationTasksRequest',
+    ])
 
     cy.contains('Authorisation variation request: 10000012')
     cy.contains('Summary of Tasks and SORs')
@@ -234,17 +268,22 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  it('Can not authorise (approve) variation if over vary spend limit', () => {
+  it('Cannot approve variation if it is over my vary spend limit', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
       { fixture: 'workOrders/highCostVariationTask.json' }
-    )
+    ).as('highCostVariationTasks')
 
     cy.visit('/work-orders/10000012/variation-authorisation')
 
+    cy.wait([
+      '@workOrderRequest',
+      '@tasksAndSorsRequest',
+      '@highCostVariationTasks',
+    ])
+
     cy.contains('Authorisation variation request: 10000012')
 
-    // Warning text as work order with applied variation is above user's vary limit (£20000)
     cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
       cy.contains(
         'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
@@ -256,6 +295,7 @@ describe('Contract manager can authorise variation', () => {
 
     // Rejects with comments post request goes through
     cy.get('#note').type('Can not approve it')
+    cy.get('[type="submit"]').contains('Continue').click({ force: true })
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
     cy.wait('@apiCheck', { requestTimeout: 8000 })
@@ -282,9 +322,11 @@ describe('Contract manager can authorise variation', () => {
     })
   })
 
-  //collapsible
-  it('shows summary page and calculation of variation cost', () => {
+  it('Shows summary page and calculation of variation cost with collapsible content', () => {
     cy.visit('/work-orders/10000012')
+
+    cy.wait(['@workOrderRequest', '@tasksAndSorsRequest', '@propertyRequest'])
+
     cy.get('[data-testid="details"]')
       .contains('Variation Authorisation')
       .click({ force: true })
@@ -298,6 +340,12 @@ describe('Contract manager can authorise variation', () => {
         )
         .click()
     })
+
+    cy.wait([
+      '@workOrderRequest',
+      '@tasksAndSorsRequest',
+      '@variationTasksRequest',
+    ])
 
     cy.contains('Authorisation variation request: 10000012')
     cy.contains('Summary of Tasks and SORs')
@@ -368,7 +416,12 @@ describe('Contract manager can authorise variation', () => {
     ).as('workOrderPurdy')
 
     cy.visit('/work-orders/10000012/variation-authorisation')
-    cy.wait('@workOrderPurdy')
+
+    cy.wait([
+      '@workOrderPurdy',
+      '@tasksAndSorsRequest',
+      '@variationTasksRequest',
+    ])
 
     cy.contains('Authorisation variation request: 10000012')
 

@@ -16,7 +16,6 @@ import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
-import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -25,8 +24,6 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
-  const [variationApproved, setVariationApproved] = useState(true)
-  const [confirmationPageMessage, setConfirmationPageMessage] = useState('')
   const [variationTasks, setVariationTasks] = useState({})
   const [originalSors, setOriginalSors] = useState([])
   const [varySpendLimit, setVarySpendLimit] = useState()
@@ -37,7 +34,6 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
     REJECT_REQUEST,
   ])
   const [showSummary, setShowSummary] = useState(false)
-  const [contractorIsPurdy, setContractorIsPurdy] = useState(false)
   const [rejectionReasonToShow, setRejectionReasonToShow] = useState('')
   const [budgetCode, setBudgetCode] = useState()
   const [selectedOption, setSelectedOption] = useState('')
@@ -66,9 +62,6 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
       setVariationTasks(variationTasks)
       setBudgetCode(workOrder.budgetCode)
-      setContractorIsPurdy(
-        workOrder.contractorReference === PURDY_CONTRACTOR_REFERENCE
-      )
       setVarySpendLimit(parseFloat(user.varyLimit))
 
       const totalCostAfterVariation = calculateTotalVariedCost(
@@ -119,7 +112,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   }
 
   const onSubmitForm = (e) => {
-    if (contractorIsPurdy && !showSummary) {
+    if (!showSummary && selectedOption === REJECT_REQUEST) {
       setShowSummary(true)
       setRejectionReasonToShow(e.note)
     } else {
@@ -130,15 +123,9 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
         e.options == APPROVE_REQUEST
           ? buildVariationAuthorisationApprovedFormData(workOrderReference)
           : buildVariationAuthorisationRejectedFormData(e, workOrderReference)
-      addConfirmationText()
+
       makePostRequest(formData)
     }
-  }
-
-  const addConfirmationText = () => {
-    variationApproved
-      ? setConfirmationPageMessage('You have approved a variation')
-      : setConfirmationPageMessage('You have rejected a variation')
   }
 
   const makePostRequest = async (formData) => {
@@ -161,9 +148,6 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
   const addNotes = (e) => {
     setSelectedOption(e.target.value)
-    e.target.value == REJECT_REQUEST
-      ? setVariationApproved(false)
-      : setVariationApproved(true)
   }
 
   useEffect(() => {
@@ -231,7 +215,12 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                       error={errors && errors.options}
                     />
                   )}
-                  {!variationApproved && !showSummary && (
+
+                  {selectedOption === APPROVE_REQUEST && !showSummary && (
+                    <PrimarySubmitButton label="Submit" />
+                  )}
+
+                  {selectedOption === REJECT_REQUEST && !showSummary && (
                     <>
                       <TextArea
                         name="note"
@@ -242,14 +231,12 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                         error={errors && errors.note}
                         defaultValue={rejectionReasonToShow}
                       />
-                      {/*For now, only for Purdy contractors we are showing summary page*/}
-                      {contractorIsPurdy && !showSummary && (
-                        <PrimarySubmitButton label="Continue" />
-                      )}
+
+                      <PrimarySubmitButton label="Continue" />
                     </>
                   )}
 
-                  {contractorIsPurdy && showSummary && (
+                  {showSummary && (
                     <>
                       <h3 className="lbh-heading-h3">
                         You are rejecting the variation request
@@ -267,22 +254,23 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                           </Link>
                         </span>
                       </div>
+                      <PrimarySubmitButton label="Submit" />
                     </>
                   )}
-
-                  {(!contractorIsPurdy ||
-                    showSummary ||
-                    selectedOption === APPROVE_REQUEST) && (
-                    <PrimarySubmitButton label="Submit" />
-                  )}
                 </form>
+
                 {error && <ErrorMessage label={error} />}
               </div>
             )}
+
           {formSuccess && (
             <SuccessPage
               workOrderReference={workOrderReference}
-              text={confirmationPageMessage}
+              text={
+                selectedOption === APPROVE_REQUEST
+                  ? 'You have approved a variation'
+                  : 'You have rejected a variation'
+              }
               showDashboardLink={true}
             />
           )}
