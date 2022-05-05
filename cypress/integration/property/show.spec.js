@@ -292,6 +292,22 @@ describe('Show property', () => {
         cy.contains('button', 'Load more').should('not.exist')
       })
     })
+
+    context('when a repair cannot be raised on the property', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/propertyRepairNotRaisable.json' }
+        ).as('propertyNotRaisable')
+      })
+
+      it('Work order history is still visible', () => {
+        cy.visit('/properties/00012345')
+        cy.get('.govuk-tabs__list-item--selected a').contains(
+          'Work orders history'
+        )
+      })
+    })
   })
 
   describe('Raise work order', () => {
