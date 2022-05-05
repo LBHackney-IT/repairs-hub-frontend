@@ -83,10 +83,12 @@ const TradeContractorRateScheduleItemView = ({
     }
   }
 
+  const showAllTrades = (contractorRef, tradeCode) =>
+    contractorRef === PURDY_CONTRACTOR_REFERENCE &&
+    tradeCode === MULTITRADE_TRADE_CODE
+
   const incrementalSORSearchRequired = async (contractorRef, tradeCode) => {
-    const orderApplicable =
-      contractorRef === PURDY_CONTRACTOR_REFERENCE &&
-      tradeCode === MULTITRADE_TRADE_CODE
+    const orderApplicable = showAllTrades(contractorRef, tradeCode)
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)
@@ -117,7 +119,12 @@ const TradeContractorRateScheduleItemView = ({
     if (incrementalSearch) {
       resetSORs()
     } else {
-      getSorCodesData(tradeCode, propertyReference, contractorRef)
+      getSorCodesData(
+        tradeCode,
+        propertyReference,
+        contractorRef,
+        showAllTrades(contractorRef, tradeCode)
+      )
     }
   }
 
@@ -209,7 +216,12 @@ const TradeContractorRateScheduleItemView = ({
     }
   }
 
-  const getSorCodesData = async (tradeCode, propertyRef, contractorRef) => {
+  const getSorCodesData = async (
+    tradeCode,
+    propertyRef,
+    contractorRef,
+    showAllTrades = false
+  ) => {
     setLoadingSorCodes(true)
     setGetSorCodesError(null)
 
@@ -222,6 +234,7 @@ const TradeContractorRateScheduleItemView = ({
           propertyReference: propertyRef,
           contractorReference: contractorRef,
           isRaisable: true,
+          ...(showAllTrades && { showAllTrades: true }),
         },
       })
 
