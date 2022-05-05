@@ -63,12 +63,7 @@ const PropertyView = ({ propertyReference }) => {
                 tenure={tenure}
                 tmoName={property.tmoName}
               />
-              {property.canRaiseRepair && (
-                <Tabs
-                  tabsList={tabsList}
-                  propertyReference={propertyReference}
-                />
-              )}
+              <Tabs tabsList={tabsList} propertyReference={propertyReference} />
             </>
           )}
           {error && <ErrorMessage label={error} />}
