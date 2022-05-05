@@ -3,11 +3,15 @@ import { useState, useContext } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
 import {
+  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
 } from '@/utils/constants'
@@ -90,16 +94,11 @@ const TradeContractorRateScheduleItemView = ({
     }
 
     if (multiTradeSORIncrementalSearchEnabled === null) {
-      const configurationData = await frontEndApiRequest({
-        method: 'GET',
-        path: '/api/toggles',
-      })
+      const featureToggles = await fetchFeatureToggles()
 
-      ;({
-        featureToggles: {
-          MultiTradeSORIncrementalSearch: multiTradeSORIncrementalSearchEnabled = false,
-        } = {},
-      } = configurationData[0] || {})
+      multiTradeSORIncrementalSearchEnabled = !!featureToggles[
+        MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
+      ]
     }
 
     setOrderRequiresIncrementalSearch(

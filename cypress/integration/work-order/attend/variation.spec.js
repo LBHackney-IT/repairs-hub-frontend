@@ -36,7 +36,13 @@ context('when a variation is made', () => {
 
       cy.get('#variationReason-form-group').contains('Please enter a reason')
 
-      cy.get('textarea').type('More work was needed')
+      cy.get('textarea').type('x'.repeat(251))
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.contains('You have exceeded the maximum amount of characters')
+
+      cy.get('textarea').clear().type('More work was needed')
 
       cy.contains('button', 'Confirm').click()
     })

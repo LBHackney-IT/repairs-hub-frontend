@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 import {
+  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
 } from '../../../src/utils/constants'
@@ -46,7 +47,7 @@ describe('Updating a work order', () => {
       ).as('apiCheck')
     })
 
-    it('throws errors if input values are empty or not valid', () => {
+    it('shows error messages if input values are empty or not valid', () => {
       cy.visit('/work-orders/10000040/update')
 
       cy.wait(['@taskListRequest', '@workOrder'])
@@ -162,6 +163,15 @@ describe('Updating a work order', () => {
         ).within(() => {
           cy.contains('Quantity must be greater than 0')
         })
+
+        cy.get('[data-testid=variationReason]').type('x'.repeat(251))
+
+        cy.contains('button', 'Next').click()
+
+        cy.contains(
+          '#variationReason-form-group > .govuk-error-message',
+          'You have exceeded the maximum amount of characters'
+        )
       })
     })
 
@@ -498,6 +508,37 @@ describe('Updating a work order', () => {
           .as('workOrder')
       })
 
+      it('does not have a character limit for the variation reason', () => {
+        cy.intercept(
+          { method: 'GET', path: '/api/toggles' },
+          {
+            body: [
+              {
+                featureToggles: {
+                  [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
+                },
+              },
+            ],
+          }
+        ).as('featureToggle')
+
+        cy.visit('/work-orders/10000040/update')
+
+        cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
+
+        cy.get('form').within(() => {
+          cy.contains('You have 250 characters remaining').should('not.exist')
+
+          cy.get('[data-testid=variationReason]').type('x'.repeat(251))
+
+          cy.contains('button', 'Next').click()
+
+          cy.get('#variationReason-form-group > .govuk-error-message').should(
+            'not.exist'
+          )
+        })
+      })
+
       context('when the incremental multitrade SOR search toggle is on', () => {
         beforeEach(() => {
           cy.intercept(
@@ -505,7 +546,9 @@ describe('Updating a work order', () => {
             {
               body: [
                 {
-                  featureToggles: { MultiTradeSORIncrementalSearch: true },
+                  featureToggles: {
+                    [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
+                  },
                 },
               ],
             }
@@ -619,7 +662,7 @@ describe('Updating a work order', () => {
                 body: [
                   {
                     featureToggles: {
-                      MultiTradeSORIncrementalSearch: false,
+                      [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: false,
                     },
                   },
                 ],
@@ -669,6 +712,39 @@ describe('Updating a work order', () => {
           })
         }
       )
+
+      context('when the toggle API request errors', () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/toggles' },
+            {
+              statusCode: 500,
+            }
+          ).as('featureToggle')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAdditionalTrades=true',
+            },
+            { fixture: 'scheduleOfRates/codes.json' }
+          ).as('sorCodesRequest')
+        })
+
+        it('does not prevent loading of the form', () => {
+          cy.visit('/work-orders/10000040/update')
+
+          cy.wait([
+            '@taskListRequest',
+            '@workOrder',
+            '@featureToggle',
+            '@sorCodesRequest',
+          ])
+
+          cy.get('#repair-request-form')
+        })
+      })
     })
   })
 
