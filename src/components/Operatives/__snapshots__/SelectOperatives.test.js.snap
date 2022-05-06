@@ -147,7 +147,7 @@ exports[`SelectOperatives component should disable the current operative when a 
         <p
           class="lbh-body smv-read-only--value"
         >
-          NaN
+          0.33
         </p>
       </div>
     </div>
@@ -281,7 +281,7 @@ exports[`SelectOperatives component should disable the current operative when a 
         <p
           class="lbh-body smv-read-only--value"
         >
-          NaN
+          0.33
         </p>
       </div>
     </div>
@@ -415,7 +415,7 @@ exports[`SelectOperatives component should disable the current operative when a 
         <p
           class="lbh-body smv-read-only--value"
         >
-          NaN
+          0.33
         </p>
       </div>
     </div>
@@ -564,7 +564,9 @@ exports[`SelectOperatives component should render properly 1`] = `
         </p>
         <p
           class="lbh-body smv-read-only--value"
-        />
+        >
+          1
+        </p>
       </div>
     </div>
     <div>
