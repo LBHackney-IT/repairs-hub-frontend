@@ -29,8 +29,14 @@ const RaiseWorkOrderForm = ({
   tenure,
   priorities,
   trades,
+  tradeCode,
+  setTradeCode,
   contractors,
+  contractorReference,
+  setContractorReference,
   setContractors,
+  budgetCodeId,
+  setBudgetCodeId,
   budgetCodes,
   setBudgetCodes,
   sorCodeArrays,
@@ -191,10 +197,16 @@ const RaiseWorkOrderForm = ({
               register={register}
               errors={errors}
               trades={trades}
+              tradeCode={tradeCode}
+              setTradeCode={setTradeCode}
               contractors={contractors}
               setContractors={setContractors}
+              contractorReference={contractorReference}
+              setContractorReference={setContractorReference}
               budgetCodes={budgetCodes}
               setBudgetCodes={setBudgetCodes}
+              budgetCodeId={budgetCodeId}
+              setBudgetCodeId={setBudgetCodeId}
               sorCodeArrays={sorCodeArrays}
               setSorCodeArrays={setSorCodeArrays}
               propertyReference={propertyReference}
@@ -297,6 +309,12 @@ RaiseWorkOrderForm.propTypes = {
   setSorCodeArrays: PropTypes.func.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
+  tradeCode: PropTypes.string.isRequired,
+  setTradeCode: PropTypes.func.isRequired,
+  contractorReference: PropTypes.string.isRequired,
+  setContractorReference: PropTypes.func.isRequired,
+  budgetCodeId: PropTypes.string.isRequired,
+  setBudgetCodeId: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

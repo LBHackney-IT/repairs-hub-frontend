@@ -78,6 +78,9 @@ describe('RaiseWorkOrderForm component', () => {
     setContractors: jest.fn(),
     setBudgetCodes: jest.fn(),
     setSorCodeArrays: jest.fn(),
+    setTradeCode: jest.fn(),
+    setContractorReference: jest.fn(),
+    setBudgetCodeId: jest.fn(),
   }
 
   it('should render properly', async () => {
@@ -99,6 +102,12 @@ describe('RaiseWorkOrderForm component', () => {
           setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
+          tradeCode={''}
+          setTradeCode={props.setTradeCode}
+          contractorReference={''}
+          setContractorReference={props.setContractorReference}
+          budgetCodeId={''}
+          setBudgetCodeId={props.setBudgetCodeId}
         />
       </UserContext.Provider>
     )
@@ -132,6 +141,12 @@ describe('RaiseWorkOrderForm component', () => {
           setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
+          tradeCode={''}
+          setTradeCode={props.setTradeCode}
+          contractorReference={''}
+          setContractorReference={props.setContractorReference}
+          budgetCodeId={''}
+          setBudgetCodeId={props.setBudgetCodeId}
         />
       </UserContext.Provider>
     )

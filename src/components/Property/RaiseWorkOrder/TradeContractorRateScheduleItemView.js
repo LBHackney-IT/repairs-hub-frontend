@@ -18,8 +18,14 @@ import {
 
 const TradeContractorRateScheduleItemView = ({
   trades,
+  tradeCode,
+  setTradeCode,
   contractors,
+  contractorReference,
+  setContractorReference,
   setContractors,
+  budgetCodeId,
+  setBudgetCodeId,
   budgetCodes,
   setBudgetCodes,
   sorCodeArrays,
@@ -38,9 +44,6 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingContractors, setLoadingContractors] = useState(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
-  const [tradeCode, setTradeCode] = useState('')
-  const [contractorReference, setContractorReference] = useState('')
-  const [budgetCodeId, setBudgetCodeId] = useState('')
 
   const [
     orderRequiresIncrementalSearch,
@@ -337,6 +340,12 @@ TradeContractorRateScheduleItemView.propTypes = {
   errors: PropTypes.object.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
+  tradeCode: PropTypes.string.isRequired,
+  setTradeCode: PropTypes.func.isRequired,
+  contractorReference: PropTypes.string.isRequired,
+  setContractorReference: PropTypes.func.isRequired,
+  budgetCodeId: PropTypes.string.isRequired,
+  setBudgetCodeId: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView
