@@ -40,9 +40,7 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
   const [tradeCode, setTradeCode] = useState('')
   const [contractorReference, setContractorReference] = useState('')
-  const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
-  const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
-  const [budgetCodeItemDisabled, setBudgetCodeItemDisabled] = useState(true)
+  const [budgetCodeId, setBudgetCodeId] = useState('')
 
   const [
     orderRequiresIncrementalSearch,
@@ -78,9 +76,6 @@ const TradeContractorRateScheduleItemView = ({
 
       getContractorsData(propertyReference, newTradeCode)
     } else {
-      setContractorSelectDisabled(true)
-      setRateScheduleItemDisabled(true)
-      setBudgetCodeItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
@@ -140,10 +135,8 @@ const TradeContractorRateScheduleItemView = ({
         getBudgetCodesData(contractorRef)
       } else {
         await prepareSORData(contractorRef, tradeCode)
-        setRateScheduleItemDisabled(false)
       }
     } else {
-      setRateScheduleItemDisabled(true)
       setContractorReference('')
     }
   }
@@ -173,7 +166,6 @@ const TradeContractorRateScheduleItemView = ({
             },
           ])
         : setContractors(contractors)
-      setContractorSelectDisabled(false)
     } catch (e) {
       setContractors([])
       setContractorReference('')
@@ -202,7 +194,6 @@ const TradeContractorRateScheduleItemView = ({
       })
 
       setBudgetCodes(budgetCodes)
-      setBudgetCodeItemDisabled(false)
     } catch (e) {
       setBudgetCodes([])
       console.error('An error has occured:', e.response)
@@ -231,7 +222,6 @@ const TradeContractorRateScheduleItemView = ({
       })
 
       setSorCodeArrays([sorCodes])
-      setRateScheduleItemDisabled(false)
     } catch (e) {
       resetSORs()
       console.error('An error has occured:', e.response)
@@ -242,6 +232,10 @@ const TradeContractorRateScheduleItemView = ({
 
     setLoadingSorCodes(false)
   }
+
+  const budgetCodeApplicable = (user) =>
+    process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+    canAssignBudgetCode(user)
 
   // When searching large numbers of SORs, we make an SOR request
   // with a specific text filter.
@@ -278,7 +272,7 @@ const TradeContractorRateScheduleItemView = ({
         loading={loadingContractors}
         contractors={contractors}
         onContractorSelect={onContractorSelect}
-        disabled={contractorSelectDisabled}
+        disabled={!tradeCode}
         tradeCode={tradeCode}
         register={register}
         errors={errors}
@@ -291,29 +285,34 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
-      {process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
-        canAssignBudgetCode(user) && (
-          <>
-            <BudgetCodeItemView
-              loading={loadingBudgetCodes}
-              errors={errors}
-              apiError={getBudgetCodesError}
-              disabled={budgetCodeItemDisabled}
-              budgetCodes={budgetCodes}
-              register={register}
-              afterValidBudgetCodeSelected={async () => {
-                await prepareSORData(contractorReference, tradeCode)
-                setRateScheduleItemDisabled(false)
-              }}
-              afterInvalidBudgetCodeSelected={() =>
-                setRateScheduleItemDisabled(true)
-              }
-            />
-          </>
-        )}
+
+      {budgetCodeApplicable(user) && (
+        <>
+          <BudgetCodeItemView
+            loading={loadingBudgetCodes}
+            errors={errors}
+            apiError={getBudgetCodesError}
+            disabled={!(tradeCode && contractorReference)}
+            budgetCodes={budgetCodes}
+            budgetCodeId={budgetCodeId}
+            setBudgetCodeId={setBudgetCodeId}
+            register={register}
+            afterValidBudgetCodeSelected={async () => {
+              await prepareSORData(contractorReference, tradeCode)
+            }}
+          />
+        </>
+      )}
+
       <RateScheduleItemView
         loading={loadingSorCodes}
-        disabled={rateScheduleItemDisabled}
+        disabled={((budgetCodeRequired) => {
+          if (budgetCodeRequired) {
+            return !(tradeCode && contractorReference && budgetCodeId)
+          } else {
+            return !(tradeCode && contractorReference)
+          }
+        })(budgetCodeApplicable(user))}
         register={register}
         errors={errors}
         isContractorUpdatePage={false}

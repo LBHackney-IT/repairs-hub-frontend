@@ -5,6 +5,8 @@ describe('BudgetCodeItemView component', () => {
   it('should render a datalist with formatted budget codes as options', () => {
     const { asFragment } = render(
       <BudgetCodeItemView
+        budgetCode={{}}
+        setBudgetCode={jest.fn()}
         budgetCodes={[
           {
             id: 1,
@@ -25,7 +27,6 @@ describe('BudgetCodeItemView component', () => {
         disabled={false}
         loading={false}
         errors={{}}
-        afterInvalidBudgetCodeSelected={jest.fn()}
         afterValidBudgetCodeSelected={jest.fn()}
       />
     )
