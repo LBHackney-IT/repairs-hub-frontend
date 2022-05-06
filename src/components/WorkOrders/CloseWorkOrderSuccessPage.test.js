@@ -3,7 +3,7 @@ import CloseWorkOrderSuccessPage from './CloseWorkOrderSuccessPage'
 
 describe('CloseWorkOrderSuccessPage component', () => {
   const props = {
-    workOrderReference: '10000012',
+    workOrderReference: 10000012,
   }
 
   describe('should render properly', () => {
