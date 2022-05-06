@@ -34,7 +34,7 @@ Install the dependencies:
 yarn install
 ```
 
-### Environment variables
+### Local environment variables (dotenv)
 
 Create the following files to store local secrets (which are gitignored):
 
@@ -42,9 +42,9 @@ Create the following files to store local secrets (which are gitignored):
 - `.env.local`
 - `.env.test.local`
 
-Add variables based on comments in the committed .env files. Most of the important values to be assigned to these are found within AWS Parameter store for the development account. Ask a team member if unsure.
+Populate this with a set of variables. This should be stored in a safe place in Hackney. Most of the important values to be assigned to these are found within AWS Parameter store for the development account. Ask a team member if unsure.
 
-If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section, below.
+If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section below.
 
 ### Authentication
 
@@ -94,6 +94,56 @@ The full test suite including unit tests and system tests can be run using follo
 yarn tests
 ```
 
+## Environments and deployments
+
+Features and bugfixes should be raised against `develop`. Merging to develop [triggers automated deployment to the development environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L205). This can be used for developer or design previews.
+
+To update staging (and make the feature available for QA/UAT), make a PR from `develop` to `main`. Merging to `main` [triggers automated deployment to the staging environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L219).
+
+If the staging deployment above is successful, a production deploy is [pending manual approval in the Circle CI UI](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L221) before a deployment to the production environment.
+
+See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) when preparing a production release, including how to trigger a manual prodution deploy.
+
+## Feature toggles
+
+Our git branching strategy means that multiple features / bugfixes can be in the same merge commit to `main`. Some may be tested and approved, and some may not. To avoid a situation where an urgent, tested fix is blocked from release by testing of another feature, features should be behind feature toggles.
+
+We use the [configuration-api](https://github.com/LBHackney-IT/configuration-api) to provide new run-time toggles - see below for how to set them in the associated config repo. (Note, however, at the time of writing there are a small amount of feature toggles made by setting environment variables at build-time (i.e. in the format `NEXT_PUBLIC_*`), but this technique is deprecated.)
+
+To add or edit a toggle, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files) to update the JSON object for every relevant environment. [Previous example PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) demonstrate this.
+
+You can use Cypress `intercept` commands (request stubbing) to enable or disable the relevant feature toggle in integration tests.
+
+## Environment variables
+
+### Types of environment variables
+
+This project makes use of two types of environment variables:
+
+1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
+2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
+
+### Where values are set
+
+This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
+
+When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
+
+In deployed environments, environment variables are used from the following places:
+
+- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
+- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
+  These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
+- AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
+
+### CI Builds
+
+When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
+
+### Deployed applications
+
+When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in CirceCI project settings.
+
 ## Pages, routes and the Node API
 
 #### Pages
@@ -141,53 +191,3 @@ Refer to this [matrix of user page permissions](https://accounts.google.com/Serv
 Access to an individual page is controlled by the `permittedRoles` attribute on the page component. For example, the home page can be accessed by everyone and contains [this list of permitted users](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/pages/index.js#L75-L81).
 
 Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/src/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
-
-## Environments and deployments
-
-Features and bugfixes should be raised against `develop`. Merging to develop [triggers automated deployment to the development environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L205). This can be used for developer or design previews.
-
-To update staging (and make the feature available for QA/UAT), make a PR from `develop` to `main`. Merging to `main` [triggers automated deployment to the staging environment](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L219).
-
-If the staging deployment above is successful, a production deploy is [pending manual approval in the Circle CI UI](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/main/.circleci/config.yml#L221) before a deployment to the production environment.
-
-See the wiki page for some [deployment tips](https://github.com/LBHackney-IT/repairs-hub-frontend/wiki/Deployments-and-Environment-variables) when preparing a production release, including trigger a manual prodution deploy.
-
-## Feature toggles
-
-Our git branching strategy means that multiple features / bugfixes can be in the same merge commit to `main`. Some may be tested and approved, and some may not. To avoid a situation where an urgent, tested fix is blocked from release by testing of another feature, features should be behind feature toggles.
-
-We use the [configuration-api](https://github.com/LBHackney-IT/configuration-api) to provide new run-time toggles - see below for how to set them in the associated config repo. (Note, however, at the time of writing there are a small amount of feature toggles made by setting environment variables at build-time, but this technique is deprecated.)
-
-To add or edit a toggle, raise a PR against `master` in the [configuration-api-files repo](https://github.com/LBHackney-IT/configuration-api-files) to update the JSON object for every relevant environment. [Previous example PRs](https://github.com/LBHackney-IT/configuration-api-files/pulls?q=is%3Apr+is%3Aclosed+RH) demonstrate this.
-
-You can use Cypress `intercept` commands (request stubbing) to enable or disable the relevant feature toggle in integration tests.
-
-## Environment variables
-
-### Types of environment variables
-
-This project makes use of two types of environment variables:
-
-1. Public variables which have the prefix `NEXT_PUBLIC_` - these are exposed and used in the browser.
-2. Server side only variables (without the above prefix). These are secrets and therefore real values should never be committed to the codebase - only references to secret storage should be used.
-
-### Where values are set
-
-This project sets environment variables in multiple places. Which values are used depends on where and how the code is being run.
-
-When running locally, dotenv files are used. `.env`, `.env.local` are used when running the app and `.env.test` and `.env.test.local` are used when running tests.
-
-In deployed environments, environment variables are used from the following places:
-
-- Hard coded exported variables in commands in the [Circle CI config file](./.circleci/config.yml).
-- Exported variables in commands in the [Circle CI config file](./.circleci/config.yml) which reference [CircleCI project settings](https://app.circleci.com/settings/project/github/LBHackney-IT/repairs-hub-frontend/environment-variables?return-to=https%3A%2F%2Fapp.circleci.com%2Fpipelines%2Fgithub%2FLBHackney-IT%2Frepairs-hub-frontend%3Ffilter%3Dall).
-  These references are made using the `$` prefix. (Example `$OUT_OF_HOURS_LINK_STAGING`).
-- AWS Parameter Store for a given environment, referenced from the [serverless config file](./serverless.yml)
-
-### CI Builds
-
-When running integration tests on Circle CI, values are from dotenv files, the CircleCI project settings and from hardcoded values in the CircleCI config file.
-
-### Deployed applications
-
-When running the application in all deployed environments, server side environment variables are stored in AWS Parameter store (referenced in serverless.yml). Public variables are in the Circle CI config file - they are either hardcoded directly or they reference variables in CirceCI project settings.
