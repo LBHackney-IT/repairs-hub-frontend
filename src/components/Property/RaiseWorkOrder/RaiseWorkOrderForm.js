@@ -53,6 +53,9 @@ const RaiseWorkOrderForm = ({
 
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
+      propertyReference,
+      shortAddress: address.shortAddress,
+      postalCode: address.postalCode,
       priorityDescription: priority.description,
       daysToComplete: priority.daysToComplete,
       hoursToComplete:
@@ -210,6 +213,7 @@ const RaiseWorkOrderForm = ({
               priorityCode={priorityCode}
               priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
             />
+
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"
               label="Repair description"
@@ -219,36 +223,15 @@ const RaiseWorkOrderForm = ({
               register={register}
               error={errors && errors.descriptionOfWork}
             />
-            <input
-              id="propertyReference"
-              name="propertyReference"
-              label="propertyReference"
-              type="hidden"
-              value={propertyReference}
-              ref={register}
-            />
-            <input
-              id="shortAddress"
-              name="shortAddress"
-              label="shortAddress"
-              type="hidden"
-              value={address.shortAddress}
-              ref={register}
-            />
-            <input
-              id="postalCode"
-              name="postalCode"
-              label="postalCode"
-              type="hidden"
-              value={address.postalCode}
-              ref={register}
-            />
+
             <Contacts contacts={contacts} />
+
             <WarningInfoBox
               name="contact-number-warning"
               header="Need to add an additional contact number?"
               text="Any additional contact numbers can be added into the Repair description field"
             />
+
             <TextInput
               name="callerName"
               label="Caller name"
@@ -263,6 +246,7 @@ const RaiseWorkOrderForm = ({
               })}
               error={errors && errors.callerName}
             />
+
             <TextInput
               name="contactNumber"
               label="Telephone number"
