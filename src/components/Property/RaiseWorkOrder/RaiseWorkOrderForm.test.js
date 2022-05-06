@@ -75,6 +75,9 @@ describe('RaiseWorkOrderForm component', () => {
     ],
     contactDetails: [],
     onFormSubmit: jest.fn(),
+    setContractors: jest.fn(),
+    setBudgetCodes: jest.fn(),
+    setSorCodeArrays: jest.fn(),
   }
 
   it('should render properly', async () => {
@@ -88,6 +91,12 @@ describe('RaiseWorkOrderForm component', () => {
           tenure={props.tenure}
           priorities={props.priorities}
           trades={props.trades}
+          contractors={[]}
+          setContractors={props.setContractors}
+          budgetCodes={[]}
+          setBudgetCodes={props.setBudgetCodes}
+          sorCodeArrays={[[]]}
+          setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
         />
@@ -115,6 +124,12 @@ describe('RaiseWorkOrderForm component', () => {
           tenure={props.tenure}
           priorities={props.priorities}
           trades={props.trades}
+          contractors={[]}
+          setContractors={props.setContractors}
+          budgetCodes={[]}
+          setBudgetCodes={props.setBudgetCodes}
+          sorCodeArrays={[[]]}
+          setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
         />

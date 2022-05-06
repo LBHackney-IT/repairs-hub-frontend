@@ -29,6 +29,12 @@ const RaiseWorkOrderForm = ({
   tenure,
   priorities,
   trades,
+  contractors,
+  setContractors,
+  budgetCodes,
+  setBudgetCodes,
+  sorCodeArrays,
+  setSorCodeArrays,
   contacts,
   onFormSubmit,
   raiseLimit,
@@ -182,6 +188,12 @@ const RaiseWorkOrderForm = ({
               register={register}
               errors={errors}
               trades={trades}
+              contractors={contractors}
+              setContractors={setContractors}
+              budgetCodes={budgetCodes}
+              setBudgetCodes={setBudgetCodes}
+              sorCodeArrays={sorCodeArrays}
+              setSorCodeArrays={setSorCodeArrays}
               propertyReference={propertyReference}
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
@@ -293,6 +305,12 @@ RaiseWorkOrderForm.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   trades: PropTypes.array.isRequired,
+  contractors: PropTypes.array.isRequired,
+  setContractors: PropTypes.func.isRequired,
+  budgetCodes: PropTypes.array.isRequired,
+  setBudgetCodes: PropTypes.func.isRequired,
+  sorCodeArrays: PropTypes.array.isRequired,
+  setSorCodeArrays: PropTypes.func.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
 }
