@@ -192,7 +192,9 @@ const TradeContractorRateScheduleItemView = ({
         method: 'get',
         path: '/api/workOrders/budget-codes',
         params: {
-          contractorReference,
+          ...(contractorReference === PURDY_CONTRACTOR_REFERENCE
+            ? { contractorReference: contractorReference }
+            : ''),
         },
       })
 
