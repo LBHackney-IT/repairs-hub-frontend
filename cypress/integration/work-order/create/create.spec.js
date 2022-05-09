@@ -7,6 +7,7 @@ import { MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY } from '../../../../src/u
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
+  NORMAL_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
 
 const now = new Date('2022-02-11T12:00:00')
@@ -1360,6 +1361,139 @@ describe('Raise repair form', () => {
           '/properties/00012345'
         )
         cy.contains('Start a new search').should('have.attr', 'href', '/')
+      })
+    })
+    describe('when contractor is not Purdy', () => {
+      beforeEach(() => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders/budget-codes',
+          },
+          { fixture: 'scheduleOfRates/budgetCodes.json' }
+        ).as('budgetCodesRequestForNonPurdy')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
+          },
+          { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+        ).as('sorCodesRequest')
+      })
+
+      it('Gets full list of budget codes', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
+        cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+        cy.get('.lbh-heading-h2').contains('Work order task details')
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+          cy.wait('@contractorsRequest')
+
+          cy.get('#contractor').type('HH Painting - H09')
+          cy.wait('@budgetCodesRequestForNonPurdy')
+
+          cy.get('[data-testid=budgetCode]').type(
+            'H2555 - 200157 - Garage Repairs'
+          )
+          cy.wait('@sorCodesRequest')
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R005 - Normal call outs')
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+          cy.get('[data-testid=callerName]').type('NA')
+          cy.get('[data-testid=contactNumber]').type('NA')
+        })
+        cy.get('[type="submit"]')
+          .contains('Create work order')
+          .click({ force: true })
+
+        cy.wait('@apiCheck').then(({ request }) => {
+          const referenceIdUuid = request.body.reference[0].id
+
+          cy.wrap(request.body).should('deep.equal', {
+            reference: [{ id: referenceIdUuid }],
+            descriptionOfWork: 'A problem',
+            priority: {
+              priorityCode: NORMAL_PRIORITY_CODE,
+              priorityDescription: '5 [N] NORMAL',
+              // Normal priorities have a 21 *working day* target
+              requiredCompletionDateTime: addDays(now, 31).toISOString(),
+              numberOfDays: 21,
+            },
+            workClass: { workClassCode: 0 },
+            workElement: [
+              {
+                rateScheduleItem: [
+                  {
+                    customCode: 'DES5R005',
+                    customName: 'Normal call outs',
+                    quantity: { amount: [1] },
+                  },
+                ],
+                trade: [
+                  {
+                    code: 'SP',
+                    customCode: 'PL',
+                    customName: 'Plumbing - PL',
+                  },
+                ],
+              },
+            ],
+            site: {
+              property: [
+                {
+                  propertyReference: '00012345',
+                  address: {
+                    addressLine: ['16 Pitcairn House  St Thomass Square'],
+                    postalCode: 'E9 6PT',
+                  },
+                  reference: [
+                    {
+                      id: '00012345',
+                    },
+                  ],
+                },
+              ],
+            },
+            instructedBy: { name: 'Hackney Housing' },
+            assignedToPrimary: {
+              name: 'HH Painting',
+              organization: {
+                reference: [
+                  {
+                    id: 'H09',
+                  },
+                ],
+              },
+            },
+            customer: {
+              name: 'NA',
+              person: {
+                name: {
+                  full: 'NA',
+                },
+                communication: [
+                  {
+                    channel: {
+                      medium: '20',
+                      code: '60',
+                    },
+                    value: 'NA',
+                  },
+                ],
+              },
+            },
+            budgetCode: { id: '12' },
+            multiTradeWorkOrder: false,
+          })
+        })
       })
     })
   })
