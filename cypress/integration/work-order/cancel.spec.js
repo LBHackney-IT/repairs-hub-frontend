@@ -130,16 +130,16 @@ describe('Work order cancellations', () => {
 
       // Cancel work order confirmation screen
       cy.get('.lbh-panel').within(() => {
-        cy.get('.govuk-panel__title').contains('Repair work order cancelled')
+        cy.get('.govuk-panel__title').contains('Work order cancelled')
         cy.get('.govuk-panel__body').within(() => {
-          cy.contains('Work order number')
+          cy.contains('Reference number')
           cy.contains('10000012')
         })
       })
 
       cy.get('.lbh-list').within(() => {
         cy.contains(
-          'New repair for 16 Pitcairn House St Thomass Square'
+          'Raise a new work order for 16 Pitcairn House St Thomass Square'
         ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
 
         cy.contains('Start a new search').should('have.attr', 'href', '/')

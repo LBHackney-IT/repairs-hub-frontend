@@ -60,3 +60,21 @@ export const LinksWithDRSBooking = (
     { href: `/`, text: 'Start a new search' },
   ]
 }
+
+export const cancelWorkOrderLinks = (
+  workOrderReference,
+  propertyReference,
+  shortAddress
+) => {
+  return [
+    {
+      href: `/properties/${propertyReference}/raise-repair/new`,
+      text: `Raise a new work order for ${shortAddress}`,
+    },
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
+    },
+    { href: `/`, text: 'Start a new search' },
+  ]
+}
