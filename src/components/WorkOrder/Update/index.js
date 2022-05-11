@@ -16,6 +16,8 @@ import {
   PURDY_CONTRACTOR_REFERENCE,
 } from '@/utils/constants'
 import SuccessPage from '../../SuccessPage/index'
+import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
+import PageAnnouncement from '@/components/Template/PageAnnouncement'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -197,11 +199,23 @@ const WorkOrderUpdateView = ({ reference }) => {
             <>
               {showUpdateSuccess && (
                 <SuccessPage
-                  workOrderReference={reference}
-                  requiresAuthorisation={overSpendLimit}
-                  showDashboardLink={true}
-                  linkToCloseWorkorder={true}
-                  action="update"
+                  banner={
+                    <PageAnnouncement
+                      title={
+                        overSpendLimit
+                          ? 'Variation requires authorisation'
+                          : 'Work order updated'
+                      }
+                      workOrderReference={reference}
+                    />
+                  }
+                  links={
+                    overSpendLimit
+                      ? generalLinks(reference)
+                      : updateWorkOrderLinks(reference)
+                  }
+                  showWarningText={overSpendLimit}
+                  warningTextToshow="Please request authorisation from a manager."
                 />
               )}
               {!showSummaryPage && !showUpdateSuccess && (

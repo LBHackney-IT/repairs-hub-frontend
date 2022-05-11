@@ -13,7 +13,7 @@ import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '@/models/workOrder'
 import { toISODate } from '../../../utils/date'
-import { generalLinks } from '@/utils/successPageLinks'
+import { createWOLinks } from '@/utils/successPageLinks'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
@@ -178,7 +178,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
                   comments={comments}
                 />
               }
-              links={generalLinks(workOrderReference, property)}
+              links={createWOLinks(workOrderReference, property)}
             />
           )}
         </>

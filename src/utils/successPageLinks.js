@@ -22,7 +22,7 @@ const openExternalLinkEventHandler = async (workOrderReference) => {
   })
 }
 
-export const generalLinks = (workOrderReference, property) => {
+export const createWOLinks = (workOrderReference, property) => {
   return [
     {
       href: `/work-orders/${workOrderReference}`,
@@ -79,11 +79,25 @@ export const cancelWorkOrderLinks = (
   ]
 }
 
-export const closeWorkOrderLinks = (workOrderReference) => {
+export const generalLinks = (workOrderReference) => {
   return [
     {
       href: `/work-orders/${workOrderReference}`,
       text: 'View work order',
+    },
+    { href: `/`, text: 'Manage work orders' },
+  ]
+}
+
+export const updateWorkOrderLinks = (workOrderReference) => {
+  return [
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
+    },
+    {
+      href: `/work-orders/${workOrderReference}/close`,
+      text: 'Close work order',
     },
     { href: `/`, text: 'Manage work orders' },
   ]

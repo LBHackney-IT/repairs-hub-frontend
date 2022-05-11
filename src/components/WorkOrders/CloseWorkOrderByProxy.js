@@ -14,7 +14,7 @@ import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/a
 import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
 import Panel from '@/components/Template/Panel'
-import { closeWorkOrderLinks } from '@/utils/successPageLinks'
+import { generalLinks } from '@/utils/successPageLinks'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -255,7 +255,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                       workOrderReference={workOrder.reference}
                     />
                   }
-                  links={closeWorkOrderLinks(workOrder.reference)}
+                  links={generalLinks(workOrder.reference)}
                 />
               )}
 

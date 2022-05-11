@@ -259,9 +259,11 @@ describe('Updating a work order', () => {
         })
 
       // Confirmation screen
-      cy.get('.govuk-panel--confirmation.background-dark-green').within(() => {
-        cy.get('.govuk-panel__body').within(() => {
-          cy.contains('Work order 10000040 has been successfully updated')
+      cy.get('.lbh-page-announcement').within(() => {
+        cy.contains('Work order updated')
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Reference number')
+          cy.contains('10000040')
         })
       })
 
@@ -458,12 +460,16 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.get('.govuk-panel--confirmation.background-yellow').within(() => {
-        cy.get('.govuk-panel__body').within(() => {
-          cy.contains(
-            'Work order 10000040 requires authorisation and has been sent to a manager'
-          )
+      cy.get('.lbh-page-announcement').within(() => {
+        cy.contains('Variation requires authorisation')
+        cy.get('.lbh-page-announcement__content').within(() => {
+          cy.contains('Reference number')
+          cy.contains('10000040')
         })
+      })
+
+      cy.get('.govuk-warning-text').within(() => {
+        cy.contains('Please request authorisation from a manager')
       })
 
       cy.get('.lbh-list li').within(() => {
@@ -471,11 +477,6 @@ describe('Updating a work order', () => {
           'have.attr',
           'href',
           '/work-orders/10000040'
-        )
-        cy.contains('Close work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000040/close'
         )
         cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })

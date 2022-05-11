@@ -14,7 +14,7 @@ import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
 import {
-  generalLinks,
+  createWOLinks,
   LinksWithDRSBooking,
   IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT,
   AUTHORISATION_REQUIRED_TEXT,
@@ -202,7 +202,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                         property,
                         externalAppointmentManagementUrl
                       )
-                    : generalLinks(workOrderReference, property)
+                    : createWOLinks(workOrderReference, property)
                 }
               />
             </>
