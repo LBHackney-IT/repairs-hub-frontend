@@ -15,11 +15,15 @@ const openExternalLinkEventHandler = async (workOrderReference) => {
     `${user.name} opened the DRS Web Booking Manager`
   )
 
-  await frontEndApiRequest({
-    method: 'post',
-    path: `/api/jobStatusUpdate`,
-    requestData: jobStatusUpdate,
-  })
+  try {
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 export const createWOLinks = (workOrderReference, property) => {
@@ -43,7 +47,7 @@ export const LinksWithDRSBooking = (
 ) => {
   return [
     {
-      href: { externalAppointmentManagementUrl },
+      href: externalAppointmentManagementUrl,
       text: 'Book an appointment on DRS',
       onClick: () => openExternalLinkEventHandler(workOrderReference),
       target: '_blank',
@@ -98,6 +102,39 @@ export const updateWorkOrderLinks = (workOrderReference) => {
     {
       href: `/work-orders/${workOrderReference}/close`,
       text: 'Close work order',
+    },
+    { href: `/`, text: 'Manage work orders' },
+  ]
+}
+
+export const rejectLinks = (
+  workOrderReference,
+  propertyReference,
+  shortAddress
+) => {
+  return [
+    {
+      href: `/properties/${propertyReference}/raise-repair/new`,
+      text: `Raise a new work order for ${shortAddress}`,
+    },
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
+    },
+    { href: `/`, text: 'Manage work orders' },
+  ]
+}
+
+export const authorisationApprovedLinks = (workOrderReference) => {
+  //do I need to open DRS or schedule an appointment on RH?
+  return [
+    {
+      href: `work-orders/${workOrderReference}/appointment/new`,
+      text: 'Book an appointment on DRS',
+    },
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
     },
     { href: `/`, text: 'Manage work orders' },
   ]

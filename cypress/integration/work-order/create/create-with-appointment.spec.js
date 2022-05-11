@@ -461,7 +461,7 @@ describe('Schedule appointment form', () => {
     })
   })
 
-  describe('When the order is for a contractor whose appointments are managed externally', () => {
+  describe.skip('When the order is for a contractor whose appointments are managed externally', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'POST', path: '/api/workOrders/schedule' },

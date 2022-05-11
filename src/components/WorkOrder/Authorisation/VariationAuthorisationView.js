@@ -9,13 +9,15 @@ import {
   buildVariationAuthorisationApprovedFormData,
   buildVariationAuthorisationRejectedFormData,
 } from '@/utils/hact/jobStatusUpdate/authorisation'
-import SuccessPage from '../../SuccessPage'
+import SuccessPage from '../../SuccessPage/index'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import VariationAuthorisationSummary from './VariationAuthorisationSummary'
 import WarningText from '../../Template/WarningText'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
+import PageAnnouncement from '@/components/Template/PageAnnouncement'
+import { rejectLinks, generalLinks } from '@/utils/successPageLinks'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -40,6 +42,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
+  const [workOrder, setWorkOrder] = useState()
 
   const requestVariationTasks = async (workOrderReference) => {
     setError(null)
@@ -63,6 +66,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
       setVariationTasks(variationTasks)
       setBudgetCode(workOrder.budgetCode)
       setVarySpendLimit(parseFloat(user.varyLimit))
+      setWorkOrder(workOrder)
 
       const totalCostAfterVariation = calculateTotalVariedCost(
         variationTasks.tasks
@@ -265,13 +269,25 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
 
           {formSuccess && (
             <SuccessPage
-              workOrderReference={workOrderReference}
-              text={
-                selectedOption === APPROVE_REQUEST
-                  ? 'You have approved a variation'
-                  : 'You have rejected a variation'
+              banner={
+                <PageAnnouncement
+                  title={
+                    selectedOption === APPROVE_REQUEST
+                      ? 'Variation request approved'
+                      : 'Variation request rejected'
+                  }
+                  workOrderReference={workOrderReference}
+                />
               }
-              showDashboardLink={true}
+              links={
+                selectedOption === APPROVE_REQUEST
+                  ? generalLinks(workOrderReference)
+                  : rejectLinks(
+                      workOrderReference,
+                      workOrder.propertyReference,
+                      workOrder.property
+                    )
+              }
             />
           )}
         </>
