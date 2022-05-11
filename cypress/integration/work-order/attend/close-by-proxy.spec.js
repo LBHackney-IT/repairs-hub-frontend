@@ -230,8 +230,10 @@ describe('Closing a work order on behalf of an operative', () => {
 
     // Confirmation screen
     cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
-        cy.contains('You have closed work order 10000040')
+        cy.contains('Reference number')
+        cy.contains('10000040')
       })
     })
 
@@ -305,8 +307,10 @@ describe('Closing a work order on behalf of an operative', () => {
 
     // Confirmation screen
     cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
-        cy.contains('You have closed work order 10000040')
+        cy.contains('Reference number')
+        cy.contains('10000040')
       })
     })
 

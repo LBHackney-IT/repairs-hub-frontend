@@ -78,3 +78,13 @@ export const cancelWorkOrderLinks = (
     { href: `/`, text: 'Start a new search' },
   ]
 }
+
+export const closeWorkOrderLinks = (workOrderReference) => {
+  return [
+    {
+      href: `/work-orders/${workOrderReference}`,
+      text: 'View work order',
+    },
+    { href: `/`, text: 'Manage work orders' },
+  ]
+}
