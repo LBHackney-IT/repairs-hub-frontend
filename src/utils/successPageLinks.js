@@ -3,10 +3,15 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { useContext } from 'react'
 import UserContext from '@/components/UserContext'
 
-const openExternalLinkEventHandler = async () => {
+export const IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT =
+  'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+export const AUTHORISATION_REQUIRED_TEXT =
+  'Please request authorisation from a manager.'
+
+const openExternalLinkEventHandler = async (workOrderReference) => {
   const { user } = useContext(UserContext)
   const jobStatusUpdate = buildDataFromScheduleAppointment(
-    props.workOrderReference.toString(),
+    workOrderReference.toString(),
     `${user.name} opened the DRS Web Booking Manager`
   )
 
@@ -18,29 +23,40 @@ const openExternalLinkEventHandler = async () => {
 }
 
 export const generalLinks = (workOrderReference, property) => {
-  returrn([
+  return [
     {
       href: `/work-orders/${workOrderReference}`,
-      text: 'View work orde',
+      text: 'View work order',
     },
     {
       href: `/properties/${property.propertyReference}`,
       text: `Back to ${property.address.addressLine}`,
     },
     { href: `/`, text: 'Start a new search' },
-  ])
+  ]
 }
 
-export const LinksWithDRSBooking = (workOrderReference, property) => {
-  returrn([
+export const LinksWithDRSBooking = (
+  workOrderReference,
+  property,
+  externalAppointmentManagementUrl
+) => {
+  return [
+    {
+      href: { externalAppointmentManagementUrl },
+      text: 'Book an appointment on DRS',
+      onClick: () => openExternalLinkEventHandler(workOrderReference),
+      target: '_blank',
+      rel: 'noopener',
+    },
     {
       href: `/work-orders/${workOrderReference}`,
-      text: 'View work orde',
+      text: 'View work order',
     },
     {
       href: `/properties/${property.propertyReference}`,
       text: `Back to ${property.address.addressLine}`,
     },
     { href: `/`, text: 'Start a new search' },
-  ])
+  ]
 }

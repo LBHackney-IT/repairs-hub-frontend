@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
-import SuccessPage from '../../SuccessPage'
-// import SuccessPage from '@/components/SuccessPage/indexMain'
+import SuccessPage from '@/components/SuccessPage'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
@@ -14,7 +13,13 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
-import { generalLinks } from '@/utils/successPageLinks'
+import {
+  generalLinks,
+  LinksWithDRSBooking,
+  IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT,
+  AUTHORISATION_REQUIRED_TEXT,
+} from '@/utils/successPageLinks'
+import Panel from '@/components/Template/Panel'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -57,8 +62,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
-    console.log(externallyManagedAppointment)
-    console.log(externalAppointmentManagementUrl)
 
     try {
       const {
@@ -173,29 +176,35 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
           {formSuccess && workOrderReference && property && (
             <>
               <SuccessPage
-                propertyReference={propertyReference}
-                workOrderReference={workOrderReference}
-                shortAddress={property.address.shortAddress}
-                text={'Repair work order created'}
-                showSearchLink={true}
-                authorisationPendingApproval={authorisationPendingApproval}
-                externalSchedulerLink={
-                  externallyManagedAppointment &&
-                  externalAppointmentManagementUrl
-                }
-                immediateOrEmergencyDloRepairText={
-                  immediateOrEmergencyDloRepairText
-                }
-              />
-              {/* <SuccessPage
                 banner={
                   <Panel
-                    title={successText}
+                    title="Work order created"
+                    authorisationText={
+                      authorisationPendingApproval &&
+                      'but requires authorisation'
+                    }
                     workOrderReference={workOrderReference}
                   />
                 }
-                links={generalLinks(workOrderReference, property)}
-              /> */}
+                showWarningText={
+                  immediateOrEmergencyDloRepairText ||
+                  authorisationPendingApproval
+                }
+                warningTextToshow={
+                  immediateOrEmergencyDloRepairText
+                    ? IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT
+                    : AUTHORISATION_REQUIRED_TEXT
+                }
+                links={
+                  externallyManagedAppointment
+                    ? LinksWithDRSBooking(
+                        workOrderReference,
+                        property,
+                        externalAppointmentManagementUrl
+                      )
+                    : generalLinks(workOrderReference, property)
+                }
+              />
             </>
           )}
           {!formSuccess &&

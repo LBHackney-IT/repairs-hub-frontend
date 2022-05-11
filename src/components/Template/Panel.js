@@ -2,7 +2,9 @@ import PropTypes from 'prop-types'
 
 export const Panel = (props) => (
   <div className="govuk-panel govuk-panel--confirmation lbh-panel">
-    <h1 className="govuk-panel__title">{props.title}</h1>
+    <h1 className="govuk-panel__title">
+      {props.title} {props.authorisationText}
+    </h1>
     <div className="govuk-panel__body">
       <p>Reference number</p>
       <strong className="govuk-!-font-size-41">
@@ -39,6 +41,7 @@ Panel.propTypes = {
   dateSelected: PropTypes.string,
   slot: PropTypes.string,
   comments: PropTypes.string,
+  authorisationText: PropTypes.string,
 }
 
 export default Panel
