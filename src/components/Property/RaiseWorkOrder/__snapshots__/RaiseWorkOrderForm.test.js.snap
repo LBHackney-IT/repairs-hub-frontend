@@ -385,6 +385,40 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
           </strong>
         </div>
         <div
+          class="warning-info-box govuk-inset-text lbh-inset-text"
+          data-testid="contact-number-warning"
+        >
+          <div
+            class="lbh-warning-text govuk-warning-text"
+          >
+            <span
+              aria-hidden="true"
+              class="govuk-warning-text__icon"
+            >
+              !
+            </span>
+            <div
+              class="govuk-warning-text__text"
+            >
+              <span
+                class="govuk-warning-text__assistive"
+              >
+                Warning
+              </span>
+              <p
+                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+              >
+                Need to add an additional contact number?
+              </p>
+              <p
+                class="lbh-body-xs govuk-!-margin-top-1"
+              >
+                Any additional contact numbers can be added into the Repair description field
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
           class="govuk-form-group lbh-form-group"
           id="callerName-form-group"
         >
@@ -416,7 +450,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
             class="govuk-label lbh-label"
             for="contactNumber"
           >
-            Contact number 
+            Telephone number 
             <span
               class="govuk-required"
             >
@@ -790,6 +824,40 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
           </strong>
         </div>
         <div
+          class="warning-info-box govuk-inset-text lbh-inset-text"
+          data-testid="contact-number-warning"
+        >
+          <div
+            class="lbh-warning-text govuk-warning-text"
+          >
+            <span
+              aria-hidden="true"
+              class="govuk-warning-text__icon"
+            >
+              !
+            </span>
+            <div
+              class="govuk-warning-text__text"
+            >
+              <span
+                class="govuk-warning-text__assistive"
+              >
+                Warning
+              </span>
+              <p
+                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+              >
+                Need to add an additional contact number?
+              </p>
+              <p
+                class="lbh-body-xs govuk-!-margin-top-1"
+              >
+                Any additional contact numbers can be added into the Repair description field
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
           class="govuk-form-group lbh-form-group"
           id="callerName-form-group"
         >
@@ -821,7 +889,7 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
             class="govuk-label lbh-label"
             for="contactNumber"
           >
-            Contact number 
+            Telephone number 
             <span
               class="govuk-required"
             >
