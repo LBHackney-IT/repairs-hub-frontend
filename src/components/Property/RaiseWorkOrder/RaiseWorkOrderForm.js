@@ -232,6 +232,11 @@ const RaiseWorkOrderForm = ({
               ref={register}
             />
             <Contacts contacts={contacts} />
+            <WarningInfoBox
+              name="contact-number-warning"
+              header="Need to add an additional contact number?"
+              text="Any additional contact numbers can be added into the Repair description field"
+            />
             <TextInput
               name="callerName"
               label="Caller name"
@@ -248,16 +253,29 @@ const RaiseWorkOrderForm = ({
             />
             <TextInput
               name="contactNumber"
-              label="Contact number"
+              label="Telephone number"
               required={true}
               register={register({
-                required: 'Please add contact number',
+                required: 'Please add telephone number',
+                validate: (value) => {
+                  if (isNaN(value)) {
+                    return 'Telephone number should be a number and with no empty spaces'
+                  }
+                },
+                maxLength: {
+                  value: 11,
+                  message:
+                    'Please enter a valid UK telephone number (11 digits)',
+                },
               })}
               error={errors && errors.contactNumber}
             />
 
             {overSpendLimit && (
-              <WarningText text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation" />
+              <WarningText
+                name="over-spend-limit"
+                text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
+              />
             )}
 
             <PrimarySubmitButton label="Create work order" />

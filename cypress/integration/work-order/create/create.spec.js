@@ -608,7 +608,7 @@ describe('Raise repair form', () => {
         cy.get('button[id="remove-rate-schedule-item-2"]').contains('Remove')
 
         // No warning if within raise limit
-        cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
         // Go over the Repair description character limit
         cy.get('#descriptionOfWork')
@@ -636,19 +636,57 @@ describe('Raise repair form', () => {
           'not.exist'
         )
 
-        //Submit for without contact and coller name details
+        //Submit form without contact and coller name details
+        cy.get('[data-testid=contact-number-warning]').within(() => {
+          cy.contains('Need to add an additional contact number?')
+          cy.contains(
+            'Any additional contact numbers can be added into the Repair description field'
+          )
+        })
         cy.get('[type="submit"]')
 
         cy.get('#callerName-form-group .govuk-error-message').within(() => {
           cy.contains('Please add caller name')
         })
         cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
-          cy.contains('Please add contact number')
+          cy.contains('Please add telephone number')
+        })
+
+        //Submit form with letters instead of number in telephone number field
+        cy.get('[data-testid=contactNumber]').type('NA')
+
+        cy.get('[type="submit"]')
+
+        cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
+          cy.contains(
+            'Telephone number should be a number and with no empty spaces'
+          )
+        })
+
+        //Submit form with space in telephone number field
+        cy.get('[data-testid=contactNumber]').clear()
+        cy.get('[data-testid=contactNumber]').type('12 45 ')
+        cy.get('[type="submit"]')
+
+        cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
+          cy.contains(
+            'Telephone number should be a number and with no empty spaces'
+          )
+        })
+
+        //Submit form with telephone number longer than 11 digits
+        cy.get('[data-testid=contactNumber]').clear()
+        cy.get('[data-testid=contactNumber]').type('12345671234567')
+        cy.get('[type="submit"]')
+
+        cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
+          cy.contains('Please enter a valid UK telephone number (11 digits)')
         })
 
         // Fill in contact details
-        cy.get('[data-testid=callerName]').type('NA')
-        cy.get('[data-testid=contactNumber]').type('NA')
+        cy.get('[data-testid=callerName]').type('Test Caller')
+        cy.get('[data-testid=contactNumber]').clear()
+        cy.get('[data-testid=contactNumber]').type('12345678910')
       })
 
       cy.get('[type="submit"]')
@@ -732,10 +770,10 @@ describe('Raise repair form', () => {
             },
           },
           customer: {
-            name: 'NA',
+            name: 'Test Caller',
             person: {
               name: {
-                full: 'NA',
+                full: 'Test Caller',
               },
               communication: [
                 {
@@ -743,7 +781,7 @@ describe('Raise repair form', () => {
                     medium: '20',
                     code: '60',
                   },
-                  value: 'NA',
+                  value: '12345678910',
                 },
               ],
             },
@@ -764,7 +802,7 @@ describe('Raise repair form', () => {
         })
       })
       // No warning if within raise limit
-      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+      cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
@@ -933,8 +971,8 @@ describe('Raise repair form', () => {
               .get('.govuk-textarea')
               .type('A problem')
 
-            cy.get('[data-testid=callerName]').type('NA')
-            cy.get('[data-testid=contactNumber]').type('NA')
+            cy.get('[data-testid=callerName]').type('Test Caller')
+            cy.get('[data-testid=contactNumber]').type('12345678910')
 
             cy.get('[type="submit"]').contains('Create work order').click()
           })
@@ -1202,8 +1240,8 @@ describe('Raise repair form', () => {
 
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
-        cy.get('[data-testid=callerName]').type('NA')
-        cy.get('[data-testid=contactNumber]').type('NA')
+        cy.get('[data-testid=callerName]').type('Test Caller')
+        cy.get('[data-testid=contactNumber]').type('12345678910')
 
         cy.get('[type="submit"]').contains('Create work order').click()
       })
@@ -1257,7 +1295,7 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
 
       // Within user's raise limit so no warning text is displayed
-      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+      cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // Select an SOR with cost: £50.17
       cy.contains('+ Add another SOR code').click()
@@ -1270,7 +1308,7 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
 
       // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.get('[data-testid=over-spend-limit]').within(() => {
         cy.contains(
           'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
         )
@@ -1290,7 +1328,7 @@ describe('Raise repair form', () => {
       cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
 
       // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.get('[data-testid=over-spend-limit]').within(() => {
         cy.contains(
           'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
         )
@@ -1300,19 +1338,19 @@ describe('Raise repair form', () => {
       cy.get('button[id="remove-rate-schedule-item-1"]').click()
 
       // Within user's raise limit so no warning text is displayed
-      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+      cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // Edit quantity to 43 to make total 5.80 x 43 = 249.4
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('43')
 
       // Within user's raise limit so no warning text is displayed
-      cy.get('.govuk-warning-text.lbh-warning-text').should('not.exist')
+      cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // Edit quantity to 44 to make total 5.80 x 44 = 255.2
       cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('44')
 
       // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+      cy.get('[data-testid=over-spend-limit]').within(() => {
         cy.contains(
           'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
         )
@@ -1322,8 +1360,8 @@ describe('Raise repair form', () => {
       cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
       //Fill in contact details
-      cy.get('#callerName').type('NA', { force: true })
-      cy.get('#contactNumber').type('NA', { force: true })
+      cy.get('#callerName').type('Test Caller', { force: true })
+      cy.get('#contactNumber').type('1', { force: true })
 
       // Submit form for high cost (over raise limit) authorisation
       cy.get('[type="submit"]').contains('Create work order').click()
@@ -1407,8 +1445,8 @@ describe('Raise repair form', () => {
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
           cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
-          cy.get('[data-testid=callerName]').type('NA')
-          cy.get('[data-testid=contactNumber]').type('NA')
+          cy.get('[data-testid=callerName]').type('Test Caller')
+          cy.get('[data-testid=contactNumber]').type('1')
         })
         cy.get('[type="submit"]')
           .contains('Create work order')
@@ -1474,10 +1512,10 @@ describe('Raise repair form', () => {
               },
             },
             customer: {
-              name: 'NA',
+              name: 'Test Caller',
               person: {
                 name: {
-                  full: 'NA',
+                  full: 'Test Caller',
                 },
                 communication: [
                   {
@@ -1485,7 +1523,7 @@ describe('Raise repair form', () => {
                       medium: '20',
                       code: '60',
                     },
-                    value: 'NA',
+                    value: '1',
                   },
                 ],
               },
@@ -1525,8 +1563,8 @@ describe('Raise repair form', () => {
 
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
-        cy.get('[data-testid=callerName]').type('NA')
-        cy.get('[data-testid=contactNumber]').type('NA')
+        cy.get('[data-testid=callerName]').type('Test Caller')
+        cy.get('[data-testid=contactNumber]').type('12345678910')
 
         cy.get('[type="submit"]').contains('Create work order').click()
       })
@@ -1600,7 +1638,7 @@ describe('Raise repair form', () => {
           '@propertyInLegalDisrepair',
         ])
 
-        cy.get('.warning-info-box').should('not.exist')
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
       })
     }
   )
@@ -1636,7 +1674,7 @@ describe('Raise repair form', () => {
         '@propertyInLegalDisrepairError',
       ])
 
-      cy.get('.warning-info-box').should('not.exist')
+      cy.get('[data-testid=over-spend-limit]').should('not.exist')
       cy.contains(
         'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
       )
