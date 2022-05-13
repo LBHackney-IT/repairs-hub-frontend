@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
 
-const WarningInfoBox = ({ header, text }) => {
+const WarningInfoBox = ({ header, text, name }) => {
   return (
-    <div className="warning-info-box govuk-inset-text lbh-inset-text">
+    <div
+      className="warning-info-box govuk-inset-text lbh-inset-text"
+      data-testid={name}
+    >
       <div className="lbh-warning-text govuk-warning-text">
         <span className="govuk-warning-text__icon" aria-hidden="true">
           !

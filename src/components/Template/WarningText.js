@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
-const WarningText = ({ text }) => {
+const WarningText = ({ text, name }) => {
   return (
-    <div className="govuk-warning-text lbh-warning-text">
+    <div className="govuk-warning-text lbh-warning-text" data-testid={name}>
       <span className="govuk-warning-text__icon" aria-hidden="true">
         !
       </span>
