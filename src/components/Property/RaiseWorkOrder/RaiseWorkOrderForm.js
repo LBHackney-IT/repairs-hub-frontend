@@ -44,6 +44,7 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
+  setPageToMultipleSORs,
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const [loading, setLoading] = useState(false)
@@ -215,6 +216,7 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
+              setPageToMultipleSORs={setPageToMultipleSORs}
             />
 
             <SelectPriority
@@ -315,6 +317,7 @@ RaiseWorkOrderForm.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

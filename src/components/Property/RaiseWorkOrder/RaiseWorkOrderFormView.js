@@ -15,6 +15,7 @@ import Meta from '../../Meta'
 import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
+import AddMultipleSORs from './AddMultipleSORs'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -35,7 +36,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [formSuccess, setFormSuccess] = useState(false)
   const [
     authorisationPendingApproval,
     setAuthorisationPendingApproval,
@@ -55,6 +55,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
+
+  const FORM_PAGE = 1
+  const ADDING_MULTIPLE_SOR_PAGE = 2
+  const RAISE_SUCCESS_PAGE = 3
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -100,7 +105,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         return
       }
 
-      setFormSuccess(true)
+      setCurrentPage(RAISE_SUCCESS_PAGE)
     } catch (e) {
       console.error(e)
 
@@ -183,34 +188,37 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 title: `New repair at ${property.address.addressLine}`,
               })}
           />
-          {formSuccess && workOrderReference && property && (
-            <>
-              <SuccessPage
-                banner={
-                  <Panel
-                    title="Work order created"
-                    authorisationText={
-                      authorisationPendingApproval &&
-                      'but requires authorisation'
-                    }
-                    workOrderReference={workOrderReference}
-                  />
-                }
-                warningText={warningTextToShow()}
-                links={
-                  externallyManagedAppointment
-                    ? LinksWithDRSBooking(
-                        workOrderReference,
-                        property,
-                        externalAppointmentManagementUrl,
-                        currentUser.name
-                      )
-                    : createWOLinks(workOrderReference, property)
-                }
-              />
-            </>
-          )}
-          {!formSuccess &&
+          {currentPage === RAISE_SUCCESS_PAGE &&
+            workOrderReference &&
+            property && (
+              <>
+                <SuccessPage
+                  banner={
+                    <Panel
+                      title="Work order created"
+                      authorisationText={
+                        authorisationPendingApproval &&
+                        'but requires authorisation'
+                      }
+                      workOrderReference={workOrderReference}
+                    />
+                  }
+                  warningText={warningTextToShow()}
+                  links={
+                    externallyManagedAppointment
+                      ? LinksWithDRSBooking(
+                          workOrderReference,
+                          property,
+                          externalAppointmentManagementUrl,
+                          currentUser.name
+                        )
+                      : createWOLinks(workOrderReference, property)
+                  }
+                />
+              </>
+            )}
+
+          {currentPage === FORM_PAGE &&
             property &&
             property.address &&
             property.hierarchyType &&
@@ -240,8 +248,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
+                setPageToMultipleSORs={() =>
+                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                }
               />
             )}
+          {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
+            <AddMultipleSORs
+              setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+            />
+          )}
           {error && <ErrorMessage label={error} />}
         </>
       )}
