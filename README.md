@@ -8,7 +8,7 @@ Allows operatives to sign in to a "mobile working" view, see upcoming jobs and c
 
 It's a [Next.js](https://nextjs.org) app that works with:
 
-- [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet)
+- [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet). Note that we are using a [custom 'App' with getInitialProps](https://nextjs.org/docs/advanced-features/custom-app) which causes all pages to be server-side rendered.
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
 - DRS (third-party work scheduler)
 
