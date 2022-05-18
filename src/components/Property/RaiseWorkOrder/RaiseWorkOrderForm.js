@@ -44,6 +44,7 @@ const RaiseWorkOrderForm = ({
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
+    console.log(priority)
 
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
