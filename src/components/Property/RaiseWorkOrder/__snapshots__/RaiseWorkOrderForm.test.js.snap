@@ -343,27 +343,6 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
         >
           You have 230 characters remaining.
         </span>
-        <input
-          id="propertyReference"
-          label="propertyReference"
-          name="propertyReference"
-          type="hidden"
-          value="00012345"
-        />
-        <input
-          id="shortAddress"
-          label="shortAddress"
-          name="shortAddress"
-          type="hidden"
-          value="16 Pitcairn House  St Thomass Square"
-        />
-        <input
-          id="postalCode"
-          label="postalCode"
-          name="postalCode"
-          type="hidden"
-          value="E9 6PT"
-        />
         <div
           class="govuk-warning-text lbh-warning-text"
         >
@@ -782,27 +761,6 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
         >
           You have 230 characters remaining.
         </span>
-        <input
-          id="propertyReference"
-          label="propertyReference"
-          name="propertyReference"
-          type="hidden"
-          value="00012345"
-        />
-        <input
-          id="shortAddress"
-          label="shortAddress"
-          name="shortAddress"
-          type="hidden"
-          value="16 Pitcairn House  St Thomass Square"
-        />
-        <input
-          id="postalCode"
-          label="postalCode"
-          name="postalCode"
-          type="hidden"
-          value="E9 6PT"
-        />
         <div
           class="govuk-warning-text lbh-warning-text"
         >

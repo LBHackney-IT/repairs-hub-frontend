@@ -14,5 +14,13 @@
   {
     "match": "Component undefined has no permittedRoles defined",
     "group": null
+  },
+  {
+    "match": "Error fetching toggles from configuration API: {\"response\":{\"status\":500}}",
+    "group": null
+  },
+  {
+    "match": "Service API response {\"status\":500,\"data\":\"Unable to connect to DRS Web Services to allow scheduling of this order (DRSWebServicesError: DRS Web Services returned non-200 response: DRS error message)\"}",
+    "group": null
   }
 ]

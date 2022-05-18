@@ -757,4 +757,104 @@ describe('Schedule appointment form', () => {
       })
     })
   })
+
+  describe('When the order is for a priority which is managed externally', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrders/schedule' },
+        {
+          body: {
+            id: 10102030,
+            statusCode: 200,
+            statusCodeDescription: '???',
+            externallyManagedAppointment: true,
+            // Use a local URL for test only
+            externalAppointmentManagementUrl: '/scheduler?bookingId=1',
+          },
+        }
+      ).as('apiCheck')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/users/schedulerSession' },
+        { body: { schedulerSessionId: 'SCHEDULER_SESSION_ID' } }
+      )
+    })
+    describe('and the priority is VOIDS', () => {
+      it('Shows a success page instead of the calendar with a link to the external scheduler', () => {
+        cy.visit('/properties/00012345')
+
+        cy.wait(['@property'])
+
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a work order on this dwelling')
+          .click()
+
+        cy.wait(['@property', '@priorities', '@trades'])
+
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+
+          cy.wait(['@contractors'])
+
+          cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+          cy.wait('@sorCodesPCL')
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R005 - Normal call outs')
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
+          cy.get('#priorityCode').select('[V15] Voids minor')
+          cy.get('.lbh-warning-text').within(() => {
+            cy.contains('VOIDS priority')
+            cy.contains('VOIDS work orders do not go to the DRS booking system')
+          })
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
+          cy.get('#callerName').type('Test Caller', { force: true })
+          cy.get('#contactNumber')
+            .clear({ force: true })
+            .type('12345678910', { force: true })
+
+          cy.get('[type="submit"]')
+            .contains('Create work order')
+            .click({ force: true })
+        })
+
+        cy.wait('@apiCheck')
+
+        cy.contains('Repair work order created')
+
+        cy.contains('Please open DRS to book an appointment')
+        cy.contains('a', 'open DRS').should(
+          'have.attr',
+          'href',
+          '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
+        )
+        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+
+        // Avoid opening a new tab by re-writing link behaviour
+        cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
+
+        cy.wait('@apiCheckjobStatus')
+          .its('request.body')
+          .then((body) => {
+            cy.wrap(body).should('deep.equal', {
+              relatedWorkOrderReference: {
+                id: '10102030',
+              },
+              comments: 'A Name opened the DRS Web Booking Manager',
+              typeCode: '0',
+              otherType: 'addNote',
+            })
+          })
+
+        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
+          'have.property',
+          'value',
+          'SCHEDULER_SESSION_ID'
+        )
+      })
+    })
+  })
 })

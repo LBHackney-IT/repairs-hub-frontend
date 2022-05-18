@@ -16,7 +16,7 @@ Row.propTypes = {
   contact: PropTypes.shape({
     firstName: PropTypes.string,
     lastName: PropTypes.string,
-    phoneNumbers: PropTypes.arrayOf(PropTypes.string),
+    phoneNumbers: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
 }
 

@@ -18,6 +18,18 @@ import {
 
 const TradeContractorRateScheduleItemView = ({
   trades,
+  tradeCode,
+  setTradeCode,
+  contractors,
+  contractorReference,
+  setContractorReference,
+  setContractors,
+  budgetCodeId,
+  setBudgetCodeId,
+  budgetCodes,
+  setBudgetCodes,
+  sorCodeArrays,
+  setSorCodeArrays,
   propertyReference,
   register,
   errors,
@@ -32,14 +44,6 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingContractors, setLoadingContractors] = useState(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
-  const [tradeCode, setTradeCode] = useState('')
-  const [contractors, setContractors] = useState([])
-  const [budgetCodes, setBudgetCodes] = useState([])
-  const [contractorReference, setContractorReference] = useState('')
-  const [contractorSelectDisabled, setContractorSelectDisabled] = useState(true)
-  const [rateScheduleItemDisabled, setRateScheduleItemDisabled] = useState(true)
-  const [budgetCodeItemDisabled, setBudgetCodeItemDisabled] = useState(true)
-  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
   const [
     orderRequiresIncrementalSearch,
@@ -75,9 +79,6 @@ const TradeContractorRateScheduleItemView = ({
 
       getContractorsData(propertyReference, newTradeCode)
     } else {
-      setContractorSelectDisabled(true)
-      setRateScheduleItemDisabled(true)
-      setBudgetCodeItemDisabled(true)
       setContractors([])
       setTradeCode('')
     }
@@ -137,10 +138,8 @@ const TradeContractorRateScheduleItemView = ({
         getBudgetCodesData(contractorRef)
       } else {
         await prepareSORData(contractorRef, tradeCode)
-        setRateScheduleItemDisabled(false)
       }
     } else {
-      setRateScheduleItemDisabled(true)
       setContractorReference('')
     }
   }
@@ -170,7 +169,6 @@ const TradeContractorRateScheduleItemView = ({
             },
           ])
         : setContractors(contractors)
-      setContractorSelectDisabled(false)
     } catch (e) {
       setContractors([])
       setContractorReference('')
@@ -199,7 +197,6 @@ const TradeContractorRateScheduleItemView = ({
       })
 
       setBudgetCodes(budgetCodes)
-      setBudgetCodeItemDisabled(false)
     } catch (e) {
       setBudgetCodes([])
       console.error('An error has occured:', e.response)
@@ -228,7 +225,6 @@ const TradeContractorRateScheduleItemView = ({
       })
 
       setSorCodeArrays([sorCodes])
-      setRateScheduleItemDisabled(false)
     } catch (e) {
       resetSORs()
       console.error('An error has occured:', e.response)
@@ -239,6 +235,10 @@ const TradeContractorRateScheduleItemView = ({
 
     setLoadingSorCodes(false)
   }
+
+  const budgetCodeApplicable = (user) =>
+    process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
+    canAssignBudgetCode(user)
 
   // When searching large numbers of SORs, we make an SOR request
   // with a specific text filter.
@@ -275,7 +275,7 @@ const TradeContractorRateScheduleItemView = ({
         loading={loadingContractors}
         contractors={contractors}
         onContractorSelect={onContractorSelect}
-        disabled={contractorSelectDisabled}
+        disabled={!tradeCode}
         tradeCode={tradeCode}
         register={register}
         errors={errors}
@@ -288,29 +288,34 @@ const TradeContractorRateScheduleItemView = ({
         ref={register}
         value={contractorReference}
       />
-      {process.env.NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED === 'true' &&
-        canAssignBudgetCode(user) && (
-          <>
-            <BudgetCodeItemView
-              loading={loadingBudgetCodes}
-              errors={errors}
-              apiError={getBudgetCodesError}
-              disabled={budgetCodeItemDisabled}
-              budgetCodes={budgetCodes}
-              register={register}
-              afterValidBudgetCodeSelected={async () => {
-                await prepareSORData(contractorReference, tradeCode)
-                setRateScheduleItemDisabled(false)
-              }}
-              afterInvalidBudgetCodeSelected={() =>
-                setRateScheduleItemDisabled(true)
-              }
-            />
-          </>
-        )}
+
+      {budgetCodeApplicable(user) && (
+        <>
+          <BudgetCodeItemView
+            loading={loadingBudgetCodes}
+            errors={errors}
+            apiError={getBudgetCodesError}
+            disabled={!(tradeCode && contractorReference)}
+            budgetCodes={budgetCodes}
+            budgetCodeId={budgetCodeId}
+            setBudgetCodeId={setBudgetCodeId}
+            register={register}
+            afterValidBudgetCodeSelected={async () => {
+              await prepareSORData(contractorReference, tradeCode)
+            }}
+          />
+        </>
+      )}
+
       <RateScheduleItemView
         loading={loadingSorCodes}
-        disabled={rateScheduleItemDisabled}
+        disabled={((budgetCodeRequired) => {
+          if (budgetCodeRequired) {
+            return !(tradeCode && contractorReference && budgetCodeId)
+          } else {
+            return !(tradeCode && contractorReference)
+          }
+        })(budgetCodeApplicable(user))}
         register={register}
         errors={errors}
         isContractorUpdatePage={false}
@@ -328,11 +333,19 @@ const TradeContractorRateScheduleItemView = ({
 
 TradeContractorRateScheduleItemView.propTypes = {
   trades: PropTypes.array.isRequired,
+  sorCodeArrays: PropTypes.array.isRequired,
+  setSorCodeArrays: PropTypes.func.isRequired,
   propertyReference: PropTypes.string.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
+  tradeCode: PropTypes.string.isRequired,
+  setTradeCode: PropTypes.func.isRequired,
+  contractorReference: PropTypes.string.isRequired,
+  setContractorReference: PropTypes.func.isRequired,
+  budgetCodeId: PropTypes.string.isRequired,
+  setBudgetCodeId: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView
