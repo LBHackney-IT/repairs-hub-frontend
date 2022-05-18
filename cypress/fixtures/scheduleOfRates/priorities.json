@@ -22,5 +22,17 @@
     "description": "5 [N] NORMAL",
     "daysToComplete": 21,
     "enabled": true
+  },
+  {
+    "priorityCode": 30,
+    "description": "[V30] Voids major",
+    "daysToComplete": 30,
+    "enabled": true
+  },
+  {
+    "priorityCode": 15,
+    "description": "[V15] Voids minor",
+    "daysToComplete": 15,
+    "enabled": true
   }
 ]
