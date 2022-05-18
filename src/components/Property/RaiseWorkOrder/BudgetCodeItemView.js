@@ -3,9 +3,10 @@ import { DataList } from '../../Form'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { formatBudgetCodeForOption } from '@/utils/helpers/budgetCodes'
-import { useState } from 'react'
 
 const BudgetCodeItemView = ({
+  budgetCodeId,
+  setBudgetCodeId,
   register,
   errors,
   disabled,
@@ -13,9 +14,7 @@ const BudgetCodeItemView = ({
   loading,
   apiError,
   afterValidBudgetCodeSelected,
-  afterInvalidBudgetCodeSelected,
 }) => {
-  const [budgetCodeSelected, setBudgetCodeSelected] = useState()
   const budgetCodeOptions = budgetCodes.map((code) =>
     formatBudgetCodeForOption(code)
   )
@@ -45,10 +44,8 @@ const BudgetCodeItemView = ({
               )
 
               if (budgetCode) {
-                setBudgetCodeSelected(budgetCode)
+                setBudgetCodeId(budgetCode.id)
                 afterValidBudgetCodeSelected()
-              } else {
-                afterInvalidBudgetCodeSelected()
               }
             }}
             register={register({
@@ -70,13 +67,15 @@ const BudgetCodeItemView = ({
         name="budgetCodeId"
         type="hidden"
         ref={register}
-        value={budgetCodeSelected?.id}
+        value={budgetCodeId}
       />
     </div>
   )
 }
 
 BudgetCodeItemView.propTypes = {
+  budgetCodeId: PropTypes.string.isRequired,
+  setBudgetCodeId: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   disabled: PropTypes.bool.isRequired,
@@ -84,7 +83,6 @@ BudgetCodeItemView.propTypes = {
   loading: PropTypes.bool.isRequired,
   apiError: PropTypes.string,
   afterValidBudgetCodeSelected: PropTypes.func.isRequired,
-  afterInvalidBudgetCodeSelected: PropTypes.func.isRequired,
 }
 
 export default BudgetCodeItemView

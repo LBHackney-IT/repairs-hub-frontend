@@ -56,6 +56,7 @@ describe('SelectPriority component', () => {
         priorityCode={props.priorityCode}
         priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
+        errors={{}}
       />
     )
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 9 } })
@@ -73,6 +74,7 @@ describe('SelectPriority component', () => {
         priorityCode={props.priorityCode}
         priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
+        errors={{}}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -85,6 +87,7 @@ describe('SelectPriority component', () => {
         priorityCode={9}
         priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
+        errors={{}}
       />
     )
 

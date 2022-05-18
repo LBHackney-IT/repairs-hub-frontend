@@ -75,6 +75,12 @@ describe('RaiseWorkOrderForm component', () => {
     ],
     contactDetails: [],
     onFormSubmit: jest.fn(),
+    setContractors: jest.fn(),
+    setBudgetCodes: jest.fn(),
+    setSorCodeArrays: jest.fn(),
+    setTradeCode: jest.fn(),
+    setContractorReference: jest.fn(),
+    setBudgetCodeId: jest.fn(),
   }
 
   it('should render properly', async () => {
@@ -88,8 +94,20 @@ describe('RaiseWorkOrderForm component', () => {
           tenure={props.tenure}
           priorities={props.priorities}
           trades={props.trades}
+          contractors={[]}
+          setContractors={props.setContractors}
+          budgetCodes={[]}
+          setBudgetCodes={props.setBudgetCodes}
+          sorCodeArrays={[[]]}
+          setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
+          tradeCode={''}
+          setTradeCode={props.setTradeCode}
+          contractorReference={''}
+          setContractorReference={props.setContractorReference}
+          budgetCodeId={''}
+          setBudgetCodeId={props.setBudgetCodeId}
         />
       </UserContext.Provider>
     )
@@ -115,8 +133,20 @@ describe('RaiseWorkOrderForm component', () => {
           tenure={props.tenure}
           priorities={props.priorities}
           trades={props.trades}
+          contractors={[]}
+          setContractors={props.setContractors}
+          budgetCodes={[]}
+          setBudgetCodes={props.setBudgetCodes}
+          sorCodeArrays={[[]]}
+          setSorCodeArrays={props.setSorCodeArrays}
           contacts={props.contactDetails}
           onFormSubmit={props.onFormSubmit}
+          tradeCode={''}
+          setTradeCode={props.setTradeCode}
+          contractorReference={''}
+          setContractorReference={props.setContractorReference}
+          budgetCodeId={''}
+          setBudgetCodeId={props.setBudgetCodeId}
         />
       </UserContext.Provider>
     )

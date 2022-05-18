@@ -29,6 +29,18 @@ const RaiseWorkOrderForm = ({
   tenure,
   priorities,
   trades,
+  tradeCode,
+  setTradeCode,
+  contractors,
+  contractorReference,
+  setContractorReference,
+  setContractors,
+  budgetCodeId,
+  setBudgetCodeId,
+  budgetCodes,
+  setBudgetCodes,
+  sorCodeArrays,
+  setSorCodeArrays,
   contacts,
   onFormSubmit,
   raiseLimit,
@@ -47,6 +59,9 @@ const RaiseWorkOrderForm = ({
 
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
+      propertyReference,
+      shortAddress: address.shortAddress,
+      postalCode: address.postalCode,
       priorityDescription: priority.description,
       daysToComplete: priority.daysToComplete,
       hoursToComplete:
@@ -182,6 +197,18 @@ const RaiseWorkOrderForm = ({
               register={register}
               errors={errors}
               trades={trades}
+              tradeCode={tradeCode}
+              setTradeCode={setTradeCode}
+              contractors={contractors}
+              setContractors={setContractors}
+              contractorReference={contractorReference}
+              setContractorReference={setContractorReference}
+              budgetCodes={budgetCodes}
+              setBudgetCodes={setBudgetCodes}
+              budgetCodeId={budgetCodeId}
+              setBudgetCodeId={setBudgetCodeId}
+              sorCodeArrays={sorCodeArrays}
+              setSorCodeArrays={setSorCodeArrays}
               propertyReference={propertyReference}
               isContractorUpdatePage={false}
               updatePriority={updatePriority}
@@ -198,6 +225,7 @@ const RaiseWorkOrderForm = ({
               priorityCode={priorityCode}
               priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
             />
+
             <CharacterCountLimitedTextArea
               name="descriptionOfWork"
               label="Repair description"
@@ -207,36 +235,15 @@ const RaiseWorkOrderForm = ({
               register={register}
               error={errors && errors.descriptionOfWork}
             />
-            <input
-              id="propertyReference"
-              name="propertyReference"
-              label="propertyReference"
-              type="hidden"
-              value={propertyReference}
-              ref={register}
-            />
-            <input
-              id="shortAddress"
-              name="shortAddress"
-              label="shortAddress"
-              type="hidden"
-              value={address.shortAddress}
-              ref={register}
-            />
-            <input
-              id="postalCode"
-              name="postalCode"
-              label="postalCode"
-              type="hidden"
-              value={address.postalCode}
-              ref={register}
-            />
+
             <Contacts contacts={contacts} />
+
             <WarningInfoBox
               name="contact-number-warning"
               header="Need to add an additional contact number?"
               text="Any additional contact numbers can be added into the Repair description field"
             />
+
             <TextInput
               name="callerName"
               label="Caller name"
@@ -251,6 +258,7 @@ const RaiseWorkOrderForm = ({
               })}
               error={errors && errors.callerName}
             />
+
             <TextInput
               name="contactNumber"
               label="Telephone number"
@@ -293,8 +301,20 @@ RaiseWorkOrderForm.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   trades: PropTypes.array.isRequired,
+  contractors: PropTypes.array.isRequired,
+  setContractors: PropTypes.func.isRequired,
+  budgetCodes: PropTypes.array.isRequired,
+  setBudgetCodes: PropTypes.func.isRequired,
+  sorCodeArrays: PropTypes.array.isRequired,
+  setSorCodeArrays: PropTypes.func.isRequired,
   priorities: PropTypes.array.isRequired,
   onFormSubmit: PropTypes.func.isRequired,
+  tradeCode: PropTypes.string.isRequired,
+  setTradeCode: PropTypes.func.isRequired,
+  contractorReference: PropTypes.string.isRequired,
+  setContractorReference: PropTypes.func.isRequired,
+  budgetCodeId: PropTypes.string.isRequired,
+  setBudgetCodeId: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

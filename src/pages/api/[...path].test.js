@@ -290,7 +290,7 @@ describe('/api/[...path]', () => {
             axios.create = jest.fn(() => axios)
 
             // Mock the 'GET' return value from the service API
-            axios.mockImplementationOnce(() =>
+            axios.mockImplementation(() =>
               Promise.resolve({
                 status: 200,
                 data: { key: 'hackney' },

@@ -17,9 +17,20 @@ import router from 'next/router'
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
   const [tenure, setTenure] = useState({})
+
   const [trades, setTrades] = useState([])
+  const [tradeCode, setTradeCode] = useState('')
+
+  const [contractors, setContractors] = useState([])
+  const [contractorReference, setContractorReference] = useState('')
+
+  const [budgetCodes, setBudgetCodes] = useState([])
+  const [budgetCodeId, setBudgetCodeId] = useState('')
+
+  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
   const [priorities, setPriorities] = useState([])
   const [contacts, setContacts] = useState([])
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
@@ -189,6 +200,18 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 tenure={tenure}
                 priorities={priorities}
                 trades={trades}
+                tradeCode={tradeCode}
+                setTradeCode={setTradeCode}
+                contractors={contractors}
+                contractorReference={contractorReference}
+                setContractorReference={setContractorReference}
+                setContractors={setContractors}
+                budgetCodeId={budgetCodeId}
+                setBudgetCodeId={setBudgetCodeId}
+                budgetCodes={budgetCodes}
+                setBudgetCodes={setBudgetCodes}
+                sorCodeArrays={sorCodeArrays}
+                setSorCodeArrays={setSorCodeArrays}
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}

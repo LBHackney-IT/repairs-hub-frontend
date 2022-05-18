@@ -27,6 +27,8 @@ describe('SelectOperatives component', () => {
         availableOperatives={operatives}
         register={() => {}}
         selectedPercentagesToShowOnEdit={[]}
+        totalSMV={1}
+        jobIsSplitByOperative={false}
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -40,6 +42,8 @@ describe('SelectOperatives component', () => {
         register={() => {}}
         selectedPercentagesToShowOnEdit={[]}
         currentUserPayrollNumber="PN1"
+        totalSMV={1}
+        jobIsSplitByOperative={false}
       />
     )
     expect(asFragment()).toMatchSnapshot()

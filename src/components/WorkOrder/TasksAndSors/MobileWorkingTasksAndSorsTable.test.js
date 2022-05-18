@@ -50,6 +50,19 @@ describe('MobileWorkingTasksAndSorsTable component', () => {
         tasksAndSors={props.tasksAndSors}
         tabName={props.tabName}
         workOrderReference="10000000"
+        readOnly={false}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('renders tasks and SORs without links when readOnly is true', () => {
+    const { asFragment } = render(
+      <MobileWorkingTasksAndSorsTable
+        tasksAndSors={props.tasksAndSors}
+        tabName={props.tabName}
+        workOrderReference="10000000"
+        readOnly={true}
       />
     )
     expect(asFragment()).toMatchSnapshot()
