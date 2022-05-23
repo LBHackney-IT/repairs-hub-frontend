@@ -835,18 +835,18 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@apiCheck')
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment')
-        cy.contains('a', 'open DRS').should(
+        cy.contains('Book an appointment on DRS')
+        cy.contains('a', 'Book an appointment on DRS').should(
           'have.attr',
           'href',
           '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should('have.attr', 'target', '_blank')
 
         // Avoid opening a new tab by re-writing link behaviour
-        cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
+        cy.contains('a', 'Book an appointment on DRS').invoke('removeAttr', 'target').click()
 
         cy.wait('@apiCheckjobStatus')
           .its('request.body')

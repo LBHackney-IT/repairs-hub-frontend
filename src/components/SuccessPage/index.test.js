@@ -46,8 +46,6 @@ describe('SuccessPage component', () => {
                   comments={'10 am works for me'}
                 />
               }
-              showWarningText={false}
-              warningTextToshow={''}
               links={createWOLinks(
                 props.workOrder.workOrderReference,
                 props.property
@@ -73,8 +71,6 @@ describe('SuccessPage component', () => {
                   workOrderReference={props.workOrder.workOrderReference}
                 />
               }
-              showWarningText={false}
-              warningTextToshow={''}
               links={LinksWithDRSBooking(
                 props.workOrder.workOrderReference,
                 props.property,
