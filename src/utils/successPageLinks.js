@@ -1,18 +1,17 @@
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { useContext } from 'react'
-import UserContext from '@/components/UserContext'
 
 export const IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT =
   'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
 export const AUTHORISATION_REQUIRED_TEXT =
   'Please request authorisation from a manager.'
+export const IMMEDIATE_OR_EMERGENCY_REPAIR_TEXT =
+  'Emergency and immediate repairs must be booked immediately. Please call the external contractor.'
 
-const openExternalLinkEventHandler = async (workOrderReference) => {
-  const { user } = useContext(UserContext)
+const openExternalLinkEventHandler = async (workOrderReference, userName) => {
   const jobStatusUpdate = buildDataFromScheduleAppointment(
     workOrderReference.toString(),
-    `${user.name} opened the DRS Web Booking Manager`
+    `${userName} opened the DRS Web Booking Manager`
   )
 
   try {
@@ -43,13 +42,14 @@ export const createWOLinks = (workOrderReference, property) => {
 export const LinksWithDRSBooking = (
   workOrderReference,
   property,
-  externalAppointmentManagementUrl
+  externalAppointmentManagementUrl,
+  userName
 ) => {
   return [
     {
       href: externalAppointmentManagementUrl,
       text: 'Book an appointment on DRS',
-      onClick: () => openExternalLinkEventHandler(workOrderReference),
+      onClick: () => openExternalLinkEventHandler(workOrderReference, userName),
       target: '_blank',
       rel: 'noopener',
     },
@@ -126,10 +126,9 @@ export const rejectLinks = (
 }
 
 export const authorisationApprovedLinks = (workOrderReference) => {
-  //do I need to open DRS or schedule an appointment on RH?
   return [
     {
-      href: `work-orders/${workOrderReference}/appointment/new`,
+      href: `/work-orders/${workOrderReference}/appointment/new`,
       text: 'Book an appointment on DRS',
     },
     {

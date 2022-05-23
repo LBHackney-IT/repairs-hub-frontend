@@ -30,18 +30,10 @@ const SuccessPage = ({ ...props }) => {
 }
 
 SuccessPage.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-  showDashboardLink: PropTypes.bool,
-  showNewWorkOrderLink: PropTypes.bool,
-  propertyReference: PropTypes.string,
-  shortAddress: PropTypes.string,
-  showSearchLink: PropTypes.bool,
-  authorisationPendingApproval: PropTypes.bool,
-  links: PropTypes.array,
+  links: PropTypes.array.isRequired,
   banner: PropTypes.any,
-  showWarningText: PropTypes.bool.isRequired,
-  warningTextToshow: PropTypes.string.isRequired,
+  showWarningText: PropTypes.bool,
+  warningTextToshow: PropTypes.string,
 }
 
 export default SuccessPage

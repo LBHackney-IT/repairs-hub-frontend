@@ -461,7 +461,7 @@ describe('Schedule appointment form', () => {
     })
   })
 
-  describe.skip('When the order is for a contractor whose appointments are managed externally', () => {
+  describe('When the order is for a contractor whose appointments are managed externally', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'POST', path: '/api/workOrders/schedule' },
@@ -549,7 +549,7 @@ describe('Schedule appointment form', () => {
               relatedWorkOrderReference: {
                 id: '10102030',
               },
-              comments: 'A Name opened the DRS Web Booking Manager',
+              comments: 'Hackney User opened the DRS Web Booking Manager',
               typeCode: '0',
               otherType: 'addNote',
             })

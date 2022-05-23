@@ -163,7 +163,11 @@ describe('Authorisation workflow for a work order', () => {
 
       // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
-        cy.contains('Book an appointment on DRS').should('have.attr', 'href', '/work-orders/10000012/appointment/new')
+        cy.contains('Book an appointment on DRS').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/appointment/new'
+        )
         cy.contains('View work order').should(
           'have.attr',
           'href',

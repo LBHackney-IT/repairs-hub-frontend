@@ -18,6 +18,7 @@ import {
   LinksWithDRSBooking,
   IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT,
   AUTHORISATION_REQUIRED_TEXT,
+  IMMEDIATE_OR_EMERGENCY_REPAIR_TEXT,
 } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 
@@ -54,11 +55,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setExternalAppointmentManagementUrl,
   ] = useState()
   const [
-    immediateOrEmergencyDloRepairText,
-    setImmediateOrEmergencyDloRepairText,
+    immediateOrEmergencyRepairText,
+    setImmediateOrEmergencyRepairText,
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
+  const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -82,7 +84,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
         if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          setImmediateOrEmergencyDloRepairText(true)
+          setImmediateOrEmergencyRepairText(true)
+          setImmediateOrEmergencyDLO(true)
         } else {
           const schedulerSessionId = await getOrCreateSchedulerSessionId()
 
@@ -187,12 +190,13 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                   />
                 }
                 showWarningText={
-                  immediateOrEmergencyDloRepairText ||
-                  authorisationPendingApproval
+                  immediateOrEmergencyRepairText || authorisationPendingApproval
                 }
                 warningTextToshow={
-                  immediateOrEmergencyDloRepairText
-                    ? IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT
+                  immediateOrEmergencyRepairText
+                    ? immediateOrEmergencyDLO
+                      ? IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT
+                      : IMMEDIATE_OR_EMERGENCY_REPAIR_TEXT
                     : AUTHORISATION_REQUIRED_TEXT
                 }
                 links={
@@ -200,7 +204,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                     ? LinksWithDRSBooking(
                         workOrderReference,
                         property,
-                        externalAppointmentManagementUrl
+                        externalAppointmentManagementUrl,
+                        currentUser.name
                       )
                     : createWOLinks(workOrderReference, property)
                 }
