@@ -45,8 +45,12 @@ const RaiseWorkOrderForm = ({
   onFormSubmit,
   raiseLimit,
   setPageToMultipleSORs,
+  formState,
 }) => {
-  const { register, handleSubmit, errors, setValue } = useForm()
+  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+    defaultValues: { ...formState },
+  })
+
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
   const [priorityCode, setPriorityCode] = useState()
@@ -216,7 +220,7 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
-              setPageToMultipleSORs={setPageToMultipleSORs}
+              setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
             />
 
             <SelectPriority

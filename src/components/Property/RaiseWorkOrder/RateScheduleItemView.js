@@ -22,7 +22,7 @@ const RateScheduleItemView = ({
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
-  ] = useState([0])
+  ] = useState(sorCodeArrays.map((v, index) => index))
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
