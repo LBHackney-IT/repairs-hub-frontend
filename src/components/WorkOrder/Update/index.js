@@ -215,7 +215,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                       : updateWorkOrderLinks(reference)
                   }
                   showWarningText={overSpendLimit}
-                  warningTextToshow="Please request authorisation from a manager."
+                  warningText="Please request authorisation from a manager."
                 />
               )}
               {!showSummaryPage && !showUpdateSuccess && (

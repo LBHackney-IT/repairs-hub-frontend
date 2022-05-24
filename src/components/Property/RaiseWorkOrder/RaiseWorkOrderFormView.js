@@ -13,13 +13,7 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
-import {
-  createWOLinks,
-  LinksWithDRSBooking,
-  IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT,
-  AUTHORISATION_REQUIRED_TEXT,
-  IMMEDIATE_OR_EMERGENCY_REPAIR_TEXT,
-} from '@/utils/successPageLinks'
+import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
@@ -158,6 +152,19 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setLoading(false)
   }
 
+  const warningTextToShow = () => {
+    if (immediateOrEmergencyRepairText) {
+      if (immediateOrEmergencyDLO) {
+        return 'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+      } else
+        return 'Emergency and immediate repairs must be booked immediately. Please call the external contractor.'
+    } else if (authorisationPendingApproval) {
+      return 'Please request authorisation from a manager.'
+    } else {
+      return ''
+    }
+  }
+
   useEffect(() => {
     setLoading(true)
 
@@ -189,16 +196,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                     workOrderReference={workOrderReference}
                   />
                 }
-                showWarningText={
-                  immediateOrEmergencyRepairText || authorisationPendingApproval
-                }
-                warningTextToshow={
-                  immediateOrEmergencyRepairText
-                    ? immediateOrEmergencyDLO
-                      ? IMMEDIATE_OR_EMERGENCY_DLO_REPAIR_TEXT
-                      : IMMEDIATE_OR_EMERGENCY_REPAIR_TEXT
-                    : AUTHORISATION_REQUIRED_TEXT
-                }
+                warningText={warningTextToShow()}
                 links={
                   externallyManagedAppointment
                     ? LinksWithDRSBooking(

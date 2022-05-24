@@ -843,10 +843,16 @@ describe('Schedule appointment form', () => {
           'href',
           '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'Book an appointment on DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should(
+          'have.attr',
+          'target',
+          '_blank'
+        )
 
         // Avoid opening a new tab by re-writing link behaviour
-        cy.contains('a', 'Book an appointment on DRS').invoke('removeAttr', 'target').click()
+        cy.contains('a', 'Book an appointment on DRS')
+          .invoke('removeAttr', 'target')
+          .click()
 
         cy.wait('@apiCheckjobStatus')
           .its('request.body')
@@ -855,7 +861,7 @@ describe('Schedule appointment form', () => {
               relatedWorkOrderReference: {
                 id: '10102030',
               },
-              comments: 'A Name opened the DRS Web Booking Manager',
+              comments: 'Hackney User opened the DRS Web Booking Manager',
               typeCode: '0',
               otherType: 'addNote',
             })

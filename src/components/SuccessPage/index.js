@@ -6,7 +6,7 @@ const SuccessPage = ({ ...props }) => {
   return (
     <>
       {props.banner}
-      {props.showWarningText && <WarningText text={props.warningTextToshow} />}
+      {props.warningText && <WarningText text={props.warningText} />}
       <ul className="lbh-list lbh-!-margin-top-9">
         {props.links.map((link, i) => {
           return (
@@ -32,8 +32,7 @@ const SuccessPage = ({ ...props }) => {
 SuccessPage.propTypes = {
   links: PropTypes.array.isRequired,
   banner: PropTypes.any,
-  showWarningText: PropTypes.bool,
-  warningTextToshow: PropTypes.string,
+  warningText: PropTypes.string,
 }
 
 export default SuccessPage
