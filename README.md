@@ -10,7 +10,7 @@ It's a [Next.js](https://nextjs.org) app that works with:
 
 - [Service API for Repairs](https://github.com/LBHackney-IT/repairs-api-dotnet). Note that we are using a [custom 'App' with getInitialProps](https://nextjs.org/docs/advanced-features/custom-app) which causes all pages to be server-side rendered.
 - Hackney's [Google oAuth service](https://github.com/LBHackney-IT/LBH-Google-auth)
-- DRS (third-party work scheduler)
+- [DRS Web Booking Manager (third-party work scheduler)](#drs-web-booking-manager-flow)
 
 It's built using [Hackney Design System](https://design-system.hackney.gov.uk/).
 
@@ -191,3 +191,13 @@ Refer to this [matrix of user page permissions](https://accounts.google.com/Serv
 Access to an individual page is controlled by the `permittedRoles` attribute on the page component. For example, the home page can be accessed by everyone and contains [this list of permitted users](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/pages/index.js#L75-L81).
 
 Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/src/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
+
+## DRS Web Booking Manager flow
+
+Repairs raised for some contractors are given appointments using our own calendar. Others are given appointments via Hackney's scheduling software - DRS.
+
+A repair raise request, via a POST to the `schedule` endpoint, can return a field `externallyManagedAppointment` set to `true`. This indicates that the order can be booked using a web interface to DRS, as opposed to using our own internal calendar view.
+
+To create a valid link, we are required to generate a `sessionId`, appended as a query param. This is achieved in the `src/pages/api/users/schedulerSession.js` API route endpoint.
+
+The user's navigation to DRS is currently logged as a Note. (At the time of writing there is no other way to know the user visited the external page, so we log the navigation instead.)
