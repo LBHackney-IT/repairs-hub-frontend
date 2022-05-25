@@ -238,12 +238,10 @@ describe('Schedule appointment form', () => {
           })
       })
 
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'Repair work order created'
-        )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains('Work order created')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10102030')
         })
       })
@@ -254,7 +252,7 @@ describe('Schedule appointment form', () => {
           'href',
           '/work-orders/10102030'
         )
-        cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
+        cy.contains('Back to 16 Pitcairn House').should(
           'have.attr',
           'href',
           '/properties/00012345'
@@ -446,8 +444,8 @@ describe('Schedule appointment form', () => {
         })
 
       //success form
-      cy.contains('Repair work order created')
-      cy.contains('Work order number')
+      cy.contains('Work order created')
+      cy.contains('Reference number')
 
       cy.contains('10102030')
 
@@ -525,18 +523,24 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@apiCheck')
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment')
-        cy.contains('a', 'open DRS').should(
+        cy.contains('Book an appointment on DRS')
+        cy.contains('a', 'Book an appointment on DRS').should(
           'have.attr',
           'href',
           '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should(
+          'have.attr',
+          'target',
+          '_blank'
+        )
 
         // Avoid opening a new tab by re-writing link behaviour
-        cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
+        cy.contains('a', 'Book an appointment on DRS')
+          .invoke('removeAttr', 'target')
+          .click()
 
         cy.wait('@apiCheckjobStatus')
           .its('request.body')
@@ -545,7 +549,7 @@ describe('Schedule appointment form', () => {
               relatedWorkOrderReference: {
                 id: '10102030',
               },
-              comments: 'A Name opened the DRS Web Booking Manager',
+              comments: 'Hackney User opened the DRS Web Booking Manager',
               typeCode: '0',
               otherType: 'addNote',
             })
@@ -599,15 +603,19 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@apiCheck')
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment')
-        cy.contains('a', 'open DRS').should(
+        cy.contains('Book an appointment on DRS')
+        cy.contains('a', 'Book an appointment on DRS').should(
           'have.attr',
           'href',
           '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should(
+          'have.attr',
+          'target',
+          '_blank'
+        )
 
         cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
           'have.property',
@@ -657,15 +665,15 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@apiCheck')
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment').should(
-          'not.exist'
-        )
-        cy.contains('a', 'open DRS').should('not.exist')
-        cy.contains(
-          'Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.'
-        )
+        cy.contains('Book an appointment on DRS').should('not.exist')
+        cy.contains('a', 'Book an appointment on DRS').should('not.exist')
+        cy.get('.govuk-warning-text').within(() => {
+          cy.contains(
+            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+          )
+        })
       })
     })
 
@@ -699,15 +707,15 @@ describe('Schedule appointment form', () => {
             .click({ force: true })
         })
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment').should(
-          'not.exist'
-        )
-        cy.contains('a', 'open DRS').should('not.exist')
-        cy.contains(
-          'Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.'
-        )
+        cy.contains('Book an appointment on DRS').should('not.exist')
+        cy.contains('a', 'Book an appointment on DRS').should('not.exist')
+        cy.get('.govuk-warning-text').within(() => {
+          cy.contains(
+            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+          )
+        })
       })
     })
 
@@ -748,12 +756,16 @@ describe('Schedule appointment form', () => {
             .click({ force: true })
         })
 
-        cy.contains('a', 'open DRS').should(
+        cy.contains('a', 'Book an appointment on DRS').should(
           'have.attr',
           'href',
           '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should(
+          'have.attr',
+          'target',
+          '_blank'
+        )
       })
     })
   })
@@ -823,18 +835,24 @@ describe('Schedule appointment form', () => {
 
         cy.wait('@apiCheck')
 
-        cy.contains('Repair work order created')
+        cy.contains('Work order created')
 
-        cy.contains('Please open DRS to book an appointment')
-        cy.contains('a', 'open DRS').should(
+        cy.contains('Book an appointment on DRS')
+        cy.contains('a', 'Book an appointment on DRS').should(
           'have.attr',
           'href',
           '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
         )
-        cy.contains('a', 'open DRS').should('have.attr', 'target', '_blank')
+        cy.contains('a', 'Book an appointment on DRS').should(
+          'have.attr',
+          'target',
+          '_blank'
+        )
 
         // Avoid opening a new tab by re-writing link behaviour
-        cy.contains('a', 'open DRS').invoke('removeAttr', 'target').click()
+        cy.contains('a', 'Book an appointment on DRS')
+          .invoke('removeAttr', 'target')
+          .click()
 
         cy.wait('@apiCheckjobStatus')
           .its('request.body')
@@ -843,7 +861,7 @@ describe('Schedule appointment form', () => {
               relatedWorkOrderReference: {
                 id: '10102030',
               },
-              comments: 'A Name opened the DRS Web Booking Manager',
+              comments: 'Hackney User opened the DRS Web Booking Manager',
               typeCode: '0',
               otherType: 'addNote',
             })

@@ -11,11 +11,13 @@ import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
-import WorkOrderUpdateSuccess from './Success'
 import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   PURDY_CONTRACTOR_REFERENCE,
 } from '@/utils/constants'
+import SuccessPage from '../../SuccessPage/index'
+import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
+import PageAnnouncement from '@/components/Template/PageAnnouncement'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -196,12 +198,25 @@ const WorkOrderUpdateView = ({ reference }) => {
           {currentUser && tasks && (
             <>
               {showUpdateSuccess && (
-                <>
-                  <WorkOrderUpdateSuccess
-                    workOrderReference={reference}
-                    requiresAuthorisation={overSpendLimit}
-                  />
-                </>
+                <SuccessPage
+                  banner={
+                    <PageAnnouncement
+                      title={
+                        overSpendLimit
+                          ? 'Variation requires authorisation'
+                          : 'Work order updated'
+                      }
+                      workOrderReference={reference}
+                    />
+                  }
+                  links={
+                    overSpendLimit
+                      ? generalLinks(reference)
+                      : updateWorkOrderLinks(reference)
+                  }
+                  showWarningText={overSpendLimit}
+                  warningText="Please request authorisation from a manager."
+                />
               )}
               {!showSummaryPage && !showUpdateSuccess && (
                 <>

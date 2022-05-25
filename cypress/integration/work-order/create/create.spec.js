@@ -792,12 +792,10 @@ describe('Raise repair form', () => {
       })
 
       // Confirmation screen
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'Repair work order created'
-        )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains('Work order created')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10102030')
         })
       })
@@ -811,7 +809,7 @@ describe('Raise repair form', () => {
           'href',
           '/work-orders/10102030'
         )
-        cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
+        cy.contains('Back to 16 Pitcairn House').should(
           'have.attr',
           'href',
           '/properties/00012345'
@@ -1369,12 +1367,12 @@ describe('Raise repair form', () => {
       cy.wait('@apiCheck')
 
       // Confirmation screen
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'Repair work order created'
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains(
+          'Work order created but requires authorisation'
         )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10102030')
         })
       })
@@ -1382,7 +1380,7 @@ describe('Raise repair form', () => {
       // Warning text as this work order is over the raise limit
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.get('.govuk-warning-text__text').contains(
-          'Work order 10102030 requires authorisation. Please request authorisation from a manager.'
+          'Please request authorisation from a manager.'
         )
       })
 
@@ -1393,7 +1391,7 @@ describe('Raise repair form', () => {
           'href',
           '/work-orders/10102030'
         )
-        cy.contains('Back to 16 Pitcairn House St Thomass Square').should(
+        cy.contains('Back to 16 Pitcairn House').should(
           'have.attr',
           'href',
           '/properties/00012345'

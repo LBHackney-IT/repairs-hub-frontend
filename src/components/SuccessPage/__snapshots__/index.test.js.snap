@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SuccessPage component Approving / Rejecting a work order when variation is approved should render success screen with approved message 1`] = `
+exports[`SuccessPage component Authorisation approved should render a success screen with link to book an appointment 1`] = `
 <DocumentFragment>
   <section
-    class="text-align-center lbh-page-announcement"
+    class="text-align-left lbh-page-announcement"
   >
     <h3
       class="lbh-page-announcement__title"
     >
-      You have approved a variation
+      Authorisation request approved
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Work order number
+        Reference number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -29,11 +29,17 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
     <li>
       <a
         class="lbh-link"
+        href="/work-orders/10000012/appointment/new"
+      >
+        Book an appointment on DRS
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
         href="/work-orders/10000012"
       >
-        <strong>
-          View work order
-        </strong>
+        View work order
       </a>
     </li>
     <li>
@@ -41,107 +47,35 @@ exports[`SuccessPage component Approving / Rejecting a work order when variation
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Back to dashboard
-        </strong>
+        Manage work orders
       </a>
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`SuccessPage component Approving / Rejecting a work order when variation is rejected should render success screen with rejected message 1`] = `
+exports[`SuccessPage component Authorisation rejected should render a success screen with link to raise a new wo 1`] = `
 <DocumentFragment>
-  <section
-    class="text-align-center lbh-page-announcement"
-  >
-    <h3
-      class="lbh-page-announcement__title"
-    >
-      You have rejected a variation
-    </h3>
-    <div
-      class="lbh-page-announcement__content"
-    >
-      <p>
-        Work order number
-      </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
-    </div>
-  </section>
-  <ul
-    class="lbh-list lbh-!-margin-top-9"
-  >
-    <li>
-      <a
-        class="lbh-link"
-        href="/work-orders/10000012"
-      >
-        <strong>
-          View work order
-        </strong>
-      </a>
-    </li>
-    <li>
-      <a
-        class="lbh-link"
-        href="/"
-      >
-        <strong>
-          Back to dashboard
-        </strong>
-      </a>
-    </li>
-  </ul>
-</DocumentFragment>
-`;
-
-exports[`SuccessPage component Raising a repair Above target date (over raise limit) authorisation should render a success screen with a warning message and link to raise new work order 1`] = `
-<DocumentFragment>
-  <section
-    class="text-align-center lbh-page-announcement"
-  >
-    <h3
-      class="lbh-page-announcement__title"
-    >
-      Repair work order created
-    </h3>
-    <div
-      class="lbh-page-announcement__content"
-    >
-      <p>
-        Work order number
-      </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
-    </div>
-  </section>
   <div
-    class="govuk-warning-text lbh-warning-text"
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
-    <span
-      aria-hidden="true"
-      class="govuk-warning-text__icon"
+    <h1
+      class="govuk-panel__title"
     >
-      !
-    </span>
-    <strong
-      class="govuk-warning-text__text"
+      Work order cancelled, authorisation request rejected 
+    </h1>
+    <div
+      class="govuk-panel__body"
     >
-      <span
-        class="govuk-warning-text__assistive"
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
       >
-        Warning
-      </span>
-      Work order 10000012 requires authorisation. Please request authorisation from a manager.
-    </strong>
+        10000012
+      </strong>
+    </div>
   </div>
   <ul
     class="lbh-list lbh-!-margin-top-9"
@@ -149,21 +83,17 @@ exports[`SuccessPage component Raising a repair Above target date (over raise li
     <li>
       <a
         class="lbh-link"
-        href="/work-orders/10000012"
+        href="/properties/undefined/raise-repair/new"
       >
-        <strong>
-          View work order
-        </strong>
+        Raise a new work order for 16 Pitcairn House  St Thomass Square
       </a>
     </li>
     <li>
       <a
         class="lbh-link"
-        href="/properties/12345678"
+        href="/work-orders/10000012"
       >
-        <strong>
-          Back to 12 Random Lane
-        </strong>
+        View work order
       </a>
     </li>
     <li>
@@ -171,19 +101,7 @@ exports[`SuccessPage component Raising a repair Above target date (over raise li
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Start a new search
-        </strong>
-      </a>
-    </li>
-    <li>
-      <a
-        class="lbh-link"
-        href="/properties/12345678/raise-repair/new"
-      >
-        <strong>
-          Raise a new work order
-        </strong>
+        Start a new search
       </a>
     </li>
   </ul>
@@ -192,19 +110,476 @@ exports[`SuccessPage component Raising a repair Above target date (over raise li
 
 exports[`SuccessPage component Raising a repair High cost (over raise limit) authorisation should render a success screen with a warning message 1`] = `
 <DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Work order created but requires authorisation 
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+    </div>
+  </div>
+  <div
+    class="govuk-warning-text lbh-warning-text"
+  >
+    <span
+      aria-hidden="true"
+      class="govuk-warning-text__icon"
+    >
+      !
+    </span>
+    <strong
+      class="govuk-warning-text__text"
+    >
+      <span
+        class="govuk-warning-text__assistive"
+      >
+        Warning
+      </span>
+      Please request authorisation from a manager.
+    </strong>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        Back to 16 Pitcairn House
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Start a new search
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair creates Emergency/Immediate DLO WO should render a success page with an Emergency/Immediate DLO warning text 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Work order created 
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+    </div>
+  </div>
+  <div
+    class="govuk-warning-text lbh-warning-text"
+  >
+    <span
+      aria-hidden="true"
+      class="govuk-warning-text__icon"
+    >
+      !
+    </span>
+    <strong
+      class="govuk-warning-text__text"
+    >
+      <span
+        class="govuk-warning-text__assistive"
+      >
+        Warning
+      </span>
+      Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.
+    </strong>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        Back to 16 Pitcairn House
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Start a new search
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair creates Emergency/Immediate WO for external contractor should render a success page with an Emergency/Immediate warning text 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Work order created 
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+    </div>
+  </div>
+  <div
+    class="govuk-warning-text lbh-warning-text"
+  >
+    <span
+      aria-hidden="true"
+      class="govuk-warning-text__icon"
+    >
+      !
+    </span>
+    <strong
+      class="govuk-warning-text__text"
+    >
+      <span
+        class="govuk-warning-text__assistive"
+      >
+        Warning
+      </span>
+      Emergency and immediate repairs must be booked immediately. Please call the external contractor.
+    </strong>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        Back to 16 Pitcairn House
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Start a new search
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair creates WO with RH appointment should render success message with appointment date and related links 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Work order created 
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+      <strong
+        class="govuk-!-font-size-36"
+      >
+        <br />
+        <br />
+        Thursday, 11 March
+      </strong>
+      <strong
+        class="govuk-!-font-size-36"
+      >
+        <br />
+        AM
+      </strong>
+      <p>
+        <br />
+        Comments: 10 am works for me
+      </p>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        Back to 16 Pitcairn House
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Start a new search
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Raising a repair creates WO with an external scheduler URL should render text with a link to schedule externally 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
+  >
+    <h1
+      class="govuk-panel__title"
+    >
+      Work order created 
+    </h1>
+    <div
+      class="govuk-panel__body"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-41"
+      >
+        10000012
+      </strong>
+    </div>
+  </div>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="https://drs.example.com"
+        rel="noopener"
+        target="_blank"
+      >
+        Book an appointment on DRS
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678"
+      >
+        Back to 16 Pitcairn House
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Start a new search
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Variation approved should render a success screen 1`] = `
+<DocumentFragment>
   <section
-    class="text-align-center lbh-page-announcement"
+    class="text-align-left lbh-page-announcement"
   >
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair work order created
+      Variation request approved
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Work order number
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-24"
+      >
+        10000012
+      </strong>
+    </div>
+  </section>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Manage work orders
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Variation rejected should render a success screen with link to raise a new wo 1`] = `
+<DocumentFragment>
+  <section
+    class="text-align-left lbh-page-announcement"
+  >
+    <h3
+      class="lbh-page-announcement__title"
+    >
+      Variation request rejected
+    </h3>
+    <div
+      class="lbh-page-announcement__content"
+    >
+      <p>
+        Reference number
+      </p>
+      <strong
+        class="govuk-!-font-size-24"
+      >
+        10000012
+      </strong>
+    </div>
+  </section>
+  <ul
+    class="lbh-list lbh-!-margin-top-9"
+  >
+    <li>
+      <a
+        class="lbh-link"
+        href="/properties/12345678/raise-repair/new"
+      >
+        Raise a new work order for 16 Pitcairn House  St Thomass Square
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/work-orders/10000012"
+      >
+        View work order
+      </a>
+    </li>
+    <li>
+      <a
+        class="lbh-link"
+        href="/"
+      >
+        Manage work orders
+      </a>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`SuccessPage component Variation requires authorisation should render a success screen with warning text 1`] = `
+<DocumentFragment>
+  <section
+    class="text-align-left lbh-page-announcement"
+  >
+    <h3
+      class="lbh-page-announcement__title"
+    >
+      Variation requires authorisation
+    </h3>
+    <div
+      class="lbh-page-announcement__content"
+    >
+      <p>
+        Reference number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -230,7 +605,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
       >
         Warning
       </span>
-      Work order 10000012 requires authorisation. Please request authorisation from a manager.
+      Please request authorisation from a manager.
     </strong>
   </div>
   <ul
@@ -241,19 +616,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
         class="lbh-link"
         href="/work-orders/10000012"
       >
-        <strong>
-          View work order
-        </strong>
-      </a>
-    </li>
-    <li>
-      <a
-        class="lbh-link"
-        href="/properties/12345678"
-      >
-        <strong>
-          Back to 12 Random Lane
-        </strong>
+        View work order
       </a>
     </li>
     <li>
@@ -261,66 +624,53 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Start a new search
-        </strong>
+        Manage work orders
       </a>
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`SuccessPage component Raising a repair With Emergency and Immediate DLO repairs text should render text that Emergency and immediate DLO repairs are sent directly to the Planners 1`] = `
+exports[`SuccessPage component WO cancelled should render a success screen with a link to raise a new wo 1`] = `
 <DocumentFragment>
-  <section
-    class="text-align-center lbh-page-announcement"
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
-    <h3
-      class="lbh-page-announcement__title"
+    <h1
+      class="govuk-panel__title"
     >
-      Repair work order created
-    </h3>
+      Work order cancelled 
+    </h1>
     <div
-      class="lbh-page-announcement__content"
+      class="govuk-panel__body"
     >
       <p>
-        Work order number
+        Reference number
       </p>
       <strong
-        class="govuk-!-font-size-24"
+        class="govuk-!-font-size-41"
       >
         10000012
       </strong>
     </div>
-  </section>
+  </div>
   <ul
     class="lbh-list lbh-!-margin-top-9"
   >
     <li>
-      <p>
-        <strong>
-          Emergency and immediate DLO repairs are sent directly to the Planners. An appointment does not need to be booked.
-        </strong>
-      </p>
+      <a
+        class="lbh-link"
+        href="/properties/undefined/raise-repair/new"
+      >
+        Raise a new work order for 16 Pitcairn House  St Thomass Square
+      </a>
     </li>
     <li>
       <a
         class="lbh-link"
         href="/work-orders/10000012"
       >
-        <strong>
-          View work order
-        </strong>
-      </a>
-    </li>
-    <li>
-      <a
-        class="lbh-link"
-        href="/properties/12345678"
-      >
-        <strong>
-          Back to 12 Random Lane
-        </strong>
+        View work order
       </a>
     </li>
     <li>
@@ -328,38 +678,36 @@ exports[`SuccessPage component Raising a repair With Emergency and Immediate DLO
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Start a new search
-        </strong>
+        Start a new search
       </a>
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`SuccessPage component Raising a repair With an external scheduler URL should render text with a link to schedule externally 1`] = `
+exports[`SuccessPage component WO closed should render a success screen 1`] = `
 <DocumentFragment>
-  <section
-    class="text-align-center lbh-page-announcement"
+  <div
+    class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
-    <h3
-      class="lbh-page-announcement__title"
+    <h1
+      class="govuk-panel__title"
     >
-      Repair work order created
-    </h3>
+      Work order closed 
+    </h1>
     <div
-      class="lbh-page-announcement__content"
+      class="govuk-panel__body"
     >
       <p>
-        Work order number
+        Reference number
       </p>
       <strong
-        class="govuk-!-font-size-24"
+        class="govuk-!-font-size-41"
       >
         10000012
       </strong>
     </div>
-  </section>
+  </div>
   <ul
     class="lbh-list lbh-!-margin-top-9"
   >
@@ -368,19 +716,7 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
         class="lbh-link"
         href="/work-orders/10000012"
       >
-        <strong>
-          View work order
-        </strong>
-      </a>
-    </li>
-    <li>
-      <a
-        class="lbh-link"
-        href="/properties/12345678"
-      >
-        <strong>
-          Back to 12 Random Lane
-        </strong>
+        View work order
       </a>
     </li>
     <li>
@@ -388,30 +724,28 @@ exports[`SuccessPage component Raising a repair With an external scheduler URL s
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Start a new search
-        </strong>
+        Manage work orders
       </a>
     </li>
   </ul>
 </DocumentFragment>
 `;
 
-exports[`SuccessPage component Raising a repair Within raise limit should render a success screen without a warning message 1`] = `
+exports[`SuccessPage component WO update should render a success screen 1`] = `
 <DocumentFragment>
   <section
-    class="text-align-center lbh-page-announcement"
+    class="text-align-left lbh-page-announcement"
   >
     <h3
       class="lbh-page-announcement__title"
     >
-      Repair work order created
+      Work order updated
     </h3>
     <div
       class="lbh-page-announcement__content"
     >
       <p>
-        Work order number
+        Reference number
       </p>
       <strong
         class="govuk-!-font-size-24"
@@ -428,19 +762,15 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
         class="lbh-link"
         href="/work-orders/10000012"
       >
-        <strong>
-          View work order
-        </strong>
+        View work order
       </a>
     </li>
     <li>
       <a
         class="lbh-link"
-        href="/properties/12345678"
+        href="/work-orders/10000012/close"
       >
-        <strong>
-          Back to 12 Random Lane
-        </strong>
+        Close work order
       </a>
     </li>
     <li>
@@ -448,9 +778,7 @@ exports[`SuccessPage component Raising a repair Within raise limit should render
         class="lbh-link"
         href="/"
       >
-        <strong>
-          Start a new search
-        </strong>
+        Manage work orders
       </a>
     </li>
   </ul>

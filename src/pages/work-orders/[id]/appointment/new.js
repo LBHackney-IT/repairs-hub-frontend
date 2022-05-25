@@ -14,7 +14,7 @@ const AppointmentPage = ({ query }) => {
       <AppointmentView
         workOrderReference={query.id}
         successText={
-          query.newOrder ? 'Repair work order created' : 'Appointment created'
+          query.newOrder ? 'Work order created' : 'Appointment created'
         }
       />
     </>

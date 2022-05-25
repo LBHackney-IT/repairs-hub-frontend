@@ -12,7 +12,9 @@ import {
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
-import CloseWorkOrderSuccessPage from './CloseWorkOrderSuccessPage'
+import SuccessPage from '../SuccessPage/index'
+import Panel from '@/components/Template/Panel'
+import { generalLinks } from '@/utils/successPageLinks'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -246,8 +248,14 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                 />
               )}
               {currentPage === CONFIRMATION_PAGE && (
-                <CloseWorkOrderSuccessPage
-                  workOrderReference={workOrder.reference}
+                <SuccessPage
+                  banner={
+                    <Panel
+                      title="Work order closed"
+                      workOrderReference={workOrder.reference}
+                    />
+                  }
+                  links={generalLinks(workOrder.reference)}
                 />
               )}
 

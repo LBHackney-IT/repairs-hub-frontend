@@ -102,12 +102,26 @@ describe('Contract manager can authorise variation', () => {
 
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
-        'You have rejected a variation'
+        'Variation request rejected'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Work order number')
+        cy.contains('Reference number')
         cy.contains('10000012')
       })
+    })
+    // Actions to see relevant pages
+    cy.get('.lbh-list').within(() => {
+      cy.contains(
+        'Raise a new work order for 16 Pitcairn House St Thomass Square'
+      ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012'
+      )
     })
   })
 
@@ -158,12 +172,22 @@ describe('Contract manager can authorise variation', () => {
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
-        'You have approved a variation'
+        'Variation request approved'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Work order number')
+        cy.contains('Reference number')
         cy.contains('10000012')
       })
+    })
+
+    cy.get('.lbh-list').within(() => {
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012'
+      )
     })
   })
 
@@ -313,12 +337,26 @@ describe('Contract manager can authorise variation', () => {
     // Confirmation screen
     cy.get('.lbh-page-announcement').within(() => {
       cy.get('.lbh-page-announcement__title').contains(
-        'You have rejected a variation'
+        'Variation request rejected'
       )
       cy.get('.lbh-page-announcement__content').within(() => {
-        cy.contains('Work order number')
+        cy.contains('Reference number')
         cy.contains('10000012')
       })
+    })
+
+    cy.get('.lbh-list').within(() => {
+      cy.contains(
+        'Raise a new work order for 16 Pitcairn House St Thomass Square'
+      ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012'
+      )
     })
   })
 

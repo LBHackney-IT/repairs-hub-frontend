@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
-import SuccessPage from '../../SuccessPage'
+import SuccessPage from '@/components/SuccessPage'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
@@ -13,6 +13,8 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
+import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
+import Panel from '@/components/Template/Panel'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -47,11 +49,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setExternalAppointmentManagementUrl,
   ] = useState()
   const [
-    immediateOrEmergencyDloRepairText,
-    setImmediateOrEmergencyDloRepairText,
+    immediateOrEmergencyRepairText,
+    setImmediateOrEmergencyRepairText,
   ] = useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
+  const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -75,7 +78,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
         if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          setImmediateOrEmergencyDloRepairText(true)
+          setImmediateOrEmergencyRepairText(true)
+          setImmediateOrEmergencyDLO(true)
         } else {
           const schedulerSessionId = await getOrCreateSchedulerSessionId()
 
@@ -148,6 +152,19 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setLoading(false)
   }
 
+  const warningTextToShow = () => {
+    if (immediateOrEmergencyRepairText) {
+      if (immediateOrEmergencyDLO) {
+        return 'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+      } else
+        return 'Emergency and immediate repairs must be booked immediately. Please call the external contractor.'
+    } else if (authorisationPendingApproval) {
+      return 'Please request authorisation from a manager.'
+    } else {
+      return ''
+    }
+  }
+
   useEffect(() => {
     setLoading(true)
 
@@ -169,18 +186,26 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
           {formSuccess && workOrderReference && property && (
             <>
               <SuccessPage
-                propertyReference={propertyReference}
-                workOrderReference={workOrderReference}
-                shortAddress={property.address.shortAddress}
-                text={'Repair work order created'}
-                showSearchLink={true}
-                authorisationPendingApproval={authorisationPendingApproval}
-                externalSchedulerLink={
-                  externallyManagedAppointment &&
-                  externalAppointmentManagementUrl
+                banner={
+                  <Panel
+                    title="Work order created"
+                    authorisationText={
+                      authorisationPendingApproval &&
+                      'but requires authorisation'
+                    }
+                    workOrderReference={workOrderReference}
+                  />
                 }
-                immediateOrEmergencyDloRepairText={
-                  immediateOrEmergencyDloRepairText
+                warningText={warningTextToShow()}
+                links={
+                  externallyManagedAppointment
+                    ? LinksWithDRSBooking(
+                        workOrderReference,
+                        property,
+                        externalAppointmentManagementUrl,
+                        currentUser.name
+                      )
+                    : createWOLinks(workOrderReference, property)
                 }
               />
             </>

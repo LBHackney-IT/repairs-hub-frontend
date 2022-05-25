@@ -6,7 +6,7 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import BackButton from '../../Layout/BackButton'
 import Radios from '../../Form/Radios'
-import SuccessPage from '../../SuccessPage'
+import SuccessPage from '../../SuccessPage/index'
 import WarningText from '../../Template/WarningText'
 import { TextArea, PrimarySubmitButton } from '../../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
@@ -16,6 +16,12 @@ import {
 } from '@/utils/hact/jobStatusUpdate/authorisation'
 import { calculateTotal } from '@/utils/helpers/calculations'
 import { WorkOrder } from '@/models/workOrder'
+import PageAnnouncement from '@/components/Template/PageAnnouncement'
+import Panel from '@/components/Template/Panel'
+import {
+  authorisationApprovedLinks,
+  cancelWorkOrderLinks,
+} from '@/utils/successPageLinks'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -33,6 +39,7 @@ const AuthorisationView = ({ workOrderReference }) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
+  const [shortAddress, setShortAddress] = useState()
 
   const onSubmitForm = (e) => {
     const formData =
@@ -87,7 +94,7 @@ const AuthorisationView = ({ workOrderReference }) => {
         method: 'get',
         path: '/api/hub-user',
       })
-
+      setShortAddress(workOrder.property)
       setRaiseSpendLimit(parseFloat(user.raiseLimit))
 
       const totalCost = calculateTotal(tasksAndSors, 'cost', 'quantity')
@@ -176,15 +183,28 @@ const AuthorisationView = ({ workOrderReference }) => {
           )}
           {formSuccess && (
             <SuccessPage
-              workOrderReference={workOrderReference}
-              text={
-                authorisationApproved
-                  ? 'You have approved the authorisation request'
-                  : 'You have rejected the authorisation request'
+              banner={
+                authorisationApproved ? (
+                  <PageAnnouncement
+                    title="Authorisation request approved"
+                    workOrderReference={workOrderReference}
+                  />
+                ) : (
+                  <Panel
+                    title="Work order cancelled, authorisation request rejected"
+                    workOrderReference={workOrderReference}
+                  />
+                )
               }
-              showDashboardLink={true}
-              showNewWorkOrderLink={targetDatePassed}
-              propertyReference={propertyReference}
+              links={
+                authorisationApproved
+                  ? authorisationApprovedLinks(workOrderReference)
+                  : cancelWorkOrderLinks(
+                      workOrderReference,
+                      propertyReference,
+                      shortAddress
+                    )
+              }
             />
           )}
         </>
