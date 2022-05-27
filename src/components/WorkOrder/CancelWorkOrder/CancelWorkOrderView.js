@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
-import CancelWorkOrderFormSuccess from './CancelWorkOrderFormSuccess'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
+import SuccessPage from '../../SuccessPage/index'
+import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
+import Panel from '@/components/Template/Panel'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
@@ -67,10 +69,18 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
       ) : (
         <>
           {formSuccess && workOrder && (
-            <CancelWorkOrderFormSuccess
-              workOrderReference={workOrderReference}
-              propertyReference={workOrder.propertyReference}
-              shortAddress={workOrder.property}
+            <SuccessPage
+              banner={
+                <Panel
+                  title="Work order cancelled"
+                  workOrderReference={workOrderReference}
+                />
+              }
+              links={cancelWorkOrderLinks(
+                workOrderReference,
+                workOrder.propertyReference,
+                workOrder.property
+              )}
             />
           )}
           {!formSuccess && workOrder && (

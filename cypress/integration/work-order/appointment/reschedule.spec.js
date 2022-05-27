@@ -149,7 +149,7 @@ describe('Rescheduling work order appointments', () => {
 
         cy.get('.govuk-panel').within(() => {
           cy.contains('Appointment rescheduled')
-          cy.contains('Work order number')
+          cy.contains('Reference number')
           cy.contains('10000012')
           cy.contains('Thursday, 11 March')
           cy.contains('Comments: 10 am works for me')

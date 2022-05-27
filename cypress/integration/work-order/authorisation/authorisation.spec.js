@@ -49,7 +49,10 @@ describe('Authorisation workflow for a work order', () => {
     it('Rejects to authorise work order', () => {
       cy.visit('/work-orders/10000012')
 
-      cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksAndSorsRequest'])
+      cy.wait(
+        ['@workOrderRequest', '@propertyRequest', '@tasksAndSorsRequest'],
+        { requestTimeout: 7000 }
+      )
 
       cy.get('.govuk-grid-column-one-third').within(() => {
         cy.contains('a', 'Authorisation')
@@ -87,24 +90,28 @@ describe('Authorisation workflow for a work order', () => {
         })
 
       // Confirmation screen
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'You have rejected the authorisation request'
+
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains(
+          'Work order cancelled, authorisation request rejected'
         )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10000012')
         })
       })
 
       // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
+        cy.contains(
+          'Raise a new work order for 16 Pitcairn House St Thomass Square'
+        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
         cy.contains('View work order').should(
           'have.attr',
           'href',
           '/work-orders/10000012'
         )
-        cy.contains('Back to dashboard').should('have.attr', 'href', '/')
+        cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
 
       cy.audit()
@@ -130,9 +137,9 @@ describe('Authorisation workflow for a work order', () => {
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
       cy.get('[type="radio"]').check('Approve request')
-      cy.get('[type="submit"]').contains('Submit').click()
+      cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-      cy.wait('@apiCheck')
+      cy.wait('@apiCheck', { requestTimeout: 7000 })
 
       cy.get('@apiCheck')
         .its('request.body')
@@ -146,22 +153,27 @@ describe('Authorisation workflow for a work order', () => {
       // Confirmation screen
       cy.get('.lbh-page-announcement').within(() => {
         cy.get('.lbh-page-announcement__title').contains(
-          'You have approved the authorisation request'
+          'Authorisation request approved'
         )
         cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+          cy.contains('Reference number')
           cy.contains('10000012')
         })
       })
 
       // Actions to see relevant pages
       cy.get('.lbh-list li').within(() => {
+        cy.contains('Book an appointment on DRS').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012/appointment/new'
+        )
         cy.contains('View work order').should(
           'have.attr',
           'href',
           '/work-orders/10000012'
         )
-        cy.contains('Back to dashboard').should('have.attr', 'href', '/')
+        cy.contains('Manage work orders').should('have.attr', 'href', '/')
       })
     })
 
@@ -222,14 +234,27 @@ describe('Authorisation workflow for a work order', () => {
         })
 
       // Confirmation screen
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'You have rejected the authorisation request'
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains(
+          'Work order cancelled, authorisation request rejected'
         )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10000012')
         })
+      })
+
+      // Actions to see relevant pages
+      cy.get('.lbh-list li').within(() => {
+        cy.contains(
+          'Raise a new work order for 16 Pitcairn House St Thomass Square'
+        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+        cy.contains('View work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012'
+        )
+        cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
     })
 
@@ -264,19 +289,27 @@ describe('Authorisation workflow for a work order', () => {
         })
 
       // Confirmation screen
-      cy.get('.lbh-page-announcement').within(() => {
-        cy.get('.lbh-page-announcement__title').contains(
-          'You have rejected the authorisation request'
+      cy.get('.govuk-panel').within(() => {
+        cy.get('.govuk-panel__title').contains(
+          'Work order cancelled, authorisation request rejected'
         )
-        cy.get('.lbh-page-announcement__content').within(() => {
-          cy.contains('Work order number')
+        cy.get('.govuk-panel__body').within(() => {
+          cy.contains('Reference number')
           cy.contains('10000012')
         })
       })
 
-      // Shows the new work order link
-      cy.get('.lbh-link').within(() => {
-        cy.contains('Raise a new work order')
+      // Actions to see relevant pages
+      cy.get('.lbh-list li').within(() => {
+        cy.contains(
+          'Raise a new work order for 16 Pitcairn House St Thomass Square'
+        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+        cy.contains('View work order').should(
+          'have.attr',
+          'href',
+          '/work-orders/10000012'
+        )
+        cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
     })
   })

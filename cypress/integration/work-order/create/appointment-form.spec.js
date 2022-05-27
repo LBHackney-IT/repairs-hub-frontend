@@ -371,8 +371,8 @@ describe('Schedule appointment form', () => {
           otherType: 'addNote',
         })
 
-      cy.contains('Repair work order created')
-      cy.contains('Work order number')
+      cy.contains('Work order created')
+      cy.contains('Reference number')
 
       cy.contains('10102030')
 
