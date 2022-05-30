@@ -11,6 +11,7 @@ const AddMultipleSORs = ({
   sorExistenceValidationCallback,
   setSorCodesFromBatchUpload,
   setAnnouncementMessage,
+  setIsPriorityEnabled,
 }) => {
   const { register, handleSubmit, errors } = useForm()
 
@@ -43,7 +44,9 @@ const AddMultipleSORs = ({
           : setAnnouncementMessage('')
 
         setSorCodesFromBatchUpload(validator.validatedCodeSet)
-
+        if (sorCodes.length > 0) {
+          setIsPriorityEnabled(true)
+        }
         setPageBackToFormView()
       }
     } else {

@@ -46,6 +46,7 @@ const RaiseWorkOrderForm = ({
   raiseLimit,
   setPageToMultipleSORs,
   formState,
+  isPriorityEnabled,
 }) => {
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
@@ -167,6 +168,8 @@ const RaiseWorkOrderForm = ({
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
+    isPriorityEnabled &&
+      (document.getElementById('priorityCode').disabled = false)
   }, [])
 
   return (

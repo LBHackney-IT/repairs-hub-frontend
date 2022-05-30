@@ -68,6 +68,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const ADDING_MULTIPLE_SOR_PAGE = 2
   const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
+  const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -306,6 +307,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                   setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
                 }}
                 formState={formState}
+                isPriorityEnabled={isPriorityEnabled}
+                setIsPriorityEnabled={setIsPriorityEnabled}
               />
             )}
 
@@ -321,6 +324,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
               )}
               setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
               setAnnouncementMessage={setAnnouncementMessage}
+              setIsPriorityEnabled={setIsPriorityEnabled}
             />
           )}
 
