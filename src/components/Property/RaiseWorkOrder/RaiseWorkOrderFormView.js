@@ -69,6 +69,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
   const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
+  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
+    false
+  )
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -308,7 +311,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 }}
                 formState={formState}
                 isPriorityEnabled={isPriorityEnabled}
-                setIsPriorityEnabled={setIsPriorityEnabled}
+                isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+                setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               />
             )}
 

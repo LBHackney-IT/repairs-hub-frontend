@@ -47,6 +47,8 @@ const RaiseWorkOrderForm = ({
   setPageToMultipleSORs,
   formState,
   isPriorityEnabled,
+  isIncrementalSearchEnabled,
+  setIsIncrementalSearchEnabled,
 }) => {
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
@@ -224,6 +226,8 @@ const RaiseWorkOrderForm = ({
               setTotalCost={setTotalCost}
               setValue={setValue}
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
+              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
             />
 
             <SelectPriority
