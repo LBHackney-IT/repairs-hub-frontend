@@ -323,6 +323,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
               )}
               setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
               sorExistenceValidationCallback={createSorExistenceValidator(
+                tradeCode,
                 propertyReference,
                 contractorReference
               )}

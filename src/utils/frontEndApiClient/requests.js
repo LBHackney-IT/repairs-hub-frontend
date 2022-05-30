@@ -36,7 +36,11 @@ export const fetchFeatureToggles = async () => {
   }
 }
 
-export const createSorExistenceValidator = (propertyRef, contractorRef) => {
+export const createSorExistenceValidator = (
+  tradeCode,
+  propertyRef,
+  contractorRef
+) => {
   return async (codesForValidation) => {
     const validationResults = {
       allCodesValid: false,
@@ -53,12 +57,13 @@ export const createSorExistenceValidator = (propertyRef, contractorRef) => {
         method: 'get',
         path: '/api/schedule-of-rates/check',
         params: {
+          tradeCode: tradeCode,
           propertyReference: propertyRef,
           contractorReference: contractorRef,
           sorCode: codesForValidation,
           isRaisable: true,
         },
-        paramsSerializer,
+        ...(paramsSerializer && { paramsSerializer }),
       })
 
       validationResults.validCodes = sorCodes.filter((sorCodeObj) =>

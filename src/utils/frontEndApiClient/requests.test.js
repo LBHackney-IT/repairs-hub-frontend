@@ -5,6 +5,7 @@ import {
 } from './requests'
 import axios from 'axios'
 jest.mock('axios', () => jest.fn())
+import { paramsSerializer } from '@/utils/urls'
 
 describe('frontEndApiRequest`', () => {
   it('calls axios with the expected parameters and returns data', async () => {
@@ -115,24 +116,33 @@ describe('fetchFeatureToggles', () => {
 
         const validationResults = await validator([
           '12345678',
-          'ABCD1234',
           'ABCDEFGH',
+          'ABCD1234',
         ])
 
         expect(axios).toHaveBeenCalledWith({
           method: 'get',
-          url: '/api/schedule-of-rates/codes',
+          url: '/api/schedule-of-rates/check',
+          paramsSerializer,
           params: {
             tradeCode: 'tradeCode',
             propertyReference: 'propertyRef',
             contractorReference: 'contractorRef',
+            sorCode: ['12345678', 'ABCDEFGH', 'ABCD1234'],
             isRaisable: true,
           },
         })
 
         expect(validationResults).toEqual({
           allCodesValid: false,
-          validCodes: ['12345678', 'ABCDEFGH'],
+          validCodes: [
+            {
+              code: '12345678',
+            },
+            {
+              code: 'ABCDEFGH',
+            },
+          ],
           invalidCodes: ['ABCD1234'],
         })
       })
@@ -168,18 +178,30 @@ describe('fetchFeatureToggles', () => {
 
         expect(axios).toHaveBeenCalledWith({
           method: 'get',
-          url: '/api/schedule-of-rates/codes',
+          url: '/api/schedule-of-rates/check',
+          paramsSerializer,
           params: {
             tradeCode: 'tradeCode',
             propertyReference: 'propertyRef',
             contractorReference: 'contractorRef',
+            sorCode: ['12345678', 'ABCD1234', 'ABCDEFGH'],
             isRaisable: true,
           },
         })
 
         expect(validationResults).toEqual({
           allCodesValid: true,
-          validCodes: ['12345678', 'ABCD1234', 'ABCDEFGH'],
+          validCodes: [
+            {
+              code: '12345678',
+            },
+            {
+              code: 'ABCDEFGH',
+            },
+            {
+              code: 'ABCD1234',
+            },
+          ],
           invalidCodes: [],
         })
       })
