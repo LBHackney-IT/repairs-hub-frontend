@@ -37,6 +37,9 @@ const TradeContractorRateScheduleItemView = ({
   getPriorityObjectByCode,
   setTotalCost,
   setValue,
+  setPageToMultipleSORs,
+  isIncrementalSearchEnabled,
+  setIsIncrementalSearchEnabled,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -44,11 +47,6 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingContractors, setLoadingContractors] = useState(false)
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
-
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState(false)
 
   let multiTradeSORIncrementalSearchEnabled = null
 
@@ -90,7 +88,7 @@ const TradeContractorRateScheduleItemView = ({
       tradeCode === MULTITRADE_TRADE_CODE
 
     if (!orderApplicable) {
-      setOrderRequiresIncrementalSearch(false)
+      setIsIncrementalSearchEnabled(false)
       return false
     }
 
@@ -102,7 +100,7 @@ const TradeContractorRateScheduleItemView = ({
       ]
     }
 
-    setOrderRequiresIncrementalSearch(
+    setIsIncrementalSearchEnabled(
       orderApplicable && multiTradeSORIncrementalSearchEnabled
     )
 
@@ -325,7 +323,8 @@ const TradeContractorRateScheduleItemView = ({
         setTotalCost={setTotalCost}
         sorCodeArrays={sorCodeArrays}
         setSorCodeArrays={setSorCodeArrays}
-        sorSearchRequest={orderRequiresIncrementalSearch && sorSearchRequest}
+        sorSearchRequest={isIncrementalSearchEnabled && sorSearchRequest}
+        setPageToMultipleSORs={setPageToMultipleSORs}
       />
     </>
   )
@@ -346,6 +345,7 @@ TradeContractorRateScheduleItemView.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView
