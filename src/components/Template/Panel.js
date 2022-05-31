@@ -2,34 +2,19 @@ import PropTypes from 'prop-types'
 
 export const Panel = (props) => (
   <div className="govuk-panel govuk-panel--confirmation lbh-panel">
-    <h1 className="govuk-panel__title">
+    <h1 className="govuk-panel__title govuk-!-margin-bottom-1">
       {props.title} {props.authorisationText}
     </h1>
-    <div className="govuk-panel__body">
-      <p>Reference number</p>
-      <strong className="govuk-!-font-size-41">
-        {props.workOrderReference}
-      </strong>
+    <div className="govuk-panel__body govuk-!-margin-top-0">
+      <p>Reference number {props.workOrderReference}</p>
 
       {props.dateSelected && (
-        <strong className="govuk-!-font-size-36">
-          <br />
-          <br />
-          {props.dateSelected}
-        </strong>
-      )}
-
-      {props.slot && (
-        <strong className="govuk-!-font-size-36">
-          <br />
-          {props.slot.split(' ')[0]}
-        </strong>
+        <p>
+          {props.dateSelected} {`${props.slot && props.slot.split(' ')[0]}`}
+        </p>
       )}
       {props.comments && (
-        <p>
-          <br />
-          Comments: {props.comments}
-        </p>
+        <p className="govuk-!-margin-top-1">Comments: {props.comments}</p>
       )}
     </div>
   </div>

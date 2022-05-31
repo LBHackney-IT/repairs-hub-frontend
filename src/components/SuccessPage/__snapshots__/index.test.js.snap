@@ -60,21 +60,16 @@ exports[`SuccessPage component Authorisation rejected should render a success sc
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order cancelled, authorisation request rejected 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <ul
@@ -114,21 +109,16 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order created but requires authorisation 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <div
@@ -188,21 +178,16 @@ exports[`SuccessPage component Raising a repair creates Emergency/Immediate DLO 
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order created 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <div
@@ -262,21 +247,16 @@ exports[`SuccessPage component Raising a repair creates Emergency/Immediate WO f
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order created 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <div
@@ -336,36 +316,22 @@ exports[`SuccessPage component Raising a repair creates WO with RH appointment s
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order created 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
-      <strong
-        class="govuk-!-font-size-36"
-      >
-        <br />
-        <br />
-        Thursday, 11 March
-      </strong>
-      <strong
-        class="govuk-!-font-size-36"
-      >
-        <br />
-        AM
-      </strong>
       <p>
-        <br />
+        Thursday, 11 March AM
+      </p>
+      <p
+        class="govuk-!-margin-top-1"
+      >
         Comments: 10 am works for me
       </p>
     </div>
@@ -407,21 +373,16 @@ exports[`SuccessPage component Raising a repair creates WO with an external sche
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order created 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <ul
@@ -637,21 +598,16 @@ exports[`SuccessPage component WO cancelled should render a success screen with 
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order cancelled 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <ul
@@ -691,21 +647,16 @@ exports[`SuccessPage component WO closed should render a success screen 1`] = `
     class="govuk-panel govuk-panel--confirmation lbh-panel"
   >
     <h1
-      class="govuk-panel__title"
+      class="govuk-panel__title govuk-!-margin-bottom-1"
     >
       Work order closed 
     </h1>
     <div
-      class="govuk-panel__body"
+      class="govuk-panel__body govuk-!-margin-top-0"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-41"
-      >
-        10000012
-      </strong>
     </div>
   </div>
   <ul
