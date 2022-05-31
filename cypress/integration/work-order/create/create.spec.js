@@ -975,7 +975,7 @@ describe('Raise repair form', () => {
             cy.get('[type="submit"]').contains('Create work order').click()
           })
 
-          cy.wait('@apiCheck').then(({ request }) => {
+          cy.wait('@apiCheck', { requestTimeout: 9000 }).then(({ request }) => {
             const referenceIdUuid = request.body.reference[0].id
 
             cy.wrap(request.body).should('deep.include', {
