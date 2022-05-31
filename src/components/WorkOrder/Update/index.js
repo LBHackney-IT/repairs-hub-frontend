@@ -219,8 +219,11 @@ const WorkOrderUpdateView = ({ reference }) => {
                       ? generalLinks(reference)
                       : updateWorkOrderLinks(reference)
                   }
-                  showWarningText={overSpendLimit}
-                  warningText="Please request authorisation from a manager."
+                  warningText={
+                    overSpendLimit
+                      ? 'Please request authorisation from a manager.'
+                      : ''
+                  }
                 />
               )}
               {currentPage === FORM_PAGE && (
