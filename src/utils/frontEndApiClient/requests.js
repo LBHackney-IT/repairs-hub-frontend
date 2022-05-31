@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { paramsSerializer } from '@/utils/urls'
 
 export const frontEndApiRequest = async ({
   method,
@@ -33,60 +32,5 @@ export const fetchFeatureToggles = async () => {
     )
 
     return {}
-  }
-}
-
-export const createSorExistenceValidator = (
-  tradeCode,
-  propertyRef,
-  contractorRef
-) => {
-  return async (codesForValidation) => {
-    const validationResults = {
-      allCodesValid: false,
-      validCodes: [],
-      invalidCodes: [],
-    }
-
-    if (codesForValidation.length === 0) {
-      return { ...validationResults, allCodesValid: true }
-    }
-
-    try {
-      const sorCodes = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/schedule-of-rates/check',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          sorCode: codesForValidation,
-          isRaisable: true,
-        },
-        ...(paramsSerializer && { paramsSerializer }),
-      })
-
-      validationResults.validCodes = sorCodes.filter((sorCodeObj) =>
-        codesForValidation.includes(sorCodeObj.code)
-      )
-
-      const validCodes = validationResults.validCodes.map(
-        (sorCodeObj) => sorCodeObj.code
-      )
-
-      validationResults.invalidCodes = codesForValidation.filter(
-        (code) => !validCodes.includes(code)
-      )
-
-      if (validationResults.validCodes.length === codesForValidation.length) {
-        validationResults.allCodesValid = true
-      }
-
-      return validationResults
-    } catch (e) {
-      throw new Error(
-        `Cannot fetch SOR codes for validation: ${JSON.stringify(e)}`
-      )
-    }
   }
 }

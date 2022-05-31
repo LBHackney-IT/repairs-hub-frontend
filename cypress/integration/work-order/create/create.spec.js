@@ -975,7 +975,7 @@ describe('Raise repair form', () => {
             cy.get('[type="submit"]').contains('Create work order').click()
           })
 
-          cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
+          cy.wait('@apiCheck').then(({ request }) => {
             const referenceIdUuid = request.body.reference[0].id
 
             cy.wrap(request.body).should('deep.include', {
@@ -1244,7 +1244,7 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]').contains('Create work order').click()
       })
 
-      cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
+      cy.wait('@apiCheck').then(({ request }) => {
         cy.wrap(request.body).should('deep.include', {
           priority: {
             priorityCode: IMMEDIATE_PRIORITY_CODE,
@@ -1364,7 +1364,7 @@ describe('Raise repair form', () => {
       // Submit form for high cost (over raise limit) authorisation
       cy.get('[type="submit"]').contains('Create work order').click()
 
-      cy.wait('@apiCheck', { requestTimeout: 7000 })
+      cy.wait('@apiCheck')
 
       // Confirmation screen
       cy.get('.govuk-panel').within(() => {
@@ -1567,7 +1567,7 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]').contains('Create work order').click()
       })
 
-      cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
+      cy.wait('@apiCheck').then(({ request }) => {
         cy.wrap(request.body).should('not.have.property', 'budgetCode')
       })
     })

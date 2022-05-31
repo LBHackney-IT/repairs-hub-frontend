@@ -44,16 +44,8 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
-  setPageToMultipleSORs,
-  formState,
-  isPriorityEnabled,
-  isIncrementalSearchEnabled,
-  setIsIncrementalSearchEnabled,
 }) => {
-  const { register, handleSubmit, errors, setValue, getValues } = useForm({
-    defaultValues: { ...formState },
-  })
-
+  const { register, handleSubmit, errors, setValue } = useForm()
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
   const [priorityCode, setPriorityCode] = useState()
@@ -170,8 +162,6 @@ const RaiseWorkOrderForm = ({
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    isPriorityEnabled &&
-      (document.getElementById('priorityCode').disabled = false)
   }, [])
 
   return (
@@ -225,9 +215,6 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
-              setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
             />
 
             <SelectPriority
@@ -328,7 +315,6 @@ RaiseWorkOrderForm.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm
