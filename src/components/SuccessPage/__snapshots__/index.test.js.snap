@@ -133,7 +133,7 @@ exports[`SuccessPage component Raising a repair High cost (over raise limit) aut
       >
         Warning
       </span>
-      Please request authorisation from a manager.
+      Please request authorisation from a manager
     </strong>
   </div>
   <ul
@@ -202,7 +202,7 @@ exports[`SuccessPage component Raising a repair creates Emergency/Immediate DLO 
       >
         Warning
       </span>
-      Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.
+      Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked
     </strong>
   </div>
   <ul
@@ -271,7 +271,7 @@ exports[`SuccessPage component Raising a repair creates Emergency/Immediate WO f
       >
         Warning
       </span>
-      Emergency and immediate repairs must be booked immediately. Please call the external contractor.
+      Emergency and immediate repairs must be booked immediately. Please call the external contractor
     </strong>
   </div>
   <ul
@@ -546,7 +546,7 @@ exports[`SuccessPage component Variation requires authorisation should render a 
       >
         Warning
       </span>
-      Please request authorisation from a manager.
+      Please request authorisation from a manager
     </strong>
   </div>
   <ul

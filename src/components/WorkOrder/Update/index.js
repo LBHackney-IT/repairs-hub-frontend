@@ -221,7 +221,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   }
                   warningText={
                     overSpendLimit
-                      ? 'Please request authorisation from a manager.'
+                      ? 'Please request authorisation from a manager'
                       : ''
                   }
                 />

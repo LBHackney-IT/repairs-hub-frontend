@@ -85,7 +85,7 @@ describe('SuccessPage component', () => {
                 workOrderReference={props.workOrder.workOrderReference}
               />
             }
-            warningText="Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked."
+            warningText="Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked"
             links={createWOLinks(
               props.workOrder.workOrderReference,
               props.property
@@ -106,7 +106,7 @@ describe('SuccessPage component', () => {
                 workOrderReference={props.workOrder.workOrderReference}
               />
             }
-            warningText="Emergency and immediate repairs must be booked immediately. Please call the external contractor."
+            warningText="Emergency and immediate repairs must be booked immediately. Please call the external contractor"
             links={createWOLinks(
               props.workOrder.workOrderReference,
               props.property
@@ -127,7 +127,7 @@ describe('SuccessPage component', () => {
                 workOrderReference={props.workOrder.workOrderReference}
               />
             }
-            warningText="Please request authorisation from a manager."
+            warningText="Please request authorisation from a manager"
             links={createWOLinks(
               props.workOrder.workOrderReference,
               props.property
@@ -205,7 +205,7 @@ describe('SuccessPage component', () => {
           }
           links={generalLinks(props.workOrder.workOrderReference)}
           showWarningText={true}
-          warningText="Please request authorisation from a manager."
+          warningText="Please request authorisation from a manager"
         />
       )
       expect(asFragment()).toMatchSnapshot()
