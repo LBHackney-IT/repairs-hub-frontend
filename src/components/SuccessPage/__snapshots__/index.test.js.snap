@@ -14,13 +14,8 @@ exports[`SuccessPage component Authorisation approved should render a success sc
       class="lbh-page-announcement__content"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
     </div>
   </section>
   <ul
@@ -440,13 +435,8 @@ exports[`SuccessPage component Variation approved should render a success screen
       class="lbh-page-announcement__content"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
     </div>
   </section>
   <ul
@@ -486,13 +476,8 @@ exports[`SuccessPage component Variation rejected should render a success screen
       class="lbh-page-announcement__content"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
     </div>
   </section>
   <ul
@@ -540,13 +525,8 @@ exports[`SuccessPage component Variation requires authorisation should render a 
       class="lbh-page-announcement__content"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
     </div>
   </section>
   <div
@@ -696,13 +676,8 @@ exports[`SuccessPage component WO update should render a success screen 1`] = `
       class="lbh-page-announcement__content"
     >
       <p>
-        Reference number
+        Reference number 10000012
       </p>
-      <strong
-        class="govuk-!-font-size-24"
-      >
-        10000012
-      </strong>
     </div>
   </section>
   <ul
