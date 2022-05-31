@@ -90,7 +90,7 @@ describe('Contract manager can authorise variation', () => {
 
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 9000 })
+    cy.wait('@apiCheck', { requestTimeout: 8000 })
       .its('request.body')
       .should('deep.equal', {
         relatedWorkOrderReference: {
@@ -158,7 +158,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('[type="radio"]').check('Approve request')
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 9000 })
+    cy.wait('@apiCheck', { requestTimeout: 8000 })
 
     cy.get('@apiCheck')
       .its('request.body')
@@ -322,7 +322,7 @@ describe('Contract manager can authorise variation', () => {
     cy.get('[type="submit"]').contains('Continue').click({ force: true })
     cy.get('[type="submit"]').contains('Submit').click({ force: true })
 
-    cy.wait('@apiCheck', { requestTimeout: 9000 })
+    cy.wait('@apiCheck', { requestTimeout: 8000 })
 
     cy.get('@apiCheck')
       .its('request.body')

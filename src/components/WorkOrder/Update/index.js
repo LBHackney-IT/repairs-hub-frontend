@@ -18,7 +18,6 @@ import {
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
-import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -29,10 +28,12 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [workOrder, setWorkOrder] = useState()
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
+  const [showSummaryPage, setShowSummaryPage] = useState(false)
   const [
     showAdditionalRateScheduleItems,
     setShowAdditionalRateScheduleItems,
   ] = useState(false)
+  const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
   const [contractorReference, setContractorReference] = useState()
@@ -41,12 +42,6 @@ const WorkOrderUpdateView = ({ reference }) => {
     setOrderRequiresIncrementalSearch,
   ] = useState()
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
-
-  const FORM_PAGE = 1
-  const ADDING_MULTIPLE_SOR_PAGE = 2
-  const SUMMARY_PAGE = 3
-  const UPDATE_SUCCESS_PAGE = 4
-  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -61,12 +56,12 @@ const WorkOrderUpdateView = ({ reference }) => {
         : []
     )
 
-    setCurrentPage(SUMMARY_PAGE)
+    setShowSummaryPage(true)
   }
 
   const changeCurrentPage = () => {
     setShowAdditionalRateScheduleItems(true)
-    setCurrentPage(FORM_PAGE)
+    setShowSummaryPage(false)
   }
 
   const onFormSubmit = async (formData, overSpendLimit) => {
@@ -79,7 +74,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         requestData: formData,
       })
       setOverSpendLimit(overSpendLimit)
-      setCurrentPage(UPDATE_SUCCESS_PAGE)
+      setShowUpdateSuccess(true)
     } catch (e) {
       console.error(e)
 
@@ -202,7 +197,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         <>
           {currentUser && tasks && (
             <>
-              {currentPage == UPDATE_SUCCESS_PAGE && (
+              {showUpdateSuccess && (
                 <SuccessPage
                   banner={
                     <PageAnnouncement
@@ -223,7 +218,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   warningText="Please request authorisation from a manager."
                 />
               )}
-              {currentPage === FORM_PAGE && (
+              {!showSummaryPage && !showUpdateSuccess && (
                 <>
                   <BackButton />
                   <h1 className="lbh-heading-h1">
@@ -246,13 +241,10 @@ const WorkOrderUpdateView = ({ reference }) => {
                     }
                     sorCodeArrays={sorCodeArrays}
                     setSorCodeArrays={setSorCodeArrays}
-                    setPageToMultipleSORs={() =>
-                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                    }
                   />
                 </>
               )}
-              {currentPage === SUMMARY_PAGE && (
+              {showSummaryPage && !showUpdateSuccess && (
                 <WorkOrderUpdateSummary
                   latestTasks={tasks}
                   originalTasks={originalTasks}
@@ -263,11 +255,6 @@ const WorkOrderUpdateView = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   variationReason={variationReason}
                   budgetCode={budgetCode}
-                />
-              )}
-              {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-                <AddMultipleSORs
-                  setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
                 />
               )}
             </>

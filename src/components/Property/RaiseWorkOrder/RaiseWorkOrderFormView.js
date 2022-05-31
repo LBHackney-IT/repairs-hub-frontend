@@ -5,10 +5,7 @@ import SuccessPage from '@/components/SuccessPage'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
-import {
-  createSorExistenceValidator,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
@@ -18,7 +15,6 @@ import Meta from '../../Meta'
 import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
-import AddMultipleSORs from './AddMultipleSORs'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -37,10 +33,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [priorities, setPriorities] = useState([])
   const [contacts, setContacts] = useState([])
 
-  const [formState, setFormState] = useState({})
-
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [formSuccess, setFormSuccess] = useState(false)
   const [
     authorisationPendingApproval,
     setAuthorisationPendingApproval,
@@ -57,21 +52,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     immediateOrEmergencyRepairText,
     setImmediateOrEmergencyRepairText,
   ] = useState(false)
-
-  const [announcementMessage, setAnnouncementMessage] = useState('')
-
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
-
-  const FORM_PAGE = 1
-  const ADDING_MULTIPLE_SOR_PAGE = 2
-  const RAISE_SUCCESS_PAGE = 3
-  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
-  const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
-  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
-    false
-  )
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -118,7 +101,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         return
       }
 
-      setCurrentPage(RAISE_SUCCESS_PAGE)
+      setFormSuccess(true)
     } catch (e) {
       console.error(e)
 
@@ -189,47 +172,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
-  const setSorCodesFromBatchUpload = (sorCodes) => {
-    setSorCodeArrays(() => {
-      return [
-        ...sorCodeArrays
-          .filter(
-            (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-          )
-          .map((a) => [a]),
-        ...sorCodes.map((c) => [c]),
-      ]
-    })
-
-    setFormState((formState) => {
-      return {
-        ...formState,
-        rateScheduleItems: [
-          ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
-          ...sorCodes.map((code) => ({
-            code: `${code.code} - ${code.shortDescription}`,
-            cost: code.cost.toString(),
-            description: code.shortDescription,
-          })),
-        ],
-      }
-    })
-  }
-
-  const renderAnnouncement = () => {
-    return (
-      announcementMessage && (
-        <section className="lbh-page-announcement">
-          <div className="lbh-page-announcement__content">
-            <strong className="govuk-!-font-size-24">
-              {announcementMessage}
-            </strong>
-          </div>
-        </section>
-      )
-    )
-  }
-
   return (
     <>
       {loading ? (
@@ -242,40 +184,34 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 title: `New repair at ${property.address.addressLine}`,
               })}
           />
-
-          {currentPage === RAISE_SUCCESS_PAGE &&
-            workOrderReference &&
-            property && (
-              <>
-                <SuccessPage
-                  banner={
-                    <Panel
-                      title="Work order created"
-                      authorisationText={
-                        authorisationPendingApproval &&
-                        'but requires authorisation'
-                      }
-                      workOrderReference={workOrderReference}
-                    />
-                  }
-                  warningText={warningTextToShow()}
-                  links={
-                    externallyManagedAppointment
-                      ? LinksWithDRSBooking(
-                          workOrderReference,
-                          property,
-                          externalAppointmentManagementUrl,
-                          currentUser.name
-                        )
-                      : createWOLinks(workOrderReference, property)
-                  }
-                />
-              </>
-            )}
-
-          {renderAnnouncement()}
-
-          {currentPage === FORM_PAGE &&
+          {formSuccess && workOrderReference && property && (
+            <>
+              <SuccessPage
+                banner={
+                  <Panel
+                    title="Work order created"
+                    authorisationText={
+                      authorisationPendingApproval &&
+                      'but requires authorisation'
+                    }
+                    workOrderReference={workOrderReference}
+                  />
+                }
+                warningText={warningTextToShow()}
+                links={
+                  externallyManagedAppointment
+                    ? LinksWithDRSBooking(
+                        workOrderReference,
+                        property,
+                        externalAppointmentManagementUrl,
+                        currentUser.name
+                      )
+                    : createWOLinks(workOrderReference, property)
+                }
+              />
+            </>
+          )}
+          {!formSuccess &&
             property &&
             property.address &&
             property.hierarchyType &&
@@ -305,35 +241,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
-                setPageToMultipleSORs={(formState) => {
-                  setAnnouncementMessage('')
-                  setFormState(formState)
-                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                }}
-                formState={formState}
-                isPriorityEnabled={isPriorityEnabled}
-                isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-                setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               />
             )}
-
-          {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-            <AddMultipleSORs
-              currentSorCodes={formState?.rateScheduleItems.map(
-                (rsi) => rsi.code.split(' - ')[0]
-              )}
-              setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
-              sorExistenceValidationCallback={createSorExistenceValidator(
-                tradeCode,
-                propertyReference,
-                contractorReference
-              )}
-              setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-              setAnnouncementMessage={setAnnouncementMessage}
-              setIsPriorityEnabled={setIsPriorityEnabled}
-            />
-          )}
-
           {error && <ErrorMessage label={error} />}
         </>
       )}
