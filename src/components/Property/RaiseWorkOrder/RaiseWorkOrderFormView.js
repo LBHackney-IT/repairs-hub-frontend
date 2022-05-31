@@ -91,12 +91,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
-      }
-      if (externallyManagedAppointment) {
+      } else if (externallyManagedAppointment) {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
         if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          console.log('i am here')
           setImmediateOrEmergencyRepairText(true)
           setImmediateOrEmergencyDLO(true)
         } else {
