@@ -1380,7 +1380,7 @@ describe('Raise repair form', () => {
       // Warning text as this work order is over the raise limit
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.get('.govuk-warning-text__text').contains(
-          'Please request authorisation from a manager.'
+          'Please request authorisation from a manager'
         )
       })
 

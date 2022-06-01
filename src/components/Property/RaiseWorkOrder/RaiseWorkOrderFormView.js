@@ -74,8 +74,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
       if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
         setAuthorisationPendingApproval(true)
-      }
-      if (externallyManagedAppointment) {
+      } else if (externallyManagedAppointment) {
         // Emergency and immediate DLO repairs are sent directly to the Planners
         // We display no link to open DRS
         if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
@@ -89,6 +88,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
             `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
           )
         }
+      } else if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+        setImmediateOrEmergencyRepairText(true)
       } else if (
         PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
           formData.priority.priorityCode
@@ -156,11 +157,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const warningTextToShow = () => {
     if (immediateOrEmergencyRepairText) {
       if (immediateOrEmergencyDLO) {
-        return 'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+        return 'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked'
       } else
-        return 'Emergency and immediate repairs must be booked immediately. Please call the external contractor.'
+        return 'Emergency and immediate repairs must be booked immediately. Please call the external contractor'
     } else if (authorisationPendingApproval) {
-      return 'Please request authorisation from a manager.'
+      return 'Please request authorisation from a manager'
     } else {
       return ''
     }
