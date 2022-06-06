@@ -671,7 +671,7 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'Book an appointment on DRS').should('not.exist')
         cy.get('.govuk-warning-text').within(() => {
           cy.contains(
-            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked'
           )
         })
       })
@@ -713,7 +713,7 @@ describe('Schedule appointment form', () => {
         cy.contains('a', 'Book an appointment on DRS').should('not.exist')
         cy.get('.govuk-warning-text').within(() => {
           cy.contains(
-            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked.'
+            'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked'
           )
         })
       })

@@ -975,7 +975,7 @@ describe('Raise repair form', () => {
             cy.get('[type="submit"]').contains('Create work order').click()
           })
 
-          cy.wait('@apiCheck').then(({ request }) => {
+          cy.wait('@apiCheck', { requestTimeout: 9000 }).then(({ request }) => {
             const referenceIdUuid = request.body.reference[0].id
 
             cy.wrap(request.body).should('deep.include', {
@@ -1380,7 +1380,7 @@ describe('Raise repair form', () => {
       // Warning text as this work order is over the raise limit
       cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
         cy.get('.govuk-warning-text__text').contains(
-          'Please request authorisation from a manager.'
+          'Please request authorisation from a manager'
         )
       })
 
