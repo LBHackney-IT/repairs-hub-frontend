@@ -1,12 +1,4 @@
-import {
-  isSaturday,
-  addDays,
-  subDays,
-  isWeekend,
-  format,
-  getHours,
-  isWithinInterval,
-} from 'date-fns'
+import { isWeekend, format, getHours, isWithinInterval } from 'date-fns'
 import { bankHolidays } from './bankHolidays'
 import { lowPriorityHolidays } from './lowPriorityHolidays'
 
@@ -49,60 +41,6 @@ const isLowPriorityHoliday = (date) => {
   const formattedDate = format(date, 'yyyy-MM-dd')
 
   return lowPriorityHolidays.some((holiday) => holiday === formattedDate)
-}
-
-// Returns supplied start date plus however many calendar days we loop over to satisfy
-// the required number of working days.
-const dateAfterCountWorkingDays = ({
-  startDate,
-  targetWorkingDaysCount,
-  lowPriority,
-}) => {
-  let workingDaysCount = 0
-  let calendarDaysCount = 0
-
-  while (workingDaysCount < targetWorkingDaysCount) {
-    calendarDaysCount += 1
-
-    const date = addDays(startDate, calendarDaysCount)
-
-    if (!isNonWorkingDay(date, lowPriority)) {
-      workingDaysCount += 1
-    }
-  }
-
-  return addDays(startDate, calendarDaysCount)
-}
-
-export const calculateCompletionDateTime = ({
-  workingDays,
-  workingHours = 0,
-  lowPriority = false,
-  plannedPriority = false,
-}) => {
-  let now = new Date()
-
-  if (
-    // Immediates always have a target of 2 hours
-    // Planned priority always have 365 calendar days to complete the task
-    workingDays < 1 ||
-    plannedPriority
-  ) {
-    return new Date(now.setHours(now.getHours() + workingHours))
-  } else {
-    // For the purpose of target time calculation, treat an order raised on a Saturday
-    // as if it had been raised on the preceding Friday.
-    if (isSaturday(now)) {
-      now = subDays(now, 1)
-    }
-
-    return dateAfterCountWorkingDays({
-      startDate: now,
-      targetWorkingDaysCount: workingDays,
-      lowPriority,
-      plannedPriority,
-    })
-  }
 }
 
 export const isCurrentTimeOperativeOvertime = () => {

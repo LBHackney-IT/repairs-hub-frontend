@@ -1,9 +1,4 @@
 import { v4 as uuidv4 } from 'uuid'
-import { calculateCompletionDateTime } from '../../helpers/completionDateTimes'
-import {
-  HIGH_PRIORITY_CODES,
-  PLANNED_PRIORITY_CODE,
-} from '@/utils/helpers/priorities'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
@@ -17,15 +12,6 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
     priority: {
       priorityCode: Number.parseInt(workOrderData.priorityCode),
       priorityDescription: workOrderData.priorityDescription,
-      requiredCompletionDateTime: calculateCompletionDateTime({
-        workingDays: workOrderData.daysToComplete,
-        workingHours: workOrderData.hoursToComplete,
-        lowPriority: !HIGH_PRIORITY_CODES.includes(
-          Number.parseInt(workOrderData.priorityCode)
-        ),
-        plannedPriority:
-          Number.parseInt(workOrderData.priorityCode) === PLANNED_PRIORITY_CODE,
-      }),
       numberOfDays: workOrderData.daysToComplete,
     },
     workClass: {
