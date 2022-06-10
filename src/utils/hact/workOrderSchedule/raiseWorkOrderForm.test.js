@@ -99,7 +99,6 @@ describe('buildScheduleWorkOrderFormData', () => {
       priority: {
         priorityCode: URGENT_PRIORITY_CODE,
         priorityDescription: '4 [U] URGENT',
-        requiredCompletionDateTime: new Date('Friday Jan 22 2021 18:16:20Z'),
         numberOfDays: 5,
       },
       workClass: {
@@ -228,7 +227,6 @@ describe('buildScheduleWorkOrderFormData', () => {
       priority: {
         priorityCode: PLANNED_PRIORITY_CODE,
         priorityDescription: '9[P] PLANNED MAINT',
-        requiredCompletionDateTime: new Date('Friday Jan 14 2022 18:16:20Z'),
         numberOfDays: 365,
       },
       workClass: {

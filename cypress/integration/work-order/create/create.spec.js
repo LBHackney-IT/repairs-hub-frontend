@@ -1,8 +1,6 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { addHours } from 'date-fns'
-import { addDays } from 'date-fns/esm'
 import { MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY } from '../../../../src/utils/constants'
 import {
   EMERGENCY_PRIORITY_CODE,
@@ -702,9 +700,6 @@ describe('Raise repair form', () => {
           priority: {
             priorityCode: EMERGENCY_PRIORITY_CODE,
             priorityDescription: '2 [E] EMERGENCY',
-            // Emergency priorities have a 24 hour *working day* target
-            // As today is a Friday, the target should be Monday.
-            requiredCompletionDateTime: addDays(now, 3).toISOString(),
             numberOfDays: 1,
           },
           workClass: { workClassCode: 0 },
@@ -984,7 +979,6 @@ describe('Raise repair form', () => {
               priority: {
                 priorityCode: IMMEDIATE_PRIORITY_CODE,
                 priorityDescription: '1 [I] IMMEDIATE',
-                requiredCompletionDateTime: addHours(now, 2).toISOString(),
                 numberOfDays: 0,
               },
               workElement: [
@@ -1249,7 +1243,6 @@ describe('Raise repair form', () => {
           priority: {
             priorityCode: IMMEDIATE_PRIORITY_CODE,
             priorityDescription: '1 [I] IMMEDIATE',
-            requiredCompletionDateTime: addHours(now, 2).toISOString(),
             numberOfDays: 0,
           },
         })
@@ -1459,8 +1452,6 @@ describe('Raise repair form', () => {
             priority: {
               priorityCode: NORMAL_PRIORITY_CODE,
               priorityDescription: '5 [N] NORMAL',
-              // Normal priorities have a 21 *working day* target
-              requiredCompletionDateTime: addDays(now, 31).toISOString(),
               numberOfDays: 21,
             },
             workClass: { workClassCode: 0 },
