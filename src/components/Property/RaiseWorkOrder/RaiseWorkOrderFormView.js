@@ -228,7 +228,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       )
     )
   }
-
+console.log(formState)
   return (
     <>
       {loading ? (

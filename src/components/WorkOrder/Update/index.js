@@ -97,7 +97,7 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
-  const sorSearchRequest = (searchText) =>
+  const sorSearchRequest = (searchText) => 
     frontEndApiRequest({
       method: 'get',
       path: '/api/schedule-of-rates/codes',
@@ -193,7 +193,13 @@ const WorkOrderUpdateView = ({ reference }) => {
 
     getWorkOrderUpdateForm(reference)
   }, [])
-
+  
+  console.log('tasks')
+console.log(tasks)
+console.log('Original tasks')
+console.log(originalTasks)
+console.log('added tasks')
+console.log(addedTasks)
   return (
     <>
       {loading ? (
@@ -268,6 +274,25 @@ const WorkOrderUpdateView = ({ reference }) => {
               {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
                 <AddMultipleSORs
                   setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+                  // Callback to do further validation if necessary
+                  // It will receive the SORs that passed the validation
+                  sorExistenceValidationCallback={async (sorCodesThatPassedValidation) => {
+                    const validationResults = {
+                      allCodesValid: true,
+                      validCodes: [...sorCodesThatPassedValidation],
+                      invalidCodes: [],
+                    }
+
+                    console.log(sorCodesThatPassedValidation)
+                    // populate/fill validationResults
+
+                    return validationResults}}
+
+                  setSorCodesFromBatchUpload={()=> {}}
+                  // This function will be called with the announcement message,
+                  // which can be used to render the message (see renderAnnouncement in RaiseWorkOrderFormView)
+                  setAnnouncementMessage={(msg) => console.log(msg)}
+                  setIsPriorityEnabled={(isEnabled) => {}}
                 />
               )}
             </>
