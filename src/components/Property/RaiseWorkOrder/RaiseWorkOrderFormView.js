@@ -173,6 +173,48 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
+  const setSorCodesFromBatchUpload = (sorCodes) => {
+    setSorCodeArrays(() => {
+      return [
+        ...sorCodeArrays
+          .filter(
+            (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+          )
+          .map((a) => [a]),
+        ...sorCodes.map((c) => [c]),
+      ]
+    })
+
+    setFormState((formState) => {
+      return {
+        ...formState,
+        rateScheduleItems: [
+          ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
+          ...sorCodes.map((code) => ({
+            code: `${code.code} - ${code.shortDescription}`,
+            cost: code.cost.toString(),
+            description: code.shortDescription,
+          })),
+        ],
+      }
+    })
+  }
+
+  const renderAnnouncement = () => {
+    return (
+      announcementMessage && (
+        <section className="lbh-page-announcement">
+          <div className="lbh-page-announcement__content">
+            <strong className="govuk-!-font-size-24">
+              {announcementMessage}
+            </strong>
+          </div>
+        </section>
+      )
+    )
+  }
+console.log(formState)
+
   return (
     <>
       {loading ? (
