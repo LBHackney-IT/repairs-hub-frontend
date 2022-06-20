@@ -11,6 +11,8 @@ const AddedRateScheduleItems = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
+  setValue,
+  setPageToMultipleSORs,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)

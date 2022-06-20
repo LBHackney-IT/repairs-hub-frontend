@@ -173,6 +173,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
+  //we are adding new SORs to existing sors and then adding description and repopulating the form
+  //can be reused in variation
   const setSorCodesFromBatchUpload = (sorCodes) => {
     setSorCodeArrays(() => {
       return [
@@ -285,6 +287,25 @@ console.log(formState)
                 raiseLimit={currentUser?.raiseLimit}
               />
             )}
+
+          {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
+            <AddMultipleSORs
+              currentSorCodes={formState?.rateScheduleItems.map(
+                (rsi) => rsi.code.split(' - ')[0]
+              )}
+              setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
+              sorExistenceValidationCallback={createSorExistenceValidator(
+                tradeCode,
+                propertyReference,
+                contractorReference,
+                isRaisable = true
+              )}
+              setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
+              setAnnouncementMessage={setAnnouncementMessage}
+              setIsPriorityEnabled={setIsPriorityEnabled}
+            />
+          )}
+
           {error && <ErrorMessage label={error} />}
         </>
       )}
