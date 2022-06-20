@@ -35,11 +35,12 @@ export const fetchFeatureToggles = async () => {
     return {}
   }
 }
-
+//we need to pass here that if on updated page then isRaisable: nothing 
 export const createSorExistenceValidator = (
   tradeCode,
   propertyRef,
-  contractorRef
+  contractorRef,
+  isRaisable
 ) => {
   return async (codesForValidation) => {
     const validationResults = {
@@ -61,7 +62,7 @@ export const createSorExistenceValidator = (
           propertyReference: propertyRef,
           contractorReference: contractorRef,
           sorCode: codesForValidation,
-          isRaisable: true,
+          isRaisable: isRaisable,
         },
         ...(paramsSerializer && { paramsSerializer }),
       })
@@ -81,7 +82,8 @@ export const createSorExistenceValidator = (
       if (validationResults.validCodes.length === codesForValidation.length) {
         validationResults.allCodesValid = true
       }
-
+      console.log("validationResults")
+      console.log(validationResults)
       return validationResults
     } catch (e) {
       throw new Error(

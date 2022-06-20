@@ -21,9 +21,12 @@ const WorkOrderUpdateForm = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
+  formState,
   setPageToMultipleSORs,
 }) => {
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+    defaultValues: { ...formState },
+  })
   const isContractorUpdatePage = true
 
   return (
@@ -49,7 +52,8 @@ const WorkOrderUpdateForm = ({
           sorSearchRequest={sorSearchRequest}
           sorCodeArrays={sorCodeArrays}
           setSorCodeArrays={setSorCodeArrays}
-          setPageToMultipleSORs={setPageToMultipleSORs}
+          setValue={setValue}
+          setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
         />
         {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
           <TextArea
