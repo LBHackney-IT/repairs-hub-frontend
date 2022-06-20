@@ -4,6 +4,7 @@ import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import {
+  createSorExistenceValidator,
   fetchFeatureToggles,
   frontEndApiRequest,
 } from '@/utils/frontEndApiClient/requests'
@@ -41,7 +42,19 @@ const WorkOrderUpdateView = ({ reference }) => {
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
   ] = useState()
+
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
+
+  const FORM_PAGE = 1
+  const ADDING_MULTIPLE_SOR_PAGE = 2
+  const SUMMARY_PAGE = 3
+  const UPDATE_SUCCESS_PAGE = 4
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
+
+  //multiple SORs
+  //I need this to updated the form itself after multiple SORs where added
+  const [formState, setFormState] = useState({})
+  const [announcementMessage, setAnnouncementMessage] = useState('')
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -183,18 +196,61 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
+  const renderAnnouncement = () => {
+    return (
+      announcementMessage && (
+        <section className="lbh-page-announcement">
+          <div className="lbh-page-announcement__content">
+            <strong className="govuk-!-font-size-24">
+              {announcementMessage}
+            </strong>
+          </div>
+        </section>
+      )
+    )
+  }
+
   useEffect(() => {
     setLoading(true)
 
     getWorkOrderUpdateForm(reference)
   }, [])
 
+  // implementing multiple SORs update
+  const setSorCodesFromBatchUpload = (sorCodes) => {
+    // setSorCodeArrays(() => {
+    //   return [
+    //     ...sorCodeArrays
+    //       .filter(
+    //         (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+    //       )
+    //       .map((a) => [a]),
+    //     ...sorCodes.map((c) => [c]),
+    //   ]
+    // })
+
+    // setFormState((formState) => {
+    //   debugger
+    //   return {
+    //     ...formState,
+    //     tasks: [
+    //       ...formState?.tasks.filter((rsi) => rsi.code !== ''),
+    //       ...sorCodes.map((code) => ({
+    //         code: `${code.code} - ${code.shortDescription}`,
+    //         cost: code.cost.toString(),
+    //         description: code.shortDescription,
+    //       })),
+    //     ],
+    //   }
+    // })
+  }
+
   console.log('tasks')
 console.log(tasks)
 console.log('Original tasks')
 console.log(originalTasks)
 console.log('added tasks')
-console.log(addedTasks)
+console.log(formState)
   return (
     <>
       {loading ? (
@@ -228,6 +284,9 @@ console.log(addedTasks)
                 />
               )}
               {!showSummaryPage && !showUpdateSuccess && (
+
+              {renderAnnouncement()}
+              {currentPage === FORM_PAGE && (
                 <>
                   <BackButton />
                   <h1 className="lbh-heading-h1">
@@ -250,6 +309,11 @@ console.log(addedTasks)
                     }
                     sorCodeArrays={sorCodeArrays}
                     setSorCodeArrays={setSorCodeArrays}
+                    setPageToMultipleSORs={(formState) => {
+                      setAnnouncementMessage('')
+                      setFormState(formState)
+                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                    }}
                   />
                 </>
               )}
@@ -269,25 +333,33 @@ console.log(addedTasks)
 
               {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
                 <AddMultipleSORs
+                currentSorCodes={tasks.map(
+                  (rsi) => rsi.code
+                )}
                   setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
                   // Callback to do further validation if necessary
                   // It will receive the SORs that passed the validation
-                  sorExistenceValidationCallback={async (sorCodesThatPassedValidation) => {
-                    const validationResults = {
-                      allCodesValid: true,
-                      validCodes: [...sorCodesThatPassedValidation],
-                      invalidCodes: [],
-                    }
+                  sorExistenceValidationCallback={createSorExistenceValidator(
+                    workOrder.tradeCode,
+                    workOrder.propertyReference,
+                    workOrder.contractorReference
+                  )}
+                  // sorExistenceValidationCallback={async (sorCodesThatPassedValidation) => {
+                  //   const validationResults = {
+                  //     allCodesValid: false,
+                  //     validCodes: [...sorCodesThatPassedValidation],
+                  //     invalidCodes: [],
+                  //   }
 
-                    console.log(sorCodesThatPassedValidation)
-                    // populate/fill validationResults
+                  //   console.log(sorCodesThatPassedValidation)
+                  //   // populate/fill validationResults
 
-                    return validationResults}}
+                  //   return validationResults}}
 
-                  setSorCodesFromBatchUpload={()=> {}}
+                  setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
                   // This function will be called with the announcement message,
                   // which can be used to render the message (see renderAnnouncement in RaiseWorkOrderFormView)
-                  setAnnouncementMessage={(msg) => console.log(msg)}
+                  setAnnouncementMessage={setAnnouncementMessage}
                   setIsPriorityEnabled={(isEnabled) => {}}
                 />
               )}
