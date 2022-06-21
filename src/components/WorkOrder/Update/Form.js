@@ -53,8 +53,8 @@ const WorkOrderUpdateForm = ({
           setSorCodeArrays={setSorCodeArrays}
           setValue={setValue}
           setPageToMultipleSORs={() => {
-            setPageToMultipleSORs(getValues())}
-          }
+            setPageToMultipleSORs(getValues())
+          }}
         />
         {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
           <TextArea
