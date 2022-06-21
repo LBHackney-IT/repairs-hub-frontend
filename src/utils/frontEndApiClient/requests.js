@@ -82,8 +82,7 @@ export const createSorExistenceValidator = (
       if (validationResults.validCodes.length === codesForValidation.length) {
         validationResults.allCodesValid = true
       }
-      console.log("validationResults")
-      console.log(validationResults)
+
       return validationResults
     } catch (e) {
       throw new Error(

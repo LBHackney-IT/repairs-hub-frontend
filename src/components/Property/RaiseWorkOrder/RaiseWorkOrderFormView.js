@@ -299,7 +299,7 @@ console.log(formState)
                 tradeCode,
                 propertyReference,
                 contractorReference,
-                isRaisable = true
+                true
               )}
               setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
               setAnnouncementMessage={setAnnouncementMessage}

@@ -52,7 +52,6 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   //multiple SORs
-  //I need this to updated the form itself after multiple SORs where added
   const [formState, setFormState] = useState({})
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
@@ -196,6 +195,16 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
+  const getCurrentSORCodes = () => {
+    if (formState!= null && formState.rateScheduleItems == null) {
+      formState.rateScheduleItems = []
+    }
+
+    return [...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]), ...tasks.map(
+      (rsi) => rsi.code
+    )]
+  }
+
   const renderAnnouncement = () => {
     return (
       announcementMessage && (
@@ -218,31 +227,47 @@ const WorkOrderUpdateView = ({ reference }) => {
 
   // implementing multiple SORs update
   const setSorCodesFromBatchUpload = (sorCodes) => {
-    // setSorCodeArrays(() => {
-    //   return [
-    //     ...sorCodeArrays
-    //       .filter(
-    //         (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-    //       )
-    //       .map((a) => [a]),
-    //     ...sorCodes.map((c) => [c]),
-    //   ]
-    // })
+    if (formState!= null && formState.rateScheduleItems == null) {
+      formState.rateScheduleItems = []
+    }
+    const updatedFormState =  {
+      ...formState,
+      rateScheduleItems: [
+        ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
+        ...sorCodes.map((code) => ({
+          code: `${code.code} - ${code.shortDescription}`,
+          cost: code.cost.toString(),
+          description: code.shortDescription,
+        })),
+      ],
+    }
 
-    // setFormState((formState) => {
-    //   debugger
-    //   return {
-    //     ...formState,
-    //     tasks: [
-    //       ...formState?.tasks.filter((rsi) => rsi.code !== ''),
-    //       ...sorCodes.map((code) => ({
-    //         code: `${code.code} - ${code.shortDescription}`,
-    //         cost: code.cost.toString(),
-    //         description: code.shortDescription,
-    //       })),
-    //     ],
-    //   }
-    // })
+    setFormState(updatedFormState)
+    const newAddedTasks = updatedFormState.rateScheduleItems
+    ? updatedFormState.rateScheduleItems
+        .filter((e) => e != null)
+        .map((e, index) => {
+          return { id: index, ...e, code: e.code.split(' - ')[0] }
+        })
+    : []
+
+    setAddedTasks(newAddedTasks)
+    let codes = [
+      ...sorCodeArrays
+    ]
+    sorCodes.forEach(code => {
+      const detailCode = {
+        code: `${code.code}`,
+        shortDescription: `${code.shortDescription}`}
+
+        codes.push([detailCode])
+    });
+    console.log('CODES')
+    console.log(codes)
+    console.log(sorCodes)
+    codes = codes.filter(ar => ar.length !== 0)
+    setSorCodeArrays(codes)
+
   }
 
   console.log('tasks')
@@ -251,6 +276,7 @@ console.log('Original tasks')
 console.log(originalTasks)
 console.log('added tasks')
 console.log(formState)
+
   return (
     <>
       {loading ? (
@@ -333,32 +359,19 @@ console.log(formState)
 
               {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
                 <AddMultipleSORs
-                currentSorCodes={tasks.map(
-                  (rsi) => rsi.code
-                )}
-                  setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
-                  // Callback to do further validation if necessary
-                  // It will receive the SORs that passed the validation
+                currentSorCodes={getCurrentSORCodes()}
+                  setPageBackToFormView={() => {
+                    setCurrentPage(FORM_PAGE)
+                    console.log('ITEMS WHEN BACK')
+                    console.log(formState)
+                  }
+                  }
                   sorExistenceValidationCallback={createSorExistenceValidator(
                     workOrder.tradeCode,
                     workOrder.propertyReference,
                     workOrder.contractorReference
                   )}
-                  // sorExistenceValidationCallback={async (sorCodesThatPassedValidation) => {
-                  //   const validationResults = {
-                  //     allCodesValid: false,
-                  //     validCodes: [...sorCodesThatPassedValidation],
-                  //     invalidCodes: [],
-                  //   }
-
-                  //   console.log(sorCodesThatPassedValidation)
-                  //   // populate/fill validationResults
-
-                  //   return validationResults}}
-
                   setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-                  // This function will be called with the announcement message,
-                  // which can be used to render the message (see renderAnnouncement in RaiseWorkOrderFormView)
                   setAnnouncementMessage={setAnnouncementMessage}
                   setIsPriorityEnabled={(isEnabled) => {}}
                 />
