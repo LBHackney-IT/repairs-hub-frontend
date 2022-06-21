@@ -17,7 +17,6 @@ const AddedRateScheduleItems = ({
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
 
-  
   const addRateScheduleItem = (e) => {
     e.preventDefault()
     rateScheduleItems.push({ id: nextFreeIndex })
@@ -28,8 +27,8 @@ const AddedRateScheduleItems = ({
       ? [] // will be populated on user input
       : sorCodeArrays[sorCodeArrays.length - 1] // each additional SOR will have the same options
 
-      console.log('ADDING')
-      console.log(newSorArray)
+    console.log('ADDING')
+    console.log(newSorArray)
     setSorCodeArrays((sorCodeArrays) => [...sorCodeArrays, newSorArray])
   }
 
@@ -39,8 +38,8 @@ const AddedRateScheduleItems = ({
     setRateScheduleItems([...filtered])
 
     setSorCodeArrays((sorCodeArrays) => {
-      sorCodeArrays[index] = []
-
+      sorCodeArrays.splice(index, 1)
+      console.log(sorCodeArrays)
       return sorCodeArrays
     })
   }
@@ -115,10 +114,11 @@ const AddedRateScheduleItems = ({
               setSorCodeArrays((sorCodeArrays) => {
                 console.log(`SORCODEARRAYS ${sorCodeArrays}`)
                 return [
-                ...sorCodeArrays.slice(0, index),
-                sorCodes,
-                ...sorCodeArrays.slice(index + 1),
-              ]})
+                  ...sorCodeArrays.slice(0, index),
+                  sorCodes,
+                  ...sorCodeArrays.slice(index + 1),
+                ]
+              })
             }}
           />
 

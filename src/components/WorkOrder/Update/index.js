@@ -41,7 +41,7 @@ const WorkOrderUpdateView = ({ reference }) => {
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
   ] = useState()
- 
+
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
   const FORM_PAGE = 1
@@ -103,7 +103,7 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
-  const sorSearchRequest = (searchText) => 
+  const sorSearchRequest = (searchText) =>
     frontEndApiRequest({
       method: 'get',
       path: '/api/schedule-of-rates/codes',
@@ -195,13 +195,14 @@ const WorkOrderUpdateView = ({ reference }) => {
   }
 
   const getCurrentSORCodes = () => {
-    if (formState!= null && formState.rateScheduleItems == null) {
+    if (formState != null && formState.rateScheduleItems == null) {
       formState.rateScheduleItems = []
     }
 
-    return [...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]), ...tasks.map(
-      (rsi) => rsi.code
-    )]
+    return [
+      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
+      ...tasks.map((rsi) => rsi.code),
+    ]
   }
 
   const renderAnnouncement = () => {
@@ -226,10 +227,10 @@ const WorkOrderUpdateView = ({ reference }) => {
 
   // implementing multiple SORs update
   const setSorCodesFromBatchUpload = (sorCodes) => {
-    if (formState!= null && formState.rateScheduleItems == null) {
+    if (formState != null && formState.rateScheduleItems == null) {
       formState.rateScheduleItems = []
     }
-    const updatedFormState =  {
+    const updatedFormState = {
       ...formState,
       rateScheduleItems: [
         ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
@@ -240,35 +241,36 @@ const WorkOrderUpdateView = ({ reference }) => {
         })),
       ],
     }
-    
+
     setFormState(updatedFormState)
     const newAddedTasks = updatedFormState.rateScheduleItems
-    ? updatedFormState.rateScheduleItems
-        .filter((e) => e != null)
-        .map((e, index) => {
-          return { id: index, ...e, code: e.code.split(' - ')[0] }
-        })
-    : []
+      ? updatedFormState.rateScheduleItems
+          .filter((e) => e != null)
+          .map((e, index) => {
+            return { id: index, ...e, code: e.code.split(' - ')[0] }
+          })
+      : []
 
     setAddedTasks(newAddedTasks)
-    let codes = [
-      ...sorCodeArrays
-    ]
-    sorCodes.forEach(code => {
+    let codes = [...sorCodeArrays]
+    sorCodes.forEach((code) => {
       const detailCode = {
         code: `${code.code}`,
-        shortDescription: `${code.shortDescription}`}
+        shortDescription: `${code.shortDescription}`,
+      }
 
-        codes.push([detailCode])
-    });
-    console.log('CODES')
-    console.log(codes)
-    console.log(sorCodes)
-    codes = codes.filter(ar => ar.length !== 0)
+      codes.push([detailCode])
+    })
+    // console.log('CODES')
+    // console.log(codes)
+    // console.log(sorCodes)
+    codes = codes.filter((ar) => ar.length !== 0)
     setSorCodeArrays(codes)
-
+    console.log('SOR codes array')
+    console.log(codes)
+    console.log('SOR CODES')
+    console.log(sorCodes)
   }
-
 
   return (
     <>
@@ -347,13 +349,12 @@ const WorkOrderUpdateView = ({ reference }) => {
               )}
               {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
                 <AddMultipleSORs
-                currentSorCodes={getCurrentSORCodes()}
+                  currentSorCodes={getCurrentSORCodes()}
                   setPageBackToFormView={() => {
                     setCurrentPage(FORM_PAGE)
                     console.log('ITEMS WHEN BACK')
                     console.log(formState)
-                  }
-                  }
+                  }}
                   sorExistenceValidationCallback={createSorExistenceValidator(
                     workOrder.tradeCode,
                     workOrder.propertyReference,

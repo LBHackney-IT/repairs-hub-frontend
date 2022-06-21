@@ -188,16 +188,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
-  //we are adding new SORs to existing sors and then adding description and repopulating the form
-  //can be reused in variation
   const setSorCodesFromBatchUpload = (sorCodes) => {
     setSorCodeArrays(() => {
       return [
-        ...sorCodeArrays
-          .filter(
-            (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-          )
-          .map((a) => [a]),
+        ...sorCodeArrays.filter(
+          (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+        ),
         ...sorCodes.map((c) => [c]),
       ]
     })
@@ -230,7 +226,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       )
     )
   }
-console.log(formState)
+
   return (
     <>
       {loading ? (

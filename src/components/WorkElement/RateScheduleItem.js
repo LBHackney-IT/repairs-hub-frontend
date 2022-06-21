@@ -94,8 +94,10 @@ const RateScheduleItem = ({
             validate: (value) => {
               console.log(`Value ${value}`)
               console.log(sorOptions)
-              return sorOptions.some((text) => text === value) ||
-              'SOR code is not valid'
+              return (
+                sorOptions.some((text) => text === value) ||
+                'SOR code is not valid'
+              )
             },
           })}
           {...(sorSearchRequest && (!index || index === 0)
