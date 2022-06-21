@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { paramsSerializer } from '@/utils/urls'
 
 export const frontEndApiRequest = async ({
   method,
@@ -34,9 +35,7 @@ export const fetchFeatureToggles = async () => {
     return {}
   }
 }
-<<<<<<< HEAD
-=======
-//we need to pass here that if on updated page then isRaisable: nothing 
+
 export const createSorExistenceValidator = (
   tradeCode,
   propertyRef,
@@ -83,8 +82,7 @@ export const createSorExistenceValidator = (
       if (validationResults.validCodes.length === codesForValidation.length) {
         validationResults.allCodesValid = true
       }
-      console.log("validationResults")
-      console.log(validationResults)
+
       return validationResults
     } catch (e) {
       throw new Error(
@@ -93,4 +91,3 @@ export const createSorExistenceValidator = (
     }
   }
 }
->>>>>>> 5d22aa64... WIP
