@@ -27,6 +27,8 @@ const AddMultipleSORs = ({
       .map((code) => code.trim())
       .filter((x) => x)
 
+    console.log('Current sor codes')
+    console.log(currentSorCodes)
     if (strippedCodes.length > 0) {
       const validator = new SorCodeValidator({
         currentSorCodes,
@@ -82,7 +84,8 @@ const AddMultipleSORs = ({
       <a
         className="govuk-back-link lbh-back-link govuk-!-display-none-print"
         role="button"
-        onClick={() => setPageBackToFormView()}
+        onClick={() => {setSorCodesFromBatchUpload([])
+          setPageBackToFormView()}}
       >
         Back
       </a>
