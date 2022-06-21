@@ -1111,27 +1111,27 @@ describe('Raise repair form', () => {
               .should(
                 'have.attr',
                 'value',
-                '20060020 - BATHROOM PLUMBING REPAIRS'
+                '20060020 - BATHROOM PLUMBING REPAIRS - 50.17'
               )
               .next()
               .should(
                 'have.attr',
                 'value',
-                '20060030 - KITCHEN PLUMBING REPAIRS'
+                '20060030 - KITCHEN PLUMBING REPAIRS - 5.8'
               )
               .next()
-              .should('have.attr', 'value', 'DES5R003 - Immediate call outs')
+              .should('have.attr', 'value', 'DES5R003 - Immediate call outs - 0')
               .next()
-              .should('have.attr', 'value', 'DES5R004 - Emergency call out')
+              .should('have.attr', 'value', 'DES5R004 - Emergency call out - 1')
               .next()
-              .should('have.attr', 'value', 'DES5R005 - Normal call outs')
+              .should('have.attr', 'value', 'DES5R005 - Normal call outs - 1')
               .next()
-              .should('have.attr', 'value', 'DES5R006 - Urgent call outs')
+              .should('have.attr', 'value', 'DES5R006 - Urgent call outs - 1')
               .next()
               .should(
                 'have.attr',
                 'value',
-                'INP5R001 - Pre insp of wrks by Constructr'
+                'INP5R001 - Pre insp of wrks by Constructr - 1'
               )
           })
         })
@@ -1221,7 +1221,7 @@ describe('Raise repair form', () => {
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R003 - Immediate call outs')
+          .type('DES5R003 - Immediate call outs - 0')
 
         // Autopopulates priority description
         cy.get('#priorityCode')

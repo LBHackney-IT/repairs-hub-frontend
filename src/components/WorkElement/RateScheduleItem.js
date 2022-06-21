@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import { useState } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { DataList, TextInput } from '../Form'
+import { useRouter } from 'next/router'
 
 const RateScheduleItem = ({
   onRateScheduleItemChange,
@@ -20,8 +21,13 @@ const RateScheduleItem = ({
   setSorCodes,
   sorSearchRequest,
 }) => {
-  const sorOptions = sorCodes.map(
-    (sor) => `${sor.code} - ${sor.shortDescription}`
+  const router = useRouter()
+  const onRaiseRepairPage = () =>
+    router.pathname === '/properties/[id]/raise-repair/new'
+  const sorOptions = sorCodes.map((sor) =>
+    onRaiseRepairPage()
+      ? `${sor.code} - ${sor.shortDescription} - ${sor.cost}`
+      : `${sor.code} - ${sor.shortDescription}`
   )
 
   const sorCodesWithOptions = sorCodes.map((sor, index) => ({
