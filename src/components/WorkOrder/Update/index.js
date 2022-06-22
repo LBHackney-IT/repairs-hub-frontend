@@ -251,6 +251,7 @@ const WorkOrderUpdateView = ({ reference }) => {
           })
       : []
 
+      
     setAddedTasks(newAddedTasks)
     let codes = [...sorCodeArrays]
     sorCodes.forEach((code) => {
@@ -270,6 +271,7 @@ const WorkOrderUpdateView = ({ reference }) => {
     console.log(codes)
     console.log('SOR CODES')
     console.log(sorCodes)
+
   }
 
   return (
