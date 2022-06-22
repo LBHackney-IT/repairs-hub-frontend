@@ -32,7 +32,8 @@
     "priority": {
       "priorityCode": 2,
       "description": "2 [E] EMERGENCY"
-    }
+    },
+    "cost": 1
   },
   {
     "code": "DES5R005",
@@ -40,7 +41,8 @@
     "priority": {
       "priorityCode": 4,
       "description": "5 [N] NORMAL"
-    }
+    },
+    "cost": 1
   },
   {
     "code": "DES5R006",
@@ -48,11 +50,13 @@
     "priority": {
       "priorityCode": 3,
       "description": "4 [U] URGENT"
-    }
+    },
+    "cost": 1
   },
   {
     "code": "INP5R001",
     "shortDescription": "Pre insp of wrks by Constructr",
-    "priority": null
+    "priority": null,
+    "cost": 1
   }
 ]

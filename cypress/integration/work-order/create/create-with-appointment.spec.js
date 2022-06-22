@@ -140,7 +140,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R006 - Urgent call outs')
+          .type('DES5R006 - Urgent call outs - 1')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
@@ -283,7 +283,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
-          .type('DES5R005 - Normal call outs')
+          .type('DES5R005 - Normal call outs - 1')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
         cy.get('#priorityCode').select('5 [N] NORMAL')
@@ -500,7 +500,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R005 - Normal call outs')
+            .type('DES5R005 - Normal call outs - 1')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('5 [N] NORMAL')
@@ -580,7 +580,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R006 - Urgent call outs')
+            .type('DES5R006 - Urgent call outs - 1')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('4 [U] URGENT')
@@ -642,7 +642,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R003 - Immediate call outs')
+            .type('DES5R003 - Immediate call outs - 0')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('1 [I] IMMEDIATE')
@@ -687,7 +687,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R004 - Emergency call out')
+            .type('DES5R004 - Emergency call out - 1')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('2 [E] EMERGENCY')
@@ -736,7 +736,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R005 - Normal call outs')
+            .type('DES5R005 - Normal call outs - 1')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('5 [N] NORMAL')
@@ -808,7 +808,7 @@ describe('Schedule appointment form', () => {
 
           cy.get('input[id="rateScheduleItems[0][code]"]')
             .clear()
-            .type('DES5R005 - Normal call outs')
+            .type('DES5R005 - Normal call outs - 1')
 
           cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
           cy.get('#priorityCode').select('[V15] Voids minor')

@@ -2,6 +2,14 @@ import { render } from '@testing-library/react'
 import WorkOrderUpdateForm from './Form'
 import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
+jest.mock('next/router', () => ({
+  useRouter() {
+    return {
+      pathname: '/work-orders/[id]/update',
+    }
+  },
+}))
+
 describe('WorkOrderUpdateForm component', () => {
   const props = {
     propertyReference: '000012345',

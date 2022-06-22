@@ -11,10 +11,5 @@
       "@/utils/*": ["src/utils/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    ".next"
-  ]
+  "exclude": ["node_modules", "build", "dist", ".next"]
 }
