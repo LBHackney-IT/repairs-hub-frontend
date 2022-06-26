@@ -16,7 +16,12 @@ const NoteEntry = ({ note, time, user, userEmail }) => {
       <div className="note-info lbh-body-s">
         <NoteInfo time={time} user={user} email={userEmail} />
       </div>
-      {note}
+      {note.split('\n').map((el, i) => (
+        <span key={i}>
+          {el}
+          <br />
+        </span>
+      ))}
     </>
   )
 }
