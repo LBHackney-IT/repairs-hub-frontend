@@ -23,7 +23,9 @@ const SelectPriority = ({
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
   }
-  console.log(priorities)
+
+  console.log("PRIORITY CODE")
+  console.log(priorityCode)
   return (
     <>
       <Select
