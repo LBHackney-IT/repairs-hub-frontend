@@ -45,7 +45,10 @@ const RaiseWorkOrderForm = ({
   onFormSubmit,
   raiseLimit,
 }) => {
-  const { register, handleSubmit, errors, setValue } = useForm()
+  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+    defaultValues: { ...formState },
+  })
+  
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
   const [priorityCode, setPriorityCode] = useState()
@@ -53,6 +56,25 @@ const RaiseWorkOrderForm = ({
   const [totalCost, setTotalCost] = useState('')
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
   const overSpendLimit = totalCost > raiseLimit
+
+  useEffect(() => {
+    const atLeastOneSor = (getValues() && 
+    getValues().rateScheduleItems && getValues().rateScheduleItems 
+    && getValues().rateScheduleItems[0].code != "")
+    if (atLeastOneSor && sorCodeArrays.length > 0) {
+      const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
+      if (b && sorCodeArrays[sorCodeArrays.length - 1].length > 0 
+            && sorCodeArrays[sorCodeArrays.length - 1][0].priority) {
+        const prio = sorCodeArrays[sorCodeArrays.length - 1][0].priority;
+        setPriorityCode(
+          prio.priorityCode
+        )
+        setValue(
+          'priorityCode',
+          prio.priorityCode
+        )}
+    }
+  })
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
@@ -100,6 +122,8 @@ const RaiseWorkOrderForm = ({
   }
 
   const onPrioritySelect = (code) => {
+    console.log('selected')
+    console.log(code)
     setPriorityCode(code)
   }
 
@@ -109,6 +133,8 @@ const RaiseWorkOrderForm = ({
     rateScheduleItemsLength,
     existingHigherPriorityCode
   ) => {
+    console.log("Update priority")
+    console.log(description)
     if (existingHigherPriorityCode) {
       description = getPriorityObjectByCode(existingHigherPriorityCode)
         ?.description
@@ -120,7 +146,8 @@ const RaiseWorkOrderForm = ({
       // when removing an SOR there's an existing entry with higher priority, or
       // the selected priority code is less than existing priority codes
       // (Higher priority as code gets lower)
-
+      console.log('PRIORITY')
+      console.log(priorityCode)
       if (
         !priorityCode ||
         rateScheduleItemsLength <= 1 ||
@@ -160,6 +187,8 @@ const RaiseWorkOrderForm = ({
 
   useEffect(() => {
     setLoading(true)
+
+    console.log("disabling")
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
