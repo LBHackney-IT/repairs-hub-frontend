@@ -174,14 +174,18 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   }, [])
 
   const setSorCodesFromBatchUpload = (sorCodes) => {
-    setSorCodeArrays(() => {
-      return [
-        ...sorCodeArrays.filter(
-          (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-        ),
-        ...sorCodes.map((c) => [c]),
-      ]
-    })
+
+    if(isIncrementalSearchEnabled){
+      setSorCodeArrays(() => {
+        return [
+          ...sorCodeArrays.filter(
+            (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+          ),
+          ...sorCodes.map((c) => [c]),
+        ]
+      })
+    }
+   
 
     setFormState((formState) => {
       return {
@@ -212,6 +216,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     )
   }
 console.log(formState)
+
+  const getCurrentSORCodes = () => {
+    if (formState != null && formState.rateScheduleItems == null) {
+      formState.rateScheduleItems = []
+    }
+
+    return [
+      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
+    ]
+  }
 
   return (
     <>
@@ -287,9 +301,7 @@ console.log(formState)
 
           {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
             <AddMultipleSORs
-              currentSorCodes={formState?.rateScheduleItems.map(
-                (rsi) => rsi.code.split(' - ')[0]
-              )}
+              currentSorCodes={getCurrentSORCodes()}
               setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
               sorExistenceValidationCallback={createSorExistenceValidator(
                 tradeCode,

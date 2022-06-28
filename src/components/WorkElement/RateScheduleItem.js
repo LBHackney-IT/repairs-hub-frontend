@@ -74,6 +74,9 @@ const RateScheduleItem = ({
       (code) => code.optionText === textValue
     )
 
+    console.log("SORINPUT")
+    console.log(textValue)
+
     if (sorCode) {
       setSorDescription(sorCode.shortDescription)
       setSorCost(sorCode.cost)

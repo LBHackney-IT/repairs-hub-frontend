@@ -263,11 +263,14 @@ const WorkOrderUpdateView = ({ reference }) => {
 
       codes.push([detailCode])
     })
-    // console.log('CODES')
-    // console.log(codes)
-    // console.log(sorCodes)
+
     codes = codes.filter((ar) => ar.length !== 0)
-    setSorCodeArrays(codes)
+    // if (orderRequiresIncrementalSearch) {
+    //   console.log("POPPING")
+    //   codes = codes.filter(el => el.length == 0)
+    // }
+    
+setSorCodeArrays(codes)
     console.log('SOR codes array')
     console.log(codes)
     console.log('SOR CODES')
