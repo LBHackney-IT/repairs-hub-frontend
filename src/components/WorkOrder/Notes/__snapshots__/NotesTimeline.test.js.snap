@@ -24,7 +24,10 @@ exports[`NotesTimeline component should render properly when there are notes 1`]
       >
         8 Feb 2021, 15:06 by Random Name (random.name@hackney.gov.uk)
       </div>
-      A more recent note about this repair
+      <span>
+        A more recent note about this repair
+        <br />
+      </span>
     </li>
     <li
       class="note-entry lbh-body-s"
@@ -35,7 +38,10 @@ exports[`NotesTimeline component should render properly when there are notes 1`]
       >
         8 Feb 2021, 15:05 by Random Name (random.name@hackney.gov.uk)
       </div>
-      A note about the repair
+      <span>
+        A note about the repair
+        <br />
+      </span>
     </li>
   </ul>
 </DocumentFragment>

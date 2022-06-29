@@ -43,11 +43,6 @@ const NotesForm = ({
                 required={true}
                 register={register({
                   required: 'Please enter a note',
-                  maxLength: {
-                    value: 2000,
-                    message:
-                      'You have exceeded the maximum amount of 2000 characters',
-                  },
                 })}
                 error={errors && errors.note}
               />

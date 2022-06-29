@@ -48,7 +48,9 @@
   max-width: 100px;
   justify-content: center;
   align-items: center;
+  line-height: 30%;
   padding: 20px;
+  list-style: none;
 
   &:focus svg path {
     stroke: lbh-colour('lbh-text');
@@ -59,10 +61,15 @@
   }
 }
 
+.summary::-webkit-details-marker {
+  display: none;
+}
+
 .summarySecondary {
   border: 1px solid lbh-colour('lbh-primary-button');
   border-left: 1px solid lbh-colour('lbh-primary-button');
   padding: 19px;
+  list-style: none;
 
   svg path {
     stroke: lbh-colour('lbh-primary-button');
