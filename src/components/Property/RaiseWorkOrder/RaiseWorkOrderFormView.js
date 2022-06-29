@@ -15,6 +15,8 @@ import Meta from '../../Meta'
 import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
+import AddMultipleSORs from './AddMultipleSORs'
+import { el } from 'date-fns/locale'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -175,17 +177,25 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const setSorCodesFromBatchUpload = (sorCodes) => {
 
-    if(isIncrementalSearchEnabled){
-      setSorCodeArrays(() => {
-        return [
-          ...sorCodeArrays.filter(
-            (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-          ),
-          ...sorCodes.map((c) => [c]),
+    if (isIncrementalSearchEnabled) {
+      let sorCodesInIncremental = [
+        ...sorCodeArrays.filter(
+          (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
+        ),
+        ...sorCodes.map((c) => [c]),
         ]
+      setSorCodeArrays(() => {
+        return sorCodesInIncremental;
       })
     }
-   
+    else {
+      let sorCodesInNonIncremental = ([...sorCodeArrays, ...sorCodes.map((c) => sorCodeArrays)]).filter((e) => e.length != 0)
+      setSorCodeArrays(() => {
+        return sorCodesInNonIncremental
+      })
+    }
+
+
 
     setFormState((formState) => {
       return {
