@@ -175,26 +175,25 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   }, [])
 
   const setSorCodesFromBatchUpload = (sorCodes) => {
-
     if (isIncrementalSearchEnabled) {
       let sorCodesInIncremental = [
         ...sorCodeArrays.filter(
           (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
         ),
         ...sorCodes.map((c) => [c]),
-        ]
+      ]
       setSorCodeArrays(() => {
-        return sorCodesInIncremental;
+        return sorCodesInIncremental
       })
-    }
-    else {
-      let sorCodesInNonIncremental = ([...sorCodeArrays, ...sorCodes.map((c) => sorCodeArrays)]).filter((e) => e.length != 0)
+    } else {
+      let sorCodesInNonIncremental = [
+        ...sorCodeArrays,
+        ...sorCodes.map(() => sorCodeArrays),
+      ].filter((e) => e.length != 0)
       setSorCodeArrays(() => {
         return sorCodesInNonIncremental
       })
     }
-    
-   
 
     setFormState((formState) => {
       return {

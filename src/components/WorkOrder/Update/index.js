@@ -252,7 +252,6 @@ const WorkOrderUpdateView = ({ reference }) => {
           })
       : []
 
-      
     setAddedTasks(newAddedTasks)
     let codes = [...sorCodeArrays]
     sorCodes.forEach((code) => {
@@ -265,17 +264,8 @@ const WorkOrderUpdateView = ({ reference }) => {
     })
 
     codes = codes.filter((ar) => ar.length !== 0)
-    // if (orderRequiresIncrementalSearch) {
-    //   console.log("POPPING")
-    //   codes = codes.filter(el => el.length == 0)
-    // }
-    
-setSorCodeArrays(codes)
-    console.log('SOR codes array')
-    console.log(codes)
-    console.log('SOR CODES')
-    console.log(sorCodes)
 
+    setSorCodeArrays(codes)
   }
 
   return (
@@ -361,8 +351,6 @@ setSorCodeArrays(codes)
                   currentSorCodes={getCurrentSORCodes()}
                   setPageBackToFormView={() => {
                     setCurrentPage(FORM_PAGE)
-                    console.log('ITEMS WHEN BACK')
-                    console.log(formState)
                   }}
                   sorExistenceValidationCallback={createSorExistenceValidator(
                     workOrder.tradeCode,
@@ -371,7 +359,7 @@ setSorCodeArrays(codes)
                   )}
                   setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
                   setAnnouncementMessage={setAnnouncementMessage}
-                  setIsPriorityEnabled={(isEnabled) => {}}
+                  setIsPriorityEnabled={() => {}}
                 />
               )}
             </>
