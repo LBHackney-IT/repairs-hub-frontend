@@ -92,8 +92,6 @@ const RateScheduleItem = ({
           register={register({
             required: 'Please select an SOR code',
             validate: (value) => {
-              console.log(`Value ${value}`)
-              console.log(sorOptions)
               return (
                 sorOptions.some((text) => text === value) ||
                 'SOR code is not valid'

@@ -174,12 +174,12 @@ const RateScheduleItemView = ({
 
   const rateScheduleItems = () => {
     return arrayOfRateScheduleItemComponentIndexes.map((i) => {
-      //console.log(`Item ${i}, ${JSON.stringify(sorCodeArrays[i])}`)
-      //console.log(sorSearchRequest)
       return (
         <Fragment key={`rateScheduleItem~${i}`}>
           <RateScheduleItem
-            sorCodes={sorSearchRequest ? (sorCodeArrays[i] || []) : sorCodeArrays[0] }
+            sorCodes={
+              sorSearchRequest ? sorCodeArrays[i] || [] : sorCodeArrays[0]
+            }
             register={register}
             errors={errors}
             disabled={disabled}

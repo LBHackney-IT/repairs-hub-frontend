@@ -111,7 +111,8 @@ describe('fetchFeatureToggles', () => {
         const validator = createSorExistenceValidator(
           'tradeCode',
           'propertyRef',
-          'contractorRef'
+          'contractorRef',
+          true,
         )
 
         const validationResults = await validator([
@@ -167,7 +168,8 @@ describe('fetchFeatureToggles', () => {
         const validator = createSorExistenceValidator(
           'tradeCode',
           'propertyRef',
-          'contractorRef'
+          'contractorRef',
+          true
         )
 
         const validationResults = await validator([

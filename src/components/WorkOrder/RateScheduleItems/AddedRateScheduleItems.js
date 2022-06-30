@@ -3,7 +3,6 @@ import { Fragment, useState } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { useEffect } from 'react'
-import { el } from 'date-fns/locale'
 
 const AddedRateScheduleItems = ({
   register,
@@ -13,31 +12,31 @@ const AddedRateScheduleItems = ({
   sorSearchRequest,
   sorCodeArrays,
   setSorCodeArrays,
-  setValue,
   setPageToMultipleSORs,
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
-  const [rateScheduleItemSorCodeArray, setRateScheduleItemSorCodeArray] = useState([])
+  const [
+    rateScheduleItemSorCodeArray,
+    setRateScheduleItemSorCodeArray,
+  ] = useState([])
   useEffect(() => {
-    console.log("USEEFFECT")
-    console.log(rateScheduleItems)
-    console.log(sorCodeArrays)
-
-
     let scheduleItem_SorCodeArray = rateScheduleItems.map((item, index) => {
-      const validSorCodeArray = sorCodeArrays.find(el => el.length == 1 && el[0].code == item.code)
+      const validSorCodeArray = sorCodeArrays.find(
+        (el) => el.length == 1 && el[0].code == item.code
+      )
       return {
         rateScheduleItem: item,
-        sorCodeArrays: validSorCodeArray ? validSorCodeArray : (sorSearchRequest ? sorCodeArrays[index] : sorCodeArrays[0])
+        sorCodeArrays: validSorCodeArray
+          ? validSorCodeArray
+          : sorSearchRequest
+          ? sorCodeArrays[index]
+          : sorCodeArrays[0],
       }
-    });
+    })
 
-    console.log(scheduleItem_SorCodeArray)
-
-    setRateScheduleItemSorCodeArray(scheduleItem_SorCodeArray);
-    
-  }, [rateScheduleItems,sorCodeArrays])
+    setRateScheduleItemSorCodeArray(scheduleItem_SorCodeArray)
+  }, [rateScheduleItems, sorCodeArrays])
 
   const addRateScheduleItem = (e) => {
     e.preventDefault()
@@ -45,48 +44,27 @@ const AddedRateScheduleItems = ({
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
 
-    console.log(`Pushing item with id: ${nextFreeIndex}`)
-    console.log(rateScheduleItems)
-
-   // const newSorArray = []
+    // const newSorArray = []
     const newSorArray = sorSearchRequest
       ? [] // will be populated on user input
       : sorCodeArrays[sorCodeArrays.length - 1] // each additional SOR will have the same options
 
-    
-    // if (sorCodeArrays[sorCodeArrays.length - 1].length < 2) {
-    //   sorCodeArrays[sorCodeArrays.length  -1] = sorCodeArrays[0]
-    // }
-    console.log('ADDING')
-    console.log(newSorArray)
-    console.log([...sorCodeArrays, newSorArray])
     setSorCodeArrays((sorCodeArrays) => [...sorCodeArrays, newSorArray])
   }
 
   const removeRateScheduleItem = (index) => {
-
-    const filtered = rateScheduleItemSorCodeArray.filter(el => el.rateScheduleItem.id != index)
+    const filtered = rateScheduleItemSorCodeArray.filter(
+      (el) => el.rateScheduleItem.id != index
+    )
     setRateScheduleItemSorCodeArray([...filtered])
-    
-    const filtered2 = rateScheduleItems.filter(el => el.id != index);
-    console.log("REMOVING")
-    console.log(filtered2)
+
+    const filtered2 = rateScheduleItems.filter((el) => el.id != index)
 
     setRateScheduleItems([...filtered2])
     setSorCodeArrays((sorCodeArrays) => {
-        sorCodeArrays.splice(index, 1)
-        return sorCodeArrays
-      })
-      
-    // console.log('REMOVE')
-    // let filtered = rateScheduleItems.filter((e) => e.id != index)
-    // setRateScheduleItems([...filtered])
-
-    // setSorCodeArrays((sorCodeArrays) => {
-    //   sorCodeArrays.splice(index, 1)
-    //   console.log(sorCodeArrays)
-    //   return sorCodeArrays
-    // })
+      sorCodeArrays.splice(index, 1)
+      return sorCodeArrays
+    })
   }
 
   const findRateScheduleItem = (index) => {
@@ -130,13 +108,15 @@ const AddedRateScheduleItems = ({
 
   const showRateScheduleItems = (items) => {
     return items.map((item, index) => {
-      const element = rateScheduleItemSorCodeArray.find(el => el.rateScheduleItem.id == item.id);
-      console.log('ELEMENT')
-      console.log(element)
+      const element = rateScheduleItemSorCodeArray.find(
+        (el) => el.rateScheduleItem.id == item.id
+      )
       return (
         <Fragment key={`rateScheduleItems~${item.id}`}>
           <RateScheduleItem
-            sorCodes={(element && element.sorCodeArrays) || (sorCodeArrays[0] || [])}
+            sorCodes={
+              (element && element.sorCodeArrays) || sorCodeArrays[0] || []
+            }
             register={register}
             errors={errors}
             key={item.id}
@@ -161,7 +141,6 @@ const AddedRateScheduleItems = ({
             sorSearchRequest={sorSearchRequest}
             setSorCodes={(sorCodes) => {
               setSorCodeArrays((sorCodeArrays) => {
-                console.log(`SORCODEARRAYS ${sorCodeArrays}`)
                 return [
                   ...sorCodeArrays.slice(0, index),
                   sorCodes,
