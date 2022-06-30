@@ -26,7 +26,7 @@ const RateScheduleItem = ({
     router.pathname === '/properties/[id]/raise-repair/new'
   const sorOptions = sorCodes.map((sor) =>
     onRaiseRepairPage()
-      ? `${sor.code} - ${sor.shortDescription} - ${sor.cost}`
+      ? `${sor.code} - ${sor.shortDescription} - £${sor.cost}`
       : `${sor.code} - ${sor.shortDescription}`
   )
 
