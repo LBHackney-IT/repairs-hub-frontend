@@ -74,57 +74,58 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   )
 
   const onFormSubmit = async (formData) => {
+    debugger
     setLoading(true)
 
-    try {
-      const {
-        id,
-        statusCode,
-        externallyManagedAppointment,
-        externalAppointmentManagementUrl,
-      } = await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrders/schedule`,
-        requestData: formData,
-      })
-      setWorkOrderReference(id)
+    // try {
+    //   const {
+    //     id,
+    //     statusCode,
+    //     externallyManagedAppointment,
+    //     externalAppointmentManagementUrl,
+    //   } = await frontEndApiRequest({
+    //     method: 'post',
+    //     path: `/api/workOrders/schedule`,
+    //     requestData: formData,
+    //   })
+    //   setWorkOrderReference(id)
 
-      if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
-        setAuthorisationPendingApproval(true)
-      } else if (externallyManagedAppointment) {
-        // Emergency and immediate DLO repairs are sent directly to the Planners
-        // We display no link to open DRS
-        if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
-          setImmediateOrEmergencyRepairText(true)
-          setImmediateOrEmergencyDLO(true)
-        } else {
-          const schedulerSessionId = await getOrCreateSchedulerSessionId()
+    //   if (statusCode === STATUS_AUTHORISATION_PENDING_APPROVAL.code) {
+    //     setAuthorisationPendingApproval(true)
+    //   } else if (externallyManagedAppointment) {
+    //     // Emergency and immediate DLO repairs are sent directly to the Planners
+    //     // We display no link to open DRS
+    //     if (HIGH_PRIORITY_CODES.includes(formData.priority.priorityCode)) {
+    //       setImmediateOrEmergencyRepairText(true)
+    //       setImmediateOrEmergencyDLO(true)
+    //     } else {
+    //       const schedulerSessionId = await getOrCreateSchedulerSessionId()
 
-          setExternallyManagedAppointment(true)
-          setExternalAppointmentManagementUrl(
-            `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
-          )
-        }
-      } else if (
-        PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
-          formData.priority.priorityCode
-        )
-      ) {
-        router.push({
-          pathname: `/work-orders/${id}/appointment/new`,
-          query: { newOrder: true },
-        })
-        return
-      }
+    //       setExternallyManagedAppointment(true)
+    //       setExternalAppointmentManagementUrl(
+    //         `${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`
+    //       )
+    //     }
+    //   } else if (
+    //     PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
+    //       formData.priority.priorityCode
+    //     )
+    //   ) {
+    //     router.push({
+    //       pathname: `/work-orders/${id}/appointment/new`,
+    //       query: { newOrder: true },
+    //     })
+    //     return
+    //   }
 
-      setCurrentPage(RAISE_SUCCESS_PAGE)
-    } catch (e) {
-      console.error(e)
+    //   setCurrentPage(RAISE_SUCCESS_PAGE)
+    // } catch (e) {
+    //   console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
-    }
+    //   setError(
+    //     `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+    //   )
+    // }
 
     setLoading(false)
   }

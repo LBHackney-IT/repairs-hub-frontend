@@ -353,8 +353,8 @@ describe('Raise repair form', () => {
           .clear()
           .type('INP5R001 - Pre insp of wrks by Constructr')
 
-        // Does not autopopulate priority description
-        cy.get('#priorityCode').should('have.value', '')
+        // Priority is Normal by default (4)
+        cy.get('#priorityCode').should('have.value', '4')
 
         // Select SOR code with priority attached
         cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -1212,7 +1212,7 @@ describe('Raise repair form', () => {
       })
     })
 
-    it('Submits an immediate priority work order', () => {
+    it.only('Submits an immediate priority work order', () => {
       cy.visit('/properties/00012345')
 
       cy.wait(['@propertyRequest', '@workOrdersRequest'])
@@ -1240,10 +1240,12 @@ describe('Raise repair form', () => {
           .clear()
           .type('DES5R003 - Immediate call outs - £0')
 
-        // Autopopulates priority description
+        // Autopopulates priority description: Normal by default
         cy.get('#priorityCode')
           .find('option:selected')
-          .should('have.text', '1 [I] IMMEDIATE')
+          .should('have.text', '5 [N] NORMAL')
+
+          cy.get('#priorityCode').select('1 [I] IMMEDIATE')
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
 
