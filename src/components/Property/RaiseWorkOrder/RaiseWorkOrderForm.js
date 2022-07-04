@@ -69,9 +69,9 @@ const RaiseWorkOrderForm = ({
       getValues().rateScheduleItems &&
       getValues().rateScheduleItems[0].code != ''
     if (atLeastOneSor && sorCodeArrays.length > 0) {
-      const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
+      const isArray = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
       if (
-        b &&
+        isArray &&
         sorCodeArrays[sorCodeArrays.length - 1].length > 0 &&
         sorCodeArrays[sorCodeArrays.length - 1][0].priority
       ) {
@@ -80,7 +80,7 @@ const RaiseWorkOrderForm = ({
         setValue('priorityCode', prio.priorityCode)
       }
     }
-  })
+  }, [])
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
