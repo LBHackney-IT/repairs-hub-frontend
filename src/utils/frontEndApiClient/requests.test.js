@@ -1,6 +1,11 @@
-import { frontEndApiRequest, fetchFeatureToggles } from './requests'
+import {
+  frontEndApiRequest,
+  fetchFeatureToggles,
+  createSorExistenceValidator,
+} from './requests'
 import axios from 'axios'
 jest.mock('axios', () => jest.fn())
+import { paramsSerializer } from '@/utils/urls'
 
 describe('frontEndApiRequest`', () => {
   it('calls axios with the expected parameters and returns data', async () => {
@@ -107,7 +112,7 @@ describe('fetchFeatureToggles', () => {
           'tradeCode',
           'propertyRef',
           'contractorRef',
-          true,
+          true
         )
 
         const validationResults = await validator([

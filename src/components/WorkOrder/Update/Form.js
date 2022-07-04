@@ -100,6 +100,7 @@ WorkOrderUpdateForm.propTypes = {
   contractorReference: PropTypes.string.isRequired,
   sorCodeArrays: PropTypes.array.isRequired,
   setSorCodeArrays: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default WorkOrderUpdateForm

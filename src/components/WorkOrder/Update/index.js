@@ -19,6 +19,7 @@ import {
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
+import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -29,12 +30,10 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [workOrder, setWorkOrder] = useState()
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
-  const [showSummaryPage, setShowSummaryPage] = useState(false)
   const [
     showAdditionalRateScheduleItems,
     setShowAdditionalRateScheduleItems,
   ] = useState(false)
-  const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
   const [contractorReference, setContractorReference] = useState()
@@ -68,12 +67,12 @@ const WorkOrderUpdateView = ({ reference }) => {
         : []
     )
 
-    setShowSummaryPage(true)
+    setCurrentPage(SUMMARY_PAGE)
   }
 
   const changeCurrentPage = () => {
     setShowAdditionalRateScheduleItems(true)
-    setShowSummaryPage(false)
+    setCurrentPage(FORM_PAGE)
   }
 
   const onFormSubmit = async (formData, overSpendLimit) => {
@@ -86,7 +85,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         requestData: formData,
       })
       setOverSpendLimit(overSpendLimit)
-      setShowUpdateSuccess(true)
+      setCurrentPage(UPDATE_SUCCESS_PAGE)
     } catch (e) {
       console.error(e)
 
@@ -276,7 +275,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         <>
           {currentUser && tasks && (
             <>
-              {showUpdateSuccess && (
+              {currentPage == UPDATE_SUCCESS_PAGE && (
                 <SuccessPage
                   banner={
                     <PageAnnouncement
@@ -333,7 +332,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   />
                 </>
               )}
-              {showSummaryPage && !showUpdateSuccess && (
+              {currentPage === SUMMARY_PAGE && (
                 <WorkOrderUpdateSummary
                   latestTasks={tasks}
                   originalTasks={originalTasks}
