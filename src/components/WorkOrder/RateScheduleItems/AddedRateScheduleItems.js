@@ -163,6 +163,7 @@ const AddedRateScheduleItems = ({
   const changePageView = (e) => {
     e.preventDefault()
     setPageToMultipleSORs()
+    console.log('to be able to push')
   }
 
   return (
