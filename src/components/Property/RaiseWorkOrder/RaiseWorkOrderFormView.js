@@ -5,7 +5,10 @@ import SuccessPage from '@/components/SuccessPage'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  frontEndApiRequest,
+  createSorExistenceValidator,
+} from '@/utils/frontEndApiClient/requests'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
@@ -34,9 +37,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [priorities, setPriorities] = useState([])
   const [contacts, setContacts] = useState([])
 
+  const [formState, setFormState] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [formSuccess, setFormSuccess] = useState(false)
   const [
     authorisationPendingApproval,
     setAuthorisationPendingApproval,
@@ -56,6 +59,17 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
+
+  const [announcementMessage, setAnnouncementMessage] = useState('')
+
+  const FORM_PAGE = 1
+  const ADDING_MULTIPLE_SOR_PAGE = 2
+  const RAISE_SUCCESS_PAGE = 3
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
+  const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
+  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
+    false
+  )
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
@@ -103,7 +117,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         return
       }
 
-      setFormSuccess(true)
+      setCurrentPage(RAISE_SUCCESS_PAGE)
     } catch (e) {
       console.error(e)
 
@@ -223,7 +237,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       )
     )
   }
-console.log(formState)
+  console.log(formState)
 
   const getCurrentSORCodes = () => {
     if (formState != null && formState.rateScheduleItems == null) {
@@ -247,34 +261,37 @@ console.log(formState)
                 title: `New repair at ${property.address.addressLine}`,
               })}
           />
-          {formSuccess && workOrderReference && property && (
-            <>
-              <SuccessPage
-                banner={
-                  <Panel
-                    title="Work order created"
-                    authorisationText={
-                      authorisationPendingApproval &&
-                      'but requires authorisation'
-                    }
-                    workOrderReference={workOrderReference}
-                  />
-                }
-                warningText={warningTextToShow()}
-                links={
-                  externallyManagedAppointment
-                    ? LinksWithDRSBooking(
-                        workOrderReference,
-                        property,
-                        externalAppointmentManagementUrl,
-                        currentUser.name
-                      )
-                    : createWOLinks(workOrderReference, property)
-                }
-              />
-            </>
-          )}
-          {!formSuccess &&
+          {currentPage === RAISE_SUCCESS_PAGE &&
+            workOrderReference &&
+            property && (
+              <>
+                <SuccessPage
+                  banner={
+                    <Panel
+                      title="Work order created"
+                      authorisationText={
+                        authorisationPendingApproval &&
+                        'but requires authorisation'
+                      }
+                      workOrderReference={workOrderReference}
+                    />
+                  }
+                  warningText={warningTextToShow()}
+                  links={
+                    externallyManagedAppointment
+                      ? LinksWithDRSBooking(
+                          workOrderReference,
+                          property,
+                          externalAppointmentManagementUrl,
+                          currentUser.name
+                        )
+                      : createWOLinks(workOrderReference, property)
+                  }
+                />
+              </>
+            )}
+          {renderAnnouncement()}
+          {currentPage === FORM_PAGE &&
             property &&
             property.address &&
             property.hierarchyType &&
@@ -304,6 +321,9 @@ console.log(formState)
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
+                isPriorityEnabled={isPriorityEnabled}
+                isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+                setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               />
             )}
 

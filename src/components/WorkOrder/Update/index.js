@@ -19,6 +19,7 @@ import {
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
+import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -269,11 +270,11 @@ const WorkOrderUpdateView = ({ reference }) => {
   }
 
   console.log('tasks')
-console.log(tasks)
-console.log('Original tasks')
-console.log(originalTasks)
-console.log('added tasks')
-console.log(formState)
+  console.log(tasks)
+  console.log('Original tasks')
+  console.log(originalTasks)
+  console.log('added tasks')
+  console.log(formState)
 
   return (
     <>
@@ -307,7 +308,6 @@ console.log(formState)
                   }
                 />
               )}
-              {!showSummaryPage && !showUpdateSuccess && (
 
               {renderAnnouncement()}
               {currentPage === FORM_PAGE && (

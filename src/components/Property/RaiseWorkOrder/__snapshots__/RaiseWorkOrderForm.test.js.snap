@@ -265,6 +265,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -683,6 +684,7 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"

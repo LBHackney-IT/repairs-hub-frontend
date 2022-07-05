@@ -44,6 +44,11 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
+  setPageToMultipleSORs,
+  formState,
+  isPriorityEnabled,
+  isIncrementalSearchEnabled,
+  setIsIncrementalSearchEnabled,
 }) => {
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
@@ -58,31 +63,15 @@ const RaiseWorkOrderForm = ({
   const overSpendLimit = totalCost > raiseLimit
 
   useEffect(() => {
-    const atLeastOneSor = (getValues() &&
-    getValues().rateScheduleItems && getValues().rateScheduleItems
-    && getValues().rateScheduleItems[0].code != "")
-    if (atLeastOneSor && sorCodeArrays.length > 0) {
-      const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
-      if (b && sorCodeArrays[sorCodeArrays.length - 1].length > 0
-            && sorCodeArrays[sorCodeArrays.length - 1][0].priority) {
-        const prio = sorCodeArrays[sorCodeArrays.length - 1][0].priority;
-        setPriorityCode(
-          prio.priorityCode
-        )
-        setValue(
-          'priorityCode',
-          prio.priorityCode
-        )}
-
     const atLeastOneSor =
       getValues() &&
       getValues().rateScheduleItems &&
       getValues().rateScheduleItems &&
       getValues().rateScheduleItems[0].code != ''
     if (atLeastOneSor && sorCodeArrays.length > 0) {
-      const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
+      const itIsArray = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
       if (
-        b &&
+        itIsArray &&
         sorCodeArrays[sorCodeArrays.length - 1].length > 0 &&
         sorCodeArrays[sorCodeArrays.length - 1][0].priority
       ) {
@@ -91,7 +80,7 @@ const RaiseWorkOrderForm = ({
         setValue('priorityCode', prio.priorityCode)
       }
     }
-  })
+  }, [])
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
@@ -200,6 +189,8 @@ const RaiseWorkOrderForm = ({
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
+    isPriorityEnabled &&
+      (document.getElementById('priorityCode').disabled = false)
   }, [])
 
   return (
@@ -253,6 +244,9 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
+              setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
+              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
             />
 
             <SelectPriority
@@ -353,6 +347,7 @@ RaiseWorkOrderForm.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

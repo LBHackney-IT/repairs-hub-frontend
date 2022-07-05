@@ -44,7 +44,6 @@ const AddedRateScheduleItems = ({
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
 
-    // const newSorArray = []
     const newSorArray = sorSearchRequest
       ? [] // will be populated on user input
       : sorCodeArrays[sorCodeArrays.length - 1] // each additional SOR will have the same options
@@ -161,14 +160,27 @@ const AddedRateScheduleItems = ({
     })
   }
 
-  return (
-    <div className="govuk-!-padding-bottom-5">
-      {showRateScheduleItems(rateScheduleItems)}
+  const changePageView = (e) => {
+    e.preventDefault()
+    setPageToMultipleSORs()
+    console.log('to be able to push')
+  }
 
-      <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-        + Add another SOR code
-      </a>
-    </div>
+  return (
+    <>
+      <div>
+        {showRateScheduleItems(rateScheduleItems)}
+
+        <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+          + Add another SOR code
+        </a>
+      </div>
+      <div>
+        <a className="lbh-link" href="#" onClick={changePageView}>
+          + Add multiple SOR codes
+        </a>
+      </div>
+    </>
   )
 }
 
