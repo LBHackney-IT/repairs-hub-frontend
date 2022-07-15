@@ -75,7 +75,8 @@ const RateScheduleItemView = ({
     const sorCodeObject = getSorCodeObject(code, index)
 
     if (sorCodeObject?.priority?.priorityCode) {
-      const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find((e) => e.index === index)
+      const rateScheduleItemPriorityAtSameIndex =
+        rateScheduleItemPriorities.find((e) => e.index === index)
 
       if (rateScheduleItemPriorityAtSameIndex) {
         rateScheduleItemPriorityAtSameIndex.code =
@@ -142,7 +143,8 @@ const RateScheduleItemView = ({
         arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== index)
     )
 
-    const remainingRateScheduleItemPriorities = rateScheduleItemPriorities.filter((i) => i.index !== index)
+    const remainingRateScheduleItemPriorities =
+      rateScheduleItemPriorities.filter((i) => i.index !== index)
     setRateScheduleItemPriorities(remainingRateScheduleItemPriorities)
 
     const remainingRateScheduleItemCosts = rateScheduleItemCosts.filter(

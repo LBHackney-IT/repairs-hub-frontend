@@ -36,13 +36,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [formSuccess, setFormSuccess] = useState(false)
-  const [authorisationPendingApproval, setAuthorisationPendingApproval] = useState(false)
-  const [externallyManagedAppointment, setExternallyManagedAppointment] = useState(false)
+  const [authorisationPendingApproval, setAuthorisationPendingApproval] =
+    useState(false)
+  const [externallyManagedAppointment, setExternallyManagedAppointment] =
+    useState(false)
   const [
     externalAppointmentManagementUrl,
     setExternalAppointmentManagementUrl,
   ] = useState()
-  const [immediateOrEmergencyRepairText, setImmediateOrEmergencyRepairText] = useState(false)
+  const [immediateOrEmergencyRepairText, setImmediateOrEmergencyRepairText] =
+    useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
