@@ -32,8 +32,14 @@ const CloseWorkOrderForm = ({
   jobIsSplitByOperative,
   paymentType,
 }) => {
-  const { handleSubmit, register, control, errors, trigger, getValues } =
-    useForm({})
+  const {
+    handleSubmit,
+    register,
+    control,
+    errors,
+    trigger,
+    getValues,
+  } = useForm({})
 
   return (
     <>
