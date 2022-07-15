@@ -74,8 +74,7 @@ describe('Show work order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path:
-            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: [] }
       ).as('workOrdersRequest')
@@ -270,8 +269,7 @@ describe('Show work order page', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+            path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { fixture: 'workOrders/workOrders.json' }
         ).as('workOrdersHistoryRequest')
@@ -336,8 +334,7 @@ describe('Show work order page', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+            path: '/api/workOrders?propertyReference=00089473&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { body: [] }
         ).as('workOrdersRequest')

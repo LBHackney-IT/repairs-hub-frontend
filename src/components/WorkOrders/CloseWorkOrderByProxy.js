@@ -35,10 +35,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
-  const [
-    selectedPercentagesToShowOnEdit,
-    setSelectedPercentagesToShowOnEdit,
-  ] = useState([])
+  const [selectedPercentagesToShowOnEdit, setSelectedPercentagesToShowOnEdit] =
+    useState([])
 
   const FORM_PAGE = 1
   const SUMMARY_PAGE = 2

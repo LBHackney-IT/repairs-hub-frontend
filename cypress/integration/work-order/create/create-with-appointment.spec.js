@@ -28,8 +28,7 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+        path: '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesPCL')
@@ -37,8 +36,7 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
+        path: '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H01&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesH01')
@@ -71,8 +69,7 @@ describe('Schedule appointment form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
+        path: '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
       },
       { body: [] }
     ).as('workOrdersForProperty')
