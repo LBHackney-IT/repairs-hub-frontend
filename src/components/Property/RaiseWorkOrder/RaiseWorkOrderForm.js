@@ -44,6 +44,7 @@ const RaiseWorkOrderForm = ({
   contacts,
   onFormSubmit,
   raiseLimit,
+  setPriorities,
 }) => {
   const { register, handleSubmit, errors, setValue } = useForm()
   const [loading, setLoading] = useState(false)
@@ -103,6 +104,14 @@ const RaiseWorkOrderForm = ({
     setPriorityCode(code)
   }
 
+  const filterPriorities = (filterText) => {
+    setPriorities(
+      priorities.filter(function (pri) {
+        return pri.description.includes(filterText)
+      })
+    )
+  }
+
   const updatePriority = (
     description,
     code,
@@ -110,8 +119,9 @@ const RaiseWorkOrderForm = ({
     existingHigherPriorityCode
   ) => {
     if (existingHigherPriorityCode) {
-      description = getPriorityObjectByCode(existingHigherPriorityCode)
-        ?.description
+      description = getPriorityObjectByCode(
+        existingHigherPriorityCode
+      )?.description
     }
 
     if (getPriorityObjectByDescription(description)) {
@@ -215,6 +225,7 @@ const RaiseWorkOrderForm = ({
               getPriorityObjectByCode={getPriorityObjectByCode}
               setTotalCost={setTotalCost}
               setValue={setValue}
+              filterPriorities={filterPriorities}
             />
 
             <SelectPriority

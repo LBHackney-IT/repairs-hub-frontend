@@ -37,6 +37,7 @@ const TradeContractorRateScheduleItemView = ({
   getPriorityObjectByCode,
   setTotalCost,
   setValue,
+  filterPriorities,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -45,10 +46,8 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
 
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState(false)
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState(false)
 
   let multiTradeSORIncrementalSearchEnabled = null
 
@@ -97,9 +96,8 @@ const TradeContractorRateScheduleItemView = ({
     if (multiTradeSORIncrementalSearchEnabled === null) {
       const featureToggles = await fetchFeatureToggles()
 
-      multiTradeSORIncrementalSearchEnabled = !!featureToggles[
-        MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
-      ]
+      multiTradeSORIncrementalSearchEnabled =
+        !!featureToggles[MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]
     }
 
     setOrderRequiresIncrementalSearch(
@@ -141,6 +139,12 @@ const TradeContractorRateScheduleItemView = ({
       }
     } else {
       setContractorReference('')
+    }
+
+    var ctr = contractorRef.toLowerCase()
+
+    if (ctr.includes('h02')) {
+      filterPriorities('VOIDS')
     }
   }
 
@@ -346,6 +350,7 @@ TradeContractorRateScheduleItemView.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
+  filterPriorities: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView

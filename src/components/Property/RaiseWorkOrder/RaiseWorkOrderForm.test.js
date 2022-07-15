@@ -9,6 +9,9 @@ import {
   IMMEDIATE_PRIORITY_CODE,
   NORMAL_PRIORITY_CODE,
   URGENT_PRIORITY_CODE,
+  VOIDS_MAJOR_PRIORITY_CODE,
+  VOIDS_MINOR_PRIORITY_CODE,
+  PLANNED_PRIORITY_CODE,
 } from '@/utils/helpers/priorities'
 import RaiseWorkOrderForm from './RaiseWorkOrderForm'
 import { agent } from 'factories/agent'
@@ -144,6 +147,76 @@ describe('RaiseWorkOrderForm component', () => {
           tradeCode={''}
           setTradeCode={props.setTradeCode}
           contractorReference={''}
+          setContractorReference={props.setContractorReference}
+          budgetCodeId={''}
+          setBudgetCodeId={props.setBudgetCodeId}
+        />
+      </UserContext.Provider>
+    )
+
+    await act(async () => {
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+    })
+
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should limit the priorities list to voids when H02 contract is selected', async () => {
+    const prioritiesWithVoids = [
+      {
+        priorityCode: IMMEDIATE_PRIORITY_CODE,
+        description: '[I] IMMEDIATE',
+      },
+      {
+        priorityCode: EMERGENCY_PRIORITY_CODE,
+        description: '[E] EMERGENCY',
+      },
+      {
+        priorityCode: URGENT_PRIORITY_CODE,
+        description: '[U] URGENT',
+      },
+      {
+        priorityCode: NORMAL_PRIORITY_CODE,
+        description: '[N] NORMAL',
+      },
+      {
+        priorityCode: VOIDS_MAJOR_PRIORITY_CODE,
+        description: '[V15] VOIDS MINOR',
+      },
+      {
+        priorityCode: VOIDS_MINOR_PRIORITY_CODE,
+        description: '[V30] VOIDS MAJOR',
+      },
+      {
+        priorityCode: PLANNED_PRIORITY_CODE,
+        description: '[P] PLANNED',
+      },
+    ]
+
+    const { asFragment } = render(
+      <UserContext.Provider value={{ user: agent }}>
+        <RaiseWorkOrderForm
+          propertyReference={props.property.propertyReference}
+          address={props.property.address}
+          hierarchyType={props.property.hierarchyType}
+          canRaiseRepair={props.property.canRaiseRepair}
+          tenure={props.tenure}
+          priorities={prioritiesWithVoids}
+          trades={props.trades}
+          contractors={[]}
+          setContractors={props.setContractors}
+          budgetCodes={[]}
+          setBudgetCodes={props.setBudgetCodes}
+          sorCodeArrays={[[]]}
+          setSorCodeArrays={props.setSorCodeArrays}
+          contacts={props.contactDetails}
+          onFormSubmit={props.onFormSubmit}
+          tradeCode={''}
+          setTradeCode={props.setTradeCode}
+          contractorReference={'h02'}
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
