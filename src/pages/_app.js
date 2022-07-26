@@ -31,7 +31,9 @@ class MyApp extends App {
 
     const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
 
-    useEffect(() => {hotjar.initialize(783901, 6)}, [])
+    useEffect(() => {
+      hotjar.initialize(783901, 6)
+    }, [])
 
     if (userDetails) {
       setUser({ name: userDetails.name, email: userDetails.email })
