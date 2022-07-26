@@ -10,7 +10,6 @@
   "plugins": ["react", "jest"],
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
     "plugin:cypress/recommended"
   ],
   "parserOptions": {
