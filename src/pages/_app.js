@@ -3,6 +3,8 @@ import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
 import { configureScope, setUser } from '@sentry/nextjs'
+import { hotjar } from 'react-hotjar'
+import { useEffect } from 'react'
 
 import {
   isAuthorised,
@@ -28,6 +30,8 @@ class MyApp extends App {
     const { Component, pageProps, userDetails } = this.props
 
     const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
+
+    useEffect(() => {hotjar.initialize(783901, 6)}, [])
 
     if (userDetails) {
       setUser({ name: userDetails.name, email: userDetails.email })
