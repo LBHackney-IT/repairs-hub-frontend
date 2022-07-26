@@ -14,7 +14,8 @@ describe('Show property', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
       },
       { body: [] }
     ).as('workOrdersHistory')
@@ -157,14 +158,16 @@ describe('Show property', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           { body: properties }
         )
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2&sort=dateraised%3Adesc',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=2&sort=dateraised%3Adesc',
           },
           {
             body: [
@@ -259,7 +262,8 @@ describe('Show property', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
           {
             body: [
@@ -483,7 +487,8 @@ describe('Show property', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          path:
+            '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
         },
         { body: [] }
       ).as('workOrdersHistory')

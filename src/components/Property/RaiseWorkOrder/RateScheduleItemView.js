@@ -97,7 +97,7 @@ const RateScheduleItemView = ({
       const existingHigherPriority = sortedByPriorityCode.find(
         (e) => e.code <= sorCodeObject.priority.priorityCode
       )
-
+      
       updatePriority(
         sorCodeObject.priority.description,
         sorCodeObject.priority.priorityCode,

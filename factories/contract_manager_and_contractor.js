@@ -13,5 +13,4 @@ const contractManagerAndContractorUserFactory = Factory.define(() => ({
   hasAnyPermissions: true,
 }))
 
-export const contractManagerAndContractor =
-  contractManagerAndContractorUserFactory.build()
+export const contractManagerAndContractor = contractManagerAndContractorUserFactory.build()

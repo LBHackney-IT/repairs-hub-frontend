@@ -17,8 +17,9 @@ describe('Authorisation for a variation request', () => {
         typeCode: '100-20',
       }
 
-      const response =
-        buildVariationAuthorisationApprovedFormData(workOrderReference)
+      const response = buildVariationAuthorisationApprovedFormData(
+        workOrderReference
+      )
 
       expect(response).toEqual(authorisationJobFormData)
     })
