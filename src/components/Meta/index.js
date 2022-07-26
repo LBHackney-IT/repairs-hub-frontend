@@ -1,8 +1,14 @@
 import Head from 'next/head'
+import { hotjar } from 'react-hotjar'
+import { useEffect } from 'react'
 
 const Meta = ({ title }) => {
   const applicationTitle = 'Hackney Repairs Hub'
-
+  
+  useEffect(() => {
+    hotjar.initialize(783901, 6)
+  }, [])
+  
   return (
     <Head>
       <meta charSet="utf-8" />
