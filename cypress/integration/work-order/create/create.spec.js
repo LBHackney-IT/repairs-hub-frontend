@@ -96,8 +96,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+        path: '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesRequest')
@@ -878,8 +877,7 @@ describe('Raise repair form', () => {
             cy.intercept(
               {
                 method: 'GET',
-                path:
-                  '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true?filter=DES?showAllTrades=true',
+                path: '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true?filter=DES?showAllTrades=true',
               },
               {
                 body: [
@@ -1075,8 +1073,7 @@ describe('Raise repair form', () => {
           cy.intercept(
             {
               method: 'GET',
-              path:
-                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+              path: '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
             },
             { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
           ).as('sorCodesRequestMultiTrade')
@@ -1166,8 +1163,7 @@ describe('Raise repair form', () => {
           cy.intercept(
             {
               method: 'GET',
-              path:
-                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+              path: '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
             },
             { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
           ).as('sorCodesRequestMultiTrade')
@@ -1422,8 +1418,7 @@ describe('Raise repair form', () => {
         cy.intercept(
           {
             method: 'GET',
-            path:
-              '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
+            path: '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
           },
           { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
         ).as('sorCodesRequest')

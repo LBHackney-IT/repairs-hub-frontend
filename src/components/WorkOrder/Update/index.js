@@ -29,18 +29,14 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [
-    showAdditionalRateScheduleItems,
-    setShowAdditionalRateScheduleItems,
-  ] = useState(false)
+  const [showAdditionalRateScheduleItems, setShowAdditionalRateScheduleItems] =
+    useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
   const [contractorReference, setContractorReference] = useState()
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState()
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState()
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
   const onGetToSummary = (e) => {
@@ -115,9 +111,8 @@ const WorkOrderUpdateView = ({ reference }) => {
 
     const featureToggles = await fetchFeatureToggles()
 
-    const multiTradeSORIncrementalSearchEnabled = !!featureToggles[
-      MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
-    ]
+    const multiTradeSORIncrementalSearchEnabled =
+      !!featureToggles[MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]
 
     setOrderRequiresIncrementalSearch(
       orderApplicable && multiTradeSORIncrementalSearchEnabled
