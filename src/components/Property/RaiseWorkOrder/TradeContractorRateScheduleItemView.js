@@ -37,6 +37,7 @@ const TradeContractorRateScheduleItemView = ({
   getPriorityObjectByCode,
   setTotalCost,
   setValue,
+  filterPriorities,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -141,6 +142,11 @@ const TradeContractorRateScheduleItemView = ({
       }
     } else {
       setContractorReference('')
+    }
+    var ctr = contractorRef.toLowerCase()
+
+    if (ctr.includes('h02')) {
+      filterPriorities('VOIDS')
     }
   }
 
@@ -346,6 +352,7 @@ TradeContractorRateScheduleItemView.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
+  filterPriorities: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView
