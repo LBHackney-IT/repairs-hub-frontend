@@ -14,7 +14,7 @@
     "tests": "yarn test:unit && yarn test:e2e",
     "test:unit": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
     "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'",
-	"lintfix": "eslint . --max-warnings 0 --ext .js,.jsx --fix",
+    "lintfix": "eslint . --max-warnings 0 --ext .js,.jsx --fix",
     "test:e2e": "NODE_ENV=test start-test 5001 cy:run",
     "e2e:audit": "NODE_ENV=test start-test 5001 cy:run:audit",
     "e2e:interactive": "NODE_ENV=test start-test 5001 cy:open",
