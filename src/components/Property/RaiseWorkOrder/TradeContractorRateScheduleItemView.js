@@ -142,11 +142,10 @@ const TradeContractorRateScheduleItemView = ({
       }
       console.log(`Contractor: ${contractorRef}`)
       var ctr = contractorRef.toLowerCase()
-    
+
       if (ctr.includes('h02')) {
         filterPriorities('VOIDS')
       }
-
     } else {
       setContractorReference('')
     }
