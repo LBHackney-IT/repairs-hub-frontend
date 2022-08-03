@@ -348,6 +348,7 @@ RaiseWorkOrderForm.propTypes = {
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
   setPageToMultipleSORs: PropTypes.func.isRequired,
+  setPriorities: PropTypes.func.isRequired,
 }
 
 export default RaiseWorkOrderForm

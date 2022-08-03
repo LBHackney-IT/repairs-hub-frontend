@@ -215,7 +215,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         rateScheduleItems: [
           ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
           ...sorCodes.map((code) => ({
-            code: `${code.code} - ${code.shortDescription}`,
+            code: `${code.code} - ${
+              code.shortDescription
+            } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
           })),
@@ -332,6 +334,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 isPriorityEnabled={isPriorityEnabled}
                 isIncrementalSearchEnabled={isIncrementalSearchEnabled}
                 setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+                setPriorities={setPriorities}
               />
             )}
 
