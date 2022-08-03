@@ -320,6 +320,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
+                setPageToMultipleSORs={(formState) => {
+                  setAnnouncementMessage('')
+                  setFormState(formState)
+                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                }}
+                formState={formState}
                 isPriorityEnabled={isPriorityEnabled}
                 isIncrementalSearchEnabled={isIncrementalSearchEnabled}
                 setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
