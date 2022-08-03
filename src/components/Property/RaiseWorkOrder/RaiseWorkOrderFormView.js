@@ -237,17 +237,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       )
     )
   }
-  console.log(formState)
-
-  const getCurrentSORCodes = () => {
-    if (formState != null && formState.rateScheduleItems == null) {
-      formState.rateScheduleItems = []
-    }
-
-    return [
-      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
-    ]
-  }
 
   const getCurrentSORCodes = () => {
     if (formState != null && formState.rateScheduleItems == null) {
