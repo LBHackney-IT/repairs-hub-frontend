@@ -269,13 +269,6 @@ const WorkOrderUpdateView = ({ reference }) => {
     setSorCodeArrays(codes)
   }
 
-  console.log('tasks')
-  console.log(tasks)
-  console.log('Original tasks')
-  console.log(originalTasks)
-  console.log('added tasks')
-  console.log(formState)
-
   return (
     <>
       {loading ? (

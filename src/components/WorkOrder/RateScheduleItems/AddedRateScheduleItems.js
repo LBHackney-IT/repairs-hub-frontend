@@ -44,6 +44,7 @@ const AddedRateScheduleItems = ({
     setNextFreeIndex(nextFreeIndex + 1)
     setRateScheduleItems([...rateScheduleItems])
 
+    // const newSorArray = []
     const newSorArray = sorSearchRequest
       ? [] // will be populated on user input
       : sorCodeArrays[sorCodeArrays.length - 1] // each additional SOR will have the same options
