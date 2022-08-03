@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { paramsSerializer } from '@/utils/urls'
 
 export const frontEndApiRequest = async ({
   method,
@@ -35,7 +36,6 @@ export const fetchFeatureToggles = async () => {
   }
 }
 
-//we need to pass here that if on updated page then isRaisable: nothing
 export const createSorExistenceValidator = (
   tradeCode,
   propertyRef,

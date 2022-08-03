@@ -1,6 +1,11 @@
-import { frontEndApiRequest, fetchFeatureToggles } from './requests'
+import {
+  frontEndApiRequest,
+  fetchFeatureToggles,
+  createSorExistenceValidator,
+} from './requests'
 import axios from 'axios'
 jest.mock('axios', () => jest.fn())
+import { paramsSerializer } from '@/utils/urls'
 
 describe('frontEndApiRequest`', () => {
   it('calls axios with the expected parameters and returns data', async () => {
@@ -89,7 +94,6 @@ describe('fetchFeatureToggles', () => {
       )
     })
   })
-
   describe('createSorExistenceValidator', () => {
     describe('when some codes supplied to the returned function are not present in the API response', () => {
       it('returns an object describing valid and invalid SORs', async () => {
