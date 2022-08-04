@@ -67,7 +67,7 @@ const RaiseWorkOrderForm = ({
       getValues() &&
       getValues().rateScheduleItems &&
       getValues().rateScheduleItems &&
-      getValues().rateScheduleItems[0].code != ''
+      getValues().rateScheduleItems[0]?.code != ''
     if (atLeastOneSor && sorCodeArrays.length > 0) {
       const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
       if (
