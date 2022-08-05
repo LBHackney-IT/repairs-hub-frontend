@@ -37,7 +37,8 @@ const TradeContractorRateScheduleItemView = ({
   getPriorityObjectByCode,
   setTotalCost,
   setValue,
-  setPageToMultipleSORs
+  setPageToMultipleSORs,
+  filterPriorities,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -139,6 +140,12 @@ const TradeContractorRateScheduleItemView = ({
         getBudgetCodesData(contractorRef)
       } else {
         await prepareSORData(contractorRef, tradeCode)
+      }
+      console.log(`Contractor: ${contractorRef}`)
+      var ctr = contractorRef.toLowerCase()
+
+      if (ctr.includes('h02')) {
+        filterPriorities('VOIDS')
       }
     } else {
       setContractorReference('')
@@ -348,7 +355,8 @@ TradeContractorRateScheduleItemView.propTypes = {
   setContractorReference: PropTypes.func.isRequired,
   budgetCodeId: PropTypes.string.isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
-  setPageToMultipleSORs: PropTypes.func.isRequired
+  setPageToMultipleSORs: PropTypes.func.isRequired,
+  filterPriorities: PropTypes.func.isRequired,
 }
 
 export default TradeContractorRateScheduleItemView

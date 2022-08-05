@@ -49,6 +49,7 @@ const RaiseWorkOrderForm = ({
   isPriorityEnabled,
   isIncrementalSearchEnabled,
   setIsIncrementalSearchEnabled,
+  setPriorities,
 }) => {
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
@@ -129,6 +130,14 @@ const RaiseWorkOrderForm = ({
 
   const onPrioritySelect = (code) => {
     setPriorityCode(code)
+  }
+
+  const filterPriorities = (filterText) => {
+    setPriorities(
+      priorities.filter(function (pri) {
+        return pri.description.includes(filterText)
+      })
+    )
   }
 
   const updatePriority = (
@@ -247,6 +256,7 @@ const RaiseWorkOrderForm = ({
               setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
               isIncrementalSearchEnabled={isIncrementalSearchEnabled}
               setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+              filterPriorities={filterPriorities}
             />
 
             <SelectPriority
