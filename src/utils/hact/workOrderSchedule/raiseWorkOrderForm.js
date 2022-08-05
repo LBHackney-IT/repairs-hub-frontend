@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
+  console.log("workOrderData", workOrderData)
   return {
     reference: [
       {
@@ -24,7 +25,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
             rateScheduleItem: [
               {
                 customCode: item.code.split(' - ')[0],
-                customName: item.description,
+                customName: item.description || item.code.split(' - ')[1],
                 quantity: {
                   amount: [Number.parseFloat(item.quantity)],
                 },
