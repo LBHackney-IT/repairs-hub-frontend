@@ -265,6 +265,7 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"
