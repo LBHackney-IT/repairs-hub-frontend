@@ -48,8 +48,8 @@ const WorkOrderUpdateView = ({ reference }) => {
 
   const FORM_PAGE = 1
   const ADDING_MULTIPLE_SOR_PAGE = 2
-  const SUMMARY_PAGE = 3
-  const UPDATE_SUCCESS_PAGE = 4
+  // const SUMMARY_PAGE = 3
+  // const UPDATE_SUCCESS_PAGE = 4
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   //multiple SORs

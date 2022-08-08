@@ -112,7 +112,7 @@ describe('fetchFeatureToggles', () => {
           'tradeCode',
           'propertyRef',
           'contractorRef',
-          true,
+          true
         )
 
         const validationResults = await validator([

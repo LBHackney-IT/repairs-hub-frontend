@@ -2,7 +2,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {
-  console.log("workOrderData", workOrderData)
   return {
     reference: [
       {
