@@ -219,22 +219,22 @@ describe('Raise repair form', () => {
         // with no duplicates added following batch upload
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
           'have.value',
-          '00000001 - shortDescription1'
+          '00000001 - shortDescription1 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[1][code]"]').should(
           'have.value',
-          '00000002 - shortDescription2'
+          '00000002 - shortDescription2 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[2][code]"]').should(
           'have.value',
-          '00000003 - shortDescription3'
+          '00000003 - shortDescription3 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[3][code]"]').should(
           'have.value',
-          '00000004 - shortDescription4'
+          '00000004 - shortDescription4 - £1'
         )
       })
     })
