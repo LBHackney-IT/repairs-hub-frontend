@@ -1,4 +1,4 @@
-import dedent from 'dedent-js'
+import dedent from 'dedent'
 
 const now = new Date('2022-02-11T12:00:00')
 
