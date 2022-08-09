@@ -19,10 +19,10 @@ const AddMultipleSORs = ({
 
   const [performingValidation, setPerformingValidation] = useState(false)
 
-  const onSubmit = async ({ newSorCodes }) => {
+  const onSubmit = async ({ sorCodes }) => {
     setPerformingValidation(true)
 
-    const strippedCodes = newSorCodes
+    const strippedCodes = sorCodes
       .split('\n')
       .map((code) => code.trim())
       .filter((x) => x)
@@ -44,7 +44,7 @@ const AddMultipleSORs = ({
           : setAnnouncementMessage('')
 
         setSorCodesFromBatchUpload(validator.validatedCodeSet)
-        if (newSorCodes.length > 0) {
+        if (sorCodes.length > 0) {
           setIsPriorityEnabled(true)
         }
         setPageBackToFormView()
@@ -102,12 +102,12 @@ const AddMultipleSORs = ({
         onSubmit={handleSubmit(onSubmit)}
       >
         <TextArea
-          name="newSorCodes"
+          name="sorCodes"
           label="Enter SOR codes as a list:"
           register={register({
             required: 'Please enter SOR codes',
           })}
-          error={errors && errors.newSorCodes}
+          error={errors && errors.sorCodes}
           rows={6}
         />
 
