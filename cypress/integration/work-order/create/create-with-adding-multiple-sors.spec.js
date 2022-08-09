@@ -137,7 +137,7 @@ describe('Raise repair form', () => {
         })
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          '00000001 - shortDescription1 -£1'
+          '00000001 - shortDescription1 - £1'
         )
 
         cy.contains('+ Add multiple SOR codes').click()
