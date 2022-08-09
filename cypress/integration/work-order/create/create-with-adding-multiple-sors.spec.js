@@ -161,7 +161,7 @@ describe('Raise repair form', () => {
         ).as('multipleSORInput')
 
         cy.get('@multipleSORInput').then((multipleSORInput) => {
-          cy.get('[data-testid="sorCodes"]').type(multipleSORInput, {
+          cy.get('[data-testid="newSorCodes"]').type(multipleSORInput, {
             delay: 0,
           })
         })
@@ -200,7 +200,7 @@ describe('Raise repair form', () => {
         ).as('multipleSORInput')
 
         cy.get('@multipleSORInput').then((multipleSORInput) => {
-          cy.get('[data-testid="sorCodes"]').clear().type(multipleSORInput, {
+          cy.get('[data-testid="newSorCodes"]').clear().type(multipleSORInput, {
             delay: 0,
           })
         })
