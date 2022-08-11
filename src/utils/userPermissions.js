@@ -25,11 +25,21 @@ export const canScheduleAppointment = (user) => {
   )
 }
 
+export const canSearchForProperty = (user) => {
+  return (
+    user.hasAgentPermissions ||
+    user.hasContractManagerPermissions ||
+    user.hasAuthorisationManagerPermissions ||
+    user.hasContractorPermissions
+  )
+}
+
 export const canAccessWorkOrder = (user) => {
   return (
     user.hasAgentPermissions ||
     user.hasContractManagerPermissions ||
-    user.hasAuthorisationManagerPermissions
+    user.hasAuthorisationManagerPermissions ||
+    user.hasContractorPermissions
   )
 }
 

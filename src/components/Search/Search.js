@@ -7,7 +7,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
-import { canAccessWorkOrder } from '@/utils/userPermissions'
+import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 import Pagination from '../Layout/Pagination'
 
@@ -24,7 +24,8 @@ const Search = ({ query }) => {
   const { user } = useContext(UserContext)
   const router = useRouter()
 
-  const canSearchForProperty = user && canAccessWorkOrder(user)
+  const canSearchForProperty = user && canSearchForProperty(user)
+
   const [searchTextInput, setSearchTextInput] = useState('')
   const [properties, setProperties] = useState([])
   const [loading, setLoading] = useState(false)
