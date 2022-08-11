@@ -4,6 +4,7 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
   canAccessWorkOrder,
+  canSearchForProperty,
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
   canAttendOwnWorkOrder,

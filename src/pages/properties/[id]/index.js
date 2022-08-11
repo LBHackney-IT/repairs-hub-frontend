@@ -4,7 +4,7 @@ import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
-  CONTRACTOR_ROLE
+  CONTRACTOR_ROLE,
 } from '@/utils/user'
 
 const PropertyPage = ({ query }) => {
@@ -17,7 +17,7 @@ PropertyPage.permittedRoles = [
   AGENT_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
-  CONTRACTOR_ROLE
+  CONTRACTOR_ROLE,
 ]
 
 export default PropertyPage

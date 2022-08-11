@@ -24,7 +24,7 @@ const Search = ({ query }) => {
   const { user } = useContext(UserContext)
   const router = useRouter()
 
-  const canSearchForProperty = user && canSearchForProperty(user)
+  const userCanSearchForProperty = user && canSearchForProperty(user)
 
   const [searchTextInput, setSearchTextInput] = useState('')
   const [properties, setProperties] = useState([])
@@ -34,10 +34,10 @@ const Search = ({ query }) => {
 
   const WORK_ORDER_REFERENCE_REGEX = /^[0-9]{7,10}$/g
 
-  const searchHeadingText = canSearchForProperty
+  const searchHeadingText = userCanSearchForProperty
     ? 'Find repair work order or property'
     : 'Find repair work order'
-  const searchLabelText = canSearchForProperty
+  const searchLabelText = userCanSearchForProperty
     ? 'Search by work order reference, postcode or address'
     : 'Search by work order reference'
 
@@ -45,7 +45,7 @@ const Search = ({ query }) => {
     if (decodedQueryParamSearchText) {
       if (
         WORK_ORDER_REFERENCE_REGEX.test(decodedQueryParamSearchText) ||
-        !canSearchForProperty
+        !userCanSearchForProperty
       ) {
         workOrderUrl(decodedQueryParamSearchText)
       } else {
@@ -103,7 +103,7 @@ const Search = ({ query }) => {
 
     if (
       WORK_ORDER_REFERENCE_REGEX.test(searchTextInput) ||
-      !canSearchForProperty
+      !userCanSearchForProperty
     ) {
       workOrderUrl(searchTextInput)
     } else {
