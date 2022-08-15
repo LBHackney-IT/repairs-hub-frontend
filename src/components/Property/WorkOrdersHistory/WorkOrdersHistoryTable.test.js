@@ -52,21 +52,6 @@ describe('WorkOrdersHistoryTable component', () => {
     })
   })
 
-  describe('when logged in as a contractor', () => {
-    it('should render properly', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user: contractor }}>
-          <WorkOrdersHistoryTable
-            workOrders={props.workOrders}
-            tabName={props.tabName}
-            pageSize={1}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-  })
-
   describe('when logged in as a contract manager', () => {
     it('should render properly', () => {
       const { asFragment } = render(

@@ -27,22 +27,6 @@ describe('Search component', () => {
     })
   })
 
-  describe('when logged in as a contractor', () => {
-    it('contains text to show only work order search is possible', () => {
-      render(
-        <UserContext.Provider value={{ user: contractor }}>
-          <Search />
-        </UserContext.Provider>
-      )
-
-      screen.getByRole('heading', {
-        name: 'Find repair work order',
-      })
-
-      screen.getByLabelText('Search by work order reference')
-    })
-  })
-
   it('renders a search form', () => {
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
