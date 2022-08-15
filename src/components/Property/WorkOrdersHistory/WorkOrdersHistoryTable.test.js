@@ -2,7 +2,6 @@ import { render } from '@testing-library/react'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import { agent } from 'factories/agent'
-import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 
