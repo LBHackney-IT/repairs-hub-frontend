@@ -1,6 +1,4 @@
 import { render } from '@testing-library/react'
-import Operatives from '@/components/WorkOrder/Operatives'
-
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import { WorkOrder } from '../../models/workOrder'
 
@@ -9,7 +7,7 @@ const workOrderData = {
   appointment: {
     date: '2021-01-18T15:28:57.17811',
     description: 'Appointment Description',
-    note: 'Some appointment note'
+    note: 'Some appointment note',
   },
   operatives: [{ name: 'operative 1' }, { name: 'operative 2' }],
   raisedBy: 'raisedBy',
@@ -26,9 +24,9 @@ const property = {
   address: {
     addressLine: '14 Pitcairn House St Thomass Square',
     streetSuffix: 'Dwelling',
-    postalCode: 'E9 6PT'
+    postalCode: 'E9 6PT',
   },
-  tmoName: 'tmoName'
+  tmoName: 'tmoName',
 }
 
 const tasksAndSors = [
@@ -36,8 +34,8 @@ const tasksAndSors = [
     code: 'code',
     description: 'description',
     quantity: 2,
-    standardMinuteValue: 2
-  }
+    standardMinuteValue: 2,
+  },
 ]
 
 const locationAlerts = []
