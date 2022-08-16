@@ -260,4 +260,61 @@ describe('Search', () => {
       })
     }
   )
+
+  context('When the role of user allows searching by work order only', () => {
+    beforeEach(() => {
+      cy.loginWithContractorRole()
+    })
+
+    context('and a valid work order reference is entered', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/filter/WorkOrder' },
+          {
+            fixture: 'filter/workOrder.json',
+          }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/?PageSize=10&PageNumber=1' },
+          { fixture: 'workOrders/workOrders.json' }
+        )
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { fixture: 'properties/property.json' }
+        )
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1',
+          },
+          { body: [] }
+        )
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+          { body: [] }
+        )
+      })
+
+      it('navigates to the work order page', () => {
+        cy.visit('/search')
+
+        cy.get('.govuk-input').clear().type('10000012')
+        cy.get('[type="submit"]').contains('Search').click()
+        cy.url().should('contains', 'work-orders/10000012')
+
+        cy.get('.lbh-heading-h1').within(() => {
+          cy.contains('Work order: 10000012')
+        })
+        cy.get('.lbh-body-m').within(() => {
+          cy.contains('This is an urgent repair description')
+        })
+      })
+    })
+  })
 })
