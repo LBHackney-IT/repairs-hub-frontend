@@ -46,63 +46,32 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        pathname: '/api/schedule-of-rates/check',
-        query: {
-          propertyReference: '00012345',
-          contractorReference: 'PCL',
-          isRaisable: 'true',
-        },
+        path: '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=ABCDEFGH&sorCode=00000001&sorCode=00000002&sorCode=ABCD1234&isRaisable=true',
       },
+      { fixture: 'scheduleOfRates/firstMultipleSorCodesValidation.json' }
+    ).as('firstValidation')
+
+    cy.intercept(
       {
-        body: [
-          {
-            code: '00000001',
-            shortDescription: 'shortDescription1',
-            priority: {
-              priorityCode: 4,
-              description: '5 [N] NORMAL',
-            },
-            cost: 1,
-          },
-          {
-            code: '00000002',
-            shortDescription: 'shortDescription2',
-            priority: {
-              priorityCode: 4,
-              description: '5 [N] NORMAL',
-            },
-            cost: 1,
-          },
-          {
-            code: '00000003',
-            shortDescription: 'shortDescription3',
-            priority: {
-              priorityCode: 4,
-              description: '5 [N] NORMAL',
-            },
-            cost: 1,
-          },
-          {
-            code: '00000004',
-            shortDescription: 'shortDescription4',
-            priority: {
-              priorityCode: 4,
-              description: '5 [N] NORMAL',
-            },
-            cost: 1,
-          },
-          {
-            code: '00000005',
-            shortDescription: 'shortDescription5',
-            priority: {
-              priorityCode: 4,
-              description: '5 [N] NORMAL',
-            },
-            cost: 1,
-          },
-        ],
-      }
-    ).as('sorCodesRequest')
+        method: 'GET',
+        path: '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=00000001&sorCode=00000002&sorCode=00000001&sorCode=00000002&sorCode=00000003&sorCode=00000004&sorCode=00000004&isRaisable=true',
+      },
+      { fixture: 'scheduleOfRates/secondMultipleSorCodesValidation.json' }
+    ).as('secondValidation')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: "/api/schedule-of-rates/codes",
+        query: {
+          tradeCode: "PL",
+          propertyReference: "00012345",
+          contractorReference: "PCL",
+          isRaisable: "true",
+        }
+      },
+      { fixture: 'scheduleOfRates/dummyCodes.json' }
+    ).as('dummyCodes')
 
     cy.intercept(
       { method: 'GET', path: '/api/toggles' },
@@ -136,9 +105,29 @@ describe('Raise repair form', () => {
           delay: 0,
         })
 
+        cy.wait('@dummyCodes')
+
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          '00000001 - shortDescription1 - £1'
+          '00000005 - shortDescription5 - £1', {
+          delay: 0,
+        })
+
+        cy.get('input[id="rateScheduleItems[0][code]"]').should(
+          'have.value',
+          '00000005 - shortDescription5 - £1'
         )
+
+        // cy.contains('+ Add another SOR code').click()
+
+        // cy.get('input[id="rateScheduleItems[1][code]"]').type(
+        //   '00000006 - shortDescription6 - £1', {
+        //   delay: 0,
+        // })
+
+        // cy.get('input[id="rateScheduleItems[1][code]"]').should(
+        //   'have.value',
+        //   '00000006 - shortDescription6 - £1'
+        // )
 
         cy.contains('+ Add multiple SOR codes').click()
       })
@@ -169,7 +158,7 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]').contains('Submit').click()
       })
 
-      cy.wait('@sorCodesRequest')
+      cy.wait('@firstValidation')
 
       cy.get('.govuk-error-summary').within(() => {
         cy.contains('Invalid SOR codes entered')
@@ -208,7 +197,7 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]').contains('Submit').click()
       })
 
-      cy.wait('@sorCodesRequest')
+      cy.wait('@secondValidation')
 
       cy.get('.lbh-page-announcement').contains(
         'Duplicate SOR codes have been removed'
@@ -219,20 +208,25 @@ describe('Raise repair form', () => {
         // with no duplicates added following batch upload
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
           'have.value',
-          '00000001 - shortDescription1 - £1'
+          '00000005 - shortDescription5 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[1][code]"]').should(
           'have.value',
-          '00000002 - shortDescription2 - £1'
+          '00000001 - shortDescription1 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[2][code]"]').should(
           'have.value',
-          '00000003 - shortDescription3 - £1'
+          '00000002 - shortDescription2 - £1'
         )
 
         cy.get('input[id="rateScheduleItems[3][code]"]').should(
+          'have.value',
+          '00000003 - shortDescription3 - £1'
+        )
+
+        cy.get('input[id="rateScheduleItems[4][code]"]').should(
           'have.value',
           '00000004 - shortDescription4 - £1'
         )
