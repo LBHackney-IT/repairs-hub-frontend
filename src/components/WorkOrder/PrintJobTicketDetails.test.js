@@ -58,7 +58,7 @@ describe('PrintJobTicketDetails component', () => {
   it('Renders the PrintJobTicketDetails component with null values', () => {
     const workOrderData = {
       reference: '100',
-      appointment:  null,
+      appointment: null,
       operatives: [],
       raisedBy: 'raisedBy',
       callerName: 'callerName',
