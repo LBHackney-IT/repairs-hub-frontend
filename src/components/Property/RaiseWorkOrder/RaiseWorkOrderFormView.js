@@ -114,6 +114,27 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setLoading(false)
   }
 
+    const getContactDetails = async (tenure) => {
+      return new Promise(resolve => {
+        setTimeout(() => {
+
+          resolve([
+            {
+              "fullName": "FAKE_Keith FAKE_Collier",
+              "tenureType": "Tenant",
+              "phoneNumbers": [
+                {
+                  "contactType": "phone",
+                  "value": "01614960446",
+                  "description": ""
+                }
+              ]
+            }
+          ])
+        }, 200)
+      })
+    }
+
   const getRaiseWorkOrderFormView = async (propertyReference) => {
     setError(null)
 
@@ -122,6 +143,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         method: 'get',
         path: `/api/properties/${propertyReference}`,
       })
+
+      const { tenure, property } = data;
+
+      let contactDetails = await getContactDetails(tenure)
+      
       const priorities = await frontEndApiRequest({
         method: 'get',
         path: `/api/schedule-of-rates/priorities`,
@@ -135,17 +161,17 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         path: '/api/hub-user',
       })
 
-      setTenure(data.tenure)
-      setProperty(data.property)
+      setTenure(tenure)
+      setProperty(property)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(data.contactDetails)
+      setContacts(contactDetails)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
       setTrades(null)
-      console.error('An error has occured:', e.response)
+      console.error('An error has occurred:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -256,3 +282,6 @@ RaiseWorkOrderFormView.propTypes = {
 }
 
 export default RaiseWorkOrderFormView
+
+
+
