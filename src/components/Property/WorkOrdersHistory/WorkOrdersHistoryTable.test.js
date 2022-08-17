@@ -2,7 +2,6 @@ import { render } from '@testing-library/react'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import { agent } from 'factories/agent'
-import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 
@@ -41,21 +40,6 @@ describe('WorkOrdersHistoryTable component', () => {
     it('should render properly', () => {
       const { asFragment } = render(
         <UserContext.Provider value={{ user: agent }}>
-          <WorkOrdersHistoryTable
-            workOrders={props.workOrders}
-            tabName={props.tabName}
-            pageSize={1}
-          />
-        </UserContext.Provider>
-      )
-      expect(asFragment()).toMatchSnapshot()
-    })
-  })
-
-  describe('when logged in as a contractor', () => {
-    it('should render properly', () => {
-      const { asFragment } = render(
-        <UserContext.Provider value={{ user: contractor }}>
           <WorkOrdersHistoryTable
             workOrders={props.workOrders}
             tabName={props.tabName}

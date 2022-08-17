@@ -2,7 +2,6 @@ import { render, screen } from '@testing-library/react'
 import UserContext from '../UserContext'
 import Search from './Search'
 import { agent } from 'factories/agent'
-import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 
@@ -24,22 +23,6 @@ describe('Search component', () => {
           'Search by work order reference, postcode or address'
         )
       })
-    })
-  })
-
-  describe('when logged in as a contractor', () => {
-    it('contains text to show only work order search is possible', () => {
-      render(
-        <UserContext.Provider value={{ user: contractor }}>
-          <Search />
-        </UserContext.Provider>
-      )
-
-      screen.getByRole('heading', {
-        name: 'Find repair work order',
-      })
-
-      screen.getByLabelText('Search by work order reference')
     })
   })
 

@@ -115,6 +115,12 @@ const PrintJobTicketDetails = ({
                     )}
                 </td>
               </tr>
+              <tr>
+                <td className="lbh-body-s">
+                  <strong>Raised by: </strong>
+                  <>{workOrder.raisedBy}</>
+                </td>
+              </tr>
             </tbody>
           </table>
 
