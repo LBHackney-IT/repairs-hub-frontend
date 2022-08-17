@@ -118,6 +118,7 @@ describe('SelectPriority component', () => {
         priorityCode={props.priorityCode}
         priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
         register={props.register}
+        errors={{}}
       />
     )
     fireEvent.change(getByTestId('priorityCode'), { target: { value: 15 } })
