@@ -46,7 +46,8 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=ABCDEFGH&sorCode=00000001&sorCode=00000002&sorCode=ABCD1234&isRaisable=true',
+        path:
+          '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=ABCDEFGH&sorCode=00000001&sorCode=00000002&sorCode=ABCD1234&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/firstMultipleSorCodesValidation.json' }
     ).as('firstValidation')
@@ -54,7 +55,8 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=00000001&sorCode=00000002&sorCode=00000001&sorCode=00000002&sorCode=00000003&sorCode=00000004&sorCode=00000004&isRaisable=true',
+        path:
+          '/api/schedule-of-rates/check?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&sorCode=00000001&sorCode=00000002&sorCode=00000001&sorCode=00000002&sorCode=00000003&sorCode=00000004&sorCode=00000004&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/secondMultipleSorCodesValidation.json' }
     ).as('secondValidation')
@@ -62,13 +64,13 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        pathname: "/api/schedule-of-rates/codes",
+        pathname: '/api/schedule-of-rates/codes',
         query: {
-          tradeCode: "PL",
-          propertyReference: "00012345",
-          contractorReference: "PCL",
-          isRaisable: "true",
-        }
+          tradeCode: 'PL',
+          propertyReference: '00012345',
+          contractorReference: 'PCL',
+          isRaisable: 'true',
+        },
       },
       { fixture: 'scheduleOfRates/dummyCodes.json' }
     ).as('dummyCodes')
@@ -108,9 +110,11 @@ describe('Raise repair form', () => {
         cy.wait('@dummyCodes')
 
         cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          '00000005 - shortDescription5 - £1', {
-          delay: 0,
-        })
+          '00000005 - shortDescription5 - £1',
+          {
+            delay: 0,
+          }
+        )
 
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
           'have.value',
