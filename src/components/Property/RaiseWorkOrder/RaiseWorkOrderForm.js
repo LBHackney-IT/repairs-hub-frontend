@@ -63,26 +63,6 @@ const RaiseWorkOrderForm = ({
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
   const overSpendLimit = totalCost > raiseLimit
 
-  useEffect(() => {
-    const atLeastOneSor =
-      getValues() &&
-      getValues().rateScheduleItems &&
-      getValues().rateScheduleItems &&
-      getValues().rateScheduleItems[0]?.code != ''
-    if (atLeastOneSor && sorCodeArrays.length > 0) {
-      const b = Array.isArray(sorCodeArrays[sorCodeArrays.length - 1])
-      if (
-        b &&
-        sorCodeArrays[sorCodeArrays.length - 1].length > 0 &&
-        sorCodeArrays[sorCodeArrays.length - 1][0].priority
-      ) {
-        const prio = sorCodeArrays[sorCodeArrays.length - 1][0].priority
-        setPriorityCode(prio.priorityCode)
-        setValue('priorityCode', prio.priorityCode)
-      }
-    }
-  })
-
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode)
 
