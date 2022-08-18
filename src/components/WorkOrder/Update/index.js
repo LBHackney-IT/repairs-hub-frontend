@@ -4,6 +4,7 @@ import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import {
+  createSorExistenceValidator,
   fetchFeatureToggles,
   frontEndApiRequest,
 } from '@/utils/frontEndApiClient/requests'
@@ -18,6 +19,7 @@ import {
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
+import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -41,7 +43,18 @@ const WorkOrderUpdateView = ({ reference }) => {
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
   ] = useState()
+
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
+
+  const FORM_PAGE = 1
+  const ADDING_MULTIPLE_SOR_PAGE = 2
+  // const SUMMARY_PAGE = 3
+  // const UPDATE_SUCCESS_PAGE = 4
+  const [currentPage, setCurrentPage] = useState(FORM_PAGE)
+
+  //multiple SORs
+  const [formState, setFormState] = useState({})
+  const [announcementMessage, setAnnouncementMessage] = useState('')
 
   const onGetToSummary = (e) => {
     updateExistingTasksQuantities(e, tasks)
@@ -183,11 +196,78 @@ const WorkOrderUpdateView = ({ reference }) => {
     setLoading(false)
   }
 
+  const getCurrentSORCodes = () => {
+    if (formState != null && formState.rateScheduleItems == null) {
+      formState.rateScheduleItems = []
+    }
+
+    return [
+      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
+      ...tasks.map((rsi) => rsi.code),
+    ]
+  }
+
+  const renderAnnouncement = () => {
+    return (
+      announcementMessage && (
+        <section className="lbh-page-announcement">
+          <div className="lbh-page-announcement__content">
+            <strong className="govuk-!-font-size-24">
+              {announcementMessage}
+            </strong>
+          </div>
+        </section>
+      )
+    )
+  }
+
   useEffect(() => {
     setLoading(true)
 
     getWorkOrderUpdateForm(reference)
   }, [])
+
+  // implementing multiple SORs update
+  const setSorCodesFromBatchUpload = (sorCodes) => {
+    if (formState != null && formState.rateScheduleItems == null) {
+      formState.rateScheduleItems = []
+    }
+    const updatedFormState = {
+      ...formState,
+      rateScheduleItems: [
+        ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
+        ...sorCodes.map((code) => ({
+          code: `${code.code} - ${code.shortDescription}`,
+          cost: code.cost.toString(),
+          description: code.shortDescription,
+        })),
+      ],
+    }
+
+    setFormState(updatedFormState)
+    const newAddedTasks = updatedFormState.rateScheduleItems
+      ? updatedFormState.rateScheduleItems
+          .filter((e) => e != null)
+          .map((e, index) => {
+            return { id: index, ...e, code: e.code.split(' - ')[0] }
+          })
+      : []
+
+    setAddedTasks(newAddedTasks)
+    let codes = [...sorCodeArrays]
+    sorCodes.forEach((code) => {
+      const detailCode = {
+        code: `${code.code}`,
+        shortDescription: `${code.shortDescription}`,
+      }
+
+      codes.push([detailCode])
+    })
+
+    codes = codes.filter((ar) => ar.length !== 0)
+
+    setSorCodeArrays(codes)
+  }
 
   return (
     <>
@@ -221,7 +301,9 @@ const WorkOrderUpdateView = ({ reference }) => {
                   }
                 />
               )}
-              {!showSummaryPage && !showUpdateSuccess && (
+
+              {renderAnnouncement()}
+              {currentPage === FORM_PAGE && (
                 <>
                   <BackButton />
                   <h1 className="lbh-heading-h1">
@@ -244,6 +326,11 @@ const WorkOrderUpdateView = ({ reference }) => {
                     }
                     sorCodeArrays={sorCodeArrays}
                     setSorCodeArrays={setSorCodeArrays}
+                    setPageToMultipleSORs={(formState) => {
+                      setAnnouncementMessage('')
+                      setFormState(formState)
+                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                    }}
                   />
                 </>
               )}
@@ -258,6 +345,23 @@ const WorkOrderUpdateView = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   variationReason={variationReason}
                   budgetCode={budgetCode}
+                />
+              )}
+
+              {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
+                <AddMultipleSORs
+                  currentSorCodes={getCurrentSORCodes()}
+                  setPageBackToFormView={() => {
+                    setCurrentPage(FORM_PAGE)
+                  }}
+                  sorExistenceValidationCallback={createSorExistenceValidator(
+                    workOrder.tradeCode,
+                    workOrder.propertyReference,
+                    workOrder.contractorReference
+                  )}
+                  setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
+                  setAnnouncementMessage={setAnnouncementMessage}
+                  setIsPriorityEnabled={() => {}}
                 />
               )}
             </>
