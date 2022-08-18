@@ -111,14 +111,14 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          setPageToMultipleSORs={() => {}}
         />
       </UserContext.Provider>
     )
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
@@ -150,14 +150,14 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          setPageToMultipleSORs={() => {}}
         />
       </UserContext.Provider>
     )
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
@@ -220,14 +220,14 @@ describe('RaiseWorkOrderForm component', () => {
           setContractorReference={props.setContractorReference}
           budgetCodeId={''}
           setBudgetCodeId={props.setBudgetCodeId}
+          setPageToMultipleSORs={() => {}}
         />
       </UserContext.Provider>
     )
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 

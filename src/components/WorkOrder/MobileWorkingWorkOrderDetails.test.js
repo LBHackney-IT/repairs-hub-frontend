@@ -101,21 +101,15 @@ describe('MobileWorkingWorkOrderDetails component', () => {
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
-    expect(axios).toHaveBeenCalledTimes(2)
+    expect(axios).toHaveBeenCalledTimes(1)
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
       url: '/api/properties/00012345/location-alerts',
-    })
-
-    expect(axios).toHaveBeenCalledWith({
-      method: 'get',
-      url: '/api/properties/tenancyAgreementRef1/person-alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()

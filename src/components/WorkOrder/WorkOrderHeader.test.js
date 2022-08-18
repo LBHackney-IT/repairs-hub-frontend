@@ -79,8 +79,7 @@ describe('WorkOrderHeader component', () => {
       )
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
 
@@ -104,8 +103,7 @@ describe('WorkOrderHeader component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -149,8 +147,7 @@ describe('WorkOrderHeader component', () => {
 
         await act(async () => {
           await waitForElementToBeRemoved([
-            screen.getByTestId('spinner-locationAlerts'),
-            screen.getByTestId('spinner-personAlerts'),
+            screen.getByTestId('spinner-cautionaryAlerts'),
           ])
         })
         expect(asFragment()).toMatchSnapshot()
@@ -178,8 +175,7 @@ describe('WorkOrderHeader component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()

@@ -39,24 +39,6 @@ exports[`PropertyDetails component should render properly 1`] = `
           </strong>
           )
         </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Person Alert 1 (
-          <strong>
-            type3
-          </strong>
-          )
-        </li>
-        <li
-          class="bg-orange"
-        >
-          Contact Alert: Person Alert 2 (
-          <strong>
-            type4
-          </strong>
-          )
-        </li>
       </ul>
     </div>
   </div>

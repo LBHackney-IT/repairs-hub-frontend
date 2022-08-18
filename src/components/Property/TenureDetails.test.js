@@ -27,21 +27,7 @@ describe('TenureDetails', () => {
           ],
         },
       })
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      })
-
+      
     const { asFragment } = render(
       <TenureDetails
         canRaiseRepair={true}
@@ -59,21 +45,15 @@ describe('TenureDetails', () => {
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
-    expect(axios).toHaveBeenCalledTimes(2)
+    expect(axios).toHaveBeenCalledTimes(1)
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
       url: '/api/properties/1/location-alerts',
-    })
-
-    expect(axios).toHaveBeenCalledWith({
-      method: 'get',
-      url: '/api/properties/tenancyAgreementRef1/person-alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()
@@ -95,23 +75,8 @@ describe('TenureDetails', () => {
           ],
         },
       })
-      .mockResolvedValueOnce({
-        data: {
-          alerts: [
-            {
-              type: 'type3',
-              comments: 'Person Alert 1',
-            },
-            {
-              type: 'type4',
-              comments: 'Person Alert 2',
-            },
-          ],
-        },
-      })
 
-    const mockSetParentLocationAlerts = jest.fn()
-    const mockSetParentPersonAlerts = jest.fn()
+    const mockSetParentCautionaryAlerts = jest.fn()
 
     render(
       <TenureDetails
@@ -122,19 +87,17 @@ describe('TenureDetails', () => {
           typeDescription: 'tenancyTypeDescription',
         }}
         propertyReference={'1'}
-        setParentLocationAlerts={mockSetParentLocationAlerts}
-        setParentPersonAlerts={mockSetParentPersonAlerts}
+        setParentCautionaryAlerts={mockSetParentCautionaryAlerts}
       />
     )
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
-    expect(mockSetParentLocationAlerts).toHaveBeenCalledWith([
+    expect(mockSetParentCautionaryAlerts).toHaveBeenCalledWith([
       {
         type: 'type1',
         comments: 'Location Alert 1',
@@ -142,17 +105,6 @@ describe('TenureDetails', () => {
       {
         type: 'type2',
         comments: 'Location Alert 2',
-      },
-    ])
-
-    expect(mockSetParentPersonAlerts).toHaveBeenCalledWith([
-      {
-        type: 'type3',
-        comments: 'Person Alert 1',
-      },
-      {
-        type: 'type4',
-        comments: 'Person Alert 2',
       },
     ])
   })

@@ -113,8 +113,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -135,8 +134,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
 
@@ -163,8 +161,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -202,8 +199,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -240,8 +236,7 @@ describe('WorkOrderDetails component', () => {
       )
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
 
@@ -284,8 +279,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -308,8 +302,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -346,8 +339,7 @@ describe('WorkOrderDetails component', () => {
       )
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
       expect(asFragment()).toMatchSnapshot()
@@ -389,8 +381,7 @@ describe('WorkOrderDetails component', () => {
 
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
 
@@ -413,8 +404,7 @@ describe('WorkOrderDetails component', () => {
       )
       await act(async () => {
         await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
+          screen.getByTestId('spinner-cautionaryAlerts'),
         ])
       })
 

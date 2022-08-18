@@ -74,8 +74,7 @@ describe('PropertyDetails component', () => {
 
     await act(async () => {
       await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
+        screen.getByTestId('spinner-cautionaryAlerts'),
       ])
     })
 
