@@ -10,18 +10,14 @@ import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 
 const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
-  const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
-  const [locationAlertsError, setLocationAlertsError] = useState()
-  const [locationAlerts, setLocationAlerts] = useState([])
-
-  const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
-  const [personAlertsError, setPersonAlertsError] = useState()
-  const [personAlerts, setPersonAlerts] = useState([])
+  const [cautionaryAlertsLoading, setCautionaryAlertsLoading] = useState(false)
+  const [cautionaryAlertsError, setCautionaryAlertsError] = useState()
+  const [cautionaryAlerts, setCautionaryAlerts] = useState([])
 
   const router = useRouter()
 
   const getAllAlertTypes = () =>
-    getCautionaryAlertsType([...locationAlerts, ...personAlerts])
+    getCautionaryAlertsType([ ...cautionaryAlerts ])
 
   const cautContactURL = () => {
     router.push({
@@ -32,48 +28,25 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
     })
   }
 
-  const getLocationAlerts = (propertyReference) => {
+  const getCautionaryAlerts = (propertyReference) => {
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${propertyReference}/location-alerts`,
     })
-      .then((data) => setLocationAlerts(data.alerts))
+      .then((data) => setCautionaryAlerts(data.alerts))
       .catch((error) => {
-        console.error('Error loading location alerts status:', error.response)
+        console.error('Error loading cautionary alerts status:', error.response)
 
-        setLocationAlertsError(
-          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        setCautionaryAlertsError(
+          `Error loading cautionary alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
-      .finally(() => setLocationAlertsLoading(false))
-  }
-
-  const getPersonAlerts = (tenancyAgreementReference) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${encodeURIComponent(
-        tenancyAgreementReference
-      )}/person-alerts`,
-    })
-      .then((data) => setPersonAlerts(data.alerts))
-      .catch((error) => {
-        console.error('Error loading person alerts status:', error.response)
-
-        setPersonAlertsError(
-          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setPersonAlertsLoading(false))
+      .finally(() => setCautionaryAlertsLoading(false))
   }
 
   useEffect(() => {
-    setLocationAlertsLoading(true)
-    getLocationAlerts(property.propertyReference)
-
-    if (tenure?.tenancyAgreementReference) {
-      setPersonAlertsLoading(true)
-      getPersonAlerts(tenure.tenancyAgreementReference)
-    }
+    setCautionaryAlertsLoading(true)
+    getCautionaryAlerts(property.propertyReference)
   }, [])
 
   return (
@@ -110,11 +83,8 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
           </>
         )}
         <div className="work-order-information">
-          {locationAlertsLoading && <Spinner resource="locationAlerts" />}
-          {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
-
-          {personAlertsLoading && <Spinner resource="personAlerts" />}
-          {personAlertsError && <ErrorMessage label={personAlertsError} />}
+          {cautionaryAlertsLoading && <Spinner resource="cautionaryAlerts" />}
+          {cautionaryAlertsError && <ErrorMessage label={cautionaryAlertsError} />}
 
           {getAllAlertTypes().length > 0 && (
             <GridRow className="govuk-!-margin-top-0">

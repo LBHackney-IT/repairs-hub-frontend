@@ -16,8 +16,7 @@ const WorkOrderHeader = ({
   tenure,
   canRaiseRepair,
   schedulerSessionId,
-  setLocationAlerts,
-  setPersonAlerts,
+  setCautionaryAlerts,
 }) => {
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
@@ -37,8 +36,7 @@ const WorkOrderHeader = ({
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
           propertyReference={propertyReference}
-          setParentLocationAlerts={setLocationAlerts}
-          setParentPersonAlerts={setPersonAlerts}
+          setParentCautionaryAlerts={setCautionaryAlerts}
         />
       </div>
       <div className="govuk-grid-column-one-third">
@@ -77,8 +75,7 @@ WorkOrderHeader.propTypes = {
   subTypeDescription: PropTypes.string.isRequired,
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
-  setLocationAlerts: PropTypes.func,
-  setPersonAlerts: PropTypes.func,
+  setCautionaryAlerts: PropTypes.func,
 }
 
 export default WorkOrderHeader

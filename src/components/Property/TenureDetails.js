@@ -12,77 +12,43 @@ const TenureDetails = ({
   tenure,
   tmoName,
   propertyReference,
-  setParentLocationAlerts,
-  setParentPersonAlerts,
+  setParentCautionaryAlerts,
 }) => {
   //Properties with TMO names set to this value aren't actually TMOs
   const TMO_HACKNEY_DEFAULT = 'London Borough of Hackney'
 
-  const [locationAlerts, setLocationAlerts] = useState([])
-  const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
-  const [locationAlertsError, setLocationAlertsError] = useState()
+  const [cautionaryAlerts, setCautionaryAlerts] = useState([])
+  const [cautionaryAlertsLoading, setCautionaryAlertsLoading] = useState(false)
+  const [cautionaryAlertsError, setCautionaryAlertsError] = useState()
 
-  const [personAlerts, setPersonAlerts] = useState([])
-  const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
-  const [personAlertsError, setPersonAlertsError] = useState()
 
-  const getLocationAlerts = () => {
+  const getCautionaryAlerts = () => {
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${propertyReference}/location-alerts`,
     })
       .then((data) => {
-        setLocationAlerts(data.alerts)
-        setParentLocationAlerts && setParentLocationAlerts(data.alerts)
+        setCautionaryAlerts(data.alerts)
+        setParentCautionaryAlerts && setParentCautionaryAlerts(data.alerts)
       })
       .catch((error) => {
-        console.error('Error loading location alerts status:', error.response)
+        console.error('Error loading cautionary alerts status:', error.response)
 
-        setLocationAlertsError(
-          `Error loading location alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        setCautionaryAlertsError(
+          `Error loading cautionary alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
         )
       })
-      .finally(() => setLocationAlertsLoading(false))
+      .finally(() => setCautionaryAlertsLoading(false))
   }
 
-  const getPersonAlerts = (tenancyAgreementReference) => {
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/properties/${encodeURIComponent(
-        tenancyAgreementReference
-      )}/person-alerts`,
-    })
-      .then((data) => {
-        setPersonAlerts(data.alerts)
-        setParentPersonAlerts && setParentPersonAlerts(data.alerts)
-      })
-      .catch((error) => {
-        console.error('Error loading person alerts status:', error.response)
-
-        setPersonAlertsError(
-          `Error loading person alerts status: ${error.response?.status} with message: ${error.response?.data?.message}`
-        )
-      })
-      .finally(() => setPersonAlertsLoading(false))
-  }
-
-  const renderLocationAlerts = () =>
-    locationAlerts.length > 0 && (
-      <Alerts alerts={locationAlerts} alertType="Address" />
-    )
-
-  const renderPersonAlerts = () =>
-    personAlerts.length > 0 && (
-      <Alerts alerts={personAlerts} alertType="Contact" />
+  const renderCautionaryAlerts = () =>
+    cautionaryAlerts.length > 0 && (
+      <Alerts alerts={cautionaryAlerts} alertType="Address" />
     )
 
   useEffect(() => {
-    setLocationAlertsLoading(true)
-    getLocationAlerts()
-    if (tenure?.tenancyAgreementReference) {
-      setPersonAlertsLoading(true)
-      getPersonAlerts(tenure.tenancyAgreementReference)
-    }
+    setCautionaryAlertsLoading(true)
+    getCautionaryAlerts()
   }, [])
 
   return (
@@ -91,23 +57,16 @@ const TenureDetails = ({
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
       )}
 
-      {locationAlertsLoading ? (
-        <Spinner resource="locationAlerts" />
+      {cautionaryAlertsLoading ? (
+        <Spinner resource="cautionaryAlerts" />
       ) : (
-        renderLocationAlerts()
+        renderCautionaryAlerts()
       )}
-      {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
+      {cautionaryAlertsError && <ErrorMessage label={cautionaryAlertsError} />}
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
         <TenureDetail text="TMO" detail={tmoName} />
       )}
-
-      {personAlertsLoading ? (
-        <Spinner resource="personAlerts" />
-      ) : (
-        renderPersonAlerts()
-      )}
-      {personAlertsError && <ErrorMessage label={personAlertsError} />}
     </ul>
   )
 }
@@ -117,8 +76,7 @@ TenureDetails.propTypes = {
   tenure: PropTypes.object,
   tmoName: PropTypes.string,
   propertyReference: PropTypes.string.isRequired,
-  setParentLocationAlerts: PropTypes.func,
-  setParentPersonAlerts: PropTypes.func,
+  setParentCautionaryAlerts: PropTypes.func,
 }
 
 export default TenureDetails

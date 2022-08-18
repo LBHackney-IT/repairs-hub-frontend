@@ -15,8 +15,7 @@ const WorkOrderDetails = ({
   tenure,
   schedulerSessionId,
   printClickHandler,
-  setLocationAlerts,
-  setPersonAlerts,
+  setCautionaryAlerts,
 }) => {
   const { user } = useContext(UserContext)
 
@@ -79,8 +78,7 @@ const WorkOrderDetails = ({
           hasLinkToProperty={true}
           canRaiseRepair={property.canRaiseRepair}
           schedulerSessionId={schedulerSessionId}
-          setLocationAlerts={setLocationAlerts}
-          setPersonAlerts={setPersonAlerts}
+          setCautionaryAlerts={setCautionaryAlerts}
         />
       </div>
     </>
@@ -91,8 +89,7 @@ WorkOrderDetails.propTypes = {
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
   tenure: PropTypes.object.isRequired,
-  setLocationAlerts: PropTypes.func,
-  setPersonAlerts: PropTypes.func,
+  setCautionaryAlerts: PropTypes.func,
 }
 
 export default WorkOrderDetails

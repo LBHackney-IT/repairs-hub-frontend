@@ -8,13 +8,11 @@ import WarningText from '@/components/Template/WarningText'
 const PrintJobTicketDetails = ({
   workOrder,
   property,
-  locationAlerts,
-  personAlerts,
+  cautionaryAlerts,
   tasksAndSors,
 }) => {
   const cautionaryAlertsType = getCautionaryAlertsType([
-    ...locationAlerts,
-    ...personAlerts,
+    ...cautionaryAlerts,
   ]).join(', ')
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
