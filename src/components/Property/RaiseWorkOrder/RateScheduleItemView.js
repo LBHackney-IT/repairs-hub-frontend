@@ -217,7 +217,8 @@ const RateScheduleItemView = ({
           <div>
             {rateScheduleItems()}
             {apiError && <ErrorMessage label={apiError} />}
-
+          </div>
+          <div>
             <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
               + Add another SOR code
             </a>
