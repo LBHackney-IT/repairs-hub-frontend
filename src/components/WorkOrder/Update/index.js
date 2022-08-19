@@ -62,10 +62,10 @@ const WorkOrderUpdateView = ({ reference }) => {
     setAddedTasks(
       e.rateScheduleItems
         ? e.rateScheduleItems
-            .filter((e) => e != null)
-            .map((e, index) => {
-              return { id: index, ...e, code: e.code.split(' - ')[0] }
-            })
+          .filter((e) => e != null)
+          .map((e, index) => {
+            return { id: index, ...e, code: e.code.split(' - ')[0] }
+          })
         : []
     )
 
@@ -247,10 +247,10 @@ const WorkOrderUpdateView = ({ reference }) => {
     setFormState(updatedFormState)
     const newAddedTasks = updatedFormState.rateScheduleItems
       ? updatedFormState.rateScheduleItems
-          .filter((e) => e != null)
-          .map((e, index) => {
-            return { id: index, ...e, code: e.code.split(' - ')[0] }
-          })
+        .filter((e) => e != null)
+        .map((e, index) => {
+          return { id: index, ...e, code: e.code.split(' - ')[0] }
+        })
       : []
 
     setAddedTasks(newAddedTasks)
@@ -303,37 +303,39 @@ const WorkOrderUpdateView = ({ reference }) => {
               )}
 
               {renderAnnouncement()}
-              {currentPage === FORM_PAGE && !showSummaryPage && !showUpdateSuccess && (
-                <>
-                  <BackButton />
-                  <h1 className="lbh-heading-h1">
-                    Update work order: {reference}
-                  </h1>
+              {currentPage === FORM_PAGE &&
+                !showSummaryPage &&
+                !showUpdateSuccess && (
+                  <>
+                    <BackButton />
+                    <h1 className="lbh-heading-h1">
+                      Update work order: {reference}
+                    </h1>
 
-                  <WorkOrderUpdateForm
-                    latestTasks={tasks}
-                    originalTasks={originalTasks}
-                    addedTasks={addedTasks}
-                    showAdditionalRateScheduleItems={
-                      showAdditionalRateScheduleItems
-                    }
-                    onGetToSummary={onGetToSummary}
-                    setVariationReason={setVariationReason}
-                    variationReason={variationReason}
-                    contractorReference={contractorReference}
-                    sorSearchRequest={
-                      orderRequiresIncrementalSearch && sorSearchRequest
-                    }
-                    sorCodeArrays={sorCodeArrays}
-                    setSorCodeArrays={setSorCodeArrays}
-                    setPageToMultipleSORs={(formState) => {
-                      setAnnouncementMessage('')
-                      setFormState(formState)
-                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                    }}
-                  />
-                </>
-              )}
+                    <WorkOrderUpdateForm
+                      latestTasks={tasks}
+                      originalTasks={originalTasks}
+                      addedTasks={addedTasks}
+                      showAdditionalRateScheduleItems={
+                        showAdditionalRateScheduleItems
+                      }
+                      onGetToSummary={onGetToSummary}
+                      setVariationReason={setVariationReason}
+                      variationReason={variationReason}
+                      contractorReference={contractorReference}
+                      sorSearchRequest={
+                        orderRequiresIncrementalSearch && sorSearchRequest
+                      }
+                      sorCodeArrays={sorCodeArrays}
+                      setSorCodeArrays={setSorCodeArrays}
+                      setPageToMultipleSORs={(formState) => {
+                        setAnnouncementMessage('')
+                        setFormState(formState)
+                        setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                      }}
+                    />
+                  </>
+                )}
               {showSummaryPage && !showUpdateSuccess && (
                 <WorkOrderUpdateSummary
                   latestTasks={tasks}
@@ -361,7 +363,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   )}
                   setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
                   setAnnouncementMessage={setAnnouncementMessage}
-                  setIsPriorityEnabled={() => {}}
+                  setIsPriorityEnabled={() => { }}
                 />
               )}
             </>
