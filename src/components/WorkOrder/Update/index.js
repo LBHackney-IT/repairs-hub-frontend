@@ -303,7 +303,7 @@ const WorkOrderUpdateView = ({ reference }) => {
               )}
 
               {renderAnnouncement()}
-              {currentPage === FORM_PAGE && (
+              {currentPage === FORM_PAGE && !showSummaryPage && !showUpdateSuccess && (
                 <>
                   <BackButton />
                   <h1 className="lbh-heading-h1">
