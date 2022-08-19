@@ -1,24 +1,24 @@
 [
-    {
-        "code": "00000001",
-        "shortDescription": "shortDescription1",
-        "priority": {
-            "priorityCode": 4,
-            "description": "[N] NORMAL"
-        },
-        "cost": 1,
-        "tradeCode": null,
-        "standardMinuteValue": 0
+  {
+    "code": "00000001",
+    "shortDescription": "shortDescription1",
+    "priority": {
+      "priorityCode": 4,
+      "description": "[N] NORMAL"
     },
-    {
-        "code": "00000002",
-        "shortDescription": "shortDescription2",
-        "priority": {
-            "priorityCode": 4,
-            "description": "[N] NORMAL"
-        },
-        "cost": 1,
-        "tradeCode": null,
-        "standardMinuteValue": 0
-    }
+    "cost": 1,
+    "tradeCode": null,
+    "standardMinuteValue": 0
+  },
+  {
+    "code": "00000002",
+    "shortDescription": "shortDescription2",
+    "priority": {
+      "priorityCode": 4,
+      "description": "[N] NORMAL"
+    },
+    "cost": 1,
+    "tradeCode": null,
+    "standardMinuteValue": 0
+  }
 ]

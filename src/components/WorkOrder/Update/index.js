@@ -62,10 +62,10 @@ const WorkOrderUpdateView = ({ reference }) => {
     setAddedTasks(
       e.rateScheduleItems
         ? e.rateScheduleItems
-          .filter((e) => e != null)
-          .map((e, index) => {
-            return { id: index, ...e, code: e.code.split(' - ')[0] }
-          })
+            .filter((e) => e != null)
+            .map((e, index) => {
+              return { id: index, ...e, code: e.code.split(' - ')[0] }
+            })
         : []
     )
 
@@ -247,10 +247,10 @@ const WorkOrderUpdateView = ({ reference }) => {
     setFormState(updatedFormState)
     const newAddedTasks = updatedFormState.rateScheduleItems
       ? updatedFormState.rateScheduleItems
-        .filter((e) => e != null)
-        .map((e, index) => {
-          return { id: index, ...e, code: e.code.split(' - ')[0] }
-        })
+          .filter((e) => e != null)
+          .map((e, index) => {
+            return { id: index, ...e, code: e.code.split(' - ')[0] }
+          })
       : []
 
     setAddedTasks(newAddedTasks)
@@ -363,7 +363,7 @@ const WorkOrderUpdateView = ({ reference }) => {
                   )}
                   setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
                   setAnnouncementMessage={setAnnouncementMessage}
-                  setIsPriorityEnabled={() => { }}
+                  setIsPriorityEnabled={() => {}}
                 />
               )}
             </>
