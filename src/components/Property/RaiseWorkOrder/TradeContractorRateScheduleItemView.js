@@ -170,12 +170,12 @@ const TradeContractorRateScheduleItemView = ({
       // to permit selection of Purdy
       tradeCode === MULTITRADE_TRADE_CODE
         ? setContractors([
-            ...contractors,
-            {
-              contractorReference: 'PCL',
-              contractorName: 'Purdy Contracts (P) Ltd',
-            },
-          ])
+          ...contractors,
+          {
+            contractorReference: 'PCL',
+            contractorName: 'Purdy Contracts (P) Ltd',
+          },
+        ])
         : setContractors(contractors)
     } catch (e) {
       setContractors([])
@@ -353,7 +353,10 @@ TradeContractorRateScheduleItemView.propTypes = {
   setTradeCode: PropTypes.func.isRequired,
   contractorReference: PropTypes.string.isRequired,
   setContractorReference: PropTypes.func.isRequired,
-  budgetCodeId: PropTypes.string.isRequired,
+  budgetCodeId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
   setPageToMultipleSORs: PropTypes.func.isRequired,
   filterPriorities: PropTypes.func.isRequired,
