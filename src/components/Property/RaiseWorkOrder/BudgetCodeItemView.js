@@ -57,7 +57,7 @@ const BudgetCodeItemView = ({
                 ) || 'Budget code is not valid',
             })}
             error={errors && errors.budgetCode}
-            widthClass="govuk-!-width-full"
+            widthClass="govuk-!-width-one-half"
           />
           {apiError && <ErrorMessage label={apiError} />}
         </>
