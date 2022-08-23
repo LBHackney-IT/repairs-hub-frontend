@@ -67,10 +67,7 @@ WorkOrdersHistoryTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
       reference: PropTypes.number,
-      dateRaised: PropTypes.oneOfType([
-        Date,
-        PropTypes.string
-      ]),
+      dateRaised: PropTypes.oneOfType([Date, PropTypes.string]),
       tradeDescription: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,

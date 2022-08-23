@@ -74,10 +74,8 @@ const BudgetCodeItemView = ({
 }
 
 BudgetCodeItemView.propTypes = {
-  budgetCodeId: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired,
+  budgetCodeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
   register: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
