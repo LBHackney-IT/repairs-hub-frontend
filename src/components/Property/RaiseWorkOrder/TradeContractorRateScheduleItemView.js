@@ -308,6 +308,7 @@ const TradeContractorRateScheduleItemView = ({
             budgetCodeId={budgetCodeId}
             setBudgetCodeId={setBudgetCodeId}
             register={register}
+            contractorIsPurdy={contractorReference === PURDY_CONTRACTOR_REFERENCE}
             afterValidBudgetCodeSelected={async () => {
               await prepareSORData(contractorReference, tradeCode)
             }}

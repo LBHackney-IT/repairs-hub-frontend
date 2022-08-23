@@ -1,18 +1,26 @@
-export const formatBudgetCodeForOption = (budgetCode, separator = ' - ') =>
-  [
+export const formatBudgetCodeForOption = (
+  budgetCode,
+  contractorIsPurdy,
+  separator = ' - '
+) => {
+  const displayFields = [
     budgetCode?.externalCostCode,
     budgetCode?.corporateSubjectiveCode,
     budgetCode?.descriptionOfWorks,
   ]
-    .filter((x) => x)
-    .join(separator)
 
-export const formatBudgetCode = (budgetCode) =>
-  [
+  if (!contractorIsPurdy) displayFields.push(budgetCode?.contractorsList)
+
+  return displayFields.filter((x) => x).join(separator)
+}
+
+export const formatBudgetCode = (budgetCode) => {
+  const displayFields = [
     budgetCode?.externalCostCode,
     [budgetCode?.corporateSubjectiveCode, budgetCode?.descriptionOfWorks]
       .filter((x) => x)
       .join(' '),
   ]
-    .filter((x) => x)
-    .join(' - ')
+
+  return displayFields.filter((x) => x).join(' - ')
+}

@@ -4,6 +4,8 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { formatBudgetCodeForOption } from '@/utils/helpers/budgetCodes'
 
+
+
 const BudgetCodeItemView = ({
   budgetCodeId,
   setBudgetCodeId,
@@ -14,9 +16,10 @@ const BudgetCodeItemView = ({
   loading,
   apiError,
   afterValidBudgetCodeSelected,
+  contractorIsPurdy
 }) => {
   const budgetCodeOptions = budgetCodes.map((code) =>
-    formatBudgetCodeForOption(code)
+    formatBudgetCodeForOption(code, contractorIsPurdy)
   )
 
   const budgetCodesWithOptions = budgetCodes.map((code, index) => ({
@@ -83,6 +86,7 @@ BudgetCodeItemView.propTypes = {
   loading: PropTypes.bool.isRequired,
   apiError: PropTypes.string,
   afterValidBudgetCodeSelected: PropTypes.func.isRequired,
+  contractorIsPurdy: PropTypes.bool.isRequired
 }
 
 export default BudgetCodeItemView
