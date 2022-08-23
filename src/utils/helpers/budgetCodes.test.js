@@ -5,19 +5,19 @@ describe('formatBudgetCodeForOption', () => {
     externalCostCode: 'costCode',
     corporateSubjectiveCode: 'subjectiveCode',
     descriptionOfWorks: 'description',
-    contractorsList: 'H01, H02'
-  };
+    contractorsList: 'H01, H02',
+  }
 
   it('includes the externalCostCode, corporateSubjectiveCode, descriptionOfWorks, and contractorsList', () => {
-    expect(
-      formatBudgetCodeForOption(budgetCode)
-    ).toEqual('costCode - subjectiveCode - description - H01, H02')
+    expect(formatBudgetCodeForOption(budgetCode)).toEqual(
+      'costCode - subjectiveCode - description - H01, H02'
+    )
   })
 
   it('doesnt include contractorsList when contractor is Purdy', () => {
-    expect(
-      formatBudgetCodeForOption(budgetCode, true)
-    ).toEqual('costCode - subjectiveCode - description')
+    expect(formatBudgetCodeForOption(budgetCode, true)).toEqual(
+      'costCode - subjectiveCode - description'
+    )
   })
 })
 
