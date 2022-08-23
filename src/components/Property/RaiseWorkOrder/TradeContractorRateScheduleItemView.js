@@ -39,6 +39,8 @@ const TradeContractorRateScheduleItemView = ({
   setValue,
   setPageToMultipleSORs,
   filterPriorities,
+  arrayOfRateScheduleItemComponentIndexes,
+  setArrayOfRateScheduleItemComponentIndexes
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -335,6 +337,8 @@ const TradeContractorRateScheduleItemView = ({
         setSorCodeArrays={setSorCodeArrays}
         sorSearchRequest={orderRequiresIncrementalSearch && sorSearchRequest}
         setPageToMultipleSORs={setPageToMultipleSORs}
+        arrayOfRateScheduleItemComponentIndexes={arrayOfRateScheduleItemComponentIndexes}
+        setArrayOfRateScheduleItemComponentIndexes={setArrayOfRateScheduleItemComponentIndexes}
       />
     </>
   )

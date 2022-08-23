@@ -71,6 +71,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     false
   )
 
+  const [
+    arrayOfRateScheduleItemComponentIndexes,
+    setArrayOfRateScheduleItemComponentIndexes,
+  ] = useState(sorCodeArrays.map((v, index) => index))
+
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
@@ -208,22 +213,63 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         return sorCodesInNonIncremental
       })
     }
+    console.log("formState before SET", formState)
 
+    // CALCULATE RSI INDEXES (THESE DETERMINE WHAT RSI/SOR CODE FIELDS ARE SHOWN)
+    let rsiIndexesToAdd = arrayOfRateScheduleItemComponentIndexes; // initial array of [0] - length of 1
+
+    for (let i = 0; i < sorCodes.length; i++) {
+      const lastRsiIndex = rsiIndexesToAdd[rsiIndexesToAdd.length - 1];
+      const nextRsiIndex = lastRsiIndex + 1;
+      rsiIndexesToAdd.push(nextRsiIndex)
+    }
+
+    // FORM STATE IS CHANGED (THIS FUNCTION HAS NOT BEEN CHANGED AS IT WAS WORKING, HOWEVER THE INPUT PARAMETER, 
+    // IN THE DEBUGGER, DOES NOT HAVE THE NEW RATE SCHEDULE ITEMS)
     setFormState((formState) => {
       return {
         ...formState,
         rateScheduleItems: [
           ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
           ...sorCodes.map((code) => ({
-            code: `${code.code} - ${
-              code.shortDescription
-            } - £${code.cost.toString()}`,
+            code: `${code.code} - ${code.shortDescription
+              } - £${code.cost.toString()}`,
             cost: code.cost.toString(),
             description: code.shortDescription,
           })),
         ],
       }
     })
+
+    // DETERMINE EMPTY FIELD INDEX (THIS DOESN'T SEEM TO WORK PROPERLY AS FORMSTATE DOES NOT UPDATE WITH THE NEW RATESCHEDULEITEMS ADDED FROM MULTIPLE SCREEN) - I THINK THIS IS WHERE THE MAIN ISSUE IS
+    let indexOfEmptyRsi;
+
+    for (let index = 0; index < formState?.rateScheduleItems.length; index++) {
+      if (formState?.rateScheduleItems[index].code == '') {
+        indexOfEmptyRsi = index
+      }
+    }
+
+    // REMOVE THE EMPTY FIELD (SHOULD WORK CORRECTLY)
+    removeEmptyRateScheduleItem(indexOfEmptyRsi);
+
+    console.log("formState after SET", formState)
+  }
+
+  const removeEmptyRateScheduleItem = (indexOfEmptyRsi) => {
+
+    setSorCodeArrays((sorCodeArrays) => {
+      sorCodeArrays[indexOfEmptyRsi] = []
+      return sorCodeArrays
+    })
+
+    setArrayOfRateScheduleItemComponentIndexes(
+      (arrayOfRateScheduleItemComponentIndexes) => {
+        console.log("arrayOfRateScheduleItemComponentIndexes", arrayOfRateScheduleItemComponentIndexes)
+        arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== indexOfEmptyRsi)
+        return arrayOfRateScheduleItemComponentIndexes
+      }
+    )
   }
 
   const renderAnnouncement = () => {
@@ -259,8 +305,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
           <Meta
             {...(property &&
               property.address && {
-                title: `New repair at ${property.address.addressLine}`,
-              })}
+              title: `New repair at ${property.address.addressLine}`,
+            })}
           />
           {currentPage === RAISE_SUCCESS_PAGE &&
             workOrderReference &&
@@ -281,11 +327,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                   links={
                     externallyManagedAppointment
                       ? LinksWithDRSBooking(
-                          workOrderReference,
-                          property,
-                          externalAppointmentManagementUrl,
-                          currentUser.name
-                        )
+                        workOrderReference,
+                        property,
+                        externalAppointmentManagementUrl,
+                        currentUser.name
+                      )
                       : createWOLinks(workOrderReference, property)
                   }
                 />
@@ -299,39 +345,44 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
             property.canRaiseRepair &&
             priorities &&
             trades && (
-              <RaiseWorkOrderForm
-                propertyReference={propertyReference}
-                address={property.address}
-                hierarchyType={property.hierarchyType}
-                canRaiseRepair={property.canRaiseRepair}
-                tenure={tenure}
-                priorities={priorities}
-                trades={trades}
-                tradeCode={tradeCode}
-                setTradeCode={setTradeCode}
-                contractors={contractors}
-                contractorReference={contractorReference}
-                setContractorReference={setContractorReference}
-                setContractors={setContractors}
-                budgetCodeId={budgetCodeId}
-                setBudgetCodeId={setBudgetCodeId}
-                budgetCodes={budgetCodes}
-                setBudgetCodes={setBudgetCodes}
-                sorCodeArrays={sorCodeArrays}
-                setSorCodeArrays={setSorCodeArrays}
-                contacts={contacts}
-                onFormSubmit={onFormSubmit}
-                raiseLimit={currentUser?.raiseLimit}
-                setPageToMultipleSORs={(formState) => {
-                  setAnnouncementMessage('')
-                  setFormState(formState)
-                  setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                }}
-                formState={formState}
-                isPriorityEnabled={isPriorityEnabled}
-                isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-                setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
-              />
+              <>
+
+                <RaiseWorkOrderForm
+                  propertyReference={propertyReference}
+                  address={property.address}
+                  hierarchyType={property.hierarchyType}
+                  canRaiseRepair={property.canRaiseRepair}
+                  tenure={tenure}
+                  priorities={priorities}
+                  trades={trades}
+                  tradeCode={tradeCode}
+                  setTradeCode={setTradeCode}
+                  contractors={contractors}
+                  contractorReference={contractorReference}
+                  setContractorReference={setContractorReference}
+                  setContractors={setContractors}
+                  budgetCodeId={budgetCodeId}
+                  setBudgetCodeId={setBudgetCodeId}
+                  budgetCodes={budgetCodes}
+                  setBudgetCodes={setBudgetCodes}
+                  sorCodeArrays={sorCodeArrays}
+                  setSorCodeArrays={setSorCodeArrays}
+                  contacts={contacts}
+                  onFormSubmit={onFormSubmit}
+                  raiseLimit={currentUser?.raiseLimit}
+                  setPageToMultipleSORs={(formState) => {
+                    setAnnouncementMessage('')
+                    setFormState(formState)
+                    setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                  }}
+                  formState={formState}
+                  isPriorityEnabled={isPriorityEnabled}
+                  isIncrementalSearchEnabled={isIncrementalSearchEnabled}
+                  setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+                  arrayOfRateScheduleItemComponentIndexes={arrayOfRateScheduleItemComponentIndexes}
+                  setArrayOfRateScheduleItemComponentIndexes={setArrayOfRateScheduleItemComponentIndexes}
+                />
+              </>
             )}
 
           {currentPage === ADDING_MULTIPLE_SOR_PAGE && (

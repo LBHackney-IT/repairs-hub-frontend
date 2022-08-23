@@ -50,6 +50,8 @@ const RaiseWorkOrderForm = ({
   isIncrementalSearchEnabled,
   setIsIncrementalSearchEnabled,
   setPriorities,
+  arrayOfRateScheduleItemComponentIndexes,
+  setArrayOfRateScheduleItemComponentIndexes
 }) => {
   const { register, handleSubmit, errors, setValue, getValues } = useForm({
     defaultValues: { ...formState },
@@ -185,6 +187,8 @@ const RaiseWorkOrderForm = ({
   return (
     <>
       <BackButton />
+      <pre>{JSON.stringify(formState.rateScheduleItems, null, 2)}</pre>
+
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l lbh-caption">New repair</span>
@@ -237,6 +241,8 @@ const RaiseWorkOrderForm = ({
               isIncrementalSearchEnabled={isIncrementalSearchEnabled}
               setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               filterPriorities={filterPriorities}
+              arrayOfRateScheduleItemComponentIndexes={arrayOfRateScheduleItemComponentIndexes}
+              setArrayOfRateScheduleItemComponentIndexes={setArrayOfRateScheduleItemComponentIndexes}
             />
 
             <SelectPriority

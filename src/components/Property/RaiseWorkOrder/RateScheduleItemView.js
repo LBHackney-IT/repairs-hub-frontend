@@ -18,11 +18,14 @@ const RateScheduleItemView = ({
   setSorCodeArrays,
   sorSearchRequest,
   setPageToMultipleSORs,
+  arrayOfRateScheduleItemComponentIndexes,
+  setArrayOfRateScheduleItemComponentIndexes
 }) => {
-  const [
-    arrayOfRateScheduleItemComponentIndexes,
-    setArrayOfRateScheduleItemComponentIndexes,
-  ] = useState(sorCodeArrays.map((v, index) => index))
+  
+  // const [
+  //   arrayOfRateScheduleItemComponentIndexes,
+  //   setArrayOfRateScheduleItemComponentIndexes,
+  // ] = useState(sorCodeArrays.map((v, index) => index))
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
