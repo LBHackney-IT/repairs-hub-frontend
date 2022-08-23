@@ -1,13 +1,22 @@
 import { formatBudgetCode, formatBudgetCodeForOption } from './budgetCodes'
 
 describe('formatBudgetCodeForOption', () => {
-  it('includes the externalCostCode, corporateSubjectiveCode and descriptionOfWorks', () => {
+  const budgetCode = {
+    externalCostCode: 'costCode',
+    corporateSubjectiveCode: 'subjectiveCode',
+    descriptionOfWorks: 'description',
+    contractorsList: 'H01, H02'
+  };
+
+  it('includes the externalCostCode, corporateSubjectiveCode, descriptionOfWorks, and contractorsList', () => {
     expect(
-      formatBudgetCodeForOption({
-        externalCostCode: 'costCode',
-        corporateSubjectiveCode: 'subjectiveCode',
-        descriptionOfWorks: 'description',
-      })
+      formatBudgetCodeForOption(budgetCode)
+    ).toEqual('costCode - subjectiveCode - description - H01, H02')
+  })
+
+  it('doesnt include contractorsList when contractor is Purdy', () => {
+    expect(
+      formatBudgetCodeForOption(budgetCode, true)
     ).toEqual('costCode - subjectiveCode - description')
   })
 })
