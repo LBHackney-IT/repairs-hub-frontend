@@ -9,7 +9,7 @@ export const formatBudgetCodeForOption = (
     budgetCode?.descriptionOfWorks,
   ]
 
-  if (!contractorIsPurdy) displayFields.push(budgetCode?.contractorsList)
+  if (!contractorIsPurdy) displayFields.push(budgetCode?.contractorList)
 
   return displayFields.filter((x) => x).join(separator)
 }
