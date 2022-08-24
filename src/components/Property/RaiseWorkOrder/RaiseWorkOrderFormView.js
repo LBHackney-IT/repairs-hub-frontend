@@ -193,6 +193,15 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
+  const getArrayValues = (array) => {
+
+    const iterator = array.values();
+
+    for (let arrayValue of iterator) {
+      console.log(arrayValue);
+    }
+  }
+
   const setSorCodesFromBatchUpload = (sorCodes) => {
     if (isIncrementalSearchEnabled) {
       let sorCodesInIncremental = [
@@ -207,22 +216,14 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     } else {
       let sorCodesInNonIncremental = [
         ...sorCodeArrays,
-        ...sorCodes.map(() => sorCodeArrays),
+        ...sorCodes.map(() => sorCodeArrays[0]),
       ].filter((e) => e.length != 0)
       setSorCodeArrays(() => {
         return sorCodesInNonIncremental
       })
     }
-    console.log("formState before SET", formState)
 
-    // CALCULATE RSI INDEXES (THESE DETERMINE WHAT RSI/SOR CODE FIELDS ARE SHOWN)
-    let rsiIndexesToAdd = arrayOfRateScheduleItemComponentIndexes; // initial array of [0] - length of 1
-
-    for (let i = 0; i < sorCodes.length; i++) {
-      const lastRsiIndex = rsiIndexesToAdd[rsiIndexesToAdd.length - 1];
-      const nextRsiIndex = lastRsiIndex + 1;
-      rsiIndexesToAdd.push(nextRsiIndex)
-    }
+    determineRsiIndexes(sorCodes);
 
     // FORM STATE IS CHANGED (THIS FUNCTION HAS NOT BEEN CHANGED AS IT WAS WORKING, HOWEVER THE INPUT PARAMETER, 
     // IN THE DEBUGGER, DOES NOT HAVE THE NEW RATE SCHEDULE ITEMS)
@@ -240,36 +241,29 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         ],
       }
     })
-
-    // DETERMINE EMPTY FIELD INDEX (THIS DOESN'T SEEM TO WORK PROPERLY AS FORMSTATE DOES NOT UPDATE WITH THE NEW RATESCHEDULEITEMS ADDED FROM MULTIPLE SCREEN) - I THINK THIS IS WHERE THE MAIN ISSUE IS
-    let indexOfEmptyRsi;
-
-    for (let index = 0; index < formState?.rateScheduleItems.length; index++) {
-      if (formState?.rateScheduleItems[index].code == '') {
-        indexOfEmptyRsi = index
-      }
-    }
-
-    // REMOVE THE EMPTY FIELD (SHOULD WORK CORRECTLY)
-    removeEmptyRateScheduleItem(indexOfEmptyRsi);
-
-    console.log("formState after SET", formState)
   }
 
-  const removeEmptyRateScheduleItem = (indexOfEmptyRsi) => {
+  const determineRsiIndexes = (sorCodes) => {
+    // CALCULATE RSI INDEXES (THESE DETERMINE WHAT RSI/SOR CODE FIELDS ARE SHOWN)
+    let rsiIndexesToAdd = arrayOfRateScheduleItemComponentIndexes; // initial array of [0] - length of 1
 
-    setSorCodeArrays((sorCodeArrays) => {
-      sorCodeArrays[indexOfEmptyRsi] = []
-      return sorCodeArrays
-    })
-
-    setArrayOfRateScheduleItemComponentIndexes(
-      (arrayOfRateScheduleItemComponentIndexes) => {
-        console.log("arrayOfRateScheduleItemComponentIndexes", arrayOfRateScheduleItemComponentIndexes)
-        arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== indexOfEmptyRsi)
-        return arrayOfRateScheduleItemComponentIndexes
+    // if we're at the initial state, with only the one empty field (formState?.rateScheduleItems.length will be 1)...
+    // ... we know that if we add multiple SORs at the same time, we need to remove the empty field which ends up...
+    // being at the last index.
+    if (formState?.rateScheduleItems.length == 1) {
+      for (let i = 0; i < sorCodes.length; i++) {
+        const lastRsiIndex = rsiIndexesToAdd[rsiIndexesToAdd.length - 1];
+        const nextRsiIndex = lastRsiIndex + 1;
+        rsiIndexesToAdd.push(nextRsiIndex)
       }
-    )
+      rsiIndexesToAdd.pop();
+    } else {
+      for (let i = 0; i < sorCodes.length; i++) {
+        const lastRsiIndex = rsiIndexesToAdd[rsiIndexesToAdd.length - 1];
+        const nextRsiIndex = lastRsiIndex + 1;
+        rsiIndexesToAdd.push(nextRsiIndex)
+      }
+    }
   }
 
   const renderAnnouncement = () => {
