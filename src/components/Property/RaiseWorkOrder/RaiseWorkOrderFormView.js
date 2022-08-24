@@ -193,15 +193,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
 
-  const getArrayValues = (array) => {
-
-    const iterator = array.values();
-
-    for (let arrayValue of iterator) {
-      console.log(arrayValue);
-    }
-  }
-
   const setSorCodesFromBatchUpload = (sorCodes) => {
     if (isIncrementalSearchEnabled) {
       let sorCodesInIncremental = [
