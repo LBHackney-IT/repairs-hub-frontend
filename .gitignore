@@ -28,8 +28,7 @@ yarn-error.log*
 # CAUTION: do not remove .env unless you are certain all team members have
 # migrated to the local equivalents (the dotenv-flow approach).
 .env
-.env.local
-.env.*.local
+.env.*
 
 # vercel
 .vercel
@@ -44,3 +43,7 @@ cypress/reports
 
 # Sentry
 .sentryclirc
+
+# Version control
+yarn.lock
+package-lock.json
