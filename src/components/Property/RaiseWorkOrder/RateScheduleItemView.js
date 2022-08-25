@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import { calculateTotal } from '@/utils/helpers/calculations'
 import Spinner from '@/components/Spinner'
@@ -18,12 +18,28 @@ const RateScheduleItemView = ({
   setSorCodeArrays,
   sorSearchRequest,
   setPageToMultipleSORs,
+  formState
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
   ] = useState(sorCodeArrays.map((v, index) => index))
+  
+  useEffect( () => {
+    if (arrayOfRateScheduleItemComponentIndexes.length > 1) { 
+      if (formState.rateScheduleItems.length < arrayOfRateScheduleItemComponentIndexes.length) {
+        arrayOfRateScheduleItemComponentIndexes.pop()
+      }
 
+        console.log('arrayOfRateScheduleItemComponentIndexes length ' + arrayOfRateScheduleItemComponentIndexes.length)
+        console.log(arrayOfRateScheduleItemComponentIndexes)
+        console.log('number of formstate items: ' + formState.rateScheduleItems.length )
+        console.log(formState)
+        
+      }
+
+  }, arrayOfRateScheduleItemComponentIndexes )
+  
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
   )

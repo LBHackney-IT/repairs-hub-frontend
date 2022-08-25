@@ -237,6 +237,7 @@ const RaiseWorkOrderForm = ({
               isIncrementalSearchEnabled={isIncrementalSearchEnabled}
               setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               filterPriorities={filterPriorities}
+              formState={formState}
             />
 
             <SelectPriority
