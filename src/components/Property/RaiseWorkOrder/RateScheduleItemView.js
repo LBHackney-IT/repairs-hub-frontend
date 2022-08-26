@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import { calculateTotal } from '@/utils/helpers/calculations'
 import Spinner from '@/components/Spinner'
@@ -18,11 +18,23 @@ const RateScheduleItemView = ({
   setSorCodeArrays,
   sorSearchRequest,
   setPageToMultipleSORs,
+  formState,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
   ] = useState(sorCodeArrays.map((v, index) => index))
+
+  useEffect(() => {
+    if (arrayOfRateScheduleItemComponentIndexes.length > 1) {
+      if (
+        formState.rateScheduleItems.length <
+        arrayOfRateScheduleItemComponentIndexes.length
+      ) {
+        arrayOfRateScheduleItemComponentIndexes.pop()
+      }
+    }
+  }, arrayOfRateScheduleItemComponentIndexes)
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
@@ -217,7 +229,8 @@ const RateScheduleItemView = ({
           <div>
             {rateScheduleItems()}
             {apiError && <ErrorMessage label={apiError} />}
-
+          </div>
+          <div>
             <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
               + Add another SOR code
             </a>

@@ -237,6 +237,7 @@ const RaiseWorkOrderForm = ({
               isIncrementalSearchEnabled={isIncrementalSearchEnabled}
               setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
               filterPriorities={filterPriorities}
+              formState={formState}
             />
 
             <SelectPriority
@@ -335,7 +336,8 @@ RaiseWorkOrderForm.propTypes = {
   setTradeCode: PropTypes.func.isRequired,
   contractorReference: PropTypes.string.isRequired,
   setContractorReference: PropTypes.func.isRequired,
-  budgetCodeId: PropTypes.string.isRequired,
+  budgetCodeId: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   setBudgetCodeId: PropTypes.func.isRequired,
   setPageToMultipleSORs: PropTypes.func.isRequired,
 }

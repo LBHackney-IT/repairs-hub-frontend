@@ -303,37 +303,39 @@ const WorkOrderUpdateView = ({ reference }) => {
               )}
 
               {renderAnnouncement()}
-              {currentPage === FORM_PAGE && (
-                <>
-                  <BackButton />
-                  <h1 className="lbh-heading-h1">
-                    Update work order: {reference}
-                  </h1>
+              {currentPage === FORM_PAGE &&
+                !showSummaryPage &&
+                !showUpdateSuccess && (
+                  <>
+                    <BackButton />
+                    <h1 className="lbh-heading-h1">
+                      Update work order: {reference}
+                    </h1>
 
-                  <WorkOrderUpdateForm
-                    latestTasks={tasks}
-                    originalTasks={originalTasks}
-                    addedTasks={addedTasks}
-                    showAdditionalRateScheduleItems={
-                      showAdditionalRateScheduleItems
-                    }
-                    onGetToSummary={onGetToSummary}
-                    setVariationReason={setVariationReason}
-                    variationReason={variationReason}
-                    contractorReference={contractorReference}
-                    sorSearchRequest={
-                      orderRequiresIncrementalSearch && sorSearchRequest
-                    }
-                    sorCodeArrays={sorCodeArrays}
-                    setSorCodeArrays={setSorCodeArrays}
-                    setPageToMultipleSORs={(formState) => {
-                      setAnnouncementMessage('')
-                      setFormState(formState)
-                      setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-                    }}
-                  />
-                </>
-              )}
+                    <WorkOrderUpdateForm
+                      latestTasks={tasks}
+                      originalTasks={originalTasks}
+                      addedTasks={addedTasks}
+                      showAdditionalRateScheduleItems={
+                        showAdditionalRateScheduleItems
+                      }
+                      onGetToSummary={onGetToSummary}
+                      setVariationReason={setVariationReason}
+                      variationReason={variationReason}
+                      contractorReference={contractorReference}
+                      sorSearchRequest={
+                        orderRequiresIncrementalSearch && sorSearchRequest
+                      }
+                      sorCodeArrays={sorCodeArrays}
+                      setSorCodeArrays={setSorCodeArrays}
+                      setPageToMultipleSORs={(formState) => {
+                        setAnnouncementMessage('')
+                        setFormState(formState)
+                        setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                      }}
+                    />
+                  </>
+                )}
               {showSummaryPage && !showUpdateSuccess && (
                 <WorkOrderUpdateSummary
                   latestTasks={tasks}
