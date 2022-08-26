@@ -30,14 +30,7 @@ const RateScheduleItemView = ({
       if (formState.rateScheduleItems.length < arrayOfRateScheduleItemComponentIndexes.length) {
         arrayOfRateScheduleItemComponentIndexes.pop()
       }
-
-        console.log('arrayOfRateScheduleItemComponentIndexes length ' + arrayOfRateScheduleItemComponentIndexes.length)
-        console.log(arrayOfRateScheduleItemComponentIndexes)
-        console.log('number of formstate items: ' + formState.rateScheduleItems.length )
-        console.log(formState)
-        
-      }
-
+    }
   }, arrayOfRateScheduleItemComponentIndexes )
   
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
