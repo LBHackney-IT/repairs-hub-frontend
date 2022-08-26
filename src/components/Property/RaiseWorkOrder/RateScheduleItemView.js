@@ -18,21 +18,24 @@ const RateScheduleItemView = ({
   setSorCodeArrays,
   sorSearchRequest,
   setPageToMultipleSORs,
-  formState
+  formState,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
   ] = useState(sorCodeArrays.map((v, index) => index))
-  
-  useEffect( () => {
-    if (arrayOfRateScheduleItemComponentIndexes.length > 1) { 
-      if (formState.rateScheduleItems.length < arrayOfRateScheduleItemComponentIndexes.length) {
+
+  useEffect(() => {
+    if (arrayOfRateScheduleItemComponentIndexes.length > 1) {
+      if (
+        formState.rateScheduleItems.length <
+        arrayOfRateScheduleItemComponentIndexes.length
+      ) {
         arrayOfRateScheduleItemComponentIndexes.pop()
       }
     }
-  }, arrayOfRateScheduleItemComponentIndexes )
-  
+  }, arrayOfRateScheduleItemComponentIndexes)
+
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
   )

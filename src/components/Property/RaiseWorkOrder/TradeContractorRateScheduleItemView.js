@@ -39,7 +39,7 @@ const TradeContractorRateScheduleItemView = ({
   setValue,
   setPageToMultipleSORs,
   filterPriorities,
-  formState
+  formState,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
