@@ -58,10 +58,13 @@ const AddMultipleSORs = ({
   }
 
   const renderErrorSummary = (errors) => {
-    const errorList = errors.map(error => `"${error.code}"`);
+    const errorList = errors.map((error) => `"${error.code}"`)
 
     return (
-    <WarningInfoBox header={`Invalid SOR code(s) entered: ${errorList.join(" ")}`} text=""/>
+      <WarningInfoBox
+        header={`Invalid SOR code(s) entered: ${errorList.join(' ')}`}
+        text=""
+      />
     )
   }
 
