@@ -121,18 +121,6 @@ describe('Raise repair form', () => {
           '00000005 - shortDescription5 - £1'
         )
 
-        // cy.contains('+ Add another SOR code').click()
-
-        // cy.get('input[id="rateScheduleItems[1][code]"]').type(
-        //   '00000006 - shortDescription6 - £1', {
-        //   delay: 0,
-        // })
-
-        // cy.get('input[id="rateScheduleItems[1][code]"]').should(
-        //   'have.value',
-        //   '00000006 - shortDescription6 - £1'
-        // )
-
         cy.contains('+ Add multiple SOR codes').click()
       })
 
@@ -164,16 +152,10 @@ describe('Raise repair form', () => {
 
       cy.wait('@firstValidation')
 
-      cy.get('.govuk-error-summary').within(() => {
-        cy.contains('Invalid SOR codes entered')
-
-        cy.get('.govuk-error-summary__body').within(() => {
-          cy.contains('li', '1234567: Invalid SOR code format')
-          cy.contains('li', 'ABCDEFGH: SOR code does not exist')
-          cy.contains('li', '1: Invalid SOR code format')
-          cy.contains('li', '1: Invalid SOR code format')
-          cy.contains('li', 'ABCD1234: SOR code does not exist')
-        })
+      cy.get('.govuk-warning-text__text').within(() => {
+        cy.contains(
+          'Invalid SOR code(s) entered: "1234567" "ABCDEFGH" "1" "1" "ABCD1234"'
+        )
       })
 
       cy.get('#adding-multiple-sors-form').within(() => {
