@@ -109,6 +109,7 @@ const AddMultipleSORs = ({
           })}
           error={errors && errors.newSorCodes}
           rows={6}
+          placeholder="04500910&#10;49PLMAT2&#10;RTR03016"
         />
 
         <PrimarySubmitButton
