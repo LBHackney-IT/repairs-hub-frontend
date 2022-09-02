@@ -204,6 +204,7 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
         />
       </section>
     </div>
+    <div />
     <div>
       <a
         class="lbh-link"
@@ -570,6 +571,8 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
           </button>
         </div>
       </div>
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
@@ -928,6 +931,8 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
           </button>
         </div>
       </div>
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
