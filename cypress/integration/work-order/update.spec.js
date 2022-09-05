@@ -334,7 +334,7 @@ describe('Updating a work order', () => {
       })
 
       cy.get('#repair-request-form').within(() => {
-        cy.get('.lbh-link').click()
+        cy.contains('+ Add another SOR code').click()
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
@@ -584,7 +584,7 @@ describe('Updating a work order', () => {
           cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
 
           cy.get('#repair-request-form').within(() => {
-            cy.get('.lbh-link').click()
+            cy.contains('+ Add another SOR code').click()
 
             cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('P')
 
@@ -683,7 +683,7 @@ describe('Updating a work order', () => {
             ])
 
             cy.get('#repair-request-form').within(() => {
-              cy.get('.lbh-link').click()
+              cy.contains('+ Add another SOR code').click()
 
               cy.get('[data-testid="rateScheduleItems[0][code]"]')
                 .parent()

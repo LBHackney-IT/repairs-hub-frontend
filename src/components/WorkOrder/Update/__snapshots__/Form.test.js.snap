@@ -204,14 +204,21 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div />
+    <div>
       <a
         class="lbh-link"
         href="#"
       >
         + Add another SOR code
+      </a>
+    </div>
+    <div>
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
       </a>
     </div>
     <div
@@ -466,9 +473,7 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div>
       <div
         class="rate-schedule-item govuk-!-margin-top-0"
       >
@@ -566,11 +571,21 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
           </button>
         </div>
       </div>
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
       >
         + Add another SOR code
+      </a>
+    </div>
+    <div>
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
       </a>
     </div>
     <div
@@ -825,9 +840,7 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
         />
       </section>
     </div>
-    <div
-      class="govuk-!-padding-bottom-5"
-    >
+    <div>
       <div
         class="rate-schedule-item govuk-!-margin-top-0"
       >
@@ -918,11 +931,21 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
           </button>
         </div>
       </div>
+    </div>
+    <div>
       <a
         class="lbh-link"
         href="#"
       >
         + Add another SOR code
+      </a>
+    </div>
+    <div>
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        + Add multiple SOR codes
       </a>
     </div>
     <div

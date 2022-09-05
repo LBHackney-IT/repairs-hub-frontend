@@ -258,6 +258,8 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
                 />
               </div>
             </div>
+          </div>
+          <div>
             <a
               class="lbh-link"
               href="#"
@@ -265,6 +267,7 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -735,6 +738,8 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
                 />
               </div>
             </div>
+          </div>
+          <div>
             <a
               class="lbh-link"
               href="#"
@@ -742,6 +747,7 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -1153,6 +1159,8 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
                 />
               </div>
             </div>
+          </div>
+          <div>
             <a
               class="lbh-link"
               href="#"
@@ -1160,6 +1168,7 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
               + Add another SOR code
             </a>
           </div>
+          <div />
         </div>
         <div
           class="govuk-form-group lbh-form-group"

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, Fragment } from 'react'
+import { useState, Fragment, useEffect } from 'react'
 import RateScheduleItem from '../../WorkElement/RateScheduleItem'
 import { calculateTotal } from '@/utils/helpers/calculations'
 import Spinner from '@/components/Spinner'
@@ -17,11 +17,24 @@ const RateScheduleItemView = ({
   sorCodeArrays,
   setSorCodeArrays,
   sorSearchRequest,
+  setPageToMultipleSORs,
+  formState,
 }) => {
   const [
     arrayOfRateScheduleItemComponentIndexes,
     setArrayOfRateScheduleItemComponentIndexes,
-  ] = useState([0])
+  ] = useState(sorCodeArrays.map((v, index) => index))
+
+  useEffect(() => {
+    if (arrayOfRateScheduleItemComponentIndexes.length > 1) {
+      if (
+        formState.rateScheduleItems.length <
+        arrayOfRateScheduleItemComponentIndexes.length
+      ) {
+        arrayOfRateScheduleItemComponentIndexes.pop()
+      }
+    }
+  }, arrayOfRateScheduleItemComponentIndexes)
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
@@ -176,7 +189,9 @@ const RateScheduleItemView = ({
       return (
         <Fragment key={`rateScheduleItem~${i}`}>
           <RateScheduleItem
-            sorCodes={sorCodeArrays[i] || []}
+            sorCodes={
+              sorSearchRequest ? sorCodeArrays[i] || [] : sorCodeArrays[0]
+            }
             register={register}
             errors={errors}
             disabled={disabled}
@@ -200,19 +215,34 @@ const RateScheduleItemView = ({
     })
   }
 
+  const changePageView = (e) => {
+    e.preventDefault()
+    setPageToMultipleSORs()
+  }
+
   return (
     <div className="min-height-120 govuk-!-margin-bottom-6">
       {loading ? (
         <Spinner />
       ) : (
-        <div>
-          {rateScheduleItems()}
-          {apiError && <ErrorMessage label={apiError} />}
-
-          <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
-            + Add another SOR code
-          </a>
-        </div>
+        <>
+          <div>
+            {rateScheduleItems()}
+            {apiError && <ErrorMessage label={apiError} />}
+          </div>
+          <div>
+            <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+              + Add another SOR code
+            </a>
+          </div>
+          <div>
+            {!disabled && (
+              <a className="lbh-link" href="#" onClick={changePageView}>
+                + Add multiple SOR codes
+              </a>
+            )}
+          </div>
+        </>
       )}
     </div>
   )
@@ -224,6 +254,7 @@ RateScheduleItemView.propTypes = {
   disabled: PropTypes.bool.isRequired,
   updatePriority: PropTypes.func.isRequired,
   getPriorityObjectByCode: PropTypes.func.isRequired,
+  setPageToMultipleSORs: PropTypes.func.isRequired,
 }
 
 export default RateScheduleItemView

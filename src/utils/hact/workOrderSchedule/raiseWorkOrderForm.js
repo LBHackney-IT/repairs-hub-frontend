@@ -24,7 +24,7 @@ export const buildScheduleWorkOrderFormData = (workOrderData) => {
             rateScheduleItem: [
               {
                 customCode: item.code.split(' - ')[0],
-                customName: item.description,
+                customName: item.description || item.code.split(' - ')[1],
                 quantity: {
                   amount: [Number.parseFloat(item.quantity)],
                 },

@@ -82,6 +82,12 @@ This application is using cypress, for end-to-end and integration tests and can 
 yarn test:e2e
 ```
 
+Run tests individually in Cypress GUI:
+
+```
+yarn e2e:interactive
+```
+
 Run an individual Cypress spec can be run using the following command:
 
 ```

@@ -4,6 +4,7 @@ import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
   canAccessWorkOrder,
+  canSearchForProperty,
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
   canAttendOwnWorkOrder,
@@ -104,6 +105,7 @@ describe('canAccessWorkOrder', () => {
       hasAgentPermissions: true,
       hasContractManagerPermissions: true,
       hasAuthorisationManagerPermissions: true,
+      hasContractorPermissions: true,
     }
     it('returns true', () => {
       expect(canAccessWorkOrder(user)).toBe(true)
@@ -117,9 +119,40 @@ describe('canAccessWorkOrder', () => {
       hasAgentPermissions: false,
       hasContractManagerPermissions: false,
       hasAuthorisationManagerPermissions: false,
+      hasContractorPermissions: false,
     }
     it('returns false', () => {
       expect(canAccessWorkOrder(user)).toBe(false)
+    })
+  })
+})
+
+describe('canSearchForProperty', () => {
+  describe('when user allowed to search for a property', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasAgentPermissions: true,
+      hasContractManagerPermissions: true,
+      hasAuthorisationManagerPermissions: true,
+      hasContractorPermissions: true,
+    }
+    it('returns true', () => {
+      expect(canSearchForProperty(user)).toBe(true)
+    })
+  })
+
+  describe('when user NOT allowed to search for a property', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasAgentPermissions: false,
+      hasContractManagerPermissions: false,
+      hasAuthorisationManagerPermissions: false,
+      hasContractorPermissions: false,
+    }
+    it('returns false', () => {
+      expect(canSearchForProperty(user)).toBe(false)
     })
   })
 })
