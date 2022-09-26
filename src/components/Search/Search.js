@@ -9,11 +9,9 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
-import Pagination from '../Layout/Pagination'
 
 const Search = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
-  const { NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH } = process.env
 
   let decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
@@ -153,48 +151,16 @@ const Search = ({ query }) => {
             {properties?.length > 0 && (
               <>
                 <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+                  <h3 className="lbh-heading-h3">
+                    {`We found ${
+                      properties.length
+                    } matching results for: ${decodeURI(
+                      decodedQueryParamSearchText
+                    )}`}
+                  </h3>
 
-                {NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true' ? (
-                  <>
-                    <h3 className="lbh-heading-h3">
-                      {`We found ${
-                        properties.length
-                      } matching results for: ${decodeURI(
-                        decodedQueryParamSearchText
-                      )}`}
-                    </h3>
-                    <PropertiesTable properties={properties} />
-                  </>
-                ) : (
-                  <>
-                    <Pagination
-                      total={searchHitTotal}
-                      currentPage={parseInt(pageNumber) || 1}
-                      pageSize={parseInt(NEXT_PUBLIC_PROPERTIES_PAGE_SIZE)}
-                      url={{
-                        pathname: '/search',
-                        query: {
-                          searchText: searchTextInput,
-                          pageNumber,
-                        },
-                      }}
-                    />
-                    <PropertiesTable properties={properties} />
-                    <Pagination
-                      total={searchHitTotal}
-                      currentPage={parseInt(pageNumber) || 1}
-                      pageSize={parseInt(NEXT_PUBLIC_PROPERTIES_PAGE_SIZE)}
-                      url={{
-                        pathname: '/search',
-                        query: {
-                          searchText: searchTextInput,
-                          pageNumber,
-                        },
-                      }}
-                      className="govuk-!-margin-top-8"
-                    />
-                  </>
-                )}
+                  <PropertiesTable properties={properties} />
+               
               </>
             )}
 

@@ -5,16 +5,8 @@ import {
 } from '@/utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
-  let searchTextKey
-  let propertySearchPath
-
-  if (process.env.NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true') {
-    searchTextKey = 'q'
-    propertySearchPath = ['properties']
-  } else {
-    searchTextKey = 'searchText'
-    propertySearchPath = ['properties', 'search']
-  }
+    const searchTextKey = 'searchText'
+    const propertySearchPath = ['properties', 'search']
 
   req.query = {
     path: propertySearchPath,
@@ -24,11 +16,7 @@ export default authoriseServiceAPIRequest(async (req, res) => {
   }
 
   try {
-    let data = await serviceAPIRequest(req, res)
-
-    if (process.env.NEXT_PUBLIC_USE_DEPRECATED_PROPERTY_SEARCH === 'true') {
-      data = { properties: data, total: data.length }
-    }
+    const data = await serviceAPIRequest(req, res)
 
     res.status(HttpStatus.OK).json(data)
   } catch (error) {
