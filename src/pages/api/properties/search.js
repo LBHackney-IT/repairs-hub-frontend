@@ -5,8 +5,8 @@ import {
 } from '@/utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
-    const searchTextKey = 'searchText'
-    const propertySearchPath = ['properties', 'search']
+  const searchTextKey = 'searchText'
+  const propertySearchPath = ['properties', 'search']
 
   req.query = {
     path: propertySearchPath,

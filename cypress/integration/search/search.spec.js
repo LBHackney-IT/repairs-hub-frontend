@@ -5,7 +5,6 @@ import 'cypress-audit/commands'
 describe('Search', () => {
   const totalPageSize = Cypress.env('NEXT_PUBLIC_PROPERTIES_PAGE_SIZE')
   const totalResults = totalPageSize + 1
-  const firstPageLastItemReference = totalPageSize.toString().padStart(8, '0')
   const lastPageLastItemReference = totalResults.toString().padStart(8, '0')
 
   context(

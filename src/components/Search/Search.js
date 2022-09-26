@@ -151,16 +151,15 @@ const Search = ({ query }) => {
             {properties?.length > 0 && (
               <>
                 <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-                  <h3 className="lbh-heading-h3">
-                    {`We found ${
-                      properties.length
-                    } matching results for: ${decodeURI(
-                      decodedQueryParamSearchText
-                    )}`}
-                  </h3>
+                <h3 className="lbh-heading-h3">
+                  {`We found ${
+                    properties.length
+                  } matching results for: ${decodeURI(
+                    decodedQueryParamSearchText
+                  )}`}
+                </h3>
 
-                  <PropertiesTable properties={properties} />
-               
+                <PropertiesTable properties={properties} />
               </>
             )}
 
