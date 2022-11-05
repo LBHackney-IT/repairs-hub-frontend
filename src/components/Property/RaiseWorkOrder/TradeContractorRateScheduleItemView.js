@@ -233,7 +233,11 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
-      setSorCodeArrays([sorCodes])
+      setSorCodeArrays([
+        sorCodes.sort((a, b) => {
+          return b.displayPriority - a.displayPriority
+        }),
+      ])
     } catch (e) {
       resetSORs()
       console.error('An error has occured:', e.response)
