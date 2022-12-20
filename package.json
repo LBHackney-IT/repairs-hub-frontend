@@ -13,6 +13,8 @@
     "start": "next start -p 5001",
     "tests": "yarn test:unit && yarn test:e2e",
     "test:unit": "NODE_ENV=test node --expose-gc ./node_modules/.bin/jest --runInBand --logHeapUsage",
+    "test:unit-windows": "node ./node_modules/jest/bin/jest.js --runInBand",
+    "test:unit-win-upd": "node ./node_modules/jest/bin/jest.js --runInBand --updateSnapshot",
     "lint": "eslint . --max-warnings 0 --ext .js,.jsx && echo 'Lint complete.'",
     "lintfix": "eslint . --max-warnings 0 --ext .js,.jsx --fix",
     "test:e2e": "NODE_ENV=test start-test 5001 cy:run",
