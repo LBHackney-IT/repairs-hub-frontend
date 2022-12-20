@@ -4,7 +4,7 @@ import NoteEntry from './NoteEntry'
 describe('NoteEntry component', () => {
   const props = {
     note: 'Image from user: http://example-url/',
-    time: new Date(),
+    time: '',
     user: 'Test user',
     userEmail: 'sample@sample.com',
   }
