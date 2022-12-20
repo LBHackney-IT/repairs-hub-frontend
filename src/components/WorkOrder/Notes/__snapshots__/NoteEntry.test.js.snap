@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NoteEntry component should render properle 1`] = `
+<DocumentFragment>
+  <div
+    class="note-info lbh-body-s"
+  >
+    20 Dec 2022, 15:32 by Test user (sample@sample.com)
+  </div>
+  <a
+    href="http://example-url/"
+  >
+    Image from user
+  </a>
+</DocumentFragment>
+`;
