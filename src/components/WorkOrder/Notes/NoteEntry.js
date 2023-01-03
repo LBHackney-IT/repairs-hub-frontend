@@ -28,9 +28,9 @@ const NoteEntry = ({ note, time, user, userEmail }) => {
       </div>
       {DetectImageNote(note) ? (
         <span>
-          Housing Repairs Online request: <a href={ParseUriFromImageNote(note)}>{'Image from user'}</a>
+          Housing Repairs Online request:{' '}
+          <a href={ParseUriFromImageNote(note)}>{'Image from user'}</a>
         </span>
-        
       ) : (
         note.split('\n').map((el, i) => (
           <span key={i}>
