@@ -8,13 +8,13 @@ import {
 import Meta from '../../components/Meta'
 
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import ManageSorCodes from '../../components/BackOffice/ManageSORCodes'
+import ManageSORCodes from '../../components/BackOffice/ManageSORCodes'
 
 const ManageSORCodesPage = () => {
   return (
     <>
       <Meta title="BackOffice" />
-      <ManageSorCodes />
+      <ManageSORCodes />
     </>
   )
 }
