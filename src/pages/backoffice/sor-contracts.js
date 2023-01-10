@@ -8,7 +8,7 @@ import {
 import Meta from '../../components/Meta'
 
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import SORContracts from '../../components/BackOffice/SorContracts'
+import SORContracts from '../../components/BackOffice/SORContracts'
 
 const SORContractsPage = () => {
   return (
