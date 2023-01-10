@@ -1,13 +1,7 @@
-import Layout from "./Layout"
+import Layout from './Layout'
 
 const ManageSORCodes = () => {
-
-  return (
-    <Layout title="Manage SOR Codes">
-      
-
-    </Layout>
-  )
+  return <Layout title="Manage SOR Codes"></Layout>
 }
 
 export default ManageSORCodes

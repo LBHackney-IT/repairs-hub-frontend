@@ -10,13 +10,11 @@ import { getQueryProps } from '../../utils/helpers/serverSideProps'
 import BackOfficeDashboard from '../../components/BackOffice/BackOfficeDashboard'
 
 const BackOfficePage = () => {
-  
-
   return (
     <>
       <Meta title="BackOffice" />
-   
-   <BackOfficeDashboard />
+
+      <BackOfficeDashboard />
     </>
   )
 }

@@ -1,12 +1,7 @@
-import Layout from "./Layout"
+import Layout from './Layout'
 
 const SORContracts = () => {
-
-  return (
-    <Layout title="Add SOR contracts to properties">
-
-    </Layout>
-  )
+  return <Layout title="Add SOR contracts to properties"></Layout>
 }
 
 export default SORContracts
