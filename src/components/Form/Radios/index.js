@@ -10,6 +10,7 @@ const Radio = ({
   labelSize = 'm',
   hint,
   name,
+  selectedOption,
   options = defaultOptions,
   register,
   error,
@@ -60,6 +61,8 @@ const Radio = ({
                 `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
               }
               defaultChecked={defaultChecked}
+              // should only apply when parameter passed
+              checked={selectedOption !== null && selectedOption === value}
               {...otherProps}
             />
 
@@ -89,6 +92,7 @@ Radio.propTypes = {
   label: PropTypes.string.isRequired,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
+  selectedOption: PropTypes.string,
   register: PropTypes.func,
   options: PropTypes.array,
   hint: PropTypes.string,
