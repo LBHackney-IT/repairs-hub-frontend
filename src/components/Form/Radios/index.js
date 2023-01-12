@@ -89,7 +89,6 @@ Radio.propTypes = {
   label: PropTypes.string.isRequired,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
-  selectedOption: PropTypes.string,
   register: PropTypes.func,
   options: PropTypes.array,
   hint: PropTypes.string,
