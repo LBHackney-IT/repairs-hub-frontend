@@ -1,6 +1,4 @@
-import {
-  DATA_ADMIN,
-} from '@/utils/user'
+import { DATA_ADMIN } from '@/utils/user'
 
 import Meta from '../../components/Meta'
 
@@ -18,8 +16,6 @@ const CloseWorkOrdersPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-CloseWorkOrdersPage.permittedRoles = [
-  DATA_ADMIN,
-]
+CloseWorkOrdersPage.permittedRoles = [DATA_ADMIN]
 
 export default CloseWorkOrdersPage

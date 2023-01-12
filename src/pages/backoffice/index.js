@@ -1,6 +1,4 @@
-import {
-  DATA_ADMIN,
-} from '@/utils/user'
+import { DATA_ADMIN } from '@/utils/user'
 
 import Meta from '../../components/Meta'
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
@@ -18,8 +16,6 @@ const BackOfficePage = () => {
 
 export const getServerSideProps = getQueryProps
 
-BackOfficePage.permittedRoles = [
-  DATA_ADMIN,
-]
+BackOfficePage.permittedRoles = [DATA_ADMIN]
 
 export default BackOfficePage
