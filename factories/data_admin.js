@@ -2,8 +2,8 @@ import { Factory } from 'fishery'
 
 const dataAdminFactory = Factory.define(() => ({
   name: 'A Data Admin',
-  email: 'a.data.admin@hackney.gov.uk',
-  roles: ['dataAdmin'],
+  email: 'a.data_admin@hackney.gov.uk',
+  roles: ['data_admin'],
   hasRole: true,
   hasAgentPermissions: false,
   hasContractorPermissions: false,
