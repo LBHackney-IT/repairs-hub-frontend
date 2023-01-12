@@ -39,7 +39,7 @@ export const buildUser = (name, email, authServiceGroups) => {
       } else if (isBudgetCodeOfficerGroupName(groupName)) {
         return BUDGET_CODE_OFFICER_ROLE
       } else if (isDataAdminGroupName(groupName)) {
-        return Data_MANAGER_ROLE
+        return DATA_MANAGER_ROLE
       }
 
       console.log(`User group name not recognised: ${groupName}`)
