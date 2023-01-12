@@ -88,7 +88,7 @@ const ControlledRadio = ({
   </div>
 )
 
-Radio.propTypes = {
+ControlledRadio.propTypes = {
   label: PropTypes.string.isRequired,
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   name: PropTypes.string.isRequired,
