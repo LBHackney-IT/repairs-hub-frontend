@@ -1,10 +1,5 @@
-import {
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-} from '@/utils/user'
+import { DATA_ADMIN } from '@/utils/user'
+
 import Meta from '../../components/Meta'
 
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
@@ -21,12 +16,6 @@ const CloseWorkOrdersPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-CloseWorkOrdersPage.permittedRoles = [
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-]
+CloseWorkOrdersPage.permittedRoles = [DATA_ADMIN]
 
 export default CloseWorkOrdersPage

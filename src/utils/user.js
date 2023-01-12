@@ -4,6 +4,7 @@ export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
+export const DATA_ADMIN_ROLE = 'data_admin'
 
 export const buildUser = (name, email, authServiceGroups) => {
   const {
@@ -11,6 +12,7 @@ export const buildUser = (name, email, authServiceGroups) => {
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
     OPERATIVES_GOOGLE_GROUPNAME,
     BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
+    DATA_ADMIN_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -36,6 +38,8 @@ export const buildUser = (name, email, authServiceGroups) => {
         return OPERATIVE_ROLE
       } else if (isBudgetCodeOfficerGroupName(groupName)) {
         return BUDGET_CODE_OFFICER_ROLE
+      } else if (isDataAdminGroupName(groupName)) {
+        return DATA_ADMIN_ROLE
       }
 
       console.log(`User group name not recognised: ${groupName}`)
@@ -59,6 +63,9 @@ export const buildUser = (name, email, authServiceGroups) => {
   const isBudgetCodeOfficerGroupName = (groupName) =>
     groupName === BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME
 
+  const isDataAdminGroupName = (groupName) =>
+    groupName === DATA_ADMIN_GOOGLE_GROUPNAME
+
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       isContractManagerGroupName(groupName) ||
@@ -66,7 +73,8 @@ export const buildUser = (name, email, authServiceGroups) => {
       isAgentGroupName(groupName) ||
       isContractorGroupName(groupName) ||
       isOperativeGroupName(groupName) ||
-      isBudgetCodeOfficerGroupName(groupName)
+      isBudgetCodeOfficerGroupName(groupName) ||
+      isDataAdminGroupName(groupName)
   )
 
   const roles = rolesFromGroups(groupNames)
@@ -85,5 +93,6 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),
     hasAnyPermissions: roles.length > 0,
     hasBudgetCodeOfficerPermissions: hasRole(BUDGET_CODE_OFFICER_ROLE),
+    hasDataAdminPermissions: hasRole(DATA_ADMIN_ROLE),
   }
 }
