@@ -1,6 +1,5 @@
 import Layout from '../Layout'
 import { useState } from 'react'
-// import ErrorMessage from '../../Errors/ErrorMessage'
 
 import { Radio, TextArea, TextInput, Button } from '../../Form'
 
@@ -8,6 +7,7 @@ import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import SuccessMessage from '../Components/SuccessMessage'
 
 const radioOptions = [
   {
@@ -112,12 +112,7 @@ const CloseWorkOrders = () => {
         <>
           {formSuccess ? (
             <div>
-              <div className="govuk-panel govuk-panel--confirmation lbh-panel">
-                <h1 className="govuk-panel__title govuk-!-margin-bottom-1">
-                  WorkOrders cancelled
-                </h1>
-              </div>
-
+              <SuccessMessage title="WorkOrders cancelled" />
               <p>
                 <a
                   className="lbh-link"
