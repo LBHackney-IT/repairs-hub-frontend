@@ -2,6 +2,7 @@ import { agent } from 'factories/agent'
 import { contractor } from 'factories/contractor'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
+import { dataAdmin } from 'factories/data_admin'
 import { agentAndContractor } from 'factories/agent_and_contractor'
 import { operative } from 'factories/operative'
 
@@ -125,6 +126,19 @@ describe('headerLinksForUser', () => {
         expect.objectContaining({
           description: 'Sign out',
           href: '/logout',
+        }),
+      ])
+    })
+  })
+
+  describe('when the user is a data admin', () => {
+    it('returns relevant links', () => {
+      const links = headerLinksForUser(dataAdmin)
+
+      expect(links).toEqual([
+        expect.objectContaining({
+          description: 'BackOffice',
+          href: '/backoffice',
         }),
       ])
     })
