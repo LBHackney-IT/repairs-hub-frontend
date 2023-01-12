@@ -91,5 +91,6 @@ export const buildUser = (name, email, authServiceGroups) => {
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),
     hasAnyPermissions: roles.length > 0,
     hasBudgetCodeOfficerPermissions: hasRole(BUDGET_CODE_OFFICER_ROLE),
+    hasDataAdminPermissions: hasRole(DATA_ADMIN_ROLE)
   }
 }
