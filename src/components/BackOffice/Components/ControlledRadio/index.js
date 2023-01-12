@@ -1,15 +1,16 @@
 import cx from 'classnames'
 import PropTypes from 'prop-types'
 
-import ErrorMessage from '../../Errors/ErrorMessage'
+import ErrorMessage from '../../../Errors/ErrorMessage'
 
 const defaultOptions = ['Yes', 'No']
 
-const Radio = ({
+const ControlledRadio = ({
   label,
   labelSize = 'm',
   hint,
   name,
+  selectedOption,
   options = defaultOptions,
   register,
   error,
@@ -60,6 +61,8 @@ const Radio = ({
                 `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
               }
               defaultChecked={defaultChecked}
+              // should only apply when parameter passed
+              checked={selectedOption !== null && selectedOption === value}
               {...otherProps}
             />
 
@@ -97,4 +100,4 @@ Radio.propTypes = {
   error: PropTypes.shape({ message: PropTypes.string.isRequired }),
 }
 
-export default Radio
+export default ControlledRadio

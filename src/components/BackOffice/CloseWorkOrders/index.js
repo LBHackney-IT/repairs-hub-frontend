@@ -1,7 +1,8 @@
 import Layout from '../Layout'
 import { useState } from 'react'
 
-import { Radio, TextArea, TextInput, Button } from '../../Form'
+import { TextArea, TextInput, Button } from '../../Form'
+import ControlledRadio from '../Components/ControlledRadio'
 
 import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
@@ -128,7 +129,7 @@ const CloseWorkOrders = () => {
               {requestError && <ErrorMessage label={requestError} />}
 
               <div>
-                <Radio
+                <ControlledRadio
                   label="Select reason for Closing"
                   name="selectedOption"
                   options={radioOptions}
