@@ -164,6 +164,7 @@ const SORContracts = () => {
                 <div>
                   <TextInput
                     label="Source property reference (include leading zeroes)"
+                    name="sourceInput"
                     placeholder="eg. 00023400"
                     value={sourcePropertyReference}
                     onChange={(event) =>
@@ -181,6 +182,7 @@ const SORContracts = () => {
               <div>
                 <TextInput
                   label="Destination property reference (include leading zeroes)"
+                  name="destInput"
                   placeholder="eg. 00023400"
                   value={destinationPropertyReference}
                   onChange={(event) =>
@@ -198,6 +200,7 @@ const SORContracts = () => {
                 <div>
                   <TextInput
                     label="Contract reference"
+                    name="contractRefInput"
                     placeholder="eg. 001-H01-MAT2"
                     value={contractReference}
                     onChange={(event) =>
