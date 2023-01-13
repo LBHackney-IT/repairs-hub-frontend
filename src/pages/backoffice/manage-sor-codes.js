@@ -1,4 +1,4 @@
-import { DATA_ADMIN } from '@/utils/user'
+import { DATA_ADMIN_ROLE } from '@/utils/user'
 
 import Meta from '../../components/Meta'
 
@@ -16,6 +16,6 @@ const ManageSORCodesPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-ManageSORCodesPage.permittedRoles = [DATA_ADMIN]
+ManageSORCodesPage.permittedRoles = [DATA_ADMIN_ROLE]
 
 export default ManageSORCodesPage
