@@ -1,4 +1,4 @@
-import { render, act, screen, waitFor } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import SORContracts from './index'
 
 describe('SORContracts component', () => {
