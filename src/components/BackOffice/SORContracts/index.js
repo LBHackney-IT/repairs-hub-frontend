@@ -20,9 +20,12 @@ const radioOptions = [
 
 const SORContracts = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
-  
+
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
-  const [destinationPropertyReference, setDestinationPropertyReference] = useState('')
+  const [
+    destinationPropertyReference,
+    setDestinationPropertyReference,
+  ] = useState('')
   const [contractReference, setContractReference] = useState('')
 
   const [errors, setErrors] = useState({})
@@ -48,19 +51,23 @@ const SORContracts = () => {
 
     if (copyContractsSelected()) {
       if (!sourcePropertyReference) {
-        newErrors.sourcePropertyReference = 'You must enter a source property reference'
+        newErrors.sourcePropertyReference =
+          'You must enter a source property reference'
       }
       if (!destinationPropertyReference) {
-        newErrors.sourcePropertyReference = 'You must enter a destination property reference'
+        newErrors.sourcePropertyReference =
+          'You must enter a destination property reference'
       }
     }
 
     if (addContractsSelected()) {
       if (!destinationPropertyReference) {
-        newErrors.destinationPropertyReference = 'You must enter a destination property reference'
+        newErrors.destinationPropertyReference =
+          'You must enter a destination property reference'
       }
       if (!contractReference) {
-        newErrors.sourcePropertyReference = 'You must enter a contract reference'
+        newErrors.sourcePropertyReference =
+          'You must enter a contract reference'
       }
     }
 
@@ -80,15 +87,19 @@ const SORContracts = () => {
       return
     }
 
-    const sourcePropertyReferenceReq = sourcePropertyReference.trim().replaceAll(' ', '')
-    const destinationPropertyReferenceReq = destinationPropertyReference.trim().replaceAll(' ', '')
+    const sourcePropertyReferenceReq = sourcePropertyReference
+      .trim()
+      .replaceAll(' ', '')
+    const destinationPropertyReferenceReq = destinationPropertyReference
+      .trim()
+      .replaceAll(' ', '')
     const contractReferenceReq = contractReference.trim().replaceAll(' ', '')
-    
+
     const body = {
       sourcePropertyReference: sourcePropertyReferenceReq,
       destinationPropertyReference: destinationPropertyReferenceReq,
       contractReference: contractReferenceReq,
-      mode: selectedOption
+      mode: selectedOption,
     }
 
     let url = `/api/backOffice/sor-contracts`
@@ -150,17 +161,21 @@ const SORContracts = () => {
               </div>
 
               {selectedOption === 'Copy' && (
-              <div>
-              <TextInput
-                label="Source property reference (include leading zeroes)"
-                placeholder="eg. 00023400"
-                value={sourcePropertyReference}
-                onChange={(event) => setSourcePropertyReference(event.target.value)}
-                error={
-                  errors.sourcePropertyReference && { message: errors.sourcePropertyReference }
-                }
-              />
-            </div>
+                <div>
+                  <TextInput
+                    label="Source property reference (include leading zeroes)"
+                    placeholder="eg. 00023400"
+                    value={sourcePropertyReference}
+                    onChange={(event) =>
+                      setSourcePropertyReference(event.target.value)
+                    }
+                    error={
+                      errors.sourcePropertyReference && {
+                        message: errors.sourcePropertyReference,
+                      }
+                    }
+                  />
+                </div>
               )}
 
               <div>
@@ -168,25 +183,33 @@ const SORContracts = () => {
                   label="Destination property reference (include leading zeroes)"
                   placeholder="eg. 00023400"
                   value={destinationPropertyReference}
-                  onChange={(event) => setDestinationPropertyReference(event.target.value)}
+                  onChange={(event) =>
+                    setDestinationPropertyReference(event.target.value)
+                  }
                   error={
-                    errors.destinationPropertyReference && { message: errors.destinationPropertyReference }
+                    errors.destinationPropertyReference && {
+                      message: errors.destinationPropertyReference,
+                    }
                   }
                 />
               </div>
 
               {selectedOption === 'Add' && (
-              <div>
-              <TextInput
-                label="Contract reference"
-                placeholder="eg. 001-H01-MAT2"
-                value={contractReference}
-                onChange={(event) => setContractReference(event.target.value)}
-                error={
-                  errors.contractReference && { message: errors.contractReference }
-                }
-              />
-            </div>
+                <div>
+                  <TextInput
+                    label="Contract reference"
+                    placeholder="eg. 001-H01-MAT2"
+                    value={contractReference}
+                    onChange={(event) =>
+                      setContractReference(event.target.value)
+                    }
+                    error={
+                      errors.contractReference && {
+                        message: errors.contractReference,
+                      }
+                    }
+                  />
+                </div>
               )}
 
               <div>
