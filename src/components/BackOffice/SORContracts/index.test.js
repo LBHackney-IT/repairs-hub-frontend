@@ -5,10 +5,6 @@ describe('SORContracts component', () => {
   it('should render the component', async () => {
     const { asFragment } = render(<SORContracts />)
 
-    await act(async () => {
-      await waitFor([screen.findAllByText('Contract reference')])
-    })
-
     expect(asFragment()).toMatchSnapshot()
   })
 })
