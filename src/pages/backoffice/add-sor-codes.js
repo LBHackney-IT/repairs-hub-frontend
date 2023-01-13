@@ -1,9 +1,5 @@
 import {
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
+  DATA_ADMIN_ROLE,
 } from '@/utils/user'
 import Meta from '../../components/Meta'
 
@@ -21,12 +17,6 @@ const AddSORCodesPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-AddSORCodesPage.permittedRoles = [
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-]
+AddSORCodesPage.permittedRoles = [DATA_ADMIN_ROLE]
 
 export default AddSORCodesPage
