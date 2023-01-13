@@ -24,12 +24,12 @@ const BackOfficeDashboard = () => {
         .
       </p>
 
-      <h2 class="lbh-heading-h2">Tasks</h2>
-      <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
+      <h2 className="lbh-heading-h2">Tasks</h2>
+      <hr className="govuk-section-break govuk-section-break--m govuk-section-break--visible" />
 
       <br />
 
-      <ul class="govuk-list">
+      <ul className="govuk-list">
         {links.map(({ description, link }, index) => (
           <li key={index}>
             <Link href={link} className="govuk-link">

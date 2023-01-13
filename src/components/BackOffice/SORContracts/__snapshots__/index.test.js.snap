@@ -1,0 +1,125 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SORContracts component should render the component 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    SOR Contract Modification
+  </h1>
+  <form>
+    <div>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <label
+          class="govuk-label govuk-label--m"
+          for="selectedOption"
+        >
+          Select workflow type 
+        </label>
+        <div
+          class="govuk-radios lbh-radios"
+        >
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              checked=""
+              class="govuk-radios__input"
+              data-testid="selectedOption"
+              id="selectedOption_Copy"
+              name="selectedOption"
+              type="radio"
+              value="Copy"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="selectedOption_Copy"
+            >
+              Copy contracts from another property
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              class="govuk-radios__input"
+              data-testid="selectedOption"
+              id="selectedOption_Add"
+              name="selectedOption"
+              type="radio"
+              value="Add"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="selectedOption_Add"
+            >
+              Add explicit property and contract references
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sourceInput-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sourceInput"
+        >
+          Source property reference (include leading zeroes) 
+        </label>
+        <input
+          class="govuk-input lbh-input undefined"
+          data-testid="sourceInput"
+          id="sourceInput"
+          name="sourceInput"
+          placeholder="eg. 00023400"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="destInput-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="destInput"
+        >
+          Destination property reference (include leading zeroes) 
+        </label>
+        <input
+          class="govuk-input lbh-input undefined"
+          data-testid="destInput"
+          id="destInput"
+          name="destInput"
+          placeholder="eg. 00023400"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+    <div>
+      <button
+        class="govuk-button lbh-button"
+        data-module="govuk-button"
+        type="submit"
+      >
+        Execute
+      </button>
+    </div>
+  </form>
+</DocumentFragment>
+`;
