@@ -1,30 +1,12 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 
-export const csvFileToArray = (string) => {
-  const csvHeader = string.slice(0, string.indexOf('\n')).trim().split(',')
-  const csvRows = string
-    .slice(string.indexOf('\n') + 1)
-    .trim()
-    .split('\n')
 
-  const array = csvRows.map((i) => {
-    const values = i.split(',')
-    const obj = csvHeader.reduce((object, header, index) => {
-      object[header] = values[index]
-      return object
-    }, {})
-
-    return obj
-  })
-
-  return array
-}
 
 export const fetchContractors = () =>
   new Promise(async (resolve) => {
     const contractors = await frontEndApiRequest({
       method: 'get',
-      path: '/api/contractors?propertyReference=00023402&tradeCode=CA',
+      path: '/api/contractors?getAllContractors=true',
     })
 
     resolve(contractors)
@@ -34,7 +16,7 @@ export const fetchTrades = () =>
   new Promise(async (resolve) => {
     const trades = await frontEndApiRequest({
       method: 'get',
-      path: '/api/schedule-of-rates/trades?propRef=00023402',
+      path: '/api/schedule-of-rates/trades?getAllTrades=true',
     })
 
     resolve(trades)
@@ -50,10 +32,29 @@ export const fetchContracts = (contractorReference) =>
     resolve(contracts)
   })
 
-  export const saveSorCodesToDatabase = async (data) => {
-    await frontEndApiRequest({
-        method: 'post',
-        path: `/api/backoffice/sor-codes`,
-        requestData: data,
-      })
+export const saveSorCodesToDatabase = async (data) => {
+  await frontEndApiRequest({
+    method: 'post',
+    path: `/api/backoffice/sor-codes`,
+    requestData: data,
+  })
+}
+
+export const dataToRequestObject = (csvArray, contractReference, tradeCode) => {
+  const sorCodes = csvArray.map((x) => ({
+    code: x.Code,
+    cost: parseFloat(x.Cost),
+    standardMinuteValue: parseFloat(x.StandardMinuteValue),
+    shortDescription: x.ShortDescription,
+    longDescription: x.LongDescription,
+  }))
+
+  return {
+    contractReference: contractReference,
+    tradeCode: tradeCode,
+    sorCodes: sorCodes,
+    contract: 'placeholder',
   }
+}
+
+

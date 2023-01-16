@@ -1,26 +1,45 @@
 import { DataList, Button } from '../../Form'
 import Spinner from '../../Spinner'
-import TradeDataList from '../../WorkElement/TradeDataList'
 import FileInput from '../Components/FileInput'
 import Layout from '../Layout'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import SuccessMessage from '../Components/SuccessMessage'
 
-import { fetchContractors, fetchTrades, fetchContracts, saveSorCodesToDatabase } from './utils'
+import Router from 'next/router'
 
-import { csvFileToArray } from './utils'
+import useFileUpload from './useFileUpload'
+import useSelectContractor from './useSelectContractor'
+import { expectedHeaders } from './useFileUpload'
+
+import {
+  fetchContractors,
+  fetchTrades,
+  fetchContracts,
+  saveSorCodesToDatabase,
+  dataToRequestObject,
+} from './utils'
 
 import { useState, useEffect } from 'react'
+import useSelectTrade from './useSelectTrade'
 
 const AddSORCodes = () => {
-  const [file, setFile] = useState(null)
-  const [array, setArray] = useState(null)
+  const [requestError, setRequestError] = useState(null)
+  const [formSuccess, setFormSuccess] = useState(null)
+
+  const [
+    handleFileOnChange,
+    loadFile,
+    parsedDataArray,
+    validateFile,
+  ] = useFileUpload()
 
   const [loading, setLoading] = useState(true)
 
   const [contractors, setContractors] = useState(null)
-  const [selectedContractor, setSelectedContractor] = useState(null)
-
+  const { selectedContractor, handleSelectContractor }= useSelectContractor(contractors)
+  
   const [trades, setTrades] = useState(null)
-  const [selectedTradeCode, setSelectedTradeCode] = useState(null)
+  const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
   const [loadingContracts, setLoadingContracts] = useState(false)
   const [contracts, setContracts] = useState(null)
@@ -28,53 +47,8 @@ const AddSORCodes = () => {
 
   const [errors, setErrors] = useState({})
 
-  const fileReader = typeof window !== 'undefined' && new window.FileReader()
-
-  const handleOnChange = (e) => {
-    if (e.target.files.length === 0) {
-      setFile(null)
-    } else {
-      setFile(e.target.files[0])
-    }
-  }
-
-  const readFile = () => {
-    return new Promise((resolve) => {
-      if (!file) {
-        resolve(null)
-        return
-      }
-
-      fileReader.onload = function (event) {
-        const text = event.target.result
-
-        const array = csvFileToArray(text)
-        resolve(array)
-      }
-
-      fileReader.readAsText(file)
-    })
-  }
-
-  
-
-  const handleSelectContractor = (e) => {
-    const selectedContractor = contractors.filter(
-      (x) => x.contractorName === e.target.value
-    )
-
-    if (selectedContractor.length === 0) {
-      setSelectedContractor(null)
-    } else {
-      setSelectedContractor(selectedContractor[0])
-    }
-  }
-
- 
 
   useEffect(() => {
-    console.log('first load')
-
     Promise.all([fetchContractors(), fetchTrades()])
       .then(([contractors, trades]) => {
         setContractors(contractors)
@@ -107,60 +81,25 @@ const AddSORCodes = () => {
     setSelectedContract(e.target.value)
   }
 
-  const handleSelectTrade = (e) => {
-    const selectedTrade = trades.filter((x) => x.name === e.target.value)
-
-    // console.log({ selectedTrade})
-
-    if (selectedTrade.length === 0) {
-      setSelectedTradeCode(null)
-    } else {
-      setSelectedTradeCode(selectedTrade[0].code)
-    }
-  }
-
-  const validateFileContainsExpectedHeaders = () => {
-    const firstRow = array[0]
-
-    const expectedHeaders = [
-      'Code',
-      'Cost',
-      'StandardMinuteValue',
-      'ShortDescription',
-      'LongDescription',
-    ]
-
-    let fileContainsAllHeadings = true
-
-    expectedHeaders.forEach((header) => {
-      if (!firstRow.hasOwnProperty(header)) fileContainsAllHeadings = false
-    })
-
-    return fileContainsAllHeadings
-  }
-
   const validate = () => {
     const newErrors = {}
 
-    if (array === null) {
-      newErrors.fileUpload = 'You must upload csv'
-    } else if (!validateFileContainsExpectedHeaders()) {
+    if (parsedDataArray === null) {
+      newErrors.fileUpload = 'Please upload a CSV file'
+    } else if (!validateFile()) {
       newErrors.fileUpload = 'The CSV must contain the specified headers'
-
     }
 
-    console.log({ selectedContract })
-
     if (selectedContractor === null) {
-      newErrors.contractor = "Please select a contractor"
+      newErrors.contractor = 'Please select a contractor'
     }
 
     if (selectedContract === null) {
-      newErrors.contract = "Please select a contract"
+      newErrors.contract = 'Please select a contract'
     }
 
-    if (selectedTradeCode === null) {
-      newErrors.trade = "Please select a trade"
+    if (selectedTrade === null) {
+      newErrors.trade = 'Please select a trade'
     }
 
     return newErrors
@@ -171,55 +110,42 @@ const AddSORCodes = () => {
 
     if (loading) return
 
-    // setLoading(true)
-
-    // 1. import file
-    var array = await readFile()
-    setArray(array)
+    await loadFile()
 
     var errors = validate()
     setErrors(errors)
+    setRequestError(null)
 
-    // there must be no erors
+    // there must be no errors
     if (Object.keys(errors).length > 0) return
 
-    // console.log({ array })
+    const body = dataToRequestObject(
+      parsedDataArray,
+      selectedContract,
+      selectedTrade.code
+    )
 
-    const formatted = array.map((x) => ({
-      code: x.Code,
-      cost: parseFloat(x.Cost),
-      standardMinuteValue: parseFloat(x.StandardMinuteValue),
-      shortDescription: x.ShortDescription,
-      longDescription: x.LongDescription,
-    }))
+    if (
+      !window.confirm(
+        'Please confirm have validated the contents of the CSV before hand'
+      )
+    )
+      return
 
-    const body = {
-      contractReference: selectedContract,
-      tradeCode: selectedTradeCode,
-      contract: "placeholder",
-      sorCodes: formatted,
-    }
-
-
-    
     setLoading(true)
 
-    console.log(body)
-
     saveSorCodesToDatabase(body)
-    .then(res => {
-      console.log({ res})
-    })
-    .catch(err => {
-      console.log(err)
-    })
-    .finally(() => {
-      setLoading(false)
-    })
-
-
-
-
+      .then((res) => {
+        console.log({ res })
+        setFormSuccess(true)
+      })
+      .catch((err) => {
+        console.log(err)
+        setRequestError(err.message)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
   }
 
   return (
@@ -228,67 +154,85 @@ const AddSORCodes = () => {
         <Spinner />
       ) : (
         <>
-          <form onSubmit={handleSubmit}>
-            <DataList
-              name="contractor"
-              label="Contractor"
-              labelMessage="- Search by type (e.g. Gas) or code (e.g. GS)"
-              options={contractors.map((x) => x.contractorName)}
-              onChange={handleSelectContractor}
-              error={errors.contractor && { message: errors.contractor }}
-              value={selectedContractor?.contractorName}
-            />
-
-            {loadingContracts ? (
-              <Spinner />
-            ) : (
-              <DataList
-                name="contract"
-                label="Contract"
-                labelMessage="- Search by type (e.g. Gas) or code (e.g. GS)"
-                options={contracts || []}
-                disabled={selectedContractor === null}
-                onChange={handleSelectContract}
-                error={errors.contract && { message: errors.contract }}
-                value={selectedContract}
-              />
-           
-            )}
-
-             <p>{selectedContract}</p>
-
-            <DataList
-              name="trade"
-              label="Trade"
-              labelMessage="- Search by type (e.g. Gas) or code (e.g. GS)"
-              options={trades.map((x) => x.name)}
-              onChange={handleSelectTrade}
-              error={errors.trade && { message: errors.trade }}
-              value={selectedTradeCode}
-            />
-
-            <p>
-              Import a CSV document with the following headers:{' '}
-              <pre>
-                Code, Cost, StandardMinuteValue, ShortDescription,
-                LongDescription
-              </pre>
-            </p>
-            <FileInput
-              name="File Upload"
-              label="CSV Upload"
-              type={'file'}
-              id={'csvFileInput'}
-              accept={'.csv'}
-              onChange={handleOnChange}
-              error={errors.fileUpload && { message: errors.fileUpload }}
-              
-            />
-
+          {formSuccess ? (
             <div>
-              <Button label="Add SOR Codes" type="submit" />
+              <SuccessMessage title="SOR Codes created" />
+              <p>
+                <a
+                  className="lbh-link"
+                  role="button"
+                  onClick={() => Router.reload(window.location.pathname)}
+                >
+                  Bulk-close more workOrders
+                </a>
+              </p>
             </div>
-          </form>
+          ) : (
+            <form onSubmit={handleSubmit}>
+              {requestError && <ErrorMessage label={requestError} />}
+
+              <DataList
+                name="contractor"
+                label="Contractor"
+                options={contractors.map((x) => x.contractorName)}
+                onChange={handleSelectContractor}
+                error={errors.contractor && { message: errors.contractor }}
+                value={selectedContractor?.contractorName}
+              />
+
+              {loadingContracts ? (
+                <Spinner />
+              ) : (
+                <div>
+                  <DataList
+                    name="contract"
+                    label="Contract"
+                    options={contracts || []}
+                    disabled={selectedContractor === null}
+                    onChange={handleSelectContract}
+                    error={
+                      contracts?.length === 0
+                        ? { message: 'No contracts found' }
+                        : errors.contract && { message: errors.contract }
+                    }
+                    value={selectedContract}
+                  />
+                </div>
+              )}
+
+              <DataList
+                name="trade"
+                label="Trade"
+                options={trades.map((x) => x.name)}
+                onChange={handleSelectTrade}
+                error={errors.trade && { message: errors.trade }}
+                value={selectedTrade?.name || null}
+              />
+
+              <p>
+                Import a CSV document with the following headers:{' '}
+                <div style={{ fontWeight: 'bold' }}>
+                  {expectedHeaders.join(', ')}
+                </div>
+              </p>
+
+              <div>
+                <FileInput
+                  name="File Upload"
+                  label="CSV Upload"
+                  type={'file'}
+                  id={'csvFileInput'}
+                  accept={'.csv'}
+                  onChange={handleFileOnChange}
+                  error={errors.fileUpload && { message: errors.fileUpload }}
+                />
+              </div>
+
+              <div>
+                <Button label="Add SOR Codes" type="submit" />
+              </div>
+            </form>
+          )}
         </>
       )}
     </Layout>
