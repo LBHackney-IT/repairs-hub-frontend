@@ -1,21 +1,20 @@
 import { DATA_ADMIN_ROLE } from '@/utils/user'
-
 import Meta from '../../components/Meta'
 
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import ManageSORCodes from '../../components/BackOffice/ManageSORCodes'
+import AddSORCodes from '../../components/BackOffice/AddSORCodes'
 
-const ManageSORCodesPage = () => {
+const AddSORCodesPage = () => {
   return (
     <>
       <Meta title="BackOffice" />
-      <ManageSORCodes />
+      <AddSORCodes />
     </>
   )
 }
 
 export const getServerSideProps = getQueryProps
 
-ManageSORCodesPage.permittedRoles = [DATA_ADMIN_ROLE]
+AddSORCodesPage.permittedRoles = [DATA_ADMIN_ROLE]
 
-export default ManageSORCodesPage
+export default AddSORCodesPage

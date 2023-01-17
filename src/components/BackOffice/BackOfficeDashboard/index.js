@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 const BackOfficeDashboard = () => {
   const links = [
-    { description: 'Manage SOR Codes', link: '/backoffice/manage-sor-codes' },
+    { description: 'Add SOR Codes', link: '/backoffice/add-sor-codes' },
     {
       description: 'Add SOR contracts to properties',
       link: '/backoffice/sor-contracts',
