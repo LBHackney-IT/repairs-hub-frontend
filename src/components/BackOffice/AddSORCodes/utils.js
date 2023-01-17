@@ -42,6 +42,5 @@ export const dataToRequestObject = (csvArray, contractReference, tradeCode) => {
     contractReference: contractReference,
     tradeCode: tradeCode,
     sorCodes: sorCodes,
-    contract: 'placeholder',
   }
 }
