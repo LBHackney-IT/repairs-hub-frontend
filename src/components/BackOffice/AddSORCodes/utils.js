@@ -1,7 +1,5 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 
-
-
 export const fetchContractors = () =>
   new Promise(async (resolve) => {
     const contractors = await frontEndApiRequest({
@@ -56,5 +54,3 @@ export const dataToRequestObject = (csvArray, contractReference, tradeCode) => {
     contract: 'placeholder',
   }
 }
-
-

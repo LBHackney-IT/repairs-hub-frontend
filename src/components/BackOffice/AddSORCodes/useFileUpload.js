@@ -16,7 +16,6 @@ const useFileUpload = () => {
 
   const handleFileOnChange = async (e) => {
     if (e === null || e.target.files.length === 0) {
-      console.log("unselect file")
       setParsedDataArray(null)
       return
     }
