@@ -131,13 +131,6 @@ const AddSORCodes = () => {
       selectedTrade.code
     )
 
-    // if (
-    //   !window.confirm(
-    //     'Please confirm have validated the contents of the CSV before hand'
-    //   )
-    // )
-    //   return
-
     saveSorCodesToDatabase(data)
       .then(() => {
         setFormSuccess(true)
@@ -210,9 +203,9 @@ const AddSORCodes = () => {
 
               <p>
                 Import a CSV document with the following headers:{' '}
-                <div style={{ fontWeight: 'bold' }}>
+                <span style={{ fontWeight: 'bold' }}>
                   {expectedHeaders.join(', ')}
-                </div>
+                </span>
               </p>
 
               <div>
