@@ -1,6 +1,6 @@
 import { DataList, Button } from '../../Form'
 import Spinner from '../../Spinner'
-import FileInput from '../Components/FileInput'
+import TextInput from '../../Form/TextInput'
 import Layout from '../Layout'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
@@ -213,7 +213,7 @@ const AddSORCodes = () => {
               </p>
 
               <div>
-                <FileInput
+                <TextInput
                   name="File Upload"
                   label="CSV Upload"
                   type={'file'}
