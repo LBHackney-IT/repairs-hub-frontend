@@ -65,6 +65,10 @@ const AddSORCodes = () => {
   }, [])
 
   useEffect(() => {
+    handleContractorChange()
+  }, [selectedContractor])
+
+  const handleContractorChange = () => {
     if (selectedContractor === null) {
       setContracts(null)
       setSelectedContract(null)
@@ -80,7 +84,7 @@ const AddSORCodes = () => {
       .finally(() => {
         setLoadingContracts(false)
       })
-  }, [selectedContractor])
+  }
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
