@@ -23,30 +23,26 @@ import { useState, useEffect } from 'react'
 import useSelectTrade from './useSelectTrade'
 
 const AddSORCodes = () => {
+  const [loading, setLoading] = useState(true)
+  const [contractors, setContractors] = useState(null)
+  const [trades, setTrades] = useState(null)
+  const [loadingContracts, setLoadingContracts] = useState(false)
+  const [contracts, setContracts] = useState(null)
+  const [selectedContract, setSelectedContract] = useState(null)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
+  const [errors, setErrors] = useState({})
 
-  const [
+  const { selectedContractor, handleSelectContractor } = useSelectContractor(
+    contractors
+  )
+  const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
+  const {
     handleFileOnChange,
     loadFile,
     parsedDataArray,
     validateFile,
-  ] = useFileUpload()
-
-  const [loading, setLoading] = useState(true)
-
-  const [contractors, setContractors] = useState(null)
-  const { selectedContractor, handleSelectContractor }= useSelectContractor(contractors)
-  
-  const [trades, setTrades] = useState(null)
-  const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
-
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
-  const [selectedContract, setSelectedContract] = useState(null)
-
-  const [errors, setErrors] = useState({})
-
+  } = useFileUpload()
 
   useEffect(() => {
     Promise.all([fetchContractors(), fetchTrades()])
@@ -107,6 +103,8 @@ const AddSORCodes = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setRequestError(null)
+    setFormSuccess(null)
 
     if (loading) return
 
@@ -114,12 +112,13 @@ const AddSORCodes = () => {
 
     var errors = validate()
     setErrors(errors)
-    setRequestError(null)
 
     // there must be no errors
     if (Object.keys(errors).length > 0) return
-
-    const body = dataToRequestObject(
+    
+    setLoading(true)
+    
+    const data = dataToRequestObject(
       parsedDataArray,
       selectedContract,
       selectedTrade.code
@@ -132,11 +131,9 @@ const AddSORCodes = () => {
     )
       return
 
-    setLoading(true)
 
-    saveSorCodesToDatabase(body)
-      .then((res) => {
-        console.log({ res })
+    saveSorCodesToDatabase(data)
+      .then(() => {
         setFormSuccess(true)
       })
       .catch((err) => {

@@ -1,14 +1,14 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 const fileReader = typeof window !== 'undefined' && new window.FileReader()
 
 export const expectedHeaders = [
-    'Code',
-    'Cost',
-    'StandardMinuteValue',
-    'ShortDescription',
-    'LongDescription',
-  ]
+  'Code',
+  'Cost',
+  'StandardMinuteValue',
+  'ShortDescription',
+  'LongDescription',
+]
 
 const useFileUpload = () => {
   const [file, setFile] = useState(null)
@@ -67,9 +67,7 @@ const useFileUpload = () => {
     return array
   }
 
-
-
-  const validateFileContainsExpectedHeaders = () => {
+  const validateFile = () => {
     const firstRow = parsedDataArray[0]
 
     let fileContainsAllHeadings = true
@@ -81,11 +79,12 @@ const useFileUpload = () => {
     return fileContainsAllHeadings
   }
 
-  return [
+  return {
     handleFileOnChange,
     loadFile,
     parsedDataArray,
-    validateFileContainsExpectedHeaders  ]
+    validateFile,
+  }
 }
 
 export default useFileUpload
