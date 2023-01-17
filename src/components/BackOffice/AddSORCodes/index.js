@@ -5,8 +5,6 @@ import Layout from '../Layout'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
-import Router from 'next/router'
-
 import useFileUpload from './useFileUpload'
 import useSelectContractor from './useSelectContractor'
 import { expectedHeaders } from './useFileUpload'
@@ -39,10 +37,21 @@ const AddSORCodes = () => {
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
   const {
     handleFileOnChange,
-    loadFile,
     parsedDataArray,
     validateFile,
+    loading: fileLoading,
   } = useFileUpload()
+
+  const resetForm = () => {
+    setSelectedContract(null)
+    setRequestError(null)
+    setFormSuccess(null)
+    setErrors({})
+
+    handleSelectContractor(null)
+    handleSelectTrade(null)
+    handleFileOnChange(null)
+  }
 
   useEffect(() => {
     Promise.all([fetchContractors(), fetchTrades()])
@@ -106,31 +115,28 @@ const AddSORCodes = () => {
     setRequestError(null)
     setFormSuccess(null)
 
-    if (loading) return
-
-    await loadFile()
+    if (loading || fileLoading) return
 
     var errors = validate()
     setErrors(errors)
 
     // there must be no errors
     if (Object.keys(errors).length > 0) return
-    
+
     setLoading(true)
-    
+
     const data = dataToRequestObject(
       parsedDataArray,
       selectedContract,
       selectedTrade.code
     )
 
-    if (
-      !window.confirm(
-        'Please confirm have validated the contents of the CSV before hand'
-      )
-    )
-      return
-
+    // if (
+    //   !window.confirm(
+    //     'Please confirm have validated the contents of the CSV before hand'
+    //   )
+    // )
+    //   return
 
     saveSorCodesToDatabase(data)
       .then(() => {
@@ -155,11 +161,7 @@ const AddSORCodes = () => {
             <div>
               <SuccessMessage title="SOR Codes created" />
               <p>
-                <a
-                  className="lbh-link"
-                  role="button"
-                  onClick={() => Router.reload(window.location.pathname)}
-                >
+                <a className="lbh-link" role="button" onClick={resetForm}>
                   Bulk-close more workOrders
                 </a>
               </p>

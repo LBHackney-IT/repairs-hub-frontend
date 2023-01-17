@@ -2,7 +2,13 @@ import { useState } from 'react'
 
 const useSelectContractor = (contractors) => {
   const [selectedContractor, setSelectedContractor] = useState(null)
+
   const handleSelectContractor = (e) => {
+    if (e === null) {
+      setSelectedContractor(null)
+      return
+    }
+
     const selectedContractor = contractors.filter(
       (x) => x.contractorName === e.target.value
     )

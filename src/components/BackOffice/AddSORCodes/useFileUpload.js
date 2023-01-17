@@ -11,22 +11,23 @@ export const expectedHeaders = [
 ]
 
 const useFileUpload = () => {
-  const [file, setFile] = useState(null)
   const [parsedDataArray, setParsedDataArray] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  const handleFileOnChange = (e) => {
-    if (e.target.files.length === 0) {
-      setFile(null)
-    } else {
-      setFile(e.target.files[0])
+  const handleFileOnChange = async (e) => {
+    if (e === null || e.target.files.length === 0) {
+      console.log("unselect file")
+      setParsedDataArray(null)
+      return
     }
-  }
 
-  const loadFile = async () => {
+    const file = e.target.files[0]
+    setLoading(true)
+
     const array = await readFile(file)
-    setTimeout(() => {
-      setParsedDataArray(array)
-    }, 1000)
+    setParsedDataArray(array)
+
+    setLoading(false)
   }
 
   const readFile = (file) => {
@@ -38,8 +39,8 @@ const useFileUpload = () => {
 
       fileReader.onload = function (event) {
         const text = event.target.result
-
         const array = csvFileToArray(text)
+
         resolve(array)
       }
 
@@ -81,9 +82,9 @@ const useFileUpload = () => {
 
   return {
     handleFileOnChange,
-    loadFile,
     parsedDataArray,
     validateFile,
+    loading,
   }
 }
 
