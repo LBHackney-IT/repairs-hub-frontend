@@ -73,7 +73,8 @@ const useFileUpload = () => {
     let fileContainsAllHeadings = true
 
     expectedHeaders.forEach((header) => {
-      if (!firstRow.hasOwnProperty(header)) fileContainsAllHeadings = false
+      if (!Object.prototype.hasOwnProperty.call(firstRow, header))
+        fileContainsAllHeadings = false
     })
 
     return fileContainsAllHeadings

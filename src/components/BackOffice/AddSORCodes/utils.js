@@ -1,34 +1,25 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 
-export const fetchContractors = () =>
-  new Promise(async (resolve) => {
-    const contractors = await frontEndApiRequest({
-      method: 'get',
-      path: '/api/contractors?getAllContractors=true',
-    })
-
-    resolve(contractors)
+export const fetchContractors = async () => {
+  return await frontEndApiRequest({
+    method: 'get',
+    path: '/api/contractors?getAllContractors=true',
   })
+}
 
-export const fetchTrades = () =>
-  new Promise(async (resolve) => {
-    const trades = await frontEndApiRequest({
-      method: 'get',
-      path: '/api/schedule-of-rates/trades?getAllTrades=true',
-    })
-
-    resolve(trades)
+export const fetchTrades = async () => {
+  return await frontEndApiRequest({
+    method: 'get',
+    path: '/api/schedule-of-rates/trades?getAllTrades=true',
   })
+}
 
-export const fetchContracts = (contractorReference) =>
-  new Promise(async (resolve) => {
-    const contracts = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/backoffice/contracts?contractorReference=${contractorReference}`,
-    })
-
-    resolve(contracts)
+export const fetchContracts = async (contractorReference) => {
+  return await frontEndApiRequest({
+    method: 'get',
+    path: `/api/backoffice/contracts?contractorReference=${contractorReference}`,
   })
+}
 
 export const saveSorCodesToDatabase = async (data) => {
   await frontEndApiRequest({
