@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 const fileReader = typeof window !== 'undefined' && new window.FileReader()
 
-export const expectedHeaders = [
+export const expectedHeaders: Array<string> = [
   'Code',
   'Cost',
   'StandardMinuteValue',
@@ -11,16 +11,18 @@ export const expectedHeaders = [
 ]
 
 const useFileUpload = () => {
-  const [parsedDataArray, setParsedDataArray] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [parsedDataArray, setParsedDataArray] = useState<Array<object>>(null)
+  const [loading, setLoading] = useState<boolean>(false)
 
-  const handleFileOnChange = async (e) => {
-    if (e === null || e.target.files.length === 0) {
+  const handleFileOnChange = async (e: Event): Promise<void> => {
+    const input = e.target as HTMLInputElement;
+
+    if (e === null || input.files.length === 0) {
       setParsedDataArray(null)
       return
     }
 
-    const file = e.target.files[0]
+    const file = input.files[0]
     setLoading(true)
 
     const array = await readFile(file)
@@ -29,7 +31,7 @@ const useFileUpload = () => {
     setLoading(false)
   }
 
-  const readFile = (file) => {
+  const readFile = (file: File): Promise<Array<object>> => {
     return new Promise((resolve) => {
       if (!file) {
         resolve(null)
@@ -37,7 +39,7 @@ const useFileUpload = () => {
       }
 
       fileReader.onload = function (event) {
-        const text = event.target.result
+        const text = event.target.result as string;
         const array = csvFileToArray(text)
 
         resolve(array)
@@ -47,14 +49,14 @@ const useFileUpload = () => {
     })
   }
 
-  const csvFileToArray = (string) => {
+  const csvFileToArray = (string: string): Array<object> => {
     const csvHeader = string.slice(0, string.indexOf('\n')).trim().split(',')
     const csvRows = string
       .slice(string.indexOf('\n') + 1)
       .trim()
       .split('\n')
 
-    const array = csvRows.map((i) => {
+    const array: Array<object> = csvRows.map((i) => {
       const values = i.split(',')
       const obj = csvHeader.reduce((object, header, index) => {
         object[header] = values[index]
@@ -67,7 +69,7 @@ const useFileUpload = () => {
     return array
   }
 
-  const validateFile = () => {
+  const validateFile = () : boolean => {
     const firstRow = parsedDataArray[0]
 
     let fileContainsAllHeadings = true

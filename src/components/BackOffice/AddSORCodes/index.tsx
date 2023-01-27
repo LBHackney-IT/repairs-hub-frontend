@@ -20,16 +20,27 @@ import {
 import { useState, useEffect } from 'react'
 import useSelectTrade from './useSelectTrade'
 
+import { Trade, Contractor } from './types'
+
+interface Errors {
+  fileUpload?: string
+  contractor?: string
+  contract?: string
+  trade?: string
+}
+
+
+
 const AddSORCodes = () => {
-  const [loading, setLoading] = useState(true)
-  const [contractors, setContractors] = useState(null)
-  const [trades, setTrades] = useState(null)
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [contractors, setContractors] = useState<Array<Contractor>>(null)
+  const [trades, setTrades] = useState<Array<Trade>>(null)
+  const [loadingContracts, setLoadingContracts] = useState<boolean>(false)
+  const [contracts, setContracts] = useState<Array<string>>(null)
   const [selectedContract, setSelectedContract] = useState(null)
   const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
-  const [errors, setErrors] = useState({})
+  const [formSuccess, setFormSuccess] = useState<boolean>(null)
+  const [errors, setErrors] = useState<Errors>({})
 
   const { selectedContractor, handleSelectContractor } = useSelectContractor(
     contractors
@@ -42,7 +53,7 @@ const AddSORCodes = () => {
     loading: fileLoading,
   } = useFileUpload()
 
-  const resetForm = () => {
+  const resetForm = (): void => {
     setSelectedContract(null)
     setRequestError(null)
     setFormSuccess(null)
@@ -68,7 +79,7 @@ const AddSORCodes = () => {
     handleContractorChange()
   }, [selectedContractor])
 
-  const handleContractorChange = () => {
+  const handleContractorChange = (): Promise<void> => {
     if (selectedContractor === null) {
       setContracts(null)
       setSelectedContract(null)
@@ -86,12 +97,14 @@ const AddSORCodes = () => {
       })
   }
 
-  const handleSelectContract = (e) => {
-    setSelectedContract(e.target.value)
+  const handleSelectContract = (e: Event): void => {
+    const element = e.target as HTMLInputElement
+
+    setSelectedContract(element.value)
   }
 
-  const validate = () => {
-    const newErrors = {}
+  const validate = (): Errors => {
+    const newErrors: Errors = {}
 
     if (parsedDataArray === null) {
       newErrors.fileUpload = 'Please upload a CSV file'
@@ -114,7 +127,7 @@ const AddSORCodes = () => {
     return newErrors
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent): Promise<void> => {
     e.preventDefault()
     setRequestError(null)
     setFormSuccess(null)
@@ -139,7 +152,7 @@ const AddSORCodes = () => {
       .then(() => {
         setFormSuccess(true)
       })
-      .catch((err) => {
+      .catch((err: ErrorEvent) => {
         console.log(err)
         setRequestError(err.message)
       })
@@ -151,7 +164,7 @@ const AddSORCodes = () => {
   return (
     <Layout title="Add SOR Codes">
       {loading ? (
-        <Spinner />
+        <Spinner resource={null} />
       ) : (
         <>
           {formSuccess ? (
@@ -165,8 +178,16 @@ const AddSORCodes = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              {requestError && <ErrorMessage label={requestError} />}
+              {requestError && (
+                <>
+                  {/* 
+// @ts-ignore */}
+                  <ErrorMessage label={requestError} />
+                </>
+              )}
 
+              {/* 
+// @ts-ignore */}
               <DataList
                 name="contractor"
                 label="Contractor"
@@ -177,9 +198,11 @@ const AddSORCodes = () => {
               />
 
               {loadingContracts ? (
-                <Spinner />
+                <Spinner resource={null} />
               ) : (
                 <div>
+                  {/* 
+// @ts-ignore */}
                   <DataList
                     name="contract"
                     label="Contract"
@@ -196,6 +219,8 @@ const AddSORCodes = () => {
                 </div>
               )}
 
+              {/* 
+// @ts-ignore */}
               <DataList
                 name="trade"
                 label="Trade"
@@ -213,6 +238,8 @@ const AddSORCodes = () => {
               </p>
 
               <div>
+                {/* 
+// @ts-ignore */}
                 <TextInput
                   name="File Upload"
                   label="CSV Upload"
@@ -225,6 +252,8 @@ const AddSORCodes = () => {
               </div>
 
               <div>
+                {/* 
+// @ts-ignore */}
                 <Button label="Add SOR Codes" type="submit" />
               </div>
             </form>

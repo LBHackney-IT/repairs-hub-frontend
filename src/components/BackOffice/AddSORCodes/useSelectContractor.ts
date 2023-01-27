@@ -1,16 +1,19 @@
 import { useState } from 'react'
+import { Contractor } from './types'
 
-const useSelectContractor = (contractors) => {
-  const [selectedContractor, setSelectedContractor] = useState(null)
+const useSelectContractor = (contractors: Array<Contractor>) => {
+  const [selectedContractor, setSelectedContractor] = useState<Contractor>(null)
 
-  const handleSelectContractor = (e) => {
+  const handleSelectContractor = (e: InputEvent): void => {
     if (e === null) {
       setSelectedContractor(null)
       return
     }
 
+    const input = e.target as HTMLInputElement
+
     const selectedContractor = contractors.filter(
-      (x) => x.contractorName === e.target.value
+      (x) => x.contractorName === input.value
     )
 
     if (selectedContractor.length === 0) {
