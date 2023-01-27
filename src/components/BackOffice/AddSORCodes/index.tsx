@@ -238,8 +238,7 @@ const AddSORCodes = () => {
               </p>
 
               <div>
-                {/* 
-// @ts-ignore */}
+                {/*  @ts-ignore */}
                 <TextInput
                   name="File Upload"
                   label="CSV Upload"

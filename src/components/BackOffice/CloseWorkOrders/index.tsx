@@ -1,5 +1,5 @@
 import Layout from '../Layout'
-import { useState } from 'react'
+import React, { useState } from 'react'
 
 import { TextArea, TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
@@ -10,7 +10,9 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
-const radioOptions = [
+import { CloseWorkOrdersRequest, Errors, RadioInputOption } from './types'
+
+const radioOptions: Array<RadioInputOption> = [
   {
     text: 'Cancelled - (eg. out of time)',
     value: 'Cancelled',
@@ -22,22 +24,22 @@ const radioOptions = [
 ]
 
 const CloseWorkOrders = () => {
-  const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
-  const [reasonToClose, setReasonToClose] = useState('')
-  const [closedDate, setClosedDate] = useState('')
-  const [workOrderReferences, setWorkOrderReferences] = useState('')
-  const [errors, setErrors] = useState({})
+  const [selectedOption, setSelectedOption] = useState<string>(radioOptions[0].value)
+  const [reasonToClose, setReasonToClose] = useState<string>('')
+  const [closedDate, setClosedDate] = useState<string>('')
+  const [workOrderReferences, setWorkOrderReferences] = useState<string>('')
+  const [errors, setErrors] = useState<Errors>({})
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
+  const [formSuccess, setFormSuccess] = useState<boolean>(null)
 
-  const closeToBaseSelected = () => {
+  const closeToBaseSelected = (): boolean => {
     return selectedOption === 'CloseToBase'
   }
 
-  const validateRequest = () => {
-    let newErrors = {}
+  const validateRequest = (): Errors => {
+    const newErrors: Errors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
@@ -58,7 +60,7 @@ const CloseWorkOrders = () => {
     return newErrors
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.SyntheticEvent) : Promise<void> => {
     event.preventDefault()
 
     if (loading) return
@@ -73,7 +75,7 @@ const CloseWorkOrders = () => {
 
     const formatted = workOrderReferences.trim().replaceAll(',', '').split('\n')
 
-    const body = {
+    const body : CloseWorkOrdersRequest = {
       reason: reasonToClose,
       completionDate: closedDate,
       workOrderReferences: formatted,
@@ -81,7 +83,7 @@ const CloseWorkOrders = () => {
 
     if (closeToBaseSelected()) body.completionDate = closedDate
 
-    let url = `/api/backOffice/bulk-close/${
+    const url = `/api/backOffice/bulk-close/${
       closeToBaseSelected() ? 'close-to-base' : 'cancel'
     }`
 
@@ -91,12 +93,13 @@ const CloseWorkOrders = () => {
       method: 'post',
       path: url,
       requestData: body,
+      params: null,
+      paramsSerializer: null
     })
-      .then((res) => {
-        console.log({ res })
+      .then(() => {
         setFormSuccess(true)
       })
-      .catch((err) => {
+      .catch((err: ErrorEvent) => {
         console.error(err)
         setRequestError(err.message)
       })
@@ -108,7 +111,8 @@ const CloseWorkOrders = () => {
   return (
     <Layout title="Bulk-close workOrders">
       {loading ? (
-        <Spinner />
+        
+        <Spinner resource={null} />
       ) : (
         <>
           {formSuccess ? (
@@ -126,13 +130,18 @@ const CloseWorkOrders = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              {requestError && <ErrorMessage label={requestError} />}
+              {requestError && (
+                <>
+                {/*  @ts-ignore */}
+                <ErrorMessage label={requestError} /></>
+              )}
 
               <div>
+                {/*  @ts-ignore */}
                 <ControlledRadio
                   label="Select reason for Closing"
                   name="selectedOption"
-                  options={radioOptions}
+                  options={radioOptions.map(x => x.value)}
                   onChange={(event) => setSelectedOption(event.target.value)}
                   selectedOption={selectedOption}
                   error={
@@ -142,6 +151,7 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
+                {/*  @ts-ignore */}
                 <TextInput
                   label="Reason to Close"
                   placeholder="eg. Closed - completed - requested by S Roche"
@@ -155,6 +165,7 @@ const CloseWorkOrders = () => {
 
               {selectedOption === 'CloseToBase' && (
                 <div>
+                  {/*  @ts-ignore */}
                   <DatePicker
                     name="ClosedDate"
                     label="Closed Date"
@@ -168,6 +179,7 @@ const CloseWorkOrders = () => {
               )}
 
               <div>
+                 {/*  @ts-ignore */}
                 <TextArea
                   label="WorkOrder References"
                   placeholder="10008088&#10;10024867&#10;10000782"
@@ -184,6 +196,7 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
+                {/*  @ts-ignore */}
                 <Button label="Close WorkOrders" type="submit" />
               </div>
             </form>
