@@ -5,6 +5,7 @@ import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
 
+
 const Tabs = ({
   tabsList,
   propertyReference,

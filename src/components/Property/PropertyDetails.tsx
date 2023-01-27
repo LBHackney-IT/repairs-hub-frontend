@@ -1,11 +1,22 @@
-import PropTypes from 'prop-types'
+
 import RaiseWorkOrderStatus from './RaiseWorkOrderStatus'
 import PropertyDetailsGrid from './PropertyDetailsGrid'
 import BackButton from '../Layout/BackButton'
 import { isCurrentTimeOutOfHours } from '@/utils/helpers/completionDateTimes'
 import Link from 'next/link'
+import { Address, HierarchyType, Tenure } from './types'
+import { FunctionComponent } from 'react'
 
-const PropertyDetails = ({
+interface Props {
+  propertyReference: string
+  address: Address
+  hierarchyType: HierarchyType
+  canRaiseRepair: boolean
+  tenure: Tenure
+  tmoName: string
+}
+
+const PropertyDetails: FunctionComponent<Props> = ({
   propertyReference,
   address,
   hierarchyType,
@@ -52,15 +63,6 @@ const PropertyDetails = ({
       />
     </div>
   )
-}
-
-PropertyDetails.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  hierarchyType: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object.isRequired,
-  tmoName: PropTypes.string,
 }
 
 export default PropertyDetails

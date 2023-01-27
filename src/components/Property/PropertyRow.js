@@ -5,7 +5,7 @@ import { TR, TD } from '../Layout/Table'
 const PropertyRow = ({
   propertyReference,
   address,
-  postalCode,
+  postCode,
   propertyType,
 }) => (
   <TR className="govuk-table__row--clickable lbh-body-s">
@@ -14,7 +14,7 @@ const PropertyRow = ({
         <a className="lbh-link">{address}</a>
       </Link>
     </TD>
-    <TD>{postalCode}</TD>
+    <TD>{postCode}</TD>
     <TD>{propertyType}</TD>
     <TD>{propertyReference}</TD>
   </TR>

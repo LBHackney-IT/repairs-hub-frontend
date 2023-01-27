@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, FunctionComponent } from 'react'
 import { useRouter } from 'next/router'
 import UserContext from '../UserContext'
 import PropertiesTable from '../Properties/PropertiesTable'
@@ -10,7 +10,30 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
-const Search = ({ query }) => {
+interface Query {
+  searchText: string
+  pageNumber?: number
+}
+
+interface Props {
+  query: Query
+}
+
+interface Property {
+  address: string
+  postCode: string
+  propertyType: string
+  propertyReference: string
+}
+
+
+
+interface SearchResponseObject {
+  properties: Array<Property>
+  total: number
+}
+
+const Search: FunctionComponent<Props> = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
 
   let decodedQueryParamSearchText = query?.searchText
@@ -25,10 +48,10 @@ const Search = ({ query }) => {
   const userCanSearchForProperty = user && canSearchForProperty(user)
 
   const [searchTextInput, setSearchTextInput] = useState('')
-  const [properties, setProperties] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [searchHitTotal, setSearchHitTotal] = useState()
+  const [properties, setProperties] = useState<Array<Property>>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string>()
+  const [searchHitTotal, setSearchHitTotal] = useState<number>()
 
   const WORK_ORDER_REFERENCE_REGEX = /^[0-9]{7,10}$/g
 
@@ -65,7 +88,7 @@ const Search = ({ query }) => {
 
     try {
       if (searchQuery) {
-        const propertiesData = await frontEndApiRequest({
+        const propertiesData = await frontEndApiRequest<SearchResponseObject>({
           method: 'get',
           path: '/api/properties/search',
           params: {
@@ -75,12 +98,10 @@ const Search = ({ query }) => {
           },
         })
 
-        setSearchHitTotal(parseInt(propertiesData.total))
+        setSearchHitTotal(propertiesData.total)
 
         setProperties(
-          propertiesData.properties.map(
-            (property) => new PropertyListItem(property)
-          )
+          propertiesData.properties
         )
       } else {
         setSearchHitTotal(0)
