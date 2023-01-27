@@ -1,6 +1,11 @@
 import BackButton from '../../Layout/BackButton'
 
-const Layout = ({ children, title }) => {
+interface Props {
+  children: any,
+  title: string
+}
+
+const Layout = ({ children, title }: Props) => {
   return (
     <>
       <BackButton />

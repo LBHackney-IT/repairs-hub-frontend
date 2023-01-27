@@ -1,5 +1,5 @@
 import Layout from '../Layout'
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
@@ -7,7 +7,9 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
-const radioOptions = [
+import { Errors, RadioInputOption } from './types'
+
+const radioOptions: Array<RadioInputOption> = [
   {
     text: 'Copy contracts from another property',
     value: 'Copy',
@@ -25,25 +27,25 @@ const SORContracts = () => {
   const [
     destinationPropertyReference,
     setDestinationPropertyReference,
-  ] = useState('')
-  const [contractReference, setContractReference] = useState('')
+  ] = useState<string>('')
+  const [contractReference, setContractReference] = useState<string>('')
 
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<Errors>({})
 
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
   const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
+  const [formSuccess, setFormSuccess] = useState<boolean>(null)
 
-  const copyContractsSelected = () => {
+  const copyContractsSelected = (): boolean => {
     return selectedOption === 'Copy'
   }
 
-  const addContractsSelected = () => {
+  const addContractsSelected = (): boolean => {
     return selectedOption === 'Add'
   }
 
-  const validateRequest = () => {
-    let newErrors = {}
+  const validateRequest = (): Errors => {
+    const newErrors: Errors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
@@ -66,15 +68,14 @@ const SORContracts = () => {
           'You must enter a destination property reference'
       }
       if (!contractReference) {
-        newErrors.sourcePropertyReference =
-          'You must enter a contract reference'
+        newErrors.contractReference = 'You must enter a contract reference'
       }
     }
 
     return newErrors
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.SyntheticEvent): void => {
     event.preventDefault()
 
     if (loading) return
@@ -102,7 +103,7 @@ const SORContracts = () => {
       mode: selectedOption,
     }
 
-    let url = `/api/backOffice/sor-contracts`
+    const url = `/api/backOffice/sor-contracts`
 
     setLoading(true)
 
@@ -110,9 +111,10 @@ const SORContracts = () => {
       method: 'post',
       path: url,
       requestData: body,
+      params: null,
+      paramsSerializer: null,
     })
-      .then((res) => {
-        console.log({ res })
+      .then(() => {
         setFormSuccess(true)
       })
       .catch((err) => {
@@ -127,7 +129,7 @@ const SORContracts = () => {
   return (
     <Layout title="SOR Contract Modification">
       {loading ? (
-        <Spinner />
+        <Spinner resource={null} />
       ) : (
         <>
           {formSuccess ? (
@@ -145,13 +147,19 @@ const SORContracts = () => {
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
-              {requestError && <ErrorMessage label={requestError} />}
+              {requestError && (
+                <>
+                  {/*  @ts-ignore */}
+                  <ErrorMessage label={requestError} />
+                </>
+              )}
 
               <div>
+                {/*  @ts-ignore */}
                 <ControlledRadio
                   label="Select workflow type"
                   name="selectedOption"
-                  options={radioOptions}
+                  options={radioOptions.map((x) => x.value)}
                   onChange={(event) => setSelectedOption(event.target.value)}
                   selectedOption={selectedOption}
                   error={
@@ -162,6 +170,7 @@ const SORContracts = () => {
 
               {selectedOption === 'Copy' && (
                 <div>
+                  {/*  @ts-ignore */}
                   <TextInput
                     label="Source property reference (include leading zeroes)"
                     name="sourceInput"
@@ -180,6 +189,7 @@ const SORContracts = () => {
               )}
 
               <div>
+                {/*  @ts-ignore */}
                 <TextInput
                   label="Destination property reference (include leading zeroes)"
                   name="destInput"
@@ -198,6 +208,7 @@ const SORContracts = () => {
 
               {selectedOption === 'Add' && (
                 <div>
+                  {/*  @ts-ignore */}
                   <TextInput
                     label="Contract reference"
                     name="contractRefInput"
@@ -216,6 +227,7 @@ const SORContracts = () => {
               )}
 
               <div>
+                {/*  @ts-ignore */}
                 <Button label="Execute" type="submit" />
               </div>
             </form>
