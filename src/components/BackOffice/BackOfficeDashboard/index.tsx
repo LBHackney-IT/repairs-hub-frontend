@@ -1,17 +1,24 @@
 import Link from 'next/link'
 
+interface DashboardLink {
+  description: String;
+  link: String;
+}
+
+const links: Array<DashboardLink> = [
+  { description: 'Add SOR Codes', link: '/backoffice/add-sor-codes' },
+  {
+    description: 'Add SOR contracts to properties',
+    link: '/backoffice/sor-contracts',
+  },
+  {
+    description: 'Bulk-close workOrders',
+    link: '/backoffice/close-workorders',
+  },
+]
+
 const BackOfficeDashboard = () => {
-  const links = [
-    { description: 'Add SOR Codes', link: '/backoffice/add-sor-codes' },
-    {
-      description: 'Add SOR contracts to properties',
-      link: '/backoffice/sor-contracts',
-    },
-    {
-      description: 'Bulk-close workOrders',
-      link: '/backoffice/close-workorders',
-    },
-  ]
+  
   return (
     <>
       <h1 className="lbh-heading-h1">BackOffice</h1>
@@ -32,6 +39,8 @@ const BackOfficeDashboard = () => {
       <ul className="govuk-list">
         {links.map(({ description, link }, index) => (
           <li key={index}>
+            {/* 
+// @ts-ignore */}
             <Link href={link} className="govuk-link">
               {description}
             </Link>
