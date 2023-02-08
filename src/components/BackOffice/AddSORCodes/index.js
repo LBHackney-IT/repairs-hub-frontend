@@ -122,8 +122,8 @@ const AddSORCodes = () => {
     setSelectedContract(e.target.value)
   }
 
-  const handleAddSORCode = (sorCode) => {
-    dispatch({ type: "add_new_sor_code", payload: new SorCode(generateNewSORCodeId(), 'asd3', '456', '878', 'short', 'long') })
+  const handleAddNewSORCode = (sorCode) => {
+    dispatch({ type: "add_new_sor_code", payload: new SorCode(generateNewSORCodeId()) })
   }
 
   const handleRemoveSORCode = (sorCode) => {
@@ -271,60 +271,12 @@ const AddSORCodes = () => {
               {renderSorCodesToAdd()}
 
               <div>
-                <a className="lbh-link" href="#" onClick={handleAddSORCode}>
+                <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
                   + Add another SOR code
                 </a>
               </div>
 
-              {/* <div class="govuk-form-group lbh-form-group">
-                <label class="govuk-label lbh-label" for="input-with-hint-text">
-                  SOR code
-                </label>
-                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
-                  Example: 4896830H
-                </span>
-                <input
-                  class="govuk-select lbh-select"
-                  id="input-with-hint-text"
-                  name="test-name-2"
-                  type="text"
-                  aria-describedby="input-with-hint-text-hint"
-                />
-              </div>
-
-              <div class="govuk-form-group lbh-form-group">
-                <label class="govuk-label lbh-label" for="input-with-hint-text">
-                  Cost (£)
-                </label>
-                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
-                  Example: 10.47
-                </span>
-                <input
-                  class="govuk-select lbh-select"
-                  id="input-with-hint-text"
-                  name="test-name-2"
-                  type="text"
-                  aria-describedby="input-with-hint-text-hint"
-                />
-              </div>
-
-
-              <div class="govuk-form-group lbh-form-group">
-                <label class="govuk-label lbh-label" for="input-with-hint-text">
-                  Standard Minute Value (SMV)
-                </label>
-                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
-                  Example: 29
-                </span>
-                <input
-                  class="govuk-select lbh-select"
-                  id="input-with-hint-text"
-                  name="test-name-2"
-                  type="text"
-                  aria-describedby="input-with-hint-text-hint"
-                />
-              </div>
-
+              {/*
               <div class="govuk-form-group lbh-form-group">
                 <label class="govuk-label lbh-label" for="input-with-hint-text">
                   Short description
