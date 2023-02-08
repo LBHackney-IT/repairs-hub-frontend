@@ -1,9 +1,22 @@
-const NewSORCode = ({ sorCode, handleRemoveSORCode }) => {
+const NewSORCode = ({ sorCode, handleRemoveSORCode, handleSORCodeFieldChange }) => {
 
     return (
         <>
-            <h5>SOR Code: {sorCode.sorCode}</h5>
-            <h5>SMV: {sorCode.smv}</h5>
+            <div className="govuk-form-group lbh-form-group">
+                <label className="govuk-label lbh-label" htmlFor="input-with-hint-text">
+                    SOR code <span id="input-with-hint-text-hint" className="govuk-hint lbh-hint">Example: 4896830H</span>
+                </label>
+
+                <input
+                    className="govuk-select lbh-select"
+                    name="test-name-2"
+                    type="text"
+                    aria-describedby="input-with-hint-text-hint"
+                    value={sorCode.sorCode}
+                    id='sor-code-input'
+                    onChange={(e) => handleSORCodeFieldChange(e, sorCode)}
+                />
+            </div>
             <button onClick={() => handleRemoveSORCode(sorCode)}>
                 Remove
             </button>
