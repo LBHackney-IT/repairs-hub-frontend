@@ -23,35 +23,36 @@ import NewSORCode from '../NewSORCode'
 import SorCode from '@/root/src/models/sorCode'
 
 const initialState = {
-  sorCodes: [
-    new SorCode(1),
-  ]
-};
+  sorCodes: [new SorCode(1)],
+}
 
 function reducer(state, action) {
   switch (action.type) {
     case 'add_new_sor_code':
       return {
-        sorCodes: [...state.sorCodes, action.payload]
-      };
+        sorCodes: [...state.sorCodes, action.payload],
+      }
     case 'remove_last_sor_code':
       return {
-        sorCodes: state.sorCodes.filter(sorCode => sorCode.sorCode !== action.payload.sorCode)
-      };
+        sorCodes: state.sorCodes.filter(
+          (sorCode) => sorCode.sorCode !== action.payload.sorCode
+        ),
+      }
     case 'sor_code_change':
-      const index = state.sorCodes.findIndex((sorCode => sorCode.id == action.payload.sorCodeId))
-      state.sorCodes[index][action.payload.editedField] = action.payload.targetValue
+      const index = state.sorCodes.findIndex(
+        (sorCode) => sorCode.id == action.payload.sorCodeId
+      )
+      state.sorCodes[index][action.payload.editedField] =
+        action.payload.targetValue
       return { sorCodes: state.sorCodes }
 
     default:
-      return state;
+      return state
   }
 }
 
-
-
 const AddSORCodes = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useState(true)
   const [contractors, setContractors] = useState(null)
   const [trades, setTrades] = useState(null)
@@ -122,7 +123,10 @@ const AddSORCodes = () => {
   }
 
   const handleAddNewSORCode = (sorCode) => {
-    dispatch({ type: "add_new_sor_code", payload: new SorCode(generateNewSORCodeId()) })
+    dispatch({
+      type: 'add_new_sor_code',
+      payload: new SorCode(generateNewSORCodeId()),
+    })
   }
 
   const handleRemoveSORCode = (e, sorCode) => {
@@ -131,13 +135,25 @@ const AddSORCodes = () => {
   }
 
   const handleSORCodeFieldChange = (e, sorCodeId, editedField) => {
-    dispatch({ type: "sor_code_change", payload: { targetValue: e.target.value, sorCodeId: sorCodeId, editedField: editedField } })
+    dispatch({
+      type: 'sor_code_change',
+      payload: {
+        targetValue: e.target.value,
+        sorCodeId: sorCodeId,
+        editedField: editedField,
+      },
+    })
   }
 
   const renderSorCodesToAdd = () => {
     const sorCodesToAdd = state.sorCodes.map((sorCode) => {
       return (
-        <NewSORCode key={sorCode.id} sorCode={sorCode} handleRemoveSORCode={handleRemoveSORCode} handleSORCodeFieldChange={handleSORCodeFieldChange}></NewSORCode>
+        <NewSORCode
+          key={sorCode.id}
+          sorCode={sorCode}
+          handleRemoveSORCode={handleRemoveSORCode}
+          handleSORCodeFieldChange={handleSORCodeFieldChange}
+        ></NewSORCode>
       )
     })
     return sorCodesToAdd
@@ -146,7 +162,7 @@ const AddSORCodes = () => {
   const generateNewSORCodeId = () => {
     const assignedIds = state.sorCodes.map((sorCode) => sorCode.id)
 
-    // If there are no new Added SorCodes, there will be no assigned Ids, 
+    // If there are no new Added SorCodes, there will be no assigned Ids,
     // so we start with ID 1, otherwise we pick the next higher/available one.
     return assignedIds.length == 0 ? 1 : Math.max(...assignedIds) + 1
   }
@@ -271,18 +287,30 @@ const AddSORCodes = () => {
               {renderSorCodesToAdd()}
 
               <div>
-                {state.sorCodes.length == 0
-                  ? <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
+                {state.sorCodes.length == 0 ? (
+                  <a
+                    className="lbh-link"
+                    href="#"
+                    onClick={handleAddNewSORCode}
+                  >
                     + Add a new SOR code
                   </a>
-                  : <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
+                ) : (
+                  <a
+                    className="lbh-link"
+                    href="#"
+                    onClick={handleAddNewSORCode}
+                  >
                     + Add another SOR code
                   </a>
-                }
-
+                )}
               </div>
               <div>
-                <Button label="Add SOR Codes" type="submit" disabled={state.sorCodes.length == 0} />
+                <Button
+                  label="Add SOR Codes"
+                  type="submit"
+                  disabled={state.sorCodes.length == 0}
+                />
               </div>
             </form>
           )}
