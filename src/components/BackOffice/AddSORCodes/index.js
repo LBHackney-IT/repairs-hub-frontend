@@ -126,7 +126,8 @@ const AddSORCodes = () => {
     dispatch({ type: "add_new_sor_code", payload: new SorCode(generateNewSORCodeId()) })
   }
 
-  const handleRemoveSORCode = (sorCode) => {
+  const handleRemoveSORCode = (e, sorCode) => {
+    e.preventDefault()
     dispatch({ type: 'remove_last_sor_code', payload: sorCode })
   }
 
@@ -271,65 +272,18 @@ const AddSORCodes = () => {
               {renderSorCodesToAdd()}
 
               <div>
-                <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
-                  + Add another SOR code
-                </a>
+                {state.sorCodes.length == 0
+                  ? <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
+                    + Add a new SOR code
+                  </a>
+                  : <a className="lbh-link" href="#" onClick={handleAddNewSORCode}>
+                    + Add another SOR code
+                  </a>
+                }
+
               </div>
-
-              {/*
-              <div class="govuk-form-group lbh-form-group">
-                <label class="govuk-label lbh-label" for="input-with-hint-text">
-                  Short description
-                </label>
-                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
-                  Example: "LH Gas Carcass LGSR inc cooker"
-                </span>
-                <input
-                  class="govuk-input lbh-input"
-                  id="input-with-hint-text"
-                  name="test-name-2"
-                  type="text"
-                  aria-describedby="input-with-hint-text-hint"
-                />
-              </div>
-
-              <div class="govuk-form-group lbh-form-group">
-                <label class="govuk-label lbh-label" for="input-with-hint-text">
-                  Long description
-                </label>
-                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
-                  Example: "LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record incl..."
-                </span>
-                <input
-                  class="govuk-input lbh-input"
-                  id="input-with-hint-text"
-                  name="test-name-2"
-                  type="text"
-                  aria-describedby="input-with-hint-text-hint"
-                />
-              </div> */}
-
-              {/* <p>
-                Import a CSV document with the following headers:{' '}
-                <span style={{ fontWeight: 'bold' }}>
-                  {expectedHeaders.join(', ')}
-                </span>
-              </p>
-
               <div>
-                <TextInput
-                  name="File Upload"
-                  label="CSV Upload"
-                  type={'file'}
-                  id={'csvFileInput'}
-                  accept={'.csv'}
-                  onChange={handleFileOnChange}
-                  error={errors.fileUpload && { message: errors.fileUpload }}
-                />
-              </div> */}
-
-              <div>
-                <Button label="Add SOR Codes" type="submit" />
+                <Button label="Add SOR Codes" type="submit" disabled={state.sorCodes.length == 0} />
               </div>
             </form>
           )}
