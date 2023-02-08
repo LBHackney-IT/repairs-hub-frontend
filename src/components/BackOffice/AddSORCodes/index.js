@@ -24,8 +24,7 @@ import SorCode from '@/root/src/models/sorCode'
 
 const initialState = {
   sorCodes: [
-    new SorCode(1, 'asd1', '123', '456', 'short', 'long'),
-    new SorCode(2, 'asd2', '456', '878', 'short', 'long'),
+    new SorCode(1),
   ]
 };
 
