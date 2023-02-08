@@ -61,8 +61,12 @@ const CloseWorkOrders = () => {
       newErrors.reasonToClose = 'Please enter a reason to close'
     }
 
+    const today = new Date()
+
     if (!closedDate && closeToBaseSelected()) {
       newErrors.closedDate = 'Please enter a closed date'
+    } else if (Date.parse(closedDate) > today && closeToBaseSelected()) {
+      newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
     const strippedWorkOrderReferences = formatWorkOrderReferences()
