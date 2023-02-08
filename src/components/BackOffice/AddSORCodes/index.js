@@ -41,13 +41,15 @@ function reducer(state, action) {
       };
     case 'sor_code_change':
       const index = state.sorCodes.findIndex((sorCode => sorCode.id == action.payload.sorCodeId))
-      state.sorCodes[index].sorCode = action.payload.targetValue
+      state.sorCodes[index][action.payload.editedField] = action.payload.targetValue
       return { sorCodes: state.sorCodes }
 
     default:
       return state;
   }
 }
+
+
 
 const AddSORCodes = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -128,11 +130,8 @@ const AddSORCodes = () => {
     dispatch({ type: 'remove_last_sor_code', payload: sorCode })
   }
 
-  const handleSORCodeFieldChange = (e, sorCodeId) => {
-    console.log("CHANGE EVENT", e.target.value)
-    console.log("sorCodeId", sorCodeId)
-    dispatch({ type: "sor_code_change", payload: { targetValue: e.target.value, sorCodeId: sorCodeId } })
-
+  const handleSORCodeFieldChange = (e, sorCodeId, editedField) => {
+    dispatch({ type: "sor_code_change", payload: { targetValue: e.target.value, sorCodeId: sorCodeId, editedField: editedField } })
   }
 
   const renderSorCodesToAdd = () => {
