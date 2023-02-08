@@ -32,6 +32,13 @@ const CloseWorkOrders = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
 
+  const clearForm = () => {
+    setReasonToClose('')
+    setClosedDate('')
+    setWorkOrderReferences('')
+    setErrors({})
+  }
+
   const closeToBaseSelected = () => {
     return selectedOption === 'CloseToBase'
   }
@@ -116,8 +123,8 @@ const CloseWorkOrders = () => {
       requestData: body,
     })
       .then((res) => {
-        console.log({ res })
         setFormSuccess(true)
+        clearForm()
       })
       .catch((err) => {
         console.error(err)
