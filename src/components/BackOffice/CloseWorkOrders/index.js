@@ -10,6 +10,13 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
+import {
+  dateIsInFuture,
+  formatInvalidWorkOrderReferencesError,
+  formatWorkOrderReferences,
+  getInvalidWorkOrderReferences,
+} from './utils'
+
 const radioOptions = [
   {
     text: 'Cancelled - (eg. out of time)',
@@ -43,13 +50,6 @@ const CloseWorkOrders = () => {
     return selectedOption === 'CloseToBase'
   }
 
-  const formatWorkOrderReferences = () => {
-    return workOrderReferences
-      .split('\n')
-      .map((x) => x.trim())
-      .filter((x) => x)
-  }
-
   const validateRequest = () => {
     let newErrors = {}
 
@@ -65,22 +65,26 @@ const CloseWorkOrders = () => {
 
     if (!closedDate && closeToBaseSelected()) {
       newErrors.closedDate = 'Please enter a closed date'
-    } else if (Date.parse(closedDate) > today && closeToBaseSelected()) {
+    } else if (
+      dateIsInFuture(Date.parse(closedDate)) &&
+      closeToBaseSelected()
+    ) {
       newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
-    const strippedWorkOrderReferences = formatWorkOrderReferences()
-
-    const invalidWorkOrderReferences = strippedWorkOrderReferences
-      .filter((x) => !validateWorkOrderReference(x))
-      .map((x) => `"${x}"`)
+    const strippedWorkOrderReferences = formatWorkOrderReferences(
+      workOrderReferences
+    )
+    const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
+      strippedWorkOrderReferences
+    )
 
     if (strippedWorkOrderReferences.length === 0) {
       newErrors.workOrderReferences = 'Please enter workOrder references'
     } else if (invalidWorkOrderReferences.length > 0) {
-      newErrors.workOrderReferences = `Invalid WorkOrder Reference(s) entered: ${invalidWorkOrderReferences.join(
-        ', '
-      )}`
+      newErrors.workOrderReferences = formatInvalidWorkOrderReferencesError(
+        invalidWorkOrderReferences
+      )
     }
 
     return newErrors
@@ -105,7 +109,7 @@ const CloseWorkOrders = () => {
       return
     }
 
-    const formatted = formatWorkOrderReferences()
+    const formatted = formatWorkOrderReferences(workOrderReferences)
 
     const body = {
       reason: reasonToClose,
