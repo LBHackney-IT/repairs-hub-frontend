@@ -17,10 +17,35 @@ import {
   dataToRequestObject,
 } from './utils'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useReducer } from 'react'
 import useSelectTrade from './useSelectTrade'
+import NewSORCode from '../NewSORCode'
+import SorCode from '@/root/src/models/sorCode'
+
+const initialState = {
+  sorCodes: [
+    new SorCode(1, 'asd1', '123', '456', 'short', 'long'),
+    new SorCode(2, 'asd2', '456', '878', 'short', 'long'),
+  ]
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'add_new_sor_code':
+      return {
+        sorCodes: [...state.sorCodes, action.payload]
+      };
+    case 'remove_last_sor_code':
+      return {
+        sorCodes: state.sorCodes.filter(sorCode => sorCode.sorCode !== action.payload.sorCode)
+      };
+    default:
+      return state;
+  }
+}
 
 const AddSORCodes = () => {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState(true)
   const [contractors, setContractors] = useState(null)
   const [trades, setTrades] = useState(null)
@@ -88,6 +113,24 @@ const AddSORCodes = () => {
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
+  }
+
+  const handleRemoveSORCode = (sorCode) => {
+    dispatch({ type: 'remove_last_sor_code', payload: sorCode })
+  }
+
+  const renderSorCodesToAdd = () => {
+    const sorCodesToAdd = state.sorCodes.map((sorCode) => {
+      return (
+        <NewSORCode key={sorCode.id} sorCode={sorCode} handleRemoveSORCode={handleRemoveSORCode}></NewSORCode>
+      )
+    })
+    return sorCodesToAdd
+  }
+
+  const generateNewSORCodeId = () => {
+    const assignedIds = state.sorCodes.map((sorCode) => sorCode.id)
+    return Math.max(...assignedIds) + 1
   }
 
   const validate = () => {
@@ -205,7 +248,101 @@ const AddSORCodes = () => {
                 value={selectedTrade?.name || null}
               />
 
-              <p>
+              <hr />
+
+              {renderSorCodesToAdd()}
+
+              <div>
+                <a className="lbh-link" href="#" onClick={() => dispatch({
+                  type: "add_new_sor_code",
+                  payload: new SorCode(generateNewSORCodeId(), 'asd3', '456', '878', 'short', 'long')
+                })}>
+                  + Add another SOR code
+                </a>
+              </div>
+
+              {/* <div class="govuk-form-group lbh-form-group">
+                <label class="govuk-label lbh-label" for="input-with-hint-text">
+                  SOR code
+                </label>
+                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
+                  Example: 4896830H
+                </span>
+                <input
+                  class="govuk-select lbh-select"
+                  id="input-with-hint-text"
+                  name="test-name-2"
+                  type="text"
+                  aria-describedby="input-with-hint-text-hint"
+                />
+              </div>
+
+              <div class="govuk-form-group lbh-form-group">
+                <label class="govuk-label lbh-label" for="input-with-hint-text">
+                  Cost (£)
+                </label>
+                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
+                  Example: 10.47
+                </span>
+                <input
+                  class="govuk-select lbh-select"
+                  id="input-with-hint-text"
+                  name="test-name-2"
+                  type="text"
+                  aria-describedby="input-with-hint-text-hint"
+                />
+              </div>
+
+
+              <div class="govuk-form-group lbh-form-group">
+                <label class="govuk-label lbh-label" for="input-with-hint-text">
+                  Standard Minute Value (SMV)
+                </label>
+                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
+                  Example: 29
+                </span>
+                <input
+                  class="govuk-select lbh-select"
+                  id="input-with-hint-text"
+                  name="test-name-2"
+                  type="text"
+                  aria-describedby="input-with-hint-text-hint"
+                />
+              </div>
+
+              <div class="govuk-form-group lbh-form-group">
+                <label class="govuk-label lbh-label" for="input-with-hint-text">
+                  Short description
+                </label>
+                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
+                  Example: "LH Gas Carcass LGSR inc cooker"
+                </span>
+                <input
+                  class="govuk-input lbh-input"
+                  id="input-with-hint-text"
+                  name="test-name-2"
+                  type="text"
+                  aria-describedby="input-with-hint-text-hint"
+                />
+              </div>
+
+              <div class="govuk-form-group lbh-form-group">
+                <label class="govuk-label lbh-label" for="input-with-hint-text">
+                  Long description
+                </label>
+                <span id="input-with-hint-text-hint" class="govuk-hint lbh-hint">
+                  Example: "LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record incl..."
+                </span>
+                <input
+                  class="govuk-input lbh-input"
+                  id="input-with-hint-text"
+                  name="test-name-2"
+                  type="text"
+                  aria-describedby="input-with-hint-text-hint"
+                />
+              </div> */}
+
+              {/* <p>
                 Import a CSV document with the following headers:{' '}
                 <span style={{ fontWeight: 'bold' }}>
                   {expectedHeaders.join(', ')}
@@ -222,7 +359,7 @@ const AddSORCodes = () => {
                   onChange={handleFileOnChange}
                   error={errors.fileUpload && { message: errors.fileUpload }}
                 />
-              </div>
+              </div> */}
 
               <div>
                 <Button label="Add SOR Codes" type="submit" />
