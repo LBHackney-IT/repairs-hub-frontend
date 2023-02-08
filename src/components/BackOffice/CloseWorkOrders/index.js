@@ -36,6 +36,13 @@ const CloseWorkOrders = () => {
     return selectedOption === 'CloseToBase'
   }
 
+  const formatWorkOrderReferences = () => {
+    return workOrderReferences
+      .split('\n')
+      .map((x) => x.trim())
+      .filter((x) => x)
+  }
+
   const validateRequest = () => {
     let newErrors = {}
 
@@ -51,11 +58,27 @@ const CloseWorkOrders = () => {
       newErrors.closedDate = 'Please enter a closed date'
     }
 
-    if (!workOrderReferences) {
-      newErrors.workOrderReferences = 'Please enter some workOrder references'
+    const strippedWorkOrderReferences = formatWorkOrderReferences()
+
+    const invalidWorkOrderReferences = strippedWorkOrderReferences
+      .filter((x) => !validateWorkOrderReference(x))
+      .map((x) => `"${x}"`)
+
+    if (strippedWorkOrderReferences.length === 0) {
+      newErrors.workOrderReferences = 'Please enter workOrder references'
+    } else if (invalidWorkOrderReferences.length > 0) {
+      newErrors.workOrderReferences = `Invalid WorkOrder Reference(s) entered: ${invalidWorkOrderReferences.join(
+        ', '
+      )}`
     }
 
     return newErrors
+  }
+
+  const validateWorkOrderReference = (workOrderReference) => {
+    const regex = /^\d{8}$/gm
+
+    return regex.exec(workOrderReference) !== null
   }
 
   const handleSubmit = (event) => {
@@ -71,7 +94,7 @@ const CloseWorkOrders = () => {
       return
     }
 
-    const formatted = workOrderReferences.trim().replaceAll(',', '').split('\n')
+    const formatted = formatWorkOrderReferences()
 
     const body = {
       reason: reasonToClose,
