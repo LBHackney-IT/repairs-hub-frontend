@@ -115,6 +115,10 @@ const AddSORCodes = () => {
     setSelectedContract(e.target.value)
   }
 
+  const handleAddSORCode = (sorCode) => {
+    dispatch({ type: "add_new_sor_code", payload: new SorCode(generateNewSORCodeId(), 'asd3', '456', '878', 'short', 'long') })
+  }
+
   const handleRemoveSORCode = (sorCode) => {
     dispatch({ type: 'remove_last_sor_code', payload: sorCode })
   }
@@ -130,7 +134,10 @@ const AddSORCodes = () => {
 
   const generateNewSORCodeId = () => {
     const assignedIds = state.sorCodes.map((sorCode) => sorCode.id)
-    return Math.max(...assignedIds) + 1
+
+    // If there are no new Added SorCodes, there will be no assigned Ids, 
+    // so we start with ID 1, otherwise we pick the next higher/available one.
+    return assignedIds.length == 0 ? 1 : Math.max(...assignedIds) + 1
   }
 
   const validate = () => {
@@ -253,10 +260,7 @@ const AddSORCodes = () => {
               {renderSorCodesToAdd()}
 
               <div>
-                <a className="lbh-link" href="#" onClick={() => dispatch({
-                  type: "add_new_sor_code",
-                  payload: new SorCode(generateNewSORCodeId(), 'asd3', '456', '878', 'short', 'long')
-                })}>
+                <a className="lbh-link" href="#" onClick={handleAddSORCode}>
                   + Add another SOR code
                 </a>
               </div>
