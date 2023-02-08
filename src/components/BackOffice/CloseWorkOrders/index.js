@@ -126,7 +126,7 @@ const CloseWorkOrders = () => {
       path: url,
       requestData: body,
     })
-      .then((res) => {
+      .then(() => {
         setFormSuccess(true)
         clearForm()
       })
