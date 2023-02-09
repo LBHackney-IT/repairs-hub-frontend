@@ -179,7 +179,6 @@ Cypress.Commands.add('loginWithDataAdminRole', () => {
   )
 })
 
-
 Cypress.Commands.add('requestsCountByUrl', (url) =>
   cy.wrap().then(() => {
     const requests = cy.state('requests') || []

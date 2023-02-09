@@ -61,8 +61,6 @@ const CloseWorkOrders = () => {
       newErrors.reasonToClose = 'Please enter a reason to close'
     }
 
-    const today = new Date()
-
     if (!closedDate && closeToBaseSelected()) {
       newErrors.closedDate = 'Please enter a closed date'
     } else if (
@@ -148,7 +146,7 @@ const CloseWorkOrders = () => {
               <SuccessMessage title="WorkOrders cancelled" />
               <p>
                 <a
-                data-test="closeMoreButton"
+                  data-test="closeMoreButton"
                   className="lbh-link"
                   role="button"
                   onClick={() => setFormSuccess(null)}
