@@ -6,7 +6,7 @@ const {
 } = require('./utils')
 
 describe('CloseWorkOrders', () => {
-  describe('formatWorkOrderReferences returns list of workOrder references', () => {
+  it('formatWorkOrderReferences returns list of workOrder references', () => {
     // Arrange
     const workOrderReferences = `
          klj
@@ -23,7 +23,7 @@ describe('CloseWorkOrders', () => {
     expect(response).toEqual(expectedResponse)
   })
 
-  describe('getInvalidWorkOrderReferences returns invalid workOrderReferences', () => {
+  it('getInvalidWorkOrderReferences returns invalid workOrderReferences', () => {
     // Arrange
     const workOrderReferences = ['klj', 'sdedfsdf', '222', '22222222']
 
@@ -37,7 +37,7 @@ describe('CloseWorkOrders', () => {
     expect(response[2]).toEqual('"222"')
   })
 
-  describe('formatInvalidWorkOrderReferencesError returns error message', () => {
+  it('formatInvalidWorkOrderReferencesError returns error message', () => {
     // Arrange
     const invalidWorkOrderReferences = ['aaa', 'bbb', '1234']
 
@@ -51,7 +51,7 @@ describe('CloseWorkOrders', () => {
     expect(response).toEqual(expectedResponse)
   })
 
-  describe('dateIsInFuture returns true if date is in future', () => {
+  it('dateIsInFuture returns true if date is in future', () => {
     // Arrange
     const futureDate = new Date()
     futureDate.setDate(futureDate.getDate() + 1)
@@ -63,7 +63,7 @@ describe('CloseWorkOrders', () => {
     expect(response).toBe(true)
   })
 
-  describe('dateIsInFuture returns false if date is in past', () => {
+  it('dateIsInFuture returns false if date is in past', () => {
     // Arrange
     const pastDate = new Date()
     pastDate.setDate(pastDate.getDate() - 1)
