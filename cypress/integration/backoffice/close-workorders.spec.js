@@ -62,19 +62,12 @@ describe('Close-WorkOrders', () => {
         path: '/api/backOffice/bulk-close/cancel',
       },
       {
-        body: {
-          completionDate: '',
-          reason: reasonToClose,
-          workOrderReferences: [workOrderReference],
-        },
+        body: '',
       }
     ).as('cancelRequest')
 
     cy.get('[data-test="workOrderReferences"]').type(workOrderReference)
     cy.get('[data-test="reasonToClose"]').type(reasonToClose)
-
-    // const futureDate = "3023-01-01"
-    // cy.get('[data-testid="ClosedDate"]').type(futureDate)
 
     cy.get("[data-test='submit-button']").click()
 
@@ -98,11 +91,7 @@ describe('Close-WorkOrders', () => {
         path: '/api/backOffice/bulk-close/close-to-base',
       },
       {
-        body: {
-          completionDate: closedDate,
-          reason: reasonToClose,
-          workOrderReferences: [workOrderReference],
-        },
+        body: '',
       }
     ).as('cancelRequest')
 
@@ -135,11 +124,7 @@ describe('Close-WorkOrders', () => {
         path: '/api/backOffice/bulk-close/close-to-base',
       },
       {
-        body: {
-          completionDate: closedDate,
-          reason: reasonToClose,
-          workOrderReferences: [workOrderReference],
-        },
+        body: '',
       }
     ).as('cancelRequest')
 
