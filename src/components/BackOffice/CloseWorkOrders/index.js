@@ -90,12 +90,6 @@ const CloseWorkOrders = () => {
     return newErrors
   }
 
-  const validateWorkOrderReference = (workOrderReference) => {
-    const regex = /^\d{8}$/gm
-
-    return regex.exec(workOrderReference) !== null
-  }
-
   const handleSubmit = (event) => {
     event.preventDefault()
 
@@ -154,6 +148,7 @@ const CloseWorkOrders = () => {
               <SuccessMessage title="WorkOrders cancelled" />
               <p>
                 <a
+                data-test="closeMoreButton"
                   className="lbh-link"
                   role="button"
                   onClick={() => setFormSuccess(null)}
@@ -184,6 +179,7 @@ const CloseWorkOrders = () => {
                   label="Reason to Close"
                   placeholder="eg. Closed - completed - requested by S Roche"
                   value={reasonToClose}
+                  data-test="reasonToClose"
                   onChange={(event) => setReasonToClose(event.target.value)}
                   error={
                     errors.reasonToClose && { message: errors.reasonToClose }
@@ -208,6 +204,7 @@ const CloseWorkOrders = () => {
               <div>
                 <TextArea
                   label="WorkOrder References"
+                  data-test="workOrderReferences"
                   placeholder="10008088&#10;10024867&#10;10000782"
                   value={workOrderReferences}
                   onChange={(event) =>
@@ -222,7 +219,11 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
-                <Button label="Close WorkOrders" type="submit" />
+                <Button
+                  data-test="submit-button"
+                  label="Close WorkOrders"
+                  type="submit"
+                />
               </div>
             </form>
           )}

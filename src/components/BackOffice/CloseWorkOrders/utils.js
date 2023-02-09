@@ -5,6 +5,12 @@ export const formatWorkOrderReferences = (workOrderReferences) => {
     .filter((x) => x)
 }
 
+const validateWorkOrderReference = (workOrderReference) => {
+  const regex = /^\d{8}$/gm
+
+  return regex.exec(workOrderReference) !== null
+}
+
 export const getInvalidWorkOrderReferences = (workOrderReferences) => {
   return workOrderReferences
     .filter((x) => !validateWorkOrderReference(x))
