@@ -12,7 +12,7 @@ describe('Close-WorkOrders', () => {
 
   beforeEach(() => {
     cy.loginWithDataAdminRole()
-    cy.visit('/backoffice/close-workorders')
+    cy.visit('/backoffice/close-workorders/')
   })
 
   it.only('Shows error messages when form fields invalid', () => {
