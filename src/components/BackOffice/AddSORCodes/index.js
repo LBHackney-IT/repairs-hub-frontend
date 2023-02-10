@@ -14,8 +14,8 @@ import {
 
 import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
-import NewSORCode from '../NewSORCode'
 import useSelectTrade from './useSelectTrade'
+import NewSORCode from '../Components/NewSORCode'
 
 const initialState = {
   sorCodes: [new SorCode(1)],
@@ -119,7 +119,8 @@ const AddSORCodes = () => {
     setSelectedContract(e.target.value)
   }
 
-  const handleAddNewSORCode = (sorCode) => {
+  const handleAddNewSORCode = (e) => {
+    e.preventDefault()
     dispatch({
       type: 'add_new_sor_code',
       payload: new SorCode(generateNewSORCodeId()),
@@ -297,7 +298,7 @@ const AddSORCodes = () => {
                   <a
                     className="lbh-link"
                     href="#"
-                    onClick={handleAddNewSORCode}
+                    onClick={(e) => handleAddNewSORCode(e)}
                   >
                     + Add a new SOR code
                   </a>
@@ -305,7 +306,7 @@ const AddSORCodes = () => {
                   <a
                     className="lbh-link"
                     href="#"
-                    onClick={handleAddNewSORCode}
+                    onClick={(e) => handleAddNewSORCode(e)}
                   >
                     + Add another SOR code
                   </a>
