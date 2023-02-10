@@ -63,7 +63,9 @@ const NewSORCode = ({
             min={0}
             value={sorCode.standardMinuteValue}
             id="sor-code-smv-input"
-            onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'standardMinuteValue')}
+            onChange={(e) =>
+              handleSORCodeFieldChange(e, sorCode.id, 'standardMinuteValue')
+            }
           />
         </div>
         <div id="sor-code-remove-grid-area" style={{ textAlign: 'center' }}>
@@ -72,7 +74,7 @@ const NewSORCode = ({
             href="#"
             onClick={(e) => handleRemoveSORCode(e, sorCode)}
           >
-            Remove SOR Code
+            Remove SOR code
           </a>
         </div>
         <div

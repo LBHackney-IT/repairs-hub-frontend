@@ -6,7 +6,14 @@ class SorCode {
   shortDescription
   longDescription
 
-  constructor(id, code, cost, standardMinuteValue, shortDescription, longDescription) {
+  constructor(
+    id,
+    code,
+    cost,
+    standardMinuteValue,
+    shortDescription,
+    longDescription
+  ) {
     this.id = id
     this.code = code
     this.cost = cost

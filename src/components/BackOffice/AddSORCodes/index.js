@@ -6,7 +6,10 @@ import Layout from '../Layout'
 import useSelectContractor from './useSelectContractor'
 
 import {
-  fetchContractors, fetchContracts, fetchTrades, saveSorCodesToDatabase
+  fetchContractors,
+  fetchContracts,
+  fetchTrades,
+  saveSorCodesToDatabase,
 } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
@@ -59,7 +62,7 @@ const AddSORCodes = () => {
     contractors
   )
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
-      
+
   // Used for CSV bulk upload
   // const {
   //   handleFileOnChange,
@@ -212,7 +215,7 @@ const AddSORCodes = () => {
     const data = {
       sorCodes: state.sorCodes,
       contractReference: selectedContract,
-      tradeCode: selectedTrade.code
+      tradeCode: selectedTrade.code,
     }
 
     saveSorCodesToDatabase(data)
