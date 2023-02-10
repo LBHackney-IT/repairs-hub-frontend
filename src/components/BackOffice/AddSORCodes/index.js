@@ -33,16 +33,15 @@ function reducer(state, action) {
           (sorCode) => sorCode.id !== action.payload.id
         ),
       }
-    case 'sor_code_change':
-      {
-        const index = state.sorCodes.findIndex(
-          (sorCode) => sorCode.id == action.payload.sorCodeId
-        )
+    case 'sor_code_change': {
+      const index = state.sorCodes.findIndex(
+        (sorCode) => sorCode.id == action.payload.sorCodeId
+      )
 
-        state.sorCodes[index][action.payload.editedField] =
-          action.payload.targetValue
-        return { sorCodes: state.sorCodes }
-      }
+      state.sorCodes[index][action.payload.editedField] =
+        action.payload.targetValue
+      return { sorCodes: state.sorCodes }
+    }
     default:
       return state
   }
