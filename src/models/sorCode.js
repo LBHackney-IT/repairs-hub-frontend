@@ -1,16 +1,16 @@
 class SorCode {
   id
-  sorCode
+  code
   cost
-  smv
+  standardMinuteValue
   shortDescription
   longDescription
 
-  constructor(id, sorCode, cost, smv, shortDescription, longDescription) {
+  constructor(id, code, cost, standardMinuteValue, shortDescription, longDescription) {
     this.id = id
-    this.sorCode = sorCode
+    this.code = code
     this.cost = cost
-    this.smv = smv
+    this.standardMinuteValue = standardMinuteValue
     this.shortDescription = shortDescription
     this.longDescription = longDescription
   }
