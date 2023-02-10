@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewSORCode component should render the component 1`] = `
+<DocumentFragment>
+  <div
+    id="new-sor-code-container"
+  >
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-input-grid-area "
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-input"
+      >
+        SOR code
+      </label>
+      <input
+        class="govuk-select lbh-select"
+        id="sor-code-input"
+        name="sor-code-input"
+        placeholder="Example: 4896830H"
+        type="text"
+        value="ASD123YO"
+      />
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-cost-input-grid-area"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-cost-input"
+      >
+        Cost (£)
+      </label>
+      <input
+        class="govuk-select lbh-select"
+        id="sor-code-cost-input"
+        min="0"
+        name="sor-code-cost-input"
+        placeholder="Example: 10.47"
+        step=".01"
+        type="number"
+        value="25.5"
+      />
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-smv-input-grid-area"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-smv-input"
+      >
+        Standard Minute Value
+      </label>
+      <input
+        class="govuk-select lbh-select"
+        id="sor-code-smv-input"
+        min="0"
+        name="sor-code-smv-input"
+        placeholder="Example: 29"
+        type="number"
+        value="47"
+      />
+    </div>
+    <div
+      id="sor-code-remove-grid-area"
+      style="text-align: center;"
+    >
+      <a
+        class="lbh-link"
+        href="#"
+      >
+        Remove SOR code
+      </a>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-short-desc-input-grid-area"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-short-desc-input"
+      >
+        Short description
+      </label>
+      <textarea
+        class="govuk-textarea lbh-textarea"
+        id="sor-code-short-desc-input"
+        name="sor-code-short-desc-input"
+        placeholder="Example: LH Gas Carcass LGSR inc cooker"
+        rows="1"
+      >
+        Short Description
+      </textarea>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-long-desc-input-grid-area"
+    >
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-long-desc-input"
+      >
+        Long description
+      </label>
+      <textarea
+        class="govuk-textarea lbh-textarea"
+        id="sor-code-long-desc-input"
+        name="sor-code-long-desc-input"
+        placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
+        rows="2"
+      >
+        Long Description
+      </textarea>
+    </div>
+  </div>
+  <hr />
+</DocumentFragment>
+`;
