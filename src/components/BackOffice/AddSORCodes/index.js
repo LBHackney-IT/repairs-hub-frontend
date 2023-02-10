@@ -1,26 +1,18 @@
-import { DataList, Button } from '../../Form'
-import Spinner from '../../Spinner'
-import TextInput from '../../Form/TextInput'
-import Layout from '../Layout'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { Button, DataList } from '../../Form'
+import Spinner from '../../Spinner'
 import SuccessMessage from '../Components/SuccessMessage'
-
-import useFileUpload from './useFileUpload'
+import Layout from '../Layout'
 import useSelectContractor from './useSelectContractor'
-import { expectedHeaders } from './useFileUpload'
 
 import {
-  fetchContractors,
-  fetchTrades,
-  fetchContracts,
-  saveSorCodesToDatabase,
-  dataToRequestObject,
+  fetchContractors, fetchContracts, fetchTrades, saveSorCodesToDatabase
 } from './utils'
 
-import { useState, useEffect, useReducer } from 'react'
-import useSelectTrade from './useSelectTrade'
-import NewSORCode from '../NewSORCode'
 import SorCode from '@/root/src/models/sorCode'
+import { useEffect, useReducer, useState } from 'react'
+import NewSORCode from '../NewSORCode'
+import useSelectTrade from './useSelectTrade'
 
 const initialState = {
   sorCodes: [new SorCode(1)],
@@ -35,7 +27,7 @@ function reducer(state, action) {
     case 'remove_last_sor_code':
       return {
         sorCodes: state.sorCodes.filter(
-          (sorCode) => sorCode.sorCode !== action.payload.sorCode
+          (sorCode) => sorCode.id !== action.payload.id
         ),
       }
     case 'sor_code_change':
@@ -67,12 +59,14 @@ const AddSORCodes = () => {
     contractors
   )
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
-  const {
-    handleFileOnChange,
-    parsedDataArray,
-    validateFile,
-    loading: fileLoading,
-  } = useFileUpload()
+      
+  // Used for CSV bulk upload
+  // const {
+  //   handleFileOnChange,
+  //   parsedDataArray,
+  //   validateFile,
+  //   loading: fileLoading,
+  // } = useFileUpload()
 
   const resetForm = () => {
     setSelectedContract(null)
@@ -170,11 +164,12 @@ const AddSORCodes = () => {
   const validate = () => {
     const newErrors = {}
 
-    if (parsedDataArray === null) {
-      newErrors.fileUpload = 'Please upload a CSV file'
-    } else if (!validateFile()) {
-      newErrors.fileUpload = 'The CSV must contain the specified headers'
-    }
+    // Used for CSV bulk upload
+    // if (parsedDataArray === null) {
+    //   newErrors.fileUpload = 'Please upload a CSV file'
+    // } else if (!validateFile()) {
+    //   newErrors.fileUpload = 'The CSV must contain the specified headers'
+    // }
 
     if (selectedContractor === null) {
       newErrors.contractor = 'Please select a contractor'
@@ -196,7 +191,8 @@ const AddSORCodes = () => {
     setRequestError(null)
     setFormSuccess(null)
 
-    if (loading || fileLoading) return
+    // Used for CSV bulk upload
+    // if (loading || fileLoading) return
 
     var errors = validate()
     setErrors(errors)
@@ -206,11 +202,18 @@ const AddSORCodes = () => {
 
     setLoading(true)
 
-    const data = dataToRequestObject(
-      parsedDataArray,
-      selectedContract,
-      selectedTrade.code
-    )
+    // Used for CSV bulk upload
+    // const data = dataToRequestObject(
+    //   parsedDataArray,
+    //   selectedContract,
+    //   selectedTrade.code
+    // )
+
+    const data = {
+      sorCodes: state.sorCodes,
+      contractReference: selectedContract,
+      tradeCode: selectedTrade.code
+    }
 
     saveSorCodesToDatabase(data)
       .then(() => {

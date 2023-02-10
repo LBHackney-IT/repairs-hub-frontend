@@ -19,9 +19,9 @@ const NewSORCode = ({
             placeholder="Example: 4896830H"
             name="sor-code-input"
             type="text"
-            value={sorCode.sorCode}
+            value={sorCode.code}
             id="sor-code-input"
-            onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'sorCode')}
+            onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'code')}
           />
         </div>
         <div
@@ -40,6 +40,7 @@ const NewSORCode = ({
             placeholder="Example: 10.47"
             name="sor-code-cost-input"
             type="number"
+            step=".01"
             min={0}
             value={sorCode.cost}
             id="sor-code-cost-input"
@@ -60,9 +61,9 @@ const NewSORCode = ({
             name="sor-code-smv-input"
             type="number"
             min={0}
-            value={sorCode.smv}
+            value={sorCode.standardMinuteValue}
             id="sor-code-smv-input"
-            onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'smv')}
+            onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'standardMinuteValue')}
           />
         </div>
         <div id="sor-code-remove-grid-area" style={{ textAlign: 'center' }}>
