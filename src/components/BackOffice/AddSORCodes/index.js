@@ -146,15 +146,22 @@ const AddSORCodes = () => {
     })
   }
 
+  // useEffect(() => {
+  //   renderSorCodesToAdd()
+  // }, [errors.sorCodesErrors])
+
   const renderSorCodesToAdd = () => {
     const sorCodesToAdd = state.sorCodes.map((sorCode) => {
+
+      const errorsForThisSORCode = errors.sorCodesErrors?.find(sorCodeErrorsObject => sorCodeErrorsObject.id == sorCode.id)
+      
       return (
         <NewSORCode
           key={sorCode.id}
           sorCode={sorCode}
           handleRemoveSORCode={handleRemoveSORCode}
           handleSORCodeFieldChange={handleSORCodeFieldChange}
-          sorCodeErrors
+          errors={errorsForThisSORCode}
         ></NewSORCode>
       )
     })
@@ -210,7 +217,6 @@ const AddSORCodes = () => {
       newErrors.sorCodesErrors.push(sorCodeErrorsObject)
     })
 
-    console.log('VALIDATE() RESULT', newErrors)
     return newErrors
   }
 
