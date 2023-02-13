@@ -8,14 +8,13 @@ import useSelectContractor from './useSelectContractor'
 import {
   fetchContractors,
   fetchContracts,
-  fetchTrades,
-  saveSorCodesToDatabase,
+  fetchTrades, saveSorCodesToDatabase
 } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
-import useSelectTrade from './useSelectTrade'
 import NewSORCode from '../Components/NewSORCode'
+import useSelectTrade from './useSelectTrade'
 
 const initialState = {
   sorCodes: [new SorCode(1)],
@@ -146,10 +145,6 @@ const AddSORCodes = () => {
     })
   }
 
-  // useEffect(() => {
-  //   renderSorCodesToAdd()
-  // }, [errors.sorCodesErrors])
-
   const renderSorCodesToAdd = () => {
     const sorCodesToAdd = state.sorCodes.map((sorCode) => {
       const errorsForThisSORCode = errors.sorCodesErrors?.find(
@@ -202,22 +197,61 @@ const AddSORCodes = () => {
     // Create array to track potential errors with new SOR codes
     newErrors.sorCodesErrors = []
 
-    // We have a look at each property/field of each new SOR code. If the value of a property is falsy, we mark it as true,
-    // meaning there's an error with it (field left blank)
     state.sorCodes.forEach((sorCode) => {
-      let sorCodeErrorsObject = {
-        id: sorCode.id,
-        code: !sorCode.code ? true : false,
-        cost: !sorCode.cost ? true : false,
-        standardMinuteValue: !sorCode.standardMinuteValue ? true : false,
-        shortDescription: !sorCode.shortDescription ? true : false,
-        longDescription: !sorCode.longDescription ? true : false,
-      }
+      const sorCodeErrorsObject = checkNewSORCodeForErrors(sorCode)
 
-      newErrors.sorCodesErrors.push(sorCodeErrorsObject)
+      // Now we check if the SorCodeErrorObject has any errors (any properties set to 'true'), if yes it's an error.
+      if (!isNewSORCodeValid(sorCodeErrorsObject)) {
+        newErrors.sorCodesErrors.push(sorCodeErrorsObject)
+      }
     })
 
     return newErrors
+  }
+
+  const checkNewSORCodeForErrors = (sorCode) => {
+    // We have a look at each property/field of each new SOR code. 
+    // If the form field value of a property is falsy, we mark it as true,
+    // meaning there's an error with it (most likely field left blank)
+    const sorCodeErrorsObject = {
+      id: sorCode.id,
+      code: !sorCode.code ? true : false,
+      cost: !sorCode.cost ? true : false,
+      standardMinuteValue: !sorCode.standardMinuteValue ? true : false,
+      shortDescription: !sorCode.shortDescription ? true : false,
+      longDescription: !sorCode.longDescription ? true : false,
+    }
+
+    return sorCodeErrorsObject
+  }
+
+  const isNewSORCodeValid = (sorCodeErrorsObject) => {
+    // Any property set to 'true' represents an error 
+    for (const property in sorCodeErrorsObject) {
+      if (property == 'id') continue;
+      if (sorCodeErrorsObject[property] == true) return false
+    }
+
+    return true
+  }
+
+  const validateForm = () => {
+
+    var formErrors = validate()
+    setErrors(formErrors)
+
+    // if the form is valid, formErrors will have a key of "sorCodesErrors" set to "[]". 
+    // the empty array indicates no errors were found with the new added SOR codes.
+    if (Object.keys(formErrors).length === 1 && Object.keys(formErrors).includes('sorCodesErrors')) {
+
+      if (formErrors.sorCodesErrors.length > 0) {
+        return false
+      } else {
+        return true
+      }
+    } else {
+      return false
+    }
   }
 
   const handleSubmit = async (e) => {
@@ -228,11 +262,9 @@ const AddSORCodes = () => {
     // Used for CSV bulk upload
     // if (loading || fileLoading) return
 
-    var errors = validate()
-    setErrors(errors)
+    const formValid = validateForm();
 
-    // there must be no errors
-    if (Object.keys(errors).length > 0) return
+    if (formValid == false) return
 
     setLoading(true)
 

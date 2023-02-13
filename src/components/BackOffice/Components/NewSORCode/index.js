@@ -6,7 +6,6 @@ const NewSORCode = ({
   handleSORCodeFieldChange,
   errors,
 }) => {
-  console.log('NewSORCode ERRORS', errors)
 
   return (
     <>
