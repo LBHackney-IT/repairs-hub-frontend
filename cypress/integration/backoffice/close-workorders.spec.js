@@ -3,19 +3,17 @@
 import 'cypress-audit/commands'
 
 describe('Close-WorkOrders', () => {
-  // it('Shows access denied when user doesnt have correct permissions', () => {
-  //   cy.loginWithOperativeRole()
-  //   cy.visit('/backoffice/close-workorders')
-
-  //   cy.contains('Access denied')
-  // })
-
-  beforeEach(() => {
-    cy.loginWithDataAdminRole()
+  it('Shows access denied when user doesnt have correct permissions', () => {
+    cy.loginWithOperativeRole()
     cy.visit('/backoffice/close-workorders')
+
+    cy.contains('Access denied')
   })
 
   it('Shows error messages when form fields invalid', () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message').contains(
@@ -27,6 +25,9 @@ describe('Close-WorkOrders', () => {
   })
 
   it('shows an error when date is empty', () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     cy.get('#selectedOption_CloseToBase').click()
 
     cy.get("[data-test='submit-button']").click()
@@ -37,6 +38,9 @@ describe('Close-WorkOrders', () => {
   })
 
   it('shows an error when the date is in the future', () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     cy.get('#selectedOption_CloseToBase').click()
 
     const futureDate = '3023-01-01'
@@ -50,6 +54,9 @@ describe('Close-WorkOrders', () => {
   })
 
   it('sends request to /cancel', () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
 
@@ -75,6 +82,9 @@ describe('Close-WorkOrders', () => {
   })
 
   it('sends request to /close-to-base', () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
@@ -105,6 +115,9 @@ describe('Close-WorkOrders', () => {
   })
 
   it("Resets the form when 'close more' button clicked", () => {
+    cy.loginWithDataAdminRole()
+    cy.visit('/backoffice/close-workorders')
+
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
