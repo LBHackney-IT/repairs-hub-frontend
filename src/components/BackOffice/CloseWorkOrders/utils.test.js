@@ -23,6 +23,24 @@ describe('CloseWorkOrders', () => {
     expect(response).toEqual(expectedResponse)
   })
 
+    it('formatWorkOrderReferences - removes duplicate workOrder references', () => {
+    // Arrange
+    const workOrderReferences = `
+         klj
+         sdedfsdf
+         222
+         22222222
+         22222222`
+
+    // Act
+    const response = formatWorkOrderReferences(workOrderReferences)
+
+    // Assert
+    const expectedResponse = ['klj', 'sdedfsdf', '222', '22222222']
+
+    expect(response).toEqual(expectedResponse)
+  })
+
   it('getInvalidWorkOrderReferences returns invalid workOrderReferences', () => {
     // Arrange
     const workOrderReferences = ['klj', 'sdedfsdf', '222', '22222222']

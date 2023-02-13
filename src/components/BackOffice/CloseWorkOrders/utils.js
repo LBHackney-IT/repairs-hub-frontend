@@ -1,8 +1,12 @@
 export const formatWorkOrderReferences = (workOrderReferences) => {
-  return workOrderReferences
-    .split('\n')
-    .map((x) => x.trim())
-    .filter((x) => x)
+  return [
+    ...new Set(
+      workOrderReferences
+        .split('\n')
+        .map((x) => x.trim())
+        .filter((x) => x)
+    ),
+  ]
 }
 
 const validateWorkOrderReference = (workOrderReference) => {
