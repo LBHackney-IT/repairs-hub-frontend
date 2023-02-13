@@ -6,7 +6,6 @@ const NewSORCode = ({
   handleSORCodeFieldChange,
   errors,
 }) => {
-
   return (
     <>
       <div id="new-sor-code-container">

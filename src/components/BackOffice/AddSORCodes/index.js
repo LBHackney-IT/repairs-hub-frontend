@@ -8,7 +8,8 @@ import useSelectContractor from './useSelectContractor'
 import {
   fetchContractors,
   fetchContracts,
-  fetchTrades, saveSorCodesToDatabase
+  fetchTrades,
+  saveSorCodesToDatabase,
 } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
@@ -172,45 +173,45 @@ const AddSORCodes = () => {
     return assignedIds.length == 0 ? 1 : Math.max(...assignedIds) + 1
   }
 
-  const validate = () => {
-    const newErrors = {}
+  const checkFormForErrors = () => {
+    const formErrors = {}
 
     // Used for CSV bulk upload
     // if (parsedDataArray === null) {
-    //   newErrors.fileUpload = 'Please upload a CSV file'
+    //   formErrors.fileUpload = 'Please upload a CSV file'
     // } else if (!validateFile()) {
-    //   newErrors.fileUpload = 'The CSV must contain the specified headers'
+    //   formErrors.fileUpload = 'The CSV must contain the specified headers'
     // }
 
     if (selectedContractor === null) {
-      newErrors.contractor = 'Please select a contractor'
+      formErrors.contractor = 'Please select a contractor'
     }
 
     if (selectedContract === null) {
-      newErrors.contract = 'Please select a contract'
+      formErrors.contract = 'Please select a contract'
     }
 
     if (selectedTrade === null) {
-      newErrors.trade = 'Please select a trade'
+      formErrors.trade = 'Please select a trade'
     }
 
     // Create array to track potential errors with new SOR codes
-    newErrors.sorCodesErrors = []
+    formErrors.sorCodesErrors = []
 
     state.sorCodes.forEach((sorCode) => {
       const sorCodeErrorsObject = checkNewSORCodeForErrors(sorCode)
 
       // Now we check if the SorCodeErrorObject has any errors (any properties set to 'true'), if yes it's an error.
       if (!isNewSORCodeValid(sorCodeErrorsObject)) {
-        newErrors.sorCodesErrors.push(sorCodeErrorsObject)
+        formErrors.sorCodesErrors.push(sorCodeErrorsObject)
       }
     })
 
-    return newErrors
+    return formErrors
   }
 
   const checkNewSORCodeForErrors = (sorCode) => {
-    // We have a look at each property/field of each new SOR code. 
+    // We have a look at each property/field of each new SOR code.
     // If the form field value of a property is falsy, we mark it as true,
     // meaning there's an error with it (most likely field left blank)
     const sorCodeErrorsObject = {
@@ -226,9 +227,9 @@ const AddSORCodes = () => {
   }
 
   const isNewSORCodeValid = (sorCodeErrorsObject) => {
-    // Any property set to 'true' represents an error 
+    // Any property set to 'true' represents an error
     for (const property in sorCodeErrorsObject) {
-      if (property == 'id') continue;
+      if (property == 'id') continue
       if (sorCodeErrorsObject[property] == true) return false
     }
 
@@ -236,14 +237,16 @@ const AddSORCodes = () => {
   }
 
   const validateForm = () => {
+    const formErrors = checkFormForErrors()
 
-    var formErrors = validate()
     setErrors(formErrors)
 
-    // if the form is valid, formErrors will have a key of "sorCodesErrors" set to "[]". 
-    // the empty array indicates no errors were found with the new added SOR codes.
-    if (Object.keys(formErrors).length === 1 && Object.keys(formErrors).includes('sorCodesErrors')) {
-
+    // If the form is valid, formErrors will have a key of "sorCodesErrors" set to "[]".
+    // The empty array indicates no errors were found with the new added SOR codes.
+    if (
+      Object.keys(formErrors).length === 1 &&
+      Object.keys(formErrors).includes('sorCodesErrors')
+    ) {
       if (formErrors.sorCodesErrors.length > 0) {
         return false
       } else {
@@ -262,7 +265,7 @@ const AddSORCodes = () => {
     // Used for CSV bulk upload
     // if (loading || fileLoading) return
 
-    const formValid = validateForm();
+    const formValid = validateForm()
 
     if (formValid == false) return
 
