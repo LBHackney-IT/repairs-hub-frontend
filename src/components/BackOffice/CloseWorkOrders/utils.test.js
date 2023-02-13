@@ -26,7 +26,7 @@ describe('CloseWorkOrders', () => {
     expect(response).toEqual(expectedResponse)
   })
 
-    it('formatWorkOrderReferences - removes duplicate workOrder references', () => {
+  it('formatWorkOrderReferences - removes duplicate workOrder references', () => {
     // Arrange
     const workOrderReferences = `
          klj

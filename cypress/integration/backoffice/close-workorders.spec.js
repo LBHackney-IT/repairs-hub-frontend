@@ -2,9 +2,8 @@
 
 import 'cypress-audit/commands'
 
-
 describe('Close-WorkOrders - when user unauthorized', () => {
-  it('Shows access denied when user doesn\'t have correct permissions', () => {
+  it("Shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
     cy.visit('/backoffice/close-workorders')
     cy.contains('Access denied')
