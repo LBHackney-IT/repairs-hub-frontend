@@ -2,7 +2,10 @@ const NewSORCode = ({
   sorCode,
   handleRemoveSORCode,
   handleSORCodeFieldChange,
+  errors,
 }) => {
+  console.log('NewSORCode ERRORS', errors)
+
   return (
     <>
       <div id="new-sor-code-container">

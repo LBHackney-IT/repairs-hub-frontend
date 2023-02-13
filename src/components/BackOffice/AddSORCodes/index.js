@@ -152,9 +152,10 @@ const AddSORCodes = () => {
 
   const renderSorCodesToAdd = () => {
     const sorCodesToAdd = state.sorCodes.map((sorCode) => {
+      const errorsForThisSORCode = errors.sorCodesErrors?.find(
+        (sorCodeErrorsObject) => sorCodeErrorsObject.id == sorCode.id
+      )
 
-      const errorsForThisSORCode = errors.sorCodesErrors?.find(sorCodeErrorsObject => sorCodeErrorsObject.id == sorCode.id)
-      
       return (
         <NewSORCode
           key={sorCode.id}
@@ -201,17 +202,16 @@ const AddSORCodes = () => {
     // Create array to track potential errors with new SOR codes
     newErrors.sorCodesErrors = []
 
-    // We have a look at each property/field of each new SOR code. If the value of a property is falsy, we mark it as true, 
+    // We have a look at each property/field of each new SOR code. If the value of a property is falsy, we mark it as true,
     // meaning there's an error with it (field left blank)
     state.sorCodes.forEach((sorCode) => {
-
       let sorCodeErrorsObject = {
         id: sorCode.id,
         code: !sorCode.code ? true : false,
         cost: !sorCode.cost ? true : false,
         standardMinuteValue: !sorCode.standardMinuteValue ? true : false,
         shortDescription: !sorCode.shortDescription ? true : false,
-        longDescription: !sorCode.longDescription ? true : false
+        longDescription: !sorCode.longDescription ? true : false,
       }
 
       newErrors.sorCodesErrors.push(sorCodeErrorsObject)
