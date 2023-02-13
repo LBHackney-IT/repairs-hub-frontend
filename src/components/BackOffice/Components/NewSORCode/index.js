@@ -1,3 +1,5 @@
+import { TextArea, TextInput } from '../../../Form'
+
 const NewSORCode = ({
   sorCode,
   handleRemoveSORCode,
@@ -13,61 +15,48 @@ const NewSORCode = ({
           className="govuk-form-group lbh-form-group"
           id="sor-code-input-grid-area "
         >
-          <label className="govuk-label lbh-label" htmlFor="sor-code-input">
-            SOR code
-          </label>
-
-          <input
-            className="govuk-select lbh-select"
+          <TextInput
+            label="SOR code"
             placeholder="Example: 4896830H"
-            name="sor-code-input"
-            type="text"
+            name="sor-code-cost-code"
             value={sorCode.code}
-            id="sor-code-input"
             onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'code')}
+            error={errors?.code && { message: 'Please enter SOR code' }}
           />
         </div>
         <div
           className="govuk-form-group lbh-form-group"
           id="sor-code-cost-input-grid-area"
         >
-          <label
-            className="govuk-label lbh-label"
-            htmlFor="sor-code-cost-input"
-          >
-            Cost (£)
-          </label>
-
-          <input
-            className="govuk-select lbh-select"
+          <TextInput
+            label="Cost (£)"
             placeholder="Example: 10.47"
             name="sor-code-cost-input"
-            type="number"
-            step=".01"
-            min={0}
             value={sorCode.cost}
-            id="sor-code-cost-input"
+            type="number"
+            min={0}
             onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'cost')}
+            error={errors?.cost && { message: 'Please enter cost value' }}
           />
         </div>
         <div
           className="govuk-form-group lbh-form-group"
           id="sor-code-smv-input-grid-area"
         >
-          <label className="govuk-label lbh-label" htmlFor="sor-code-smv-input">
-            Standard Minute Value
-          </label>
-
-          <input
-            className="govuk-select lbh-select"
+          <TextInput
+            label="Standard Minute Value"
             placeholder="Example: 29"
             name="sor-code-smv-input"
+            value={sorCode.standardMinuteValue}
             type="number"
             min={0}
-            value={sorCode.standardMinuteValue}
-            id="sor-code-smv-input"
             onChange={(e) =>
               handleSORCodeFieldChange(e, sorCode.id, 'standardMinuteValue')
+            }
+            error={
+              errors?.standardMinuteValue && {
+                message: 'Please enter SMV value',
+              }
             }
           />
         </div>
@@ -84,45 +73,41 @@ const NewSORCode = ({
           className="govuk-form-group lbh-form-group"
           id="sor-code-short-desc-input-grid-area"
         >
-          <label
-            className="govuk-label lbh-label"
-            htmlFor="sor-code-short-desc-input"
-          >
-            Short description
-          </label>
-          <textarea
-            className="govuk-textarea lbh-textarea"
-            id="sor-code-short-desc-input"
-            name="sor-code-short-desc-input"
-            rows="1"
+          <TextArea
+            label="Short description"
             placeholder="Example: LH Gas Carcass LGSR inc cooker"
+            name="sor-code-short-desc-input"
             value={sorCode.shortDescription}
+            rows="1"
             onChange={(e) =>
               handleSORCodeFieldChange(e, sorCode.id, 'shortDescription')
             }
-          ></textarea>
+            error={
+              errors?.shortDescription && {
+                message: 'Please enter short description',
+              }
+            }
+          />
         </div>
         <div
           className="govuk-form-group lbh-form-group"
           id="sor-code-long-desc-input-grid-area"
         >
-          <label
-            className="govuk-label lbh-label"
-            htmlFor="sor-code-long-desc-input"
-          >
-            Long description
-          </label>
-          <textarea
-            className="govuk-textarea lbh-textarea"
-            id="sor-code-long-desc-input"
-            name="sor-code-long-desc-input"
-            rows="2"
+          <TextArea
+            label="Long description"
             placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
+            name="sor-code-long-desc-input"
             value={sorCode.longDescription}
+            rows="2"
             onChange={(e) =>
               handleSORCodeFieldChange(e, sorCode.id, 'longDescription')
             }
-          ></textarea>
+            error={
+              errors?.longDescription && {
+                message: 'Please enter long description',
+              }
+            }
+          />
         </div>
       </div>
       <hr />
