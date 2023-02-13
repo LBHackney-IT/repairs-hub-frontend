@@ -11,7 +11,10 @@ describe('CloseWorkOrders', () => {
     const workOrderReferences = `
          klj
          sdedfsdf
+         
          222
+
+
          22222222`
 
     // Act
