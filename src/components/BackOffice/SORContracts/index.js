@@ -6,6 +6,7 @@ import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
+import { sanitizeInput } from './utils'
 
 const radioOptions = [
   {
@@ -43,7 +44,7 @@ const SORContracts = () => {
   }
 
   const validateRequest = () => {
-    let newErrors = {}
+    const newErrors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
@@ -74,8 +75,8 @@ const SORContracts = () => {
     return newErrors
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = (e) => {
+    errors.preventDefault()
 
     if (loading) return
 
@@ -83,26 +84,16 @@ const SORContracts = () => {
     setErrors(newErrors)
     setRequestError(null)
 
-    if (Object.keys(newErrors).length > 0) {
-      return
-    }
-
-    const sourcePropertyReferenceReq = sourcePropertyReference
-      .trim()
-      .replaceAll(' ', '')
-    const destinationPropertyReferenceReq = destinationPropertyReference
-      .trim()
-      .replaceAll(' ', '')
-    const contractReferenceReq = contractReference.trim().replaceAll(' ', '')
+    if (Object.keys(newErrors).length > 0) return
 
     const body = {
-      sourcePropertyReference: sourcePropertyReferenceReq,
-      destinationPropertyReference: destinationPropertyReferenceReq,
-      contractReference: contractReferenceReq,
+      sourcePropertyReference: sanitizeInput(sourcePropertyReference),
+      destinationPropertyReference: sanitizeInput(destinationPropertyReference),
+      contractReference: sanitizeInput(destinationPropertyReference),
       mode: selectedOption,
     }
 
-    let url = `/api/backOffice/sor-contracts`
+    const url = `/api/backOffice/sor-contracts`
 
     setLoading(true)
 
