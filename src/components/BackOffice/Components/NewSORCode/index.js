@@ -33,6 +33,7 @@ const NewSORCode = ({
             value={sorCode.cost}
             type="number"
             min={0}
+            step={0.1}
             onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'cost')}
             error={errors?.cost && { message: 'Please enter cost value' }}
           />
@@ -63,6 +64,7 @@ const NewSORCode = ({
             className="lbh-link"
             href="#"
             onClick={(e) => handleRemoveSORCode(e, sorCode)}
+            data-testid="sor-code-remove-link"
           >
             Remove SOR code
           </a>

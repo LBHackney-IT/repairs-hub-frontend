@@ -369,6 +369,7 @@ const AddSORCodes = () => {
                     className="lbh-link"
                     href="#"
                     onClick={(e) => handleAddNewSORCode(e)}
+                    data-testid="add-new-sor-code-link"
                   >
                     + Add a new SOR code
                   </a>
@@ -377,6 +378,7 @@ const AddSORCodes = () => {
                     className="lbh-link"
                     href="#"
                     onClick={(e) => handleAddNewSORCode(e)}
+                    data-testid="add-new-sor-code-link"
                   >
                     + Add another SOR code
                   </a>
