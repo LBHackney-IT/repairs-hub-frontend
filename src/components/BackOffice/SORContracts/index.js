@@ -1,12 +1,14 @@
 import Layout from '../Layout'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
-import { sanitizeInput } from './utils'
+import { sanitizeInput, saveContractChangesToDatabase } from './utils'
+
+import { DataList } from '../../Form'
 
 const radioOptions = [
   {
@@ -19,21 +21,79 @@ const radioOptions = [
   },
 ]
 
+import useSelectContractor from '../AddSORCodes/useSelectContractor'
+import { fetchContractors, fetchContracts } from '../requests'
+
 const SORContracts = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
+
+  const [contractors, setContractors] = useState(null)
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
   const [
     destinationPropertyReference,
     setDestinationPropertyReference,
   ] = useState('')
-  const [contractReference, setContractReference] = useState('')
+
+  // const [contractReference, setContractReference] = useState('')
+
+  const { selectedContractor, handleSelectContractor } = useSelectContractor(
+    contractors
+  )
+
+  const [loadingContracts, setLoadingContracts] = useState(false)
+  const [contracts, setContracts] = useState(null)
+  const [selectedContract, setSelectedContract] = useState(null)
 
   const [errors, setErrors] = useState({})
 
   const [loading, setLoading] = useState(false)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
+
+  useEffect(() => {
+    // load contracts
+
+    setLoading(true)
+
+    fetchContractors()
+      .then((res) => {
+        console.log({ res })
+        setContractors(res)
+      })
+      .catch((err) => {
+        console.err(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [])
+
+  useEffect(() => {
+    handleContractorChange()
+  }, [selectedContractor])
+
+  const handleContractorChange = () => {
+    if (selectedContractor === null) {
+      setContracts(null)
+      setSelectedContract(null)
+      return
+    }
+
+    setLoadingContracts(true)
+
+    fetchContracts(selectedContractor.contractorReference)
+      .then((res) => {
+        setContracts(res)
+      })
+      .finally(() => {
+        setLoadingContracts(false)
+      })
+  }
+
+  const handleSelectContract = (e) => {
+    setSelectedContract(e.target.value)
+  }
 
   const copyContractsSelected = () => {
     return selectedOption === 'Copy'
@@ -93,17 +153,10 @@ const SORContracts = () => {
       mode: selectedOption,
     }
 
-    const url = `/api/backOffice/sor-contracts`
-
     setLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: url,
-      requestData: body,
-    })
+    saveContractChangesToDatabase(body)
       .then((res) => {
-        console.log({ res })
         setFormSuccess(true)
       })
       .catch((err) => {
@@ -189,25 +242,39 @@ const SORContracts = () => {
 
               {selectedOption === 'Add' && (
                 <div>
-                  <TextInput
-                    label="Contract reference"
-                    name="contractRefInput"
-                    placeholder="eg. 001-H01-MAT2"
-                    value={contractReference}
-                    onChange={(event) =>
-                      setContractReference(event.target.value)
-                    }
-                    error={
-                      errors.contractReference && {
-                        message: errors.contractReference,
-                      }
-                    }
+                  <DataList
+                    name="contractor"
+                    label="Contractor"
+                    options={contractors?.map((x) => x.contractorName) || []}
+                    onChange={handleSelectContractor}
+                    error={errors.contractor && { message: errors.contractor }}
+                    value={selectedContractor?.contractorName}
                   />
+
+                  {loadingContracts ? (
+                    <Spinner />
+                  ) : (
+                    <div>
+                      <DataList
+                        name="contract"
+                        label="Contract"
+                        options={contracts || []}
+                        disabled={selectedContractor === null}
+                        onChange={handleSelectContract}
+                        error={
+                          contracts?.length === 0
+                            ? { message: 'No contracts found' }
+                            : errors.contract && { message: errors.contract }
+                        }
+                        value={selectedContract}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
               <div>
-                <Button label="Execute" type="submit" />
+                <Button label="Save Changes" type="submit" />
               </div>
             </form>
           )}

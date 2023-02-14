@@ -10,12 +10,12 @@ import useSelectContractor from './useSelectContractor'
 import { expectedHeaders } from './useFileUpload'
 
 import {
-  fetchContractors,
   fetchTrades,
-  fetchContracts,
   saveSorCodesToDatabase,
   dataToRequestObject,
 } from './utils'
+
+import { fetchContractors, fetchContracts } from '../requests'
 
 import { useState, useEffect } from 'react'
 import useSelectTrade from './useSelectTrade'
