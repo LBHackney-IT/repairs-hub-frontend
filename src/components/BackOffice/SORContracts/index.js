@@ -99,6 +99,15 @@ const SORContracts = () => {
     return newErrors
   }
 
+  const resetForm = () => {
+    setSourcePropertyReference('')
+    setDestinationPropertyReference('')
+    handleSelectContractor(null)
+    setFormSuccess(null)
+    setErrors({})
+    setRequestError(null)
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -142,11 +151,7 @@ const SORContracts = () => {
             <div>
               <SuccessMessage title="SOR contracts modified successfully!" />
               <p>
-                <a
-                  className="lbh-link"
-                  role="button"
-                  onClick={() => setFormSuccess(null)}
-                >
+                <a className="lbh-link" role="button" onClick={resetForm()}>
                   Change more SOR contracts
                 </a>
               </p>

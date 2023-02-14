@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react'
 
 import { fetchContractors, fetchContracts } from '../requests'
-import useSelectContractor from '../AddSORCodes/useSelectContractor'
 
 const useSelectContract = () => {
   const [contractors, setContractors] = useState(null)
-  const { selectedContractor, handleSelectContractor } = useSelectContractor(
-    contractors
-  )
+  const [selectedContractor, setSelectedContractor] = useState(null)
+
 
   const [loadingContracts, setLoadingContracts] = useState(false)
   const [contracts, setContracts] = useState(null)
@@ -36,6 +34,24 @@ const useSelectContract = () => {
   useEffect(() => {
     handleContractorChange()
   }, [selectedContractor])
+
+
+  const handleSelectContractor = (e) => {
+    if (e === null) {
+      setSelectedContractor(null)
+      return
+    }
+
+    const selectedContractor = contractors.filter(
+      (x) => x.contractorName === e.target.value
+    )
+
+    if (selectedContractor.length === 0) {
+      setSelectedContractor(null)
+    } else {
+      setSelectedContractor(selectedContractor[0])
+    }
+  }
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
