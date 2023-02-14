@@ -10,6 +10,13 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
+import {
+  dateIsInFuture,
+  formatInvalidWorkOrderReferencesError,
+  formatWorkOrderReferences,
+  getInvalidWorkOrderReferences,
+} from './utils'
+
 const radioOptions = [
   {
     text: 'Cancelled - (eg. out of time)',
@@ -32,6 +39,13 @@ const CloseWorkOrders = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
 
+  const clearForm = () => {
+    setReasonToClose('')
+    setClosedDate('')
+    setWorkOrderReferences('')
+    setErrors({})
+  }
+
   const closeToBaseSelected = () => {
     return selectedOption === 'CloseToBase'
   }
@@ -49,10 +63,26 @@ const CloseWorkOrders = () => {
 
     if (!closedDate && closeToBaseSelected()) {
       newErrors.closedDate = 'Please enter a closed date'
+    } else if (
+      dateIsInFuture(Date.parse(closedDate)) &&
+      closeToBaseSelected()
+    ) {
+      newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
-    if (!workOrderReferences) {
-      newErrors.workOrderReferences = 'Please enter some workOrder references'
+    const strippedWorkOrderReferences = formatWorkOrderReferences(
+      workOrderReferences
+    )
+    const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
+      strippedWorkOrderReferences
+    )
+
+    if (strippedWorkOrderReferences.length === 0) {
+      newErrors.workOrderReferences = 'Please enter workOrder references'
+    } else if (invalidWorkOrderReferences.length > 0) {
+      newErrors.workOrderReferences = formatInvalidWorkOrderReferencesError(
+        invalidWorkOrderReferences
+      )
     }
 
     return newErrors
@@ -71,7 +101,7 @@ const CloseWorkOrders = () => {
       return
     }
 
-    const formatted = workOrderReferences.trim().replaceAll(',', '').split('\n')
+    const formatted = formatWorkOrderReferences(workOrderReferences)
 
     const body = {
       reason: reasonToClose,
@@ -92,9 +122,9 @@ const CloseWorkOrders = () => {
       path: url,
       requestData: body,
     })
-      .then((res) => {
-        console.log({ res })
+      .then(() => {
         setFormSuccess(true)
+        clearForm()
       })
       .catch((err) => {
         console.error(err)
@@ -116,6 +146,7 @@ const CloseWorkOrders = () => {
               <SuccessMessage title="WorkOrders cancelled" />
               <p>
                 <a
+                  data-test="closeMoreButton"
                   className="lbh-link"
                   role="button"
                   onClick={() => setFormSuccess(null)}
@@ -146,6 +177,7 @@ const CloseWorkOrders = () => {
                   label="Reason to Close"
                   placeholder="eg. Closed - completed - requested by S Roche"
                   value={reasonToClose}
+                  data-test="reasonToClose"
                   onChange={(event) => setReasonToClose(event.target.value)}
                   error={
                     errors.reasonToClose && { message: errors.reasonToClose }
@@ -170,6 +202,7 @@ const CloseWorkOrders = () => {
               <div>
                 <TextArea
                   label="WorkOrder References"
+                  data-test="workOrderReferences"
                   placeholder="10008088&#10;10024867&#10;10000782"
                   value={workOrderReferences}
                   onChange={(event) =>
@@ -184,7 +217,11 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
-                <Button label="Close WorkOrders" type="submit" />
+                <Button
+                  data-test="submit-button"
+                  label="Close WorkOrders"
+                  type="submit"
+                />
               </div>
             </form>
           )}
