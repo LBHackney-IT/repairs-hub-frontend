@@ -1,5 +1,5 @@
 import Layout from '../Layout'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
@@ -21,13 +21,10 @@ const radioOptions = [
   },
 ]
 
-import useSelectContractor from '../AddSORCodes/useSelectContractor'
-import { fetchContractors, fetchContracts } from '../requests'
+import useSelectContract from './useSelectContract'
 
 const SORContracts = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
-
-  const [contractors, setContractors] = useState(null)
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
   const [
@@ -35,61 +32,22 @@ const SORContracts = () => {
     setDestinationPropertyReference,
   ] = useState('')
 
-  // const [contractReference, setContractReference] = useState('')
-
-  const { selectedContractor, handleSelectContractor } = useSelectContractor(
-    contractors
-  )
-
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
-  const [selectedContract, setSelectedContract] = useState(null)
+  const {
+    contractors,
+    handleSelectContractor,
+    selectedContractor,
+    contracts,
+    selectedContract,
+    setSelectedContract,
+    loadingContracts,
+    loadingContractors
+  } = useSelectContract()
 
   const [errors, setErrors] = useState({})
 
   const [loading, setLoading] = useState(false)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
-
-  useEffect(() => {
-    // load contracts
-
-    setLoading(true)
-
-    fetchContractors()
-      .then((res) => {
-        console.log({ res })
-        setContractors(res)
-      })
-      .catch((err) => {
-        console.err(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    handleContractorChange()
-  }, [selectedContractor])
-
-  const handleContractorChange = () => {
-    if (selectedContractor === null) {
-      setContracts(null)
-      setSelectedContract(null)
-      return
-    }
-
-    setLoadingContracts(true)
-
-    fetchContracts(selectedContractor.contractorReference)
-      .then((res) => {
-        setContracts(res)
-      })
-      .finally(() => {
-        setLoadingContracts(false)
-      })
-  }
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
@@ -170,7 +128,7 @@ const SORContracts = () => {
 
   return (
     <Layout title="SOR Contract Modification">
-      {loading ? (
+      {loading || loadingContractors ? (
         <Spinner />
       ) : (
         <>
