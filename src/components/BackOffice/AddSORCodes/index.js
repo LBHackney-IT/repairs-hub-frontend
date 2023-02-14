@@ -6,7 +6,6 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
 
 import useFileUpload from './useFileUpload'
-import useSelectContractor from './useSelectContractor'
 import { expectedHeaders } from './useFileUpload'
 
 import {
@@ -15,25 +14,28 @@ import {
   dataToRequestObject,
 } from './utils'
 
-import { fetchContractors, fetchContracts } from '../requests'
-
 import { useState, useEffect } from 'react'
 import useSelectTrade from './useSelectTrade'
 
+import useSelectContract from '../hooks/useSelectContract'
+
 const AddSORCodes = () => {
   const [loading, setLoading] = useState(true)
-  const [contractors, setContractors] = useState(null)
   const [trades, setTrades] = useState(null)
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
-  const [selectedContract, setSelectedContract] = useState(null)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
   const [errors, setErrors] = useState({})
 
-  const { selectedContractor, handleSelectContractor } = useSelectContractor(
-    contractors
-  )
+  const { contractors,
+    handleSelectContractor,
+    selectedContractor,
+    contracts,
+    selectedContract,
+    loadingContracts,
+    loadingContractors,
+    handleSelectContract
+  } = useSelectContract()
+
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
   const {
     handleFileOnChange,
@@ -54,41 +56,14 @@ const AddSORCodes = () => {
   }
 
   useEffect(() => {
-    Promise.all([fetchContractors(), fetchTrades()])
-      .then(([contractors, trades]) => {
-        setContractors(contractors)
-        setTrades(trades)
+    fetchTrades()
+      .then((res) => {
+        setTrades(res)
       })
       .finally(() => {
         setLoading(false)
       })
   }, [])
-
-  useEffect(() => {
-    handleContractorChange()
-  }, [selectedContractor])
-
-  const handleContractorChange = () => {
-    if (selectedContractor === null) {
-      setContracts(null)
-      setSelectedContract(null)
-      return
-    }
-
-    setLoadingContracts(true)
-
-    fetchContracts(selectedContractor.contractorReference)
-      .then((res) => {
-        setContracts(res)
-      })
-      .finally(() => {
-        setLoadingContracts(false)
-      })
-  }
-
-  const handleSelectContract = (e) => {
-    setSelectedContract(e.target.value)
-  }
 
   const validate = () => {
     const newErrors = {}
@@ -150,7 +125,7 @@ const AddSORCodes = () => {
 
   return (
     <Layout title="Add SOR Codes">
-      {loading ? (
+      {loading || loadingContractors ? (
         <Spinner />
       ) : (
         <>

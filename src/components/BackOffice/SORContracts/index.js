@@ -27,7 +27,7 @@ const radioOptions = [
   },
 ]
 
-import useSelectContract from './useSelectContract'
+import useSelectContract from '../hooks/useSelectContract'
 
 const SORContracts = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
