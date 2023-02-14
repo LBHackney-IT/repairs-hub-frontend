@@ -11,19 +11,19 @@ exports[`NewSORCode component should render the component 1`] = `
     >
       <div
         class="govuk-form-group lbh-form-group"
-        id="sor-code-cost-code-form-group"
+        id="sor-code-input-form-group"
       >
         <label
           class="govuk-label lbh-label"
-          for="sor-code-cost-code"
+          for="sor-code-input"
         >
           SOR code 
         </label>
         <input
           class="govuk-input lbh-input undefined"
-          data-testid="sor-code-cost-code"
-          id="sor-code-cost-code"
-          name="sor-code-cost-code"
+          data-testid="sor-code-input"
+          id="sor-code-input"
+          name="sor-code-input"
           placeholder="Example: 4896830H"
           type="text"
           value="ASD123YO"
@@ -51,6 +51,7 @@ exports[`NewSORCode component should render the component 1`] = `
           min="0"
           name="sor-code-cost-input"
           placeholder="Example: 10.47"
+          step="0.1"
           type="number"
           value="25.5"
         />
@@ -88,6 +89,7 @@ exports[`NewSORCode component should render the component 1`] = `
     >
       <a
         class="lbh-link"
+        data-testid="sor-code-remove-link"
         href="#"
       >
         Remove SOR code
