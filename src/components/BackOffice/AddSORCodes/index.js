@@ -382,6 +382,7 @@ const AddSORCodes = () => {
                   label="Add SOR Codes"
                   type="submit"
                   disabled={state.sorCodes.length == 0}
+                  data-testid="submit-button"
                 />
               </div>
             </form>

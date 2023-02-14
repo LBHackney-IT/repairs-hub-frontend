@@ -65,4 +65,26 @@ describe('Add New SOR Codes', () => {
       .its('request.method')
       .should('deep.equal', 'GET')
   })
+
+  it('errors for all fields are shown if the form is submitted completely blank', () => {
+    const allErrors = [
+      'Please select a contractor',
+      'Please select a contract',
+      'Please select a trade',
+      'Please enter SOR code',
+      'Please enter cost value',
+      'Please enter SMV value',
+      'Please enter short description',
+      'Please enter long description',
+    ]
+
+    cy.wait('@contractorsRequest')
+    cy.wait('@tradesRequest')
+
+    cy.get('[data-testid="submit-button"]').click()
+
+    allErrors.forEach((error) => {
+      cy.contains(error).should('be.visible')
+    })
+  })
 })
