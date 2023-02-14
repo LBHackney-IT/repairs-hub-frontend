@@ -241,6 +241,12 @@ const AddSORCodes = () => {
 
     setErrors(formErrors)
 
+    // The 'Add SOR codes' button would be disabled, but if this was enabled via dev tools for any reason,
+    // this prevents a web request with no SOR codes to be sent.
+    if (state.sorCodes.length < 1) {
+      return false
+    }
+
     // If the form is valid, formErrors will have a key of "sorCodesErrors" set to "[]".
     // The empty array indicates no errors were found with the new added SOR codes.
     if (
