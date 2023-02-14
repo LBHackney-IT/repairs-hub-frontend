@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 
 import { fetchContractors, fetchContracts } from '../requests'
-
 import useSelectContractor from '../AddSORCodes/useSelectContractor'
 
 const useSelectContract = () => {
@@ -38,6 +37,11 @@ const useSelectContract = () => {
     handleContractorChange()
   }, [selectedContractor])
 
+  const handleSelectContract = (e) => {
+    setSelectedContract(e.target.value)
+  }
+
+
   const handleContractorChange = () => {
     if (selectedContractor === null) {
       setContracts(null)
@@ -62,9 +66,9 @@ const useSelectContract = () => {
     selectedContractor,
     contracts,
     selectedContract,
-    setSelectedContract,
     loadingContracts,
-    loadingContractors
+    loadingContractors,
+    handleSelectContract
   }
 }
 

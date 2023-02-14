@@ -2,11 +2,17 @@ import Layout from '../Layout'
 import { useState } from 'react'
 import { TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
-import { sanitizeInput, saveContractChangesToDatabase } from './utils'
+import {
+  addContractsSelected,
+  copyContractsSelected,
+  dataToRequestObject,
+  propertyReferencesMatch,
+  saveContractChangesToDatabase,
+  validatePropertyReference,
+} from './utils'
 
 import { DataList } from '../../Form'
 
@@ -38,9 +44,9 @@ const SORContracts = () => {
     selectedContractor,
     contracts,
     selectedContract,
-    setSelectedContract,
     loadingContracts,
-    loadingContractors
+    loadingContractors,
+    handleSelectContract,
   } = useSelectContract()
 
   const [errors, setErrors] = useState({})
@@ -49,18 +55,6 @@ const SORContracts = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
 
-  const handleSelectContract = (e) => {
-    setSelectedContract(e.target.value)
-  }
-
-  const copyContractsSelected = () => {
-    return selectedOption === 'Copy'
-  }
-
-  const addContractsSelected = () => {
-    return selectedOption === 'Add'
-  }
-
   const validateRequest = () => {
     const newErrors = {}
 
@@ -68,25 +62,37 @@ const SORContracts = () => {
       newErrors.selectedOption = 'Please select an option'
     }
 
-    if (copyContractsSelected()) {
+    if (!destinationPropertyReference) {
+      newErrors.destinationPropertyReference =
+        'You must enter a destination property reference'
+    } else if (!validatePropertyReference(destinationPropertyReference)) {
+      newErrors.destinationPropertyReference = 'PropertyReference is invalid'
+    }
+
+    if (copyContractsSelected(selectedOption)) {
       if (!sourcePropertyReference) {
         newErrors.sourcePropertyReference =
           'You must enter a source property reference'
-      }
-      if (!destinationPropertyReference) {
-        newErrors.sourcePropertyReference =
-          'You must enter a destination property reference'
+      } else if (!validatePropertyReference(sourcePropertyReference)) {
+        newErrors.sourcePropertyReference = 'PropertyReference is invalid'
+      } else if (
+        propertyReferencesMatch(
+          sourcePropertyReference,
+          destinationPropertyReference
+        )
+      ) {
+        newErrors.destinationPropertyReference =
+          'Destination property reference cannot match source property reference'
       }
     }
 
-    if (addContractsSelected()) {
-      if (!destinationPropertyReference) {
-        newErrors.destinationPropertyReference =
-          'You must enter a destination property reference'
+    if (addContractsSelected(selectedOption)) {
+      if (!selectedContractor) {
+        newErrors.contractor = 'You must select a contractor'
       }
-      if (!contractReference) {
-        newErrors.sourcePropertyReference =
-          'You must enter a contract reference'
+
+      if (!selectedContract) {
+        newErrors.contract = 'You must select a contract'
       }
     }
 
@@ -94,7 +100,7 @@ const SORContracts = () => {
   }
 
   const handleSubmit = (e) => {
-    errors.preventDefault()
+    e.preventDefault()
 
     if (loading) return
 
@@ -104,12 +110,12 @@ const SORContracts = () => {
 
     if (Object.keys(newErrors).length > 0) return
 
-    const body = {
-      sourcePropertyReference: sanitizeInput(sourcePropertyReference),
-      destinationPropertyReference: sanitizeInput(destinationPropertyReference),
-      contractReference: sanitizeInput(destinationPropertyReference),
-      mode: selectedOption,
-    }
+    const body = dataToRequestObject(
+      sourcePropertyReference,
+      destinationPropertyReference,
+      selectedContract,
+      selectedOption
+    )
 
     setLoading(true)
 
