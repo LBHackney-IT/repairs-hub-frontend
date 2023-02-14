@@ -6,7 +6,6 @@ const useSelectContract = () => {
   const [contractors, setContractors] = useState(null)
   const [selectedContractor, setSelectedContractor] = useState(null)
 
-
   const [loadingContracts, setLoadingContracts] = useState(false)
   const [contracts, setContracts] = useState(null)
   const [selectedContract, setSelectedContract] = useState(null)
@@ -14,9 +13,7 @@ const useSelectContract = () => {
   const [loadingContractors, setLoadingContractors] = useState(false)
 
   useEffect(() => {
-    // load contracts
-
-    setLoadingContractors(true)
+     setLoadingContractors(true)
 
     fetchContractors()
       .then((res) => {
