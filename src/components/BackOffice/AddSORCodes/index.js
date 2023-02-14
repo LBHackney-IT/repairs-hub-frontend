@@ -238,7 +238,6 @@ const AddSORCodes = () => {
 
   const validateForm = () => {
     const formErrors = checkFormForErrors()
-
     setErrors(formErrors)
 
     // The 'Add SOR codes' button would be disabled, but if this was enabled via dev tools for any reason,

@@ -16,7 +16,7 @@ const NewSORCode = ({
           <TextInput
             label="SOR code"
             placeholder="Example: 4896830H"
-            name="sor-code-cost-code"
+            name="sor-code-input"
             value={sorCode.code}
             onChange={(e) => handleSORCodeFieldChange(e, sorCode.id, 'code')}
             error={errors?.code && { message: 'Please enter SOR code' }}
