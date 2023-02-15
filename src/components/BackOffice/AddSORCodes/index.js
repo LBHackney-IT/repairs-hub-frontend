@@ -3,8 +3,7 @@ import { Button, DataList } from '../../Form'
 import Spinner from '../../Spinner'
 import SuccessMessage from '../Components/SuccessMessage'
 
-import useFileUpload from './useFileUpload'
-import { expectedHeaders } from './useFileUpload'
+import Layout from '../Layout'
 
 import {
   fetchTrades,
