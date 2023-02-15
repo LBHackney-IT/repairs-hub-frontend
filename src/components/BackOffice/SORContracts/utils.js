@@ -39,10 +39,12 @@ export const dataToRequestObject = (
   }
 }
 
-export const propertyReferencesMatch = (propertyReference1, propertyReference2) => {
-    // Dont verify if null
-    if (!propertyReference1 || !propertyReference2) return false
+export const propertyReferencesMatch = (
+  propertyReference1,
+  propertyReference2
+) => {
+  // Dont verify if null
+  if (!propertyReference1 || !propertyReference2) return false
 
-    return sanitizeInput(propertyReference1) ===
-    sanitizeInput(propertyReference2)
-  }
+  return sanitizeInput(propertyReference1) === sanitizeInput(propertyReference2)
+}

@@ -13,7 +13,7 @@ const useSelectContract = () => {
   const [loadingContractors, setLoadingContractors] = useState(false)
 
   useEffect(() => {
-     setLoadingContractors(true)
+    setLoadingContractors(true)
 
     fetchContractors()
       .then((res) => {
@@ -31,7 +31,6 @@ const useSelectContract = () => {
   useEffect(() => {
     handleContractorChange()
   }, [selectedContractor])
-
 
   const handleSelectContractor = (e) => {
     if (e === null) {
@@ -53,7 +52,6 @@ const useSelectContract = () => {
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
   }
-
 
   const handleContractorChange = () => {
     if (selectedContractor === null) {
@@ -81,7 +79,7 @@ const useSelectContract = () => {
     selectedContract,
     loadingContracts,
     loadingContractors,
-    handleSelectContract
+    handleSelectContract,
   }
 }
 

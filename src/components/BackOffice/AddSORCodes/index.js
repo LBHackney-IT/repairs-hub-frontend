@@ -26,14 +26,15 @@ const AddSORCodes = () => {
   const [formSuccess, setFormSuccess] = useState(null)
   const [errors, setErrors] = useState({})
 
-  const { contractors,
+  const {
+    contractors,
     handleSelectContractor,
     selectedContractor,
     contracts,
     selectedContract,
     loadingContracts,
     loadingContractors,
-    handleSelectContract
+    handleSelectContract,
   } = useSelectContract()
 
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
