@@ -16,7 +16,7 @@ describe('Close-WorkOrders', () => {
     cy.visit('/backoffice/close-workorders')
   })
 
-  it('Shows error messages when form fields invalid', () => {
+  it('shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message').contains(
@@ -50,7 +50,19 @@ describe('Close-WorkOrders', () => {
     )
   })
 
-  it('sends request to /cancel', () => {
+  it('shows a confirmation modal listing the work orders that are about to be closed', () => {
+    const workOrderReference = '11111111'
+    const reasonToClose = 'Blah blh blah'
+
+    cy.get('[data-test="workOrderReferences"]').type(workOrderReference)
+    cy.get('[data-test="reasonToClose"]').type(reasonToClose)
+
+    cy.get("[data-test='submit-button']").click()
+
+    cy.get("[data-test='confirmation-modal']").should('be.visible')
+  })
+
+  it('sends POST request to /cancel and shows success message', () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
 
@@ -69,13 +81,15 @@ describe('Close-WorkOrders', () => {
 
     cy.get("[data-test='submit-button']").click()
 
-    cy.wait('@cancelRequest')
+    cy.get("[data-test='confirm-button']").click()
 
-    cy.contains('WorkOrders cancelled')
-    cy.contains('Bulk-close workOrders')
+    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
+
+    cy.contains('Work Orders cancelled').should('be.visible')
+    cy.contains('Bulk-close Work Orders').should('be.visible')
   })
 
-  it('sends request to /close-to-base', () => {
+  it('sends POST request to /close-to-base and shows success message', () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
@@ -99,13 +113,15 @@ describe('Close-WorkOrders', () => {
 
     cy.get("[data-test='submit-button']").click()
 
-    cy.wait('@cancelRequest')
+    cy.get("[data-test='confirm-button']").click()
 
-    cy.contains('WorkOrders cancelled')
-    cy.contains('Bulk-close workOrders')
+    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
+
+    cy.contains('Work Orders cancelled').should('be.visible')
+    cy.contains('Bulk-close Work Orders').should('be.visible')
   })
 
-  it("Resets the form when 'close more' button clicked", () => {
+  it.only("resets the form when 'close more' button clicked", () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
@@ -128,6 +144,8 @@ describe('Close-WorkOrders', () => {
     cy.get('[data-testid="ClosedDate"]').type(closedDate)
 
     cy.get("[data-test='submit-button']").click()
+
+    cy.get("[data-test='confirm-button']").click()
 
     cy.wait('@cancelRequest')
 

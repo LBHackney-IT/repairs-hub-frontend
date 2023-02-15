@@ -95,22 +95,27 @@ const CloseWorkOrders = () => {
           title="Are you sure?"
           isOpen={showDialog}
           onDismiss={() => setShowDialog(false)}
+          data-test="confirmation-modal"
         >
           <h3 className="lbh-heading-h3">
-            Are you sure you want to change the status of the following Work
-            Orders to "
+            Are you sure you want to change the status of these Work Orders to "
             {selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?
           </h3>
-          <p className="lbh-body">{workOrderReferences}</p>
 
           <div className="lbh-dialog__actions">
-            <a href="#" className="govuk-button lbh-button" onClick={submit}>
+            <a
+              href="#"
+              className="govuk-button lbh-button"
+              onClick={submit}
+              data-test="confirm-button"
+            >
               Confirm
             </a>
 
             <button
               onClick={() => setShowDialog(false)}
               className="lbh-link lbh-link--no-visited-state"
+              data-test="cancel-button"
             >
               Cancel
             </button>
