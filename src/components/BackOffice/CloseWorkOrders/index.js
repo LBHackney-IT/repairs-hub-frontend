@@ -168,18 +168,19 @@ const CloseWorkOrders = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="Bulk-close workOrders">
+    <Layout title="Bulk-close Work Orders">
       {loading ? (
         <Spinner />
       ) : (
         <>
           {formSuccess ? (
             <div>
-              <SuccessMessage title="WorkOrders cancelled" />
+              <SuccessMessage title="Work Orders cancelled" />
               <p>
                 <a
                   data-test="closeMoreButton"
@@ -187,7 +188,7 @@ const CloseWorkOrders = () => {
                   role="button"
                   onClick={() => setFormSuccess(null)}
                 >
-                  Bulk-close more workOrders
+                  Bulk-close more Work Orders
                 </a>
               </p>
             </div>
@@ -199,7 +200,7 @@ const CloseWorkOrders = () => {
 
               <div>
                 <ControlledRadio
-                  label="Select reason for Closing"
+                  label="Select reason for closing"
                   name="selectedOption"
                   options={radioOptions}
                   onChange={(event) => setSelectedOption(event.target.value)}
@@ -239,7 +240,7 @@ const CloseWorkOrders = () => {
 
               <div>
                 <TextArea
-                  label="WorkOrder References"
+                  label="Work Order References"
                   data-test="workOrderReferences"
                   placeholder="10008088&#10;10024867&#10;10000782"
                   value={workOrderReferences}
@@ -257,7 +258,7 @@ const CloseWorkOrders = () => {
               <div>
                 <Button
                   data-test="submit-button"
-                  label="Close WorkOrders"
+                  label="Close Work Orders"
                   type="submit"
                 />
               </div>
