@@ -1,0 +1,30 @@
+#new-sor-code-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  justify-content: space-between;
+  align-items: end;
+  grid-template-areas:
+    'sorcode cost smv removesor'
+    'shortdesc shortdesc shortdesc shortdesc'
+    'longdesc longdesc longdesc longdesc';
+}
+
+#sor-code-input-grid-area {
+  grid-area: sorcode;
+}
+#sor-code-cost-input-grid-area {
+  grid-area: cost;
+}
+#sor-code-smv-input-grid-area {
+  grid-area: smv;
+}
+#sor-code-remove-grid-area {
+  grid-area: removesor;
+}
+#sor-code-short-desc-input-grid-area {
+  grid-area: shortdesc;
+}
+#sor-code-long-desc-input-grid-area {
+  grid-area: longdesc;
+}

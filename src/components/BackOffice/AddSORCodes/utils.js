@@ -15,6 +15,7 @@ export const saveSorCodesToDatabase = async (data) => {
   })
 }
 
+// Used for CSV bulk upload
 export const dataToRequestObject = (csvArray, contractReference, tradeCode) => {
   const sorCodes = csvArray.map((x) => ({
     code: x.Code,
