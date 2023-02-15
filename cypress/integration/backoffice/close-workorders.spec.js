@@ -121,7 +121,7 @@ describe('Close-WorkOrders', () => {
     cy.contains('Bulk-close Work Orders').should('be.visible')
   })
 
-  it.only("resets the form when 'close more' button clicked", () => {
+  it("resets the form when 'close more' button clicked", () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
