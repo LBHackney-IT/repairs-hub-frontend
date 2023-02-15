@@ -55,8 +55,6 @@ const SORContracts = () => {
 
   const [errors, setErrors] = useState({})
 
-
-
   const validateRequest = () => {
     const newErrors = {}
 
@@ -84,7 +82,7 @@ const SORContracts = () => {
         )
       ) {
         newErrors.destinationPropertyReference =
-          'Destination property reference cannot match source property reference'
+          'The destination property reference cannot match source property reference'
       }
     }
 
@@ -114,8 +112,6 @@ const SORContracts = () => {
     e.preventDefault()
 
     if (loading) return
-
-
 
     const newErrors = validateRequest()
     setErrors(newErrors)
@@ -186,6 +182,7 @@ const SORContracts = () => {
               {selectedOption === 'Copy' && (
                 <div>
                   <TextInput
+                    data-test="sourcePropertyReference"
                     label="Source property reference (include leading zeroes)"
                     name="sourceInput"
                     placeholder="eg. 00023400"
@@ -204,6 +201,7 @@ const SORContracts = () => {
 
               <div>
                 <TextInput
+                  data-test="destinationPropertyReference"
                   label="Destination property reference (include leading zeroes)"
                   name="destInput"
                   placeholder="eg. 00023400"
@@ -253,7 +251,11 @@ const SORContracts = () => {
               )}
 
               <div>
-                <Button label="Save Changes" type="submit" />
+                <Button
+                  data-test="submit-button"
+                  label="Save Changes"
+                  type="submit"
+                />
               </div>
             </form>
           )}
