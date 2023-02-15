@@ -30,6 +30,10 @@ const radioOptions = [
 import useSelectContract from '../hooks/useSelectContract'
 
 const SORContracts = () => {
+  const [loading, setLoading] = useState(false)
+  const [requestError, setRequestError] = useState(null)
+  const [formSuccess, setFormSuccess] = useState(false)
+
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
@@ -51,9 +55,7 @@ const SORContracts = () => {
 
   const [errors, setErrors] = useState({})
 
-  const [loading, setLoading] = useState(false)
-  const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
+
 
   const validateRequest = () => {
     const newErrors = {}
@@ -113,6 +115,8 @@ const SORContracts = () => {
 
     if (loading) return
 
+
+
     const newErrors = validateRequest()
     setErrors(newErrors)
     setRequestError(null)
@@ -134,7 +138,13 @@ const SORContracts = () => {
       })
       .catch((err) => {
         console.error(err)
-        setRequestError(err.message)
+
+        if (err?.response?.data?.message !== null) {
+          setRequestError(err?.response?.data?.message)
+          return
+        }
+
+        setRequestError(eerrror)
       })
       .finally(() => {
         setLoading(false)
@@ -151,7 +161,7 @@ const SORContracts = () => {
             <div>
               <SuccessMessage title="SOR contracts modified successfully!" />
               <p>
-                <a className="lbh-link" role="button" onClick={resetForm()}>
+                <a className="lbh-link" role="button" onClick={resetForm}>
                   Change more SOR contracts
                 </a>
               </p>

@@ -1,7 +1,7 @@
 import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 
 export const saveContractChangesToDatabase = async (data) => {
-  await frontEndApiRequest({
+  return await frontEndApiRequest({
     method: 'POST',
     path: `/api/backOffice/sor-contracts`,
     requestData: data,
