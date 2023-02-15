@@ -1,17 +1,13 @@
 import Layout from '../Layout'
 import { useState } from 'react'
-
 import { TextArea, TextInput, Button } from '../../Form'
 import ControlledRadio from '../Components/ControlledRadio'
-
 import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
-// import Dialog from "lbh-frontend/lbh/components/lbh-dialog"
-import { Dialog } from "@reach/dialog";
-
+import { Dialog } from '@reach/dialog'
 import {
   dateIsInFuture,
   formatInvalidWorkOrderReferencesError,
@@ -100,7 +96,11 @@ const CloseWorkOrders = () => {
           isOpen={showDialog}
           onDismiss={() => setShowDialog(false)}
         >
-          <h3 className="lbh-heading-h3">Are you sure you want to change the status of the following Work Orders to "{selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?</h3>
+          <h3 className="lbh-heading-h3">
+            Are you sure you want to change the status of the following Work
+            Orders to "
+            {selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?
+          </h3>
           <p className="lbh-body">{workOrderReferences}</p>
 
           <div className="lbh-dialog__actions">
@@ -137,9 +137,7 @@ const CloseWorkOrders = () => {
   }
 
   const submit = () => {
-
     const formatted = formatWorkOrderReferences(workOrderReferences)
-    console.log("formatted", formatted)
 
     const body = {
       reason: reasonToClose,
@@ -149,8 +147,9 @@ const CloseWorkOrders = () => {
 
     if (closeToBaseSelected()) body.completionDate = closedDate
 
-    let url = `/api/backOffice/bulk-close/${closeToBaseSelected() ? 'close-to-base' : 'cancel'
-      }`
+    let url = `/api/backOffice/bulk-close/${
+      closeToBaseSelected() ? 'close-to-base' : 'cancel'
+    }`
 
     setLoading(true)
 
@@ -171,8 +170,6 @@ const CloseWorkOrders = () => {
         setLoading(false)
       })
   }
-
-
 
   return (
     <Layout title="Bulk-close workOrders">
