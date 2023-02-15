@@ -100,18 +100,19 @@ const CloseWorkOrders = () => {
           isOpen={showDialog}
           onDismiss={() => setShowDialog(false)}
         >
-          <p className="lbh-body">The record will be permanently deleted.</p>
+          <h3 className="lbh-heading-h3">Are you sure you want to change the status of the following Work Orders to "{selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?</h3>
+          <p className="lbh-body">{workOrderReferences}</p>
 
           <div className="lbh-dialog__actions">
-            <a href="#" className="govuk-button lbh-button">
-              Yes, delete
+            <a href="#" className="govuk-button lbh-button" onClick={submit}>
+              Confirm
             </a>
 
             <button
               onClick={() => setShowDialog(false)}
               className="lbh-link lbh-link--no-visited-state"
             >
-              No, cancel
+              Cancel
             </button>
           </div>
         </Dialog>
@@ -119,51 +120,59 @@ const CloseWorkOrders = () => {
     }
   }
 
-  const handleSubmit = (event) => {
+  const validateForm = (event) => {
     event.preventDefault()
 
-    // if (loading) return
+    if (loading) return
 
-    // const newErrors = validateRequest()
-    // setErrors(newErrors)
-    // setRequestError(null)
+    const newErrors = validateRequest()
+    setErrors(newErrors)
+    setRequestError(null)
 
-    // if (Object.keys(newErrors).length > 0) {
-    //   return
-    // }
+    if (Object.keys(newErrors).length > 0) {
+      return
+    }
 
-    // const formatted = formatWorkOrderReferences(workOrderReferences)
-
-    // const body = {
-    //   reason: reasonToClose,
-    //   completionDate: closedDate,
-    //   workOrderReferences: formatted,
-    // }
-
-    // if (closeToBaseSelected()) body.completionDate = closedDate
-
-    // let url = `/api/backOffice/bulk-close/${closeToBaseSelected() ? 'close-to-base' : 'cancel'
-    //   }`
-
-    // setLoading(true)
-
-    // frontEndApiRequest({
-    //   method: 'post',
-    //   path: url,
-    //   requestData: body,
-    // })
-    //   .then(() => {
-    //     setFormSuccess(true)
-    //     clearForm()
-    //   })
-    //   .catch((err) => {
-    //     console.error(err)
-    //     setRequestError(err.message)
-    //   })
-    //   .finally(() => {
-    //     setLoading(false)
-    //   })
+    setShowDialog(!showDialog)
   }
+
+  const submit = () => {
+
+    const formatted = formatWorkOrderReferences(workOrderReferences)
+    console.log("formatted", formatted)
+
+    const body = {
+      reason: reasonToClose,
+      completionDate: closedDate,
+      workOrderReferences: formatted,
+    }
+
+    if (closeToBaseSelected()) body.completionDate = closedDate
+
+    let url = `/api/backOffice/bulk-close/${closeToBaseSelected() ? 'close-to-base' : 'cancel'
+      }`
+
+    setLoading(true)
+
+    frontEndApiRequest({
+      method: 'post',
+      path: url,
+      requestData: body,
+    })
+      .then(() => {
+        setFormSuccess(true)
+        clearForm()
+      })
+      .catch((err) => {
+        console.error(err)
+        setRequestError(err.message)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
+
 
   return (
     <Layout title="Bulk-close workOrders">
@@ -186,7 +195,7 @@ const CloseWorkOrders = () => {
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={validateForm}>
               {requestError && <ErrorMessage label={requestError} />}
 
               {renderConfirmationModal()}
@@ -252,8 +261,7 @@ const CloseWorkOrders = () => {
                 <Button
                   data-test="submit-button"
                   label="Close WorkOrders"
-                  // type="submit"
-                  onClick={() => setShowDialog(!showDialog)}
+                  type="submit"
                 />
               </div>
             </form>
