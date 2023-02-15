@@ -140,7 +140,7 @@ const SORContracts = () => {
           return
         }
 
-        setRequestError(eerrror)
+        setRequestError(err)
       })
       .finally(() => {
         setLoading(false)
