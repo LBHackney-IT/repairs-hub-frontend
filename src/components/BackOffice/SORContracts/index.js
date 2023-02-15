@@ -8,10 +8,10 @@ import SuccessMessage from '../Components/SuccessMessage'
 import {
   addContractsSelected,
   copyContractsSelected,
-    dataToRequestObject,
-    propertyReferencesMatch,
-    saveContractChangesToDatabase,
-    validatePropertyReference,
+  dataToRequestObject,
+  propertyReferencesMatch,
+  saveContractChangesToDatabase,
+  validatePropertyReference,
 } from './utils'
 
 import { DataList } from '../../Form'

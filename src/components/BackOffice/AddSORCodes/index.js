@@ -5,10 +5,7 @@ import SuccessMessage from '../Components/SuccessMessage'
 
 import Layout from '../Layout'
 
-import {
-  fetchTrades,
-  saveSorCodesToDatabase,
-} from './utils'
+import { fetchTrades, saveSorCodesToDatabase } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
