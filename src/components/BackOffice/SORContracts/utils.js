@@ -22,7 +22,7 @@ export const addContractsSelected = (selectedOption) => {
 }
 
 const sanitizeInput = (value) => {
-  return value.trim().replaceAll(' ', '')
+  return value.trim().replace(/ /g, '')
 }
 
 export const dataToRequestObject = (
@@ -43,7 +43,6 @@ export const propertyReferencesMatch = (
   propertyReference1,
   propertyReference2
 ) => {
-  // Dont verify if null
   if (!propertyReference1 || !propertyReference2) return false
 
   return sanitizeInput(propertyReference1) === sanitizeInput(propertyReference2)
