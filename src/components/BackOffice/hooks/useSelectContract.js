@@ -17,7 +17,6 @@ const useSelectContract = () => {
 
     fetchContractors()
       .then((res) => {
-        console.log({ res })
         setContractors(res)
       })
       .catch((err) => {
@@ -29,31 +28,6 @@ const useSelectContract = () => {
   }, [])
 
   useEffect(() => {
-    handleContractorChange()
-  }, [selectedContractor])
-
-  const handleSelectContractor = (e) => {
-    if (e === null) {
-      setSelectedContractor(null)
-      return
-    }
-
-    const selectedContractor = contractors.filter(
-      (x) => x.contractorName === e.target.value
-    )
-
-    if (selectedContractor.length === 0) {
-      setSelectedContractor(null)
-    } else {
-      setSelectedContractor(selectedContractor[0])
-    }
-  }
-
-  const handleSelectContract = (e) => {
-    setSelectedContract(e.target.value)
-  }
-
-  const handleContractorChange = () => {
     if (selectedContractor === null) {
       setContracts(null)
       setSelectedContract(null)
@@ -69,6 +43,19 @@ const useSelectContract = () => {
       .finally(() => {
         setLoadingContracts(false)
       })
+  }, [selectedContractor])
+
+  const handleSelectContractor = (e) => {
+    const contractorName = e.target.value
+    const selectedContractor = contractors.find(
+      (contractor) => contractor.contractorName === contractorName
+    )
+
+    setSelectedContractor(selectedContractor || null)
+  }
+
+  const handleSelectContract = (e) => {
+    setSelectedContract(e.target.value)
   }
 
   return {
