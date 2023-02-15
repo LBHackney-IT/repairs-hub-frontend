@@ -46,7 +46,6 @@ const AddSORCodes = () => {
   } = useFileUpload()
 
   const resetForm = () => {
-    setSelectedContract(null)
     setRequestError(null)
     setFormSuccess(null)
     setErrors({})

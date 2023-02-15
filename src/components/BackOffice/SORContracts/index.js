@@ -129,7 +129,7 @@ const SORContracts = () => {
     setLoading(true)
 
     saveContractChangesToDatabase(body)
-      .then((res) => {
+      .then(() => {
         setFormSuccess(true)
       })
       .catch((err) => {
