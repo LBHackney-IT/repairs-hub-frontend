@@ -9,6 +9,8 @@ import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
+// import Dialog from "lbh-frontend/lbh/components/lbh-dialog"
+import { Dialog } from "@reach/dialog";
 
 import {
   dateIsInFuture,
@@ -38,6 +40,8 @@ const CloseWorkOrders = () => {
   const [loading, setLoading] = useState(false)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
+
+  const [showDialog, setShowDialog] = useState(false)
 
   const clearForm = () => {
     setReasonToClose('')
@@ -88,51 +92,77 @@ const CloseWorkOrders = () => {
     return newErrors
   }
 
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <Dialog
+          title="Are you sure?"
+          isOpen={showDialog}
+          onDismiss={() => setShowDialog(false)}
+        >
+          <p className="lbh-body">The record will be permanently deleted.</p>
+
+          <div className="lbh-dialog__actions">
+            <a href="#" className="govuk-button lbh-button">
+              Yes, delete
+            </a>
+
+            <button
+              onClick={() => setShowDialog(false)}
+              className="lbh-link lbh-link--no-visited-state"
+            >
+              No, cancel
+            </button>
+          </div>
+        </Dialog>
+      )
+    }
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    if (loading) return
+    // if (loading) return
 
-    const newErrors = validateRequest()
-    setErrors(newErrors)
-    setRequestError(null)
+    // const newErrors = validateRequest()
+    // setErrors(newErrors)
+    // setRequestError(null)
 
-    if (Object.keys(newErrors).length > 0) {
-      return
-    }
+    // if (Object.keys(newErrors).length > 0) {
+    //   return
+    // }
 
-    const formatted = formatWorkOrderReferences(workOrderReferences)
+    // const formatted = formatWorkOrderReferences(workOrderReferences)
 
-    const body = {
-      reason: reasonToClose,
-      completionDate: closedDate,
-      workOrderReferences: formatted,
-    }
+    // const body = {
+    //   reason: reasonToClose,
+    //   completionDate: closedDate,
+    //   workOrderReferences: formatted,
+    // }
 
-    if (closeToBaseSelected()) body.completionDate = closedDate
+    // if (closeToBaseSelected()) body.completionDate = closedDate
 
-    let url = `/api/backOffice/bulk-close/${
-      closeToBaseSelected() ? 'close-to-base' : 'cancel'
-    }`
+    // let url = `/api/backOffice/bulk-close/${closeToBaseSelected() ? 'close-to-base' : 'cancel'
+    //   }`
 
-    setLoading(true)
+    // setLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: url,
-      requestData: body,
-    })
-      .then(() => {
-        setFormSuccess(true)
-        clearForm()
-      })
-      .catch((err) => {
-        console.error(err)
-        setRequestError(err.message)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+    // frontEndApiRequest({
+    //   method: 'post',
+    //   path: url,
+    //   requestData: body,
+    // })
+    //   .then(() => {
+    //     setFormSuccess(true)
+    //     clearForm()
+    //   })
+    //   .catch((err) => {
+    //     console.error(err)
+    //     setRequestError(err.message)
+    //   })
+    //   .finally(() => {
+    //     setLoading(false)
+    //   })
   }
 
   return (
@@ -158,6 +188,8 @@ const CloseWorkOrders = () => {
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <div>
                 <ControlledRadio
@@ -220,7 +252,8 @@ const CloseWorkOrders = () => {
                 <Button
                   data-test="submit-button"
                   label="Close WorkOrders"
-                  type="submit"
+                  // type="submit"
+                  onClick={() => setShowDialog(!showDialog)}
                 />
               </div>
             </form>
