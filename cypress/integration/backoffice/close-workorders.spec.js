@@ -84,9 +84,6 @@ describe('Close-WorkOrders', () => {
     cy.get("[data-test='confirm-button']").click()
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
-    cy.get("[data-test='confirm-button']").click()
-
-    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
     cy.contains('Work orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
@@ -119,9 +116,6 @@ describe('Close-WorkOrders', () => {
     cy.get("[data-test='confirm-button']").click()
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
-    cy.get("[data-test='confirm-button']").click()
-
-    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
     cy.contains('Work orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
@@ -150,8 +144,6 @@ describe('Close-WorkOrders', () => {
     cy.get('[data-testid="ClosedDate"]').type(closedDate)
 
     cy.get("[data-test='submit-button']").click()
-
-    cy.get("[data-test='confirm-button']").click()
 
     cy.get("[data-test='confirm-button']").click()
 
