@@ -61,8 +61,9 @@ const AddSORCodes = () => {
   const [errors, setErrors] = useState({})
   const [showDialog, setShowDialog] = useState(false)
 
-  const { selectedContractor, handleSelectContractor } =
-    useSelectContractor(contractors)
+  const { selectedContractor, handleSelectContractor } = useSelectContractor(
+    contractors
+  )
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
   const resetForm = () => {
