@@ -6,7 +6,12 @@ const SuccessMessage = ({ title, resetFormText, resetFormCallback }) => {
       </div>
 
       <p>
-        <button data-test="successMessageContinue" className="lbh-link" role="button" onClick={resetFormCallback}>
+        <button
+          data-test="successMessageContinue"
+          className="lbh-link"
+          role="button"
+          onClick={resetFormCallback}
+        >
           {resetFormText}
         </button>
       </p>
