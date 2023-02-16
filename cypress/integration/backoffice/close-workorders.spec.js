@@ -86,7 +86,7 @@ describe('Close-WorkOrders', () => {
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
     cy.contains('Work orders cancelled').should('be.visible')
-    cy.contains('Bulk-close ork orders').should('be.visible')
+    cy.contains('Bulk-close work orders').should('be.visible')
   })
 
   it('sends POST request to /close-to-base and shows success message', () => {
