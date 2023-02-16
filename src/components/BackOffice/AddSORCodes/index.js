@@ -13,7 +13,7 @@ import {
 } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
-import { useEffect, useReducer, useState } from 'react'
+import { useEffect, useReducer, useState, useTransition } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
 
@@ -309,14 +309,11 @@ const AddSORCodes = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="SOR Codes created" />
-              <p>
-                <a className="lbh-link" role="button" onClick={resetForm}>
-                  Bulk-close more workOrders
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="SOR Codes created"
+              resetFormText="Add more SOR codes"
+              resetFormCallback={resetForm}
+            />
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}

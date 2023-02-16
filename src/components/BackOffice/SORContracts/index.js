@@ -131,18 +131,11 @@ const SORContracts = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="SOR contracts modified successfully!" />
-              <p>
-                <a
-                  className="lbh-link"
-                  role="button"
-                  onClick={() => setFormSuccess(null)}
-                >
-                  Change more SOR contracts
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="SOR Contracts Updated"
+              resetFormText="Update more SOR Contracts"
+              resetFormCallback={() => setFormSuccess(null)}
+            />
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
