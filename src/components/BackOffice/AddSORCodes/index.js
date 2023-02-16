@@ -2,20 +2,17 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import { Button, DataList } from '../../Form'
 import Spinner from '../../Spinner'
 import SuccessMessage from '../Components/SuccessMessage'
-import Layout from '../Layout'
-import useSelectContractor from './useSelectContractor'
 
-import {
-  fetchContractors,
-  fetchContracts,
-  fetchTrades,
-  saveSorCodesToDatabase,
-} from './utils'
+import Layout from '../Layout'
+
+import { fetchTrades, saveSorCodesToDatabase } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
+
+import useSelectContract from '../hooks/useSelectContract'
 
 const initialState = {
   sorCodes: [new SorCode(1)],
@@ -50,18 +47,22 @@ function reducer(state, action) {
 const AddSORCodes = () => {
   const [state, dispatch] = useReducer(reducer, initialState)
   const [loading, setLoading] = useState(true)
-  const [contractors, setContractors] = useState(null)
   const [trades, setTrades] = useState(null)
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
-  const [selectedContract, setSelectedContract] = useState(null)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
   const [errors, setErrors] = useState({})
 
-  const { selectedContractor, handleSelectContractor } = useSelectContractor(
-    contractors
-  )
+  const {
+    contractors,
+    handleSelectContractor,
+    selectedContractor,
+    contracts,
+    selectedContract,
+    loadingContracts,
+    loadingContractors,
+    handleSelectContract,
+  } = useSelectContract()
+
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
   // Used for CSV bulk upload
@@ -73,7 +74,6 @@ const AddSORCodes = () => {
   // } = useFileUpload()
 
   const resetForm = () => {
-    setSelectedContract(null)
     setRequestError(null)
     setFormSuccess(null)
     setErrors({})
@@ -86,41 +86,14 @@ const AddSORCodes = () => {
   }
 
   useEffect(() => {
-    Promise.all([fetchContractors(), fetchTrades()])
-      .then(([contractors, trades]) => {
-        setContractors(contractors)
-        setTrades(trades)
+    fetchTrades()
+      .then((res) => {
+        setTrades(res)
       })
       .finally(() => {
         setLoading(false)
       })
   }, [])
-
-  useEffect(() => {
-    handleContractorChange()
-  }, [selectedContractor])
-
-  const handleContractorChange = () => {
-    if (selectedContractor === null) {
-      setContracts(null)
-      setSelectedContract(null)
-      return
-    }
-
-    setLoadingContracts(true)
-
-    fetchContracts(selectedContractor.contractorReference)
-      .then((res) => {
-        setContracts(res)
-      })
-      .finally(() => {
-        setLoadingContracts(false)
-      })
-  }
-
-  const handleSelectContract = (e) => {
-    setSelectedContract(e.target.value)
-  }
 
   const handleAddNewSORCode = (e) => {
     e.preventDefault()
@@ -304,7 +277,7 @@ const AddSORCodes = () => {
 
   return (
     <Layout title="Add SOR Codes">
-      {loading ? (
+      {loading || loadingContractors ? (
         <Spinner />
       ) : (
         <>
