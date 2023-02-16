@@ -8,11 +8,19 @@ const NewSORCode = ({
 }) => {
   return (
     <>
-      <div id="new-sor-code-container">
-        <div
-          className="govuk-form-group lbh-form-group"
-          id="sor-code-input-grid-area "
+      <div style={{ textAlign: 'right' }}>
+        <button
+          className="lbh-link"
+          role="button"
+          onClick={(e) => handleRemoveSORCode(e, sorCode)}
+          data-testid="sor-code-remove-link"
         >
+          Remove SOR code
+        </button>
+      </div>
+
+      <div id="new-sor-code-container">
+        <div>
           <TextInput
             label="SOR code"
             placeholder="Example: 4896830H"
@@ -22,10 +30,7 @@ const NewSORCode = ({
             error={errors?.code && { message: 'Please enter SOR code' }}
           />
         </div>
-        <div
-          className="govuk-form-group lbh-form-group"
-          id="sor-code-cost-input-grid-area"
-        >
+        <div>
           <TextInput
             label="Cost (£)"
             placeholder="Example: 10.47"
@@ -38,10 +43,7 @@ const NewSORCode = ({
             error={errors?.cost && { message: 'Please enter cost value' }}
           />
         </div>
-        <div
-          className="govuk-form-group lbh-form-group"
-          id="sor-code-smv-input-grid-area"
-        >
+        <div>
           <TextInput
             label="Standard Minute Value"
             placeholder="Example: 29"
@@ -59,56 +61,41 @@ const NewSORCode = ({
             }
           />
         </div>
-        <div id="sor-code-remove-grid-area" style={{ textAlign: 'center' }}>
-          <a
-            className="lbh-link"
-            href="#"
-            onClick={(e) => handleRemoveSORCode(e, sorCode)}
-            data-testid="sor-code-remove-link"
-          >
-            Remove SOR code
-          </a>
-        </div>
-        <div
-          className="govuk-form-group lbh-form-group"
-          id="sor-code-short-desc-input-grid-area"
-        >
-          <TextArea
-            label="Short description"
-            placeholder="Example: LH Gas Carcass LGSR inc cooker"
-            name="sor-code-short-desc-input"
-            value={sorCode.shortDescription}
-            rows="1"
-            onChange={(e) =>
-              handleSORCodeFieldChange(e, sorCode.id, 'shortDescription')
+      </div>
+
+      <div>
+        <TextArea
+          label="Short description"
+          placeholder="Example: LH Gas Carcass LGSR inc cooker"
+          name="sor-code-short-desc-input"
+          value={sorCode.shortDescription}
+          rows="1"
+          onChange={(e) =>
+            handleSORCodeFieldChange(e, sorCode.id, 'shortDescription')
+          }
+          error={
+            errors?.shortDescription && {
+              message: 'Please enter short description',
             }
-            error={
-              errors?.shortDescription && {
-                message: 'Please enter short description',
-              }
+          }
+        />
+      </div>
+      <div>
+        <TextArea
+          label="Long description"
+          placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
+          name="sor-code-long-desc-input"
+          value={sorCode.longDescription}
+          rows="2"
+          onChange={(e) =>
+            handleSORCodeFieldChange(e, sorCode.id, 'longDescription')
+          }
+          error={
+            errors?.longDescription && {
+              message: 'Please enter long description',
             }
-          />
-        </div>
-        <div
-          className="govuk-form-group lbh-form-group"
-          id="sor-code-long-desc-input-grid-area"
-        >
-          <TextArea
-            label="Long description"
-            placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
-            name="sor-code-long-desc-input"
-            value={sorCode.longDescription}
-            rows="2"
-            onChange={(e) =>
-              handleSORCodeFieldChange(e, sorCode.id, 'longDescription')
-            }
-            error={
-              errors?.longDescription && {
-                message: 'Please enter long description',
-              }
-            }
-          />
-        </div>
+          }
+        />
       </div>
       <hr />
     </>
