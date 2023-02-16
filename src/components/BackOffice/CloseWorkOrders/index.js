@@ -72,7 +72,7 @@ const CloseWorkOrders = () => {
 
     const strippedWorkOrderReferences = formatWorkOrderReferences(
       workOrderReferences
-      )
+    )
     const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
       strippedWorkOrderReferences
     )
