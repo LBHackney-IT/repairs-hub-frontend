@@ -272,7 +272,6 @@ const AddSORCodes = () => {
   }
 
   return (
-
     <Layout title="Add SOR codes">
       {loading || loadingContractors ? (
         <Spinner />
