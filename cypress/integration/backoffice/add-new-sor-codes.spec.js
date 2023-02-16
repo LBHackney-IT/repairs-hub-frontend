@@ -170,6 +170,17 @@ describe('Add New SOR Codes page - when user has data admin permissions', () => 
   })
 
   describe('when multiple new SOR codes are added on the page and the user submits the form', () => {
+    it('triggers a confirmation modal', () => {
+      cy.wait('@contractorsRequest')
+      cy.wait('@tradesRequest')
+
+      populateForm()
+
+      cy.get('[data-testid="submit-button"]').click()
+
+      cy.get("[data-test='confirmation-modal']").should('be.visible')
+    })
+
     it('displays a success message if the network request is successful, after all form fields are populated and the form is submitted', () => {
       cy.wait('@contractorsRequest')
       cy.wait('@tradesRequest')
@@ -184,10 +195,14 @@ describe('Add New SOR Codes page - when user has data admin permissions', () => 
       // Submit new SOR codes
       cy.get('[data-testid="submit-button"]').click()
 
+      // Press "Add SOR codes" in confirmation modal
+      cy.get('[data-test="confirm-button"]').click()
+
       cy.wait('@newSORCodeSubmitRequest')
 
       // The page should show a successful confirmation message
-      cy.contains('SOR Codes created').should('be.visible')
+      cy.contains('SOR codes created').should('be.visible')
+      cy.contains('Add more SOR codes').should('be.visible')
     })
 
     it('displays an error message if the network request fails, after all form fields are populated and the form is submitted', () => {
@@ -203,6 +218,9 @@ describe('Add New SOR Codes page - when user has data admin permissions', () => 
 
       // Submit new SOR codes
       cy.get('[data-testid="submit-button"]').click()
+
+      // Press "Add SOR codes" in confirmation modal
+      cy.get('[data-test="confirm-button"]').click()
 
       cy.wait('@newSORCodeSubmitRequest')
 

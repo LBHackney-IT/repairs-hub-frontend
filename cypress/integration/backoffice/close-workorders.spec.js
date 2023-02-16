@@ -50,7 +50,7 @@ describe('Close-WorkOrders', () => {
     )
   })
 
-  it('shows a confirmation modal listing the work orders that are about to be closed', () => {
+  it('triggers a confirmation modal', () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
 

@@ -61,9 +61,8 @@ const AddSORCodes = () => {
   const [errors, setErrors] = useState({})
   const [showDialog, setShowDialog] = useState(false)
 
-  const { selectedContractor, handleSelectContractor } = useSelectContractor(
-    contractors
-  )
+  const { selectedContractor, handleSelectContractor } =
+    useSelectContractor(contractors)
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
   const resetForm = () => {
@@ -72,6 +71,7 @@ const AddSORCodes = () => {
     setFormSuccess(null)
     setErrors({})
     setShowDialog(false)
+    state.sorCodes = [new SorCode(1)]
 
     handleSelectContractor(null)
     handleSelectTrade(null)
@@ -168,13 +168,6 @@ const AddSORCodes = () => {
   const checkFormForErrors = () => {
     const formErrors = {}
 
-    // Used for CSV bulk upload
-    // if (parsedDataArray === null) {
-    //   formErrors.fileUpload = 'Please upload a CSV file'
-    // } else if (!validateFile()) {
-    //   formErrors.fileUpload = 'The CSV must contain the specified headers'
-    // }
-
     if (selectedContractor === null) {
       formErrors.contractor = 'Please select a contractor'
     }
@@ -235,7 +228,9 @@ const AddSORCodes = () => {
           title={'Add new SOR codes?'}
           showDialog
           setShowDialog={setShowDialog}
-          modalText={"You will not be able to edit the fields once the new SOR codes have been added. Please make sure the information entered is accurate before proceeding."}
+          modalText={
+            'You will not be able to edit the fields once the new SOR codes have been added. Please make sure the information entered is accurate before proceeding.'
+          }
           onSubmit={addNewSORCodes}
           yesButtonText={'Add SOR codes'}
         />
@@ -298,6 +293,7 @@ const AddSORCodes = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
