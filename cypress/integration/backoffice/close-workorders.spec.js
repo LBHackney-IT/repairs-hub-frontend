@@ -17,7 +17,6 @@ describe('Close-WorkOrders', () => {
   })
 
   it('shows error messages when form fields invalid', () => {
-  it('shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message').contains(
@@ -94,7 +93,6 @@ describe('Close-WorkOrders', () => {
   })
 
   it('sends POST request to /close-to-base and shows success message', () => {
-  it('sends POST request to /close-to-base and shows success message', () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
     const closedDate = '2022-01-01'
@@ -127,11 +125,8 @@ describe('Close-WorkOrders', () => {
 
     cy.contains('Work orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
-    cy.contains('Work orders cancelled').should('be.visible')
-    cy.contains('Bulk-close work orders').should('be.visible')
   })
 
-  it("resets the form when 'close more' button clicked", () => {
   it("resets the form when 'close more' button clicked", () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
