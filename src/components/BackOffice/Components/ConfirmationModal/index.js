@@ -16,6 +16,7 @@ const ConfirmationModal = ({
       aria-label={title}
       className="lbh-dialog"
       style={{ border: 'none' }}
+      data-test="confirmation-modal"
     >
       <h2 className="lbh-heading-h2 lbh-dialog__title">{title}</h2>
       <p className="lbh-body-s">{modalText}</p>
