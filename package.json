@@ -26,6 +26,7 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
+    "@reach/dialog": "^0.18.0",
     "@sentry/nextjs": "^6.17.9",
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
