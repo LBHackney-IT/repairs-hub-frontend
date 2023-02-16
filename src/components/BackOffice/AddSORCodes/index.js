@@ -16,6 +16,7 @@ import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
+import ConfirmationModal from '../Components/ConfirmationModal'
 
 const initialState = {
   sorCodes: [new SorCode(1)],
@@ -58,31 +59,22 @@ const AddSORCodes = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
   const [errors, setErrors] = useState({})
+  const [showDialog, setShowDialog] = useState(false)
 
   const { selectedContractor, handleSelectContractor } = useSelectContractor(
     contractors
   )
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
-  // Used for CSV bulk upload
-  // const {
-  //   handleFileOnChange,
-  //   parsedDataArray,
-  //   validateFile,
-  //   loading: fileLoading,
-  // } = useFileUpload()
-
   const resetForm = () => {
     setSelectedContract(null)
     setRequestError(null)
     setFormSuccess(null)
     setErrors({})
+    setShowDialog(false)
 
     handleSelectContractor(null)
     handleSelectTrade(null)
-
-    // Used for CSV bulk upload
-    // handleFileOnChange(null)
   }
 
   useEffect(() => {
@@ -236,6 +228,21 @@ const AddSORCodes = () => {
     return true
   }
 
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Add new SOR codes?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={"You will not be able to edit the fields once the new SOR codes have been added. Please make sure the information entered is accurate before proceeding."}
+          onSubmit={addNewSORCodes}
+          yesButtonText={'Add SOR codes'}
+        />
+      )
+    }
+  }
+
   const validateForm = () => {
     const formErrors = checkFormForErrors()
     setErrors(formErrors)
@@ -262,26 +269,18 @@ const AddSORCodes = () => {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setRequestError(null)
     setFormSuccess(null)
 
-    // Used for CSV bulk upload
-    // if (loading || fileLoading) return
+    if (!validateForm()) return
 
-    const formValid = validateForm()
+    setShowDialog(!showDialog)
+  }
 
-    if (formValid == false) return
-
+  const addNewSORCodes = async () => {
     setLoading(true)
-
-    // Used for CSV bulk upload
-    // const data = dataToRequestObject(
-    //   parsedDataArray,
-    //   selectedContract,
-    //   selectedTrade.code
-    // )
 
     const data = {
       sorCodes: state.sorCodes,
@@ -303,23 +302,25 @@ const AddSORCodes = () => {
   }
 
   return (
-    <Layout title="Add SOR Codes">
+    <Layout title="Add SOR codes">
       {loading ? (
         <Spinner />
       ) : (
         <>
           {formSuccess ? (
             <div>
-              <SuccessMessage title="SOR Codes created" />
+              <SuccessMessage title="SOR codes created" />
               <p>
                 <a className="lbh-link" role="button" onClick={resetForm}>
-                  Bulk-close more workOrders
+                  Add more SOR codes
                 </a>
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <DataList
                 name="contractor"
@@ -386,7 +387,7 @@ const AddSORCodes = () => {
               </div>
               <div>
                 <Button
-                  label="Add SOR Codes"
+                  label="Add SOR codes"
                   type="submit"
                   disabled={state.sorCodes.length == 0}
                   data-testid="submit-button"
