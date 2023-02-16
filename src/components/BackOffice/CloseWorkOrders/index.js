@@ -98,7 +98,7 @@ const CloseWorkOrders = () => {
           data-test="confirmation-modal"
         >
           <h3 className="lbh-heading-h3">
-            Are you sure you want to change the status of these Work Orders to "
+            The status of these Work Orders will change to "
             {selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?
           </h3>
 
@@ -109,7 +109,7 @@ const CloseWorkOrders = () => {
               onClick={submit}
               data-test="confirm-button"
             >
-              Confirm
+              Close Work Orders
             </a>
 
             <button
