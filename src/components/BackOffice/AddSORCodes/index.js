@@ -13,7 +13,7 @@ import {
 } from './utils'
 
 import SorCode from '@/root/src/models/sorCode'
-import { useEffect, useReducer, useState, useTransition } from 'react'
+import { useEffect, useReducer, useState } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
 
