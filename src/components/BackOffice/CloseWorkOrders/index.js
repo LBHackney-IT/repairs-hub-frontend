@@ -1,13 +1,13 @@
-import Layout from '../Layout'
-import { useState } from 'react'
-import { TextArea, TextInput, Button } from '../../Form'
-import ControlledRadio from '../Components/ControlledRadio'
-import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import Spinner from '../../Spinner'
+import { useState } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { Button, TextArea, TextInput } from '../../Form'
+import DatePicker from '../../Form/DatePicker'
+import Spinner from '../../Spinner'
+import ConfirmationModal from '../Components/ConfirmationModal'
+import ControlledRadio from '../Components/ControlledRadio'
 import SuccessMessage from '../Components/SuccessMessage'
-import { Dialog } from '@reach/dialog'
+import Layout from '../Layout'
 import {
   dateIsInFuture,
   formatInvalidWorkOrderReferencesError,
@@ -70,9 +70,8 @@ const CloseWorkOrders = () => {
       newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
-    const strippedWorkOrderReferences = formatWorkOrderReferences(
-      workOrderReferences
-    )
+    const strippedWorkOrderReferences =
+      formatWorkOrderReferences(workOrderReferences)
     const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
       strippedWorkOrderReferences
     )
@@ -91,36 +90,16 @@ const CloseWorkOrders = () => {
   const renderConfirmationModal = () => {
     if (showDialog) {
       return (
-        <Dialog
-          title="Are you sure?"
-          isOpen={showDialog}
-          onDismiss={() => setShowDialog(false)}
-          data-test="confirmation-modal"
-        >
-          <h3 className="lbh-heading-h3">
-            The status of these Work Orders will change to "
-            {selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'}"?
-          </h3>
-
-          <div className="lbh-dialog__actions">
-            <a
-              href="#"
-              className="govuk-button lbh-button"
-              onClick={submit}
-              data-test="confirm-button"
-            >
-              Close Work Orders
-            </a>
-
-            <button
-              onClick={() => setShowDialog(false)}
-              className="lbh-link lbh-link--no-visited-state"
-              data-test="cancel-button"
-            >
-              Cancel
-            </button>
-          </div>
-        </Dialog>
+        <ConfirmationModal
+          title={'Permanently close Work Orders?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={`The status of the selected Work Orders will change to "${
+            selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'
+          }"`}
+          onSubmit={submit}
+          yesButtonText={'Close Work Orders'}
+        />
       )
     }
   }
