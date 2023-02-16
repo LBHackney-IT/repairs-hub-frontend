@@ -46,7 +46,6 @@ const useSelectContract = () => {
   }, [selectedContractor])
 
   const handleSelectContractor = (e) => {
-    // Ternary operator prevents the line below from erroring when "resetForm() calls handleSelectContractor(null)"
     const contractorName = e ? e.target?.value : undefined
     const selectedContractor = contractors.find(
       (contractor) => contractor.contractorName === contractorName
