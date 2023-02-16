@@ -92,14 +92,14 @@ const CloseWorkOrders = () => {
     if (showDialog) {
       return (
         <ConfirmationModal
-          title={'Permanently close Work Orders?'}
+          title={'Permanently close work orders?'}
           showDialog
           setShowDialog={setShowDialog}
-          modalText={`The status of the selected Work Orders will change to "${
+          modalText={`The status of the selected work orders will change to "${
             selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'
           }"`}
           onSubmit={submit}
-          yesButtonText={'Close Work Orders'}
+          yesButtonText={'Close work orders'}
         />
       )
     }
@@ -158,14 +158,14 @@ const CloseWorkOrders = () => {
   }
 
   return (
-    <Layout title="Bulk-close Work Orders">
+    <Layout title="Bulk-close work orders">
       {loading ? (
         <Spinner />
       ) : (
         <>
           {formSuccess ? (
             <div>
-              <SuccessMessage title="Work Orders cancelled" />
+              <SuccessMessage title="Work orders cancelled" />
               <p>
                 <a
                   data-test="closeMoreButton"
@@ -173,7 +173,7 @@ const CloseWorkOrders = () => {
                   role="button"
                   onClick={() => setFormSuccess(null)}
                 >
-                  Bulk-close more Work Orders
+                  Bulk-close more work orders
                 </a>
               </p>
             </div>
@@ -243,7 +243,7 @@ const CloseWorkOrders = () => {
               <div>
                 <Button
                   data-test="submit-button"
-                  label="Close Work Orders"
+                  label="Close work orders"
                   type="submit"
                 />
               </div>

@@ -85,8 +85,8 @@ describe('Close-WorkOrders', () => {
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
-    cy.contains('Work Orders cancelled').should('be.visible')
-    cy.contains('Bulk-close Work Orders').should('be.visible')
+    cy.contains('Work orders cancelled').should('be.visible')
+    cy.contains('Bulk-close ork orders').should('be.visible')
   })
 
   it('sends POST request to /close-to-base and shows success message', () => {
@@ -117,8 +117,8 @@ describe('Close-WorkOrders', () => {
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
-    cy.contains('Work Orders cancelled').should('be.visible')
-    cy.contains('Bulk-close Work Orders').should('be.visible')
+    cy.contains('Work orders cancelled').should('be.visible')
+    cy.contains('Bulk-close work orders').should('be.visible')
   })
 
   it("resets the form when 'close more' button clicked", () => {
