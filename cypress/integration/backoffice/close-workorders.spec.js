@@ -17,6 +17,7 @@ describe('Close-WorkOrders', () => {
   })
 
   it('shows error messages when form fields invalid', () => {
+  it('shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message').contains(
@@ -84,11 +85,15 @@ describe('Close-WorkOrders', () => {
     cy.get("[data-test='confirm-button']").click()
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
+    cy.get("[data-test='confirm-button']").click()
+
+    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
     cy.contains('Work orders cancelled').should('be.visible')
-    cy.contains('Bulk-close ork orders').should('be.visible')
+    cy.contains('Bulk-close work orders').should('be.visible')
   })
 
+  it('sends POST request to /close-to-base and shows success message', () => {
   it('sends POST request to /close-to-base and shows success message', () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
@@ -116,11 +121,17 @@ describe('Close-WorkOrders', () => {
     cy.get("[data-test='confirm-button']").click()
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
+    cy.get("[data-test='confirm-button']").click()
 
+    cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
+
+    cy.contains('Work orders cancelled').should('be.visible')
+    cy.contains('Bulk-close work orders').should('be.visible')
     cy.contains('Work orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
   })
 
+  it("resets the form when 'close more' button clicked", () => {
   it("resets the form when 'close more' button clicked", () => {
     const workOrderReference = '11111111'
     const reasonToClose = 'Blah blh blah'
@@ -144,6 +155,8 @@ describe('Close-WorkOrders', () => {
     cy.get('[data-testid="ClosedDate"]').type(closedDate)
 
     cy.get("[data-test='submit-button']").click()
+
+    cy.get("[data-test='confirm-button']").click()
 
     cy.get("[data-test='confirm-button']").click()
 
