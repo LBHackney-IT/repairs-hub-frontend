@@ -164,19 +164,11 @@ const CloseWorkOrders = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="Work orders cancelled" />
-              <p>
-                <a
-                  data-test="closeMoreButton"
-                  className="lbh-link"
-                  role="button"
-                  onClick={() => setFormSuccess(null)}
-                >
-                  Bulk-close more work orders
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="WorkOrders cancelled"
+              resetFormText="Cancel more WorkOrders"
+              resetFormCallback={() => setFormSuccess(null)}
+            />
           ) : (
             <form onSubmit={validateForm}>
               {requestError && <ErrorMessage label={requestError} />}

@@ -179,14 +179,11 @@ const SORContracts = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="SOR contracts modified successfully!" />
-              <p>
-                <a className="lbh-link" role="button" onClick={resetForm}>
-                  Change more SOR contracts
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="SOR Contracts Updated"
+              resetFormText="Update more SOR Contracts"
+              resetFormCallback={resetForm}
+            />
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}

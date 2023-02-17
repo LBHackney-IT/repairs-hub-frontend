@@ -278,14 +278,11 @@ const AddSORCodes = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="SOR codes created" />
-              <p>
-                <a className="lbh-link" role="button" onClick={resetForm}>
-                  Add more SOR codes
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="SOR Codes created"
+              resetFormText="Add more SOR codes"
+              resetFormCallback={resetForm}
+            />
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}

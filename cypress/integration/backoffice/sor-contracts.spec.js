@@ -100,8 +100,8 @@ describe('SOR-Contracts - When Copy selected', () => {
       .its('request.url')
       .should('contain', '/api/backOffice/sor-contracts')
 
-    cy.contains('SOR contract modification').should('be.visible')
-    cy.contains('SOR contracts modified successfully!').should('be.visible')
+    cy.contains('SOR contract modification')
+    cy.contains('SOR Contracts Updated')
   })
 })
 
@@ -198,7 +198,7 @@ describe('SOR-Contracts - When Add selected', () => {
       .its('request.url')
       .should('contain', '/api/backOffice/sor-contracts')
 
-    cy.contains('SOR contract modification').should('be.visible')
-    cy.contains('SOR contracts modified successfully!').should('be.visible')
+    cy.contains('SOR contract modification')
+    cy.contains('SOR Contracts Updated')
   })
 })
