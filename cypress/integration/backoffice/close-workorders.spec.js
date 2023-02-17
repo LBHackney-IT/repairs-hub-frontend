@@ -85,7 +85,7 @@ describe('Close-WorkOrders', () => {
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
-    cy.contains('WorkOrders cancelled').should('be.visible')
+    cy.contains('Work Orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
   })
 
@@ -117,7 +117,7 @@ describe('Close-WorkOrders', () => {
 
     cy.wait('@cancelRequest').its('request.method').should('deep.equal', 'POST')
 
-    cy.contains('WorkOrders cancelled').should('be.visible')
+    cy.contains('Work Orders cancelled').should('be.visible')
     cy.contains('Bulk-close work orders').should('be.visible')
   })
 

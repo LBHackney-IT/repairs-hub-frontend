@@ -165,8 +165,8 @@ const CloseWorkOrders = () => {
         <>
           {formSuccess ? (
             <SuccessMessage
-              title="WorkOrders cancelled"
-              resetFormText="Cancel more WorkOrders"
+              title="Work Orders cancelled"
+              resetFormText="Cancel more work orders"
               resetFormCallback={() => setFormSuccess(null)}
             />
           ) : (
