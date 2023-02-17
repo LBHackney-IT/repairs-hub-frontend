@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NewSORCode component should render the component 1`] = `
+<DocumentFragment>
+  <div
+    id="new-sor-code-container"
+  >
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-input-grid-area "
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sor-code-input-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sor-code-input"
+        >
+          SOR code 
+        </label>
+        <input
+          class="govuk-input lbh-input undefined"
+          data-testid="sor-code-input"
+          id="sor-code-input"
+          name="sor-code-input"
+          placeholder="Example: 4896830H"
+          type="text"
+          value="ASD123YO"
+        />
+      </div>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-cost-input-grid-area"
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sor-code-cost-input-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sor-code-cost-input"
+        >
+          Cost (£) 
+        </label>
+        <input
+          class="govuk-input lbh-input undefined"
+          data-testid="sor-code-cost-input"
+          id="sor-code-cost-input"
+          min="0"
+          name="sor-code-cost-input"
+          placeholder="Example: 10.47"
+          step="0.1"
+          type="number"
+          value="25.5"
+        />
+      </div>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-smv-input-grid-area"
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sor-code-smv-input-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sor-code-smv-input"
+        >
+          Standard Minute Value 
+        </label>
+        <input
+          class="govuk-input lbh-input undefined"
+          data-testid="sor-code-smv-input"
+          id="sor-code-smv-input"
+          min="0"
+          name="sor-code-smv-input"
+          placeholder="Example: 29"
+          type="number"
+          value="47"
+        />
+      </div>
+    </div>
+    <div
+      id="sor-code-remove-grid-area"
+      style="text-align: center;"
+    >
+      <a
+        class="lbh-link"
+        data-testid="sor-code-remove-link"
+        href="#"
+      >
+        Remove SOR code
+      </a>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-short-desc-input-grid-area"
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sor-code-short-desc-input-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sor-code-short-desc-input"
+        >
+          Short description 
+        </label>
+        <textarea
+          aria-describedby="sor-code-short-desc-input-hint sor-code-short-desc-input-error"
+          class="govuk-textarea lbh-textarea"
+          data-testid="sor-code-short-desc-input"
+          id="sor-code-short-desc-input"
+          name="sor-code-short-desc-input"
+          placeholder="Example: LH Gas Carcass LGSR inc cooker"
+          rows="1"
+        >
+          Short Description
+        </textarea>
+      </div>
+    </div>
+    <div
+      class="govuk-form-group lbh-form-group"
+      id="sor-code-long-desc-input-grid-area"
+    >
+      <div
+        class="govuk-form-group lbh-form-group"
+        id="sor-code-long-desc-input-form-group"
+      >
+        <label
+          class="govuk-label lbh-label"
+          for="sor-code-long-desc-input"
+        >
+          Long description 
+        </label>
+        <textarea
+          aria-describedby="sor-code-long-desc-input-hint sor-code-long-desc-input-error"
+          class="govuk-textarea lbh-textarea"
+          data-testid="sor-code-long-desc-input"
+          id="sor-code-long-desc-input"
+          name="sor-code-long-desc-input"
+          placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
+          rows="2"
+        >
+          Long Description
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <hr />
+</DocumentFragment>
+`;

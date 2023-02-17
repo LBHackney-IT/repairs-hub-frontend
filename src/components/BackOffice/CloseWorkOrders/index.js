@@ -1,14 +1,19 @@
-import Layout from '../Layout'
-import { useState } from 'react'
-
-import { TextArea, TextInput, Button } from '../../Form'
-import ControlledRadio from '../Components/ControlledRadio'
-
-import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import Spinner from '../../Spinner'
+import { useState } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { Button, TextArea, TextInput } from '../../Form'
+import DatePicker from '../../Form/DatePicker'
+import Spinner from '../../Spinner'
+import ConfirmationModal from '../Components/ConfirmationModal'
+import ControlledRadio from '../Components/ControlledRadio'
 import SuccessMessage from '../Components/SuccessMessage'
+import Layout from '../Layout'
+import {
+  dateIsInFuture,
+  formatInvalidWorkOrderReferencesError,
+  formatWorkOrderReferences,
+  getInvalidWorkOrderReferences,
+} from './utils'
 
 const radioOptions = [
   {
@@ -32,6 +37,15 @@ const CloseWorkOrders = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
 
+  const [showDialog, setShowDialog] = useState(false)
+
+  const clearForm = () => {
+    setReasonToClose('')
+    setClosedDate('')
+    setWorkOrderReferences('')
+    setErrors({})
+  }
+
   const closeToBaseSelected = () => {
     return selectedOption === 'CloseToBase'
   }
@@ -49,16 +63,49 @@ const CloseWorkOrders = () => {
 
     if (!closedDate && closeToBaseSelected()) {
       newErrors.closedDate = 'Please enter a closed date'
+    } else if (
+      dateIsInFuture(Date.parse(closedDate)) &&
+      closeToBaseSelected()
+    ) {
+      newErrors.closedDate = 'The closed date cannot be in the future'
     }
 
-    if (!workOrderReferences) {
-      newErrors.workOrderReferences = 'Please enter some workOrder references'
+    const strippedWorkOrderReferences = formatWorkOrderReferences(
+      workOrderReferences
+    )
+    const invalidWorkOrderReferences = getInvalidWorkOrderReferences(
+      strippedWorkOrderReferences
+    )
+
+    if (strippedWorkOrderReferences.length === 0) {
+      newErrors.workOrderReferences = 'Please enter workOrder references'
+    } else if (invalidWorkOrderReferences.length > 0) {
+      newErrors.workOrderReferences = formatInvalidWorkOrderReferencesError(
+        invalidWorkOrderReferences
+      )
     }
 
     return newErrors
   }
 
-  const handleSubmit = (event) => {
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Permanently close work orders?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={`The status of the selected work orders will change to "${
+            selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'
+          }"`}
+          onSubmit={submit}
+          yesButtonText={'Close work orders'}
+        />
+      )
+    }
+  }
+
+  const validateForm = (event) => {
     event.preventDefault()
 
     if (loading) return
@@ -71,7 +118,11 @@ const CloseWorkOrders = () => {
       return
     }
 
-    const formatted = workOrderReferences.trim().replaceAll(',', '').split('\n')
+    setShowDialog(!showDialog)
+  }
+
+  const submit = () => {
+    const formatted = formatWorkOrderReferences(workOrderReferences)
 
     const body = {
       reason: reasonToClose,
@@ -92,9 +143,9 @@ const CloseWorkOrders = () => {
       path: url,
       requestData: body,
     })
-      .then((res) => {
-        console.log({ res })
+      .then(() => {
         setFormSuccess(true)
+        clearForm()
       })
       .catch((err) => {
         console.error(err)
@@ -102,35 +153,39 @@ const CloseWorkOrders = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="Bulk-close workOrders">
+    <Layout title="Bulk-close work orders">
       {loading ? (
         <Spinner />
       ) : (
         <>
           {formSuccess ? (
             <div>
-              <SuccessMessage title="WorkOrders cancelled" />
+              <SuccessMessage title="Work orders cancelled" />
               <p>
                 <a
+                  data-test="closeMoreButton"
                   className="lbh-link"
                   role="button"
                   onClick={() => setFormSuccess(null)}
                 >
-                  Bulk-close more workOrders
+                  Bulk-close more work orders
                 </a>
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={validateForm}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <div>
                 <ControlledRadio
-                  label="Select reason for Closing"
+                  label="Select reason for closing"
                   name="selectedOption"
                   options={radioOptions}
                   onChange={(event) => setSelectedOption(event.target.value)}
@@ -146,6 +201,7 @@ const CloseWorkOrders = () => {
                   label="Reason to Close"
                   placeholder="eg. Closed - completed - requested by S Roche"
                   value={reasonToClose}
+                  data-test="reasonToClose"
                   onChange={(event) => setReasonToClose(event.target.value)}
                   error={
                     errors.reasonToClose && { message: errors.reasonToClose }
@@ -169,7 +225,8 @@ const CloseWorkOrders = () => {
 
               <div>
                 <TextArea
-                  label="WorkOrder References"
+                  label="Work Order References"
+                  data-test="workOrderReferences"
                   placeholder="10008088&#10;10024867&#10;10000782"
                   value={workOrderReferences}
                   onChange={(event) =>
@@ -184,7 +241,11 @@ const CloseWorkOrders = () => {
               </div>
 
               <div>
-                <Button label="Close WorkOrders" type="submit" />
+                <Button
+                  data-test="submit-button"
+                  label="Close work orders"
+                  type="submit"
+                />
               </div>
             </form>
           )}

@@ -1,11 +1,21 @@
 import Layout from '../Layout'
 import { useState } from 'react'
 import { TextInput, Button } from '../../Form'
+import ConfirmationModal from '../Components/ConfirmationModal'
 import ControlledRadio from '../Components/ControlledRadio'
-import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SuccessMessage from '../Components/SuccessMessage'
+import {
+  addContractsSelected,
+  copyContractsSelected,
+  dataToRequestObject,
+  propertyReferencesMatch,
+  saveContractChangesToDatabase,
+  validatePropertyReference,
+} from './utils'
+
+import { DataList } from '../../Form'
 
 const radioOptions = [
   {
@@ -18,7 +28,13 @@ const radioOptions = [
   },
 ]
 
+import useSelectContract from '../hooks/useSelectContract'
+
 const SORContracts = () => {
+  const [loading, setLoading] = useState(false)
+  const [requestError, setRequestError] = useState(null)
+  const [formSuccess, setFormSuccess] = useState(false)
+
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
@@ -26,56 +42,94 @@ const SORContracts = () => {
     destinationPropertyReference,
     setDestinationPropertyReference,
   ] = useState('')
-  const [contractReference, setContractReference] = useState('')
+  const [showDialog, setShowDialog] = useState(false)
+
+  const {
+    contractors,
+    handleSelectContractor,
+    selectedContractor,
+    contracts,
+    selectedContract,
+    loadingContracts,
+    loadingContractors,
+    handleSelectContract,
+  } = useSelectContract()
 
   const [errors, setErrors] = useState({})
 
-  const [loading, setLoading] = useState(false)
-  const [requestError, setRequestError] = useState(null)
-  const [formSuccess, setFormSuccess] = useState(null)
-
-  const copyContractsSelected = () => {
-    return selectedOption === 'Copy'
-  }
-
-  const addContractsSelected = () => {
-    return selectedOption === 'Add'
-  }
-
   const validateRequest = () => {
-    let newErrors = {}
+    const newErrors = {}
 
     if (!selectedOption) {
       newErrors.selectedOption = 'Please select an option'
     }
 
-    if (copyContractsSelected()) {
+    if (!destinationPropertyReference) {
+      newErrors.destinationPropertyReference =
+        'You must enter a destination property reference'
+    } else if (!validatePropertyReference(destinationPropertyReference)) {
+      newErrors.destinationPropertyReference = 'PropertyReference is invalid'
+    }
+
+    if (copyContractsSelected(selectedOption)) {
       if (!sourcePropertyReference) {
         newErrors.sourcePropertyReference =
           'You must enter a source property reference'
-      }
-      if (!destinationPropertyReference) {
-        newErrors.sourcePropertyReference =
-          'You must enter a destination property reference'
+      } else if (!validatePropertyReference(sourcePropertyReference)) {
+        newErrors.sourcePropertyReference = 'PropertyReference is invalid'
+      } else if (
+        propertyReferencesMatch(
+          sourcePropertyReference,
+          destinationPropertyReference
+        )
+      ) {
+        newErrors.destinationPropertyReference =
+          'The destination property reference cannot match source property reference'
       }
     }
 
-    if (addContractsSelected()) {
-      if (!destinationPropertyReference) {
-        newErrors.destinationPropertyReference =
-          'You must enter a destination property reference'
+    if (addContractsSelected(selectedOption)) {
+      if (!selectedContractor) {
+        newErrors.contractor = 'You must select a contractor'
       }
-      if (!contractReference) {
-        newErrors.sourcePropertyReference =
-          'You must enter a contract reference'
+
+      if (!selectedContract) {
+        newErrors.contract = 'You must select a contract'
       }
     }
 
     return newErrors
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const resetForm = () => {
+    setSourcePropertyReference('')
+    setDestinationPropertyReference('')
+    handleSelectContractor(null)
+    setFormSuccess(null)
+    setErrors({})
+    setRequestError(null)
+    setShowDialog(false)
+  }
+
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Modify SOR contracts?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={
+            'The operation cannot be undone, please make sure the details entered are correct before proceeding.'
+          }
+          onSubmit={modifySORContracts}
+          yesButtonText={'Modify contracts'}
+        />
+      )
+    }
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
 
     if (loading) return
 
@@ -83,50 +137,44 @@ const SORContracts = () => {
     setErrors(newErrors)
     setRequestError(null)
 
-    if (Object.keys(newErrors).length > 0) {
-      return
-    }
+    if (Object.keys(newErrors).length > 0) return
 
-    const sourcePropertyReferenceReq = sourcePropertyReference
-      .trim()
-      .replaceAll(' ', '')
-    const destinationPropertyReferenceReq = destinationPropertyReference
-      .trim()
-      .replaceAll(' ', '')
-    const contractReferenceReq = contractReference.trim().replaceAll(' ', '')
+    setShowDialog(true)
+  }
 
-    const body = {
-      sourcePropertyReference: sourcePropertyReferenceReq,
-      destinationPropertyReference: destinationPropertyReferenceReq,
-      contractReference: contractReferenceReq,
-      mode: selectedOption,
-    }
-
-    let url = `/api/backOffice/sor-contracts`
-
+  const modifySORContracts = () => {
     setLoading(true)
 
-    frontEndApiRequest({
-      method: 'post',
-      path: url,
-      requestData: body,
-    })
-      .then((res) => {
-        console.log({ res })
+    const body = dataToRequestObject(
+      sourcePropertyReference,
+      destinationPropertyReference,
+      selectedContract,
+      selectedOption
+    )
+
+    saveContractChangesToDatabase(body)
+      .then(() => {
         setFormSuccess(true)
       })
       .catch((err) => {
         console.error(err)
-        setRequestError(err.message)
+
+        if (err?.response?.data?.message !== null) {
+          setRequestError(err?.response?.data?.message)
+          return
+        }
+
+        setRequestError(err)
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="SOR Contract Modification">
-      {loading ? (
+    <Layout title="SOR contract modification">
+      {loading || loadingContractors ? (
         <Spinner />
       ) : (
         <>
@@ -134,11 +182,7 @@ const SORContracts = () => {
             <div>
               <SuccessMessage title="SOR contracts modified successfully!" />
               <p>
-                <a
-                  className="lbh-link"
-                  role="button"
-                  onClick={() => setFormSuccess(null)}
-                >
+                <a className="lbh-link" role="button" onClick={resetForm}>
                   Change more SOR contracts
                 </a>
               </p>
@@ -146,6 +190,8 @@ const SORContracts = () => {
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <div>
                 <ControlledRadio
@@ -163,6 +209,7 @@ const SORContracts = () => {
               {selectedOption === 'Copy' && (
                 <div>
                   <TextInput
+                    data-test="sourcePropertyReference"
                     label="Source property reference (include leading zeroes)"
                     name="sourceInput"
                     placeholder="eg. 00023400"
@@ -181,6 +228,7 @@ const SORContracts = () => {
 
               <div>
                 <TextInput
+                  data-test="destinationPropertyReference"
                   label="Destination property reference (include leading zeroes)"
                   name="destInput"
                   placeholder="eg. 00023400"
@@ -198,25 +246,43 @@ const SORContracts = () => {
 
               {selectedOption === 'Add' && (
                 <div>
-                  <TextInput
-                    label="Contract reference"
-                    name="contractRefInput"
-                    placeholder="eg. 001-H01-MAT2"
-                    value={contractReference}
-                    onChange={(event) =>
-                      setContractReference(event.target.value)
-                    }
-                    error={
-                      errors.contractReference && {
-                        message: errors.contractReference,
-                      }
-                    }
+                  <DataList
+                    name="contractor"
+                    label="Contractor"
+                    options={contractors?.map((x) => x.contractorName) || []}
+                    onChange={handleSelectContractor}
+                    error={errors.contractor && { message: errors.contractor }}
+                    value={selectedContractor?.contractorName}
                   />
+
+                  {loadingContracts ? (
+                    <Spinner />
+                  ) : (
+                    <div>
+                      <DataList
+                        name="contract"
+                        label="Contract"
+                        options={contracts || []}
+                        disabled={selectedContractor === null}
+                        onChange={handleSelectContract}
+                        error={
+                          contracts?.length === 0
+                            ? { message: 'No contracts found' }
+                            : errors.contract && { message: errors.contract }
+                        }
+                        value={selectedContract}
+                      />
+                    </div>
+                  )}
                 </div>
               )}
 
               <div>
-                <Button label="Execute" type="submit" />
+                <Button
+                  data-test="submit-button"
+                  label="Save changes"
+                  type="submit"
+                />
               </div>
             </form>
           )}
