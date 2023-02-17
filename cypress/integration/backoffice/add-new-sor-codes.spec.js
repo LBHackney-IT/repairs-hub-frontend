@@ -201,7 +201,7 @@ describe('Add New SOR Codes page - when user has data admin permissions', () => 
       cy.wait('@newSORCodeSubmitRequest')
 
       // The page should show a successful confirmation message
-      cy.contains('SOR codes created').should('be.visible')
+      cy.contains('SOR Codes created').should('be.visible')
       cy.contains('Add more SOR codes').should('be.visible')
     })
 
