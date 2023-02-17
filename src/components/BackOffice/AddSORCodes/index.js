@@ -11,6 +11,7 @@ import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
+import ConfirmationModal from '../Components/ConfirmationModal'
 
 import useSelectContract from '../hooks/useSelectContract'
 
@@ -51,6 +52,7 @@ const AddSORCodes = () => {
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
   const [errors, setErrors] = useState({})
+  const [showDialog, setShowDialog] = useState(false)
 
   const {
     contractors,
@@ -65,24 +67,15 @@ const AddSORCodes = () => {
 
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
 
-  // Used for CSV bulk upload
-  // const {
-  //   handleFileOnChange,
-  //   parsedDataArray,
-  //   validateFile,
-  //   loading: fileLoading,
-  // } = useFileUpload()
-
   const resetForm = () => {
     setRequestError(null)
     setFormSuccess(null)
     setErrors({})
+    setShowDialog(false)
+    state.sorCodes = [new SorCode(1)]
 
     handleSelectContractor(null)
     handleSelectTrade(null)
-
-    // Used for CSV bulk upload
-    // handleFileOnChange(null)
   }
 
   useEffect(() => {
@@ -149,13 +142,6 @@ const AddSORCodes = () => {
   const checkFormForErrors = () => {
     const formErrors = {}
 
-    // Used for CSV bulk upload
-    // if (parsedDataArray === null) {
-    //   formErrors.fileUpload = 'Please upload a CSV file'
-    // } else if (!validateFile()) {
-    //   formErrors.fileUpload = 'The CSV must contain the specified headers'
-    // }
-
     if (selectedContractor === null) {
       formErrors.contractor = 'Please select a contractor'
     }
@@ -209,6 +195,23 @@ const AddSORCodes = () => {
     return true
   }
 
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Add new SOR codes?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={
+            'You will not be able to edit the fields once the new SOR codes have been added. Please make sure the information entered is accurate before proceeding.'
+          }
+          onSubmit={addNewSORCodes}
+          yesButtonText={'Add SOR codes'}
+        />
+      )
+    }
+  }
+
   const validateForm = () => {
     const formErrors = checkFormForErrors()
     setErrors(formErrors)
@@ -235,26 +238,18 @@ const AddSORCodes = () => {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     setRequestError(null)
     setFormSuccess(null)
 
-    // Used for CSV bulk upload
-    // if (loading || fileLoading) return
+    if (!validateForm()) return
 
-    const formValid = validateForm()
+    setShowDialog(!showDialog)
+  }
 
-    if (formValid == false) return
-
+  const addNewSORCodes = async () => {
     setLoading(true)
-
-    // Used for CSV bulk upload
-    // const data = dataToRequestObject(
-    //   parsedDataArray,
-    //   selectedContract,
-    //   selectedTrade.code
-    // )
 
     const data = {
       sorCodes: state.sorCodes,
@@ -272,11 +267,12 @@ const AddSORCodes = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="Add SOR Codes">
+    <Layout title="Add SOR codes">
       {loading || loadingContractors ? (
         <Spinner />
       ) : (
@@ -290,6 +286,8 @@ const AddSORCodes = () => {
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <DataList
                 name="contractor"
@@ -356,7 +354,7 @@ const AddSORCodes = () => {
               </div>
               <div>
                 <Button
-                  label="Add SOR Codes"
+                  label="Add SOR codes"
                   type="submit"
                   disabled={state.sorCodes.length == 0}
                   data-testid="submit-button"
