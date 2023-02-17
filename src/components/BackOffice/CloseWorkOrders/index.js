@@ -1,15 +1,13 @@
-import Layout from '../Layout'
-import { useState } from 'react'
-
-import { TextArea, TextInput, Button } from '../../Form'
-import ControlledRadio from '../Components/ControlledRadio'
-
-import DatePicker from '../../Form/DatePicker'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import Spinner from '../../Spinner'
+import { useState } from 'react'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { Button, TextArea, TextInput } from '../../Form'
+import DatePicker from '../../Form/DatePicker'
+import Spinner from '../../Spinner'
+import ConfirmationModal from '../Components/ConfirmationModal'
+import ControlledRadio from '../Components/ControlledRadio'
 import SuccessMessage from '../Components/SuccessMessage'
-
+import Layout from '../Layout'
 import {
   dateIsInFuture,
   formatInvalidWorkOrderReferencesError,
@@ -38,6 +36,8 @@ const CloseWorkOrders = () => {
   const [loading, setLoading] = useState(false)
   const [requestError, setRequestError] = useState(null)
   const [formSuccess, setFormSuccess] = useState(null)
+
+  const [showDialog, setShowDialog] = useState(false)
 
   const clearForm = () => {
     setReasonToClose('')
@@ -88,7 +88,24 @@ const CloseWorkOrders = () => {
     return newErrors
   }
 
-  const handleSubmit = (event) => {
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Permanently close work orders?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={`The status of the selected work orders will change to "${
+            selectedOption == 'CloseToBase' ? 'Completed' : 'Cancelled'
+          }"`}
+          onSubmit={submit}
+          yesButtonText={'Close work orders'}
+        />
+      )
+    }
+  }
+
+  const validateForm = (event) => {
     event.preventDefault()
 
     if (loading) return
@@ -101,6 +118,10 @@ const CloseWorkOrders = () => {
       return
     }
 
+    setShowDialog(!showDialog)
+  }
+
+  const submit = () => {
     const formatted = formatWorkOrderReferences(workOrderReferences)
 
     const body = {
@@ -132,11 +153,12 @@ const CloseWorkOrders = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="Bulk-close workOrders">
+    <Layout title="Bulk-close work orders">
       {loading ? (
         <Spinner />
       ) : (
@@ -148,12 +170,14 @@ const CloseWorkOrders = () => {
               resetFormCallback={() => setFormSuccess(null)}
             />
           ) : (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={validateForm}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <div>
                 <ControlledRadio
-                  label="Select reason for Closing"
+                  label="Select reason for closing"
                   name="selectedOption"
                   options={radioOptions}
                   onChange={(event) => setSelectedOption(event.target.value)}
@@ -193,7 +217,7 @@ const CloseWorkOrders = () => {
 
               <div>
                 <TextArea
-                  label="WorkOrder References"
+                  label="Work Order References"
                   data-test="workOrderReferences"
                   placeholder="10008088&#10;10024867&#10;10000782"
                   value={workOrderReferences}
@@ -211,7 +235,7 @@ const CloseWorkOrders = () => {
               <div>
                 <Button
                   data-test="submit-button"
-                  label="Close WorkOrders"
+                  label="Close work orders"
                   type="submit"
                 />
               </div>
