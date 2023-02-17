@@ -46,7 +46,7 @@ const useSelectContract = () => {
   }, [selectedContractor])
 
   const handleSelectContractor = (e) => {
-    const contractorName = e.target.value
+    const contractorName = e ? e.target?.value : undefined
     const selectedContractor = contractors.find(
       (contractor) => contractor.contractorName === contractorName
     )

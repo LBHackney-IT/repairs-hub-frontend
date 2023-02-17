@@ -1,6 +1,7 @@
 import Layout from '../Layout'
 import { useState } from 'react'
 import { TextInput, Button } from '../../Form'
+import ConfirmationModal from '../Components/ConfirmationModal'
 import ControlledRadio from '../Components/ControlledRadio'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
@@ -41,6 +42,7 @@ const SORContracts = () => {
     destinationPropertyReference,
     setDestinationPropertyReference,
   ] = useState('')
+  const [showDialog, setShowDialog] = useState(false)
 
   const {
     contractors,
@@ -106,6 +108,24 @@ const SORContracts = () => {
     setFormSuccess(null)
     setErrors({})
     setRequestError(null)
+    setShowDialog(false)
+  }
+
+  const renderConfirmationModal = () => {
+    if (showDialog) {
+      return (
+        <ConfirmationModal
+          title={'Modify SOR contracts?'}
+          showDialog
+          setShowDialog={setShowDialog}
+          modalText={
+            'The operation cannot be undone, please make sure the details entered are correct before proceeding.'
+          }
+          onSubmit={modifySORContracts}
+          yesButtonText={'Modify contracts'}
+        />
+      )
+    }
   }
 
   const handleSubmit = (e) => {
@@ -119,14 +139,18 @@ const SORContracts = () => {
 
     if (Object.keys(newErrors).length > 0) return
 
+    setShowDialog(true)
+  }
+
+  const modifySORContracts = () => {
+    setLoading(true)
+
     const body = dataToRequestObject(
       sourcePropertyReference,
       destinationPropertyReference,
       selectedContract,
       selectedOption
     )
-
-    setLoading(true)
 
     saveContractChangesToDatabase(body)
       .then(() => {
@@ -144,11 +168,12 @@ const SORContracts = () => {
       })
       .finally(() => {
         setLoading(false)
+        setShowDialog(false)
       })
   }
 
   return (
-    <Layout title="SOR Contract Modification">
+    <Layout title="SOR contract modification">
       {loading || loadingContractors ? (
         <Spinner />
       ) : (
@@ -162,6 +187,8 @@ const SORContracts = () => {
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}
+
+              {renderConfirmationModal()}
 
               <div>
                 <ControlledRadio
@@ -250,7 +277,7 @@ const SORContracts = () => {
               <div>
                 <Button
                   data-test="submit-button"
-                  label="Save Changes"
+                  label="Save changes"
                   type="submit"
                 />
               </div>
