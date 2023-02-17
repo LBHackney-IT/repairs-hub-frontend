@@ -6,7 +6,7 @@ describe('SOR-Contracts - when user unauthorized', () => {
   it("Shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
     cy.visit('/backoffice/sor-contracts')
-    cy.contains('Access denied')
+    cy.contains('Access denied').should('be.visible')
   })
 })
 
@@ -31,12 +31,12 @@ describe('SOR-Contracts - When Copy selected', () => {
   it('Shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'You must enter a source property reference'
-    )
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'You must enter a destination property reference'
-    )
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('You must enter a source property reference')
+      .should('be.visible')
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('You must enter a destination property reference')
+      .should('be.visible')
   })
 
   it('shows error messages when property references invalid', () => {
@@ -64,12 +64,14 @@ describe('SOR-Contracts - When Copy selected', () => {
 
     cy.get("[data-test='submit-button']").click()
 
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'The destination property reference cannot match source property reference'
-    )
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains(
+        'The destination property reference cannot match source property reference'
+      )
+      .should('be.visible')
   })
 
-  it('sends request to /sor-contracts', () => {
+  it('sends request to /sor-contracts after displaying the confirmation modal', () => {
     cy.intercept(
       {
         method: 'POST',
@@ -88,10 +90,18 @@ describe('SOR-Contracts - When Copy selected', () => {
     )
     cy.get("[data-test='submit-button']").click()
 
-    cy.wait('@sorContractRequest')
+    // Assert confirmation modal is visible
+    cy.get("[data-test='confirmation-modal']").should('be.visible')
 
-    cy.contains('SOR Contract Modification')
-    cy.contains('SOR contracts modified successfully!')
+    // Click 'Modify SOR contract' modal button
+    cy.get("[data-test='confirm-button']").click()
+
+    cy.wait('@sorContractRequest')
+      .its('request.url')
+      .should('contain', '/api/backOffice/sor-contracts')
+
+    cy.contains('SOR contract modification').should('be.visible')
+    cy.contains('SOR contracts modified successfully!').should('be.visible')
   })
 })
 
@@ -118,15 +128,15 @@ describe('SOR-Contracts - When Add selected', () => {
   it('Shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'You must enter a destination property reference'
-    )
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'You must select a contractor'
-    )
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'You must select a contract'
-    )
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('You must enter a destination property reference')
+      .should('be.visible')
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('You must select a contractor')
+      .should('be.visible')
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('You must select a contract')
+      .should('be.visible')
   })
 
   it('shows error message when property references invalid', () => {
@@ -137,12 +147,12 @@ describe('SOR-Contracts - When Add selected', () => {
 
     cy.get("[data-test='submit-button']").click()
 
-    cy.get('.govuk-error-message.lbh-error-message').contains(
-      'PropertyReference is invalid'
-    )
+    cy.get('.govuk-error-message.lbh-error-message')
+      .contains('PropertyReference is invalid')
+      .should('be.visible')
   })
 
-  it('sends request to /sor-contracts', () => {
+  it('sends request to /sor-contracts after displaying the confirmation modal', () => {
     cy.intercept(
       {
         method: 'GET',
@@ -178,9 +188,17 @@ describe('SOR-Contracts - When Add selected', () => {
 
     cy.get("[data-test='submit-button']").click()
 
-    cy.wait('@sorContractRequest')
+    // Assert confirmation modal is visible
+    cy.get("[data-test='confirmation-modal']").should('be.visible')
 
-    cy.contains('SOR Contract Modification')
-    cy.contains('SOR contracts modified successfully!')
+    // Click 'Modify SOR contract' modal button
+    cy.get("[data-test='confirm-button']").click()
+
+    cy.wait('@sorContractRequest')
+      .its('request.url')
+      .should('contain', '/api/backOffice/sor-contracts')
+
+    cy.contains('SOR contract modification').should('be.visible')
+    cy.contains('SOR contracts modified successfully!').should('be.visible')
   })
 })
