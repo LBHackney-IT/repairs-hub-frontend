@@ -157,7 +157,7 @@ const SORContracts = () => {
             <SuccessMessage
               title="SOR Contracts Updated"
               resetFormText="Update more SOR Contracts"
-              resetFormCallback={() => setFormSuccess(null)}
+              resetFormCallback={resetForm}
             />
           ) : (
             <form onSubmit={handleSubmit}>
