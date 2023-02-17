@@ -3,7 +3,7 @@
 import 'cypress-audit/commands'
 
 describe('SOR-Contracts - when user unauthorized', () => {
-  it("Shows access denied when user doesn't have correct permissions", () => {
+  it("shows access denied when user doesn't have correct permissions", () => {
     cy.loginWithOperativeRole()
     cy.visit('/backoffice/sor-contracts')
     cy.contains('Access denied').should('be.visible')
@@ -28,7 +28,7 @@ describe('SOR-Contracts - When Copy selected', () => {
     cy.wait('@contractorsRequest')
   })
 
-  it('Shows error messages when form fields invalid', () => {
+  it('shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message')
@@ -100,8 +100,40 @@ describe('SOR-Contracts - When Copy selected', () => {
       .its('request.url')
       .should('contain', '/api/backOffice/sor-contracts')
 
-    cy.contains('SOR contract modification')
-    cy.contains('SOR Contracts Updated')
+    cy.contains('SOR contract modification').should('be.visible')
+    cy.contains('SOR Contracts Updated').should('be.visible')
+  })
+
+  it('resets the form after the user clicks on the "Update more SOR contracts" and the fields are empty', () => {
+    cy.intercept(
+      {
+        method: 'POST',
+        path: '/api/backOffice/sor-contracts',
+      },
+      {
+        body: '',
+      }
+    ).as('sorContractRequest')
+
+    const propertyReference1 = '12345678'
+    const propertyReference2 = '87654321'
+    cy.get('[data-test="sourcePropertyReference"]').type(propertyReference1)
+    cy.get('[data-test="destinationPropertyReference"]').type(
+      propertyReference2
+    )
+    cy.get("[data-test='submit-button']").click()
+
+    // Click 'Modify SOR contract' modal button
+    cy.get("[data-test='confirm-button']").click()
+
+    cy.wait('@sorContractRequest')
+
+    // Click on reset form button
+    cy.contains('Update more SOR contracts').click()
+
+    // Assert fields are empty
+    cy.get('[data-test="sourcePropertyReference"]').should('be.empty')
+    cy.get('[data-test="destinationPropertyReference"]').should('be.empty')
   })
 })
 
@@ -125,7 +157,7 @@ describe('SOR-Contracts - When Add selected', () => {
     cy.get('#selectedOption_Add').click()
   })
 
-  it('Shows error messages when form fields invalid', () => {
+  it('shows error messages when form fields invalid', () => {
     cy.get("[data-test='submit-button']").click()
 
     cy.get('.govuk-error-message.lbh-error-message')
@@ -198,7 +230,57 @@ describe('SOR-Contracts - When Add selected', () => {
       .its('request.url')
       .should('contain', '/api/backOffice/sor-contracts')
 
-    cy.contains('SOR contract modification')
-    cy.contains('SOR Contracts Updated')
+    cy.contains('SOR contract modification').should('be.visible')
+    cy.contains('SOR Contracts Updated').should('be.visible')
+  })
+
+  it('resets the form after the user clicks on the "Update more SOR contracts" and the fields are empty', () => {
+    cy.intercept(
+      {
+        method: 'GET',
+        pathname: '/api/backoffice/contracts',
+        query: {
+          contractorReference: '*',
+        },
+      },
+      {
+        fixture: 'contracts/contracts.json',
+      }
+    ).as('contractsRequest')
+
+    cy.intercept(
+      {
+        method: 'POST',
+        path: '/api/backOffice/sor-contracts',
+      },
+      {
+        body: '',
+      }
+    ).as('sorContractRequest')
+
+    const propertyReference = '12345678'
+    cy.get('[data-test="destinationPropertyReference"]').type(propertyReference)
+
+    const contractor = 'DECORATION ALLOWANCE'
+    cy.get('[data-testid="contractor"]').type(contractor)
+
+    const contract = 'F22-H04-GSC3'
+    cy.wait('@contractsRequest')
+    cy.get('[data-testid="contract"]').type(contract)
+
+    cy.get("[data-test='submit-button']").click()
+
+    // Click 'Modify SOR contract' modal button
+    cy.get("[data-test='confirm-button']").click()
+
+    cy.wait('@sorContractRequest')
+
+    // Click on reset form button
+    cy.contains('Update more SOR contracts').click()
+
+    // Assert fields are empty
+    cy.get('[data-test="destinationPropertyReference"]').should('be.empty')
+    cy.get('[data-testid="contractor"]').should('be.empty')
+    cy.get('[data-testid="contract"]').should('be.empty')
   })
 })
