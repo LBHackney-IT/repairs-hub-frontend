@@ -91,7 +91,7 @@ describe('SOR-Contracts - When Copy selected', () => {
     cy.wait('@sorContractRequest')
 
     cy.contains('SOR Contract Modification')
-    cy.contains('SOR contracts modified successfully!')
+    cy.contains('SOR Contracts Updated')
   })
 })
 
@@ -181,6 +181,6 @@ describe('SOR-Contracts - When Add selected', () => {
     cy.wait('@sorContractRequest')
 
     cy.contains('SOR Contract Modification')
-    cy.contains('SOR contracts modified successfully!')
+    cy.contains('SOR Contracts Updated')
   })
 })
