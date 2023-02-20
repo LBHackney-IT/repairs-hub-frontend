@@ -63,6 +63,7 @@ const AddSORCodes = () => {
     loadingContracts,
     loadingContractors,
     handleSelectContract,
+    handleFormReset,
   } = useSelectContract()
 
   const { selectedTrade, handleSelectTrade } = useSelectTrade(trades)
@@ -74,7 +75,7 @@ const AddSORCodes = () => {
     setShowDialog(false)
     state.sorCodes = [new SorCode(1)]
 
-    handleSelectContractor(null)
+    handleFormReset()
     handleSelectTrade(null)
   }
 

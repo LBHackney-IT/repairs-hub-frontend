@@ -205,6 +205,39 @@ describe('Add New SOR Codes page - when user has data admin permissions', () => 
       cy.contains('Add more SOR codes').should('be.visible')
     })
 
+    it('takes the user back to the form page with blank fields, when the user clicks on the "Add more SOR codes" link under the success message', () => {
+      cy.wait('@contractorsRequest')
+      cy.wait('@tradesRequest')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/backoffice/sor-codes' },
+        { statusCode: 200 }
+      ).as('newSORCodeSubmitRequest')
+
+      populateForm()
+
+      // Submit new SOR codes
+      cy.get('[data-testid="submit-button"]').click()
+
+      // Press "Add SOR codes" in confirmation modal
+      cy.get('[data-test="confirm-button"]').click()
+
+      cy.wait('@newSORCodeSubmitRequest')
+
+      // Click on "Add more SOR codes
+      cy.contains('Add more SOR codes').click()
+
+      // Assert all the fields are empty
+      cy.get('[data-testid="contractor"]').should('be.empty')
+      cy.get('[data-testid="contract"]').should('be.empty')
+      cy.get('[data-testid="trade"]').should('be.empty')
+      cy.get('[data-testid="sor-code-input"]').should('be.empty')
+      cy.get('[data-testid="sor-code-cost-input"]').should('be.empty')
+      cy.get('[data-testid="sor-code-smv-input"]').should('be.empty')
+      cy.get('[data-testid="sor-code-short-desc-input"]').should('be.empty')
+      cy.get('[data-testid="sor-code-long-desc-input"]').should('be.empty')
+    })
+
     it('displays an error message if the network request fails, after all form fields are populated and the form is submitted', () => {
       cy.wait('@contractorsRequest')
       cy.wait('@tradesRequest')
