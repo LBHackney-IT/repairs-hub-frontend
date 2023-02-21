@@ -3,12 +3,20 @@
 exports[`NewSORCode component should render the component 1`] = `
 <DocumentFragment>
   <div
+    style="text-align: right;"
+  >
+    <button
+      class="lbh-link"
+      data-testid="sor-code-remove-link"
+      role="button"
+    >
+      Remove SOR code
+    </button>
+  </div>
+  <div
     id="new-sor-code-container"
   >
-    <div
-      class="govuk-form-group lbh-form-group"
-      id="sor-code-input-grid-area "
-    >
+    <div>
       <div
         class="govuk-form-group lbh-form-group"
         id="sor-code-input-form-group"
@@ -30,10 +38,7 @@ exports[`NewSORCode component should render the component 1`] = `
         />
       </div>
     </div>
-    <div
-      class="govuk-form-group lbh-form-group"
-      id="sor-code-cost-input-grid-area"
-    >
+    <div>
       <div
         class="govuk-form-group lbh-form-group"
         id="sor-code-cost-input-form-group"
@@ -57,10 +62,7 @@ exports[`NewSORCode component should render the component 1`] = `
         />
       </div>
     </div>
-    <div
-      class="govuk-form-group lbh-form-group"
-      id="sor-code-smv-input-grid-area"
-    >
+    <div>
       <div
         class="govuk-form-group lbh-form-group"
         id="sor-code-smv-input-form-group"
@@ -83,71 +85,53 @@ exports[`NewSORCode component should render the component 1`] = `
         />
       </div>
     </div>
-    <div
-      id="sor-code-remove-grid-area"
-      style="text-align: center;"
-    >
-      <a
-        class="lbh-link"
-        data-testid="sor-code-remove-link"
-        href="#"
-      >
-        Remove SOR code
-      </a>
-    </div>
+  </div>
+  <div>
     <div
       class="govuk-form-group lbh-form-group"
-      id="sor-code-short-desc-input-grid-area"
+      id="sor-code-short-desc-input-form-group"
     >
-      <div
-        class="govuk-form-group lbh-form-group"
-        id="sor-code-short-desc-input-form-group"
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-short-desc-input"
       >
-        <label
-          class="govuk-label lbh-label"
-          for="sor-code-short-desc-input"
-        >
-          Short description 
-        </label>
-        <textarea
-          aria-describedby="sor-code-short-desc-input-hint sor-code-short-desc-input-error"
-          class="govuk-textarea lbh-textarea"
-          data-testid="sor-code-short-desc-input"
-          id="sor-code-short-desc-input"
-          name="sor-code-short-desc-input"
-          placeholder="Example: LH Gas Carcass LGSR inc cooker"
-          rows="1"
-        >
-          Short Description
-        </textarea>
-      </div>
+        Short description 
+      </label>
+      <textarea
+        aria-describedby="sor-code-short-desc-input-hint sor-code-short-desc-input-error"
+        class="govuk-textarea lbh-textarea"
+        data-testid="sor-code-short-desc-input"
+        id="sor-code-short-desc-input"
+        name="sor-code-short-desc-input"
+        placeholder="Example: LH Gas Carcass LGSR inc cooker"
+        rows="1"
+      >
+        Short Description
+      </textarea>
     </div>
+  </div>
+  <div>
     <div
       class="govuk-form-group lbh-form-group"
-      id="sor-code-long-desc-input-grid-area"
+      id="sor-code-long-desc-input-form-group"
     >
-      <div
-        class="govuk-form-group lbh-form-group"
-        id="sor-code-long-desc-input-form-group"
+      <label
+        class="govuk-label lbh-label"
+        for="sor-code-long-desc-input"
       >
-        <label
-          class="govuk-label lbh-label"
-          for="sor-code-long-desc-input"
-        >
-          Long description 
-        </label>
-        <textarea
-          aria-describedby="sor-code-long-desc-input-hint sor-code-long-desc-input-error"
-          class="govuk-textarea lbh-textarea"
-          data-testid="sor-code-long-desc-input"
-          id="sor-code-long-desc-input"
-          name="sor-code-long-desc-input"
-          placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
-          rows="2"
-        >
-          Long Description
-        </textarea>
-      </div>
+        Long description 
+      </label>
+      <textarea
+        aria-describedby="sor-code-long-desc-input-hint sor-code-long-desc-input-error"
+        class="govuk-textarea lbh-textarea"
+        data-testid="sor-code-long-desc-input"
+        id="sor-code-long-desc-input"
+        name="sor-code-long-desc-input"
+        placeholder="Example: LH Gas Carcass test. Test internal gas pipework for soundness from meter to all appliances. Visual check cooker or any other gas appliances, excludes gas fire. Issue LGSR Landlord gas safety record..."
+        rows="2"
+      >
+        Long Description
+      </textarea>
     </div>
   </div>
   <hr />

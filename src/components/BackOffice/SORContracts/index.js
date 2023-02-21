@@ -53,6 +53,7 @@ const SORContracts = () => {
     loadingContracts,
     loadingContractors,
     handleSelectContract,
+    handleFormReset,
   } = useSelectContract()
 
   const [errors, setErrors] = useState({})
@@ -104,7 +105,7 @@ const SORContracts = () => {
   const resetForm = () => {
     setSourcePropertyReference('')
     setDestinationPropertyReference('')
-    handleSelectContractor(null)
+    handleFormReset()
     setFormSuccess(null)
     setErrors({})
     setRequestError(null)
@@ -179,14 +180,11 @@ const SORContracts = () => {
       ) : (
         <>
           {formSuccess ? (
-            <div>
-              <SuccessMessage title="SOR contracts modified successfully!" />
-              <p>
-                <a className="lbh-link" role="button" onClick={resetForm}>
-                  Change more SOR contracts
-                </a>
-              </p>
-            </div>
+            <SuccessMessage
+              title="SOR Contracts Updated"
+              resetFormText="Update more SOR contracts"
+              resetFormCallback={resetForm}
+            />
           ) : (
             <form onSubmit={handleSubmit}>
               {requestError && <ErrorMessage label={requestError} />}

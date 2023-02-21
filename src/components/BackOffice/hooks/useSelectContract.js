@@ -46,7 +46,7 @@ const useSelectContract = () => {
   }, [selectedContractor])
 
   const handleSelectContractor = (e) => {
-    const contractorName = e ? e.target?.value : undefined
+    const contractorName = e.target.value
     const selectedContractor = contractors.find(
       (contractor) => contractor.contractorName === contractorName
     )
@@ -58,6 +58,11 @@ const useSelectContract = () => {
     setSelectedContract(e.target.value)
   }
 
+  const handleFormReset = () => {
+    setSelectedContractor(null)
+    setSelectedContract(null)
+  }
+
   return {
     contractors,
     handleSelectContractor,
@@ -67,6 +72,7 @@ const useSelectContract = () => {
     loadingContracts,
     loadingContractors,
     handleSelectContract,
+    handleFormReset,
   }
 }
 
