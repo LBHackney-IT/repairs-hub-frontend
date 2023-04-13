@@ -23,7 +23,7 @@ import {
   optionsForPaymentType,
 } from '@/utils/paymentTypes'
 import Status from './Status'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+// import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 
@@ -45,8 +45,12 @@ const MobileWorkingWorkOrder = ({
 
     const startTime = new Date()
 
-        setLoading(true)
-    new  Promise((resolve) => setTimeout(() => { resolve() }, 1000))
+    setLoading(true)
+    new Promise((resolve) =>
+      setTimeout(() => {
+        resolve()
+      }, 1000)
+    )
       .then(() => {
         // await frontEndApiRequest({
         //   method: 'post',
@@ -56,9 +60,9 @@ const MobileWorkingWorkOrder = ({
         //   },
         // })
 
-      workOrder.startTime = startTime
+        workOrder.startTime = startTime
       })
-      .catch(e => {
+      .catch((e) => {
         console.error(e)
 
         setError(
@@ -68,8 +72,6 @@ const MobileWorkingWorkOrder = ({
       .finally(() => {
         setLoading(false)
       })
-
-    
   }
 
   const operativesCount = workOrder.operatives.length
@@ -207,15 +209,17 @@ const MobileWorkingWorkOrder = ({
 
                 {renderOperativeManagementLink(operativesCount)}
 
-                {!!workOrder?.startTime ? (
-                    <PrimarySubmitButton label="Confirm" />
+                {workOrder?.startTime ? (
+                  <PrimarySubmitButton label="Confirm" />
                 ) : (
                   <div className="govuk-form-group lbh-form-group">
-                    <Button type="button" onClick={handleStartJob} label="Start my job" />
-                      
-                    
+                    <Button
+                      type="button"
+                      onClick={handleStartJob}
+                      label="Start my job"
+                    />
                   </div>
-                )} 
+                )}
 
                 {error && <ErrorMessage label={error} />}
               </>
