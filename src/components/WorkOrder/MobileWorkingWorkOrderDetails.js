@@ -103,7 +103,7 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
           linkClassName={'govuk-body'}
         />
 
-{workOrder?.startTime !== null && (
+        {workOrder?.startTime !== null && (
           <>
             <h5 className="lbh-heading-h5">Started At</h5>
             <p className="govuk-body">{workOrder.startTime}</p>
