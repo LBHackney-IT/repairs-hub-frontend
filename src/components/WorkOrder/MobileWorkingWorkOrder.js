@@ -23,9 +23,10 @@ import {
   optionsForPaymentType,
 } from '@/utils/paymentTypes'
 import Status from './Status'
-// import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -42,24 +43,21 @@ const MobileWorkingWorkOrder = ({
 
   const handleStartJob = async () => {
     setError(null)
+    setLoading(true)
 
     const startTime = new Date()
 
-    setLoading(true)
-    new Promise((resolve) =>
-      setTimeout(() => {
-        resolve()
-      }, 1000)
-    )
+    const requestData = {
+      startTime,
+    }
+    
+    frontEndApiRequest({
+      method: 'post',
+      path: `/api/startWorkOrder`,
+      requestData,
+    })
       .then(() => {
-        // await frontEndApiRequest({
-        //   method: 'post',
-        //   path: `/api/jobStatusUpdate`,
-        //   requestData: {
-        //     startTime,
-        //   },
-        // })
-
+        // update clientSide
         workOrder.startTime = startTime
       })
       .catch((e) => {
@@ -117,6 +115,11 @@ const MobileWorkingWorkOrder = ({
           <div className="govuk-!-margin-top-4">
             <BackButton />
           </div>
+
+          {error && 
+            <div><ErrorMessage label={error} /></div>
+          }
+
 
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <MobileWorkingWorkOrderDetails
@@ -221,7 +224,6 @@ const MobileWorkingWorkOrder = ({
                   </div>
                 )}
 
-                {error && <ErrorMessage label={error} />}
               </>
             )}
           </form>
