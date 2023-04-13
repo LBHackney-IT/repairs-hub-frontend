@@ -12,10 +12,11 @@ const MobileWorkingWorkOrderListItem = ({
 }) => {
   return (
     <Link
-      href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
+    href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
     >
       <li
         data-id={index}
+        style={{cursor: "pointer"}}
         className={cx(
           'govuk-!-margin-top-3',
           'operative-work-order-list-item',
