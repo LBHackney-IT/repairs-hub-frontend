@@ -101,7 +101,14 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
           numberOfLines="3"
           pTagClassName={'govuk-body govuk-!-margin-bottom-0'}
           linkClassName={'govuk-body'}
-        ></TruncateText>
+        />
+
+{workOrder?.startTime !== null && (
+          <>
+            <h5 className="lbh-heading-h5">Started At</h5>
+            <p className="govuk-body">{workOrder.startTime}</p>
+          </>
+        )}
 
         {workOrder.plannerComments && (
           <>
