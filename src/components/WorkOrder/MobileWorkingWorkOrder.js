@@ -50,7 +50,7 @@ const MobileWorkingWorkOrder = ({
     const requestData = {
       startTime,
     }
-    
+
     frontEndApiRequest({
       method: 'post',
       path: `/api/startWorkOrder`,
@@ -116,10 +116,11 @@ const MobileWorkingWorkOrder = ({
             <BackButton />
           </div>
 
-          {error && 
-            <div><ErrorMessage label={error} /></div>
-          }
-
+          {error && (
+            <div>
+              <ErrorMessage label={error} />
+            </div>
+          )}
 
           <form onSubmit={handleSubmit(onFormSubmit)}>
             <MobileWorkingWorkOrderDetails
@@ -223,7 +224,6 @@ const MobileWorkingWorkOrder = ({
                     />
                   </div>
                 )}
-
               </>
             )}
           </form>
