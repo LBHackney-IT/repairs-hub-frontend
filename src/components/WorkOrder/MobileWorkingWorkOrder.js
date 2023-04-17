@@ -49,11 +49,12 @@ const MobileWorkingWorkOrder = ({
 
     const requestData = {
       startTime,
+      workOrderId: workOrderReference
     }
 
     frontEndApiRequest({
-      method: 'post',
-      path: `/api/startWorkOrder`,
+      method: 'put',
+      path: `/api/workOrders/starttime`,
       requestData,
     })
       .then(() => {
