@@ -5,6 +5,7 @@ exports[`MobileWorkingWorkOrderListItem component should render MobileWorkingWor
   <li
     class="govuk-!-margin-top-3 operative-work-order-list-item operative-work-order-list-item--active"
     data-id="0"
+    style="cursor: pointer;"
   >
     <div
       class="appointment-details"
