@@ -49,7 +49,7 @@ const MobileWorkingWorkOrder = ({
 
     const requestData = {
       startTime,
-      workOrderId: workOrderReference
+      workOrderId: workOrderReference,
     }
 
     frontEndApiRequest({
