@@ -1,5 +1,7 @@
 const DAY = 86400000
 
+import moment from 'moment'
+
 export const extractTimeFromDate = (datetime) => {
   if (typeof datetime === 'string') {
     datetime = new Date(datetime)
@@ -12,18 +14,8 @@ export const extractTimeFromDate = (datetime) => {
 }
 
 export const formatDateTime = (datetime) => {
-  if (typeof datetime === 'string') {
-    datetime = new Date(datetime)
-  }
-  return datetime.toLocaleString('en-GB', {
-    timeZone: 'UTC',
-    hourCycle: 'h23',
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  })
+  // Format: 11 Jun 2023, 14:49
+  return moment(datetime).format('DD MMM YYYY, HH:mm')
 }
 
 export const beginningOfDay = (date) => {
