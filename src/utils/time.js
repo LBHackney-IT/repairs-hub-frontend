@@ -15,7 +15,7 @@ export const extractTimeFromDate = (datetime) => {
 
 export const formatDateTime = (datetime) => {
   // Format: 11 Jun 2023, 14:49
-  return moment(datetime).format('DD MMM YYYY, HH:mm')
+  return moment(datetime).format('D MMM YYYY, HH:mm')
 }
 
 export const beginningOfDay = (date) => {
