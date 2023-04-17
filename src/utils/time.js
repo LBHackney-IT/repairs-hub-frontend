@@ -16,6 +16,7 @@ export const formatDateTime = (datetime) => {
     datetime = new Date(datetime)
   }
   return datetime.toLocaleString('en-GB', {
+    timeZone: 'UTC',
     hourCycle: 'h23',
     day: 'numeric',
     month: 'short',
