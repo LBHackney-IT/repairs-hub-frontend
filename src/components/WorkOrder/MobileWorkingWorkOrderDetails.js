@@ -107,7 +107,7 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
         {!!workOrder?.startTime && (
           <>
             <h5 className="lbh-heading-h5">Started At</h5>
-            <p className="govuk-body">{formatDateTime(workOrder.startTime)}</p>
+            <p className="govuk-body" data-test="startedAtValue">{formatDateTime(workOrder.startTime)}</p>
           </>
         )}
 

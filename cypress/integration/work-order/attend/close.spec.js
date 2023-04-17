@@ -8,7 +8,7 @@ describe('Closing my own work order', () => {
 
   beforeEach(() => {
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
-      fixture: 'workOrders/workOrder.json',
+      fixture: 'workOrders/workOrderWithStartTime.json',
     }).as('workOrderRequest')
 
     cy.intercept(
@@ -76,7 +76,7 @@ describe('Closing my own work order', () => {
     cy.loginWithOperativeRole()
   })
 
-  context.only('during normal working hours', () => {
+  context('during normal working hours', () => {
     beforeEach(() => {
       cy.clock(new Date(now).setHours(12, 0, 0))
     })
