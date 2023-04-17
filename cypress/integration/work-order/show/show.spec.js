@@ -58,7 +58,7 @@ describe('Show work order page', () => {
 
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
+        { fixture: 'workOrders/workOrderWithStartTime.json' }
       ).as('workOrderRequest')
 
       cy.intercept(
@@ -491,7 +491,7 @@ describe('Show work order page', () => {
     beforeEach(() => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
+        { fixture: 'workOrders/workOrderWithStartTime.json' }
       ).as('workOrderRequest')
 
       cy.intercept(

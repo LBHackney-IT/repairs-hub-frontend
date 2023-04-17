@@ -19,7 +19,7 @@ describe('Notes', () => {
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'workOrders/workOrder.json' }
+      { fixture: 'workOrders/workOrderWithStartTime.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/notes' },

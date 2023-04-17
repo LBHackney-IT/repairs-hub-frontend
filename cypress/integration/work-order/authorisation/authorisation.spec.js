@@ -180,7 +180,7 @@ describe('Authorisation workflow for a work order', () => {
     it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
+        { fixture: 'workOrders/workOrderWithStartTime.json' }
       ).as('nonPendingWorkOrderRequest')
 
       cy.visit('/work-orders/10000012')

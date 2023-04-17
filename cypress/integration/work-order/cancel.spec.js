@@ -13,7 +13,7 @@ describe('Work order cancellations', () => {
       // Viewing the work order page
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
+        { fixture: 'workOrders/workOrderWithStartTime.json' }
       ).as('workOrder')
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
