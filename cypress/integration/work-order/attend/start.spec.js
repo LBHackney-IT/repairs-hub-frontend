@@ -78,27 +78,26 @@ describe('Starting my own work order', () => {
     cy.clock(new Date(now).setHours(12, 0, 0))
   })
 
+  it('starts a workOrder and updates started at', () => {
+    cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
-    it('starts a workOrder and updates started at', () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+    cy.wait([
+      '@workOrderRequest',
+      '@propertyRequest',
+      '@tasksRequest',
+      '@locationAlerts',
+      '@personAlerts',
+    ])
 
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
+    cy.intercept(
+      { method: 'put', path: '/api/workOrders/starttime' },
+      { body: '' }
+    ).as('startTimeRequest')
 
-      cy.intercept(
-        { method: 'put', path: '/api/workOrders/starttime' },
-        { body: '' }
-      ).as('startTimeRequest')
+    cy.contains('button', 'Start my job').click()
 
-      cy.contains('button', 'Start my job').click()
+    cy.wait('@startTimeRequest')
 
-      cy.wait('@startTimeRequest') 
-      
-      cy.get('[data-test="startedAtValue"]').contains('11 Jun 2021, 12:00')
-    })
+    cy.get('[data-test="startedAtValue"]').contains('11 Jun 2021, 12:00')
+  })
 })
