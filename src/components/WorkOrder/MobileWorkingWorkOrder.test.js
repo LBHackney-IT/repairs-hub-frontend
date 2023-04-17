@@ -7,7 +7,6 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
-import moment from 'moment'
 
 const axios = require('axios')
 
@@ -530,7 +529,7 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
     callerName: 'Test Testerson',
     callerNumber: '07700900000',
     propertyReference: '00023405',
-    startTime: moment.utc('2023-06-11T13:49:15.878796Z').format(),
+    startTime: '2023-06-11T13:49:15.878796Z',
     tradeCode: 'PL',
     tradeDescription: 'Plumbing - PL',
     status: 'In Progress',
