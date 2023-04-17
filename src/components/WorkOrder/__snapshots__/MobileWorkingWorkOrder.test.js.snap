@@ -2372,6 +2372,7 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       </h5>
       <p
         class="govuk-body"
+        data-test="startedAtValue"
       >
         11 Jun 2023, 13:49
       </p>
