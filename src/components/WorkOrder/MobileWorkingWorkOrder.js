@@ -7,7 +7,11 @@ import { sortArrayByDate } from '@/utils/helpers/array'
 import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
 import Radios from '@/components/Form/Radios'
-import { CharacterCountLimitedTextArea, PrimarySubmitButton } from '../Form'
+import {
+  Button,
+  CharacterCountLimitedTextArea,
+  PrimarySubmitButton,
+} from '../Form'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
@@ -19,6 +23,10 @@ import {
   optionsForPaymentType,
 } from '@/utils/paymentTypes'
 import Status from './Status'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import { useState } from 'react'
+import Spinner from '../Spinner'
+import ErrorMessage from '../Errors/ErrorMessage'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -30,6 +38,41 @@ const MobileWorkingWorkOrder = ({
   paymentType,
   tenure,
 }) => {
+  const [error, setError] = useState()
+  const [loading, setLoading] = useState(false)
+
+  const handleStartJob = async () => {
+    setError(null)
+    setLoading(true)
+
+    const startTime = new Date()
+
+    const requestData = {
+      startTime,
+      workOrderId: workOrderReference,
+    }
+
+    frontEndApiRequest({
+      method: 'put',
+      path: `/api/workOrders/starttime`,
+      requestData,
+    })
+      .then(() => {
+        // update clientSide
+        workOrder.startTime = startTime
+      })
+      .catch((e) => {
+        console.error(e)
+
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        )
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }
+
   const operativesCount = workOrder.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
@@ -65,106 +108,128 @@ const MobileWorkingWorkOrder = ({
 
   return (
     <>
-      <AppointmentHeader workOrder={workOrder} />
-      <div className="govuk-!-margin-top-4">
-        <BackButton />
-      </div>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <>
+          <AppointmentHeader workOrder={workOrder} />
+          <div className="govuk-!-margin-top-4">
+            <BackButton />
+          </div>
 
-      <form onSubmit={handleSubmit(onFormSubmit)}>
-        <MobileWorkingWorkOrderDetails
-          property={property}
-          workOrder={workOrder}
-          tasksAndSors={tasksAndSors}
-          tenure={tenure}
-        />
-
-        <MobileWorkingTasksAndSorsTable
-          workOrderReference={workOrderReference}
-          tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
-          tabName={'Tasks and SORs'}
-          readOnly={readOnly}
-        />
-
-        {isCurrentTimeOperativeOvertime() && !readOnly && (
-          <Radios
-            label="Payment type"
-            name="paymentType"
-            options={optionsForPaymentType({
-              paymentTypes: [BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE],
-              currentPaymentType: paymentType,
-            })}
-            register={register({
-              required: 'Provide payment type',
-            })}
-            error={errors && errors.paymentType}
-          />
-        )}
-
-        {readOnly && (
-          <>
-            {workOrder.paymentType === OVERTIME_PAYMENT_TYPE && (
-              <h4 className="lbh-heading-h4">Overtime work order</h4>
-            )}
-            {operativesCount > 1 && (
-              <OperativeList
-                operatives={workOrder.operatives}
-                currentUserPayrollNumber={currentUserPayrollNumber}
-                workOrderReference={workOrderReference}
-                readOnly={readOnly}
-              />
-            )}
-            <h4 className="lbh-heading-h4">Status</h4>
-            <Status
-              text={workOrder.status}
-              className="work-order-status govuk-!-margin-top-2"
-            />
-            <br />
-          </>
-        )}
-
-        {!readOnly && (
-          <>
-            {areTasksUpdated(tasksAndSors) && (
-              <CharacterCountLimitedTextArea
-                name="variationReason"
-                maxLength={250}
-                requiredText="Please enter a reason"
-                label="Variation reason"
-                placeholder="Write a reason for the variation..."
-                required={true}
-                register={register}
-                error={errors && errors.variationReason}
-              />
-            )}
-
-            <div className="govuk-!-margin-top-0">
-              <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-                <a
-                  role="button"
-                  draggable="false"
-                  className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                  data-module="govuk-button"
-                >
-                  Add new SOR
-                </a>
-              </Link>
+          {error && (
+            <div>
+              <ErrorMessage label={error} />
             </div>
+          )}
 
-            {operativesCount > 1 && (
-              <OperativeList
-                operatives={workOrder.operatives}
-                currentUserPayrollNumber={currentUserPayrollNumber}
-                workOrderReference={workOrderReference}
-                readOnly={readOnly}
+          <form onSubmit={handleSubmit(onFormSubmit)}>
+            <MobileWorkingWorkOrderDetails
+              property={property}
+              workOrder={workOrder}
+              tasksAndSors={tasksAndSors}
+              tenure={tenure}
+            />
+
+            <MobileWorkingTasksAndSorsTable
+              workOrderReference={workOrderReference}
+              tasksAndSors={sortArrayByDate(tasksAndSors, 'dateAdded')}
+              tabName={'Tasks and SORs'}
+              readOnly={readOnly}
+            />
+
+            {isCurrentTimeOperativeOvertime() && !readOnly && (
+              <Radios
+                label="Payment type"
+                name="paymentType"
+                options={optionsForPaymentType({
+                  paymentTypes: [BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE],
+                  currentPaymentType: paymentType,
+                })}
+                register={register({
+                  required: 'Provide payment type',
+                })}
+                error={errors && errors.paymentType}
               />
             )}
 
-            {renderOperativeManagementLink(operativesCount)}
+            {readOnly && (
+              <>
+                {workOrder.paymentType === OVERTIME_PAYMENT_TYPE && (
+                  <h4 className="lbh-heading-h4">Overtime work order</h4>
+                )}
+                {operativesCount > 1 && (
+                  <OperativeList
+                    operatives={workOrder.operatives}
+                    currentUserPayrollNumber={currentUserPayrollNumber}
+                    workOrderReference={workOrderReference}
+                    readOnly={readOnly}
+                  />
+                )}
+                <h4 className="lbh-heading-h4">Status</h4>
+                <Status
+                  text={workOrder.status}
+                  className="work-order-status govuk-!-margin-top-2"
+                />
+                <br />
+              </>
+            )}
 
-            <PrimarySubmitButton label="Confirm" />
-          </>
-        )}
-      </form>
+            {!readOnly && (
+              <>
+                {areTasksUpdated(tasksAndSors) && (
+                  <CharacterCountLimitedTextArea
+                    name="variationReason"
+                    maxLength={250}
+                    requiredText="Please enter a reason"
+                    label="Variation reason"
+                    placeholder="Write a reason for the variation..."
+                    required={true}
+                    register={register}
+                    error={errors && errors.variationReason}
+                  />
+                )}
+
+                <div className="govuk-!-margin-top-0">
+                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                    <a
+                      role="button"
+                      draggable="false"
+                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                      data-module="govuk-button"
+                    >
+                      Add new SOR
+                    </a>
+                  </Link>
+                </div>
+
+                {operativesCount > 1 && (
+                  <OperativeList
+                    operatives={workOrder.operatives}
+                    currentUserPayrollNumber={currentUserPayrollNumber}
+                    workOrderReference={workOrderReference}
+                    readOnly={readOnly}
+                  />
+                )}
+
+                {renderOperativeManagementLink(operativesCount)}
+
+                {workOrder?.startTime ? (
+                  <PrimarySubmitButton label="Confirm" />
+                ) : (
+                  <div className="govuk-form-group lbh-form-group">
+                    <Button
+                      type="button"
+                      onClick={handleStartJob}
+                      label="Start my job"
+                    />
+                  </div>
+                )}
+              </>
+            )}
+          </form>
+        </>
+      )}
     </>
   )
 }

@@ -8,6 +8,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
+import { formatDateTime } from '../../utils/time'
 
 const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
   const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
@@ -101,7 +102,16 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
           numberOfLines="3"
           pTagClassName={'govuk-body govuk-!-margin-bottom-0'}
           linkClassName={'govuk-body'}
-        ></TruncateText>
+        />
+
+        {!!workOrder?.startTime && (
+          <>
+            <h5 className="lbh-heading-h5">Started At</h5>
+            <p className="govuk-body" data-test="startedAtValue">
+              {formatDateTime(workOrder.startTime)}
+            </p>
+          </>
+        )}
 
         {workOrder.plannerComments && (
           <>

@@ -3,21 +3,23 @@ import 'cypress-audit/commands'
 
 describe('Closing my own work order', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
+  const workOrderReference = '10000621'
+  const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept('/api/workOrders/10000621', {
+    cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/properties/00012345' },
+      { method: 'GET', path: `/api/properties/${propertyReference}` },
       { fixture: 'properties/property.json' }
     ).as('propertyRequest')
 
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345/location-alerts',
+        path: `/api/properties/${propertyReference}/location-alerts`,
       },
       {
         body: {
@@ -57,7 +59,7 @@ describe('Closing my own work order', () => {
     ).as('personAlerts')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000621/tasks' },
+      { method: 'GET', path: `/api/workOrders/${workOrderReference}/tasks` },
       { fixture: 'workOrders/tasksAndSorsUnvaried.json' }
     ).as('tasksRequest')
 
@@ -80,7 +82,7 @@ describe('Closing my own work order', () => {
     })
 
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
-      cy.visit('/operatives/1/work-orders/10000621')
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
         '@workOrderRequest',
@@ -107,7 +109,7 @@ describe('Closing my own work order', () => {
         .its('request.body')
         .should('deep.equal', {
           workOrderReference: {
-            id: '10000621',
+            id: workOrderReference,
             description: '',
             allocatedBy: '',
           },
@@ -123,7 +125,7 @@ describe('Closing my own work order', () => {
         })
 
       cy.get('.modal-container').within(() => {
-        cy.contains('Work order 10000621 successfully completed')
+        cy.contains(`Work order ${workOrderReference} successfully completed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -141,7 +143,7 @@ describe('Closing my own work order', () => {
 
     context('and the overtime payment type is chosen', () => {
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
-        cy.visit('/operatives/1/work-orders/10000621')
+        cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
         cy.wait([
           '@workOrderRequest',
@@ -177,7 +179,7 @@ describe('Closing my own work order', () => {
           .its('request.body')
           .should('deep.equal', {
             workOrderReference: {
-              id: '10000621',
+              id: workOrderReference,
               description: '',
               allocatedBy: '',
             },
@@ -194,7 +196,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains('Work order 10000621 successfully completed')
+          cy.contains(`Work order ${workOrderReference} successfully completed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
@@ -207,7 +209,7 @@ describe('Closing my own work order', () => {
 
     context('when no particular payment type is chosen', () => {
       it('makes a POST request for completion with bonus payment type, confirm success, and returns me to the index', () => {
-        cy.visit('/operatives/1/work-orders/10000621')
+        cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
         cy.wait([
           '@workOrderRequest',
@@ -243,7 +245,7 @@ describe('Closing my own work order', () => {
           .its('request.body')
           .should('deep.equal', {
             workOrderReference: {
-              id: '10000621',
+              id: workOrderReference,
               description: '',
               allocatedBy: '',
             },
@@ -259,7 +261,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains('Work order 10000621 successfully completed')
+          cy.contains(`Work order ${workOrderReference} successfully completed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
