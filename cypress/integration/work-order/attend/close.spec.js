@@ -8,7 +8,7 @@ describe('Closing my own work order', () => {
 
   beforeEach(() => {
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
-      fixture: 'workOrders/workOrderWithStartTime.json',
+      fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
     cy.intercept(

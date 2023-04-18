@@ -83,7 +83,7 @@ describe('Search', () => {
         beforeEach(() => {
           cy.intercept(
             { method: 'GET', path: '/api/workOrders/10000012' },
-            { fixture: 'workOrders/workOrderWithStartTime.json' }
+            { fixture: 'workOrders/workOrder.json' }
           )
 
           cy.intercept(
@@ -169,7 +169,7 @@ describe('Search', () => {
 
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012' },
-          { fixture: 'workOrders/workOrderWithStartTime.json' }
+          { fixture: 'workOrders/workOrder.json' }
         )
         cy.intercept(
           { method: 'GET', path: '/api/properties/00012345' },

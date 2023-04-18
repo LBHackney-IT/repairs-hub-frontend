@@ -8,7 +8,7 @@ describe('Tasks and SORs', () => {
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
-      { fixture: 'workOrders/workOrderWithStartTime.json' }
+      { fixture: 'workOrders/workOrder.json' }
     )
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
