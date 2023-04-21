@@ -87,6 +87,17 @@ const CloseWorkOrderForm = ({
             defaultValue={date ? date.toISOString().split('T')[0] : null}
           />
 
+<TimeInput
+            name="startTime"
+            label="Start time (optional)"
+            hint="Use 24h format. For example, 14:30"
+            control={control}
+            register={register}
+            optional={true}
+            defaultValue={time}
+            error={errors && errors.startTime}
+          />
+
           <TimeInput
             name="completionTime"
             label="Completion time"

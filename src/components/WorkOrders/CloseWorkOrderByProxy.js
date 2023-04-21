@@ -25,6 +25,7 @@ import { generalLinks } from '@/utils/successPageLinks'
 const CloseWorkOrderByProxy = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
   const [completionTime, setCompletionTime] = useState('')
+  const [startTime, setStartTime] = useState('')
   const [dateToShow, setDateToShow] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -60,6 +61,19 @@ const CloseWorkOrderByProxy = ({ reference }) => {
           method: 'post',
           path: `/api/jobStatusUpdate`,
           requestData: operativeAssignmentFormData,
+        })
+      }
+
+      console.log({ reference, startTime })
+
+      if (startTime !== null) {
+        await frontEndApiRequest({
+          method: 'put',
+          path: `/api/workOrders/starttime`,
+          requestData: {
+            startTime: startTime,
+            workOrderId: reference,
+          },
         })
       }
 
@@ -191,6 +205,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     formData.paymentType && setPaymentType(formData.paymentType)
     setCurrentPage(SUMMARY_PAGE)
     setCompletionTime(formData.completionTime)
+    setStartTime(formData.startTime)
   }
 
   return (
