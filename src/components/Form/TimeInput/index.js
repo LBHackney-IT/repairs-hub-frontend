@@ -135,7 +135,13 @@ TimeInput.propTypes = {
   rules: PropTypes.shape({}),
 }
 
-const ControlledTimeInput = ({ control, name, rules, optional, ...otherProps }) => (
+const ControlledTimeInput = ({
+  control,
+  name,
+  rules,
+  optional,
+  ...otherProps
+}) => (
   <Controller
     as={<TimeInput {...otherProps} />}
     onChange={([value]) => value}
@@ -144,7 +150,6 @@ const ControlledTimeInput = ({ control, name, rules, optional, ...otherProps }) 
       ...rules,
       validate: {
         valid: (value) => {
-
           // if optional, only validate when not empty
           if (optional && !value) return true
 
