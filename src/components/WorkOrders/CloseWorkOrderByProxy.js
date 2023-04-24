@@ -260,6 +260,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
                   paymentType={paymentType}
+                  startTime={startTime}
                 />
               )}
               {currentPage === CONFIRMATION_PAGE && (

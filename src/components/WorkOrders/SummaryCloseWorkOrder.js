@@ -14,6 +14,7 @@ const SummaryCloseWorkOrder = ({
   reason,
   operativeNames,
   paymentType,
+  startTime,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -36,7 +37,19 @@ const SummaryCloseWorkOrder = ({
               </TD>
             </TR>
 
-            {paymentType && (
+            {startTime!== null && (
+              <TR>
+                <TH scope="row">Start Time</TH>
+                <TD>edit me</TD>
+                <TD>
+                  <a className="lbh-link" onClick={changeStep} href="#">
+                    Edit
+                  </a>
+                </TD>
+              </TR>
+            )}
+
+            {paymentType  && (
               <TR>
                 <TH scope="row">Payment type</TH>
                 <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}</TD>
