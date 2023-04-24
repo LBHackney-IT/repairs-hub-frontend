@@ -1,6 +1,6 @@
 # Hackney Repairs Hub frontend
 
-Allows agents and managers to raise, review, approve and close work orders..
+Allows agents and managers to raise, review, approve and close work orders.
 
 Allows operatives to sign in to a "mobile working" view, see upcoming jobs and complete them.
 
