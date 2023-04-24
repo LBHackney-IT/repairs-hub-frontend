@@ -55,14 +55,6 @@ const WorkOrderInfo = ({ workOrder }) => {
           )}
         </div>
       )}
-
-      {!!workOrder?.startTime && (
-        <div className="lbh-body-xs govuk-!-margin-bottom-2">
-          <span>Started at</span>
-          <br></br>
-          <span>{formatDateTime(workOrder.startTime)}</span>
-        </div>
-      )}
     </div>
   )
 }
