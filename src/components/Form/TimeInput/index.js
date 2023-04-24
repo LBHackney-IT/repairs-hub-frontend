@@ -138,7 +138,6 @@ TimeInput.propTypes = {
 const ControlledTimeInput = ({
   control,
   name,
-  rules,
   label,
   emptyErrorMessage,
   required,
