@@ -139,25 +139,33 @@ const ControlledTimeInput = ({
   control,
   name,
   rules,
-  optional,
+  label,
+  emptyErrorMessage,
+  required,
   ...otherProps
-}) => (
-  <Controller
-    as={<TimeInput {...otherProps} />}
-    onChange={([value]) => value}
-    name={name}
-    rules={{
-      ...rules,
-      validate: {
-        valid: (value) => {
-          // if optional, only validate when not empty
-          if (optional && !value) return true
+}) => {
+  return (
+    <Controller
+      as={<TimeInput label={label} {...otherProps} />}
+      onChange={([value]) => value}
+      rules={{
+        validate: {
+          valid: (value) => {
+            // required - validate being empty
+            if (required && !value) return emptyErrorMessage
 
-          if (value) {
-            let hourStr = value.split(':')[0]
-            let minuteStr = value.split(':')[1]
-            let hour = parseInt(hourStr)
-            let minute = parseInt(minuteStr)
+            // not required - valid if empty
+            if (!required && !value) return true
+
+            const hourStr = value.split(':')[0] || ''
+            const minuteStr = value.split(':')[1] || ''
+
+            const hour = parseInt(hourStr)
+            const minute = parseInt(minuteStr)
+
+            if (!Number(hour) || !Number(minute))
+              return 'Please enter a valid time'
+
             if (
               hourStr.length == 2 &&
               minuteStr.length == 2 &&
@@ -168,21 +176,25 @@ const ControlledTimeInput = ({
             ) {
               return true
             }
-          }
-          return 'Please enter a valid time'
+
+            return 'Please enter a valid time'
+          },
         },
-        ...rules?.validate,
-      },
-    }}
-    control={control}
-    defaultValue={control.defaultValuesRef.current[name] || null}
-  />
-)
+      }}
+      name={name}
+      control={control}
+      defaultValue={control.defaultValuesRef.current[name] || null}
+    />
+  )
+}
 
 ControlledTimeInput.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  emptyErrorMessage: PropTypes.string.isRequired,
   rules: PropTypes.shape({}),
   control: PropTypes.object.isRequired,
+  required: PropTypes.bool.isRequired,
 }
 
 export default ControlledTimeInput

@@ -67,45 +67,40 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
 
   return (
     <>
-       {!!workOrder?.startTime && (
+      {!!workOrder?.startTime && (
         <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span>Started at</span>
           <br></br>
           <span>{formatDateTime(workOrder.startTime)}</span>
         </div>
       )}
-   {
-     (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
-      <div className="appointment-details">
-        <p className="govuk-!-font-size-14">Appointment details</p>
-        <div className="lbh-body-s govuk-!-margin-0">
-     
+      {(canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
+        <div className="appointment-details">
+          <p className="govuk-!-font-size-14">Appointment details</p>
+          <div className="lbh-body-s govuk-!-margin-0">
+            {user && (
+              <>
+                {canSeeAppointmentDetailsInfo(user) &&
+                  workOrder.appointment &&
+                  workOrder.status !== STATUS_CANCELLED &&
+                  appointmentDetailsInfoHtml()}
 
-          {user && (
-            <>
-              {canSeeAppointmentDetailsInfo(user) &&
-                workOrder.appointment &&
-                workOrder.status !== STATUS_CANCELLED &&
-                appointmentDetailsInfoHtml()}
+                {canScheduleAppointment(user) &&
+                  workOrder.canBeScheduled() &&
+                  scheduleAppointmentHtml(workOrder.appointment)}
 
-              {canScheduleAppointment(user) &&
-                workOrder.canBeScheduled() &&
-                scheduleAppointmentHtml(workOrder.appointment)}
-
-              {canSeeAppointmentDetailsInfo(user) &&
-                !workOrder.appointment &&
-                !workOrder.canBeScheduled() && (
-                  <p className="lbh-!-font-weight-bold">Not applicable</p>
-                )}
-            </>
-          )}
+                {canSeeAppointmentDetailsInfo(user) &&
+                  !workOrder.appointment &&
+                  !workOrder.canBeScheduled() && (
+                    <p className="lbh-!-font-weight-bold">Not applicable</p>
+                  )}
+              </>
+            )}
+          </div>
         </div>
-      </div>
-    )
-   }
-  </>
+      )}
+    </>
   )
-
 }
 
 AppointmentDetails.propTypes = {

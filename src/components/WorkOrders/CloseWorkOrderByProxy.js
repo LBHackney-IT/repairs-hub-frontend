@@ -25,8 +25,10 @@ import { generalLinks } from '@/utils/successPageLinks'
 const CloseWorkOrderByProxy = ({ reference }) => {
   const [completionDate, setCompletionDate] = useState('')
   const [completionTime, setCompletionTime] = useState('')
+
+  const [startDate, setStartDate] = useState('')
   const [startTime, setStartTime] = useState('')
-  const [dateToShow, setDateToShow] = useState('')
+
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
@@ -64,14 +66,12 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         })
       }
 
-      console.log({ reference, startTime })
-
-      if (startTime !== null) {
+      if (startDate !== '') {
         await frontEndApiRequest({
           method: 'put',
           path: `/api/workOrders/starttime`,
           requestData: {
-            startTime: startTime,
+            startTime: startDate,
             workOrderId: reference,
           },
         })
@@ -163,11 +163,21 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   }
 
   const onGetToSummary = (formData) => {
-    const properDate = convertToDateFormat(
-      formData.date,
+    const formattedCompletionDate = convertToDateFormat(
+      formData.completionDate,
       formData.completionTime
     )
-    setCompletionDate(properDate)
+    setCompletionDate(formattedCompletionDate)
+
+    if (formData.startDate === '') {
+      setStartDate('')
+    } else {
+      const formattedStartDate = convertToDateFormat(
+        formData.startDate,
+        formData.startTime
+      )
+      setStartDate(formattedStartDate)
+    }
 
     const operativeIds = Object.keys(formData)
       .filter((k) => k.match(/operative-\d+/))
@@ -201,7 +211,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     )
     setReason(formData.reason)
     setNotes(formData.notes)
-    setDateToShow(formData.date)
+    // setDateToShow(formData.completionDate)
     formData.paymentType && setPaymentType(formData.paymentType)
     setCurrentPage(SUMMARY_PAGE)
     setCompletionTime(formData.completionTime)
@@ -223,8 +233,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   reference={workOrder.reference}
                   onSubmit={onGetToSummary}
                   notes={notes}
-                  time={completionTime}
-                  date={completionDate}
+                  completionTime={completionTime}
+                  completionDate={completionDate}
+                  startTime={startTime}
+                  startDate={startDate}
                   reason={reason}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   assignedOperativesToWorkOrder={selectedOperatives}
@@ -244,8 +256,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                 <SummaryCloseWorkOrder
                   onJobSubmit={onJobSubmit}
                   notes={notes}
-                  time={completionTime}
-                  date={dateToShow}
+                  completionDate={completionDate}
                   reason={reason}
                   operativeNames={
                     workOrder.canAssignOperative &&
@@ -260,7 +271,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   changeStep={changeCurrentPage}
                   reference={workOrder.reference}
                   paymentType={paymentType}
-                  startTime={startTime}
+                  startDate={startDate}
                 />
               )}
               {currentPage === CONFIRMATION_PAGE && (

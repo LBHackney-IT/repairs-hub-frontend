@@ -18,8 +18,8 @@ describe('SummaryCloseWorkOrder component', () => {
       <SummaryCloseWorkOrder
         reference={props.reference}
         notes={props.notes}
-        time={props.time}
-        date={props.date}
+        startTime={props.time}
+        startDate={props.date}
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
@@ -35,8 +35,8 @@ describe('SummaryCloseWorkOrder component', () => {
       <SummaryCloseWorkOrder
         reference={props.reference}
         notes={props.notes}
-        time={props.time}
-        date={props.date}
+        startTime={props.time}
+        startDate={props.date}
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
