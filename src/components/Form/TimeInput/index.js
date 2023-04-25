@@ -54,7 +54,7 @@ const TimeInput = forwardRef(
           <legend
             className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
           >
-            {label} {showAsOptional && '(optional)'}{' '}
+            {label} {showAsOptional && '(optional) '}
             {required && <span className="govuk-required">*</span>}
           </legend>
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">
