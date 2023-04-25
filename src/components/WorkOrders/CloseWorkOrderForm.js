@@ -98,11 +98,11 @@ const CloseWorkOrderForm = ({
 
         <TimeInput
           name="startTime"
-          label="Start time (optional)"
+          label="Start time"
+          showAsOptional={true}
           hint="Use 24h format. For example, 14:30"
           control={control}
           required={startTimeIsRequired}
-          emptyErrorMessage="Please enter a start time"
           register={register()}
           defaultValue={startTime}
           error={errors && errors['startTime']}
@@ -138,7 +138,6 @@ const CloseWorkOrderForm = ({
           hint="Use 24h format. For example, 14:30"
           control={control}
           required={true}
-          emptyErrorMessage="Please enter a completion time"
           register={register()}
           defaultValue={completionTime}
           error={errors && errors['completionTime']}

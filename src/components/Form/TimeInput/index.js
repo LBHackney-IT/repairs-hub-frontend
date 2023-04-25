@@ -23,6 +23,7 @@ const TimeInput = forwardRef(
       register,
       onChange,
       required,
+      showAsOptional = false,
       ...otherProps
     },
     ref
@@ -53,7 +54,8 @@ const TimeInput = forwardRef(
           <legend
             className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
           >
-            {label} {required && <span className="govuk-required">*</span>}
+            {label} {showAsOptional && '(optional)'}{' '}
+            {required && <span className="govuk-required">*</span>}
           </legend>
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">
             {hint}
@@ -133,25 +135,33 @@ TimeInput.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
+  showAsOptional: PropTypes.bool,
 }
 
 const ControlledTimeInput = ({
   control,
   name,
   label,
-  emptyErrorMessage,
   required,
+  showAsOptional = false,
   ...otherProps
 }) => {
   return (
     <Controller
-      as={<TimeInput label={label} {...otherProps} />}
+      as={
+        <TimeInput
+          label={label}
+          showAsOptional={showAsOptional}
+          {...otherProps}
+        />
+      }
       onChange={([value]) => value}
       rules={{
         validate: {
           valid: (value) => {
             // required - validate being empty
-            if (required && !value) return emptyErrorMessage
+            if (required && !value)
+              return `Please enter a value for ${label.toLowerCase()}`
 
             // not required - valid if empty
             if (!required && !value) return true
@@ -189,10 +199,10 @@ const ControlledTimeInput = ({
 ControlledTimeInput.propTypes = {
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  emptyErrorMessage: PropTypes.string.isRequired,
   rules: PropTypes.shape({}),
   control: PropTypes.object.isRequired,
   required: PropTypes.bool.isRequired,
+  showAsOptional: PropTypes.bool,
 }
 
 export default ControlledTimeInput
