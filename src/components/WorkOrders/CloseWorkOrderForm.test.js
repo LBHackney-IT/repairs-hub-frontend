@@ -21,6 +21,8 @@ describe('CloseWorkOrderForm component', () => {
     notes: 'this is a note',
     completionTime: '14:30',
     completionDate: new Date('2021-01-12T16:24:26.632Z'),
+    startTime: '14:30',
+    startDate: new Date('2021-01-12T16:24:26.632Z'),
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
@@ -41,6 +43,8 @@ describe('CloseWorkOrderForm component', () => {
           notes={props.notes}
           completionTime={props.completionTime}
           completionDate={props.completionDate}
+          startTime={props.startTime}
+          startDate={props.startDate}
           reason={props.reason}
           operativeAssignmentMandatory={true}
           assignedOperativesToWorkOrder={props.operatives}

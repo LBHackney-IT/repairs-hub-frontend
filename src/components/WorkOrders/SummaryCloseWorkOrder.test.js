@@ -5,8 +5,8 @@ describe('SummaryCloseWorkOrder component', () => {
   const props = {
     reference: 10000012,
     notes: 'this is a note',
-    time: '14:30',
-    date: '2021-02-03T11:33:35.757339',
+    completionDate: '2021-02-03T11:33:35.757339',
+    startDate: '2021-02-03T11:33:35.757339',
     reason: 'No Access',
     operatives: ['Operative A', 'Operative B'],
     onJobSubmit: jest.fn(),
@@ -18,8 +18,8 @@ describe('SummaryCloseWorkOrder component', () => {
       <SummaryCloseWorkOrder
         reference={props.reference}
         notes={props.notes}
-        startTime={props.time}
-        startDate={props.date}
+        completionDate={props.completionDate}
+        startDate={props.startDate}
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
@@ -35,8 +35,8 @@ describe('SummaryCloseWorkOrder component', () => {
       <SummaryCloseWorkOrder
         reference={props.reference}
         notes={props.notes}
-        startTime={props.time}
-        startDate={props.date}
+        completionDate={props.completionDate}
+        startDate={props.startDate}
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
