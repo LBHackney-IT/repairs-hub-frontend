@@ -162,8 +162,7 @@ const ControlledTimeInput = ({
             const hour = parseInt(hourStr)
             const minute = parseInt(minuteStr)
 
-            if (!Number(hour) || !Number(minute))
-              return 'Please enter a valid time'
+            if (isNaN(hour) || isNaN(minute)) return 'Please enter a valid time'
 
             if (
               hourStr.length == 2 &&
