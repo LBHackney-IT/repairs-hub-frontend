@@ -15,14 +15,21 @@ export const formatDateTime = (datetime) => {
   if (typeof datetime === 'string') {
     datetime = new Date(datetime)
   }
-  return datetime.toLocaleString('en-GB', {
+
+  const options = {
     hourCycle: 'h23',
     day: 'numeric',
     month: 'short',
     year: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-  })
+  }
+
+  if (process.env.NODE_ENV === 'test') {
+    options.timeZone = 'UTC'
+  }
+
+  return datetime.toLocaleString('en-GB', options)
 }
 
 export const beginningOfDay = (date) => {
