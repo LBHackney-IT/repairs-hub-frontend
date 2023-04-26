@@ -16,6 +16,7 @@ const MobileWorkingWorkOrderListItem = ({
     >
       <li
         data-id={index}
+        style={{ cursor: 'pointer' }}
         className={cx(
           'govuk-!-margin-top-3',
           'operative-work-order-list-item',

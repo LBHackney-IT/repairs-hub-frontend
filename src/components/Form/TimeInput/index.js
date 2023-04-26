@@ -23,6 +23,7 @@ const TimeInput = forwardRef(
       register,
       onChange,
       required,
+      showAsOptional = false,
       ...otherProps
     },
     ref
@@ -53,7 +54,8 @@ const TimeInput = forwardRef(
           <legend
             className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
           >
-            {label} {required && <span className="govuk-required">*</span>}
+            {label} {showAsOptional && '(optional) '}
+            {required && <span className="govuk-required">*</span>}
           </legend>
           <span id={`${name}-hint`} className="govuk-hint lbh-hint">
             {hint}
@@ -133,22 +135,45 @@ TimeInput.propTypes = {
   labelSize: PropTypes.oneOf(['s', 'm', 'l', 'xl']),
   hint: PropTypes.string,
   rules: PropTypes.shape({}),
+  showAsOptional: PropTypes.bool,
 }
 
-const ControlledTimeInput = ({ control, name, rules, ...otherProps }) => (
-  <Controller
-    as={<TimeInput {...otherProps} />}
-    onChange={([value]) => value}
-    name={name}
-    rules={{
-      ...rules,
-      validate: {
-        valid: (value) => {
-          if (value) {
-            let hourStr = value.split(':')[0]
-            let minuteStr = value.split(':')[1]
-            let hour = parseInt(hourStr)
-            let minute = parseInt(minuteStr)
+const ControlledTimeInput = ({
+  control,
+  name,
+  label,
+  required,
+  showAsOptional = false,
+  ...otherProps
+}) => {
+  return (
+    <Controller
+      as={
+        <TimeInput
+          label={label}
+          showAsOptional={showAsOptional}
+          {...otherProps}
+        />
+      }
+      onChange={([value]) => value}
+      rules={{
+        validate: {
+          valid: (value) => {
+            // required - validate being empty
+            if (required && !value)
+              return `Please enter a value for ${label.toLowerCase()}`
+
+            // not required - valid if empty
+            if (!required && !value) return true
+
+            const hourStr = value.split(':')[0] || ''
+            const minuteStr = value.split(':')[1] || ''
+
+            const hour = parseInt(hourStr)
+            const minute = parseInt(minuteStr)
+
+            if (isNaN(hour) || isNaN(minute)) return 'Please enter a valid time'
+
             if (
               hourStr.length == 2 &&
               minuteStr.length == 2 &&
@@ -159,21 +184,25 @@ const ControlledTimeInput = ({ control, name, rules, ...otherProps }) => (
             ) {
               return true
             }
-          }
-          return 'Please enter a valid time'
+
+            return 'Please enter a valid time'
+          },
         },
-        ...rules?.validate,
-      },
-    }}
-    control={control}
-    defaultValue={control.defaultValuesRef.current[name] || null}
-  />
-)
+      }}
+      name={name}
+      control={control}
+      defaultValue={control.defaultValuesRef.current[name] || null}
+    />
+  )
+}
 
 ControlledTimeInput.propTypes = {
   name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
   rules: PropTypes.shape({}),
   control: PropTypes.object.isRequired,
+  required: PropTypes.bool.isRequired,
+  showAsOptional: PropTypes.bool,
 }
 
 export default ControlledTimeInput

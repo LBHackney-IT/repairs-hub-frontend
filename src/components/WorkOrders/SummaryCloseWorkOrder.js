@@ -3,17 +3,18 @@ import { useForm } from 'react-hook-form'
 import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
+import dayjs from 'dayjs'
 
 const SummaryCloseWorkOrder = ({
   reference,
   onJobSubmit,
   notes,
-  time,
-  date,
+  completionDate,
   changeStep,
   reason,
   operativeNames,
   paymentType,
+  startDate,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -24,11 +25,21 @@ const SummaryCloseWorkOrder = ({
         <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
         <Table>
           <TBody>
+            {startDate !== '' && (
+              <TR>
+                <TH scope="row">Start time</TH>
+                <TD>{dayjs(startDate).format('YYYY/MM/DD HH:mm:ss')}</TD>
+                <TD>
+                  <a className="lbh-link" onClick={changeStep} href="#">
+                    Edit
+                  </a>
+                </TD>
+              </TR>
+            )}
+
             <TR>
               <TH scope="row">Completion time</TH>
-              <TD>
-                {date.split('-').join('/')} {time}
-              </TD>
+              <TD>{dayjs(completionDate).format('YYYY/MM/DD HH:mm:ss')}</TD>
               <TD>
                 <a className="lbh-link" onClick={changeStep} href="#">
                   Edit
@@ -91,8 +102,8 @@ SummaryCloseWorkOrder.propTypes = {
   reference: PropTypes.number.isRequired,
   onJobSubmit: PropTypes.func.isRequired,
   notes: PropTypes.string.isRequired,
-  time: PropTypes.string,
-  date: PropTypes.string,
+  completionDate: PropTypes.string,
+  startDate: PropTypes.string,
   changeStep: PropTypes.func.isRequired,
   reason: PropTypes.string.isRequired,
   paymentType: PropTypes.string,

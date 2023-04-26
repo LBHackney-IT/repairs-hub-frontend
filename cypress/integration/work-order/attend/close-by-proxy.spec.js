@@ -40,6 +40,11 @@ describe('Closing a work order on behalf of an operative', () => {
     ).as('property')
 
     cy.intercept(
+      { method: 'PUT', path: '/api/workOrders/starttime' },
+      { body: '' }
+    ).as('startTime')
+
+    cy.intercept(
       { method: 'POST', path: '/api/workOrderComplete' },
       { body: '' }
     ).as('apiCheck')
@@ -66,12 +71,12 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('form').within(() => {
       cy.contains('Please select a reason for closing the work order')
       cy.contains('Please pick completion date')
-      cy.contains('Please enter a valid time')
+      cy.contains('Please enter a completion time')
     })
 
     // Input some invalid dates
     cy.get('form').within(() => {
-      cy.get('#date').type('2021-01-17') //Raised on 2021-01-18
+      cy.get('#completionDate').type('2021-01-17') //Raised on 2021-01-18
 
       cy.get('[data-testid=completionTime-hour]').type('32')
       cy.get('[data-testid=completionTime-minutes]').type('66')
@@ -85,7 +90,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     cy.get('form').within(() => {
-      cy.get('#date').clear().type('2028-01-15')
+      cy.get('#completionDate').clear().type('2028-01-15')
 
       cy.get('[data-testid=completionTime-hour]').type('32')
       cy.get('[data-testid=completionTime-minutes]').type('66')
@@ -97,6 +102,24 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('form').within(() => {
       cy.contains('Please select a date that is in the past')
       cy.contains('Please enter a valid time')
+    })
+
+    cy.get('form').within(() => {
+      cy.get('#completionDate').clear().type('2021-01-20') //Raised on 2021-01-18
+
+      cy.get('[data-testid=completionTime-hour]').clear().type('12')
+      cy.get('[data-testid=completionTime-minutes]').clear().type('10')
+
+      cy.get('#startDate').clear().type('2021-01-20') //Raised on 2021-01-18
+
+      cy.get('[type="submit"]').contains('Close work order').click()
+
+      cy.contains('Please enter a start time')
+
+      cy.get('[data-testid=startTime-hour]').clear().type('12')
+      cy.get('[data-testid=startTime-minutes]').clear().type('10')
+
+      cy.contains('Please enter a start time').should('not.exist')
     })
   })
 
@@ -112,7 +135,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('label', 'Completed').click()
         })
 
-      cy.get('#date').type('2021-01-18') //Raised on 2021-01-18, 15:28
+      cy.get('#completionDate').type('2021-01-18') //Raised on 2021-01-18, 15:28
 
       cy.get('[data-testid=completionTime-hour]').type('12')
       cy.get('[data-testid=completionTime-minutes]').type('45')
@@ -144,7 +167,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('label', 'No access').click()
         })
 
-      cy.get('#date').type('2021-01-19')
+      cy.get('#completionDate').type('2021-01-19')
 
       cy.get('[data-testid=completionTime-hour]').clear()
       cy.get('[data-testid=completionTime-minutes]').clear()
@@ -177,7 +200,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('label', 'Completed').click()
         })
 
-      cy.get('#date').type('2021-02-19')
+      cy.get('#completionDate').type('2021-02-19')
 
       cy.get('[data-testid=completionTime-hour]').clear()
       cy.get('[data-testid=completionTime-minutes]').clear()
@@ -262,7 +285,7 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('label', 'No access').click()
         })
 
-      cy.get('#date').type('2021-01-19')
+      cy.get('#completionDate').type('2021-01-19')
 
       cy.get('[data-testid=completionTime-hour]').clear()
       cy.get('[data-testid=completionTime-minutes]').clear()
@@ -304,6 +327,68 @@ describe('Closing a work order on behalf of an operative', () => {
 
     // no operative assignment request made
     cy.requestsCountByUrl('/api/jobStatusUpdate').should('eq', 0)
+
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__title').contains('Work order closed')
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('Reference number')
+        cy.contains('10000040')
+      })
+    })
+
+    // Actions to see relevant pages
+    cy.get('.lbh-list li').within(() => {
+      cy.contains('View work order').should(
+        'have.attr',
+        'href',
+        '/work-orders/10000040'
+      )
+      cy.contains('Manage work orders').should('have.attr', 'href', '/')
+    })
+
+    cy.audit()
+  })
+
+  it.only('sends request to /starttime when startTime selected', () => {
+    cy.visit('/work-orders/10000040/close')
+
+    cy.wait('@workOrder')
+
+    cy.get('form').within(() => {
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'No access').click()
+        })
+
+      cy.get('#startDate').type('2021-01-20')
+
+      cy.get('[data-testid=startTime-hour]').clear().type('13')
+      cy.get('[data-testid=startTime-minutes]').clear().type('01')
+
+      cy.get('#completionDate').type('2021-01-19')
+
+      cy.get('[data-testid=completionTime-hour]').clear().type('13')
+      cy.get('[data-testid=completionTime-minutes]').clear().type('01')
+
+      cy.get('#notes').type('Tenant was not at home')
+      cy.get('[type="submit"]').contains('Close work order').click()
+    })
+
+    cy.get('.govuk-table__row').contains('Completion time')
+    cy.get('.govuk-table__row').contains('2021/01/19')
+    cy.get('.govuk-table__row').contains('Start time')
+    cy.get('.govuk-table__row').contains('2021/01/20')
+    cy.get('.govuk-table__row').contains('13:01')
+    cy.get('.govuk-table__row').contains('Reason')
+    cy.get('.govuk-table__row').contains('No Access')
+    cy.get('.govuk-table__row').contains('Notes')
+    cy.get('.govuk-table__row').contains('Tenant was not at home')
+
+    cy.get('[type="submit"]').contains('Confirm and close').click()
+
+    cy.wait(['@apiCheck', '@startTime'])
 
     // Confirmation screen
     cy.get('.govuk-panel--confirmation').within(() => {
@@ -381,7 +466,7 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.contains('label', 'Completed').click()
           })
 
-        cy.get('#date').type('2021-01-23')
+        cy.get('#completionDate').type('2021-01-23')
 
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
@@ -435,7 +520,7 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.contains('label', 'Completed').click()
           })
 
-        cy.get('#date').type('2021-01-23')
+        cy.get('#completionDate').type('2021-01-23')
 
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
@@ -488,7 +573,7 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.contains('label', 'Completed').click()
           })
 
-        cy.get('#date').type('2021-01-23')
+        cy.get('#completionDate').type('2021-01-23')
 
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
@@ -577,7 +662,7 @@ describe('Closing a work order on behalf of an operative', () => {
               cy.contains('label', 'No access').click()
             })
 
-          cy.get('#date').type('2021-01-19')
+          cy.get('#completionDate').type('2021-01-19')
 
           cy.get('[data-testid=completionTime-hour]').clear()
           cy.get('[data-testid=completionTime-minutes]').clear()
@@ -839,7 +924,7 @@ describe('Closing a work order on behalf of an operative', () => {
               cy.contains('label', 'Completed').click()
             })
 
-          cy.get('#date').type('2021-01-19')
+          cy.get('#completionDate').type('2021-01-19')
 
           cy.get('[data-testid=completionTime-hour]').clear()
           cy.get('[data-testid=completionTime-minutes]').clear()
@@ -978,7 +1063,7 @@ describe('Closing a work order on behalf of an operative', () => {
               cy.contains('label', 'No access').click()
             })
 
-          cy.get('#date').type('2021-01-19')
+          cy.get('#completionDate').type('2021-01-19')
 
           cy.get('[data-testid=completionTime-hour]').clear()
           cy.get('[data-testid=completionTime-minutes]').clear()
@@ -1083,7 +1168,7 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.contains('label', 'Completed').click()
           })
 
-        cy.get('#date').type('2021-01-23')
+        cy.get('#completionDate').type('2021-01-23')
 
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
