@@ -55,6 +55,39 @@ describe('CloseWorkOrderForm component', () => {
           totalSMV={props.totalSMVs}
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
+          existingStartTime={false}
+        />
+      </UserContext.Provider>
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should not render startDate or startTime', () => {
+    const { asFragment } = render(
+      <UserContext.Provider
+        value={{
+          user: agent,
+        }}
+      >
+        <CloseWorkOrderForm
+          reference={props.reference}
+          onSubmit={props.onSubmit}
+          notes={props.notes}
+          completionTime={props.completionTime}
+          completionDate={props.completionDate}
+          startTime={props.startTime}
+          startDate={props.startDate}
+          reason={props.reason}
+          operativeAssignmentMandatory={true}
+          assignedOperativesToWorkOrder={props.operatives}
+          availableOperatives={props.availableOperatives}
+          selectedPercentagesToShowOnEdit={
+            props.selectedPercentagesToShowOnEdit
+          }
+          totalSMV={props.totalSMVs}
+          jobIsSplitByOperative={false}
+          paymentType={'Overtime'}
+          existingStartTime={true}
         />
       </UserContext.Provider>
     )

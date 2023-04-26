@@ -249,6 +249,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
                   paymentType={paymentType}
+                  existingStartTime={workOrder.startTime !== null}
                 />
               )}
 
