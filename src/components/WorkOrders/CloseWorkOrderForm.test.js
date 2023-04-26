@@ -19,8 +19,10 @@ describe('CloseWorkOrderForm component', () => {
     reference: 10000012,
     onSubmit: jest.fn(),
     notes: 'this is a note',
-    time: '14:30',
-    date: new Date('2021-01-12T16:24:26.632Z'),
+    completionTime: '14:30',
+    completionDate: new Date('2021-01-12T16:24:26.632Z'),
+    startTime: '14:30',
+    startDate: new Date('2021-01-12T16:24:26.632Z'),
     operatives: operatives,
     availableOperatives: operatives,
     reason: 'No Access',
@@ -39,8 +41,10 @@ describe('CloseWorkOrderForm component', () => {
           reference={props.reference}
           onSubmit={props.onSubmit}
           notes={props.notes}
-          time={props.time}
-          date={props.date}
+          completionTime={props.completionTime}
+          completionDate={props.completionDate}
+          startTime={props.startTime}
+          startDate={props.startDate}
           reason={props.reason}
           operativeAssignmentMandatory={true}
           assignedOperativesToWorkOrder={props.operatives}

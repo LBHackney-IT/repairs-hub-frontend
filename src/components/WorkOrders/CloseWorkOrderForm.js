@@ -15,6 +15,7 @@ import {
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
 import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
+import { useState } from 'react'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -23,8 +24,10 @@ const CloseWorkOrderForm = ({
   assignedOperativesToWorkOrder,
   operativeAssignmentMandatory,
   notes,
-  time,
-  date,
+  completionTime,
+  completionDate,
+  startTime,
+  startDate,
   reason,
   dateRaised,
   selectedPercentagesToShowOnEdit,
@@ -41,110 +44,149 @@ const CloseWorkOrderForm = ({
     getValues,
   } = useForm({})
 
+  const [startTimeIsRequired, setStartTimeIsRequired] = useState(false)
+
+  // startTime is required when startDate is set
+  const onStartDateChange = (e) => {
+    setStartTimeIsRequired(e.target.value !== '')
+  }
+
   return (
-    <>
-      <div>
-        <BackButton />
+    <div>
+      <BackButton />
+      <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
-        <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
+      <form role="form" onSubmit={handleSubmit(onSubmit)}>
+        <Radios
+          label="Select reason for closing"
+          name="reason"
+          options={CLOSURE_STATUS_OPTIONS.map((r) => {
+            return {
+              text: r.text,
+              value: r.value,
+              defaultChecked: r.value === reason,
+            }
+          })}
+          register={register({
+            required: 'Please select a reason for closing the work order',
+          })}
+          error={errors && errors.reason}
+        />
 
-        <form role="form" onSubmit={handleSubmit(onSubmit)}>
-          <Radios
-            label="Select reason for closing"
-            name="reason"
-            options={CLOSURE_STATUS_OPTIONS.map((r) => {
-              return {
-                text: r.text,
-                value: r.value,
-                defaultChecked: r.value === reason,
-              }
-            })}
-            register={register({
-              required: 'Please select a reason for closing the work order',
-            })}
-            error={errors && errors.reason}
-          />
+        <DatePicker
+          name="startDate"
+          label="Select start date (optional)"
+          hint="For example, 15/05/2021"
+          onChange={onStartDateChange}
+          register={register({
+            validate: {
+              isInThePast: (value) => {
+                if (value === '') return
 
-          <DatePicker
-            name="date"
-            label="Select completion date"
-            hint="For example, 15/05/2021"
-            register={register({
-              required: 'Please pick completion date',
-              validate: {
-                isInThePast: (value) =>
+                return (
                   isPast(new Date(value)) ||
-                  'Please select a date that is in the past',
-                isEqualOrLaterThanRaisedDate: (value) =>
-                  new Date(value) >=
-                    new Date(new Date(dateRaised).toDateString()) ||
-                  `Completion date must be on or after ${new Date(
-                    dateRaised
-                  ).toLocaleDateString('en-GB')}`,
+                  'Please select a date that is in the past'
+                )
               },
-            })}
-            error={errors && errors.date}
-            defaultValue={date ? date.toISOString().split('T')[0] : null}
-          />
+            },
+          })}
+          error={errors && errors.startDate}
+          defaultValue={
+            startDate ? startDate.toISOString().split('T')[0] : null
+          }
+        />
 
-          <TimeInput
-            name="completionTime"
-            label="Completion time"
-            hint="Use 24h format. For example, 14:30"
-            control={control}
-            register={register}
-            defaultValue={time}
-            error={errors && errors.completionTime}
-          />
+        <TimeInput
+          name="startTime"
+          label="Start time"
+          showAsOptional={true}
+          hint="Use 24h format. For example, 14:30"
+          control={control}
+          required={startTimeIsRequired}
+          register={register()}
+          defaultValue={startTime}
+          error={errors && errors['startTime']}
+        />
 
-          {operativeAssignmentMandatory && (
-            <>
-              <SelectOperatives
-                assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
-                availableOperatives={availableOperatives}
-                register={register}
-                errors={errors}
-                selectedPercentagesToShowOnEdit={
-                  selectedPercentagesToShowOnEdit
-                }
-                trigger={trigger}
-                getValues={getValues}
-                totalSMV={totalSMV}
-                jobIsSplitByOperative={jobIsSplitByOperative}
-              />
+        <DatePicker
+          name="completionDate"
+          label="Select completion date"
+          hint="For example, 15/05/2021"
+          register={register({
+            required: 'Please pick completion date',
+            validate: {
+              isInThePast: (value) =>
+                isPast(new Date(value)) ||
+                'Please select a date that is in the past',
+              isEqualOrLaterThanRaisedDate: (value) =>
+                new Date(value) >=
+                  new Date(new Date(dateRaised).toDateString()) ||
+                `Completion date must be on or after ${new Date(
+                  dateRaised
+                ).toLocaleDateString('en-GB')}`,
+            },
+          })}
+          error={errors && errors.completionDate}
+          defaultValue={
+            completionDate ? completionDate.toISOString().split('T')[0] : null
+          }
+        />
 
-              <Radios
-                label="Payment type"
-                name="paymentType"
-                options={optionsForPaymentType({
-                  paymentTypes: [
-                    BONUS_PAYMENT_TYPE,
-                    OVERTIME_PAYMENT_TYPE,
-                    CLOSE_TO_BASE_PAYMENT_TYPE,
-                  ],
-                  currentPaymentType: paymentType,
-                })}
-                register={register({
-                  required: 'Provide payment type',
-                })}
-                error={errors && errors.paymentType}
-              />
-            </>
-          )}
+        <TimeInput
+          name="completionTime"
+          label="Completion time"
+          hint="Use 24h format. For example, 14:30"
+          control={control}
+          required={true}
+          register={register()}
+          defaultValue={completionTime}
+          error={errors && errors['completionTime']}
+        />
 
-          <TextArea
-            name="notes"
-            label="Add notes"
-            label={'Add notes'}
-            register={register}
-            error={errors && errors.notes}
-            defaultValue={notes}
-          />
+        {operativeAssignmentMandatory && (
+          <>
+            <SelectOperatives
+              assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
+              availableOperatives={availableOperatives}
+              register={register}
+              errors={errors}
+              selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
+              trigger={trigger}
+              getValues={getValues}
+              totalSMV={totalSMV}
+              jobIsSplitByOperative={jobIsSplitByOperative}
+            />
 
-          <PrimarySubmitButton label="Close work order" />
-        </form>
-      </div>
-    </>
+            <Radios
+              label="Payment type"
+              name="paymentType"
+              options={optionsForPaymentType({
+                paymentTypes: [
+                  BONUS_PAYMENT_TYPE,
+                  OVERTIME_PAYMENT_TYPE,
+                  CLOSE_TO_BASE_PAYMENT_TYPE,
+                ],
+                currentPaymentType: paymentType,
+              })}
+              register={register({
+                required: 'Provide payment type',
+              })}
+              error={errors && errors.paymentType}
+            />
+          </>
+        )}
+
+        <TextArea
+          name="notes"
+          label="Add notes"
+          register={register}
+          error={errors && errors.notes}
+          defaultValue={notes}
+        />
+
+        <PrimarySubmitButton label="Close work order" />
+      </form>
+    </div>
   )
 }
 
@@ -152,8 +194,10 @@ CloseWorkOrderForm.propTypes = {
   reference: PropTypes.number.isRequired,
   onSubmit: PropTypes.func.isRequired,
   notes: PropTypes.string.isRequired,
-  time: PropTypes.string.isRequired,
-  date: PropTypes.instanceOf(Date),
+  completionTime: PropTypes.string.isRequired,
+  completionDate: PropTypes.instanceOf(Date),
+  startTime: PropTypes.string,
+  startDate: PropTypes.instanceOf(Date),
   reason: PropTypes.string,
   dateRaised: PropTypes.string,
   totalSMV: PropTypes.number.isRequired,

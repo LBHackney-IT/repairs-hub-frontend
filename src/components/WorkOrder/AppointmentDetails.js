@@ -12,6 +12,7 @@ import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/n
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
+import { formatDateTime } from '../../utils/time'
 
 const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
@@ -65,31 +66,40 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   }
 
   return (
-    (canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
-      <div className="appointment-details">
-        <p className="govuk-!-font-size-14">Appointment details</p>
-        <div className="lbh-body-s govuk-!-margin-0">
-          {user && (
-            <>
-              {canSeeAppointmentDetailsInfo(user) &&
-                workOrder.appointment &&
-                workOrder.status !== STATUS_CANCELLED &&
-                appointmentDetailsInfoHtml()}
-
-              {canScheduleAppointment(user) &&
-                workOrder.canBeScheduled() &&
-                scheduleAppointmentHtml(workOrder.appointment)}
-
-              {canSeeAppointmentDetailsInfo(user) &&
-                !workOrder.appointment &&
-                !workOrder.canBeScheduled() && (
-                  <p className="lbh-!-font-weight-bold">Not applicable</p>
-                )}
-            </>
-          )}
+    <>
+      {!!workOrder?.startTime && (
+        <div className="lbh-body-xs govuk-!-margin-bottom-2">
+          <span>Started at</span>
+          <br></br>
+          <span>{formatDateTime(workOrder.startTime)}</span>
         </div>
-      </div>
-    )
+      )}
+      {(canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
+        <div className="appointment-details">
+          <p className="govuk-!-font-size-14">Appointment details</p>
+          <div className="lbh-body-s govuk-!-margin-0">
+            {user && (
+              <>
+                {canSeeAppointmentDetailsInfo(user) &&
+                  workOrder.appointment &&
+                  workOrder.status !== STATUS_CANCELLED &&
+                  appointmentDetailsInfoHtml()}
+
+                {canScheduleAppointment(user) &&
+                  workOrder.canBeScheduled() &&
+                  scheduleAppointmentHtml(workOrder.appointment)}
+
+                {canSeeAppointmentDetailsInfo(user) &&
+                  !workOrder.appointment &&
+                  !workOrder.canBeScheduled() && (
+                    <p className="lbh-!-font-weight-bold">Not applicable</p>
+                  )}
+              </>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   )
 }
 
