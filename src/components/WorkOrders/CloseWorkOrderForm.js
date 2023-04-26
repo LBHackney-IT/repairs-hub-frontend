@@ -34,6 +34,7 @@ const CloseWorkOrderForm = ({
   totalSMV,
   jobIsSplitByOperative,
   paymentType,
+  existingStartTime,
 }) => {
   const {
     handleSubmit,
@@ -73,40 +74,45 @@ const CloseWorkOrderForm = ({
           error={errors && errors.reason}
         />
 
-        <DatePicker
-          name="startDate"
-          label="Select start date (optional)"
-          hint="For example, 15/05/2021"
-          onChange={onStartDateChange}
-          register={register({
-            validate: {
-              isInThePast: (value) => {
-                if (value === '') return
+        {/* Start time cannot be changed once set by an operative */}
+        {!existingStartTime && (
+          <>
+            <DatePicker
+              name="startDate"
+              label="Select start date (optional)"
+              hint="For example, 15/05/2021"
+              onChange={onStartDateChange}
+              register={register({
+                validate: {
+                  isInThePast: (value) => {
+                    if (value === '') return
 
-                return (
-                  isPast(new Date(value)) ||
-                  'Please select a date that is in the past'
-                )
-              },
-            },
-          })}
-          error={errors && errors.startDate}
-          defaultValue={
-            startDate ? startDate.toISOString().split('T')[0] : null
-          }
-        />
+                    return (
+                      isPast(new Date(value)) ||
+                      'Please select a date that is in the past'
+                    )
+                  },
+                },
+              })}
+              error={errors && errors.startDate}
+              defaultValue={
+                startDate ? startDate.toISOString().split('T')[0] : null
+              }
+            />
 
-        <TimeInput
-          name="startTime"
-          label="Start time"
-          showAsOptional={true}
-          hint="Use 24h format. For example, 14:30"
-          control={control}
-          required={startTimeIsRequired}
-          register={register()}
-          defaultValue={startTime}
-          error={errors && errors['startTime']}
-        />
+            <TimeInput
+              name="startTime"
+              label="Start time"
+              showAsOptional={true}
+              hint="Use 24h format. For example, 14:30"
+              control={control}
+              required={startTimeIsRequired}
+              register={register()}
+              defaultValue={startTime}
+              error={errors && errors['startTime']}
+            />
+          </>
+        )}
 
         <DatePicker
           name="completionDate"
@@ -203,6 +209,7 @@ CloseWorkOrderForm.propTypes = {
   totalSMV: PropTypes.number.isRequired,
   jobIsSplitByOperative: PropTypes.bool.isRequired,
   paymentType: PropTypes.string,
+  existingStartTime: PropTypes.bool.isRequired,
 }
 
 export default CloseWorkOrderForm
