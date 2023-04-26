@@ -27,6 +27,7 @@ describe('Closing a work order on behalf of an operative', () => {
       .then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.paymentType = null
+        workOrder.startTime = null
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000040' },
           { body: workOrder }
