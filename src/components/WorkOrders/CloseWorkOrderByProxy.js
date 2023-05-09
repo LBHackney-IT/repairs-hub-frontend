@@ -169,13 +169,14 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     )
     setCompletionDate(formattedCompletionDate)
 
-    if (formData.startDate === '') {
+    if (!formData.hasOwnProperty("startDate") || formData.startDate === '') {
       setStartDate('')
     } else {
       const formattedStartDate = convertToDateFormat(
         formData.startDate,
         formData.startTime
       )
+
       setStartDate(formattedStartDate)
     }
 
