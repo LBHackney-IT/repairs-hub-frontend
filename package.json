@@ -29,6 +29,7 @@
     "@reach/dialog": "^0.18.0",
     "@sentry/nextjs": "^6.17.9",
     "axios": "^0.21.1",
+    "classnames": "^2.3.2",
     "cookie": "^0.4.1",
     "date-fns": "^2.16.1",
     "dayjs": "^1.11.7",
