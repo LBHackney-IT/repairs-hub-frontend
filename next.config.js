@@ -5,7 +5,7 @@ const moduleExports = {
   target: 'server',
   experimental: {
     forceSwcTransforms: true,
-  }
+  },
 }
 
 const { NODE_ENV, SENTRY_RELEASE } = process.env
