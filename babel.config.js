@@ -1,9 +1,4 @@
 module.exports = {
   presets: ['next/babel'],
-  plugins: [
-    require('@babel/plugin-proposal-decorators').default,
-    {
-      legacy: true
-    }
-  ]
+  plugins: ['@babel/plugin-proposal-class-properties']
 }
