@@ -8,7 +8,6 @@ const moduleExports = {
   },
 }
 
-
 const { NODE_ENV, SENTRY_RELEASE } = process.env
 
 const sentryWebpackPluginOptions = {
