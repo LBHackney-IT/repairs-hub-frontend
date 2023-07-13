@@ -6,7 +6,6 @@ import TenureDetail from './TenureDetail'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
-import Link from 'next/link'
 import PropertyBoilerHouseDetails from './PropertyBoilerHouseDetails'
 
 const PropertyFlags = ({
@@ -95,7 +94,7 @@ const PropertyFlags = ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginBottom: "1em"
+        marginBottom: '1em',
       }}
     >
       {tenure && Object.keys(tenure).length > 0 && (

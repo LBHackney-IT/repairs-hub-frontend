@@ -1,8 +1,5 @@
 import * as HttpStatus from 'http-status-codes'
-import {
-  serviceAPIRequest,
-  authoriseServiceAPIRequest,
-} from '@/utils/serviceApiClient'
+import { authoriseServiceAPIRequest } from '@/utils/serviceApiClient'
 
 const mockResponse = {
   propertyReference: '00023404',
@@ -21,7 +18,7 @@ const mockResponse = {
   canRaiseRepair: false,
 }
 
-export default authoriseServiceAPIRequest(async (req, res, user) => {
+export default authoriseServiceAPIRequest(async (req, res) => {
   req.query = { path: ['properties', 'asset-id', req.query.id] }
 
   try {

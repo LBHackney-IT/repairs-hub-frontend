@@ -27,7 +27,7 @@ const PropertyView = ({ propertyReference }) => {
       const { property, tenure } = data
 
       // placeholder add boilerHouseId in response
-      property["boilerHouseId"] = "4552c539-2e00-8533-078d-9cc59d9115da"
+      property['boilerHouseId'] = '4552c539-2e00-8533-078d-9cc59d9115da'
 
       setProperty(property)
       setAddress(property.address)
