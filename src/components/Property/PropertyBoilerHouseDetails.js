@@ -13,22 +13,18 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
 
   return (
-    <>
-      {boilerHouse !== null && (
-        <li className="bg-dark-green">
-          BoilerHouse:{' '}
-          <a
-            className="govuk-link"
-            style={{
-              color: 'white',
-            }}
-            href={`/properties/${boilerHouse.propertyReference}`}
-          >
-            {boilerHouse.addressLine1}
-          </a>
-        </li>
-      )}
-    </>
+    <li className="bg-dark-green">
+      BoilerHouse:{' '}
+      <a
+        className="govuk-link"
+        style={{
+          color: 'white',
+        }}
+        href={`/properties/${boilerHouse.propertyReference}`}
+      >
+        {boilerHouse.addressLine1}
+      </a>
+    </li>
   )
 }
 

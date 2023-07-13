@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import Alerts from './Alerts'
-import Tenure from './Tenure'
-import TenureDetail from './TenureDetail'
+import Alerts from '../Alerts'
+import Tenure from '../Tenure'
+import TenureDetail from '../TenureDetail'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
-import PropertyBoilerHouseDetails from './PropertyBoilerHouseDetails'
+import PropertyBoilerHouseDetails from '../PropertyBoilerHouseDetails'
 
 const PropertyFlags = ({
   canRaiseRepair,
@@ -78,6 +78,8 @@ const PropertyFlags = ({
       <Alerts alerts={personAlerts} alertType="Contact" />
     )
 
+  const showBoilerHouseDetails = () => boilerHouseId !== ''
+
   useEffect(() => {
     setLocationAlertsLoading(true)
     getLocationAlerts()
@@ -101,7 +103,9 @@ const PropertyFlags = ({
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
       )}
 
-      <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
+      {showBoilerHouseDetails() && (
+        <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
+      )}
 
       {locationAlertsLoading ? (
         <Spinner resource="locationAlerts" />

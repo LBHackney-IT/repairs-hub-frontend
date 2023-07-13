@@ -4,7 +4,7 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
-import PropertyFlags from './PropertyFlags'
+import PropertyFlags from '.'
 
 const axios = require('axios')
 
@@ -45,6 +45,7 @@ describe('PropertyFlags', () => {
     const { asFragment } = render(
       <PropertyFlags
         canRaiseRepair={true}
+        boilerHouseId=''
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',
           typeCode: 'tenancyTypeCode',
@@ -116,6 +117,7 @@ describe('PropertyFlags', () => {
     render(
       <PropertyFlags
         canRaiseRepair={true}
+        boilerHouseId=''
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',
           typeCode: 'tenancyTypeCode',
