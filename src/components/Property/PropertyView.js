@@ -26,6 +26,9 @@ const PropertyView = ({ propertyReference }) => {
 
       const { property, tenure } = data
 
+      // placeholder add boilerHouseId in response
+      property["boilerHouseId"] = "4552c539-2e00-8533-078d-9cc59d9115da"
+
       setProperty(property)
       setAddress(property.address)
       tenure && setTenure(tenure)
@@ -57,6 +60,7 @@ const PropertyView = ({ propertyReference }) => {
             <>
               <PropertyDetails
                 propertyReference={propertyReference}
+                boilerHouseId={property.boilerHouseId}
                 address={address}
                 hierarchyType={property.hierarchyType}
                 canRaiseRepair={property.canRaiseRepair}

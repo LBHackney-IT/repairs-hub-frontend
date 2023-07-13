@@ -6,6 +6,10 @@ import TenureDetail from './TenureDetail'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import Link from 'next/link'
+import { usePropertyBoilerHouse } from '../../hooks/usePropertyBoilerHouse'
+
+
 
 const TenureDetails = ({
   canRaiseRepair,
@@ -25,6 +29,7 @@ const TenureDetails = ({
   const [personAlerts, setPersonAlerts] = useState([])
   const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
   const [personAlertsError, setPersonAlertsError] = useState()
+
 
   const getLocationAlerts = () => {
     frontEndApiRequest({
@@ -96,7 +101,12 @@ const TenureDetails = ({
       ) : (
         renderLocationAlerts()
       )}
+
       {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
+
+      
+       
+
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
         <TenureDetail text="TMO" detail={tmoName} />

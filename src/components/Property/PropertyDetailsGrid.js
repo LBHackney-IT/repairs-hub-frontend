@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
 import TenureDetails from './TenureDetails'
+import PropertyBoilerHouseDetails from './PropertyBoilerHouseDetails'
 
 const PropertyDetailsGrid = ({
   propertyReference,
+  boilerHouseId,
   address,
   subTypeDescription,
   tenure,
@@ -27,6 +29,7 @@ const PropertyDetailsGrid = ({
             tmoName={tmoName}
             propertyReference={propertyReference}
           />
+          <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
         </div>
       </div>
     </div>
@@ -35,6 +38,7 @@ const PropertyDetailsGrid = ({
 
 PropertyDetailsGrid.propTypes = {
   propertyReference: PropTypes.string,
+  boilerHouseId: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string,
   tenure: PropTypes.object.isRequired,

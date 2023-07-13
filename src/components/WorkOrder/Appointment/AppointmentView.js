@@ -71,7 +71,11 @@ const AppointmentView = ({ workOrderReference, successText }) => {
 
       setWorkOrder(workOrder)
       setTasksAndSors(tasksAndSors)
+
+       // placeholder add boilerHouseId in response
+       propertyObject.property["boilerHouseId"] = "4552c539-2e00-8533-078d-9cc59d9115da"
       setProperty(propertyObject.property)
+
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
       setAvailableAppointments(availableAppointments)
     } catch (e) {
@@ -147,6 +151,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
               <>
                 <PropertyDetails
                   address={property.address}
+                  boilerHouseId={property.boilerHouseId}
                   tenure={tenure}
                   subTypeDescription={property.hierarchyType.subTypeDescription}
                   canRaiseRepair={property.canRaiseRepair}
