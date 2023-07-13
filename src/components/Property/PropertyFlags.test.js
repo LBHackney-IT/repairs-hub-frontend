@@ -4,13 +4,13 @@ import {
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
-import TenureDetails from './TenureDetails'
+import PropertyFlags from './PropertyFlags'
 
 const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
 
-describe('TenureDetails', () => {
+describe('PropertyFlags', () => {
   it('should render tenure and alerts', async () => {
     axios
       .mockResolvedValueOnce({
@@ -43,7 +43,7 @@ describe('TenureDetails', () => {
       })
 
     const { asFragment } = render(
-      <TenureDetails
+      <PropertyFlags
         canRaiseRepair={true}
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',
@@ -114,7 +114,7 @@ describe('TenureDetails', () => {
     const mockSetParentPersonAlerts = jest.fn()
 
     render(
-      <TenureDetails
+      <PropertyFlags
         canRaiseRepair={true}
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',

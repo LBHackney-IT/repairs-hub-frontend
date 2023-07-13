@@ -15,16 +15,7 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   return (
     <>
       {boilerHouse !== null && (
-        <div
-          style={{
-            background: '#00664f',
-            color: 'white',
-            padding: '4px 8px',
-            margin: '15px 0',
-            fontSize: '1rem',
-            display: 'inline-block',
-          }}
-        >
+        <li className="bg-dark-green">
           BoilerHouse:{' '}
           <a
             className="govuk-link"
@@ -35,7 +26,7 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
           >
             {boilerHouse.addressLine1}
           </a>
-        </div>
+        </li>
       )}
     </>
   )

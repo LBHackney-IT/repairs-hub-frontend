@@ -7,15 +7,14 @@ import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import Link from 'next/link'
-import { usePropertyBoilerHouse } from '../../hooks/usePropertyBoilerHouse'
+import PropertyBoilerHouseDetails from './PropertyBoilerHouseDetails'
 
-
-
-const TenureDetails = ({
+const PropertyFlags = ({
   canRaiseRepair,
   tenure,
   tmoName,
   propertyReference,
+  boilerHouseId,
   setParentLocationAlerts,
   setParentPersonAlerts,
 }) => {
@@ -29,7 +28,6 @@ const TenureDetails = ({
   const [personAlerts, setPersonAlerts] = useState([])
   const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
   const [personAlertsError, setPersonAlertsError] = useState()
-
 
   const getLocationAlerts = () => {
     frontEndApiRequest({
@@ -91,10 +89,20 @@ const TenureDetails = ({
   }, [])
 
   return (
-    <ul className="lbh-list hackney-property-alerts">
+    <ul
+      className="lbh-list hackney-property-alerts"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginBottom: "1em"
+      }}
+    >
       {tenure && Object.keys(tenure).length > 0 && (
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
       )}
+
+      <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
 
       {locationAlertsLoading ? (
         <Spinner resource="locationAlerts" />
@@ -103,10 +111,6 @@ const TenureDetails = ({
       )}
 
       {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
-
-      
-       
-
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
         <TenureDetail text="TMO" detail={tmoName} />
@@ -122,13 +126,14 @@ const TenureDetails = ({
   )
 }
 
-TenureDetails.propTypes = {
+PropertyFlags.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   tmoName: PropTypes.string,
   propertyReference: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string.isRequired,
   setParentLocationAlerts: PropTypes.func,
   setParentPersonAlerts: PropTypes.func,
 }
 
-export default TenureDetails
+export default PropertyFlags
