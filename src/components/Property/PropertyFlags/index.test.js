@@ -45,7 +45,7 @@ describe('PropertyFlags', () => {
     const { asFragment } = render(
       <PropertyFlags
         canRaiseRepair={true}
-        boilerHouseId=''
+        boilerHouseId=""
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',
           typeCode: 'tenancyTypeCode',
@@ -117,7 +117,7 @@ describe('PropertyFlags', () => {
     render(
       <PropertyFlags
         canRaiseRepair={true}
-        boilerHouseId=''
+        boilerHouseId=""
         tenure={{
           tenancyAgreementReference: 'tenancyAgreementRef1',
           typeCode: 'tenancyTypeCode',

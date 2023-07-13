@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
-import { usePropertyBoilerHouse } from '../../hooks/usePropertyBoilerHouse'
-import Spinner from '../Spinner'
-import ErrorMessage from '../Errors/ErrorMessage'
+import { usePropertyBoilerHouse } from '../../../hooks/usePropertyBoilerHouse'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
 
 const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   const { loading, boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
@@ -13,9 +13,10 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
 
   return (
-    <li className="bg-dark-green">
+    <li className="bg-dark-green" data-testid="boiler-house-details">
       BoilerHouse:{' '}
       <a
+        data-testid="boiler-house-details-link"
         className="govuk-link"
         style={{
           color: 'white',
