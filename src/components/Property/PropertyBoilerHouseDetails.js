@@ -13,7 +13,7 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
 
   return (
-    <div>
+    <>
       {boilerHouse !== null && (
         <div
           style={{
@@ -37,7 +37,7 @@ const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
           </a>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
