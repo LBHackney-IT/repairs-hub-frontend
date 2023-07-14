@@ -524,5 +524,4 @@ describe('Show property', () => {
       })
     })
   })
-
 })
