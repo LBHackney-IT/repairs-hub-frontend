@@ -5,6 +5,57 @@ import 'cypress-audit/commands'
 describe('Boiler house flag', () => {
   beforeEach(() => {
     cy.loginWithAgentRole()
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+      },
+      { body: [] }
+    ).as('workOrdersHistory')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/00012345/location-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type1',
+              comments: 'Location Alert 1',
+            },
+            {
+              type: 'type2',
+              comments: 'Location Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('locationAlerts')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/properties/tenancyAgreementRef1/person-alerts',
+      },
+      {
+        body: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      }
+    ).as('personAlerts')
   })
 
   it('doesnt show boilerHouse flag', () => {
@@ -37,7 +88,7 @@ describe('Boiler house flag', () => {
     cy.visit('/properties/00012345')
 
     // wait for page to load
-    cy.wait(['@property', '@boilerHouse'])
+    cy.wait(['@property', '@boilerHouse', '@workOrdersHistory'])
 
     // assert boiler house link is visible
     cy.get('[data-testid="boiler-house-details-link"]').contains(
