@@ -98,7 +98,10 @@ describe('Boiler house flag', () => {
 
     // assert boiler house link is visible
     cy.get('[data-testid="boiler-house-details-link"]').contains(
-      'Booster Pump 1-93 Pitcairn House  St Thomass Square', { timeout: 4000 }
+      'Booster Pump 1-93 Pitcairn House  St Thomass Square',
+      {
+        timeout: 4000,
+      }
     )
     cy.get('[data-testid="boiler-house-details-link"]')
       .should('have.attr', 'href')
