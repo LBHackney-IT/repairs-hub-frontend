@@ -10,6 +10,8 @@ describe('Boiler house flag', () => {
       { fixture: 'properties/propertyWithoutBoilerHouse.json' }
     ).as('property')
 
+    cy.visit('/properties/00012345')
+
     // wait for page to load
     cy.wait(['@property'])
 
@@ -27,6 +29,8 @@ describe('Boiler house flag', () => {
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/boilerHouse.json' }
     ).as('boilerHouse')
+
+    cy.visit('/properties/00012345')
 
     // wait for page to load
     cy.wait(['@property', '@boilerHouse'])
