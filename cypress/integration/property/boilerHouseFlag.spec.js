@@ -3,6 +3,10 @@
 import 'cypress-audit/commands'
 
 describe('Boiler house flag', () => {
+  beforeEach(() => {
+    cy.loginWithAgentRole()
+  })
+
   it('doesnt show boilerHouse flag', () => {
     // asset boilerHouseId is empty string
     cy.intercept(
