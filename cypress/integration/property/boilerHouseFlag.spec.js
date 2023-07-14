@@ -91,7 +91,10 @@ describe('Boiler house flag', () => {
     cy.visit('/properties/00012345')
 
     // wait for page to load
-    cy.wait(['@property', '@boilerHouse', '@workOrdersHistory'])
+    cy.wait(['@property', '@workOrdersHistory'])
+
+    // wait for boiler house information to load
+    cy.wait(['@boilerHouse'])
 
     // assert boiler house link is visible
     cy.get('[data-testid="boiler-house-details-link"]').contains(
