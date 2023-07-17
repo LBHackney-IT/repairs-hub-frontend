@@ -167,8 +167,8 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
-      // Purdy have no SORs for multitrade so this is done
-      // to permit selection of Purdy
+      // Add multitrade contractors who don't have any MT SORs
+      // (only Purdy, Axis and HHL already have some)
       tradeCode === MULTITRADE_TRADE_CODE
         ? setContractors([
             ...contractors,
