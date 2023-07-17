@@ -96,8 +96,8 @@ describe('Boiler house flag', () => {
     // wait for boiler house information to load
     cy.wait(['@boilerHouse'])
 
-    // assert boiler house link is visible
-    cy.get('[data-testid="boiler-house-details-link"]').contains(
+    // assert boiler house flag contains address
+    cy.get('[data-testid="boiler-house-details"]').contains(
       'Booster Pump 1-93 Pitcairn House  St Thomass Square',
       {
         timeout: 4000,
