@@ -1,16 +1,16 @@
 .hackney-property-alerts {
-  // width: 50%;
   color: white;
   padding: 0;
 
   li {
     margin-bottom: 5px;
     padding: 4px 8px;
-    display: inline-block; // li should be the size of the text
+    
+    // li should be the size of the text
+    display: inline-block; 
 
     &.bg {
       &-orange {
-        // me
         background: repairs-hub-colour('orange');
       }
 
