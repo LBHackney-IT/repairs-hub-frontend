@@ -71,7 +71,9 @@ const AppointmentView = ({ workOrderReference, successText }) => {
 
       setWorkOrder(workOrder)
       setTasksAndSors(tasksAndSors)
+
       setProperty(propertyObject.property)
+
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
       setAvailableAppointments(availableAppointments)
     } catch (e) {
@@ -147,6 +149,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
               <>
                 <PropertyDetails
                   address={property.address}
+                  boilerHouseId={property.boilerHouseId}
                   tenure={tenure}
                   subTypeDescription={property.hierarchyType.subTypeDescription}
                   canRaiseRepair={property.canRaiseRepair}

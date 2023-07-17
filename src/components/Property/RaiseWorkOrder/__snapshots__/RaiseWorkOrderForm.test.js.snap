@@ -29,12 +29,25 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
       >
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <h2
@@ -509,12 +522,25 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
       >
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <h2
@@ -974,12 +1000,25 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
       >
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <h2

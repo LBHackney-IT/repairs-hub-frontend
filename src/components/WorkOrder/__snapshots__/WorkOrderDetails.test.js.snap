@@ -322,12 +322,25 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -765,12 +778,25 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -1092,12 +1118,25 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -1493,12 +1532,25 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -1654,12 +1706,25 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -1948,12 +2013,25 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -2328,12 +2406,25 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -2708,12 +2799,25 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -3109,12 +3213,25 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div
@@ -3387,12 +3504,25 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         </div>
         <ul
           class="lbh-list hackney-property-alerts"
+          style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
         >
           <li
             class="bg-dark-green"
           >
             Tenure: Secure
           </li>
+          <span
+            class="govuk-error-message lbh-error-message"
+            data-error-id=""
+            data-testid="error-message"
+          >
+            <span
+              class="govuk-visually-hidden"
+            >
+              Error:
+            </span>
+             Error loading boiler house details status undefined with message: undefined
+          </span>
         </ul>
       </div>
       <div

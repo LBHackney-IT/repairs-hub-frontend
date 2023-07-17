@@ -7,6 +7,7 @@ import Link from 'next/link'
 
 const PropertyDetails = ({
   propertyReference,
+  boilerHouseId,
   address,
   hierarchyType,
   canRaiseRepair,
@@ -43,6 +44,7 @@ const PropertyDetails = ({
 
       <PropertyDetailsGrid
         propertyReference={propertyReference}
+        boilerHouseId={boilerHouseId}
         address={address}
         subTypeDescription="Property details"
         tenure={tenure}
@@ -56,6 +58,7 @@ const PropertyDetails = ({
 
 PropertyDetails.propTypes = {
   propertyReference: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,

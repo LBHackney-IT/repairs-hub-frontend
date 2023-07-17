@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TenureDetails should render tenure and alerts 1`] = `
+exports[`PropertyFlags should render tenure and alerts 1`] = `
 <DocumentFragment>
   <ul
     class="lbh-list hackney-property-alerts"
+    style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
   >
     <li
       class="bg-dark-green"
@@ -95,10 +96,11 @@ exports[`TenureDetails should render tenure and alerts 1`] = `
 </DocumentFragment>
 `;
 
-exports[`TenureDetails should render tenure and alerts 2`] = `
+exports[`PropertyFlags should render tenure and alerts 2`] = `
 <DocumentFragment>
   <ul
     class="lbh-list hackney-property-alerts"
+    style="display: flex; flex-direction: column; align-items: flex-start; margin-bottom: 1em;"
   >
     <li
       class="bg-dark-green"
