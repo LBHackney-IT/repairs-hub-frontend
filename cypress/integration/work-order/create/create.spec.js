@@ -88,7 +88,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders/budget-codes?contractorReference=*',
+        path: '/api/workOrders/budget-codes?contractorReference=PCL',
       },
       { fixture: 'scheduleOfRates/budgetCodes.json' }
     ).as('budgetCodesRequest')
@@ -97,7 +97,7 @@ describe('Raise repair form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesRequest')
@@ -830,6 +830,23 @@ describe('Raise repair form', () => {
             },
             { fixture: 'contractors/multiTradeContractors.json' }
           ).as('multiTradeContractorsRequest')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: `/api/workOrders/budget-codes?contractorReference=${ctr.code}`,
+            },
+            { fixture: 'scheduleOfRates/budgetCodes.json' }
+          ).as('budgetCodesRequest')
+      
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
+            },
+            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+          ).as('sorCodesRequest')
         })
 
         context(
