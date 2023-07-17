@@ -98,7 +98,7 @@ describe('Boiler house flag', () => {
 
     // assert boiler house flag contains address
     cy.get('[data-testid="boiler-house-details"]').contains(
-      'Booster Pump 1-93 Pitcairn House  St Thomass Square',
+      'Booster Pump 1-93 Pitcairn House St Thomass Square',
       {
         timeout: 4000,
       }
