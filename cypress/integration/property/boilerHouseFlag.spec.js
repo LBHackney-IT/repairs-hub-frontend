@@ -83,7 +83,7 @@ describe('Boiler house flag', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/asset-id/4552c539-2e00-8533-078d-9cc59d9115da',
+        path: '/api/properties/guid-pk/4552c539-2e00-8533-078d-9cc59d9115da',
       },
       { fixture: 'properties/boilerHouse.json' }
     ).as('boilerHouse')
