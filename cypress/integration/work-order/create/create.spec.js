@@ -838,12 +838,11 @@ describe('Raise repair form', () => {
             },
             { fixture: 'scheduleOfRates/budgetCodes.json' }
           ).as('budgetCodesRequest')
-      
+
           cy.intercept(
             {
               method: 'GET',
-              path:
-                `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
+              path: `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
             },
             { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
           ).as('sorCodesRequest')
