@@ -975,12 +975,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
         More work is necessary
       </textarea>
     </div>
-    <span
-      aria-live="polite"
-      class="govuk-hint govuk-character-count__message"
-    >
-      You have 250 characters remaining.
-    </span>
     <div
       class="govuk-form-group lbh-form-group"
     >
