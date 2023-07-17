@@ -96,8 +96,42 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path: '/api/workOrders/budget-codes?contractorReference=HHL',
+      },
+      { fixture: 'scheduleOfRates/budgetCodes.json' }
+    ).as('budgetCodesRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/workOrders/budget-codes?contractorReference=AEP',
+      },
+      { fixture: 'scheduleOfRates/budgetCodes.json' }
+    ).as('budgetCodesRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
         path:
           '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+      },
+      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+    ).as('sorCodesRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=HHL&isRaisable=true',
+      },
+      { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+    ).as('sorCodesRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path:
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=AEP&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesRequest')
