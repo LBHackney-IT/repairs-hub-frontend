@@ -1,4 +1,5 @@
 export const MULTITRADE_ENABLED_CONTRACTORS = ['PCL', 'AEP', 'HHL']
+export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
 // Feature toggle keys
