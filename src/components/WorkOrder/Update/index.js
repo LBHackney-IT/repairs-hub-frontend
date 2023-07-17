@@ -119,7 +119,7 @@ const WorkOrderUpdateView = ({ reference }) => {
     })
 
   const incrementalSORSearchRequired = async (contractorRef) => {
-    const orderApplicable = contractorRef === PURDY_CONTRACTOR_REFERENCE
+    const orderApplicable = MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef)
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)

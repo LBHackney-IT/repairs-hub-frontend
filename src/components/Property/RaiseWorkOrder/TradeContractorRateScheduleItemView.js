@@ -89,7 +89,7 @@ const TradeContractorRateScheduleItemView = ({
 
   const incrementalSORSearchRequired = async (contractorRef, tradeCode) => {
     const orderApplicable =
-      contractorRef === PURDY_CONTRACTOR_REFERENCE &&
+      MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef) &&
       tradeCode === MULTITRADE_TRADE_CODE
 
     if (!orderApplicable) {
@@ -199,7 +199,7 @@ const TradeContractorRateScheduleItemView = ({
         method: 'get',
         path: '/api/workOrders/budget-codes',
         params: {
-          ...(contractorReference === PURDY_CONTRACTOR_REFERENCE
+          ...(MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference)
             ? { contractorReference: contractorReference }
             : ''),
         },

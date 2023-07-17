@@ -56,7 +56,7 @@ const WorkOrderUpdateForm = ({
             setPageToMultipleSORs(getValues())
           }}
         />
-        {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
+        {MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference) ? (
           <TextArea
             name="variationReason"
             value={variationReason}
