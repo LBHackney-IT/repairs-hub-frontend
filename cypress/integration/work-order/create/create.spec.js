@@ -88,7 +88,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders/budget-codes?contractorReference=PCL',
+        path: '/api/workOrders/budget-codes?contractorReference=*',
       },
       { fixture: 'scheduleOfRates/budgetCodes.json' }
     ).as('budgetCodesRequest')
@@ -97,7 +97,7 @@ describe('Raise repair form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesRequest')
