@@ -13,7 +13,7 @@ import { canAssignBudgetCode } from '@/utils/userPermissions'
 import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
-  PURDY_CONTRACTOR_REFERENCE,
+  MULTITRADE_ENABLED_CONTRACTORS,
 } from '@/utils/constants'
 
 const TradeContractorRateScheduleItemView = ({
