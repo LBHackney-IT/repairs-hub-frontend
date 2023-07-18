@@ -11,7 +11,7 @@ export const usePropertyBoilerHouse = (boilerHouseId) => {
 
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/asset-id/${boilerHouseId}`,
+      path: `/api/properties/guid-pk/${boilerHouseId}`,
     })
       .then((res) => {
         setBoilerHouse({

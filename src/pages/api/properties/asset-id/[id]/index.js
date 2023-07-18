@@ -5,7 +5,7 @@ import {
 } from '@/utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
-  req.query = { path: ['properties', 'asset-id', req.query.id] }
+  req.query = { path: ['properties', 'guid-pk', req.query.id] }
 
   try {
     const data = await serviceAPIRequest(req, res)
