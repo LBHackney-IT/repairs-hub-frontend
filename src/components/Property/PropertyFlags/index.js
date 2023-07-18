@@ -78,7 +78,7 @@ const PropertyFlags = ({
       <Alerts alerts={personAlerts} alertType="Contact" />
     )
 
-  const showBoilerHouseDetails = () => boilerHouseId !== ''
+  const showBoilerHouseDetails = () => boilerHouseId !== '' && boilerHouseId !== null
 
   useEffect(() => {
     setLocationAlertsLoading(true)
