@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
-import TenureDetails from '../TenureDetails'
+import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
 import {
   PrimarySubmitButton,
@@ -197,7 +197,7 @@ const RaiseWorkOrderForm = ({
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
           <div className="lbh-body-s">
-            <TenureDetails
+            <PropertyFlags
               canRaiseRepair={canRaiseRepair}
               tenure={tenure}
               propertyReference={propertyReference}

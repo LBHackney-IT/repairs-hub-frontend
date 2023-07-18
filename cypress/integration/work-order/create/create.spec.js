@@ -816,245 +816,275 @@ describe('Raise repair form', () => {
       cy.audit()
     })
 
-    describe("when the order is for the 'multi trade' trade and the contractor is Purdy", () => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-          },
-          { fixture: 'contractors/multiTradeContractors.json' }
-        ).as('multiTradeContractorsRequest')
-      })
-
-      context('and the incremental multitrade SOR search toggle is on', () => {
+    describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
+      ;[
+        { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
+        { code: 'AEP', name: 'Axis Europe (X) PLC' },
+        { code: 'HHL', name: 'Herts Heritage Ltd' },
+      ].forEach((ctr) => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', path: '/api/toggles' },
             {
-              body: [
-                {
-                  featureToggles: {
-                    [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
-                  },
-                },
-              ],
-            }
-          ).as('toggleRequest')
+              method: 'GET',
+              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+            },
+            { fixture: 'contractors/multiTradeContractors.json' }
+          ).as('multiTradeContractorsRequest')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: `/api/workOrders/budget-codes?contractorReference=${ctr.code}`,
+            },
+            { fixture: 'scheduleOfRates/budgetCodes.json' }
+          ).as('budgetCodesRequest')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
+            },
+            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+          ).as('sorCodesRequest')
         })
 
-        it('Searches SOR codes after entering three characters with a debounced API request', () => {
-          cy.visit('/properties/00012345/raise-repair/new')
-
-          cy.wait([
-            '@propertyRequest',
-            '@sorPrioritiesRequest',
-            '@tradesRequest',
-          ])
-
-          cy.get('#repair-request-form').within(() => {
-            cy.get('#trade').type('Multi Trade - MU')
-
-            cy.wait('@multiTradeContractorsRequest')
-
-            cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
-
-            cy.wait('@budgetCodesRequest')
-
-            cy.get('[data-testid=budgetCode]').type(
-              'H2555 - 200031 - Lifts Breakdown'
-            )
-
-            cy.wait('@toggleRequest')
-
-            cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('D')
-
-            cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              0
-            )
-
-            cy.intercept(
-              {
-                method: 'GET',
-                path:
-                  '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true?filter=DES?showAllTrades=true',
-              },
-              {
-                body: [
-                  {
-                    code: 'DES5R003',
-                    shortDescription: 'Immediate call outs',
-                    priority: {
-                      priorityCode: 1,
-                      description: '1 [I] IMMEDIATE',
+        context(
+          'and the incremental multitrade SOR search toggle is on',
+          () => {
+            beforeEach(() => {
+              cy.intercept(
+                { method: 'GET', path: '/api/toggles' },
+                {
+                  body: [
+                    {
+                      featureToggles: {
+                        [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
+                      },
                     },
-                    cost: 0,
+                  ],
+                }
+              ).as('toggleRequest')
+            })
+
+            it('Searches SOR codes after entering three characters with a debounced API request', () => {
+              cy.visit('/properties/00012345/raise-repair/new')
+
+              cy.wait([
+                '@propertyRequest',
+                '@sorPrioritiesRequest',
+                '@tradesRequest',
+              ])
+
+              cy.get('#repair-request-form').within(() => {
+                cy.get('#trade').type('Multi Trade - MU')
+
+                cy.wait('@multiTradeContractorsRequest')
+
+                cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
+
+                cy.wait('@budgetCodesRequest')
+
+                cy.get('[data-testid=budgetCode]').type(
+                  'H2555 - 200031 - Lifts Breakdown'
+                )
+
+                cy.wait('@toggleRequest')
+
+                cy.get('input[id="rateScheduleItems[0][code]"]')
+                  .clear()
+                  .type('D')
+
+                cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
+                cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                  'eq',
+                  0
+                )
+
+                cy.intercept(
+                  {
+                    method: 'GET',
+                    path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true?filter=DES?showAllTrades=true`,
                   },
                   {
-                    code: 'DES5R004',
-                    shortDescription: 'Emergency call out',
-                    priority: {
-                      priorityCode: 2,
-                      description: '2 [E] EMERGENCY',
-                    },
-                    cost: 1,
-                  },
-                ],
-              }
-            ).as('sorCodesRequestDES')
-
-            // Enter three characters, then clear and immediately re-enter them
-            cy.get('input[id="rateScheduleItems[0][code]"]')
-              .type('S')
-              .clear()
-              .type('DES')
-
-            cy.wait('@sorCodesRequestDES')
-
-            // The three-character input triggering an API request should have been debounced from 2 requests to just 1
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
-
-            cy.get('[data-testid="rateScheduleItems[0][code]"]')
-              .parent()
-              .find('datalist option')
-              .should('have.length', 2)
-              .first()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R003 - Immediate call outs - £0'
-              )
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R004 - Emergency call out - £1'
-              )
-
-            // type the remainder of the code
-            cy.get('input[id="rateScheduleItems[0][code]"]').type(
-              '5R003 - Immediate call outs - £0'
-            )
-
-            // Entering more than three characters does not trigger more API requests
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
-
-            cy.get('#priorityCode')
-              .find('option:selected')
-              .should('have.text', '1 [I] IMMEDIATE')
-
-            cy.contains('+ Add another SOR code').click()
-
-            cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
-
-            cy.wait('@sorCodesRequestDES')
-
-            cy.get('input[id="rateScheduleItems[1][code]"]').type(
-              '5R004 - Emergency call out - £1'
-            )
-
-            cy.get('input[id="rateScheduleItems[0][quantity]"]')
-              .clear()
-              .type('1')
-
-            cy.get('input[id="rateScheduleItems[1][quantity]"]')
-              .clear()
-              .type('1')
-
-            cy.get('#descriptionOfWork')
-              .get('.govuk-textarea')
-              .type('A problem')
-
-            cy.get('[data-testid=callerName]').type('Test Caller')
-            cy.get('[data-testid=contactNumber]').type('12345678910')
-
-            cy.get('[type="submit"]').contains('Create work order').click()
-          })
-
-          cy.wait('@apiCheck', { requestTimeout: 9000 }).then(({ request }) => {
-            const referenceIdUuid = request.body.reference[0].id
-
-            cy.wrap(request.body).should('deep.include', {
-              reference: [{ id: referenceIdUuid }],
-              descriptionOfWork: 'A problem',
-              priority: {
-                priorityCode: IMMEDIATE_PRIORITY_CODE,
-                priorityDescription: '1 [I] IMMEDIATE',
-                numberOfDays: 0,
-              },
-              workElement: [
-                {
-                  rateScheduleItem: [
-                    {
-                      customCode: 'DES5R003',
-                      customName: 'Immediate call outs',
-                      quantity: { amount: [1] },
-                    },
-                  ],
-                  trade: [
-                    {
-                      code: 'SP',
-                      customCode: 'MU',
-                      customName: 'Multi Trade - MU',
-                    },
-                  ],
-                },
-                {
-                  rateScheduleItem: [
-                    {
-                      customCode: 'DES5R004',
-                      customName: 'Emergency call out',
-                      quantity: { amount: [1] },
-                    },
-                  ],
-                  trade: [
-                    {
-                      code: 'SP',
-                      customCode: 'MU',
-                      customName: 'Multi Trade - MU',
-                    },
-                  ],
-                },
-              ],
-              site: {
-                property: [
-                  {
-                    propertyReference: '00012345',
-                    address: {
-                      addressLine: ['16 Pitcairn House  St Thomass Square'],
-                      postalCode: 'E9 6PT',
-                    },
-                    reference: [
+                    body: [
                       {
-                        id: '00012345',
+                        code: 'DES5R003',
+                        shortDescription: 'Immediate call outs',
+                        priority: {
+                          priorityCode: 1,
+                          description: '1 [I] IMMEDIATE',
+                        },
+                        cost: 0,
+                      },
+                      {
+                        code: 'DES5R004',
+                        shortDescription: 'Emergency call out',
+                        priority: {
+                          priorityCode: 2,
+                          description: '2 [E] EMERGENCY',
+                        },
+                        cost: 1,
                       },
                     ],
-                  },
-                ],
-              },
-              assignedToPrimary: {
-                name: 'Purdy Contracts (P) Ltd',
-                organization: {
-                  reference: [
-                    {
-                      id: 'PCL',
+                  }
+                ).as('sorCodesRequestDES')
+
+                // Enter three characters, then clear and immediately re-enter them
+                cy.get('input[id="rateScheduleItems[0][code]"]')
+                  .type('S')
+                  .clear()
+                  .type('DES')
+
+                cy.wait('@sorCodesRequestDES')
+
+                // The three-character input triggering an API request should have been debounced from 2 requests to just 1
+                cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                  'eq',
+                  1
+                )
+
+                cy.get('[data-testid="rateScheduleItems[0][code]"]')
+                  .parent()
+                  .find('datalist option')
+                  .should('have.length', 2)
+                  .first()
+                  .should(
+                    'have.attr',
+                    'value',
+                    'DES5R003 - Immediate call outs - £0'
+                  )
+                  .next()
+                  .should(
+                    'have.attr',
+                    'value',
+                    'DES5R004 - Emergency call out - £1'
+                  )
+
+                // type the remainder of the code
+                cy.get('input[id="rateScheduleItems[0][code]"]').type(
+                  '5R003 - Immediate call outs - £0'
+                )
+
+                // Entering more than three characters does not trigger more API requests
+                cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                  'eq',
+                  1
+                )
+
+                cy.get('#priorityCode')
+                  .find('option:selected')
+                  .should('have.text', '1 [I] IMMEDIATE')
+
+                cy.contains('+ Add another SOR code').click()
+
+                cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
+
+                cy.wait('@sorCodesRequestDES')
+
+                cy.get('input[id="rateScheduleItems[1][code]"]').type(
+                  '5R004 - Emergency call out - £1'
+                )
+
+                cy.get('input[id="rateScheduleItems[0][quantity]"]')
+                  .clear()
+                  .type('1')
+
+                cy.get('input[id="rateScheduleItems[1][quantity]"]')
+                  .clear()
+                  .type('1')
+
+                cy.get('#descriptionOfWork')
+                  .get('.govuk-textarea')
+                  .type('A problem')
+
+                cy.get('[data-testid=callerName]').type('Test Caller')
+                cy.get('[data-testid=contactNumber]').type('12345678910')
+
+                cy.get('[type="submit"]').contains('Create work order').click()
+              })
+
+              cy.wait('@apiCheck', { requestTimeout: 9000 }).then(
+                ({ request }) => {
+                  const referenceIdUuid = request.body.reference[0].id
+
+                  cy.wrap(request.body).should('deep.include', {
+                    reference: [{ id: referenceIdUuid }],
+                    descriptionOfWork: 'A problem',
+                    priority: {
+                      priorityCode: IMMEDIATE_PRIORITY_CODE,
+                      priorityDescription: '1 [I] IMMEDIATE',
+                      numberOfDays: 0,
                     },
-                  ],
-                },
-              },
-              budgetCode: { id: '1' },
-              multiTradeWorkOrder: true,
+                    workElement: [
+                      {
+                        rateScheduleItem: [
+                          {
+                            customCode: 'DES5R003',
+                            customName: 'Immediate call outs',
+                            quantity: { amount: [1] },
+                          },
+                        ],
+                        trade: [
+                          {
+                            code: 'SP',
+                            customCode: 'MU',
+                            customName: 'Multi Trade - MU',
+                          },
+                        ],
+                      },
+                      {
+                        rateScheduleItem: [
+                          {
+                            customCode: 'DES5R004',
+                            customName: 'Emergency call out',
+                            quantity: { amount: [1] },
+                          },
+                        ],
+                        trade: [
+                          {
+                            code: 'SP',
+                            customCode: 'MU',
+                            customName: 'Multi Trade - MU',
+                          },
+                        ],
+                      },
+                    ],
+                    site: {
+                      property: [
+                        {
+                          propertyReference: '00012345',
+                          address: {
+                            addressLine: [
+                              '16 Pitcairn House  St Thomass Square',
+                            ],
+                            postalCode: 'E9 6PT',
+                          },
+                          reference: [
+                            {
+                              id: '00012345',
+                            },
+                          ],
+                        },
+                      ],
+                    },
+                    assignedToPrimary: {
+                      name: ctr.name,
+                      organization: {
+                        reference: [
+                          {
+                            id: ctr.code,
+                          },
+                        ],
+                      },
+                    },
+                    budgetCode: { id: '1' },
+                    multiTradeWorkOrder: true,
+                  })
+                }
+              )
             })
-          })
-        })
+          }
+        )
       })
 
       context('and the incremental multitrade SOR search toggle is off', () => {

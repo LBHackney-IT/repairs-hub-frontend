@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { GridRow, GridColumn } from '../../Layout/Grid'
-import TenureDetails from '../../Property/TenureDetails'
+import PropertyFlags from '../../Property/PropertyFlags'
 
 const PropertyDetails = ({
   address,
@@ -16,7 +16,7 @@ const PropertyDetails = ({
           {subTypeDescription}: {address.addressLine}
         </h1>
 
-        <TenureDetails
+        <PropertyFlags
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
           propertyReference={propertyReference}

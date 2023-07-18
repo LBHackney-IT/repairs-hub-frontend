@@ -57,6 +57,7 @@ const PropertyView = ({ propertyReference }) => {
             <>
               <PropertyDetails
                 propertyReference={propertyReference}
+                boilerHouseId={property.boilerHouseId}
                 address={address}
                 hierarchyType={property.hierarchyType}
                 canRaiseRepair={property.canRaiseRepair}

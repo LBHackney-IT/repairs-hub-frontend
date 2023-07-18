@@ -14,7 +14,7 @@ import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
 import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
-  PURDY_CONTRACTOR_REFERENCE,
+  MULTITRADE_ENABLED_CONTRACTORS,
 } from '@/utils/constants'
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
@@ -119,7 +119,9 @@ const WorkOrderUpdateView = ({ reference }) => {
     })
 
   const incrementalSORSearchRequired = async (contractorRef) => {
-    const orderApplicable = contractorRef === PURDY_CONTRACTOR_REFERENCE
+    const orderApplicable = MULTITRADE_ENABLED_CONTRACTORS.includes(
+      contractorRef
+    )
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)

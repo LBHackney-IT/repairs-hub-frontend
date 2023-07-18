@@ -26,7 +26,6 @@
     "cy:open": "cypress open"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "^7.22.5",
     "@reach/dialog": "^0.18.0",
     "@sentry/nextjs": "^6.17.9",
     "axios": "^0.21.1",
@@ -42,7 +41,7 @@
     "loglevel": "^1.8.0",
     "lru-cache": "^6.0.0",
     "mockdate": "^3.0.2",
-    "next": "12",
+    "next": "^12",
     "path": "^0.12.7",
     "qs": "^6.10.1",
     "react": "^17.0.2",
