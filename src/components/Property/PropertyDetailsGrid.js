@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from './PropertyDetailsAddress'
-import TenureDetails from './TenureDetails'
+import PropertyFlags from './PropertyFlags'
 
 const PropertyDetailsGrid = ({
   propertyReference,
+  boilerHouseId,
   address,
   subTypeDescription,
   tenure,
@@ -13,7 +14,7 @@ const PropertyDetailsGrid = ({
 }) => {
   return (
     <div className="govuk-grid-row">
-      <div className="govuk-grid-column-one-half">
+      <div className="govuk-grid-column-one-half-from-desktop">
         <div className="lbh-body-s">
           <PropertyDetailsAddress
             address={address}
@@ -21,11 +22,12 @@ const PropertyDetailsGrid = ({
             subTypeDescription={subTypeDescription}
             hasLinkToProperty={hasLinkToProperty}
           />
-          <TenureDetails
+          <PropertyFlags
             tenure={tenure}
             canRaiseRepair={canRaiseRepair}
             tmoName={tmoName}
             propertyReference={propertyReference}
+            boilerHouseId={boilerHouseId}
           />
         </div>
       </div>
@@ -35,6 +37,7 @@ const PropertyDetailsGrid = ({
 
 PropertyDetailsGrid.propTypes = {
   propertyReference: PropTypes.string,
+  boilerHouseId: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string,
   tenure: PropTypes.object.isRequired,

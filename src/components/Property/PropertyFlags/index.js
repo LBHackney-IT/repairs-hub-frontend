@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import Alerts from './Alerts'
-import Tenure from './Tenure'
-import TenureDetail from './TenureDetail'
+import Alerts from '../Alerts'
+import Tenure from '../Tenure'
+import TenureDetail from '../TenureDetail'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import PropertyBoilerHouseDetails from '../PropertyBoilerHouseDetails'
 
-const TenureDetails = ({
+const PropertyFlags = ({
   canRaiseRepair,
   tenure,
   tmoName,
   propertyReference,
+  boilerHouseId,
   setParentLocationAlerts,
   setParentPersonAlerts,
 }) => {
@@ -76,6 +78,9 @@ const TenureDetails = ({
       <Alerts alerts={personAlerts} alertType="Contact" />
     )
 
+  const showBoilerHouseDetails = () =>
+    boilerHouseId !== '' && boilerHouseId !== null
+
   useEffect(() => {
     setLocationAlertsLoading(true)
     getLocationAlerts()
@@ -86,9 +91,21 @@ const TenureDetails = ({
   }, [])
 
   return (
-    <ul className="lbh-list hackney-property-alerts">
+    <ul
+      className="lbh-list hackney-property-alerts"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginBottom: '1em',
+      }}
+    >
       {tenure && Object.keys(tenure).length > 0 && (
         <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
+      )}
+
+      {showBoilerHouseDetails() && (
+        <PropertyBoilerHouseDetails boilerHouseId={boilerHouseId} />
       )}
 
       {locationAlertsLoading ? (
@@ -96,6 +113,7 @@ const TenureDetails = ({
       ) : (
         renderLocationAlerts()
       )}
+
       {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
@@ -112,13 +130,14 @@ const TenureDetails = ({
   )
 }
 
-TenureDetails.propTypes = {
+PropertyFlags.propTypes = {
   canRaiseRepair: PropTypes.bool.isRequired,
   tenure: PropTypes.object,
   tmoName: PropTypes.string,
   propertyReference: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string.isRequired,
   setParentLocationAlerts: PropTypes.func,
   setParentPersonAlerts: PropTypes.func,
 }
 
-export default TenureDetails
+export default PropertyFlags

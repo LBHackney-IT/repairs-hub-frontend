@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
-import TenureDetails from '../Property/TenureDetails'
+import PropertyFlags from '../Property/PropertyFlags'
 import WorkOrderInfo from './WorkOrderInfo'
 import AppointmentDetails from './AppointmentDetails'
 import Operatives from './Operatives'
@@ -33,7 +33,7 @@ const WorkOrderHeader = ({
           hasLinkToProperty={true}
         />
 
-        <TenureDetails
+        <PropertyFlags
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
           propertyReference={propertyReference}

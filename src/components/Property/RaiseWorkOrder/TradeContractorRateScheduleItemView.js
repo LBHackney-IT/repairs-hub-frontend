@@ -13,7 +13,7 @@ import { canAssignBudgetCode } from '@/utils/userPermissions'
 import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
-  PURDY_CONTRACTOR_REFERENCE,
+  MULTITRADE_ENABLED_CONTRACTORS,
 } from '@/utils/constants'
 
 const TradeContractorRateScheduleItemView = ({
@@ -89,7 +89,7 @@ const TradeContractorRateScheduleItemView = ({
 
   const incrementalSORSearchRequired = async (contractorRef, tradeCode) => {
     const orderApplicable =
-      contractorRef === PURDY_CONTRACTOR_REFERENCE &&
+      MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef) &&
       tradeCode === MULTITRADE_TRADE_CODE
 
     if (!orderApplicable) {
@@ -167,8 +167,8 @@ const TradeContractorRateScheduleItemView = ({
         },
       })
 
-      // Purdy have no SORs for multitrade so this is done
-      // to permit selection of Purdy
+      // Add multitrade contractors who don't have any MT SORs
+      // (only Purdy, Axis and HHL already have some)
       tradeCode === MULTITRADE_TRADE_CODE
         ? setContractors([
             ...contractors,
@@ -199,7 +199,7 @@ const TradeContractorRateScheduleItemView = ({
         method: 'get',
         path: '/api/workOrders/budget-codes',
         params: {
-          ...(contractorReference === PURDY_CONTRACTOR_REFERENCE
+          ...(MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference)
             ? { contractorReference: contractorReference }
             : ''),
         },
