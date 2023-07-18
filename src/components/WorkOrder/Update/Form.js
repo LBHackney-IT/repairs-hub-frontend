@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form'
 import OriginalRateScheduleItems from '../RateScheduleItems/OriginalRateScheduleItems'
 import LatestRateScheduleItems from '../RateScheduleItems/LatestRateScheduleItems'
 import AddedRateScheduleItems from '../RateScheduleItems/AddedRateScheduleItems'
-import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
+import { MULTITRADE_ENABLED_CONTRACTORS } from '@/utils/constants'
 
 const WorkOrderUpdateForm = ({
   latestTasks,
@@ -56,7 +56,7 @@ const WorkOrderUpdateForm = ({
             setPageToMultipleSORs(getValues())
           }}
         />
-        {contractorReference === PURDY_CONTRACTOR_REFERENCE ? (
+        {MULTITRADE_ENABLED_CONTRACTORS.includes(contractorReference) ? (
           <TextArea
             name="variationReason"
             value={variationReason}
