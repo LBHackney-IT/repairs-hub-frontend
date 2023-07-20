@@ -1,3 +1,4 @@
+import '@/styles/fonts.css'
 import '@/styles/all.scss'
 import App from 'next/app'
 import Layout from '@/components/Layout'
