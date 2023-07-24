@@ -45,18 +45,6 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         >
           Tenure: Secure
         </li>
-        <span
-          class="govuk-error-message lbh-error-message"
-          data-error-id=""
-          data-testid="error-message"
-        >
-          <span
-            class="govuk-visually-hidden"
-          >
-            Error:
-          </span>
-           Error loading boiler house details status undefined with message: undefined
-        </span>
       </ul>
     </div>
     <div
@@ -204,18 +192,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         >
           Tenure: Secure
         </li>
-        <span
-          class="govuk-error-message lbh-error-message"
-          data-error-id=""
-          data-testid="error-message"
-        >
-          <span
-            class="govuk-visually-hidden"
-          >
-            Error:
-          </span>
-           Error loading boiler house details status undefined with message: undefined
-        </span>
       </ul>
     </div>
     <div
@@ -362,18 +338,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         >
           Tenure: Secure
         </li>
-        <span
-          class="govuk-error-message lbh-error-message"
-          data-error-id=""
-          data-testid="error-message"
-        >
-          <span
-            class="govuk-visually-hidden"
-          >
-            Error:
-          </span>
-           Error loading boiler house details status undefined with message: undefined
-        </span>
       </ul>
     </div>
     <div
@@ -520,18 +484,6 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         >
           Tenure: Secure
         </li>
-        <span
-          class="govuk-error-message lbh-error-message"
-          data-error-id=""
-          data-testid="error-message"
-        >
-          <span
-            class="govuk-visually-hidden"
-          >
-            Error:
-          </span>
-           Error loading boiler house details status undefined with message: undefined
-        </span>
       </ul>
     </div>
     <div
