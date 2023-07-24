@@ -79,7 +79,9 @@ const PropertyFlags = ({
     )
 
   const showBoilerHouseDetails = () =>
-    boilerHouseId !== '' && boilerHouseId !== null
+    boilerHouseId !== '' &&
+    boilerHouseId !== null &&
+    boilerHouseId !== undefined
 
   useEffect(() => {
     setLocationAlertsLoading(true)
