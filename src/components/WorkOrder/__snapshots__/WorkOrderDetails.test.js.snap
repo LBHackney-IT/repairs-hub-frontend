@@ -329,18 +329,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -785,18 +773,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -1125,18 +1101,6 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -1539,18 +1503,6 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -1713,18 +1665,6 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -2020,18 +1960,6 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -2413,18 +2341,6 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -2806,18 +2722,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -3220,18 +3124,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
@@ -3511,18 +3403,6 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <div
