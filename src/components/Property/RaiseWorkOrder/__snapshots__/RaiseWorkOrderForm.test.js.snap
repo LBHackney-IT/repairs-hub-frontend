@@ -36,18 +36,6 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
           >
             Tenure: Secure
           </li>
-          <span
-            class="govuk-error-message lbh-error-message"
-            data-error-id=""
-            data-testid="error-message"
-          >
-            <span
-              class="govuk-visually-hidden"
-            >
-              Error:
-            </span>
-             Error loading boiler house details status undefined with message: undefined
-          </span>
         </ul>
       </div>
       <h2
