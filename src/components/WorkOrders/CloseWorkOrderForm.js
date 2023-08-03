@@ -36,14 +36,8 @@ const CloseWorkOrderForm = ({
   paymentType,
   existingStartTime,
 }) => {
-  const {
-    handleSubmit,
-    register,
-    control,
-    errors,
-    trigger,
-    getValues,
-  } = useForm({})
+  const { handleSubmit, register, control, errors, trigger, getValues } =
+    useForm({})
 
   const [startTimeIsRequired, setStartTimeIsRequired] = useState(false)
 

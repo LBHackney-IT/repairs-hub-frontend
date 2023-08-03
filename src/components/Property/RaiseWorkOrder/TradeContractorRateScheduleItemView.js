@@ -48,10 +48,8 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
 
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState(false)
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState(false)
 
   let multiTradeSORIncrementalSearchEnabled = null
 
@@ -100,9 +98,8 @@ const TradeContractorRateScheduleItemView = ({
     if (multiTradeSORIncrementalSearchEnabled === null) {
       const featureToggles = await fetchFeatureToggles()
 
-      multiTradeSORIncrementalSearchEnabled = !!featureToggles[
-        MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
-      ]
+      multiTradeSORIncrementalSearchEnabled =
+        !!featureToggles[MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]
     }
 
     setOrderRequiresIncrementalSearch(

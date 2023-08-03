@@ -40,22 +40,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [formState, setFormState] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [
-    authorisationPendingApproval,
-    setAuthorisationPendingApproval,
-  ] = useState(false)
-  const [
-    externallyManagedAppointment,
-    setExternallyManagedAppointment,
-  ] = useState(false)
+  const [authorisationPendingApproval, setAuthorisationPendingApproval] =
+    useState(false)
+  const [externallyManagedAppointment, setExternallyManagedAppointment] =
+    useState(false)
   const [
     externalAppointmentManagementUrl,
     setExternalAppointmentManagementUrl,
   ] = useState()
-  const [
-    immediateOrEmergencyRepairText,
-    setImmediateOrEmergencyRepairText,
-  ] = useState(false)
+  const [immediateOrEmergencyRepairText, setImmediateOrEmergencyRepairText] =
+    useState(false)
   const [workOrderReference, setWorkOrderReference] = useState()
   const [currentUser, setCurrentUser] = useState()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
@@ -67,9 +61,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
   const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
-  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
-    false
-  )
+  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] =
+    useState(false)
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
