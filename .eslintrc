@@ -25,6 +25,7 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "require-atomic-updates": "off",
-    "react/jsx-uses-vars": 2
+    "react/jsx-uses-vars": 2,
+    "cypress/unsafe-to-chain-command": "off"
   }
 }
