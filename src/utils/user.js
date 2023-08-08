@@ -15,9 +15,11 @@ export const buildUser = (name, email, authServiceGroups) => {
     DATA_ADMIN_GOOGLE_GROUPNAME,
   } = process.env
 
-  const CONTRACTORS_GOOGLE_GROUPNAME_REGEX = "^repairs-hub-contractors-.*-staging$"
+  const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
+    '^repairs-hub-contractors-.*-staging$'
 
-  const AGENTS_GOOGLE_GROUPNAME_REGEX = "^(repairs-hub-agents-staging)|(repairs-hub-agent-agilysis-staging)$"
+  const AGENTS_GOOGLE_GROUPNAME_REGEX =
+    '^(repairs-hub-agents-staging)|(repairs-hub-agent-agilysis-staging)$'
 
   const contractorGroupRegex = new RegExp(CONTRACTORS_GOOGLE_GROUPNAME_REGEX)
   const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)
@@ -26,29 +28,17 @@ export const buildUser = (name, email, authServiceGroups) => {
     return groupNames.map((groupName) => {
       if (isAgentGroupName(groupName)) {
         return AGENT_ROLE
-      }
-
-      if (isContractManagerGroupName(groupName)) {
+      } else if (isContractManagerGroupName(groupName)) {
         return CONTRACT_MANAGER_ROLE
-      }
-
-      if (isAuthorisationManagerGroupName(groupName)) {
+      } else if (isAuthorisationManagerGroupName(groupName)) {
         return AUTHORISATION_MANAGER_ROLE
-      }
-
-      if (isContractorGroupName(groupName)) {
+      } else if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
-      } 
-      
-      if (isOperativeGroupName(groupName)) {
+      } else if (isOperativeGroupName(groupName)) {
         return OPERATIVE_ROLE
-      }
-      
-      if (isBudgetCodeOfficerGroupName(groupName)) {
+      } else if (isBudgetCodeOfficerGroupName(groupName)) {
         return BUDGET_CODE_OFFICER_ROLE
-      }
-      
-      if (isDataAdminGroupName(groupName)) {
+      } else if (isDataAdminGroupName(groupName)) {
         return DATA_ADMIN_ROLE
       }
 
