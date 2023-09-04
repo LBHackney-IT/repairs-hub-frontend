@@ -93,7 +93,7 @@ const MobileWorkingWorkOrdersView = () => {
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(inProgressWorkOrders)}
+                {renderWorkOrderListItems(currentUser.isOneJobAtATime ? inProgressWorkOrders.slice(0,1) : inProgressWorkOrders)}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>

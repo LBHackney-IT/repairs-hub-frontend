@@ -145,6 +145,23 @@ Cypress.Commands.add('loginWithOperativeRole', () => {
   )
 })
 
+Cypress.Commands.add('loginWithOneJobAtATimeOperativeRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_OPERATIVE')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hubUser/operative-onejob.json' }
+  )
+})
+
 Cypress.Commands.add('loginWithAgentAndBudgetCodeOfficerRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_BUDGET_CODE_OFFICER')
 
