@@ -518,13 +518,13 @@ describe('Home page', () => {
         ).as('task')
       })
 
-      it('Displays work order appointments, priority and any closed status', () => {
+      it('Displays only one work order appointment', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
 
-        cy.get('.appointment-details').should('have.length', 4)
+        cy.get('.appointment-details').should('have.length', 1)
 
         cy.get('.lbh-list').within(() => {
           cy.get('li')
@@ -543,28 +543,6 @@ describe('Home page', () => {
               cy.contains('08:00 – 13:00')
               cy.contains('normal')
               cy.contains('17 Pitcairn House St Thomass Square')
-              cy.contains('L53 GS')
-              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
-            })
-
-          cy.get('li')
-            .eq(2)
-            .within(() => {
-              cy.contains('16:00 – 18:00')
-              cy.contains('emergency')
-              cy.contains('Completed')
-              cy.contains('19 Pitcairn House St Thomass Square')
-              cy.contains('L53 GS')
-              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
-            })
-
-          cy.get('li')
-            .eq(3)
-            .within(() => {
-              cy.contains('17:00 – 18:00')
-              cy.contains('emergency')
-              cy.contains('No access')
-              cy.contains('20 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
