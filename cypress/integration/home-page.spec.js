@@ -302,7 +302,7 @@ describe('Home page', () => {
       })
     }
   )
-  
+
   context('When an operative is logged in', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
@@ -580,6 +580,4 @@ describe('Home page', () => {
       })
     })
   })
-
-
 })
