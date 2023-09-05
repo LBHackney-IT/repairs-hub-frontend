@@ -518,13 +518,13 @@ describe('Home page', () => {
         ).as('task')
       })
 
-      it('Displays only one work order appointment', () => {
+      it('Displays only one active and two completed work order appointments', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
 
-        cy.get('.appointment-details').should('have.length', 1)
+        cy.get('.appointment-details').should('have.length', 3)
 
         cy.get('.lbh-list').within(() => {
           cy.get('li')
@@ -540,9 +540,9 @@ describe('Home page', () => {
           cy.get('li')
             .eq(1)
             .within(() => {
-              cy.contains('08:00 – 13:00')
+              cy.contains('16:00 – 18:00')
               cy.contains('normal')
-              cy.contains('17 Pitcairn House St Thomass Square')
+              cy.contains('19 Pitcairn House St Thomass Square')
               cy.contains('L53 GS')
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
@@ -551,8 +551,7 @@ describe('Home page', () => {
         })
 
         cy.wait(['@operativesWorkOrder', '@property', '@task'])
-        cy.contains('WO 10000621')
-        cy.get('div[class*="Multibutton"]').should('not.exist')
+        cy.contains('WO 10000626')
       })
     })
 
