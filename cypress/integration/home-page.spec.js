@@ -546,11 +546,11 @@ describe('Home page', () => {
               cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
             })
 
-          cy.get('li').eq(1).click()
+          cy.get('li').eq(0).click()
         })
 
         cy.wait(['@operativesWorkOrder', '@property', '@task'])
-        cy.contains('WO 10000626')
+        cy.contains('WO 10000625')
       })
     })
 
