@@ -549,7 +549,7 @@ describe('Home page', () => {
           cy.get('li').eq(0).click()
         })
 
-        cy.wait(['@operativesWorkOrder', '@property', '@task'])
+        cy.wait(['@operativesWorkOrder'])
         cy.contains('WO 10000625')
       })
     })
