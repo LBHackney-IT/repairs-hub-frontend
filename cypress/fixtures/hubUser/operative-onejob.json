@@ -6,5 +6,5 @@
   "raiseLimit": "250",
   "contractors": ["H01"],
   "operativePayrollNumber": "hu0001",
-  "isOneJobAtATime": false
+  "isOneJobAtATime": true
 }
