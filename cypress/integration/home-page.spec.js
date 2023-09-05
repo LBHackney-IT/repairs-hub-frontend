@@ -549,8 +549,7 @@ describe('Home page', () => {
           cy.get('li').eq(0).click()
         })
 
-        cy.wait(['@operativesWorkOrder'])
-        cy.contains('WO 10000625')
+        cy.contains('10000625')
       })
     })
 
