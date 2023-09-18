@@ -136,6 +136,9 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       const data = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${propertyReference}`,
+        params: {
+          withContactDetails: true
+        }
       })
       const priorities = await frontEndApiRequest({
         method: 'get',
