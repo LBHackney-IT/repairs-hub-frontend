@@ -37,7 +37,7 @@ const RateScheduleItemView = ({
   }, arrayOfRateScheduleItemComponentIndexes)
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
-    []
+    [] //
   )
   const [rateScheduleItemCosts, setRateScheduleItemCosts] = useState([])
 
