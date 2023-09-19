@@ -236,7 +236,10 @@ describe('Raise repair form', () => {
       cy.loginWithAgentAndBudgetCodeOfficerRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
+        {
+          method: 'GET',
+          path: '/api/properties/00012345?withContactDetails=true',
+        },
         { fixture: 'properties/property.json' }
       ).as('propertyRequest')
 
