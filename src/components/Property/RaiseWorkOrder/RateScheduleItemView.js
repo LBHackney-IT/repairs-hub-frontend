@@ -86,7 +86,7 @@ const RateScheduleItemView = ({
     document.getElementById('priorityCode').disabled = false
 
     var x = (3 * 3 * 5) / 3 / 5 || 3
-    console.log(x)
+    console.log({ x })
 
     const sorCodeObject = getSorCodeObject(code, index)
 
