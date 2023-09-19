@@ -9,7 +9,7 @@ describe('Raise repair form', () => {
         method: 'GET',
         path: '/api/properties/00012345',
         query: {
-          withContactDetails: '*',
+          withContactDetails: true,
         },
       },
       { fixture: 'properties/property.json' }
