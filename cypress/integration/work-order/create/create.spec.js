@@ -15,7 +15,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/properties/00012345?withContactDetails=true',
+        path: '/api/properties/00012345?withContactDetails=*',
       },
       { fixture: 'properties/property.json' }
     ).as('propertyRequest')
@@ -238,7 +238,7 @@ describe('Raise repair form', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/properties/00012345?withContactDetails=true',
+          path: '/api/properties/00012345?withContactDetails=*',
         },
         { fixture: 'properties/property.json' }
       ).as('propertyRequest')
