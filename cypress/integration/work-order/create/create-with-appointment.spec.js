@@ -13,7 +13,13 @@ describe('Schedule appointment form', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/properties/00012345' },
+      {
+        method: 'GET',
+        path: '/api/properties/00012345',
+        query: {
+          withContactDetails: 'true',
+        },
+      },
       { fixture: 'properties/property.json' }
     ).as('property')
 

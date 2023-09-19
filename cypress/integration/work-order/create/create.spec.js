@@ -13,7 +13,13 @@ const now = new Date('2022-02-11T12:00:00')
 describe('Raise repair form', () => {
   beforeEach(() => {
     cy.intercept(
-      { method: 'GET', path: '/api/properties/00012345' },
+      {
+        method: 'GET',
+        path: '/api/properties/00012345',
+        query: {
+          withContactDetails: 'true',
+        },
+      },
       { fixture: 'properties/property.json' }
     ).as('propertyRequest')
 
