@@ -171,7 +171,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setProperty(null)
       setPriorities(null)
       setTrades(null)
-      console.error('An error has occured:', e.response)
+      console.error('An error has occurred:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
