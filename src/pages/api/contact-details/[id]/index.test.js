@@ -56,8 +56,8 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       const req = createRequest({
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
-        _parsedUrl: {
-          pathname: '/contact-details/250af5a91f04316aac4a7a737e98874',
+        query: {
+          id: '250af5a91f04316aac4a7a737e98874',
         },
         params: {},
       })
@@ -112,8 +112,8 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       const req = createRequest({
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
-        _parsedUrl: {
-          pathname: '/contact-details/250af5a91f04316aac4a7a737e98874',
+        query: {
+          id: '250af5a91f04316aac4a7a737e98874',
         },
         params: {},
       })
@@ -168,8 +168,8 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       const req = createRequest({
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
-        _parsedUrl: {
-          pathname: '/contact-details/250af5a91f04316aac4a7a737e98874',
+        query: {
+          id: '250af5a91f04316aac4a7a737e98874',
         },
       })
 
