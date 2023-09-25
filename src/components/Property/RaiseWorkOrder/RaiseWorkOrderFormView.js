@@ -133,7 +133,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const data = await frontEndApiRequest({
+      const propertyResponse = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${propertyReference}`,
       })
@@ -152,17 +152,17 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
       let contactDetails = []
 
-      if (data?.tenure?.id != null) {
+      if (propertyResponse?.tenure?.id != null) {
         contactDetails = await frontEndApiRequest({
           method: 'get',
-          path: `/api/contact-details/${data?.tenure?.id}`,
+          path: `/api/contact-details/${propertyResponse?.tenure?.id}`,
         })
       }
 
       
 
-      setTenure(data.tenure)
-      setProperty(data.property)
+      setTenure(propertyResponse.tenure)
+      setProperty(propertyResponse.property)
       setPriorities(priorities)
       setTrades(trades)
       setContacts(contactDetails)
