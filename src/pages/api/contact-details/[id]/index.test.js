@@ -17,21 +17,28 @@ const {
   CONTRACTORS_GOOGLE_GROUPNAME,
 } = process.env
 
+const TENURE_ID = '250af5a91f04316aac4a7a737e98874'
+
+const CONTACT_DETAILS = [
+  {
+    fullName: 'FirstName LastName',
+    phoneNumbers: ['0123456789', '0123456789'],
+  },
+  {
+    fullName: 'FirstName LastName',
+    phoneNumbers: ['0123456789', '0123456789'],
+  },
+]
+
 describe('GET /api/contact-details/[id] contact information redaction', () => {
   beforeEach(() => {
     axios.create = jest.fn(() => axios)
 
     axios.mockImplementationOnce(() =>
-      Promise.resolve([
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-      ])
+      Promise.resolve({
+        status: 200,
+        data: CONTACT_DETAILS,
+      })
     )
   })
 
@@ -57,7 +64,7 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
         query: {
-          id: '250af5a91f04316aac4a7a737e98874',
+          id: TENURE_ID,
         },
         params: {},
       })
@@ -70,24 +77,21 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       expect(axios).toHaveBeenCalledWith({
         method: 'get',
         headers,
-        url: `${REPAIRS_SERVICE_API_URL}/contact-details/250af5a91f04316aac4a7a737e98874`,
+        url: `${REPAIRS_SERVICE_API_URL}/contact-details/${TENURE_ID}`,
         params: {},
         paramsSerializer,
         data: {},
       })
 
+      // var x = res._getData();
+      // expect(x).toEqual({name:"callum"})
+      //console.log(res._getData())
+
+      // const value = res.
+
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData).toEqual([
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-      ])
+      expect(parsedData).toEqual(CONTACT_DETAILS)
     })
   })
 
@@ -113,7 +117,7 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
         query: {
-          id: '250af5a91f04316aac4a7a737e98874',
+          id: TENURE_ID,
         },
         params: {},
       })
@@ -126,7 +130,7 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       expect(axios).toHaveBeenCalledWith({
         method: 'get',
         headers,
-        url: `${REPAIRS_SERVICE_API_URL}/contact-details/250af5a91f04316aac4a7a737e98874`,
+        url: `${REPAIRS_SERVICE_API_URL}/contact-details/${TENURE_ID}`,
         params: {},
         paramsSerializer,
         data: {},
@@ -134,16 +138,7 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
 
       const parsedData = JSON.parse(res._getData())
 
-      expect(parsedData).toEqual([
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-        {
-          fullName: 'FirstName LastName',
-          phoneNumbers: ['0123456789', '0123456789'],
-        },
-      ])
+      expect(parsedData).toEqual(CONTACT_DETAILS)
     })
   })
 
@@ -157,35 +152,36 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       HACKNEY_JWT_SECRET
     )
 
-    const headers = {
-      'Content-Type': 'application/json',
-      'x-api-key': REPAIRS_SERVICE_API_KEY,
-      'x-hackney-user': signedCookie,
-      Authorization: signedCookie,
-    }
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   'x-api-key': REPAIRS_SERVICE_API_KEY,
+    //   'x-hackney-user': signedCookie,
+    //   Authorization: signedCookie,
+    // }
 
     test('response contact information is redacted', async () => {
       const req = createRequest({
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
         query: {
-          id: '250af5a91f04316aac4a7a737e98874',
+          id: TENURE_ID,
         },
+        params: {},
       })
 
       const res = createResponse()
 
       await contactDetailsEndpoint(req, res)
 
-      expect(axios).toHaveBeenCalledTimes(1)
-      expect(axios).toHaveBeenCalledWith({
-        method: 'get',
-        headers,
-        url: `${REPAIRS_SERVICE_API_URL}/contact-details/250af5a91f04316aac4a7a737e98874`,
-        params: {},
-        paramsSerializer,
-        data: {},
-      })
+      expect(axios).toHaveBeenCalledTimes(0)
+      // expect(axios).toHaveBeenCalledWith({
+      //   method: 'get',
+      //   headers,
+      //   url: `${REPAIRS_SERVICE_API_URL}/contact-details/${TENURE_ID}`,
+      //   params: {},
+      //   paramsSerializer,
+      //   data: {},
+      // })
 
       const parsedData = JSON.parse(res._getData())
 
