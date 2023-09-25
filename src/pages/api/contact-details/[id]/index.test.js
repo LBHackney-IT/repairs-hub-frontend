@@ -83,12 +83,6 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
         data: {},
       })
 
-      // var x = res._getData();
-      // expect(x).toEqual({name:"callum"})
-      //console.log(res._getData())
-
-      // const value = res.
-
       const parsedData = JSON.parse(res._getData())
 
       expect(parsedData).toEqual(CONTACT_DETAILS)
@@ -152,13 +146,6 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
       HACKNEY_JWT_SECRET
     )
 
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   'x-api-key': REPAIRS_SERVICE_API_KEY,
-    //   'x-hackney-user': signedCookie,
-    //   Authorization: signedCookie,
-    // }
-
     test('response contact information is redacted', async () => {
       const req = createRequest({
         method: 'get',
@@ -173,15 +160,8 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
 
       await contactDetailsEndpoint(req, res)
 
+      // ["REMOVED"] is returned before API call if user doesn't have valid permissions
       expect(axios).toHaveBeenCalledTimes(0)
-      // expect(axios).toHaveBeenCalledWith({
-      //   method: 'get',
-      //   headers,
-      //   url: `${REPAIRS_SERVICE_API_URL}/contact-details/${TENURE_ID}`,
-      //   params: {},
-      //   paramsSerializer,
-      //   data: {},
-      // })
 
       const parsedData = JSON.parse(res._getData())
 
