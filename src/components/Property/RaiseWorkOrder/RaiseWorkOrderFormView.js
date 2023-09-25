@@ -159,8 +159,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         })
       }
 
-      
-
       setTenure(propertyResponse.tenure)
       setProperty(propertyResponse.property)
       setPriorities(priorities)
