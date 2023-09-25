@@ -133,22 +133,24 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const propertyResponse = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${propertyReference}`,
-      })
-      const priorities = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/schedule-of-rates/priorities`,
-      })
-      const trades = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
-      })
-      const user = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const [propertyResponse, priorities, trades, user] = await Promise.all([
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/properties/${propertyReference}`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/schedule-of-rates/priorities`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: '/api/hub-user',
+        }),
+      ])
 
       let contactDetails = []
 
