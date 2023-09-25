@@ -150,11 +150,22 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         path: '/api/hub-user',
       })
 
+      let contactDetails = []
+
+      if (data?.tenure?.id != null) {
+        contactDetails = await frontEndApiRequest({
+          method: 'get',
+          path: `/api/contact-details/${data?.tenure?.id}`,
+        })
+      }
+
+      
+
       setTenure(data.tenure)
       setProperty(data.property)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(data.contactDetails)
+      setContacts(contactDetails)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
