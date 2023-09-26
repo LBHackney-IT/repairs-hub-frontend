@@ -1151,7 +1151,6 @@ describe('Raise repair form', () => {
 
           cy.wait([
             '@propertyRequest',
-
             '@sorPrioritiesRequest',
             '@tradesRequest',
           ])
@@ -1243,7 +1242,6 @@ describe('Raise repair form', () => {
 
           cy.wait([
             '@propertyRequest',
-
             '@sorPrioritiesRequest',
             '@tradesRequest',
           ])
@@ -1677,7 +1675,6 @@ describe('Raise repair form', () => {
 
       cy.wait([
         '@propertyRequest',
-
         '@sorPrioritiesRequest',
         '@tradesRequest',
         '@propertyInLegalDisrepair',
@@ -1715,7 +1712,6 @@ describe('Raise repair form', () => {
 
         cy.wait([
           '@propertyRequest',
-
           '@sorPrioritiesRequest',
           '@tradesRequest',
           '@propertyInLegalDisrepair',
@@ -1752,7 +1748,6 @@ describe('Raise repair form', () => {
 
       cy.wait([
         '@propertyRequest',
-
         '@sorPrioritiesRequest',
         '@tradesRequest',
         '@propertyInLegalDisrepairError',
