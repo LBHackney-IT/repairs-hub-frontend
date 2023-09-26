@@ -1143,11 +1143,7 @@ describe('Raise repair form', () => {
         it('searches SOR codes after loading them all into a list', () => {
           cy.visit('/properties/00012345')
 
-          cy.wait([
-            '@propertyRequest',
-            // '@contactDetailsRequest',
-            '@workOrdersRequest',
-          ])
+          cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
           cy.get('.lbh-heading-h2')
             .contains('Raise a work order on this dwelling')
@@ -1155,7 +1151,7 @@ describe('Raise repair form', () => {
 
           cy.wait([
             '@propertyRequest',
-            // '@contactDetailsRequest',
+
             '@sorPrioritiesRequest',
             '@tradesRequest',
           ])
@@ -1239,11 +1235,7 @@ describe('Raise repair form', () => {
         it('does not prevent loading of the form', () => {
           cy.visit('/properties/00012345')
 
-          cy.wait([
-            '@propertyRequest',
-            // '@contactDetailsRequest',
-            '@workOrdersRequest',
-          ])
+          cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
           cy.get('.lbh-heading-h2')
             .contains('Raise a work order on this dwelling')
@@ -1251,7 +1243,7 @@ describe('Raise repair form', () => {
 
           cy.wait([
             '@propertyRequest',
-            // '@contactDetailsRequest',
+
             '@sorPrioritiesRequest',
             '@tradesRequest',
           ])
@@ -1283,22 +1275,13 @@ describe('Raise repair form', () => {
     it('Submits an immediate priority work order', () => {
       cy.visit('/properties/00012345')
 
-      cy.wait([
-        '@propertyRequest',
-        // '@contactDetailsRequest',
-        '@workOrdersRequest',
-      ])
+      cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
         .click()
 
-      cy.wait([
-        '@propertyRequest',
-        // '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
+      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')
@@ -1686,11 +1669,7 @@ describe('Raise repair form', () => {
 
       cy.visit('/properties/00012345')
 
-      cy.wait([
-        '@propertyRequest',
-        // '@contactDetailsRequest',
-        '@workOrdersRequest',
-      ])
+      cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
@@ -1698,7 +1677,7 @@ describe('Raise repair form', () => {
 
       cy.wait([
         '@propertyRequest',
-        // '@contactDetailsRequest',
+
         '@sorPrioritiesRequest',
         '@tradesRequest',
         '@propertyInLegalDisrepair',
@@ -1728,11 +1707,7 @@ describe('Raise repair form', () => {
 
         cy.visit('/properties/00012345')
 
-        cy.wait([
-          '@propertyRequest',
-          // '@contactDetailsRequest',
-          '@workOrdersRequest',
-        ])
+        cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
         cy.get('.lbh-heading-h2')
           .contains('Raise a work order on this dwelling')
@@ -1740,7 +1715,7 @@ describe('Raise repair form', () => {
 
         cy.wait([
           '@propertyRequest',
-          // '@contactDetailsRequest',
+
           '@sorPrioritiesRequest',
           '@tradesRequest',
           '@propertyInLegalDisrepair',
@@ -1769,11 +1744,7 @@ describe('Raise repair form', () => {
 
       cy.visit('/properties/00012345')
 
-      cy.wait([
-        '@propertyRequest',
-        // '@contactDetailsRequest',
-        '@workOrdersRequest',
-      ])
+      cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
       cy.get('.lbh-heading-h2')
         .contains('Raise a work order on this dwelling')
@@ -1781,7 +1752,7 @@ describe('Raise repair form', () => {
 
       cy.wait([
         '@propertyRequest',
-        // '@contactDetailsRequest',
+
         '@sorPrioritiesRequest',
         '@tradesRequest',
         '@propertyInLegalDisrepairError',
