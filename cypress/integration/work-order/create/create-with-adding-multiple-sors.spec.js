@@ -12,6 +12,14 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+      },
+      { fixture: 'contactDetails/contactDetails.json' }
+    ).as('contactDetailsRequest')
+    
+    cy.intercept(
+      {
+        method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
