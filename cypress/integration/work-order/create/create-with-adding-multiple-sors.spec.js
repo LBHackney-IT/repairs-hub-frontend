@@ -16,7 +16,7 @@ describe('Raise repair form', () => {
       },
       { fixture: 'contactDetails/contactDetails.json' }
     ).as('contactDetailsRequest')
-    
+
     cy.intercept(
       {
         method: 'GET',
