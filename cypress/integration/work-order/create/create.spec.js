@@ -20,6 +20,14 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
+        path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+      },
+      { fixture: 'contactDetails/contactDetails.json' }
+    ).as('contactDetailsRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
@@ -135,7 +143,12 @@ describe('Raise repair form', () => {
 
     cy.visit('/properties/00012345/raise-repair/new')
 
-    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+    cy.wait([
+      '@propertyRequest',
+      '@contactDetailsRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+    ])
 
     cy.get('[type="submit"]')
       .contains('Create work order')
@@ -194,6 +207,7 @@ describe('Raise repair form', () => {
     cy.visit('/properties/00012345/raise-repair/new')
     cy.wait([
       '@propertyRequest',
+      '@contactDetailsRequest',
       '@sorPrioritiesRequest',
       '@tradesRequest',
       '@personAlerts',
@@ -238,6 +252,14 @@ describe('Raise repair form', () => {
       ).as('propertyRequest')
 
       cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetailsRequest')
+
+      cy.intercept(
         { method: 'GET', path: '/api/schedule-of-rates/priorities' },
         { fixture: 'scheduleOfRates/priorities.json' }
       ).as('sorPrioritiesRequest')
@@ -260,7 +282,12 @@ describe('Raise repair form', () => {
 
     it('Submits work order task details to raise a work order', () => {
       cy.visit('/properties/00012345/raise-repair/new')
-      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
 
       cy.get('.lbh-heading-h2').contains('Work order task details')
 
@@ -871,6 +898,7 @@ describe('Raise repair form', () => {
 
               cy.wait([
                 '@propertyRequest',
+                '@contactDetailsRequest',
                 '@sorPrioritiesRequest',
                 '@tradesRequest',
               ])
@@ -1311,7 +1339,12 @@ describe('Raise repair form', () => {
 
       cy.visit('/properties/00012345/raise-repair/new')
 
-      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
 
       cy.get('#trade').type('Plumbing - PL')
       cy.wait('@contractorsRequest')
@@ -1461,7 +1494,12 @@ describe('Raise repair form', () => {
 
       it('Gets full list of budget codes', () => {
         cy.visit('/properties/00012345/raise-repair/new')
-        cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
 
         cy.get('.lbh-heading-h2').contains('Work order task details')
         cy.get('#repair-request-form').within(() => {
@@ -1580,7 +1618,12 @@ describe('Raise repair form', () => {
     it('does not allow budget code selection', () => {
       cy.visit('/properties/00012345/raise-repair/new')
 
-      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
 
       cy.get('#repair-request-form').within(() => {
         cy.get('#trade').type('Plumbing - PL')

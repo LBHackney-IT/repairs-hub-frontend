@@ -16,7 +16,8 @@
   "tenure": {
     "typeCode": "SEC",
     "typeDescription": "Secure",
-    "tenancyAgreementReference": "tenancyAgreementRef1"
+    "tenancyAgreementReference": "tenancyAgreementRef1",
+    "id": "4552c539-2e00-8533-078d-9cc59d9115da"
   },
   "contactDetails": [
     {

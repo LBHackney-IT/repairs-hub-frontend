@@ -133,34 +133,45 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     setError(null)
 
     try {
-      const data = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${propertyReference}`,
-      })
-      const priorities = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/schedule-of-rates/priorities`,
-      })
-      const trades = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
-      })
-      const user = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
+      const [propertyResponse, priorities, trades, user] = await Promise.all([
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/properties/${propertyReference}`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/schedule-of-rates/priorities`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: '/api/hub-user',
+        }),
+      ])
 
-      setTenure(data.tenure)
-      setProperty(data.property)
+      let contactDetails = []
+
+      if (propertyResponse?.tenure?.id != null) {
+        contactDetails = await frontEndApiRequest({
+          method: 'get',
+          path: `/api/contact-details/${propertyResponse?.tenure?.id}`,
+        })
+      }
+
+      setTenure(propertyResponse.tenure)
+      setProperty(propertyResponse.property)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(data.contactDetails)
+      setContacts(contactDetails)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
       setTrades(null)
-      console.error('An error has occured:', e.response)
+      console.error('An error has occurred:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
