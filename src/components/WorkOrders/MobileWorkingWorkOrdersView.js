@@ -95,7 +95,12 @@ const MobileWorkingWorkOrdersView = () => {
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
-                    ? inProgressWorkOrders.slice(0, 1)
+                    ? inProgressWorkOrders.sort((a, b => {
+                      const dateA = new Date(a.assignedStartTime);
+                      const dateB = new Date(b.assignedStartTime);
+                      // Get first job by assigned start time
+                      return dateA - dateB;
+                    }).slice(0, 1))
                     : inProgressWorkOrders
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
