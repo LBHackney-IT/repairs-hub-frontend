@@ -19,7 +19,9 @@
       "start": "12:00",
       "end": "18:00",
       "reason": null,
-      "note": null
+      "note": null,
+      "assignedStart": "09:00",
+      "assignedEnd": "10:00"
     },
     "canAssignOperative": true,
     "totalSMVs": 76,
@@ -52,7 +54,9 @@
       "start": "16:00",
       "end": "18:00",
       "reason": null,
-      "note": null
+      "note": null,
+      "assignedStart": "10:00",
+      "assignedEnd": "11:00"
     },
     "canAssignOperative": true,
     "totalSMVs": 76,
@@ -86,7 +90,9 @@
       "start": "08:00",
       "end": "13:00",
       "reason": null,
-      "note": null
+      "note": null,
+      "assignedStart": "11:00",
+      "assignedEnd": "12:00"
     },
     "canAssignOperative": true,
     "totalSMVs": 76,
@@ -119,7 +125,9 @@
       "start": "17:00",
       "end": "18:00",
       "reason": null,
-      "note": null
+      "note": null,
+      "assignedStart": "12:00",
+      "assignedEnd": "13:00"
     },
     "canAssignOperative": true,
     "totalSMVs": 76,
