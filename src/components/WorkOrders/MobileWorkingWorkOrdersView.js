@@ -76,6 +76,13 @@ const MobileWorkingWorkOrdersView = () => {
     ))
   }
 
+  const compareStartTime = (a, b) => {
+      const dateA = new Date(a.assignedStartTime);
+      const dateB = new Date(b.assignedStartTime);
+      // Get first job by assigned start time
+      return dateA - dateB;
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
@@ -96,12 +103,7 @@ const MobileWorkingWorkOrdersView = () => {
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
                     ? inProgressWorkOrders
-                        .sort((a, b) => {
-                          const dateA = new Date(a.assignedStartTime)
-                          const dateB = new Date(b.assignedStartTime)
-                          // Get first job by assigned start time
-                          return dateA - dateB
-                        })
+                        .sort(compareStartTime)
                         .slice(0, 1)
                     : inProgressWorkOrders
                 )}
