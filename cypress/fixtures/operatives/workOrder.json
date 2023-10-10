@@ -16,6 +16,8 @@
     "description": "AM Slot",
     "start": "08:00",
     "end": "13:00",
+    "assignedStart": "09:00",
+    "assignedEnd": "10:00",
     "reason": null,
     "note": "School run"
   },
