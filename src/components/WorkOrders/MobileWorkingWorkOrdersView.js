@@ -80,7 +80,7 @@ const MobileWorkingWorkOrdersView = () => {
     const dateA = new Date(a.assignedStartTime)
     const dateB = new Date(b.assignedStartTime)
     // Get first job by assigned start time
-    return dateA - dateB
+    return dateB - dateA
   }
 
   return (
