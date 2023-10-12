@@ -95,7 +95,13 @@ const MobileWorkingWorkOrdersView = () => {
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
-                    ? inProgressWorkOrders.sort((a, b) => a.appointment.assignedStart.localeCompare(b.appointment.assignedStart)).slice(0, 1)
+                    ? inProgressWorkOrders
+                        .sort((a, b) =>
+                          a.appointment.assignedStart.localeCompare(
+                            b.appointment.assignedStart
+                          )
+                        )
+                        .slice(0, 1)
                     : inProgressWorkOrders
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
