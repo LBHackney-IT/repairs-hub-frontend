@@ -76,13 +76,6 @@ const MobileWorkingWorkOrdersView = () => {
     ))
   }
 
-  const compareStartTime = (a, b) => {
-    const dateA = new Date(a.assignedStartTime)
-    const dateB = new Date(b.assignedStartTime)
-    // Get first job by assigned start time
-    return dateB - dateA
-  }
-
   return (
     <>
       <Meta title="Manage work orders" />
@@ -102,7 +95,7 @@ const MobileWorkingWorkOrdersView = () => {
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
-                    ? inProgressWorkOrders.sort(compareStartTime).slice(0, 1)
+                    ? inProgressWorkOrders.sort((a, b) => a.appointment.assignedStart.localeCompare(b.appointment.assignedStart)).slice(0, 1)
                     : inProgressWorkOrders
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
