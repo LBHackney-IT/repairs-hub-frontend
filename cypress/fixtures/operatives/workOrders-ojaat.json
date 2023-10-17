@@ -93,7 +93,8 @@
       "reason": null,
       "note": null,
       "assignedStart": "11:00",
-      "assignedEnd": "12:00"
+      "assignedEnd": "12:00",
+      "startedAt": "10:03"
     },
     "canAssignOperative": true,
     "totalSMVs": 76,
