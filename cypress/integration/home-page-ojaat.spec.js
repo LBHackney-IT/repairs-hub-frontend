@@ -163,7 +163,7 @@ describe('Home page - one job at a time', () => {
               .eq(0)
               .within(() => {
                 cy.contains('08:00 – 13:00')
-                cy.contains('Normal')
+                cy.contains('normal')
                 cy.contains('17 Pitcairn House  St Thomass Square')
                 cy.contains('L53 GS')
                 cy.contains(
