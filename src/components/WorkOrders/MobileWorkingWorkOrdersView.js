@@ -39,7 +39,11 @@ const MobileWorkingWorkOrdersView = () => {
 
       setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
       setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
-      setStartedWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited() && wo.appointment.startedAt !== ""))
+      setStartedWorkOrders(
+        workOrders.filter(
+          (wo) => !wo.hasBeenVisited() && wo.appointment.startedAt !== ''
+        )
+      )
     } catch (e) {
       setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
@@ -98,13 +102,15 @@ const MobileWorkingWorkOrdersView = () => {
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
-                    ? (startedWorkOrders?.length ? startedWorkOrders : inProgressWorkOrders
-                        .sort((a, b) =>
-                          a.appointment.assignedStart.localeCompare(
-                            b.appointment.assignedStart
+                    ? startedWorkOrders?.length
+                      ? startedWorkOrders
+                      : inProgressWorkOrders
+                          .sort((a, b) =>
+                            a.appointment.assignedStart.localeCompare(
+                              b.appointment.assignedStart
+                            )
                           )
-                        )
-                        .slice(0, 1))
+                          .slice(0, 1)
                     : inProgressWorkOrders
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
