@@ -41,7 +41,7 @@ const MobileWorkingWorkOrdersView = () => {
       setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
       setStartedWorkOrders(
         workOrders.filter(
-          (wo) => !wo.hasBeenVisited() && wo.appointment.startedAt !== ''
+          (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
         )
       )
     } catch (e) {
