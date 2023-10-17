@@ -103,76 +103,81 @@ describe('Home page - one job at a time', () => {
       })
     })
 
-    context('When they have a work order started and other work orders attached to them', () => {
-      beforeEach(() => {
-        cy.clock(new Date('June 11 2021 13:49:15Z'))
+    context(
+      'When they have a work order started and other work orders attached to them',
+      () => {
+        beforeEach(() => {
+          cy.clock(new Date('June 11 2021 13:49:15Z'))
 
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/operatives/hu0001/workorders',
-          },
-          {
-            fixture: 'operatives/workOrders-ojaat.json',
-          }
-        ).as('operativesWorkOrders')
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/operatives/hu0001/workorders',
+            },
+            {
+              fixture: 'operatives/workOrders-ojaat.json',
+            }
+          ).as('operativesWorkOrders')
 
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/workOrders/10000621',
-          },
-          {
-            fixture: 'operatives/workOrder.json',
-          }
-        ).as('operativesWorkOrder')
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/workOrders/10000621',
+            },
+            {
+              fixture: 'operatives/workOrder.json',
+            }
+          ).as('operativesWorkOrder')
 
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/properties/00012345',
-          },
-          {
-            fixture: 'properties/property.json',
-          }
-        ).as('property')
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/properties/00012345',
+            },
+            {
+              fixture: 'properties/property.json',
+            }
+          ).as('property')
 
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/workOrders/10000621/tasks',
-          },
-          {
-            fixture: 'workOrders/task.json',
-          }
-        ).as('task')
-      })
-
-      it('Displays only one started appointment', () => {
-        cy.visit('/')
-        cy.wait('@operativesWorkOrders')
-
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
-
-        cy.get('.appointment-details').should('have.length', 3)
-
-        cy.get('.lbh-list').within(() => {
-          cy.get('li')
-            .eq(0)
-            .within(() => {
-              cy.contains('12:00 – 18:00')
-              cy.contains('emergency')
-              cy.contains('20 Pitcairn House  St Thomass Square')
-              cy.contains('L53 GS')
-              cy.contains('Lorem ipsum dolor sit amet, consectetur efficitur.')
-            })
-
-          cy.get('li').eq(0).click()
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/workOrders/10000621/tasks',
+            },
+            {
+              fixture: 'workOrders/task.json',
+            }
+          ).as('task')
         })
 
-        cy.contains('10000625')
-      })
-    })
+        it('Displays only one started appointment', () => {
+          cy.visit('/')
+          cy.wait('@operativesWorkOrders')
+
+          cy.get('.lbh-heading-h2').contains('Friday 11 June')
+
+          cy.get('.appointment-details').should('have.length', 3)
+
+          cy.get('.lbh-list').within(() => {
+            cy.get('li')
+              .eq(0)
+              .within(() => {
+                cy.contains('12:00 – 18:00')
+                cy.contains('emergency')
+                cy.contains('20 Pitcairn House  St Thomass Square')
+                cy.contains('L53 GS')
+                cy.contains(
+                  'Lorem ipsum dolor sit amet, consectetur efficitur.'
+                )
+              })
+
+            cy.get('li').eq(0).click()
+          })
+
+          cy.contains('10000625')
+        })
+      }
+    )
 
     context("When they don't have work orders attached to them", () => {
       beforeEach(() => {
