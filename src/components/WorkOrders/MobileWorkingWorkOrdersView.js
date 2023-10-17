@@ -14,6 +14,7 @@ const MobileWorkingWorkOrdersView = () => {
   const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
+  const [startedWorkOrders, setStartedWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -38,9 +39,11 @@ const MobileWorkingWorkOrdersView = () => {
 
       setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
       setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
+      setStartedWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited() && wo.appointment.startedAt !== ""))
     } catch (e) {
       setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
+      setStartedWorkOrders(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -95,13 +98,13 @@ const MobileWorkingWorkOrdersView = () => {
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
                   currentUser.isOneJobAtATime
-                    ? inProgressWorkOrders
+                    ? (startedWorkOrders?.length ? startedWorkOrders : inProgressWorkOrders
                         .sort((a, b) =>
                           a.appointment.assignedStart.localeCompare(
                             b.appointment.assignedStart
                           )
                         )
-                        .slice(0, 1)
+                        .slice(0, 1))
                     : inProgressWorkOrders
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
