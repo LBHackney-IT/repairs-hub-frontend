@@ -62,7 +62,7 @@ const MobileWorkingWorkOrdersView = () => {
   }, [])
 
   const renderWorkOrderListItems = (workOrders) => {
-    return workOrders.map((workOrder, index) => (
+    return workOrders.length && workOrders.map((workOrder, index) => (
       <MobileWorkingWorkOrderListItem
         key={index}
         workOrder={workOrder}
@@ -83,12 +83,12 @@ const MobileWorkingWorkOrdersView = () => {
     ))
   }
 
-  const sortWorkOrderItems = () => {
+  const sortWorkOrderItems = (currentUser, inProgressWorkOrders, startedWorkOrders) => {
     // The operative is NOT an OJAAT operative
     if (!currentUser.isOneJobAtATime) return inProgressWorkOrders
 
     // If the operative has started a work order
-    if (startedWorkOrders?.any()) return startedWorkOrders
+    if (startedWorkOrders?.length) return startedWorkOrders
 
     // Return the next unstarted work order
     return inProgressWorkOrders
@@ -117,7 +117,7 @@ const MobileWorkingWorkOrdersView = () => {
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(sortWorkOrderItems)}
+                {renderWorkOrderListItems(sortWorkOrderItems(currentUser, inProgressWorkOrders, startedWorkOrders))}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
