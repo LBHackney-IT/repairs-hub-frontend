@@ -14,6 +14,7 @@ const MobileWorkingWorkOrdersView = () => {
   const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
+  const [startedWorkOrders, setStartedWorkOrders] = useState([])
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -38,9 +39,15 @@ const MobileWorkingWorkOrdersView = () => {
 
       setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
       setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
+      setStartedWorkOrders(
+        workOrders.filter(
+          (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
+        )
+      )
     } catch (e) {
       setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
+      setStartedWorkOrders(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -55,25 +62,49 @@ const MobileWorkingWorkOrdersView = () => {
   }, [])
 
   const renderWorkOrderListItems = (workOrders) => {
-    return workOrders.map((workOrder, index) => (
-      <MobileWorkingWorkOrderListItem
-        key={index}
-        workOrder={workOrder}
-        index={index}
-        statusText={(() => {
-          const status = workOrder.status.toLowerCase()
+    return (
+      workOrders.length &&
+      workOrders.map((workOrder, index) => (
+        <MobileWorkingWorkOrderListItem
+          key={index}
+          workOrder={workOrder}
+          index={index}
+          statusText={(() => {
+            const status = workOrder.status.toLowerCase()
 
-          if (status === 'no access') {
-            return 'No access'
-          } else if (status === 'completed') {
-            return 'Completed'
-          } else {
-            return ''
-          }
-        })()}
-        currentUser={currentUser}
-      />
-    ))
+            if (status === 'no access') {
+              return 'No access'
+            } else if (status === 'completed') {
+              return 'Completed'
+            } else {
+              return ''
+            }
+          })()}
+          currentUser={currentUser}
+        />
+      ))
+    )
+  }
+
+  const sortWorkOrderItems = (
+    currentUser,
+    inProgressWorkOrders,
+    startedWorkOrders
+  ) => {
+    // The operative is NOT an OJAAT operative
+    if (!currentUser.isOneJobAtATime) return inProgressWorkOrders
+
+    // If the operative has started a work order
+    if (startedWorkOrders?.length) return startedWorkOrders
+
+    // Return the next unstarted work order
+    return inProgressWorkOrders
+      .sort((a, b) => {
+        return a.appointment.assignedStart.localeCompare(
+          b.appointment.assignedStart
+        )
+      })
+      .slice(0, 1)
   }
 
   return (
@@ -94,15 +125,11 @@ const MobileWorkingWorkOrdersView = () => {
             <>
               <ol className="lbh-list mobile-working-work-order-list">
                 {renderWorkOrderListItems(
-                  currentUser.isOneJobAtATime
-                    ? inProgressWorkOrders
-                        .sort((a, b) =>
-                          a.appointment.assignedStart.localeCompare(
-                            b.appointment.assignedStart
-                          )
-                        )
-                        .slice(0, 1)
-                    : inProgressWorkOrders
+                  sortWorkOrderItems(
+                    currentUser,
+                    inProgressWorkOrders,
+                    startedWorkOrders
+                  )
                 )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
