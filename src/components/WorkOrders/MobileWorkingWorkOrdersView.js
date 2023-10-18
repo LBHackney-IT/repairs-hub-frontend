@@ -83,6 +83,22 @@ const MobileWorkingWorkOrdersView = () => {
     ))
   }
 
+  const sortWorkOrderItems = () => {
+    // The operative is NOT an OJAAT operative
+    if (!currentUser.isOneJobAtATime) return inProgressWorkOrders;
+
+    // If the operative has started a work order
+    if (startedWorkOrders?.any()) return startedWorkOrders
+
+    // Return the next unstarted work order 
+    return inProgressWorkOrders.sort((a, b) => {
+      return a.appointment.assignedStart.localeCompare(
+        b.appointment.assignedStart
+      )
+    })
+    .slice(0, 1)  
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
@@ -100,19 +116,7 @@ const MobileWorkingWorkOrdersView = () => {
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(
-                  currentUser.isOneJobAtATime
-                    ? startedWorkOrders?.length
-                      ? startedWorkOrders
-                      : inProgressWorkOrders
-                          .sort((a, b) =>
-                            a.appointment.assignedStart.localeCompare(
-                              b.appointment.assignedStart
-                            )
-                          )
-                          .slice(0, 1)
-                    : inProgressWorkOrders
-                )}
+                {renderWorkOrderListItems(sortWorkOrderItems)}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
