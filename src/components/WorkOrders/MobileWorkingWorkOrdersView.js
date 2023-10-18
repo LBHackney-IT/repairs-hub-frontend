@@ -62,28 +62,35 @@ const MobileWorkingWorkOrdersView = () => {
   }, [])
 
   const renderWorkOrderListItems = (workOrders) => {
-    return workOrders.length && workOrders.map((workOrder, index) => (
-      <MobileWorkingWorkOrderListItem
-        key={index}
-        workOrder={workOrder}
-        index={index}
-        statusText={(() => {
-          const status = workOrder.status.toLowerCase()
+    return (
+      workOrders.length &&
+      workOrders.map((workOrder, index) => (
+        <MobileWorkingWorkOrderListItem
+          key={index}
+          workOrder={workOrder}
+          index={index}
+          statusText={(() => {
+            const status = workOrder.status.toLowerCase()
 
-          if (status === 'no access') {
-            return 'No access'
-          } else if (status === 'completed') {
-            return 'Completed'
-          } else {
-            return ''
-          }
-        })()}
-        currentUser={currentUser}
-      />
-    ))
+            if (status === 'no access') {
+              return 'No access'
+            } else if (status === 'completed') {
+              return 'Completed'
+            } else {
+              return ''
+            }
+          })()}
+          currentUser={currentUser}
+        />
+      ))
+    )
   }
 
-  const sortWorkOrderItems = (currentUser, inProgressWorkOrders, startedWorkOrders) => {
+  const sortWorkOrderItems = (
+    currentUser,
+    inProgressWorkOrders,
+    startedWorkOrders
+  ) => {
     // The operative is NOT an OJAAT operative
     if (!currentUser.isOneJobAtATime) return inProgressWorkOrders
 
@@ -117,7 +124,13 @@ const MobileWorkingWorkOrdersView = () => {
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(sortWorkOrderItems(currentUser, inProgressWorkOrders, startedWorkOrders))}
+                {renderWorkOrderListItems(
+                  sortWorkOrderItems(
+                    currentUser,
+                    inProgressWorkOrders,
+                    startedWorkOrders
+                  )
+                )}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
