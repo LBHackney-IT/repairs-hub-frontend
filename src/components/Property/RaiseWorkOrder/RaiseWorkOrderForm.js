@@ -41,7 +41,6 @@ const RaiseWorkOrderForm = ({
   setBudgetCodes,
   sorCodeArrays,
   setSorCodeArrays,
-  contacts,
   onFormSubmit,
   raiseLimit,
   setPageToMultipleSORs,
@@ -259,7 +258,7 @@ const RaiseWorkOrderForm = ({
               error={errors && errors.descriptionOfWork}
             />
 
-            <Contacts contacts={contacts} />
+            <Contacts tenureId={tenure?.id} />
 
             <WarningInfoBox
               name="contact-number-warning"
