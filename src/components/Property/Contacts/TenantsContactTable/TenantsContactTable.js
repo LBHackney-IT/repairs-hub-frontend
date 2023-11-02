@@ -5,17 +5,17 @@ const TenantContactsTable = ({ tenants }) => {
   return (
     <div className="tenantContactsTable">
       <ul>
-        {tenants.map((x) => (
+        {tenants.map((tenant) => (
           <li className="tenantContactsTable-contact">
-            <TenantHeading fullName={x.fullName} personId={x.personId} />
+            <TenantHeading fullName={tenant.fullName} personId={tenant.personId} />
 
             <hr />
 
-            {x.phoneNumbers.length === 0 && <p>No contact details</p>}
+            {tenant.phoneNumbers.length === 0 && <p>No contact details</p>}
 
             <ul>
-              {phoneNumbers.map((x) => (
-                <TenantPhoneNumber phoneNumber={x.phoneNumbers} tenant={x} />
+              {tenant.phoneNumbers.map((phoneNumber) => (
+                <TenantPhoneNumber phoneNumber={phoneNumber} tenant={tenant} />
               ))}
             </ul>
           </li>
