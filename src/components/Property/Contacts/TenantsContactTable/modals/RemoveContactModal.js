@@ -1,8 +1,8 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
-import ConfirmationModal from '../../../ConfirmationModal'
+import ConfirmationModal from '../../../../ConfirmationModal'
 import { useState } from 'react'
 
-const SetAsMainModal = ({
+const RemoveContactModal = ({
   showModal,
   setShowModal,
   phoneNumber,
@@ -13,25 +13,13 @@ const SetAsMainModal = ({
   const [modalError, setModalError] = useState(null)
 
   const handleOnSubmit = () => {
-    setIsLoading(true)
-    setModalError(null)
-
-    const body = {
-      contactInformation: {
-        contactType: phoneNumber.contactType,
-        value: phoneNumber.value,
-        description: phoneNumber.description,
-        subType: 'mainNumber',
-        addressExtended: phoneNumber?.addressExtended,
-      },
-    }
-
     const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
 
+    setIsLoading(true)
+    setModalError(null)
     frontEndApiRequest({
-      method: 'PATCH',
+      method: 'delete',
       path,
-      requestData: body,
     })
       .then((res) => {
         console.log({ res })
@@ -50,25 +38,24 @@ const SetAsMainModal = ({
 
   return (
     <ConfirmationModal
-      title={'Set as main contact'}
+      title={'Remove contact details'}
       showDialog={showModal}
       setShowDialog={setShowModal}
       isLoading={isLoading}
       modalError={modalError}
       modalText={
         <p className="govuk-body">
-          Are you sure you want to change the contact type from{' '}
-          <strong style={{ textTransform: 'capitalize' }}>
-            {phoneNumber.subType}
+          Are you sure you want to permanently remove{' '}
+          <strong style={{ textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
+            {phoneNumber.subType}: {phoneNumber.value}
           </strong>{' '}
-          to{' '}
-          <strong style={{ textTransform: 'capitalize' }}>Main contact</strong>?
+          from {tenant.fullName}?
         </p>
       }
       onSubmit={handleOnSubmit}
-      yesButtonText={'Set as main contact'}
+      yesButtonText={'Remove phone number'}
     />
   )
 }
 
-export default SetAsMainModal
+export default RemoveContactModal

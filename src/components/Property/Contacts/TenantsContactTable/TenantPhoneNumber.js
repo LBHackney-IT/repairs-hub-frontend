@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import RemoveContactModal from './RemoveContactModal'
-import SetAsMainModal from './SetAsMainModal'
+import RemoveContactModal from './modals/RemoveContactModal'
+import SetAsMainModal from './modals/SetAsMainModal'
 
 const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)

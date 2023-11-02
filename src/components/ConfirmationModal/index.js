@@ -1,8 +1,5 @@
 import { Dialog } from '@reach/dialog'
 import Spinner from '../Spinner'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import WarningText from '../Template/WarningText'
-// import { Button } from "@mtfh/common/lib/components";
 
 const ConfirmationModal = ({
   title,
@@ -13,15 +10,8 @@ const ConfirmationModal = ({
   yesButtonText = 'Confirm',
   noButtonText = 'Cancel',
   isLoading = false,
-  modalError
+  modalError,
 }) => {
-
-
-  // if (isLoading) {
-  //   return  <Spinner size={20} />
-     
-  // }
-
   return (
     <Dialog
       isOpen={showDialog}
@@ -35,46 +25,34 @@ const ConfirmationModal = ({
       <p className="lbh-body-s">{modalText}</p>
 
       {modalError && !isLoading && (
-          // <WarningInfoBox  text='cheese'></WarningInfoBox>
-          // <WarningText text='cheese'></WarningText>
-          <p className='govuk-error-message lbh-error-message'>{modalError}</p>
-        )}
+        <p className="govuk-error-message lbh-error-message">{modalError}</p>
+      )}
 
-      {
-        isLoading ? (<Spinner size={20} />) : ( <div className="lbh-dialog__actions">
+      {isLoading ? (
+        <Spinner size={20} />
+      ) : (
+        <div className="lbh-dialog__actions">
+          <button
+            type="button"
+            className="govuk-button lbh-button"
+            onClick={onSubmit}
+            data-test="confirm-button"
+            aria-disabled={isLoading}
+            disabled={isLoading}
+          >
+            <span> {yesButtonText}</span>
+          </button>
 
-        {/* <Button loading={isLoading}>
-          yee
-        </Button> */}
-
-        
-
-        <a
-          href="#"
-          className="govuk-button lbh-button"
-          onClick={onSubmit}
-          data-test="confirm-button"
-          aria-disabled={isLoading}
-          disabled={isLoading}
-        >
-         
-    <span>  {yesButtonText}</span>
-        </a>
-
-        <button
-          onClick={() => setShowDialog(false)}
-          className="lbh-link lbh-link--no-visited-state"
-          data-test="cancel-button"
-          type='button'
-        >
-          {noButtonText}
-        
-        </button>
-      </div>)
-      }
-
-
-     
+          <button
+            onClick={() => setShowDialog(false)}
+            className="lbh-link lbh-link--no-visited-state"
+            data-test="cancel-button"
+            type="button"
+          >
+            {noButtonText}
+          </button>
+        </div>
+      )}
     </Dialog>
   )
 }
