@@ -2,7 +2,7 @@ import { useState } from 'react'
 import RemoveContactModal from './RemoveContactModal'
 import SetAsMainModal from './SetAsMainModal'
 
-const TenantPhoneNumber = ({ phoneNumber, fullName, personId }) => {
+const TenantPhoneNumber = ({ phoneNumber, tenant }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)
   const [showMainContactModal, setShowMainContactModal] = useState(false)
 
@@ -41,15 +41,14 @@ const TenantPhoneNumber = ({ phoneNumber, fullName, personId }) => {
         showModal={showMainContactModal}
         setShowModal={setShowMainContactModal}
         phoneNumber={phoneNumber}
-        personId={personId}
+        tenant={tenant}
       />
 
       <RemoveContactModal
         showModal={showRemoveModal}
         setShowModal={setShowRemoveModal}
         phoneNumber={phoneNumber}
-        fullName={fullName}
-        personId={personId}
+        tenant={tenant}
       />
     </li>
   )

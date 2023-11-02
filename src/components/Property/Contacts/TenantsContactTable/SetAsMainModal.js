@@ -6,7 +6,7 @@ const SetAsMainModal = ({
   showModal,
   setShowModal,
   phoneNumber,
-  personId,
+  tenant
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalError, setModalError] = useState(null)
@@ -21,7 +21,7 @@ const SetAsMainModal = ({
       }
     }
 
-    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${personId}`
+    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
 
     frontEndApiRequest({
       method: 'PATCH',
@@ -38,8 +38,6 @@ const SetAsMainModal = ({
         setModalError(err.message)
       })
       .finally(() => {
-        console.log('finalyl')
-
         setIsLoading(false)
       })
   }

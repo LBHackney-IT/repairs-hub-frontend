@@ -6,14 +6,13 @@ const RemoveContactModal = ({
   showModal,
   setShowModal,
   phoneNumber,
-  fullName,
-  personId
+  tenant
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalError, setModalError] = useState(null)
 
   const handleOnSubmit = () => {
-    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${personId}`
+    const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
 
     setIsLoading(true)
     setModalError(null)
@@ -31,8 +30,6 @@ const RemoveContactModal = ({
         setModalError(err.message)
       })
       .finally(() => {
-        console.log('finalyl')
-
         setIsLoading(false)
       })
   }
@@ -50,7 +47,7 @@ const RemoveContactModal = ({
           <strong style={{ textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
             {phoneNumber.subType}: {phoneNumber.value}
           </strong>{' '}
-          from {fullName}?
+          from {tenant.fullName}?
         </p>
       }
       onSubmit={handleOnSubmit}
