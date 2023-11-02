@@ -6,7 +6,7 @@ import ContactsTable from './ContactsTable'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
-import TenantContactsTable from './TenantsContactTable'
+import TenantContactsTable from './TenantsContactTable/TenantsContactTable'
 
 const warningText = (contacts) => {
   if (contacts.length < 1) {
