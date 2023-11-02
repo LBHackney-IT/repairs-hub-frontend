@@ -35,6 +35,7 @@ const ConfirmationModal = ({
           onClick={() => setShowDialog(false)}
           className="lbh-link lbh-link--no-visited-state"
           data-test="cancel-button"
+          type='button'
         >
           {noButtonText}
         </button>
