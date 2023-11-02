@@ -7,6 +7,7 @@ import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
 import TenantContactsTable from './TenantsContactTable/TenantsContactTable'
+import usePageVisibility from './TenantsContactTable/hooks/usePageVisibility'
 
 const warningText = (contacts) => {
   if (contacts.length < 1) {
@@ -48,6 +49,12 @@ const Contacts = (props) => {
     loadContactDetails()
   }, [])
 
+  usePageVisibility(() => {
+    console.log('visibility change')
+    // manually refresh
+    loadContactDetails()
+  })
+
   if (error) {
     return <ErrorMessage label={error} />
   }
@@ -86,7 +93,7 @@ const Contacts = (props) => {
       >
         Tenants
       </h3>
-      <TenantContactsTable tenants={tenants} />
+      <TenantContactsTable tenants={tenants} reloadContacts={loadContactDetails} />
 
       <h3
         className="lbh-heading-h3"

@@ -1,7 +1,7 @@
 import TenantHeading from './TenantHeading'
 import TenantPhoneNumber from './TenantPhoneNumber'
 
-const TenantContactsTable = ({ tenants }) => {
+const TenantContactsTable = ({ tenants, reloadContacts }) => {
   return (
     <div className="tenantContactsTable">
       <ul>
@@ -15,7 +15,7 @@ const TenantContactsTable = ({ tenants }) => {
 
             <ul>
               {tenant.phoneNumbers.map((phoneNumber) => (
-                <TenantPhoneNumber phoneNumber={phoneNumber} tenant={tenant} />
+                <TenantPhoneNumber phoneNumber={phoneNumber} tenant={tenant} reloadContacts={reloadContacts} />
               ))}
             </ul>
           </li>

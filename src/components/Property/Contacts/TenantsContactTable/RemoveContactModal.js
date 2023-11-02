@@ -6,7 +6,8 @@ const RemoveContactModal = ({
   showModal,
   setShowModal,
   phoneNumber,
-  tenant
+  tenant,
+  reloadContacts,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalError, setModalError] = useState(null)
@@ -31,6 +32,7 @@ const RemoveContactModal = ({
       })
       .finally(() => {
         setIsLoading(false)
+        reloadContacts()
       })
   }
 

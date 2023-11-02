@@ -6,7 +6,8 @@ const SetAsMainModal = ({
   showModal,
   setShowModal,
   phoneNumber,
-  tenant
+  tenant,
+  reloadContacts,
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalError, setModalError] = useState(null)
@@ -39,6 +40,7 @@ const SetAsMainModal = ({
       })
       .finally(() => {
         setIsLoading(false)
+        reloadContacts()
       })
   }
 
