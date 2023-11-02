@@ -16,8 +16,6 @@ const warningText = (contacts) => {
   }
 }
 
-
-
 const Contacts = (props) => {
   const { tenureId } = props
 
@@ -64,31 +62,44 @@ const Contacts = (props) => {
 
   const text = warningText(contacts)
 
+  if (text) {
+    return <WarningText text={text} />
+  }
+
   const tenants = contacts.filter((x) => x.tenureType === 'Tenant')
   const householdMembers = contacts.filter(
     (x) => x.tenureType === 'HouseholdMember'
   )
 
-  return text ? (
-    <WarningText text={text} />
-  ) : (
+  return (
     <>
-      {/* <pre>{JSON.stringify(contacts, null, 2)}</pre> */}
+      <h2 className="lbh-heading-h2">
+        Contacts
+        <span class="govuk-caption-m">
+          Contact details for the current property
+        </span>
+      </h2>
 
-      <h3>Tenants</h3>
-    <TenantContactsTable tenants={tenants} />
-    
+      <h3
+        className="lbh-heading-h3"
+        style={{ color: '#505a5f', fontWeight: 'normal' }}
+      >
+        Tenants
+      </h3>
+      <TenantContactsTable tenants={tenants} />
 
-      {/* <ContactsTable contacts={tenants} /> */}
-
-      <h3>Household members</h3>
+      <h3
+        className="lbh-heading-h3"
+        style={{ color: '#505a5f', fontWeight: 'normal' }}
+      >
+        Household members
+      </h3>
       <ContactsTable contacts={householdMembers} />
     </>
   )
 }
 
 Contacts.propTypes = {
-  // contacts: PropTypes.arrayOf(PropTypes.object).isRequired,
   tenureId: PropTypes.string,
 }
 

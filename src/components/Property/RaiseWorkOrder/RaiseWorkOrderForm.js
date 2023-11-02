@@ -186,13 +186,11 @@ const RaiseWorkOrderForm = ({
       <BackButton />
       <div className="govuk-grid-row">
         <div
-        
-        // className="govuk-grid-column-full-width"
-        // style={{
-        //   padding: "15px"
-        // }}
-        className="govuk-grid-column-two-thirds"
-        
+          // className="govuk-grid-column-full-width"
+          // style={{
+          //   padding: "15px"
+          // }}
+          className="govuk-grid-column-two-thirds"
         >
           <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
@@ -268,11 +266,18 @@ const RaiseWorkOrderForm = ({
 
             <Contacts tenureId={tenure?.id} />
 
-            <WarningInfoBox
+            {/* <WarningInfoBox
               name="contact-number-warning"
               header="Need to add an additional contact number?"
               text="Any additional contact numbers can be added into the Repair description field"
-            />
+            /> */}
+
+            <h2 className=" lbh-heading-h2">
+              Contact details for repair
+              <span class="govuk-caption-m">
+                Who should we contact for this repair?
+              </span>
+            </h2>
 
             <TextInput
               name="callerName"
