@@ -18,8 +18,12 @@ const SetAsMainModal = ({
 
     const body = {
       contactInformation: {
-        subType: "mainNumber"
-      }
+        contactType: phoneNumber.contactType,
+        value: phoneNumber.value,
+        description: phoneNumber.description,
+        subType: 'mainNumber',
+        addressExtended: phoneNumber?.addressExtended,
+      },
     }
 
     const path = `/api/contact-details/?contactId=${phoneNumber.contactId}&personId=${tenant.personId}`
@@ -27,7 +31,7 @@ const SetAsMainModal = ({
     frontEndApiRequest({
       method: 'PATCH',
       path,
-      requestData: body
+      requestData: body,
     })
       .then((res) => {
         console.log({ res })
@@ -46,27 +50,24 @@ const SetAsMainModal = ({
 
   return (
     <ConfirmationModal
-        title={'Set as main contact'}
-        showDialog={showModal}
-        setShowDialog={setShowModal}
-        isLoading={isLoading}
-        modalError={modalError}
-        modalText={
-          <p className="govuk-body">
-            Are you sure you want to change the contact type from{' '}
-            <strong style={{ textTransform: 'capitalize' }}>
-              {phoneNumber.subType}
-            </strong>{' '}
-            to{' '}
-            <strong style={{ textTransform: 'capitalize' }}>
-              Main contact
-            </strong>
-            ?
-          </p>
-        }
-        onSubmit={handleOnSubmit}
-        yesButtonText={'Set as main contact'}
-      />
+      title={'Set as main contact'}
+      showDialog={showModal}
+      setShowDialog={setShowModal}
+      isLoading={isLoading}
+      modalError={modalError}
+      modalText={
+        <p className="govuk-body">
+          Are you sure you want to change the contact type from{' '}
+          <strong style={{ textTransform: 'capitalize' }}>
+            {phoneNumber.subType}
+          </strong>{' '}
+          to{' '}
+          <strong style={{ textTransform: 'capitalize' }}>Main contact</strong>?
+        </p>
+      }
+      onSubmit={handleOnSubmit}
+      yesButtonText={'Set as main contact'}
+    />
   )
 }
 
