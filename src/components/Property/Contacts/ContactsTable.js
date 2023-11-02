@@ -5,7 +5,6 @@ import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 const ContactsTable = ({ contacts }) => {
   return (
     <Table>
-    
       <THead>
         <TR>
           <TH scope="col">Name</TH>

@@ -34,7 +34,6 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
     }
   }
 
-
   // if (
   //   !user.hasAgentPermissions &&
   //   !user.hasContractManagerPermissions &&

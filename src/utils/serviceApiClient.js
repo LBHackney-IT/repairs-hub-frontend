@@ -108,8 +108,6 @@ export const externalAPIRequest = cache(
   }
 )
 
-
-
 export const serviceAPIRequest = cache(
   async (request, response, cacheRequest = false) => {
     const cacheKey = encodeURIComponent(request.url)

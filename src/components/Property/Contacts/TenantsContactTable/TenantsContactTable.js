@@ -7,7 +7,10 @@ const TenantContactsTable = ({ tenants, reloadContacts }) => {
       <ul>
         {tenants.map((tenant) => (
           <li className="tenantContactsTable-contact">
-            <TenantHeading fullName={tenant.fullName} personId={tenant.personId} />
+            <TenantHeading
+              fullName={tenant.fullName}
+              personId={tenant.personId}
+            />
 
             <hr />
 
@@ -15,7 +18,11 @@ const TenantContactsTable = ({ tenants, reloadContacts }) => {
 
             <ul>
               {tenant.phoneNumbers.map((phoneNumber) => (
-                <TenantPhoneNumber phoneNumber={phoneNumber} tenant={tenant} reloadContacts={reloadContacts} />
+                <TenantPhoneNumber
+                  phoneNumber={phoneNumber}
+                  tenant={tenant}
+                  reloadContacts={reloadContacts}
+                />
               ))}
             </ul>
           </li>

@@ -93,7 +93,10 @@ const Contacts = (props) => {
       >
         Tenants
       </h3>
-      <TenantContactsTable tenants={tenants} reloadContacts={loadContactDetails} />
+      <TenantContactsTable
+        tenants={tenants}
+        reloadContacts={loadContactDetails}
+      />
 
       <h3
         className="lbh-heading-h3"
