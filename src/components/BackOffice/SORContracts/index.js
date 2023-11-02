@@ -1,7 +1,7 @@
 import Layout from '../Layout'
 import { useState } from 'react'
 import { TextInput, Button } from '../../Form'
-import ConfirmationModal from '../Components/ConfirmationModal'
+import ConfirmationModal from '../../ConfirmationModal'
 import ControlledRadio from '../Components/ControlledRadio'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
