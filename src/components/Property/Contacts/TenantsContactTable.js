@@ -1,9 +1,17 @@
-const TenantHeading = ({ fullName }) => {
+const TenantHeading = ({ fullName, personId }) => {
+  const domain = "https://manage-my-home-development.hackney.gov.uk"
+
   return (
     <div className="tenantContactsTable-heading govuk-body">
       <h4>{fullName}</h4>
 
-      <a className="tenantContactsTable-button">Edit contact details</a>
+      <a className="tenantContactsTable-button" 
+      href={`
+      ${domain}/person/${personId}/edit-contact-details
+      `}
+      
+      target="_blank"
+      >Edit contact details</a>
     </div>
   )
 }
@@ -47,7 +55,7 @@ const TenantPhoneNumberList = ({ phoneNumbers }) => {
 const TenantContact = ({ tenant }) => {
   return (
     <li className="tenantContactsTable-contact">
-      <TenantHeading fullName={tenant.fullName} />
+      <TenantHeading fullName={tenant.fullName} personId={"a597c0d4-e182-2db8-8003-bc6486356414"} />
 
       <hr />
 
