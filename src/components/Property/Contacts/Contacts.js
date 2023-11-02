@@ -6,6 +6,7 @@ import ContactsTable from './ContactsTable'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
+import TenantContactsTable from './TenantsContactTable'
 
 const warningText = (contacts) => {
   if (contacts.length < 1) {
@@ -14,6 +15,8 @@ const warningText = (contacts) => {
     return 'You are not permitted to view contact details'
   }
 }
+
+
 
 const Contacts = (props) => {
   const { tenureId } = props
@@ -61,10 +64,26 @@ const Contacts = (props) => {
 
   const text = warningText(contacts)
 
+  const tenants = contacts.filter((x) => x.tenureType === 'Tenant')
+  const householdMembers = contacts.filter(
+    (x) => x.tenureType === 'HouseholdMember'
+  )
+
   return text ? (
     <WarningText text={text} />
   ) : (
-    <ContactsTable contacts={contacts} />
+    <>
+      {/* <pre>{JSON.stringify(contacts, null, 2)}</pre> */}
+
+      <h3>Tenants</h3>
+    <TenantContactsTable tenants={tenants} />
+    
+
+      {/* <ContactsTable contacts={tenants} /> */}
+
+      <h3>Household members</h3>
+      <ContactsTable contacts={householdMembers} />
+    </>
   )
 }
 
