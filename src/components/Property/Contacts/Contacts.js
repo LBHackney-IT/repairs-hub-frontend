@@ -31,10 +31,10 @@ const Contacts = (props) => {
     }
 
     try {
-      const contactDetails = (contactDetails = await frontEndApiRequest({
+      const contactDetails = await frontEndApiRequest({
         method: 'get',
         path: `/api/contact-details/${tenureId}`,
-      }))
+      })
 
       setContacts(contactDetails)
     } catch (e) {

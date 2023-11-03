@@ -12,7 +12,7 @@ const TenantHeading = ({ fullName, personId }) => {
         className="tenantContactsTable-button"
         href={editPageUrl}
         target="_blank"
-        style={{fontSize: 16}}
+        style={{ fontSize: 16 }}
       >
         Edit contact details
       </a>

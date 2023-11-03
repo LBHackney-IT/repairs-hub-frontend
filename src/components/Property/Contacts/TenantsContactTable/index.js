@@ -1,1 +1,1 @@
-export * from TenantContactsTable
+export * from './TenantsContactTable'
