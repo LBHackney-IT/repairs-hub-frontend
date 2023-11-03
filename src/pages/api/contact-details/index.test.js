@@ -41,7 +41,7 @@ describe('/api/contact-details', () => {
   })
 
   // DELETE request forwards request to correct endpoint
-  // PATCH request forwards request to correct endpoint
+  // 
 
   const signedCookie = jsonwebtoken.sign(
     {
@@ -61,7 +61,7 @@ describe('/api/contact-details', () => {
 
   test('DELETE request forwards request to correct endpoint', async () => {
     const contactId = 'aaa'
-    const personId = 'aaa'
+    const personId = 'bbb'
 
     const req = createRequest({
       method: 'DELETE',
@@ -81,31 +81,47 @@ describe('/api/contact-details', () => {
     expect(axios).toHaveBeenCalledWith({
       method: 'DELETE',
       headers,
-      url: `${CONTACT_DETAILS_API_URL}/api/v2/contactDetails/${contactId}/person/${personId}`,
-      params: {},
+      // url: `${CONTACT_DETAILS_API_URL}/api/v2/contactDetails/${contactId}/person/${personId}`,
+      url: `${CONTACT_DETAILS_API_URL}/api/v1/contactDetails`,
+      params: {
+        id: contactId,
+        targetId: personId
+
+      },
       paramsSerializer,
       data: {},
     })
+  })
 
-    //       const req = createRequest({
-    //         method: 'get',
-    //         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
-    //         query: {
-    //           id: TENURE_ID,
-    //         },
-    //         params: {},
-    //       })
+  test('PATCH request forwards request to correct endpoint', async () => {
+    const contactId = 'aaa'
+    const personId = 'bbb'
 
-    //       const res = createResponse()
+    const req = createRequest({
+      method: 'PATCH',
+      headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
+      query: {
+        personId,
+        contactId,
+      },
+    })
 
-    //       await contactDetailsEndpoint(req, res)
+    const res = createResponse()
 
-    //       // ["REMOVED"] is returned before API call if user doesn't have valid permissions
-    //       expect(axios).toHaveBeenCalledTimes(0)
+    await contactDetailsEndpoint(req, res)
 
-    //       const parsedData = JSON.parse(res._getData())
-
-    //       expect(parsedData).toEqual(['REMOVED'])
+    // CONTACT_DETAILS_API_URL
+    expect(axios).toHaveBeenCalledTimes(1)
+    expect(axios).toHaveBeenCalledWith({
+      method: 'PATCH',
+      headers,
+      url: `${CONTACT_DETAILS_API_URL}/api/v2/contactDetails/${contactId}/person/${personId}`,
+      params: {
+      
+      },
+      paramsSerializer,
+      data: {},
+    })
   })
 })
 

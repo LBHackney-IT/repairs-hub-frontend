@@ -1,0 +1,325 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TenantsContactTable component when supplied with a list of tenants with phone numbers renders a table with a row for each contact 1`] = `
+<DocumentFragment>
+  <div
+    class="tenantContactsTable"
+  >
+    <ul>
+      <li
+        class="tenantContactsTable-contact"
+      >
+        <div
+          class="tenantContactsTable-heading govuk-body"
+        >
+          <h4>
+            Mark Gardner
+          </h4>
+          <a
+            class="tenantContactsTable-button"
+            href="
+    undefinedperson/1234/edit-contact-details
+    "
+            style="font-size: 16px;"
+            target="_blank"
+          >
+            Edit contact details
+          </a>
+        </div>
+        <hr />
+        <ul>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                mainNumber
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              >
+                00000111111
+              </div>
+            </div>
+            <div
+              class="tenantContactsTable-description"
+            >
+              desc1
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                wife
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              >
+                00000222222
+              </div>
+            </div>
+            <div
+              class="tenantContactsTable-description"
+            >
+              desc2
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                doctor
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              >
+                00000333333
+              </div>
+            </div>
+            <div
+              class="tenantContactsTable-description"
+            >
+              desc3
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+        </ul>
+      </li>
+      <li
+        class="tenantContactsTable-contact"
+      >
+        <div
+          class="tenantContactsTable-heading govuk-body"
+        >
+          <h4>
+            Luam Berhane
+          </h4>
+          <a
+            class="tenantContactsTable-button"
+            href="
+    undefinedperson/1234/edit-contact-details
+    "
+            style="font-size: 16px;"
+            target="_blank"
+          >
+            Edit contact details
+          </a>
+        </div>
+        <hr />
+        <ul>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                mainNumber
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              />
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                mainNumber
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              />
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+          <li
+            class="tenantContactsTable-phoneNumberGrid govuk-body"
+          >
+            <div
+              class="tenantContactsTable-valueGroup"
+            >
+              <h4
+                class="tenantContactsTable-phoneSubType"
+              >
+                mainNumber
+              </h4>
+              <div
+                class="tenantContactsTable-phone"
+              >
+                00000333333
+              </div>
+            </div>
+            <div
+              class="tenantContactsTable-buttonGroup"
+            >
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Set as main contact
+              </button>
+              <button
+                class="tenantContactsTable-button"
+                type="button"
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TenantsContactTable component when supplied with a tenant with no phone numbers renders text indicating that no phone numbers are available 1`] = `
+<DocumentFragment>
+  <div
+    class="tenantContactsTable"
+  >
+    <ul>
+      <li
+        class="tenantContactsTable-contact"
+      >
+        <div
+          class="tenantContactsTable-heading govuk-body"
+        >
+          <h4>
+            Mark Gardner
+          </h4>
+          <a
+            class="tenantContactsTable-button"
+            href="
+    undefinedperson/1234/edit-contact-details
+    "
+            style="font-size: 16px;"
+            target="_blank"
+          >
+            Edit contact details
+          </a>
+        </div>
+        <hr />
+        <p
+          class="govuk-body-s"
+          style="margin-top: 15px;"
+        >
+          No contact details
+        </p>
+      </li>
+    </ul>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TenantsContactTable component when supplied with an empty tenants list renders text indicating that no tenants are available 1`] = `
+<DocumentFragment>
+  <p
+    class="govuk-body-s"
+    style="margin-top: 15px;"
+  >
+    No tenants
+  </p>
+</DocumentFragment>
+`;
