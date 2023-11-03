@@ -8,14 +8,11 @@ import contactDetailsEndpoint from './index.js'
 jest.mock('axios')
 
 const {
-  REPAIRS_SERVICE_API_URL,
   HACKNEY_JWT_SECRET,
   GSSO_TOKEN_NAME,
   REPAIRS_SERVICE_API_KEY,
-  AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
   AGENTS_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
-  CONTACT_DETAILS_API_URL
+  CONTACT_DETAILS_API_URL,
 } = process.env
 
 // const TENURE_ID = '250af5a91f04316aac4a7a737e98874'
@@ -38,13 +35,22 @@ describe('/api/contact-details', () => {
     axios.mockImplementationOnce(() =>
       Promise.resolve({
         status: 200,
-        data: CONTACT_DETAILS,
+        // data: CONTACT_DETAILS,
       })
     )
   })
 
   // DELETE request forwards request to correct endpoint
   // PATCH request forwards request to correct endpoint
+
+  const signedCookie = jsonwebtoken.sign(
+    {
+      name: 'name',
+      email: 'name@example.com',
+      groups: [AGENTS_GOOGLE_GROUPNAME],
+    },
+    HACKNEY_JWT_SECRET
+  )
 
   const headers = {
     'Content-Type': 'application/json',
@@ -53,17 +59,16 @@ describe('/api/contact-details', () => {
     Authorization: signedCookie,
   }
 
-
   test('DELETE request forwards request to correct endpoint', async () => {
-    const contactId = "aaa"
-    const personId = "aaa"
+    const contactId = 'aaa'
+    const personId = 'aaa'
 
     const req = createRequest({
       method: 'DELETE',
       headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
       query: {
         personId,
-        contactId
+        contactId,
       },
     })
 
