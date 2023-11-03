@@ -8,8 +8,6 @@ const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
 
   return (
     <li className="tenantContactsTable-phoneNumberGrid govuk-body">
-      {/* <pre>{JSON.stringify(phoneNumber, null, 2)}</pre> */}
-
       <div className="tenantContactsTable-valueGroup">
         <h4 className="tenantContactsTable-phoneSubType">
           {phoneNumber.subType}

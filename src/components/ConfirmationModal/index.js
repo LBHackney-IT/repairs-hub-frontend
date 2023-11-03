@@ -29,7 +29,7 @@ const ConfirmationModal = ({
       )}
 
       {isLoading ? (
-        <Spinner size={20} />
+        <Spinner />
       ) : (
         <div className="lbh-dialog__actions">
           <button

@@ -84,7 +84,6 @@ export const externalAPIRequest = cache(
       const { data } = await api({
         method: request.method,
         headers,
-        // url,
         url: path?.join('/'),
         params: queryParams,
         paramsSerializer,

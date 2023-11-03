@@ -4,7 +4,7 @@ import {
   externalAPIRequest,
 } from '@/utils/serviceApiClient'
 
-export default authoriseServiceAPIRequest(async (req, res, user) => {
+export default authoriseServiceAPIRequest(async (req, res) => {
   if (req.method !== 'DELETE' && req.method !== 'PATCH') return
 
   if (req.method === 'DELETE') {
@@ -33,16 +33,6 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
       ],
     }
   }
-
-  // if (
-  //   !user.hasAgentPermissions &&
-  //   !user.hasContractManagerPermissions &&
-  //   !user.hasAuthorisationManagerPermissions
-  // ) {
-  //   // redact contact information for contractor responses
-  //   res.status(HttpStatus.OK).json(['REMOVED'])
-  //   return
-  // }
 
   try {
     const data = await externalAPIRequest(req, res)
