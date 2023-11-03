@@ -3,10 +3,11 @@ import ContactsRow from './ContactsRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 
 const ContactsTable = ({ contacts }) => {
-
   if (!contacts.length) {
     return (
-      <p className='govuk-body-s' style={{ marginTop: "15px"}}>No household members</p>
+      <p className="govuk-body-s" style={{ marginTop: '15px' }}>
+        No household members
+      </p>
     )
   }
 

@@ -1,7 +1,6 @@
 import { render } from '@testing-library/react'
 import ContactsTable from './ContactsTable'
 
-
 describe('ContactsTable component', () => {
   describe('when supplied with an empty contacts list', () => {
     const contacts = []

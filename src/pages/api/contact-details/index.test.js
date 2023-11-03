@@ -41,7 +41,7 @@ describe('/api/contact-details', () => {
   })
 
   // DELETE request forwards request to correct endpoint
-  // 
+  //
 
   const signedCookie = jsonwebtoken.sign(
     {
@@ -85,8 +85,7 @@ describe('/api/contact-details', () => {
       url: `${CONTACT_DETAILS_API_URL}/api/v1/contactDetails`,
       params: {
         id: contactId,
-        targetId: personId
-
+        targetId: personId,
       },
       paramsSerializer,
       data: {},
@@ -116,9 +115,7 @@ describe('/api/contact-details', () => {
       method: 'PATCH',
       headers,
       url: `${CONTACT_DETAILS_API_URL}/api/v2/contactDetails/${contactId}/person/${personId}`,
-      params: {
-      
-      },
+      params: {},
       paramsSerializer,
       data: {},
     })
