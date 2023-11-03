@@ -10,7 +10,7 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
   if (req.method === 'DELETE') {
     req.query = {
       path: [
-        process.env.NEXT_PUBLIC_CONTACT_DETAILS_API_URL,
+        process.env.CONTACT_DETAILS_API_URL,
         'api',
         'v1',
         'contactDetails',
@@ -23,7 +23,7 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
   if (req.method === 'PATCH') {
     req.query = {
       path: [
-        process.env.NEXT_PUBLIC_CONTACT_DETAILS_API_URL,
+        process.env.CONTACT_DETAILS_API_URL,
         'api',
         'v2',
         'contactDetails',
