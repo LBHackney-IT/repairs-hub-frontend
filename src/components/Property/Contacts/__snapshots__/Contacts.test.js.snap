@@ -2,95 +2,26 @@
 
 exports[`Contacts component when supplied with a list of contacts renders a table with a row for each contact 1`] = `
 <DocumentFragment>
-  <table
-    class="govuk-table lbh-table"
+  <div
+    class="govuk-warning-text lbh-warning-text"
   >
-    <caption
-      class="govuk-table__caption lbh-heading-h3 lbh-table__caption"
+    <span
+      aria-hidden="true"
+      class="govuk-warning-text__icon"
     >
-      Contacts
-    </caption>
-    <thead
-      class="govuk-table__head"
+      !
+    </span>
+    <strong
+      class="govuk-warning-text__text"
     >
-      <tr
-        class="govuk-table__row"
+      <span
+        class="govuk-warning-text__assistive"
       >
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Name
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Telephone 1
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Telephone 2
-        </th>
-        <th
-          class="govuk-table__header"
-          scope="col"
-        >
-          Telephone 3
-        </th>
-      </tr>
-    </thead>
-    <tbody
-      class="govuk-table__body"
-    >
-      <tr
-        class="govuk-table__row"
-      >
-        <td
-          class="govuk-table__cell"
-        >
-          Mark Gardner
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          00000111111
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          00000222222
-        </td>
-        <td
-          class="govuk-table__cell"
-        >
-          00000333333
-        </td>
-      </tr>
-      <tr
-        class="govuk-table__row"
-      >
-        <td
-          class="govuk-table__cell"
-        >
-          Luam Berhane
-        </td>
-        <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell"
-        />
-        <td
-          class="govuk-table__cell"
-        >
-          00000333333
-        </td>
-      </tr>
-    </tbody>
-  </table>
+        Warning
+      </span>
+      No contact details available for this property
+    </strong>
+  </div>
 </DocumentFragment>
 `;
 
