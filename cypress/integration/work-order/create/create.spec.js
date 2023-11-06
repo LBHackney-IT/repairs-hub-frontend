@@ -207,7 +207,6 @@ describe('Raise repair form', () => {
     cy.visit('/properties/00012345/raise-repair/new')
     cy.wait([
       '@propertyRequest',
-      '@contactDetailsRequest',
       '@sorPrioritiesRequest',
       '@tradesRequest',
       '@personAlerts',
@@ -229,17 +228,32 @@ describe('Raise repair form', () => {
       ]
     )
 
-    cy.get('.govuk-table')
-      .contains('Contacts')
-      .parent()
-      .within(() => {
-        cy.get('tbody>tr').eq(0).contains('Mark Gardner')
-        cy.get('tbody>tr').eq(0).contains('00000111111')
-        cy.get('tbody>tr').eq(0).contains('00000222222')
+    cy.wait(['@contactDetailsRequest'])
 
-        cy.get('tbody>tr').eq(1).contains('Luam Berhane')
-        cy.get('tbody>tr').eq(1).contains('00000666666')
+    // Tenants
+    cy.get('.tenantContactsTable').contains('Mark Gardner')
+    cy.get('.tenantContactsTable').contains('mainNumber')
+    cy.get('.tenantContactsTable').contains('carer')
+
+    cy.get('.tenantContactsTable-contact')
+      .should('exist')
+      .should(($element) => {
+        const text = $element.text()
+        expect(text).to.contain('mainNumber')
+        expect(text).to.contain('00000111111')
       })
+
+    cy.get('.tenantContactsTable-contact')
+      .should('exist')
+      .should(($element) => {
+        const text = $element.text()
+        expect(text).to.contain('carer')
+        expect(text).to.contain('00000222222')
+      })
+
+    // Household members
+    cy.get('.govuk-table').contains('Luam Berhane')
+    cy.get('.govuk-table').contains('00000666666')
   })
 
   context('as a user with agent and budget code officer roles', () => {
@@ -661,13 +675,6 @@ describe('Raise repair form', () => {
           'not.exist'
         )
 
-        //Submit form without contact and coller name details
-        cy.get('[data-testid=contact-number-warning]').within(() => {
-          cy.contains('Need to add an additional contact number?')
-          cy.contains(
-            'Any additional contact numbers can be added into the Repair description field'
-          )
-        })
         cy.get('[type="submit"]')
 
         cy.get('#callerName-form-group .govuk-error-message').within(() => {
