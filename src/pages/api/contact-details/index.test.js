@@ -12,11 +12,9 @@ const {
   GSSO_TOKEN_NAME,
   REPAIRS_SERVICE_API_KEY,
   AGENTS_GOOGLE_GROUPNAME,
-  
 } = process.env
 
-
-const CONTACT_DETAILS_API_URL = "https://test.com/development"
+const CONTACT_DETAILS_API_URL = 'https://test.com/development'
 process.env.CONTACT_DETAILS_API_URL = CONTACT_DETAILS_API_URL
 
 // const TENURE_ID = '250af5a91f04316aac4a7a737e98874'
