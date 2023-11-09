@@ -1,6 +1,6 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import ConfirmationModal from '../../../../ConfirmationModal'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 const SetAsMainModal = ({
   showModal,
@@ -11,6 +11,11 @@ const SetAsMainModal = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [modalError, setModalError] = useState(null)
+
+  useEffect(() => {
+    // Reset on reopen modal
+    setModalError(null)
+  }, [showModal])
 
   const handleOnSubmit = () => {
     setIsLoading(true)
