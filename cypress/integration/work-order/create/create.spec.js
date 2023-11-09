@@ -1760,10 +1760,321 @@ describe('Raise repair form', () => {
         '@propertyInLegalDisrepairError',
       ])
 
+      
       cy.get('[data-testid=over-spend-limit]').should('not.exist')
       cy.contains(
         'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
       )
+    })
+  })
+
+  context('When a user removes a contact detail', () => {
+    const contactId = '5b718087-33cd-746d-8f91-e7cec2299a73'
+    const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
+
+    beforeEach(() => {
+      cy.loginWithAgentRole()
+    })
+
+    it('shows a confirmation message when clicking on the remove button', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // remove first tenant
+      cy.contains('Remove').first().click()
+
+      cy.contains('Remove contact details')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      )
+    })
+
+    it('hides confirmation modal when cancel clicked', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // remove first tenant
+      cy.contains('Remove').first().click()
+
+      cy.contains('Remove contact details')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      )
+
+      // click cancel button
+      cy.contains('Cancel').click()
+
+      // confirm hidden
+      cy.contains('Remove contact details').should('not.exist')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      ).should('not.exist')
+    })
+
+    it('sends displays a network error in the modal', () => {
+      cy.intercept(
+        {
+          method: 'DELETE',
+          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+        },
+        {
+          statusCode: 401,
+        }
+      ).as('deleteContactRequest')
+
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // remove first tenant
+      cy.contains('Remove').first().click()
+
+      cy.contains('Remove contact details')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      )
+
+      // click cancel button
+      cy.contains('Remove phone number').click()
+
+      // wait for network request
+      cy.wait(['@deleteContactRequest'])
+
+      // assert modal still open
+      cy.contains('Remove contact details')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      )
+
+      // assert error message
+      cy.contains('Request failed with status code 401')
+    })
+
+    it('sends delete request when modal confirmed', () => {
+      cy.intercept(
+        {
+          method: 'DELETE',
+          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+        },
+        {
+          statusCode: 204,
+        }
+      ).as('deleteContactRequest')
+
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // remove first tenant
+      cy.contains('Remove').first().click()
+
+      cy.contains('Remove contact details')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      )
+
+      // click cancel button
+      cy.contains('Remove phone number').click()
+
+      // wait for network request
+      cy.wait(['@deleteContactRequest'])
+
+      // assert modal closed
+      cy.contains('Remove contact details').should('not.exist')
+      cy.contains(
+        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
+      ).should('not.exist')
+
+      // assert new contact details fetched
+      cy.wait(['@contactDetailsRequest'])
+    })
+  })
+
+
+
+
+  context('When a user sets contact detail as main', () => {
+    const contactId = 'd00e640a-5df2-27f2-bb78-e1860040d21f'
+    const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
+
+    beforeEach(() => {
+      cy.loginWithAgentRole()
+    })
+
+    it('shows a confirmation message when clicking on the set as main button', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // update last tenant
+      cy.get('button:contains(Set as main contact)').last().click()
+
+      cy.contains('Set as main contact')
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      )
+    })
+
+    it('hides confirmation modal when cancel clicked', () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // update last tenant
+      cy.get('button:contains(Set as main contact)').last().click()
+
+      // assert modal open
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      )
+
+      // click cancel button
+      cy.contains('Cancel').click()
+
+      // confirm hidden
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      ).should('not.exist')
+    })
+
+    it('sends displays a network error in the modal', () => {
+      cy.intercept(
+        {
+          method: 'PATCH',
+          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+        },
+        {
+          statusCode: 400,
+        }
+      ).as('patchContactRequest')
+
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // update last tenant
+      cy.get('button:contains(Set as main contact)').last().click()
+
+      // assert modal open
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      )
+
+      // cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+      // click confirmation button
+      cy.get("[data-test=confirm-button]").click()
+      
+
+      // wait for network request
+      cy.wait(['@patchContactRequest'])
+
+      // assert modal still open
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      )
+
+      // assert error message
+      cy.contains('Request failed with status code 400')
+    })
+
+    it('sends delete request when modal confirmed', () => {
+      cy.intercept(
+        {
+          method: 'PATCH',
+          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+        },
+        {
+          statusCode: 204,
+        }
+      ).as('patchContactRequest')
+
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      // update last tenant
+      cy.get('button:contains(Set as main contact)').last().click()
+
+      // assert modal open
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      )
+
+      // click confirmation button
+      cy.get("[data-test=confirm-button]").click()
+
+      // wait for network request
+      cy.wait(['@patchContactRequest'])
+
+      // assert modal closed
+      cy.contains(
+        `Are you sure you want to change the contact type from carer to MainNumber?`
+      ).should('not.exist')
+
+      // assert new contact details fetched
+      cy.wait(['@contactDetailsRequest'])
+    })
+  })
+
+  context("When a user edits a persons contact details", () => {
+    beforeEach(() => {
+      cy.loginWithAgentRole()
+    })
+
+    it("the edit contact details link contains the correct href", () => {
+      cy.visit('/properties/00012345/raise-repair/new')
+
+      cy.wait([
+        '@propertyRequest',
+        '@contactDetailsRequest',
+        '@sorPrioritiesRequest',
+        '@tradesRequest',
+      ])
+
+      cy.contains("Edit contact details").should("have.attr", "href", "https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details")
     })
   })
 })

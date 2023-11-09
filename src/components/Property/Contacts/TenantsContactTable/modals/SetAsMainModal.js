@@ -61,8 +61,8 @@ const SetAsMainModal = ({
           <strong style={{ textTransform: 'capitalize' }}>
             {phoneNumber.subType}
           </strong>{' '}
-          to{' '}
-          <strong style={{ textTransform: 'capitalize' }}>Main contact</strong>?
+          to <strong style={{ textTransform: 'capitalize' }}>MainNumber</strong>
+          ?
         </p>
       }
       onSubmit={handleOnSubmit}

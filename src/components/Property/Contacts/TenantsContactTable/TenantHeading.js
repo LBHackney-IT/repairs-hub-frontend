@@ -1,8 +1,6 @@
 const TenantHeading = ({ fullName, personId }) => {
   const MMH_FRONTEND_URL = process.env.NEXT_PUBLIC_MMH_FRONTEND_URL
-  const editPageUrl = `
-    ${MMH_FRONTEND_URL}person/${personId}/edit-contact-details
-    `
+  const editPageUrl = `${MMH_FRONTEND_URL}person/${personId}/edit-contact-details`
 
   return (
     <div className="tenantContactsTable-heading govuk-body">

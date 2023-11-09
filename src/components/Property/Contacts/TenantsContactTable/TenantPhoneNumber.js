@@ -6,6 +6,8 @@ const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)
   const [showMainContactModal, setShowMainContactModal] = useState(false)
 
+  const isMainNumber = phoneNumber.subType === "mainNumber"
+
   return (
     <li className="tenantContactsTable-phoneNumberGrid govuk-body">
       <div className="tenantContactsTable-valueGroup">
@@ -24,6 +26,10 @@ const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
           type="button"
           className="tenantContactsTable-button"
           onClick={() => setShowMainContactModal(true)}
+          disabled={isMainNumber}
+          style={isMainNumber ? {
+            color: "#888"
+          }: {}}
         >
           Set as main contact
         </button>
