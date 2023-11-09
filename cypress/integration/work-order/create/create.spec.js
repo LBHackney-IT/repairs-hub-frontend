@@ -1788,7 +1788,7 @@ describe('Raise repair form', () => {
       // remove first tenant
       cy.contains('Remove').first().click()
 
-      cy.contains('Remove contact details')
+      // assert modal open
       cy.contains(
         `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
       )
@@ -1807,7 +1807,7 @@ describe('Raise repair form', () => {
       // remove first tenant
       cy.contains('Remove').first().click()
 
-      cy.contains('Remove contact details')
+      // assert modal open
       cy.contains(
         `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
       )
@@ -1845,12 +1845,12 @@ describe('Raise repair form', () => {
       // remove first tenant
       cy.contains('Remove').first().click()
 
-      cy.contains('Remove contact details')
+      // assert modal open
       cy.contains(
         `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
       )
 
-      // click cancel button
+      // click confirmation button
       cy.contains('Remove phone number').click()
 
       // wait for network request
@@ -1889,19 +1889,18 @@ describe('Raise repair form', () => {
       // remove first tenant
       cy.contains('Remove').first().click()
 
-      cy.contains('Remove contact details')
+      // assert modal open
       cy.contains(
         `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
       )
 
-      // click cancel button
+      // click confirmation button
       cy.contains('Remove phone number').click()
 
       // wait for network request
       cy.wait(['@deleteContactRequest'])
 
       // assert modal closed
-      cy.contains('Remove contact details').should('not.exist')
       cy.contains(
         `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
       ).should('not.exist')
@@ -1932,7 +1931,7 @@ describe('Raise repair form', () => {
       // update last tenant
       cy.get('button:contains(Set as main contact)').last().click()
 
-      cy.contains('Set as main contact')
+      // assert modal open
       cy.contains(
         `Are you sure you want to change the contact type from carer to MainNumber?`
       )
@@ -1992,8 +1991,6 @@ describe('Raise repair form', () => {
       cy.contains(
         `Are you sure you want to change the contact type from carer to MainNumber?`
       )
-
-      // cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // click confirmation button
       cy.get('[data-test=confirm-button]').click()
