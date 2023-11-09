@@ -54,6 +54,10 @@
     cursor: pointer;
     padding: 0;
     color: #333;
+
+    &.disabled {
+      color: #888;
+    }
   }
 
   &-buttonGroup {

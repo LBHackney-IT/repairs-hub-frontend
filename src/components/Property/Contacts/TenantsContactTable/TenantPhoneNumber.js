@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import RemoveContactModal from './modals/RemoveContactModal'
 import SetAsMainModal from './modals/SetAsMainModal'
+import classNames from 'classnames'
 
 const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)
@@ -24,16 +25,11 @@ const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
       <div className="tenantContactsTable-buttonGroup">
         <button
           type="button"
-          className="tenantContactsTable-button"
+          className={classNames('tenantContactsTable-button', {
+            disabled: isMainNumber,
+          })}
           onClick={() => setShowMainContactModal(true)}
           disabled={isMainNumber}
-          style={
-            isMainNumber
-              ? {
-                  color: '#888',
-                }
-              : {}
-          }
         >
           Set as main contact
         </button>
