@@ -17,9 +17,7 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
           </h4>
           <a
             class="tenantContactsTable-button"
-            href="
-    undefinedperson/1234/edit-contact-details
-    "
+            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
             style="font-size: 16px;"
             target="_blank"
           >
@@ -55,6 +53,8 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             >
               <button
                 class="tenantContactsTable-button"
+                disabled=""
+                style="color: rgb(136, 136, 136);"
                 type="button"
               >
                 Set as main contact
@@ -158,9 +158,7 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
           </h4>
           <a
             class="tenantContactsTable-button"
-            href="
-    undefinedperson/1234/edit-contact-details
-    "
+            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
             style="font-size: 16px;"
             target="_blank"
           >
@@ -189,6 +187,8 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             >
               <button
                 class="tenantContactsTable-button"
+                disabled=""
+                style="color: rgb(136, 136, 136);"
                 type="button"
               >
                 Set as main contact
@@ -221,6 +221,8 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             >
               <button
                 class="tenantContactsTable-button"
+                disabled=""
+                style="color: rgb(136, 136, 136);"
                 type="button"
               >
                 Set as main contact
@@ -255,6 +257,8 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             >
               <button
                 class="tenantContactsTable-button"
+                disabled=""
+                style="color: rgb(136, 136, 136);"
                 type="button"
               >
                 Set as main contact
@@ -291,9 +295,7 @@ exports[`TenantsContactTable component when supplied with a tenant with no phone
           </h4>
           <a
             class="tenantContactsTable-button"
-            href="
-    undefinedperson/1234/edit-contact-details
-    "
+            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
             style="font-size: 16px;"
             target="_blank"
           >
