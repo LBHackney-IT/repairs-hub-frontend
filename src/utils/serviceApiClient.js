@@ -21,41 +21,6 @@ const {
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
-const createApiInstance = (requestType) => {
-  const api = axios.create()
-
-  // Log request
-  api.interceptors.request.use((request) => {
-    logger.info(
-      `Starting ${requestType} API request:`,
-      JSON.stringify({
-        ...request,
-        headers: {
-          ...request.headers,
-          'x-api-key': '[REMOVED]',
-          'x-hackney-user': '[REMOVED]',
-          Authorization: '[REMOVED]',
-        },
-      })
-    )
-
-    return request
-  })
-
-  // Log successful responses
-  api.interceptors.response.use((response) => {
-    logger.info(
-      `Service API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
-    )
-
-    return response
-  })
-
-  return api
-}
-
 export const externalAPIRequest = cache(
   async (request, response, cacheRequest = false) => {
     const cacheKey = encodeURIComponent(request.url)
@@ -84,7 +49,36 @@ export const externalAPIRequest = cache(
 
     let { path, ...queryParams } = request.query
 
-    const api = createApiInstance('External')
+    const api = axios.create()
+
+    // Log request
+    api.interceptors.request.use((request) => {
+      logger.info(
+        'Starting External API request:',
+        JSON.stringify({
+          ...request,
+          headers: {
+            ...request.headers,
+            'x-api-key': '[REMOVED]',
+            'x-hackney-user': '[REMOVED]',
+            Authorization: '[REMOVED]',
+          },
+        })
+      )
+
+      return request
+    })
+
+    // Log successful responses
+    api.interceptors.response.use((response) => {
+      logger.info(
+        `External API response: ${response.status} ${
+          response.statusText
+        } ${JSON.stringify(response.data)}`
+      )
+
+      return response
+    })
 
     try {
       const { data } = await api({
@@ -141,7 +135,36 @@ export const serviceAPIRequest = cache(
 
     let { path, ...queryParams } = request.query
 
-    const api = createApiInstance('Service')
+    const api = axios.create()
+
+    // Log request
+    api.interceptors.request.use((request) => {
+      logger.info(
+        'Starting Service API request:',
+        JSON.stringify({
+          ...request,
+          headers: {
+            ...request.headers,
+            'x-api-key': '[REMOVED]',
+            'x-hackney-user': '[REMOVED]',
+            Authorization: '[REMOVED]',
+          },
+        })
+      )
+
+      return request
+    })
+
+    // Log successful responses
+    api.interceptors.response.use((response) => {
+      logger.info(
+        `Service API response: ${response.status} ${
+          response.statusText
+        } ${JSON.stringify(response.data)}`
+      )
+
+      return response
+    })
 
     try {
       const { data } = await api({
@@ -179,7 +202,34 @@ export const configurationAPIRequest = async (request) => {
     'Content-Type': 'application/json',
   }
 
-  const api = createApiInstance('Configuration')
+  const api = axios.create()
+
+  // Log request
+  api.interceptors.request.use((request) => {
+    logger.info(
+      'Starting Configuration API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          Authorization: '[REMOVED]',
+        },
+      })
+    )
+
+    return request
+  })
+
+  // Log successful responses
+  api.interceptors.response.use((response) => {
+    logger.info(
+      `Configuration API response: ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
+    )
+
+    return response
+  })
 
   try {
     const { data } = await api({
@@ -207,9 +257,9 @@ export const authoriseServiceAPIRequest = (callBack) => {
         return res
           .status(HttpStatus.UNAUTHORIZED)
           .json({ message: 'Auth cookie missing.' })
+      } else {
+        Sentry.setUser({ name: user.name, email: user.email })
       }
-
-      Sentry.setUser({ name: user.name, email: user.email })
 
       Sentry.configureScope((scope) => {
         scope.addEventProcessor((event) => {
