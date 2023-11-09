@@ -1760,7 +1760,6 @@ describe('Raise repair form', () => {
         '@propertyInLegalDisrepairError',
       ])
 
-      
       cy.get('[data-testid=over-spend-limit]').should('not.exist')
       cy.contains(
         'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
@@ -1912,9 +1911,6 @@ describe('Raise repair form', () => {
     })
   })
 
-
-
-
   context('When a user sets contact detail as main', () => {
     const contactId = 'd00e640a-5df2-27f2-bb78-e1860040d21f'
     const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
@@ -2000,8 +1996,7 @@ describe('Raise repair form', () => {
       // cy.get('[data-testid=over-spend-limit]').should('not.exist')
 
       // click confirmation button
-      cy.get("[data-test=confirm-button]").click()
-      
+      cy.get('[data-test=confirm-button]').click()
 
       // wait for network request
       cy.wait(['@patchContactRequest'])
@@ -2044,7 +2039,7 @@ describe('Raise repair form', () => {
       )
 
       // click confirmation button
-      cy.get("[data-test=confirm-button]").click()
+      cy.get('[data-test=confirm-button]').click()
 
       // wait for network request
       cy.wait(['@patchContactRequest'])
@@ -2059,12 +2054,12 @@ describe('Raise repair form', () => {
     })
   })
 
-  context("When a user edits a persons contact details", () => {
+  context('When a user edits a persons contact details', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
     })
 
-    it("the edit contact details link contains the correct href", () => {
+    it('the edit contact details link contains the correct href', () => {
       cy.visit('/properties/00012345/raise-repair/new')
 
       cy.wait([
@@ -2074,7 +2069,11 @@ describe('Raise repair form', () => {
         '@tradesRequest',
       ])
 
-      cy.contains("Edit contact details").should("have.attr", "href", "https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details")
+      cy.contains('Edit contact details').should(
+        'have.attr',
+        'href',
+        'https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details'
+      )
     })
   })
 })
