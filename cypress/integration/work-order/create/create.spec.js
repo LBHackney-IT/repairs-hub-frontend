@@ -1771,6 +1771,8 @@ describe('Raise repair form', () => {
     const contactId = '5b718087-33cd-746d-8f91-e7cec2299a73'
     const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
 
+    const modalConfirmationMessage = `Are you sure you want to remove mainNumber: 00000111111 from Mark Gardner?`
+
     beforeEach(() => {
       cy.loginWithAgentRole()
     })
@@ -1789,9 +1791,7 @@ describe('Raise repair form', () => {
       cy.contains('Remove').first().click()
 
       // assert modal open
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      )
+      cy.contains(modalConfirmationMessage)
     })
 
     it('hides confirmation modal when cancel clicked', () => {
@@ -1808,18 +1808,14 @@ describe('Raise repair form', () => {
       cy.contains('Remove').first().click()
 
       // assert modal open
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      )
+      cy.contains(modalConfirmationMessage)
 
       // click cancel button
       cy.contains('Cancel').click()
 
       // confirm hidden
       cy.contains('Remove contact details').should('not.exist')
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      ).should('not.exist')
+      cy.contains(modalConfirmationMessage).should('not.exist')
     })
 
     it('sends displays a network error in the modal', () => {
@@ -1846,9 +1842,7 @@ describe('Raise repair form', () => {
       cy.contains('Remove').first().click()
 
       // assert modal open
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      )
+      cy.contains(modalConfirmationMessage)
 
       // click confirmation button
       cy.contains('Remove phone number').click()
@@ -1858,9 +1852,7 @@ describe('Raise repair form', () => {
 
       // assert modal still open
       cy.contains('Remove contact details')
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      )
+      cy.contains(modalConfirmationMessage)
 
       // assert error message
       cy.contains('Request failed with status code 401')
@@ -1890,9 +1882,7 @@ describe('Raise repair form', () => {
       cy.contains('Remove').first().click()
 
       // assert modal open
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      )
+      cy.contains(modalConfirmationMessage)
 
       // click confirmation button
       cy.contains('Remove phone number').click()
@@ -1901,9 +1891,7 @@ describe('Raise repair form', () => {
       cy.wait(['@deleteContactRequest'])
 
       // assert modal closed
-      cy.contains(
-        `Are you sure you want to permanently remove mainNumber: 00000111111 from Mark Gardner?`
-      ).should('not.exist')
+      cy.contains(modalConfirmationMessage).should('not.exist')
 
       // assert new contact details fetched
       cy.wait(['@contactDetailsRequest'])

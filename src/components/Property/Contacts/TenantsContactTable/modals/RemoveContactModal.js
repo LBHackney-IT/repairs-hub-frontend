@@ -50,7 +50,7 @@ const RemoveContactModal = ({
       modalError={modalError}
       modalText={
         <p className="govuk-body">
-          Are you sure you want to permanently remove{' '}
+          Are you sure you want to remove{' '}
           <strong style={{ textTransform: 'capitalize', whiteSpace: 'nowrap' }}>
             {phoneNumber.subType}: {phoneNumber.value}
           </strong>{' '}
