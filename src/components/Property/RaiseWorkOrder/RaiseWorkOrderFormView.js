@@ -35,7 +35,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
   const [priorities, setPriorities] = useState([])
-  const [contacts, setContacts] = useState([])
 
   const [formState, setFormState] = useState({})
   const [loading, setLoading] = useState(false)
@@ -152,20 +151,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         }),
       ])
 
-      let contactDetails = []
-
-      if (propertyResponse?.tenure?.id != null) {
-        contactDetails = await frontEndApiRequest({
-          method: 'get',
-          path: `/api/contact-details/${propertyResponse?.tenure?.id}`,
-        })
-      }
-
       setTenure(propertyResponse.tenure)
       setProperty(propertyResponse.property)
       setPriorities(priorities)
       setTrades(trades)
-      setContacts(contactDetails)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
@@ -330,7 +319,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
                 setBudgetCodes={setBudgetCodes}
                 sorCodeArrays={sorCodeArrays}
                 setSorCodeArrays={setSorCodeArrays}
-                contacts={contacts}
                 onFormSubmit={onFormSubmit}
                 raiseLimit={currentUser?.raiseLimit}
                 setPageToMultipleSORs={(formState) => {

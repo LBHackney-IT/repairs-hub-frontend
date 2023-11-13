@@ -49,6 +49,8 @@ functions:
       BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/budget-code-officer-group}
       DATA_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/data-admin-group}
       CONFIGURATION_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/configuration-api-url}
+      NEXT_PUBLIC_MMH_FRONTEND_URL: ${ssm:/repairs-hub/${self:provider.stage}/mmh-frontend-url}
+      CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
       CONTRACTORS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/contractors-group-regex}
       DRS_WEB_SERVICES_PASSWORD: ${ssm:/repairs-hub/${self:provider.stage}/drs-password}

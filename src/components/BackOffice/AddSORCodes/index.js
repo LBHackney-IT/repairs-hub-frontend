@@ -11,7 +11,7 @@ import SorCode from '@/root/src/models/sorCode'
 import { useEffect, useReducer, useState } from 'react'
 import NewSORCode from '../Components/NewSORCode'
 import useSelectTrade from './useSelectTrade'
-import ConfirmationModal from '../Components/ConfirmationModal'
+import ConfirmationModal from '../../ConfirmationModal'
 
 import useSelectContract from '../hooks/useSelectContract'
 

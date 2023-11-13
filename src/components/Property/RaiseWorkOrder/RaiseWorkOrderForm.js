@@ -41,7 +41,6 @@ const RaiseWorkOrderForm = ({
   setBudgetCodes,
   sorCodeArrays,
   setSorCodeArrays,
-  contacts,
   onFormSubmit,
   raiseLimit,
   setPageToMultipleSORs,
@@ -259,13 +258,14 @@ const RaiseWorkOrderForm = ({
               error={errors && errors.descriptionOfWork}
             />
 
-            <Contacts contacts={contacts} />
+            <Contacts tenureId={tenure?.id} />
 
-            <WarningInfoBox
-              name="contact-number-warning"
-              header="Need to add an additional contact number?"
-              text="Any additional contact numbers can be added into the Repair description field"
-            />
+            <h2 className=" lbh-heading-h2">
+              Contact details for repair
+              <span class="govuk-caption-m">
+                Who should we contact for this repair?
+              </span>
+            </h2>
 
             <TextInput
               name="callerName"
