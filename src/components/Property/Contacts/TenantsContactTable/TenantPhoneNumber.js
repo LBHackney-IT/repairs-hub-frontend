@@ -2,6 +2,7 @@ import { useState } from 'react'
 import RemoveContactModal from './modals/RemoveContactModal'
 import SetAsMainModal from './modals/SetAsMainModal'
 import classNames from 'classnames'
+import { formatCamelCaseStringIntoTitleCase } from '../../../../utils/helpers/formatCamelCaseStringIntoTitleCase'
 
 const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
   const [showRemoveModal, setShowRemoveModal] = useState(false)
@@ -13,7 +14,7 @@ const TenantPhoneNumber = ({ phoneNumber, tenant, reloadContacts }) => {
     <li className="tenantContactsTable-phoneNumberGrid govuk-body">
       <div className="tenantContactsTable-valueGroup">
         <h4 className="tenantContactsTable-phoneSubType">
-          {phoneNumber.subType}
+          {formatCamelCaseStringIntoTitleCase(phoneNumber.subType)}
         </h4>
         <div className="tenantContactsTable-phone">{phoneNumber.value}</div>
       </div>
