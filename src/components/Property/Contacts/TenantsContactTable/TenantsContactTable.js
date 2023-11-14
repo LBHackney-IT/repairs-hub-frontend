@@ -13,11 +13,9 @@ const TenantContactsTable = ({ tenants, reloadContacts }) => {
     <div className="tenantContactsTable">
       <ul>
         {tenants.map((tenant, index) => (
-          <TenanctContact
-            tenant={tenant}
-            key={index}
-            reloadContacts={reloadContacts}
-          />
+          <li key={index}>
+            <TenanctContact tenant={tenant} reloadContacts={reloadContacts} />
+          </li>
         ))}
       </ul>
     </div>

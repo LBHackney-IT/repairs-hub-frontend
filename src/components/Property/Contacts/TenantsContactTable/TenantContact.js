@@ -20,7 +20,7 @@ const TenanctContact = ({ tenant, reloadContacts }) => {
   )
 
   return (
-    <>
+    <div className="tenantContactsTable-contact">
       <TenantHeading fullName={tenant.fullName} personId={tenant.personId} />
 
       <hr />
@@ -43,7 +43,7 @@ const TenanctContact = ({ tenant, reloadContacts }) => {
           ))}
         </ul>
       )}
-    </>
+    </div>
   )
 }
 

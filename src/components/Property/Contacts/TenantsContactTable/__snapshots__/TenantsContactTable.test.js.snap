@@ -6,268 +6,272 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
     class="tenantContactsTable"
   >
     <ul>
-      <li
-        class="tenantContactsTable-contact"
-      >
+      <li>
         <div
-          class="tenantContactsTable-heading govuk-body"
+          class="tenantContactsTable-contact"
         >
-          <h4>
-            Mark Gardner
-          </h4>
-          <a
-            class="tenantContactsTable-button"
-            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
-            style="font-size: 16px;"
-            target="_blank"
+          <div
+            class="tenantContactsTable-heading govuk-body"
           >
-            Edit contact details
-          </a>
+            <h4>
+              Mark Gardner
+            </h4>
+            <a
+              class="tenantContactsTable-button"
+              href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              style="font-size: 16px;"
+              target="_blank"
+            >
+              Edit contact details
+            </a>
+          </div>
+          <hr />
+          <ul>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
+            >
+              <div
+                class="tenantContactsTable-valueGroup"
+              >
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Main Number
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                >
+                  00000111111
+                </div>
+              </div>
+              <div
+                class="tenantContactsTable-description"
+              >
+                desc1
+              </div>
+              <div
+                class="tenantContactsTable-buttonGroup"
+              >
+                <button
+                  class="tenantContactsTable-button disabled"
+                  disabled=""
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
+            >
+              <div
+                class="tenantContactsTable-valueGroup"
+              >
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Doctor
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                >
+                  00000333333
+                </div>
+              </div>
+              <div
+                class="tenantContactsTable-description"
+              >
+                desc3
+              </div>
+              <div
+                class="tenantContactsTable-buttonGroup"
+              >
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
+            >
+              <div
+                class="tenantContactsTable-valueGroup"
+              >
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Wife
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                >
+                  00000222222
+                </div>
+              </div>
+              <div
+                class="tenantContactsTable-description"
+              >
+                desc2
+              </div>
+              <div
+                class="tenantContactsTable-buttonGroup"
+              >
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+          </ul>
         </div>
-        <hr />
-        <ul>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
-            >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                mainNumber
-              </h4>
-              <div
-                class="tenantContactsTable-phone"
-              >
-                00000111111
-              </div>
-            </div>
-            <div
-              class="tenantContactsTable-description"
-            >
-              desc1
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
-            >
-              <button
-                class="tenantContactsTable-button disabled"
-                disabled=""
-                type="button"
-              >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-          </li>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
-            >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                wife
-              </h4>
-              <div
-                class="tenantContactsTable-phone"
-              >
-                00000222222
-              </div>
-            </div>
-            <div
-              class="tenantContactsTable-description"
-            >
-              desc2
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
-            >
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-          </li>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
-            >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                doctor
-              </h4>
-              <div
-                class="tenantContactsTable-phone"
-              >
-                00000333333
-              </div>
-            </div>
-            <div
-              class="tenantContactsTable-description"
-            >
-              desc3
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
-            >
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-          </li>
-        </ul>
       </li>
-      <li
-        class="tenantContactsTable-contact"
-      >
+      <li>
         <div
-          class="tenantContactsTable-heading govuk-body"
+          class="tenantContactsTable-contact"
         >
-          <h4>
-            Luam Berhane
-          </h4>
-          <a
-            class="tenantContactsTable-button"
-            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
-            style="font-size: 16px;"
-            target="_blank"
+          <div
+            class="tenantContactsTable-heading govuk-body"
           >
-            Edit contact details
-          </a>
-        </div>
-        <hr />
-        <ul>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
+            <h4>
+              Luam Berhane
+            </h4>
+            <a
+              class="tenantContactsTable-button"
+              href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              style="font-size: 16px;"
+              target="_blank"
             >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                mainNumber
-              </h4>
+              Edit contact details
+            </a>
+          </div>
+          <hr />
+          <ul>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
+            >
               <div
-                class="tenantContactsTable-phone"
-              />
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
-            >
-              <button
-                class="tenantContactsTable-button disabled"
-                disabled=""
-                type="button"
+                class="tenantContactsTable-valueGroup"
               >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-          </li>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
-            >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                mainNumber
-              </h4>
-              <div
-                class="tenantContactsTable-phone"
-              />
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
-            >
-              <button
-                class="tenantContactsTable-button disabled"
-                disabled=""
-                type="button"
-              >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
-              >
-                Remove
-              </button>
-            </div>
-          </li>
-          <li
-            class="tenantContactsTable-phoneNumberGrid govuk-body"
-          >
-            <div
-              class="tenantContactsTable-valueGroup"
-            >
-              <h4
-                class="tenantContactsTable-phoneSubType"
-              >
-                mainNumber
-              </h4>
-              <div
-                class="tenantContactsTable-phone"
-              >
-                00000333333
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Main Number
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                >
+                  00000333333
+                </div>
               </div>
-            </div>
-            <div
-              class="tenantContactsTable-buttonGroup"
+              <div
+                class="tenantContactsTable-buttonGroup"
+              >
+                <button
+                  class="tenantContactsTable-button disabled"
+                  disabled=""
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
             >
-              <button
-                class="tenantContactsTable-button disabled"
-                disabled=""
-                type="button"
+              <div
+                class="tenantContactsTable-valueGroup"
               >
-                Set as main contact
-              </button>
-              <button
-                class="tenantContactsTable-button"
-                type="button"
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Main Number
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                />
+              </div>
+              <div
+                class="tenantContactsTable-buttonGroup"
               >
-                Remove
-              </button>
-            </div>
-          </li>
-        </ul>
+                <button
+                  class="tenantContactsTable-button disabled"
+                  disabled=""
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+            <li
+              class="tenantContactsTable-phoneNumberGrid govuk-body"
+            >
+              <div
+                class="tenantContactsTable-valueGroup"
+              >
+                <h4
+                  class="tenantContactsTable-phoneSubType"
+                >
+                  Main Number
+                </h4>
+                <div
+                  class="tenantContactsTable-phone"
+                />
+              </div>
+              <div
+                class="tenantContactsTable-buttonGroup"
+              >
+                <button
+                  class="tenantContactsTable-button disabled"
+                  disabled=""
+                  type="button"
+                >
+                  Set as main contact
+                </button>
+                <button
+                  class="tenantContactsTable-button"
+                  type="button"
+                >
+                  Remove
+                </button>
+              </div>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
   </div>
@@ -280,31 +284,33 @@ exports[`TenantsContactTable component when supplied with a tenant with no phone
     class="tenantContactsTable"
   >
     <ul>
-      <li
-        class="tenantContactsTable-contact"
-      >
+      <li>
         <div
-          class="tenantContactsTable-heading govuk-body"
+          class="tenantContactsTable-contact"
         >
-          <h4>
-            Mark Gardner
-          </h4>
-          <a
-            class="tenantContactsTable-button"
-            href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
-            style="font-size: 16px;"
-            target="_blank"
+          <div
+            class="tenantContactsTable-heading govuk-body"
           >
-            Edit contact details
-          </a>
+            <h4>
+              Mark Gardner
+            </h4>
+            <a
+              class="tenantContactsTable-button"
+              href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              style="font-size: 16px;"
+              target="_blank"
+            >
+              Edit contact details
+            </a>
+          </div>
+          <hr />
+          <p
+            class="govuk-body-s"
+            style="margin-top: 15px;"
+          >
+            No contact details
+          </p>
         </div>
-        <hr />
-        <p
-          class="govuk-body-s"
-          style="margin-top: 15px;"
-        >
-          No contact details
-        </p>
       </li>
     </ul>
   </div>
