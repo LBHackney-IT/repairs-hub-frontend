@@ -50,7 +50,6 @@ const Contacts = (props) => {
   }, [])
 
   usePageVisibility(() => {
-    console.log('visibility change')
     // manually refresh
     loadContactDetails()
   })
