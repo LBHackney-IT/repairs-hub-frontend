@@ -7,15 +7,13 @@ const TenanctContact = ({ tenant, reloadContacts }) => {
 
   const sortedPhoneNumbers = useMemo(
     () =>
-      phoneNumbers
-        .slice() // create a shallow copy to avoid mutating the original array
-        .sort((a, b) => {
-          if (a.subType === 'mainNumber') return -1
-          if (b.subType === 'mainNumber') return 1
+      [...phoneNumbers].sort((a, b) => {
+        if (a.subType === 'mainNumber') return -1
+        if (b.subType === 'mainNumber') return 1
 
-          // sort alphabetically by subType for consistency
-          return a.subType.localeCompare(b.subType)
-        }),
+        // sort alphabetically by subType for consistency
+        return a.subType.localeCompare(b.subType)
+      }),
     [phoneNumbers]
   )
 
