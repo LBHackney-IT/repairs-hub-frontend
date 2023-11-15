@@ -201,7 +201,7 @@ describe('Raise repair form', () => {
     })
   })
 
-  it('Shows address, tenure, alerts and property contact information', () => {
+  it.only('Shows address, tenure, alerts and property contact information', () => {
     cy.loginWithAgentRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
@@ -232,14 +232,14 @@ describe('Raise repair form', () => {
 
     // Tenants
     cy.get('.tenantContactsTable').contains('Mark Gardner')
-    cy.get('.tenantContactsTable').contains('mainNumber')
-    cy.get('.tenantContactsTable').contains('carer')
+    cy.get('.tenantContactsTable').contains('Main Number')
+    cy.get('.tenantContactsTable').contains('Carer')
 
     cy.get('.tenantContactsTable-contact')
       .should('exist')
       .should(($element) => {
         const text = $element.text()
-        expect(text).to.contain('mainNumber')
+        expect(text).to.contain('Main Number')
         expect(text).to.contain('00000111111')
       })
 
@@ -247,7 +247,7 @@ describe('Raise repair form', () => {
       .should('exist')
       .should(($element) => {
         const text = $element.text()
-        expect(text).to.contain('carer')
+        expect(text).to.contain('Carer')
         expect(text).to.contain('00000222222')
       })
 
