@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react'
-import Contacts from './Contacts'
+import ContactsTable from './ContactsTable'
 
-describe('Contacts component', () => {
+describe('ContactsTable component', () => {
   describe('when supplied with an empty contacts list', () => {
     const contacts = []
 
     it('renders text indicating that no contacts are available', () => {
-      const { asFragment } = render(<Contacts contacts={contacts} />)
+      const { asFragment } = render(<ContactsTable contacts={contacts} />)
 
       expect(asFragment()).toMatchSnapshot()
     })
@@ -29,7 +29,7 @@ describe('Contacts component', () => {
     ]
 
     it('renders a table with a row for each contact', () => {
-      const { asFragment } = render(<Contacts contacts={contacts} />)
+      const { asFragment } = render(<ContactsTable contacts={contacts} />)
 
       expect(asFragment()).toMatchSnapshot()
     })

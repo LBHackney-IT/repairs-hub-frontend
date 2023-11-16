@@ -382,40 +382,16 @@ exports[`RaiseWorkOrderForm component should limit the priorities list to voids 
             No contact details available for this property
           </strong>
         </div>
-        <div
-          class="warning-info-box govuk-inset-text lbh-inset-text"
-          data-testid="contact-number-warning"
+        <h2
+          class=" lbh-heading-h2"
         >
-          <div
-            class="lbh-warning-text govuk-warning-text"
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
           >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon"
-            >
-              !
-            </span>
-            <div
-              class="govuk-warning-text__text"
-            >
-              <span
-                class="govuk-warning-text__assistive"
-              >
-                Warning
-              </span>
-              <p
-                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-              >
-                Need to add an additional contact number?
-              </p>
-              <p
-                class="lbh-body-xs govuk-!-margin-top-1"
-              >
-                Any additional contact numbers can be added into the Repair description field
-              </p>
-            </div>
-          </div>
-        </div>
+            Who should we contact for this repair?
+          </span>
+        </h2>
         <div
           class="govuk-form-group lbh-form-group"
           id="callerName-form-group"
@@ -848,40 +824,16 @@ exports[`RaiseWorkOrderForm component should render properly 1`] = `
             No contact details available for this property
           </strong>
         </div>
-        <div
-          class="warning-info-box govuk-inset-text lbh-inset-text"
-          data-testid="contact-number-warning"
+        <h2
+          class=" lbh-heading-h2"
         >
-          <div
-            class="lbh-warning-text govuk-warning-text"
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
           >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon"
-            >
-              !
-            </span>
-            <div
-              class="govuk-warning-text__text"
-            >
-              <span
-                class="govuk-warning-text__assistive"
-              >
-                Warning
-              </span>
-              <p
-                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-              >
-                Need to add an additional contact number?
-              </p>
-              <p
-                class="lbh-body-xs govuk-!-margin-top-1"
-              >
-                Any additional contact numbers can be added into the Repair description field
-              </p>
-            </div>
-          </div>
-        </div>
+            Who should we contact for this repair?
+          </span>
+        </h2>
         <div
           class="govuk-form-group lbh-form-group"
           id="callerName-form-group"
@@ -1270,40 +1222,16 @@ exports[`RaiseWorkOrderForm component should render without possibility to choos
             No contact details available for this property
           </strong>
         </div>
-        <div
-          class="warning-info-box govuk-inset-text lbh-inset-text"
-          data-testid="contact-number-warning"
+        <h2
+          class=" lbh-heading-h2"
         >
-          <div
-            class="lbh-warning-text govuk-warning-text"
+          Contact details for repair
+          <span
+            class="govuk-caption-m"
           >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon"
-            >
-              !
-            </span>
-            <div
-              class="govuk-warning-text__text"
-            >
-              <span
-                class="govuk-warning-text__assistive"
-              >
-                Warning
-              </span>
-              <p
-                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
-              >
-                Need to add an additional contact number?
-              </p>
-              <p
-                class="lbh-body-xs govuk-!-margin-top-1"
-              >
-                Any additional contact numbers can be added into the Repair description field
-              </p>
-            </div>
-          </div>
-        </div>
+            Who should we contact for this repair?
+          </span>
+        </h2>
         <div
           class="govuk-form-group lbh-form-group"
           id="callerName-form-group"

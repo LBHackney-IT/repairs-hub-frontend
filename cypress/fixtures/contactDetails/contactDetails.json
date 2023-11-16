@@ -1,10 +1,31 @@
 [
   {
     "fullName": "Mark Gardner",
-    "phoneNumbers": [{ "value": "00000111111" }, { "value": "00000222222" }]
+    "personId": "cfe9c99f-7636-e23d-f08a-f36083e57d5d",
+    "tenureType": "Tenant",
+    "phoneNumbers": [
+      {
+        "value": "00000111111",
+        "subType": "mainNumber",
+        "contactId": "5b718087-33cd-746d-8f91-e7cec2299a73"
+      },
+      {
+        "value": "00000222222",
+        "subType": "carer",
+        "contactId": "d00e640a-5df2-27f2-bb78-e1860040d21f"
+      }
+    ]
   },
   {
     "fullName": "Luam Berhane",
-    "phoneNumbers": [{ "value": "00000666666" }]
+    "personId": "4cde5935-71d9-1f4c-04fc-6ef69460c5db",
+    "tenureType": "HouseholdMember",
+    "phoneNumbers": [
+      {
+        "value": "00000666666",
+        "subType": "doctor",
+        "contactId": "812838a8-91a8-1ebb-a599-e97898f0da15"
+      }
+    ]
   }
 ]

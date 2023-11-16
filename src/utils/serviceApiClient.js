@@ -21,6 +21,92 @@ const {
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
+export const externalAPIRequest = cache(
+  async (request, response, cacheRequest = false) => {
+    const cacheKey = encodeURIComponent(request.url)
+
+    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
+      const { data } = request.cache.get(cacheKey)
+
+      response.setHeader(
+        'Cache-Control',
+        `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
+      )
+      response.setHeader('X-Cache', 'HIT')
+
+      return data
+    }
+
+    const cookies = cookie.parse(request.headers.cookie ?? '')
+    const token = cookies[GSSO_TOKEN_NAME]
+
+    const headers = {
+      'x-api-key': REPAIRS_SERVICE_API_KEY,
+      'x-hackney-user': token,
+      Authorization: token,
+      'Content-Type': 'application/json',
+    }
+
+    let { path, ...queryParams } = request.query
+
+    const api = axios.create()
+
+    // Log request
+    api.interceptors.request.use((request) => {
+      logger.info(
+        'Starting External API request:',
+        JSON.stringify({
+          ...request,
+          headers: {
+            ...request.headers,
+            'x-api-key': '[REMOVED]',
+            'x-hackney-user': '[REMOVED]',
+            Authorization: '[REMOVED]',
+          },
+        })
+      )
+
+      return request
+    })
+
+    // Log successful responses
+    api.interceptors.response.use((response) => {
+      logger.info(
+        `External API response: ${response.status} ${
+          response.statusText
+        } ${JSON.stringify(response.data)}`
+      )
+
+      return response
+    })
+
+    try {
+      const { data } = await api({
+        method: request.method,
+        headers,
+        url: path?.join('/'),
+        params: queryParams,
+        paramsSerializer,
+        ...(request.body && { data: request.body }),
+      })
+
+      if (cacheRequest && request.cache) {
+        request.cache.set(cacheKey, { data })
+      }
+
+      response.setHeader('Cache-Control', 'no-cache')
+      response.setHeader('X-Cache', 'MISS')
+
+      return data
+    } catch (error) {
+      const errorToThrow = new Error(error)
+
+      errorToThrow.response = error.response
+      throw errorToThrow
+    }
+  }
+)
+
 export const serviceAPIRequest = cache(
   async (request, response, cacheRequest = false) => {
     const cacheKey = encodeURIComponent(request.url)

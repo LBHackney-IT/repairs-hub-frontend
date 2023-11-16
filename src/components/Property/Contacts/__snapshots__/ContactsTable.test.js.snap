@@ -1,15 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Contacts component when supplied with a list of contacts renders a table with a row for each contact 1`] = `
+exports[`ContactsTable component when supplied with a list of contacts renders a table with a row for each contact 1`] = `
 <DocumentFragment>
   <table
     class="govuk-table lbh-table"
   >
-    <caption
-      class="govuk-table__caption lbh-heading-h3 lbh-table__caption"
-    >
-      Contacts
-    </caption>
     <thead
       class="govuk-table__head"
     >
@@ -94,27 +89,13 @@ exports[`Contacts component when supplied with a list of contacts renders a tabl
 </DocumentFragment>
 `;
 
-exports[`Contacts component when supplied with an empty contacts list renders text indicating that no contacts are available 1`] = `
+exports[`ContactsTable component when supplied with an empty contacts list renders text indicating that no contacts are available 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-warning-text lbh-warning-text"
+  <p
+    class="govuk-body-s"
+    style="margin-top: 15px;"
   >
-    <span
-      aria-hidden="true"
-      class="govuk-warning-text__icon"
-    >
-      !
-    </span>
-    <strong
-      class="govuk-warning-text__text"
-    >
-      <span
-        class="govuk-warning-text__assistive"
-      >
-        Warning
-      </span>
-      No contact details available for this property
-    </strong>
-  </div>
+    No household members
+  </p>
 </DocumentFragment>
 `;

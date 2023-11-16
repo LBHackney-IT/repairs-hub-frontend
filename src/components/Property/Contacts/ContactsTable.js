@@ -3,11 +3,16 @@ import ContactsRow from './ContactsRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 
 const ContactsTable = ({ contacts }) => {
+  if (!contacts.length) {
+    return (
+      <p className="govuk-body-s" style={{ marginTop: '15px' }}>
+        No household members
+      </p>
+    )
+  }
+
   return (
     <Table>
-      <caption className="govuk-table__caption lbh-heading-h3 lbh-table__caption">
-        Contacts
-      </caption>
       <THead>
         <TR>
           <TH scope="col">Name</TH>
