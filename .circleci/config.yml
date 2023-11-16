@@ -103,6 +103,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_DEVELOPMENT
+            export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_DEVELOPMENT
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
@@ -137,6 +138,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_STAGING
+            export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_STAGING
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
@@ -171,6 +173,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DEBUG=false
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_PRODUCTION
+            export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_PRODUCTION
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
 
   assume-role-development:
