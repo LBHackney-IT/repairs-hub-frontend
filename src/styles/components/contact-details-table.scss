@@ -25,14 +25,25 @@
     padding: 15px 0;
     margin: 0;
 
+    // &:not(:last-child) {
+    //   // background-color: orange;
+
+    // }
+
     > div:not(:last-child) {
       margin-bottom: 15px;
     }
   }
 
-  &-contact:not(:last-child) {
-    margin-bottom: 60px;
+  li:not(:last-child) .tenantContactsTable-contact {
+    margin-bottom: 45px;
   }
+
+  // li
+
+  // &-contact:not(:last-child) {
+  //   margin-bottom: 60px;
+  // }
 
   &-heading {
     display: flex;
