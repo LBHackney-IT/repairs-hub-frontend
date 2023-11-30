@@ -30,8 +30,8 @@
     }
   }
 
-  &-contact:not(:last-child) {
-    margin-bottom: 60px;
+  li:not(:last-child) .tenantContactsTable-contact {
+    margin-bottom: 45px;
   }
 
   &-heading {
@@ -53,7 +53,7 @@
     text-decoration: underline;
     padding: 0;
     color: #333;
-    
+
     &:not(:disabled) {
       cursor: pointer;
     }
