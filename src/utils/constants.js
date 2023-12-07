@@ -11,7 +11,7 @@ export const MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY =
 // However, multi-trade is special, and will show sorCodes from any trade,
 // so a contractor should need to have 'MU' sorCodes.
 // To get around this, we must hardcode these contractors in the dropdown
-export const MULTITRADE_CONTRACTORS_WITHOUT_MU_SORCODES = [
+export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'PCL',
     contractorName: 'Purdy Contracts (P) Ltd',
