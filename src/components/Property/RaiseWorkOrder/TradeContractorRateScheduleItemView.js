@@ -14,7 +14,7 @@ import {
   MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   MULTITRADE_ENABLED_CONTRACTORS,
-  MULTITRADE_CONTRACTORS_WITHOUT_MU_SORCODES,
+  MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
 } from '@/utils/constants'
 
 const TradeContractorRateScheduleItemView = ({
@@ -173,7 +173,7 @@ const TradeContractorRateScheduleItemView = ({
       tradeCode === MULTITRADE_TRADE_CODE
         ? setContractors([
             ...contractors,
-            ...MULTITRADE_CONTRACTORS_WITHOUT_MU_SORCODES,
+            ...MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
           ])
         : setContractors(contractors)
     } catch (e) {
