@@ -2,16 +2,16 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
-import Spinner from '../Spinner'
-import ErrorMessage from '../Errors/ErrorMessage'
-import MobileWorkingWorkOrderListItem from '../WorkOrder/MobileWorkingWorkOrderListItem'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import Meta from '../Meta'
-import { WorkOrder } from '../../models/workOrder'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+import { WorkOrder } from '../../../models/workOrder'
 
-const MobileWorkingWorkOrdersView = () => {
+const MobileWorkingWorkOrdersView = (props) => {
+  const { currentUser } = props
+
   const currentDate = beginningOfDay(new Date())
-  const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
   const [startedWorkOrders, setStartedWorkOrders] = useState([])
@@ -23,13 +23,6 @@ const MobileWorkingWorkOrdersView = () => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
-
-      setCurrentUser(currentUser)
-
       const data = await frontEndApiRequest({
         method: 'get',
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
@@ -109,7 +102,6 @@ const MobileWorkingWorkOrdersView = () => {
 
   return (
     <>
-      <Meta title="Manage work orders" />
       <div className="mobile-working-title-banner">
         <h2 className="lbh-heading-h2">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
