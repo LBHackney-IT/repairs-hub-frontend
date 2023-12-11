@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 
-export const MobileWorkingWorkOrdersView = (props) => {
+export const MobileWorkingWorkOrdersView = () => {
   const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(async () => {

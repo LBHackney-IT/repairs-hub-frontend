@@ -1,9 +1,7 @@
 import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
 import WarningInfoBox from '../../Template/WarningInfoBox'
-import PropertyBoilerHouseDetails from '../../Property/PropertyBoilerHouseDetails'
 
 export const WorkOrderList = (props) => {
-  // const {inProgressWorkOrders, visitedWorkOrders, currentUser, startedWorkOrders} = props
   const { currentUser, workOrders } = props
 
   const inProgressWorkOrders =
@@ -17,14 +15,11 @@ export const WorkOrderList = (props) => {
 
   const getWorkOrderStatusText = (workOrder) => {
     const status = workOrder.status.toLowerCase()
-    
-    if (status === 'no access') {
-      return 'No access'
-    } else if (status === 'completed') {
-      return 'Completed'
-    } else {
-      return ''
-    }
+
+    if (status === 'no access') return 'No access'
+    if (status === 'completed') return 'Completed'
+
+    return ''
   }
 
   const sortWorkOrderItems = (
