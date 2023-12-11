@@ -3,7 +3,7 @@ import Meta from '../../../components/Meta'
 import { getQueryProps } from '../../../utils/helpers/serverSideProps'
 import OperativeMobileView from '@/root/src/components/BackOffice/OperativeMobileView'
 
-const AddSORCodesPage = () => {
+const MobileView = () => {
   return (
     <>
       <Meta title="BackOffice" />
@@ -14,6 +14,6 @@ const AddSORCodesPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-AddSORCodesPage.permittedRoles = [DATA_ADMIN_ROLE]
+MobileView.permittedRoles = [DATA_ADMIN_ROLE]
 
-export default AddSORCodesPage
+export default MobileView

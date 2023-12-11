@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import MobileWorkingLayout from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingLayout'
 import WarningInfoBox from '../../Template/WarningInfoBox'
-// import { MobileWorkingLayout } from '../../../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
+import SelectedOperative from './SelectedOperative'
 
 const OperativeMobileView = () => {
   const fetchOperatives = async () => {
@@ -12,20 +12,24 @@ const OperativeMobileView = () => {
     })
   }
 
+  const mapOperativeToHubUser = (operative) => {
+    return {
+      sub: 'placeholder',
+      name: operative.name,
+      email: 'placeholder',
+      varyLimit: 'placeholder',
+      raiseLimit: 'placeholder',
+      contractors: [],
+      operativePayrollNumber: operative.payrollNumber,
+      isOneJobAtATime: operative.isOnejobatatime,
+    }
+  }
+
   useEffect(() => {
     fetchOperatives().then((res) => {
       const sortedOperatives = res
         .sort((a, b) => a.name.localeCompare(b.name))
-        .map((x) => ({
-          sub: 'placeholder',
-          name: x.name,
-          email: 'placeholder',
-          varyLimit: 'placeholder',
-          raiseLimit: 'placeholder',
-          contractors: [],
-          operativePayrollNumber: x.payrollNumber,
-          isOneJobAtATime: x.isOnejobatatime,
-        }))
+        .map(mapOperativeToHubUser)
 
       setOperatives(sortedOperatives)
 
@@ -35,15 +39,23 @@ const OperativeMobileView = () => {
 
   const [operatives, setOperatives] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [operativeFilter, setOperativeFilter] = useState('')
 
   const [operativePayrollNumber, setOperativePayrollNumber] = useState(null)
+
+  const filteredOperativeList =
+    operativeFilter === ''
+      ? operatives
+      : operatives.filter((x) =>
+          x.name.toLowerCase().includes(operativeFilter.toLowerCase())
+        )
 
   const selectedOperative = operatives.filter(
     (x) => x.operativePayrollNumber == operativePayrollNumber
   )[0]
 
   return (
-    <div>
+    <div className="govuk-body">
       <h1>Operative Mobile View</h1>
 
       <WarningInfoBox
@@ -58,25 +70,31 @@ const OperativeMobileView = () => {
           <h1>Operatives</h1>
 
           {!!selectedOperative && (
-            <pre
-              style={{
-                background: '#f1f5f9',
-                color: '#475569',
-                padding: 15,
-              }}
-            >
-              {JSON.stringify(selectedOperative, null, 2)}
-            </pre>
+            <SelectedOperative operative={selectedOperative} />
           )}
+
+          <div>
+            <label>Filter operatives</label>
+
+            <input
+              type="text"
+              value={operativeFilter}
+              onInput={(e) => setOperativeFilter(e.target.value)}
+            />
+          </div>
+
+          <p>{filteredOperativeList.length} operatives</p>
 
           <div style={{ marginBottom: '30px' }}>
             <select
               value={operativePayrollNumber}
               onChange={(e) => setOperativePayrollNumber(e.target.value)}
             >
-              <option value="-1">Select an operative</option>
+              <option value="-1" defaultChecked>
+                Select an operative
+              </option>
 
-              {operatives.map((x) => (
+              {filteredOperativeList.map((x) => (
                 <option
                   key={x.operativePayrollNumber}
                   value={x.operativePayrollNumber}
@@ -84,13 +102,8 @@ const OperativeMobileView = () => {
                   {x.name}
                 </option>
               ))}
-
-              <option value="otherOption">Other option</option>
             </select>
           </div>
-          {/* <OperativeJobsList operative={selectedOperative} /> */}
-
-          {/* <pre>{JSON.stringify(selectedOperative, null, 2)}</pre> */}
 
           {!!selectedOperative && (
             <MobileWorkingLayout currentUser={selectedOperative} />
