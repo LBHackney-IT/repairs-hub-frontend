@@ -53,6 +53,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
       canRaiseRepair: true,
     },
     tenure: {
+      id: 'tenureId1',
       tenancyAgreementReference: 'tenancyAgreementRef1',
       typeCode: 'tenancyTypeCode',
       typeDescription: 'tenancyTypeDescription',
@@ -115,7 +116,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
-      url: '/api/properties/tenancyAgreementRef1/person-alerts',
+      url: '/api/properties/tenureId1/person-alerts',
     })
 
     expect(asFragment()).toMatchSnapshot()

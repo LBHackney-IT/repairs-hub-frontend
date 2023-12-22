@@ -782,7 +782,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/properties/tenancyAgreementRef1/person-alerts',
+          path: '/api/properties/tenureId1/person-alerts',
         },
         {
           body: {
@@ -815,7 +815,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/properties/tenancyAgreementRef1/person-alerts',
+          path: '/api/properties/tenureId1/person-alerts',
         },
         {
           body: {

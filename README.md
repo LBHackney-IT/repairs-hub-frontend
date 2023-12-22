@@ -170,7 +170,6 @@ Some more specific routes at the time of writing are below:
 
 - Requesting a property can include contact information. Some users should not see that, and the response data anonymisation is done in the frontend API (`src/pages/api/properties/[id]/index.js`)
 - Property search has been used to feature toggle integration with a new vs deprecated backend search endpoint, so there is logic to control this first in the Node API (`src/pages/api/properties/search.js`)
-- Person alerts requires url-encoding of the property tenure reference (supplied to this endpoint as an id) so this is done before forwarding the request to the service API (`src/pages/api/properties/[id]/person-alerts.js`)
 
 ## Example paths, route mapping and notes
 

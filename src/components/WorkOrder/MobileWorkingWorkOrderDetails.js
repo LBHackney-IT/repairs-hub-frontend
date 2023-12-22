@@ -49,12 +49,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
       .finally(() => setLocationAlertsLoading(false))
   }
 
-  const getPersonAlerts = (tenancyAgreementReference) => {
+  const getPersonAlerts = (tenureId) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${encodeURIComponent(
-        tenancyAgreementReference
-      )}/person-alerts`,
+      path: `/api/properties/${encodeURIComponent(tenureId)}/person-alerts`,
     })
       .then((data) => setPersonAlerts(data.alerts))
       .catch((error) => {
@@ -70,11 +68,8 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
   useEffect(() => {
     setLocationAlertsLoading(true)
     getLocationAlerts(property.propertyReference)
-
-    if (tenure?.tenancyAgreementReference) {
-      setPersonAlertsLoading(true)
-      getPersonAlerts(tenure.tenancyAgreementReference)
-    }
+    setPersonAlertsLoading(true)
+    getPersonAlerts(tenure.id)
   }, [])
 
   return (
