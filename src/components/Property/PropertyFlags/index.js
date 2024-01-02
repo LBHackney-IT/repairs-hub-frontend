@@ -50,7 +50,7 @@ const PropertyFlags = ({
   const getPersonAlerts = (tenureId) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${encodeURIComponent(tenureId)}/person-alerts`,
+      path: `/api/properties/${tenureId}/person-alerts`,
     })
       .then((data) => {
         setPersonAlerts(data.alerts)
