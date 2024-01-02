@@ -16,7 +16,7 @@ const {
   AGENTS_GOOGLE_GROUPNAME,
 } = process.env
 
-describe('/api/properties/[tenureId]/person-alerts', () => {
+describe('/api/properties/[id]/person-alerts', () => {
   test('returns a not authorised error when there is no auth cookie', async () => {
     const req = createRequest()
     const res = createResponse()
