@@ -48,12 +48,13 @@ describe('/api/properties/[id]/person-alerts', () => {
 
     describe('a GET request', () => {
       test('makes the equivalent service API request with the id remaining URI-encoded and returns the response', async () => {
+        const tenureId = 'b33dc0d3-4acf-4173-98fc-60742a793ca7'
         const req = createRequest({
           method: 'get',
           headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
           query: {
             path: ['properties', 'person-alerts'],
-            id: '123/456',
+            id: tenureId,
           },
         })
 
@@ -73,7 +74,7 @@ describe('/api/properties/[id]/person-alerts', () => {
         expect(axios).toHaveBeenCalledWith({
           method: 'get',
           headers,
-          url: `${REPAIRS_SERVICE_API_URL}/properties/123%2F456/person-alerts`,
+          url: `${REPAIRS_SERVICE_API_URL}/properties/${tenureId}/person-alerts`,
           params: {},
           paramsSerializer,
           data: {},

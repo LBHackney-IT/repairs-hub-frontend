@@ -6,13 +6,13 @@ import {
 
 export default authoriseServiceAPIRequest(async (req, res) => {
   req.query = {
-    path: ['properties', encodeURIComponent(req.query.id), 'person-alerts'],
+    path: ['properties', req.query.id, 'person-alerts'],
   }
 
   try {
     const data = await serviceAPIRequest(req, res)
 
-    res.status(HttpStatus.OK).json(data)
+    res.status(HttpStatus.StatusCodes.OK).json(data)
   } catch (error) {
     const errorToThrow = new Error(error)
 

@@ -47,12 +47,10 @@ const PropertyFlags = ({
       .finally(() => setLocationAlertsLoading(false))
   }
 
-  const getPersonAlerts = (tenancyAgreementReference) => {
+  const getPersonAlerts = (tenureId) => {
     frontEndApiRequest({
       method: 'get',
-      path: `/api/properties/${encodeURIComponent(
-        tenancyAgreementReference
-      )}/person-alerts`,
+      path: `/api/properties/${tenureId}/person-alerts`,
     })
       .then((data) => {
         setPersonAlerts(data.alerts)
@@ -85,11 +83,9 @@ const PropertyFlags = ({
 
   useEffect(() => {
     setLocationAlertsLoading(true)
+    setPersonAlertsLoading(true)
     getLocationAlerts()
-    if (tenure?.tenancyAgreementReference) {
-      setPersonAlertsLoading(true)
-      getPersonAlerts(tenure.tenancyAgreementReference)
-    }
+    getPersonAlerts(tenure.id)
   }, [])
 
   return (
