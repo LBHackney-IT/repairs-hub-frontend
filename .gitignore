@@ -29,6 +29,9 @@ yarn-error.log*
 # migrated to the local equivalents (the dotenv-flow approach).
 .env*
 
+!.env.local.sample
+!.env.test.local.sample
+
 # vercel
 .vercel
 
