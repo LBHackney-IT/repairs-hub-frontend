@@ -48,8 +48,11 @@ jobs:
           command: yarn lint
       - run:
           name: Run Tests
-          command: yarn test:unit
-
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=test
+            export NEXT_PUBLIC_NODE_ENV=development
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+            yarn test:unit
   e2e:
     executor: node-executor
     steps:
