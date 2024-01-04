@@ -147,9 +147,6 @@ describe('GET /api/contact-details/[id] contact information redaction', () => {
     )
 
     test('response contact information is redacted', async () => {
-      console.log({ signedCookie })
-      console.log({ CONTRACTORS_GOOGLE_GROUPNAME, HACKNEY_JWT_SECRET })
-
       const req = createRequest({
         method: 'get',
         headers: { Cookie: `${GSSO_TOKEN_NAME}=${signedCookie};` },
