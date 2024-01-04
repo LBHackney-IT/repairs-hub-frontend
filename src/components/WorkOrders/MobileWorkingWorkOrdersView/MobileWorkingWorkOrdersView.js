@@ -9,9 +9,8 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 
-const MobileWorkingWorkOrdersView = () => {
+const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
-  const [currentUser, setCurrentUser] = useState({})
   const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
   const [startedWorkOrders, setStartedWorkOrders] = useState([])
@@ -23,13 +22,6 @@ const MobileWorkingWorkOrdersView = () => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
-
-      setCurrentUser(currentUser)
-
       const data = await frontEndApiRequest({
         method: 'get',
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
