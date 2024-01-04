@@ -55,6 +55,7 @@ describe('PropertyDetails component', () => {
       canRaiseRepair: true,
     },
     tenure: {
+      id: 'tenureId1',
       typeCode: 'SEC',
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',

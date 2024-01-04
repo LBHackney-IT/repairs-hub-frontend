@@ -120,6 +120,7 @@ describe('PropertyFlags', () => {
         canRaiseRepair={true}
         boilerHouseId=""
         tenure={{
+          id: 'tenureId1',
           tenancyAgreementReference: 'tenancyAgreementRef1',
           typeCode: 'tenancyTypeCode',
           typeDescription: 'tenancyTypeDescription',
