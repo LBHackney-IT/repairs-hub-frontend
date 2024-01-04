@@ -59,7 +59,7 @@ const OperativeMobileView = () => {
     <Layout title="Operative Mobile View">
       <>
         <WarningInfoBox
-          header="warning"
+          header="Warning"
           text="This page uses same existing MobileWorkingWorkOrdersView component. This means you can click and view the jobs. Playing around with jobs will effect real operatives."
         />
 
