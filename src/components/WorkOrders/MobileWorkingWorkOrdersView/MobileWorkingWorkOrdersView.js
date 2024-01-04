@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
-import Spinner from '../Spinner'
-import ErrorMessage from '../Errors/ErrorMessage'
-import MobileWorkingWorkOrderListItem from '../WorkOrder/MobileWorkingWorkOrderListItem'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import Meta from '../Meta'
-import { WorkOrder } from '../../models/workOrder'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+import Meta from '../../Meta'
+import { WorkOrder } from '../../../models/workOrder'
 
 const MobileWorkingWorkOrdersView = () => {
   const currentDate = beginningOfDay(new Date())
