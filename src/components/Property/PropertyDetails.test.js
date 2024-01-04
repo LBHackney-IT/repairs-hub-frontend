@@ -5,7 +5,6 @@ import {
   waitForElementToBeRemoved,
 } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
-import { id } from 'date-fns/locale'
 
 const axios = require('axios')
 
