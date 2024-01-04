@@ -3,6 +3,7 @@ import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import MobileWorkingLayout from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingLayout'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import SelectedOperative from './SelectedOperative'
+import Layout from '../Layout'
 
 const OperativeMobileView = () => {
   const fetchOperatives = async () => {
@@ -55,62 +56,66 @@ const OperativeMobileView = () => {
   )[0]
 
   return (
-    <div className="govuk-body">
-      <h1>Operative Mobile View</h1>
+    <Layout title="Operative Mobile View">
+      <>
+        <WarningInfoBox
+          header="warning"
+          text="This page uses same existing MobileWorkingWorkOrdersView component. This means you can click and view the jobs. Playing around with jobs will effect real operatives."
+        />
 
-      <WarningInfoBox
-        header="warning"
-        text="This page uses same existing MobileWorkingWorkOrdersView component. This means you can click and view the jobs. Playing around with jobs will effect real operatives."
-      />
-
-      {isLoading ? (
-        <div>Loading..</div>
-      ) : (
-        <div>
-          <h1>Operatives</h1>
-
-          {!!selectedOperative && (
-            <SelectedOperative operative={selectedOperative} />
-          )}
-
+        {isLoading ? (
+          <div>Loading..</div>
+        ) : (
           <div>
-            <label>Filter operatives</label>
+            <div>
+              {!!selectedOperative && (
+                <SelectedOperative operative={selectedOperative} />
+              )}
 
-            <input
-              type="text"
-              value={operativeFilter}
-              onInput={(e) => setOperativeFilter(e.target.value)}
-            />
-          </div>
+              <div>
+                <label>Filter operatives </label>
 
-          <p>{filteredOperativeList.length} operatives</p>
+                <input
+                  type="text"
+                  value={operativeFilter}
+                  onInput={(e) => setOperativeFilter(e.target.value)}
+                />
+              </div>
 
-          <div style={{ marginBottom: '30px' }}>
-            <select
-              value={operativePayrollNumber}
-              onChange={(e) => setOperativePayrollNumber(e.target.value)}
-            >
-              <option value="-1" defaultChecked>
-                Select an operative
-              </option>
-
-              {filteredOperativeList.map((x) => (
-                <option
-                  key={x.operativePayrollNumber}
-                  value={x.operativePayrollNumber}
+              <div style={{ marginBottom: '30px' }}>
+                <select
+                  value={operativePayrollNumber}
+                  onChange={(e) => setOperativePayrollNumber(e.target.value)}
                 >
-                  {x.name}
-                </option>
-              ))}
-            </select>
-          </div>
+                  <option value="-1" defaultChecked>
+                    Select an operative
+                  </option>
 
-          {!!selectedOperative && (
-            <MobileWorkingLayout currentUser={selectedOperative} />
-          )}
-        </div>
-      )}
-    </div>
+                  {filteredOperativeList.map((x) => (
+                    <option
+                      key={x.operativePayrollNumber}
+                      value={x.operativePayrollNumber}
+                    >
+                      {x.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <p>{filteredOperativeList.length} operatives</p>
+              </div>
+            </div>
+
+            {!!selectedOperative && (
+              <div style={{ marginTop: '15px' }}>
+                <MobileWorkingLayout currentUser={selectedOperative} />
+              </div>
+            )}
+          </div>
+        )}
+      </>
+    </Layout>
   )
 }
 
