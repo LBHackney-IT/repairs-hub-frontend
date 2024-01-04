@@ -70,6 +70,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
       canRaiseRepair: true,
     },
     tenure: {
+      id: 'tenureId1',
       typeCode: 'SEC',
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',
@@ -415,6 +416,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
       canRaiseRepair: true,
     },
     tenure: {
+      id: 'tenureId1',
       typeCode: 'SEC',
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',
@@ -576,6 +578,7 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
       canRaiseRepair: true,
     },
     tenure: {
+      id: 'tenureId1',
       typeCode: 'SEC',
       typeDescription: 'Secure',
       tenancyAgreementReference: 'tenancyAgreementRef1',
