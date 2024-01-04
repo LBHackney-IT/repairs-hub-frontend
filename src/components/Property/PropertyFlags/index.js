@@ -83,9 +83,11 @@ const PropertyFlags = ({
 
   useEffect(() => {
     setLocationAlertsLoading(true)
-    setPersonAlertsLoading(true)
     getLocationAlerts()
-    getPersonAlerts(tenure.id)
+    if (tenure?.id) {
+      setPersonAlertsLoading(true)
+      getPersonAlerts(tenure.id)
+    }
   }, [])
 
   return (

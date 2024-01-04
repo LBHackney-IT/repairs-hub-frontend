@@ -68,8 +68,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
   useEffect(() => {
     setLocationAlertsLoading(true)
     getLocationAlerts(property.propertyReference)
-    setPersonAlertsLoading(true)
-    getPersonAlerts(tenure.id)
+    if (tenure?.id) {
+      setPersonAlertsLoading(true)
+      getPersonAlerts(tenure.id)
+    }
   }, [])
 
   return (
