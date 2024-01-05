@@ -4,6 +4,7 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import SelectedOperative from './SelectedOperative'
 import Layout from '../Layout'
 import MobileWorkingWorkOrdersView from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
+import { filterOperatives } from './utils'
 
 const OperativeMobileView = () => {
   const fetchOperatives = async () => {
@@ -41,15 +42,15 @@ const OperativeMobileView = () => {
   const [operatives, setOperatives] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [operativeFilter, setOperativeFilter] = useState('')
+  const [showOnlyOJAT, setShowOnlyOJAT] = useState(false)
 
   const [operativePayrollNumber, setOperativePayrollNumber] = useState(null)
 
-  const filteredOperativeList =
-    operativeFilter === ''
-      ? operatives
-      : operatives.filter((x) =>
-          x.name.toLowerCase().includes(operativeFilter.toLowerCase())
-        )
+  const filteredOperativeList = filterOperatives(
+    operatives,
+    operativeFilter,
+    showOnlyOJAT
+  )
 
   const selectedOperative = operatives.filter(
     (x) => x.operativePayrollNumber == operativePayrollNumber
@@ -75,6 +76,16 @@ const OperativeMobileView = () => {
                   type="text"
                   value={operativeFilter}
                   onInput={(e) => setOperativeFilter(e.target.value)}
+                />
+              </div>
+
+              <div>
+                <label>Show only OJAT operatives?</label>
+                <input
+                  type="checkbox"
+                  value={false}
+                  checked={showOnlyOJAT}
+                  onInput={() => setShowOnlyOJAT((x) => !x)}
                 />
               </div>
 
