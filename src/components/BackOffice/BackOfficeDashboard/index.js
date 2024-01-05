@@ -11,6 +11,10 @@ const BackOfficeDashboard = () => {
       description: 'Bulk-close workOrders',
       link: '/backoffice/close-workorders',
     },
+    {
+      description: 'Operative mobile work order view',
+      link: '/backoffice/mobile-view',
+    },
   ]
   return (
     <>
