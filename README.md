@@ -70,28 +70,25 @@ Open [http://localdev.hackney.gov.uk:5000/](http://localdev.hackney.gov.uk:5000/
 
 This application is using Jest, `react-testing-library`, for unit tests and can be run using the following command:
 
-```
+```bash
 yarn test:unit
+# or
+yarn test:unit-windows
 ```
 
 To keep the unit test output clear of known and expected console output we can make use of [jest-clean-console-reporter](https://github.com/jevakallio/jest-clean-console-reporter). Rules can be added to `./reporter-rules.json` to suppress or group commands.
 
 This application is using cypress, for end-to-end and integration tests and can be run using the following command:
 
-```
+```bash
 yarn test:e2e
 ```
 
-Run tests individually in Cypress GUI:
+Alternativelty, you can run cypress tests via the GUI:
 
-```
-yarn e2e:interactive
-```
-
-Run an individual Cypress spec can be run using the following command:
-
-```
-yarn e2e:server 'cypress run --spec cypress/integration/home_page.spec.js'
+```bash
+yarn dev-test
+yarn cy:open
 ```
 
 The full test suite including unit tests and system tests can be run using following command:
