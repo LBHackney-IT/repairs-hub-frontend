@@ -119,7 +119,6 @@ describe('RaiseWorkOrderForm component', () => {
     await act(async () => {
       await waitForElementToBeRemoved([
         screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
       ])
     })
 
@@ -158,7 +157,6 @@ describe('RaiseWorkOrderForm component', () => {
     await act(async () => {
       await waitForElementToBeRemoved([
         screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
       ])
     })
 
@@ -228,7 +226,6 @@ describe('RaiseWorkOrderForm component', () => {
     await act(async () => {
       await waitForElementToBeRemoved([
         screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
       ])
     })
 
