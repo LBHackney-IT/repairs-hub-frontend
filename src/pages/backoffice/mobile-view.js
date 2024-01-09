@@ -1,20 +1,19 @@
 import { DATA_ADMIN_ROLE } from '@/utils/user'
 import Meta from '../../components/Meta'
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import BackOfficeDashboard from '../../components/BackOffice/BackOfficeDashboard'
+import OperativeMobileView from '../../components/BackOffice/OperativeMobileView'
 
-const BackOfficePage = () => {
+const MobileView = () => {
   return (
     <>
       <Meta title="BackOffice" />
-
-      <BackOfficeDashboard />
+      <OperativeMobileView />
     </>
   )
 }
 
 export const getServerSideProps = getQueryProps
 
-BackOfficePage.permittedRoles = [DATA_ADMIN_ROLE]
+MobileView.permittedRoles = [DATA_ADMIN_ROLE]
 
-export default BackOfficePage
+export default MobileView

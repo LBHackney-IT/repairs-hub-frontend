@@ -51,7 +51,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   useEffect(() => {
     getOperativeWorkOrderView()
-  }, [])
+  }, [currentUser])
 
   const renderWorkOrderListItems = (workOrders) => {
     return (
