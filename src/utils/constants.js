@@ -1,4 +1,10 @@
-export const MULTITRADE_ENABLED_CONTRACTORS = ['PCL', 'AEP', 'HHL', 'FPM']
+export const MULTITRADE_ENABLED_CONTRACTORS = [
+  'PCL',
+  'AEP',
+  'HHL',
+  'FPM',
+  'HCW',
+]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
@@ -19,5 +25,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'FPM',
     contractorName: 'Foster Property Maintenance',
+  },
+  {
+    contractorReference: 'HCW',
+    contractorName: 'Hackney Carpet Warehouse',
   },
 ]
