@@ -8,7 +8,10 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
-import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import {
+  buildCloseWorkOrderData,
+  buildDampAndMouldReportData,
+} from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
 import {
@@ -29,7 +32,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
-    false
+    true
   )
 
   const getWorkOrderView = async (workOrderReference) => {
@@ -116,6 +119,21 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   }
 
   const onWorkOrderCompleteSubmit = async (data) => {
+    setLoading(true)
+
+    let dampAndMouldReportFormData = null
+
+    const dampAndMouldReportIncluded = data.reason === 'Work Order Completed'
+
+    if (dampAndMouldReportIncluded) {
+      dampAndMouldReportFormData = buildDampAndMouldReportData(
+        data.isDampOrMouldInProperty,
+        data.residentPreviouslyReported,
+        data.resolvedAtTheTime,
+        data.comments
+      )
+    }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
@@ -126,14 +144,31 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       paymentType
     )
 
-    setLoading(true)
-
     try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/workOrderComplete`,
-        requestData: closeWorkOrderFormData,
-      })
+      const promiseList = [
+        frontEndApiRequest({
+          method: 'post',
+          path: `/api/workOrderComplete`,
+          requestData: closeWorkOrderFormData,
+        }),
+      ]
+
+      // only submit report requests if status is completed and there is potential damp/mould presence
+      if (
+        dampAndMouldReportIncluded &&
+        (data.isDampOrMouldInProperty === 'Yes' ||
+          data.isDampOrMouldInProperty === 'Not sure')
+      ) {
+        promiseList.push(
+          frontEndApiRequest({
+            method: 'post',
+            path: `/api/damp-and-mould/reports/${workOrder.propertyReference}`,
+            requestData: dampAndMouldReportFormData,
+          })
+        )
+      }
+
+      await Promise.all(promiseList)
 
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
