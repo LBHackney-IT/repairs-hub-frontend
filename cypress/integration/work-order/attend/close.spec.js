@@ -127,7 +127,7 @@ describe('Closing my own work order', () => {
 
       cy.get('.modal-container').within(() => {
         cy.contains(
-          `Work order ${workOrderReference} successfully completed  with no access`
+          `Work order ${workOrderReference} successfully closed with no access`
         )
 
         cy.get('[data-testid="modal-close"]').click()
@@ -262,7 +262,7 @@ describe('Closing my own work order', () => {
 
         cy.get('.modal-container').within(() => {
           cy.contains(
-            `Work order ${workOrderReference} successfully completed with no access`
+            `Work order ${workOrderReference} successfully closed with no access`
           )
 
           cy.get('[data-testid="modal-close"]').click()
@@ -299,6 +299,10 @@ describe('Closing my own work order', () => {
         cy.get('.govuk-form-group--error').contains(
           'Please select a reason for closing the work order'
         )
+
+        cy.get('.lbh-radios input[data-testid="reason"]').check(
+          'Work Order Completed'
+        ) // Checking by value, not text
 
         cy.get('.govuk-button').contains('Next').click()
 
