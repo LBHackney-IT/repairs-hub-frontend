@@ -98,7 +98,7 @@ describe('Closing my own work order', () => {
 
       cy.contains('button', 'Confirm').click()
 
-      cy.get('.lbh-radios input[type="radio"]').check('No Access')
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
 
       cy.get('#notes').type('I attended')
 
@@ -126,7 +126,9 @@ describe('Closing my own work order', () => {
         })
 
       cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
+        cy.contains(
+          `Work order ${workOrderReference} successfully completed  with no access`
+        )
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -152,7 +154,9 @@ describe('Closing my own work order', () => {
 
       cy.contains('button', 'Confirm').click()
 
-      cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed')
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
 
       cy.get('#notes').type('I attended')
 
@@ -230,7 +234,7 @@ describe('Closing my own work order', () => {
           'Please select a reason for closing the work order'
         )
 
-        cy.get('.lbh-radios input[type="radio"]').check('No Access') // Checking by value, not text
+        cy.get('.lbh-radios input[data-testid="reason"]').check('No Access') // Checking by value, not text
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -257,7 +261,9 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(
+            `Work order ${workOrderReference} successfully completed with no access`
+          )
 
           cy.get('[data-testid="modal-close"]').click()
         })
@@ -363,6 +369,10 @@ describe('Closing my own work order', () => {
         cy.get('.govuk-form-group--error').contains(
           'Please select a reason for closing the work order'
         )
+
+        cy.get('.lbh-radios input[data-testid="reason"]').check(
+          'Work Order Completed'
+        ) // Checking by value, not text
 
         cy.get('.govuk-button').contains('Next').click()
 
