@@ -82,6 +82,60 @@ describe('Closing my own work order', () => {
       cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
+    it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[type="radio"]').check('No Access')
+
+      cy.get('#notes').type('I attended')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: workOrderReference,
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '70',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              paymentType: 'Bonus',
+            },
+          ],
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully completed`)
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+    })
+
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -101,6 +155,12 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed')
 
       cy.get('#notes').type('I attended')
+
+      cy.get('.govuk-button').contains('Next').click()
+
+      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
+        'No'
+      )
 
       cy.get('.govuk-button').contains('Close work order').click()
 
@@ -143,6 +203,70 @@ describe('Closing my own work order', () => {
     })
 
     context('and the overtime payment type is chosen', () => {
+      it('makes a POST request for no access with overtime payment type, confirms success, and returns me to the index', () => {
+        cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+        cy.wait([
+          '@workOrderRequest',
+          '@propertyRequest',
+          '@tasksRequest',
+          '@locationAlerts',
+          '@personAlerts',
+        ])
+
+        cy.contains('Payment type')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'Overtime').click()
+          })
+
+        cy.contains('button', 'Confirm').click()
+
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.get('#notes').type('I attended')
+
+        cy.get('.govuk-form-group--error').contains(
+          'Please select a reason for closing the work order'
+        )
+
+        cy.get('.lbh-radios input[type="radio"]').check('No Access') // Checking by value, not text
+
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.wait('@workOrderCompleteRequest')
+
+        cy.get('@workOrderCompleteRequest')
+          .its('request.body')
+          .should('deep.equal', {
+            workOrderReference: {
+              id: workOrderReference,
+              description: '',
+              allocatedBy: '',
+            },
+            jobStatusUpdates: [
+              {
+                typeCode: '70',
+                otherType: 'completed',
+                comments:
+                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
+                paymentType: 'Overtime',
+              },
+            ],
+          })
+
+        cy.get('.modal-container').within(() => {
+          cy.contains(`Work order ${workOrderReference} successfully completed`)
+
+          cy.get('[data-testid="modal-close"]').click()
+        })
+
+        cy.get('.modal-container').should('not.exist')
+
+        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+      })
+
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
         cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -170,7 +294,11 @@ describe('Closing my own work order', () => {
           'Please select a reason for closing the work order'
         )
 
-        cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed') // Checking by value, not text
+        cy.get('.govuk-button').contains('Next').click()
+
+        cy.get(
+          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
+        ).check('No')
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -236,7 +364,11 @@ describe('Closing my own work order', () => {
           'Please select a reason for closing the work order'
         )
 
-        cy.get('.lbh-radios input[type="radio"]').check('Work Order Completed') // Checking by value, not text
+        cy.get('.govuk-button').contains('Next').click()
+
+        cy.get(
+          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
+        ).check('No')
 
         cy.get('.govuk-button').contains('Close work order').click()
 
