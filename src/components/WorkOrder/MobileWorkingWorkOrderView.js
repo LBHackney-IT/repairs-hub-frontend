@@ -123,9 +123,14 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     let dampAndMouldReportFormData = null
 
-    const dampAndMouldReportIncluded = data.reason === 'Work Order Completed'
+    // Only send report if workOrder completed, and there is potential
+    // damp or mould presence in the property
+    const sendDampAndMouldReport =
+      data.reason === 'Work Order Completed' &&
+      (data.isDampOrMouldInProperty === 'Yes' ||
+        data.isDampOrMouldInProperty === 'Not sure')
 
-    if (dampAndMouldReportIncluded) {
+    if (sendDampAndMouldReport) {
       dampAndMouldReportFormData = buildDampAndMouldReportData(
         data.isDampOrMouldInProperty,
         data.residentPreviouslyReported,
@@ -153,12 +158,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         }),
       ]
 
-      // only submit report requests if status is completed and there is potential damp/mould presence
-      if (
-        dampAndMouldReportIncluded &&
-        (data.isDampOrMouldInProperty === 'Yes' ||
-          data.isDampOrMouldInProperty === 'Not sure')
-      ) {
+      if (sendDampAndMouldReport) {
         promiseList.push(
           frontEndApiRequest({
             method: 'post',
