@@ -1,7 +1,123 @@
 import {
   buildCloseWorkOrderData,
+  buildDampAndMouldReportData,
   buildWorkOrderCompleteNotes,
 } from './closeWorkOrder'
+
+describe.only('buildDampAndMouldReportData', () => {
+  describe('dampAndMouldPresenceConfirmed', () => {
+    ;[
+      {
+        value: 'Yes',
+        expectedOutput: true,
+        testDescription: 'It sets the value as true',
+      },
+      {
+        value: 'Not sure',
+        expectedOutput: false,
+        testDescription: 'It sets the value as false',
+      },
+    ].forEach(({ value, expectedOutput, testDescription }) => {
+      it(testDescription, () => {
+        // Arrange
+
+        // Act
+        const result = buildDampAndMouldReportData(value, '', '', '')
+
+        // Assert
+        expect(result.dampAndMouldPresenceConfirmed).toEqual(expectedOutput)
+      })
+    })
+  })
+
+  describe('previouslyReported', () => {
+    ;[
+      {
+        value: 'Yes',
+        expectedOutput: true,
+        testDescription: 'It sets the value as true',
+      },
+      {
+        value: 'No',
+        expectedOutput: false,
+        testDescription: 'It sets the value as false',
+      },
+    ].forEach(({ value, expectedOutput, testDescription }) => {
+      it(testDescription, () => {
+        // Arrange
+
+        // Act
+        const result = buildDampAndMouldReportData('', value, '', '')
+
+        // Assert
+        expect(result.previouslyReported).toEqual(expectedOutput)
+      })
+    })
+  })
+
+  // Comments
+  describe('comments', () => {
+    it('should include comments', () => {
+      // Arrange
+      const comments = 'Comments'
+
+      // Act
+      const result = buildDampAndMouldReportData('', '', '', comments)
+
+      // Assert
+      expect(result.comments).toEqual(comments)
+    })
+  })
+
+  // previousReportResolved ("YES")
+  // not resolved ("NO")
+
+  describe('previousReportResolved', () => {
+    ;[
+      {
+        value: 'Yes',
+        previouslyReportedValue: 'Yes',
+        expectedOutput: true,
+        testDescription: 'It sets the value as true',
+      },
+      {
+        value: 'Yes',
+        previouslyReportedValue: 'No',
+        expectedOutput: false,
+        testDescription:
+          'It sets the value as false if not previously reported',
+      },
+      {
+        value: 'No',
+        previouslyReportedValue: 'Yes',
+        expectedOutput: false,
+        testDescription: 'It sets the value as false',
+      },
+    ].forEach(
+      ({ value, expectedOutput, testDescription, previouslyReportedValue }) => {
+        it(testDescription, () => {
+          // Arrange
+
+          // Act
+          const result = buildDampAndMouldReportData(
+            '',
+            previouslyReportedValue,
+            value,
+            ''
+          )
+
+          // Assert
+
+          if (previouslyReportedValue === 'No') {
+            expect(result).not.toHaveProperty('previousReportResolved')
+          } else {
+            expect(result.previousReportResolved).toEqual(expectedOutput)
+          }
+        })
+      }
+    )
+  })
+})
 
 describe('buildCloseWorkOrderData', () => {
   const completionDate = new Date()
