@@ -36,6 +36,10 @@ export const buildDampAndMouldReportData = (
 ) => {
   const requestData = {
     dampAndMouldPresenceConfirmed: isDampOrMouldInProperty === 'Yes',
+    // following the logic, previouslyReported and comments would only be visible if there is
+    // potentially damp/mould presence in the property
+    // if there is no damp/mould, no report would be created
+    // hence, no need to conditionally add these fields
     previouslyReported: residentPreviouslyReported === 'Yes',
     comments: comments ?? '',
   }
