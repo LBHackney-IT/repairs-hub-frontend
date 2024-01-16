@@ -23,7 +23,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewNextPage = async () => {
-    // validate form
+    // validate form fields on first page
     const results = await trigger('reason')
     if (!results) return
 

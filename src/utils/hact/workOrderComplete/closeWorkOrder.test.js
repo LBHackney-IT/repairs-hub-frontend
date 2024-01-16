@@ -55,7 +55,6 @@ describe.only('buildDampAndMouldReportData', () => {
     })
   })
 
-  // Comments
   describe('comments', () => {
     it('should include comments', () => {
       // Arrange
@@ -68,9 +67,6 @@ describe.only('buildDampAndMouldReportData', () => {
       expect(result.comments).toEqual(comments)
     })
   })
-
-  // previousReportResolved ("YES")
-  // not resolved ("NO")
 
   describe('previousReportResolved', () => {
     ;[
@@ -107,7 +103,6 @@ describe.only('buildDampAndMouldReportData', () => {
           )
 
           // Assert
-
           if (previouslyReportedValue === 'No') {
             expect(result).not.toHaveProperty('previousReportResolved')
           } else {
