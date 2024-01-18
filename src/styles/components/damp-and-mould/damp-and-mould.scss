@@ -1,0 +1,54 @@
+.damp-and-mould-status {
+  &.lbh-tag {
+    padding: 8px 10px;
+    font-size: 14px;
+
+    &--status-confirmed {
+      background-color: repairs-hub-colour('blue');
+      color: repairs-hub-colour('white');
+    }
+    &--status-unconfirmed {
+      background-color: repairs-hub-colour('dark-grey');
+      color: repairs-hub-colour('white');
+    }
+    &--status-resolved {
+      background-color: repairs-hub-colour('white');
+      color: repairs-hub-colour('black');
+      border: 2px solid black;
+    }
+    &--status-variation-unresolved {
+      background-color: repairs-hub-colour('dark-red');
+      color: repairs-hub-colour('white');
+    }
+  }
+}
+
+.damp-and-mould-report-table {
+  overflow-x: auto;
+}
+
+.damp-and-mould-report-frequency-badge {
+  border-radius: 30px;
+  padding: 2px 8px;
+  font-size: 12px;
+  white-space: nowrap;
+  text-align: center;
+
+  &.new-report {
+    background-color: #e2e8f0;
+    color: #334155;
+  }
+
+  &.recurring-report {
+    background-color: #f8e08e;
+    color: #483d18;
+  }
+}
+
+.damp-and-mould-flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}

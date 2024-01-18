@@ -38,6 +38,7 @@ export const TH = (props) => (
       props.type ? `govuk-table__header--${props.type}` : null,
       props.className
     )}
+    colSpan={props.colSpan}
   >
     {props.children}
   </th>

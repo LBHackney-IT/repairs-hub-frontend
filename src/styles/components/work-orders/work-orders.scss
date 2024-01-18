@@ -29,8 +29,8 @@
       color: repairs-hub-colour('black');
     }
     &--status-cancelled {
-      background-color: repairs-hub-colour('grey');
-      color: repairs-hub-colour('black');
+      background-color: repairs-hub-colour('dark-grey');
+      color: repairs-hub-colour('white');
     }
     &--status-pending-approval,
     &--status-variation-pending-approval,
