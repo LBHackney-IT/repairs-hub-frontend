@@ -28,6 +28,30 @@ export const buildCloseWorkOrderData = (
   }
 }
 
+export const buildDampAndMouldReportData = (
+  isDampOrMouldInProperty,
+  residentPreviouslyReported,
+  resolvedAtTheTime,
+  comments
+) => {
+  const requestData = {
+    dampAndMouldPresenceConfirmed: isDampOrMouldInProperty === 'Yes',
+    // following the logic, previouslyReported and comments would only be visible if there is
+    // potentially damp/mould presence in the property
+    // if there is no damp/mould, no report would be created
+    // hence, no need to conditionally add these fields
+    previouslyReported: residentPreviouslyReported === 'Yes',
+    comments: comments ?? '',
+  }
+
+  if (requestData.previouslyReported) {
+    // resolvedAtTheTime only enabled if previously reported
+    requestData['previousReportResolved'] = resolvedAtTheTime === 'Yes'
+  }
+
+  return requestData
+}
+
 const operativesAndPercentagesForNotes = (
   operativesWithPercentages,
   showPercentages = true

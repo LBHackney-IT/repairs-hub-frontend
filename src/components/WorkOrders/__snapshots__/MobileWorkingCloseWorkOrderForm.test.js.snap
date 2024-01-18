@@ -12,127 +12,354 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
     <h1
       class="lbh-heading-h2"
     >
-      Close work order
+      Close work order form
     </h1>
     <form
       role="form"
     >
       <div
-        class="govuk-form-group lbh-form-group"
+        style="display: block;"
       >
-        <label
-          class="govuk-label govuk-label--m"
-          for="reason"
+        <h2
+          class="lbh-heading-h4"
+          style="margin-bottom: 60px;"
         >
-          Select reason for closing 
-        </label>
+          Work order status
+        </h2>
         <div
-          class="govuk-radios lbh-radios"
+          class="govuk-form-group lbh-form-group"
         >
-          <div
-            class="govuk-radios__item"
+          <label
+            class="govuk-label govuk-label--s"
+            for="reason"
           >
-            <input
-              class="govuk-radios__input"
-              data-testid="reason"
-              id="reason_Work Order Completed"
-              name="reason"
-              type="radio"
-              value="Work Order Completed"
-            />
-            <label
-              class="govuk-label lbh-label govuk-radios__label"
-              for="reason_Work Order Completed"
-            >
-              Completed
-            </label>
-          </div>
+            Select reason for closing 
+          </label>
           <div
-            class="govuk-radios__item"
+            class="govuk-radios lbh-radios"
           >
-            <input
-              class="govuk-radios__input"
-              data-testid="reason"
-              id="reason_No Access"
-              name="reason"
-              type="radio"
-              value="No Access"
-            />
-            <label
-              class="govuk-label lbh-label govuk-radios__label"
-              for="reason_No Access"
-            >
-              No access
-            </label>
-          </div>
-        </div>
-      </div>
-      <div
-        class="govuk-form-group lbh-form-group"
-        id="notes-form-group"
-      >
-        <label
-          class="govuk-label lbh-label"
-          for="notes"
-        >
-          Final report 
-        </label>
-        <textarea
-          aria-describedby="notes-hint notes-error"
-          class="govuk-textarea lbh-textarea"
-          data-testid="notes"
-          id="notes"
-          name="notes"
-          rows="4"
-        />
-      </div>
-      <div
-        class="govuk-!-margin-top-8"
-      >
-        <div
-          class="warning-info-box govuk-inset-text lbh-inset-text"
-        >
-          <div
-            class="lbh-warning-text govuk-warning-text"
-          >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon"
-            >
-              !
-            </span>
             <div
-              class="govuk-warning-text__text"
+              class="govuk-radios__item"
             >
-              <span
-                class="govuk-warning-text__assistive"
+              <input
+                class="govuk-radios__input"
+                data-testid="reason"
+                id="reason_Work Order Completed"
+                name="reason"
+                type="radio"
+                value="Work Order Completed"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="reason_Work Order Completed"
               >
-                Warning
-              </span>
-              <p
-                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+                Completed
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                data-testid="reason"
+                id="reason_No Access"
+                name="reason"
+                type="radio"
+                value="No Access"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="reason_No Access"
               >
-                Other changes?
-              </p>
-              <p
-                class="lbh-body-xs govuk-!-margin-top-1"
-              >
-                Any follow on and material change must be made on paper.
-              </p>
+                No access
+              </label>
             </div>
           </div>
         </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="notes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="notes"
+          >
+            Final report 
+          </label>
+          <textarea
+            aria-describedby="notes-hint notes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="notes"
+            id="notes"
+            name="notes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-!-margin-top-8"
+        >
+          <div
+            class="warning-info-box govuk-inset-text lbh-inset-text"
+          >
+            <div
+              class="lbh-warning-text govuk-warning-text"
+            >
+              <span
+                aria-hidden="true"
+                class="govuk-warning-text__icon"
+              >
+                !
+              </span>
+              <div
+                class="govuk-warning-text__text"
+              >
+                <span
+                  class="govuk-warning-text__assistive"
+                >
+                  Warning
+                </span>
+                <p
+                  class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+                >
+                  Other changes?
+                </p>
+                <p
+                  class="lbh-body-xs govuk-!-margin-top-1"
+                >
+                  Any follow on and material change must be made on paper.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Close work order
+          </button>
+        </div>
       </div>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="display: none;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+        <h2
+          class="lbh-heading-h4"
+          style="margin-bottom: 60px;"
         >
-          Close work order
-        </button>
+          Damp and mould status
+        </h2>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <label
+            class="govuk-label govuk-label--s"
+            for="isDampOrMouldInProperty"
+          >
+            Is there damp or mould in the property? 
+          </label>
+          <div
+            class="govuk-radios lbh-radios"
+          >
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                data-testid="isDampOrMouldInProperty"
+                id="isDampOrMouldInProperty_Yes"
+                name="isDampOrMouldInProperty"
+                type="radio"
+                value="Yes"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="isDampOrMouldInProperty_Yes"
+              >
+                Yes
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                data-testid="isDampOrMouldInProperty"
+                id="isDampOrMouldInProperty_No"
+                name="isDampOrMouldInProperty"
+                type="radio"
+                value="No"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="isDampOrMouldInProperty_No"
+              >
+                No
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                data-testid="isDampOrMouldInProperty"
+                id="isDampOrMouldInProperty_Not sure"
+                name="isDampOrMouldInProperty"
+                type="radio"
+                value="Not sure"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="isDampOrMouldInProperty_Not sure"
+              >
+                Not sure
+              </label>
+            </div>
+          </div>
+        </div>
+        <div
+          style="display: none;"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--s"
+              for="residentPreviouslyReported"
+            >
+              Has the resident previously reported damp or mould? 
+            </label>
+            <div
+              class="govuk-radios lbh-radios"
+            >
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="residentPreviouslyReported"
+                  id="residentPreviouslyReported_Yes"
+                  name="residentPreviouslyReported"
+                  type="radio"
+                  value="Yes"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="residentPreviouslyReported_Yes"
+                >
+                  Yes
+                </label>
+              </div>
+              <div
+                class="govuk-radios__item"
+              >
+                <input
+                  class="govuk-radios__input"
+                  data-testid="residentPreviouslyReported"
+                  id="residentPreviouslyReported_No"
+                  name="residentPreviouslyReported"
+                  type="radio"
+                  value="No"
+                />
+                <label
+                  class="govuk-label lbh-label govuk-radios__label"
+                  for="residentPreviouslyReported_No"
+                >
+                  No
+                </label>
+              </div>
+            </div>
+          </div>
+          <div
+            style="display: none;"
+          >
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <label
+                class="govuk-label govuk-label--s"
+                for="resolvedAtTheTime"
+              >
+                Was the previously reported damp or mould resolved at the time? 
+              </label>
+              <div
+                class="govuk-radios lbh-radios"
+              >
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    data-testid="resolvedAtTheTime"
+                    id="resolvedAtTheTime_Yes"
+                    name="resolvedAtTheTime"
+                    type="radio"
+                    value="Yes"
+                  />
+                  <label
+                    class="govuk-label lbh-label govuk-radios__label"
+                    for="resolvedAtTheTime_Yes"
+                  >
+                    Yes
+                  </label>
+                </div>
+                <div
+                  class="govuk-radios__item"
+                >
+                  <input
+                    class="govuk-radios__input"
+                    data-testid="resolvedAtTheTime"
+                    id="resolvedAtTheTime_No"
+                    name="resolvedAtTheTime"
+                    type="radio"
+                    value="No"
+                  />
+                  <label
+                    class="govuk-label lbh-label govuk-radios__label"
+                    for="resolvedAtTheTime_No"
+                  >
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="comments-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="comments"
+            >
+              Comments 
+            </label>
+            <textarea
+              aria-describedby="comments-hint comments-error"
+              class="govuk-textarea lbh-textarea"
+              data-testid="comments"
+              id="comments"
+              labelsize="s"
+              name="comments"
+              rows="4"
+            />
+          </div>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Close work order
+          </button>
+        </div>
       </div>
     </form>
   </div>
