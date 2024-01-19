@@ -13,6 +13,17 @@
 
     @include govuk-media-query($from: tablet) {
       display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    a {
+      @include govuk-media-query($from: tablet) {
+        margin: 0;
+        padding: 0;
+
+        margin-left: 20px;
+      }
     }
   }
 
@@ -40,10 +51,15 @@
     @include govuk-media-query($until: tablet) {
       margin: 0;
     }
+
+    @include govuk-media-query($from: tablet) {
+      margin-right: 60px;
+    }
   }
 
   .lbh-header__wrapper {
     align-items: center;
+    justify-content: space-between;
   }
 
   .development-header .lbh-header__main {

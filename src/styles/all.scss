@@ -17,6 +17,7 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/work-orders/rate-schedule-item';
 @import 'components/work-orders/tasks';
 @import 'components/work-orders/work-orders';
+@import 'components/damp-and-mould/damp-and-mould';
 @import 'components/tabs';
 @import 'components/notes';
 @import 'components/pagination';
@@ -25,7 +26,7 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/sor-status';
 @import 'components/warning-info-box';
 @import 'components/arrow';
-@import 'table-row';
+@import 'table';
 @import 'components/circle-tag';
 @import 'components/mobile-working/mobile-menu';
 @import 'components/mobile-working/mobile-working-title-banner';
@@ -36,5 +37,4 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/mobile-working/login';
 @import 'components/back-office.scss';
 @import '@reach/dialog/styles.css';
-@import 'components/contact-details-table.scss'
-
+@import 'components/contact-details-table.scss';
