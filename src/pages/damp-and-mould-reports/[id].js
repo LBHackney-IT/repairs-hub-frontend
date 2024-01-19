@@ -1,13 +1,7 @@
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
-import {
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-} from '@/utils/user'
+import { DAMP_AND_MOULD_MANAGER_ROLE, DATA_ADMIN_ROLE } from '@/utils/user'
 import DampAndMouldReportsPropertyViewLayout from '../../components/DampAndMouldReports/views/DampAndMouldReportsPropertyViewLayout'
 
 const DampAndMouldReportsPage = ({ query }) => {
@@ -22,11 +16,8 @@ const DampAndMouldReportsPage = ({ query }) => {
 export const getServerSideProps = getQueryProps
 
 DampAndMouldReportsPage.permittedRoles = [
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
+  DAMP_AND_MOULD_MANAGER_ROLE,
+  DATA_ADMIN_ROLE,
 ]
 
 export default DampAndMouldReportsPage
