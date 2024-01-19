@@ -1,2 +1,2 @@
 export * from './DampAndMouldReportsView'
-export * from './DampAndMouldReportsPropertyReportsView'
+export * from '../components/DampAndMouldReportsPropertyReportsView'

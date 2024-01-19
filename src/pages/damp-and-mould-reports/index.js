@@ -8,13 +8,13 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
 } from '@/utils/user'
-import DampAndMouldReportsPropertyViewLayout from '../../components/DampAndMouldReports/components/DampAndMouldReportsPropertyViewLayout'
+import DampAndMouldReportsView from '../../components/DampAndMouldReports/views/DampAndMouldReportsView'
 
 const DampAndMouldReportsPage = () => {
   return (
     <>
       <Meta title={`Damp and Mould reports`} />
-      <DampAndMouldReportsPropertyViewLayout />
+      <DampAndMouldReportsView />
     </>
   )
 }

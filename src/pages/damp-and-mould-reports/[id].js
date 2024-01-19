@@ -8,7 +8,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
 } from '@/utils/user'
-import DampAndMouldReportsPropertyViewLayout from '../../components/DampAndMouldReports/components/DampAndMouldReportsPropertyViewLayout'
+import DampAndMouldReportsPropertyViewLayout from '../../components/DampAndMouldReports/views/DampAndMouldReportsPropertyViewLayout'
 
 const DampAndMouldReportsPage = ({ query }) => {
   return (

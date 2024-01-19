@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import Spinner from '../../Spinner'
 import { frontEndApiRequest } from '../../../utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import DampAndMouldReportsPropertyReportsView from '../views/DampAndMouldReportsPropertyReportsView'
+import DampAndMouldReportsPropertyReportsView from '../components/DampAndMouldReportsPropertyReportsView'
 
 const DampAndMouldReportsPropertyViewLayout = ({ propertyReference }) => {
   const [property, setProperty] = useState(null)
@@ -43,7 +43,7 @@ const DampAndMouldReportsPropertyViewLayout = ({ propertyReference }) => {
       ) : (
         <>
           <h2 className="lbh-heading-h2" style={{ marginTop: '30px' }}>
-            <Link href={`properties/${propertyReference ?? null}`}>
+            <Link href={`/properties/${propertyReference ?? null}`}>
               {property ?? ''}
             </Link>
           </h2>

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { fetchReports } from '../fetchReports'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
-import DampAndMouldReportTable from '../components/DampAndMouldReportTable'
+import DampAndMouldReportTable from './DampAndMouldReportTable'
 import { Button } from '../../Form'
 
 const DampAndMouldReportsPropertyReportsView = ({ propertyReference }) => {
