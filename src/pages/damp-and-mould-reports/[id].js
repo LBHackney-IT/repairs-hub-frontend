@@ -7,7 +7,7 @@ import DampAndMouldReportsPropertyViewLayout from '../../components/DampAndMould
 const DampAndMouldReportsPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Damp and Mould reports`} />
+      <Meta title={`Damp and mould reports`} />
       <DampAndMouldReportsPropertyViewLayout propertyReference={query.id} />
     </>
   )

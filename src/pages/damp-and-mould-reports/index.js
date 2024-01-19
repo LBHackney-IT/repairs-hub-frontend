@@ -7,7 +7,7 @@ import DampAndMouldReportsView from '../../components/DampAndMouldReports/views/
 const DampAndMouldReportsPage = () => {
   return (
     <>
-      <Meta title={`Damp and Mould reports`} />
+      <Meta title={`Damp and mould reports`} />
       <DampAndMouldReportsView />
     </>
   )

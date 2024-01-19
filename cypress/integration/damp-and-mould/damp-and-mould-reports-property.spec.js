@@ -5,7 +5,7 @@ import reportsFixture from '../../fixtures/dampAndMouldReports/reports'
 
 const PROPERTY_REFERENCE = '001234567788'
 
-describe('Damp and Mould reports property page page', () => {
+describe('Damp and mould reports property page page', () => {
   beforeEach(() => {
     cy.loginDampAndMouldManagerRole()
 

@@ -34,7 +34,7 @@ const DampAndMouldReportsPropertyViewLayout = ({ propertyReference }) => {
     <>
       <BackButton />
 
-      <h1 className="lbh-heading-h1">Damp and Mould reports</h1>
+      <h1 className="lbh-heading-h1">Damp and mould reports</h1>
 
       {error && <ErrorMessage label={error} />}
 

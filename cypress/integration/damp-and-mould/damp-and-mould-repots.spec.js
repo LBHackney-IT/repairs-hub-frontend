@@ -4,7 +4,7 @@ import 'cypress-audit/commands'
 
 import reportsFixture from '../../fixtures/dampAndMouldReports/reports'
 
-describe('Damp and Mould reports page', () => {
+describe('Damp and mould reports page', () => {
   beforeEach(() => {
     cy.loginDampAndMouldManagerRole()
 
