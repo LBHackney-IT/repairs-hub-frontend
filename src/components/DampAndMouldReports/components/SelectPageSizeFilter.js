@@ -5,6 +5,7 @@ const SelectPageSizeFilter = ({ pageSize, setPageSize }) => {
         Show:
       </label>
       <select
+        data-testid="dampAndMould_pageSizeSelect"
         className={`govuk-select lbh-select govuk-!-width-full`}
         value={pageSize}
         onChange={(e) => setPageSize(e.target.value)}

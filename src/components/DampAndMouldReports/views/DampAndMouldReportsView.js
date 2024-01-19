@@ -55,11 +55,12 @@ const DampAndMouldReportsView = () => {
           <DampAndMouldReportTable reports={reports.results} />
 
           <div className="page-navigation govuk-!-padding-bottom-5">
-            {reports.pageNumber > 1 && (
+            {pageNumber > 1 && (
               <Button
                 label="Previous page"
                 onClick={handlePreviousPage}
                 type="submit"
+                data-testid="dampAndMould_previousPageButton"
               />
             )}
             {pageNumber < reports.pageCount && (
@@ -68,6 +69,7 @@ const DampAndMouldReportsView = () => {
                 onClick={handleNextPage}
                 type="submit"
                 className="right-page-button"
+                data-testid="dampAndMould_nextPageButton"
               />
             )}
           </div>

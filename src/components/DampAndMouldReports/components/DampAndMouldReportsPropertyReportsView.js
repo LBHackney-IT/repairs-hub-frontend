@@ -6,7 +6,7 @@ import DampAndMouldReportTable from './DampAndMouldReportTable'
 import { Button } from '../../Form'
 
 const DampAndMouldReportsPropertyReportsView = ({ propertyReference }) => {
-  const pageSize = 6
+  const pageSize = 20
   const [pageNumber, setPageNumber] = useState(1)
 
   const [reportsApiResponse, setReportsApiResponse] = useState(null)
