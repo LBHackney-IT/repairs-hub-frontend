@@ -97,6 +97,7 @@ describe.only('buildDampAndMouldReportData', () => {
           // Act
           const result = buildDampAndMouldReportData(
             '',
+            '',
             previouslyReportedValue,
             value,
             ''
