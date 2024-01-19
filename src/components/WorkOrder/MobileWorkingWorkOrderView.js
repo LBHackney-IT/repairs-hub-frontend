@@ -132,6 +132,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     if (sendDampAndMouldReport) {
       dampAndMouldReportFormData = buildDampAndMouldReportData(
+        property.address.addressLine,
         data.isDampOrMouldInProperty,
         data.residentPreviouslyReported,
         data.resolvedAtTheTime,

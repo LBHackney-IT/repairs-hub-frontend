@@ -29,12 +29,14 @@ export const buildCloseWorkOrderData = (
 }
 
 export const buildDampAndMouldReportData = (
+  address,
   isDampOrMouldInProperty,
   residentPreviouslyReported,
   resolvedAtTheTime,
   comments
 ) => {
   const requestData = {
+    address: address,
     dampAndMouldPresenceConfirmed: isDampOrMouldInProperty === 'Yes',
     // following the logic, previouslyReported and comments would only be visible if there is
     // potentially damp/mould presence in the property
