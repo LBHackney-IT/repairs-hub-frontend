@@ -85,22 +85,11 @@ describe('DampAndMouldReportTable component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should should hide the other reports column', async () => {
+  it('should should hide additional property info columns', async () => {
     const { asFragment } = render(
       <DampAndMouldReportTable
         reports={apiResponse.results}
-        showOtherReportsColumn={false}
-      />
-    )
-
-    expect(asFragment()).toMatchSnapshot()
-  })
-
-  it('should hide the property column', async () => {
-    const { asFragment } = render(
-      <DampAndMouldReportTable
-        reports={apiResponse.results}
-        showPropertyColum={false}
+        showAdditionalPropertyInfo={false}
       />
     )
 

@@ -8,8 +8,7 @@ import ReportFrequencyBadge from './ReportFrequencyBadge'
 
 const DampAndMouldReportTable = ({
   reports,
-  showOtherReportsColumn = true,
-  showPropertyColumn = true,
+  showAdditionalPropertyInfo = true,
 }) => {
   return (
     <div className="damp-and-mould-report-table">
@@ -19,7 +18,7 @@ const DampAndMouldReportTable = ({
             <TH scope="col" className="lbh-body-xs">
               Date reported
             </TH>
-            {showPropertyColumn && (
+            {showAdditionalPropertyInfo && (
               <TH scope="col" className="lbh-body-xs">
                 Property
               </TH>
@@ -33,7 +32,7 @@ const DampAndMouldReportTable = ({
             <TH scope="col" className="lbh-body-xs">
               Comments
             </TH>
-            {showOtherReportsColumn && (
+            {showAdditionalPropertyInfo && (
               <TH scope="col" className="lbh-body-xs">
                 Other reports
               </TH>
@@ -49,7 +48,7 @@ const DampAndMouldReportTable = ({
             >
               <TD className="lbh-body-xs">{dateToStr(report.reportedAt)}</TD>
 
-              {showPropertyColumn && (
+              {showAdditionalPropertyInfo && (
                 <TD className="lbh-body-xs">
                   <Link href={`/properties/${report.propertyReference}`}>
                     <a className="lbh-link" style={{ fontSize: '14px' }}>
@@ -93,7 +92,7 @@ const DampAndMouldReportTable = ({
                   linkClassName="description lbh-body-xs"
                 />
               </TD>
-              {showOtherReportsColumn && (
+              {showAdditionalPropertyInfo && (
                 <TD>
                   <Link
                     href={`damp-and-mould-reports/${report.propertyReference}`}

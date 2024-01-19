@@ -6,12 +6,12 @@ const ReportFrequencyBadge = ({ numberOfReports }) => {
       <span
         className={cx([
           'damp-and-mould-report-frequency-badge ',
-          numberOfReports === 0 ? 'new-report' : 'recurring-report',
+          numberOfReports > 1 ? 'recurring-report' : 'new-report',
         ])}
       >
-        {numberOfReports === 0
-          ? 'New report'
-          : `${numberOfReports} recent reports`}
+        {numberOfReports > 1
+          ? `${numberOfReports} recent reports`
+          : 'New report'}
       </span>
     </div>
   )

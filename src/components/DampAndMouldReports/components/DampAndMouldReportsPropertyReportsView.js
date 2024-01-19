@@ -72,8 +72,7 @@ const DampAndMouldReportsPropertyReportsView = ({ propertyReference }) => {
         <>
           <DampAndMouldReportTable
             reports={reports}
-            showOtherReportsColumn={false}
-            showPropertyColumn={false}
+            showAdditionalPropertyInfo={false}
           />
 
           {isMorePages && (
