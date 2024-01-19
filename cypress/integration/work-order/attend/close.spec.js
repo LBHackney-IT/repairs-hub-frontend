@@ -326,6 +326,7 @@ describe('Closing my own work order', () => {
         cy.get('@dampAndMouldReportRequest')
           .its('request.body')
           .should('deep.equal', {
+            address: '16 Pitcairn House  St Thomass Square',
             dampAndMouldPresenceConfirmed: confirmed,
             previouslyReported: false,
             comments: 'Comments',
@@ -385,6 +386,7 @@ describe('Closing my own work order', () => {
       cy.get('@dampAndMouldReportRequest')
         .its('request.body')
         .should('deep.equal', {
+          address: '16 Pitcairn House  St Thomass Square',
           dampAndMouldPresenceConfirmed: true,
           previouslyReported: true,
           previousReportResolved: false,
@@ -444,6 +446,7 @@ describe('Closing my own work order', () => {
       cy.get('@dampAndMouldReportRequest')
         .its('request.body')
         .should('deep.equal', {
+          address: '16 Pitcairn House  St Thomass Square',
           dampAndMouldPresenceConfirmed: true,
           previouslyReported: true,
           previousReportResolved: true,

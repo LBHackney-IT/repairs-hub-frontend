@@ -189,7 +189,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                         ) {
                           return 'Please indicate whether the damp or mould was resolved after it was previously reported'
                         }
-
                         return true
                       },
                     },
