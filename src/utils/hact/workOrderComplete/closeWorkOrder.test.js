@@ -5,6 +5,19 @@ import {
 } from './closeWorkOrder'
 
 describe.only('buildDampAndMouldReportData', () => {
+  describe('address', () => {
+    it('should include address', () => {
+      // Arrange
+      const address = '1 Address Rd, Town'
+
+      // Act
+      const result = buildDampAndMouldReportData(address, '', '', '', '')
+
+      // Assert
+      expect(result.address).toEqual(address)
+    })
+  })
+
   describe('dampAndMouldPresenceConfirmed', () => {
     ;[
       {
@@ -22,7 +35,7 @@ describe.only('buildDampAndMouldReportData', () => {
         // Arrange
 
         // Act
-        const result = buildDampAndMouldReportData(value, '', '', '')
+        const result = buildDampAndMouldReportData('', value, '', '', '')
 
         // Assert
         expect(result.dampAndMouldPresenceConfirmed).toEqual(expectedOutput)
@@ -47,7 +60,7 @@ describe.only('buildDampAndMouldReportData', () => {
         // Arrange
 
         // Act
-        const result = buildDampAndMouldReportData('', value, '', '')
+        const result = buildDampAndMouldReportData('', '', value, '', '')
 
         // Assert
         expect(result.previouslyReported).toEqual(expectedOutput)
@@ -61,7 +74,7 @@ describe.only('buildDampAndMouldReportData', () => {
       const comments = 'Comments'
 
       // Act
-      const result = buildDampAndMouldReportData('', '', '', comments)
+      const result = buildDampAndMouldReportData('', '', '', '', comments)
 
       // Assert
       expect(result.comments).toEqual(comments)
