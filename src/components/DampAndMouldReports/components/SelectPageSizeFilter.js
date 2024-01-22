@@ -1,6 +1,6 @@
 const SelectPageSizeFilter = ({ pageSize, setPageSize }) => {
   return (
-    <div className="damp-and-mould-flex-container">
+    <div className="damp-and-mould-flex-container damp-and-mould-filter">
       <label for="pageSizeSelect" style={{ marginRight: '15px' }}>
         Show:
       </label>
