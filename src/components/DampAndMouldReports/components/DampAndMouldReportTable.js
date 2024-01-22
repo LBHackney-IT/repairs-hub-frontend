@@ -47,14 +47,11 @@ const DampAndMouldReportTable = ({
               className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
             >
               <TD className="lbh-body-xs">{dateToStr(report.reportedAt)}</TD>
-
               {showAdditionalPropertyInfo && (
                 <TD className="lbh-body-xs">
-                  <Link href={`/properties/${report.propertyReference}`}>
-                    <a className="lbh-link" style={{ fontSize: '14px' }}>
-                      {report.address}
-                    </a>
-                  </Link>
+                  <span className="damp-and-mould-address">
+                    {report.address}
+                  </span>
 
                   <ReportFrequencyBadge
                     numberOfReports={report.numberOfRecentReportsForProperty}
