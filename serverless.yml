@@ -47,6 +47,7 @@ functions:
       AGENTS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/agents-group-regex}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
       BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/budget-code-officer-group}
+      DAMP_AND_MOULD_MANAGER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/damp-and-mould-manager-group}
       DATA_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/data-admin-group}
       CONFIGURATION_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/configuration-api-url}
       CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}

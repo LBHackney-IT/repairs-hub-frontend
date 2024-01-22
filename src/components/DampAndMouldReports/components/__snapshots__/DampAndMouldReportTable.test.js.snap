@@ -1,0 +1,717 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DampAndMouldReportTable component should render the component 1`] = `
+<DocumentFragment>
+  <div
+    class="damp-and-mould-report-table"
+  >
+    <table
+      class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
+    >
+      <thead
+        class="govuk-table__head"
+      >
+        <tr
+          class="govuk-table__row lbh-body"
+        >
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Date reported
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Property
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Damp/Mould presence
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Resident's previous report status
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Comments
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Reports for property
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="14"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  new-report"
+              >
+                New report
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/12345678"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="13"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  recurring-report"
+              >
+                7 recent reports
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          />
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/00023390"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="12"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  recurring-report"
+              >
+                7 recent reports
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-resolved"
+            >
+              Resolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/00023390"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="11"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  recurring-report"
+              >
+                7 recent reports
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/00023390"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="10"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  recurring-report"
+              >
+                7 recent reports
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/00023390"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="9"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="damp-and-mould-address"
+            >
+              55 Other Street
+            </span>
+            <div
+              style="margin-top: 5px; margin-left: -5px;"
+            >
+              <span
+                class="damp-and-mould-report-frequency-badge  recurring-report"
+              >
+                7 recent reports
+              </span>
+            </div>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+          <td
+            class="govuk-table__cell"
+          >
+            <a
+              class="lbh-link"
+              href="/damp-and-mould-reports/00023390"
+              style="font-size: 14px;"
+            >
+              View related reports
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`DampAndMouldReportTable component should should hide additional property info columns 1`] = `
+<DocumentFragment>
+  <div
+    class="damp-and-mould-report-table"
+  >
+    <table
+      class="govuk-table lbh-table govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table"
+    >
+      <thead
+        class="govuk-table__head"
+      >
+        <tr
+          class="govuk-table__row lbh-body"
+        >
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Date reported
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Damp/Mould presence
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Resident's previous report status
+          </th>
+          <th
+            class="govuk-table__header lbh-body-xs"
+            scope="col"
+          >
+            Comments
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        class="govuk-table__body"
+      >
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="14"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="13"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          />
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="12"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-resolved"
+            >
+              Resolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="11"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="10"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+        <tr
+          class="govuk-table__row govuk-table__row--clickable lbh-body-s hackney-work-order-table"
+          data-ref="9"
+        >
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            18 Jan 2024
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unconfirmed"
+            >
+              Unconfirmed
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell lbh-body-xs"
+          >
+            <span
+              class="govuk-tag lbh-tag bh-body-xs damp-and-mould-status  lbh-tag--status-unresolved"
+            >
+              Unresolved
+            </span>
+          </td>
+          <td
+            class="govuk-table__cell description lbh-body-xs"
+          >
+            <p
+              class="truncate-description truncate-line-5"
+            >
+              Hello there
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</DocumentFragment>
+`;
