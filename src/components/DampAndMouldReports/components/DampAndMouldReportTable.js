@@ -27,14 +27,14 @@ const DampAndMouldReportTable = ({
               Damp/Mould presence
             </TH>
             <TH scope="col" className="lbh-body-xs">
-              Previously reported
+              Resident's previous report status
             </TH>
             <TH scope="col" className="lbh-body-xs">
               Comments
             </TH>
             {showAdditionalPropertyInfo && (
               <TH scope="col" className="lbh-body-xs">
-                Other reports
+                Reports for property
               </TH>
             )}
           </TR>
@@ -47,17 +47,15 @@ const DampAndMouldReportTable = ({
               className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
             >
               <TD className="lbh-body-xs">{dateToStr(report.reportedAt)}</TD>
-
               {showAdditionalPropertyInfo && (
                 <TD className="lbh-body-xs">
-                  <Link href={`/properties/${report.propertyReference}`}>
-                    <a className="lbh-link" style={{ fontSize: '14px' }}>
-                      {report.address}
-                    </a>
-                  </Link>
+                  <span className="damp-and-mould-address">
+                    {report.address}
+                  </span>
 
                   <ReportFrequencyBadge
                     numberOfReports={report.numberOfRecentReportsForProperty}
+                    reportedAt={report.reportedAt}
                   />
                 </TD>
               )}
@@ -98,7 +96,7 @@ const DampAndMouldReportTable = ({
                     href={`damp-and-mould-reports/${report.propertyReference}`}
                   >
                     <a style={{ fontSize: '14px' }} className="lbh-link">
-                      View all reports
+                      View related reports
                     </a>
                   </Link>
                 </TD>

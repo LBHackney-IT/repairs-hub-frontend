@@ -36,7 +36,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Previously reported
+            Resident's previous report status
           </th>
           <th
             class="govuk-table__header lbh-body-xs"
@@ -48,7 +48,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Other reports
+            Reports for property
           </th>
         </tr>
       </thead>
@@ -67,13 +67,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/12345678"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -119,7 +117,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/12345678"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -135,13 +133,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/00023390"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -181,7 +177,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/00023390"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -197,13 +193,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/00023390"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -249,7 +243,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/00023390"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -265,13 +259,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/00023390"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -317,7 +309,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/00023390"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -333,13 +325,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/00023390"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -385,7 +375,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/00023390"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -401,13 +391,11 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
           <td
             class="govuk-table__cell lbh-body-xs"
           >
-            <a
-              class="lbh-link"
-              href="/properties/00023390"
-              style="font-size: 14px;"
+            <span
+              class="damp-and-mould-address"
             >
               55 Other Street
-            </a>
+            </span>
             <div
               style="margin-top: 5px; margin-left: -5px;"
             >
@@ -453,7 +441,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
               href="/damp-and-mould-reports/00023390"
               style="font-size: 14px;"
             >
-              View all reports
+              View related reports
             </a>
           </td>
         </tr>
@@ -493,7 +481,7 @@ exports[`DampAndMouldReportTable component should should hide additional propert
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Previously reported
+            Resident's previous report status
           </th>
           <th
             class="govuk-table__header lbh-body-xs"

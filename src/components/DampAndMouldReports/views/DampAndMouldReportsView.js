@@ -11,6 +11,11 @@ const DampAndMouldReportsView = () => {
   const [reports, setReports] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  // reset pageNumber when pageSize changes
+  useEffect(() => {
+    setPageNumber(1)
+  }, [pageSize])
+
   useEffect(() => {
     setIsLoading(true)
 
@@ -38,8 +43,8 @@ const DampAndMouldReportsView = () => {
     <div className="govuk-body">
       <h1 className="lbh-heading-h1">Damp and mould reports</h1>
 
-      <div className="damp-and-mould-flex-container">
-        <span>
+      <div className="damp-and-mould-controls">
+        <span className="damp-and-mould-showing">
           Showing items {pageSize * (pageNumber - 1) + 1 ?? 0} -{' '}
           {Math.min(pageSize * pageNumber, reports?.totalCount ?? 0)} of{' '}
           {reports?.totalCount ?? 0} results
