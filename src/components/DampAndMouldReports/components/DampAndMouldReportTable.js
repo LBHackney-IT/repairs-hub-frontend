@@ -55,6 +55,7 @@ const DampAndMouldReportTable = ({
 
                   <ReportFrequencyBadge
                     numberOfReports={report.numberOfRecentReportsForProperty}
+                    reportedAt={report.reportedAt}
                   />
                 </TD>
               )}
