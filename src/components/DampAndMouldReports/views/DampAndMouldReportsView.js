@@ -11,6 +11,11 @@ const DampAndMouldReportsView = () => {
   const [reports, setReports] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
+  // reset pageNumber when pageSize changes
+  useEffect(() => {
+    setPageNumber(1)
+  }, [pageSize])
+
   useEffect(() => {
     setIsLoading(true)
 
@@ -24,7 +29,7 @@ const DampAndMouldReportsView = () => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [pageNumber, pageSize])
+  }, [pageNumber])
 
   const handleNextPage = () => {
     setPageNumber((x) => x + 1)
