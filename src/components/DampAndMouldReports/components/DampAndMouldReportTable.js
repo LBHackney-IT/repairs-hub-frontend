@@ -34,7 +34,7 @@ const DampAndMouldReportTable = ({
             </TH>
             {showAdditionalPropertyInfo && (
               <TH scope="col" className="lbh-body-xs">
-                Other reports
+                Reports for property
               </TH>
             )}
           </TR>
@@ -96,7 +96,7 @@ const DampAndMouldReportTable = ({
                     href={`damp-and-mould-reports/${report.propertyReference}`}
                   >
                     <a style={{ fontSize: '14px' }} className="lbh-link">
-                      View all reports
+                      View related reports
                     </a>
                   </Link>
                 </TD>
