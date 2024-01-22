@@ -110,110 +110,112 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
             )}
           </div>
 
-          <div
-            style={{
-              display: currentPage === PAGES.DAMP_OR_MOULD ? 'block' : 'none',
-            }}
-          >
-            <h2 className="lbh-heading-h4" style={{ marginBottom: '60px' }}>
-              Damp and mould status
-            </h2>
-
-            <Radios
-              labelSize="s"
-              label="Is there damp or mould in the property?"
-              name="isDampOrMouldInProperty"
-              options={['Yes', 'No', 'Not sure']}
-              register={register({
-                validate: {
-                  required: (value) => {
-                    if (
-                      !value &&
-                      getValues('reason') === 'Work Order Completed'
-                    ) {
-                      return 'Please indicate whether there is damp or mould in the property'
-                    }
-
-                    return true
-                  },
-                },
-              })}
-              error={errors && errors.isDampOrMouldInProperty}
-            />
-
+          {DAMP_AND_MOULD_FORM_ENABLED && (
             <div
               style={{
-                display:
-                  watchedIsDampOrMouldInPropertyField === 'Yes' ||
-                  watchedIsDampOrMouldInPropertyField === 'Not sure'
-                    ? 'block'
-                    : 'none',
+                display: currentPage === PAGES.DAMP_OR_MOULD ? 'block' : 'none',
               }}
             >
+              <h2 className="lbh-heading-h4" style={{ marginBottom: '60px' }}>
+                Damp and mould status
+              </h2>
+
               <Radios
                 labelSize="s"
-                label="Has the resident previously reported damp or mould?"
-                name="residentPreviouslyReported"
-                options={['Yes', 'No']}
+                label="Is there damp or mould in the property?"
+                name="isDampOrMouldInProperty"
+                options={['Yes', 'No', 'Not sure']}
                 register={register({
                   validate: {
                     required: (value) => {
-                      const isDampOrMouldPresence =
-                        getValues('isDampOrMouldInProperty') === 'Yes' ||
-                        getValues('isDampOrMouldInProperty') === 'Not sure'
-
-                      if (!value && isDampOrMouldPresence) {
-                        return 'Please indicate whether the resident has previous reported damp or mould in the property'
+                      if (
+                        !value &&
+                        getValues('reason') === 'Work Order Completed'
+                      ) {
+                        return 'Please indicate whether there is damp or mould in the property'
                       }
 
                       return true
                     },
                   },
                 })}
-                error={errors && errors.residentPreviouslyReported}
+                error={errors && errors.isDampOrMouldInProperty}
               />
 
               <div
                 style={{
                   display:
-                    watchedResidentPreviouslyReportedField === 'Yes'
+                    watchedIsDampOrMouldInPropertyField === 'Yes' ||
+                    watchedIsDampOrMouldInPropertyField === 'Not sure'
                       ? 'block'
                       : 'none',
                 }}
               >
                 <Radios
                   labelSize="s"
-                  label="Was the previously reported damp or mould resolved at the time?"
-                  name="resolvedAtTheTime"
+                  label="Has the resident previously reported damp or mould?"
+                  name="residentPreviouslyReported"
                   options={['Yes', 'No']}
                   register={register({
                     validate: {
                       required: (value) => {
-                        if (
-                          !value &&
-                          getValues('residentPreviouslyReported') === 'Yes'
-                        ) {
-                          return 'Please indicate whether the damp or mould was resolved after it was previously reported'
+                        const isDampOrMouldPresence =
+                          getValues('isDampOrMouldInProperty') === 'Yes' ||
+                          getValues('isDampOrMouldInProperty') === 'Not sure'
+
+                        if (!value && isDampOrMouldPresence) {
+                          return 'Please indicate whether the resident has previous reported damp or mould in the property'
                         }
+
                         return true
                       },
                     },
                   })}
-                  error={errors && errors.resolvedAtTheTime}
+                  error={errors && errors.residentPreviouslyReported}
+                />
+
+                <div
+                  style={{
+                    display:
+                      watchedResidentPreviouslyReportedField === 'Yes'
+                        ? 'block'
+                        : 'none',
+                  }}
+                >
+                  <Radios
+                    labelSize="s"
+                    label="Was the previously reported damp or mould resolved at the time?"
+                    name="resolvedAtTheTime"
+                    options={['Yes', 'No']}
+                    register={register({
+                      validate: {
+                        required: (value) => {
+                          if (
+                            !value &&
+                            getValues('residentPreviouslyReported') === 'Yes'
+                          ) {
+                            return 'Please indicate whether the damp or mould was resolved after it was previously reported'
+                          }
+                          return true
+                        },
+                      },
+                    })}
+                    error={errors && errors.resolvedAtTheTime}
+                  />
+                </div>
+
+                <TextArea
+                  labelSize="s"
+                  name="comments"
+                  label="Comments"
+                  register={register}
+                  error={errors && errors.comments}
                 />
               </div>
 
-              <TextArea
-                labelSize="s"
-                name="comments"
-                label="Comments"
-                register={register}
-                error={errors && errors.comments}
-              />
+              <PrimarySubmitButton label="Close work order" />
             </div>
-
-            <PrimarySubmitButton label="Close work order" />
-          </div>
+          )}
         </form>
       </div>
     </>
