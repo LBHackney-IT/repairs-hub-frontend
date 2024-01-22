@@ -29,7 +29,7 @@ const DampAndMouldReportsView = () => {
       .finally(() => {
         setIsLoading(false)
       })
-  }, [pageNumber])
+  }, [pageNumber, pageSize])
 
   const handleNextPage = () => {
     setPageNumber((x) => x + 1)

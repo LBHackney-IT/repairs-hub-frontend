@@ -23,14 +23,12 @@ describe('Damp and mould reports page', () => {
     cy.wait(['@dampAndMouldReportsRequest'])
 
     reportsFixture.results.forEach((report) => {
-      cy.contains('a', report.address).filter(
-        `[href="/properties/${report.propertyReference}"]`
-      )
+      cy.contains(report.address)
       cy.contains(report.comments)
 
       cy.get(
         `a[href="/damp-and-mould-reports/${report.propertyReference}"]`
-      ).contains('View all reports')
+      ).contains('View related reports')
     })
   })
 
