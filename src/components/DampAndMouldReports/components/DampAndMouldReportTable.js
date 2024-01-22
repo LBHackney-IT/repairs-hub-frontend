@@ -27,7 +27,7 @@ const DampAndMouldReportTable = ({
               Damp/Mould presence
             </TH>
             <TH scope="col" className="lbh-body-xs">
-              Previously reported
+              Resident's previous report status
             </TH>
             <TH scope="col" className="lbh-body-xs">
               Comments

@@ -36,7 +36,7 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Previously reported
+            Resident's previous report status
           </th>
           <th
             class="govuk-table__header lbh-body-xs"
@@ -481,7 +481,7 @@ exports[`DampAndMouldReportTable component should should hide additional propert
             class="govuk-table__header lbh-body-xs"
             scope="col"
           >
-            Previously reported
+            Resident's previous report status
           </th>
           <th
             class="govuk-table__header lbh-body-xs"
