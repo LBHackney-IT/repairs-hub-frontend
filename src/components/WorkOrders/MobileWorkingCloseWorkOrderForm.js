@@ -40,13 +40,18 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
     'residentPreviouslyReported'
   )
 
+  const DAMP_AND_MOULD_FORM_ENABLED =
+    process.env.NEXT_PUBLIC_DAMP_AND_MOULD_FORM_ENABLED === 'true'
+
   return (
     <>
       <div>
         {/* if on second page, override back button */}
         <BackButton
           onClick={
-            currentPage === PAGES.DAMP_OR_MOULD ? viewPreviousPage : null
+            DAMP_AND_MOULD_FORM_ENABLED && currentPage === PAGES.DAMP_OR_MOULD
+              ? viewPreviousPage
+              : null
           }
         />
 
@@ -93,7 +98,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               />
             </div>
 
-            {watchedReasonField === 'Work Order Completed' ? (
+            {DAMP_AND_MOULD_FORM_ENABLED &&
+            watchedReasonField === 'Work Order Completed' ? (
               <PrimarySubmitButton
                 label="Next"
                 type="button"
