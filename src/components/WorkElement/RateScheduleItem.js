@@ -98,10 +98,31 @@ const RateScheduleItem = ({
           register={register({
             required: 'Please select an SOR code',
             validate: (value) => {
-              return (
-                sorOptions.some((text) => text === value) ||
-                'SOR code is not valid'
-              )
+              if (typeof sorSearchRequest !== 'function') {
+                // normal validation
+                return (
+                  sorOptions.some((text) => text === value) ||
+                  'SOR code is not valid'
+                )
+              }
+
+              const extractedSorCode = value.split(' ')[0]
+
+              // This logic works by comparing the selected sorCode with the list provided for the dropdown
+              // however, due to incremental search, there are no sorCodes to manually compare this sorCode with.
+              // Therefore, if incremental search used (sorSearchRequest is a function, and not false),
+              // we can send a request for this specific sor, and see if it exists
+              sorSearchRequest(extractedSorCode)
+                .then((response) => {
+                  if (response.length === 0) return 'SOR code is not valid'
+                  return (
+                    response.some((x) => x.code === extractedSorCode) ||
+                    'SOR code is not valid'
+                  )
+                })
+                .catch((e) => {
+                  return `Oops an error occurred getting SOR codes with error status: ${e.response?.status}`
+                })
             },
           })}
           {...(sorSearchRequest && (!index || index === 0)
