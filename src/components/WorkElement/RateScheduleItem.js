@@ -98,7 +98,7 @@ const RateScheduleItem = ({
           register={register({
             required: 'Please select an SOR code',
             validate: (value) => {
-              if (sorSearchRequest === false) {
+              if (typeof sorSearchRequest !== 'function') {
                 // normal validation
                 return (
                   sorOptions.some((text) => text === value) ||
