@@ -89,10 +89,6 @@ const TradeContractorRateScheduleItemView = ({
   }
 
   useEffect(() => {
-    console.info('On load - checking if incremental search is required', {
-      contractorReference,
-      tradeCode,
-    })
     checkIfIncrementalSearchRequired(contractorReference, tradeCode)
   }, [])
 
