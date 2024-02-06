@@ -190,23 +190,21 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
 
   const setSorCodesFromBatchUpload = (sorCodes) => {
     if (isIncrementalSearchEnabled) {
-      let sorCodesInIncremental = [
+      const sorCodesInIncremental = [
         ...sorCodeArrays.filter(
           (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
         ),
         ...sorCodes.map((c) => [c]),
       ]
-      setSorCodeArrays(() => {
-        return sorCodesInIncremental
-      })
+
+      setSorCodeArrays(() => sorCodesInIncremental)
     } else {
-      let sorCodesInNonIncremental = [
+      const sorCodesInNonIncremental = [
         ...sorCodeArrays,
         ...sorCodes.map(() => sorCodeArrays),
       ].filter((e) => e.length != 0)
-      setSorCodeArrays(() => {
-        return sorCodesInNonIncremental
-      })
+
+      setSorCodeArrays(() => sorCodesInNonIncremental)
     }
 
     setFormState((formState) => {

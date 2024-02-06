@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useContext } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
@@ -88,7 +88,11 @@ const TradeContractorRateScheduleItemView = ({
     }
   }
 
-  const incrementalSORSearchRequired = async (contractorRef, tradeCode) => {
+  useEffect(() => {
+    checkIfIncrementalSearchRequired(contractorReference, tradeCode)
+  }, [])
+
+  const checkIfIncrementalSearchRequired = async (contractorRef, tradeCode) => {
     const orderApplicable =
       MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef) &&
       tradeCode === MULTITRADE_TRADE_CODE
@@ -114,7 +118,7 @@ const TradeContractorRateScheduleItemView = ({
   }
 
   const prepareSORData = async (contractorRef, tradeCode) => {
-    const incrementalSearch = await incrementalSORSearchRequired(
+    const incrementalSearch = await checkIfIncrementalSearchRequired(
       contractorRef,
       tradeCode
     )
