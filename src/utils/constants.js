@@ -4,6 +4,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'HHL',
   'FPM',
   'HCW',
+  'PSL',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -29,5 +30,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'HCW',
     contractorName: 'Hackney Carpet Warehouse',
+  },
+  {
+    contractorReference: 'PSL',
+    contractorName: 'Pride Scaffolding Ltd',
   },
 ]
