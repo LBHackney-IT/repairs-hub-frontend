@@ -1,46 +1,13 @@
 import Link from 'next/link'
 import ScheduleWarning from './ScheduleWarning'
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
-import { useContext, useEffect, useState } from 'react'
-import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
-import UserContext from '../UserContext'
 
 const ScheduleDRSAppointmentLink = ({
   workOrder,
+  schedulerSessionId,
+  openLinkEventHandler,
   hasExistingAppointment,
   appointmentIsToday,
 }) => {
-  const { user } = useContext(UserContext)
-
-  const [schedulerSessionId, setSchedulerSessionId] = useState('')
-
-  const getSessionId = async () => {
-    const schedulerSessionId = await getOrCreateSchedulerSessionId()
-    setSchedulerSessionId(schedulerSessionId)
-  }
-
-  useEffect(() => {
-    getSessionId()
-  }, [])
-
-  const openExternalLinkEventHandler = async () => {
-    const jobStatusUpdate = buildDataFromScheduleAppointment(
-      workOrder.reference.toString(),
-      `${user.name} opened the DRS Web Booking Manager`
-    )
-
-    await frontEndApiRequest({
-      method: 'post',
-      path: `/api/jobStatusUpdate`,
-      requestData: jobStatusUpdate,
-    })
-  }
-
-  if (schedulerSessionId === '') {
-    return <></>
-  }
-
   return (
     <>
       <Link
@@ -50,7 +17,7 @@ const ScheduleDRSAppointmentLink = ({
           className="lbh-link"
           target="_blank"
           rel="noopener"
-          onClick={openExternalLinkEventHandler}
+          onClick={openLinkEventHandler}
         >
           <strong>Open DRS</strong> to{' '}
           {hasExistingAppointment ? 'reschedule' : 'book an'} appointment

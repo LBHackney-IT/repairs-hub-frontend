@@ -13,6 +13,7 @@ const WorkOrderDetails = ({
   property,
   workOrder,
   tenure,
+  schedulerSessionId,
   printClickHandler,
   setLocationAlerts,
   setPersonAlerts,
@@ -77,6 +78,7 @@ const WorkOrderDetails = ({
           tenure={tenure}
           hasLinkToProperty={true}
           canRaiseRepair={property.canRaiseRepair}
+          schedulerSessionId={schedulerSessionId}
           setLocationAlerts={setLocationAlerts}
           setPersonAlerts={setPersonAlerts}
         />

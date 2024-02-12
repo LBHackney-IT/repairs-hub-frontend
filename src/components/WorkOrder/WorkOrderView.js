@@ -8,6 +8,7 @@ import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
+import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -66,6 +67,12 @@ const WorkOrderView = ({ workOrderReference }) => {
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
+
+      // Call getOrCreateSchedulerSessionId if it is a DRS work order
+      if (workOrder.externalAppointmentManagementUrl) {
+        const schedulerSessionId = await getOrCreateSchedulerSessionId()
+        setSchedulerSessionId(schedulerSessionId)
+      }
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)

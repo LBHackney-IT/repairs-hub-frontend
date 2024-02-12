@@ -25,9 +25,21 @@ const AppointmentDetails = ({ workOrder }) => {
   }
 
   const scheduleAppointmentHtml = (hasExistingAppointment) => {
-    const isDrsAppointment = workOrder.externalAppointmentManagementUrl !== null
-
-    if (!isDrsAppointment) {
+    if (workOrder.externalAppointmentManagementUrl) {
+      if (schedulerSessionId) {
+        return (
+          <ScheduleDRSAppointmentLink
+            workOrder={workOrder}
+            schedulerSessionId={schedulerSessionId}
+            openLinkEventHandler={openExternalLinkEventHandler}
+            hasExistingAppointment={hasExistingAppointment}
+            appointmentIsToday={workOrder.appointmentIsToday()}
+          />
+        )
+      } else {
+        console.error('Scheduler Session ID does not exist')
+      }
+    } else {
       return (
         <ScheduleInternalAppointmentLink
           workOrderReference={workOrder.reference}
@@ -36,20 +48,6 @@ const AppointmentDetails = ({ workOrder }) => {
         />
       )
     }
-
-    // if (schedulerSessionId) {
-    return (
-      <ScheduleDRSAppointmentLink
-        workOrder={workOrder}
-        // schedulerSessionId={schedulerSessionId}
-        // openLinkEventHandler={openExternalLinkEventHandler}
-        hasExistingAppointment={hasExistingAppointment}
-        appointmentIsToday={workOrder.appointmentIsToday()}
-      />
-    )
-    // } else {
-    // console.error('Scheduler Session ID does not exist')
-    // }
   }
 
   return (
