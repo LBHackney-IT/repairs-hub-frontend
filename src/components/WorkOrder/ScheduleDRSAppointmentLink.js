@@ -2,15 +2,17 @@ import Link from 'next/link'
 import ScheduleWarning from './ScheduleWarning'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
+import UserContext from '../UserContext'
 
 const ScheduleDRSAppointmentLink = ({
   workOrder,
-  // schedulerSessionId,
   hasExistingAppointment,
   appointmentIsToday,
 }) => {
+  const { user } = useContext(UserContext)
+
   const [schedulerSessionId, setSchedulerSessionId] = useState('')
 
   const getSessionId = async () => {
