@@ -11,9 +11,24 @@ import { WorkOrder } from '@/models/workOrder'
 import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 import { formatDateTime } from '../../utils/time'
+import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 
-const AppointmentDetails = ({ workOrder }) => {
+const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   const { user } = useContext(UserContext)
+
+  const openExternalLinkEventHandler = async () => {
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
+
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
+  }
 
   const appointmentDetailsInfoHtml = () => {
     return (
