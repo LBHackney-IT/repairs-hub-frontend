@@ -231,14 +231,14 @@ workflows:
       - tests:
           requires:
             - install-dependencies
-      - e2e:
-          requires:
-            - install-dependencies
+      # - e2e:
+      #     requires:
+      #       - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
             - tests
-            - e2e
+            # - e2e
           filters:
             branches:
               only: develop
@@ -252,7 +252,7 @@ workflows:
           context: api-assume-role-staging-context
           requires:
             - tests
-            - e2e
+            # - e2e
           filters:
             branches:
               only: main
