@@ -4,11 +4,11 @@ import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
 import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
+import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
