@@ -404,9 +404,14 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -848,9 +853,14 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -1176,9 +1186,14 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -1740,9 +1755,14 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -2035,9 +2055,14 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           >
             <a
               class="lbh-link"
-              href="/work-orders/648707/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -2416,9 +2441,14 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -2797,9 +2827,14 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
@@ -3478,9 +3513,14 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           >
             <a
               class="lbh-link"
-              href="/work-orders/10000012/appointment/new"
+              href="/undefined&sessionId=undefined"
+              rel="noopener"
+              target="_blank"
             >
-              Schedule appointment
+              <strong>
+                Open DRS
+              </strong>
+               to book an appointment
             </a>
           </div>
         </div>
