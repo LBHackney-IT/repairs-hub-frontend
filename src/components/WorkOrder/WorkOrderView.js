@@ -4,7 +4,6 @@ import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
 import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
@@ -17,7 +16,6 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
-  const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const tabsList = [
@@ -28,6 +26,8 @@ const WorkOrderView = ({ workOrderReference }) => {
   ]
 
   const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
+
+
 
   const printClickHandler = (e) => {
     e.preventDefault()
@@ -69,11 +69,6 @@ const WorkOrderView = ({ workOrderReference }) => {
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
 
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order
-      if (workOrder.externalAppointmentManagementUrl) {
-        const schedulerSessionId = await getOrCreateSchedulerSessionId()
-        setSchedulerSessionId(schedulerSessionId)
-      }
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
@@ -115,11 +110,11 @@ const WorkOrderView = ({ workOrderReference }) => {
             tenure &&
             workOrder && (
               <>
+      
                 <WorkOrderDetails
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}

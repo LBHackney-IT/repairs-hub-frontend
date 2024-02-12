@@ -15,7 +15,6 @@ const WorkOrderHeader = ({
   subTypeDescription,
   tenure,
   canRaiseRepair,
-  schedulerSessionId,
   setLocationAlerts,
   setPersonAlerts,
 }) => {
@@ -47,7 +46,6 @@ const WorkOrderHeader = ({
       <div className="govuk-grid-column-one-third">
         <AppointmentDetails
           workOrder={workOrder}
-          schedulerSessionId={schedulerSessionId}
         />
         <div className="lbh-body-xs govuk-!-margin-top-1">
           <span>Assigned to: {workOrder.owner}</span>

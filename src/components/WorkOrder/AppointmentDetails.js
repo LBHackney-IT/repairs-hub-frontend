@@ -14,21 +14,8 @@ import ScheduleDRSAppointmentLink from './ScheduleDRSAppointmentLink'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 import { formatDateTime } from '../../utils/time'
 
-const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
+const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
-
-  const openExternalLinkEventHandler = async () => {
-    const jobStatusUpdate = buildDataFromScheduleAppointment(
-      workOrder.reference.toString(),
-      `${user.name} opened the DRS Web Booking Manager`
-    )
-
-    await frontEndApiRequest({
-      method: 'post',
-      path: `/api/jobStatusUpdate`,
-      requestData: jobStatusUpdate,
-    })
-  }
 
   const appointmentDetailsInfoHtml = () => {
     return (
@@ -40,21 +27,9 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
   }
 
   const scheduleAppointmentHtml = (hasExistingAppointment) => {
-    if (workOrder.externalAppointmentManagementUrl) {
-      if (schedulerSessionId) {
-        return (
-          <ScheduleDRSAppointmentLink
-            workOrder={workOrder}
-            schedulerSessionId={schedulerSessionId}
-            openLinkEventHandler={openExternalLinkEventHandler}
-            hasExistingAppointment={hasExistingAppointment}
-            appointmentIsToday={workOrder.appointmentIsToday()}
-          />
-        )
-      } else {
-        console.error('Scheduler Session ID does not exist')
-      }
-    } else {
+    const isDrsAppointment = workOrder.externalAppointmentManagementUrl !== null
+
+    if (!isDrsAppointment) {
       return (
         <ScheduleInternalAppointmentLink
           workOrderReference={workOrder.reference}
@@ -63,6 +38,20 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
         />
       )
     }
+
+    // if (schedulerSessionId) {
+    return (
+      <ScheduleDRSAppointmentLink
+        workOrder={workOrder}
+        // schedulerSessionId={schedulerSessionId}
+        // openLinkEventHandler={openExternalLinkEventHandler}
+        hasExistingAppointment={hasExistingAppointment}
+        appointmentIsToday={workOrder.appointmentIsToday()}
+      />
+    )
+    // } else {
+    // console.error('Scheduler Session ID does not exist')
+    // }
   }
 
   return (
