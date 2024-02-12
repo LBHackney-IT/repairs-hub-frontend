@@ -120,9 +120,14 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000012/appointment/new"
+            href="/undefined&sessionId=undefined"
+            rel="noopener"
+            target="_blank"
           >
-            Schedule appointment
+            <strong>
+              Open DRS
+            </strong>
+             to book an appointment
           </a>
         </div>
       </div>

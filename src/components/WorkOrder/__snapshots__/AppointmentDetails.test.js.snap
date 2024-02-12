@@ -18,17 +18,6 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
       >
         19 Mar 2021, 12:00-18:00
       </p>
-      <a
-        class="lbh-link"
-        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
-        rel="noopener"
-        target="_blank"
-      >
-        <strong>
-          Open DRS
-        </strong>
-         to reschedule appointment
-      </a>
     </div>
   </div>
 </DocumentFragment>
@@ -69,19 +58,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
-    >
-      <a
-        class="lbh-link"
-        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
-        rel="noopener"
-        target="_blank"
-      >
-        <strong>
-          Open DRS
-        </strong>
-         to book an appointment
-      </a>
-    </div>
+    />
   </div>
 </DocumentFragment>
 `;
