@@ -11,8 +11,7 @@ const ScheduleDRSAppointmentLink = ({
   hasExistingAppointment,
   appointmentIsToday,
 }) => {
-
-  const [schedulerSessionId, setSchedulerSessionId] = useState("")
+  const [schedulerSessionId, setSchedulerSessionId] = useState('')
 
   const getSessionId = async () => {
     const schedulerSessionId = await getOrCreateSchedulerSessionId()
@@ -20,39 +19,29 @@ const ScheduleDRSAppointmentLink = ({
   }
 
   useEffect(() => {
-   getSessionId()
-
+    getSessionId()
   }, [])
-  // const schedulerSessionId = ""
 
   const openExternalLinkEventHandler = async () => {
-    // const jobStatusUpdate = buildDataFromScheduleAppointment(
-    //   workOrder.reference.toString(),
-    //   `${user.name} opened the DRS Web Booking Manager`
-    // )
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrder.reference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
 
-    // await frontEndApiRequest({
-    //   method: 'post',
-    //   path: `/api/jobStatusUpdate`,
-    //   requestData: jobStatusUpdate,
-    // })
-
-    // await new Promise(resolve => {
-    //   setTimeout(() => {
-        
-    //     resolve()
-    //   }, 5000)
-    // })
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: jobStatusUpdate,
+    })
   }
 
-if (schedulerSessionId === "") {
-  return <></>
-}
+  if (schedulerSessionId === '') {
+    return <></>
+  }
 
   return (
     <>
       <Link
-    
         href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
       >
         <a

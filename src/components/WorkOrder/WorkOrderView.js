@@ -27,8 +27,6 @@ const WorkOrderView = ({ workOrderReference }) => {
 
   const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
-
-
   const printClickHandler = (e) => {
     e.preventDefault()
 
@@ -68,7 +66,6 @@ const WorkOrderView = ({ workOrderReference }) => {
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
-
 
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
@@ -110,7 +107,6 @@ const WorkOrderView = ({ workOrderReference }) => {
             tenure &&
             workOrder && (
               <>
-      
                 <WorkOrderDetails
                   property={property}
                   workOrder={workOrder}
