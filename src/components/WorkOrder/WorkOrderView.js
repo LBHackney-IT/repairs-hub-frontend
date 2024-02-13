@@ -27,6 +27,11 @@ const WorkOrderView = ({ workOrderReference }) => {
     'Work orders history',
   ]
 
+  const getSchedulerSessionId = async () => {
+    const schedulerSessionId = await getOrCreateSchedulerSessionId()
+    setSchedulerSessionId(schedulerSessionId)
+  }
+
   const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
   const printClickHandler = (e) => {
@@ -71,8 +76,7 @@ const WorkOrderView = ({ workOrderReference }) => {
 
       // Call getOrCreateSchedulerSessionId if it is a DRS work order
       if (workOrder.externalAppointmentManagementUrl) {
-        const schedulerSessionId = await getOrCreateSchedulerSessionId()
-        setSchedulerSessionId(schedulerSessionId)
+        await getSchedulerSessionId()
       }
 
       setWorkOrder(new WorkOrder(workOrder))
@@ -119,6 +123,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
+                  resetSchedulerSessionId={getSchedulerSessionId}
                   schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}

@@ -14,7 +14,12 @@ import { formatDateTime } from '../../utils/time'
 import { buildDataFromScheduleAppointment } from '../../utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 
-const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
+const AppointmentDetails = ({
+  workOrder,
+  schedulerSessionId,
+
+  resetSchedulerSessionId,
+}) => {
   const { user } = useContext(UserContext)
 
   const openExternalLinkEventHandler = async () => {
@@ -28,6 +33,11 @@ const AppointmentDetails = ({ workOrder, schedulerSessionId }) => {
       path: `/api/jobStatusUpdate`,
       requestData: jobStatusUpdate,
     })
+
+    setTimeout(() => {
+      // sessionId is single use, so reset it
+      resetSchedulerSessionId()
+    }, 500)
   }
 
   const appointmentDetailsInfoHtml = () => {
