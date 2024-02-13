@@ -43,7 +43,7 @@ const MobileWorkingWorkOrderListItem = ({
               'lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
             )}
           >
-            {workOrder.priority.toLowerCase().split(' ').slice(-1)}
+            {workOrder.priority.toLowerCase()}
           </p>
           <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
             {`WO ${workOrder.reference}`}
