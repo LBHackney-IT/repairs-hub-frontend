@@ -20,7 +20,7 @@ exports[`MobileWorkingWorkOrderListItem component should render MobileWorkingWor
       <p
         class="lbh-body lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize"
       >
-        normal
+        5 [n] normal
       </p>
       <h3
         class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline"
