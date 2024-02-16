@@ -17,6 +17,8 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
+  const [sortedWorkOrders, setSortedWorkOrders] = useState([])
+
   const getOperativeWorkOrderView = async () => {
     setLoading(true)
     setError(null)
@@ -36,6 +38,24 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
           (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
         )
       )
+
+      // const sortedWorkOrders = 
+
+      const sortedWorkOrderItems = sortWorkOrderItems(
+        currentUser,
+        inProgressWorkOrders,
+        startedWorkOrders
+      )
+      setSortedWorkOrders(sortedWorkOrderItems)
+
+console.log({ inProgressWorkOrders})
+
+    const inProgressWorkOrderIds = inProgressWorkOrders.map(x => x.reference)
+    const startedWorkOrderIds = startedWorkOrders.map(x => x.reference)
+    const currentWorkOrderId = currentUser.isOneJobAtATime ? sortedWorkOrderItems : null
+
+    logWorkOrders(currentUser.operativePayrollNumber, currentUser.isOneJobAtATime, inProgressWorkOrderIds, startedWorkOrderIds, currentWorkOrderId)
+
     } catch (e) {
       setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
@@ -78,6 +98,11 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     )
   }
 
+
+  // useEffect(() => {
+  //   console.log("yeet")
+  // }, [sortedWorkOrders])
+
   const sortWorkOrderItems = (
     currentUser,
     inProgressWorkOrders,
@@ -99,6 +124,28 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       .slice(0, 1)
   }
 
+
+
+  const logWorkOrders = (operativeId, ojaatEnabled, inProgressWorkOrderIds, startedWorkOrderIds, currentWorkOrderId) => {
+
+    console.log("SUBMIT LOG")
+
+
+    const body = {
+      operativeId, ojaatEnabled, inProgressWorkOrderIds, startedWorkOrderIds, currentWorkOrderId
+    }
+
+    console.log({ body})
+
+    // frontEndApiRequest({
+    //   method: 'post',
+    //   path: '/api/frontend-logging/operative-mobile-view-work-orders',
+    //   requestData: body,
+    // })
+  }
+
+
+
   return (
     <>
       <Meta title="Manage work orders" />
@@ -116,13 +163,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
           {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(
-                  sortWorkOrderItems(
-                    currentUser,
-                    inProgressWorkOrders,
-                    startedWorkOrders
-                  )
-                )}
+                {renderWorkOrderListItems(sortedWorkOrders)}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
