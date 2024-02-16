@@ -501,8 +501,6 @@ describe('Updating a work order', () => {
       })
 
       it('does not have a character limit for the variation reason', () => {
-    
-
         cy.visit('/work-orders/10000040/update')
 
         cy.wait(['@taskListRequest', '@workOrder'])
@@ -522,8 +520,6 @@ describe('Updating a work order', () => {
 
       context('when the incremental multitrade SOR search toggle is on', () => {
         beforeEach(() => {
-         
-
           cy.intercept(
             {
               method: 'GET',
@@ -621,7 +617,6 @@ describe('Updating a work order', () => {
           )
         })
       })
-
     })
   })
 
