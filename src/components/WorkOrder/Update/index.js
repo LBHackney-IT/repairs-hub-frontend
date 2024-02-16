@@ -5,17 +5,13 @@ import BackButton from '../../Layout/BackButton'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import {
   createSorExistenceValidator,
-  fetchFeatureToggles,
   frontEndApiRequest,
 } from '@/utils/frontEndApiClient/requests'
 import { updateExistingTasksQuantities } from '@/utils/updateTasks'
 import { isSpendLimitReachedResponse } from '@/utils/helpers/apiResponses'
 import WorkOrderUpdateForm from './Form'
 import WorkOrderUpdateSummary from './Summary'
-import {
-  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
-  MULTITRADE_ENABLED_CONTRACTORS,
-} from '@/utils/constants'
+import { MULTITRADE_ENABLED_CONTRACTORS } from '@/utils/constants'
 import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
@@ -128,17 +124,9 @@ const WorkOrderUpdateView = ({ reference }) => {
       return false
     }
 
-    const featureToggles = await fetchFeatureToggles()
+    setOrderRequiresIncrementalSearch(orderApplicable)
 
-    const multiTradeSORIncrementalSearchEnabled = !!featureToggles[
-      MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
-    ]
-
-    setOrderRequiresIncrementalSearch(
-      orderApplicable && multiTradeSORIncrementalSearchEnabled
-    )
-
-    return orderApplicable && multiTradeSORIncrementalSearchEnabled
+    return orderApplicable
   }
 
   const getWorkOrderUpdateForm = async (reference) => {
