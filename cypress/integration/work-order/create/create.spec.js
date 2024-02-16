@@ -872,8 +872,6 @@ describe('Raise repair form', () => {
         context(
           'and the incremental multitrade SOR search toggle is on',
           () => {
-        
-
             it('Searches SOR codes after entering three characters with a debounced API request', () => {
               cy.visit('/properties/00012345/raise-repair/new')
 
