@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 import {
-  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   PURDY_CONTRACTOR_REFERENCE,
 } from '../../../src/utils/constants'
@@ -502,22 +501,11 @@ describe('Updating a work order', () => {
       })
 
       it('does not have a character limit for the variation reason', () => {
-        cy.intercept(
-          { method: 'GET', path: '/api/toggles' },
-          {
-            body: [
-              {
-                featureToggles: {
-                  [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
-                },
-              },
-            ],
-          }
-        ).as('featureToggle')
+
 
         cy.visit('/work-orders/10000040/update')
 
-        cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
+        cy.wait(['@taskListRequest', '@workOrder'])
 
         cy.get('form').within(() => {
           cy.contains('You have 250 characters remaining').should('not.exist')
@@ -534,19 +522,7 @@ describe('Updating a work order', () => {
 
       context('when the incremental multitrade SOR search toggle is on', () => {
         beforeEach(() => {
-          cy.intercept(
-            { method: 'GET', path: '/api/toggles' },
-            {
-              body: [
-                {
-                  featureToggles: {
-                    [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
-                  },
-                },
-              ],
-            }
-          ).as('featureToggle')
-
+         
           cy.intercept(
             {
               method: 'GET',
@@ -581,7 +557,7 @@ describe('Updating a work order', () => {
         it('Searches SOR codes after entering three characters with a debounced API request', () => {
           cy.visit('/work-orders/10000040/update')
 
-          cy.wait(['@taskListRequest', '@workOrder', '@featureToggle'])
+          cy.wait(['@taskListRequest', '@workOrder'])
 
           cy.get('#repair-request-form').within(() => {
             cy.contains('+ Add another SOR code').click()
@@ -644,67 +620,6 @@ describe('Updating a work order', () => {
           )
         })
       })
-
-      context(
-        'when the incremental multitrade SOR search toggle is off',
-        () => {
-          beforeEach(() => {
-            cy.intercept(
-              { method: 'GET', path: '/api/toggles' },
-              {
-                body: [
-                  {
-                    featureToggles: {
-                      [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: false,
-                    },
-                  },
-                ],
-              }
-            ).as('featureToggle')
-
-            cy.intercept(
-              {
-                method: 'GET',
-                path:
-                  '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAdditionalTrades=true',
-              },
-              { fixture: 'scheduleOfRates/codes.json' }
-            ).as('sorCodesRequest')
-          })
-
-          it('searches SOR codes after loading them all into a list', () => {
-            cy.visit('/work-orders/10000040/update')
-
-            cy.wait([
-              '@taskListRequest',
-              '@workOrder',
-              '@featureToggle',
-              '@sorCodesRequest',
-            ])
-
-            cy.get('#repair-request-form').within(() => {
-              cy.contains('+ Add another SOR code').click()
-
-              cy.get('[data-testid="rateScheduleItems[0][code]"]')
-                .parent()
-                .find('datalist option')
-                .should('have.length', 10)
-                .first()
-                .should(
-                  'have.attr',
-                  'value',
-                  'PLP5R082 - RE ENAMEL ANY SIZE BATH'
-                )
-                .next()
-                .should(
-                  'have.attr',
-                  'value',
-                  '20000030 - DAYWORK PLUMBER BAND 3'
-                )
-            })
-          })
-        }
-      )
 
       context('when the toggle API request errors', () => {
         beforeEach(() => {

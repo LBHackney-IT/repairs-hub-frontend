@@ -1,7 +1,6 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-import { MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY } from '../../../../src/utils/constants'
 import {
   EMERGENCY_PRIORITY_CODE,
   IMMEDIATE_PRIORITY_CODE,
@@ -122,19 +121,6 @@ describe('Raise repair form', () => {
         },
       }
     ).as('apiCheck')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/toggles' },
-      {
-        body: [
-          {
-            featureToggles: {
-              [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
-            },
-          },
-        ],
-      }
-    ).as('featureToggle')
 
     cy.clock(now, ['Date'])
   })
@@ -886,20 +872,7 @@ describe('Raise repair form', () => {
         context(
           'and the incremental multitrade SOR search toggle is on',
           () => {
-            beforeEach(() => {
-              cy.intercept(
-                { method: 'GET', path: '/api/toggles' },
-                {
-                  body: [
-                    {
-                      featureToggles: {
-                        [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: true,
-                      },
-                    },
-                  ],
-                }
-              ).as('toggleRequest')
-            })
+        
 
             it('Searches SOR codes after entering three characters with a debounced API request', () => {
               cy.visit('/properties/00012345/raise-repair/new')
@@ -923,8 +896,6 @@ describe('Raise repair form', () => {
                 cy.get('[data-testid=budgetCode]').type(
                   'H2555 - 200031 - Lifts Breakdown'
                 )
-
-                cy.wait('@toggleRequest')
 
                 cy.get('input[id="rateScheduleItems[0][code]"]')
                   .clear()
@@ -1121,103 +1092,6 @@ describe('Raise repair form', () => {
             })
           }
         )
-      })
-
-      context('and the incremental multitrade SOR search toggle is off', () => {
-        beforeEach(() => {
-          cy.intercept(
-            { method: 'GET', path: '/api/toggles' },
-            {
-              body: [
-                {
-                  featureToggles: {
-                    [MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY]: false,
-                  },
-                },
-              ],
-            }
-          )
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path:
-                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
-            },
-            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-          ).as('sorCodesRequestMultiTrade')
-        })
-
-        it('searches SOR codes after loading them all into a list', () => {
-          cy.visit('/properties/00012345')
-
-          cy.wait(['@propertyRequest', '@workOrdersRequest'])
-
-          cy.get('.lbh-heading-h2')
-            .contains('Raise a work order on this dwelling')
-            .click()
-
-          cy.wait([
-            '@propertyRequest',
-            '@sorPrioritiesRequest',
-            '@tradesRequest',
-          ])
-
-          cy.get('#repair-request-form').within(() => {
-            cy.get('#trade').type('Multi Trade - MU')
-
-            cy.wait('@multiTradeContractorsRequest')
-
-            cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
-
-            cy.wait('@budgetCodesRequest')
-
-            cy.get('[data-testid=budgetCode]').type(
-              'H2555 - 200031 - Lifts Breakdown'
-            )
-
-            cy.wait('@sorCodesRequestMultiTrade')
-
-            cy.get('[data-testid="rateScheduleItems[0][code]"]')
-              .parent()
-              .find('datalist option')
-              .should('have.length', 7)
-              .first()
-              .should(
-                'have.attr',
-                'value',
-                '20060020 - BATHROOM PLUMBING REPAIRS - £50.17'
-              )
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                '20060030 - KITCHEN PLUMBING REPAIRS - £5.8'
-              )
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R003 - Immediate call outs - £0'
-              )
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R004 - Emergency call out - £1'
-              )
-              .next()
-              .should('have.attr', 'value', 'DES5R005 - Normal call outs - £1')
-              .next()
-              .should('have.attr', 'value', 'DES5R006 - Urgent call outs - £1')
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                'INP5R001 - Pre insp of wrks by Constructr - £1'
-              )
-          })
-        })
       })
 
       context('when the toggle API request errors', () => {
