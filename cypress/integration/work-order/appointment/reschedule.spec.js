@@ -211,11 +211,6 @@ describe('Rescheduling work order appointments', () => {
           })
           .as('workOrder')
 
-        cy.setCookie(
-          Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
-          'EXISTING_SCHEDULER_SESSION_ID'
-        )
-
         cy.intercept(
           { method: 'POST', path: '/api/jobStatusUpdate' },
           { body: '' }
