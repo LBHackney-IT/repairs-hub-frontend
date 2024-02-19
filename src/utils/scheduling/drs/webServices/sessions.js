@@ -62,7 +62,6 @@ const createSessionXml = `
    <soapenv:Body>
       <aut:openSession>
          <openSession>
-            <id>0</id>
             <login>${DRS_WEB_SERVICES_USERNAME}</login>
             <password>${DRS_WEB_SERVICES_PASSWORD}</password>
          </openSession>
@@ -77,7 +76,6 @@ const closeSessionXml = (sessionID) => `
    <soapenv:Body>
       <aut:closeSession>
          <closeSession>
-            <id>0</id>
             <sessionId>${sessionID}</sessionId>
          </closeSession>
       </aut:closeSession>
