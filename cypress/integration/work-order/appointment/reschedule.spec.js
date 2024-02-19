@@ -211,6 +211,11 @@ describe('Rescheduling work order appointments', () => {
           })
           .as('workOrder')
 
+          cy.intercept(
+            { method: 'GET', path: '/api/users/schedulerSession' },
+            { body: { schedulerSessionId: 'SCHEDULER_SESSION_ID' } }
+          )
+          
         cy.intercept(
           { method: 'POST', path: '/api/jobStatusUpdate' },
           { body: '' }
@@ -226,7 +231,7 @@ describe('Rescheduling work order appointments', () => {
           .should(
             'have.attr',
             'href',
-            '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
+            '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
           )
           .should('have.attr', 'target', '_blank')
 
