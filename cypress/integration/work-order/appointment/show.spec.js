@@ -103,7 +103,7 @@ describe('Managing work order appointments', () => {
             '_blank'
           )
         })
-      })     
+      })
     })
   })
 
