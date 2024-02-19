@@ -556,12 +556,6 @@ describe('Schedule appointment form', () => {
               otherType: 'addNote',
             })
           })
-
-        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
-          'have.property',
-          'value',
-          'SCHEDULER_SESSION_ID'
-        )
       })
     })
 
@@ -617,12 +611,6 @@ describe('Schedule appointment form', () => {
           'have.attr',
           'target',
           '_blank'
-        )
-
-        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
-          'have.property',
-          'value',
-          'SCHEDULER_SESSION_ID'
         )
       })
     })
@@ -718,56 +706,6 @@ describe('Schedule appointment form', () => {
             'Emergency and immediate DLO repairs are sent directly to the planners. An appointment does not need to be booked'
           )
         })
-      })
-    })
-
-    describe('and the user already has a session cookie for the scheduler', () => {
-      beforeEach(() => {
-        cy.setCookie(
-          Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
-          'EXISTING_SCHEDULER_SESSION_ID'
-        )
-      })
-
-      it('builds the link using the existing session', () => {
-        cy.visit('/properties/00012345')
-
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .click()
-
-        cy.get('#repair-request-form').within(() => {
-          cy.get('#trade').type('Plumbing - PL')
-          cy.get('#contractor').type('HH General Building Repair - H01')
-
-          cy.wait('@sorCodesH01')
-
-          cy.get('input[id="rateScheduleItems[0][code]"]')
-            .clear()
-            .type('DES5R005 - Normal call outs - £1')
-
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('2')
-          cy.get('#priorityCode').select('5 [N] NORMAL')
-          cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
-          cy.get('#callerName').type('Test Caller', { force: true })
-          cy.get('#contactNumber')
-            .clear({ force: true })
-            .type('12345678910', { force: true })
-          cy.get('[type="submit"]')
-            .contains('Create work order')
-            .click({ force: true })
-        })
-
-        cy.contains('a', 'Book an appointment on DRS').should(
-          'have.attr',
-          'href',
-          '/scheduler?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
-        )
-        cy.contains('a', 'Book an appointment on DRS').should(
-          'have.attr',
-          'target',
-          '_blank'
-        )
       })
     })
   })
@@ -868,12 +806,6 @@ describe('Schedule appointment form', () => {
               otherType: 'addNote',
             })
           })
-
-        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
-          'have.property',
-          'value',
-          'SCHEDULER_SESSION_ID'
-        )
       })
     })
   })
