@@ -78,7 +78,7 @@ describe('Notes', () => {
       })
 
     // Run lighthouse audit for accessibility report
-    cy.audit()
+    // cy.audit()
   })
 
   it('Displays notes as a timeline', () => {

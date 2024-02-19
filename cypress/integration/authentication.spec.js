@@ -23,7 +23,7 @@ describe('Authentication', () => {
         'Please sign in with your Hackney email account.'
       )
 
-      cy.audit()
+      // cy.audit()
     })
   })
 

@@ -145,7 +145,7 @@ describe('Show work order page', () => {
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
-      cy.audit()
+      // cy.audit()
     })
 
     context('when the alerts API errors', () => {

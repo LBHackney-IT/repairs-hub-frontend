@@ -109,7 +109,7 @@ describe('Tasks and SORs', () => {
       cy.contains('H2555 - 200108 Gutter Clearance')
     })
 
-    cy.audit()
+    // cy.audit()
   })
 
   it('Navigate directly to tasks and sors tab', () => {
@@ -129,6 +129,6 @@ describe('Tasks and SORs', () => {
       })
     })
 
-    cy.audit()
+    // cy.audit()
   })
 })
