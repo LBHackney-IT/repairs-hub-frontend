@@ -211,11 +211,11 @@ describe('Rescheduling work order appointments', () => {
           })
           .as('workOrder')
 
-          cy.intercept(
-            { method: 'GET', path: '/api/users/schedulerSession' },
-            { body: { schedulerSessionId: 'SCHEDULER_SESSION_ID' } }
-          )
-          
+        cy.intercept(
+          { method: 'GET', path: '/api/users/schedulerSession' },
+          { body: { schedulerSessionId: 'SCHEDULER_SESSION_ID' } }
+        )
+
         cy.intercept(
           { method: 'POST', path: '/api/jobStatusUpdate' },
           { body: '' }
