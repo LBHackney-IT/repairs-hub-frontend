@@ -3,15 +3,11 @@ import { useState, useContext, useEffect } from 'react'
 import RateScheduleItemView from './RateScheduleItemView'
 import TradeDataList from '../../WorkElement/TradeDataList'
 import ContractorDataList from './ContractorDataList'
-import {
-  fetchFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
 import { canAssignBudgetCode } from '@/utils/userPermissions'
 import {
-  MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY,
   MULTITRADE_TRADE_CODE,
   MULTITRADE_ENABLED_CONTRACTORS,
   MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES,
@@ -53,8 +49,6 @@ const TradeContractorRateScheduleItemView = ({
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
   ] = useState(false)
-
-  let multiTradeSORIncrementalSearchEnabled = null
 
   const { user } = useContext(UserContext)
 
@@ -102,19 +96,9 @@ const TradeContractorRateScheduleItemView = ({
       return false
     }
 
-    if (multiTradeSORIncrementalSearchEnabled === null) {
-      const featureToggles = await fetchFeatureToggles()
+    setOrderRequiresIncrementalSearch(orderApplicable)
 
-      multiTradeSORIncrementalSearchEnabled = !!featureToggles[
-        MULTITRADE_SOR_INCREMENTAL_SEARCH_ENABLED_KEY
-      ]
-    }
-
-    setOrderRequiresIncrementalSearch(
-      orderApplicable && multiTradeSORIncrementalSearchEnabled
-    )
-
-    return orderApplicable && multiTradeSORIncrementalSearchEnabled
+    return orderApplicable
   }
 
   const prepareSORData = async (contractorRef, tradeCode) => {
