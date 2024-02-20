@@ -72,15 +72,6 @@ exports[`DampAndMouldReportTable component should render the component 1`] = `
             >
               55 Other Street
             </span>
-            <div
-              style="margin-top: 5px; margin-left: -5px;"
-            >
-              <span
-                class="damp-and-mould-report-frequency-badge  new-report"
-              >
-                New report
-              </span>
-            </div>
           </td>
           <td
             class="govuk-table__cell lbh-body-xs"
