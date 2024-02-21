@@ -114,7 +114,7 @@ describe('Authorisation workflow for a work order', () => {
         cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
 
-      // cy.audit()
+      cy.audit()
     })
 
     it('Authorises work order', () => {

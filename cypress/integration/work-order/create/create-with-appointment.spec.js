@@ -265,7 +265,7 @@ describe('Schedule appointment form', () => {
         cy.contains('Start a new search').should('have.attr', 'href', '/')
       })
 
-      // cy.audit()
+      cy.audit()
     })
 
     // when priority is Normal it is redirecting to schedule appointment page
@@ -459,7 +459,7 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'Start a new search')
 
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
   })
 

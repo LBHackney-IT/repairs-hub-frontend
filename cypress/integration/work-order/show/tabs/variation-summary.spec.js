@@ -322,7 +322,7 @@ describe('Pending variation tab on work-order page', () => {
         })
       })
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
   })
 
@@ -370,7 +370,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
 
     it('status is Work complete ', () => {
@@ -406,7 +406,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
 
     it('status is Authorisation Pending Approval ', () => {
@@ -442,7 +442,7 @@ describe('Pending variation tab on work-order page', () => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
   })
 })

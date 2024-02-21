@@ -482,7 +482,7 @@ describe('Updating a work order', () => {
       })
 
       // Run lighthouse audit for accessibility report
-      // cy.audit()
+      cy.audit()
     })
 
     context('for a Purdy order', () => {

@@ -92,7 +92,7 @@ describe('Global navigation links', () => {
         .contains('Sign out')
         .should('have.attr', 'href', '/logout')
 
-      // cy.audit()
+      cy.audit()
     })
   })
 })

@@ -254,7 +254,7 @@ describe('Show property', () => {
         })
 
         // Run lighthouse audit for accessibility report
-        // cy.audit()
+        cy.audit()
       })
     })
 

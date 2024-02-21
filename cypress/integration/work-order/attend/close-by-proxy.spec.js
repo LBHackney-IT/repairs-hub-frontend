@@ -271,7 +271,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Manage work orders').should('have.attr', 'href', '/')
     })
 
-    // cy.audit()
+    cy.audit()
   })
 
   it('allows valid inputs, shows a confirmation page, allows editing and and submits the form including a no access reason', () => {
@@ -348,7 +348,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Manage work orders').should('have.attr', 'href', '/')
     })
 
-    // cy.audit()
+    cy.audit()
   })
 
   it.only('sends request to /starttime when startTime selected', () => {
@@ -410,7 +410,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Manage work orders').should('have.attr', 'href', '/')
     })
 
-    // cy.audit()
+    cy.audit()
   })
 
   describe('when the work allows operative and payment type selection', () => {
@@ -859,7 +859,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
           cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
-          // cy.audit()
+          cy.audit()
         })
       })
 
@@ -1010,7 +1010,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
           cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
-          // cy.audit()
+          cy.audit()
         })
       })
 
@@ -1138,7 +1138,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
           cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
 
-          // cy.audit()
+          cy.audit()
         })
       })
     })
