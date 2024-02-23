@@ -70,6 +70,8 @@ const MobileWorkingWorkOrdersView = ({
       }
     } catch (e) {
       setVisitedWorkOrders(null)
+      setSortedWorkOrders(null)
+
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -152,8 +154,7 @@ const MobileWorkingWorkOrdersView = ({
         requestData: body,
       })
     } catch (error) {
-      console.error(error)
-      // Sentry.captureException(error)
+      // fail silently - user doesnt need to know if logging fails
     }
   }
 
