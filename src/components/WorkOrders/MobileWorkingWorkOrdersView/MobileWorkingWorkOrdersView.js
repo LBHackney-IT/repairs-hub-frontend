@@ -9,11 +9,14 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 
-const MobileWorkingWorkOrdersView = ({ currentUser }) => {
+const MobileWorkingWorkOrdersView = ({
+  currentUser,
+  loggingEnabled = true,
+}) => {
   const currentDate = beginningOfDay(new Date())
-  const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
-  const [startedWorkOrders, setStartedWorkOrders] = useState([])
+  const [sortedWorkOrders, setSortedWorkOrders] = useState([])
+
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 
@@ -29,17 +32,46 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
 
-      setInProgressWorkOrders(workOrders.filter((wo) => !wo.hasBeenVisited()))
-      setVisitedWorkOrders(workOrders.filter((wo) => wo.hasBeenVisited()))
-      setStartedWorkOrders(
-        workOrders.filter(
-          (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
-        )
+      const inProgressWorkOrders = workOrders.filter(
+        (wo) => !wo.hasBeenVisited()
       )
+
+      const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
+
+      const startedWorkOrders = workOrders.filter(
+        (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
+      )
+
+      const sortedWorkOrderItems = sortWorkOrderItems(
+        currentUser,
+        inProgressWorkOrders,
+        startedWorkOrders
+      )
+
+      setVisitedWorkOrders(visitedWorkOrders)
+      setSortedWorkOrders(sortedWorkOrderItems)
+
+      const inProgressWorkOrderIds = inProgressWorkOrders.map(
+        (x) => x.reference
+      )
+      const startedWorkOrderIds = startedWorkOrders.map((x) => x.reference)
+      const currentWorkOrderId = currentUser.isOneJobAtATime
+        ? sortedWorkOrderItems
+        : null
+
+      if (loggingEnabled) {
+        logWorkOrders(
+          currentUser.operativePayrollNumber,
+          currentUser.isOneJobAtATime,
+          inProgressWorkOrderIds,
+          startedWorkOrderIds,
+          currentWorkOrderId
+        )
+      }
     } catch (e) {
-      setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
-      setStartedWorkOrders(null)
+      setSortedWorkOrders(null)
+
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -54,28 +86,29 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   }, [currentUser])
 
   const renderWorkOrderListItems = (workOrders) => {
-    return (
-      workOrders.length &&
-      workOrders.map((workOrder, index) => (
-        <MobileWorkingWorkOrderListItem
-          key={index}
-          workOrder={workOrder}
-          index={index}
-          statusText={(() => {
-            const status = workOrder.status.toLowerCase()
+    if (workOrders.length === 0) {
+      return <></>
+    }
 
-            if (status === 'no access') {
-              return 'No access'
-            } else if (status === 'completed') {
-              return 'Completed'
-            } else {
-              return ''
-            }
-          })()}
-          currentUser={currentUser}
-        />
-      ))
-    )
+    return workOrders.map((workOrder, index) => (
+      <MobileWorkingWorkOrderListItem
+        key={index}
+        workOrder={workOrder}
+        index={index}
+        statusText={(() => {
+          const status = workOrder.status.toLowerCase()
+
+          if (status === 'no access') {
+            return 'No access'
+          } else if (status === 'completed') {
+            return 'Completed'
+          } else {
+            return ''
+          }
+        })()}
+        currentUser={currentUser}
+      />
+    ))
   }
 
   const sortWorkOrderItems = (
@@ -99,6 +132,32 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       .slice(0, 1)
   }
 
+  const logWorkOrders = async (
+    operativeId,
+    ojaatEnabled,
+    inProgressWorkOrderIds,
+    startedWorkOrderIds,
+    currentWorkOrderId
+  ) => {
+    const body = {
+      operativeId,
+      ojaatEnabled,
+      inProgressWorkOrderIds,
+      startedWorkOrderIds,
+      currentWorkOrderId,
+    }
+
+    try {
+      await frontEndApiRequest({
+        method: 'post',
+        path: '/api/frontend-logging/operative-mobile-view-work-orders',
+        requestData: body,
+      })
+    } catch (error) {
+      // fail silently - user doesnt need to know if logging fails
+    }
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
@@ -113,16 +172,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         <Spinner />
       ) : (
         <>
-          {inProgressWorkOrders?.length || visitedWorkOrders?.length ? (
+          {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
             <>
               <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(
-                  sortWorkOrderItems(
-                    currentUser,
-                    inProgressWorkOrders,
-                    startedWorkOrders
-                  )
-                )}
+                {renderWorkOrderListItems(sortedWorkOrders)}
                 {renderWorkOrderListItems(visitedWorkOrders)}
               </ol>
             </>
