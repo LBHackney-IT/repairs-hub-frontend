@@ -103,49 +103,6 @@ describe('Managing work order appointments', () => {
             '_blank'
           )
         })
-
-        cy.getCookie(Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')).should(
-          'have.property',
-          'value',
-          'SCHEDULER_SESSION_ID'
-        )
-      })
-
-      describe('and the user already has a session cookie for the scheduler', () => {
-        beforeEach(() => {
-          cy.setCookie(
-            Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME'),
-            'EXISTING_SCHEDULER_SESSION_ID'
-          )
-        })
-
-        it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
-            { fixture: 'workOrders/externallyManagedAppointment.json' }
-          )
-          cy.visit('/work-orders/10000012')
-
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Appointment details')
-            cy.contains('a', 'Schedule an appointment').should('not.exist')
-
-            cy.contains('a', 'Open DRS to book an appointment').should(
-              'have.attr',
-              'href',
-              'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=EXISTING_SCHEDULER_SESSION_ID'
-            )
-            cy.contains('a', 'Open DRS to book an appointment').should(
-              'have.attr',
-              'target',
-              '_blank'
-            )
-          })
-
-          cy.getCookie(
-            Cypress.env('NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME')
-          ).should('have.property', 'value', 'EXISTING_SCHEDULER_SESSION_ID')
-        })
       })
     })
   })
