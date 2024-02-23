@@ -8,7 +8,6 @@ import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrd
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
-// import { Sentry } from '@/root/sentry.server.config'
 
 const MobileWorkingWorkOrdersView = ({
   currentUser,
@@ -35,21 +34,15 @@ const MobileWorkingWorkOrdersView = ({
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
 
-      const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
-      
-      const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
+      const inProgressWorkOrders = workOrders.filter(
+        (wo) => !wo.hasBeenVisited()
+      )
 
+      const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
 
       const startedWorkOrders = workOrders.filter(
         (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
       )
-
-
-      console.log({ sortedWorkOrderItems,   currentUser,
-        inProgressWorkOrders,
-        startedWorkOrders, workOrders})
-
-      // const sortedWorkOrders =
 
       const sortedWorkOrderItems = sortWorkOrderItems(
         currentUser,
@@ -57,44 +50,28 @@ const MobileWorkingWorkOrdersView = ({
         startedWorkOrders
       )
 
-      console.log({ sortedWorkOrderItems,   currentUser,
-        inProgressWorkOrders,
-        startedWorkOrders, workOrders})
-
-      // setTimeout(() => {
-        // setInProgressWorkOrders(inProgresssWorkOrders)
       setVisitedWorkOrders(visitedWorkOrders)
-      // setStartedWorkOrders(startedWorkOrders)
+      setSortedWorkOrders(sortedWorkOrderItems)
 
-    
-      setSortedWorkOrders( sortedWorkOrderItems)
+      const inProgressWorkOrderIds = inProgressWorkOrders.map(
+        (x) => x.reference
+      )
+      const startedWorkOrderIds = startedWorkOrders.map((x) => x.reference)
+      const currentWorkOrderId = currentUser.isOneJobAtATime
+        ? sortedWorkOrderItems
+        : null
 
-      // }, 100)
-      // console.log({ inProgressWorkOrders})
-
-      // const inProgressWorkOrderIds = inProgressWorkOrders.map(
-      //   (x) => x.reference
-      // )
-      // const startedWorkOrderIds = startedWorkOrders.map((x) => x.reference)
-      // const currentWorkOrderId = currentUser.isOneJobAtATime
-      //   ? sortedWorkOrderItems
-      //   : null
-
-      // if (loggingEnabled) {
-      // try {
-      //   logWorkOrders(
-      //     currentUser.operativePayrollNumber,
-      //     currentUser.isOneJobAtATime,
-      //     inProgressWorkOrderIds,
-      //     startedWorkOrderIds,
-      //     currentWorkOrderId
-      //   )
-      // } catch(error) {}
-      // }
+      if (loggingEnabled) {
+        logWorkOrders(
+          currentUser.operativePayrollNumber,
+          currentUser.isOneJobAtATime,
+          inProgressWorkOrderIds,
+          startedWorkOrderIds,
+          currentWorkOrderId
+        )
+      }
     } catch (e) {
-      // setInProgressWorkOrders(null)
       setVisitedWorkOrders(null)
-      // setStartedWorkOrders(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -109,9 +86,11 @@ const MobileWorkingWorkOrdersView = ({
   }, [currentUser])
 
   const renderWorkOrderListItems = (workOrders) => {
+    if (workOrders.length === 0) {
+      return <></>
+    }
 
-
-    return workOrders.length && workOrders.map((workOrder, index) => (
+    return workOrders.map((workOrder, index) => (
       <MobileWorkingWorkOrderListItem
         key={index}
         workOrder={workOrder}
@@ -121,12 +100,9 @@ const MobileWorkingWorkOrdersView = ({
 
           if (status === 'no access') {
             return 'No access'
-          } else
-          if (status === 'completed') {
+          } else if (status === 'completed') {
             return 'Completed'
           } else {
-
-            
             return ''
           }
         })()}
@@ -163,8 +139,6 @@ const MobileWorkingWorkOrdersView = ({
     startedWorkOrderIds,
     currentWorkOrderId
   ) => {
-    console.log('SUBMIT LOG')
-
     const body = {
       operativeId,
       ojaatEnabled,
@@ -173,27 +147,16 @@ const MobileWorkingWorkOrdersView = ({
       currentWorkOrderId,
     }
 
-    console.log({ body })
-
-    frontEndApiRequest({
-      method: 'post',
-      path: '/api/frontend-logging/operative-mobile-view-work-orders',
-      requestData: body,
-    })
-    .then(() => {
-      console.log("SUCCESS")
-    })
-    .catch(err => {
-      console.log({err})
-
-    })
-
-    // try {
-    //   await 
-    // } catch (error) {
-    //   console.error(error)
-    //   // Sentry.captureException(error)
-    // }
+    try {
+      await frontEndApiRequest({
+        method: 'post',
+        path: '/api/frontend-logging/operative-mobile-view-work-orders',
+        requestData: body,
+      })
+    } catch (error) {
+      console.error(error)
+      // Sentry.captureException(error)
+    }
   }
 
   return (

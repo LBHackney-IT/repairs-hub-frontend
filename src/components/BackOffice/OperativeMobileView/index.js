@@ -120,7 +120,10 @@ const OperativeMobileView = () => {
 
             {!!selectedOperative && (
               <div style={{ marginTop: '30px' }}>
-                <MobileWorkingWorkOrdersView currentUser={selectedOperative} />
+                <MobileWorkingWorkOrdersView
+                  currentUser={selectedOperative}
+                  loggingEnabled={false}
+                />
               </div>
             )}
           </div>
