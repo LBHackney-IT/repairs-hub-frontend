@@ -14,13 +14,11 @@ const MobileWorkingWorkOrdersView = ({
   loggingEnabled = true,
 }) => {
   const currentDate = beginningOfDay(new Date())
-  // const [inProgressWorkOrders, setInProgressWorkOrders] = useState([])
   const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
-  // const [startedWorkOrders, setStartedWorkOrders] = useState([])
+  const [sortedWorkOrders, setSortedWorkOrders] = useState([])
+
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
-
-  const [sortedWorkOrders, setSortedWorkOrders] = useState([])
 
   const getOperativeWorkOrderView = async () => {
     setLoading(true)
