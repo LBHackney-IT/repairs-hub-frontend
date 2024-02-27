@@ -5,26 +5,31 @@ import SelectedOperative from './SelectedOperative'
 import Layout from '../Layout'
 import MobileWorkingWorkOrdersView from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import { filterOperatives } from './utils'
+import { useRouter } from 'next/router'
 
 const OperativeMobileView = () => {
-  const fetchOperatives = async () => {
-    setIsLoading(true)
+  const router = useRouter()
 
-    frontEndApiRequest({
-      method: 'get',
-      path: '/api/operatives',
+  const fetchOperatives = async () =>
+    new Promise((resolve) => {
+      setIsLoading(true)
+
+      frontEndApiRequest({
+        method: 'get',
+        path: '/api/operatives',
+      })
+        .then((res) => {
+          const sortedOperatives = res
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(mapOperativeToHubUser)
+
+          setOperatives(sortedOperatives)
+        })
+        .finally(() => {
+          setIsLoading(false)
+          resolve()
+        })
     })
-      .then((res) => {
-        const sortedOperatives = res
-          .sort((a, b) => a.name.localeCompare(b.name))
-          .map(mapOperativeToHubUser)
-
-        setOperatives(sortedOperatives)
-      })
-      .finally(() => {
-        setIsLoading(false)
-      })
-  }
 
   const mapOperativeToHubUser = (operative) => {
     return {
@@ -41,18 +46,12 @@ const OperativeMobileView = () => {
 
   // const refresh =
 
-  useEffect(() => {
-    fetchOperatives()
-  }, [])
-
   const refresh = () => {
     // hacky implementation? yes! but idc, this is backoffice
     const opn = operativePayrollNumber
 
     setOperativePayrollNumber(() => null)
-    setTimeout(() => {
-      setOperativePayrollNumber(() => opn)
-    })
+    setTimeout(setOperativePayrollNumber(() => opn))
   }
 
   const [operatives, setOperatives] = useState([])
@@ -64,9 +63,20 @@ const OperativeMobileView = () => {
 
   const [selectedOperative, setSelectedOperative] = useState(null)
 
+  useEffect(() => {
+    fetchOperatives().then(() => {
+      const query = router.query
+
+      if (!query.hasOwnProperty('operative')) return
+
+      setTimeout(() => setOperativePayrollNumber(() => query.operative))
+    })
+  }, [])
+
   const filteredOperativeList = filterOperatives(operatives, operativeFilter)
 
   useEffect(() => {
+    console.log('updating', operativePayrollNumber, operatives.length)
     const selectedOperative = operatives.filter(
       (x) => x.operativePayrollNumber == operativePayrollNumber
     )[0]
@@ -81,6 +91,9 @@ const OperativeMobileView = () => {
 
     // Set current opeative
     setSelectedOperative(selectedOperative)
+
+    const query = { operative: selectedOperative.operativePayrollNumber }
+    router.push({ query }, undefined, { shallow: true })
   }, [operativePayrollNumber])
 
   useEffect(() => {
