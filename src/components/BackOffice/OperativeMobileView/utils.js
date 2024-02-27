@@ -1,4 +1,4 @@
-export const filterOperatives = (operatives, operativeFilter, showOnlyOJAT) => {
+export const filterOperatives = (operatives, operativeFilter) => {
   let filteredOperativeList = operatives
 
   if (operativeFilter !== '') {
@@ -7,11 +7,11 @@ export const filterOperatives = (operatives, operativeFilter, showOnlyOJAT) => {
     )
   }
 
-  if (showOnlyOJAT) {
-    filteredOperativeList = filteredOperativeList.filter(
-      (x) => x.isOneJobAtATime
-    )
-  }
+  // if (showOnlyOJAT) {
+  //   filteredOperativeList = filteredOperativeList.filter(
+  //     (x) => x.isOneJobAtATime
+  //   )
+  // }
 
   return filteredOperativeList
 }
