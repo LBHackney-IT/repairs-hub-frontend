@@ -5,14 +5,31 @@ import SelectedOperative from './SelectedOperative'
 import Layout from '../Layout'
 import MobileWorkingWorkOrdersView from '../../WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import { filterOperatives } from './utils'
+import { useRouter } from 'next/router'
 
 const OperativeMobileView = () => {
-  const fetchOperatives = async () => {
-    return await frontEndApiRequest({
-      method: 'get',
-      path: '/api/operatives',
+  const router = useRouter()
+
+  const fetchOperatives = async () =>
+    new Promise((resolve) => {
+      setIsLoading(true)
+
+      frontEndApiRequest({
+        method: 'get',
+        path: '/api/operatives',
+      })
+        .then((res) => {
+          const sortedOperatives = res
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(mapOperativeToHubUser)
+
+          setOperatives(sortedOperatives)
+        })
+        .finally(() => {
+          setIsLoading(false)
+          resolve()
+        })
     })
-  }
 
   const mapOperativeToHubUser = (operative) => {
     return {
@@ -27,34 +44,66 @@ const OperativeMobileView = () => {
     }
   }
 
-  useEffect(() => {
-    fetchOperatives().then((res) => {
-      const sortedOperatives = res
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map(mapOperativeToHubUser)
+  // const refresh =
 
-      setOperatives(sortedOperatives)
+  const refresh = () => {
+    // hacky implementation? yes! but idc, this is backoffice
+    const opn = operativePayrollNumber
 
-      setIsLoading(false)
-    })
-  }, [])
+    setOperativePayrollNumber(() => null)
+    setTimeout(() => setOperativePayrollNumber(() => opn))
+  }
 
   const [operatives, setOperatives] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [operativeFilter, setOperativeFilter] = useState('')
-  const [showOnlyOJAT, setShowOnlyOJAT] = useState(false)
+  const [OJAATEnabled, setOJAATEnabled] = useState(false)
 
   const [operativePayrollNumber, setOperativePayrollNumber] = useState(null)
 
-  const filteredOperativeList = filterOperatives(
-    operatives,
-    operativeFilter,
-    showOnlyOJAT
-  )
+  const [selectedOperative, setSelectedOperative] = useState(null)
 
-  const selectedOperative = operatives.filter(
-    (x) => x.operativePayrollNumber == operativePayrollNumber
-  )[0]
+  useEffect(() => {
+    fetchOperatives().then(() => {
+      const query = router.query
+
+      if (!Object.prototype.hasOwnProperty.call(query, 'operative')) return
+
+      setTimeout(() => setOperativePayrollNumber(() => query.operative))
+    })
+  }, [])
+
+  const filteredOperativeList = filterOperatives(operatives, operativeFilter)
+
+  useEffect(() => {
+    const selectedOperative = operatives.filter(
+      (x) => x.operativePayrollNumber == operativePayrollNumber
+    )[0]
+
+    if (selectedOperative === null || selectedOperative === undefined) {
+      setSelectedOperative(null)
+      return
+    }
+
+    // populate override OJATT button state
+    setOJAATEnabled(selectedOperative.isOneJobAtATime)
+
+    // Set current opeative
+    setSelectedOperative(selectedOperative)
+
+    const query = { operative: selectedOperative.operativePayrollNumber }
+    router.push({ query }, undefined, { shallow: true })
+  }, [operativePayrollNumber])
+
+  useEffect(() => {
+    if (selectedOperative === null || selectedOperative === undefined) return
+
+    // override OJATT enabled status
+    setSelectedOperative((x) => ({
+      ...x,
+      isOneJobAtATime: OJAATEnabled,
+    }))
+  }, [OJAATEnabled])
 
   return (
     <Layout title="Operative Mobile View">
@@ -80,13 +129,18 @@ const OperativeMobileView = () => {
               </div>
 
               <div>
-                <label>Show only OJAT operatives?</label>
+                <label>Override OJAT enabled</label>
+
                 <input
                   type="checkbox"
                   value={false}
-                  checked={showOnlyOJAT}
-                  onInput={() => setShowOnlyOJAT((x) => !x)}
+                  checked={OJAATEnabled}
+                  onInput={() => setOJAATEnabled((x) => !x)}
                 />
+              </div>
+
+              <div>
+                <button onClick={refresh}>Refresh</button>
               </div>
 
               <div style={{ marginBottom: '30px' }}>
