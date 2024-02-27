@@ -51,7 +51,7 @@ const OperativeMobileView = () => {
     const opn = operativePayrollNumber
 
     setOperativePayrollNumber(() => null)
-    setTimeout(setOperativePayrollNumber(() => opn))
+    setTimeout(() => setOperativePayrollNumber(() => opn))
   }
 
   const [operatives, setOperatives] = useState([])
@@ -67,7 +67,7 @@ const OperativeMobileView = () => {
     fetchOperatives().then(() => {
       const query = router.query
 
-      if (!query.hasOwnProperty('operative')) return
+      if (!Object.prototype.hasOwnProperty.call(query, 'operative')) return
 
       setTimeout(() => setOperativePayrollNumber(() => query.operative))
     })
@@ -76,7 +76,6 @@ const OperativeMobileView = () => {
   const filteredOperativeList = filterOperatives(operatives, operativeFilter)
 
   useEffect(() => {
-    console.log('updating', operativePayrollNumber, operatives.length)
     const selectedOperative = operatives.filter(
       (x) => x.operativePayrollNumber == operativePayrollNumber
     )[0]
