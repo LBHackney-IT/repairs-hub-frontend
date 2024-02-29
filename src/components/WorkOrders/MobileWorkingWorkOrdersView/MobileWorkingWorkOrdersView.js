@@ -100,7 +100,7 @@ const MobileWorkingWorkOrdersView = ({
   }, [currentUser?.operativePayrollNumber])
 
   const renderWorkOrderListItems = (workOrders) => {
-    if (workOrders.length === 0) {
+    if (workOrders === null || workOrders?.length === 0) {
       return <></>
     }
 
