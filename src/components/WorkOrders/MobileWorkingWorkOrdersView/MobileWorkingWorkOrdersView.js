@@ -182,7 +182,7 @@ const MobileWorkingWorkOrdersView = ({
       </div>
 
       <h3 className="lbh-heading-h3">Work orders</h3>
-      {setSortedWorkOrders === null ? (
+      {sortedWorkOrders === null ? (
         <Spinner />
       ) : (
         <>
