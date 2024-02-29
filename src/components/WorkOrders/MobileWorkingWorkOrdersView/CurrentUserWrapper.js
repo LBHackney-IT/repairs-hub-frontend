@@ -5,7 +5,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import MobileWorkingWorkOrdersView from './MobileWorkingWorkOrdersView'
 
 const CurrentUserWrapper = () => {
-  const [currentUser, setCurrentUser] = useState({})
+  const [currentUser, setCurrentUser] = useState(null)
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
 

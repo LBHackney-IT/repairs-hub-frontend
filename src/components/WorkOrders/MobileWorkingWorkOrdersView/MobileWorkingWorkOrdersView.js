@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
@@ -9,19 +9,19 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 
+const SIXTY_SECONDS = 60 * 1000
+
 const MobileWorkingWorkOrdersView = ({
   currentUser,
   loggingEnabled = true,
 }) => {
   const currentDate = beginningOfDay(new Date())
-  const [visitedWorkOrders, setVisitedWorkOrders] = useState([])
-  const [sortedWorkOrders, setSortedWorkOrders] = useState([])
+  const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
+  const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
 
   const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
 
   const getOperativeWorkOrderView = async () => {
-    setLoading(true)
     setError(null)
 
     try {
@@ -77,16 +77,30 @@ const MobileWorkingWorkOrdersView = ({
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
-
-    setLoading(false)
   }
 
+  const intervalRef = useRef(null)
+
   useEffect(() => {
+    // dont try fetch if currentUser not loaded yet
+    if (currentUser === null) return
+
+    // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
-  }, [currentUser])
+
+    const intervalId = setInterval(() => {
+      getOperativeWorkOrderView()
+    }, SIXTY_SECONDS)
+
+    intervalRef.current = intervalId
+
+    return () => {
+      clearInterval(intervalRef.current)
+    }
+  }, [currentUser?.operativePayrollNumber])
 
   const renderWorkOrderListItems = (workOrders) => {
-    if (workOrders.length === 0) {
+    if (workOrders === null || workOrders?.length === 0) {
       return <></>
     }
 
@@ -168,7 +182,7 @@ const MobileWorkingWorkOrdersView = ({
       </div>
 
       <h3 className="lbh-heading-h3">Work orders</h3>
-      {loading ? (
+      {sortedWorkOrders === null ? (
         <Spinner />
       ) : (
         <>
