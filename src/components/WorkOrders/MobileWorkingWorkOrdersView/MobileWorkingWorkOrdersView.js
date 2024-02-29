@@ -97,7 +97,7 @@ const MobileWorkingWorkOrdersView = ({
     return () => {
       clearInterval(intervalRef.current)
     }
-  }, [currentUser.operativePayrollNumber])
+  }, [currentUser?.operativePayrollNumber])
 
   const renderWorkOrderListItems = (workOrders) => {
     if (workOrders.length === 0) {
