@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef,  } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
