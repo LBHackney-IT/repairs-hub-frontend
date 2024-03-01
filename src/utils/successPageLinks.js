@@ -1,7 +1,27 @@
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
+const onWindowFocusCallback = async (workOrderReference) => {
+  // fetch workOrder page to trigger manual sync
+  try {
+    await frontEndApiRequest({
+      method: 'get',
+      path: `/api/workOrders/${workOrderReference}`,
+    })
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 const openExternalLinkEventHandler = async (workOrderReference, userName) => {
+  // we need to fresh the workOrder page when user navigates back to this page
+  // will only run once
+  window.addEventListener(
+    'focus',
+    () => onWindowFocusCallback(workOrderReference),
+    { once: true }
+  )
+
   const jobStatusUpdate = buildDataFromScheduleAppointment(
     workOrderReference.toString(),
     `${userName} opened the DRS Web Booking Manager`
