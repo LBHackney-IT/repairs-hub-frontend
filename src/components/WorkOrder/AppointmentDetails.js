@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext'
 import { dateToStr } from '@/utils/date'
@@ -22,7 +22,29 @@ const AppointmentDetails = ({
 }) => {
   const { user } = useContext(UserContext)
 
+  const userOpenedWBM = useRef(false)
+  const focusRef = useRef(null)
+
+  const onWindowFocusCallback = function () {
+    if (!userOpenedWBM.current) return
+
+    // refresh page to trigger manual sync
+    window.location.reload()
+  }
+
+  useEffect(() => {
+    const ref = window.addEventListener('focus', onWindowFocusCallback, false)
+
+    focusRef.current = ref
+
+    return () => {
+      window.removeEventListener(focusRef.current, onWindowFocusCallback, false)
+    }
+  }, [])
+
   const openExternalLinkEventHandler = async () => {
+    userOpenedWBM.current = true
+
     const jobStatusUpdate = buildDataFromScheduleAppointment(
       workOrder.reference.toString(),
       `${user.name} opened the DRS Web Booking Manager`
