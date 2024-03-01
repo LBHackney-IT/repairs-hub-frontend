@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../UserContext'
 import { dateToStr } from '@/utils/date'
@@ -25,7 +25,7 @@ const AppointmentDetails = ({
   const userOpenedWBM = useRef(false)
   const focusRef = useRef(null)
 
-  const onWindowFocusCallback = function () {
+  const onWindowFocusCallback = () => {
     if (!userOpenedWBM.current) return
 
     // refresh page to trigger manual sync
