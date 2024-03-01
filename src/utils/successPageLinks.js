@@ -1,18 +1,7 @@
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
-let callbackRef = null
-
-const onWindowFocusCallback = async function (workOrderReference) {
-  console.info('window is focused')
-
-  // remove callback
-  window.removeEventListener(
-    callbackRef,
-    () => onWindowFocusCallback(workOrderReference),
-    false
-  )
-
+const onWindowFocusCallback = async (workOrderReference) => {
   // fetch workOrder page to trigger manual sync
   try {
     await frontEndApiRequest({
@@ -26,10 +15,11 @@ const onWindowFocusCallback = async function (workOrderReference) {
 
 const openExternalLinkEventHandler = async (workOrderReference, userName) => {
   // we need to fresh the workOrder page when user navigates back to this page
-  callbackRef = window.addEventListener(
+  // will only run once
+  window.addEventListener(
     'focus',
     () => onWindowFocusCallback(workOrderReference),
-    false
+    { once: true }
   )
 
   const jobStatusUpdate = buildDataFromScheduleAppointment(
