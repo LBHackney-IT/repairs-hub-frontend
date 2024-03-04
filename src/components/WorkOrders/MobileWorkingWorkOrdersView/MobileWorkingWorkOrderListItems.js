@@ -1,17 +1,20 @@
-import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem';
+import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
 
-export const MobileWorkingWorkOrderListItems = ({ workOrders, currentUser }) => {
+export const MobileWorkingWorkOrderListItems = ({
+  workOrders,
+  currentUser,
+}) => {
   const formatStatusText = (statusText) => {
-    const status = statusText.toLowerCase();
+    const status = statusText.toLowerCase()
 
-    if (status === 'no access') return 'No access';
-    if (status === 'completed') return 'Completed';
+    if (status === 'no access') return 'No access'
+    if (status === 'completed') return 'Completed'
 
-    return '';
-  };
+    return ''
+  }
 
   if (workOrders === null || workOrders?.length === 0) {
-    return <></>;
+    return <></>
   }
 
   return workOrders.map((workOrder, index) => (
@@ -20,6 +23,7 @@ export const MobileWorkingWorkOrderListItems = ({ workOrders, currentUser }) => 
       workOrder={workOrder}
       index={index}
       statusText={(() => formatStatusText(workOrder.status))()}
-      currentUser={currentUser} />
-  ));
-};
+      currentUser={currentUser}
+    />
+  ))
+}
