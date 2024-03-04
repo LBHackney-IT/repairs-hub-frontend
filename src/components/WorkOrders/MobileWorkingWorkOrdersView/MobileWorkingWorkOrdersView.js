@@ -28,22 +28,9 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
-
-      const inProgressWorkOrders = workOrders.filter(
-        (wo) => !wo.hasBeenVisited()
-      )
-
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
 
-      const startedWorkOrders = workOrders.filter(
-        (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
-      )
-
-      const sortedWorkOrderItems = sortWorkOrderItems(
-        currentUser,
-        inProgressWorkOrders,
-        startedWorkOrders
-      )
+      const sortedWorkOrderItems = sortWorkOrderItems(currentUser, workOrders)
 
       setVisitedWorkOrders(visitedWorkOrders)
       setSortedWorkOrders(sortedWorkOrderItems)
@@ -104,11 +91,13 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     ))
   }
 
-  const sortWorkOrderItems = (
-    currentUser,
-    inProgressWorkOrders,
-    startedWorkOrders
-  ) => {
+  const sortWorkOrderItems = (currentUser, workOrders) => {
+    const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
+
+    const startedWorkOrders = workOrders.filter(
+      (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
+    )
+
     // The operative is NOT an OJAAT operative
     if (!currentUser.isOneJobAtATime) return inProgressWorkOrders
 
