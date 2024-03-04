@@ -176,7 +176,6 @@ const OperativeMobileView = () => {
               <div style={{ marginTop: '30px' }}>
                 <MobileWorkingWorkOrdersView
                   currentUser={selectedOperative}
-                  loggingEnabled={false}
                 />
               </div>
             )}

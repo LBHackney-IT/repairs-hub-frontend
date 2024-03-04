@@ -11,10 +11,7 @@ import { WorkOrder } from '../../../models/workOrder'
 
 const SIXTY_SECONDS = 60 * 1000
 
-const MobileWorkingWorkOrdersView = ({
-  currentUser,
-  loggingEnabled = true,
-}) => {
+const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
@@ -50,24 +47,6 @@ const MobileWorkingWorkOrdersView = ({
 
       setVisitedWorkOrders(visitedWorkOrders)
       setSortedWorkOrders(sortedWorkOrderItems)
-
-      const inProgressWorkOrderIds = inProgressWorkOrders.map(
-        (x) => x.reference
-      )
-      const startedWorkOrderIds = startedWorkOrders.map((x) => x.reference)
-      const currentWorkOrderId = currentUser.isOneJobAtATime
-        ? sortedWorkOrderItems
-        : null
-
-      if (loggingEnabled) {
-        logWorkOrders(
-          currentUser.operativePayrollNumber,
-          currentUser.isOneJobAtATime,
-          inProgressWorkOrderIds,
-          startedWorkOrderIds,
-          currentWorkOrderId
-        )
-      }
     } catch (e) {
       setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
@@ -144,32 +123,6 @@ const MobileWorkingWorkOrdersView = ({
         )
       })
       .slice(0, 1)
-  }
-
-  const logWorkOrders = async (
-    operativeId,
-    ojaatEnabled,
-    inProgressWorkOrderIds,
-    startedWorkOrderIds,
-    currentWorkOrderId
-  ) => {
-    const body = {
-      operativeId,
-      ojaatEnabled,
-      inProgressWorkOrderIds,
-      startedWorkOrderIds,
-      currentWorkOrderId,
-    }
-
-    try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: '/api/frontend-logging/operative-mobile-view-work-orders',
-        requestData: body,
-      })
-    } catch (error) {
-      // fail silently - user doesnt need to know if logging fails
-    }
   }
 
   return (
