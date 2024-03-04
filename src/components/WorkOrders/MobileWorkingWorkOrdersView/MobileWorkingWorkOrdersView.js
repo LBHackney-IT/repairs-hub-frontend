@@ -4,10 +4,10 @@ import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
+import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListItems'
 
 const SIXTY_SECONDS = 60 * 1000
 
@@ -65,32 +65,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     }
   }, [currentUser?.operativePayrollNumber])
 
-  const renderWorkOrderListItems = (workOrders) => {
-    if (workOrders === null || workOrders?.length === 0) {
-      return <></>
-    }
-
-    return workOrders.map((workOrder, index) => (
-      <MobileWorkingWorkOrderListItem
-        key={index}
-        workOrder={workOrder}
-        index={index}
-        statusText={(() => {
-          const status = workOrder.status.toLowerCase()
-
-          if (status === 'no access') {
-            return 'No access'
-          } else if (status === 'completed') {
-            return 'Completed'
-          } else {
-            return ''
-          }
-        })()}
-        currentUser={currentUser}
-      />
-    ))
-  }
-
   const sortWorkOrderItems = (currentUser, workOrders) => {
     const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
 
@@ -129,12 +103,12 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       ) : (
         <>
           {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
-            <>
-              <ol className="lbh-list mobile-working-work-order-list">
-                {renderWorkOrderListItems(sortedWorkOrders)}
-                {renderWorkOrderListItems(visitedWorkOrders)}
-              </ol>
-            </>
+            <ol className="lbh-list mobile-working-work-order-list">
+              <MobileWorkingWorkOrderListItems
+                workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
+                currentUser={currentUser}
+              />
+            </ol>
           ) : (
             <WarningInfoBox
               header="No work orders displayed"
