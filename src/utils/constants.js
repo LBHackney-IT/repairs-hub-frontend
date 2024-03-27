@@ -5,6 +5,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'FPM',
   'HCW',
   'PSL',
+  'AIM',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -30,5 +31,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'PSL',
     contractorName: 'Pride Scaffolding Ltd',
+  },
+  {
+    contractorReference: 'AIM',
+    contractorName: 'AIM WINDOWS',
   },
 ]
