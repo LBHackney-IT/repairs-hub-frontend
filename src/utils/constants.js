@@ -36,4 +36,8 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
     contractorReference: 'AIM',
     contractorName: 'Aim Windows',
   },
+  {
+    contractorReference: 'AEP',
+    contractorName: 'Axis Europe (X) PLC',
+  },
 ]
