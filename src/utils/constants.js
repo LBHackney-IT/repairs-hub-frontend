@@ -1,13 +1,13 @@
 export const MULTITRADE_ENABLED_CONTRACTORS = [
+  'FPM',
   // 'PCL',
   'AEP',
   'HHL',
-  'FPM',
   'HCW',
   'PSL',
   'AIM',
 ]
-export const FPM_CONTRACTOR_REFERENCEE = 'FPM'
+export const FPM_CONTRACTOR_REFERENCE = 'FPM'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
 // If a contractor doesnt have any 'MU' sorCodes, the contractor will
