@@ -524,7 +524,7 @@ describe('Updating a work order', () => {
             {
               method: 'GET',
               path:
-                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=PCL&showAllTrades=true&filter=PLP',
+                '/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=FPM&showAllTrades=true&filter=PLP',
             },
             {
               body: [
