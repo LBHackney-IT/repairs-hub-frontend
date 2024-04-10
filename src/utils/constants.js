@@ -7,7 +7,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'PSL',
   'AIM',
 ]
-export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
+export const FPM_CONTRACTOR_REFERENCEE = 'FPM'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
 // If a contractor doesnt have any 'MU' sorCodes, the contractor will

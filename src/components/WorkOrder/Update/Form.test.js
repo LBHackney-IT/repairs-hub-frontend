@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import WorkOrderUpdateForm from './Form'
-import { PURDY_CONTRACTOR_REFERENCE } from '@/utils/constants'
+import { FPM_CONTRACTOR_REFERENCE } from '@/utils/constants'
 
 jest.mock('next/router', () => ({
   useRouter() {
@@ -59,7 +59,7 @@ describe('WorkOrderUpdateForm component', () => {
         onGetToSummary={props.onGetToSummary}
         setVariationReason={props.setVariationReason}
         variationReason={props.variationReason}
-        contractorReference={PURDY_CONTRACTOR_REFERENCE}
+        contractorReference={FPM_CONTRACTOR_REFERENCE}
         sorCodeArrays={[
           [
             {

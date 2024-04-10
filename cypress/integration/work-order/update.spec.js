@@ -2,7 +2,7 @@
 import 'cypress-audit/commands'
 import {
   MULTITRADE_TRADE_CODE,
-  PURDY_CONTRACTOR_REFERENCE,
+  FPM_CONTRACTOR_REFERENCE,
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
@@ -488,7 +488,7 @@ describe('Updating a work order', () => {
       beforeEach(() => {
         cy.fixture('workOrders/workOrder.json')
           .then((workOrder) => {
-            workOrder.contractorReference = PURDY_CONTRACTOR_REFERENCE
+            workOrder.contractorReference = FPM_CONTRACTOR_REFERENCE
             workOrder.tradeCode = MULTITRADE_TRADE_CODE
             workOrder.reference = 10000040
 
