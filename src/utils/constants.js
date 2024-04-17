@@ -6,6 +6,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'HCW',
   'PSL',
   'AIM',
+  'TDK',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -39,5 +40,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'AEP',
     contractorName: 'Axis Europe (X) PLC',
+  },
+  {
+    contractorReference: 'TDK',
+    contractorName: 'TDK Mechanical Services (UK) Ltd',
   },
 ]
