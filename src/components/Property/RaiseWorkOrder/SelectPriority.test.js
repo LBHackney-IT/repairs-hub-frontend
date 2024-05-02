@@ -54,6 +54,27 @@ describe('SelectPriority component', () => {
         priorityCharacter: 'V15',
         priorityCode: 15,
       },
+      {
+        daysToComplete: 20,
+        description: '[AD20] Minor Adaptation',
+        enabled: true,
+        priorityCharacter: 'AD20',
+        priorityCode: 200,
+      },
+      {
+        daysToComplete: 30,
+        description: '[AD30] Intermediate Adaptation',
+        enabled: true,
+        priorityCharacter: 'AD30',
+        priorityCode: 300,
+      },
+      {
+        daysToComplete: 17,
+        description: '[AD17] Major Adaptation',
+        enabled: true,
+        priorityCharacter: 'AD17',
+        priorityCode: 170,
+      },
     ],
 
     priorityCode: 2,
@@ -125,6 +146,24 @@ describe('SelectPriority component', () => {
     expect(asFragment()).toMatchSnapshot()
     expect(
       queryByText('VOIDS work orders do not go to the DRS booking system')
+    ).toBeInTheDocument()
+  })
+
+  it('should render with Info Box when Adaptation priority is selected', () => {
+    const { asFragment, queryByText, getByTestId } = render(
+      <SelectPriority
+        priorities={props.priorities}
+        onPrioritySelect={props.onPrioritySelect}
+        priorityCode={props.priorityCode}
+        priorityCodesWithoutDrs={props.priorityCodesWithoutDrs}
+        register={props.register}
+        errors={{}}
+      />
+    )
+    fireEvent.change(getByTestId('priorityCode'), { target: { value: 200 } })
+    expect(asFragment()).toMatchSnapshot()
+    expect(
+      queryByText('Adaptation work orders do not go to the DRS booking system')
     ).toBeInTheDocument()
   })
 })
