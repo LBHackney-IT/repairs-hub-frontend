@@ -2,7 +2,11 @@ import PropTypes from 'prop-types'
 import { Select } from '../../Form'
 import { useState } from 'react'
 import WarningInfoBox from '../../Template/WarningInfoBox'
-import { PLANNED_PRIORITY_CODE } from '@/utils/helpers/priorities'
+import {
+  PLANNED_PRIORITY_CODE,
+  VOIDS_MAJOR_PRIORITY_CODE,
+  VOIDS_MINOR_PRIORITY_CODE,
+} from '@/utils/helpers/priorities'
 
 const SelectPriority = ({
   priorities,
@@ -22,6 +26,36 @@ const SelectPriority = ({
     setDrsScheduled(priorityCodesWithoutDrs.includes(selectedCode))
     onPrioritySelect(selectedCode)
     setSelectedPriority(selectedCode)
+  }
+
+  const generatePriorityWarningHeader = (selectedPriority) => {
+    switch (selectedPriority) {
+      case PLANNED_PRIORITY_CODE:
+        return 'Planned priority'
+
+      case VOIDS_MAJOR_PRIORITY_CODE:
+      case VOIDS_MINOR_PRIORITY_CODE:
+        return 'VOIDS priority'
+
+      default:
+        return 'Adaptations priority'
+    }
+  }
+
+  const generatePriorityWarningText = (selectedPriority) => {
+    const baseText = 'work orders do not go to the DRS booking system'
+
+    switch (selectedPriority) {
+      case PLANNED_PRIORITY_CODE:
+        return `Planned ${baseText}`
+
+      case VOIDS_MAJOR_PRIORITY_CODE:
+      case VOIDS_MINOR_PRIORITY_CODE:
+        return `VOIDS ${baseText}`
+
+      default:
+        return `Adaptation ${baseText}`
+    }
   }
 
   return (
@@ -49,14 +83,8 @@ const SelectPriority = ({
         <>
           <br />
           <WarningInfoBox
-            header={
-              selectedPriority === PLANNED_PRIORITY_CODE
-                ? 'Planned priority'
-                : 'VOIDS priority'
-            }
-            text={`${
-              selectedPriority === PLANNED_PRIORITY_CODE ? 'Planned' : 'VOIDS'
-            } work orders do not go to the DRS booking system`}
+            header={generatePriorityWarningHeader(selectedPriority)}
+            text={generatePriorityWarningText(selectedPriority)}
           />
         </>
       )}
