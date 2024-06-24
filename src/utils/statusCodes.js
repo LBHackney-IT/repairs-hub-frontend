@@ -49,6 +49,8 @@ export const CLOSURE_STATUS_OPTIONS = [
   },
 ]
 
+
+
 export const WORK_ORDERS_STATUSES = [
   STATUS_IN_PROGRESS.description,
   STATUS_COMPLETED.description,

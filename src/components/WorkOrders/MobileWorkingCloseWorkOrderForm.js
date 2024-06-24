@@ -13,6 +13,22 @@ const PAGES = {
   DAMP_OR_MOULD: '2',
 }
 
+const VisitCompleteFurtherOptions = (props) => {
+  const { register, errors } = props
+
+  return (
+    <Radios
+      // label="Select reason for closing"
+      name="followOnStatus"
+      options={['No further work required', 'Further work required']}
+      register={register({
+        required: 'Please select a reason for closing the work order',
+      })}
+      error={errors && errors.reason}
+    />
+  )
+}
+
 const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const { handleSubmit, register, errors, getValues, trigger, watch } = useForm(
     {
@@ -43,6 +59,18 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const DAMP_AND_MOULD_FORM_ENABLED =
     process.env.NEXT_PUBLIC_DAMP_AND_MOULD_FORM_ENABLED === 'true'
 
+  const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
+
+  const newReasonOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
+    return {
+      ...r,
+      children:
+        r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
+          <VisitCompleteFurtherOptions register={register} errors={errors} />
+        ) : null,
+    }
+  })
+
   return (
     <>
       <div>
@@ -72,12 +100,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               labelSize="s"
               label="Select reason for closing"
               name="reason"
-              options={CLOSURE_STATUS_OPTIONS.map((r) => {
-                return {
-                  text: r.text,
-                  value: r.value,
-                }
-              })}
+              options={newReasonOptions}
               register={register({
                 required: 'Please select a reason for closing the work order',
               })}

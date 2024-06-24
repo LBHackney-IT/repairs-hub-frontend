@@ -23,31 +23,31 @@ const Home = ({ query }) => {
   const [loading, setLoading] = useState(true)
 
   const HomeView = () => {
-    if (user && canSeeWorkOrders(user)) {
-      // Use saved filter preset in local storage as the default applied filters (if present)
-      const defaultFilters = JSON.parse(
-        localStorage.getItem('RH - default work order filters')
-      )
+    // if (user && canSeeWorkOrders(user)) {
+    //   // Use saved filter preset in local storage as the default applied filters (if present)
+    //   const defaultFilters = JSON.parse(
+    //     localStorage.getItem('RH - default work order filters')
+    //   )
 
-      if (Object.entries(query).length === 0) {
-        return (
-          <WorkOrdersView
-            pageNumber={1}
-            {...(defaultFilters && { query: defaultFilters })}
-          />
-        )
-      } else {
-        return <WorkOrdersView query={query} />
-      }
-    } else if (user && canSeeOperativeWorkOrders(user)) {
+    //   if (Object.entries(query).length === 0) {
+    //     return (
+    //       <WorkOrdersView
+    //         pageNumber={1}
+    //         {...(defaultFilters && { query: defaultFilters })}
+    //       />
+    //     )
+    //   } else {
+    //     return <WorkOrdersView query={query} />
+    //   }
+    // } else if (user && canSeeOperativeWorkOrders(user)) {
       return <MobileWorkingWorkOrdersView />
-    } else {
-      if (Object.entries(query).length === 0) {
-        return <Search />
-      } else {
-        return <Search query={query} />
-      }
-    }
+    // } else {
+    //   if (Object.entries(query).length === 0) {
+    //     return <Search />
+    //   } else {
+    //     return <Search query={query} />
+    //   }
+    // }
   }
 
   useEffect(() => {

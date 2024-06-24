@@ -113,8 +113,7 @@ const CloseWorkOrderForm = ({
 
   const newReasonOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
     return {
-      text: r.text,
-      value: r.value,
+      ...r,
       defaultChecked: r.value === 'Work Order Completed',
       children:
         r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
