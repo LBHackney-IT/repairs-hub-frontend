@@ -41,44 +41,59 @@ const Radio = ({
       {options.map((option) => {
         const { value, text, defaultChecked, hint } =
           typeof option === 'string'
-            ? { value: option, text: option, defaultChecked: false }
+            ? {
+                value: option,
+                text: option,
+                defaultChecked: false,
+                children: null,
+              }
             : option
         return (
-          <div className="govuk-radios__item" key={text}>
-            <input
-              className={cx('govuk-radios__input', {
-                'govuk-input--error': error,
-              })}
-              id={`${name}_${value}`}
-              name={name}
-              type="radio"
-              value={value}
-              ref={register}
-              data-testid={name}
-              aria-describedby={
-                hint &&
-                `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
-              }
-              defaultChecked={defaultChecked}
-              {...otherProps}
-            />
+          <>
+            <div className="govuk-radios__item" key={text}>
+              <input
+                className={cx('govuk-radios__input', {
+                  'govuk-input--error': error,
+                })}
+                id={`${name}_${value}`}
+                name={name}
+                type="radio"
+                value={value}
+                ref={register}
+                data-testid={name}
+                aria-describedby={
+                  hint &&
+                  `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
+                }
+                defaultChecked={defaultChecked}
+                {...otherProps}
+              />
 
-            <label
-              className="govuk-label lbh-label govuk-radios__label"
-              htmlFor={`${name}_${value}`}
-            >
-              {text}
-            </label>
-
-            {hint && (
-              <span
-                id={`${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`}
-                className="govuk-hint govuk-radios__hint"
+              <label
+                className="govuk-label lbh-label govuk-radios__label"
+                htmlFor={`${name}_${value}`}
               >
-                {hint}
-              </span>
+                {text}
+              </label>
+
+              {hint && (
+                <span
+                  id={`${name}-${value
+                    .replace(/\s+/g, '-')
+                    .toLowerCase()}-hint`}
+                  className="govuk-hint govuk-radios__hint"
+                >
+                  {hint}
+                </span>
+              )}
+            </div>
+
+            {option.children != null && (
+              <div class="govuk-radios__conditional" id="conditional-contact">
+                {option.children}
+              </div>
             )}
-          </div>
+          </>
         )
       })}
     </div>

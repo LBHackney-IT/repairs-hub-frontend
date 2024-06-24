@@ -15,7 +15,23 @@ import {
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
 import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+
+const VisitCompleteFurtherOptions = (props) => {
+  const { register, errors } = props
+
+  return (
+    <Radios
+      // label="Select reason for closing"
+      name="followOnStatus"
+      options={['No further work required', 'Further work required']}
+      register={register({
+        required: 'Please select a reason for closing the work order',
+      })}
+      error={errors && errors.reason}
+    />
+  )
+}
 
 const CloseWorkOrderForm = ({
   reference,
@@ -43,6 +59,7 @@ const CloseWorkOrderForm = ({
     errors,
     trigger,
     getValues,
+    watch,
   } = useForm({})
 
   const [startTimeIsRequired, setStartTimeIsRequired] = useState(false)
@@ -52,13 +69,44 @@ const CloseWorkOrderForm = ({
     setStartTimeIsRequired(e.target.value !== '')
   }
 
+  const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed' || watch('reason') === undefined
+
+
+  console.log(watch('reason'))
+
+  // === 'Work Order Completed'
+
+  const newOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
+    return {
+      text: r.text,
+      value: r.value,
+      defaultChecked: r.value === 'Work Order Completed',
+      children:
+        r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
+          <VisitCompleteFurtherOptions register={register} errors={errors} />
+        ) : null,
+    }
+  })
+
+  // useEffect(() => {
+  //   console.log({ showFollowOnRadioOptions })
+  // }, [showFollowOnRadioOptions])
+
+  watch('reason', (data) => {
+    console.log({ data })
+  })
+
+  // console.log({ values: getValues()?.reason })
+
   return (
     <div>
       <BackButton />
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
+      {/* <p>Show: {showFollowOnRadioOptions ? 'TRUE' : 'FALSE'}</p> */}
+
       <form role="form" onSubmit={handleSubmit(onSubmit)}>
-        <Radios
+        {/* <Radios
           label="Select reason for closing"
           name="reason"
           options={CLOSURE_STATUS_OPTIONS.map((r) => {
@@ -68,6 +116,16 @@ const CloseWorkOrderForm = ({
               defaultChecked: r.value === reason,
             }
           })}
+          register={register({
+            required: 'Please select a reason for closing the work order',
+          })}
+          error={errors && errors.reason}
+        /> */}
+
+        <Radios
+          label="Select reason for closing"
+          name="reason"
+          options={newOptions}
           register={register({
             required: 'Please select a reason for closing the work order',
           })}
