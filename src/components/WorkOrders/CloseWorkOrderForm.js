@@ -15,7 +15,20 @@ import {
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
 import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+
+const AVAILABLE_TRADES = [
+  'Carpentry',
+  'Drainage',
+  'Gas',
+  'Electrical',
+  'Multitrade',
+  'Painting',
+  'Plumbing',
+  'Roofing',
+  'UPVC',
+  'Other (please specify)',
+]
 
 const VisitCompleteFurtherOptions = (props) => {
   const { register, errors } = props
@@ -30,6 +43,30 @@ const VisitCompleteFurtherOptions = (props) => {
       })}
       error={errors && errors.reason}
     />
+  )
+}
+
+const DifferentTradesFurtherOptions = (props) => {
+  const { register } = props
+
+  return (
+    <div>
+      <ul>
+        {/* // Checkboxes */}
+        {AVAILABLE_TRADES.map((x) => (
+          <li style={{ display: 'flex' }}>
+            <Checkbox
+              className="govuk-!-margin-0"
+              labelClassName="lbh-body-xs"
+              // key={index}
+              name={`ContractorReference`}
+              label={x}
+              register={register}
+            />
+          </li>
+        ))}
+      </ul>
+    </div>
   )
 }
 
@@ -69,14 +106,12 @@ const CloseWorkOrderForm = ({
     setStartTimeIsRequired(e.target.value !== '')
   }
 
-  const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed' || watch('reason') === undefined
+  const showFollowOnRadioOptions =
+    watch('reason') === 'Work Order Completed' || watch('reason') === undefined // undefined if visible when default option
 
+  const showDifferentTrades = watch('operatives') === 'Different trade(s)'
 
-  console.log(watch('reason'))
-
-  // === 'Work Order Completed'
-
-  const newOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
+  const newReasonOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
     return {
       text: r.text,
       value: r.value,
@@ -88,15 +123,23 @@ const CloseWorkOrderForm = ({
     }
   })
 
-  // useEffect(() => {
-  //   console.log({ showFollowOnRadioOptions })
-  // }, [showFollowOnRadioOptions])
-
-  watch('reason', (data) => {
-    console.log({ data })
-  })
-
-  // console.log({ values: getValues()?.reason })
+  const operativeOptions = [
+    {
+      text: 'Same trade',
+      value: 'Same trade',
+    },
+    {
+      text: 'Different trade(s)',
+      value: 'Different trade(s)',
+      children: showDifferentTrades && (
+        <DifferentTradesFurtherOptions register={register} errors={errors} />
+      ),
+    },
+    {
+      text: 'Multiple operatives',
+      value: 'Multiple operatives',
+    },
+  ]
 
   return (
     <div>
@@ -106,168 +149,29 @@ const CloseWorkOrderForm = ({
       {/* <p>Show: {showFollowOnRadioOptions ? 'TRUE' : 'FALSE'}</p> */}
 
       <form role="form" onSubmit={handleSubmit(onSubmit)}>
-        {/* <Radios
-          label="Select reason for closing"
-          name="reason"
-          options={CLOSURE_STATUS_OPTIONS.map((r) => {
-            return {
-              text: r.text,
-              value: r.value,
-              defaultChecked: r.value === reason,
-            }
-          })}
-          register={register({
-            required: 'Please select a reason for closing the work order',
-          })}
-          error={errors && errors.reason}
-        /> */}
-
         <Radios
           label="Select reason for closing"
           name="reason"
-          options={newOptions}
+          options={newReasonOptions}
           register={register({
             required: 'Please select a reason for closing the work order',
           })}
           error={errors && errors.reason}
         />
 
-        <h2>Details of further work required</h2>
+        <h3>Details of further work required</h3>
 
-        <div class="govuk-form-group">
-          <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
-            {/* <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-              <h1 class="govuk-fieldset__heading">
-              Operative(s)
-              </h1>
-            </legend> */}
-            {/* <div id="contact-hint" class="govuk-hint">
-              Select one option.
-            </div> */}
-            <div class="govuk-radios" data-module="govuk-radios">
-              <div class="govuk-radios__item">
-                <input
-                  class="govuk-radios__input"
-                  id="contact"
-                  name="contact"
-                  type="radio"
-                  value="email"
-                  checked
-                  data-aria-controls="conditional-contact"
-                />
-                <label class="govuk-label govuk-radios__label" for="contact">
-                  Same trade
-                </label>
-              </div>
-              <div class="govuk-radios__item">
-                <input
-                  class="govuk-radios__input"
-                  id="contact-2"
-                  name="contact"
-                  type="radio"
-                  value="phone"
-                  data-aria-controls="conditional-contact-2"
-                />
-                <label class="govuk-label govuk-radios__label" for="contact-2">
-                  Different trade (please specify)
-                </label>
-              </div>
-              <div class="govuk-radios__conditional" id="conditional-contact">
-                <ul>
-                  {/* // Checkboxes */}
-                  {[
-                    'Carpentry',
-                    'Drainage',
-                    'Gas',
-                    'Electrical',
-                    'Multitrade',
-                    'Painting',
-                    'Plumbing',
-                    'Roofing',
-                    'UPVC',
-                    'Other (please specify)',
-                  ].map((x) => (
-                    <li style={{ display: 'flex' }}>
-                      <Checkbox
-                        className="govuk-!-margin-0"
-                        labelClassName="lbh-body-xs"
-                        // key={index}
-                        name={`ContractorReference`}
-                        label={x}
-                        register={register}
-                        // checked={appliedFilters?.ContractorReference?.includes(
-                        //   contractor.key
-                        // )}
-                      />
-                    </li>
-                  ))}
-                </ul>
-              </div>
+        {/* operativeOptions */}
 
-              <div
-                class="govuk-radios__conditional govuk-radios__conditional--hidden"
-                id="conditional-contact-2"
-              >
-                <div class="govuk-form-group">
-                  <label class="govuk-label" for="contact-by-phone">
-                    Phone number
-                  </label>
-                  <input
-                    class="govuk-input govuk-!-width-one-third"
-                    id="contact-by-phone"
-                    name="contactByPhone"
-                    type="tel"
-                    autocomplete="tel"
-                  />
-                </div>
-              </div>
-              <div class="govuk-radios__item">
-                <input
-                  class="govuk-radios__input"
-                  id="contact-3"
-                  name="contact"
-                  type="radio"
-                  value="text"
-                  data-aria-controls="conditional-contact-3"
-                />
-                <label class="govuk-label govuk-radios__label" for="contact-3">
-                  Multiple operatives
-                </label>
-              </div>
-              <div
-                class="govuk-radios__conditional govuk-radios__conditional--hidden"
-                id="conditional-contact-3"
-              >
-                <div class="govuk-form-group">
-                  <label class="govuk-label" for="contact-by-text">
-                    Mobile phone number
-                  </label>
-                  <input
-                    class="govuk-input govuk-!-width-one-third"
-                    id="contact-by-text"
-                    name="contactByText"
-                    type="tel"
-                    autocomplete="tel"
-                  />
-                </div>
-              </div>
-            </div>
-          </fieldset>
-        </div>
-
-        {/* <Radios
+        <Radios
           label="Operative(s)"
           name="operatives"
-          options={[
-            'Same trade',
-            'Different trade (please specify)',
-            'Multiple operatives',
-          ]}
+          options={operativeOptions}
           register={register({
             required: 'Please select a reason for closing the work order',
           })}
           error={errors && errors.reason}
-        /> */}
+        />
 
         <TextArea
           name="workRequiredDescription"
@@ -277,15 +181,27 @@ const CloseWorkOrderForm = ({
           defaultValue={notes}
         />
 
-        <Radios
-          label="Materials"
-          name="materials"
-          options={['Stock items required', 'Non stock item required']}
-          register={register({
-            required: 'Please select a reason for closing the work order',
-          })}
-          error={errors && errors.reason}
-        />
+        <fieldset>
+          <label className={`govuk-label govuk-label--m`} htmlFor={name}>
+            Materials
+          </label>
+
+          <ul>
+            {/* // Checkboxes */}
+            {['Stock items required', 'Non stock items required'].map((x) => (
+              <li style={{ display: 'flex' }}>
+                <Checkbox
+                  className="govuk-!-margin-0"
+                  labelClassName="lbh-body-xs"
+                  // key={index}
+                  name={`yeet`}
+                  label={x}
+                  register={register}
+                />
+              </li>
+            ))}
+          </ul>
+        </fieldset>
 
         <TextArea
           name="materialsRequired"
