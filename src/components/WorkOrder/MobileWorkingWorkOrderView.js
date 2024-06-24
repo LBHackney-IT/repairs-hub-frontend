@@ -8,10 +8,7 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
-import {
-  buildCloseWorkOrderData,
-  buildDampAndMouldReportData,
-} from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
 import {
@@ -121,25 +118,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     setLoading(true)
 
-    let dampAndMouldReportFormData = null
-
-    // Only send report if workOrder completed, and there is potential
-    // damp or mould presence in the property
-    const sendDampAndMouldReport =
-      data.reason === 'Work Order Completed' &&
-      (data.isDampOrMouldInProperty === 'Yes' ||
-        data.isDampOrMouldInProperty === 'Not sure')
-
-    if (sendDampAndMouldReport) {
-      dampAndMouldReportFormData = buildDampAndMouldReportData(
-        property.address.addressLine,
-        data.isDampOrMouldInProperty,
-        data.residentPreviouslyReported,
-        data.resolvedAtTheTime,
-        data.comments
-      )
-    }
-
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
@@ -158,17 +136,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           requestData: closeWorkOrderFormData,
         }),
       ]
-
-      if (sendDampAndMouldReport) {
-        promiseList.push(
-          frontEndApiRequest({
-            method: 'post',
-            path: `/api/damp-and-mould/reports/${workOrder.propertyReference}`,
-            requestData: dampAndMouldReportFormData,
-          })
-        )
-      }
-
       await Promise.all(promiseList)
 
       setModalFlashMessage(

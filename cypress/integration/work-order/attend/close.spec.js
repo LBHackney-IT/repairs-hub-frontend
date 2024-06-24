@@ -74,17 +74,6 @@ describe('Closing my own work order', () => {
       { body: [] }
     )
 
-    cy.intercept(
-      {
-        method: 'POST',
-        path: `/api/damp-and-mould/reports/${propertyReference}`,
-      },
-      {
-        statusCode: 201,
-        body: '',
-      }
-    ).as('dampAndMouldReportRequest')
-
     cy.loginWithOperativeRole()
   })
 
@@ -173,10 +162,6 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Next').click()
 
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'No'
-      )
-
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -209,254 +194,6 @@ describe('Closing my own work order', () => {
       cy.get('.modal-container').should('not.exist')
 
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
-    })
-
-    it('doesnt create a damp or mould report when no damp or mould presence in property', () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select no damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'No'
-      )
-
-      // 5. Assert subsequent radio fields and comments are hidden
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).should('not.be.visible')
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').should(
-        'not.be.visible'
-      )
-      cy.get('textarea[data-testid="comments"]').should('not.be.visible')
-
-      // 6. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      cy.wait('@workOrderCompleteRequest')
-
-      // 7. Assert damp and mould report request not made
-      cy.get('@dampAndMouldReportRequest.all').then((interceptions) => {
-        expect(interceptions).to.have.length(0)
-      })
-
-      // 8. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
-    })
-
-    const testData = [
-      {
-        description: 'damp or mould presence confirmed',
-        optionLabel: 'Yes',
-        confirmed: true,
-      },
-      {
-        description: 'damp or mould presence uncomfirmed',
-        optionLabel: 'Not sure',
-        confirmed: false,
-      },
-    ]
-
-    testData.forEach(({ description, optionLabel, confirmed }) => {
-      it(`create a damp or mould report when potential ${description} in property`, () => {
-        cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-        cy.wait([
-          '@workOrderRequest',
-          '@propertyRequest',
-          '@tasksRequest',
-          '@locationAlerts',
-          '@personAlerts',
-        ])
-
-        // 1. Click confirm button - (navigate to close work order form)
-        cy.contains('button', 'Confirm').click()
-
-        // 2. Set job as completed
-        cy.get('.lbh-radios input[data-testid="reason"]').check(
-          'Work Order Completed'
-        )
-
-        // 3. Navigate to damp and mould part of form
-        cy.get('.govuk-button').contains('Next').click()
-
-        // 4. Select potential presence in property
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check(optionLabel)
-
-        // 5. Select resident hasnt previously reported
-        cy.get(
-          '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-        ).check('No')
-
-        // 6. Populate comments
-        cy.get('textarea[data-testid="comments"]').type('Comments')
-
-        // 7. Assert subsequent radio field is hidden
-        cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').should(
-          'not.be.visible'
-        )
-
-        // 8. Submit form
-        cy.get('.govuk-button').contains('Close work order').click()
-
-        // 9. Assert damp and mould report request made
-        cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-        cy.get('@dampAndMouldReportRequest')
-          .its('request.body')
-          .should('deep.equal', {
-            address: '16 Pitcairn House',
-            dampAndMouldPresenceConfirmed: confirmed,
-            previouslyReported: false,
-            comments: 'Comments',
-          })
-
-        // 10. Assert confirmation message appeared
-        cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
-        })
-      })
-    })
-
-    it(`create a damp or mould report when resident has previously reported the property`, () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select confirmed damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'Yes'
-      )
-
-      // 5. Select resident has previously reported
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).check('Yes')
-
-      // 6. Select previous report not resolved at the time
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').check('No')
-
-      // 7. Populate comments
-      cy.get('textarea[data-testid="comments"]').type('Comments')
-
-      // 8. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // 9. Assert damp and mould report request made
-      cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-      cy.get('@dampAndMouldReportRequest')
-        .its('request.body')
-        .should('deep.equal', {
-          address: '16 Pitcairn House',
-          dampAndMouldPresenceConfirmed: true,
-          previouslyReported: true,
-          previousReportResolved: false,
-          comments: 'Comments',
-        })
-
-      // 10. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
-    })
-
-    it(`create a damp or mould report when previously reported problem was resolved at the time`, () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select confirmed damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'Yes'
-      )
-
-      // 5. Select resident has previously reported
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).check('Yes')
-
-      // 6. Select previous report not resolved at the time
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').check('Yes')
-
-      // 7. Populate comments
-      cy.get('textarea[data-testid="comments"]').type('Comments')
-
-      // 8. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // 9. Assert damp and mould report request made
-      cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-      cy.get('@dampAndMouldReportRequest')
-        .its('request.body')
-        .should('deep.equal', {
-          address: '16 Pitcairn House',
-          dampAndMouldPresenceConfirmed: true,
-          previouslyReported: true,
-          previousReportResolved: true,
-          comments: 'Comments',
-        })
-
-      // 10. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
     })
   })
 
@@ -565,10 +302,6 @@ describe('Closing my own work order', () => {
 
         cy.get('.govuk-button').contains('Next').click()
 
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check('No')
-
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -638,10 +371,6 @@ describe('Closing my own work order', () => {
         ) // Checking by value, not text
 
         cy.get('.govuk-button').contains('Next').click()
-
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check('No')
 
         cy.get('.govuk-button').contains('Close work order').click()
 
