@@ -40,7 +40,7 @@ export const STATUS_NO_ACCESS = {
 
 export const CLOSURE_STATUS_OPTIONS = [
   {
-    text: 'Completed',
+    text: 'Visit completed',
     value: 'Work Order Completed',
   },
   {

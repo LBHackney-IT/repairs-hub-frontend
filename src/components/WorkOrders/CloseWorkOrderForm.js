@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { PrimarySubmitButton } from '../Form'
+import { Checkbox, PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import DatePicker from '../Form/DatePicker'
 import isPast from 'date-fns/isPast'
@@ -72,6 +72,169 @@ const CloseWorkOrderForm = ({
             required: 'Please select a reason for closing the work order',
           })}
           error={errors && errors.reason}
+        />
+
+        <h2>Details of further work required</h2>
+
+        <div class="govuk-form-group">
+          <fieldset class="govuk-fieldset" aria-describedby="contact-hint">
+            {/* <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+              <h1 class="govuk-fieldset__heading">
+              Operative(s)
+              </h1>
+            </legend> */}
+            {/* <div id="contact-hint" class="govuk-hint">
+              Select one option.
+            </div> */}
+            <div class="govuk-radios" data-module="govuk-radios">
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input"
+                  id="contact"
+                  name="contact"
+                  type="radio"
+                  value="email"
+                  checked
+                  data-aria-controls="conditional-contact"
+                />
+                <label class="govuk-label govuk-radios__label" for="contact">
+                  Same trade
+                </label>
+              </div>
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input"
+                  id="contact-2"
+                  name="contact"
+                  type="radio"
+                  value="phone"
+                  data-aria-controls="conditional-contact-2"
+                />
+                <label class="govuk-label govuk-radios__label" for="contact-2">
+                  Different trade (please specify)
+                </label>
+              </div>
+              <div class="govuk-radios__conditional" id="conditional-contact">
+                <ul>
+                  {/* // Checkboxes */}
+                  {[
+                    'Carpentry',
+                    'Drainage',
+                    'Gas',
+                    'Electrical',
+                    'Multitrade',
+                    'Painting',
+                    'Plumbing',
+                    'Roofing',
+                    'UPVC',
+                    'Other (please specify)',
+                  ].map((x) => (
+                    <li style={{ display: 'flex' }}>
+                      <Checkbox
+                        className="govuk-!-margin-0"
+                        labelClassName="lbh-body-xs"
+                        // key={index}
+                        name={`ContractorReference`}
+                        label={x}
+                        register={register}
+                        // checked={appliedFilters?.ContractorReference?.includes(
+                        //   contractor.key
+                        // )}
+                      />
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div
+                class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                id="conditional-contact-2"
+              >
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="contact-by-phone">
+                    Phone number
+                  </label>
+                  <input
+                    class="govuk-input govuk-!-width-one-third"
+                    id="contact-by-phone"
+                    name="contactByPhone"
+                    type="tel"
+                    autocomplete="tel"
+                  />
+                </div>
+              </div>
+              <div class="govuk-radios__item">
+                <input
+                  class="govuk-radios__input"
+                  id="contact-3"
+                  name="contact"
+                  type="radio"
+                  value="text"
+                  data-aria-controls="conditional-contact-3"
+                />
+                <label class="govuk-label govuk-radios__label" for="contact-3">
+                  Multiple operatives
+                </label>
+              </div>
+              <div
+                class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                id="conditional-contact-3"
+              >
+                <div class="govuk-form-group">
+                  <label class="govuk-label" for="contact-by-text">
+                    Mobile phone number
+                  </label>
+                  <input
+                    class="govuk-input govuk-!-width-one-third"
+                    id="contact-by-text"
+                    name="contactByText"
+                    type="tel"
+                    autocomplete="tel"
+                  />
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </div>
+
+        {/* <Radios
+          label="Operative(s)"
+          name="operatives"
+          options={[
+            'Same trade',
+            'Different trade (please specify)',
+            'Multiple operatives',
+          ]}
+          register={register({
+            required: 'Please select a reason for closing the work order',
+          })}
+          error={errors && errors.reason}
+        /> */}
+
+        <TextArea
+          name="workRequiredDescription"
+          label="Describe work required"
+          register={register}
+          error={errors && errors.notes}
+          defaultValue={notes}
+        />
+
+        <Radios
+          label="Materials"
+          name="materials"
+          options={['Stock items required', 'Non stock item required']}
+          register={register({
+            required: 'Please select a reason for closing the work order',
+          })}
+          error={errors && errors.reason}
+        />
+
+        <TextArea
+          name="materialsRequired"
+          label="Materials required"
+          register={register}
+          error={errors && errors.notes}
+          defaultValue={notes}
         />
 
         {/* Start time cannot be changed once set by an operative */}
