@@ -4,7 +4,11 @@ import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
 import WarningInfoBox from '../Template/WarningInfoBox'
-import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
+import {
+  CLOSURE_STATUS_OPTIONS,
+  FOLLOW_ON_REQUEST_AVAILABLE_TRADES,
+  FOLLOW_ON_STATUS_OPTIONS,
+} from '@/utils/statusCodes'
 import { Checkbox, PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
 
@@ -13,19 +17,6 @@ const PAGES = {
   FOLLOW_ON_DETAILS: '2',
 }
 
-const AVAILABLE_TRADES = [
-  'Carpentry',
-  'Drainage',
-  'Gas',
-  'Electrical',
-  'Multitrade',
-  'Painting',
-  'Plumbing',
-  'Roofing',
-  'UPVC',
-  'Other (please specify)',
-]
-
 const VisitCompleteFurtherOptions = (props) => {
   const { register, errors } = props
 
@@ -33,7 +24,7 @@ const VisitCompleteFurtherOptions = (props) => {
     <Radios
       // label="Select reason for closing"
       name="followOnStatus"
-      options={['No further work required', 'Further work required']}
+      options={FOLLOW_ON_STATUS_OPTIONS}
       register={register({
         required: 'Please select a reason for closing the work order',
       })}
@@ -49,14 +40,14 @@ const DifferentTradesFurtherOptions = (props) => {
     <div>
       <ul>
         {/* // Checkboxes */}
-        {AVAILABLE_TRADES.map((x) => (
+        {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
           <li style={{ display: 'flex' }}>
             <Checkbox
               className="govuk-!-margin-0"
               labelClassName="lbh-body-xs govuk-!-margin-0"
               // key={index}
-              name={`ContractorReference`}
-              label={x}
+              name={name}
+              label={label}
               register={register}
             />
           </li>
@@ -73,9 +64,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
 
   const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
   const selectedFurtherWorkRequired =
-    watch('followOnStatus') === 'Further work required'
-
-
+    watch('followOnStatus') === 'furtherWorkRequired'
 
   const newReasonOptions = CLOSURE_STATUS_OPTIONS.map((r) => {
     return {
@@ -96,7 +85,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const viewWorkOrderStatusPage = () => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
-
 
   return (
     <>
@@ -172,11 +160,13 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 {/* // Checkboxes */}
                 {[
                   {
-                    name: 'Same trade',
+                    name: 'isSameTrade',
+                    label: 'Same trade',
                     children: null,
                   },
                   {
-                    name: 'Different trade(s)',
+                    name: 'isDifferentTrades',
+                    label: 'Different trade(s)',
                     children: (
                       <DifferentTradesFurtherOptions
                         register={register}
@@ -185,10 +175,11 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                     ),
                   },
                   {
-                    name: 'Multiple operatives',
+                    name: 'isMultipleOperatives',
+                    label: 'Multiple operatives',
                     children: null,
                   },
-                ].map(({ name, children }) => {
+                ].map(({ name, label, children }) => {
                   const showChildren = watch(name)
 
                   return (
@@ -198,22 +189,19 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                         labelClassName="lbh-body-xs govuk-!-margin-0"
                         // key={index}
                         name={name}
-                        label={name}
+                        label={label}
                         register={register}
                         children={children}
                         showChildren={showChildren}
                       />
-
-   
                     </li>
                   )
                 })}
               </ul>
             </fieldset>
 
-
             <TextArea
-              name="workRequiredDescription"
+              name="followOnTypeDescription"
               label="Describe work required"
               register={register}
               error={errors && errors.notes}
@@ -227,32 +215,46 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
 
               <ul>
                 {/* // Checkboxes */}
-                {['Stock items required', 'Non stock items required'].map(
-                  (x) => (
-                    <li style={{ display: 'flex' }}>
-                      <Checkbox
-                        className="govuk-!-margin-0"
-                        labelClassName="lbh-body-xs govuk-!-margin-0"
-                        // key={index}
-                        name={`yeet`}
-                        label={x}
-                        register={register}
-                      />
-                    </li>
-                  )
-                )}
+                {[
+                  {
+                    name: 'stockItemsRequired',
+                    label: 'Stock items required',
+                  },
+                  {
+                    name: 'nonStockItemsRequired',
+                    label: 'Non stock items required',
+                  },
+                ].map(({ name, label }) => (
+                  <li style={{ display: 'flex' }}>
+                    <Checkbox
+                      className="govuk-!-margin-0"
+                      labelClassName="lbh-body-xs govuk-!-margin-0"
+                      // key={index}
+                      name={name}
+                      label={label}
+                      register={register}
+                    />
+                  </li>
+                ))}
               </ul>
             </fieldset>
 
             <TextArea
-              name="materialsRequired"
+              name="materialNotes"
               label="Materials required"
               register={register}
               error={errors && errors.notes}
             />
-          </div>
 
-          <PrimarySubmitButton label="Close work order" />
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.notes}
+            />
+
+            <PrimarySubmitButton label="Close work order" />
+          </div>
         </form>
       </div>
     </>

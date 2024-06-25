@@ -8,9 +8,10 @@ export const buildCloseWorkOrderData = (
   notes,
   reference,
   reason,
-  paymentType
+  paymentType,
+  followOnRequest = null
 ) => {
-  return {
+  const dataObject = {
     workOrderReference: {
       id: reference,
       description: '',
@@ -25,6 +26,36 @@ export const buildCloseWorkOrderData = (
         ...(paymentType && { paymentType }),
       },
     ],
+  }
+
+  if (followOnRequest !== null) {
+    dataObject['followOnRequest'] = followOnRequest
+  }
+
+  return dataObject
+}
+
+export const buildFollowOnRequestData = (
+  isSameTrade,
+  isDifferentTrades,
+  isMultipleOperatives,
+  requiredFollowOnTrades,
+  followOnTypeDescription,
+  stockItemsRequired,
+  nonStockItemsRequired,
+  materialNotes,
+  additionalNotes
+) => {
+  return {
+    isSameTrade,
+    isDifferentTrades,
+    isMultipleOperatives,
+    requiredFollowOnTrades,
+    followOnTypeDescription,
+    stockItemsRequired,
+    nonStockItemsRequired,
+    materialNotes,
+    additionalNotes,
   }
 }
 

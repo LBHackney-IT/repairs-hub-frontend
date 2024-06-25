@@ -8,13 +8,17 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
-import { buildCloseWorkOrderData } from '@/utils/hact/workOrderComplete/closeWorkOrder'
+import {
+  buildCloseWorkOrderData,
+  buildFollowOnRequestData,
+} from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
 import {
   BONUS_PAYMENT_TYPE,
   workOrderNoteFragmentForPaymentType,
 } from '@/utils/paymentTypes'
+import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -118,6 +122,30 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     setLoading(true)
 
+    // console.log({ data, carpentry: data['Carpentry'] })
+
+    let followOnRequest = null
+
+    if (data['followOnStatus'] === 'furtherWorkRequired') {
+      const requiredFollowOnTrades = []
+
+      FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name }) => {
+        if (data[name]) requiredFollowOnTrades.push(name)
+      })
+
+      followOnRequest = buildFollowOnRequestData(
+        data['isSameTrade'], //true, //isSameTrade: true,
+        data['isDifferentTrades'], // isDifferentTrades: true,
+        data['isMultipleOperatives'], // isMultipleOperatives: true,
+        requiredFollowOnTrades, // requiredFollowOnTrades:
+        data['followOnTypeDescription'], //followOnTypeDescription:
+        data['stockItemsRequired'], // stockItemsRequired:
+        data['nonStockItemsRequired'], // nonStockItemsRequired:
+        data['materialNotes'], // materialNotes: 'Material notes',
+        data['additionalNotes'] //additionalNotes: 'Additional notes',
+      )
+    }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
@@ -125,18 +153,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       ),
       workOrderReference,
       data.reason,
-      paymentType
+      paymentType,
+      followOnRequest
     )
 
     try {
-      const promiseList = [
-        frontEndApiRequest({
-          method: 'post',
-          path: `/api/workOrderComplete`,
-          requestData: closeWorkOrderFormData,
-        }),
-      ]
-      await Promise.all(promiseList)
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrderComplete`,
+        requestData: closeWorkOrderFormData,
+      })
 
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${

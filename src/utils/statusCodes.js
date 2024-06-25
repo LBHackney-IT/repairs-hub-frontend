@@ -49,6 +49,27 @@ export const CLOSURE_STATUS_OPTIONS = [
   },
 ]
 
+export const FOLLOW_ON_STATUS_OPTIONS = [
+  { value: 'noFurtherWorkRequired', text: 'No further work required' },
+  {
+    value: 'furtherWorkRequired',
+    text: 'Further work required',
+  },
+]
+
+export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
+  { name: 'Carpentry', label: 'Carpentry' },
+  { name: 'Drainage', label: 'Drainage' },
+  { name: 'Gas', label: 'Gas' },
+  { name: 'Electrical', label: 'Electrical' },
+  { name: 'Multitrade', label: 'Multitrade' },
+  { name: 'Painting', label: 'Painting' },
+  { name: 'Plumbing', label: 'Plumbing' },
+  { name: 'Roofing', label: 'Roofing' },
+  { name: 'UPVC', label: 'UPVC' },
+  { name: 'Other', label: 'Other (please specify)' },
+]
+
 export const WORK_ORDERS_STATUSES = [
   STATUS_IN_PROGRESS.description,
   STATUS_COMPLETED.description,
