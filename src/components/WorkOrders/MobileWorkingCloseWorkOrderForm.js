@@ -6,60 +6,20 @@ import Radios from '../Form/Radios'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import {
   CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_REQUEST_AVAILABLE_TRADES,
   FOLLOW_ON_STATUS_OPTIONS,
 } from '@/utils/statusCodes'
 import { Checkbox, PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
+import DifferentTradesFurtherOptions from './DifferentTradesFurtherOptions'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const VisitCompleteFurtherOptions = (props) => {
-  const { register, errors } = props
-
-  return (
-    <Radios
-      // label="Select reason for closing"
-      name="followOnStatus"
-      options={FOLLOW_ON_STATUS_OPTIONS}
-      register={register({
-        required: 'Please select a reason for closing the work order',
-      })}
-      error={errors && errors.reason}
-    />
-  )
-}
-
-const DifferentTradesFurtherOptions = (props) => {
-  const { register } = props
-
-  return (
-    <div>
-      <ul>
-        {/* // Checkboxes */}
-        {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
-          <li style={{ display: 'flex' }}>
-            <Checkbox
-              className="govuk-!-margin-0"
-              labelClassName="lbh-body-xs govuk-!-margin-0"
-              // key={index}
-              name={name}
-              label={label}
-              register={register}
-            />
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
 const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const { handleSubmit, register, errors, watch } = useForm({
-    shouldUnregister: false,
+    // shouldUnregister: false,
   })
 
   const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
@@ -71,12 +31,20 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
       ...r,
       children:
         r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
-          <VisitCompleteFurtherOptions register={register} errors={errors} />
+          <Radios
+            // label="Select reason for closing"
+            name="followOnStatus"
+            options={FOLLOW_ON_STATUS_OPTIONS}
+            register={register({
+              required: 'Please select a reason for closing the work order',
+            })}
+            error={errors && errors.reason}
+          />
         ) : null,
     }
   })
 
-  const [currentPage, setCurrentPage] = useState(PAGES.FOLLOW_ON_DETAILS)
+  const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewFollowOnDetailsPage = () => {
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
@@ -85,6 +53,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
   const viewWorkOrderStatusPage = () => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
+
+  // const showChildrenDifferentTrades = watch('isDifferentTrades')
 
   return (
     <>
@@ -156,48 +126,36 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 Operatives
               </label>
 
-              <ul>
-                {/* // Checkboxes */}
-                {[
-                  {
-                    name: 'isSameTrade',
-                    label: 'Same trade',
-                    children: null,
-                  },
-                  {
-                    name: 'isDifferentTrades',
-                    label: 'Different trade(s)',
-                    children: (
-                      <DifferentTradesFurtherOptions
-                        register={register}
-                        errors={errors}
-                      />
-                    ),
-                  },
-                  {
-                    name: 'isMultipleOperatives',
-                    label: 'Multiple operatives',
-                    children: null,
-                  },
-                ].map(({ name, label, children }) => {
-                  const showChildren = watch(name)
+              <Checkbox
+                className="govuk-!-margin-0 govuk-!-margin-bottom-5"
+                labelClassName="lbh-body-xs govuk-!-margin-0"
+                name={'isSameTrade'}
+                label={'Same trade'}
+                register={register}
+              />
 
-                  return (
-                    <li style={{ display: 'flex', flexDirection: 'column' }}>
-                      <Checkbox
-                        className="govuk-!-margin-0"
-                        labelClassName="lbh-body-xs govuk-!-margin-0"
-                        // key={index}
-                        name={name}
-                        label={label}
-                        register={register}
-                        children={children}
-                        showChildren={showChildren}
-                      />
-                    </li>
-                  )
-                })}
-              </ul>
+              <Checkbox
+                className="govuk-!-margin-0 govuk-!-margin-bottom-5"
+                labelClassName="lbh-body-xs govuk-!-margin-0"
+                name={'isDifferentTrades'}
+                label={'Different trade(s)'}
+                register={register}
+                children={
+                  <DifferentTradesFurtherOptions
+                    register={register}
+                    errors={errors}
+                  />
+                }
+                showChildren={watch('isDifferentTrades')}
+              />
+
+              <Checkbox
+                className="govuk-!-margin-0 govuk-!-margin-bottom-5"
+                labelClassName="lbh-body-xs govuk-!-margin-0"
+                name={'isMultipleOperatives'}
+                label={'Multiple operatives'}
+                register={register}
+              />
             </fieldset>
 
             <TextArea
@@ -205,7 +163,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               label="Describe work required"
               register={register}
               error={errors && errors.notes}
-              // defaultValue={notes}
             />
 
             <fieldset>
@@ -213,30 +170,21 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 Materials
               </label>
 
-              <ul>
-                {/* // Checkboxes */}
-                {[
-                  {
-                    name: 'stockItemsRequired',
-                    label: 'Stock items required',
-                  },
-                  {
-                    name: 'nonStockItemsRequired',
-                    label: 'Non stock items required',
-                  },
-                ].map(({ name, label }) => (
-                  <li style={{ display: 'flex' }}>
-                    <Checkbox
-                      className="govuk-!-margin-0"
-                      labelClassName="lbh-body-xs govuk-!-margin-0"
-                      // key={index}
-                      name={name}
-                      label={label}
-                      register={register}
-                    />
-                  </li>
-                ))}
-              </ul>
+              <Checkbox
+                className="govuk-!-margin-0"
+                labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+                name={'stockItemsRequired'}
+                label={'Stock items required'}
+                register={register}
+              />
+
+              <Checkbox
+                className="govuk-!-margin-0"
+                labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+                name={'nonStockItemsRequired'}
+                label={'Non stock items required'}
+                register={register}
+              />
             </fieldset>
 
             <TextArea
