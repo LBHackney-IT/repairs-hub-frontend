@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
-import WarningInfoBox from '../Template/WarningInfoBox'
 import {
   CLOSURE_STATUS_OPTIONS,
   FOLLOW_ON_REQUEST_AVAILABLE_TRADES,
@@ -127,13 +126,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               error={errors && errors.notes}
             />
 
-            <div className="govuk-!-margin-top-8">
-              <WarningInfoBox
-                header="Other changes?"
-                text="Any follow on and material change must be made on paper."
-              />
-            </div>
-
             {selectedFurtherWorkRequired ? (
               <PrimarySubmitButton
                 label="Add details"
@@ -160,7 +152,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 })}
               >
                 <label className={`govuk-label govuk-label--m`} htmlFor={name}>
-                Type of work required
+                  Type of work required
                 </label>
 
                 {errors.medium && (
