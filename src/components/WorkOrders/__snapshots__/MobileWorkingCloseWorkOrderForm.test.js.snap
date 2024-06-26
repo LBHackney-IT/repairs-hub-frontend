@@ -9,136 +9,281 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
     >
       Back
     </a>
-    <h1
-      class="lbh-heading-h2"
-    >
-      Close work order form
-    </h1>
     <form
       role="form"
     >
-      <h2
-        class="lbh-heading-h4"
-        style="margin-bottom: 60px;"
-      >
-        Work order status
-      </h2>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="display: block;"
       >
-        <label
-          class="govuk-label govuk-label--s"
-          for="reason"
+        <h1
+          class="lbh-heading-h2"
         >
-          Select reason for closing 
-        </label>
+          Close work order form
+        </h1>
         <div
-          class="govuk-radios lbh-radios"
+          class="govuk-form-group lbh-form-group"
         >
-          <div
-            class="govuk-radios__item"
+          <label
+            class="govuk-label govuk-label--s"
+            for="reason"
           >
-            <input
-              class="govuk-radios__input"
-              data-testid="reason"
-              id="reason_Work Order Completed"
-              name="reason"
-              type="radio"
-              value="Work Order Completed"
-            />
-            <label
-              class="govuk-label lbh-label govuk-radios__label"
-              for="reason_Work Order Completed"
-            >
-              Completed
-            </label>
-          </div>
+            Select reason for closing 
+          </label>
           <div
-            class="govuk-radios__item"
+            class="govuk-radios lbh-radios"
           >
-            <input
-              class="govuk-radios__input"
-              data-testid="reason"
-              id="reason_No Access"
-              name="reason"
-              type="radio"
-              value="No Access"
-            />
-            <label
-              class="govuk-label lbh-label govuk-radios__label"
-              for="reason_No Access"
-            >
-              No access
-            </label>
-          </div>
-        </div>
-      </div>
-      <div
-        class="govuk-form-group lbh-form-group"
-        id="notes-form-group"
-      >
-        <label
-          class="govuk-label lbh-label"
-          for="notes"
-        >
-          Final report 
-        </label>
-        <textarea
-          aria-describedby="notes-hint notes-error"
-          class="govuk-textarea lbh-textarea"
-          data-testid="notes"
-          id="notes"
-          name="notes"
-          rows="4"
-        />
-      </div>
-      <div
-        class="govuk-!-margin-top-8"
-      >
-        <div
-          class="warning-info-box govuk-inset-text lbh-inset-text"
-        >
-          <div
-            class="lbh-warning-text govuk-warning-text"
-          >
-            <span
-              aria-hidden="true"
-              class="govuk-warning-text__icon"
-            >
-              !
-            </span>
             <div
-              class="govuk-warning-text__text"
+              class="govuk-radios__item"
             >
-              <span
-                class="govuk-warning-text__assistive"
+              <input
+                class="govuk-radios__input"
+                data-testid="reason"
+                id="reason_Work Order Completed"
+                name="reason"
+                type="radio"
+                value="Work Order Completed"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="reason_Work Order Completed"
               >
-                Warning
-              </span>
-              <p
-                class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+                Visit completed
+              </label>
+            </div>
+            <div
+              class="govuk-radios__item"
+            >
+              <input
+                class="govuk-radios__input"
+                data-testid="reason"
+                id="reason_No Access"
+                name="reason"
+                type="radio"
+                value="No Access"
+              />
+              <label
+                class="govuk-label lbh-label govuk-radios__label"
+                for="reason_No Access"
               >
-                Other changes?
-              </p>
-              <p
-                class="lbh-body-xs govuk-!-margin-top-1"
-              >
-                Any follow on and material change must be made on paper.
-              </p>
+                No access
+              </label>
             </div>
           </div>
         </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="notes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="notes"
+          >
+            Final report 
+          </label>
+          <textarea
+            aria-describedby="notes-hint notes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="notes"
+            id="notes"
+            name="notes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Close work order
+          </button>
+        </div>
       </div>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="display: none;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+        <h1
+          class="lbh-heading-h2"
         >
-          Close work order
-        </button>
+          Details of further work required
+        </h1>
+        <fieldset
+          class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
+        >
+          <div
+            class="lbh-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--m"
+              for=""
+            >
+              Type of work required
+            </label>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isSameTrade"
+                id="isSameTrade"
+                name="isSameTrade"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isSameTrade"
+              >
+                Same trade
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isDifferentTrades"
+                id="isDifferentTrades"
+                name="isDifferentTrades"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isDifferentTrades"
+              >
+                Different trade(s)
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isMultipleOperatives"
+                id="isMultipleOperatives"
+                name="isMultipleOperatives"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isMultipleOperatives"
+              >
+                Multiple operatives
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="followOnTypeDescription-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="followOnTypeDescription"
+          >
+            Describe work required 
+          </label>
+          <textarea
+            aria-describedby="followOnTypeDescription-hint followOnTypeDescription-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="followOnTypeDescription"
+            id="followOnTypeDescription"
+            name="followOnTypeDescription"
+            rows="4"
+          />
+        </div>
+        <fieldset>
+          <label
+            class="govuk-label govuk-label--m"
+            for=""
+          >
+            Materials
+          </label>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="stockItemsRequired"
+              id="stockItemsRequired"
+              name="stockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="stockItemsRequired"
+            >
+              Stock items required
+            </label>
+          </div>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="nonStockItemsRequired"
+              id="nonStockItemsRequired"
+              name="nonStockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="nonStockItemsRequired"
+            >
+              Non stock items required
+            </label>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="materialNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="materialNotes"
+          >
+            Materials required 
+          </label>
+          <textarea
+            aria-describedby="materialNotes-hint materialNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="materialNotes"
+            id="materialNotes"
+            name="materialNotes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="additionalNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="additionalNotes"
+          >
+            Additional notes 
+          </label>
+          <textarea
+            aria-describedby="additionalNotes-hint additionalNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="additionalNotes"
+            id="additionalNotes"
+            name="additionalNotes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Close work order
+          </button>
+        </div>
       </div>
     </form>
   </div>
