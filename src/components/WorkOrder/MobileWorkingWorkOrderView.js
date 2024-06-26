@@ -166,7 +166,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'completed'
+          data.reason === 'No Access' ? 'closed with no access' : 'closed'
         }`
       )
 
