@@ -66,7 +66,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
     if (!isAnyChecked) {
       setError('medium', {
         type: 'manual',
-        message: 'Please select at least one option',
+        message: 'Please select the type of work',
       })
       return
     }
@@ -160,7 +160,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 })}
               >
                 <label className={`govuk-label govuk-label--m`} htmlFor={name}>
-                  Operative(s)
+                Type of work required
                 </label>
 
                 {errors.medium && (
@@ -205,7 +205,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
 
                       if (isAnyChecked) return true
 
-                      return 'At least one checkbox must be selected'
+                      return 'Please select at least one trade'
                     },
                   })}
                   children={
