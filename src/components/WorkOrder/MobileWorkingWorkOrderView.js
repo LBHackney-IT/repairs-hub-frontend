@@ -122,8 +122,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     setLoading(true)
 
-    // console.log({ data, carpentry: data['Carpentry'] })
-
     let followOnRequest = null
 
     if (data['followOnStatus'] === 'furtherWorkRequired') {
@@ -134,15 +132,15 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       })
 
       followOnRequest = buildFollowOnRequestData(
-        data['isSameTrade'], //true, //isSameTrade: true,
-        data['isDifferentTrades'], // isDifferentTrades: true,
-        data['isMultipleOperatives'], // isMultipleOperatives: true,
-        requiredFollowOnTrades, // requiredFollowOnTrades:
-        data['followOnTypeDescription'], //followOnTypeDescription:
-        data['stockItemsRequired'], // stockItemsRequired:
-        data['nonStockItemsRequired'], // nonStockItemsRequired:
-        data['materialNotes'], // materialNotes: 'Material notes',
-        data['additionalNotes'] //additionalNotes: 'Additional notes',
+        data['isSameTrade'],
+        data['isDifferentTrades'],
+        data['isMultipleOperatives'],
+        requiredFollowOnTrades,
+        data['followOnTypeDescription'],
+        data['stockItemsRequired'],
+        data['nonStockItemsRequired'],
+        data['materialNotes'],
+        data['additionalNotes']
       )
     }
 

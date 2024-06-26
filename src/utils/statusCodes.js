@@ -58,16 +58,16 @@ export const FOLLOW_ON_STATUS_OPTIONS = [
 ]
 
 export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
-  { name: 'Carpentry', label: 'Carpentry' },
-  { name: 'Drainage', label: 'Drainage' },
-  { name: 'Gas', label: 'Gas' },
-  { name: 'Electrical', label: 'Electrical' },
-  { name: 'Multitrade', label: 'Multitrade' },
-  { name: 'Painting', label: 'Painting' },
-  { name: 'Plumbing', label: 'Plumbing' },
-  { name: 'Roofing', label: 'Roofing' },
-  { name: 'UPVC', label: 'UPVC' },
-  { name: 'Other', label: 'Other (please specify)' },
+  { name: 'followon-trades-carpentry', label: 'Carpentry' },
+  { name: 'followon-trades-drainage', label: 'Drainage' },
+  { name: 'followon-trades-gas', label: 'Gas' },
+  { name: 'followon-trades-electrical', label: 'Electrical' },
+  { name: 'followon-trades-multitrade', label: 'Multitrade' },
+  { name: 'followon-trades-painting', label: 'Painting' },
+  { name: 'followon-trades-plumbing', label: 'Plumbing' },
+  { name: 'followon-trades-roofing', label: 'Roofing' },
+  { name: 'followon-trades-UPVC', label: 'UPVC' },
+  { name: 'followon-trades-other', label: 'Other (please specify)' },
 ]
 
 export const WORK_ORDERS_STATUSES = [

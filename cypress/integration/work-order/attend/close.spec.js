@@ -234,7 +234,7 @@ describe('Closing my own work order', () => {
       cy.contains('Please select at least one trade')
 
       // select a trade - error should disappear
-      cy.get('input[data-testid="Plumbing"]').check()
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
       cy.get('.govuk-button').contains('Close work order').click()
       cy.contains('Please select at least one trade').should('not.exist')
 
