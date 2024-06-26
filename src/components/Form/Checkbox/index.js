@@ -47,11 +47,10 @@ const Checkbox = ({
 
     {children !== null && children !== undefined && showChildren && (
       <div
-        // class="govuk-radios__conditional"
         style={{
           marginLeft: '18px',
           paddingLeft: '33px',
-          borderLeft: '4px solid #b1b4b6',
+          borderLeft: `4px solid ${error ? '#be3a34' : '#b1b4b6'}`,
         }}
       >
         {children}
