@@ -5,14 +5,12 @@ import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
 import {
   CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_REQUEST_AVAILABLE_TRADES,
   FOLLOW_ON_STATUS_OPTIONS,
 } from '@/utils/statusCodes'
-import { Checkbox, PrimarySubmitButton } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
-import DifferentTradesFurtherOptions from './DifferentTradesFurtherOptions'
-import ErrorMessage from '../Errors/ErrorMessage'
-import classNames from 'classnames'
+import FollowOnRequestMaterialsForm from './FollowOnRequestMaterialsForm'
+import FollowOnRequestTypeOfWorkForm from './FollowOnRequestTypeOfWorkForm'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -44,33 +42,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
 
   const viewWorkOrderStatusPage = () => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
-  }
-
-  // Watch all checkbox values
-  const checkboxValues = watch(
-    FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map((x) => x.name)
-  )
-
-  const isDifferentTradesChecked = watch('isDifferentTrades')
-
-  const validateAtLeastOneOperativeOptionSelected = () => {
-    if (!selectedFurtherWorkRequired) {
-      clearErrors('medium')
-      return
-    }
-
-    const fields = ['isSameTrade', 'isDifferentTrades', 'isMultipleOperatives']
-    const isAnyChecked = fields.some((name) => getValues(name) === true)
-
-    if (!isAnyChecked) {
-      setError('medium', {
-        type: 'manual',
-        message: 'Please select the type of work',
-      })
-      return
-    }
-
-    clearErrors('medium')
   }
 
   return (
@@ -145,155 +116,19 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
           >
             <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-            <fieldset className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset">
-              <div
-                className={classNames('lbh-form-group', {
-                  'govuk-form-group--error': errors.medium,
-                })}
-              >
-                <label className={`govuk-label govuk-label--m`} htmlFor={name}>
-                  Type of work required
-                </label>
-
-                {errors.medium && (
-                  <div style={{ marginTop: 0, marginBlock: 10 }}>
-                    <ErrorMessage label={errors.medium.message} />
-                  </div>
-                )}
-
-                <Checkbox
-                  className="govuk-!-margin-0 govuk-!-margin-bottom-5"
-                  labelClassName="lbh-body-xs govuk-!-margin-0"
-                  name={'isSameTrade'}
-                  label={'Same trade'}
-                  register={register({
-                    validate: () => {
-                      // doesnt validate itself - just running the validate function
-                      // when the field updates
-                      validateAtLeastOneOperativeOptionSelected()
-
-                      return true
-                    },
-                  })}
-                />
-
-                <Checkbox
-                  className="govuk-!-margin-0 govuk-!-margin-bottom-5"
-                  labelClassName="lbh-body-xs govuk-!-margin-0"
-                  name={'isDifferentTrades'}
-                  label={'Different trade(s)'}
-                  error={errors && errors?.isDifferentTrades}
-                  register={register({
-                    validate: () => {
-                      // doesnt validate itself - just running the validate function
-                      // when the field updates
-                      validateAtLeastOneOperativeOptionSelected()
-
-                      if (!isDifferentTradesChecked) return true
-
-                      const isAnyChecked = Object.values(checkboxValues).some(
-                        (value) => value === true
-                      )
-
-                      if (isAnyChecked) return true
-
-                      return 'Please select at least one trade'
-                    },
-                  })}
-                  children={
-                    <>
-                      {errors.isDifferentTrades && (
-                        <ErrorMessage
-                          label={errors.isDifferentTrades?.message}
-                        />
-                      )}
-
-                      <DifferentTradesFurtherOptions
-                        register={register}
-                        errors={errors}
-                      />
-                    </>
-                  }
-                  showChildren={isDifferentTradesChecked}
-                />
-
-                <Checkbox
-                  className="govuk-!-margin-0 govuk-!-margin-bottom-5"
-                  labelClassName="lbh-body-xs govuk-!-margin-0"
-                  name={'isMultipleOperatives'}
-                  label={'Multiple operatives'}
-                  register={register({
-                    validate: () => {
-                      // doesnt validate itself - just running the validate function
-                      // when the field updates
-                      validateAtLeastOneOperativeOptionSelected()
-
-                      return true
-                    },
-                  })}
-                />
-              </div>
-            </fieldset>
-
-            <TextArea
-              name="followOnTypeDescription"
-              label="Describe work required"
-              register={register({
-                validate: (value) => {
-                  // prevent required error message from showing when this part of the form hasnt
-                  // been visible yet
-                  if (getValues('followOnStatus') !== 'furtherWorkRequired')
-                    return true
-
-                  if (!value) return 'Please describe the work completed'
-
-                  return true
-                },
-              })}
-              error={errors && errors.followOnTypeDescription}
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
             />
 
-            <fieldset>
-              <label className={`govuk-label govuk-label--m`} htmlFor={name}>
-                Materials
-              </label>
-
-              <Checkbox
-                className="govuk-!-margin-0"
-                labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
-                name={'stockItemsRequired'}
-                label={'Stock items required'}
-                register={register}
-              />
-
-              <Checkbox
-                className="govuk-!-margin-0"
-                labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
-                name={'nonStockItemsRequired'}
-                label={'Non stock items required'}
-                register={register}
-              />
-            </fieldset>
-
-            <TextArea
-              name="materialNotes"
-              label="Materials required"
-              register={register({
-                validate: (value) => {
-                  // neither checkbox checked, not required
-                  if (
-                    !getValues('nonStockItemsRequired') &&
-                    !getValues('stockItemsRequired')
-                  ) {
-                    return true
-                  }
-
-                  if (value.length >= 1) return true
-
-                  return 'Please describe the materials required'
-                },
-              })}
-              error={errors && errors.materialNotes}
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
             />
 
             <TextArea
