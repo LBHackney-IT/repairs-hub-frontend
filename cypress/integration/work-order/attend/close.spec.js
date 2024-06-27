@@ -626,7 +626,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully cl.osed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
