@@ -152,6 +152,8 @@ describe('Closing my own work order', () => {
         'noFurtherWorkRequired'
       )
 
+      cy.get('#notes').type('I attended')
+
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -166,7 +168,7 @@ describe('Closing my own work order', () => {
           },
           jobStatusUpdates: [
             {
-              typeCode: '70',
+              typeCode: '0',
               otherType: 'completed',
               comments: 'Work order closed - I attended - Bonus calculation',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
@@ -273,7 +275,7 @@ describe('Closing my own work order', () => {
           },
           jobStatusUpdates: [
             {
-              typeCode: '70',
+              typeCode: '0',
               otherType: 'completed',
               comments: 'Work order closed - I attended - Bonus calculation',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
