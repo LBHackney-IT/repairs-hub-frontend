@@ -279,7 +279,6 @@ describe('Closing my own work order', () => {
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
             },
-            
           ],
           followOnRequest: {
             isSameTrade: true,
