@@ -530,8 +530,6 @@ describe('Closing my own work order', () => {
           'noFurtherWorkRequired'
         )
 
-        cy.get('.govuk-button').contains('Next').click()
-
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -603,8 +601,6 @@ describe('Closing my own work order', () => {
         cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
           'noFurtherWorkRequired'
         )
-
-        cy.get('.govuk-button').contains('Next').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
 
