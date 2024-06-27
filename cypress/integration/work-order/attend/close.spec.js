@@ -128,7 +128,7 @@ describe('Closing my own work order', () => {
       cy.contains('Please confirm if further work is required')
     })
 
-    it('shows closes a job when no further work is required', () => {
+    it('closes a job when no further work is required', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -186,7 +186,7 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
 
-    it('shows allows the user to enter follow-on details', () => {
+    it('allows the user to enter follow-on details', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -209,6 +209,8 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
         'furtherWorkRequired'
       )
+
+      cy.get('#notes').type('I attended')
 
       // button text changes to 'Add details'
       cy.get('.govuk-button').contains('Add details').click()
@@ -277,12 +279,13 @@ describe('Closing my own work order', () => {
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
             },
+            
           ],
           followOnRequest: {
             isSameTrade: true,
             isDifferentTrades: true,
             isMultipleOperatives: false,
-            requiredFollowOnTrades: ['Plumbing'],
+            requiredFollowOnTrades: ['followon-trades-plumbing'],
             followOnTypeDescription: 'Blah blah blah',
             stockItemsRequired: true,
             nonStockItemsRequired: false,
@@ -302,7 +305,7 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
 
-    it.skip('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
+    it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -358,7 +361,7 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
 
-    it.skip('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
+    it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
