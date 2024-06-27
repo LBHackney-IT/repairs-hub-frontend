@@ -40,13 +40,34 @@ export const STATUS_NO_ACCESS = {
 
 export const CLOSURE_STATUS_OPTIONS = [
   {
-    text: 'Completed',
+    text: 'Visit completed',
     value: 'Work Order Completed',
   },
   {
     text: 'No access',
     value: 'No Access',
   },
+]
+
+export const FOLLOW_ON_STATUS_OPTIONS = [
+  { value: 'noFurtherWorkRequired', text: 'No further work required' },
+  {
+    value: 'furtherWorkRequired',
+    text: 'Further work required',
+  },
+]
+
+export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
+  { name: 'followon-trades-carpentry', label: 'Carpentry' },
+  { name: 'followon-trades-drainage', label: 'Drainage' },
+  { name: 'followon-trades-gas', label: 'Gas' },
+  { name: 'followon-trades-electrical', label: 'Electrical' },
+  { name: 'followon-trades-multitrade', label: 'Multitrade' },
+  { name: 'followon-trades-painting', label: 'Painting' },
+  { name: 'followon-trades-plumbing', label: 'Plumbing' },
+  { name: 'followon-trades-roofing', label: 'Roofing' },
+  { name: 'followon-trades-UPVC', label: 'UPVC' },
+  { name: 'followon-trades-other', label: 'Other (please specify)' },
 ]
 
 export const WORK_ORDERS_STATUSES = [

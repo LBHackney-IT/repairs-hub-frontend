@@ -44,7 +44,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
               class="govuk-label lbh-label govuk-radios__label"
               for="reason_Work Order Completed"
             >
-              Completed
+              Visit completed
             </label>
           </div>
           <div
@@ -607,7 +607,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               class="govuk-label lbh-label govuk-radios__label"
               for="reason_Work Order Completed"
             >
-              Completed
+              Visit completed
             </label>
           </div>
           <div

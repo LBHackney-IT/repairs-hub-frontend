@@ -77,9 +77,233 @@ describe('Closing my own work order', () => {
     cy.loginWithOperativeRole()
   })
 
-  context.only('during normal working hours', () => {
+  context('during normal working hours', () => {
     beforeEach(() => {
       cy.clock(new Date(now).setHours(12, 0, 0))
+    })
+
+    it('shows a validation error when no reason is selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains('Please select a reason for closing the work order')
+    })
+
+    it('shows a validation error when follow on status isnt selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains('Please confirm if further work is required')
+    })
+
+    it('closes a job when no further work is required', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'noFurtherWorkRequired'
+      )
+
+      cy.get('#notes').type('I attended')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: workOrderReference,
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              paymentType: 'Bonus',
+            },
+          ],
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+    })
+
+    it('allows the user to enter follow-on details', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'furtherWorkRequired'
+      )
+
+      cy.get('#notes').type('I attended')
+
+      // button text changes to 'Add details'
+      cy.get('.govuk-button').contains('Add details').click()
+
+      // assert error messages arent visible yet
+      cy.contains('Please select the type of work').should('not.exist')
+      cy.contains('Please describe the work completed').should('not.exist')
+
+      // close work order
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // assert error messages visible
+      cy.contains('Please select the type of work')
+      cy.contains('Please describe the work completed')
+
+      // select an option - error should disappear
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.contains('Please select the type of work').should('not.exist')
+
+      // select different trade(s) - error should appear
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please select at least one trade')
+
+      // select a trade - error should disappear
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please select at least one trade').should('not.exist')
+
+      // add description of work - error should disappear
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'Blah blah blah'
+      )
+      cy.contains('Please describe the work completed').should('not.exist')
+
+      // when one of the material options is selected, the description must not be empty
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please describe the materials required')
+
+      // Adding a description - error should disappear
+      cy.get('textarea[data-testid="materialNotes"]').type('Blah blah blah')
+      cy.contains('Please describe the materials required').should('not.exist')
+
+      // additional notes
+      cy.get('textarea[data-testid="additionalNotes"]').type('Additional notes')
+
+      // close work order
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: workOrderReference,
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              paymentType: 'Bonus',
+            },
+          ],
+          followOnRequest: {
+            isSameTrade: true,
+            isDifferentTrades: true,
+            isMultipleOperatives: false,
+            requiredFollowOnTrades: ['followon-trades-plumbing'],
+            followOnTypeDescription: 'Blah blah blah',
+            stockItemsRequired: true,
+            nonStockItemsRequired: false,
+            materialNotes: 'Blah blah blah',
+            additionalNotes: 'Additional notes',
+          },
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
 
     it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
@@ -158,6 +382,10 @@ describe('Closing my own work order', () => {
         'Work Order Completed'
       )
 
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'noFurtherWorkRequired'
+      )
+
       cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
@@ -184,7 +412,7 @@ describe('Closing my own work order', () => {
         })
 
       cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -298,7 +526,9 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
+        cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+          'noFurtherWorkRequired'
+        )
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -325,7 +555,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
@@ -368,7 +598,9 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
+        cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+          'noFurtherWorkRequired'
+        )
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -394,7 +626,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })

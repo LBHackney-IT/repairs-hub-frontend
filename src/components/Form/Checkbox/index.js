@@ -11,6 +11,8 @@ const Checkbox = ({
   hidden,
   labelClassName,
   hintText,
+  children,
+  showChildren,
 }) => (
   <div
     className={cx(`govuk-checkboxes__item ${className}`, {
@@ -41,6 +43,18 @@ const Checkbox = ({
       >
         {hintText}
       </span>
+    )}
+
+    {children !== null && children !== undefined && showChildren && (
+      <div
+        style={{
+          marginLeft: '18px',
+          paddingLeft: '33px',
+          borderLeft: `4px solid ${error ? '#be3a34' : '#b1b4b6'}`,
+        }}
+      >
+        {children}
+      </div>
     )}
   </div>
 )
