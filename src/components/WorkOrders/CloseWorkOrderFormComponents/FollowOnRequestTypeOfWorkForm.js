@@ -1,7 +1,7 @@
 import classNames from 'classnames'
-import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
-import { Checkbox, TextArea } from '../Form'
-import ErrorMessage from '../Errors/ErrorMessage'
+import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../../utils/statusCodes'
+import { Checkbox, TextArea } from '../../Form'
+import ErrorMessage from '../../Errors/ErrorMessage'
 import FollowOnRequestDifferentTradesForm from './FollowOnRequestDifferentTradesForm'
 
 const FollowOnRequestTypeOfWorkForm = (props) => {

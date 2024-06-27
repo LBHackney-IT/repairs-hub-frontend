@@ -9,8 +9,8 @@ import {
 } from '@/utils/statusCodes'
 import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
-import FollowOnRequestMaterialsForm from './FollowOnRequestMaterialsForm'
-import FollowOnRequestTypeOfWorkForm from './FollowOnRequestTypeOfWorkForm'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',

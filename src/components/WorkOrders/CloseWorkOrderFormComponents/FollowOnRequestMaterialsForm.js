@@ -1,4 +1,4 @@
-import { Checkbox, TextArea } from '../Form'
+import { Checkbox, TextArea } from '../../Form'
 
 const FollowOnRequestMaterialsForm = (props) => {
   const { register, getValues, errors } = props

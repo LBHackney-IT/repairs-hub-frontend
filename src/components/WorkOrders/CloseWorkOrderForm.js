@@ -19,8 +19,8 @@ import {
   FOLLOW_ON_STATUS_OPTIONS,
 } from '@/utils/statusCodes'
 import { useState } from 'react'
-import FollowOnRequestTypeOfWorkForm from './FollowOnRequestTypeOfWorkForm'
-import FollowOnRequestMaterialsForm from './FollowOnRequestMaterialsForm'
+import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 
 const CloseWorkOrderForm = ({
   reference,
