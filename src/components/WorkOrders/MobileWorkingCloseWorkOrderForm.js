@@ -2,15 +2,11 @@ import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
-import Radios from '../Form/Radios'
-import {
-  CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
-} from '@/utils/statusCodes'
 import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
+import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -30,7 +26,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
     shouldUnregister: false,
   })
 
-  const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
 
@@ -65,29 +60,10 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
           >
             <h1 className="lbh-heading-h2">Close work order form</h1>
 
-            <Radios
-              labelSize="s"
-              label="Select reason for closing"
-              name="reason"
-              options={CLOSURE_STATUS_OPTIONS.map((r) => ({
-                ...r,
-                children:
-                  r.value === 'Work Order Completed' &&
-                  showFollowOnRadioOptions ? (
-                    <Radios
-                      name="followOnStatus"
-                      options={FOLLOW_ON_STATUS_OPTIONS}
-                      register={register({
-                        required: 'Please confirm if further work is required',
-                      })}
-                      error={errors && errors.followOnStatus}
-                    />
-                  ) : null,
-              }))}
-              register={register({
-                required: 'Please select a reason for closing the work order',
-              })}
-              error={errors && errors.reason}
+            <CloseWorkOrderFormReasonForClosing
+              register={register}
+              errors={errors}
+              watch={watch}
             />
 
             <TextArea

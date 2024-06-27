@@ -14,13 +14,10 @@ import {
   OVERTIME_PAYMENT_TYPE,
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
-import {
-  CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
-} from '@/utils/statusCodes'
 import { useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -59,9 +56,6 @@ const CloseWorkOrderForm = ({
     setStartTimeIsRequired(e.target.value !== '')
   }
 
-  const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
-  // const selectedFurtherWorkRequired =
-  //   watch('followOnStatus') === 'furtherWorkRequired'
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
 
@@ -71,28 +65,10 @@ const CloseWorkOrderForm = ({
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
       <form role="form" onSubmit={handleSubmit(onSubmit)}>
-        <Radios
-          labelSize="s"
-          label="Select reason for closing"
-          name="reason"
-          options={CLOSURE_STATUS_OPTIONS.map((r) => ({
-            ...r,
-            children:
-              r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
-                <Radios
-                  name="followOnStatus"
-                  options={FOLLOW_ON_STATUS_OPTIONS}
-                  register={register({
-                    required: 'Please confirm if further work is required',
-                  })}
-                  error={errors && errors.followOnStatus}
-                />
-              ) : null,
-          }))}
-          register={register({
-            required: 'Please select a reason for closing the work order',
-          })}
-          error={errors && errors.reason}
+        <CloseWorkOrderFormReasonForClosing
+          register={register}
+          errors={errors}
+          watch={watch}
         />
 
         <div
