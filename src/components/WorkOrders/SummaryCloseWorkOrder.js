@@ -38,7 +38,7 @@ const SummaryCloseWorkOrder = ({
   operativeNames,
   paymentType,
   startDate,
-  followOnData,
+  followOnData = null,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -87,7 +87,6 @@ const SummaryCloseWorkOrder = ({
 
         {followOnData !== null && (
           <>
-            {' '}
             <h4 className="lbh-heading-h4">Summary of further work required</h4>
             <Table>
               <TBody>

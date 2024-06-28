@@ -44,4 +44,35 @@ describe('SummaryCloseWorkOrder component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('includes follow-on request details', () => {
+    const followOnData = {
+      isSameTrade: true,
+      isDifferentTrades: true,
+      isMultipleOperatives: true,
+      requiredFollowOnTrades: ['Plumbing', 'Electrical', 'Other'],
+      followOnTypeDescription:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      stockItemsRequired: true,
+      nonStockItemsRequired: true,
+      materialNotes:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+      additionalNotes:
+        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
+    }
+
+    const { asFragment } = render(
+      <SummaryCloseWorkOrder
+        reference={props.reference}
+        notes={props.notes}
+        completionDate={props.completionDate}
+        startDate={props.startDate}
+        reason={props.reason}
+        onJobSubmit={props.onJobSubmit}
+        changeStep={props.changeStep}
+        followOnData={followOnData}
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
 })

@@ -196,7 +196,6 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
         <fieldset>
           <label
             class="govuk-label govuk-label--m"
-            for=""
           >
             Materials
           </label>
