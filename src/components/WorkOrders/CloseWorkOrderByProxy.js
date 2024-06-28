@@ -151,17 +151,21 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       paymentType
     )
 
-    const followOnDataRequest = buildFollowOnRequestData(
-      followOnData.isSameTrade,
-      followOnData.isDifferentTrades,
-      followOnData.isMultipleOperatives,
-      followOnData.requiredFollowOnTrades.map((x) => x.name),
-      followOnData.followOnTypeDescription,
-      followOnData.stockItemsRequired,
-      followOnData.nonStockItemsRequired,
-      followOnData.materialNotes,
-      followOnData.additionalNotes
-    )
+    let followOnDataRequest = null
+
+    if (followOnData !== null) {
+      followOnDataRequest = buildFollowOnRequestData(
+        followOnData.isSameTrade,
+        followOnData.isDifferentTrades,
+        followOnData.isMultipleOperatives,
+        followOnData.requiredFollowOnTrades.map((x) => x.name),
+        followOnData.followOnTypeDescription,
+        followOnData.stockItemsRequired,
+        followOnData.nonStockItemsRequired,
+        followOnData.materialNotes,
+        followOnData.additionalNotes
+      )
+    }
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
