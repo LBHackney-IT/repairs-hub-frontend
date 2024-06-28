@@ -154,11 +154,19 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     let followOnDataRequest = null
 
     if (followOnData !== null) {
+      const requiredFollowOnTrades = []
+
+      if (followOnData.isDifferentTrades) {
+        requiredFollowOnTrades.push(
+          ...followOnData.requiredFollowOnTrades.map((x) => x.name)
+        )
+      }
+
       followOnDataRequest = buildFollowOnRequestData(
         followOnData.isSameTrade,
         followOnData.isDifferentTrades,
         followOnData.isMultipleOperatives,
-        followOnData.requiredFollowOnTrades.map((x) => x.name),
+        requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
         followOnData.stockItemsRequired,
         followOnData.nonStockItemsRequired,

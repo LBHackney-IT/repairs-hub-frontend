@@ -127,9 +127,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     if (data['followOnStatus'] === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
 
-      FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name }) => {
-        if (data[name]) requiredFollowOnTrades.push(name)
-      })
+      if (data['isDifferentTrades']) {
+        FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name }) => {
+          if (data[name]) requiredFollowOnTrades.push(name)
+        })
+      }
 
       followOnRequest = buildFollowOnRequestData(
         data['isSameTrade'],
