@@ -38,6 +38,7 @@ const SummaryCloseWorkOrder = ({
   operativeNames,
   paymentType,
   startDate,
+  followOnData,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -84,44 +85,80 @@ const SummaryCloseWorkOrder = ({
           </TBody>
         </Table>
 
-        <h4 className="lbh-heading-h4">Summary of further work required</h4>
-        <Table>
-          <TBody>
-            <TableRow
-              label="Type of work required"
-              value={
-                <>
-                  <ul>
-                    <li>Same trade</li>
-                    <li style={{ marginTop: '5px' }}>
-                      Different trade(s) (Carpentry and Drainage)
-                    </li>
-                  </ul>
+        {followOnData !== null && (
+          <>
+            {' '}
+            <h4 className="lbh-heading-h4">Summary of further work required</h4>
+            <Table>
+              <TBody>
+                <TableRow
+                  label="Type of work required"
+                  value={
+                    <>
+                      <ul>
+                        {followOnData['isSameTrade'] && (
+                          <li style={{ marginTop: '5px' }}>Same trade</li>
+                        )}
+                        {followOnData['isDifferentTrades'] && (
+                          <li style={{ marginTop: '5px' }}>
+                            Different trade(s) (
+                            {followOnData['requiredFollowOnTrades']
+                              .map((x) => x.label)
+                              .join(', ')}
+                            s)
+                          </li>
+                        )}
+                        {followOnData['isMultipleOperatives'] && (
+                          <li style={{ marginTop: '5px' }}>
+                            Multiple operatives
+                          </li>
+                        )}
+                      </ul>
 
-                  <div>Description of work blah blah blah</div>
-                </>
-              }
-              handleClick={changeStep}
-            />
+                      <div>{followOnData['followOnTypeDescription']}</div>
+                    </>
+                  }
+                  handleClick={changeStep}
+                />
 
-            <TableRow
-              label="Materials required"
-              value={
-                <>
-                  <ul>
-                    <li>Stock items required</li>
-                    <li style={{ marginTop: '5px' }}>
-                      Non stock items required
-                    </li>
-                  </ul>
+                <TableRow
+                  label="Materials required"
+                  value={
+                    <>
+                      <ul>
+                        {followOnData['stockItemsRequired'] && (
+                          <li style={{ marginTop: '5px' }}>
+                            Stock items required
+                          </li>
+                        )}
 
-                  <p>Required materials blah blah blah</p>
-                </>
-              }
-              handleClick={changeStep}
-            />
-          </TBody>
-        </Table>
+                        {followOnData['nonStockItemsRequired'] && (
+                          <li style={{ marginTop: '5px' }}>
+                            Non stock items required
+                          </li>
+                        )}
+
+                        <li>Stock items required</li>
+                        <li style={{ marginTop: '5px' }}>
+                          Non stock items required
+                        </li>
+                      </ul>
+
+                      <p>{followOnData['materialNotes']}</p>
+                    </>
+                  }
+                  handleClick={changeStep}
+                />
+
+                <TableRow
+                  label="Additional notes"
+                  value={followOnData['additionalNotes']}
+                  handleClick={changeStep}
+                />
+              </TBody>
+            </Table>
+          </>
+        )}
 
         <PrimarySubmitButton label="Confirm and close" />
       </form>
