@@ -508,72 +508,19 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[data-testid=completionTime-hour]').type('12')
       cy.get('[data-testid=completionTime-minutes]').type('00')
 
-      // cy.contains('Payment type')
-      //   .parent()
-      //   .within(() => {
-      //     cy.get('[value="Bonus"]').should('be.checked')
-      //     cy.get('[value="Overtime"]').should('not.be.checked')
-      //     cy.get('[value="CloseToBase"]').should('not.be.checked')
-      //   })
-
-      // cy.get('.operatives').within(() => {
-      //   cy.get('input[list]').eq(0).type('Operative A [1]')
-      // })
-
       cy.get('#notes').type('A note')
-      // cy.get('[type="submit"]').contains('Close work order').click()
 
       // close work order
       cy.get('[type="submit"]').contains('Close work order').click()
-
-      // cy.wait('@workOrderCompleteRequest')
-
-      // cy.get('@workOrderCompleteRequest')
-      //   .its('request.body')
-      //   .should('deep.equal', {
-      //     workOrderReference: {
-      //       id: "10000040",
-      //       description: '',
-      //       allocatedBy: '',
-      //     },
-      //     jobStatusUpdates: [
-      //       {
-      //         typeCode: '0',
-      //         otherType: 'completed',
-      //         comments: 'Work order closed - I attended - Bonus calculation',
-      //         // eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-      //         paymentType: 'Bonus',
-      //       },
-      //     ],
-      //     followOnRequest: {
-      //       isSameTrade: true,
-      //       isDifferentTrades: true,
-      //       isMultipleOperatives: false,
-      //       requiredFollowOnTrades: ['followon-trades-plumbing'],
-      //       followOnTypeDescription: 'Blah blah blah',
-      //       stockItemsRequired: true,
-      //       nonStockItemsRequired: false,
-      //       materialNotes: 'Blah blah blah',
-      //       additionalNotes: 'Additional notes',
-      //     },
-      //   })
     })
 
     // assert validation passed, and on next page
     cy.contains('Summary of updates to work order')
 
-    // cy.get('.modal-container').within(() => {
-    //   cy.contains(`Work order ${10000040} successfully closed`)
-
-    //   cy.get('[data-testid="modal-close"]').click()
-    // })
-
-    // cy.get('.modal-container').should('not.exist')
-
     cy.audit()
   })
 
-  it.only('submits a request and shows summary page when user enters follow-on details', () => {
+  it('submits a request and shows summary page when user enters follow-on details', () => {
     cy.fixture('workOrders/workOrder.json').then((workOrder) => {
       workOrder.reference = 10000040
       workOrder.canAssignOperative = false
@@ -618,10 +565,6 @@ describe('Closing a work order on behalf of an operative', () => {
 
       // close work order
       cy.get('[type="submit"]').contains('Close work order').click()
-
-      // cy.get('.govuk-table__row').within(() => {
-      //   cy.contains('Edit').click()
-      // })
     })
 
     // assert validation passed, and on next page
