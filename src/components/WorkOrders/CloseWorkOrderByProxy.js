@@ -200,7 +200,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     // set follow on data
 
-    if (formData['followOnStatus'] === 'furtherWorkRequired') {
+    if (formData.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
 
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach((x) => {
@@ -210,15 +210,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
-        isSameTrade: formData['isSameTrade'],
-        isDifferentTrades: formData['isDifferentTrades'],
-        isMultipleOperatives: formData['isMultipleOperatives'],
+        isSameTrade: formData.isSameTrade,
+        isDifferentTrades: formData.isDifferentTrades,
+        isMultipleOperatives: formData.isMultipleOperatives,
         requiredFollowOnTrades: requiredFollowOnTrades,
-        followOnTypeDescription: formData['followOnTypeDescription'],
-        stockItemsRequired: formData['stockItemsRequired'],
-        nonStockItemsRequired: formData['nonStockItemsRequired'],
-        materialNotes: formData['materialNotes'],
-        additionalNotes: formData['additionalNotes'],
+        followOnTypeDescription: formData.followOnTypeDescription,
+        stockItemsRequired: formData.stockItemsRequired,
+        nonStockItemsRequired: formData.nonStockItemsRequired,
+        materialNotes: formData.materialNotes,
+        additionalNotes: formData.additionalNotes,
       }
 
       setFollowOnData(followOnData)

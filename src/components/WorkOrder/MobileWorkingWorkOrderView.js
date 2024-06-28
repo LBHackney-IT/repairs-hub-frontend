@@ -124,25 +124,25 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     let followOnRequest = null
 
-    if (data['followOnStatus'] === 'furtherWorkRequired') {
+    if (data.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
 
-      if (data['isDifferentTrades']) {
+      if (data.isDifferentTrades) {
         FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name }) => {
           if (data[name]) requiredFollowOnTrades.push(name)
         })
       }
 
       followOnRequest = buildFollowOnRequestData(
-        data['isSameTrade'],
-        data['isDifferentTrades'],
-        data['isMultipleOperatives'],
+        data.isSameTrade,
+        data.isDifferentTrades,
+        data.isMultipleOperatives,
         requiredFollowOnTrades,
-        data['followOnTypeDescription'],
-        data['stockItemsRequired'],
-        data['nonStockItemsRequired'],
-        data['materialNotes'],
-        data['additionalNotes']
+        data.followOnTypeDescription,
+        data.stockItemsRequired,
+        data.nonStockItemsRequired,
+        data.materialNotes,
+        data.additionalNotes
       )
     }
 
