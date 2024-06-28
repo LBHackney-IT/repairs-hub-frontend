@@ -72,7 +72,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('form').within(() => {
       cy.contains('Please select a reason for closing the work order')
       cy.contains('Please pick completion date')
-      cy.contains('Please enter a completion time')
+      cy.contains('Please enter a value for completion time')
     })
 
     // Input some invalid dates
@@ -115,12 +115,12 @@ describe('Closing a work order on behalf of an operative', () => {
 
       cy.get('[type="submit"]').contains('Close work order').click()
 
-      cy.contains('Please enter a start time')
+      cy.contains('Please enter a value for start time')
 
       cy.get('[data-testid=startTime-hour]').clear().type('12')
       cy.get('[data-testid=startTime-minutes]').clear().type('10')
 
-      cy.contains('Please enter a start time').should('not.exist')
+      cy.contains('Please enter a value for start time').should('not.exist')
     })
   })
 
@@ -133,7 +133,8 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Select reason for closing')
         .parent()
         .within(() => {
-          cy.contains('label', 'Completed').click()
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'No further work required').click()
         })
 
       cy.get('#completionDate').type('2021-01-18') //Raised on 2021-01-18, 15:28
@@ -198,7 +199,8 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Select reason for closing')
         .parent()
         .within(() => {
-          cy.contains('label', 'Completed').click()
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'No further work required').click()
         })
 
       cy.get('#completionDate').type('2021-02-19')
@@ -351,7 +353,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.audit()
   })
 
-  it.only('sends request to /starttime when startTime selected', () => {
+  it('sends request to /starttime when startTime selected', () => {
     cy.visit('/work-orders/10000040/close')
 
     cy.wait('@workOrder')
@@ -464,7 +466,8 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains('Select reason for closing')
           .parent()
           .within(() => {
-            cy.contains('label', 'Completed').click()
+            cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -518,7 +521,8 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains('Select reason for closing')
           .parent()
           .within(() => {
-            cy.contains('label', 'Completed').click()
+            cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -571,7 +575,8 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains('Select reason for closing')
           .parent()
           .within(() => {
-            cy.contains('label', 'Completed').click()
+            cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -922,7 +927,8 @@ describe('Closing a work order on behalf of an operative', () => {
           cy.contains('Select reason for closing')
             .parent()
             .within(() => {
-              cy.contains('label', 'Completed').click()
+              cy.contains('label', 'Visit completed').click()
+              cy.contains('label', 'No further work required').click()
             })
 
           cy.get('#completionDate').type('2021-01-19')
@@ -1166,7 +1172,8 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains('Select reason for closing')
           .parent()
           .within(() => {
-            cy.contains('label', 'Completed').click()
+            cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -1174,8 +1181,12 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
 
-        cy.contains('operative', { matchCase: false }).should('not.exist')
-        cy.contains('payment type', { matchCase: false }).should('not.exist')
+        cy.contains('Search by operative name and select from the list', {
+          matchCase: false,
+        }).should('not.exist')
+        cy.contains('label', 'payment type', { matchCase: false }).should(
+          'not.exist'
+        )
 
         cy.get('#notes').type('A note')
         cy.get('[type="submit"]').contains('Close work order').click()

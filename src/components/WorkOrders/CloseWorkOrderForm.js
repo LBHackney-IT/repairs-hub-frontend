@@ -36,6 +36,7 @@ const CloseWorkOrderForm = ({
   jobIsSplitByOperative,
   paymentType,
   existingStartTime,
+  reason,
 }) => {
   const {
     handleSubmit,
@@ -69,6 +70,7 @@ const CloseWorkOrderForm = ({
           register={register}
           errors={errors}
           watch={watch}
+          reason={reason}
         />
 
         <div

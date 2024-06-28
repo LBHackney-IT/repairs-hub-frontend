@@ -5,7 +5,7 @@ import {
 import Radios from '../../Form/Radios'
 
 const CloseWorkOrderFormReasonForClosing = (props) => {
-  const { register, errors, watch } = props
+  const { register, errors, watch, reason } = props
 
   const showFollowOnRadioOptions = watch('reason') === 'Work Order Completed'
 
@@ -17,6 +17,7 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
         name="reason"
         options={CLOSURE_STATUS_OPTIONS.map((r) => ({
           ...r,
+          defaultChecked: r.value === reason,
           children:
             r.value === 'Work Order Completed' && showFollowOnRadioOptions ? (
               <Radios
