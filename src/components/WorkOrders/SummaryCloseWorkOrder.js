@@ -120,29 +120,38 @@ const SummaryCloseWorkOrder = ({
                   handleClick={changeStep}
                 />
 
-                <TableRow
-                  label="Materials required"
-                  value={
-                    <>
-                      <ul>
-                        {followOnData['stockItemsRequired'] && (
-                          <li style={{ marginTop: '5px' }}>
-                            Stock items required
-                          </li>
+                {(followOnData['stockItemsRequired'] ||
+                  followOnData['nonStockItemsRequired'] ||
+                  followOnData['materialNotes'] !== '') && (
+                  <TableRow
+                    label="Materials required"
+                    value={
+                      <>
+                        {(followOnData['stockItemsRequired'] ||
+                          followOnData['nonStockItemsRequired']) && (
+                          <ul>
+                            {followOnData['stockItemsRequired'] && (
+                              <li style={{ marginTop: '5px' }}>
+                                Stock items required
+                              </li>
+                            )}
+
+                            {followOnData['nonStockItemsRequired'] && (
+                              <li style={{ marginTop: '5px' }}>
+                                Non stock items required
+                              </li>
+                            )}
+                          </ul>
                         )}
 
-                        {followOnData['nonStockItemsRequired'] && (
-                          <li style={{ marginTop: '5px' }}>
-                            Non stock items required
-                          </li>
+                        {followOnData['materialNotes'] !== '' && (
+                          <p>{followOnData['materialNotes']}</p>
                         )}
-                      </ul>
-
-                      <p>{followOnData['materialNotes']}</p>
-                    </>
-                  }
-                  handleClick={changeStep}
-                />
+                      </>
+                    }
+                    handleClick={changeStep}
+                  />
+                )}
 
                 <TableRow
                   label="Additional notes"
