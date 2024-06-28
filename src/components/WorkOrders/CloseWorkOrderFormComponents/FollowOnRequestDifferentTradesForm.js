@@ -1,7 +1,7 @@
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '@/utils/statusCodes'
-import { Checkbox } from '../Form'
+import { Checkbox } from '../../Form'
 
-const DifferentTradesFurtherOptions = (props) => {
+const FollowOnRequestDifferentTradesForm = (props) => {
   const { register } = props
 
   return (
@@ -24,4 +24,4 @@ const DifferentTradesFurtherOptions = (props) => {
   )
 }
 
-export default DifferentTradesFurtherOptions
+export default FollowOnRequestDifferentTradesForm

@@ -21,7 +21,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label govuk-label--m"
+          class="govuk-label govuk-label--s"
           for="reason"
         >
           Select reason for closing 
@@ -66,6 +66,178 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
               No access
             </label>
           </div>
+        </div>
+      </div>
+      <div
+        style="display: none;"
+      >
+        <h1
+          class="lbh-heading-h2"
+        >
+          Details of further work required
+        </h1>
+        <fieldset
+          class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
+        >
+          <div
+            class="lbh-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--m"
+              for=""
+            >
+              Type of work required
+            </label>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isSameTrade"
+                id="isSameTrade"
+                name="isSameTrade"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isSameTrade"
+              >
+                Same trade
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isDifferentTrades"
+                id="isDifferentTrades"
+                name="isDifferentTrades"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isDifferentTrades"
+              >
+                Different trade(s)
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isMultipleOperatives"
+                id="isMultipleOperatives"
+                name="isMultipleOperatives"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isMultipleOperatives"
+              >
+                Multiple operatives
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="followOnTypeDescription-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="followOnTypeDescription"
+          >
+            Describe work required 
+          </label>
+          <textarea
+            aria-describedby="followOnTypeDescription-hint followOnTypeDescription-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="followOnTypeDescription"
+            id="followOnTypeDescription"
+            name="followOnTypeDescription"
+            rows="4"
+          />
+        </div>
+        <fieldset>
+          <label
+            class="govuk-label govuk-label--m"
+          >
+            Materials
+          </label>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="stockItemsRequired"
+              id="stockItemsRequired"
+              name="stockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="stockItemsRequired"
+            >
+              Stock items required
+            </label>
+          </div>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="nonStockItemsRequired"
+              id="nonStockItemsRequired"
+              name="nonStockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="nonStockItemsRequired"
+            >
+              Non stock items required
+            </label>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="materialNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="materialNotes"
+          >
+            Materials required 
+          </label>
+          <textarea
+            aria-describedby="materialNotes-hint materialNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="materialNotes"
+            id="materialNotes"
+            name="materialNotes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="additionalNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="additionalNotes"
+          >
+            Additional notes 
+          </label>
+          <textarea
+            aria-describedby="additionalNotes-hint additionalNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="additionalNotes"
+            id="additionalNotes"
+            name="additionalNotes"
+            rows="4"
+          />
         </div>
       </div>
       <div
@@ -584,7 +756,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         class="govuk-form-group lbh-form-group"
       >
         <label
-          class="govuk-label govuk-label--m"
+          class="govuk-label govuk-label--s"
           for="reason"
         >
           Select reason for closing 
@@ -629,6 +801,178 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               No access
             </label>
           </div>
+        </div>
+      </div>
+      <div
+        style="display: none;"
+      >
+        <h1
+          class="lbh-heading-h2"
+        >
+          Details of further work required
+        </h1>
+        <fieldset
+          class="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
+        >
+          <div
+            class="lbh-form-group"
+          >
+            <label
+              class="govuk-label govuk-label--m"
+              for=""
+            >
+              Type of work required
+            </label>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isSameTrade"
+                id="isSameTrade"
+                name="isSameTrade"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isSameTrade"
+              >
+                Same trade
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isDifferentTrades"
+                id="isDifferentTrades"
+                name="isDifferentTrades"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isDifferentTrades"
+              >
+                Different trade(s)
+              </label>
+            </div>
+            <div
+              class="govuk-checkboxes__item govuk-!-margin-0 govuk-!-margin-bottom-5"
+            >
+              <input
+                class="govuk-checkboxes__input"
+                data-testid="isMultipleOperatives"
+                id="isMultipleOperatives"
+                name="isMultipleOperatives"
+                type="checkbox"
+              />
+              <label
+                class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0"
+                for="isMultipleOperatives"
+              >
+                Multiple operatives
+              </label>
+            </div>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="followOnTypeDescription-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="followOnTypeDescription"
+          >
+            Describe work required 
+          </label>
+          <textarea
+            aria-describedby="followOnTypeDescription-hint followOnTypeDescription-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="followOnTypeDescription"
+            id="followOnTypeDescription"
+            name="followOnTypeDescription"
+            rows="4"
+          />
+        </div>
+        <fieldset>
+          <label
+            class="govuk-label govuk-label--m"
+          >
+            Materials
+          </label>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="stockItemsRequired"
+              id="stockItemsRequired"
+              name="stockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="stockItemsRequired"
+            >
+              Stock items required
+            </label>
+          </div>
+          <div
+            class="govuk-checkboxes__item govuk-!-margin-0"
+          >
+            <input
+              class="govuk-checkboxes__input"
+              data-testid="nonStockItemsRequired"
+              id="nonStockItemsRequired"
+              name="nonStockItemsRequired"
+              type="checkbox"
+            />
+            <label
+              class="govuk-label govuk-checkboxes__label lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+              for="nonStockItemsRequired"
+            >
+              Non stock items required
+            </label>
+          </div>
+        </fieldset>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="materialNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="materialNotes"
+          >
+            Materials required 
+          </label>
+          <textarea
+            aria-describedby="materialNotes-hint materialNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="materialNotes"
+            id="materialNotes"
+            name="materialNotes"
+            rows="4"
+          />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="additionalNotes-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="additionalNotes"
+          >
+            Additional notes 
+          </label>
+          <textarea
+            aria-describedby="additionalNotes-hint additionalNotes-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="additionalNotes"
+            id="additionalNotes"
+            name="additionalNotes"
+            rows="4"
+          />
         </div>
       </div>
       <div

@@ -14,8 +14,10 @@ import {
   OVERTIME_PAYMENT_TYPE,
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
-import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
 import { useState } from 'react'
+import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -28,13 +30,13 @@ const CloseWorkOrderForm = ({
   completionDate,
   startTime,
   startDate,
-  reason,
   dateRaised,
   selectedPercentagesToShowOnEdit,
   totalSMV,
   jobIsSplitByOperative,
   paymentType,
   existingStartTime,
+  reason,
 }) => {
   const {
     handleSubmit,
@@ -43,6 +45,9 @@ const CloseWorkOrderForm = ({
     errors,
     trigger,
     getValues,
+    watch,
+    clearErrors,
+    setError,
   } = useForm({})
 
   const [startTimeIsRequired, setStartTimeIsRequired] = useState(false)
@@ -52,27 +57,51 @@ const CloseWorkOrderForm = ({
     setStartTimeIsRequired(e.target.value !== '')
   }
 
+  const selectedFurtherWorkRequired =
+    watch('followOnStatus') === 'furtherWorkRequired'
+
   return (
     <div>
       <BackButton />
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
       <form role="form" onSubmit={handleSubmit(onSubmit)}>
-        <Radios
-          label="Select reason for closing"
-          name="reason"
-          options={CLOSURE_STATUS_OPTIONS.map((r) => {
-            return {
-              text: r.text,
-              value: r.value,
-              defaultChecked: r.value === reason,
-            }
-          })}
-          register={register({
-            required: 'Please select a reason for closing the work order',
-          })}
-          error={errors && errors.reason}
+        <CloseWorkOrderFormReasonForClosing
+          register={register}
+          errors={errors}
+          watch={watch}
+          reason={reason}
         />
+
+        <div
+          style={{
+            display: selectedFurtherWorkRequired ? 'block' : 'none',
+          }}
+        >
+          <h1 className="lbh-heading-h2">Details of further work required</h1>
+
+          <FollowOnRequestTypeOfWorkForm
+            errors={errors}
+            register={register}
+            getValues={getValues}
+            setError={setError}
+            clearErrors={clearErrors}
+            watch={watch}
+          />
+
+          <FollowOnRequestMaterialsForm
+            register={register}
+            getValues={getValues}
+            errors={errors}
+          />
+
+          <TextArea
+            name="additionalNotes"
+            label="Additional notes"
+            register={register}
+            error={errors && errors.additionalNotes}
+          />
+        </div>
 
         {/* Start time cannot be changed once set by an operative */}
         {!existingStartTime && (
