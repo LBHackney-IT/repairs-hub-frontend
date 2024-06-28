@@ -51,6 +51,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             class="govuk-radios__item"
           >
             <input
+              checked=""
               class="govuk-radios__input"
               data-testid="reason"
               id="reason_No Access"
@@ -785,6 +786,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             class="govuk-radios__item"
           >
             <input
+              checked=""
               class="govuk-radios__input"
               data-testid="reason"
               id="reason_No Access"

@@ -304,7 +304,7 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
                 <li
                   style="margin-top: 5px;"
                 >
-                  Different trade(s) (, , s)
+                  Different trade(s) (Plumbing, Electrical, Other)
                 </li>
                 <li
                   style="margin-top: 5px;"
@@ -344,14 +344,6 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
                 <li
                   style="margin-top: 5px;"
                 >
-                  Stock items required
-                </li>
-                <li
-                  style="margin-top: 5px;"
-                >
-                  Non stock items required
-                </li>
-                <li>
                   Stock items required
                 </li>
                 <li

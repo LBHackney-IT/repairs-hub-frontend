@@ -104,7 +104,7 @@ const SummaryCloseWorkOrder = ({
                             {followOnData['requiredFollowOnTrades']
                               .map((x) => x.label)
                               .join(', ')}
-                            s)
+                            )
                           </li>
                         )}
                         {followOnData['isMultipleOperatives'] && (
@@ -136,11 +136,6 @@ const SummaryCloseWorkOrder = ({
                             Non stock items required
                           </li>
                         )}
-
-                        <li>Stock items required</li>
-                        <li style={{ marginTop: '5px' }}>
-                          Non stock items required
-                        </li>
                       </ul>
 
                       <p>{followOnData['materialNotes']}</p>

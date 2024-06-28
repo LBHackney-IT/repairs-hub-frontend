@@ -50,7 +50,13 @@ describe('SummaryCloseWorkOrder component', () => {
       isSameTrade: true,
       isDifferentTrades: true,
       isMultipleOperatives: true,
-      requiredFollowOnTrades: ['Plumbing', 'Electrical', 'Other'],
+      requiredFollowOnTrades: [
+        {
+          label: 'Plumbing',
+        },
+        { label: 'Electrical' },
+        { label: 'Other' },
+      ],
       followOnTypeDescription:
         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s",
       stockItemsRequired: true,
