@@ -35,6 +35,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [followOnStatus, setFollowOnStatus] = useState('')
   const [paymentType, setPaymentType] = useState(null)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
@@ -269,6 +270,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
     )
     setReason(formData.reason)
+    setFollowOnStatus(formData.followOnStatus)
     setNotes(formData.notes)
     // setDateToShow(formData.completionDate)
     formData.paymentType && setPaymentType(formData.paymentType)
@@ -297,6 +299,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   startTime={startTime}
                   startDate={startDate}
                   reason={reason}
+                  followOnStatus={followOnStatus}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
@@ -309,6 +312,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   jobIsSplitByOperative={workOrder.isSplit}
                   paymentType={paymentType}
                   existingStartTime={workOrder.startTime !== null}
+                  followOnData={followOnData}
                 />
               )}
 

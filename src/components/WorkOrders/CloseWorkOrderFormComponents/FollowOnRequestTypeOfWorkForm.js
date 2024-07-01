@@ -3,14 +3,26 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../../utils/statusCodes'
 import { Checkbox, TextArea } from '../../Form'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import FollowOnRequestDifferentTradesForm from './FollowOnRequestDifferentTradesForm'
+import { useEffect, useState } from 'react'
 
 const FollowOnRequestTypeOfWorkForm = (props) => {
-  const { errors, register, getValues, setError, clearErrors, watch } = props
+  const {
+    errors,
+    register,
+    getValues,
+    setError,
+    clearErrors,
+    watch,
+    followOnData,
+  } = props
 
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
 
   const validateAtLeastOneOperativeOptionSelected = () => {
+
+    console.log("checkibn validation")
+
     if (!selectedFurtherWorkRequired) {
       clearErrors('typeOfWork')
       return
@@ -30,12 +42,32 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     clearErrors('typeOfWork')
   }
 
+  // useEffect(() => {
+  //   // needs to be manually triggered after the edit button used
+  //   validateAtLeastOneOperativeOptionSelected()
+  // }, [])
+
   // Watch all checkbox values
   const checkboxValues = watch(
     FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map((x) => x.name)
   )
 
   const isDifferentTradesChecked = watch('isDifferentTrades')
+
+  const [showDifferentTradesform, setShowDifferentTradesForm] = useState(false)
+
+
+  useEffect(() => {
+    // When navigating back from summary page, the watch hook isnt updating
+    // meaning the followOnStatus options arent visible
+    // this awful code fixes that
+
+    if (isDifferentTradesChecked === undefined) {
+      setShowDifferentTradesForm(followOnData?.isDifferentTrades ?? false)
+    } else {
+      setShowDifferentTradesForm(isDifferentTradesChecked)
+    }
+  }, [isDifferentTradesChecked])
 
   return (
     <>
@@ -69,6 +101,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 return true
               },
             })}
+            checked={followOnData?.isSameTrade ?? false}
           />
 
           <Checkbox
@@ -77,13 +110,14 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             name={'isDifferentTrades'}
             label={'Different trade(s)'}
             error={errors && errors?.isDifferentTrades}
+            checked={followOnData?.isDifferentTrades ?? false}
             register={register({
               validate: () => {
                 // doesnt validate itself - just running the validate function
                 // when the field updates
                 validateAtLeastOneOperativeOptionSelected()
 
-                if (!isDifferentTradesChecked) return true
+                if (!showDifferentTradesform) return true
 
                 const isAnyChecked = Object.values(checkboxValues).some(
                   (value) => value === true
@@ -103,16 +137,18 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 <FollowOnRequestDifferentTradesForm
                   register={register}
                   errors={errors}
+                  requiredFollowOnTrades={followOnData?.requiredFollowOnTrades ?? []}
                 />
               </>
             }
-            showChildren={isDifferentTradesChecked}
+            showChildren={showDifferentTradesform}
           />
 
           <Checkbox
             className="govuk-!-margin-0 govuk-!-margin-bottom-5"
             labelClassName="lbh-body-xs govuk-!-margin-0"
             name={'isMultipleOperatives'}
+            checked={followOnData?.isMultipleOperatives ?? false}
             label={'Multiple operatives'}
             register={register({
               validate: () => {
@@ -143,6 +179,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
           },
         })}
         error={errors && errors.followOnTypeDescription}
+        defaultValue={followOnData?.followOnTypeDescription ?? ''}
       />
     </>
   )

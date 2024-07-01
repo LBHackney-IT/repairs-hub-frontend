@@ -14,7 +14,7 @@ import {
   OVERTIME_PAYMENT_TYPE,
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
@@ -37,6 +37,8 @@ const CloseWorkOrderForm = ({
   paymentType,
   existingStartTime,
   reason,
+  followOnStatus,
+  followOnData,
 }) => {
   const {
     handleSubmit,
@@ -57,8 +59,25 @@ const CloseWorkOrderForm = ({
     setStartTimeIsRequired(e.target.value !== '')
   }
 
-  const selectedFurtherWorkRequired =
-    watch('followOnStatus') === 'furtherWorkRequired'
+  const [showFurtherWorkFields, setShowFurtherWorkFields] = useState(false)
+
+  const followOnStatusWatchedValue = watch('followOnStatus')
+
+  useEffect(() => {
+    // When navigating back from summary page, the watch hook isnt updating
+    // meaning the followOnStatus options arent visible
+    // this awful code fixes that
+
+    console.log({ followOnStatusWatchedValue, followOnStatus })
+
+    if (followOnStatusWatchedValue === undefined) {
+      setShowFurtherWorkFields(followOnStatus === 'furtherWorkRequired')
+    } else {
+      setShowFurtherWorkFields(
+        followOnStatusWatchedValue === 'furtherWorkRequired'
+      )
+    }
+  }, [followOnStatusWatchedValue])
 
   return (
     <div>
@@ -71,37 +90,40 @@ const CloseWorkOrderForm = ({
           errors={errors}
           watch={watch}
           reason={reason}
+          followOnData={followOnData}
+          followOnStatus={followOnStatus}
         />
 
-        <div
-          style={{
-            display: selectedFurtherWorkRequired ? 'block' : 'none',
-          }}
-        >
-          <h1 className="lbh-heading-h2">Details of further work required</h1>
+        {showFurtherWorkFields && (
+          <>
+            <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-          <FollowOnRequestTypeOfWorkForm
-            errors={errors}
-            register={register}
-            getValues={getValues}
-            setError={setError}
-            clearErrors={clearErrors}
-            watch={watch}
-          />
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
+              followOnData={followOnData}
+            />
 
-          <FollowOnRequestMaterialsForm
-            register={register}
-            getValues={getValues}
-            errors={errors}
-          />
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+              followOnData={followOnData}
+            />
 
-          <TextArea
-            name="additionalNotes"
-            label="Additional notes"
-            register={register}
-            error={errors && errors.additionalNotes}
-          />
-        </div>
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+              defaultValue={followOnData?.additionalNotes ?? ''}
+            />
+          </>
+        )}
 
         {/* Start time cannot be changed once set by an operative */}
         {!existingStartTime && (

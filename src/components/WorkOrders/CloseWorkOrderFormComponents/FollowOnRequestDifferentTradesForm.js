@@ -2,7 +2,11 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '@/utils/statusCodes'
 import { Checkbox } from '../../Form'
 
 const FollowOnRequestDifferentTradesForm = (props) => {
-  const { register } = props
+  const { register, errors, requiredFollowOnTrades } = props
+
+  const selectedTrades = new Set(requiredFollowOnTrades.map((x) => x.name))
+
+  console.log({ selectedTrades })
 
   return (
     <>
@@ -16,6 +20,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
               name={name}
               label={label}
               register={register}
+              checked={selectedTrades.has(name)}
             />
           </li>
         ))}
