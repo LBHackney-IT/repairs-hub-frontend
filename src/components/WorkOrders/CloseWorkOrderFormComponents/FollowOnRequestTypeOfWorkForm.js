@@ -20,9 +20,6 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     watch('followOnStatus') === 'furtherWorkRequired'
 
   const validateAtLeastOneOperativeOptionSelected = () => {
-
-    console.log("checkibn validation")
-
     if (!selectedFurtherWorkRequired) {
       clearErrors('typeOfWork')
       return
@@ -42,11 +39,6 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     clearErrors('typeOfWork')
   }
 
-  // useEffect(() => {
-  //   // needs to be manually triggered after the edit button used
-  //   validateAtLeastOneOperativeOptionSelected()
-  // }, [])
-
   // Watch all checkbox values
   const checkboxValues = watch(
     FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map((x) => x.name)
@@ -55,7 +47,6 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
   const isDifferentTradesChecked = watch('isDifferentTrades')
 
   const [showDifferentTradesform, setShowDifferentTradesForm] = useState(false)
-
 
   useEffect(() => {
     // When navigating back from summary page, the watch hook isnt updating
@@ -137,7 +128,9 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 <FollowOnRequestDifferentTradesForm
                   register={register}
                   errors={errors}
-                  requiredFollowOnTrades={followOnData?.requiredFollowOnTrades ?? []}
+                  requiredFollowOnTrades={
+                    followOnData?.requiredFollowOnTrades ?? []
+                  }
                 />
               </>
             }

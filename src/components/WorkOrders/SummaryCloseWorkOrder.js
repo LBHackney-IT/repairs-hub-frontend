@@ -95,48 +95,48 @@ const SummaryCloseWorkOrder = ({
                   value={
                     <>
                       <ul>
-                        {followOnData['isSameTrade'] && (
+                        {followOnData.isSameTrade && (
                           <li style={{ marginTop: '5px' }}>Same trade</li>
                         )}
-                        {followOnData['isDifferentTrades'] && (
+                        {followOnData.isDifferentTrades && (
                           <li style={{ marginTop: '5px' }}>
                             Different trade(s) (
-                            {followOnData['requiredFollowOnTrades']
+                            {followOnData.requiredFollowOnTrades
                               .map((x) => x.label)
                               .join(', ')}
                             )
                           </li>
                         )}
-                        {followOnData['isMultipleOperatives'] && (
+                        {followOnData.isMultipleOperatives && (
                           <li style={{ marginTop: '5px' }}>
                             Multiple operatives
                           </li>
                         )}
                       </ul>
 
-                      <div>{followOnData['followOnTypeDescription']}</div>
+                      <div>{followOnData.followOnTypeDescription}</div>
                     </>
                   }
                   handleClick={changeStep}
                 />
 
-                {(followOnData['stockItemsRequired'] ||
-                  followOnData['nonStockItemsRequired'] ||
-                  followOnData['materialNotes'] !== '') && (
+                {(followOnData.stockItemsRequired ||
+                  followOnData.nonStockItemsRequired ||
+                  followOnData.materialNotes !== '') && (
                   <TableRow
                     label="Materials required"
                     value={
                       <>
-                        {(followOnData['stockItemsRequired'] ||
-                          followOnData['nonStockItemsRequired']) && (
+                        {(followOnData.stockItemsRequired ||
+                          followOnData.nonStockItemsRequired) && (
                           <ul>
-                            {followOnData['stockItemsRequired'] && (
+                            {followOnData.stockItemsRequired && (
                               <li style={{ marginTop: '5px' }}>
                                 Stock items required
                               </li>
                             )}
 
-                            {followOnData['nonStockItemsRequired'] && (
+                            {followOnData.nonStockItemsRequired && (
                               <li style={{ marginTop: '5px' }}>
                                 Non stock items required
                               </li>
@@ -144,8 +144,8 @@ const SummaryCloseWorkOrder = ({
                           </ul>
                         )}
 
-                        {followOnData['materialNotes'] !== '' && (
-                          <p>{followOnData['materialNotes']}</p>
+                        {followOnData.materialNotes !== '' && (
+                          <p>{followOnData.materialNotes}</p>
                         )}
                       </>
                     }
@@ -155,7 +155,7 @@ const SummaryCloseWorkOrder = ({
 
                 <TableRow
                   label="Additional notes"
-                  value={followOnData['additionalNotes']}
+                  value={followOnData.additionalNotes}
                   handleClick={changeStep}
                 />
               </TBody>
