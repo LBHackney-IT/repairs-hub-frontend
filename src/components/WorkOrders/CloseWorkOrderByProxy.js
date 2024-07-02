@@ -35,6 +35,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [followOnStatus, setFollowOnStatus] = useState('')
   const [paymentType, setPaymentType] = useState(null)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
@@ -154,11 +155,19 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     let followOnDataRequest = null
 
     if (followOnData !== null) {
+      const requiredFollowOnTrades = []
+
+      if (followOnData.isDifferentTrades) {
+        requiredFollowOnTrades.push(
+          ...followOnData.requiredFollowOnTrades.map((x) => x.name)
+        )
+      }
+
       followOnDataRequest = buildFollowOnRequestData(
         followOnData.isSameTrade,
         followOnData.isDifferentTrades,
         followOnData.isMultipleOperatives,
-        followOnData.requiredFollowOnTrades.map((x) => x.name),
+        requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
         followOnData.stockItemsRequired,
         followOnData.nonStockItemsRequired,
@@ -192,7 +201,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     // set follow on data
 
-    if (formData['followOnStatus'] === 'furtherWorkRequired') {
+    if (formData.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
 
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach((x) => {
@@ -202,15 +211,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
-        isSameTrade: formData['isSameTrade'],
-        isDifferentTrades: formData['isDifferentTrades'],
-        isMultipleOperatives: formData['isMultipleOperatives'],
+        isSameTrade: formData.isSameTrade,
+        isDifferentTrades: formData.isDifferentTrades,
+        isMultipleOperatives: formData.isMultipleOperatives,
         requiredFollowOnTrades: requiredFollowOnTrades,
-        followOnTypeDescription: formData['followOnTypeDescription'],
-        stockItemsRequired: formData['stockItemsRequired'],
-        nonStockItemsRequired: formData['nonStockItemsRequired'],
-        materialNotes: formData['materialNotes'],
-        additionalNotes: formData['additionalNotes'],
+        followOnTypeDescription: formData.followOnTypeDescription,
+        stockItemsRequired: formData.stockItemsRequired,
+        nonStockItemsRequired: formData.nonStockItemsRequired,
+        materialNotes: formData.materialNotes,
+        additionalNotes: formData.additionalNotes,
       }
 
       setFollowOnData(followOnData)
@@ -261,6 +270,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
     )
     setReason(formData.reason)
+    setFollowOnStatus(formData.followOnStatus)
     setNotes(formData.notes)
     // setDateToShow(formData.completionDate)
     formData.paymentType && setPaymentType(formData.paymentType)
@@ -289,6 +299,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   startTime={startTime}
                   startDate={startDate}
                   reason={reason}
+                  followOnStatus={followOnStatus}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
@@ -301,6 +312,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   jobIsSplitByOperative={workOrder.isSplit}
                   paymentType={paymentType}
                   existingStartTime={workOrder.startTime !== null}
+                  followOnData={followOnData}
                 />
               )}
 

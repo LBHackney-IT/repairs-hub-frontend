@@ -1,7 +1,7 @@
 import { Checkbox, TextArea } from '../../Form'
 
 const FollowOnRequestMaterialsForm = (props) => {
-  const { register, getValues, errors } = props
+  const { register, getValues, errors, followOnData } = props
 
   return (
     <>
@@ -14,6 +14,7 @@ const FollowOnRequestMaterialsForm = (props) => {
           name={'stockItemsRequired'}
           label={'Stock items required'}
           register={register}
+          checked={followOnData?.stockItemsRequired ?? false}
         />
 
         <Checkbox
@@ -22,12 +23,14 @@ const FollowOnRequestMaterialsForm = (props) => {
           name={'nonStockItemsRequired'}
           label={'Non stock items required'}
           register={register}
+          checked={followOnData?.nonStockItemsRequired ?? false}
         />
       </fieldset>
 
       <TextArea
         name="materialNotes"
         label="Materials required"
+        defaultValue={followOnData?.materialNotes ?? ''}
         register={register({
           validate: (value) => {
             // neither checkbox checked, not required
