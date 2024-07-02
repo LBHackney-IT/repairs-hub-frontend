@@ -128,8 +128,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       const requiredFollowOnTrades = []
 
       if (data.isDifferentTrades) {
-        FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name }) => {
-          if (data[name]) requiredFollowOnTrades.push(name)
+        FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
+          if (data[name]) requiredFollowOnTrades.push(value)
         })
       }
 
