@@ -286,7 +286,7 @@ describe('Closing my own work order', () => {
             isSameTrade: true,
             isDifferentTrades: true,
             isMultipleOperatives: false,
-            requiredFollowOnTrades: ['followon-trades-plumbing'],
+            requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'Blah blah blah',
             stockItemsRequired: true,
             nonStockItemsRequired: false,
