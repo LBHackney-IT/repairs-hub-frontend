@@ -68,8 +68,6 @@ const CloseWorkOrderForm = ({
     // meaning the followOnStatus options arent visible
     // this awful code fixes that
 
-    console.log({ followOnStatusWatchedValue, followOnStatus })
-
     if (followOnStatusWatchedValue === undefined) {
       setShowFurtherWorkFields(followOnStatus === 'furtherWorkRequired')
     } else {
