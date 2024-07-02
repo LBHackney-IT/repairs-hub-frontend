@@ -7,6 +7,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
+  buildFollowOnRequestData,
   buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
@@ -15,6 +16,7 @@ import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
 import Panel from '@/components/Template/Panel'
 import { generalLinks } from '@/utils/successPageLinks'
+import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -33,6 +35,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
+  const [followOnStatus, setFollowOnStatus] = useState('')
   const [paymentType, setPaymentType] = useState(null)
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
@@ -42,6 +45,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     selectedPercentagesToShowOnEdit,
     setSelectedPercentagesToShowOnEdit,
   ] = useState([])
+
+  const [followOnData, setFollowOnData] = useState(null)
 
   const FORM_PAGE = 1
   const SUMMARY_PAGE = 2
@@ -147,12 +152,37 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       paymentType
     )
 
+    let followOnDataRequest = null
+
+    if (followOnData !== null) {
+      const requiredFollowOnTrades = []
+
+      if (followOnData.isDifferentTrades) {
+        requiredFollowOnTrades.push(
+          ...followOnData.requiredFollowOnTrades.map((x) => x.value)
+        )
+      }
+
+      followOnDataRequest = buildFollowOnRequestData(
+        followOnData.isSameTrade,
+        followOnData.isDifferentTrades,
+        followOnData.isMultipleOperatives,
+        requiredFollowOnTrades,
+        followOnData.followOnTypeDescription,
+        followOnData.stockItemsRequired,
+        followOnData.nonStockItemsRequired,
+        followOnData.materialNotes,
+        followOnData.additionalNotes
+      )
+    }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
       fullNotes,
       reference,
       reason,
-      paymentType
+      paymentType,
+      followOnDataRequest
     )
 
     makePostRequest(closeWorkOrderFormData, operativeAssignmentFormData)
@@ -168,6 +198,32 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       formData.completionTime
     )
     setCompletionDate(formattedCompletionDate)
+
+    // set follow on data
+
+    if (formData.followOnStatus === 'furtherWorkRequired') {
+      const requiredFollowOnTrades = []
+
+      FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach((x) => {
+        console.log({ x })
+
+        if (formData[x.name]) requiredFollowOnTrades.push(x)
+      })
+
+      const followOnData = {
+        isSameTrade: formData.isSameTrade,
+        isDifferentTrades: formData.isDifferentTrades,
+        isMultipleOperatives: formData.isMultipleOperatives,
+        requiredFollowOnTrades: requiredFollowOnTrades,
+        followOnTypeDescription: formData.followOnTypeDescription,
+        stockItemsRequired: formData.stockItemsRequired,
+        nonStockItemsRequired: formData.nonStockItemsRequired,
+        materialNotes: formData.materialNotes,
+        additionalNotes: formData.additionalNotes,
+      }
+
+      setFollowOnData(followOnData)
+    }
 
     if (
       !Object.prototype.hasOwnProperty.call(formData, 'startDate') ||
@@ -214,6 +270,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
     )
     setReason(formData.reason)
+    setFollowOnStatus(formData.followOnStatus)
     setNotes(formData.notes)
     // setDateToShow(formData.completionDate)
     formData.paymentType && setPaymentType(formData.paymentType)
@@ -242,6 +299,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   startTime={startTime}
                   startDate={startDate}
                   reason={reason}
+                  followOnStatus={followOnStatus}
                   operativeAssignmentMandatory={workOrder.canAssignOperative}
                   assignedOperativesToWorkOrder={selectedOperatives}
                   availableOperatives={availableOperatives}
@@ -254,6 +312,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   jobIsSplitByOperative={workOrder.isSplit}
                   paymentType={paymentType}
                   existingStartTime={workOrder.startTime !== null}
+                  followOnData={followOnData}
                 />
               )}
 
@@ -277,6 +336,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   reference={workOrder.reference}
                   paymentType={paymentType}
                   startDate={startDate}
+                  followOnData={followOnData}
                 />
               )}
               {currentPage === CONFIRMATION_PAGE && (

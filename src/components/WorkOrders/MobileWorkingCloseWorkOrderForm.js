@@ -1,61 +1,55 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
-import Radios from '../Form/Radios'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import { CLOSURE_STATUS_OPTIONS } from '@/utils/statusCodes'
+import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
+import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
-  DAMP_OR_MOULD: '2',
+  FOLLOW_ON_DETAILS: '2',
 }
 
 const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
-  const { handleSubmit, register, errors, getValues, trigger, watch } = useForm(
-    {
-      shouldUnregister: false,
-    }
-  )
+  const {
+    handleSubmit,
+    register,
+    errors,
+    setError,
+    clearErrors,
+    watch,
+    getValues,
+  } = useForm({
+    shouldUnregister: false,
+  })
+
+  const selectedFurtherWorkRequired =
+    watch('followOnStatus') === 'furtherWorkRequired'
 
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
-  const viewNextPage = async () => {
-    // validate form fields on first page
-    const results = await trigger('reason')
-    if (!results) return
-
-    setCurrentPage(PAGES.DAMP_OR_MOULD)
+  const viewFollowOnDetailsPage = () => {
+    setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
-  const viewPreviousPage = async () => {
+  const viewWorkOrderStatusPage = () => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
-
-  const watchedReasonField = watch('reason')
-  const watchedIsDampOrMouldInPropertyField = watch('isDampOrMouldInProperty')
-  const watchedResidentPreviouslyReportedField = watch(
-    'residentPreviouslyReported'
-  )
-
-  const DAMP_AND_MOULD_FORM_ENABLED =
-    process.env.NEXT_PUBLIC_DAMP_AND_MOULD_FORM_ENABLED === 'true'
 
   return (
     <>
       <div>
-        {/* if on second page, override back button */}
         <BackButton
+          // if on second page, override back button
           onClick={
-            DAMP_AND_MOULD_FORM_ENABLED && currentPage === PAGES.DAMP_OR_MOULD
-              ? viewPreviousPage
+            currentPage === PAGES.FOLLOW_ON_DETAILS
+              ? viewWorkOrderStatusPage
               : null
           }
         />
-
-        <h1 className="lbh-heading-h2">Close work order form</h1>
 
         <form role="form" onSubmit={handleSubmit(onSubmit)}>
           <div
@@ -64,24 +58,12 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
                 currentPage === PAGES.WORK_ORDER_STATUS ? 'block' : 'none',
             }}
           >
-            <h2 className="lbh-heading-h4" style={{ marginBottom: '60px' }}>
-              Work order status
-            </h2>
+            <h1 className="lbh-heading-h2">Close work order form</h1>
 
-            <Radios
-              labelSize="s"
-              label="Select reason for closing"
-              name="reason"
-              options={CLOSURE_STATUS_OPTIONS.map((r) => {
-                return {
-                  text: r.text,
-                  value: r.value,
-                }
-              })}
-              register={register({
-                required: 'Please select a reason for closing the work order',
-              })}
-              error={errors && errors.reason}
+            <CloseWorkOrderFormReasonForClosing
+              register={register}
+              errors={errors}
+              watch={watch}
             />
 
             <TextArea
@@ -91,131 +73,49 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               error={errors && errors.notes}
             />
 
-            <div className="govuk-!-margin-top-8">
-              <WarningInfoBox
-                header="Other changes?"
-                text="Any follow on and material change must be made on paper."
-              />
-            </div>
-
-            {DAMP_AND_MOULD_FORM_ENABLED &&
-            watchedReasonField === 'Work Order Completed' ? (
+            {selectedFurtherWorkRequired ? (
               <PrimarySubmitButton
-                label="Next"
+                label="Add details"
                 type="button"
-                onClick={viewNextPage}
+                onClick={viewFollowOnDetailsPage}
               />
             ) : (
-              <PrimarySubmitButton label="Close work order" />
+              <PrimarySubmitButton label={`Close work order`} />
             )}
           </div>
 
-          {DAMP_AND_MOULD_FORM_ENABLED && (
-            <div
-              style={{
-                display: currentPage === PAGES.DAMP_OR_MOULD ? 'block' : 'none',
-              }}
-            >
-              <h2 className="lbh-heading-h4" style={{ marginBottom: '60px' }}>
-                Damp and mould status
-              </h2>
+          <div
+            style={{
+              display:
+                currentPage === PAGES.FOLLOW_ON_DETAILS ? 'block' : 'none',
+            }}
+          >
+            <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-              <Radios
-                labelSize="s"
-                label="Is there damp or mould in the property?"
-                name="isDampOrMouldInProperty"
-                options={['Yes', 'No', 'Not sure']}
-                register={register({
-                  validate: {
-                    required: (value) => {
-                      if (
-                        !value &&
-                        getValues('reason') === 'Work Order Completed'
-                      ) {
-                        return 'Please indicate whether there is damp or mould in the property'
-                      }
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
+            />
 
-                      return true
-                    },
-                  },
-                })}
-                error={errors && errors.isDampOrMouldInProperty}
-              />
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+            />
 
-              <div
-                style={{
-                  display:
-                    watchedIsDampOrMouldInPropertyField === 'Yes' ||
-                    watchedIsDampOrMouldInPropertyField === 'Not sure'
-                      ? 'block'
-                      : 'none',
-                }}
-              >
-                <Radios
-                  labelSize="s"
-                  label="Has the resident previously reported damp or mould?"
-                  name="residentPreviouslyReported"
-                  options={['Yes', 'No']}
-                  register={register({
-                    validate: {
-                      required: (value) => {
-                        const isDampOrMouldPresence =
-                          getValues('isDampOrMouldInProperty') === 'Yes' ||
-                          getValues('isDampOrMouldInProperty') === 'Not sure'
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+            />
 
-                        if (!value && isDampOrMouldPresence) {
-                          return 'Please indicate whether the resident has previous reported damp or mould in the property'
-                        }
-
-                        return true
-                      },
-                    },
-                  })}
-                  error={errors && errors.residentPreviouslyReported}
-                />
-
-                <div
-                  style={{
-                    display:
-                      watchedResidentPreviouslyReportedField === 'Yes'
-                        ? 'block'
-                        : 'none',
-                  }}
-                >
-                  <Radios
-                    labelSize="s"
-                    label="Was the previously reported damp or mould resolved at the time?"
-                    name="resolvedAtTheTime"
-                    options={['Yes', 'No']}
-                    register={register({
-                      validate: {
-                        required: (value) => {
-                          if (
-                            !value &&
-                            getValues('residentPreviouslyReported') === 'Yes'
-                          ) {
-                            return 'Please indicate whether the damp or mould was resolved after it was previously reported'
-                          }
-                          return true
-                        },
-                      },
-                    })}
-                    error={errors && errors.resolvedAtTheTime}
-                  />
-                </div>
-
-                <TextArea
-                  labelSize="s"
-                  name="comments"
-                  label="Comments"
-                  register={register}
-                  error={errors && errors.comments}
-                />
-              </div>
-
-              <PrimarySubmitButton label="Close work order" />
-            </div>
-          )}
+            <PrimarySubmitButton label="Close work order" />
+          </div>
         </form>
       </div>
     </>

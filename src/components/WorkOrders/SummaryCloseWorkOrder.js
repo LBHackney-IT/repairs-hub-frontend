@@ -5,6 +5,29 @@ import { PrimarySubmitButton } from '../Form'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 import dayjs from 'dayjs'
 
+const TableRow = (props) => {
+  const { label, value, handleClick } = props
+
+  return (
+    <TR>
+      <TH width="one-quarter" scope="row">
+        {label}
+      </TH>
+      <TD width="two-quarters">{value}</TD>
+      <TD width="one-quarter">
+        <a
+          className="lbh-link"
+          onClick={handleClick}
+          style={{ textAlign: 'right', display: 'block' }}
+          href="#"
+        >
+          Edit
+        </a>
+      </TD>
+    </TR>
+  )
+}
+
 const SummaryCloseWorkOrder = ({
   reference,
   onJobSubmit,
@@ -15,6 +38,7 @@ const SummaryCloseWorkOrder = ({
   operativeNames,
   paymentType,
   startDate,
+  followOnData = null,
 }) => {
   const { handleSubmit } = useForm({})
 
@@ -26,72 +50,119 @@ const SummaryCloseWorkOrder = ({
         <Table>
           <TBody>
             {startDate !== '' && (
-              <TR>
-                <TH scope="row">Start time</TH>
-                <TD>{dayjs(startDate).format('YYYY/MM/DD HH:mm:ss')}</TD>
-                <TD>
-                  <a className="lbh-link" onClick={changeStep} href="#">
-                    Edit
-                  </a>
-                </TD>
-              </TR>
+              <TableRow
+                label="Start time"
+                value={dayjs(startDate).format('YYYY/MM/DD HH:mm:ss')}
+                handleClick={changeStep}
+              />
             )}
 
-            <TR>
-              <TH scope="row">Completion time</TH>
-              <TD>{dayjs(completionDate).format('YYYY/MM/DD HH:mm:ss')}</TD>
-              <TD>
-                <a className="lbh-link" onClick={changeStep} href="#">
-                  Edit
-                </a>
-              </TD>
-            </TR>
+            <TableRow
+              label="Completion time"
+              value={dayjs(completionDate).format('YYYY/MM/DD HH:mm:ss')}
+              handleClick={changeStep}
+            />
 
             {paymentType && (
-              <TR>
-                <TH scope="row">Payment type</TH>
-                <TD>{PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}</TD>
-                <TD>
-                  <a className="lbh-link" onClick={changeStep} href="#">
-                    Edit
-                  </a>
-                </TD>
-              </TR>
+              <TableRow
+                label="Payment type"
+                value={PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}
+                handleClick={changeStep}
+              />
             )}
 
             {operativeNames?.length > 0 && (
-              <TR>
-                <TH scope="row">Operatives</TH>
-                <TD>{operativeNames.join(', ')}</TD>
-                <TD>
-                  <a className="lbh-link" onClick={changeStep} href="#">
-                    Edit
-                  </a>
-                </TD>
-              </TR>
+              <TableRow
+                label="Operatives"
+                value={operativeNames.join(', ')}
+                handleClick={changeStep}
+              />
             )}
 
-            <TR>
-              <TH scope="row">Reason</TH>
-              <TD>{reason}</TD>
-              <TD>
-                <a className="lbh-link" onClick={changeStep} href="#">
-                  Edit
-                </a>
-              </TD>
-            </TR>
+            <TableRow label="Reason" value={reason} handleClick={changeStep} />
 
-            <TR>
-              <TH scope="row">Notes</TH>
-              <TD>{notes}</TD>
-              <TD>
-                <a className="lbh-link" onClick={changeStep} href="#">
-                  Edit
-                </a>
-              </TD>
-            </TR>
+            <TableRow label="Notes" value={notes} handleClick={changeStep} />
           </TBody>
         </Table>
+
+        {followOnData !== null && (
+          <>
+            <h4 className="lbh-heading-h4">Summary of further work required</h4>
+            <Table>
+              <TBody>
+                <TableRow
+                  label="Type of work required"
+                  value={
+                    <>
+                      <ul>
+                        {followOnData.isSameTrade && (
+                          <li style={{ marginTop: '5px' }}>Same trade</li>
+                        )}
+                        {followOnData.isDifferentTrades && (
+                          <li style={{ marginTop: '5px' }}>
+                            Different trade(s) (
+                            {followOnData.requiredFollowOnTrades
+                              .map((x) => x.value)
+                              .join(', ')}
+                            )
+                          </li>
+                        )}
+                        {followOnData.isMultipleOperatives && (
+                          <li style={{ marginTop: '5px' }}>
+                            Multiple operatives
+                          </li>
+                        )}
+                      </ul>
+
+                      <div>{followOnData.followOnTypeDescription}</div>
+                    </>
+                  }
+                  handleClick={changeStep}
+                />
+
+                {(followOnData.stockItemsRequired ||
+                  followOnData.nonStockItemsRequired ||
+                  followOnData.materialNotes !== '') && (
+                  <TableRow
+                    label="Materials required"
+                    value={
+                      <>
+                        {(followOnData.stockItemsRequired ||
+                          followOnData.nonStockItemsRequired) && (
+                          <ul>
+                            {followOnData.stockItemsRequired && (
+                              <li style={{ marginTop: '5px' }}>
+                                Stock items required
+                              </li>
+                            )}
+
+                            {followOnData.nonStockItemsRequired && (
+                              <li style={{ marginTop: '5px' }}>
+                                Non stock items required
+                              </li>
+                            )}
+                          </ul>
+                        )}
+
+                        {followOnData.materialNotes !== '' && (
+                          <p>{followOnData.materialNotes}</p>
+                        )}
+                      </>
+                    }
+                    handleClick={changeStep}
+                  />
+                )}
+
+                <TableRow
+                  label="Additional notes"
+                  value={followOnData.additionalNotes}
+                  handleClick={changeStep}
+                />
+              </TBody>
+            </Table>
+          </>
+        )}
+
         <PrimarySubmitButton label="Confirm and close" />
       </form>
     </div>

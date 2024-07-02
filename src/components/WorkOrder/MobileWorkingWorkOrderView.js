@@ -10,7 +10,7 @@ import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
 import {
   buildCloseWorkOrderData,
-  buildDampAndMouldReportData,
+  buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
@@ -18,6 +18,7 @@ import {
   BONUS_PAYMENT_TYPE,
   workOrderNoteFragmentForPaymentType,
 } from '@/utils/paymentTypes'
+import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -121,22 +122,27 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const onWorkOrderCompleteSubmit = async (data) => {
     setLoading(true)
 
-    let dampAndMouldReportFormData = null
+    let followOnRequest = null
 
-    // Only send report if workOrder completed, and there is potential
-    // damp or mould presence in the property
-    const sendDampAndMouldReport =
-      data.reason === 'Work Order Completed' &&
-      (data.isDampOrMouldInProperty === 'Yes' ||
-        data.isDampOrMouldInProperty === 'Not sure')
+    if (data.followOnStatus === 'furtherWorkRequired') {
+      const requiredFollowOnTrades = []
 
-    if (sendDampAndMouldReport) {
-      dampAndMouldReportFormData = buildDampAndMouldReportData(
-        property.address.addressLine,
-        data.isDampOrMouldInProperty,
-        data.residentPreviouslyReported,
-        data.resolvedAtTheTime,
-        data.comments
+      if (data.isDifferentTrades) {
+        FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
+          if (data[name]) requiredFollowOnTrades.push(value)
+        })
+      }
+
+      followOnRequest = buildFollowOnRequestData(
+        data.isSameTrade,
+        data.isDifferentTrades,
+        data.isMultipleOperatives,
+        requiredFollowOnTrades,
+        data.followOnTypeDescription,
+        data.stockItemsRequired,
+        data.nonStockItemsRequired,
+        data.materialNotes,
+        data.additionalNotes
       )
     }
 
@@ -147,33 +153,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       ),
       workOrderReference,
       data.reason,
-      paymentType
+      paymentType,
+      followOnRequest
     )
 
     try {
-      const promiseList = [
-        frontEndApiRequest({
-          method: 'post',
-          path: `/api/workOrderComplete`,
-          requestData: closeWorkOrderFormData,
-        }),
-      ]
-
-      if (sendDampAndMouldReport) {
-        promiseList.push(
-          frontEndApiRequest({
-            method: 'post',
-            path: `/api/damp-and-mould/reports/${workOrder.propertyReference}`,
-            requestData: dampAndMouldReportFormData,
-          })
-        )
-      }
-
-      await Promise.all(promiseList)
+      await frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrderComplete`,
+        requestData: closeWorkOrderFormData,
+      })
 
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'completed'
+          data.reason === 'No Access' ? 'closed with no access' : 'closed'
         }`
       )
 

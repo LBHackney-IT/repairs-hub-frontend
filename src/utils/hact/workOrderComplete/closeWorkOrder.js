@@ -8,9 +8,10 @@ export const buildCloseWorkOrderData = (
   notes,
   reference,
   reason,
-  paymentType
+  paymentType,
+  followOnRequest = null
 ) => {
-  return {
+  const dataObject = {
     workOrderReference: {
       id: reference,
       description: '',
@@ -26,32 +27,36 @@ export const buildCloseWorkOrderData = (
       },
     ],
   }
+
+  if (followOnRequest !== null) {
+    dataObject['followOnRequest'] = followOnRequest
+  }
+
+  return dataObject
 }
 
-export const buildDampAndMouldReportData = (
-  address,
-  isDampOrMouldInProperty,
-  residentPreviouslyReported,
-  resolvedAtTheTime,
-  comments
+export const buildFollowOnRequestData = (
+  isSameTrade,
+  isDifferentTrades,
+  isMultipleOperatives,
+  requiredFollowOnTrades,
+  followOnTypeDescription,
+  stockItemsRequired,
+  nonStockItemsRequired,
+  materialNotes,
+  additionalNotes
 ) => {
-  const requestData = {
-    address: address,
-    dampAndMouldPresenceConfirmed: isDampOrMouldInProperty === 'Yes',
-    // following the logic, previouslyReported and comments would only be visible if there is
-    // potentially damp/mould presence in the property
-    // if there is no damp/mould, no report would be created
-    // hence, no need to conditionally add these fields
-    previouslyReported: residentPreviouslyReported === 'Yes',
-    comments: comments ?? '',
+  return {
+    isSameTrade,
+    isDifferentTrades,
+    isMultipleOperatives,
+    requiredFollowOnTrades,
+    followOnTypeDescription,
+    stockItemsRequired,
+    nonStockItemsRequired,
+    materialNotes,
+    additionalNotes,
   }
-
-  if (requestData.previouslyReported) {
-    // resolvedAtTheTime only enabled if previously reported
-    requestData['previousReportResolved'] = resolvedAtTheTime === 'Yes'
-  }
-
-  return requestData
 }
 
 const operativesAndPercentagesForNotes = (

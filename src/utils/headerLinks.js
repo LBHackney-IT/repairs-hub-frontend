@@ -4,8 +4,6 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
-  DAMP_AND_MOULD_MANAGER_ROLE,
-  DATA_ADMIN_ROLE,
 } from './user'
 
 const HEADER_LINKS = [
@@ -29,12 +27,6 @@ const HEADER_LINKS = [
       CONTRACT_MANAGER_ROLE,
       AUTHORISATION_MANAGER_ROLE,
     ],
-  },
-  {
-    href: '/damp-and-mould-reports',
-    id: 'damp-and-mould-reports',
-    description: 'Damp and mould reports',
-    permittedRoles: [DAMP_AND_MOULD_MANAGER_ROLE, DATA_ADMIN_ROLE],
   },
   {
     href: '/work-orders/cautionary-alerts',

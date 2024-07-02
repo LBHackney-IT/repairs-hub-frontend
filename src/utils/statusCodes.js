@@ -40,12 +40,48 @@ export const STATUS_NO_ACCESS = {
 
 export const CLOSURE_STATUS_OPTIONS = [
   {
-    text: 'Completed',
+    text: 'Visit completed',
     value: 'Work Order Completed',
   },
   {
     text: 'No access',
     value: 'No Access',
+  },
+]
+
+export const FOLLOW_ON_STATUS_OPTIONS = [
+  { value: 'noFurtherWorkRequired', text: 'No further work required' },
+  {
+    value: 'furtherWorkRequired',
+    text: 'Further work required',
+  },
+]
+
+// Value: value stored in DB
+// Name: form field name
+// Label: form field label
+export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
+  { name: 'followon-trades-carpentry', label: 'Carpentry', value: 'Carpentry' },
+  { name: 'followon-trades-drainage', label: 'Drainage', value: 'Drainage' },
+  { name: 'followon-trades-gas', label: 'Gas', value: 'Gas' },
+  {
+    name: 'followon-trades-electrical',
+    label: 'Electrical',
+    value: 'Electrical',
+  },
+  {
+    name: 'followon-trades-multitrade',
+    label: 'Multitrade',
+    value: 'Multitrade',
+  },
+  { name: 'followon-trades-painting', label: 'Painting', value: 'Painting' },
+  { name: 'followon-trades-plumbing', label: 'Plumbing', value: 'Plumbing' },
+  { name: 'followon-trades-roofing', label: 'Roofing', value: 'Roofing' },
+  { name: 'followon-trades-UPVC', label: 'UPVC', value: 'UPVC' },
+  {
+    name: 'followon-trades-other',
+    label: 'Other (please specify)',
+    value: 'Other',
   },
 ]
 

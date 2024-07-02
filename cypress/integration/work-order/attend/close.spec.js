@@ -74,23 +74,236 @@ describe('Closing my own work order', () => {
       { body: [] }
     )
 
-    cy.intercept(
-      {
-        method: 'POST',
-        path: `/api/damp-and-mould/reports/${propertyReference}`,
-      },
-      {
-        statusCode: 201,
-        body: '',
-      }
-    ).as('dampAndMouldReportRequest')
-
     cy.loginWithOperativeRole()
   })
 
-  context.only('during normal working hours', () => {
+  context('during normal working hours', () => {
     beforeEach(() => {
       cy.clock(new Date(now).setHours(12, 0, 0))
+    })
+
+    it('shows a validation error when no reason is selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains('Please select a reason for closing the work order')
+    })
+
+    it('shows a validation error when follow on status isnt selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains('Please confirm if further work is required')
+    })
+
+    it('closes a job when no further work is required', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'noFurtherWorkRequired'
+      )
+
+      cy.get('#notes').type('I attended')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: workOrderReference,
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              paymentType: 'Bonus',
+            },
+          ],
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+    })
+
+    it('allows the user to enter follow-on details', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'furtherWorkRequired'
+      )
+
+      cy.get('#notes').type('I attended')
+
+      // button text changes to 'Add details'
+      cy.get('.govuk-button').contains('Add details').click()
+
+      // assert error messages arent visible yet
+      cy.contains('Please select the type of work').should('not.exist')
+      cy.contains('Please describe the work completed').should('not.exist')
+
+      // close work order
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // assert error messages visible
+      cy.contains('Please select the type of work')
+      cy.contains('Please describe the work completed')
+
+      // select an option - error should disappear
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.contains('Please select the type of work').should('not.exist')
+
+      // select different trade(s) - error should appear
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please select at least one trade')
+
+      // select a trade - error should disappear
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please select at least one trade').should('not.exist')
+
+      // add description of work - error should disappear
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'Blah blah blah'
+      )
+      cy.contains('Please describe the work completed').should('not.exist')
+
+      // when one of the material options is selected, the description must not be empty
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.contains('Please describe the materials required')
+
+      // Adding a description - error should disappear
+      cy.get('textarea[data-testid="materialNotes"]').type('Blah blah blah')
+      cy.contains('Please describe the materials required').should('not.exist')
+
+      // additional notes
+      cy.get('textarea[data-testid="additionalNotes"]').type('Additional notes')
+
+      // close work order
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: workOrderReference,
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: 'Work order closed - I attended - Bonus calculation',
+              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
+              paymentType: 'Bonus',
+            },
+          ],
+          followOnRequest: {
+            isSameTrade: true,
+            isDifferentTrades: true,
+            isMultipleOperatives: false,
+            requiredFollowOnTrades: ['Plumbing'],
+            followOnTypeDescription: 'Blah blah blah',
+            stockItemsRequired: true,
+            nonStockItemsRequired: false,
+            materialNotes: 'Blah blah blah',
+            additionalNotes: 'Additional notes',
+          },
+        })
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+
+      cy.get('.modal-container').should('not.exist')
+
+      cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
 
     it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
@@ -169,13 +382,11 @@ describe('Closing my own work order', () => {
         'Work Order Completed'
       )
 
-      cy.get('#notes').type('I attended')
-
-      cy.get('.govuk-button').contains('Next').click()
-
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'No'
+      cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+        'noFurtherWorkRequired'
       )
+
+      cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
 
@@ -201,7 +412,7 @@ describe('Closing my own work order', () => {
         })
 
       cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -209,254 +420,6 @@ describe('Closing my own work order', () => {
       cy.get('.modal-container').should('not.exist')
 
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
-    })
-
-    it('doesnt create a damp or mould report when no damp or mould presence in property', () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select no damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'No'
-      )
-
-      // 5. Assert subsequent radio fields and comments are hidden
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).should('not.be.visible')
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').should(
-        'not.be.visible'
-      )
-      cy.get('textarea[data-testid="comments"]').should('not.be.visible')
-
-      // 6. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      cy.wait('@workOrderCompleteRequest')
-
-      // 7. Assert damp and mould report request not made
-      cy.get('@dampAndMouldReportRequest.all').then((interceptions) => {
-        expect(interceptions).to.have.length(0)
-      })
-
-      // 8. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
-    })
-
-    const testData = [
-      {
-        description: 'damp or mould presence confirmed',
-        optionLabel: 'Yes',
-        confirmed: true,
-      },
-      {
-        description: 'damp or mould presence uncomfirmed',
-        optionLabel: 'Not sure',
-        confirmed: false,
-      },
-    ]
-
-    testData.forEach(({ description, optionLabel, confirmed }) => {
-      it(`create a damp or mould report when potential ${description} in property`, () => {
-        cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-        cy.wait([
-          '@workOrderRequest',
-          '@propertyRequest',
-          '@tasksRequest',
-          '@locationAlerts',
-          '@personAlerts',
-        ])
-
-        // 1. Click confirm button - (navigate to close work order form)
-        cy.contains('button', 'Confirm').click()
-
-        // 2. Set job as completed
-        cy.get('.lbh-radios input[data-testid="reason"]').check(
-          'Work Order Completed'
-        )
-
-        // 3. Navigate to damp and mould part of form
-        cy.get('.govuk-button').contains('Next').click()
-
-        // 4. Select potential presence in property
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check(optionLabel)
-
-        // 5. Select resident hasnt previously reported
-        cy.get(
-          '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-        ).check('No')
-
-        // 6. Populate comments
-        cy.get('textarea[data-testid="comments"]').type('Comments')
-
-        // 7. Assert subsequent radio field is hidden
-        cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').should(
-          'not.be.visible'
-        )
-
-        // 8. Submit form
-        cy.get('.govuk-button').contains('Close work order').click()
-
-        // 9. Assert damp and mould report request made
-        cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-        cy.get('@dampAndMouldReportRequest')
-          .its('request.body')
-          .should('deep.equal', {
-            address: '16 Pitcairn House',
-            dampAndMouldPresenceConfirmed: confirmed,
-            previouslyReported: false,
-            comments: 'Comments',
-          })
-
-        // 10. Assert confirmation message appeared
-        cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
-        })
-      })
-    })
-
-    it(`create a damp or mould report when resident has previously reported the property`, () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select confirmed damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'Yes'
-      )
-
-      // 5. Select resident has previously reported
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).check('Yes')
-
-      // 6. Select previous report not resolved at the time
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').check('No')
-
-      // 7. Populate comments
-      cy.get('textarea[data-testid="comments"]').type('Comments')
-
-      // 8. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // 9. Assert damp and mould report request made
-      cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-      cy.get('@dampAndMouldReportRequest')
-        .its('request.body')
-        .should('deep.equal', {
-          address: '16 Pitcairn House',
-          dampAndMouldPresenceConfirmed: true,
-          previouslyReported: true,
-          previousReportResolved: false,
-          comments: 'Comments',
-        })
-
-      // 10. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
-    })
-
-    it(`create a damp or mould report when previously reported problem was resolved at the time`, () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // 1. Click confirm button - (navigate to close work order form)
-      cy.contains('button', 'Confirm').click()
-
-      // 2. Set job as completed
-      cy.get('.lbh-radios input[data-testid="reason"]').check(
-        'Work Order Completed'
-      )
-
-      // 3. Navigate to damp and mould part of form
-      cy.get('.govuk-button').contains('Next').click()
-
-      // 4. Select confirmed damp or mould presence in property
-      cy.get('.lbh-radios input[data-testid="isDampOrMouldInProperty"]').check(
-        'Yes'
-      )
-
-      // 5. Select resident has previously reported
-      cy.get(
-        '.lbh-radios input[data-testid="residentPreviouslyReported"]'
-      ).check('Yes')
-
-      // 6. Select previous report not resolved at the time
-      cy.get('.lbh-radios input[data-testid="resolvedAtTheTime"]').check('Yes')
-
-      // 7. Populate comments
-      cy.get('textarea[data-testid="comments"]').type('Comments')
-
-      // 8. Submit form
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // 9. Assert damp and mould report request made
-      cy.wait(['@workOrderCompleteRequest', '@dampAndMouldReportRequest'])
-
-      cy.get('@dampAndMouldReportRequest')
-        .its('request.body')
-        .should('deep.equal', {
-          address: '16 Pitcairn House',
-          dampAndMouldPresenceConfirmed: true,
-          previouslyReported: true,
-          previousReportResolved: true,
-          comments: 'Comments',
-        })
-
-      // 10. Assert confirmation message appeared
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
-      })
     })
   })
 
@@ -563,11 +526,9 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
-
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check('No')
+        cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+          'noFurtherWorkRequired'
+        )
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -594,7 +555,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
@@ -637,11 +598,9 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
-
-        cy.get(
-          '.lbh-radios input[data-testid="isDampOrMouldInProperty"]'
-        ).check('No')
+        cy.get('.lbh-radios input[data-testid="followOnStatus"]').check(
+          'noFurtherWorkRequired'
+        )
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -667,7 +626,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
