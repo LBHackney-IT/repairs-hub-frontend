@@ -617,7 +617,7 @@ describe('Closing a work order on behalf of an operative', () => {
           isSameTrade: true,
           isDifferentTrades: true,
           isMultipleOperatives: false,
-          requiredFollowOnTrades: ['followon-trades-plumbing'],
+          requiredFollowOnTrades: ['Plumbing'],
           followOnTypeDescription: 'follow on description',
           stockItemsRequired: true,
           nonStockItemsRequired: false,

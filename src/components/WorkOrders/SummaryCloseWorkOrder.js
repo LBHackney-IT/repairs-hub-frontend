@@ -102,7 +102,7 @@ const SummaryCloseWorkOrder = ({
                           <li style={{ marginTop: '5px' }}>
                             Different trade(s) (
                             {followOnData.requiredFollowOnTrades
-                              .map((x) => x.label)
+                              .map((x) => x.value)
                               .join(', ')}
                             )
                           </li>
