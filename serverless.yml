@@ -11,6 +11,9 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
+    binaryMediaTypes:
+      - image/jpg
+      - multipart/form-data
 
 package:
   individually: true
