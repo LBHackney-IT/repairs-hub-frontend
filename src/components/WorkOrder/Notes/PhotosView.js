@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import NotesForm from './NotesForm'
@@ -18,12 +18,21 @@ import 'react-photo-view/dist/react-photo-view.css'
 import { PrimarySubmitButton } from '../../Form'
 import { filesize } from 'filesize'
 import axios from 'axios'
+import { useDropzone } from 'react-dropzone'
 
 const PhotosView = ({ workOrderReference, tabName }) => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [displayForm, setDisplayForm] = useState(false)
+
+  const onDrop = useCallback((acceptedFiles) => {
+    // Do something with the files
+
+    console.log('onDrop', { acceptedFiles })
+  }, [])
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   // const onFormSubmit = async (formData) => {
   //   setLoading(true)
@@ -139,14 +148,11 @@ const PhotosView = ({ workOrderReference, tabName }) => {
       // params: params,
       headers: {
         // 'Content-Type': 'multipart/form-data',
-
       },
       data: formdata,
       // ...(requestData && { data: requestData }),
       // ...(paramsSerializer && { paramsSerializer }),
     })
-
-
   }
 
   return (
@@ -157,15 +163,26 @@ const PhotosView = ({ workOrderReference, tabName }) => {
         <>
           <h2>Photos</h2>
 
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            style={{
+              marginTop: '0px',
+            }}
+          >
             <div
-              style={{
-                border: '4px dashed #ddd',
-                padding: '15px',
-              }}
+              style={
+                {
+                  // border: '4px dashed #ddd',
+                  // padding: '15px',
+                }
+              }
             >
               <div class="govuk-form-group">
-                <label class="govuk-label" for="file-upload-1">
+                <label
+                  class="govuk-label"
+                  for="file-upload-1"
+                  style={{ marginTop: '10px' }}
+                >
                   Upload a photo (maximum 10)
                 </label>
                 <input
@@ -176,6 +193,7 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                   multiple
                   accept=".jpg, .jpeg, .png"
                   id="file-upload"
+                  // value={files.map(x => x.name)}
                   // value={}
                   onInput={(e) => {
                     console.log(Object.values(e.target.files))
@@ -185,31 +203,116 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                   }}
                 />
 
-                <div style={{ display: 'flex' }}>
-                  {files.map((x) => (
-                    <div>
-                      <img
-                        style={{ height: '150px', width: 'auto' }}
-                        src={URL.createObjectURL(x)}
-                        alt="Preview Uploaded Image"
-                        id="file-preview"
-                      />
-                      <p
+                <div
+                  style={{
+                    display: 'flex',
+                    flexWrap: 'wrap',
+
+                    margin: 'calc(-15px + 30px) -15px 0 0',
+                  }}
+                >
+                  {files.map((x, index) => (
+                    <div
+                      key={x.name}
+                      style={{
+                        // marginTop: "0px"
+                        margin: '15px 15px 0 0',
+                        width: '150px',
+                      }}
+                    >
+                      <div
+                        style={{
+                          marginTop: '0px',
+                          border: '1px solid #b1b4b6',
+                          width: '150px',
+                          height: '150px',
+                          padding: '5px',
+                          boxSizing: 'border-box',
+                        }}
+                      >
+                        <img
+                          style={{
+                            objectFit: 'contain',
+                            width: '100%',
+                            height: '100%',
+                            // height: '150px', width: 'auto'
+                          }}
+                          src={URL.createObjectURL(x)}
+                          alt="Preview Uploaded Image"
+                          id="file-preview"
+                        />
+                      </div>
+
+                      {/* <div
+                        style={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          width: "150px"
+                        }}
+                      > */}
+                      {/* <p
+                        style={{
+                          flexShrink: '1',
+                          flexGrow: '0',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {x.name}
+                      </p> */}
+                      {/* <p>{filesize(x.size, { standard: 'jedec' })}</p> */}
+                      <button
+                        style={{
+                          flexShrink: '0',
+                          flexGrow: '0',
+                          marginTop: '5px',
+                          display: 'block',
+                          background: 'none',
+                          border: 'none',
+                          textDecoration: 'underline',
+                          color: '#025ea6',
+                          textAlign: 'right',
+                          width: '100%',
+                          padding: 0,
+                        }}
+                        type="button"
+                        onClick={() => {
+                          setFiles((files) => {
+                            var newArr = [...files]
+                            newArr.splice(index, 1)
+                            return newArr
+                          })
+                        }}
+                      >
+                        Remove
+                      </button>
+                      {/* </div> */}
+                      {/* <p
                         style={{
                           background: '#eee',
                           padding: '5px 10px',
                         }}
                       >
                         {x.name} ({filesize(x.size, { standard: 'jedec' })})
-                      </p>
+                      </p> */}
                     </div>
                   ))}
                 </div>
 
-                <PrimarySubmitButton label="Upload">Upload</PrimarySubmitButton>
+                <PrimarySubmitButton
+                  label="Upload"
+                  disabled={!files && files.length === 0}
+                >
+                  Upload
+                </PrimarySubmitButton>
+
+                <button type="button">Clear</button>
               </div>
             </div>
           </form>
+
+          <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
 
           <ul
             className="lbh-body-s "
@@ -224,8 +327,9 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                   key={id}
                   style={{
                     display: 'block',
-                    borderBottom: '2px solid grey',
-                    marginBottom: '15px',
+                    // borderBottom: '2px solid grey',
+                    // marginBottom: '15px',
+                    marginTop: '0px',
                     padding: '15px 0',
                   }}
                 >
@@ -267,6 +371,10 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                       ))}
                     </div>
                   </PhotoProvider>
+                  <hr
+                    className="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+                    style={{ marginBottom: '0px' }}
+                  />
                 </li>
               )
             })}

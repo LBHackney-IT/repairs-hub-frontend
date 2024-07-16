@@ -114,27 +114,21 @@ export const serviceAPIRequestForUpload = cache(
   async (request, response, cacheRequest = false) => {
     const cacheKey = encodeURIComponent(request.url)
 
-    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
-      const { data } = request.cache.get(cacheKey)
+    // if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
+    //   const { data } = request.cache.get(cacheKey)
 
-      response.setHeader(
-        'Cache-Control',
-        `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
-      )
-      response.setHeader('X-Cache', 'HIT')
+    //   response.setHeader(
+    //     'Cache-Control',
+    //     `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
+    //   )
+    //   response.setHeader('X-Cache', 'HIT')
 
-      return data
-    }
+    //   return data
+    // }
 
     const cookies = cookie.parse(request.headers.cookie ?? '')
     const token = cookies[GSSO_TOKEN_NAME]
 
-    const headers = {
-      'x-api-key': REPAIRS_SERVICE_API_KEY,
-      'x-hackney-user': token,
-      Authorization: token,
-      'content-type': 'multipart/form-data',
-    }
 
     // console.log('REQUEST HEADERS', request.headers)
 
@@ -153,33 +147,33 @@ export const serviceAPIRequestForUpload = cache(
     // console.log({ body: request })
 
     // Log request
-    api.interceptors.request.use((request) => {
-      logger.info(
-        'Starting Service API request:',
-        JSON.stringify({
-          ...request,
-          headers: {
-            ...request.headers,
-            'x-api-key': '[REMOVED]',
-            'x-hackney-user': '[REMOVED]',
-            Authorization: '[REMOVED]',
-          },
-        })
-      )
+    // api.interceptors.request.use((request) => {
+    //   logger.info(
+    //     'Starting Service API request:',
+    //     JSON.stringify({
+    //       ...request,
+    //       headers: {
+    //         ...request.headers,
+    //         'x-api-key': '[REMOVED]',
+    //         'x-hackney-user': '[REMOVED]',
+    //         Authorization: '[REMOVED]',
+    //       },
+    //     })
+    //   )
 
-      return request
-    })
+    //   return request
+    // })
 
     // Log successful responses
-    api.interceptors.response.use((response) => {
-      logger.info(
-        `Service API response: ${response.status} ${
-          response.statusText
-        } ${JSON.stringify(response.data)}`
-      )
+    // api.interceptors.response.use((response) => {
+    //   logger.info(
+    //     `Service API response: ${response.status} ${
+    //       response.statusText
+    //     } ${JSON.stringify(response.data)}`
+    //   )
 
-      return response
-    })
+    //   return response
+    // })
 
     const form = new IncomingForm()
 
@@ -195,6 +189,10 @@ export const serviceAPIRequestForUpload = cache(
       // const file = files.files[0] // Adjust if multiple files might be sent
 
       const formData = new FormData()
+
+
+      console.log({ BOUNDARY: formData.getBoundary()})
+
       // console.log({ file })
 
       files.files.forEach((file) => {
@@ -220,6 +218,16 @@ export const serviceAPIRequestForUpload = cache(
         `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`
       )
 
+      // try {
+        
+      const headers = {
+        'x-api-key': REPAIRS_SERVICE_API_KEY,
+        'x-hackney-user': token,
+        Authorization: token,
+        'content-type': `multipart/form-data; boundary=${formData.getBoundary()}`,
+      }
+  
+
       try {
         const apiResponse = await api({
           method: request.method,
@@ -228,31 +236,56 @@ export const serviceAPIRequestForUpload = cache(
           params: queryParams,
           paramsSerializer,
           data: formData,
+          maxContentLength: Infinity,
+          maxBodyLength: Infinity,
           // ...(request.body && { data: request.body }),
         })
+
+        console.log(Object.keys(apiResponse))
     
-        console.log({formData})
-    
-
-        // console.log({ apiResponse })
-
-        if (cacheRequest && request.cache) {
-          request.cache.set(cacheKey, { data: apiResponse.data })
-        }
-
-        response.setHeader('Cache-Control', 'no-cache')
-        response.setHeader('X-Cache', 'MISS')
-
-        return apiResponse.data
+        return apiResponse
       } catch (error) {
 
-        console.log({ error })
+        console.error(error)
 
-        // const errorToThrow = new Error(error)
+        console.log(Object.keys(error.response))
+        console.log({ status: error.response.status, statusText: error.response.statusText })
 
-        // errorToThrow.response = error.response
-        // throw errorToThrow
+
+        console.log(error.response.data.errors)
+
+
+        response.status(500).send()
+        return
       }
+
+        // console.log({formData})
+    
+
+        // // console.log({ apiResponse })
+
+        // if (cacheRequest && request.cache) {
+        //   request.cache.set(cacheKey, { data: apiResponse.data })
+        // }
+
+        // response.setHeader('Cache-Control', 'no-cache')
+        // response.setHeader('X-Cache', 'MISS')
+
+
+        //     response
+        //   .status(apiResponse.status)
+        //   .json(apiResponse.data)
+
+        // return 
+      // } catch (error) {
+
+      //   console.log({ error })
+
+      //   // const errorToThrow = new Error(error)
+
+      //   // errorToThrow.response = error.response
+      //   // throw errorToThrow
+      // }
 
       // const externalRes = await fetch('https://external-api.com/upload', {
       //   method: 'POST',

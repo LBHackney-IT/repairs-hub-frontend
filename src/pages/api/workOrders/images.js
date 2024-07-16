@@ -13,16 +13,28 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
   req.query = { path: ['workOrders', 'images'] }
 
-  try {
+
+  
+  // res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+
+
+  // try {
     const data = await serviceAPIRequestForUpload(req, res)
 
     res.status(HttpStatus.OK).json(data)
-  } catch (error) {
-    const errorToThrow = new Error(error)
+  // } catch (error) {
+  //   // const errorToThrow = new Error(error)
 
-    errorToThrow.response = error.response
-    throw errorToThrow
-  }
+  //   console.log({ response: error.response })
+
+  //   // console.log({ error })
+
+  //   // res.status(HttpStatus.INTERNAL_SERVER_ERROR)
+
+  //   // return
+  //   // errorToThrow.response = error.response
+  //   // throw errorToThrow
+  // }
 })
 
 export const config = {
