@@ -6,7 +6,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
 
-const PhotosView = ({ workOrderReference, tabName }) => {
+const PhotosView = ({ workOrderReference }) => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
