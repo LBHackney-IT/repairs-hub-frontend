@@ -33,6 +33,15 @@ const moduleExports = {
     forceSwcTransforms: true,
   },
   headers: () => headers(),
+  async rewrites() {
+    return [
+      {
+        source: '/api/yeet/:path*',
+        destination:
+          'https://repairs-api-images-development.s3.eu-west-2.amazonaws.com/:path*',
+      },
+    ]
+  },
 }
 
 const { NODE_ENV, SENTRY_RELEASE } = process.env

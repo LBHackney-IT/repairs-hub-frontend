@@ -13,7 +13,8 @@ export const frontEndApiRequest = async ({
     url: path,
     params: params,
     headers: {
-      'Content-Type': 'multipart/form-data',
+      // 'content-type': 'multipart/form-data',
+      //   'Content-Type': 'application/json',
     },
     ...(requestData && { data: requestData }),
     ...(paramsSerializer && { paramsSerializer }),

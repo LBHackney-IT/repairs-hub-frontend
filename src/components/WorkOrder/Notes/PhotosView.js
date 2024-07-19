@@ -1,24 +1,14 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Spinner from '../../Spinner'
-import ErrorMessage from '../../Errors/ErrorMessage'
-import NotesForm from './NotesForm'
-import NotesTimeline from './NotesTimeline'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { sortObjectsByDateKey } from '@/utils/date'
 import { format } from 'date-fns'
-// import PhotoSwipeLightbox from '/photoswipe/photoswipe-lightbox.esm.js'
-// import PhotoSwipe from '/photoswipe/photoswipe.esm.js'
-// const FormData = require('form-data')
-// const fs = require('fs')
 
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
-// import { Button } from 'lbh-frontend'
 import { PrimarySubmitButton } from '../../Form'
-import { filesize } from 'filesize'
 import axios from 'axios'
-import { useDropzone } from 'react-dropzone'
+import ErrorMessage from '../../Errors/ErrorMessage'
 
 const PhotosView = ({ workOrderReference, tabName }) => {
   const [images, setImages] = useState([])
@@ -26,40 +16,8 @@ const PhotosView = ({ workOrderReference, tabName }) => {
   const [error, setError] = useState()
   const [displayForm, setDisplayForm] = useState(false)
 
-  const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-
-    console.log('onDrop', { acceptedFiles })
-  }, [])
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
-
-  // const onFormSubmit = async (formData) => {
-  //   setLoading(true)
-
-  //   try {
-  //     await frontEndApiRequest({
-  //       method: 'post',
-  //       path: `/api/jobStatusUpdate`,
-  //       requestData: formData,
-  //     })
-  //     setDisplayForm(false)
-  //     getPhotosView(workOrderReference)
-  //   } catch (e) {
-  //     console.error(e)
-  //     setError(
-  //       `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-  //     )
-  //   }
-
-  //   setLoading(false)
-  // }
-
-  // const showForm = (e) => {
-  //   e.preventDefault()
-
-  //   setDisplayForm(true)
-  // }
+  const [isUploading, setIsUploading] = useState(false)
+  const [uploadError, setUploadError] = useState(null)
 
   const getPhotosView = async (workOrderReference) => {
     setError(null)
@@ -86,74 +44,196 @@ const PhotosView = ({ workOrderReference, tabName }) => {
     setLoading(true)
 
     getPhotosView(workOrderReference)
-
-    // const input = document.getElementById(`file-upload`)
-    // input.addEventListener('change', previewPhoto)
-
-    // const previewPhoto = () => {
-
-    //   console.log("preview photo")
-
-    //   const file = input.files
-    //   if (file) {
-    //     const fileReader = new FileReader()
-    //     const preview = document.getElementById('file-preview')
-    //     fileReader.onload = (event) => {
-    //       preview.setAttribute('src', event.target.result)
-    //     }
-    //     fileReader.readAsDataURL(file[0])
-    //   }
-    // }
   }, [])
 
   const [files, setFiles] = useState([])
 
-  useEffect(() => {
-    console.log({ files })
-  }, [files])
+  const getUploadLinks = async (workOrderReference, numberOfFiles) => {
+    return new Promise((resolve) => {
+      frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/images/uploadLink`,
 
-  const handleSubmit = (e) => {
+        params: {
+          workOrderReference: workOrderReference,
+          numberOfFiles: numberOfFiles,
+        },
+      })
+        .then((result) => {
+          resolve({ success: true, result, error: null })
+        })
+        .catch((error) => {
+          console.error(error)
+          resolve({ success: false, result: null, error: error.message })
+        })
+    })
+  }
+
+  const uploadFilesToS3 = async (files, links) => {
+    return new Promise((resolve) => {
+      const promiseList = []
+
+      files.forEach(async (file, i) => {
+        const parts = links[i].presignedUrl.split('/')
+        parts.splice(0, 3)
+
+        const url = `/api/yeet/${parts.join('/')}`
+
+        var config = {
+          method: 'PUT',
+          url: url,
+          data: file,
+        }
+
+        promiseList.push(axios.request(config))
+      })
+
+      Promise.allSettled(promiseList)
+        .then((res) => {
+          // console.log({ res })
+          resolve({ success: true, result: res, error: null })
+        })
+        .catch((err) => {
+          // console.log({ err })
+          resolve({ success: false, result: null, error: err.message })
+        })
+    })
+  }
+
+  const completeUpload = async (workOrderReference, s3Keys) => {
+    return new Promise((resolve) => {
+      // try {
+
+      frontEndApiRequest({
+        method: 'post',
+        path: `/api/workOrders/images/completeUpload`,
+        requestData: {
+          workOrderReference: workOrderReference,
+          s3Objects: s3Keys,
+          uploadGroupLabel: 'doesnt do anything yet',
+        },
+      })
+        .then((result) => {
+          resolve({ success: true, result, error: null })
+        })
+        .catch((error) => {
+          // console.log({ error })
+          console.error(error)
+          resolve({ success: false, result: null, error: error.message })
+        })
+    })
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     console.log('submit', { files })
 
-    const formdata = new FormData()
-    // formdata.append('files', files[0], '/C:/Users/Callum/Downloads/pollen.jpg')
+    if (files.length === 0) {
+      setUploadError('Please select at least one photo')
+      return
+    }
+
+    if (files.length > 10) {
+      setUploadError('You cannot attach more than 10 photo')
+      return
+    }
+
+    const allowedFileTypes = new Set(['image/png', 'image/jpeg'])
+
+    let invalidFileTypeFound = false
+    let tooLargeFileFound = false
 
     files.forEach((file) => {
-      formdata.append('files', file)
-      // formdata.append('files', file, '/C:/Users/Callum/Downloads/image (1).png')
+      if (!allowedFileTypes.has(file.type)) {
+        invalidFileTypeFound = true
+      }
+
+      //20mb
+      if (file.size > 20000000) {
+        tooLargeFileFound = true
+      }
     })
 
-    // formdata.append('files', files[0], files[0].name)
+    if (invalidFileTypeFound) {
+      setUploadError('Unsupported file type. Allowed types: PNG & JPG')
+      return
+    }
 
-    formdata.append('workOrderId', workOrderReference)
+    if (tooLargeFileFound) {
+      setUploadError('Filesize cannot exceed 20MB')
+      return
+    }
 
-    // frontEndApiRequest({
-    //   method: 'post',
-    //   path: `/api/workOrders/images`,
-    //   headers: {
-    //     'content-type': 'multipart/form-data',
-    //   },
-    //   requestData: formdata,
-    // }).then((res) => {
-    //   console.log({ res })
-    // })
+    setUploadError(null)
+    setIsUploading(true)
 
-    // console.log({ boundary: formdata.getAll() })
+    // 1. get upload urls
 
-    axios({
-      method: 'post',
-      url: `/api/workOrders/images`,
-      // params: params,
-      headers: {
-        // 'Content-Type': 'multipart/form-data',
-      },
-      data: formdata,
-      // ...(requestData && { data: requestData }),
-      // ...(paramsSerializer && { paramsSerializer }),
-    })
+    const uploadUrlsResult = await getUploadLinks(
+      workOrderReference,
+      files.length
+    )
+
+    if (!uploadUrlsResult.success) {
+      setUploadError(uploadUrlsResult.error)
+      setIsUploading(false)
+      return
+    }
+
+    console.log({ uploadUrlsResult })
+
+    const uploadFilesToS3Response = await uploadFilesToS3(
+      files,
+      uploadUrlsResult.result.links
+    )
+
+    console.log({ uploadFilesToS3Response })
+
+    if (!uploadFilesToS3Response.success) {
+      setUploadError(uploadFilesToS3Response.error)
+      setIsUploading(false)
+      return
+    }
+
+    // now complete the upload
+
+    const completeUploadResult = await completeUpload(
+      workOrderReference,
+      uploadUrlsResult.result.links.map((x) => x.key)
+    )
+
+    if (!completeUploadResult.success) {
+      setUploadError(completeUploadResult.error)
+      setIsUploading(false)
+      return
+    }
+
+    console.log({ completeUploadResult })
+
+    // complete
+    setIsUploading(false)
+    setFiles([])
+
+    getPhotosView(workOrderReference)
   }
+
+  const inputRef = useRef()
+
+  useEffect(() => {
+    if (files.length === 0) {
+      inputRef.current.value = ''
+      return
+    }
+
+    const dataTransfer = new DataTransfer()
+
+    files.forEach((file) => {
+      dataTransfer.items.add(file)
+    })
+
+    inputRef.current.files = dataTransfer.files
+  }, [files])
 
   return (
     <>
@@ -169,14 +249,7 @@ const PhotosView = ({ workOrderReference, tabName }) => {
               marginTop: '0px',
             }}
           >
-            <div
-              style={
-                {
-                  // border: '4px dashed #ddd',
-                  // padding: '15px',
-                }
-              }
-            >
+            <div>
               <div class="govuk-form-group">
                 <label
                   class="govuk-label"
@@ -185,7 +258,9 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                 >
                   Upload a photo (maximum 10)
                 </label>
+
                 <input
+                  ref={inputRef}
                   class="govuk-file-upload"
                   // id="file-upload-1"
                   name="fileUpload1"
@@ -202,6 +277,12 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                     // const filesArray = []
                   }}
                 />
+
+                {uploadError && (
+                  <p>
+                    <ErrorMessage label={uploadError} />
+                  </p>
+                )}
 
                 <div
                   style={{
@@ -243,25 +324,6 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                         />
                       </div>
 
-                      {/* <div
-                        style={{
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          width: "150px"
-                        }}
-                      > */}
-                      {/* <p
-                        style={{
-                          flexShrink: '1',
-                          flexGrow: '0',
-                          textOverflow: 'ellipsis',
-                          whiteSpace: 'nowrap',
-                          overflow: 'hidden',
-                        }}
-                      >
-                        {x.name}
-                      </p> */}
-                      {/* <p>{filesize(x.size, { standard: 'jedec' })}</p> */}
                       <button
                         style={{
                           flexShrink: '0',
@@ -287,18 +349,15 @@ const PhotosView = ({ workOrderReference, tabName }) => {
                       >
                         Remove
                       </button>
-                      {/* </div> */}
-                      {/* <p
-                        style={{
-                          background: '#eee',
-                          padding: '5px 10px',
-                        }}
-                      >
-                        {x.name} ({filesize(x.size, { standard: 'jedec' })})
-                      </p> */}
                     </div>
                   ))}
                 </div>
+
+                {isUploading && (
+                  <div>
+                    <Spinner />
+                  </div>
+                )}
 
                 <PrimarySubmitButton
                   label="Upload"
@@ -379,16 +438,6 @@ const PhotosView = ({ workOrderReference, tabName }) => {
               )
             })}
           </ul>
-
-          {/* <NotesForm
-            onFormSubmit={onFormSubmit}
-            tabName={tabName}
-            workOrderReference={workOrderReference}
-            displayForm={displayForm}
-            showForm={showForm}
-          />
-          {notes && <NotesTimeline notes={notes} />}
-          {error && <ErrorMessage label={error} />} */}
         </>
       )}
     </>
