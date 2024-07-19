@@ -25,7 +25,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     'Notes',
     'Pending variation',
     'Work orders history',
-    'Photos'
+    'Photos',
   ]
 
   const getSchedulerSessionId = async () => {
