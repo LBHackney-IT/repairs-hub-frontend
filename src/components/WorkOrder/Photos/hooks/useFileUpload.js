@@ -6,7 +6,7 @@ import { filesize } from 'filesize'
 import imageCompression from 'browser-image-compression'
 
 const useFileUpload = (workOrderReference, onSuccess) => {
-  const [isUploading, setIsUploading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState(null)
   const [validationError, setValidationError] = useState(null)
   const [requestError, setRequestError] = useState(null)
   const [uploadSuccess, setUploadSuccess] = useState(null)
@@ -43,7 +43,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (isUploading) return
+    if (loadingStatus) return
 
     // reset
     setUploadSuccess(null)
@@ -54,7 +54,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setValidationError(validation)
     if (validation !== null) return
 
-    setIsUploading(true)
+    setLoadingStatus(`Uploading ${files.length} file(s)`)
 
     // 1. get presigned urls
     const uploadUrlsResult = await getUploadLinks(
@@ -64,18 +64,26 @@ const useFileUpload = (workOrderReference, onSuccess) => {
 
     if (!uploadUrlsResult.success) {
       setRequestError(uploadUrlsResult.error)
-      setIsUploading(false)
+      setLoadingStatus(null)
       return
     }
 
     const presignedUrls = uploadUrlsResult.result.links
 
+    function onProgress(completed, total) {
+      setLoadingStatus(`${completed} of ${total} files uploaded`)
+    }
+
     // 2. Upload files to S3
-    const uploadFilesToS3Response = await uploadFilesToS3(files, presignedUrls)
+    const uploadFilesToS3Response = await uploadFilesToS3(
+      files,
+      presignedUrls,
+      onProgress
+    )
 
     if (!uploadFilesToS3Response.success) {
       setRequestError(uploadFilesToS3Response.error)
-      setIsUploading(false)
+      setLoadingStatus(null)
       return
     }
 
@@ -88,7 +96,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
 
     if (!completeUploadResult.success) {
       setValidationError(completeUploadResult.error)
-      setIsUploading(false)
+      setLoadingStatus(null)
       return
     }
 
@@ -97,7 +105,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
 
     // reset form
     setFiles([])
-    setIsUploading(false)
+    setLoadingStatus(null)
 
     onSuccess()
   }
@@ -141,15 +149,25 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     })
   }
 
-  const uploadFilesToS3 = async (files, links) => {
+  const uploadFilesToS3 = async (files, links, onProgress) => {
     const promiseList = []
+    let completed = 0
 
     files.forEach((file, i) => {
       promiseList.push(uploadFileToS3(file, links[i]))
     })
 
+    // wrap with callback to track how many have been completed
+    const wrappedPromises = promiseList.map((promise) =>
+      promise.then((result) => {
+        completed += 1
+        onProgress(completed, promiseList.length)
+        return result
+      })
+    )
+
     try {
-      const result = await Promise.allSettled(promiseList)
+      const result = await Promise.allSettled(wrappedPromises)
 
       return { success: true, result }
     } catch (error) {
@@ -182,7 +200,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setFiles,
     validationError,
     requestError,
-    isUploading,
+    loadingStatus: loadingStatus,
   }
 }
 

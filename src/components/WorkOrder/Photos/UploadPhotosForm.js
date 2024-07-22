@@ -13,7 +13,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
     uploadSuccess,
     setFiles,
     validationError,
-    isUploading,
+    loadingStatus,
     requestError,
   } = useFileUpload(workOrderReference, onSuccess)
 
@@ -88,14 +88,24 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
             {files.length > 0 && (
               <PhotoUploadPreview
                 files={files}
-                isUploading={isUploading}
+                isUploading={loadingStatus !== null}
                 setFiles={setFiles}
               />
             )}
 
-            {isUploading && (
-              <div>
+            {loadingStatus && (
+              <div
+                className="govuk-body"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginTop: '15px',
+                }}
+              >
                 <Spinner />
+                <div style={{ marginLeft: '15px', marginTop: 0 }}>
+                  {loadingStatus}
+                </div>
               </div>
             )}
 
