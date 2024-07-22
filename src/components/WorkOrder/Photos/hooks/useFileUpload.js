@@ -130,7 +130,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
       const parts = links[i].presignedUrl.split('/')
       parts.splice(0, 3)
 
-      const url = `/api/yeet/${parts.join('/')}`
+      const url = `/api/s3-upload/${parts.join('/')}`
 
       promiseList.push(
         axios.request({

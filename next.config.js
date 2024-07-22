@@ -36,9 +36,8 @@ const moduleExports = {
   async rewrites() {
     return [
       {
-        source: '/api/yeet/:path*',
-        destination:
-          'https://repairs-api-images-development.s3.eu-west-2.amazonaws.com/:path*',
+        source: '/api/s3-upload/:path*',
+        destination: `https://${process.env.S3_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/:path*`,
       },
     ]
   },
