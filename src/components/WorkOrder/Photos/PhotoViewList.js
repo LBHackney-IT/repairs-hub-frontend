@@ -2,43 +2,29 @@ import { format } from 'date-fns'
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
 
-const PhotoViewList = ({ images }) => {
+const PhotoViewList = ({ photos }) => {
+  // in case of error
+  if (photos === null) return null
+
   return (
     <>
-      <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-
-      <ul
-        className="lbh-body-s "
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {images.map(({ files, groupLabel, id, timestamp, uploadedBy }) => {
+      <ul className="lbh-body-s photoViewList-ul">
+        {photos.map(({ files, groupLabel, id, timestamp, uploadedBy }) => {
           return (
-            <li
-              key={id}
-              style={{
-                display: 'block',
-
-                marginTop: '0px',
-                padding: '15px 0',
-              }}
-            >
+            <li key={id} className="photoViewList-li">
+              <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
               <PhotoGroup
                 groupLabel={groupLabel}
                 timestamp={timestamp}
                 uploadedBy={uploadedBy}
                 files={files}
               />
-              <hr
-                className="govuk-section-break govuk-section-break--l govuk-section-break--visible"
-                style={{ marginBottom: '0px' }}
-              />
             </li>
           )
         })}
       </ul>
+
+      <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
     </>
   )
 }
@@ -46,33 +32,19 @@ const PhotoViewList = ({ images }) => {
 const PhotoGroup = ({ groupLabel, timestamp, uploadedBy, files }) => {
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
+      <div className="photoViewList-photoGroup">
         <h3>{groupLabel}</h3>
 
-        <div style={{ marginTop: 0 }}>
+        <div className="govuk-!-margin-0">
           {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
         </div>
       </div>
-      <p style={{ marginTop: 0 }}>{uploadedBy}</p>
+      <p className="govuk-!-margin-0">{uploadedBy}</p>
 
       <PhotoProvider>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            marginTop: 'calc(-15px + 30px)',
-            marginLeft: '-15px',
-          }}
-        >
+        <div className="photoViewList-photoGroupContainer">
           {files.map((x) => (
-            <div style={{ marginTop: '15px', marginLeft: '15px' }}>
+            <div className="photoViewList-photoGroupItem">
               <PhotoView src={x}>
                 <img src={x} style={{ width: 'auto', height: '150px' }} />
               </PhotoView>

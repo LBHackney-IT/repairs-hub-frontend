@@ -7,22 +7,22 @@ import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
 
 const PhotosTab = ({ workOrderReference }) => {
-  const [images, setImages] = useState([])
+  const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
-  const getPhotosView = async (workOrderReference) => {
+  const getPhotos = async (workOrderReference) => {
     setError(null)
 
     try {
-      const images = await frontEndApiRequest({
+      const photos = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/images/${workOrderReference}`,
       })
 
-      setImages(images)
+      setPhotos(photos)
     } catch (e) {
-      setImages(null)
+      setPhotos(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
@@ -35,7 +35,7 @@ const PhotosTab = ({ workOrderReference }) => {
   useEffect(() => {
     setLoading(true)
 
-    getPhotosView(workOrderReference)
+    getPhotos(workOrderReference)
   }, [])
 
   if (loading) return <Spinner />
@@ -50,11 +50,11 @@ const PhotosTab = ({ workOrderReference }) => {
         workOrderReference={workOrderReference}
         onSuccess={() => {
           // reload photos
-          getPhotosView(workOrderReference)
+          getPhotos(workOrderReference)
         }}
       />
 
-      <PhotoViewList images={images} />
+      <PhotoViewList photos={photos} />
     </>
   )
 }

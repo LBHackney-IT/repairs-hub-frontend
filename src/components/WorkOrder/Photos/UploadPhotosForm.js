@@ -36,12 +36,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
 
   return (
     <>
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          marginTop: '0px',
-        }}
-      >
+      <form onSubmit={handleSubmit} className="govuk-!-margin-0">
         <div>
           <div class="govuk-form-group">
             <label
@@ -53,10 +48,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
             </label>
 
             {uploadSuccess && (
-              <section
-                class="lbh-page-announcement"
-                style={{ marginBottom: '0px' }}
-              >
+              <section class="lbh-page-announcement govuk-!-margin-0">
                 <h3 class="lbh-page-announcement__title">Upload successful</h3>
                 <div class="lbh-page-announcement__content">
                   Photos have been added to the workOrder
@@ -80,7 +72,6 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               multiple
               accept=".jpg, .jpeg, .png"
               onInput={(e) => {
-                console.log(Object.values(e.target.files))
                 setFiles(Object.values(e.target.files))
               }}
               style={{
@@ -109,10 +100,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
             )}
 
             {files.length > 0 && (
-              <div
-                className="govuk-form-group lbh-form-group"
-                style={{ marginTop: 0 }}
-              >
+              <div className="govuk-form-group lbh-form-group govuk-!-margin-0">
                 <Button
                   type="submit"
                   label="Upload"
