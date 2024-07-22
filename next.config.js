@@ -34,12 +34,14 @@ const moduleExports = {
   },
   headers: () => headers(),
   async rewrites() {
-    return [
-      {
-        source: '/api/s3-upload/:path*',
-        destination: `https://${process.env.S3_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/:path*`,
-      },
-    ]
+    return {
+      beforeFiles: [
+        {
+          source: '/api/s3-upload/:path*',
+          destination: `https://${process.env.S3_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/:path*`,
+        },
+      ],
+    }
   },
 }
 
