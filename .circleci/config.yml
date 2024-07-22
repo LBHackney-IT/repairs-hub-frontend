@@ -233,6 +233,8 @@ workflows:
       #       - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
+          requires:
+            - install-dependencies
           # requires:
           #   - tests
           #   - e2e
