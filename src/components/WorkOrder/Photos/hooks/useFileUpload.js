@@ -3,6 +3,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 import axios from 'axios'
 import { filesize } from 'filesize'
+import imageCompression from 'browser-image-compression'
 
 const useFileUpload = (workOrderReference, onSuccess) => {
   const [isUploading, setIsUploading] = useState(false)
@@ -56,7 +57,6 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setIsUploading(true)
 
     // 1. get presigned urls
-
     const uploadUrlsResult = await getUploadLinks(
       workOrderReference,
       files.length
@@ -69,8 +69,6 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     }
 
     const presignedUrls = uploadUrlsResult.result.links
-
-    console.log({ uploadUrlsResult, presignedUrls })
 
     // 2. Upload files to S3
     const uploadFilesToS3Response = await uploadFilesToS3(files, presignedUrls)
@@ -121,24 +119,33 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     }
   }
 
+  const uploadFileToS3 = async (file, link) => {
+    const compressionOptions = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+      maxIteration: 1,
+    }
+
+    const compressedFile = await imageCompression(file, compressionOptions)
+
+    const parts = link.presignedUrl.split('/')
+    parts.splice(0, 3)
+
+    const url = `/api/s3-upload/${parts.join('/')}`
+
+    return axios.request({
+      method: 'PUT',
+      url: url,
+      data: compressedFile,
+    })
+  }
+
   const uploadFilesToS3 = async (files, links) => {
     const promiseList = []
 
-    console.log({ links, files })
-
     files.forEach((file, i) => {
-      const parts = links[i].presignedUrl.split('/')
-      parts.splice(0, 3)
-
-      const url = `/api/s3-upload/${parts.join('/')}`
-
-      promiseList.push(
-        axios.request({
-          method: 'PUT',
-          url: url,
-          data: file,
-        })
-      )
+      promiseList.push(uploadFileToS3(file, links[i]))
     })
 
     try {
