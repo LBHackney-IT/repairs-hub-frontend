@@ -4,7 +4,7 @@ import Spinner from '../../Spinner'
 import { Button } from '../../Form'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
-import useFileUpload from './useFileUpload'
+import useFileUpload from './hooks/useFileUpload'
 
 const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
   const {

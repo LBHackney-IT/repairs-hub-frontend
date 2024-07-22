@@ -6,7 +6,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
 
-const PhotosView = ({ workOrderReference }) => {
+const PhotosTab = ({ workOrderReference }) => {
   const [images, setImages] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -59,9 +59,9 @@ const PhotosView = ({ workOrderReference }) => {
   )
 }
 
-PhotosView.propTypes = {
+PhotosTab.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   tabName: PropTypes.string.isRequired,
 }
 
-export default PhotosView
+export default PhotosTab
