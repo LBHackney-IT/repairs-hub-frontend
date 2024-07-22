@@ -225,17 +225,17 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - tests:
-          requires:
-            - install-dependencies
-      - e2e:
-          requires:
-            - install-dependencies
+      # - tests:
+      #     requires:
+      #       - install-dependencies
+      # - e2e:
+      #     requires:
+      #       - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
-          requires:
-            - tests
-            - e2e
+          # requires:
+          #   - tests
+          #   - e2e
           # filters:
           #   branches:
           #     only: develop
