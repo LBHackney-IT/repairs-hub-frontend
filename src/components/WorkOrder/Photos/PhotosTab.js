@@ -9,7 +9,7 @@ import PhotoViewList from './PhotoViewList'
 const PhotosTab = ({ workOrderReference }) => {
   const [photos, setPhotos] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState(null)
 
   const getPhotos = async (workOrderReference) => {
     setError(null)

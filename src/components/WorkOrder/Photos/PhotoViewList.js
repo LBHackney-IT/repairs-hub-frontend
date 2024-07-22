@@ -9,19 +9,21 @@ const PhotoViewList = ({ photos }) => {
   return (
     <>
       <ul className="lbh-body-s photoViewList-ul">
-        {photos.map(({ files, groupLabel, id, timestamp, uploadedBy }) => {
-          return (
-            <li key={id} className="photoViewList-li">
-              <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
-              <PhotoGroup
-                groupLabel={groupLabel}
-                timestamp={timestamp}
-                uploadedBy={uploadedBy}
-                files={files}
-              />
-            </li>
-          )
-        })}
+        {photos.map(
+          ({ files: fileUrls, groupLabel, id, timestamp, uploadedBy }) => {
+            return (
+              <li key={id} className="photoViewList-li">
+                <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
+                <PhotoGroup
+                  groupLabel={groupLabel}
+                  timestamp={timestamp}
+                  uploadedBy={uploadedBy}
+                  fileUrls={fileUrls}
+                />
+              </li>
+            )
+          }
+        )}
       </ul>
 
       <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
@@ -29,7 +31,7 @@ const PhotoViewList = ({ photos }) => {
   )
 }
 
-const PhotoGroup = ({ groupLabel, timestamp, uploadedBy, files }) => {
+const PhotoGroup = ({ groupLabel, timestamp, uploadedBy, fileUrls }) => {
   return (
     <>
       <div className="photoViewList-photoGroup">
@@ -43,7 +45,7 @@ const PhotoGroup = ({ groupLabel, timestamp, uploadedBy, files }) => {
 
       <PhotoProvider>
         <div className="photoViewList-photoGroupContainer">
-          {files.map((x) => (
+          {fileUrls.map((x) => (
             <div className="photoViewList-photoGroupItem">
               <PhotoView src={x}>
                 <img src={x} style={{ width: 'auto', height: '150px' }} />
