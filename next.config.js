@@ -33,16 +33,6 @@ const moduleExports = {
     forceSwcTransforms: true,
   },
   headers: () => headers(),
-  async rewrites() {
-    return {
-      beforeFiles: [
-        {
-          source: '/api/s3-upload/:path*',
-          destination: `https://${process.env.S3_BUCKET_NAME}.s3.eu-west-2.amazonaws.com/:path*`,
-        },
-      ],
-    }
-  },
 }
 
 const { NODE_ENV, SENTRY_RELEASE } = process.env
