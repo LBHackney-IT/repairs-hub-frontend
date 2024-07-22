@@ -8,7 +8,7 @@ import PhotoViewList from './PhotoViewList'
 
 const PhotosTab = ({ workOrderReference }) => {
   const [photos, setPhotos] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
   const getPhotos = async (workOrderReference) => {
@@ -29,16 +29,37 @@ const PhotosTab = ({ workOrderReference }) => {
       )
     }
 
-    setLoading(false)
+    setIsLoading(false)
+  }
+
+  const onSubmitSetDescription = async (requestBody) => {
+    setIsLoading(true)
+
+    try {
+      await frontEndApiRequest({
+        method: 'patch',
+        path: `/api/workOrders/images/fileGroup`,
+        requestData: requestBody,
+      })
+
+      getPhotos(workOrderReference)
+    } catch (e) {
+      console.error(e)
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
+    }
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    setLoading(true)
+    setIsLoading(true)
 
     getPhotos(workOrderReference)
   }, [])
 
-  if (loading) return <Spinner />
+  if (isLoading) return <Spinner />
 
   return (
     <>
@@ -54,7 +75,10 @@ const PhotosTab = ({ workOrderReference }) => {
         }}
       />
 
-      <PhotoViewList photos={photos} />
+      <PhotoViewList
+        photos={photos}
+        onSubmitSetDescription={onSubmitSetDescription}
+      />
     </>
   )
 }

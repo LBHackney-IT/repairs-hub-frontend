@@ -183,7 +183,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
         requestData: {
           workOrderReference: workOrderReference,
           s3Objects: s3Keys,
-          uploadGroupLabel: 'doesnt do anything yet',
+          uploadGroupLabel: 'Uploaded directly to work order',
         },
       })
 
