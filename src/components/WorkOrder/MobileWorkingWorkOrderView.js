@@ -29,6 +29,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
+  const [photos, setPhotos] = useState([])
   const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
 
@@ -60,6 +61,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: '/api/hub-user',
       })
 
+      const photos = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/images/${workOrderReference}`,
+      })
+
+      setPhotos(photos)
       setCurrentUser(currentUser)
 
       setTasksAndSors(
@@ -72,6 +79,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       setWorkOrder(null)
       setProperty(null)
+      setPhotos(null)
       console.error('An error has occured:', e.response)
 
       if (e.response?.status === 404) {
@@ -223,6 +231,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
                   onFormSubmit={onWorkOrderProgressToCloseSubmit}
                   currentUserPayrollNumber={currentUser.operativePayrollNumber}
                   paymentType={paymentType}
+                  photos={photos}
                 />
               </>
             )}

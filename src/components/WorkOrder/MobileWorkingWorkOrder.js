@@ -27,6 +27,7 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
+import MobileWorkingPhotoView from './MobileWorkingPhotoVIew'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -37,6 +38,7 @@ const MobileWorkingWorkOrder = ({
   currentUserPayrollNumber,
   paymentType,
   tenure,
+  photos,
 }) => {
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
@@ -130,6 +132,8 @@ const MobileWorkingWorkOrder = ({
               tasksAndSors={tasksAndSors}
               tenure={tenure}
             />
+
+            {photos.length > 0 && <MobileWorkingPhotoView photos={photos} />}
 
             <MobileWorkingTasksAndSorsTable
               workOrderReference={workOrderReference}
