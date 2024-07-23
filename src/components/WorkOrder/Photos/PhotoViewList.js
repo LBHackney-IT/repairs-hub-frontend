@@ -5,7 +5,7 @@ import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
 import { PrimarySubmitButton, TextArea } from '../../Form'
 
-const PhotoViewList = ({ photos, onSubmitSetDescription }) => {
+const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
   // in case of error
   if (photos === null) return null
 
@@ -16,10 +16,15 @@ const PhotoViewList = ({ photos, onSubmitSetDescription }) => {
           return (
             <li key={fileGroup.id} className="photoViewList-li">
               <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
-              <PhotoGroup
-                fileGroup={fileGroup}
-                onSubmitSetDescription={onSubmitSetDescription}
-              />
+              <PhotoGroupView fileGroup={fileGroup} />
+
+              {onSubmitSetDescription !== null && (
+                <PhotoGroupDescriptionForm
+                  id={fileGroup.id}
+                  description={fileGroup.description}
+                  onSubmitSetDescription={onSubmitSetDescription}
+                />
+              )}
             </li>
           )
         })}
@@ -95,17 +100,16 @@ const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
   )
 }
 
-const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
-  const {
-    files: fileUrls,
-    groupLabel,
-    id,
-    timestamp,
-    uploadedBy,
-    description,
-  } = fileGroup
-
+const PhotoGroupDescriptionForm = ({
+  description,
+  id,
+  onSubmitSetDescription,
+}) => {
   const [displayForm, setDisplayForm] = useState(false)
+
+  const showForm = () => {
+    setDisplayForm(true)
+  }
 
   const onSubmit = async (formData) => {
     const requestBody = {
@@ -116,9 +120,23 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
     await onSubmitSetDescription(requestBody)
   }
 
-  const showForm = () => {
-    setDisplayForm(true)
+  if (displayForm) {
+    return (
+      <UpdateDescriptionForm
+        description={description}
+        onSubmit={onSubmit}
+        fileGroupId={id}
+      />
+    )
   }
+
+  return (
+    <UpdateDescriptionButton description={description} showForm={showForm} />
+  )
+}
+
+const PhotoGroupView = ({ fileGroup }) => {
+  const { files: fileUrls, groupLabel, timestamp, uploadedBy } = fileGroup
 
   return (
     <>
@@ -142,19 +160,6 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
           ))}
         </div>
       </PhotoProvider>
-
-      {displayForm ? (
-        <UpdateDescriptionForm
-          description={description}
-          onSubmit={onSubmit}
-          fileGroupId={id}
-        />
-      ) : (
-        <UpdateDescriptionButton
-          description={description}
-          showForm={showForm}
-        />
-      )}
     </>
   )
 }
