@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
-import { PrimarySubmitButton, TextInput } from '../Form'
+import { PrimarySubmitButton } from '../Form'
 import BackButton from '../Layout/BackButton'
 import DatePicker from '../Form/DatePicker'
 import isPast from 'date-fns/isPast'
