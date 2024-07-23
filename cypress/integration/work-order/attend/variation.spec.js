@@ -11,6 +11,11 @@ context('when a variation is made', () => {
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
+    ).as('photos')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
     ).as('propertyRequest')
 
     cy.intercept(

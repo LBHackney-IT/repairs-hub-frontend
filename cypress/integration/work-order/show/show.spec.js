@@ -5,9 +5,14 @@ import 'cypress-audit/commands'
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/0001210000012345' },
+      { fixture: [] }
+    ).as('property')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
-    ).as('property')
+    ).as('photos')
 
     cy.intercept(
       {

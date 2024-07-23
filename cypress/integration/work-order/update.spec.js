@@ -6,6 +6,13 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
+  beforeEach(() => {
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    ).as('photos')
+  })
+
   context('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()

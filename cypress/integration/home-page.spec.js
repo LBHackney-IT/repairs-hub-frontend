@@ -3,6 +3,13 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
+  beforeEach(() => {
+    cy.intercept(
+      { method: 'GET', path: '/api/properties/00012345' },
+      { fixture: 'properties/property.json' }
+    ).as('photos')
+  })
+
   context('When an agent is logged in', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
