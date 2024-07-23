@@ -32,14 +32,14 @@ const PhotosTab = ({ workOrderReference }) => {
     setIsLoading(false)
   }
 
-  const onSubmitSetDescription = async (requestBody) => {
+  const onSubmitSetDescription = async (requestData) => {
     setIsLoading(true)
 
     try {
       await frontEndApiRequest({
         method: 'patch',
         path: `/api/workOrders/images/fileGroup`,
-        requestData: requestBody,
+        requestData,
       })
 
       getPhotos(workOrderReference)

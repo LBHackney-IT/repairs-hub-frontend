@@ -30,6 +30,71 @@ const PhotoViewList = ({ photos, onSubmitSetDescription }) => {
   )
 }
 
+const UpdateDescriptionButton = ({ showForm, description }) => {
+  const groupHasDescription = description !== null && description !== ''
+
+  return (
+    <div className="display-inline">
+      {groupHasDescription && (
+        <p style={{ color: '#666', marginTop: '15px' }}>{description}</p>
+      )}
+
+      <button
+        type="button"
+        className="lbh-link"
+        onClick={showForm}
+        style={{
+          marginTop: '15px',
+        }}
+      >
+        {groupHasDescription ? 'Edit' : 'Add'} description
+      </button>
+    </div>
+  )
+}
+
+const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
+  const { register, handleSubmit, errors } = useForm()
+
+  const groupHasDescription = description !== null && description !== ''
+
+  return (
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        <form
+          role="form"
+          id="description-form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <TextArea
+            name="description"
+            label="Description"
+            defaultValue={description ?? ''}
+            placeholder="Add a description"
+            required={true}
+            register={register({
+              required: 'Please enter a note',
+            })}
+            error={errors && errors.description}
+          />
+          <input
+            id="fileGroupId"
+            name="fileGroupId"
+            label="fileGroupId"
+            type="hidden"
+            value={fileGroupId}
+            ref={register}
+          />
+
+          <PrimarySubmitButton
+            label={`${groupHasDescription ? 'Edit' : 'Add'} description`}
+          />
+        </form>
+      </div>
+    </div>
+  )
+}
+
 const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
   const {
     files: fileUrls,
@@ -41,7 +106,6 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
   } = fileGroup
 
   const [displayForm, setDisplayForm] = useState(false)
-  const { register, handleSubmit, errors } = useForm()
 
   const onSubmit = async (formData) => {
     const requestBody = {
@@ -50,16 +114,11 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
     }
 
     await onSubmitSetDescription(requestBody)
-
-    // const notesFormData = buildNoteFormData(formData)
-    // onFormSubmit(notesFormData)
   }
 
   const showForm = () => {
     setDisplayForm(true)
   }
-
-  const groupHasDescription = description !== null && description !== ''
 
   return (
     <>
@@ -84,63 +143,18 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
         </div>
       </PhotoProvider>
 
-      {!displayForm && (
-        <div className="display-inline">
-          {groupHasDescription && (
-            <p style={{ color: '#666', marginTop: '15px' }}>{description}</p>
-          )}
-
-          <button
-            type="button"
-            className="lbh-link"
-            onClick={showForm}
-            style={{
-              marginTop: '15px',
-            }}
-          >
-            {groupHasDescription ? 'Edit' : 'Add'} description
-          </button>
-        </div>
+      {displayForm ? (
+        <UpdateDescriptionForm
+          description={description}
+          onSubmit={onSubmit}
+          fileGroupId={id}
+        />
+      ) : (
+        <UpdateDescriptionButton
+          description={description}
+          showForm={showForm}
+        />
       )}
-
-      <div className="govuk-grid-row">
-        <div className="govuk-grid-column-two-thirds">
-          {displayForm && (
-            <form
-              role="form"
-              id="description-form"
-              onSubmit={handleSubmit(onSubmit)}
-            >
-              <TextArea
-                name="description"
-                label="Description"
-                defaultValue={description ?? ''}
-                placeholder="Add a description"
-                required={true}
-                register={register({
-                  required: 'Please enter a note',
-                })}
-                error={errors && errors.description}
-              />
-              <input
-                id="fileGroupId"
-                name="fileGroupId"
-                label="fileGroupId"
-                type="hidden"
-                value={id}
-                ref={register}
-              />
-
-              <PrimarySubmitButton
-                label={`${groupHasDescription ? 'Edit' : 'Add'} description`}
-              />
-            </form>
-          )}
-        </div>
-      </div>
-
-      {/* </>
-      )} */}
     </>
   )
 }
