@@ -9,15 +9,6 @@ const uploadFiles = async (
   uploadGroupLabel,
   setLoadingStatus = null
 ) => {
-  //   // validate fields
-  //   const validation = validateFileUpload(files)
-  //   if (validation !== null) {
-  //     return {
-  //       success: false,
-  //       validationError: validation,
-  //     }
-  //   }
-
   if (setLoadingStatus !== null) {
     setLoadingStatus(`Uploading ${files.length} file(s)`)
   }
@@ -94,7 +85,7 @@ const completeUpload = async (workOrderReference, s3Keys, uploadGroupLabel) => {
 
     return { success: true, result }
   } catch (error) {
-    return { success: false, error: error.message }
+    return { success: false, error }
   }
 }
 
@@ -120,7 +111,7 @@ const uploadFilesToS3 = async (files, links, onProgress) => {
 
     return { success: true, result }
   } catch (error) {
-    return { success: false, error: error.message }
+    return { success: false, error }
   }
 }
 
@@ -154,7 +145,7 @@ const getUploadLinks = async (workOrderReference, numberOfFiles) => {
 
     return { success: true, result }
   } catch (error) {
-    return { success: false, error: error.message }
+    return { success: false, error }
   }
 }
 

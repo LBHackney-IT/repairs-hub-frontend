@@ -8,7 +8,7 @@ const ControlledFileInput = ({
   files,
   setFiles,
   validationError,
-  loadingStatus,
+  isLoading,
   register,
 }) => {
   const inputRef = useRef()
@@ -55,17 +55,12 @@ const ControlledFileInput = ({
         }}
         {...register}
       />
-      {/* {validationError && (
-        <p>
-          <ErrorMessage label={validationError} />
-        </p>
-      )} */}
 
       <>
         {files.length > 0 && (
           <PhotoUploadPreview
             files={files}
-            isUploading={loadingStatus !== null}
+            disabled={isLoading}
             setFiles={setFiles}
           />
         )}

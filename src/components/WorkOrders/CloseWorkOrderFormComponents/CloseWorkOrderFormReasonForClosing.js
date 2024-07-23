@@ -1,9 +1,9 @@
 import {
   CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
+  // FOLLOW_ON_STATUS_OPTIONS,
 } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 
 // const FurtherWorkRadio = (props) => {
 //   const { errors, visible, register, followOnStatus } = props
@@ -31,27 +31,27 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
   const {
     register,
     errors,
-    watch,
+    // watch,
     reason,
-    followOnData,
-    followOnStatus,
+    // followOnData,
+    // followOnStatus,
   } = props
 
-  const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
+  // const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
 
-  const reasonWatchedValue = watch('reason')
+  // const reasonWatchedValue = watch('reason')
 
-  useEffect(() => {
-    // When navigating back from summary page, the watch hook isnt updating
-    // meaning the followOnStatus options arent visible
-    // this awful code fixes that
+  // useEffect(() => {
+  //   // When navigating back from summary page, the watch hook isnt updating
+  //   // meaning the followOnStatus options arent visible
+  //   // this awful code fixes that
 
-    if (reasonWatchedValue === undefined) {
-      setShowFurtherWorkRadio(reason === 'Work Order Completed')
-    } else {
-      setShowFurtherWorkRadio(reasonWatchedValue === 'Work Order Completed')
-    }
-  }, [reasonWatchedValue])
+  //   if (reasonWatchedValue === undefined) {
+  //     setShowFurtherWorkRadio(reason === 'Work Order Completed')
+  //   } else {
+  //     setShowFurtherWorkRadio(reasonWatchedValue === 'Work Order Completed')
+  //   }
+  // }, [reasonWatchedValue])
 
   return (
     <>

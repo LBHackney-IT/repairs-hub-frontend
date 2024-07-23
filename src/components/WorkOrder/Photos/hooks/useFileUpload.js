@@ -34,8 +34,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setLoadingStatus(null)
 
     if (!uploadResult.success) {
-      setRequestError(uploadFiles.requestError)
-
+      setRequestError(uploadResult.requestError.message)
       return
     }
 

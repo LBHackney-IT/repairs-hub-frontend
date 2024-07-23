@@ -15,7 +15,7 @@ const PAGES = {
   FOLLOW_ON_DETAILS: '2',
 }
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, workOrderReference }) => {
+const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const {
     handleSubmit,
     register,
@@ -75,43 +75,22 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, workOrderReference }) => {
 
             <div>
               <h2 class="lbh-heading-h3">Add photos</h2>
-              {/* <UploadPhotosForm /> */}
 
               <div class="govuk-form-group">
                 <ControlledFileInput
                   files={files}
                   setFiles={setFiles}
                   validationError={errors?.fileUpload?.message}
-                  loadingStatus={"loadingStatus"}
-                  // error={errors?.fileUpload}
+                  isLoading={isLoading}
                   register={register('fileUpload', {
-                    validate: (value) => {
+                    validate: () => {
                       const validation = validateFileUpload(files)
 
-                      if (validation !== null) {
-                        return validation
-                      }
-
-                      return true
+                      if (validation === null) return true
+                      return validation
                     },
                   })}
                 />
-
-                {/* {loadingStatus && (
-                  <div
-                    className="govuk-body"
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      marginTop: '15px',
-                    }}
-                  >
-                    <Spinner />
-                    <div style={{ marginLeft: '15px', marginTop: 0 }}>
-                      {loadingStatus}
-                    </div>
-                  </div>
-                )} */}
               </div>
             </div>
 

@@ -158,30 +158,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       followOnRequest
     )
 
-    console.log('SUBMIT', { files })
-
     try {
-      const uploadResult = await uploadFiles(
-        files,
-        workOrderReference,
-        'Closing work order',
-        (value) => {
-          console.log('set loading status', value)
-          setLoadingStatus(value)
-        }
-      )
+      if (files.length > 0) {
+        const uploadResult = await uploadFiles(
+          files,
+          workOrderReference,
+          'Closing work order',
+          (value) => setLoadingStatus(value)
+        )
 
-      if (!uploadResult.success) {
-        throw new Error(uploadResult.requestError)
+        if (!uploadResult.success) throw uploadResult.requestError
 
-        // setRequestError(uploadFiles.requestError)
-
-        // return
+        setLoadingStatus('Completing workorder')
       }
 
-      setLoadingStatus('Completing workorder')
-
-      // return
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
@@ -240,7 +230,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           {workOrderProgressedToClose && (
             <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
-              workOrderReference={workOrderReference}
+              isLoading={loadingStatus !== null}
             />
           )}
 
