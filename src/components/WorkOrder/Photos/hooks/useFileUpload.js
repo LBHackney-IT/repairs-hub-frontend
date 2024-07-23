@@ -137,14 +137,9 @@ const useFileUpload = (workOrderReference, onSuccess) => {
 
     const compressedFile = await imageCompression(file, compressionOptions)
 
-    const parts = link.presignedUrl.split('/')
-    parts.splice(0, 3)
-
-    const url = `/api/s3-upload/${parts.join('/')}`
-
     return axios.request({
       method: 'PUT',
-      url: url,
+      url: link.presignedUrl,
       data: compressedFile,
     })
   }
