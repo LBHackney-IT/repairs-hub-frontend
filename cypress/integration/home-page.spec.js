@@ -3,10 +3,6 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
-  // beforeEach(() => {
-
-  // })
-
   context('When an agent is logged in', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
@@ -310,6 +306,11 @@ describe('Home page', () => {
   context('When an operative is logged in', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        { body: [] }
+      ).as('photos')
     })
 
     it('Displays content in the header', () => {

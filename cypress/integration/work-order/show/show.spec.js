@@ -4,10 +4,7 @@ import 'cypress-audit/commands'
 
 describe('Show work order page', () => {
   beforeEach(() => {
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/images/10000012' },
-      { body: [] }
-    ).as('photos')
+   
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -384,6 +381,11 @@ describe('Show work order page', () => {
   context('When logged in as an Operative', () => {
     beforeEach(() => {
       cy.clock(new Date('June 11 2021 13:49:15Z'))
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        { body: [] }
+      ).as('photos')
 
       cy.intercept(
         {

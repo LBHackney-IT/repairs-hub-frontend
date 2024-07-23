@@ -6,12 +6,6 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
-  beforeEach(() => {
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/images/10000040' },
-      { body: [] }
-    ).as('photos')
-  })
 
   context('As a contractor', () => {
     beforeEach(() => {
@@ -635,6 +629,11 @@ describe('Updating a work order', () => {
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
       ).as('propertyRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        { body: [] }
+      ).as('photos')
 
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000621/tasks' },
