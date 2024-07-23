@@ -58,6 +58,60 @@ const UpdateDescriptionButton = ({ showForm, description }) => {
   )
 }
 
+const PhotoGroupView = ({ fileGroup }) => {
+  const { files: fileUrls, groupLabel, timestamp, uploadedBy } = fileGroup
+
+  return (
+    <>
+      <div className="photoViewList-photoGroup">
+        <h3>{groupLabel}</h3>
+
+        <div className="govuk-!-margin-0">
+          {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
+        </div>
+      </div>
+      <p className="govuk-!-margin-0">{uploadedBy}</p>
+
+      <PhotoListWithPreview fileUrls={fileUrls} />
+    </>
+  )
+}
+
+const PhotoGroupDescriptionForm = ({
+  description,
+  id,
+  onSubmitSetDescription,
+}) => {
+  const [displayForm, setDisplayForm] = useState(false)
+
+  const showForm = () => {
+    setDisplayForm(true)
+  }
+
+  const onSubmit = async (formData) => {
+    const requestBody = {
+      fileGroupId: formData.fileGroupId,
+      description: formData.description,
+    }
+
+    await onSubmitSetDescription(requestBody)
+  }
+
+  if (displayForm) {
+    return (
+      <UpdateDescriptionForm
+        description={description}
+        onSubmit={onSubmit}
+        fileGroupId={id}
+      />
+    )
+  }
+
+  return (
+    <UpdateDescriptionButton description={description} showForm={showForm} />
+  )
+}
+
 const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
   const { register, handleSubmit, errors } = useForm()
 
@@ -97,73 +151,6 @@ const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
         </form>
       </div>
     </div>
-  )
-}
-
-const PhotoGroupDescriptionForm = ({
-  description,
-  id,
-  onSubmitSetDescription,
-}) => {
-  const [displayForm, setDisplayForm] = useState(false)
-
-  const showForm = () => {
-    setDisplayForm(true)
-  }
-
-  const onSubmit = async (formData) => {
-    const requestBody = {
-      fileGroupId: formData.fileGroupId,
-      description: formData.description,
-    }
-
-    await onSubmitSetDescription(requestBody)
-  }
-
-  if (displayForm) {
-    return (
-      <UpdateDescriptionForm
-        description={description}
-        onSubmit={onSubmit}
-        fileGroupId={id}
-      />
-    )
-  }
-
-  return (
-    <UpdateDescriptionButton description={description} showForm={showForm} />
-  )
-}
-
-const PhotoGroupView = ({ fileGroup }) => {
-  const { files: fileUrls, groupLabel, timestamp, uploadedBy } = fileGroup
-
-  return (
-    <>
-      <div className="photoViewList-photoGroup">
-        <h3>{groupLabel}</h3>
-
-        <div className="govuk-!-margin-0">
-          {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
-        </div>
-      </div>
-      <p className="govuk-!-margin-0">{uploadedBy}</p>
-
-      <PhotoListWithPreview fileUrls={fileUrls} />
-
-      {displayForm ? (
-        <UpdateDescriptionForm
-          description={description}
-          onSubmit={onSubmit}
-          fileGroupId={id}
-        />
-      ) : (
-        <UpdateDescriptionButton
-          description={description}
-          showForm={showForm}
-        />
-      )}
-    </>
   )
 }
 
