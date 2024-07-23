@@ -8,8 +8,8 @@ import {
 describe('Updating a work order', () => {
   beforeEach(() => {
     cy.intercept(
-      { method: 'GET', path: '/api/properties/00012345' },
-      { fixture: 'properties/property.json' }
+      { method: 'GET', path: '/api/workOrders/images/10000012' },
+      { body: [] }
     ).as('photos')
   })
 
