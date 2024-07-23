@@ -429,7 +429,7 @@ describe('Show work order page', () => {
         '@task',
         '@locationAlerts',
         '@personAlerts',
-        '@photos'
+        '@photos',
       ])
 
       cy.contains('WO 10000621')
@@ -471,9 +471,7 @@ describe('Show work order page', () => {
     it('shows links to expand description text, if text is more than 3 lines', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
-      cy.wait(['@operativesWorkOrder', '@property', '@task', 
-        '@photos'
-      ])
+      cy.wait(['@operativesWorkOrder', '@property', '@task', '@photos'])
       cy.contains('WO 10000621')
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)

@@ -1,4 +1,4 @@
-const PhotoUploadPreview = ({ files, isUploading, setFiles }) => {
+const PhotoUploadPreview = ({ files, setFiles, disabled = false }) => {
   return (
     <div className="photoUploadPreview">
       {files.map((x, index) => (
@@ -16,7 +16,8 @@ const PhotoUploadPreview = ({ files, isUploading, setFiles }) => {
             className="photoUploadPreview-removeButton"
             type="button"
             onClick={() => {
-              if (isUploading) return
+              if (disabled) return
+
               setFiles((files) => {
                 var newArr = [...files]
                 newArr.splice(index, 1)

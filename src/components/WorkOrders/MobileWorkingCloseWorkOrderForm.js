@@ -7,13 +7,15 @@ import { useState } from 'react'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
+import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
+import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
+const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const {
     handleSubmit,
     register,
@@ -39,6 +41,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
 
+  const [files, setFiles] = useState([])
+
   return (
     <>
       <div>
@@ -51,7 +55,10 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
           }
         />
 
-        <form role="form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          role="form"
+          onSubmit={handleSubmit((data) => onSubmit(data, files))}
+        >
           <div
             style={{
               display:
@@ -64,7 +71,29 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               register={register}
               errors={errors}
               watch={watch}
+              includeFollowOnOptions={false}
             />
+
+            <div>
+              <h2 class="lbh-heading-h3">Add photos</h2>
+
+              <div class="govuk-form-group">
+                <ControlledFileInput
+                  files={files}
+                  setFiles={setFiles}
+                  validationError={errors?.fileUpload?.message}
+                  isLoading={isLoading}
+                  register={register('fileUpload', {
+                    validate: () => {
+                      const validation = validateFileUpload(files)
+
+                      if (validation === null) return true
+                      return validation
+                    },
+                  })}
+                />
+              </div>
+            </div>
 
             <TextArea
               name="notes"

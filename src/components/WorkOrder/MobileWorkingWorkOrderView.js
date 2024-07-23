@@ -19,6 +19,7 @@ import {
   workOrderNoteFragmentForPaymentType,
 } from '@/utils/paymentTypes'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
+import uploadFiles from './Photos/hooks/uploadFiles'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -29,7 +30,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
   const [photos, setPhotos] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
@@ -92,11 +93,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       }
     }
 
-    setLoading(false)
+    setLoadingStatus(null)
   }
 
   useEffect(() => {
-    setLoading(true)
+    setLoadingStatus('Loading workorder')
 
     getWorkOrderView(workOrderReference)
   }, [])
@@ -127,8 +128,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
   }
 
-  const onWorkOrderCompleteSubmit = async (data) => {
-    setLoading(true)
+  const onWorkOrderCompleteSubmit = async (data, files) => {
+    setLoadingStatus('Completing workorder')
 
     let followOnRequest = null
 
@@ -166,6 +167,19 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
+      if (files.length > 0) {
+        const uploadResult = await uploadFiles(
+          files,
+          workOrderReference,
+          'Closing work order',
+          (value) => setLoadingStatus(value)
+        )
+
+        if (!uploadResult.success) throw uploadResult.requestError
+
+        setLoadingStatus('Completing workorder')
+      }
+
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
@@ -184,14 +198,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
-      setLoading(false)
+      setLoadingStatus(null)
     }
   }
 
   return (
     <>
-      {loading ? (
-        <Spinner />
+      {loadingStatus ? (
+        <div
+          className="govuk-body"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Spinner />
+          <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
+        </div>
       ) : (
         <>
           {!workOrderProgressedToClose &&
@@ -219,6 +239,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           {workOrderProgressedToClose && (
             <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
+              isLoading={loadingStatus !== null}
             />
           )}
 
