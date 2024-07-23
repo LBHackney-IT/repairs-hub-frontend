@@ -372,7 +372,7 @@ describe('Home page', () => {
         ).as('task')
       })
 
-      it.only('Displays work order appointments, priority and any closed status', () => {
+      it('Displays work order appointments, priority and any closed status', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 

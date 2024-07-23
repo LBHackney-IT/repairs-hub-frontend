@@ -96,7 +96,7 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
-        '@photos',
+        // '@photos',
       ])
 
       cy.get('.lbh-heading-h1').within(() => {
@@ -207,7 +207,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              '@photos',
+              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -233,7 +233,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              '@photos',
+              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -260,7 +260,7 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
-            '@photos',
+            // '@photos',
           ])
 
           cy.get('.appointment-details').within(() => {
@@ -363,6 +363,7 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
+          // '@photos'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
@@ -428,6 +429,7 @@ describe('Show work order page', () => {
         '@task',
         '@locationAlerts',
         '@personAlerts',
+        '@photos'
       ])
 
       cy.contains('WO 10000621')
@@ -469,7 +471,9 @@ describe('Show work order page', () => {
     it('shows links to expand description text, if text is more than 3 lines', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
-      cy.wait(['@operativesWorkOrder', '@property', '@task'])
+      cy.wait(['@operativesWorkOrder', '@property', '@task', 
+        '@photos'
+      ])
       cy.contains('WO 10000621')
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)
