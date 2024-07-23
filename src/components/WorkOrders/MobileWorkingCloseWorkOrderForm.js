@@ -7,13 +7,15 @@ import { useState } from 'react'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
+import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
+import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
+const MobileWorkingCloseWorkOrderForm = ({ onSubmit, workOrderReference }) => {
   const {
     handleSubmit,
     register,
@@ -39,6 +41,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
 
+  const [files, setFiles] = useState([])
+
   return (
     <>
       <div>
@@ -51,7 +55,10 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
           }
         />
 
-        <form role="form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          role="form"
+          onSubmit={handleSubmit((data) => onSubmit(data, files))}
+        >
           <div
             style={{
               display:
@@ -65,6 +72,48 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit }) => {
               errors={errors}
               watch={watch}
             />
+
+            <div>
+              <h2 class="lbh-heading-h3">Add photos</h2>
+              {/* <UploadPhotosForm /> */}
+
+              <div class="govuk-form-group">
+                <ControlledFileInput
+                  files={files}
+                  setFiles={setFiles}
+                  validationError={errors?.fileUpload?.message}
+                  loadingStatus={"loadingStatus"}
+                  // error={errors?.fileUpload}
+                  register={register('fileUpload', {
+                    validate: (value) => {
+                      const validation = validateFileUpload(files)
+
+                      if (validation !== null) {
+                        return validation
+                      }
+
+                      return true
+                    },
+                  })}
+                />
+
+                {/* {loadingStatus && (
+                  <div
+                    className="govuk-body"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      marginTop: '15px',
+                    }}
+                  >
+                    <Spinner />
+                    <div style={{ marginLeft: '15px', marginTop: 0 }}>
+                      {loadingStatus}
+                    </div>
+                  </div>
+                )} */}
+              </div>
+            </div>
 
             <TextArea
               name="notes"

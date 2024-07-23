@@ -5,27 +5,27 @@ import {
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
 
-const FurtherWorkRadio = (props) => {
-  const { errors, visible, register, followOnStatus } = props
+// const FurtherWorkRadio = (props) => {
+//   const { errors, visible, register, followOnStatus } = props
 
-  if (!visible) return null
+//   if (!visible) return null
 
-  return (
-    <Radios
-      name="followOnStatus"
-      options={FOLLOW_ON_STATUS_OPTIONS.map((x) => {
-        return {
-          ...x,
-          defaultChecked: x.value === followOnStatus,
-        }
-      })}
-      register={register({
-        required: 'Please confirm if further work is required',
-      })}
-      error={errors && errors.followOnStatus}
-    />
-  )
-}
+//   return (
+//     <Radios
+//       name="followOnStatus"
+//       options={FOLLOW_ON_STATUS_OPTIONS.map((x) => {
+//         return {
+//           ...x,
+//           defaultChecked: x.value === followOnStatus,
+//         }
+//       })}
+//       register={register({
+//         required: 'Please confirm if further work is required',
+//       })}
+//       error={errors && errors.followOnStatus}
+//     />
+//   )
+// }
 
 const CloseWorkOrderFormReasonForClosing = (props) => {
   const {
@@ -62,16 +62,16 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
         options={CLOSURE_STATUS_OPTIONS.map((r) => ({
           ...r,
           defaultChecked: r.value === reason,
-          children:
-            r.value === 'Work Order Completed' ? (
-              <FurtherWorkRadio
-                errors={errors}
-                register={register}
-                visible={showFurtherWorkRadio}
-                followOnData={followOnData}
-                followOnStatus={followOnStatus}
-              />
-            ) : null,
+          // children:
+          //   r.value === 'Work Order Completed' ? (
+          //     <FurtherWorkRadio
+          //       errors={errors}
+          //       register={register}
+          //       visible={showFurtherWorkRadio}
+          //       followOnData={followOnData}
+          //       followOnStatus={followOnStatus}
+          //     />
+          //   ) : null,
         }))}
         register={register({
           required: 'Please select a reason for closing the work order',
