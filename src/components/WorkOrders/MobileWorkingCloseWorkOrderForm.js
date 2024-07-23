@@ -71,6 +71,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
               register={register}
               errors={errors}
               watch={watch}
+              includeFollowOnOptions={false}
             />
 
             <div>
