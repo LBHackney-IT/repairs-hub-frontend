@@ -35,6 +35,7 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
     reason,
     followOnData,
     followOnStatus,
+    includeFollowOnOptions = true,
   } = props
 
   const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
@@ -62,7 +63,8 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
         options={CLOSURE_STATUS_OPTIONS.map((r) => ({
           ...r,
           defaultChecked: r.value === reason,
-          children:
+
+          children: includeFollowOnOptions ? (
             r.value === 'Work Order Completed' ? (
               <FurtherWorkRadio
                 errors={errors}
@@ -71,7 +73,8 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
                 followOnData={followOnData}
                 followOnStatus={followOnStatus}
               />
-            ) : null,
+            ) : null
+          ) : null,
         }))}
         register={register({
           required: 'Please select a reason for closing the work order',
