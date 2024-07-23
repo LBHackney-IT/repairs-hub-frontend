@@ -96,6 +96,7 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
+        '@photos',
       ])
 
       cy.get('.lbh-heading-h1').within(() => {
@@ -206,6 +207,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
+              '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -231,6 +233,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
+              '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -257,6 +260,7 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
+            '@photos',
           ])
 
           cy.get('.appointment-details').within(() => {

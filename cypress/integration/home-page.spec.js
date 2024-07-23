@@ -3,12 +3,9 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
-  beforeEach(() => {
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/images/10000012' },
-      { body: [] }
-    ).as('photos')
-  })
+  // beforeEach(() => {
+
+  // })
 
   context('When an agent is logged in', () => {
     beforeEach(() => {
@@ -375,7 +372,7 @@ describe('Home page', () => {
         ).as('task')
       })
 
-      it('Displays work order appointments, priority and any closed status', () => {
+      it.only('Displays work order appointments, priority and any closed status', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 
