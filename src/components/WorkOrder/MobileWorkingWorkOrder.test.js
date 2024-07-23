@@ -112,6 +112,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -149,6 +150,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -199,6 +201,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
       await act(async () => {
@@ -243,6 +246,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -286,6 +290,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -329,6 +334,7 @@ describe('MobileWorkingWorkOrder component with single operative', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -448,6 +454,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 
@@ -491,6 +498,7 @@ describe('MobileWorkingWorkOrder component with multiple operatives', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
       await act(async () => {
@@ -610,6 +618,7 @@ describe('MobileWorkingWorkOrder component with startTime', () => {
           currentUserPayrollNumber={'1'}
           tenure={props.tenure}
           onFormSubmit={jest.fn()}
+          photos={[]}
         />
       )
 

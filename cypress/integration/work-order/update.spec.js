@@ -630,6 +630,11 @@ describe('Updating a work order', () => {
       ).as('propertyRequest')
 
       cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        { body: [] }
+      ).as('photos')
+
+      cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000621/tasks' },
         { fixture: 'workOrders/tasksAndSors.json' }
       ).as('tasksRequest')
