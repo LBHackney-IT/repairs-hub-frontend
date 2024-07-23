@@ -17,6 +17,7 @@ import SuccessPage from '../SuccessPage/index'
 import Panel from '@/components/Template/Panel'
 import { generalLinks } from '@/utils/successPageLinks'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
+import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -30,8 +31,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
   const [startDate, setStartDate] = useState('')
   const [startTime, setStartTime] = useState('')
+  const [files, setFiles] = useState([])
+  const [description, setDescription] = useState('')
 
-  const [loading, setLoading] = useState(false)
+  const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
   const [notes, setNotes] = useState('')
   const [reason, setReason] = useState('')
@@ -60,9 +63,23 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     workOrderCompleteFormData,
     operativeAssignmentFormData
   ) => {
-    setLoading(true)
+    setLoadingStatus('Completing workorder')
 
     try {
+      if (files.length > 0) {
+        const uploadResult = await uploadFiles(
+          files,
+          reference,
+          'Closing work order',
+          description,
+          (value) => setLoadingStatus(value)
+        )
+
+        if (!uploadResult.success) throw uploadResult.requestError
+
+        setLoadingStatus('Completing workorder')
+      }
+
       if (workOrder.canAssignOperative) {
         await frontEndApiRequest({
           method: 'post',
@@ -89,13 +106,13 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       setCurrentPage(CONFIRMATION_PAGE)
-      setLoading(false)
+      setLoadingStatus(null)
     } catch (e) {
       console.error(e)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
-      setLoading(false)
+      setLoadingStatus(null)
     }
   }
 
@@ -131,11 +148,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
-    setLoading(false)
+    setLoadingStatus(null)
   }
 
   useEffect(() => {
-    setLoading(true)
+    setLoadingStatus('Loading workorder')
 
     getCloseWorkOrder()
   }, [])
@@ -192,12 +209,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setCurrentPage(FORM_PAGE)
   }
 
-  const onGetToSummary = (formData) => {
+  const onGetToSummary = (formData, files) => {
     const formattedCompletionDate = convertToDateFormat(
       formData.completionDate,
       formData.completionTime
     )
     setCompletionDate(formattedCompletionDate)
+
+    setFiles(files)
+    setDescription(formData.description)
 
     // set follow on data
 
@@ -281,8 +301,14 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
   return (
     <>
-      {loading ? (
-        <Spinner />
+      {loadingStatus ? (
+        <div
+          className="govuk-body"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Spinner />
+          <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
+        </div>
       ) : (
         <>
           {!workOrder && error && <ErrorMessage label={error} />}
@@ -307,12 +333,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   selectedPercentagesToShowOnEdit={
                     selectedPercentagesToShowOnEdit
                   }
+                  defaultFiles={files}
+                  description={description}
                   closingByProxy={true}
                   totalSMV={workOrder.totalSMVs}
                   jobIsSplitByOperative={workOrder.isSplit}
                   paymentType={paymentType}
                   existingStartTime={workOrder.startTime !== null}
                   followOnData={followOnData}
+                  isLoading={loadingStatus !== null}
                 />
               )}
 
@@ -337,6 +366,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   paymentType={paymentType}
                   startDate={startDate}
                   followOnData={followOnData}
+                  files={files}
+                  description={description}
                 />
               )}
               {currentPage === CONFIRMATION_PAGE && (

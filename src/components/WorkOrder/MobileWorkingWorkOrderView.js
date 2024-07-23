@@ -164,6 +164,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           files,
           workOrderReference,
           'Closing work order',
+          "",
           (value) => setLoadingStatus(value)
         )
 

@@ -131,17 +131,7 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
       </div>
       <p className="govuk-!-margin-0">{uploadedBy}</p>
 
-      <PhotoProvider>
-        <div className="photoViewList-photoGroupContainer">
-          {fileUrls.map((x) => (
-            <div className="photoViewList-photoGroupItem">
-              <PhotoView src={x}>
-                <img src={x} style={{ width: 'auto', height: '150px' }} />
-              </PhotoView>
-            </div>
-          ))}
-        </div>
-      </PhotoProvider>
+      <PhotoListWithPreview fileUrls={fileUrls} />
 
       {displayForm ? (
         <UpdateDescriptionForm
@@ -156,6 +146,22 @@ const PhotoGroup = ({ fileGroup, onSubmitSetDescription }) => {
         />
       )}
     </>
+  )
+}
+
+export const PhotoListWithPreview = ({ fileUrls }) => {
+  return (
+    <PhotoProvider>
+      <div className="photoViewList-photoGroupContainer">
+        {fileUrls.map((x) => (
+          <div className="photoViewList-photoGroupItem">
+            <PhotoView src={x}>
+              <img src={x} style={{ width: 'auto', height: '150px' }} />
+            </PhotoView>
+          </div>
+        ))}
+      </div>
+    </PhotoProvider>
   )
 }
 

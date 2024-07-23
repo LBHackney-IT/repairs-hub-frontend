@@ -4,26 +4,17 @@ import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 import dayjs from 'dayjs'
+import { PhotoListWithPreview } from '../WorkOrder/Photos/PhotoViewList'
 
 const TableRow = (props) => {
-  const { label, value, handleClick } = props
+  const { label, value } = props
 
   return (
     <TR>
       <TH width="one-quarter" scope="row">
         {label}
       </TH>
-      <TD width="two-quarters">{value}</TD>
-      <TD width="one-quarter">
-        <a
-          className="lbh-link"
-          onClick={handleClick}
-          style={{ textAlign: 'right', display: 'block' }}
-          href="#"
-        >
-          Edit
-        </a>
-      </TD>
+      <TD width="three-quarters">{value}</TD>
     </TR>
   )
 }
@@ -38,6 +29,8 @@ const SummaryCloseWorkOrder = ({
   operativeNames,
   paymentType,
   startDate,
+  files,
+  description,
   followOnData = null,
 }) => {
   const { handleSubmit } = useForm({})
@@ -53,35 +46,43 @@ const SummaryCloseWorkOrder = ({
               <TableRow
                 label="Start time"
                 value={dayjs(startDate).format('YYYY/MM/DD HH:mm:ss')}
-                handleClick={changeStep}
               />
             )}
 
             <TableRow
               label="Completion time"
               value={dayjs(completionDate).format('YYYY/MM/DD HH:mm:ss')}
-              handleClick={changeStep}
             />
 
             {paymentType && (
               <TableRow
                 label="Payment type"
                 value={PAYMENT_TYPE_FORM_DESCRIPTIONS[paymentType].text}
-                handleClick={changeStep}
               />
             )}
 
             {operativeNames?.length > 0 && (
-              <TableRow
-                label="Operatives"
-                value={operativeNames.join(', ')}
-                handleClick={changeStep}
-              />
+              <TableRow label="Operatives" value={operativeNames.join(', ')} />
             )}
 
-            <TableRow label="Reason" value={reason} handleClick={changeStep} />
+            <TableRow label="Reason" value={reason} />
 
-            <TableRow label="Notes" value={notes} handleClick={changeStep} />
+            <TableRow label="Notes" value={notes} />
+
+            <TableRow
+              label="Photos"
+              value={
+                <>
+                  <PhotoListWithPreview
+                    fileUrls={files.map((x) => URL.createObjectURL(x))}
+                  />
+
+                  {description !== '' && description !== null && (
+                    <p>{description}</p>
+                  )}
+                </>
+              }
+            />
           </TBody>
         </Table>
 
@@ -117,7 +118,6 @@ const SummaryCloseWorkOrder = ({
                       <div>{followOnData.followOnTypeDescription}</div>
                     </>
                   }
-                  handleClick={changeStep}
                 />
 
                 {(followOnData.stockItemsRequired ||
@@ -149,21 +149,32 @@ const SummaryCloseWorkOrder = ({
                         )}
                       </>
                     }
-                    handleClick={changeStep}
                   />
                 )}
 
                 <TableRow
                   label="Additional notes"
                   value={followOnData.additionalNotes}
-                  handleClick={changeStep}
                 />
               </TBody>
             </Table>
           </>
         )}
 
-        <PrimarySubmitButton label="Confirm and close" />
+        <div style={{ margin: '30px 0 0 0', display: 'flex' }}>
+          {' '}
+          <PrimarySubmitButton
+            type="button"
+            isSecondary={true}
+            label="Go back and edit"
+            onClick={changeStep}
+            style={{ margin: '0' }}
+          />
+          <PrimarySubmitButton
+            label="Confirm and close"
+            style={{ margin: '-24px 0 0 15px' }}
+          />
+        </div>
       </form>
     </div>
   )
