@@ -133,7 +133,7 @@ const MobileWorkingWorkOrder = ({
               tenure={tenure}
             />
 
-            <MobileWorkingPhotoView photos={photos} />
+            {photos.length > 0 && <MobileWorkingPhotoView photos={photos} />}
 
             <MobileWorkingTasksAndSorsTable
               workOrderReference={workOrderReference}

@@ -96,6 +96,7 @@ describe('MobileWorkingWorkOrderDetails component', () => {
         property={props.property}
         workOrder={new WorkOrder(workOrderData)}
         tenure={props.tenure}
+        photos={[]}
       />
     )
     expect(asFragment()).toMatchSnapshot()
