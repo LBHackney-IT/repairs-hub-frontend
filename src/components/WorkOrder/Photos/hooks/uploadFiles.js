@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import validateFileUpload from './validateFileUpload'
 import imageCompression from 'browser-image-compression'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 
