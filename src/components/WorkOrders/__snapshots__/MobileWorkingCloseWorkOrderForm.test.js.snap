@@ -72,7 +72,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
         </div>
         <div>
           <h2
-            class="lbh-heading-h3"
+            class="govuk-heading-m"
           >
             Add photos
           </h2>
@@ -81,7 +81,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
           >
             <label
               class="govuk-label"
-              for="file-upload-1"
+              for="fileUpload"
               style="margin-top: 10px;"
             >
               Upload a photo (maximum 10)

@@ -24,11 +24,13 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setValidationError(validationResult)
     if (validationResult !== null) return
 
+    const description = e.target.description.value
+
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
-      '',
       'Uploaded directly to work order',
+      description,
       setLoadingStatus
     )
 

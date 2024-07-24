@@ -10,6 +10,7 @@ const ControlledFileInput = ({
   validationError,
   isLoading,
   register,
+  disabled = false,
 }) => {
   const inputRef = useRef()
 
@@ -31,14 +32,15 @@ const ControlledFileInput = ({
   return (
     <>
       <label
-        class="govuk-label"
-        for="file-upload-1"
+        className="govuk-label"
+        htmlFor="fileUpload"
         style={{ marginTop: '10px' }}
       >
         Upload a photo (maximum 10)
       </label>
       {validationError && <ErrorMessage label={validationError} />}
       <input
+        disabled={disabled}
         ref={inputRef}
         name="fileUpload"
         className={classNames('govuk-file-upload custom-file-input', {

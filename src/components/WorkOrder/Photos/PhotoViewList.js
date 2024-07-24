@@ -46,11 +46,8 @@ const UpdateDescriptionButton = ({ showForm, description }) => {
 
       <button
         type="button"
-        className="lbh-link"
+        className="lbh-link updateDescriptionButton"
         onClick={showForm}
-        style={{
-          marginTop: '15px',
-        }}
       >
         {groupHasDescription ? 'Edit' : 'Add'} description
       </button>
@@ -58,22 +55,45 @@ const UpdateDescriptionButton = ({ showForm, description }) => {
   )
 }
 
-const PhotoGroupView = ({ fileGroup }) => {
-  const { files: fileUrls, groupLabel, timestamp, uploadedBy } = fileGroup
+const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
+  const { register, handleSubmit, errors } = useForm()
+
+  const groupHasDescription = description !== null && description !== ''
 
   return (
-    <>
-      <div className="photoViewList-photoGroup">
-        <h3>{groupLabel}</h3>
+    <div className="govuk-grid-row">
+      <div className="govuk-grid-column-two-thirds">
+        <form
+          role="form"
+          id="description-form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <TextArea
+            name="description"
+            label="Description"
+            defaultValue={description ?? ''}
+            placeholder="Add a description..."
+            required={true}
+            register={register({
+              required: 'Please enter a note',
+            })}
+            error={errors && errors.description}
+          />
+          <input
+            id="fileGroupId"
+            name="fileGroupId"
+            label="fileGroupId"
+            type="hidden"
+            value={fileGroupId}
+            ref={register}
+          />
 
-        <div className="govuk-!-margin-0">
-          {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
-        </div>
+          <PrimarySubmitButton
+            label={`${groupHasDescription ? 'Save' : 'Add'} description`}
+          />
+        </form>
       </div>
-      <p className="govuk-!-margin-0">{uploadedBy}</p>
-
-      <PhotoListWithPreview fileUrls={fileUrls} />
-    </>
+    </div>
   )
 }
 
@@ -112,45 +132,22 @@ const PhotoGroupDescriptionForm = ({
   )
 }
 
-const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
-  const { register, handleSubmit, errors } = useForm()
-
-  const groupHasDescription = description !== null && description !== ''
+const PhotoGroupView = ({ fileGroup }) => {
+  const { files: fileUrls, groupLabel, timestamp, uploadedBy } = fileGroup
 
   return (
-    <div className="govuk-grid-row">
-      <div className="govuk-grid-column-two-thirds">
-        <form
-          role="form"
-          id="description-form"
-          onSubmit={handleSubmit(onSubmit)}
-        >
-          <TextArea
-            name="description"
-            label="Description"
-            defaultValue={description ?? ''}
-            placeholder="Add a description"
-            required={true}
-            register={register({
-              required: 'Please enter a note',
-            })}
-            error={errors && errors.description}
-          />
-          <input
-            id="fileGroupId"
-            name="fileGroupId"
-            label="fileGroupId"
-            type="hidden"
-            value={fileGroupId}
-            ref={register}
-          />
+    <>
+      <div className="photoViewList-photoGroup">
+        <h3>{groupLabel}</h3>
 
-          <PrimarySubmitButton
-            label={`${groupHasDescription ? 'Edit' : 'Add'} description`}
-          />
-        </form>
+        <div className="govuk-!-margin-0">
+          {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
+        </div>
       </div>
-    </div>
+      <p className="govuk-!-margin-top-1">{uploadedBy}</p>
+
+      <PhotoListWithPreview fileUrls={fileUrls} />
+    </>
   )
 }
 
