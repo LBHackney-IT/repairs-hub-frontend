@@ -4,6 +4,7 @@ import WorkOrdersHistoryView from '../Property/WorkOrdersHistory/WorkOrdersHisto
 import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
+import PhotosTab from '../WorkOrder/Photos/PhotosTab'
 
 const Tabs = ({
   tabsList,
@@ -59,6 +60,13 @@ const Tabs = ({
       case 'pending-variation-tab':
         return (
           <VariationSummaryTab
+            workOrderReference={workOrderReference}
+            tabName={tabName}
+          />
+        )
+      case 'photos-tab':
+        return (
+          <PhotosTab
             workOrderReference={workOrderReference}
             tabName={tabName}
           />

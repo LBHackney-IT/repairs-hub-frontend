@@ -25,6 +25,8 @@ describe('SummaryCloseWorkOrder component', () => {
         changeStep={props.changeStep}
         operativeNames={props.operatives}
         paymentType={'Overtime'}
+        files={[]}
+        description=""
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -40,6 +42,8 @@ describe('SummaryCloseWorkOrder component', () => {
         reason={props.reason}
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
+        files={[]}
+        description=""
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -77,6 +81,8 @@ describe('SummaryCloseWorkOrder component', () => {
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
         followOnData={followOnData}
+        files={[]}
+        description=""
       />
     )
     expect(asFragment()).toMatchSnapshot()
@@ -113,6 +119,8 @@ describe('SummaryCloseWorkOrder component', () => {
         onJobSubmit={props.onJobSubmit}
         changeStep={props.changeStep}
         followOnData={followOnData}
+        files={[]}
+        description=""
       />
     )
     expect(asFragment()).toMatchSnapshot()

@@ -11,6 +11,9 @@ provider:
   lambdaHashingVersion: 20201221
   apiGateway:
     shouldStartNameWithService: true
+    binaryMediaTypes:
+      - image/jpg
+      - multipart/form-data
 
 package:
   individually: true
@@ -44,6 +47,7 @@ functions:
       securityGroupIds: ${self:custom.securityGroups.${self:provider.stage}}
       subnetIds: ${self:custom.subnets.${self:provider.stage}}
     environment:
+      S3_BUCKET_NAME: repairs-api-images-${self:provider.stage}
       AGENTS_GOOGLE_GROUPNAME_REGEX: ${ssm:/repairs-hub/${self:provider.stage}/agents-group-regex}
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
       BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/budget-code-officer-group}

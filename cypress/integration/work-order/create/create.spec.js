@@ -188,7 +188,7 @@ describe('Raise repair form', () => {
     })
   })
 
-  it.only('Shows address, tenure, alerts and property contact information', () => {
+  it('Shows address, tenure, alerts and property contact information', () => {
     cy.loginWithAgentRole()
 
     cy.visit('/properties/00012345/raise-repair/new')

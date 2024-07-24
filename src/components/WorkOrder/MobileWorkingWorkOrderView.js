@@ -19,6 +19,7 @@ import {
   workOrderNoteFragmentForPaymentType,
 } from '@/utils/paymentTypes'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
+import uploadFiles from './Photos/hooks/uploadFiles'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -28,7 +29,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
-  const [loading, setLoading] = useState(false)
+  const [photos, setPhotos] = useState([])
+  const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
@@ -59,6 +61,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: '/api/hub-user',
       })
 
+      const photos = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/images/${workOrderReference}`,
+      })
+
+      setPhotos(photos)
       setCurrentUser(currentUser)
 
       setTasksAndSors(
@@ -71,6 +79,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       setWorkOrder(null)
       setProperty(null)
+      setPhotos(null)
       console.error('An error has occured:', e.response)
 
       if (e.response?.status === 404) {
@@ -84,11 +93,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       }
     }
 
-    setLoading(false)
+    setLoadingStatus(null)
   }
 
   useEffect(() => {
-    setLoading(true)
+    setLoadingStatus('Loading workorder')
 
     getWorkOrderView(workOrderReference)
   }, [])
@@ -119,8 +128,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
   }
 
-  const onWorkOrderCompleteSubmit = async (data) => {
-    setLoading(true)
+  const onWorkOrderCompleteSubmit = async (data, files) => {
+    setLoadingStatus('Completing workorder')
 
     let followOnRequest = null
 
@@ -158,6 +167,22 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
+      if (files.length > 0) {
+        const description = data.description
+
+        const uploadResult = await uploadFiles(
+          files,
+          workOrderReference,
+          'Closing work order',
+          description,
+          (value) => setLoadingStatus(value)
+        )
+
+        if (!uploadResult.success) throw uploadResult.requestError
+
+        setLoadingStatus('Completing workorder')
+      }
+
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
@@ -176,14 +201,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
-      setLoading(false)
+      setLoadingStatus(null)
     }
   }
 
   return (
     <>
-      {loading ? (
-        <Spinner />
+      {loadingStatus ? (
+        <div
+          className="govuk-body"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
+          <Spinner />
+          <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
+        </div>
       ) : (
         <>
           {!workOrderProgressedToClose &&
@@ -203,6 +234,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
                   onFormSubmit={onWorkOrderProgressToCloseSubmit}
                   currentUserPayrollNumber={currentUser.operativePayrollNumber}
                   paymentType={paymentType}
+                  photos={photos}
                 />
               </>
             )}
@@ -210,6 +242,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           {workOrderProgressedToClose && (
             <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
+              isLoading={loadingStatus !== null}
             />
           )}
 
