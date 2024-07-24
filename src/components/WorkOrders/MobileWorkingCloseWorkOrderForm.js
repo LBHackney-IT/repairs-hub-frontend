@@ -75,7 +75,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             />
 
             <div>
-              <h2 class="lbh-heading-h3">Add photos</h2>
+              <h2 class="govuk-heading-m">Add photos</h2>
 
               <div class="govuk-form-group">
                 <ControlledFileInput
@@ -92,6 +92,17 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
                     },
                   })}
                 />
+
+                {files.length > 0 && (
+                  <div style={{ marginBottom: '60px', marginTop: '15px' }}>
+                    <TextArea
+                      name="description"
+                      label="Photo description"
+                      placeholder="Write a description..."
+                      register={register}
+                    />
+                  </div>
+                )}
               </div>
             </div>
 

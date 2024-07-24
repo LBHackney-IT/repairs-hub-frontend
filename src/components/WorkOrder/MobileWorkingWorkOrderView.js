@@ -168,10 +168,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     try {
       if (files.length > 0) {
+        const description = data.description
+
         const uploadResult = await uploadFiles(
           files,
           workOrderReference,
           'Closing work order',
+          description,
           (value) => setLoadingStatus(value)
         )
 

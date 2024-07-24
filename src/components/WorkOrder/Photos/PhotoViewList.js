@@ -46,11 +46,8 @@ const UpdateDescriptionButton = ({ showForm, description }) => {
 
       <button
         type="button"
-        className="lbh-link"
+        className="lbh-link updateDescriptionButton"
         onClick={showForm}
-        style={{
-          marginTop: '15px',
-        }}
       >
         {groupHasDescription ? 'Edit' : 'Add'} description
       </button>
@@ -75,7 +72,7 @@ const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
             name="description"
             label="Description"
             defaultValue={description ?? ''}
-            placeholder="Add a description"
+            placeholder="Add a description..."
             required={true}
             register={register({
               required: 'Please enter a note',
@@ -92,7 +89,7 @@ const UpdateDescriptionForm = ({ description, onSubmit, fileGroupId }) => {
           />
 
           <PrimarySubmitButton
-            label={`${groupHasDescription ? 'Edit' : 'Add'} description`}
+            label={`${groupHasDescription ? 'Save' : 'Add'} description`}
           />
         </form>
       </div>
@@ -147,7 +144,7 @@ const PhotoGroupView = ({ fileGroup }) => {
           {format(new Date(timestamp), 'dd LLLL yyyy, HH:mm')}
         </div>
       </div>
-      <p className="govuk-!-margin-0">{uploadedBy}</p>
+      <p className="govuk-!-margin-top-1">{uploadedBy}</p>
 
       <PhotoProvider>
         <div className="photoViewList-photoGroupContainer">

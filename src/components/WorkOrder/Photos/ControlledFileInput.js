@@ -10,6 +10,7 @@ const ControlledFileInput = ({
   validationError,
   isLoading,
   register,
+  disabled = false,
 }) => {
   const inputRef = useRef()
 
@@ -39,6 +40,7 @@ const ControlledFileInput = ({
       </label>
       {validationError && <ErrorMessage label={validationError} />}
       <input
+        disabled={disabled}
         ref={inputRef}
         name="fileUpload"
         className={classNames('govuk-file-upload custom-file-input', {

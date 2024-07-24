@@ -6,6 +6,7 @@ const uploadFiles = async (
   files,
   workOrderReference,
   uploadGroupLabel,
+  description,
   setLoadingStatus = null
 ) => {
   if (setLoadingStatus !== null) {
@@ -53,7 +54,8 @@ const uploadFiles = async (
   const completeUploadResult = await completeUpload(
     workOrderReference,
     presignedUrls.map((x) => x.key),
-    uploadGroupLabel
+    uploadGroupLabel,
+    description
   )
 
   if (!completeUploadResult.success) {
@@ -70,7 +72,12 @@ const uploadFiles = async (
   }
 }
 
-const completeUpload = async (workOrderReference, s3Keys, uploadGroupLabel) => {
+const completeUpload = async (
+  workOrderReference,
+  s3Keys,
+  uploadGroupLabel,
+  description
+) => {
   try {
     const result = await frontEndApiRequest({
       method: 'post',
@@ -79,6 +86,7 @@ const completeUpload = async (workOrderReference, s3Keys, uploadGroupLabel) => {
         workOrderReference: workOrderReference,
         s3Objects: s3Keys,
         uploadGroupLabel,
+        description,
       },
     })
 

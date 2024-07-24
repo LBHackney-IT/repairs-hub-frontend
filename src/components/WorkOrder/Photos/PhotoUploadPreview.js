@@ -15,6 +15,7 @@ const PhotoUploadPreview = ({ files, setFiles, disabled = false }) => {
           <button
             className="photoUploadPreview-removeButton"
             type="button"
+            disabled={disabled}
             onClick={() => {
               if (disabled) return
 
