@@ -32,20 +32,9 @@ exports[`SummaryCloseWorkOrder component does not show rows for operatives and p
               Start time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -58,20 +47,9 @@ exports[`SummaryCloseWorkOrder component does not show rows for operatives and p
               Completion time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -84,20 +62,9 @@ exports[`SummaryCloseWorkOrder component does not show rows for operatives and p
               Reason
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               No Access
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -110,34 +77,58 @@ exports[`SummaryCloseWorkOrder component does not show rows for operatives and p
               Notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
             >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
+              Photos
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              <div
+                class="photoViewList-photoGroupContainer"
+              />
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="margin: 30px 0px 0px 0px; display: flex;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+         
+        <div
+          class="govuk-form-group lbh-form-group"
         >
-          Confirm and close
-        </button>
+          <button
+            class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+            data-module="govuk-button"
+            style="margin: 0px;"
+            type="button"
+          >
+            Go back and edit
+          </button>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            style="margin: -24px 0px 0px 15px;"
+            type="submit"
+          >
+            Confirm and close
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -176,20 +167,9 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Start time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -202,20 +182,9 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Completion time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -228,20 +197,9 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Reason
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               No Access
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -254,20 +212,26 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
             >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
+              Photos
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              <div
+                class="photoViewList-photoGroupContainer"
+              />
             </td>
           </tr>
         </tbody>
@@ -293,7 +257,7 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Type of work required
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               <ul>
                 <li
@@ -316,17 +280,6 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
               </div>
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
-            </td>
           </tr>
           <tr
             class="govuk-table__row"
@@ -338,7 +291,7 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Materials required
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               <ul>
                 <li
@@ -356,17 +309,6 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
               </p>
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
-            </td>
           </tr>
           <tr
             class="govuk-table__row"
@@ -378,34 +320,41 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               Additional notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="margin: 30px 0px 0px 0px; display: flex;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+         
+        <div
+          class="govuk-form-group lbh-form-group"
         >
-          Confirm and close
-        </button>
+          <button
+            class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+            data-module="govuk-button"
+            style="margin: 0px;"
+            type="button"
+          >
+            Go back and edit
+          </button>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            style="margin: -24px 0px 0px 15px;"
+            type="submit"
+          >
+            Confirm and close
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -444,20 +393,9 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Start time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -470,20 +408,9 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Completion time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -496,20 +423,9 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Reason
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               No Access
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -522,20 +438,26 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
             >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
+              Photos
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              <div
+                class="photoViewList-photoGroupContainer"
+              />
             </td>
           </tr>
         </tbody>
@@ -561,7 +483,7 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Type of work required
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               <ul>
                 <li
@@ -584,17 +506,6 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
               </div>
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
-            </td>
           </tr>
           <tr
             class="govuk-table__row"
@@ -606,34 +517,41 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               Additional notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="margin: 30px 0px 0px 0px; display: flex;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+         
+        <div
+          class="govuk-form-group lbh-form-group"
         >
-          Confirm and close
-        </button>
+          <button
+            class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+            data-module="govuk-button"
+            style="margin: 0px;"
+            type="button"
+          >
+            Go back and edit
+          </button>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            style="margin: -24px 0px 0px 15px;"
+            type="submit"
+          >
+            Confirm and close
+          </button>
+        </div>
       </div>
     </form>
   </div>
@@ -672,20 +590,9 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Start time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -698,20 +605,9 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Completion time
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               2021/02/03 11:33:35
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -724,20 +620,9 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Payment type
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               Overtime work order
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -750,20 +635,9 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Operatives
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               Operative A, Operative B
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -776,20 +650,9 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Reason
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               No Access
-            </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
-            >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
             </td>
           </tr>
           <tr
@@ -802,34 +665,58 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               Notes
             </th>
             <td
-              class="govuk-table__cell govuk-!-width-two-quarters"
+              class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
             </td>
-            <td
-              class="govuk-table__cell govuk-!-width-one-quarter"
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
             >
-              <a
-                class="lbh-link"
-                href="#"
-                style="text-align: right; display: block;"
-              >
-                Edit
-              </a>
+              Photos
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              <div
+                class="photoViewList-photoGroupContainer"
+              />
             </td>
           </tr>
         </tbody>
       </table>
       <div
-        class="govuk-form-group lbh-form-group"
+        style="margin: 30px 0px 0px 0px; display: flex;"
       >
-        <button
-          class="govuk-button lbh-button"
-          data-module="govuk-button"
-          type="submit"
+         
+        <div
+          class="govuk-form-group lbh-form-group"
         >
-          Confirm and close
-        </button>
+          <button
+            class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+            data-module="govuk-button"
+            style="margin: 0px;"
+            type="button"
+          >
+            Go back and edit
+          </button>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            style="margin: -24px 0px 0px 15px;"
+            type="submit"
+          >
+            Confirm and close
+          </button>
+        </div>
       </div>
     </form>
   </div>

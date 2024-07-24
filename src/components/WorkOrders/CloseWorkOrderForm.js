@@ -18,6 +18,8 @@ import { useEffect, useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
+import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
+import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -39,6 +41,9 @@ const CloseWorkOrderForm = ({
   reason,
   followOnStatus,
   followOnData,
+  isLoading,
+  defaultFiles,
+  description,
 }) => {
   const {
     handleSubmit,
@@ -77,12 +82,17 @@ const CloseWorkOrderForm = ({
     }
   }, [followOnStatusWatchedValue])
 
+  const [files, setFiles] = useState(defaultFiles ?? [])
+
   return (
     <div>
       <BackButton />
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
-      <form role="form" onSubmit={handleSubmit(onSubmit)}>
+      <form
+        role="form"
+        onSubmit={handleSubmit((data) => onSubmit(data, files))}
+      >
         <CloseWorkOrderFormReasonForClosing
           register={register}
           errors={errors}
@@ -90,7 +100,39 @@ const CloseWorkOrderForm = ({
           reason={reason}
           followOnData={followOnData}
           followOnStatus={followOnStatus}
+          includeFollowOnOptions={false}
         />
+
+        <div>
+          <h2 class="govuk-heading-m">Add photos</h2>
+
+          <div class="govuk-form-group">
+            <ControlledFileInput
+              files={files}
+              setFiles={setFiles}
+              validationError={errors?.fileUpload?.message}
+              isLoading={isLoading}
+              register={register('fileUpload', {
+                validate: () => {
+                  const validation = validateFileUpload(files)
+
+                  if (validation === null) return true
+                  return validation
+                },
+              })}
+            />
+          </div>
+
+          {files.length > 0 && (
+            <TextArea
+              name="description"
+              label="Description"
+              register={register}
+              error={errors && errors.description}
+              defaultValue={description}
+            />
+          )}
+        </div>
 
         {showFurtherWorkFields && (
           <>

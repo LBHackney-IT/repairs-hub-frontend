@@ -29,6 +29,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
+      '',
       'Uploaded directly to work order',
       description,
       setLoadingStatus
