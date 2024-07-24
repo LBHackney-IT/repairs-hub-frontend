@@ -19,18 +19,24 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
       <form onSubmit={handleSubmit} className="govuk-!-margin-0">
         <div>
           {uploadSuccess && (
-            <section class="lbh-page-announcement govuk-!-margin-top-3">
-              <h3 class="lbh-page-announcement__title">Upload successful</h3>
-              <div class="lbh-page-announcement__content">{uploadSuccess}</div>
+            <section className="lbh-page-announcement govuk-!-margin-top-3">
+              <h3 className="lbh-page-announcement__title">
+                Upload successful
+              </h3>
+              <div className="lbh-page-announcement__content">
+                {uploadSuccess}
+              </div>
             </section>
           )}
 
           {requestError && (
-            <section class="lbh-page-announcement lbh-page-announcement--warning">
-              <h3 class="lbh-pageW-announcement__title">
+            <section className="lbh-page-announcement lbh-page-announcement--warning">
+              <h3 className="lbh-pageW-announcement__title">
                 Failed to upload files
               </h3>
-              <div class="lbh-page-announcement__content">{requestError}</div>
+              <div className="lbh-page-announcement__content">
+                {requestError}
+              </div>
             </section>
           )}
 

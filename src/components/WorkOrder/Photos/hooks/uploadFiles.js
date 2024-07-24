@@ -87,7 +87,6 @@ const completeUpload = async (
         s3Objects,
         description,
         uploadGroupLabel,
-        description,
       },
     })
 

@@ -104,9 +104,9 @@ const CloseWorkOrderForm = ({
         />
 
         <div>
-          <h2 class="govuk-heading-m">Add photos</h2>
+          <h2 className="govuk-heading-m">Add photos</h2>
 
-          <div class="govuk-form-group">
+          <div className="govuk-form-group">
             <ControlledFileInput
               files={files}
               setFiles={setFiles}
@@ -126,7 +126,7 @@ const CloseWorkOrderForm = ({
           {files.length > 0 && (
             <TextArea
               name="description"
-              label="Description"
+              label="Photo description"
               register={register}
               error={errors && errors.description}
               defaultValue={description}

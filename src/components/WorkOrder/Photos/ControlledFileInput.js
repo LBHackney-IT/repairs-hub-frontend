@@ -32,8 +32,8 @@ const ControlledFileInput = ({
   return (
     <>
       <label
-        class="govuk-label"
-        for="file-upload-1"
+        className="govuk-label"
+        htmlFor="fileUpload"
         style={{ marginTop: '10px' }}
       >
         Upload a photo (maximum 10)
