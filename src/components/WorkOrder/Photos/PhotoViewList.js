@@ -147,18 +147,6 @@ const PhotoGroupView = ({ fileGroup }) => {
       <p className="govuk-!-margin-top-1">{uploadedBy}</p>
 
       <PhotoListWithPreview fileUrls={fileUrls} />
-
-      {/* <PhotoProvider>
-        <div className="photoViewList-photoGroupContainer">
-          {fileUrls.map((x) => (
-            <div className="photoViewList-photoGroupItem">
-              <PhotoView src={x}>
-                <img src={x} style={{ width: 'auto', height: '150px' }} />
-              </PhotoView>
-            </div>
-          ))}
-        </div>
-      </PhotoProvider> */}
     </>
   )
 }
