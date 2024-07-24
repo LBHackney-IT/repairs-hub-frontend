@@ -72,7 +72,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
         </div>
         <div>
           <h2
-            class="lbh-heading-h3"
+            class="govuk-heading-m"
           >
             Add photos
           </h2>
