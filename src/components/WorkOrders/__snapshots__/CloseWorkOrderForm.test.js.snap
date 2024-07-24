@@ -48,10 +48,6 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             </label>
           </div>
           <div
-            class="govuk-radios__conditional"
-            id="conditional-contact"
-          />
-          <div
             class="govuk-radios__item"
           >
             <input
@@ -70,6 +66,32 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
               No access
             </label>
           </div>
+        </div>
+      </div>
+      <div>
+        <h2
+          class="govuk-heading-m"
+        >
+          Add photos
+        </h2>
+        <div
+          class="govuk-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="file-upload-1"
+            style="margin-top: 10px;"
+          >
+            Upload a photo (maximum 10)
+          </label>
+          <input
+            accept=".jpg, .jpeg, .png"
+            class="govuk-file-upload custom-file-input"
+            multiple=""
+            name="fileUpload"
+            style="margin-top: 10px;"
+            type="file"
+          />
         </div>
       </div>
       <div
@@ -615,10 +637,6 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             </label>
           </div>
           <div
-            class="govuk-radios__conditional"
-            id="conditional-contact"
-          />
-          <div
             class="govuk-radios__item"
           >
             <input
@@ -637,6 +655,32 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               No access
             </label>
           </div>
+        </div>
+      </div>
+      <div>
+        <h2
+          class="govuk-heading-m"
+        >
+          Add photos
+        </h2>
+        <div
+          class="govuk-form-group"
+        >
+          <label
+            class="govuk-label"
+            for="file-upload-1"
+            style="margin-top: 10px;"
+          >
+            Upload a photo (maximum 10)
+          </label>
+          <input
+            accept=".jpg, .jpeg, .png"
+            class="govuk-file-upload custom-file-input"
+            multiple=""
+            name="fileUpload"
+            style="margin-top: 10px;"
+            type="file"
+          />
         </div>
       </div>
       <div
