@@ -33,7 +33,7 @@ const ControlledFileInput = ({
     <>
       <label
         className="govuk-label"
-        htmlFor="fileUpload"
+        for="fileUpload"
         style={{ marginTop: '10px' }}
       >
         Upload a photo (maximum 10)
@@ -43,6 +43,7 @@ const ControlledFileInput = ({
         disabled={disabled}
         ref={inputRef}
         name="fileUpload"
+        id="fileUpload"
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}
