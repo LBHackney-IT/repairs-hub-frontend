@@ -632,7 +632,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/10000621' },
         { body: [] }
-      ).as('photos')
+      ).as('photosRequest')
 
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000621/tasks' },

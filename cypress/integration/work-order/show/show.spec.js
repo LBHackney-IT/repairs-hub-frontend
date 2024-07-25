@@ -91,7 +91,6 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
-        // '@photos',
       ])
 
       cy.get('.lbh-heading-h1').within(() => {
@@ -202,7 +201,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -228,7 +226,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -255,7 +252,6 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
-            // '@photos',
           ])
 
           cy.get('.appointment-details').within(() => {
@@ -358,7 +354,7 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
-          // '@photos'
+          // '@photosRequest'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
@@ -383,7 +379,7 @@ describe('Show work order page', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/10000621' },
         { body: [] }
-      ).as('photos')
+      ).as('photosRequest')
 
       cy.intercept(
         {
@@ -429,7 +425,7 @@ describe('Show work order page', () => {
         '@task',
         '@locationAlerts',
         '@personAlerts',
-        '@photos',
+        '@photosRequest',
       ])
 
       cy.contains('WO 10000621')
@@ -471,7 +467,7 @@ describe('Show work order page', () => {
     it('shows links to expand description text, if text is more than 3 lines', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
-      cy.wait(['@operativesWorkOrder', '@property', '@task', '@photos'])
+      cy.wait(['@operativesWorkOrder', '@property', '@task', '@photosRequest'])
       cy.contains('WO 10000621')
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)
