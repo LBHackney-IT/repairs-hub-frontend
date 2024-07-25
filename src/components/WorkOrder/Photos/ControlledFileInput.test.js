@@ -2,12 +2,9 @@ import { render } from '@testing-library/react'
 import ControlledFileInput from './ControlledFileInput'
 import { mockFile } from './helpers'
 
-jest.mock(
-  './hooks/useUpdateFileInput',
-  jest.fn((files, inputRef) => {
-    inputRef.current.value = ''
-  })
-)
+jest.mock('./hooks/useUpdateFileInput', (files, inputRef) => {
+  inputRef.current.value = ''
+})
 
 describe('ControlledFileInput component', () => {
   beforeAll(() => {
