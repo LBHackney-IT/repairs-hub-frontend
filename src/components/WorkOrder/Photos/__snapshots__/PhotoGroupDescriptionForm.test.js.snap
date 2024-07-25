@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescriptionFormonButton component with description 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <form
+        id="description-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="description-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="description"
+          >
+            Description 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="description-hint description-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="description"
+            id="description"
+            name="description"
+            placeholder="Add a description..."
+            rows="4"
+          >
+            Some description
+          </textarea>
+        </div>
+        <input
+          id="fileGroupId"
+          label="fileGroupId"
+          name="fileGroupId"
+          type="hidden"
+          value="1"
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Save description
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescriptionFormonButton component with no description 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-grid-row"
+  >
+    <div
+      class="govuk-grid-column-two-thirds"
+    >
+      <form
+        id="description-form"
+        role="form"
+      >
+        <div
+          class="govuk-form-group lbh-form-group"
+          id="description-form-group"
+        >
+          <label
+            class="govuk-label lbh-label"
+            for="description"
+          >
+            Description 
+            <span
+              class="govuk-required"
+            >
+              *
+            </span>
+          </label>
+          <textarea
+            aria-describedby="description-hint description-error"
+            class="govuk-textarea lbh-textarea"
+            data-testid="description"
+            id="description"
+            name="description"
+            placeholder="Add a description..."
+            rows="4"
+          />
+        </div>
+        <input
+          id="fileGroupId"
+          label="fileGroupId"
+          name="fileGroupId"
+          type="hidden"
+          value="1"
+        />
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            type="submit"
+          >
+            Add description
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UpdateDescriptionButton component renders UpdateDescriptionButton component with description 1`] = `
+<DocumentFragment>
+  <div
+    class="display-inline"
+  >
+    <p
+      style="color: rgb(102, 102, 102); margin-top: 15px;"
+    >
+      Some description
+    </p>
+    <button
+      class="lbh-link updateDescriptionButton"
+      type="button"
+    >
+      Edit description
+    </button>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`UpdateDescriptionButton component renders UpdateDescriptionButton component with no description 1`] = `
+<DocumentFragment>
+  <div
+    class="display-inline"
+  >
+    <button
+      class="lbh-link updateDescriptionButton"
+      type="button"
+    >
+      Add description
+    </button>
+  </div>
+</DocumentFragment>
+`;
