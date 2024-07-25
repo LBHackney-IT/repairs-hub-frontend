@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
+import useUpdateFileInput from './hooks/useUpdateFileInput'
 
 const ControlledFileInput = ({
   files,
@@ -14,20 +15,8 @@ const ControlledFileInput = ({
 }) => {
   const inputRef = useRef()
 
-  useEffect(() => {
-    if (files.length === 0) {
-      inputRef.current.value = ''
-      return
-    }
-
-    const dataTransfer = new DataTransfer()
-
-    files.forEach((file) => {
-      dataTransfer.items.add(file)
-    })
-
-    inputRef.current.files = dataTransfer.files
-  }, [files])
+  // extracted to enable mocking
+  useUpdateFileInput(files, inputRef)
 
   return (
     <>
@@ -43,6 +32,7 @@ const ControlledFileInput = ({
         disabled={disabled}
         ref={inputRef}
         name="fileUpload"
+        data-testid="fileUploadInput"
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}

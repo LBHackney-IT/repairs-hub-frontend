@@ -4,7 +4,7 @@ import { PAYMENT_TYPE_FORM_DESCRIPTIONS } from '@/utils/paymentTypes'
 import { PrimarySubmitButton } from '../Form'
 import { Table, TBody, TR, TH, TD } from '../Layout/Table'
 import dayjs from 'dayjs'
-import { PhotoListWithPreview } from '../WorkOrder/Photos/PhotoViewList'
+import PhotoListWithPreview from '../WorkOrder/Photos/PhotoListWithPreview'
 
 const TableRow = (props) => {
   const { label, value } = props
@@ -69,20 +69,22 @@ const SummaryCloseWorkOrder = ({
 
             <TableRow label="Notes" value={notes} />
 
-            <TableRow
-              label="Photos"
-              value={
-                <>
-                  <PhotoListWithPreview
-                    fileUrls={files.map((x) => URL.createObjectURL(x))}
-                  />
+            {files instanceof Array && files.length > 0 && (
+              <TableRow
+                label="Photos"
+                value={
+                  <>
+                    <PhotoListWithPreview
+                      fileUrls={files.map((x) => URL.createObjectURL(x))}
+                    />
 
-                  {description !== '' && description !== null && (
-                    <p>{description}</p>
-                  )}
-                </>
-              }
-            />
+                    {description !== '' && description !== null && (
+                      <p>{description}</p>
+                    )}
+                  </>
+                }
+              />
+            )}
           </TBody>
         </Table>
 
@@ -189,6 +191,8 @@ SummaryCloseWorkOrder.propTypes = {
   changeStep: PropTypes.func.isRequired,
   reason: PropTypes.string.isRequired,
   paymentType: PropTypes.string,
+  description: PropTypes.string,
+  files: PropTypes.array,
 }
 
 export default SummaryCloseWorkOrder

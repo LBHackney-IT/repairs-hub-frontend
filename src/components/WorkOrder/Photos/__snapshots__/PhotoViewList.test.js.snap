@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoViewList component renders edit description form 1`] = `
+<DocumentFragment>
+  <ul
+    class="lbh-body-s photoViewList-ul"
+  >
+    <li
+      class="photoViewList-li"
+      data-testid="fileGroup-153"
+    >
+      <hr
+        class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+      />
+      <div
+        class="photoViewList-photoGroup"
+      >
+        <h3>
+          Closing work order
+        </h3>
+        <div
+          class="govuk-!-margin-0"
+        >
+          21 Aug 2024, 13:21
+        </div>
+      </div>
+      <p
+        class="govuk-!-margin-top-1"
+      >
+        Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)
+      </p>
+      <div
+        class="photoViewList-photoGroupContainer"
+      >
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_3.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_2.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+      </div>
+      <div
+        class="display-inline"
+      >
+        <button
+          class="lbh-link updateDescriptionButton"
+          type="button"
+        >
+          Add description
+        </button>
+      </div>
+    </li>
+    <li
+      class="photoViewList-li"
+      data-testid="fileGroup-152"
+    >
+      <hr
+        class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+      />
+      <div
+        class="photoViewList-photoGroup"
+      >
+        <h3>
+          Uploaded directly to work order
+        </h3>
+        <div
+          class="govuk-!-margin-0"
+        >
+          25 Jul 2024, 06:30
+        </div>
+      </div>
+      <p
+        class="govuk-!-margin-top-1"
+      >
+        Uploaded by Test Test (test.test@hackney.gov.uk)
+      </p>
+      <div
+        class="photoViewList-photoGroupContainer"
+      >
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_1.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_2.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_3.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+      </div>
+      <div
+        class="display-inline"
+      >
+        <p
+          style="color: rgb(102, 102, 102); margin-top: 15px;"
+        >
+          Some description
+        </p>
+        <button
+          class="lbh-link updateDescriptionButton"
+          type="button"
+        >
+          Edit description
+        </button>
+      </div>
+    </li>
+  </ul>
+  <hr
+    class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+  />
+</DocumentFragment>
+`;
+
+exports[`PhotoViewList component renders list of photos 1`] = `
+<DocumentFragment>
+  <ul
+    class="lbh-body-s photoViewList-ul"
+  >
+    <li
+      class="photoViewList-li"
+      data-testid="fileGroup-153"
+    >
+      <hr
+        class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+      />
+      <div
+        class="photoViewList-photoGroup"
+      >
+        <h3>
+          Closing work order
+        </h3>
+        <div
+          class="govuk-!-margin-0"
+        >
+          21 Aug 2024, 13:21
+        </div>
+      </div>
+      <p
+        class="govuk-!-margin-top-1"
+      >
+        Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)
+      </p>
+      <div
+        class="photoViewList-photoGroupContainer"
+      >
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_3.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_2.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+      </div>
+    </li>
+    <li
+      class="photoViewList-li"
+      data-testid="fileGroup-152"
+    >
+      <hr
+        class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+      />
+      <div
+        class="photoViewList-photoGroup"
+      >
+        <h3>
+          Uploaded directly to work order
+        </h3>
+        <div
+          class="govuk-!-margin-0"
+        >
+          25 Jul 2024, 06:30
+        </div>
+      </div>
+      <p
+        class="govuk-!-margin-top-1"
+      >
+        Uploaded by Test Test (test.test@hackney.gov.uk)
+      </p>
+      <div
+        class="photoViewList-photoGroupContainer"
+      >
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_1.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_2.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+        <div
+          class="photoViewList-photoGroupItem"
+        >
+          <img
+            src="/mockfilepath/photo_3.jpg"
+            style="width: auto; height: 150px;"
+          />
+        </div>
+      </div>
+    </li>
+  </ul>
+  <hr
+    class="govuk-section-break govuk-section-break--visible photoViewList-hr"
+  />
+</DocumentFragment>
+`;
+
+exports[`PhotoViewList component renders nothing when photos are null 1`] = `<DocumentFragment />`;
