@@ -21,7 +21,7 @@ exports[`PhotoViewList component renders edit description form 1`] = `
         <div
           class="govuk-!-margin-0"
         >
-          21 August 2024, 14:21
+          21 Aug 2024, 13:21
         </div>
       </div>
       <p
@@ -76,7 +76,7 @@ exports[`PhotoViewList component renders edit description form 1`] = `
         <div
           class="govuk-!-margin-0"
         >
-          25 July 2024, 07:30
+          25 Jul 2024, 06:30
         </div>
       </div>
       <p
@@ -156,7 +156,7 @@ exports[`PhotoViewList component renders list of photos 1`] = `
         <div
           class="govuk-!-margin-0"
         >
-          21 August 2024, 14:21
+          21 Aug 2024, 13:21
         </div>
       </div>
       <p
@@ -201,7 +201,7 @@ exports[`PhotoViewList component renders list of photos 1`] = `
         <div
           class="govuk-!-margin-0"
         >
-          25 July 2024, 07:30
+          25 Jul 2024, 06:30
         </div>
       </div>
       <p

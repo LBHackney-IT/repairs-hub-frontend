@@ -1,13 +1,10 @@
-import { format } from 'date-fns'
 import PhotoListWithPreview from './PhotoListWithPreview'
 import PhotoGroupDescriptionForm from './PhotoGroupDescriptionForm'
+import { formatDateTime } from '@/root/src/utils/time'
 
 const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
   // in case of error
   if (photos === null) return null
-
-  const dateFormatOptions = { timeZone: 'UTC' }
-  // process.env.NODE_ENV === 'test' ? { timeZone: 'UTC' } : {}
 
   return (
     <>
@@ -25,11 +22,7 @@ const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
                 <h3>{fileGroup.groupLabel}</h3>
 
                 <div className="govuk-!-margin-0">
-                  {format(
-                    new Date(fileGroup.timestamp),
-                    'dd LLLL yyyy, HH:mm',
-                    dateFormatOptions
-                  )}
+                  {formatDateTime(fileGroup.timestamp)}
                 </div>
               </div>
               <p className="govuk-!-margin-top-1">{fileGroup.uploadedBy}</p>
