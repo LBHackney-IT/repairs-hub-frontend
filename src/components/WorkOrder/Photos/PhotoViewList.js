@@ -14,7 +14,11 @@ const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
       <ul className="lbh-body-s photoViewList-ul">
         {photos.map((fileGroup) => {
           return (
-            <li key={fileGroup.id} className="photoViewList-li">
+            <li
+              key={fileGroup.id}
+              className="photoViewList-li"
+              data-testid={`fileGroup-${fileGroup.id}`}
+            >
               <hr className="govuk-section-break govuk-section-break--visible photoViewList-hr" />
               <PhotoGroupView fileGroup={fileGroup} />
 

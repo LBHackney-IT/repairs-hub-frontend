@@ -43,6 +43,7 @@ const ControlledFileInput = ({
         disabled={disabled}
         ref={inputRef}
         name="fileUpload"
+        data-testid="fileUploadInput"
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}
