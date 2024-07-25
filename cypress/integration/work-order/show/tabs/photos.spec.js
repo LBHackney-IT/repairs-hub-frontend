@@ -229,4 +229,5 @@ describe('Photos', () => {
 
     cy.contains('Upload successful')
     cy.contains('1 photo has been added to the workOrder')
+  })
 })
