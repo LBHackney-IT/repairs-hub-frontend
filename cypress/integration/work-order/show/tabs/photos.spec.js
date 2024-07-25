@@ -118,7 +118,34 @@ describe('Photos', () => {
 
     cy.get('a[id="tab_photos-tab"]').click()
 
-    cy.get('input[type="file"]').selectFile('photos/photo_1.jpg')
+    // 1. invalid file type
+
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.txt',
+      mimeType: 'text/plain',
+      lastModified: Date.now(),
+    })
+
+    cy.get('button').contains('Upload').click()
+    // should contain error message
+    cy.contains(`Unsupported file type "text/plain". Allowed types: PNG & JPG`)
+    cy.get('a[id="tab_photos-tab"]').then((x) =>
+      x.hasClass('govuk-form-group--error')
+    )
+
+    // 2. too many files
+
+    cy.get('input[type="file"]').selectFile(
+      Array(11).fill({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+    )
+
+    cy.get('button').contains('Upload').click()
   })
 
   // it('Fill out notes form and update the work order status', () => {
