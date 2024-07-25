@@ -1,5 +1,4 @@
 import { render } from '@testing-library/react'
-import UploadPhotosForm from './UploadPhotosForm'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import { mockFile } from './helpers'
 

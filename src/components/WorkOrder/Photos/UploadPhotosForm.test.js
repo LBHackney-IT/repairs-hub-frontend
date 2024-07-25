@@ -8,6 +8,4 @@ describe('UploadPhotosForm component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
   })
-
-
 })
