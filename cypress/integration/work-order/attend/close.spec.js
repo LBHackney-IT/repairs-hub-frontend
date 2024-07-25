@@ -330,7 +330,7 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
+        // cy.get('.govuk-button').contains('Next').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -401,7 +401,7 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Next').click()
+        // cy.get('.govuk-button').contains('Next').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
 
