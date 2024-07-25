@@ -17,6 +17,11 @@ describe('Closing my own work order', () => {
     ).as('propertyRequest')
 
     cy.intercept(
+      { method: 'GET', path: `/api/workOrders/images/${workOrderReference}` },
+      { body: [] }
+    ).as('photosRequest')
+
+    cy.intercept(
       {
         method: 'GET',
         path: `/api/properties/${propertyReference}/location-alerts`,
@@ -82,6 +87,28 @@ describe('Closing my own work order', () => {
       cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
+    it('shows a validation error when no reason is selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Payment type').should('not.exist')
+      cy.get('[data-testid="paymentType"]').should('not.exist')
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains('Please select a reason for closing the work order')
+    })
+
     it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -89,6 +116,7 @@ describe('Closing my own work order', () => {
         '@workOrderRequest',
         '@propertyRequest',
         '@tasksRequest',
+        '@photosRequest',
         '@locationAlerts',
         '@personAlerts',
       ])
@@ -145,8 +173,10 @@ describe('Closing my own work order', () => {
         '@workOrderRequest',
         '@propertyRequest',
         '@tasksRequest',
+        '@photosRequest',
         '@locationAlerts',
         '@personAlerts',
+        // '@photosRequest',
       ])
 
       cy.contains('Payment type').should('not.exist')
@@ -184,7 +214,7 @@ describe('Closing my own work order', () => {
         })
 
       cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully completed`)
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -208,6 +238,7 @@ describe('Closing my own work order', () => {
           '@workOrderRequest',
           '@propertyRequest',
           '@tasksRequest',
+          '@photosRequest',
           '@locationAlerts',
           '@personAlerts',
         ])
@@ -274,6 +305,7 @@ describe('Closing my own work order', () => {
           '@workOrderRequest',
           '@propertyRequest',
           '@tasksRequest',
+          '@photosRequest',
           '@locationAlerts',
           '@personAlerts',
         ])
@@ -325,7 +357,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
@@ -344,6 +376,7 @@ describe('Closing my own work order', () => {
           '@workOrderRequest',
           '@propertyRequest',
           '@tasksRequest',
+          '@photosRequest',
           '@locationAlerts',
           '@personAlerts',
         ])
@@ -394,7 +427,7 @@ describe('Closing my own work order', () => {
           })
 
         cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully completed`)
+          cy.contains(`Work order ${workOrderReference} successfully closed`)
 
           cy.get('[data-testid="modal-close"]').click()
         })
