@@ -6,35 +6,20 @@ const WORK_ORDER_REFERENCE = 10000012
 
 describe('Photos', () => {
   beforeEach(() => {
-    // // Stub requests
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     )
-    // cy.intercept(
-    //   {
-    //     method: 'GET',
-    //     path:
-    //       '/api/workOrders/?propertyReference=00012345&PageSize=50&PageNumber=1',
-    //   },
-    //   { fixture: 'workOrders/workOrders.json' }
-    // )
+
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}` },
       { fixture: 'workOrders/workOrder.json' }
     )
-    // cy.intercept(
-    //   { method: 'GET', path: '/api/workOrders/10000012/notes' },
-    //   { fixture: 'workOrders/notes.json' }
-    // )
+
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}/tasks` },
       { body: [] }
     )
-    // cy.intercept(
-    //   { method: 'POST', path: '/api/jobStatusUpdate' },
-    //   { body: '' }
-    // ).as('apiCheck')
 
     cy.intercept('/mockfilepath/photo_1.jpg', { fixture: 'photos/photo_1.jpg' })
     cy.intercept('/mockfilepath/photo_2.jpg', { fixture: 'photos/photo_2.jpg' })
@@ -113,7 +98,7 @@ describe('Photos', () => {
     cy.waitFor('@photos')
   })
 
-  it.only('shows validation errors when uploading files', () => {
+  it('shows validation errors when uploading files', () => {
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
     cy.get('a[id="tab_photos-tab"]').click()
@@ -135,7 +120,6 @@ describe('Photos', () => {
     )
 
     // 2. too many files
-
     cy.get('input[type="file"]').selectFile(
       Array(11).fill({
         contents: Cypress.Buffer.from('file contents'),
@@ -146,6 +130,118 @@ describe('Photos', () => {
     )
 
     cy.get('button').contains('Upload').click()
+
+    // should contain error message
+    cy.contains(`You cannot attach more than 10 photos`)
+    cy.get('a[id="tab_photos-tab"]').then((x) =>
+      x.hasClass('govuk-form-group--error')
+    )
+
+    // 3. removing additional file clears error message
+    cy.get('button').contains('Remove').last().click()
+
+    cy.get('button').contains('Upload').click()
+
+    cy.contains(`You cannot attach more than 10 photos`).should('not.exist')
+    cy.get('a[id="tab_photos-tab"]').should(
+      'not.have.class',
+      'govuk-form-group--error'
+    )
+  })
+
+  it('shows error when network request fails', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      { statusCode: 500 }
+    ).as('getLinksRequest')
+
+    cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
+
+    cy.get('a[id="tab_photos-tab"]').click()
+
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.png',
+      mimeType: 'image/png',
+      lastModified: Date.now(),
+    })
+
+    cy.get('button').contains('Upload').click()
+
+    cy.waitFor('@getLinksRequest')
+
+    // should contain error message
+    cy.contains('Failed to upload files')
+    cy.contains('Request failed with status code 500')
+  })
+
+  it('shows shows success message when files uploaded', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      {
+        statusCode: 200,
+        body: {
+          links: [
+            {
+              key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+              presignedUrl: 'https://test.com/placeholder-upload-url',
+            },
+          ],
+        },
+      }
+    ).as('getLinksRequest')
+
+    cy.intercept(
+      { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+      {
+        statusCode: 200,
+      }
+    ).as('uploadToS3Request')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+      {
+        statusCode: 200,
+        body: {
+          filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+        },
+      }
+    ).as('completeUploadRequest')
+
+    cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
+
+    cy.get('a[id="tab_photos-tab"]').click()
+
+    // select and upload file
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.png',
+      mimeType: 'image/png',
+      lastModified: Date.now(),
+    })
+    cy.get('textarea[data-testid="description"]').type('some description')
+
+    cy.get('button').contains('Upload').click()
+
+    cy.waitFor('@getLinksRequest')
+    cy.waitFor('@uploadToS3Request')
+    cy.waitFor('@completeUploadRequest')
+
+    cy.contains('Upload successful')
+    cy.contains('1 photo has been added to the workOrder')
+
+    // cy.get('input[type="file"]').selectFile({
+    //   contents: Cypress.Buffer.from('file contents'),
+    //   fileName: 'file.png',
+    //   mimeType: 'image/png',
+    //   lastModified: Date.now(),
+    // })
+
+    // cy.waitFor('@getLinksRequest')
+
+    // // should contain error message
+    // cy.contains('Failed to upload files')
+    // cy.contains('Request failed with status code 500')
   })
 
   // it('Fill out notes form and update the work order status', () => {
