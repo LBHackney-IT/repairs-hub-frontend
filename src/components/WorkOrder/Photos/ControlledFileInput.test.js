@@ -2,9 +2,11 @@ import { render } from '@testing-library/react'
 import ControlledFileInput from './ControlledFileInput'
 import { mockFile } from './helpers'
 
-jest.mock('./hooks/useUpdateFileInput', (files, inputRef) => {
-  inputRef.current.value = ''
-})
+// eslint-disable-next-line no-unused-vars
+jest.mock('./hooks/useUpdateFileInput', () => ({
+  __esModule: true,
+  default: jest.fn(),
+}))
 
 describe('ControlledFileInput component', () => {
   beforeAll(() => {
