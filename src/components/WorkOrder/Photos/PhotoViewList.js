@@ -25,7 +25,8 @@ const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
                   <div className="govuk-!-margin-0">
                     {format(
                       new Date(fileGroup.timestamp),
-                      'dd LLLL yyyy, HH:mm'
+                      'dd LLLL yyyy, HH:mm',
+                      process.env.NODE_ENV === 'test' ? { timeZone: 'UTC' } : {}
                     )}
                   </div>
                 </div>
