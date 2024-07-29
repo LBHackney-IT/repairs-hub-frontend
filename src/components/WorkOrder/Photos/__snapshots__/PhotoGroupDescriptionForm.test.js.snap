@@ -21,11 +21,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             for="description"
           >
             Description
-            <span
-              class="govuk-required"
-            >
-              *
-            </span>
           </label>
           <textarea
             aria-describedby="description-hint description-error"
@@ -83,11 +78,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             for="description"
           >
             Description
-            <span
-              class="govuk-required"
-            >
-              *
-            </span>
           </label>
           <textarea
             aria-describedby="description-hint description-error"

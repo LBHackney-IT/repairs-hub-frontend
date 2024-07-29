@@ -22,68 +22,62 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <div
-          class="govuk-form-group lbh-form-group"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
-          <legend
-            class="govuk-fieldset__legend govuk-fieldset__legend--s"
-          >
-            Reason for closing 
-          </legend>
-          <span
-            class="govuk-hint lbh-hint"
-            id="reason-hint"
-          />
+          Reason for closing 
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="reason-hint"
+        />
+        <div
+          class="govuk-radios lbh-radios"
+        >
           <div
-            class="govuk-radios lbh-radios"
+            class="govuk-radios__item"
           >
-            <div
-              class="govuk-radios__item"
+            <input
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_Work Order Completed"
+              name="reason"
+              type="radio"
+              value="Work Order Completed"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_Work Order Completed"
             >
-              <input
-                class="govuk-radios__input"
-                data-testid="reason"
-                id="reason_Work Order Completed"
-                name="reason"
-                type="radio"
-                value="Work Order Completed"
-              />
-              <label
-                class="govuk-label lbh-label govuk-radios__label"
-                for="reason_Work Order Completed"
-              >
-                Visit completed
-              </label>
-            </div>
-            <div
-              class="govuk-radios__item"
+              Visit completed
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              checked=""
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_No Access"
+              name="reason"
+              type="radio"
+              value="No Access"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_No Access"
             >
-              <input
-                checked=""
-                class="govuk-radios__input"
-                data-testid="reason"
-                id="reason_No Access"
-                name="reason"
-                type="radio"
-                value="No Access"
-              />
-              <label
-                class="govuk-label lbh-label govuk-radios__label"
-                for="reason_No Access"
-              >
-                No access
-              </label>
-            </div>
+              No access
+            </label>
           </div>
         </div>
       </div>
       <div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
-          >
+          <div>
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
@@ -158,50 +152,42 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-hour"
-                  id="completionTime-hour"
-                  inputmode="numeric"
-                  name="completionTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-hour"
+                id="completionTime-hour"
+                inputmode="numeric"
+                name="completionTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-minutes"
-                  id="completionTime-minutes"
-                  inputmode="numeric"
-                  name="completionTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-minutes"
+                id="completionTime-minutes"
+                inputmode="numeric"
+                name="completionTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>
@@ -644,68 +630,62 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <div
-          class="govuk-form-group lbh-form-group"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
-          <legend
-            class="govuk-fieldset__legend govuk-fieldset__legend--s"
-          >
-            Reason for closing 
-          </legend>
-          <span
-            class="govuk-hint lbh-hint"
-            id="reason-hint"
-          />
+          Reason for closing 
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="reason-hint"
+        />
+        <div
+          class="govuk-radios lbh-radios"
+        >
           <div
-            class="govuk-radios lbh-radios"
+            class="govuk-radios__item"
           >
-            <div
-              class="govuk-radios__item"
+            <input
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_Work Order Completed"
+              name="reason"
+              type="radio"
+              value="Work Order Completed"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_Work Order Completed"
             >
-              <input
-                class="govuk-radios__input"
-                data-testid="reason"
-                id="reason_Work Order Completed"
-                name="reason"
-                type="radio"
-                value="Work Order Completed"
-              />
-              <label
-                class="govuk-label lbh-label govuk-radios__label"
-                for="reason_Work Order Completed"
-              >
-                Visit completed
-              </label>
-            </div>
-            <div
-              class="govuk-radios__item"
+              Visit completed
+            </label>
+          </div>
+          <div
+            class="govuk-radios__item"
+          >
+            <input
+              checked=""
+              class="govuk-radios__input"
+              data-testid="reason"
+              id="reason_No Access"
+              name="reason"
+              type="radio"
+              value="No Access"
+            />
+            <label
+              class="govuk-label lbh-label govuk-radios__label"
+              for="reason_No Access"
             >
-              <input
-                checked=""
-                class="govuk-radios__input"
-                data-testid="reason"
-                id="reason_No Access"
-                name="reason"
-                type="radio"
-                value="No Access"
-              />
-              <label
-                class="govuk-label lbh-label govuk-radios__label"
-                for="reason_No Access"
-              >
-                No access
-              </label>
-            </div>
+              No access
+            </label>
           </div>
         </div>
       </div>
       <div>
         <div
-          class="govuk-form-group"
+          class="govuk-form-group lbh-form-group"
         >
-          <div
-            class="govuk-form-group lbh-form-group"
-          >
+          <div>
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
@@ -780,50 +760,42 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="startTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="startTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="startTime-hour"
-                  id="startTime-hour"
-                  inputmode="numeric"
-                  name="startTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="startTime-hour"
+                id="startTime-hour"
+                inputmode="numeric"
+                name="startTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="startTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="startTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="startTime-minutes"
-                  id="startTime-minutes"
-                  inputmode="numeric"
-                  name="startTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="startTime-minutes"
+                id="startTime-minutes"
+                inputmode="numeric"
+                name="startTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>
@@ -878,50 +850,42 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-hour"
-                  id="completionTime-hour"
-                  inputmode="numeric"
-                  name="completionTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-hour"
+                id="completionTime-hour"
+                inputmode="numeric"
+                name="completionTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-minutes"
-                  id="completionTime-minutes"
-                  inputmode="numeric"
-                  name="completionTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-minutes"
+                id="completionTime-minutes"
+                inputmode="numeric"
+                name="completionTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>

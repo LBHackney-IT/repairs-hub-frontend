@@ -2,9 +2,7 @@
 
 exports[`ControlledFileInput component renders component when no files selected 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-form-group lbh-form-group"
-  >
+  <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
     >
@@ -32,9 +30,7 @@ exports[`ControlledFileInput component renders component when no files selected 
 
 exports[`ControlledFileInput component renders shows file previews 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-form-group lbh-form-group"
-  >
+  <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
     >
@@ -86,9 +82,7 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
 
 exports[`ControlledFileInput component renders shows validation error 1`] = `
 <DocumentFragment>
-  <div
-    class="govuk-form-group lbh-form-group"
-  >
+  <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
     >
