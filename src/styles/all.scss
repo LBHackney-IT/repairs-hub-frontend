@@ -49,9 +49,27 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
     @extend .lbh-fieldset;
   }
 
+  .operatives-group {
+    margin-top: 0px;
+    margin-bottom: 15px;
+
+    .lbh-label,
+    .smv-read-only--label {
+      font-size: 1rem !important;
+      line-height: 1.25rem !important;
+    }
+  }
+
+  .operatives-group .operative-datalist,
+  .select-percentage .lbh-form-group {
+    margin-bottom: 0 !important;
+  }
+
   .lbh-label {
-    + .lbh-textarea {
-      // add margin to textarea when label above
+    // add margin to textarea when label above
+    + .lbh-textarea,
+    + .govuk-input,
+    + .lbh-select {
       margin-top: 10px !important;
     }
   }
@@ -61,7 +79,20 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
     margin-top: inherit;
   }
 
-  .govuk-form-group {
-    margin-bottom: inherit !important;
+  h1,
+  h2,
+  h3 {
+    margin-bottom: 30px;
+  }
+
+  .govuk-button,
+  .lbh-button {
+    margin-top: 0;
+  }
+
+  .govuk-form-group,
+  .lbh-form-group {
+    margin-bottom: 60px !important;
+    margin-top: 0;
   }
 }

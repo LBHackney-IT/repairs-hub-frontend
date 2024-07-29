@@ -63,7 +63,7 @@ const PhotosTab = ({ workOrderReference }) => {
 
   return (
     <div className="photos-tab">
-      <h2>Photos</h2>
+      <h2 className="lbh-heading-h2">Photos</h2>
 
       {error && <ErrorMessage label={error} />}
 

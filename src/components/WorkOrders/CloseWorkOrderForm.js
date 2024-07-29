@@ -104,7 +104,7 @@ const CloseWorkOrderForm = ({
         />
 
         <div>
-          <div className="govuk-form-group">
+          <div className="govuk-form-group lbh-form-group">
             <ControlledFileInput
               files={files}
               setFiles={setFiles}

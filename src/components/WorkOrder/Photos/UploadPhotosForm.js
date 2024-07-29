@@ -40,26 +40,28 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
             </section>
           )}
 
-          <ControlledFileInput
-            files={files}
-            setFiles={setFiles}
-            validationError={validationError}
-            isLoading={loadingStatus !== null}
-            disabled={loadingStatus !== null}
-            label="Photo upload"
-          />
+          <div className="govuk-form-group lbh-form-group">
+            <ControlledFileInput
+              files={files}
+              setFiles={setFiles}
+              validationError={validationError}
+              isLoading={loadingStatus !== null}
+              disabled={loadingStatus !== null}
+              label="Photo upload"
+            />
 
-          {files.length > 0 && (
-            <div className="govuk-grid-row">
-              <div className="govuk-grid-column-one-half-from-desktop">
-                <TextArea
-                  name="description"
-                  label="Photo description"
-                  showAsOptional
-                />
+            {files.length > 0 && (
+              <div className="govuk-grid-row">
+                <div className="govuk-grid-column-one-half-from-desktop">
+                  <TextArea
+                    name="description"
+                    label="Photo description"
+                    showAsOptional
+                  />
+                </div>
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {loadingStatus && (
             <div
@@ -78,16 +80,11 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
           )}
 
           {files.length > 0 && (
-            <div className="govuk-form-group lbh-form-group govuk-!-margin-0">
-              <Button
-                type="submit"
-                label="Upload"
-                disabled={!files && files.length === 0}
-                style={{
-                  marginTop: '30px',
-                }}
-              />
-            </div>
+            <Button
+              type="submit"
+              label="Upload"
+              disabled={!files && files.length === 0}
+            />
           )}
         </div>
       </form>

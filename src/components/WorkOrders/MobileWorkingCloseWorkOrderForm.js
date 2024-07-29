@@ -72,7 +72,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             includeFollowOnOptions={false}
           />
 
-          <div>
+          <div className="govuk-form-group lbh-form-group">
             <ControlledFileInput
               files={files}
               setFiles={setFiles}
@@ -89,14 +89,12 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             />
 
             {files.length > 0 && (
-              <div style={{ marginTop: '15px' }}>
-                <TextArea
-                  name="description"
-                  label="Photo description"
-                  showAsOptional
-                  register={register}
-                />
-              </div>
+              <TextArea
+                name="description"
+                label="Photo description"
+                showAsOptional
+                register={register}
+              />
             )}
           </div>
 
