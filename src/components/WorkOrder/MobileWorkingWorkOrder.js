@@ -133,7 +133,13 @@ const MobileWorkingWorkOrder = ({
               tenure={tenure}
             />
 
-            {photos.length > 0 && <PhotoViewList photos={photos} />}
+            {photos.length > 0 && (
+              <>
+                <h2 className="lbh-heading-h2">Photos</h2>
+
+                <PhotoViewList photos={photos} />
+              </>
+            )}
 
             <MobileWorkingTasksAndSorsTable
               workOrderReference={workOrderReference}

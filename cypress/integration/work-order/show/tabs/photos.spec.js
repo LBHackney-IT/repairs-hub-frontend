@@ -228,6 +228,6 @@ describe('Photos', () => {
     cy.waitFor('@completeUploadRequest')
 
     cy.contains('Upload successful')
-    cy.contains('1 photo has been added to the workOrder')
+    cy.contains('1 photo has been added to the work order')
   })
 })

@@ -130,7 +130,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.wait('@workOrder')
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'Visit completed').click()
@@ -158,7 +158,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     // Enter 19 Janurary 2021 at 14:45
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.get('[value="Work Order Completed"]').should('be.checked')
@@ -191,7 +191,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.contains('Go back and edit').click()
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'Visit completed').click()
@@ -276,7 +276,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.wait('@workOrder')
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'No access').click()
@@ -353,7 +353,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.wait('@workOrder')
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'No access').click()
@@ -475,7 +475,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'No access').click()
@@ -557,7 +557,7 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     cy.get('form').within(() => {
-      cy.contains('Select reason for closing')
+      cy.contains('Reason for closing')
         .parent()
         .within(() => {
           cy.contains('label', 'No access').click()
@@ -650,7 +650,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.wait(['@workOrder', '@operatives'])
 
       cy.get('form').within(() => {
-        cy.contains('Select reason for closing')
+        cy.contains('Reason for closing')
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
@@ -704,7 +704,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.wait(['@workOrder', '@operatives'])
 
       cy.get('form').within(() => {
-        cy.contains('Select reason for closing')
+        cy.contains('Reason for closing')
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
@@ -757,7 +757,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.wait(['@workOrder', '@operatives'])
 
       cy.get('form').within(() => {
-        cy.contains('Select reason for closing')
+        cy.contains('Reason for closing')
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
@@ -846,7 +846,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
           cy.wait(['@workOrder', '@operatives'])
 
-          cy.contains('Select reason for closing')
+          cy.contains('Reason for closing')
             .parent()
             .within(() => {
               cy.contains('label', 'No access').click()
@@ -933,7 +933,7 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.get('input[list]').eq(2).type('Operative B [2]')
 
             cy.get('a')
-              .contains(/Add operative from list/)
+              .contains(/Add operative/)
               .click()
 
             cy.get('input[list]').eq(3).type('Operative Z [26]')
@@ -1109,7 +1109,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
           cy.wait(['@workOrder', '@operatives'])
 
-          cy.contains('Select reason for closing')
+          cy.contains('Reason for closing')
             .parent()
             .within(() => {
               cy.contains('label', 'Visit completed').click()
@@ -1248,7 +1248,7 @@ describe('Closing a work order on behalf of an operative', () => {
             )
           })
 
-          cy.contains('Select reason for closing')
+          cy.contains('Reason for closing')
             .parent()
             .within(() => {
               cy.contains('label', 'No access').click()
@@ -1353,7 +1353,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.wait(['@workOrder'])
 
       cy.get('form').within(() => {
-        cy.contains('Select reason for closing')
+        cy.contains('Reason for closing')
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
