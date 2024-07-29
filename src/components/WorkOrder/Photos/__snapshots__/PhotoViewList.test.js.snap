@@ -237,6 +237,11 @@ exports[`PhotoViewList component renders list of photos 1`] = `
           />
         </div>
       </div>
+      <p
+        style="color: rgb(102, 102, 102); margin-top: 15px;"
+      >
+        Some description
+      </p>
     </li>
   </ul>
   <hr
