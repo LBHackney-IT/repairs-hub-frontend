@@ -521,7 +521,7 @@ describe('Show work order page', () => {
       cy.get('li[data-testid="fileGroup-152"]').within(() => {
         cy.contains('Uploaded directly to work order')
         cy.contains('Uploaded by Test Test (test.test@hackney.gov.uk)')
-        cy.contains('25 Jul 2024, 07:30')
+        cy.contains('25 Jul 2024, 06:30')
         cy.contains('Some description')
 
         cy.get('img[src="/mockfilepath/photo_1.jpg"]').should('exist')
@@ -534,7 +534,7 @@ describe('Show work order page', () => {
         cy.contains(
           'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
         )
-        cy.contains('21 Aug 2024, 14:21')
+        cy.contains('21 Aug 2024, 13:21')
 
         cy.get('img[src="/mockfilepath/photo_2.jpg"]').should('exist')
         cy.get('img[src="/mockfilepath/photo_3.jpg"]').should('exist')
