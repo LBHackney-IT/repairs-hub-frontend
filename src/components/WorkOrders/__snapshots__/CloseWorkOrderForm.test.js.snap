@@ -593,7 +593,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
           class="govuk-label lbh-label"
           for="notes"
         >
-          Add notes  
+          Add notes
         </label>
         <textarea
           aria-describedby="notes-hint notes-error"
@@ -1313,7 +1313,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           class="govuk-label lbh-label"
           for="notes"
         >
-          Add notes  
+          Add notes
         </label>
         <textarea
           aria-describedby="notes-hint notes-error"

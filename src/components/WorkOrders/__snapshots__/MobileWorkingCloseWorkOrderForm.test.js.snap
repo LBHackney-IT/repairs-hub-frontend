@@ -114,7 +114,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="notes"
           >
-            Final report  
+            Final report
           </label>
           <textarea
             aria-describedby="notes-hint notes-error"
@@ -218,7 +218,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="followOnTypeDescription"
           >
-            Describe work required  
+            Describe work required
           </label>
           <textarea
             aria-describedby="followOnTypeDescription-hint followOnTypeDescription-error"
@@ -278,7 +278,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="materialNotes"
           >
-            Materials required  
+            Materials required
           </label>
           <textarea
             aria-describedby="materialNotes-hint materialNotes-error"
@@ -297,7 +297,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="additionalNotes"
           >
-            Additional notes  
+            Additional notes
           </label>
           <textarea
             aria-describedby="additionalNotes-hint additionalNotes-error"

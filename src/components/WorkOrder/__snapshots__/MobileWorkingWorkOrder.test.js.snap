@@ -1441,7 +1441,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason  
+        Variation reason
         <span
           class="govuk-required"
         >
@@ -1753,7 +1753,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason  
+        Variation reason
         <span
           class="govuk-required"
         >

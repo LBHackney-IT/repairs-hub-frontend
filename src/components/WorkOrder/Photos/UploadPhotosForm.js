@@ -56,7 +56,6 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
                   name="description"
                   label="Photo description"
                   showAsOptional
-                  placeholder=""
                 />
               </div>
             </div>

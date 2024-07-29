@@ -78,7 +78,6 @@ export const UpdateDescriptionForm = ({
             name="description"
             label="Description"
             defaultValue={description ?? ''}
-            placeholder="Add a description..."
             required={true}
             {...register('description')}
             error={errors && errors.description}

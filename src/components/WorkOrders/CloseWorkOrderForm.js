@@ -124,6 +124,7 @@ const CloseWorkOrderForm = ({
           {files.length > 0 && (
             <TextArea
               name="description"
+              showAsOptional
               label="Photo description"
               register={register}
               error={errors && errors.description}

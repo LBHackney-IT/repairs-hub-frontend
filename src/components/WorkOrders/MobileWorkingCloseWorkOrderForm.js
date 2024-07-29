@@ -100,7 +100,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
                   />
                 </div>
               )}
-              {/* </div> */}
             </div>
 
             <TextArea
