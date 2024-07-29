@@ -62,7 +62,7 @@ const PhotosTab = ({ workOrderReference }) => {
   if (isLoading) return <Spinner />
 
   return (
-    <>
+    <div className="photos-tab">
       <h2>Photos</h2>
 
       {error && <ErrorMessage label={error} />}
@@ -79,7 +79,7 @@ const PhotosTab = ({ workOrderReference }) => {
         photos={photos}
         onSubmitSetDescription={onSubmitSetDescription}
       />
-    </>
+    </div>
   )
 }
 

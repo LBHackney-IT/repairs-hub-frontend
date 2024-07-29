@@ -40,22 +40,28 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/fileUpload.scss';
 
 // Form layout consistancy changes
+// only apply to specific forms
+.photos-tab,
+.close-work-order-form,
+.mobile-working-close-work-order-form {
+  .lbh-label:not(.govuk-radios__label) {
+    @extend .govuk-fieldset__legend;
+    @extend .lbh-fieldset;
+  }
 
-.lbh-label {
-  @extend .govuk-fieldset__legend;
-  @extend .lbh-fieldset;
-}
+  .lbh-label {
+    + .lbh-textarea {
+      // add margin to textarea when label above
+      margin-top: 10px !important;
+    }
+  }
 
-.lbh-label + .lbh-textarea {
-  // add margin to textarea when label above
-  margin-top: 10px !important;
-}
+  .lbh-fieldset,
+  .lbh-label {
+    margin-top: inherit;
+  }
 
-.lbh-fieldset,
-.lbh-label {
-  margin-top: inherit;
-}
-
-.govuk-form-group {
-  margin-bottom: inherit !important;
+  .govuk-form-group {
+    margin-bottom: inherit !important;
+  }
 }

@@ -85,7 +85,7 @@ const CloseWorkOrderForm = ({
   const [files, setFiles] = useState(defaultFiles ?? [])
 
   return (
-    <div>
+    <div className="close-work-order-form">
       <BackButton />
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 

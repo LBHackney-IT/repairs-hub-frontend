@@ -44,117 +44,113 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const [files, setFiles] = useState([])
 
   return (
-    <>
-      <div>
-        <BackButton
-          // if on second page, override back button
-          onClick={
-            currentPage === PAGES.FOLLOW_ON_DETAILS
-              ? viewWorkOrderStatusPage
-              : null
-          }
-        />
+    <div className="mobile-working-close-work-order-form">
+      <BackButton
+        // if on second page, override back button
+        onClick={
+          currentPage === PAGES.FOLLOW_ON_DETAILS
+            ? viewWorkOrderStatusPage
+            : null
+        }
+      />
 
-        <form
-          role="form"
-          onSubmit={handleSubmit((data) => onSubmit(data, files))}
+      <form
+        role="form"
+        onSubmit={handleSubmit((data) => onSubmit(data, files))}
+      >
+        <div
+          style={{
+            display: currentPage === PAGES.WORK_ORDER_STATUS ? 'block' : 'none',
+          }}
         >
-          <div
-            style={{
-              display:
-                currentPage === PAGES.WORK_ORDER_STATUS ? 'block' : 'none',
-            }}
-          >
-            <h1 className="lbh-heading-h2">Close work order</h1>
+          <h1 className="lbh-heading-h2">Close work order</h1>
 
-            <CloseWorkOrderFormReasonForClosing
-              register={register}
-              errors={errors}
-              watch={watch}
-              includeFollowOnOptions={false}
+          <CloseWorkOrderFormReasonForClosing
+            register={register}
+            errors={errors}
+            watch={watch}
+            includeFollowOnOptions={false}
+          />
+
+          <div>
+            <ControlledFileInput
+              files={files}
+              setFiles={setFiles}
+              validationError={errors?.fileUpload?.message}
+              isLoading={isLoading}
+              register={register('fileUpload', {
+                validate: () => {
+                  const validation = validateFileUpload(files)
+
+                  if (validation === null) return true
+                  return validation
+                },
+              })}
             />
 
-            <div>
-              <ControlledFileInput
-                files={files}
-                setFiles={setFiles}
-                validationError={errors?.fileUpload?.message}
-                isLoading={isLoading}
-                register={register('fileUpload', {
-                  validate: () => {
-                    const validation = validateFileUpload(files)
-
-                    if (validation === null) return true
-                    return validation
-                  },
-                })}
-              />
-
-              {files.length > 0 && (
-                <div style={{ marginTop: '15px' }}>
-                  <TextArea
-                    name="description"
-                    label="Photo description"
-                    showAsOptional
-                    register={register}
-                  />
-                </div>
-              )}
-            </div>
-
-            <TextArea
-              name="notes"
-              label="Final report"
-              register={register}
-              error={errors && errors.notes}
-            />
-
-            {selectedFurtherWorkRequired ? (
-              <PrimarySubmitButton
-                label="Add details"
-                type="button"
-                onClick={viewFollowOnDetailsPage}
-              />
-            ) : (
-              <PrimarySubmitButton label={`Close work order`} />
+            {files.length > 0 && (
+              <div style={{ marginTop: '15px' }}>
+                <TextArea
+                  name="description"
+                  label="Photo description"
+                  showAsOptional
+                  register={register}
+                />
+              </div>
             )}
           </div>
 
-          <div
-            style={{
-              display:
-                currentPage === PAGES.FOLLOW_ON_DETAILS ? 'block' : 'none',
-            }}
-          >
-            <h1 className="lbh-heading-h2">Details of further work required</h1>
+          <TextArea
+            name="notes"
+            label="Final report"
+            register={register}
+            error={errors && errors.notes}
+          />
 
-            <FollowOnRequestTypeOfWorkForm
-              errors={errors}
-              register={register}
-              getValues={getValues}
-              setError={setError}
-              clearErrors={clearErrors}
-              watch={watch}
+          {selectedFurtherWorkRequired ? (
+            <PrimarySubmitButton
+              label="Add details"
+              type="button"
+              onClick={viewFollowOnDetailsPage}
             />
+          ) : (
+            <PrimarySubmitButton label={`Close work order`} />
+          )}
+        </div>
 
-            <FollowOnRequestMaterialsForm
-              register={register}
-              getValues={getValues}
-              errors={errors}
-            />
+        <div
+          style={{
+            display: currentPage === PAGES.FOLLOW_ON_DETAILS ? 'block' : 'none',
+          }}
+        >
+          <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-            <TextArea
-              name="additionalNotes"
-              label="Additional notes"
-              register={register}
-              error={errors && errors.additionalNotes}
-            />
+          <FollowOnRequestTypeOfWorkForm
+            errors={errors}
+            register={register}
+            getValues={getValues}
+            setError={setError}
+            clearErrors={clearErrors}
+            watch={watch}
+          />
 
-            <PrimarySubmitButton label="Close work order" />
-          </div>
-        </form>
-      </div>
-    </>
+          <FollowOnRequestMaterialsForm
+            register={register}
+            getValues={getValues}
+            errors={errors}
+          />
+
+          <TextArea
+            name="additionalNotes"
+            label="Additional notes"
+            register={register}
+            error={errors && errors.additionalNotes}
+          />
+
+          <PrimarySubmitButton label="Close work order" />
+        </div>
+      </form>
+    </div>
   )
 }
 
