@@ -409,6 +409,199 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.audit()
   })
 
+  it('shows validation errors when uploading files', () => {
+    cy.visit('/work-orders/10000040/close')
+    cy.wait('@workOrder')
+
+    // 1. invalid file type
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.txt',
+      mimeType: 'text/plain',
+      lastModified: Date.now(),
+    })
+
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    // should contain error message
+    cy.contains(`Unsupported file type "text/plain". Allowed types: PNG & JPG`)
+    cy.get('input[type="file"]').then((x) =>
+      x.hasClass('govuk-form-group--error')
+    )
+
+    // 2. too many files
+    cy.get('input[type="file"]').selectFile(
+      Array(11).fill({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+    )
+
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    // should contain error message
+    cy.contains(`You cannot attach more than 10 photos`)
+
+    // 3. removing additional file clears error message
+    cy.get('button').contains('Remove').last().click()
+
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.contains(`You cannot attach more than 10 photos`).should('not.exist')
+    cy.get('input[type="file"]').should(
+      'not.have.class',
+      'govuk-form-group--error'
+    )
+  })
+
+  // shows photo validation errors
+  it('shows error when network request fails uploading photo', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      { statusCode: 500 }
+    ).as('getLinksRequest')
+
+    cy.visit('/work-orders/10000040/close')
+    cy.wait('@workOrder')
+
+    // 1. invalid file type
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.png',
+      mimeType: 'image/png',
+      lastModified: Date.now(),
+    })
+
+    cy.get('form').within(() => {
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'No access').click()
+        })
+
+      cy.get('#startDate').type('2021-01-20')
+
+      cy.get('[data-testid=startTime-hour]').clear().type('13')
+      cy.get('[data-testid=startTime-minutes]').clear().type('01')
+
+      cy.get('#completionDate').type('2021-01-19')
+
+      cy.get('[data-testid=completionTime-hour]').clear().type('13')
+      cy.get('[data-testid=completionTime-minutes]').clear().type('01')
+
+      cy.get('#notes').type('Tenant was not at home')
+    })
+
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.get('.govuk-table__row').contains('Photos')
+
+    cy.get('.govuk-table__row').within(() => {
+      cy.get('img').should('have.attr', 'src')
+    })
+
+    cy.get('[type="submit"]').contains('Confirm and close').click()
+
+    cy.get('[type="submit"]').contains('Confirm and close').click()
+
+    // should contain error message
+    cy.contains(
+      'Oops an error occurred with error status: 500 with message: undefined'
+    )
+  })
+
+  // uploads photos to work order
+  it.only('uploads files when closing work order', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      {
+        statusCode: 200,
+        body: {
+          links: [
+            {
+              key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+              presignedUrl: 'https://test.com/placeholder-upload-url',
+            },
+          ],
+        },
+      }
+    ).as('getLinksRequest')
+
+    cy.intercept(
+      { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+      {
+        statusCode: 200,
+      }
+    ).as('uploadToS3Request')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+      {
+        statusCode: 200,
+        body: {
+          filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+        },
+      }
+    ).as('completeUploadRequest')
+    cy.visit('/work-orders/10000040/close')
+    cy.wait('@workOrder')
+
+    // 1. invalid file type
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.png',
+      mimeType: 'image/png',
+      lastModified: Date.now(),
+    })
+
+    cy.get('form').within(() => {
+      cy.contains('Select reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'No access').click()
+        })
+
+      cy.get('#startDate').type('2021-01-20')
+
+      cy.get('[data-testid=startTime-hour]').clear().type('13')
+      cy.get('[data-testid=startTime-minutes]').clear().type('01')
+
+      cy.get('#completionDate').type('2021-01-19')
+
+      cy.get('[data-testid=completionTime-hour]').clear().type('13')
+      cy.get('[data-testid=completionTime-minutes]').clear().type('01')
+
+      cy.get('#notes').type('Tenant was not at home')
+    })
+
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.get('.govuk-table__row').contains('Photos')
+
+    cy.get('.govuk-table__row').within(() => {
+      cy.get('img').should('have.attr', 'src')
+    })
+
+    cy.get('[type="submit"]').contains('Confirm and close').click()
+
+    cy.waitFor('@getLinksRequest')
+    cy.waitFor('@uploadToS3Request')
+    cy.waitFor('@completeUploadRequest')
+
+    cy.wait(['@apiCheck', '@startTime'])
+
+    // Confirmation screen
+    cy.get('.govuk-panel--confirmation').within(() => {
+      cy.get('.govuk-panel__title').contains('Work order closed')
+      cy.get('.govuk-panel__body').within(() => {
+        cy.contains('Reference number')
+        cy.contains('10000040')
+      })
+    })
+  })
+
   describe('when the work allows operative and payment type selection', () => {
     beforeEach(() => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {

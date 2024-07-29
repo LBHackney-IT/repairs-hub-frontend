@@ -170,7 +170,7 @@ describe('Closing my own work order', () => {
     })
 
     // shows photo validation errors
-    it('shows error when network request fails', () => {
+    it('shows error when network request fails  uploading photo', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         { statusCode: 500 }
