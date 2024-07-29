@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Fragment, useState } from 'react'
+import { useState } from 'react'
 import cx from 'classnames'
 import OperativeDataList from './OperativeDataList'
 import SelectPercentage from '../WorkOrders/SelectPercentage'

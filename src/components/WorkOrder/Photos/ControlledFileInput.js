@@ -30,8 +30,7 @@ const ControlledFileInput = ({
           {label} {showAsOptional && '(optional) '}
         </legend>
         <span id={`${'photos'}-hint`} className="govuk-hint lbh-hint">
-          Add up to 10 photos to the work order
-          <br /> (You can select multiple files)
+          Select all the photos you want to add (up to 10 photos)
         </span>
 
         {validationError && <ErrorMessage label={validationError} />}

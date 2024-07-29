@@ -18,9 +18,7 @@ exports[`UploadPhotosForm component renders component 1`] = `
           class="govuk-hint lbh-hint"
           id="photos-hint"
         >
-          Add up to 10 photos to the work order
-          <br />
-           (You can select multiple files)
+          Select all the photos you want to add (up to 10 photos)
         </span>
         <input
           accept=".jpg, .jpeg, .png"
