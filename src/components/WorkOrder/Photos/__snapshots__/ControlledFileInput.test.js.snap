@@ -2,67 +2,87 @@
 
 exports[`ControlledFileInput component renders component when no files selected 1`] = `
 <DocumentFragment>
-  <label
-    class="govuk-label"
-    for="fileUpload"
-    style="margin-top: 10px;"
+  <div
+    class="govuk-form-group lbh-form-group"
   >
-    Upload a photo (maximum 10)
-  </label>
-  <input
-    accept=".jpg, .jpeg, .png"
-    class="govuk-file-upload custom-file-input"
-    data-testid="fileUploadInput"
-    id="fileUpload"
-    multiple=""
-    name="fileUpload"
-    style="margin-top: 10px;"
-    type="file"
-  />
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Add up to 10 photos to the work order
+      <br />
+       (You can select multiple files)
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
+  </div>
 </DocumentFragment>
 `;
 
 exports[`ControlledFileInput component renders shows file previews 1`] = `
 <DocumentFragment>
-  <label
-    class="govuk-label"
-    for="fileUpload"
-    style="margin-top: 10px;"
-  >
-    Upload a photo (maximum 10)
-  </label>
-  <input
-    accept=".jpg, .jpeg, .png"
-    class="govuk-file-upload custom-file-input"
-    data-testid="fileUploadInput"
-    id="fileUpload"
-    multiple=""
-    name="fileUpload"
-    style="margin-top: 10px;"
-    type="file"
-  />
   <div
-    class="photoUploadPreview"
+    class="govuk-form-group lbh-form-group"
   >
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Add up to 10 photos to the work order
+      <br />
+       (You can select multiple files)
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
     <div
-      class="photoUploadPreview-container"
+      class="photoUploadPreview"
     >
       <div
-        class="photoUploadPreview-imageContainer"
+        class="photoUploadPreview-container"
       >
-        <img
-          alt="Preview Uploaded Image"
-          class="photoUploadPreview-image"
-          id="file-preview"
-          src="mockResponseUrl"
-        />
+        <div
+          class="photoUploadPreview-imageContainer"
+        >
+          <img
+            alt="Preview Uploaded Image"
+            class="photoUploadPreview-image"
+            id="file-preview"
+            src="mockResponseUrl"
+          />
+        </div>
+        <button
+          class="photoUploadPreview-removeButton"
+          type="button"
+        >
+          Remove
+        </button>
       </div>
-      <button
-        class="photoUploadPreview-removeButton"
-        type="button"
-      >
-        Remove
-      </button>
     </div>
   </div>
 </DocumentFragment>
@@ -70,57 +90,67 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
 
 exports[`ControlledFileInput component renders shows validation error 1`] = `
 <DocumentFragment>
-  <label
-    class="govuk-label"
-    for="fileUpload"
-    style="margin-top: 10px;"
-  >
-    Upload a photo (maximum 10)
-  </label>
-  <span
-    class="govuk-error-message lbh-error-message"
-    data-error-id=""
-    data-testid="error-message"
-  >
-    <span
-      class="govuk-visually-hidden"
-    >
-      Error:
-    </span>
-     Some validation error
-  </span>
-  <input
-    accept=".jpg, .jpeg, .png"
-    class="govuk-file-upload custom-file-input govuk-form-group--error"
-    data-testid="fileUploadInput"
-    id="fileUpload"
-    multiple=""
-    name="fileUpload"
-    style="margin-top: 10px;"
-    type="file"
-  />
   <div
-    class="photoUploadPreview"
+    class="govuk-form-group lbh-form-group"
   >
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Add up to 10 photos to the work order
+      <br />
+       (You can select multiple files)
+    </span>
+    <span
+      class="govuk-error-message lbh-error-message"
+      data-error-id=""
+      data-testid="error-message"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Error:
+      </span>
+       Some validation error
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input govuk-form-group--error"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
     <div
-      class="photoUploadPreview-container"
+      class="photoUploadPreview"
     >
       <div
-        class="photoUploadPreview-imageContainer"
+        class="photoUploadPreview-container"
       >
-        <img
-          alt="Preview Uploaded Image"
-          class="photoUploadPreview-image"
-          id="file-preview"
-          src="mockResponseUrl"
-        />
+        <div
+          class="photoUploadPreview-imageContainer"
+        >
+          <img
+            alt="Preview Uploaded Image"
+            class="photoUploadPreview-image"
+            id="file-preview"
+            src="mockResponseUrl"
+          />
+        </div>
+        <button
+          class="photoUploadPreview-removeButton"
+          type="button"
+        >
+          Remove
+        </button>
       </div>
-      <button
-        class="photoUploadPreview-removeButton"
-        type="button"
-      >
-        Remove
-      </button>
     </div>
   </div>
 </DocumentFragment>

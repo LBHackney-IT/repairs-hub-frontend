@@ -20,7 +20,7 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             class="govuk-label lbh-label"
             for="description"
           >
-            Description 
+            Description  
             <span
               class="govuk-required"
             >
@@ -83,7 +83,7 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             class="govuk-label lbh-label"
             for="description"
           >
-            Description 
+            Description  
             <span
               class="govuk-required"
             >

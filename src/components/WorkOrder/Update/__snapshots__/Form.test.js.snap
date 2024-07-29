@@ -229,7 +229,7 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason 
+        Variation reason  
         <span
           class="govuk-required"
         >
@@ -596,7 +596,7 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason 
+        Variation reason  
         <span
           class="govuk-required"
         >
@@ -956,7 +956,7 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason 
+        Variation reason  
         <span
           class="govuk-required"
         >

@@ -503,12 +503,15 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     <div
       class="govuk-form-group lbh-form-group"
     >
-      <label
-        class="govuk-label govuk-label--m"
-        for="paymentType"
+      <legend
+        class="govuk-fieldset__legend govuk-fieldset__legend--s"
       >
         Payment type 
-      </label>
+      </legend>
+      <span
+        class="govuk-hint lbh-hint"
+        id="paymentType-hint"
+      />
       <div
         class="govuk-radios lbh-radios"
       >
@@ -1438,7 +1441,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason 
+        Variation reason  
         <span
           class="govuk-required"
         >
@@ -1750,7 +1753,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-label lbh-label"
         for="variationReason"
       >
-        Variation reason 
+        Variation reason  
         <span
           class="govuk-required"
         >
@@ -2568,12 +2571,15 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
     <div
       class="govuk-form-group lbh-form-group"
     >
-      <label
-        class="govuk-label govuk-label--m"
-        for="paymentType"
+      <legend
+        class="govuk-fieldset__legend govuk-fieldset__legend--s"
       >
         Payment type 
-      </label>
+      </legend>
+      <span
+        class="govuk-hint lbh-hint"
+        id="paymentType-hint"
+      />
       <div
         class="govuk-radios lbh-radios"
       >
