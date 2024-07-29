@@ -11,7 +11,8 @@ const TextArea = ({
   rows = 4,
   register,
   error,
-  required,
+  required = false,
+  showAsOptional = false,
   className,
   ...otherProps
 }) => (
@@ -23,7 +24,8 @@ const TextArea = ({
   >
     {label && (
       <label className="govuk-label lbh-label" htmlFor={name}>
-        {label} {required && <span className="govuk-required">*</span>}
+        {label} {showAsOptional && '(optional) '}{' '}
+        {required && <span className="govuk-required">*</span>}
       </label>
     )}
     {hint && (

@@ -16,7 +16,7 @@ const PhotoGroupDescriptionForm = ({
   const onSubmit = async (formData) => {
     const requestBody = {
       fileGroupId: formData.fileGroupId,
-      description: formData.description,
+      description: formData.description ?? '',
     }
 
     await onSubmitSetDescription(requestBody)
@@ -80,9 +80,7 @@ export const UpdateDescriptionForm = ({
             defaultValue={description ?? ''}
             placeholder="Add a description..."
             required={true}
-            register={register({
-              required: 'Please enter a note',
-            })}
+            {...register('description')}
             error={errors && errors.description}
           />
           <input

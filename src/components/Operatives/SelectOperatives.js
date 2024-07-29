@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState } from 'react'
+import { Fragment, useState } from 'react'
 import cx from 'classnames'
 import OperativeDataList from './OperativeDataList'
 import SelectPercentage from '../WorkOrders/SelectPercentage'
@@ -113,133 +113,151 @@ const SelectOperatives = ({
 
   return (
     <>
-      <div
-        className={cx('operatives', {
-          'govuk-form-group--error':
-            errors &&
-            (errors['percentage-0'] || duplicateOperativeErrors(errors)),
-        })}
+      <fieldset
+        class="govuk-fieldset lbh-fieldset"
+        role="group"
+        aria-describedby="completionTime-hint"
       >
-        <p className="govuk-heading-m">
-          Search by operative name and select from the list
-        </p>
+        <div
+          className={cx('operatives govuk-form-group', {
+            'govuk-form-group--error':
+              errors &&
+              (errors['percentage-0'] || duplicateOperativeErrors(errors)),
+          })}
+        >
+          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+            Operatives
+          </legend>
 
-        {errors &&
-          (errors['percentage-0'] || duplicateOperativeErrors(errors)) && (
-            <span className="govuk-error-message lbh-error-message">
-              <span className="govuk-visually-hidden">Error:</span>{' '}
-              {errors['percentage-0']?.message}
-              {
-                Object.entries(errors).find(([a]) => a.match(/operative/))
-                  ?.message
-              }
-            </span>
-          )}
+          <span id="completionTime-hint" class="govuk-hint lbh-hint">
+            Search by operative name and select from the list
+          </span>
 
-        {selectedOperatives.map((selectedOperative, index) => {
-          const operativeIsCurrentUser =
-            currentUserPayrollNumber &&
-            currentUserPayrollNumber === selectedOperative?.payrollNumber
-
-          return (
-            <div key={index}>
-              <OperativeDataList
-                label={`Operative name ${index + 1} *`}
-                name={
-                  operativeIsCurrentUser
-                    ? `operative-disabled-${index}`
-                    : `operative-${index}`
+          {errors &&
+            (errors['percentage-0'] || duplicateOperativeErrors(errors)) && (
+              <span className="govuk-error-message lbh-error-message">
+                <span className="govuk-visually-hidden">Error:</span>{' '}
+                {errors['percentage-0']?.message}
+                {
+                  Object.entries(errors).find(([a]) => a.match(/operative/))
+                    ?.message
                 }
-                selectedOperative={
-                  selectedOperative
-                    ? formatOperativeOptionText(
-                        selectedOperative.id,
-                        selectedOperative.name
+              </span>
+            )}
+
+          {selectedOperatives.map((selectedOperative, index) => {
+            const operativeIsCurrentUser =
+              currentUserPayrollNumber &&
+              currentUserPayrollNumber === selectedOperative?.payrollNumber
+
+            return (
+              <div key={index} className="operatives-group">
+                <OperativeDataList
+                  label={`Operative name ${index + 1} *`}
+                  name={
+                    operativeIsCurrentUser
+                      ? `operative-disabled-${index}`
+                      : `operative-${index}`
+                  }
+                  selectedOperative={
+                    selectedOperative
+                      ? formatOperativeOptionText(
+                          selectedOperative.id,
+                          selectedOperative.name
+                        )
+                      : ''
+                  }
+                  options={availableOperatives.map((operative) =>
+                    formatOperativeOptionText(operative.id, operative.name)
+                  )}
+                  operativeId={selectedOperative ? selectedOperative.id : -1}
+                  index={index}
+                  register={register}
+                  errors={errors}
+                  isOperativeNameSelected={isOperativeNameSelected}
+                  onSelectedOperative={onSelectedOperative}
+                  selectedOperatives={selectedOperatives}
+                  getValues={getValues}
+                  {...(operativeIsCurrentUser && { disabled: 'disabled' })}
+                />
+
+                <SelectPercentage
+                  updatePercentages={updatePercentages}
+                  index={index}
+                  operativeIndex={index}
+                  assignedOperativesToWorkOrder={
+                    assignedOperativesToWorkOrder.length
+                  }
+                  selectedOperatives={selectedOperatives}
+                  operativeNameIsSelected={operativeNameIsSelected}
+                  errors={errors}
+                  register={register({
+                    validate: () => {
+                      return (
+                        calculateTotalPercentage(
+                          selectedOperatives,
+                          updatedPercentages
+                        ) === 100 ||
+                        'Work done total across operatives must be equal to 100%'
                       )
-                    : ''
-                }
-                options={availableOperatives.map((operative) =>
-                  formatOperativeOptionText(operative.id, operative.name)
-                )}
-                operativeId={selectedOperative ? selectedOperative.id : -1}
-                index={index}
-                register={register}
-                errors={errors}
-                isOperativeNameSelected={isOperativeNameSelected}
-                onSelectedOperative={onSelectedOperative}
-                selectedOperatives={selectedOperatives}
-                getValues={getValues}
-                {...(operativeIsCurrentUser && { disabled: 'disabled' })}
-              />
-
-              <SelectPercentage
-                updatePercentages={updatePercentages}
-                index={index}
-                operativeIndex={index}
-                assignedOperativesToWorkOrder={
-                  assignedOperativesToWorkOrder.length
-                }
-                selectedOperatives={selectedOperatives}
-                operativeNameIsSelected={operativeNameIsSelected}
-                errors={errors}
-                register={register({
-                  validate: () => {
-                    return (
-                      calculateTotalPercentage(
-                        selectedOperatives,
-                        updatedPercentages
-                      ) === 100 ||
-                      'Work done total across operatives must be equal to 100%'
-                    )
-                  },
-                })}
-                preSelectedPercentages={selectedPercentagesToShowOnEdit[index]}
-                totalSMV={totalSMV}
-                selectedOperativePercentage={
-                  selectedOperative ? selectedOperative.jobPercentage : null
-                }
-                jobIsSplitByOperative={jobIsSplitByOperative}
-              />
-            </div>
-          )
-        })}
-        <div>
-          <a
-            className="lbh-link"
-            href="#"
-            onClick={(e) => {
-              e.preventDefault()
-              setSelectedOperatives([...selectedOperatives, null])
-              let newSelectedPercentages = updatedPercentages
-              newSelectedPercentages.push('-')
-              setUpdatedPercentages(newSelectedPercentages)
-            }}
-          >
-            + Add operative from list
-          </a>
-        </div>
-        <div>
-          {selectedOperatives.length > 1 && (
+                    },
+                  })}
+                  preSelectedPercentages={
+                    selectedPercentagesToShowOnEdit[index]
+                  }
+                  totalSMV={totalSMV}
+                  selectedOperativePercentage={
+                    selectedOperative ? selectedOperative.jobPercentage : null
+                  }
+                  jobIsSplitByOperative={jobIsSplitByOperative}
+                />
+              </div>
+            )
+          })}
+          <div>
             <a
               className="lbh-link"
               href="#"
               onClick={(e) => {
                 e.preventDefault()
-                let newSelectedOperatives = [
-                  ...selectedOperatives.slice(0, selectedOperatives.length - 1),
-                ]
-                let newSelectedPercentages = [
-                  ...updatedPercentages.slice(0, selectedOperatives.length - 1),
-                ]
+                setSelectedOperatives([...selectedOperatives, null])
+                let newSelectedPercentages = updatedPercentages
+                newSelectedPercentages.push('-')
                 setUpdatedPercentages(newSelectedPercentages)
-                setSelectedOperatives(newSelectedOperatives)
               }}
             >
-              - Remove operative from list
+              + Add operative
             </a>
+          </div>
+          {selectedOperatives.length > 1 && (
+            <div>
+              <a
+                className="lbh-link"
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault()
+                  let newSelectedOperatives = [
+                    ...selectedOperatives.slice(
+                      0,
+                      selectedOperatives.length - 1
+                    ),
+                  ]
+                  let newSelectedPercentages = [
+                    ...updatedPercentages.slice(
+                      0,
+                      selectedOperatives.length - 1
+                    ),
+                  ]
+                  setUpdatedPercentages(newSelectedPercentages)
+                  setSelectedOperatives(newSelectedOperatives)
+                }}
+              >
+                - Remove last operative
+              </a>
+            </div>
           )}
         </div>
-      </div>
+      </fieldset>
     </>
   )
 }

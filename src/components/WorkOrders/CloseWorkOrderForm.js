@@ -104,8 +104,6 @@ const CloseWorkOrderForm = ({
         />
 
         <div>
-          <h2 className="govuk-heading-m">Add photos</h2>
-
           <div className="govuk-form-group">
             <ControlledFileInput
               files={files}
@@ -257,6 +255,7 @@ const CloseWorkOrderForm = ({
             <Radios
               label="Payment type"
               name="paymentType"
+              labelSize="s"
               options={optionsForPaymentType({
                 paymentTypes: [
                   BONUS_PAYMENT_TYPE,

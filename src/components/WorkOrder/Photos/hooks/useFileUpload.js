@@ -44,7 +44,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setUploadSuccess(
       ` ${files.length} ${
         files.length === 1 ? 'photo has' : 'photos have'
-      } been added to the workOrder`
+      } been added to the work order`
     )
     setFiles([])
     onSuccess()

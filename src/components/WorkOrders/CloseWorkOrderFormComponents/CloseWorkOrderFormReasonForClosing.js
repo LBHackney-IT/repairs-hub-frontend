@@ -56,31 +56,33 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
 
   return (
     <>
-      <Radios
-        labelSize="s"
-        label="Select reason for closing"
-        name="reason"
-        options={CLOSURE_STATUS_OPTIONS.map((r) => ({
-          ...r,
-          defaultChecked: r.value === reason,
+      <div className="govuk-form-group lbh-form-group">
+        <Radios
+          labelSize="s"
+          label="Reason for closing"
+          name="reason"
+          options={CLOSURE_STATUS_OPTIONS.map((r) => ({
+            ...r,
+            defaultChecked: r.value === reason,
 
-          children: includeFollowOnOptions ? (
-            r.value === 'Work Order Completed' ? (
-              <FurtherWorkRadio
-                errors={errors}
-                register={register}
-                visible={showFurtherWorkRadio}
-                followOnData={followOnData}
-                followOnStatus={followOnStatus}
-              />
-            ) : null
-          ) : null,
-        }))}
-        register={register({
-          required: 'Please select a reason for closing the work order',
-        })}
-        error={errors && errors.reason}
-      />
+            children: includeFollowOnOptions ? (
+              r.value === 'Work Order Completed' ? (
+                <FurtherWorkRadio
+                  errors={errors}
+                  register={register}
+                  visible={showFurtherWorkRadio}
+                  followOnData={followOnData}
+                  followOnStatus={followOnStatus}
+                />
+              ) : null
+            ) : null,
+          }))}
+          register={register({
+            required: 'Please select a reason for closing the work order',
+          })}
+          error={errors && errors.reason}
+        />
+      </div>
     </>
   )
 }

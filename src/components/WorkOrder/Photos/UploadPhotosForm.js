@@ -46,6 +46,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
             validationError={validationError}
             isLoading={loadingStatus !== null}
             disabled={loadingStatus !== null}
+            label="Photo upload"
           />
 
           {files.length > 0 && (
@@ -53,8 +54,9 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               <div className="govuk-grid-column-one-half-from-desktop">
                 <TextArea
                   name="description"
-                  label="Description"
-                  placeholder="Write a description..."
+                  label="Photo description"
+                  showAsOptional
+                  placeholder=""
                 />
               </div>
             </div>

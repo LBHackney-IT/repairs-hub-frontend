@@ -11,7 +11,10 @@ const ControlledFileInput = ({
   validationError,
   isLoading,
   register,
+  label = 'Photos',
+  labelSize = 's',
   disabled = false,
+  showAsOptional = false,
 }) => {
   const inputRef = useRef()
 
@@ -20,44 +23,49 @@ const ControlledFileInput = ({
 
   return (
     <>
-      <label
-        className="govuk-label"
-        for="fileUpload"
-        style={{ marginTop: '10px' }}
-      >
-        Upload a photo (maximum 10)
-      </label>
-      {validationError && <ErrorMessage label={validationError} />}
-      <input
-        disabled={disabled}
-        ref={inputRef}
-        name="fileUpload"
-        id="fileUpload"
-        data-testid="fileUploadInput"
-        className={classNames('govuk-file-upload custom-file-input', {
-          'govuk-form-group--error': validationError,
-        })}
-        type="file"
-        multiple
-        accept=".jpg, .jpeg, .png"
-        onInput={(e) => {
-          setFiles(Object.values(e.target.files))
-        }}
-        style={{
-          marginTop: '10px',
-        }}
-        {...register}
-      />
+      <div className="govuk-form-group lbh-form-group">
+        <legend
+          className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+        >
+          {label} {showAsOptional && '(optional) '}
+        </legend>
+        <span id={`${'photos'}-hint`} className="govuk-hint lbh-hint">
+          Add up to 10 photos to the work order
+          <br /> (You can select multiple files)
+        </span>
 
-      <>
-        {files.length > 0 && (
-          <PhotoUploadPreview
-            files={files}
-            disabled={isLoading}
-            setFiles={setFiles}
-          />
-        )}
-      </>
+        {validationError && <ErrorMessage label={validationError} />}
+        <input
+          disabled={disabled}
+          ref={inputRef}
+          name="fileUpload"
+          id="fileUpload"
+          data-testid="fileUploadInput"
+          className={classNames('govuk-file-upload custom-file-input', {
+            'govuk-form-group--error': validationError,
+          })}
+          type="file"
+          multiple
+          accept=".jpg, .jpeg, .png"
+          onInput={(e) => {
+            setFiles(Object.values(e.target.files))
+          }}
+          style={{
+            marginTop: '10px',
+          }}
+          {...register}
+        />
+
+        <>
+          {files.length > 0 && (
+            <PhotoUploadPreview
+              files={files}
+              disabled={isLoading}
+              setFiles={setFiles}
+            />
+          )}
+        </>
+      </div>
     </>
   )
 }

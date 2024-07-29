@@ -65,7 +65,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
                 currentPage === PAGES.WORK_ORDER_STATUS ? 'block' : 'none',
             }}
           >
-            <h1 className="lbh-heading-h2">Close work order form</h1>
+            <h1 className="lbh-heading-h2">Close work order</h1>
 
             <CloseWorkOrderFormReasonForClosing
               register={register}
@@ -75,35 +75,32 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             />
 
             <div>
-              <h2 className="govuk-heading-m">Add photos</h2>
+              <ControlledFileInput
+                files={files}
+                setFiles={setFiles}
+                validationError={errors?.fileUpload?.message}
+                isLoading={isLoading}
+                register={register('fileUpload', {
+                  validate: () => {
+                    const validation = validateFileUpload(files)
 
-              <div className="govuk-form-group">
-                <ControlledFileInput
-                  files={files}
-                  setFiles={setFiles}
-                  validationError={errors?.fileUpload?.message}
-                  isLoading={isLoading}
-                  register={register('fileUpload', {
-                    validate: () => {
-                      const validation = validateFileUpload(files)
+                    if (validation === null) return true
+                    return validation
+                  },
+                })}
+              />
 
-                      if (validation === null) return true
-                      return validation
-                    },
-                  })}
-                />
-
-                {files.length > 0 && (
-                  <div style={{ marginBottom: '60px', marginTop: '15px' }}>
-                    <TextArea
-                      name="description"
-                      label="Photo description"
-                      placeholder="Write a description..."
-                      register={register}
-                    />
-                  </div>
-                )}
-              </div>
+              {files.length > 0 && (
+                <div style={{ marginTop: '15px' }}>
+                  <TextArea
+                    name="description"
+                    label="Photo description"
+                    showAsOptional
+                    register={register}
+                  />
+                </div>
+              )}
+              {/* </div> */}
             </div>
 
             <TextArea
