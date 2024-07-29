@@ -33,7 +33,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             data-testid="description"
             id="description"
             name="description"
-            placeholder=""
             rows="4"
           >
             Some description
@@ -96,7 +95,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             data-testid="description"
             id="description"
             name="description"
-            placeholder=""
             rows="4"
           />
         </div>
