@@ -30,12 +30,21 @@ const PhotoViewList = ({ photos, onSubmitSetDescription = null }) => {
               <PhotoListWithPreview fileUrls={fileGroup.files} />
             </>
 
-            {onSubmitSetDescription !== null && (
+            {onSubmitSetDescription !== null ? (
               <PhotoGroupDescriptionForm
                 id={fileGroup.id}
                 description={fileGroup.description}
                 onSubmitSetDescription={onSubmitSetDescription}
               />
+            ) : (
+              <>
+                {fileGroup.description !== null &&
+                  fileGroup.description !== '' && (
+                    <p style={{ color: '#666', marginTop: '15px' }}>
+                      {fileGroup.description}
+                    </p>
+                  )}
+              </>
             )}
           </li>
         ))}
