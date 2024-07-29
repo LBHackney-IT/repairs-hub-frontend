@@ -109,6 +109,173 @@ describe('Closing my own work order', () => {
       cy.contains('Please select a reason for closing the work order')
     })
 
+    it('shows validation errors when uploading files', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+
+      // 1. invalid file type
+
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.txt',
+        mimeType: 'text/plain',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // should contain error message
+      cy.contains(
+        `Unsupported file type "text/plain". Allowed types: PNG & JPG`
+      )
+      cy.get('input[type="file"]').then((x) =>
+        x.hasClass('govuk-form-group--error')
+      )
+
+      // 2. too many files
+      cy.get('input[type="file"]').selectFile(
+        Array(11).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // should contain error message
+      cy.contains(`You cannot attach more than 10 photos`)
+
+      // 3. removing additional file clears error message
+      cy.get('button').contains('Remove').last().click()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.contains(`You cannot attach more than 10 photos`).should('not.exist')
+      cy.get('input[type="file"]').should(
+        'not.have.class',
+        'govuk-form-group--error'
+      )
+    })
+
+    // shows photo validation errors
+    it('shows error when network request fails', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        { statusCode: 500 }
+      ).as('getLinksRequest')
+
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // should contain error message
+      cy.contains(
+        'Oops an error occurred with error status: 500 with message: undefined'
+      )
+    })
+
+    // uploads photos to work order
+    it('uploads files when closing work order', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      cy.intercept(
+        { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+        {
+          statusCode: 200,
+        }
+      ).as('uploadToS3Request')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+        {
+          statusCode: 200,
+          body: {
+            filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+          },
+        }
+      ).as('completeUploadRequest')
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.waitFor('@getLinksRequest')
+      cy.waitFor('@uploadToS3Request')
+      cy.waitFor('@completeUploadRequest')
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(
+          `Work order ${workOrderReference} successfully closed with no access`
+        )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
     it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
