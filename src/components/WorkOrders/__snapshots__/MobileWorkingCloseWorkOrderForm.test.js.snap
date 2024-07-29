@@ -89,8 +89,8 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             <input
               accept=".jpg, .jpeg, .png"
               class="govuk-file-upload custom-file-input"
-              id="fileUpload"
               data-testid="fileUploadInput"
+              id="fileUpload"
               multiple=""
               name="fileUpload"
               style="margin-top: 10px;"
