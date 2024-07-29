@@ -87,6 +87,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
           <input
             accept=".jpg, .jpeg, .png"
             class="govuk-file-upload custom-file-input"
+            data-testid="fileUploadInput"
             id="fileUpload"
             multiple=""
             name="fileUpload"
@@ -677,6 +678,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           <input
             accept=".jpg, .jpeg, .png"
             class="govuk-file-upload custom-file-input"
+            data-testid="fileUploadInput"
             id="fileUpload"
             multiple=""
             name="fileUpload"

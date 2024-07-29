@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoUploadPreview component renders component 1`] = `
+<DocumentFragment>
+  <div
+    class="photoUploadPreview"
+  >
+    <div
+      class="photoUploadPreview-container"
+    >
+      <div
+        class="photoUploadPreview-imageContainer"
+      >
+        <img
+          alt="Preview Uploaded Image"
+          class="photoUploadPreview-image"
+          id="file-preview"
+          src="mockResponseUrl"
+        />
+      </div>
+      <button
+        class="photoUploadPreview-removeButton"
+        type="button"
+      >
+        Remove
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

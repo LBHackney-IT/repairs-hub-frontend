@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UploadPhotosForm component renders component 1`] = `
+<DocumentFragment>
+  <form
+    class="govuk-!-margin-0"
+  >
+    <div>
+      <label
+        class="govuk-label"
+        for="fileUpload"
+        style="margin-top: 10px;"
+      >
+        Upload a photo (maximum 10)
+      </label>
+      <input
+        accept=".jpg, .jpeg, .png"
+        class="govuk-file-upload custom-file-input"
+        data-testid="fileUploadInput"
+        multiple=""
+        name="fileUpload"
+        style="margin-top: 10px;"
+        type="file"
+      />
+    </div>
+  </form>
+</DocumentFragment>
+`;
