@@ -107,7 +107,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
               class="govuk-label lbh-label"
               for="cancelReason"
             >
-              Reason 
+              Reason
               <span
                 class="govuk-required"
               >
@@ -314,7 +314,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
               class="govuk-label lbh-label"
               for="cancelReason"
             >
-              Reason 
+              Reason
               <span
                 class="govuk-required"
               >
@@ -521,7 +521,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
               class="govuk-label lbh-label"
               for="cancelReason"
             >
-              Reason 
+              Reason
               <span
                 class="govuk-required"
               >

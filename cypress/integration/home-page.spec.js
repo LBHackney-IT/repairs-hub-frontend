@@ -310,7 +310,7 @@ describe('Home page', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/10000621' },
         { body: [] }
-      ).as('photos')
+      ).as('photosRequest')
     })
 
     it('Displays content in the header', () => {

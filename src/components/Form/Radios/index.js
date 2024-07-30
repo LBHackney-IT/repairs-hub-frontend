@@ -8,6 +8,7 @@ const defaultOptions = ['Yes', 'No']
 const Radio = ({
   label,
   labelSize = 'm',
+  showAsOptional = false,
   hint,
   name,
   options = defaultOptions,
@@ -23,9 +24,16 @@ const Radio = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
-      {label} {required && <span className="govuk-required">*</span>}
-    </label>
+    <legend
+      className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+    >
+      {label} {showAsOptional && '(optional) '}
+      {required && <span className="govuk-required">*</span>}
+    </legend>
+    <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+      {hint}
+    </span>
+
     {hint && (
       <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}

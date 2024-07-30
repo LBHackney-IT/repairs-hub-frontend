@@ -1,8 +1,9 @@
-import { useEffect, useRef } from 'react'
+import { useRef } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
+import useUpdateFileInput from './hooks/useUpdateFileInput'
 
 const ControlledFileInput = ({
   files,
@@ -10,39 +11,35 @@ const ControlledFileInput = ({
   validationError,
   isLoading,
   register,
+  label = 'Photos',
+  labelSize = 's',
   disabled = false,
+  showAsOptional = false,
 }) => {
   const inputRef = useRef()
 
-  useEffect(() => {
-    if (files.length === 0) {
-      inputRef.current.value = ''
-      return
-    }
-
-    const dataTransfer = new DataTransfer()
-
-    files.forEach((file) => {
-      dataTransfer.items.add(file)
-    })
-
-    inputRef.current.files = dataTransfer.files
-  }, [files])
+  // extracted to enable mocking
+  useUpdateFileInput(files, inputRef)
 
   return (
-    <>
-      <label
-        className="govuk-label"
-        htmlFor="fileUpload"
-        style={{ marginTop: '10px' }}
+    <div>
+      <legend
+        className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
       >
-        Upload a photo (maximum 10)
-      </label>
+        {label} {showAsOptional && '(optional) '}
+      </legend>
+
+      <span id={`${'photos'}-hint`} className="govuk-hint lbh-hint">
+        Select all the photos you want to add (up to 10 photos)
+      </span>
+
       {validationError && <ErrorMessage label={validationError} />}
       <input
         disabled={disabled}
         ref={inputRef}
         name="fileUpload"
+        id="fileUpload"
+        data-testid="fileUploadInput"
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}
@@ -67,7 +64,7 @@ const ControlledFileInput = ({
           />
         )}
       </>
-    </>
+    </div>
   )
 }
 
