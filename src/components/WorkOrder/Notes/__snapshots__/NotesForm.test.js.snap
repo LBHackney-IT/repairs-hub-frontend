@@ -60,7 +60,7 @@ exports[`NotesForm component should render properly when display form is true 1`
             class="govuk-label lbh-label"
             for="note"
           >
-            Note 
+            Note
             <span
               class="govuk-required"
             >

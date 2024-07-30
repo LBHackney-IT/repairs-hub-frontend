@@ -1039,10 +1039,10 @@ describe('Updating a work order', () => {
           .should('be.disabled')
 
         cy.get('a')
-          .contains(/Add operative from list/)
+          .contains(/Add operative/)
           .click()
         cy.get('a')
-          .contains(/Add operative from list/)
+          .contains(/Add operative/)
           .click()
 
         cy.get('input[list]').should('have.length', 3)
@@ -1201,7 +1201,7 @@ describe('Updating a work order', () => {
       })
 
       cy.get('a')
-        .contains(/Add operative from list/)
+        .contains(/Add operative/)
         .click()
 
       cy.get('input[list]').eq(2).type('Operative C [3]')

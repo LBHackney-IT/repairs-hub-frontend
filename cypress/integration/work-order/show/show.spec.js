@@ -354,7 +354,6 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
-          // '@photosRequest'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')

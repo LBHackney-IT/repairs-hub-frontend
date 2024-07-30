@@ -11,7 +11,10 @@ const ControlledFileInput = ({
   validationError,
   isLoading,
   register,
+  label = 'Photos',
+  labelSize = 's',
   disabled = false,
+  showAsOptional = false,
 }) => {
   const inputRef = useRef()
 
@@ -19,14 +22,17 @@ const ControlledFileInput = ({
   useUpdateFileInput(files, inputRef)
 
   return (
-    <>
-      <label
-        className="govuk-label"
-        for="fileUpload"
-        style={{ marginTop: '10px' }}
+    <div>
+      <legend
+        className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
       >
-        Upload a photo (maximum 10)
-      </label>
+        {label} {showAsOptional && '(optional) '}
+      </legend>
+
+      <span id={`${'photos'}-hint`} className="govuk-hint lbh-hint">
+        Select all the photos you want to add (up to 10 photos)
+      </span>
+
       {validationError && <ErrorMessage label={validationError} />}
       <input
         disabled={disabled}
@@ -58,7 +64,7 @@ const ControlledFileInput = ({
           />
         )}
       </>
-    </>
+    </div>
   )
 }
 

@@ -20,12 +20,7 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             class="govuk-label lbh-label"
             for="description"
           >
-            Description 
-            <span
-              class="govuk-required"
-            >
-              *
-            </span>
+            Description
           </label>
           <textarea
             aria-describedby="description-hint description-error"
@@ -33,7 +28,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             data-testid="description"
             id="description"
             name="description"
-            placeholder="Add a description..."
             rows="4"
           >
             Some description
@@ -83,12 +77,7 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             class="govuk-label lbh-label"
             for="description"
           >
-            Description 
-            <span
-              class="govuk-required"
-            >
-              *
-            </span>
+            Description
           </label>
           <textarea
             aria-describedby="description-hint description-error"
@@ -96,7 +85,6 @@ exports[`UpdateDescriptionButton component renders UpdateDescriptUpdateDescripti
             data-testid="description"
             id="description"
             name="description"
-            placeholder="Add a description..."
             rows="4"
           />
         </div>

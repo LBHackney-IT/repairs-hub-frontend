@@ -63,65 +63,61 @@ const TimeInput = forwardRef(
           {error && <ErrorMessage label={error.message} />}
           <div className="govuk-date-input lbh-date-input" id={name}>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
-                <label
-                  className="govuk-label lbh-label govuk-date-input__label"
-                  htmlFor={`${name}-hour`}
-                >
-                  Hour
-                </label>
-                <input
-                  className={cx(
-                    'govuk-input lbh-input govuk-date-input__input govuk-input--width-2',
-                    {
-                      'govuk-input--error': error,
-                    }
-                  )}
-                  id={`${name}-hour`}
-                  name={`${name}-hour`}
-                  data-testid={`${name}-hour`}
-                  type="text"
-                  ref={register}
-                  pattern="^\d{1,2}$"
-                  inputMode="numeric"
-                  defaultValue={time.hour}
-                  onChange={({ target: { value } }) =>
-                    setTime({ ...time, hour: value })
+              <label
+                className="govuk-label lbh-label govuk-date-input__label"
+                htmlFor={`${name}-hour`}
+              >
+                Hour
+              </label>
+              <input
+                className={cx(
+                  'govuk-input lbh-input govuk-date-input__input govuk-input--width-2',
+                  {
+                    'govuk-input--error': error,
                   }
-                  ref={ref}
-                  {...otherProps}
-                />
-              </div>
+                )}
+                id={`${name}-hour`}
+                name={`${name}-hour`}
+                data-testid={`${name}-hour`}
+                type="text"
+                ref={register}
+                pattern="^\d{1,2}$"
+                inputMode="numeric"
+                defaultValue={time.hour}
+                onChange={({ target: { value } }) =>
+                  setTime({ ...time, hour: value })
+                }
+                ref={ref}
+                {...otherProps}
+              />
             </div>
             <div className="govuk-date-input__item">
-              <div className="govuk-form-group">
-                <label
-                  className="govuk-label lbh-label govuk-date-input__label"
-                  htmlFor={`${name}-minutes`}
-                >
-                  Minutes
-                </label>
-                <input
-                  className={cx(
-                    'govuk-input govuk-date-input__input govuk-input--width-2',
-                    {
-                      'govuk-input--error': error,
-                    }
-                  )}
-                  id={`${name}-minutes`}
-                  name={`${name}-minutes`}
-                  data-testid={`${name}-minutes`}
-                  type="text"
-                  ref={register}
-                  pattern="^\d{1,2}$"
-                  inputMode="numeric"
-                  defaultValue={time.minutes}
-                  onChange={({ target: { value } }) =>
-                    setTime({ ...time, minutes: value })
+              <label
+                className="govuk-label lbh-label govuk-date-input__label"
+                htmlFor={`${name}-minutes`}
+              >
+                Minutes
+              </label>
+              <input
+                className={cx(
+                  'govuk-input govuk-date-input__input govuk-input--width-2',
+                  {
+                    'govuk-input--error': error,
                   }
-                  {...otherProps}
-                />
-              </div>
+                )}
+                id={`${name}-minutes`}
+                name={`${name}-minutes`}
+                data-testid={`${name}-minutes`}
+                type="text"
+                ref={register}
+                pattern="^\d{1,2}$"
+                inputMode="numeric"
+                defaultValue={time.minutes}
+                onChange={({ target: { value } }) =>
+                  setTime({ ...time, minutes: value })
+                }
+                {...otherProps}
+              />
             </div>
           </div>
         </fieldset>

@@ -38,3 +38,61 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import '@reach/dialog/styles.css';
 @import 'components/contact-details-table.scss';
 @import 'components/fileUpload.scss';
+
+// Form layout consistancy changes
+// only apply to specific forms
+.photos-tab,
+.close-work-order-form,
+.mobile-working-close-work-order-form {
+  .lbh-label:not(.govuk-radios__label) {
+    @extend .govuk-fieldset__legend;
+    @extend .lbh-fieldset;
+  }
+
+  .operatives-group {
+    margin-top: 0px;
+    margin-bottom: 15px;
+
+    .lbh-label,
+    .smv-read-only--label {
+      font-size: 1rem !important;
+      line-height: 1.25rem !important;
+    }
+  }
+
+  .operatives-group .operative-datalist,
+  .select-percentage .lbh-form-group {
+    margin-bottom: 0 !important;
+  }
+
+  .lbh-label {
+    // add margin to textarea when label above
+    + .lbh-textarea,
+    + .govuk-input,
+    + .lbh-select {
+      margin-top: 10px !important;
+    }
+  }
+
+  .lbh-fieldset,
+  .lbh-label {
+    margin-top: inherit;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin-bottom: 30px;
+  }
+
+  .govuk-button,
+  .lbh-button {
+    margin-top: 0;
+  }
+
+  .govuk-form-group,
+  .lbh-form-group {
+    margin-bottom: 60px !important;
+    margin-top: 0;
+  }
+}

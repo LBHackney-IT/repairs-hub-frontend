@@ -6,23 +6,33 @@ exports[`UploadPhotosForm component renders component 1`] = `
     class="govuk-!-margin-0"
   >
     <div>
-      <label
-        class="govuk-label"
-        for="fileUpload"
-        style="margin-top: 10px;"
+      <div
+        class="govuk-form-group lbh-form-group"
       >
-        Upload a photo (maximum 10)
-      </label>
-      <input
-        accept=".jpg, .jpeg, .png"
-        class="govuk-file-upload custom-file-input"
-        data-testid="fileUploadInput"
-        id="fileUpload"
-        multiple=""
-        name="fileUpload"
-        style="margin-top: 10px;"
-        type="file"
-      />
+        <div>
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
+          >
+            Photo upload 
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="photos-hint"
+          >
+            Select all the photos you want to add (up to 10 photos)
+          </span>
+          <input
+            accept=".jpg, .jpeg, .png"
+            class="govuk-file-upload custom-file-input"
+            data-testid="fileUploadInput"
+            id="fileUpload"
+            multiple=""
+            name="fileUpload"
+            style="margin-top: 10px;"
+            type="file"
+          />
+        </div>
+      </div>
     </div>
   </form>
 </DocumentFragment>
