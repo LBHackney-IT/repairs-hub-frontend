@@ -49,7 +49,7 @@ export const externalAPIRequest = cache(
       'Content-Type': 'application/json',
     }
 
-    let { path, ...queryParams } = request.query
+    const { path, ...queryParams } = request.query
 
     const api = axios.create()
 
@@ -135,7 +135,7 @@ export const serviceAPIRequest = cache(
       'Content-Type': 'application/json',
     }
 
-    let { path, ...queryParams } = request.query
+    const { path, ...queryParams } = request.query
 
     const api = axios.create()
 

@@ -1,9 +1,9 @@
-const {
+import {
   formatWorkOrderReferences,
   getInvalidWorkOrderReferences,
   formatInvalidWorkOrderReferencesError,
   dateIsInFuture,
-} = require('./utils')
+} from './utils'
 
 describe('CloseWorkOrders', () => {
   it('formatWorkOrderReferences returns list of workOrder references', () => {

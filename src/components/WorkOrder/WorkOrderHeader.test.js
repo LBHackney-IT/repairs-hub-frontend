@@ -10,7 +10,7 @@ import { agent } from 'factories/agent'
 import { WorkOrder } from '@/models/workOrder'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

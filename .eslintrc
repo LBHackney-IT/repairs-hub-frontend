@@ -4,14 +4,16 @@
     "commonjs": true,
     "es6": true,
     "node": true,
-    "jest": true
+    // "jest": true
   },
-  "parser": "@babel/eslint-parser",
-  "plugins": ["react", "jest"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
   "extends": [
-    "eslint:recommended",
+    // "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
   ],
   "parserOptions": {
     "sourceType": "module",
@@ -25,6 +27,11 @@
   "rules": {
     "linebreak-style": ["error", "unix"],
     "require-atomic-updates": "off",
-    "react/jsx-uses-vars": 2
-  }
+    "react/jsx-uses-vars": 2,
+    "@typescript-eslint/no-explicit-any": "off"
+  },
+ "ignorePatterns": [
+  "src/lambda.js",
+  "next.config.js"
+ ]
 }

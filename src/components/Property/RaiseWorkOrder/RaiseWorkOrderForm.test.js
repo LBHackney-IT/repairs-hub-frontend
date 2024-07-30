@@ -18,7 +18,7 @@ import { agent } from 'factories/agent'
 import { authorisationManager } from 'factories/authorisation_manager'
 import UserContext from '@/components/UserContext'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

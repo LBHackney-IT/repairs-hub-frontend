@@ -1,10 +1,10 @@
-const {
+import {
   validatePropertyReference,
   copyContractsSelected,
   addContractsSelected,
   dataToRequestObject,
   propertyReferencesMatch,
-} = require('./utils')
+} from './utils'
 
 describe('SOR Contracts', () => {
   describe('validatePropertyReference', () => {

@@ -1,4 +1,4 @@
-let reporterRules = require('./reporter-rules.json')
+import reporterRules from './reporter-rules.json'
 
 module.exports = {
   collectCoverageFrom: [

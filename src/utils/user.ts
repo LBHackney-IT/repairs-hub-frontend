@@ -6,7 +6,11 @@ export const OPERATIVE_ROLE = 'operative'
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 export const DATA_ADMIN_ROLE = 'data_admin'
 
-export const buildUser = (name: string, email: string, authServiceGroups: string[]) => {
+export const buildUser = (
+  name: string,
+  email: string,
+  authServiceGroups: string[]
+) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,

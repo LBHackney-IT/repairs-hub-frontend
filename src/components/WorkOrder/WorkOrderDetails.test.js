@@ -14,7 +14,7 @@ import { authorisationManager } from 'factories/authorisation_manager'
 import { URGENT_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { WorkOrder } from '@/models/workOrder'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

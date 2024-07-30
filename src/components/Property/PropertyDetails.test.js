@@ -6,7 +6,7 @@ import {
 } from '@testing-library/react'
 import PropertyDetails from './PropertyDetails'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

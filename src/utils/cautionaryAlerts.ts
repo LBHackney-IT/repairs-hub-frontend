@@ -114,7 +114,13 @@ export const CAUTIONARY_ALERTS = [
   },
 ]
 
-export const getCautionaryAlertsType = (alerts) => {
+export const getCautionaryAlertsType = (
+  alerts: {
+    type: string
+    comments: string
+  }[]
+) => {
   const cautionaryAlerts = alerts.map((cautionaryAlert) => cautionaryAlert.type)
-  return [...new Set(cautionaryAlerts)]
+
+  return Array.from(new Set<string>(cautionaryAlerts))
 }

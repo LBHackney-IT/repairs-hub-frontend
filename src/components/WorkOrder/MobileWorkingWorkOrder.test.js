@@ -8,7 +8,7 @@ import { WorkOrder } from '@/models/workOrder'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
 import MockDate from 'mockdate'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

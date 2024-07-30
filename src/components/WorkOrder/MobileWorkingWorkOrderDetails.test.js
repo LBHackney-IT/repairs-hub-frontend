@@ -7,7 +7,7 @@ import {
 import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import { WorkOrder } from '@/models/workOrder'
 
-const axios = require('axios')
+import axios from 'axios'
 
 jest.mock('axios', () => jest.fn())
 

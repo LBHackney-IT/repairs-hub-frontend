@@ -29,7 +29,7 @@ export const redirectToAcessDenied = (res) => {
 }
 
 export const deleteSessions = (res, options = { additionalCookies: {} }) => {
-  let { additionalCookies } = options
+  const { additionalCookies } = options
 
   const googleAuthCookie = {
     [GSSO_TOKEN_NAME]: {

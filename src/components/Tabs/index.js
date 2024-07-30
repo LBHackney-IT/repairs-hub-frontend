@@ -28,6 +28,7 @@ const Tabs = ({
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      // eslint-disable-next-line  @typescript-eslint/no-var-requires
       require('lbh-frontend').initAll()
     }
   }, [])
