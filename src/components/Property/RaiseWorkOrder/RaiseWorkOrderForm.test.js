@@ -87,7 +87,7 @@ describe('RaiseWorkOrderForm component', () => {
     setBudgetCodeId: jest.fn(),
   }
 
-  it.skip('should render properly', async () => {
+  it('should render properly', async () => {
     const { asFragment } = render(
       <UserContext.Provider value={{ user: agent }}>
         <RaiseWorkOrderForm
@@ -125,7 +125,7 @@ describe('RaiseWorkOrderForm component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.skip('should render without possibility to choose budget code for a user without the budget code officer permission', async () => {
+  it('should render without possibility to choose budget code for a user without the budget code officer permission', async () => {
     const { asFragment } = render(
       <UserContext.Provider value={{ user: authorisationManager }}>
         <RaiseWorkOrderForm
@@ -163,7 +163,7 @@ describe('RaiseWorkOrderForm component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.skip('should limit the priorities list to voids when H02 contract is selected', async () => {
+  it('should limit the priorities list to voids when H02 contract is selected', async () => {
     const prioritiesWithVoids = [
       {
         priorityCode: IMMEDIATE_PRIORITY_CODE,
