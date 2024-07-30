@@ -6,7 +6,7 @@ export const OPERATIVE_ROLE = 'operative'
 export const BUDGET_CODE_OFFICER_ROLE = 'budget_code_officer'
 export const DATA_ADMIN_ROLE = 'data_admin'
 
-export const buildUser = (name, email, authServiceGroups) => {
+export const buildUser = (name: string, email: string, authServiceGroups: string[]) => {
   const {
     CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
     AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
@@ -16,10 +16,10 @@ export const buildUser = (name, email, authServiceGroups) => {
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
-    process.env.CONTRACTORS_GOOGLE_GROUPNAME_REGEX || false
+    process.env.CONTRACTORS_GOOGLE_GROUPNAME_REGEX ?? null
 
   const AGENTS_GOOGLE_GROUPNAME_REGEX =
-    process.env.AGENTS_GOOGLE_GROUPNAME_REGEX || false
+    process.env.AGENTS_GOOGLE_GROUPNAME_REGEX ?? null
 
   const contractorGroupRegex = new RegExp(CONTRACTORS_GOOGLE_GROUPNAME_REGEX)
   const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)

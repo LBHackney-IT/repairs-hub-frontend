@@ -9,6 +9,8 @@ import logger from 'loglevel'
 
 // Sentry doesn't load the config for API routes automatically
 import { Sentry } from '@/root/sentry.server.config'
+import { ErrorWithResponse } from './types'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 const {
   REPAIRS_SERVICE_API_URL,
@@ -99,7 +101,7 @@ export const externalAPIRequest = cache(
 
       return data
     } catch (error) {
-      const errorToThrow = new Error(error)
+      const errorToThrow = new Error(error) as ErrorWithResponse
 
       errorToThrow.response = error.response
       throw errorToThrow
@@ -185,7 +187,7 @@ export const serviceAPIRequest = cache(
 
       return data
     } catch (error) {
-      const errorToThrow = new Error(error)
+      const errorToThrow = new Error(error) as ErrorWithResponse
 
       errorToThrow.response = error.response
       throw errorToThrow
@@ -241,7 +243,7 @@ export const configurationAPIRequest = async (request) => {
 
     return data
   } catch (error) {
-    const errorToThrow = new Error(error)
+    const errorToThrow = new Error(error) as ErrorWithResponse
 
     errorToThrow.response = error.response
     throw errorToThrow
@@ -249,7 +251,7 @@ export const configurationAPIRequest = async (request) => {
 }
 
 export const authoriseServiceAPIRequest = (callBack) => {
-  return async (req, res) => {
+  return async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const user = isAuthorised({ req })
 

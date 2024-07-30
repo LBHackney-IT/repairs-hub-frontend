@@ -16,7 +16,7 @@ export const formatDateTime = (datetime) => {
     datetime = new Date(datetime)
   }
 
-  const options = {
+  const options: Intl.DateTimeFormatOptions = {
     hourCycle: 'h23',
     day: 'numeric',
     month: 'short',

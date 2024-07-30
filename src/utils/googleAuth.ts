@@ -1,6 +1,7 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
 import { buildUser } from './user'
+import { NextApiRequest, NextApiResponse } from 'next'
 
 const { GSSO_TOKEN_NAME } = process.env
 
@@ -56,7 +57,16 @@ export const deleteSessions = (res, options = { additionalCookies: {} }) => {
   redirectToLogin(res)
 }
 
-export const isAuthorised = ({ req, res }, withRedirect = false) => {
+export const isAuthorised = (
+  {
+    req,
+    res,
+  }: {
+    req: NextApiRequest
+    res?: NextApiResponse
+  },
+  withRedirect = false
+) => {
   const { HACKNEY_JWT_SECRET } = process.env
 
   try {
