@@ -11,7 +11,15 @@ const PhaseBanner = () => {
             <Link className="lbh-link" href="/latest-changes">
               Read more
             </Link>{' '}
-            about these changes and provide your feedback.
+            about these changes and provide your{' '}
+            <a
+              className="lbh-link"
+              title="feedback"
+              href="mailto:repairshub.feedback@hackney.gov.uk"
+            >
+              feedback
+            </a>
+            .
           </p>
         </div>
       </div>

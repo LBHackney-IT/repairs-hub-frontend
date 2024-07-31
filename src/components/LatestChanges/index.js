@@ -19,13 +19,12 @@ const LatestChangesView = () => {
           What’s changing and when?
         </h2>
 
-        <ul className="govuk-list govuk-list--bullet">
-          <li>We have introduced new functionality into Repairs Hub</li>
-          <li>
-            This means you are able to add and view photos on a work order
-          </li>
-          <li>This change was live in Repairs Hub from [insert date] </li>
-        </ul>
+        <p>
+          We have introduced new functionality into Repairs Hub. This means you
+          are able to add and view photos on a work order.
+        </p>
+
+        <p>This change was live in Repairs Hub from [insert date].</p>
 
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           How will it impact how I do my job?
@@ -116,34 +115,41 @@ const LatestChangesView = () => {
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           Why can’t it do _____ yet?
         </h2>
-        <ul className="govuk-list govuk-list--bullet">
-          <li>
-            We are starting with a simple version of the functionality so we can
-            get something live sooner rather than later
-          </li>
-          <li>
-            We have heard from users that even it its most simple version it is
-            adding value, but we know there’s a lot more we could do with it
-          </li>
-          <li>
-            If you have suggestions for what would make this better and make it
-            easier for you to do your job we would love to hear from you, and
-            will be prioritising this feedback to help us determine what to do
-            next
-          </li>
-        </ul>
+
+        <p>
+          We are starting with a simple version of the functionality so we can
+          get something live sooner rather than later. We are starting with a
+          simple version of the functionality so we can get something live
+          sooner rather than later.
+        </p>
+
+        <p>
+          If you have suggestions for what would make this better and make it
+          easier for you to do your job we would love to hear from you, and will
+          be prioritising this feedback to help us determine what to do next.
+        </p>
 
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           How can I get involved?
         </h2>
+
+        <p className='govuk-!-margin-bottom-5'>
+          We are actively seeking your feedback on these changes, and want to
+          know how you are finding it and what would make it better. There are a
+          couple of ways you can provide feedback:
+        </p>
+
         <ul className="govuk-list govuk-list--bullet">
           <li>
-            We are actively seeking your feedback on these changes, and want to
-            know how you are finding it and what would make it better
+            <a
+              class="lbh-link"
+              title="feedback"
+              href="mailto:repairshub.feedback@hackney.gov.uk"
+            >
+              Send us an email
+            </a>
           </li>
-          <li>There are a couple of ways you can provide feedback</li>
-          <li>Submit a ticket at [link]</li>
-          <li>Come along to one of our drop in sessions [insert details]</li>
+          <li>Come along to one of our drop in sessions</li>
         </ul>
 
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
@@ -159,7 +165,12 @@ const LatestChangesView = () => {
             it works, contact our Housing Product team at [insert contact
             details]{' '}
           </li>
-          <li>Check out our user guide [insert link]</li>
+          <li>
+            Check out our{' '}
+            <a className="lbh-link" href={process.env.NEXT_PUBLIC_SUPPORT_LINK}>
+              user guide
+            </a>
+          </li>
         </ul>
 
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
