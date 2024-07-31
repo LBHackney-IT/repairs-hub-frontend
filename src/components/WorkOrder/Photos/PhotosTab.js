@@ -67,13 +67,15 @@ const PhotosTab = ({ workOrderReference }) => {
 
       {error && <ErrorMessage label={error} />}
 
-      <UploadPhotosForm
-        workOrderReference={workOrderReference}
-        onSuccess={() => {
-          // reload photos
-          getPhotos(workOrderReference)
-        }}
-      />
+      <span className="photos-tab-upload">
+        <UploadPhotosForm
+          workOrderReference={workOrderReference}
+          onSuccess={() => {
+            // reload photos
+            getPhotos(workOrderReference)
+          }}
+        />
+      </span>
 
       <PhotoViewList
         photos={photos}
