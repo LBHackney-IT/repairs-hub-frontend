@@ -2,6 +2,12 @@ import { render } from '@testing-library/react'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
 
 describe('SummaryCloseWorkOrder component', () => {
+  beforeAll(() => {
+    global.URL = {
+      createObjectURL: jest.fn(() => 'mockResponseUrl'),
+    }
+  })
+
   const props = {
     reference: 10000012,
     notes: 'this is a note',
@@ -27,6 +33,25 @@ describe('SummaryCloseWorkOrder component', () => {
         paymentType={'Overtime'}
         files={[]}
         description=""
+      />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should include photos', () => {
+    const { asFragment } = render(
+      <SummaryCloseWorkOrder
+        reference={props.reference}
+        notes={props.notes}
+        completionDate={props.completionDate}
+        startDate={props.startDate}
+        reason={props.reason}
+        onJobSubmit={props.onJobSubmit}
+        changeStep={props.changeStep}
+        operativeNames={props.operatives}
+        paymentType={'Overtime'}
+        files={['url1', 'url2', 'url3']}
+        description="some description"
       />
     )
     expect(asFragment()).toMatchSnapshot()

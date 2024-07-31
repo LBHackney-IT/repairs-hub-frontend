@@ -2,7 +2,9 @@
 
 exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="mobile-working-close-work-order-form"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
@@ -18,17 +20,20 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
         <h1
           class="lbh-heading-h2"
         >
-          Close work order form
+          Close work order
         </h1>
         <div
           class="govuk-form-group lbh-form-group"
         >
-          <label
-            class="govuk-label govuk-label--s"
-            for="reason"
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
-            Select reason for closing 
-          </label>
+            Reason for closing 
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="reason-hint"
+          />
           <div
             class="govuk-radios lbh-radios"
           >
@@ -70,25 +75,26 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             </div>
           </div>
         </div>
-        <div>
-          <h2
-            class="govuk-heading-m"
-          >
-            Add photos
-          </h2>
-          <div
-            class="govuk-form-group"
-          >
-            <label
-              class="govuk-label"
-              for="fileUpload"
-              style="margin-top: 10px;"
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <div>
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
             >
-              Upload a photo (maximum 10)
-            </label>
+              Photos 
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="photos-hint"
+            >
+              Select all the photos you want to add (up to 10 photos)
+            </span>
             <input
               accept=".jpg, .jpeg, .png"
               class="govuk-file-upload custom-file-input"
+              data-testid="fileUploadInput"
+              id="fileUpload"
               multiple=""
               name="fileUpload"
               style="margin-top: 10px;"
@@ -104,7 +110,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="notes"
           >
-            Final report 
+            Final report
           </label>
           <textarea
             aria-describedby="notes-hint notes-error"
@@ -208,7 +214,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="followOnTypeDescription"
           >
-            Describe work required 
+            Describe work required
           </label>
           <textarea
             aria-describedby="followOnTypeDescription-hint followOnTypeDescription-error"
@@ -268,7 +274,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="materialNotes"
           >
-            Materials required 
+            Materials required
           </label>
           <textarea
             aria-describedby="materialNotes-hint materialNotes-error"
@@ -287,7 +293,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             class="govuk-label lbh-label"
             for="additionalNotes"
           >
-            Additional notes 
+            Additional notes
           </label>
           <textarea
             aria-describedby="additionalNotes-hint additionalNotes-error"

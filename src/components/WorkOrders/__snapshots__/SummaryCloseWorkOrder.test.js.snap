@@ -82,23 +82,6 @@ exports[`SummaryCloseWorkOrder component does not show rows for operatives and p
               this is a note
             </td>
           </tr>
-          <tr
-            class="govuk-table__row"
-          >
-            <th
-              class="govuk-table__header govuk-!-width-one-quarter"
-              scope="row"
-            >
-              Photos
-            </th>
-            <td
-              class="govuk-table__cell govuk-!-width-three-quarters"
-            >
-              <div
-                class="photoViewList-photoGroupContainer"
-              />
-            </td>
-          </tr>
         </tbody>
       </table>
       <div
@@ -215,23 +198,6 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
-            </td>
-          </tr>
-          <tr
-            class="govuk-table__row"
-          >
-            <th
-              class="govuk-table__header govuk-!-width-one-quarter"
-              scope="row"
-            >
-              Photos
-            </th>
-            <td
-              class="govuk-table__cell govuk-!-width-three-quarters"
-            >
-              <div
-                class="photoViewList-photoGroupContainer"
-              />
             </td>
           </tr>
         </tbody>
@@ -443,23 +409,6 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               this is a note
             </td>
           </tr>
-          <tr
-            class="govuk-table__row"
-          >
-            <th
-              class="govuk-table__header govuk-!-width-one-quarter"
-              scope="row"
-            >
-              Photos
-            </th>
-            <td
-              class="govuk-table__cell govuk-!-width-three-quarters"
-            >
-              <div
-                class="photoViewList-photoGroupContainer"
-              />
-            </td>
-          </tr>
         </tbody>
       </table>
       <h4
@@ -520,6 +469,199 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               class="govuk-table__cell govuk-!-width-three-quarters"
             >
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        style="margin: 30px 0px 0px 0px; display: flex;"
+      >
+         
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+            data-module="govuk-button"
+            style="margin: 0px;"
+            type="button"
+          >
+            Go back and edit
+          </button>
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <button
+            class="govuk-button lbh-button"
+            data-module="govuk-button"
+            style="margin: -24px 0px 0px 15px;"
+            type="submit"
+          >
+            Confirm and close
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`SummaryCloseWorkOrder component should include photos 1`] = `
+<DocumentFragment>
+  <div>
+    <h1
+      class="lbh-heading-h1"
+    >
+      Close work order: 10000012
+    </h1>
+    <form
+      role="form"
+    >
+      <h4
+        class="lbh-heading-h4"
+      >
+        Summary of updates to work order
+      </h4>
+      <table
+        class="govuk-table lbh-table"
+      >
+        <tbody
+          class="govuk-table__body"
+        >
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Start time
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              2021/02/03 11:33:35
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Completion time
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              2021/02/03 11:33:35
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Payment type
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              Overtime work order
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Operatives
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              Operative A, Operative B
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Reason
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              No Access
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Notes
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              this is a note
+            </td>
+          </tr>
+          <tr
+            class="govuk-table__row"
+          >
+            <th
+              class="govuk-table__header govuk-!-width-one-quarter"
+              scope="row"
+            >
+              Photos
+            </th>
+            <td
+              class="govuk-table__cell govuk-!-width-three-quarters"
+            >
+              <div
+                class="photoViewList-photoGroupContainer"
+              >
+                <div
+                  class="photoViewList-photoGroupItem"
+                >
+                  <img
+                    src="mockResponseUrl"
+                    style="width: auto; height: 150px;"
+                  />
+                </div>
+                <div
+                  class="photoViewList-photoGroupItem"
+                >
+                  <img
+                    src="mockResponseUrl"
+                    style="width: auto; height: 150px;"
+                  />
+                </div>
+                <div
+                  class="photoViewList-photoGroupItem"
+                >
+                  <img
+                    src="mockResponseUrl"
+                    style="width: auto; height: 150px;"
+                  />
+                </div>
+              </div>
+              <p>
+                some description
+              </p>
             </td>
           </tr>
         </tbody>
@@ -668,23 +810,6 @@ exports[`SummaryCloseWorkOrder component should render properly 1`] = `
               class="govuk-table__cell govuk-!-width-three-quarters"
             >
               this is a note
-            </td>
-          </tr>
-          <tr
-            class="govuk-table__row"
-          >
-            <th
-              class="govuk-table__header govuk-!-width-one-quarter"
-              scope="row"
-            >
-              Photos
-            </th>
-            <td
-              class="govuk-table__cell govuk-!-width-three-quarters"
-            >
-              <div
-                class="photoViewList-photoGroupContainer"
-              />
             </td>
           </tr>
         </tbody>

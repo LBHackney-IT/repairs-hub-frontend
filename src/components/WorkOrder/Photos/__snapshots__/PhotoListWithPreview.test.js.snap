@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PhotoListWithPreview component renders component 1`] = `
+<DocumentFragment>
+  <div
+    class="photoViewList-photoGroupContainer"
+  >
+    <div
+      class="photoViewList-photoGroupItem"
+    >
+      <img
+        src="url1"
+        style="width: auto; height: 150px;"
+      />
+    </div>
+    <div
+      class="photoViewList-photoGroupItem"
+    >
+      <img
+        src="url2"
+        style="width: auto; height: 150px;"
+      />
+    </div>
+    <div
+      class="photoViewList-photoGroupItem"
+    >
+      <img
+        src="url3"
+        style="width: auto; height: 150px;"
+      />
+    </div>
+  </div>
+</DocumentFragment>
+`;

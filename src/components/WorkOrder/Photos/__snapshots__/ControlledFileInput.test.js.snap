@@ -1,0 +1,145 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ControlledFileInput component renders component when no files selected 1`] = `
+<DocumentFragment>
+  <div>
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Select all the photos you want to add (up to 10 photos)
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ControlledFileInput component renders shows file previews 1`] = `
+<DocumentFragment>
+  <div>
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Select all the photos you want to add (up to 10 photos)
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
+    <div
+      class="photoUploadPreview"
+    >
+      <div
+        class="photoUploadPreview-container"
+      >
+        <div
+          class="photoUploadPreview-imageContainer"
+        >
+          <img
+            alt="Preview Uploaded Image"
+            class="photoUploadPreview-image"
+            id="file-preview"
+            src="mockResponseUrl"
+          />
+        </div>
+        <button
+          class="photoUploadPreview-removeButton"
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`ControlledFileInput component renders shows validation error 1`] = `
+<DocumentFragment>
+  <div>
+    <legend
+      class="govuk-fieldset__legend govuk-fieldset__legend--s"
+    >
+      Photos 
+    </legend>
+    <span
+      class="govuk-hint lbh-hint"
+      id="photos-hint"
+    >
+      Select all the photos you want to add (up to 10 photos)
+    </span>
+    <span
+      class="govuk-error-message lbh-error-message"
+      data-error-id=""
+      data-testid="error-message"
+    >
+      <span
+        class="govuk-visually-hidden"
+      >
+        Error:
+      </span>
+       Some validation error
+    </span>
+    <input
+      accept=".jpg, .jpeg, .png"
+      class="govuk-file-upload custom-file-input govuk-form-group--error"
+      data-testid="fileUploadInput"
+      id="fileUpload"
+      multiple=""
+      name="fileUpload"
+      style="margin-top: 10px;"
+      type="file"
+    />
+    <div
+      class="photoUploadPreview"
+    >
+      <div
+        class="photoUploadPreview-container"
+      >
+        <div
+          class="photoUploadPreview-imageContainer"
+        >
+          <img
+            alt="Preview Uploaded Image"
+            class="photoUploadPreview-image"
+            id="file-preview"
+            src="mockResponseUrl"
+          />
+        </div>
+        <button
+          class="photoUploadPreview-removeButton"
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

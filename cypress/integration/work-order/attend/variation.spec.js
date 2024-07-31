@@ -11,7 +11,7 @@ context('when a variation is made', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/images/10000621' },
       { body: [] }
-    ).as('photos')
+    ).as('photosRequest')
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
