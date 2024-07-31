@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types'
+import Link from 'next/link'
 
-const PhaseBanner = ({ feedbackLink }) => {
+const PhaseBanner = () => {
   return (
     <section className="lbh-announcement lbh-announcement--site govuk-!-display-none-print govuk-!-margin-0">
       <div className="lbh-container">
@@ -8,17 +8,15 @@ const PhaseBanner = ({ feedbackLink }) => {
         <div className="lbh-announcement__content">
           <p className="lbh-body-s">
             You can now add photos to Repairs Hub!{' '}
-            <a href={feedbackLink}>Read more</a> about these changes and provide
-            your feedback.
+            <Link className="lbh-link" href="/latest-changes">
+              Read more
+            </Link>{' '}
+            about these changes and provide your feedback.
           </p>
         </div>
       </div>
     </section>
   )
-}
-
-PhaseBanner.propTypes = {
-  feedbackLink: PropTypes.string.isRequired,
 }
 
 export default PhaseBanner

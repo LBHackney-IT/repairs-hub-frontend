@@ -9,7 +9,7 @@ import FlashMessageContext from '../FlashMessageContext'
 import { useRouter } from 'next/router'
 import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
-const Layout = ({ serviceName, feedbackLink, children }) => {
+const Layout = ({ serviceName, children }) => {
   const { user } = useContext(UserContext)
   const router = useRouter()
   const MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER = ['/login', '/']
@@ -27,10 +27,9 @@ const Layout = ({ serviceName, feedbackLink, children }) => {
       />
       {MOBILE_PATHNAMES_WITH_FEEDBACK_BANNER.includes(router.pathname) &&
         canAttendOwnWorkOrder(user) &&
-        !mobileMenuOpen && <PhaseBanner feedbackLink={feedbackLink} />}
-      {!canAttendOwnWorkOrder(user) && !mobileMenuOpen && (
-        <PhaseBanner feedbackLink={feedbackLink} />
-      )}
+        !mobileMenuOpen && <PhaseBanner />}
+
+      {!canAttendOwnWorkOrder(user) && !mobileMenuOpen && <PhaseBanner />}
 
       <main
         className={cx('lbh-main-wrapper', {

@@ -4,6 +4,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
+  ALL_ROLES,
 } from './user'
 
 const HEADER_LINKS = [
@@ -45,13 +46,7 @@ const HEADER_LINKS = [
     href: '/logout',
     id: 'signout',
     description: 'Sign out',
-    permittedRoles: [
-      AGENT_ROLE,
-      CONTRACTOR_ROLE,
-      CONTRACT_MANAGER_ROLE,
-      AUTHORISATION_MANAGER_ROLE,
-      OPERATIVE_ROLE,
-    ],
+    permittedRoles: [...ALL_ROLES],
   },
 ]
 
