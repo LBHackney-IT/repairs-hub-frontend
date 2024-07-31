@@ -26,7 +26,7 @@ Continuous integration is managed with [CircleCI](https://app.circleci.com/pipel
 git clone git@github.com:LBHackney-IT/repairs-hub-frontend.git
 ```
 
-The app needs Node 14, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
+The app needs ~~Node 14~~ Ive upgraded to Node 20, if you have [NVM](https://github.com/nvm-sh/nvm) installed just run `nvm use` in your terminal.
 
 Install the dependencies:
 
