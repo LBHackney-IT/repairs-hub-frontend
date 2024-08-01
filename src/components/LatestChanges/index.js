@@ -6,7 +6,7 @@ const LatestChangesView = () => {
       <BackButton />
 
       <h1 className="govuk-heading-xl govuk-!-margin-bottom-8 govuk-!-margin-top-8">
-        FAQs - Photo functionality in Repairs Hub
+        Photo functionality in Repairs Hub
       </h1>
 
       <div className="latest-changes">
@@ -43,8 +43,8 @@ const LatestChangesView = () => {
           What’s changing and when?
         </h2>
         <p className="govuk-!-margin-bottom-5">
-          We are introducing new functionality into Repairs Hub so you will be
-          able to add and view photos on a work order.
+          We are introducing new functionality into Repairs Hub so you can add
+          and view photos to a work order.
         </p>
         <p className="govuk-!-margin-bottom-5">
           This change will be live in Repairs Hub from Tuesday 6 August 2024.
@@ -78,8 +78,8 @@ const LatestChangesView = () => {
         </p>
         <ul className="govuk-list govuk-list--bullet">
           <li>
-            You can use Hackney Upload / DES to provide a link to residents for
-            them to provide photos, which can then be added to a work order and
+            You can use Hackney Upload / DES to provide a link to residents so
+            they can provide photos, which can then be added to a work order and
             visible to the operative.
           </li>
         </ul>
@@ -129,20 +129,17 @@ const LatestChangesView = () => {
         </h2>
         <ul className="govuk-list govuk-list--bullet">
           <li>
-            You will be able to upload photos directly to a work order or as
-            part of the work order closing process.
+            You can upload photos directly to a work order or as part of the work order closing process.
           </li>
-          <li>You will be able to upload up to 10 photos at a time.</li>
-          <li>You will be able to add a description of those photos.</li>
+          <li>You can upload up to 10 photos at a time.</li>
+          <li>You can add a description of those photos.</li>
           <li>
-            You will be able to view the photos on the work order, found under a
-            new tab ‘Photos’.
+            You can view the photos on the work order, found under the new tab ‘Photos’.
           </li>
           <li>
-            On the ‘Photos’ tab you will be able to see the history off all
-            photos added to the work order, with the most recent at the top.
+            On the ‘Photos’ tab you can see the history of all photos added to the work order, with the most recent at the top.
           </li>
-          <li>You will be able to see who added the photos and when</li>
+          <li>You can see when and who added photos to the work order.</li>
         </ul>
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           Why can’t it do _____ yet?
@@ -150,8 +147,8 @@ const LatestChangesView = () => {
         <p className="govuk-!-margin-bottom-5">
           We are starting with a simple version of the functionality so we can
           get something live sooner rather than later. We have heard from users
-          that even it its most simple version it will add value, but we know
-          there’s a lot more we could do with it.
+          that even the simplest version will add value, but we know there’s
+          a lot more we could do with it.
         </p>
         <p className="govuk-!-margin-bottom-5">
           If you have suggestions for what would make this better and make it
@@ -212,7 +209,7 @@ const LatestChangesView = () => {
         <ul className="govuk-list govuk-list--bullet">
           <li>
             The next significant change will be to the way we close work orders.
-            It is introducing a more structured way to capture details for when
+            It introduces a more structured way to capture details for when
             there is further work required, and removes the need for completing
             the follow ons Google form.
           </li>
