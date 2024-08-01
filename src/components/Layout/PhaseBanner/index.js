@@ -1,28 +1,30 @@
-import PropTypes from 'prop-types'
 import Link from 'next/link'
 
-const PhaseBanner = ({ feedbackLink }) => {
+const PhaseBanner = () => {
   return (
-    <div className="govuk-phase-banner lbh-phase-banner lbh-container govuk-!-display-none-print">
-      <p className="govuk-phase-banner__content">
-        <strong className="govuk-tag govuk-phase-banner__content__tag lbh-tag">
-          Beta
-        </strong>
-        <span className="govuk-phase-banner__text">
-          This is a new service - your
-          <span> </span>
-          <Link href={feedbackLink}>
-            <a title="feedback">feedback</a>
-          </Link>{' '}
-          will help us to improve it.
-        </span>
-      </p>
-    </div>
+    <section className="lbh-announcement lbh-announcement--site govuk-!-display-none-print govuk-!-margin-0">
+      <div className="lbh-container">
+        {/* <h3 className="lbh-announcement__title">Site-wide announcement</h3> */}
+        <div className="lbh-announcement__content">
+          <p className="lbh-body-s">
+            You can now add photos to Repairs Hub!{' '}
+            <Link className="lbh-link" href="/latest-changes">
+              Read more
+            </Link>{' '}
+            about these changes and provide your{' '}
+            <a
+              className="lbh-link"
+              title="feedback"
+              href="mailto:repairshub.feedback@hackney.gov.uk"
+            >
+              feedback
+            </a>
+            .
+          </p>
+        </div>
+      </div>
+    </section>
   )
-}
-
-PhaseBanner.propTypes = {
-  feedbackLink: PropTypes.string.isRequired,
 }
 
 export default PhaseBanner
