@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+  cypress: cypress-io/cypress@3
 
 executors:
   node-executor:
@@ -228,14 +229,35 @@ workflows:
       - tests:
           requires:
             - install-dependencies
-      - e2e:
+      # - e2e:
+      #     requires:
+      #       - install-dependencies
+      - cypress/run:
           requires:
             - install-dependencies
+          # start-command: >
+          #   export NEXT_PUBLIC_ENV_NAME=test &&
+          #   export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL &&
+          #   export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk &&
+          #   export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE &&
+          #   export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport &&
+          #   export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true &&
+          #   NODE_ENV=test yarn test:e2e
+          cypress-command: >
+            export NEXT_PUBLIC_ENV_NAME=test &&
+            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL &&
+            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk &&
+            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE &&
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport &&
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true &&
+            NODE_ENV=test yarn e2e:audit
+          package-manager: yarn
+          parallelism: 4
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
             - tests
-            - e2e
+            - cypress/run
           filters:
             branches:
               only: develop
@@ -249,7 +271,7 @@ workflows:
           context: api-assume-role-staging-context
           requires:
             - tests
-            - e2e
+            - cypress/run
           filters:
             branches:
               only: main
