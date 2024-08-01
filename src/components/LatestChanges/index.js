@@ -129,15 +129,18 @@ const LatestChangesView = () => {
         </h2>
         <ul className="govuk-list govuk-list--bullet">
           <li>
-            You can upload photos directly to a work order or as part of the work order closing process.
+            You can upload photos directly to a work order or as part of the
+            work order closing process.
           </li>
           <li>You can upload up to 10 photos at a time.</li>
           <li>You can add a description of those photos.</li>
           <li>
-            You can view the photos on the work order, found under the new tab ‘Photos’.
+            You can view the photos on the work order, found under the new tab
+            ‘Photos’.
           </li>
           <li>
-            On the ‘Photos’ tab you can see the history of all photos added to the work order, with the most recent at the top.
+            On the ‘Photos’ tab you can see the history of all photos added to
+            the work order, with the most recent at the top.
           </li>
           <li>You can see when and who added photos to the work order.</li>
         </ul>
@@ -147,8 +150,8 @@ const LatestChangesView = () => {
         <p className="govuk-!-margin-bottom-5">
           We are starting with a simple version of the functionality so we can
           get something live sooner rather than later. We have heard from users
-          that even the simplest version will add value, but we know there’s
-          a lot more we could do with it.
+          that even the simplest version will add value, but we know there’s a
+          lot more we could do with it.
         </p>
         <p className="govuk-!-margin-bottom-5">
           If you have suggestions for what would make this better and make it
