@@ -236,7 +236,7 @@ workflows:
           requires:
             - install-dependencies
           start-command: 'NODE_ENV=test start-test 5001'
-          cypress-command: 'npx cypress run --parallel --record --group all tests'
+          cypress-command: 'yarn cy:run:audit'
           parallelism: 4
       - assume-role-development:
           context: api-assume-role-housing-development-context
