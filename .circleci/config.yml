@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+  cypress: cypress-io/cypress@9
 
 executors:
   node-executor:
@@ -69,10 +70,6 @@ jobs:
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             yarn e2e:audit
-
-            # yarn;
-
-            # ./node_modules/.bin/cypress run --record --key 31a18a85-d0e5-4c16-a1d4-5f0eab6a7c58  --parallel --group 'all tests'
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -232,9 +229,15 @@ workflows:
       - tests:
           requires:
             - install-dependencies
+      # - e2e:
+      #     requires:
+      #       - install-dependencies
       - e2e:
           requires:
             - install-dependencies
+          start-command: 'NODE_ENV=test start-test 5001'
+          cypress-command: 'npx cypress run --parallel --record --group all tests'
+          parallelism: 4
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
