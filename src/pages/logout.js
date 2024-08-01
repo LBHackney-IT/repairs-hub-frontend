@@ -1,13 +1,7 @@
 import { deleteSessions } from '@/utils/googleAuth'
 import { closeDRSSession } from '@/utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
-import {
-  AGENT_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-} from '@/utils/user'
+import { ALL_ROLES } from '@/utils/user'
 
 const Logout = () => null
 
@@ -31,12 +25,6 @@ export const getServerSideProps = async ({ req, res }) => {
   return { props: {} }
 }
 
-Logout.permittedRoles = [
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-]
+Logout.permittedRoles = [...ALL_ROLES]
 
 export default Logout

@@ -97,6 +97,10 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
   }
 }
 
+.lbh-announcement {
+  padding: 15px 0;
+}
+
 .photos-tab {
   .lbh-form-group {
     margin-bottom: 30px !important;
@@ -104,5 +108,34 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 
   .photos-tab-upload #description-form-group {
     margin-bottom: 0 !important;
+  }
+}
+
+.lbh-announcement {
+  padding: 15px 0;
+}
+
+.latest-changes {
+  background: #e6e6e6;
+  padding: 30px;
+  border-left: 6px solid #00664f;
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+  }
+
+  .download-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 800px) {
+  .latest-changes {
+    img {
+      max-width: 500px;
+    }
   }
 }

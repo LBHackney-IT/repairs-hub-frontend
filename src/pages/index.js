@@ -4,13 +4,7 @@ import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
 import MobileWorkingWorkOrdersView from '@/components/WorkOrders/MobileWorkingWorkOrdersView'
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
-import {
-  AGENT_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-} from '@/utils/user'
+import { ALL_ROLES } from '@/utils/user'
 import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
@@ -72,12 +66,6 @@ const Home = ({ query }) => {
 
 export const getServerSideProps = getQueryProps
 
-Home.permittedRoles = [
-  AGENT_ROLE,
-  CONTRACTOR_ROLE,
-  CONTRACT_MANAGER_ROLE,
-  AUTHORISATION_MANAGER_ROLE,
-  OPERATIVE_ROLE,
-]
+Home.permittedRoles = [...ALL_ROLES]
 
 export default Home
