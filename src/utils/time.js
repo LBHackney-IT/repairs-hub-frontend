@@ -29,6 +29,7 @@ export const formatDateTime = (datetime) => {
     options.timeZone = 'UTC'
   }
 
+  // EG. 21 Aug 2024, 13:21
   return datetime.toLocaleString('en-GB', options)
 }
 

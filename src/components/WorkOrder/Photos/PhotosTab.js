@@ -62,24 +62,26 @@ const PhotosTab = ({ workOrderReference }) => {
   if (isLoading) return <Spinner />
 
   return (
-    <>
-      <h2>Photos</h2>
+    <div className="photos-tab">
+      <h2 className="lbh-heading-h2">Photos</h2>
 
       {error && <ErrorMessage label={error} />}
 
-      <UploadPhotosForm
-        workOrderReference={workOrderReference}
-        onSuccess={() => {
-          // reload photos
-          getPhotos(workOrderReference)
-        }}
-      />
+      <span className="photos-tab-upload">
+        <UploadPhotosForm
+          workOrderReference={workOrderReference}
+          onSuccess={() => {
+            // reload photos
+            getPhotos(workOrderReference)
+          }}
+        />
+      </span>
 
       <PhotoViewList
         photos={photos}
         onSubmitSetDescription={onSubmitSetDescription}
       />
-    </>
+    </div>
   )
 }
 

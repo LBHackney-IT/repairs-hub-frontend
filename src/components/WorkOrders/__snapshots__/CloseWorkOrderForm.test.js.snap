@@ -2,7 +2,9 @@
 
 exports[`CloseWorkOrderForm component should not render startDate or startTime 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="close-work-order-form"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
@@ -20,12 +22,15 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <label
-          class="govuk-label govuk-label--s"
-          for="reason"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
-          Select reason for closing 
-        </label>
+          Reason for closing 
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="reason-hint"
+        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -68,25 +73,26 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
           </div>
         </div>
       </div>
-      <div>
-        <h2
-          class="govuk-heading-m"
-        >
-          Add photos
-        </h2>
-        <div
-          class="govuk-form-group"
-        >
-          <label
-            class="govuk-label"
-            for="fileUpload"
-            style="margin-top: 10px;"
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <div>
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
-            Upload a photo (maximum 10)
-          </label>
+            Photos 
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="photos-hint"
+          >
+            Select all the photos you want to add (up to 10 photos)
+          </span>
           <input
             accept=".jpg, .jpeg, .png"
             class="govuk-file-upload custom-file-input"
+            data-testid="fileUploadInput"
+            id="fileUpload"
             multiple=""
             name="fileUpload"
             style="margin-top: 10px;"
@@ -144,340 +150,351 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-hour"
-                  id="completionTime-hour"
-                  inputmode="numeric"
-                  name="completionTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-hour"
+                id="completionTime-hour"
+                inputmode="numeric"
+                name="completionTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-minutes"
-                  id="completionTime-minutes"
-                  inputmode="numeric"
-                  name="completionTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-minutes"
+                id="completionTime-minutes"
+                inputmode="numeric"
+                name="completionTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>
       </div>
-      <div
-        class="operatives"
+      <fieldset
+        aria-describedby="completionTime-hint"
+        class="govuk-fieldset lbh-fieldset"
+        role="group"
       >
-        <p
-          class="govuk-heading-m"
+        <div
+          class="operatives govuk-form-group"
         >
-          Search by operative name and select from the list
-        </p>
-        <div>
-          <div
-            class="govuk-form-group lbh-form-group operative-datalist"
-            id="operative-0-form-group"
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-0"
-            >
-              Operative name 1 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select govuk-!-width-full"
-              data-testid="operative-0"
-              id="operative-0"
-              list="autocomplete-list-operative-0"
-              name="operative-0"
-              value="Operative A [1]"
-            />
-            <datalist
-              id="autocomplete-list-operative-0"
-            >
-              <option
-                value="Operative A [1]"
-              />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
-          </div>
+            Operatives
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="completionTime-hint"
+          >
+            Search by operative name and select from the list
+          </span>
           <div
-            class="select-percentage"
+            class="operatives-group"
           >
             <div
-              class="govuk-form-group lbh-form-group"
-              id="percentage-0-form-group"
+              class="govuk-form-group lbh-form-group operative-datalist"
+              id="operative-0-form-group"
             >
               <label
                 class="govuk-label lbh-label"
-                for="percentage-0"
+                for="operative-0"
               >
-                Work done 
+                Operative name 1 *  
               </label>
-              <select
-                class="govuk-select lbh-select undefined"
-                data-testid="percentage-0"
-                id="percentage-0"
-                name="percentage-0"
+              <input
+                autocomplete="off"
+                class="govuk-select lbh-select govuk-!-width-full"
+                data-testid="operative-0"
+                id="operative-0"
+                list="autocomplete-list-operative-0"
+                name="operative-0"
+                value="Operative A [1]"
+              />
+              <datalist
+                id="autocomplete-list-operative-0"
               >
                 <option
-                  value=""
+                  value="Operative A [1]"
                 />
                 <option
-                  value="100%"
+                  value="Operative B [2]"
+                />
+              </datalist>
+            </div>
+            <div
+              class="select-percentage"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage-0"
                 >
-                  100%
-                </option>
-                <option
-                  value="90%"
+                  Work done 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage-0"
+                  id="percentage-0"
+                  name="percentage-0"
                 >
-                  90%
-                </option>
-                <option
-                  value="80%"
-                >
-                  80%
-                </option>
-                <option
-                  value="70%"
-                >
-                  70%
-                </option>
-                <option
-                  value="60%"
-                >
-                  60%
-                </option>
-                <option
-                  value="50%"
-                >
-                  50%
-                </option>
-                <option
-                  value="40%"
-                >
-                  40%
-                </option>
-                <option
-                  value="30%"
-                >
-                  30%
-                </option>
-                <option
-                  value="20%"
-                >
-                  20%
-                </option>
-                <option
-                  value="10%"
-                >
-                  10%
-                </option>
-                <option
-                  value="-"
-                >
-                  -
-                </option>
-              </select>
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="70%"
+                  >
+                    70%
+                  </option>
+                  <option
+                    value="60%"
+                  >
+                    60%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="-"
+                  >
+                    -
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="smv-read-only"
+            >
+              <p
+                class="lbh-body smv-read-only--label"
+              >
+                SMV
+              </p>
+              <p
+                class="lbh-body smv-read-only--value"
+              >
+                38
+              </p>
             </div>
           </div>
           <div
-            class="smv-read-only"
-          >
-            <p
-              class="lbh-body smv-read-only--label"
-            >
-              SMV
-            </p>
-            <p
-              class="lbh-body smv-read-only--value"
-            >
-              38
-            </p>
-          </div>
-        </div>
-        <div>
-          <div
-            class="govuk-form-group lbh-form-group operative-datalist"
-            id="operative-1-form-group"
-          >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-1"
-            >
-              Operative name 2 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select govuk-!-width-full"
-              data-testid="operative-1"
-              id="operative-1"
-              list="autocomplete-list-operative-1"
-              name="operative-1"
-              value="Operative B [2]"
-            />
-            <datalist
-              id="autocomplete-list-operative-1"
-            >
-              <option
-                value="Operative A [1]"
-              />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
-          </div>
-          <div
-            class="select-percentage"
+            class="operatives-group"
           >
             <div
-              class="govuk-form-group lbh-form-group"
-              id="percentage-1-form-group"
+              class="govuk-form-group lbh-form-group operative-datalist"
+              id="operative-1-form-group"
             >
               <label
                 class="govuk-label lbh-label"
-                for="percentage-1"
+                for="operative-1"
               >
-                Work done 
+                Operative name 2 *  
               </label>
-              <select
-                class="govuk-select lbh-select undefined"
-                data-testid="percentage-1"
-                id="percentage-1"
-                name="percentage-1"
+              <input
+                autocomplete="off"
+                class="govuk-select lbh-select govuk-!-width-full"
+                data-testid="operative-1"
+                id="operative-1"
+                list="autocomplete-list-operative-1"
+                name="operative-1"
+                value="Operative B [2]"
+              />
+              <datalist
+                id="autocomplete-list-operative-1"
               >
                 <option
-                  value=""
+                  value="Operative A [1]"
                 />
                 <option
-                  value="100%"
+                  value="Operative B [2]"
+                />
+              </datalist>
+            </div>
+            <div
+              class="select-percentage"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage-1"
                 >
-                  100%
-                </option>
-                <option
-                  value="90%"
+                  Work done 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage-1"
+                  id="percentage-1"
+                  name="percentage-1"
                 >
-                  90%
-                </option>
-                <option
-                  value="80%"
-                >
-                  80%
-                </option>
-                <option
-                  value="70%"
-                >
-                  70%
-                </option>
-                <option
-                  value="60%"
-                >
-                  60%
-                </option>
-                <option
-                  value="50%"
-                >
-                  50%
-                </option>
-                <option
-                  value="40%"
-                >
-                  40%
-                </option>
-                <option
-                  value="30%"
-                >
-                  30%
-                </option>
-                <option
-                  value="20%"
-                >
-                  20%
-                </option>
-                <option
-                  value="10%"
-                >
-                  10%
-                </option>
-                <option
-                  value="-"
-                >
-                  -
-                </option>
-              </select>
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="70%"
+                  >
+                    70%
+                  </option>
+                  <option
+                    value="60%"
+                  >
+                    60%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="-"
+                  >
+                    -
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="smv-read-only"
+            >
+              <p
+                class="lbh-body smv-read-only--label"
+              >
+                SMV
+              </p>
+              <p
+                class="lbh-body smv-read-only--value"
+              >
+                38
+              </p>
             </div>
           </div>
-          <div
-            class="smv-read-only"
-          >
-            <p
-              class="lbh-body smv-read-only--label"
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
             >
-              SMV
-            </p>
-            <p
-              class="lbh-body smv-read-only--value"
+              + Add operative
+            </a>
+          </div>
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
             >
-              38
-            </p>
+              - Remove last operative
+            </a>
           </div>
         </div>
-        <div>
-          <a
-            class="lbh-link"
-            href="#"
-          >
-            + Add operative from list
-          </a>
-        </div>
-        <div>
-          <a
-            class="lbh-link"
-            href="#"
-          >
-            - Remove operative from list
-          </a>
-        </div>
-      </div>
+      </fieldset>
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <label
-          class="govuk-label govuk-label--m"
-          for="paymentType"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
           Payment type 
-        </label>
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="paymentType-hint"
+        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -560,7 +577,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
           class="govuk-label lbh-label"
           for="notes"
         >
-          Add notes 
+          Add notes
         </label>
         <textarea
           aria-describedby="notes-hint notes-error"
@@ -591,7 +608,9 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
 
 exports[`CloseWorkOrderForm component should render properly 1`] = `
 <DocumentFragment>
-  <div>
+  <div
+    class="close-work-order-form"
+  >
     <a
       class="govuk-back-link lbh-back-link govuk-!-display-none-print"
       role="button"
@@ -609,12 +628,15 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <label
-          class="govuk-label govuk-label--s"
-          for="reason"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
-          Select reason for closing 
-        </label>
+          Reason for closing 
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="reason-hint"
+        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -657,25 +679,26 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           </div>
         </div>
       </div>
-      <div>
-        <h2
-          class="govuk-heading-m"
-        >
-          Add photos
-        </h2>
-        <div
-          class="govuk-form-group"
-        >
-          <label
-            class="govuk-label"
-            for="fileUpload"
-            style="margin-top: 10px;"
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <div>
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
-            Upload a photo (maximum 10)
-          </label>
+            Photos 
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="photos-hint"
+          >
+            Select all the photos you want to add (up to 10 photos)
+          </span>
           <input
             accept=".jpg, .jpeg, .png"
             class="govuk-file-upload custom-file-input"
+            data-testid="fileUploadInput"
+            id="fileUpload"
             multiple=""
             name="fileUpload"
             style="margin-top: 10px;"
@@ -733,50 +756,42 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="startTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="startTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="startTime-hour"
-                  id="startTime-hour"
-                  inputmode="numeric"
-                  name="startTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="startTime-hour"
+                id="startTime-hour"
+                inputmode="numeric"
+                name="startTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="startTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="startTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="startTime-minutes"
-                  id="startTime-minutes"
-                  inputmode="numeric"
-                  name="startTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="startTime-minutes"
+                id="startTime-minutes"
+                inputmode="numeric"
+                name="startTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>
@@ -831,340 +846,351 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-hour"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-hour"
-                >
-                  Hour
-                </label>
-                <input
-                  class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-hour"
-                  id="completionTime-hour"
-                  inputmode="numeric"
-                  name="completionTime-hour"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="14"
-                />
-              </div>
+                Hour
+              </label>
+              <input
+                class="govuk-input lbh-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-hour"
+                id="completionTime-hour"
+                inputmode="numeric"
+                name="completionTime-hour"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="14"
+              />
             </div>
             <div
               class="govuk-date-input__item"
             >
-              <div
-                class="govuk-form-group"
+              <label
+                class="govuk-label lbh-label govuk-date-input__label"
+                for="completionTime-minutes"
               >
-                <label
-                  class="govuk-label lbh-label govuk-date-input__label"
-                  for="completionTime-minutes"
-                >
-                  Minutes
-                </label>
-                <input
-                  class="govuk-input govuk-date-input__input govuk-input--width-2"
-                  data-testid="completionTime-minutes"
-                  id="completionTime-minutes"
-                  inputmode="numeric"
-                  name="completionTime-minutes"
-                  pattern="^\\\\d{1,2}$"
-                  type="text"
-                  value="30"
-                />
-              </div>
+                Minutes
+              </label>
+              <input
+                class="govuk-input govuk-date-input__input govuk-input--width-2"
+                data-testid="completionTime-minutes"
+                id="completionTime-minutes"
+                inputmode="numeric"
+                name="completionTime-minutes"
+                pattern="^\\\\d{1,2}$"
+                type="text"
+                value="30"
+              />
             </div>
           </div>
         </fieldset>
       </div>
-      <div
-        class="operatives"
+      <fieldset
+        aria-describedby="completionTime-hint"
+        class="govuk-fieldset lbh-fieldset"
+        role="group"
       >
-        <p
-          class="govuk-heading-m"
+        <div
+          class="operatives govuk-form-group"
         >
-          Search by operative name and select from the list
-        </p>
-        <div>
-          <div
-            class="govuk-form-group lbh-form-group operative-datalist"
-            id="operative-0-form-group"
+          <legend
+            class="govuk-fieldset__legend govuk-fieldset__legend--s"
           >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-0"
-            >
-              Operative name 1 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select govuk-!-width-full"
-              data-testid="operative-0"
-              id="operative-0"
-              list="autocomplete-list-operative-0"
-              name="operative-0"
-              value="Operative A [1]"
-            />
-            <datalist
-              id="autocomplete-list-operative-0"
-            >
-              <option
-                value="Operative A [1]"
-              />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
-          </div>
+            Operatives
+          </legend>
+          <span
+            class="govuk-hint lbh-hint"
+            id="completionTime-hint"
+          >
+            Search by operative name and select from the list
+          </span>
           <div
-            class="select-percentage"
+            class="operatives-group"
           >
             <div
-              class="govuk-form-group lbh-form-group"
-              id="percentage-0-form-group"
+              class="govuk-form-group lbh-form-group operative-datalist"
+              id="operative-0-form-group"
             >
               <label
                 class="govuk-label lbh-label"
-                for="percentage-0"
+                for="operative-0"
               >
-                Work done 
+                Operative name 1 *  
               </label>
-              <select
-                class="govuk-select lbh-select undefined"
-                data-testid="percentage-0"
-                id="percentage-0"
-                name="percentage-0"
+              <input
+                autocomplete="off"
+                class="govuk-select lbh-select govuk-!-width-full"
+                data-testid="operative-0"
+                id="operative-0"
+                list="autocomplete-list-operative-0"
+                name="operative-0"
+                value="Operative A [1]"
+              />
+              <datalist
+                id="autocomplete-list-operative-0"
               >
                 <option
-                  value=""
+                  value="Operative A [1]"
                 />
                 <option
-                  value="100%"
+                  value="Operative B [2]"
+                />
+              </datalist>
+            </div>
+            <div
+              class="select-percentage"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-0-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage-0"
                 >
-                  100%
-                </option>
-                <option
-                  value="90%"
+                  Work done 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage-0"
+                  id="percentage-0"
+                  name="percentage-0"
                 >
-                  90%
-                </option>
-                <option
-                  value="80%"
-                >
-                  80%
-                </option>
-                <option
-                  value="70%"
-                >
-                  70%
-                </option>
-                <option
-                  value="60%"
-                >
-                  60%
-                </option>
-                <option
-                  value="50%"
-                >
-                  50%
-                </option>
-                <option
-                  value="40%"
-                >
-                  40%
-                </option>
-                <option
-                  value="30%"
-                >
-                  30%
-                </option>
-                <option
-                  value="20%"
-                >
-                  20%
-                </option>
-                <option
-                  value="10%"
-                >
-                  10%
-                </option>
-                <option
-                  value="-"
-                >
-                  -
-                </option>
-              </select>
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="70%"
+                  >
+                    70%
+                  </option>
+                  <option
+                    value="60%"
+                  >
+                    60%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="-"
+                  >
+                    -
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="smv-read-only"
+            >
+              <p
+                class="lbh-body smv-read-only--label"
+              >
+                SMV
+              </p>
+              <p
+                class="lbh-body smv-read-only--value"
+              >
+                38
+              </p>
             </div>
           </div>
           <div
-            class="smv-read-only"
-          >
-            <p
-              class="lbh-body smv-read-only--label"
-            >
-              SMV
-            </p>
-            <p
-              class="lbh-body smv-read-only--value"
-            >
-              38
-            </p>
-          </div>
-        </div>
-        <div>
-          <div
-            class="govuk-form-group lbh-form-group operative-datalist"
-            id="operative-1-form-group"
-          >
-            <label
-              class="govuk-label lbh-label"
-              for="operative-1"
-            >
-              Operative name 2 *  
-            </label>
-            <input
-              autocomplete="off"
-              class="govuk-select lbh-select govuk-!-width-full"
-              data-testid="operative-1"
-              id="operative-1"
-              list="autocomplete-list-operative-1"
-              name="operative-1"
-              value="Operative B [2]"
-            />
-            <datalist
-              id="autocomplete-list-operative-1"
-            >
-              <option
-                value="Operative A [1]"
-              />
-              <option
-                value="Operative B [2]"
-              />
-            </datalist>
-          </div>
-          <div
-            class="select-percentage"
+            class="operatives-group"
           >
             <div
-              class="govuk-form-group lbh-form-group"
-              id="percentage-1-form-group"
+              class="govuk-form-group lbh-form-group operative-datalist"
+              id="operative-1-form-group"
             >
               <label
                 class="govuk-label lbh-label"
-                for="percentage-1"
+                for="operative-1"
               >
-                Work done 
+                Operative name 2 *  
               </label>
-              <select
-                class="govuk-select lbh-select undefined"
-                data-testid="percentage-1"
-                id="percentage-1"
-                name="percentage-1"
+              <input
+                autocomplete="off"
+                class="govuk-select lbh-select govuk-!-width-full"
+                data-testid="operative-1"
+                id="operative-1"
+                list="autocomplete-list-operative-1"
+                name="operative-1"
+                value="Operative B [2]"
+              />
+              <datalist
+                id="autocomplete-list-operative-1"
               >
                 <option
-                  value=""
+                  value="Operative A [1]"
                 />
                 <option
-                  value="100%"
+                  value="Operative B [2]"
+                />
+              </datalist>
+            </div>
+            <div
+              class="select-percentage"
+            >
+              <div
+                class="govuk-form-group lbh-form-group"
+                id="percentage-1-form-group"
+              >
+                <label
+                  class="govuk-label lbh-label"
+                  for="percentage-1"
                 >
-                  100%
-                </option>
-                <option
-                  value="90%"
+                  Work done 
+                </label>
+                <select
+                  class="govuk-select lbh-select undefined"
+                  data-testid="percentage-1"
+                  id="percentage-1"
+                  name="percentage-1"
                 >
-                  90%
-                </option>
-                <option
-                  value="80%"
-                >
-                  80%
-                </option>
-                <option
-                  value="70%"
-                >
-                  70%
-                </option>
-                <option
-                  value="60%"
-                >
-                  60%
-                </option>
-                <option
-                  value="50%"
-                >
-                  50%
-                </option>
-                <option
-                  value="40%"
-                >
-                  40%
-                </option>
-                <option
-                  value="30%"
-                >
-                  30%
-                </option>
-                <option
-                  value="20%"
-                >
-                  20%
-                </option>
-                <option
-                  value="10%"
-                >
-                  10%
-                </option>
-                <option
-                  value="-"
-                >
-                  -
-                </option>
-              </select>
+                  <option
+                    value=""
+                  />
+                  <option
+                    value="100%"
+                  >
+                    100%
+                  </option>
+                  <option
+                    value="90%"
+                  >
+                    90%
+                  </option>
+                  <option
+                    value="80%"
+                  >
+                    80%
+                  </option>
+                  <option
+                    value="70%"
+                  >
+                    70%
+                  </option>
+                  <option
+                    value="60%"
+                  >
+                    60%
+                  </option>
+                  <option
+                    value="50%"
+                  >
+                    50%
+                  </option>
+                  <option
+                    value="40%"
+                  >
+                    40%
+                  </option>
+                  <option
+                    value="30%"
+                  >
+                    30%
+                  </option>
+                  <option
+                    value="20%"
+                  >
+                    20%
+                  </option>
+                  <option
+                    value="10%"
+                  >
+                    10%
+                  </option>
+                  <option
+                    value="-"
+                  >
+                    -
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div
+              class="smv-read-only"
+            >
+              <p
+                class="lbh-body smv-read-only--label"
+              >
+                SMV
+              </p>
+              <p
+                class="lbh-body smv-read-only--value"
+              >
+                38
+              </p>
             </div>
           </div>
-          <div
-            class="smv-read-only"
-          >
-            <p
-              class="lbh-body smv-read-only--label"
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
             >
-              SMV
-            </p>
-            <p
-              class="lbh-body smv-read-only--value"
+              + Add operative
+            </a>
+          </div>
+          <div>
+            <a
+              class="lbh-link"
+              href="#"
             >
-              38
-            </p>
+              - Remove last operative
+            </a>
           </div>
         </div>
-        <div>
-          <a
-            class="lbh-link"
-            href="#"
-          >
-            + Add operative from list
-          </a>
-        </div>
-        <div>
-          <a
-            class="lbh-link"
-            href="#"
-          >
-            - Remove operative from list
-          </a>
-        </div>
-      </div>
+      </fieldset>
       <div
         class="govuk-form-group lbh-form-group"
       >
-        <label
-          class="govuk-label govuk-label--m"
-          for="paymentType"
+        <legend
+          class="govuk-fieldset__legend govuk-fieldset__legend--s"
         >
           Payment type 
-        </label>
+        </legend>
+        <span
+          class="govuk-hint lbh-hint"
+          id="paymentType-hint"
+        />
         <div
           class="govuk-radios lbh-radios"
         >
@@ -1247,7 +1273,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
           class="govuk-label lbh-label"
           for="notes"
         >
-          Add notes 
+          Add notes
         </label>
         <textarea
           aria-describedby="notes-hint notes-error"

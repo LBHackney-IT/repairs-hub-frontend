@@ -37,4 +37,105 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/back-office.scss';
 @import '@reach/dialog/styles.css';
 @import 'components/contact-details-table.scss';
-@import 'components/fileUpload.scss';
+@import 'components/photos.scss';
+
+// Form layout consistancy changes
+// only apply to specific forms
+
+.photos-tab,
+.close-work-order-form,
+.mobile-working-close-work-order-form {
+  .lbh-label:not(.govuk-radios__label) {
+    @extend .govuk-fieldset__legend;
+    @extend .lbh-fieldset;
+  }
+
+  .operatives-group {
+    margin-top: 0px;
+    margin-bottom: 15px;
+
+    .lbh-label,
+    .smv-read-only--label {
+      font-size: 1rem !important;
+      line-height: 1.25rem !important;
+    }
+  }
+
+  .operatives-group .operative-datalist,
+  .select-percentage .lbh-form-group {
+    margin-bottom: 0 !important;
+  }
+
+  .lbh-label {
+    // add margin to textarea when label above
+    + .lbh-textarea,
+    + .govuk-input,
+    + .lbh-select {
+      margin-top: 10px !important;
+    }
+  }
+
+  .lbh-fieldset,
+  .lbh-label {
+    margin-top: inherit;
+  }
+
+  h1,
+  h2 {
+    margin-bottom: 30px;
+  }
+
+  .govuk-button,
+  .lbh-button {
+    margin-top: 0;
+  }
+
+  .govuk-form-group,
+  .lbh-form-group {
+    margin-bottom: 60px !important;
+    margin-top: 0;
+  }
+}
+
+.lbh-announcement {
+  padding: 15px 0;
+}
+
+.photos-tab {
+  .lbh-form-group {
+    margin-bottom: 30px !important;
+  }
+
+  .photos-tab-upload #description-form-group {
+    margin-bottom: 0 !important;
+  }
+}
+
+.lbh-announcement {
+  padding: 15px 0;
+}
+
+.latest-changes {
+  background: #e6e6e6;
+  padding: 30px;
+  border-left: 6px solid #00664f;
+
+  img {
+    width: 100%;
+    height: auto;
+    margin-top: 0;
+  }
+
+  .download-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 800px) {
+  .latest-changes {
+    img {
+      max-width: 500px;
+    }
+  }
+}

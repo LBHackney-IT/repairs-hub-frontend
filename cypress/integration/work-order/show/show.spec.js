@@ -91,7 +91,6 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
-        // '@photos',
       ])
 
       cy.get('.lbh-heading-h1').within(() => {
@@ -202,7 +201,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -228,7 +226,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').within(() => {
@@ -255,7 +252,6 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
-            // '@photos',
           ])
 
           cy.get('.appointment-details').within(() => {
@@ -358,7 +354,6 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
-          // '@photos'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
@@ -383,7 +378,7 @@ describe('Show work order page', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/10000621' },
         { body: [] }
-      ).as('photos')
+      ).as('photosRequest')
 
       cy.intercept(
         {
@@ -429,7 +424,7 @@ describe('Show work order page', () => {
         '@task',
         '@locationAlerts',
         '@personAlerts',
-        '@photos',
+        '@photosRequest',
       ])
 
       cy.contains('WO 10000621')
@@ -471,7 +466,7 @@ describe('Show work order page', () => {
     it('shows links to expand description text, if text is more than 3 lines', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
-      cy.wait(['@operativesWorkOrder', '@property', '@task', '@photos'])
+      cy.wait(['@operativesWorkOrder', '@property', '@task', '@photosRequest'])
       cy.contains('WO 10000621')
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)
@@ -497,6 +492,71 @@ describe('Show work order page', () => {
           'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
         )
       })
+    })
+
+    it('shows images uploaded to workOrder', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        { fixture: 'photos/photos.json' }
+      ).as('photosRequest')
+
+      cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait([
+        '@operativesWorkOrder',
+        '@property',
+        '@task',
+        '@locationAlerts',
+        '@personAlerts',
+        '@photosRequest',
+      ])
+
+      // 1. Open work order
+      cy.contains('WO 10000621').click()
+
+      // 2. assert contains photos
+      cy.contains('Photos')
+
+      cy.get('li[data-testid="fileGroup-152"]').within(() => {
+        cy.contains('Uploaded directly to work order')
+        cy.contains('Uploaded by Test Test (test.test@hackney.gov.uk)')
+        cy.contains('25 Jul 2024, 06:30')
+        cy.contains('Some description')
+
+        cy.get('img[src="/mockfilepath/photo_1.jpg"]').should('exist')
+        cy.get('img[src="/mockfilepath/photo_2.jpg"]').should('exist')
+        cy.get('img[src="/mockfilepath/photo_3.jpg"]').should('exist')
+      })
+
+      cy.get('li[data-testid="fileGroup-153"]').within(() => {
+        cy.contains('Closing work order')
+        cy.contains(
+          'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
+        )
+        cy.contains('21 Aug 2024, 13:21')
+
+        cy.get('img[src="/mockfilepath/photo_2.jpg"]').should('exist')
+        cy.get('img[src="/mockfilepath/photo_3.jpg"]').should('exist')
+      })
+    })
+
+    it('shows no images when none found', () => {
+      cy.visit('/operatives/1/work-orders/10000621')
+
+      cy.wait([
+        '@operativesWorkOrder',
+        '@property',
+        '@task',
+        '@locationAlerts',
+        '@personAlerts',
+        '@photosRequest',
+      ])
+
+      // 1. Open work order
+      cy.contains('WO 10000621').click()
+
+      // 2. assert contains photos
+      cy.get('Photos').should('not.exist')
     })
   })
 

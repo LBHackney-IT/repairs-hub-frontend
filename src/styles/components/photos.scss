@@ -67,7 +67,7 @@
 .photoUploadPreview {
   display: flex;
   flex-wrap: wrap;
-  margin: calc(-15px + 30px) -15px 0 0;
+  margin: calc(-15px + 30px) -15px 30px 0;
 
   &-container {
     margin: 15px 15px 0 0;
@@ -76,11 +76,9 @@
 
   &-imageContainer {
     margin-top: 0;
-    // border: 1px solid #b1b4b6;
     border: 2px solid #e6e6e6;
     width: 150px;
     height: 150px;
-    // padding: 5px;
     box-sizing: border-box;
   }
 
@@ -105,7 +103,6 @@
     cursor: pointer;
   }
 }
-
 
 .updateDescriptionButton {
   margin-top: 15px;

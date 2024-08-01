@@ -37,10 +37,7 @@ class MyApp extends App {
     return (
       <>
         <UserContext.Provider value={{ user: this.props.userDetails }}>
-          <Layout
-            serviceName="Repairs Hub"
-            feedbackLink="mailto:repairshub.feedback@hackney.gov.uk"
-          >
+          <Layout serviceName="Repairs Hub">
             <Meta />
 
             <ComponentToRender

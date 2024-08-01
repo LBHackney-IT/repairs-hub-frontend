@@ -85,7 +85,7 @@ const CloseWorkOrderForm = ({
   const [files, setFiles] = useState(defaultFiles ?? [])
 
   return (
-    <div>
+    <div className="close-work-order-form">
       <BackButton />
       <h1 className="lbh-heading-h2">{`Close work order: ${reference}`}</h1>
 
@@ -103,29 +103,26 @@ const CloseWorkOrderForm = ({
           includeFollowOnOptions={false}
         />
 
-        <div>
-          <h2 className="govuk-heading-m">Add photos</h2>
+        <div className="govuk-form-group lbh-form-group">
+          <ControlledFileInput
+            files={files}
+            setFiles={setFiles}
+            validationError={errors?.fileUpload?.message}
+            isLoading={isLoading}
+            register={register('fileUpload', {
+              validate: () => {
+                const validation = validateFileUpload(files)
 
-          <div className="govuk-form-group">
-            <ControlledFileInput
-              files={files}
-              setFiles={setFiles}
-              validationError={errors?.fileUpload?.message}
-              isLoading={isLoading}
-              register={register('fileUpload', {
-                validate: () => {
-                  const validation = validateFileUpload(files)
-
-                  if (validation === null) return true
-                  return validation
-                },
-              })}
-            />
-          </div>
+                if (validation === null) return true
+                return validation
+              },
+            })}
+          />
 
           {files.length > 0 && (
             <TextArea
               name="description"
+              showAsOptional
               label="Photo description"
               register={register}
               error={errors && errors.description}
@@ -257,6 +254,7 @@ const CloseWorkOrderForm = ({
             <Radios
               label="Payment type"
               name="paymentType"
+              labelSize="s"
               options={optionsForPaymentType({
                 paymentTypes: [
                   BONUS_PAYMENT_TYPE,

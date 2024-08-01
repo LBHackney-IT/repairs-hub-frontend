@@ -27,7 +27,7 @@ import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import MobileWorkingPhotoView from './MobileWorkingPhotoVIew'
+import PhotoViewList from './Photos/PhotoViewList'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -133,7 +133,13 @@ const MobileWorkingWorkOrder = ({
               tenure={tenure}
             />
 
-            {photos.length > 0 && <MobileWorkingPhotoView photos={photos} />}
+            {photos.length > 0 && (
+              <>
+                <h2 className="lbh-heading-h2">Photos</h2>
+
+                <PhotoViewList photos={photos} />
+              </>
+            )}
 
             <MobileWorkingTasksAndSorsTable
               workOrderReference={workOrderReference}
@@ -146,6 +152,7 @@ const MobileWorkingWorkOrder = ({
               <Radios
                 label="Payment type"
                 name="paymentType"
+                labelSize="s"
                 options={optionsForPaymentType({
                   paymentTypes: [BONUS_PAYMENT_TYPE, OVERTIME_PAYMENT_TYPE],
                   currentPaymentType: paymentType,

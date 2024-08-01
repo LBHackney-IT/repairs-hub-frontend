@@ -14,7 +14,7 @@ describe('Starting my own work order', () => {
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/images/${workOrderReference}` },
       { body: [] }
-    ).as('photos')
+    ).as('photosRequest')
 
     cy.intercept(
       { method: 'GET', path: `/api/properties/${propertyReference}` },
@@ -93,7 +93,7 @@ describe('Starting my own work order', () => {
       '@tasksRequest',
       '@locationAlerts',
       '@personAlerts',
-      '@photos',
+      '@photosRequest',
     ])
 
     cy.intercept(
