@@ -103,23 +103,21 @@ const CloseWorkOrderForm = ({
           includeFollowOnOptions={false}
         />
 
-        <div>
-          <div className="govuk-form-group lbh-form-group">
-            <ControlledFileInput
-              files={files}
-              setFiles={setFiles}
-              validationError={errors?.fileUpload?.message}
-              isLoading={isLoading}
-              register={register('fileUpload', {
-                validate: () => {
-                  const validation = validateFileUpload(files)
+        <div className="govuk-form-group lbh-form-group">
+          <ControlledFileInput
+            files={files}
+            setFiles={setFiles}
+            validationError={errors?.fileUpload?.message}
+            isLoading={isLoading}
+            register={register('fileUpload', {
+              validate: () => {
+                const validation = validateFileUpload(files)
 
-                  if (validation === null) return true
-                  return validation
-                },
-              })}
-            />
-          </div>
+                if (validation === null) return true
+                return validation
+              },
+            })}
+          />
 
           {files.length > 0 && (
             <TextArea

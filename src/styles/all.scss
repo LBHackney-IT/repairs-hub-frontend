@@ -37,10 +37,11 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/back-office.scss';
 @import '@reach/dialog/styles.css';
 @import 'components/contact-details-table.scss';
-@import 'components/fileUpload.scss';
+@import 'components/photos.scss';
 
 // Form layout consistancy changes
 // only apply to specific forms
+
 .photos-tab,
 .close-work-order-form,
 .mobile-working-close-work-order-form {
@@ -80,8 +81,7 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
   }
 
   h1,
-  h2,
-  h3 {
+  h2 {
     margin-bottom: 30px;
   }
 
@@ -94,6 +94,21 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
   .lbh-form-group {
     margin-bottom: 60px !important;
     margin-top: 0;
+  }
+}
+
+
+.lbh-announcement {
+  padding: 15px 0;
+}
+
+.photos-tab {
+  .lbh-form-group {
+    margin-bottom: 30px !important;
+  }
+
+  .photos-tab-upload #description-form-group {
+    margin-bottom: 0 !important;
   }
 }
 
