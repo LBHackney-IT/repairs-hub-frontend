@@ -29,7 +29,7 @@ async function headers() {
 const moduleExports = {
   distDir: 'build/_next',
   experimental: {
-    forceSwcTransforms: true,
+    // forceSwcTransforms: true,
   },
   headers: () => headers(),
 }
