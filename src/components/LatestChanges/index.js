@@ -5,16 +5,37 @@ const LatestChangesView = () => {
     <>
       <BackButton />
 
-      <h1 className="govuk-heading-xl govuk-!-margin-bottom-5 govuk-!-margin-top-5">
+      <h1 className="govuk-heading-xl govuk-!-margin-bottom-8 govuk-!-margin-top-8">
         FAQs - Photo functionality in Repairs Hub
       </h1>
 
-      <div>
-        <img
-          src="/assets/latest-changes-image.png"
-          alt="User guide: Photo functionality in Repairs Hub"
-          style={{ width: '100%', height: 'auto' }}
-        />
+      <div className="latest-changes">
+        <div className="download-container">
+          <div>
+            <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-0">
+              Photo functionality user guide
+            </h2>
+            <p className="govuk-body-m govuk-!-margin-bottom-5 govuk-!-margin-top-5">
+              This is a step-by-step guide to the new functionality, with
+              annotated screenshots of the process
+            </p>
+          </div>
+
+          <div className="govuk-!-margin-top-0">
+            <img
+              src="/assets/latest-changes-image.png"
+              alt="User guide: Photo functionality in Repairs Hub"
+            />
+          </div>
+        </div>
+
+        <a
+          download="User-guide-Photo-functionality-in-Repairs-Hub"
+          className="govuk-button lbh-button govuk-!-margin-top-3=5"
+          href="/assets/file_upload_user_guide.pdf"
+        >
+          Download
+        </a>
       </div>
 
       <div className="govuk-body">
