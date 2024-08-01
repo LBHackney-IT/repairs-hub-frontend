@@ -235,8 +235,8 @@ workflows:
       - cypress/run:
           requires:
             - install-dependencies
-          # start-command: 'NODE_ENV=test yarn start'
-          cypress-command: 'yarn start & yarn cy:run:audit'
+          start-command: 'NODE_ENV=test yarn start'
+          cypress-command: 'NODE_ENV=test yarn cy:run:audit'
           package-manager: yarn
           parallelism: 4
       - assume-role-development:
