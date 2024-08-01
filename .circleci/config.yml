@@ -244,7 +244,7 @@ workflows:
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             NODE_ENV=test yarn start
           cypress-command: >
-            yarn e2e:cy:run:audit
+            yarn cy:run:audit
           package-manager: yarn
           parallelism: 4
       - assume-role-development:
