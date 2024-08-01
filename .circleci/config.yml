@@ -3,7 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
-  cypress: cypress-io/cypress@9
+  cypress: cypress-io/cypress@3
 
 executors:
   node-executor:
