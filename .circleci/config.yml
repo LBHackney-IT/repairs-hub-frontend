@@ -237,6 +237,7 @@ workflows:
             - install-dependencies
           start-command: 'NODE_ENV=test start-test 5001'
           cypress-command: 'yarn cy:run:audit'
+          package-manager: yarn
           parallelism: 4
       - assume-role-development:
           context: api-assume-role-housing-development-context
