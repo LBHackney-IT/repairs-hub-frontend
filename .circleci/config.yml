@@ -242,7 +242,7 @@ workflows:
           context: api-assume-role-housing-development-context
           requires:
             - tests
-            - e2e
+            - cypress/run
           filters:
             branches:
               only: develop
@@ -256,7 +256,7 @@ workflows:
           context: api-assume-role-staging-context
           requires:
             - tests
-            - e2e
+            - cypress/run
           filters:
             branches:
               only: main
