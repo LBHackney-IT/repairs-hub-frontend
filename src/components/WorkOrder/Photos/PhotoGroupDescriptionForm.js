@@ -78,7 +78,7 @@ export const UpdateDescriptionForm = ({
             name="description"
             label="Description"
             defaultValue={description ?? ''}
-            {...register('description')}
+            register={register()}
             error={errors && errors.description}
           />
           <input
