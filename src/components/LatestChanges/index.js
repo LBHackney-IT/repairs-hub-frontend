@@ -9,6 +9,14 @@ const LatestChangesView = () => {
         FAQs - Photo functionality in Repairs Hub
       </h1>
 
+      <div>
+        <img
+          src="/assets/latest-changes-image.png"
+          alt="User guide: Photo functionality in Repairs Hub"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </div>
+
       <div className="govuk-body">
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           What’s changing and when?
