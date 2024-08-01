@@ -15,24 +15,17 @@ const LatestChangesView = () => {
             <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-0">
               Photo functionality user guide
             </h2>
-            <p className="govuk-body-m govuk-!-margin-bottom-5 govuk-!-margin-top-5">
+            <p className="govuk-body-m govuk-!-margin-bottom-0 govuk-!-margin-top-5">
               This is a step-by-step guide to the new functionality, with
               annotated screenshots of the process
             </p>
-          </div>
-
-          <div className="govuk-!-margin-top-0">
-            <img
-              src="/assets/latest-changes-image.png"
-              alt="User guide: Photo functionality in Repairs Hub"
-            />
           </div>
         </div>
 
         <a
           download="User-guide-Photo-functionality-in-Repairs-Hub"
           className="govuk-button lbh-button govuk-!-margin-top-3=5"
-          href="/assets/file_upload_user_guide.pdf"
+          href="https://drive.google.com/file/d/1F4UUqqG6ctqvhKXgFIAff2fba_myF0i0/view?usp=sharing"
         >
           Download
         </a>
