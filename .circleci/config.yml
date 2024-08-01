@@ -244,12 +244,6 @@ workflows:
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             NODE_ENV=test yarn start
           cypress-command: >
-            export NEXT_PUBLIC_ENV_NAME=test
-            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
-            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
-            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
-            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
             yarn e2e:cy:run:audit
           package-manager: yarn
           parallelism: 4
