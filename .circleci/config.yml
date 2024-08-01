@@ -232,7 +232,7 @@ workflows:
       # - e2e:
       #     requires:
       #       - install-dependencies
-      - e2e:
+      - cypress/run:
           requires:
             - install-dependencies
           start-command: 'NODE_ENV=test start-test 5001'
