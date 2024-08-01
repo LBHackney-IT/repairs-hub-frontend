@@ -18,7 +18,7 @@
     "test:e2e": "NODE_ENV=test start-test 5001 cy:run",
     "e2e:audit": "NODE_ENV=test start-test 5001 cy:run:audit --parallel --record --group 'all tests'",
     "cy:run": "cypress run --browser chrome --headless",
-    "cy:run:audit": "cypress run --browser chrome --headless --env runAudit=true",
+    "cy:run:audit": "wait-on http://localhost:5001 cypress run --browser chrome --headless --env runAudit=true",
     "cy:open": "cypress open"
   },
   "dependencies": {
@@ -85,7 +85,8 @@
     "node-mocks-http": "^1.10.0",
     "prettier": "^2.2.1",
     "sass": "^1.29.0",
-    "start-server-and-test": "^1.11.6"
+    "start-server-and-test": "^1.11.6",
+    "wait-on": "^7.2.0"
   },
   "lint-staged": {
     "**/*.{js,jsx}": "eslint --fix",
