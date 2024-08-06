@@ -97,7 +97,10 @@ const Radio = ({
             </div>
 
             {option.children != null && (
-              <div class="govuk-radios__conditional" id="conditional-contact">
+              <div
+                className="govuk-radios__conditional"
+                id="conditional-contact"
+              >
                 {option.children}
               </div>
             )}
