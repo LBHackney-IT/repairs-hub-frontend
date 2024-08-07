@@ -59,11 +59,11 @@ jobs:
     executor: node-executor
     steps:
       - *attach_workspace
-      - run:
-          name: Install dependencies
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y libgconf-2-4 libnss3 libxss1
+      # - run:
+      #     name: Install dependencies
+      #     command: |
+      #       sudo apt-get update
+      #       sudo apt-get install -y libgconf-2-4 libnss3 libxss1
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
@@ -76,7 +76,6 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            export ELECTRON_EXTRA_LAUNCH_ARGS='--disable-gpu'
             yarn e2e:audit
       - store_artifacts:
           path: cypress/screenshots
