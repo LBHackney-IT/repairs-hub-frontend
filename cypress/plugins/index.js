@@ -22,7 +22,7 @@ const path = require('path')
 
 const storeData = async (data, filepath) => {
   try {
-    dirpath = path.dirname(filepath)
+    const dirpath = path.dirname(filepath)
     await fs.promises.mkdir(dirpath, { recursive: true })
     // Paste JSON file into https://googlechrome.github.io/lighthouse/viewer/
     // for Lighthouse Report
