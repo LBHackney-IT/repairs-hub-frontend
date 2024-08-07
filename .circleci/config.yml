@@ -164,6 +164,9 @@ jobs:
             echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
+          name: Force install
+          command: yarn cypress install --force
+      - run:
           name: deploy
           command: |
             export NEXT_PUBLIC_NODE_ENV=production
