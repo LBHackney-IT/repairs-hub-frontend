@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PropertyBoilerHouseDetails it shows an error message when request fails 1`] = `
+exports[`PropertyBoilerHouseDetails shows an error message when request fails 1`] = `
 <DocumentFragment>
   <span
     class="govuk-error-message lbh-error-message"
@@ -17,7 +17,7 @@ exports[`PropertyBoilerHouseDetails it shows an error message when request fails
 </DocumentFragment>
 `;
 
-exports[`PropertyBoilerHouseDetails it shows boiler house details 1`] = `
+exports[`PropertyBoilerHouseDetails shows boiler house details 1`] = `
 <DocumentFragment>
   <li
     class="bg-dark-green"

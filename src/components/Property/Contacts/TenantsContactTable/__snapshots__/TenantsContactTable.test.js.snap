@@ -19,6 +19,7 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             <a
               class="tenantContactsTable-button"
               href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              rel="noreferrer"
               style="font-size: 16px;"
               target="_blank"
             >
@@ -161,6 +162,7 @@ exports[`TenantsContactTable component when supplied with a list of tenants with
             <a
               class="tenantContactsTable-button"
               href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              rel="noreferrer"
               style="font-size: 16px;"
               target="_blank"
             >
@@ -297,6 +299,7 @@ exports[`TenantsContactTable component when supplied with a tenant with no phone
             <a
               class="tenantContactsTable-button"
               href="https://manage-my-home-development.hackney.gov.uk/person/1234/edit-contact-details"
+              rel="noreferrer"
               style="font-size: 16px;"
               target="_blank"
             >
