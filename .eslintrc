@@ -40,7 +40,8 @@
     "jest/no-identical-title": "warn",
     "jest/valid-expect": "warn",
     "cypress/unsafe-to-chain-command": "warn",
-    "react/display-name": "warn"
+    "react/display-name": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
   },
   "settings": {
     "react": {
