@@ -12,7 +12,7 @@ const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
 
-describe.skip('MobileWorkingWorkOrder component with single operative', () => {
+describe('MobileWorkingWorkOrder component with single operative', () => {
   axios.mockResolvedValue({
     data: {
       alerts: [],

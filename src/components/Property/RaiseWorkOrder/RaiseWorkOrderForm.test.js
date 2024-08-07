@@ -22,7 +22,7 @@ const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
 
-describe.skip('RaiseWorkOrderForm component', () => {
+describe('RaiseWorkOrderForm component', () => {
   axios.mockResolvedValue({
     data: {
       alerts: [],
