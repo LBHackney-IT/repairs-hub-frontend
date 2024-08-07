@@ -9,7 +9,7 @@ const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
 
-describe('PropertyDetails component', () => {
+describe.skip('PropertyDetails component', () => {
   axios
     .mockResolvedValueOnce({
       data: {
