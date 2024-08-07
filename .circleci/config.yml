@@ -60,6 +60,9 @@ jobs:
     steps:
       - *attach_workspace
       - run:
+          name: Force install
+          command: ./node_modules/.bin/cypress install --force
+      - run:
           name: Run E2E With Lighthouse Audit
           command: |
             export NEXT_PUBLIC_ENV_NAME=test
@@ -163,9 +166,6 @@ jobs:
             nvm use 14
             echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-      - run:
-          name: Force install
-          command: ./node_modules/.bin/cypress install --force
       - run:
           name: deploy
           command: |
