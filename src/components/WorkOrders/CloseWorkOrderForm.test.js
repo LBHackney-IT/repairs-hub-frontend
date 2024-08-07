@@ -3,7 +3,7 @@ import { agent } from '../../../factories/agent'
 import UserContext from '../UserContext'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 
-describe.skip('CloseWorkOrderForm component', () => {
+describe('CloseWorkOrderForm component', () => {
   const operatives = [
     {
       id: 1,
