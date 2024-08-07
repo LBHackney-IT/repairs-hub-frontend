@@ -8,7 +8,7 @@ const PropertyDetails = ({
   tenure,
   canRaiseRepair,
   propertyReference,
-  boilerHouseId
+  boilerHouseId,
 }) => {
   return (
     <GridRow className="lbh-body-s govuk-!-margin-bottom-2">
