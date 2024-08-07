@@ -7,7 +7,7 @@ orbs:
 executors:
   node-executor:
     docker:
-      - image: cypress/browsers:node-20.15.1-chrome-126.0.6478.114-1-ff-127.0.1-edge-126.0.2592.61-1
+      - image: circleci/node:14.15.4-browsers
   docker-python:
     docker:
       - image: circleci/python:3.7
