@@ -41,15 +41,13 @@ module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, launchOptions) => {
     prepareAudit(launchOptions)
 
-    // if (browser.name === 'chrome' && browser.isHeadless) {
-      launchOptions.preferences.default['default.disable_3d_apis'] = false;
-      
-      launchOptions.args.push('--enable-features=VaapiVideoDecoder');
-      launchOptions.args.push('--disable-gpu');
-      launchOptions.args.push('--use-gl=egl');
-    // }
-    
-    return launchOptions;
+    launchOptions.preferences.default['default.disable_3d_apis'] = false
+
+    launchOptions.args.push('--enable-features=VaapiVideoDecoder')
+    launchOptions.args.push('--disable-gpu')
+    launchOptions.args.push('--use-gl=egl')
+
+    return launchOptions
   })
 
   on('task', {

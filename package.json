@@ -19,7 +19,7 @@
     "test:e2e": "NODE_ENV=test start-test http://localhost:5001 cy:run",
     "e2e:audit": "NODE_ENV=test start-test http://localhost:5001 cy:run:audit",
     "cy:run": "cypress run --browser chrome --headless",
-    "cy:run:audit": "cypress run --browser chrome --headless",
+    "cy:run:audit": "cypress run --browser chrome --headless --env runAudit=true",
     "cy:open": "cypress open"
   },
   "dependencies": {
@@ -95,7 +95,6 @@
     "start-server-and-test": "2",
     "typescript": "^5.5.4"
   },
-  "eslintConfig": {},
   "lint-staged": {
     "**/*.{js,jsx}": "eslint --fix",
     "**/*.{js,jsx,css,scss,md}": "prettier --write --list-different"

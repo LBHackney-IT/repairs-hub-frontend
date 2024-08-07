@@ -62,11 +62,6 @@ jobs:
     executor: cypress-executor
     steps:
       - *attach_workspace
-      # - run:
-      #     name: Install dependencies
-      #     command: |
-      #       sudo apt-get update
-      #       sudo apt-get install -y libgconf-2-4 libnss3 libxss1
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
