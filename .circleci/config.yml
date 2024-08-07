@@ -7,7 +7,7 @@ orbs:
 executors:
   cypress-executor:
     docker:
-      - cypress/browsers:latest
+      - image: cypress/browsers:latest
   node-executor:
     docker:
       - image: circleci/node:16.13-stretch-browsers-legacy
