@@ -5,7 +5,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 
 jest.mock('axios', () => jest.fn())
 
-describe.skip('PropertyBoilerHouseDetails', () => {
+describe('PropertyBoilerHouseDetails', () => {
   it('shows an error message when request fails', async () => {
     axios.mockImplementationOnce(() =>
       Promise.reject({

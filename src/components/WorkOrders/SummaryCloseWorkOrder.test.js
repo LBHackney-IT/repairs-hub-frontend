@@ -38,7 +38,7 @@ describe('SummaryCloseWorkOrder component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it.skip('should include photos', () => {
+  it('should include photos', () => {
     const { asFragment } = render(
       <SummaryCloseWorkOrder
         reference={props.reference}

@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 import NoteEntry from './NoteEntry'
 
-describe.skip('NoteEntry component', () => {
+describe('NoteEntry component', () => {
   const props = {
     note: 'Image from user: http://example-url/',
     time: '',
