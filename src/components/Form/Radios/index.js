@@ -2,6 +2,7 @@ import cx from 'classnames'
 import PropTypes from 'prop-types'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { Fragment } from 'react'
 
 const defaultOptions = ['Yes', 'No']
 
@@ -57,8 +58,8 @@ const Radio = ({
               }
             : option
         return (
-          <>
-            <div className="govuk-radios__item" key={text}>
+          <Fragment key={text}>
+            <div className="govuk-radios__item">
               <input
                 className={cx('govuk-radios__input', {
                   'govuk-input--error': error,
@@ -104,7 +105,7 @@ const Radio = ({
                 {option.children}
               </div>
             )}
-          </>
+          </Fragment>
         )
       })}
     </div>

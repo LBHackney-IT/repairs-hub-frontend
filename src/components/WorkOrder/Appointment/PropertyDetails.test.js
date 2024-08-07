@@ -53,6 +53,7 @@ describe('PropertyDetails component', () => {
         subTypeDescription: 'Dwelling',
       },
       canRaiseRepair: true,
+      boilerHouseId: '1234',
     },
     tenure: {
       id: 'tenureId1',
@@ -70,6 +71,7 @@ describe('PropertyDetails component', () => {
         tenure={props.tenure}
         subTypeDescription={props.property.hierarchyType.subTypeDescription}
         canRaiseRepair={props.property.canRaiseRepair}
+        boilerHouseId={props.property.boilerHouseId}
       />
     )
 

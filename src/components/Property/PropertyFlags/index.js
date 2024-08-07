@@ -29,6 +29,8 @@ const PropertyFlags = ({
   const [personAlertsError, setPersonAlertsError] = useState()
 
   const getLocationAlerts = () => {
+    console.log('getLocationAlerts')
+
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${propertyReference}/location-alerts`,
@@ -48,6 +50,8 @@ const PropertyFlags = ({
   }
 
   const getPersonAlerts = (tenureId) => {
+    console.log('getPersonAlerts')
+
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${tenureId}/person-alerts`,
@@ -82,9 +86,14 @@ const PropertyFlags = ({
     boilerHouseId !== undefined
 
   useEffect(() => {
-    setLocationAlertsLoading(true)
-    getLocationAlerts()
-    if (tenure?.id) {
+    console.log('use effect')
+
+    if (!locationAlertsLoading) {
+      setLocationAlertsLoading(true)
+      getLocationAlerts()
+    }
+
+    if (tenure?.id && !personAlertsLoading) {
       setPersonAlertsLoading(true)
       getPersonAlerts(tenure.id)
     }

@@ -8,6 +8,7 @@ const PropertyDetails = ({
   tenure,
   canRaiseRepair,
   propertyReference,
+  boilerHouseId
 }) => {
   return (
     <GridRow className="lbh-body-s govuk-!-margin-bottom-2">
@@ -20,6 +21,7 @@ const PropertyDetails = ({
           tenure={tenure}
           canRaiseRepair={canRaiseRepair}
           propertyReference={propertyReference}
+          boilerHouseId={boilerHouseId}
         />
       </GridColumn>
     </GridRow>
@@ -32,6 +34,7 @@ PropertyDetails.propTypes = {
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
   propertyReference: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string.isRequired,
 }
 
 export default PropertyDetails
