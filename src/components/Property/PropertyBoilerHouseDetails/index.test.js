@@ -6,7 +6,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 jest.mock('axios', () => jest.fn())
 
 describe('PropertyBoilerHouseDetails', () => {
-  it('it shows an error message when request fails', async () => {
+  it('shows an error message when request fails', async () => {
     axios.mockImplementationOnce(() =>
       Promise.reject({
         response: {
@@ -33,7 +33,7 @@ describe('PropertyBoilerHouseDetails', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('it shows boiler house details', async () => {
+  it('shows boiler house details', async () => {
     const mockResponse = {
       propertyReference: '00023404',
       address: {

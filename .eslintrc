@@ -2,9 +2,11 @@
   "env": {
     "browser": true,
     "es6": true,
-    "node": true
+    "node": true,
+    "jest": true,
+    "commonjs": true
   },
-  "parser": "@typescript-eslint/parser",
+  "parser": "@babel/eslint-parser",
   "parserOptions": {
     "ecmaVersion": 2020,
     "sourceType": "module",
@@ -12,15 +14,33 @@
       "jsx": true
     }
   },
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["react", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
+    "plugin:jest/recommended"
   ],
   "rules": {
     // Your custom rules here
+    "linebreak-style": ["error", "unix"],
+    "require-atomic-updates": "off",
+    "react/jsx-uses-vars": 2,
+    "@typescript-eslint/no-unused-expressions": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+    "react/no-children-prop": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/jsx-key": "warn",
+    "no-unsafe-optional-chaining": "warn",
+    "react/jsx-no-duplicate-props": "warn",
+    "jest/no-identical-title": "warn",
+    "jest/valid-expect": "warn",
+    "cypress/unsafe-to-chain-command": "warn",
+    "react/display-name": "warn"
   },
   "settings": {
     "react": {

@@ -337,7 +337,7 @@ describe('Pending variation tab on work-order page', () => {
       )
     })
 
-    it('status is In Progress ', () => {
+    it('status is In Progress', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
@@ -373,7 +373,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.audit()
     })
 
-    it('status is Work complete ', () => {
+    it('status is Work complete', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000037
         cy.intercept(
@@ -409,7 +409,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.audit()
     })
 
-    it('status is Authorisation Pending Approval ', () => {
+    it('status is Authorisation Pending Approval', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000032
         cy.intercept(
