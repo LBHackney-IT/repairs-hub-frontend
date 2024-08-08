@@ -34,7 +34,7 @@ PropertyDetails.propTypes = {
   tenure: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
   propertyReference: PropTypes.string.isRequired,
-  boilerHouseId: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string,
 }
 
 export default PropertyDetails

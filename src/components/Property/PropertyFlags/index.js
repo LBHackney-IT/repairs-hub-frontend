@@ -136,7 +136,7 @@ PropertyFlags.propTypes = {
   tenure: PropTypes.object,
   tmoName: PropTypes.string,
   propertyReference: PropTypes.string.isRequired,
-  boilerHouseId: PropTypes.string,
+  boilerHouseId: PropTypes.string.isRequired,
   setParentLocationAlerts: PropTypes.func,
   setParentPersonAlerts: PropTypes.func,
 }

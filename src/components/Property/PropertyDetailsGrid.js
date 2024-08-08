@@ -37,7 +37,7 @@ const PropertyDetailsGrid = ({
 
 PropertyDetailsGrid.propTypes = {
   propertyReference: PropTypes.string,
-  boilerHouseId: PropTypes.string,
+  boilerHouseId: PropTypes.string.isRequired,
   address: PropTypes.object.isRequired,
   subTypeDescription: PropTypes.string,
   tenure: PropTypes.object.isRequired,
