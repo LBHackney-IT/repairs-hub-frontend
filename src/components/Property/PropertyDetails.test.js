@@ -30,7 +30,6 @@ describe('PropertyDetails component', () => {
         subTypeDescription: 'Dwelling',
       },
       canRaiseRepair: true,
-      boilerHouseId: '1234',
     },
     tenure: {
       id: 'tenureId1',
@@ -57,7 +56,6 @@ describe('PropertyDetails component', () => {
           hierarchyType={props.property.hierarchyType}
           canRaiseRepair={props.property.canRaiseRepair}
           tenure={props.tenure}
-          boilerHouseId={props.property.boilerHouseId}
         />
       )
 
@@ -89,7 +87,6 @@ describe('PropertyDetails component', () => {
           hierarchyType={props.property.hierarchyType}
           canRaiseRepair={props.property.canRaiseRepair}
           tenure={props.tenure}
-          boilerHouseId={props.property.boilerHouseId}
         />
       )
 

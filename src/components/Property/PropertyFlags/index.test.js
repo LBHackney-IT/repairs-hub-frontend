@@ -45,7 +45,6 @@ describe('PropertyFlags', () => {
     const { asFragment } = render(
       <PropertyFlags
         canRaiseRepair={true}
-        boilerHouseId="1234"
         tenure={{
           id: 'tenureId1',
           tenancyAgreementReference: 'tenancyAgreementRef1',
@@ -66,7 +65,7 @@ describe('PropertyFlags', () => {
       ])
     })
 
-    // expect(axios).toHaveBeenCalledTimes(2)
+    expect(axios).toHaveBeenCalledTimes(2)
 
     expect(axios).toHaveBeenCalledWith({
       method: 'get',
@@ -82,20 +81,35 @@ describe('PropertyFlags', () => {
   })
 
   it('accepts optional callback functions and calls them on alert fetch', async () => {
-    axios.mockResolvedValue({
-      data: {
-        alerts: [
-          {
-            type: 'type1',
-            comments: 'Alert 1',
-          },
-          {
-            type: 'type2',
-            comments: 'Alert 2',
-          },
-        ],
-      },
-    })
+    axios
+      .mockResolvedValueOnce({
+        data: {
+          alerts: [
+            {
+              type: 'type1',
+              comments: 'Location Alert 1',
+            },
+            {
+              type: 'type2',
+              comments: 'Location Alert 2',
+            },
+          ],
+        },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          alerts: [
+            {
+              type: 'type3',
+              comments: 'Person Alert 1',
+            },
+            {
+              type: 'type4',
+              comments: 'Person Alert 2',
+            },
+          ],
+        },
+      })
 
     const mockSetParentLocationAlerts = jest.fn()
     const mockSetParentPersonAlerts = jest.fn()
@@ -103,7 +117,6 @@ describe('PropertyFlags', () => {
     render(
       <PropertyFlags
         canRaiseRepair={true}
-        boilerHouseId="1234"
         tenure={{
           id: 'tenureId1',
           tenancyAgreementReference: 'tenancyAgreementRef1',
@@ -126,22 +139,22 @@ describe('PropertyFlags', () => {
     expect(mockSetParentLocationAlerts).toHaveBeenCalledWith([
       {
         type: 'type1',
-        comments: 'Alert 1',
+        comments: 'Location Alert 1',
       },
       {
         type: 'type2',
-        comments: 'Alert 2',
+        comments: 'Location Alert 2',
       },
     ])
 
     expect(mockSetParentPersonAlerts).toHaveBeenCalledWith([
       {
-        type: 'type1',
-        comments: 'Alert 1',
+        type: 'type3',
+        comments: 'Person Alert 1',
       },
       {
-        type: 'type2',
-        comments: 'Alert 2',
+        type: 'type4',
+        comments: 'Person Alert 2',
       },
     ])
   })

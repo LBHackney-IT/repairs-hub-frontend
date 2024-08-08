@@ -58,7 +58,7 @@ const PropertyDetails = ({
 
 PropertyDetails.propTypes = {
   propertyReference: PropTypes.string.isRequired,
-  boilerHouseId: PropTypes.string.isRequired,
+  boilerHouseId: PropTypes.string,
   address: PropTypes.object.isRequired,
   hierarchyType: PropTypes.object.isRequired,
   canRaiseRepair: PropTypes.bool.isRequired,
