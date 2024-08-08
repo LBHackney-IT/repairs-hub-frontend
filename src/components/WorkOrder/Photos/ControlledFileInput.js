@@ -24,6 +24,8 @@ const ControlledFileInput = ({
   return (
     <div>
       <legend
+        htmlFor="fileUpload"
+        id="fileUploadLegend"
         className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
       >
         {label} {showAsOptional && '(optional) '}
@@ -39,6 +41,7 @@ const ControlledFileInput = ({
         ref={inputRef}
         name="fileUpload"
         id="fileUpload"
+        aria-labelledby="fileUploadLegend"
         data-testid="fileUploadInput"
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
