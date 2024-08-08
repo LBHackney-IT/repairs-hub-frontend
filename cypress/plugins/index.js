@@ -41,11 +41,11 @@ module.exports = (on, config) => {
   on('before:browser:launch', (browser = {}, launchOptions) => {
     prepareAudit(launchOptions)
 
-    launchOptions.preferences.default['default.disable_3d_apis'] = false
+    // launchOptions.preferences.default['default.disable_3d_apis'] = false
 
-    launchOptions.args.push('--enable-features=VaapiVideoDecoder')
-    launchOptions.args.push('--disable-gpu')
-    launchOptions.args.push('--use-gl=egl')
+    // launchOptions.args.push('--enable-features=VaapiVideoDecoder')
+    // launchOptions.args.push('--disable-gpu')
+    // launchOptions.args.push('--use-gl=egl')
 
     return launchOptions
   })
