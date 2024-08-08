@@ -81,6 +81,8 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
           <div>
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--s"
+              for="fileUpload"
+              id="fileUploadLegend"
             >
               Photos 
             </legend>
@@ -92,6 +94,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             </span>
             <input
               accept=".jpg, .jpeg, .png"
+              aria-labelledby="fileUploadLegend"
               class="govuk-file-upload custom-file-input"
               data-testid="fileUploadInput"
               id="fileUpload"
