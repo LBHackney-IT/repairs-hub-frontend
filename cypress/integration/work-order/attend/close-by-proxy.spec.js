@@ -513,7 +513,7 @@ describe('Closing a work order on behalf of an operative', () => {
   })
 
   // uploads photos to work order
-  it.only('uploads files when closing work order', () => {
+  it('uploads files when closing work order', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/images/upload*' },
       {

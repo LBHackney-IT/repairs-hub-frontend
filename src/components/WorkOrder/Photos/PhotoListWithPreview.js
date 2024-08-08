@@ -1,5 +1,6 @@
 import { PhotoProvider, PhotoView } from 'react-photo-view'
 import 'react-photo-view/dist/react-photo-view.css'
+import PropTypes from 'prop-types'
 
 const PhotoListWithPreview = ({ fileUrls }) => {
   return (
@@ -15,6 +16,10 @@ const PhotoListWithPreview = ({ fileUrls }) => {
       </div>
     </PhotoProvider>
   )
+}
+
+PhotoListWithPreview.propTypes = {
+  fileUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
 }
 
 export default PhotoListWithPreview

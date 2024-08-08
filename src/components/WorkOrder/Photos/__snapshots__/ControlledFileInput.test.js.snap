@@ -5,6 +5,8 @@ exports[`ControlledFileInput component renders component when no files selected 
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
+      for="fileUpload"
+      id="fileUploadLegend"
     >
       Photos 
     </legend>
@@ -16,6 +18,7 @@ exports[`ControlledFileInput component renders component when no files selected 
     </span>
     <input
       accept=".jpg, .jpeg, .png"
+      aria-labelledby="fileUploadLegend"
       class="govuk-file-upload custom-file-input"
       data-testid="fileUploadInput"
       id="fileUpload"
@@ -33,6 +36,8 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
+      for="fileUpload"
+      id="fileUploadLegend"
     >
       Photos 
     </legend>
@@ -44,6 +49,7 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
     </span>
     <input
       accept=".jpg, .jpeg, .png"
+      aria-labelledby="fileUploadLegend"
       class="govuk-file-upload custom-file-input"
       data-testid="fileUploadInput"
       id="fileUpload"
@@ -85,6 +91,8 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
+      for="fileUpload"
+      id="fileUploadLegend"
     >
       Photos 
     </legend>
@@ -108,6 +116,7 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
     </span>
     <input
       accept=".jpg, .jpeg, .png"
+      aria-labelledby="fileUploadLegend"
       class="govuk-file-upload custom-file-input govuk-form-group--error"
       data-testid="fileUploadInput"
       id="fileUpload"

@@ -262,7 +262,7 @@ const RaiseWorkOrderForm = ({
 
             <h2 className=" lbh-heading-h2">
               Contact details for repair
-              <span class="govuk-caption-m">
+              <span className="govuk-caption-m">
                 Who should we contact for this repair?
               </span>
             </h2>

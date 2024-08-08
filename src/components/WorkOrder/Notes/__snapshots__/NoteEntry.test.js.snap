@@ -5,7 +5,7 @@ exports[`NoteEntry component should render properle 1`] = `
   <div
     class="note-info lbh-body-s"
   >
-    — by Test user (sample@sample.com)
+    23 Jan 2021, 16:28 by Test user (sample@sample.com)
   </div>
   <span>
     Housing Repairs Online request: 
