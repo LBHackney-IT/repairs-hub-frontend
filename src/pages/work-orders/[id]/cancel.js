@@ -6,6 +6,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
 } from '@/utils/user'
+import PropTypes from 'prop-types'
 
 const WorkOrderCancelPage = ({ query }) => {
   return (
@@ -17,6 +18,12 @@ const WorkOrderCancelPage = ({ query }) => {
 }
 
 export const getServerSideProps = getQueryProps
+
+WorkOrderCancelPage.propTypes = {
+  query: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+}
 
 WorkOrderCancelPage.permittedRoles = [
   AGENT_ROLE,

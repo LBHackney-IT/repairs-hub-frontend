@@ -2,6 +2,7 @@ import Meta from '@/components/Meta'
 import NewTaskForm from '@/components/Operatives/NewTaskForm'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
+import PropTypes from 'prop-types'
 
 const NewTaskPage = ({ query }) => {
   return (
@@ -13,6 +14,12 @@ const NewTaskPage = ({ query }) => {
 }
 
 export const getServerSideProps = getQueryProps
+
+NewTaskPage.propTypes = {
+  query: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+}
 
 NewTaskPage.permittedRoles = [OPERATIVE_ROLE]
 

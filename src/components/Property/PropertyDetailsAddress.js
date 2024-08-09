@@ -16,6 +16,13 @@ const Address = ({ address }) => {
     </div>
   )
 }
+Address.propTypes = {
+  address: PropTypes.shape({
+    addressLine: PropTypes.string.isRequired,
+    streetSuffix: PropTypes.string.isRequired,
+    postalCode: PropTypes.string.isRequired,
+  }).isRequired,
+}
 
 const PropertyDetailsAddress = ({
   address,
@@ -41,7 +48,11 @@ const PropertyDetailsAddress = ({
 }
 
 PropertyDetailsAddress.propTypes = {
-  address: PropTypes.object.isRequired,
+  address: PropTypes.shape({
+    addressLine: PropTypes.string.isRequired,
+    streetSuffix: PropTypes.string.isRequired,
+    postalCode: PropTypes.string.isRequired,
+  }).isRequired,
   propertyReference: PropTypes.string.isRequired,
   subTypeDescription: PropTypes.string.isRequired,
   hasLinkToProperty: PropTypes.bool.isRequired,

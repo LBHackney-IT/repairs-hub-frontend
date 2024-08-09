@@ -10,6 +10,7 @@ import {
   canSeeOperativeWorkOrders,
 } from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import PropTypes from 'prop-types'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -65,6 +66,12 @@ const Home = ({ query }) => {
 }
 
 export const getServerSideProps = getQueryProps
+
+Home.propTypes = {
+  query: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+  }),
+}
 
 Home.permittedRoles = [...ALL_ROLES]
 

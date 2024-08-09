@@ -1,4 +1,5 @@
 import BackButton from '../../Layout/BackButton'
+import PropTypes from 'prop-types'
 
 const Layout = ({ children, title }) => {
   return (
@@ -9,6 +10,11 @@ const Layout = ({ children, title }) => {
       <>{children}</>
     </>
   )
+}
+
+Layout.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 }
 
 export default Layout

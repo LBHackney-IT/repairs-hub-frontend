@@ -19,6 +19,11 @@ const TableRow = (props) => {
   )
 }
 
+TableRow.propTypes = {
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+}
+
 const SummaryCloseWorkOrder = ({
   reference,
   onJobSubmit,
@@ -194,6 +199,18 @@ SummaryCloseWorkOrder.propTypes = {
   description: PropTypes.string,
   files: PropTypes.array,
   operativeNames: PropTypes.arrayOf(PropTypes.string),
+
+  followOnData: PropTypes.shape({
+    isSameTrade: PropTypes.bool.isRequired,
+    isDifferentTrades: PropTypes.bool.isRequired,
+    requiredFollowOnTrades: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isMultipleOperatives: PropTypes.bool.isRequired,
+    followOnTypeDescription: PropTypes.string,
+
+    stockItemsRequired: PropTypes.bool.isRequired,
+    nonStockItemsRequired: PropTypes.bool.isRequired,
+    materialNotes: PropTypes.string,
+  }),
 }
 
 export default SummaryCloseWorkOrder

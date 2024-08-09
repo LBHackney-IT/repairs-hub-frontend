@@ -60,6 +60,17 @@ TextArea.propTypes = {
   label: PropTypes.string,
   hint: PropTypes.string,
   name: PropTypes.string.isRequired,
+
+  value: PropTypes.string.isRequired,
+  type: PropTypes.string.isRequired,
+  rows: PropTypes.number,
+  register: PropTypes.any,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
+  required: PropTypes.bool,
+  showAsOptional: PropTypes.bool,
+  className: PropTypes.string,
 }
 
 export default TextArea
