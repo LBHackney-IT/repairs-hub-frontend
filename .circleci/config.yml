@@ -240,7 +240,8 @@ workflows:
             - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
-          # requires:
+          requires:
+            - install-dependencies
           #   - tests
           #   - e2e
           # filters:
