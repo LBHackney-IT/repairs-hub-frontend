@@ -10,6 +10,33 @@ import {
 } from '@/utils/statusCodes'
 
 export class WorkOrder {
+  reference: string
+  status: string
+  callerName: string
+  callerNumber: string
+
+  appointment: null | {
+    description: string
+    date: Date
+    start: Date
+  }
+  target: Date
+  raisedBy: string
+  operatives: {
+    name: string
+  }[]
+  priorityCode: number
+  tradeCode: string
+  contractorReference: string
+  priority: string
+  description: string
+  plannerComments: string
+  budgetCode?: {
+    externalCostCode?: string
+    corporateSubjectiveCode?: string
+    descriptionOfWorks?: string
+  }
+
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
   }
