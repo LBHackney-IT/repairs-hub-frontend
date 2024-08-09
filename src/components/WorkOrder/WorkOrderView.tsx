@@ -10,16 +10,31 @@ import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 
-const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState({})
-  const [workOrder, setWorkOrder] = useState({})
+interface Props {
+  workOrderReference: string
+}
+
+interface IProperty {
+  address: {
+    addressLine: string
+    streetSuffix: string
+    postalCode: string
+  }
+  tmoName: string
+  hierarchyType: string
+  propertyReference: string
+}
+
+const WorkOrderView = ({ workOrderReference }: Props) => {
+  const [property, setProperty] = useState<IProperty | null>()
+  const [workOrder, setWorkOrder] = useState<WorkOrder | null>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
-  const [schedulerSessionId, setSchedulerSessionId] = useState()
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [schedulerSessionId, setSchedulerSessionId] = useState<string | null>()
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>()
   const tabsList = [
     'Tasks and SORs',
     'Notes',
@@ -53,7 +68,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     }
   }
 
-  const getWorkOrderView = async (workOrderReference) => {
+  const getWorkOrderView = async (workOrderReference: string) => {
     setError(null)
 
     try {
@@ -108,49 +123,44 @@ const WorkOrderView = ({ workOrderReference }) => {
     getWorkOrderView(workOrderReference)
   }, [])
 
+  if (loading) return <Spinner />
+
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {property &&
-            property.address &&
-            property.hierarchyType &&
-            tenure &&
-            workOrder && (
-              <>
-                <WorkOrderDetails
-                  property={property}
-                  workOrder={workOrder}
-                  tenure={tenure}
-                  resetSchedulerSessionId={getSchedulerSessionId}
-                  schedulerSessionId={schedulerSessionId}
-                  tasksAndSors={tasksAndSors}
-                  printClickHandler={printClickHandler}
-                  setLocationAlerts={setLocationAlerts}
-                  setPersonAlerts={setPersonAlerts}
-                />
-                <Tabs
-                  tabsList={tabsList}
-                  propertyReference={property.propertyReference}
-                  workOrderReference={workOrderReference}
-                  tasksAndSors={tasksAndSors}
-                  budgetCode={workOrder.budgetCode}
-                />
-                {/* Only displayed for print media */}
-                <PrintJobTicketDetails
-                  workOrder={workOrder}
-                  property={property}
-                  tasksAndSors={tasksAndSors}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
-                />
-              </>
-            )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
+      {property &&
+        property.address &&
+        property.hierarchyType &&
+        tenure &&
+        workOrder && (
+          <>
+            <WorkOrderDetails
+              property={property}
+              workOrder={workOrder}
+              tenure={tenure}
+              resetSchedulerSessionId={getSchedulerSessionId}
+              schedulerSessionId={schedulerSessionId}
+              printClickHandler={printClickHandler}
+              setLocationAlerts={setLocationAlerts}
+              setPersonAlerts={setPersonAlerts}
+            />
+            <Tabs
+              tabsList={tabsList}
+              propertyReference={property.propertyReference}
+              workOrderReference={workOrderReference}
+              tasksAndSors={tasksAndSors}
+              budgetCode={workOrder.budgetCode}
+            />
+            {/* Only displayed for print media */}
+            <PrintJobTicketDetails
+              workOrder={workOrder}
+              property={property}
+              tasksAndSors={tasksAndSors}
+              locationAlerts={locationAlerts}
+              personAlerts={personAlerts}
+            />
+          </>
+        )}
+      {error && <ErrorMessage label={error} />}
     </>
   )
 }

@@ -1,9 +1,28 @@
-import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
+
+interface Props {
+  workOrder: WorkOrder
+  property: {
+    address: {
+      addressLine: string
+      streetSuffix: string
+      postalCode: string
+    }
+    tmoName: string
+  }
+  tasksAndSors: {
+    code: string
+    description: string
+    quantity: number
+    standardMinuteValue: number
+  }[]
+  locationAlerts: any[]
+  personAlerts: any[]
+}
 
 const PrintJobTicketDetails = ({
   workOrder,
@@ -11,7 +30,7 @@ const PrintJobTicketDetails = ({
   locationAlerts,
   personAlerts,
   tasksAndSors,
-}) => {
+}: Props) => {
   const cautionaryAlertsType = getCautionaryAlertsType([
     ...locationAlerts,
     ...personAlerts,
@@ -53,7 +72,7 @@ const PrintJobTicketDetails = ({
                 <path d="M200.955311,28.5221077 C200.298901,30.3958684 199.56337,32.7989483 198.29304,34.3912803 C196.164103,37.0407925 192.887912,37 189.733333,37 L186.048352,37 L186.048352,30.5577263 L187.92967,30.5577263 C188.750183,30.5577263 189.813919,30.6408425 190.389744,30.3550393 C190.880586,30.1115234 191.1663,29.7032331 191.1663,28.7670818 C191.1663,27.7463561 188.054212,19.964052 187.604396,18.7406393 L184,9 L192.681319,9 L196.082051,21.1451774 L196.164103,21.1451774 L199.604396,9 L208,9 L200.955311,28.5221077"></path>
               </g>
               <image
-                src="/assets/images/lbh-logo.png"
+                // src="/assets/images/lbh-logo.png"
                 xlinkHref=""
                 className="lbh-header__logo-fallback-image"
                 width="206"
@@ -257,19 +276,6 @@ const PrintJobTicketDetails = ({
       </div>
     </>
   )
-}
-
-PrintJobTicketDetails.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  property: PropTypes.object.isRequired,
-  tasksAndSors: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      description: PropTypes.string,
-      quantity: PropTypes.number,
-      standardMinuteValue: PropTypes.number,
-    })
-  ).isRequired,
 }
 
 export default PrintJobTicketDetails

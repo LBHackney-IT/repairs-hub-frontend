@@ -15,7 +15,7 @@
     "test:unit-windows": "node ./node_modules/jest/bin/jest.js",
     "test:unit-win-upd": "node ./node_modules/jest/bin/jest.js --updateSnapshot",
     "lint": "eslint . && echo 'Lint complete.'",
-    "lintfix": "eslint . --max-warnings 0 --fix",
+    "lintfix": "eslint . --fix",
     "test:e2e": "NODE_ENV=test start-test http://localhost:5001 cy:run",
     "e2e:audit": "NODE_ENV=test start-test http://localhost:5001 cy:run:audit",
     "cy:run": "cypress run --browser chrome --headless",
