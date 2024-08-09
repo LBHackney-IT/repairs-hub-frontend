@@ -83,9 +83,10 @@ jobs:
           path: cypress/reports
 
   build-deploy-development:
-    executor: aws-cli/default
+    executor: node-executor
     steps:
       - *attach_workspace
+      - aws-cli/install
       - run:
           name: Swap node versions
           command: |
