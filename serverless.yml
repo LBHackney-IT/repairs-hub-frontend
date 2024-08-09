@@ -4,7 +4,7 @@ frameworkVersion: '2'
 
 provider:
   name: aws
-  runtime: nodejs14.x
+  runtime: nodejs20.x
   timeout: 10
   region: eu-west-2
   stage: ${opt:stage}
