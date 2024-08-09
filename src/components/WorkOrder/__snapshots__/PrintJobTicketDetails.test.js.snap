@@ -60,7 +60,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <image
             class="lbh-header__logo-fallback-image"
             height="37"
-            src="/assets/images/lbh-logo.png"
             width="206"
             xlink:href=""
           />
@@ -395,7 +394,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <image
             class="lbh-header__logo-fallback-image"
             height="37"
-            src="/assets/images/lbh-logo.png"
             width="206"
             xlink:href=""
           />
