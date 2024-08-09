@@ -74,7 +74,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         tasksAndSors,
         currentUser,
         photos,
-      ] = await Promise.all([
+      ] = await Promise.allSettled([
         propertiesPromise,
         tasksAndSorsPromise,
         currentUserPromise,
