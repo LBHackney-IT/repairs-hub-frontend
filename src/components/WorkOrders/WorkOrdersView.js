@@ -10,6 +10,7 @@ import Meta from '../Meta'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { paramsSerializer } from '@/utils/urls'
 import { convertValuesOfObjectToArray } from '@/utils/helpers/array'
+import PropTypes from 'prop-types'
 
 const WORK_ORDERS_MANAGEMENT_PAGE_SIZE = 10
 
@@ -170,6 +171,12 @@ const WorkOrdersView = ({ query }) => {
       </GridRow>
     </>
   )
+}
+
+WorkOrdersView.propTypes = {
+  query: PropTypes.shape({
+    pageNumber: PropTypes.string,
+  }),
 }
 
 export default WorkOrdersView

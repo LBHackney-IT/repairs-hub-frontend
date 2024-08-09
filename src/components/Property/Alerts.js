@@ -15,6 +15,7 @@ const Alerts = ({ alerts, alertType }) => {
 }
 
 Alerts.propTypes = {
+  alertType: PropTypes.string.isRequired,
   alerts: PropTypes.arrayOf(
     PropTypes.shape({
       type: PropTypes.string,
