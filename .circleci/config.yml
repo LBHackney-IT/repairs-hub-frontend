@@ -6,9 +6,6 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.8
 
 executors:
-  cypress-executor:
-    docker:
-      - image: cimg/node:20.16.0-browsers
   node-executor:
     docker:
       - image: cimg/node:20.16.0-browsers
@@ -60,7 +57,7 @@ jobs:
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             yarn test:unit
   e2e:
-    executor: cypress-executor
+    executor: node-executor
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
