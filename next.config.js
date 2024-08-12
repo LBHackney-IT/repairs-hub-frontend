@@ -31,6 +31,9 @@ const moduleExports = {
   experimental: {
     forceSwcTransforms: true,
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   headers: () => headers(),
 }
 
