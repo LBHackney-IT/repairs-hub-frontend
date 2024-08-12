@@ -69,7 +69,6 @@ jobs:
       #     command: ./node_modules/.bin/cypress install --force
       - browser-tools/install-browser-tools:
           chrome-version: 116.0.5845.96
-          replace-existing: true
       - run:
           name: Run E2E With Lighthouse Audit
           command: |
