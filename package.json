@@ -17,7 +17,8 @@
     "lint": "eslint . && echo 'Lint complete.'",
     "lintfix": "eslint . --max-warnings 0 --fix",
     "test:e2e": "NODE_ENV=test start-test http://localhost:5001 cy:run",
-    "e2e:audit": "NODE_ENV=test start-test --expect 200 --port 5001 http://127.0.0.1:5001 cy:run:audit",
+    "_e2e:audit": "NODE_ENV=test start-test --expect 200 --port 5001 http://127.0.0.1:5001 cy:run:audit",
+    "e2e:audit": "start-server-and-test --expect 200 'next start -p 5001' http://127.0.0.1:5001 'yarn cy:run:audit'",
     "cy:run": "cypress run --browser chrome --headless",
     "cy:run:audit": "cypress run --browser chrome --headless --env runAudit=true",
     "cy:open": "cypress open"
