@@ -3,6 +3,7 @@ version: 2.1
 orbs:
   aws-cli: circleci/aws-cli@4.1.3
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
+  browser-tools: circleci/browser-tools@1.1.0
 
 executors:
   cypress-executor:
@@ -63,9 +64,10 @@ jobs:
     executor: cypress-executor
     steps:
       - *attach_workspace
-      - run:
-          name: Force install
-          command: ./node_modules/.bin/cypress install --force
+      # - run:
+      #     name: Force install
+      #     command: ./node_modules/.bin/cypress install --force
+      - browser-tools/install-browser-tools
       - run:
           name: Run E2E With Lighthouse Audit
           command: |
