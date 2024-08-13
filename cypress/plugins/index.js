@@ -49,8 +49,9 @@ module.exports = (on, config) => {
     // any ESBuild options here
     // https://esbuild.github.io/api/
     define: {
-        "global": "window"
+        "global": "window",
     },
+    target: "node16.13", // Set the target to Node.js 16.13
   })
   on('file:preprocessor', bundler)
 
