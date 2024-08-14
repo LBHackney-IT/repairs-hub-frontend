@@ -57,49 +57,27 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      // const workOrderPromise = frontEndApiRequest({
-      //   method: 'get',
-      //   path: `/api/workOrders/${workOrderReference}`,
-      // })
-
-      // const tasksAndSorsPromise = frontEndApiRequest({
-      //   method: 'get',
-      //   path: `/api/workOrders/${workOrderReference}/tasks`,
-      // })
-
-      // const workOrder = await workOrderPromise
-
-      // const propertyPromise = frontEndApiRequest({
-      //   method: 'get',
-      //   path: `/api/properties/${workOrder.propertyReference}`,
-      // })
-
-      // const [tasksAndSors, propertyObject] = await Promise.all([
-      //   tasksAndSorsPromise,
-      //   propertyPromise,
-      // ])
-
-      const workOrder = await frontEndApiRequest({
+      const workOrderPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const tasksAndSors = await frontEndApiRequest({
+      const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
-      // const workOrder = await workOrderPromise
+      const workOrder = await workOrderPromise
 
-      const propertyObject = await frontEndApiRequest({
+      const propertyPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
       })
 
-      // const [tasksAndSors, propertyObject] = await Promise.all([
-      //   tasksAndSorsPromise,
-      //   propertyPromise,
-      // ])
+      const [tasksAndSors, propertyObject] = await Promise.all([
+        tasksAndSorsPromise,
+        propertyPromise,
+      ])
 
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
