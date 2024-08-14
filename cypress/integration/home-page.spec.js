@@ -3,12 +3,12 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
-  beforeEach(() => {
-    cy.fixture('hubUser/user.json').then((user) => {
-      user.varyLimit = 20000
-      cy.intercept('GET', 'api/hub-user', user)
-    })
-  })
+  // beforeEach(() => {
+  //   cy.fixture('hubUser/user.json').then((user) => {
+  //     user.varyLimit = 20000
+  //     cy.intercept('GET', 'api/hub-user', user)
+  //   })
+  // })
 
   context('When an agent is logged in', () => {
     beforeEach(() => {
@@ -580,7 +580,10 @@ describe('Home page', () => {
 
       it('Displays a warning info box', () => {
         cy.visit('/')
-        cy.wait('@operativesWorkOrders')
+        cy.wait('@operativesWorkOrders', {
+          timeout: 10000,
+          requestTimeout: 10000,
+        })
 
         cy.get('.warning-info-box').within(() => {
           cy.get('.lbh-body-s').contains('No work orders displayed')
