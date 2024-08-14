@@ -6,9 +6,6 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.8
 
 executors:
-  cypress-executor:
-    docker:
-      - image: circleci/node:16.13-stretch-browsers-legacy
   node-executor:
     docker:
       - image: cimg/node:20.16.0-browsers
@@ -60,24 +57,13 @@ jobs:
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             yarn test:unit
   e2e:
-    executor: cypress-executor
+    executor: node-executor
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
-      # - run:
-      #     name: Start API
-      #     command: |
-      #       export NEXT_PUBLIC_ENV_NAME=test
-      #       export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
-      #       export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
-      #       export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
-      #       export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-      #       export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-      #       yarn build && yarn start-server
-      #     background: true
       - run:
           name: Run E2E With Lighthouse Audit
           command: |
