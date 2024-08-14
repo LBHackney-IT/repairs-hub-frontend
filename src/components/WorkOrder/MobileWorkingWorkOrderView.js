@@ -47,25 +47,30 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const propertyObject = await frontEndApiRequest({
+      const propertiesPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
       })
 
-      const tasksAndSors = await frontEndApiRequest({
+      const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
-      const currentUser = await frontEndApiRequest({
+      const currentUserPromise = frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
       })
 
-      const photos = await frontEndApiRequest({
+      const photosPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/images/${workOrderReference}`,
       })
+
+      const propertyObject = await propertiesPromise
+      const tasksAndSors = await tasksAndSorsPromise
+      const currentUser = await currentUserPromise
+      const photos = await photosPromise
 
       // const workOrder = await workOrderPromise
 
