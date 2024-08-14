@@ -69,17 +69,22 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: `/api/properties/${workOrder.propertyReference}`,
       })
 
-      const [
-        propertyObject,
-        tasksAndSors,
-        currentUser,
-        photos,
-      ] = await Promise.allSettled([
-        propertiesPromise,
-        tasksAndSorsPromise,
-        currentUserPromise,
-        photosPromise,
-      ])
+      const propertyObject = await propertiesPromise
+      const tasksAndSors = await tasksAndSorsPromise
+      const currentUser = await currentUserPromise
+      const photos = await photosPromise
+
+      // const [
+      //   propertyObject,
+      //   tasksAndSors,
+      //   currentUser,
+      //   photos,
+      // ] = await Promise.allSettled([
+      //   propertiesPromise,
+      //   tasksAndSorsPromise,
+      //   currentUserPromise,
+      //   photosPromise,
+      // ])
 
       setPhotos(photos)
       setCurrentUser(currentUser)
