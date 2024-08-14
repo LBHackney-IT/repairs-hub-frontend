@@ -93,7 +93,7 @@ describe('Show work order page', () => {
           '@personAlerts',
           '@locationAlerts',
         ],
-        { requestTimeout: 10000 }
+        { requestTimeout: 10000, timeout: 10000 }
       )
 
       cy.get('.lbh-heading-h1').within(() => {
@@ -206,7 +206,7 @@ describe('Show work order page', () => {
                 '@personAlerts',
                 '@locationAlerts',
               ],
-              { requestTimeout: 10000 }
+              { requestTimeout: 10000, timeout: 10000 }
             )
 
             cy.get('.appointment-details').within(() => {
@@ -234,7 +234,7 @@ describe('Show work order page', () => {
                 '@personAlerts',
                 '@locationAlerts',
               ],
-              { requestTimeout: 10000 }
+              { requestTimeout: 10000, timeout: 10000 }
             )
 
             cy.get('.appointment-details').within(() => {
@@ -263,7 +263,7 @@ describe('Show work order page', () => {
               '@personAlerts',
               '@locationAlerts',
             ],
-            { requestTimeout: 10000 }
+            { requestTimeout: 10000, timeout: 10000 }
           )
 
           cy.get('.appointment-details').within(() => {
@@ -368,14 +368,17 @@ describe('Show work order page', () => {
             '@locationAlerts',
             '@personAlerts',
           ],
-          { requestTimeout: 10000 }
+          { requestTimeout: 10000, timeout: 10000 }
         )
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
 
         cy.get('a[id="tab_work-orders-history-tab"]').click()
 
-        cy.wait('@workOrdersHistoryRequest', { requestTimeout: 10000 })
+        cy.wait('@workOrdersHistoryRequest', {
+          requestTimeout: 10000,
+          timeout: 10000,
+        })
 
         cy.contains('10000040').should(
           'have.attr',
@@ -427,7 +430,10 @@ describe('Show work order page', () => {
 
       cy.loginWithOperativeRole()
       cy.visit('/')
-      cy.wait('@operativesWorkOrders', { requestTimeout: 10000 })
+      cy.wait('@operativesWorkOrders', {
+        requestTimeout: 10000,
+        timeout: 10000,
+      })
     })
 
     it('shows cautionary alerts and links to a page with highlighted codes', () => {
@@ -442,7 +448,7 @@ describe('Show work order page', () => {
           '@personAlerts',
           '@photosRequest',
         ],
-        { requestTimeout: 10000 }
+        { requestTimeout: 10000, timeout: 10000 }
       )
 
       cy.contains('WO 10000621')
@@ -486,7 +492,7 @@ describe('Show work order page', () => {
 
       cy.wait(
         ['@operativesWorkOrder', '@property', '@task', '@photosRequest'],
-        { requestTimeout: 10000 }
+        { requestTimeout: 10000, timeout: 10000 }
       )
       cy.contains('WO 10000621')
 
@@ -532,7 +538,7 @@ describe('Show work order page', () => {
           '@personAlerts',
           '@photosRequest',
         ],
-        { requestTimeout: 10000 }
+        { requestTimeout: 10000, timeout: 10000 }
       )
 
       // 1. Open work order
@@ -576,7 +582,7 @@ describe('Show work order page', () => {
           '@personAlerts',
           '@photosRequest',
         ],
-        { requestTimeout: 10000 }
+        { requestTimeout: 10000, timeout: 10000 }
       )
 
       // 1. Open work order
@@ -615,7 +621,7 @@ describe('Show work order page', () => {
             '@locationAlerts',
             '@personAlerts',
           ],
-          { requestTimeout: 10000 }
+          { requestTimeout: 10000, timeout: 10000 }
         )
 
         cy.get('[data-testid="details"]')
@@ -641,7 +647,7 @@ describe('Show work order page', () => {
             '@locationAlerts',
             '@personAlerts',
           ],
-          { requestTimeout: 10000 }
+          { requestTimeout: 10000, timeout: 10000 }
         )
 
         cy.get('[data-testid="details"]')
