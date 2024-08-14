@@ -19,7 +19,6 @@ const { lighthouse, prepareAudit } = require('cypress-audit')
 const dotenvFlowPlugin = require('cypress-dotenv-flow')
 const fs = require('fs')
 const path = require('path')
-const createBundler = require('@bahmutov/cypress-esbuild-preprocessor');
 
 const storeData = async (data, filepath) => {
   try {
@@ -44,16 +43,6 @@ module.exports = (on, config) => {
 
     return launchOptions
   })
-
-  const bundler = createBundler({
-    // any ESBuild options here
-    // https://esbuild.github.io/api/
-    define: {
-        "global": "window",
-    },
-    target: "node16.13", // Set the target to Node.js 16.13
-  })
-  on('file:preprocessor', bundler)
 
   on('task', {
     getTestTitle(message) {
