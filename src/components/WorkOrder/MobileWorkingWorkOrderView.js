@@ -47,7 +47,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const propertiesPromise = frontEndApiRequest({
+      const propertyObject = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
       })
@@ -67,7 +67,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/images/${workOrderReference}`,
       })
 
-      const propertyObject = await propertiesPromise
       const tasksAndSors = await tasksAndSorsPromise
       const currentUser = await currentUserPromise
       const photos = await photosPromise
