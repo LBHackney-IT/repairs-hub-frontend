@@ -3,6 +3,13 @@
 import 'cypress-audit/commands'
 
 describe('Home page', () => {
+  beforeEach(() => {
+    cy.fixture('hubUser/user.json').then((user) => {
+      user.varyLimit = 20000
+      cy.intercept('GET', 'api/hub-user', user)
+    })
+  })
+
   context('When an agent is logged in', () => {
     beforeEach(() => {
       cy.loginWithAgentRole()
