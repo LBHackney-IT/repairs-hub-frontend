@@ -267,19 +267,17 @@ describe('Updating a work order', () => {
       })
 
       // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000040'
-        )
-        cy.contains('Close work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000040/close'
-        )
-        cy.contains('Manage work orders').should('have.attr', 'href', '/')
-      })
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000040')
+
+      cy.get('.lbh-list li')
+        .contains('Close work order')
+        .should('have.attr', 'href', '/work-orders/10000040/close')
+
+      cy.get('.lbh-list li')
+        .contains('Manage work orders')
+        .should('have.attr', 'href', '/')
     })
 
     it('allows to update quantity, edit and add new sor codes', () => {
@@ -324,29 +322,29 @@ describe('Updating a work order', () => {
       cy.get('.govuk-table__body').contains('12')
       cy.get('.govuk-table__body').contains('0')
       // Go back and add new SOR code
-      cy.get('.govuk-table__row').within(() => {
-        cy.contains('Edit').click()
-      })
+      cy.get('.govuk-table__row').contains('Edit').click()
 
       cy.get('#quantity-0-form-group').within(() => {
         cy.get('input[id="quantity-0"]').clear().type('3')
       })
 
-      cy.get('#repair-request-form').within(() => {
-        cy.contains('+ Add another SOR code').click()
+      cy.get('#repair-request-form').contains('+ Add another SOR code').click()
 
+      cy.get('#repair-request-form').within(() => {
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
           .type('PLP5R082 - RE ENAMEL ANY SIZE BATH')
+      })
 
+      cy.get('#repair-request-form').within(() => {
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('5')
+      })
 
+      cy.get('#repair-request-form').within(() => {
         cy.get('[type="submit"]').contains('Next').click()
       })
 
-      cy.get('.govuk-table__row').within(() => {
-        cy.contains('Edit').click()
-      })
+      cy.get('.govuk-table__row').contains('Edit').click()
 
       cy.get('#repair-request-form').within(() => {
         cy.get('input[id="rateScheduleItems[0][code]"]').should(
@@ -471,14 +469,13 @@ describe('Updating a work order', () => {
         cy.contains('Please request authorisation from a manager')
       })
 
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000040'
-        )
-        cy.contains('Manage work orders').should('have.attr', 'href', '/')
-      })
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000040')
+
+      cy.get('.lbh-list li')
+        .contains('Manage work orders')
+        .should('have.attr', 'href', '/')
 
       // Run lighthouse audit for accessibility report
       //  cy.audit()
@@ -567,17 +564,10 @@ describe('Updating a work order', () => {
               0
             )
 
-            cy.get('input[id="rateScheduleItems[0][code]"]')
-              .clear()
-              .type('PLP')
-              .then(() => {
-                cy.wait('@sorCodesRequestPLP')
-              })
+            cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('PLP')
 
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
+            cy.wait('@sorCodesRequestPLP')
+            cy.get('@sorCodesRequestPLP.all').should('have.length', 1)
 
             cy.get('[data-testid="rateScheduleItems[0][code]"]')
               .parent()
@@ -592,11 +582,10 @@ describe('Updating a work order', () => {
               '00001 - PLP first'
             )
 
+            cy.get('@sorCodesRequestPLP.all').should('have.length', 1)
+
             // Entering more than three characters does not trigger more API requests
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
+            cy.get('@sorCodesRequestPLP.all').should('have.length', 1)
 
             cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
 
@@ -1051,15 +1040,11 @@ describe('Updating a work order', () => {
         cy.get('input[list]').eq(2).type('Operative C [3]')
       })
 
-      cy.get('.select-percentage').within(() => {
-        cy.get('select').should('have.length', 3)
-
-        cy.get('select').eq(0).should('have.value', '100%')
-        cy.get('select').eq(1).should('have.value', '-')
-        cy.get('select').eq(2).should('have.value', '-')
-
-        cy.get('select').eq(1).select('20%')
-      })
+      cy.get('.select-percentage select').should('have.length', 3)
+      cy.get('.select-percentage select').eq(0).should('have.value', '100%')
+      cy.get('.select-percentage select').eq(1).should('have.value', '-')
+      cy.get('.select-percentage select').eq(2).should('have.value', '-')
+      cy.get('.select-percentage select').eq(1).select('20%')
 
       cy.get('[type="submit"]').contains('Confirm').click()
 
@@ -1067,11 +1052,9 @@ describe('Updating a work order', () => {
         cy.contains('Work done total across operatives must be equal to 100%')
       })
 
-      cy.get('.select-percentage').within(() => {
-        cy.get('select').eq(0).select('50%')
-        cy.get('select').eq(1).select('50%')
-        cy.get('select').eq(2).select('-')
-      })
+      cy.get('.select-percentage select').eq(0).select('50%')
+      cy.get('.select-percentage select').eq(1).select('50%')
+      cy.get('.select-percentage select').eq(2).select('-')
 
       cy.get('.smv-read-only').should('have.length', 3)
 
@@ -1187,18 +1170,14 @@ describe('Updating a work order', () => {
         cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
       })
 
-      cy.get('.select-percentage').within(() => {
-        cy.get('select').should('have.length', 2)
-
-        cy.get('select').eq(0).should('have.value', '50%')
-        cy.get('select').eq(1).should('have.value', '50%')
-      })
+      cy.get('.select-percentage select').should('have.length', 2)
+      cy.get('.select-percentage select').eq(0).should('have.value', '50%')
+      cy.get('.select-percentage select').eq(1).should('have.value', '50%')
 
       // Update percentage of current operatives
-      cy.get('.select-percentage').within(() => {
-        cy.get('select').eq(0).select('30%')
-        cy.get('select').eq(1).select('20%')
-      })
+      cy.get('.select-percentage select').eq(0).select('30%')
+
+      cy.get('.select-percentage select').eq(1).select('20%')
 
       cy.get('a')
         .contains(/Add operative/)
@@ -1207,10 +1186,9 @@ describe('Updating a work order', () => {
       cy.get('input[list]').eq(2).type('Operative C [3]')
 
       // Update percentage of new operative
-      cy.get('.select-percentage').within(() => {
-        cy.get('select').should('have.length', 3)
-        cy.get('select').eq(2).select('50%')
-      })
+      cy.get('.select-percentage select').should('have.length', 3)
+
+      cy.get('.select-percentage select').eq(2).select('50%')
 
       cy.get('.smv-read-only').should('have.length', 3)
 
