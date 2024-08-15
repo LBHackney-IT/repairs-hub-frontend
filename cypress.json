@@ -6,5 +6,6 @@
     "accessibility": 90
   },
   "viewportHeight": 1536,
-  "viewportWidth": 960
+  "viewportWidth": 960,
+  "experimentalModifyObstructiveThirdPartyCode": true
 }
