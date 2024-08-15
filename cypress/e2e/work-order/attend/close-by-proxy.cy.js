@@ -258,14 +258,13 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     // Actions to see relevant pages
-    cy.get('.lbh-list li').within(() => {
-      cy.contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10000040'
-      )
-      cy.contains('Manage work orders').should('have.attr', 'href', '/')
-    })
+    cy.get('.lbh-list li')
+      .contains('View work order')
+      .should('have.attr', 'href', '/work-orders/10000040')
+
+    cy.get('.lbh-list li')
+      .contains('Manage work orders')
+      .should('have.attr', 'href', '/')
 
     //  cy.audit()
   })
@@ -335,14 +334,13 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     // Actions to see relevant pages
-    cy.get('.lbh-list li').within(() => {
-      cy.contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10000040'
-      )
-      cy.contains('Manage work orders').should('have.attr', 'href', '/')
-    })
+    cy.get('.lbh-list li')
+      .contains('View work order')
+      .should('have.attr', 'href', '/work-orders/10000040')
+
+    cy.get('.lbh-list li')
+      .contains('Manage work orders')
+      .should('have.attr', 'href', '/')
 
     //  cy.audit()
   })
@@ -397,14 +395,13 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     // Actions to see relevant pages
-    cy.get('.lbh-list li').within(() => {
-      cy.contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10000040'
-      )
-      cy.contains('Manage work orders').should('have.attr', 'href', '/')
-    })
+    cy.get('.lbh-list li')
+      .contains('View work order')
+      .should('have.attr', 'href', '/work-orders/10000040')
+
+    cy.get('.lbh-list li')
+      .contains('Manage work orders')
+      .should('have.attr', 'href', '/')
 
     //  cy.audit()
   })
@@ -498,9 +495,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.get('.govuk-table__row').contains('Photos')
 
-    cy.get('.govuk-table__row').within(() => {
-      cy.get('img').should('have.attr', 'src')
-    })
+    cy.get('.govuk-table__row img').should('have.attr', 'src')
 
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
@@ -580,10 +575,7 @@ describe('Closing a work order on behalf of an operative', () => {
 
     cy.get('.govuk-table__row').contains('Photos')
 
-    cy.get('.govuk-table__row').within(() => {
-      cy.get('img').should('have.attr', 'src')
-    })
-
+    cy.get('.govuk-table__row img').should('have.attr', 'src')
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
     cy.waitFor('@getLinksRequest')
@@ -880,13 +872,16 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.get('input[list]').eq(2).should('have.value', 'Operative C [3]')
           })
 
-          cy.get('.select-percentage').within(() => {
-            cy.get('select').should('have.length', 3)
-
-            cy.get('select').eq(0).should('have.value', '33.3%')
-            cy.get('select').eq(1).should('have.value', '33.3%')
-            cy.get('select').eq(2).should('have.value', '33.3%')
-          })
+          cy.get('.select-percentage select').should('have.length', 3)
+          cy.get('.select-percentage select')
+            .eq(0)
+            .should('have.value', '33.3%')
+          cy.get('.select-percentage select')
+            .eq(1)
+            .should('have.value', '33.3%')
+          cy.get('.select-percentage select')
+            .eq(2)
+            .should('have.value', '33.3%')
 
           cy.get('.smv-read-only').should('have.length', 3)
 
@@ -942,12 +937,10 @@ describe('Closing a work order on behalf of an operative', () => {
           })
 
           // total of split percentages is more than 100
-          cy.get('.select-percentage').within(() => {
-            cy.get('select').eq(0).select('70%')
-            cy.get('select').eq(1).select('20%')
-            cy.get('select').eq(2).select('30%')
-            cy.get('select').eq(3).select('10%')
-          })
+          cy.get('.select-percentage select').eq(0).select('70%')
+          cy.get('.select-percentage select').eq(1).select('20%')
+          cy.get('.select-percentage select').eq(2).select('30%')
+          cy.get('.select-percentage select').eq(3).select('10%')
 
           cy.get('.smv-read-only').should('have.length', 4)
 
@@ -965,12 +958,10 @@ describe('Closing a work order on behalf of an operative', () => {
           })
 
           // now total is 100
-          cy.get('.select-percentage').within(() => {
-            cy.get('select').eq(0).select('70%')
-            cy.get('select').eq(1).select('20%')
-            cy.get('select').eq(2).select('10%')
-            cy.get('select').eq(3).select('-')
-          })
+          cy.get('.select-percentage select').eq(0).select('70%')
+          cy.get('.select-percentage select').eq(1).select('20%')
+          cy.get('.select-percentage select').eq(2).select('10%')
+          cy.get('.select-percentage select').eq(3).select('-')
 
           cy.get('.smv-read-only').should('have.length', 4)
 
@@ -1047,7 +1038,7 @@ describe('Closing a work order on behalf of an operative', () => {
               ],
             })
 
-          cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
+          cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
 
           //  cy.audit()
         })
@@ -1132,12 +1123,9 @@ describe('Closing a work order on behalf of an operative', () => {
             cy.get('input[list]').eq(1).should('have.value', 'Operative B [2]')
           })
 
-          cy.get('.select-percentage').within(() => {
-            cy.get('select').should('have.length', 2)
-
-            cy.get('select').eq(0).should('have.value', '40%')
-            cy.get('select').eq(1).should('have.value', '60%')
-          })
+          cy.get('.select-percentage select').should('have.length', 2)
+          cy.get('.select-percentage select').eq(0).should('have.value', '40%')
+          cy.get('.select-percentage select').eq(1).should('have.value', '60%')
 
           cy.get('.smv-read-only').should('have.length', 2)
 
@@ -1198,7 +1186,7 @@ describe('Closing a work order on behalf of an operative', () => {
               ],
             })
 
-          cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
+          cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
 
           //  cy.audit()
         })
@@ -1326,7 +1314,7 @@ describe('Closing a work order on behalf of an operative', () => {
               ],
             })
 
-          cy.requestsCountByUrl('api/jobStatusUpdate').should('eq', 1)
+          cy.get('@workOrderCompleteRequest.all').should('have.length', 1)
 
           //  cy.audit()
         })
