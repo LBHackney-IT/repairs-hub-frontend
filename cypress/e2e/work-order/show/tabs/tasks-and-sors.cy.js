@@ -119,14 +119,12 @@ describe('Tasks and SORs', () => {
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
-      cy.get('.govuk-table').within(() => {
-        cy.contains('th', 'SOR')
-        cy.contains('th', 'Description')
-        cy.contains('th', 'Quantity (est.)')
-        cy.contains('th', 'Unit cost')
-        cy.contains('th', 'Cost (est.)')
-        cy.contains('th', 'Total SMV')
-      })
+      cy.get('.govuk-table th').contains('SOR')
+      cy.get('.govuk-table th').contains('Description')
+      cy.get('.govuk-table th').contains('Quantity (est.)')
+      cy.get('.govuk-table th').contains('Unit cost')
+      cy.get('.govuk-table th').contains('Cost (est.)')
+      cy.get('.govuk-table th').contains('Total SMV')
     })
 
     //  cy.audit()

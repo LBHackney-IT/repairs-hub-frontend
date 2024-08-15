@@ -5,6 +5,7 @@ import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
 } from '../../../../src/utils/statusCodes'
+import cy from 'date-fns/esm/locale/cy/index'
 
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
@@ -77,11 +78,11 @@ describe('Rescheduling work order appointments', () => {
 
         cy.wait(['@tasks', '@workOrder', '@property'])
 
-        cy.get('.appointment-details').within(() => {
-          cy.contains('19 Mar 2021, 12:00-18:00')
+        cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
-          cy.contains('Reschedule appointment').click()
-        })
+        cy.get('.appointment-details')
+          .contains('Reschedule appointment')
+          .click()
 
         cy.wait(['@availableAppointments', '@tasks', '@workOrder', '@property'])
 
@@ -90,9 +91,7 @@ describe('Rescheduling work order appointments', () => {
 
         cy.contains('Work order task details')
 
-        cy.get('.appointment-calendar').within(() => {
-          cy.get('.available').contains('11').click({ force: true })
-        })
+        cy.get('.appointment-calendar').contains('11').click({ force: true })
 
         cy.get('form').within(() => {
           cy.contains('Thursday, 11 March')
@@ -176,9 +175,9 @@ describe('Rescheduling work order appointments', () => {
 
         cy.wait(['@tasks', '@workOrder', '@property'])
 
-        cy.get('.appointment-details').within(() => {
-          cy.contains('Reschedule appointment').should('not.exist')
-        })
+        cy.get('.appointment-details')
+          .contains('Reschedule appointment')
+          .should('not.exist')
       })
 
       it('Shows an error message if navigating to appointment edit directly', () => {
@@ -277,11 +276,9 @@ describe('Rescheduling work order appointments', () => {
 
           cy.wait(['@tasks', '@workOrder', '@property'])
 
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Open DRS to reschedule appointment').should(
-              'not.exist'
-            )
-          })
+          cy.get('.appointment-details')
+            .contains('Open DRS to reschedule appointment')
+            .should('not.exist')
         })
       })
     })

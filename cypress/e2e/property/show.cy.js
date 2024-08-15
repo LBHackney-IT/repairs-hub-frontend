@@ -224,9 +224,7 @@ describe('Show property', () => {
         cy.contains('10000012').click()
         cy.url().should('contains', 'work-orders/10000012')
 
-        cy.get('.lbh-heading-h1').within(() => {
-          cy.contains('Work order: 10000012')
-        })
+        cy.get('.lbh-heading-h1').contains('Work order: 10000012')
       })
 
       it('Displays more repairs after clicking Load more button', () => {
@@ -317,13 +315,9 @@ describe('Show property', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory'])
 
-        cy.get('.lbh-heading-h2').within(() => {
-          cy.contains('Raise a work order on this dwelling').should(
-            'have.attr',
-            'href',
-            '/properties/00012345/raise-repair/new'
-          )
-        })
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a work order on this dwelling')
+          .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
       })
     })
 

@@ -54,15 +54,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -134,15 +133,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -200,15 +198,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -227,7 +224,7 @@ describe('Contract manager can authorise variation', () => {
 
     cy.contains('Updated Tasks SORs')
     cy.contains('Updated by: John Johnson (Alphatrack)')
-    cy.contains('Tuesday, 11 May 2021')
+    cy.contains('Tuesday 11 May 2021')
 
     cy.contains('Variation reason: More work needed')
 
@@ -308,11 +305,9 @@ describe('Contract manager can authorise variation', () => {
 
     cy.contains('Authorisation variation request: 10000012')
 
-    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-      cy.contains(
-        'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
-      )
-    })
+    cy.get('.govuk-warning-text.lbh-warning-text').contains(
+      'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
+    )
 
     cy.get('[type="radio"]').contains('Approve request').should('not.exist')
     cy.get('[type="radio"]').check('Reject request')

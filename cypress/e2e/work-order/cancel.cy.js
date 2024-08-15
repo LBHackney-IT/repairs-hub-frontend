@@ -45,60 +45,61 @@ describe('Work order cancellations', () => {
 
     it('shows the confirmation page after a successful form submission', () => {
       // Work order view page has a link to cancel work order
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Cancel')
-          .should('have.attr', 'href', '/work-orders/10000012/cancel')
-          .click()
-      })
+      cy.get('.govuk-grid-column-one-third')
+        .contains('a', 'Cancel')
+        .should('have.attr', 'href', '/work-orders/10000012/cancel')
+        .click()
 
       cy.wait('@workOrder')
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
+
       cy.get('.govuk-table').within(() => {
         // Property and description
-        cy.get('#property').within(() => {
-          cy.get('.govuk-table__header').contains('Property')
-          cy.get('.govuk-table__cell').contains(
-            '16 Pitcairn House St Thomass Square'
-          )
-        })
-        cy.get('#tradeDescription').within(() => {
-          cy.get('.govuk-table__header').contains('Trade')
-          cy.get('.govuk-table__cell').contains('DOOR ENTRY ENGINEER - DE')
-        })
-        cy.get('#description').within(() => {
-          cy.get('.govuk-table__header').contains('Description')
-          cy.get('.govuk-table__cell').contains(
-            'This is an urgent repair description'
-          )
-        })
+        cy.get('#property .govuk-table__header').contains('Property')
+
+        cy.get('#property .govuk-table__cell').contains(
+          '16 Pitcairn House St Thomass Square'
+        )
+
+        cy.get('#tradeDescription govuk-table__header').contains('Trade')
+
+        cy.get('#tradeDescription .govuk-table__cell').contains(
+          'DOOR ENTRY ENGINEER - DE'
+        )
+
+        cy.get('#description .govuk-table__header').contains('Description')
+
+        cy.get('#description .govuk-table__cell').contains(
+          'This is an urgent repair description'
+        )
       })
 
       // Form section
-      cy.get('.lbh-heading-h2').within(() => {
-        cy.contains('Reason to cancel')
-      })
+      cy.get('.lbh-heading-h2').contains('Reason to cancel')
+
       // Submit form without entering required fields
       cy.get('[type="submit"]').contains('Cancel repair').click()
-      cy.get('#cancelReason-form-group .govuk-error-message').within(() => {
-        cy.contains('Please enter a reason')
-      })
+      cy.get('#cancelReason-form-group .govuk-error-message').contains(
+        'Please enter a reason'
+      )
 
       // Enter a reason for cancelling the work order
       // Go over the character limit
       cy.get('#cancelReason').get('.govuk-textarea').type('x'.repeat(201))
-      cy.get('#cancelReason-form-group .govuk-error-message').within(() => {
-        cy.contains('You have exceeded the maximum amount of characters')
-      })
+      cy.get('#cancelReason-form-group .govuk-error-message').contains(
+        'You have exceeded the maximum amount of characters'
+      )
+
       // Within the character limit
       cy.get('#cancelReason')
         .get('.govuk-textarea')
         .clear()
         .type('Made by mistake')
-      cy.get('.govuk-hint').within(() => {
-        cy.contains('You have 185 characters remaining.')
-      })
+
+      cy.get('.govuk-hint').contains('You have 185 characters remaining.')
+
       // Hidden work order reference input field
       cy.get('#cancel-work-order-form').within(() => {
         cy.get('input[id="workOrderReference"]').should(
@@ -129,27 +130,25 @@ describe('Work order cancellations', () => {
         })
 
       // Cancel work order confirmation screen
-      cy.get('.lbh-panel').within(() => {
-        cy.get('.govuk-panel__title').contains('Work order cancelled')
-        cy.get('.govuk-panel__body').within(() => {
-          cy.contains('Reference number')
-          cy.contains('10000012')
-        })
-      })
+      cy.get('.lbh-panel .govuk-panel__title').contains('Work order cancelled')
 
-      cy.get('.lbh-list').within(() => {
-        cy.contains(
+      cy.get('.lbh-panel .govuk-panel__body').contains('Reference number')
+
+      cy.get('.lbh-panel .govuk-panel__body').contains('10000012')
+
+      cy.get('.lbh-list')
+        .contains(
           'Raise a new work order for 16 Pitcairn House St Thomass Square'
-        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
-
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012'
         )
-      })
+        .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.get('.lbh-list')
+        .contains('Start a new search')
+        .should('have.attr', 'href', '/')
+
+      cy.get('.lbh-list')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000012')
     })
   })
 
