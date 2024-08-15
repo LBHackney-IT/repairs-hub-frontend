@@ -63,7 +63,7 @@ describe('Work order cancellations', () => {
           '16 Pitcairn House St Thomass Square'
         )
 
-        cy.get('#tradeDescription govuk-table__header').contains('Trade')
+        cy.get('#tradeDescription .govuk-table__header').contains('Trade')
 
         cy.get('#tradeDescription .govuk-table__cell').contains(
           'DOOR ENTRY ENGINEER - DE'

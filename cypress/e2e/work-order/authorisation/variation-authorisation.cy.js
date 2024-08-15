@@ -392,53 +392,50 @@ describe('Contract manager can authorise variation', () => {
 
     //un-collapse
     cy.get('.original-sors').click()
-    cy.get('.original-sor-summary').within(() => {
-      cy.contains('td', 'DES5R006 - Urgent call outs')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-    })
+    cy.get('.original-sor-summary td').contains('DES5R006 - Urgent call outs')
+    cy.get('.original-sor-summary td').contains('1')
+    cy.get('.original-sor-summary td').contains('£10')
 
     cy.get('.updated-sors').click()
-    cy.get('.updated-tasks-table').within(() => {
-      // Increased task
-      cy.contains('td', 'Increase')
-      cy.contains('td', 'DES5R005')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£4')
-      cy.contains('td', '1')
-      cy.contains('td', '£4')
-      cy.contains('td', '4000')
-      cy.contains('td', '£1600')
 
-      //Reduced task
-      cy.contains('td', 'Reduced')
-      cy.contains('td', 'DES5R006')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£19')
-      cy.contains('td', '10')
-      cy.contains('td', '£190')
-      cy.contains('td', '2')
-      cy.contains('td', '£38')
+    // Increased task
+    cy.get('.updated-tasks-table td').contains('Increase')
+    cy.get('.updated-tasks-table td').contains('DES5R005')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£4')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£4')
+    cy.get('.updated-tasks-table td').contains('4000')
+    cy.get('.updated-tasks-table td').contains('£1600')
 
-      //New task
-      cy.contains('td', 'Reduced')
-      cy.contains('td', 'DES5R007')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£25')
-      cy.contains('td', '0')
-      cy.contains('td', '£0')
-      cy.contains('td', '2')
-      cy.contains('td', '£50')
+    //Reduced task
+    cy.get('.updated-tasks-table td').contains('Reduced')
+    cy.get('.updated-tasks-table td').contains('DES5R006')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£19')
+    cy.get('.updated-tasks-table td').contains('10')
+    cy.get('.updated-tasks-table td').contains('£190')
+    cy.get('.updated-tasks-table td').contains('2')
+    cy.get('.updated-tasks-table td').contains('£38')
 
-      //Unchanged task
-      cy.contains('td', 'Unchanged')
-      cy.contains('td', 'DES5R006')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£10')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-    })
+    //New task
+    cy.get('.updated-tasks-table td').contains('Reduced')
+    cy.get('.updated-tasks-table td').contains('DES5R007')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£25')
+    cy.get('.updated-tasks-table td').contains('0')
+    cy.get('.updated-tasks-table td').contains('£0')
+    cy.get('.updated-tasks-table td').contains('2')
+    cy.get('.updated-tasks-table td').contains('£50')
+
+    //Unchanged task
+    cy.get('.updated-tasks-table td').contains('Unchanged')
+    cy.get('.updated-tasks-table td').contains('DES5R006')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£10')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£10')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£10')
   })
 })

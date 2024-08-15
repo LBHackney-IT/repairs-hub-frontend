@@ -279,7 +279,7 @@ describe('Schedule appointment form', () => {
 
       //available slots appear for 17th of March, only available AM slot
       cy.get('form').within(() => {
-        cy.contains('Wednesday, 17 March')
+        cy.contains('Wednesday 17 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
         cy.get('[type="radio"]')
           .last()
@@ -287,7 +287,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('[type="button"]').contains('Cancel').click({ force: true })
         //check that available slots dissapear
-        cy.contains('Wednesday, 17 March').should('not.exist')
+        cy.contains('Wednesday 17 March').should('not.exist')
       })
 
       //choose 11th of March, that has AM and PM slots available
@@ -434,6 +434,7 @@ describe('Schedule appointment form', () => {
         cy.get('#priorityCode').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
+
         cy.get('#contactNumber')
           .clear({ force: true })
           .type('07788659111', { force: true })
@@ -446,13 +447,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#no-appointment').contains('No available appointments')
 
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10102030'
-        )
-      })
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10102030')
 
       //  cy.audit()
     })
