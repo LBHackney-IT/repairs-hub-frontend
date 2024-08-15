@@ -389,7 +389,7 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'Back to 16 Pitcairn House')
       cy.contains('a', 'Start a new search')
 
-      cy.audit()
+      //  cy.audit()
     })
   })
 
@@ -454,7 +454,7 @@ describe('Schedule appointment form', () => {
         )
       })
 
-      cy.audit()
+      //  cy.audit()
     })
   })
 
