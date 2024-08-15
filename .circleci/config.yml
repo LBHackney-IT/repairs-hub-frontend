@@ -5,8 +5,8 @@ orbs:
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
 
 executors:
-  cypress-executor:	
-    docker:	
+  cypress-executor:
+    docker:
       - image: circleci/node:16.13-stretch-browsers-legacy
   node-executor:
     docker:
