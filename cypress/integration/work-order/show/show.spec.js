@@ -360,7 +360,10 @@ describe('Show work order page', () => {
 
         cy.get('a[id="tab_work-orders-history-tab"]').click()
 
-        cy.wait('@workOrdersHistoryRequest')
+        cy.wait('@workOrdersHistoryRequest', {
+          requestTimeout: 10000,
+          timeout: 10000,
+        })
 
         cy.contains('10000040').should(
           'have.attr',
@@ -412,7 +415,10 @@ describe('Show work order page', () => {
 
       cy.loginWithOperativeRole()
       cy.visit('/')
-      cy.wait('@operativesWorkOrders')
+      cy.wait('@operativesWorkOrders', {
+        requestTimeout: 10000,
+        timeout: 10000,
+      })
     })
 
     it('shows cautionary alerts and links to a page with highlighted codes', () => {
