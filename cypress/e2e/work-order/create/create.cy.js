@@ -369,7 +369,6 @@ describe('Raise repair form', () => {
         cy.get(
           'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
         ).contains('SOR code is not valid')
-      
 
         // Select SOR code with no priority attached
         cy.get('input[id="rateScheduleItems[0][code]"]')
@@ -419,7 +418,6 @@ describe('Raise repair form', () => {
         cy.get(
           'div[id="rateScheduleItems[0][code]-form-group"] .govuk-error-message'
         ).contains('Please select an SOR code')
-     
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
@@ -431,14 +429,12 @@ describe('Raise repair form', () => {
         cy.get(
           'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
         ).contains('Please enter a quantity')
-       
 
         // Enter a non-number quantity
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('x')
         cy.get(
           'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
         ).contains('Quantity must be a number')
-       
 
         // Enter a quantity with 1 decimal point
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1.5')
@@ -470,22 +466,19 @@ describe('Raise repair form', () => {
         cy.get(
           'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
         ).contains(
-            'Quantity including a decimal point is permitted a maximum of 2 decimal places'
-          )
-      
+          'Quantity including a decimal point is permitted a maximum of 2 decimal places'
+        )
 
         // Enter a quantity less than the minimum
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('0')
         cy.get(
           'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
         ).contains('Quantity must be greater than 0')
-        
 
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('-1')
         cy.get(
           'div[id="rateScheduleItems[0][quantity]-form-group"] .govuk-error-message'
         ).contains('Quantity must be greater than 0')
-        
 
         // Enter a valid quantity
         cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
@@ -562,14 +555,12 @@ describe('Raise repair form', () => {
         cy.get(
           'div[id="rateScheduleItems[1][quantity]-form-group"] .govuk-error-message'
         ).contains('Please enter a quantity')
-        
 
         // Remove SOR code at index 1
         cy.get('input[id="rateScheduleItems[1][code]"]').clear()
         cy.get(
           'div[id="rateScheduleItems[1][code]-form-group"] .govuk-error-message'
         ).contains('Please select an SOR code')
-        
 
         // Enter SOR code and quantity
 
@@ -639,13 +630,16 @@ describe('Raise repair form', () => {
         cy.get('#descriptionOfWork')
           .get('.govuk-textarea')
           .type('x'.repeat(231))
-        cy.get('#descriptionOfWork-form-group .govuk-error-message').contains('You have exceeded the maximum amount of characters')
-       
+        cy.get('#descriptionOfWork-form-group .govuk-error-message').contains(
+          'You have exceeded the maximum amount of characters'
+        )
 
         // Delete all Repair Description text
         cy.get('#descriptionOfWork').get('.govuk-textarea').clear()
-        cy.get('#descriptionOfWork-form-group .govuk-error-message').contains('Please enter a repair description')
-      
+        cy.get('#descriptionOfWork-form-group .govuk-error-message').contains(
+          'Please enter a repair description'
+        )
+
         // Fill in Repair Description within character limit
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
         cy.get('.govuk-hint').contains('You have 221 characters remaining.')
@@ -657,11 +651,13 @@ describe('Raise repair form', () => {
 
         cy.get('[type="submit"]')
 
-        cy.get('#callerName-form-group .govuk-error-message').contains('Please add caller name')
+        cy.get('#callerName-form-group .govuk-error-message').contains(
+          'Please add caller name'
+        )
 
-
-        cy.get('#contactNumber-form-group .govuk-error-message').contains('Please add telephone number')
-   
+        cy.get('#contactNumber-form-group .govuk-error-message').contains(
+          'Please add telephone number'
+        )
 
         //Submit form with letters instead of number in telephone number field
         cy.get('[data-testid=contactNumber]').type('NA')
@@ -669,9 +665,8 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]')
 
         cy.get('#contactNumber-form-group .govuk-error-message').contains(
-            'Telephone number should be a number and with no empty spaces'
-          )
-      
+          'Telephone number should be a number and with no empty spaces'
+        )
 
         //Submit form with space in telephone number field
         cy.get('[data-testid=contactNumber]').clear()
@@ -679,9 +674,8 @@ describe('Raise repair form', () => {
         cy.get('[type="submit"]')
 
         cy.get('#contactNumber-form-group .govuk-error-message').contains(
-            'Telephone number should be a number and with no empty spaces'
-          )
-      
+          'Telephone number should be a number and with no empty spaces'
+        )
 
         //Submit form with telephone number longer than 11 digits
         cy.get('[data-testid=contactNumber]').clear()
@@ -690,667 +684,52 @@ describe('Raise repair form', () => {
 
         cy.get('#contactNumber-form-group .govuk-error-message').within(() => {
           cy.contains('Please enter a valid UK telephone number (11 digits)')
-        
 
-        // Fill in contact details
-        cy.get('[data-testid=callerName]').type('Test Caller')
-        cy.get('[data-testid=contactNumber]').clear()
-        cy.get('[data-testid=contactNumber]').type('12345678910')
-      })
-
-      cy.get('[type="submit"]')
-        .contains('Create work order')
-        .click({ force: true })
-
-      cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
-        const referenceIdUuid = request.body.reference[0].id
-
-        cy.wrap(request.body).should('deep.equal', {
-          reference: [{ id: referenceIdUuid }],
-          descriptionOfWork: 'A problem',
-          priority: {
-            priorityCode: EMERGENCY_PRIORITY_CODE,
-            priorityDescription: '2 [E] EMERGENCY',
-            numberOfDays: 1,
-          },
-          workClass: { workClassCode: 0 },
-          workElement: [
-            {
-              rateScheduleItem: [
-                {
-                  customCode: 'DES5R004',
-                  customName: 'Emergency call out',
-                  quantity: { amount: [1] },
-                },
-              ],
-              trade: [
-                {
-                  code: 'SP',
-                  customCode: 'PL',
-                  customName: 'Plumbing - PL',
-                },
-              ],
-            },
-            {
-              rateScheduleItem: [
-                {
-                  customCode: 'DES5R006',
-                  customName: 'Urgent call outs',
-                  quantity: { amount: [2] },
-                },
-              ],
-              trade: [
-                {
-                  code: 'SP',
-                  customCode: 'PL',
-                  customName: 'Plumbing - PL',
-                },
-              ],
-            },
-          ],
-          site: {
-            property: [
-              {
-                propertyReference: '00012345',
-                address: {
-                  addressLine: ['16 Pitcairn House  St Thomass Square'],
-                  postalCode: 'E9 6PT',
-                },
-                reference: [
-                  {
-                    id: '00012345',
-                  },
-                ],
-              },
-            ],
-          },
-          instructedBy: { name: 'Hackney Housing' },
-          assignedToPrimary: {
-            name: 'Purdy Contracts (P) Ltd',
-            organization: {
-              reference: [
-                {
-                  id: 'PCL',
-                },
-              ],
-            },
-          },
-          customer: {
-            name: 'Test Caller',
-            person: {
-              name: {
-                full: 'Test Caller',
-              },
-              communication: [
-                {
-                  channel: {
-                    medium: '20',
-                    code: '60',
-                  },
-                  value: '12345678910',
-                },
-              ],
-            },
-          },
-          budgetCode: { id: '4' },
-          multiTradeWorkOrder: false,
-        })
-      })
-
-      // Confirmation screen
-      cy.get('.govuk-panel .govuk-panel__title').contains('Work order created')
-
-      cy.get('.govuk-panel .govuk-panel__body').contains('Reference number')
-      cy.get('.govuk-panel .govuk-panel__body').contains('10102030')
-
-
-     
-      // No warning if within raise limit
-      cy.get('[data-testid=over-spend-limit]').should('not.exist')
-
-      // Actions to see relevant pages
-      cy.get('.lbh-list li').contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10102030'
-      )
-
-      cy.get('.lbh-list li').contains('Back to 16 Pitcairn House').should(
-        'have.attr',
-        'href',
-        '/properties/00012345'
-      )
-
-      cy.get('.lbh-list li').contains('Start a new search').should('have.attr', 'href', '/')
-
-
-
-      // Run lighthouse audit for accessibility report
-      //  cy.audit()
-    })
-
-    describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
-      ;[
-        { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
-        { code: 'AEP', name: 'Axis Europe (X) PLC' },
-        { code: 'HHL', name: 'Herts Heritage Ltd' },
-      ].forEach((ctr) => {
-        beforeEach(() => {
-          cy.intercept(
-            {
-              method: 'GET',
-              path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-            },
-            { fixture: 'contractors/multiTradeContractors.json' }
-          ).as('multiTradeContractorsRequest')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/workOrders/budget-codes?contractorReference=${ctr.code}`,
-            },
-            { fixture: 'scheduleOfRates/budgetCodes.json' }
-          ).as('budgetCodesRequest')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
-            },
-            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-          ).as('sorCodesRequest')
-        })
-
-        it('Searches SOR codes after entering three characters with a debounced API request', () => {
-          cy.visit('/properties/00012345/raise-repair/new')
-
-          cy.wait([
-            '@propertyRequest',
-            '@contactDetailsRequest',
-            '@sorPrioritiesRequest',
-            '@tradesRequest',
-          ])
-
-          cy.get('#repair-request-form').within(() => {
-            cy.get('#trade').type('Multi Trade - MU')
-
-            cy.wait('@multiTradeContractorsRequest')
-
-            cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
-
-            cy.wait('@budgetCodesRequest')
-
-            cy.get('[data-testid=budgetCode]').type(
-              'H2555 - 200031 - Lifts Breakdown'
-            )
-
-            cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('D')
-
-            cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              0
-            )
-
-            cy.intercept(
-              {
-                method: 'GET',
-                path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true?filter=DES?showAllTrades=true`,
-              },
-              {
-                body: [
-                  {
-                    code: 'DES5R003',
-                    shortDescription: 'Immediate call outs',
-                    priority: {
-                      priorityCode: 1,
-                      description: '1 [I] IMMEDIATE',
-                    },
-                    cost: 0,
-                  },
-                  {
-                    code: 'DES5R004',
-                    shortDescription: 'Emergency call out',
-                    priority: {
-                      priorityCode: 2,
-                      description: '2 [E] EMERGENCY',
-                    },
-                    cost: 1,
-                  },
-                ],
-              }
-            ).as('sorCodesRequestDES')
-
-            // Enter three characters, then clear and immediately re-enter them
-            cy.get('input[id="rateScheduleItems[0][code]"]')
-              .type('S')
-              .clear()
-              .type('DES')
-
-            cy.wait('@sorCodesRequestDES')
-
-            // The three-character input triggering an API request should have been debounced from 2 requests to just 1
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
-
-            cy.get('[data-testid="rateScheduleItems[0][code]"]')
-              .parent()
-              .find('datalist option')
-              .should('have.length', 2)
-              .first()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R003 - Immediate call outs - £0'
-              )
-              .next()
-              .should(
-                'have.attr',
-                'value',
-                'DES5R004 - Emergency call out - £1'
-              )
-
-            // type the remainder of the code
-            cy.get('input[id="rateScheduleItems[0][code]"]').type(
-              '5R003 - Immediate call outs - £0'
-            )
-
-            // Entering more than three characters does not trigger more API requests
-            cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
-              'eq',
-              1
-            )
-
-            cy.get('#priorityCode')
-              .find('option:selected')
-              .should('have.text', '1 [I] IMMEDIATE')
-
-            cy.contains('+ Add another SOR code').click()
-
-            cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
-
-            cy.wait('@sorCodesRequestDES')
-
-            cy.get('input[id="rateScheduleItems[1][code]"]').type(
-              '5R004 - Emergency call out - £1'
-            )
-
-            cy.get('input[id="rateScheduleItems[0][quantity]"]')
-              .clear()
-              .type('1')
-
-            cy.get('input[id="rateScheduleItems[1][quantity]"]')
-              .clear()
-              .type('1')
-
-            cy.get('#descriptionOfWork')
-              .get('.govuk-textarea')
-              .type('A problem')
-
-            cy.get('[data-testid=callerName]').type('Test Caller')
-            cy.get('[data-testid=contactNumber]').type('12345678910')
-
-            cy.get('[type="submit"]').contains('Create work order').click()
-          })
-
-          cy.wait('@apiCheck', { requestTimeout: 9000 }).then(({ request }) => {
-            const referenceIdUuid = request.body.reference[0].id
-
-            cy.wrap(request.body).should('deep.include', {
-              reference: [{ id: referenceIdUuid }],
-              descriptionOfWork: 'A problem',
-              priority: {
-                priorityCode: IMMEDIATE_PRIORITY_CODE,
-                priorityDescription: '1 [I] IMMEDIATE',
-                numberOfDays: 0,
-              },
-              workElement: [
-                {
-                  rateScheduleItem: [
-                    {
-                      customCode: 'DES5R003',
-                      customName: 'Immediate call outs',
-                      quantity: { amount: [1] },
-                    },
-                  ],
-                  trade: [
-                    {
-                      code: 'SP',
-                      customCode: 'MU',
-                      customName: 'Multi Trade - MU',
-                    },
-                  ],
-                },
-                {
-                  rateScheduleItem: [
-                    {
-                      customCode: 'DES5R004',
-                      customName: 'Emergency call out',
-                      quantity: { amount: [1] },
-                    },
-                  ],
-                  trade: [
-                    {
-                      code: 'SP',
-                      customCode: 'MU',
-                      customName: 'Multi Trade - MU',
-                    },
-                  ],
-                },
-              ],
-              site: {
-                property: [
-                  {
-                    propertyReference: '00012345',
-                    address: {
-                      addressLine: ['16 Pitcairn House  St Thomass Square'],
-                      postalCode: 'E9 6PT',
-                    },
-                    reference: [
-                      {
-                        id: '00012345',
-                      },
-                    ],
-                  },
-                ],
-              },
-              assignedToPrimary: {
-                name: ctr.name,
-                organization: {
-                  reference: [
-                    {
-                      id: ctr.code,
-                    },
-                  ],
-                },
-              },
-              budgetCode: { id: '1' },
-              multiTradeWorkOrder: true,
-            })
-          })
-        })
-      })
-    })
-
-    it('Submits an immediate priority work order', () => {
-      cy.visit('/properties/00012345')
-
-      cy.wait(['@propertyRequest', '@workOrdersRequest'])
-
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
-
-      cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
-
-      cy.get('#repair-request-form').within(() => {
-        cy.get('#trade').type('Plumbing - PL')
-
-        cy.wait('@contractorsRequest')
-
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
-
-        cy.wait('@budgetCodesRequest')
-
-        cy.get('[data-testid=budgetCode]').type(
-          'H2555 - 200031 - Lifts Breakdown'
-        )
-
-        cy.get('input[id="rateScheduleItems[0][code]"]')
-          .clear()
-          .type('DES5R003 - Immediate call outs - £0')
-
-        // Autopopulates priority description
-        cy.get('#priorityCode')
-          .find('option:selected')
-          .should('have.text', '1 [I] IMMEDIATE')
-
-        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
-
-        cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
-
-        cy.get('[data-testid=callerName]').type('Test Caller')
-        cy.get('[data-testid=contactNumber]').type('12345678910')
-
-        cy.get('[type="submit"]').contains('Create work order').click()
-      })
-
-      cy.wait('@apiCheck').then(({ request }) => {
-        cy.wrap(request.body).should('deep.include', {
-          priority: {
-            priorityCode: IMMEDIATE_PRIORITY_CODE,
-            priorityDescription: '1 [I] IMMEDIATE',
-            numberOfDays: 0,
-          },
-        })
-      })
-    })
-
-    it('Submits an order above the user raise limit for authorisation', () => {
-      cy.intercept(
-        { method: 'POST', path: '/api/workOrders/schedule' },
-        {
-          body: {
-            id: 10102030,
-            statusCode: 1010,
-            statusCodeDescription: '???',
-            externallyManagedAppointment: false,
-          },
-        }
-      ).as('apiCheck')
-
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      cy.get('#trade').type('Plumbing - PL')
-      cy.wait('@contractorsRequest')
-
-      cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
-
-      cy.wait('@budgetCodesRequest')
-
-      cy.get('[data-testid=budgetCode]').type(
-        'H2555 - 200031 - Lifts Breakdown'
-      )
-
-      // Select an SOR with no cost
-
-      cy.get('input[id="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('DES5R003 - Immediate call outs - £0')
-
-      cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
-
-      // Within user's raise limit so no warning text is displayed
-      cy.get('[data-testid=over-spend-limit]').should('not.exist')
-
-      // Select an SOR with cost: £50.17
-      cy.contains('+ Add another SOR code').click()
-
-      cy.get('input[id="rateScheduleItems[1][code]"]')
-        .clear()
-        .type('20060020 - BATHROOM PLUMBING REPAIRS - £50.17')
-
-      // Select a quantity to make total 50.17 x 5 = 250.85
-      cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
-
-      // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('[data-testid=over-spend-limit]').within(() => {
-        cy.contains(
-          'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-        )
-      })
-
-      // Change quantity to make total 50.17 x 4 = 200.68
-      cy.get('input[id="rateScheduleItems[1][quantity]"]').clear().type('4')
-
-      // Add another SOR with cost: £5.80
-      cy.contains('+ Add another SOR code').click()
-
-      cy.get('input[id="rateScheduleItems[2][code]"]')
-        .clear()
-        .type('20060030 - KITCHEN PLUMBING REPAIRS - £5.8')
-
-      // Add quantity of 1 to make total 200.68 + (5.80 x 9) = 252.88
-      cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
-
-      // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('[data-testid=over-spend-limit]').within(() => {
-        cy.contains(
-          'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-        )
-      })
-
-      // Remove SOR at index 1 to make total cost 5.80 x 9 = 52.2
-      cy.get('button[id="remove-rate-schedule-item-1"]').click()
-
-      // Within user's raise limit so no warning text is displayed
-      cy.get('[data-testid=over-spend-limit]').should('not.exist')
-
-      // Edit quantity to 43 to make total 5.80 x 43 = 249.4
-      cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('43')
-
-      // Within user's raise limit so no warning text is displayed
-      cy.get('[data-testid=over-spend-limit]').should('not.exist')
-
-      // Edit quantity to 44 to make total 5.80 x 44 = 255.2
-      cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('44')
-
-      // Warning text as user's raise limit (£250) has been exceeded
-      cy.get('[data-testid=over-spend-limit]').within(() => {
-        cy.contains(
-          'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-        )
-      })
-
-      // Fill in Repair Description
-      cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
-
-      //Fill in contact details
-      cy.get('#callerName').type('Test Caller', { force: true })
-      cy.get('#contactNumber').type('1', { force: true })
-
-      // Submit form for high cost (over raise limit) authorisation
-      cy.get('[type="submit"]').contains('Create work order').click()
-
-      cy.wait('@apiCheck')
-
-      // Confirmation screen
-      cy.get('.govuk-panel').within(() => {
-        cy.get('.govuk-panel__title').contains(
-          'Work order created but requires authorisation'
-        )
-        cy.get('.govuk-panel__body').within(() => {
-          cy.contains('Reference number')
-          cy.contains('10102030')
-        })
-      })
-
-      // Warning text as this work order is over the raise limit
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-        cy.get('.govuk-warning-text__text').contains(
-          'Please request authorisation from a manager'
-        )
-      })
-
-      // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10102030'
-        )
-        cy.contains('Back to 16 Pitcairn House').should(
-          'have.attr',
-          'href',
-          '/properties/00012345'
-        )
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-      })
-    })
-    describe('when contractor is not Purdy', () => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/workOrders/budget-codes',
-          },
-          { fixture: 'scheduleOfRates/budgetCodes.json' }
-        ).as('budgetCodesRequestForNonPurdy')
-
-        cy.intercept(
-          {
-            method: 'GET',
-            path:
-              '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
-          },
-          { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-        ).as('sorCodesRequest')
-      })
-
-      it('Gets full list of budget codes', () => {
-        cy.visit('/properties/00012345/raise-repair/new')
-        cy.wait([
-          '@propertyRequest',
-          '@contactDetailsRequest',
-          '@sorPrioritiesRequest',
-          '@tradesRequest',
-        ])
-
-        cy.get('.lbh-heading-h2').contains('Work order task details')
-        cy.get('#repair-request-form').within(() => {
-          cy.get('#trade').type('Plumbing - PL')
-          cy.wait('@contractorsRequest')
-
-          cy.get('#contractor').type('HH Painting - H09')
-          cy.wait('@budgetCodesRequestForNonPurdy')
-
-          cy.get('[data-testid=budgetCode]').type(
-            'H2555 - 200157 - Garage Repairs'
-          )
-          cy.wait('@sorCodesRequest')
-
-          cy.get('input[id="rateScheduleItems[0][code]"]')
-            .clear()
-            .type('DES5R005 - Normal call outs - £1')
-
-          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
-          cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
-
+          // Fill in contact details
           cy.get('[data-testid=callerName]').type('Test Caller')
-          cy.get('[data-testid=contactNumber]').type('1')
+          cy.get('[data-testid=contactNumber]').clear()
+          cy.get('[data-testid=contactNumber]').type('12345678910')
         })
+
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
 
-        cy.wait('@apiCheck').then(({ request }) => {
+        cy.wait('@apiCheck', { requestTimeout: 7000 }).then(({ request }) => {
           const referenceIdUuid = request.body.reference[0].id
 
           cy.wrap(request.body).should('deep.equal', {
             reference: [{ id: referenceIdUuid }],
             descriptionOfWork: 'A problem',
             priority: {
-              priorityCode: NORMAL_PRIORITY_CODE,
-              priorityDescription: '5 [N] NORMAL',
-              numberOfDays: 21,
+              priorityCode: EMERGENCY_PRIORITY_CODE,
+              priorityDescription: '2 [E] EMERGENCY',
+              numberOfDays: 1,
             },
             workClass: { workClassCode: 0 },
             workElement: [
               {
                 rateScheduleItem: [
                   {
-                    customCode: 'DES5R005',
-                    customName: 'Normal call outs',
+                    customCode: 'DES5R004',
+                    customName: 'Emergency call out',
                     quantity: { amount: [1] },
+                  },
+                ],
+                trade: [
+                  {
+                    code: 'SP',
+                    customCode: 'PL',
+                    customName: 'Plumbing - PL',
+                  },
+                ],
+              },
+              {
+                rateScheduleItem: [
+                  {
+                    customCode: 'DES5R006',
+                    customName: 'Urgent call outs',
+                    quantity: { amount: [2] },
                   },
                 ],
                 trade: [
@@ -1380,11 +759,11 @@ describe('Raise repair form', () => {
             },
             instructedBy: { name: 'Hackney Housing' },
             assignedToPrimary: {
-              name: 'HH Painting',
+              name: 'Purdy Contracts (P) Ltd',
               organization: {
                 reference: [
                   {
-                    id: 'H09',
+                    id: 'PCL',
                   },
                 ],
               },
@@ -1401,109 +780,689 @@ describe('Raise repair form', () => {
                       medium: '20',
                       code: '60',
                     },
-                    value: '1',
+                    value: '12345678910',
                   },
                 ],
               },
             },
-            budgetCode: { id: '12' },
+            budgetCode: { id: '4' },
             multiTradeWorkOrder: false,
           })
         })
+
+        // Confirmation screen
+        cy.get('.govuk-panel .govuk-panel__title').contains(
+          'Work order created'
+        )
+
+        cy.get('.govuk-panel .govuk-panel__body').contains('Reference number')
+        cy.get('.govuk-panel .govuk-panel__body').contains('10102030')
+
+        // No warning if within raise limit
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+        // Actions to see relevant pages
+        cy.get('.lbh-list li')
+          .contains('View work order')
+          .should('have.attr', 'href', '/work-orders/10102030')
+
+        cy.get('.lbh-list li')
+          .contains('Back to 16 Pitcairn House')
+          .should('have.attr', 'href', '/properties/00012345')
+
+        cy.get('.lbh-list li')
+          .contains('Start a new search')
+          .should('have.attr', 'href', '/')
+
+        // Run lighthouse audit for accessibility report
+        //  cy.audit()
       })
-    })
-  })
 
-  context('as a user with an agent role only', () => {
-    beforeEach(() => {
-      cy.loginWithAgentRole()
-    })
+      describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
+        ;[
+          { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
+          { code: 'AEP', name: 'Axis Europe (X) PLC' },
+          { code: 'HHL', name: 'Herts Heritage Ltd' },
+        ].forEach((ctr) => {
+          beforeEach(() => {
+            cy.intercept(
+              {
+                method: 'GET',
+                path:
+                  '/api/contractors?propertyReference=00012345&tradeCode=MU',
+              },
+              { fixture: 'contractors/multiTradeContractors.json' }
+            ).as('multiTradeContractorsRequest')
 
-    it('does not allow budget code selection', () => {
-      cy.visit('/properties/00012345/raise-repair/new')
+            cy.intercept(
+              {
+                method: 'GET',
+                path: `/api/workOrders/budget-codes?contractorReference=${ctr.code}`,
+              },
+              { fixture: 'scheduleOfRates/budgetCodes.json' }
+            ).as('budgetCodesRequest')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
+            cy.intercept(
+              {
+                method: 'GET',
+                path: `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
+              },
+              { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+            ).as('sorCodesRequest')
+          })
 
-      cy.get('#repair-request-form').within(() => {
+          it('Searches SOR codes after entering three characters with a debounced API request', () => {
+            cy.visit('/properties/00012345/raise-repair/new')
+
+            cy.wait([
+              '@propertyRequest',
+              '@contactDetailsRequest',
+              '@sorPrioritiesRequest',
+              '@tradesRequest',
+            ])
+
+            cy.get('#repair-request-form').within(() => {
+              cy.get('#trade').type('Multi Trade - MU')
+
+              cy.wait('@multiTradeContractorsRequest')
+
+              cy.get('#contractor').type(`${ctr.name} - ${ctr.code}`)
+
+              cy.wait('@budgetCodesRequest')
+
+              cy.get('[data-testid=budgetCode]').type(
+                'H2555 - 200031 - Lifts Breakdown'
+              )
+
+              cy.get('input[id="rateScheduleItems[0][code]"]').clear().type('D')
+
+              cy.get('input[id="rateScheduleItems[0][code]"]').type('E')
+              cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                'eq',
+                0
+              )
+
+              cy.intercept(
+                {
+                  method: 'GET',
+                  path: `/api/schedule-of-rates/codes?tradeCode=MU&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true?filter=DES?showAllTrades=true`,
+                },
+                {
+                  body: [
+                    {
+                      code: 'DES5R003',
+                      shortDescription: 'Immediate call outs',
+                      priority: {
+                        priorityCode: 1,
+                        description: '1 [I] IMMEDIATE',
+                      },
+                      cost: 0,
+                    },
+                    {
+                      code: 'DES5R004',
+                      shortDescription: 'Emergency call out',
+                      priority: {
+                        priorityCode: 2,
+                        description: '2 [E] EMERGENCY',
+                      },
+                      cost: 1,
+                    },
+                  ],
+                }
+              ).as('sorCodesRequestDES')
+
+              // Enter three characters, then clear and immediately re-enter them
+              cy.get('input[id="rateScheduleItems[0][code]"]')
+                .type('S')
+                .clear()
+                .type('DES')
+
+              cy.wait('@sorCodesRequestDES')
+
+              // The three-character input triggering an API request should have been debounced from 2 requests to just 1
+              cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                'eq',
+                1
+              )
+
+              cy.get('[data-testid="rateScheduleItems[0][code]"]')
+                .parent()
+                .find('datalist option')
+                .should('have.length', 2)
+                .first()
+                .should(
+                  'have.attr',
+                  'value',
+                  'DES5R003 - Immediate call outs - £0'
+                )
+                .next()
+                .should(
+                  'have.attr',
+                  'value',
+                  'DES5R004 - Emergency call out - £1'
+                )
+
+              // type the remainder of the code
+              cy.get('input[id="rateScheduleItems[0][code]"]').type(
+                '5R003 - Immediate call outs - £0'
+              )
+
+              // Entering more than three characters does not trigger more API requests
+              cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should(
+                'eq',
+                1
+              )
+
+              cy.get('#priorityCode')
+                .find('option:selected')
+                .should('have.text', '1 [I] IMMEDIATE')
+
+              cy.contains('+ Add another SOR code').click()
+
+              cy.get('input[id="rateScheduleItems[1][code]"]').type('DES')
+
+              cy.wait('@sorCodesRequestDES')
+
+              cy.get('input[id="rateScheduleItems[1][code]"]').type(
+                '5R004 - Emergency call out - £1'
+              )
+
+              cy.get('input[id="rateScheduleItems[0][quantity]"]')
+                .clear()
+                .type('1')
+
+              cy.get('input[id="rateScheduleItems[1][quantity]"]')
+                .clear()
+                .type('1')
+
+              cy.get('#descriptionOfWork')
+                .get('.govuk-textarea')
+                .type('A problem')
+
+              cy.get('[data-testid=callerName]').type('Test Caller')
+              cy.get('[data-testid=contactNumber]').type('12345678910')
+
+              cy.get('[type="submit"]').contains('Create work order').click()
+            })
+
+            cy.wait('@apiCheck', { requestTimeout: 9000 }).then(
+              ({ request }) => {
+                const referenceIdUuid = request.body.reference[0].id
+
+                cy.wrap(request.body).should('deep.include', {
+                  reference: [{ id: referenceIdUuid }],
+                  descriptionOfWork: 'A problem',
+                  priority: {
+                    priorityCode: IMMEDIATE_PRIORITY_CODE,
+                    priorityDescription: '1 [I] IMMEDIATE',
+                    numberOfDays: 0,
+                  },
+                  workElement: [
+                    {
+                      rateScheduleItem: [
+                        {
+                          customCode: 'DES5R003',
+                          customName: 'Immediate call outs',
+                          quantity: { amount: [1] },
+                        },
+                      ],
+                      trade: [
+                        {
+                          code: 'SP',
+                          customCode: 'MU',
+                          customName: 'Multi Trade - MU',
+                        },
+                      ],
+                    },
+                    {
+                      rateScheduleItem: [
+                        {
+                          customCode: 'DES5R004',
+                          customName: 'Emergency call out',
+                          quantity: { amount: [1] },
+                        },
+                      ],
+                      trade: [
+                        {
+                          code: 'SP',
+                          customCode: 'MU',
+                          customName: 'Multi Trade - MU',
+                        },
+                      ],
+                    },
+                  ],
+                  site: {
+                    property: [
+                      {
+                        propertyReference: '00012345',
+                        address: {
+                          addressLine: ['16 Pitcairn House  St Thomass Square'],
+                          postalCode: 'E9 6PT',
+                        },
+                        reference: [
+                          {
+                            id: '00012345',
+                          },
+                        ],
+                      },
+                    ],
+                  },
+                  assignedToPrimary: {
+                    name: ctr.name,
+                    organization: {
+                      reference: [
+                        {
+                          id: ctr.code,
+                        },
+                      ],
+                    },
+                  },
+                  budgetCode: { id: '1' },
+                  multiTradeWorkOrder: true,
+                })
+              }
+            )
+          })
+        })
+      })
+
+      it('Submits an immediate priority work order', () => {
+        cy.visit('/properties/00012345')
+
+        cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a work order on this dwelling')
+          .click()
+
+        cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
+
+          cy.wait('@contractorsRequest')
+
+          cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+
+          cy.wait('@budgetCodesRequest')
+
+          cy.get('[data-testid=budgetCode]').type(
+            'H2555 - 200031 - Lifts Breakdown'
+          )
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R003 - Immediate call outs - £0')
+
+          // Autopopulates priority description
+          cy.get('#priorityCode')
+            .find('option:selected')
+            .should('have.text', '1 [I] IMMEDIATE')
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+          cy.get('[data-testid=callerName]').type('Test Caller')
+          cy.get('[data-testid=contactNumber]').type('12345678910')
+
+          cy.get('[type="submit"]').contains('Create work order').click()
+        })
+
+        cy.wait('@apiCheck').then(({ request }) => {
+          cy.wrap(request.body).should('deep.include', {
+            priority: {
+              priorityCode: IMMEDIATE_PRIORITY_CODE,
+              priorityDescription: '1 [I] IMMEDIATE',
+              numberOfDays: 0,
+            },
+          })
+        })
+      })
+
+      it('Submits an order above the user raise limit for authorisation', () => {
+        cy.intercept(
+          { method: 'POST', path: '/api/workOrders/schedule' },
+          {
+            body: {
+              id: 10102030,
+              statusCode: 1010,
+              statusCodeDescription: '???',
+              externallyManagedAppointment: false,
+            },
+          }
+        ).as('apiCheck')
+
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
         cy.get('#trade').type('Plumbing - PL')
-
         cy.wait('@contractorsRequest')
 
         cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-        cy.get('[data-testid=budgetCode]').should('not.exist')
+        cy.wait('@budgetCodesRequest')
+
+        cy.get('[data-testid=budgetCode]').type(
+          'H2555 - 200031 - Lifts Breakdown'
+        )
+
+        // Select an SOR with no cost
 
         cy.get('input[id="rateScheduleItems[0][code]"]')
           .clear()
           .type('DES5R003 - Immediate call outs - £0')
 
-        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+        cy.get('input[id="rateScheduleItems[0][quantity]"]').type('500')
 
+        // Within user's raise limit so no warning text is displayed
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+        // Select an SOR with cost: £50.17
+        cy.contains('+ Add another SOR code').click()
+
+        cy.get('input[id="rateScheduleItems[1][code]"]')
+          .clear()
+          .type('20060020 - BATHROOM PLUMBING REPAIRS - £50.17')
+
+        // Select a quantity to make total 50.17 x 5 = 250.85
+        cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
+
+        // Warning text as user's raise limit (£250) has been exceeded
+        cy.get('[data-testid=over-spend-limit]').within(() => {
+          cy.contains(
+            'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+          )
+        })
+
+        // Change quantity to make total 50.17 x 4 = 200.68
+        cy.get('input[id="rateScheduleItems[1][quantity]"]').clear().type('4')
+
+        // Add another SOR with cost: £5.80
+        cy.contains('+ Add another SOR code').click()
+
+        cy.get('input[id="rateScheduleItems[2][code]"]')
+          .clear()
+          .type('20060030 - KITCHEN PLUMBING REPAIRS - £5.8')
+
+        // Add quantity of 1 to make total 200.68 + (5.80 x 9) = 252.88
+        cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
+
+        // Warning text as user's raise limit (£250) has been exceeded
+        cy.get('[data-testid=over-spend-limit]').within(() => {
+          cy.contains(
+            'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+          )
+        })
+
+        // Remove SOR at index 1 to make total cost 5.80 x 9 = 52.2
+        cy.get('button[id="remove-rate-schedule-item-1"]').click()
+
+        // Within user's raise limit so no warning text is displayed
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+        // Edit quantity to 43 to make total 5.80 x 43 = 249.4
+        cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('43')
+
+        // Within user's raise limit so no warning text is displayed
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+        // Edit quantity to 44 to make total 5.80 x 44 = 255.2
+        cy.get('input[id="rateScheduleItems[2][quantity]"]').clear().type('44')
+
+        // Warning text as user's raise limit (£250) has been exceeded
+        cy.get('[data-testid=over-spend-limit]').within(() => {
+          cy.contains(
+            'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+          )
+        })
+
+        // Fill in Repair Description
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
 
-        cy.get('[data-testid=callerName]').type('Test Caller')
-        cy.get('[data-testid=contactNumber]').type('12345678910')
+        //Fill in contact details
+        cy.get('#callerName').type('Test Caller', { force: true })
+        cy.get('#contactNumber').type('1', { force: true })
 
+        // Submit form for high cost (over raise limit) authorisation
         cy.get('[type="submit"]').contains('Create work order').click()
-      })
 
-      cy.wait('@apiCheck').then(({ request }) => {
-        cy.wrap(request.body).should('not.have.property', 'budgetCode')
+        cy.wait('@apiCheck')
+
+        // Confirmation screen
+        cy.get('.govuk-panel').within(() => {
+          cy.get('.govuk-panel__title').contains(
+            'Work order created but requires authorisation'
+          )
+          cy.get('.govuk-panel__body').within(() => {
+            cy.contains('Reference number')
+            cy.contains('10102030')
+          })
+        })
+
+        // Warning text as this work order is over the raise limit
+        cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+          cy.get('.govuk-warning-text__text').contains(
+            'Please request authorisation from a manager'
+          )
+        })
+
+        // Actions to see relevant pages
+        cy.get('.lbh-list li').within(() => {
+          cy.contains('View work order').should(
+            'have.attr',
+            'href',
+            '/work-orders/10102030'
+          )
+          cy.contains('Back to 16 Pitcairn House').should(
+            'have.attr',
+            'href',
+            '/properties/00012345'
+          )
+          cy.contains('Start a new search').should('have.attr', 'href', '/')
+        })
+      })
+      describe('when contractor is not Purdy', () => {
+        beforeEach(() => {
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/workOrders/budget-codes',
+            },
+            { fixture: 'scheduleOfRates/budgetCodes.json' }
+          ).as('budgetCodesRequestForNonPurdy')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path:
+                '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
+            },
+            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
+          ).as('sorCodesRequest')
+        })
+
+        it('Gets full list of budget codes', () => {
+          cy.visit('/properties/00012345/raise-repair/new')
+          cy.wait([
+            '@propertyRequest',
+            '@contactDetailsRequest',
+            '@sorPrioritiesRequest',
+            '@tradesRequest',
+          ])
+
+          cy.get('.lbh-heading-h2').contains('Work order task details')
+          cy.get('#repair-request-form').within(() => {
+            cy.get('#trade').type('Plumbing - PL')
+            cy.wait('@contractorsRequest')
+
+            cy.get('#contractor').type('HH Painting - H09')
+            cy.wait('@budgetCodesRequestForNonPurdy')
+
+            cy.get('[data-testid=budgetCode]').type(
+              'H2555 - 200157 - Garage Repairs'
+            )
+            cy.wait('@sorCodesRequest')
+
+            cy.get('input[id="rateScheduleItems[0][code]"]')
+              .clear()
+              .type('DES5R005 - Normal call outs - £1')
+
+            cy.get('input[id="rateScheduleItems[0][quantity]"]')
+              .clear()
+              .type('1')
+            cy.get('#descriptionOfWork')
+              .get('.govuk-textarea')
+              .type('A problem')
+
+            cy.get('[data-testid=callerName]').type('Test Caller')
+            cy.get('[data-testid=contactNumber]').type('1')
+          })
+          cy.get('[type="submit"]')
+            .contains('Create work order')
+            .click({ force: true })
+
+          cy.wait('@apiCheck').then(({ request }) => {
+            const referenceIdUuid = request.body.reference[0].id
+
+            cy.wrap(request.body).should('deep.equal', {
+              reference: [{ id: referenceIdUuid }],
+              descriptionOfWork: 'A problem',
+              priority: {
+                priorityCode: NORMAL_PRIORITY_CODE,
+                priorityDescription: '5 [N] NORMAL',
+                numberOfDays: 21,
+              },
+              workClass: { workClassCode: 0 },
+              workElement: [
+                {
+                  rateScheduleItem: [
+                    {
+                      customCode: 'DES5R005',
+                      customName: 'Normal call outs',
+                      quantity: { amount: [1] },
+                    },
+                  ],
+                  trade: [
+                    {
+                      code: 'SP',
+                      customCode: 'PL',
+                      customName: 'Plumbing - PL',
+                    },
+                  ],
+                },
+              ],
+              site: {
+                property: [
+                  {
+                    propertyReference: '00012345',
+                    address: {
+                      addressLine: ['16 Pitcairn House  St Thomass Square'],
+                      postalCode: 'E9 6PT',
+                    },
+                    reference: [
+                      {
+                        id: '00012345',
+                      },
+                    ],
+                  },
+                ],
+              },
+              instructedBy: { name: 'Hackney Housing' },
+              assignedToPrimary: {
+                name: 'HH Painting',
+                organization: {
+                  reference: [
+                    {
+                      id: 'H09',
+                    },
+                  ],
+                },
+              },
+              customer: {
+                name: 'Test Caller',
+                person: {
+                  name: {
+                    full: 'Test Caller',
+                  },
+                  communication: [
+                    {
+                      channel: {
+                        medium: '20',
+                        code: '60',
+                      },
+                      value: '1',
+                    },
+                  ],
+                },
+              },
+              budgetCode: { id: '12' },
+              multiTradeWorkOrder: false,
+            })
+          })
+        })
       })
     })
-  })
 
-  context('When property is in legal disrepair', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-        { fixture: 'properties/propertyInLegalDisrepair.json' }
-      ).as('propertyInLegalDisrepair')
-    })
+    context('as a user with an agent role only', () => {
+      beforeEach(() => {
+        cy.loginWithAgentRole()
+      })
 
-    it('Shows warning text', () => {
-      cy.loginWithAgentRole()
+      it('does not allow budget code selection', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
 
-      cy.visit('/properties/00012345')
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
 
-      cy.wait(['@propertyRequest', '@workOrdersRequest'])
+        cy.get('#repair-request-form').within(() => {
+          cy.get('#trade').type('Plumbing - PL')
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+          cy.wait('@contractorsRequest')
 
-      cy.wait([
-        '@propertyRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-        '@propertyInLegalDisrepair',
-      ])
+          cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
 
-      cy.get('.warning-info-box').within(() => {
-        cy.contains('This property is currently under legal disrepair')
-        cy.contains(
-          'Before raising a work order you must call the Legal Disrepair Team'
-        )
+          cy.get('[data-testid=budgetCode]').should('not.exist')
+
+          cy.get('input[id="rateScheduleItems[0][code]"]')
+            .clear()
+            .type('DES5R003 - Immediate call outs - £0')
+
+          cy.get('input[id="rateScheduleItems[0][quantity]"]').clear().type('1')
+
+          cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+          cy.get('[data-testid=callerName]').type('Test Caller')
+          cy.get('[data-testid=contactNumber]').type('12345678910')
+
+          cy.get('[type="submit"]').contains('Create work order').click()
+        })
+
+        cy.wait('@apiCheck').then(({ request }) => {
+          cy.wrap(request.body).should('not.have.property', 'budgetCode')
+        })
       })
     })
-  })
 
-  context(
-    'When property is not in legal desrepair and request response has body false',
-    () => {
+    context('When property is in legal disrepair', () => {
       beforeEach(() => {
         cy.intercept(
           { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-          { body: { propertyIsInLegalDisrepair: false } }
+          { fixture: 'properties/propertyInLegalDisrepair.json' }
         ).as('propertyInLegalDisrepair')
       })
 
-      it('Does not show warning text', () => {
+      it('Shows warning text', () => {
         cy.loginWithAgentRole()
 
         cy.visit('/properties/00012345')
@@ -1521,360 +1480,398 @@ describe('Raise repair form', () => {
           '@propertyInLegalDisrepair',
         ])
 
-        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+        cy.get('.warning-info-box').within(() => {
+          cy.contains('This property is currently under legal disrepair')
+          cy.contains(
+            'Before raising a work order you must call the Legal Disrepair Team'
+          )
+        })
       })
-    }
-  )
+    })
 
-  context('When legal disrepair request returns an error', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
-        {
-          statusCode: 404,
-          body: {
-            message: 'Cannot fetch legal disrepairs',
+    context(
+      'When property is not in legal desrepair and request response has body false',
+      () => {
+        beforeEach(() => {
+          cy.intercept(
+            { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+            { body: { propertyIsInLegalDisrepair: false } }
+          ).as('propertyInLegalDisrepair')
+        })
+
+        it('Does not show warning text', () => {
+          cy.loginWithAgentRole()
+
+          cy.visit('/properties/00012345')
+
+          cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+          cy.get('.lbh-heading-h2')
+            .contains('Raise a work order on this dwelling')
+            .click()
+
+          cy.wait([
+            '@propertyRequest',
+            '@sorPrioritiesRequest',
+            '@tradesRequest',
+            '@propertyInLegalDisrepair',
+          ])
+
+          cy.get('[data-testid=over-spend-limit]').should('not.exist')
+        })
+      }
+    )
+
+    context('When legal disrepair request returns an error', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          {
+            statusCode: 404,
+            body: {
+              message: 'Cannot fetch legal disrepairs',
+            },
+          }
+        ).as('propertyInLegalDisrepairError')
+      })
+
+      it('Shows a custom error message for legal disrepair', () => {
+        cy.loginWithAgentRole()
+
+        cy.visit('/properties/00012345')
+
+        cy.wait(['@propertyRequest', '@workOrdersRequest'])
+
+        cy.get('.lbh-heading-h2')
+          .contains('Raise a work order on this dwelling')
+          .click()
+
+        cy.wait([
+          '@propertyRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+          '@propertyInLegalDisrepairError',
+        ])
+
+        cy.get('[data-testid=over-spend-limit]').should('not.exist')
+        cy.contains(
+          'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
+        )
+      })
+    })
+
+    context('When a user removes a contact detail', () => {
+      const contactId = '5b718087-33cd-746d-8f91-e7cec2299a73'
+      const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
+
+      const modalConfirmationMessage = `Are you sure you want to remove mainNumber: 00000111111 from Mark Gardner?`
+
+      beforeEach(() => {
+        cy.loginWithAgentRole()
+      })
+
+      it('shows a confirmation message when clicking on the remove button', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // remove first tenant
+        cy.contains('Remove').first().click()
+
+        // assert modal open
+        cy.contains(modalConfirmationMessage)
+      })
+
+      it('hides confirmation modal when cancel clicked', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // remove first tenant
+        cy.contains('Remove').first().click()
+
+        // assert modal open
+        cy.contains(modalConfirmationMessage)
+
+        // click cancel button
+        cy.contains('Cancel').click()
+
+        // confirm hidden
+        cy.contains('Remove contact details').should('not.exist')
+        cy.contains(modalConfirmationMessage).should('not.exist')
+      })
+
+      it('sends displays a network error in the modal', () => {
+        cy.intercept(
+          {
+            method: 'DELETE',
+            path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
           },
-        }
-      ).as('propertyInLegalDisrepairError')
+          {
+            statusCode: 401,
+          }
+        ).as('deleteContactRequest')
+
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // remove first tenant
+        cy.contains('Remove').first().click()
+
+        // assert modal open
+        cy.contains(modalConfirmationMessage)
+
+        // click confirmation button
+        cy.contains('Remove phone number').click()
+
+        // wait for network request
+        cy.wait(['@deleteContactRequest'])
+
+        // assert modal still open
+        cy.contains('Remove contact details')
+        cy.contains(modalConfirmationMessage)
+
+        // assert error message
+        cy.contains('Request failed with status code 401')
+      })
+
+      it('sends delete request when modal confirmed', () => {
+        cy.intercept(
+          {
+            method: 'DELETE',
+            path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+          },
+          {
+            statusCode: 204,
+          }
+        ).as('deleteContactRequest')
+
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // remove first tenant
+        cy.contains('Remove').first().click()
+
+        // assert modal open
+        cy.contains(modalConfirmationMessage)
+
+        // click confirmation button
+        cy.contains('Remove phone number').click()
+
+        // wait for network request
+        cy.wait(['@deleteContactRequest'])
+
+        // assert modal closed
+        cy.contains(modalConfirmationMessage).should('not.exist')
+
+        // assert new contact details fetched
+        cy.wait(['@contactDetailsRequest'])
+      })
     })
 
-    it('Shows a custom error message for legal disrepair', () => {
-      cy.loginWithAgentRole()
+    context('When a user sets contact detail as main', () => {
+      const contactId = 'd00e640a-5df2-27f2-bb78-e1860040d21f'
+      const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
 
-      cy.visit('/properties/00012345')
+      beforeEach(() => {
+        cy.loginWithAgentRole()
+      })
 
-      cy.wait(['@propertyRequest', '@workOrdersRequest'])
+      it('shows a confirmation message when clicking on the set as main button', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
 
-      cy.get('.lbh-heading-h2')
-        .contains('Raise a work order on this dwelling')
-        .click()
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
 
-      cy.wait([
-        '@propertyRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-        '@propertyInLegalDisrepairError',
-      ])
+        // update last tenant
+        cy.get('button:contains(Set as main contact)').last().click()
 
-      cy.get('[data-testid=over-spend-limit]').should('not.exist')
-      cy.contains(
-        'Error loading legal disrepair status: 404 with message: Cannot fetch legal disrepairs'
-      )
+        // assert modal open
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        )
+      })
+
+      it('hides confirmation modal when cancel clicked', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // update last tenant
+        cy.get('button:contains(Set as main contact)').last().click()
+
+        // assert modal open
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        )
+
+        // click cancel button
+        cy.contains('Cancel').click()
+
+        // confirm hidden
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        ).should('not.exist')
+      })
+
+      it('sends displays a network error in the modal', () => {
+        cy.intercept(
+          {
+            method: 'PATCH',
+            path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+          },
+          {
+            statusCode: 400,
+          }
+        ).as('patchContactRequest')
+
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // update last tenant
+        cy.get('button:contains(Set as main contact)').last().click()
+
+        // assert modal open
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        )
+
+        // click confirmation button
+        cy.get('[data-test=confirm-button]').click()
+
+        // wait for network request
+        cy.wait(['@patchContactRequest'])
+
+        // assert modal still open
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        )
+
+        // assert error message
+        cy.contains('Request failed with status code 400')
+      })
+
+      it('sends delete request when modal confirmed', () => {
+        cy.intercept(
+          {
+            method: 'PATCH',
+            path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
+          },
+          {
+            statusCode: 204,
+          }
+        ).as('patchContactRequest')
+
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        // update last tenant
+        cy.get('button:contains(Set as main contact)').last().click()
+
+        // assert modal open
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        )
+
+        // click confirmation button
+        cy.get('[data-test=confirm-button]').click()
+
+        // wait for network request
+        cy.wait(['@patchContactRequest'])
+
+        // assert modal closed
+        cy.contains(
+          `Are you sure you want to change the contact type from carer to MainNumber?`
+        ).should('not.exist')
+
+        // assert new contact details fetched
+        cy.wait(['@contactDetailsRequest'])
+      })
+    })
+
+    context('When a user edits a persons contact details', () => {
+      beforeEach(() => {
+        cy.loginWithAgentRole()
+      })
+
+      it('the edit contact details link contains the correct href', () => {
+        cy.visit('/properties/00012345/raise-repair/new')
+
+        cy.wait([
+          '@propertyRequest',
+          '@contactDetailsRequest',
+          '@sorPrioritiesRequest',
+          '@tradesRequest',
+        ])
+
+        cy.contains('Edit contact details').should(
+          'have.attr',
+          'href',
+          'https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details'
+        )
+      })
     })
   })
 
-  context('When a user removes a contact detail', () => {
-    const contactId = '5b718087-33cd-746d-8f91-e7cec2299a73'
-    const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
-
-    const modalConfirmationMessage = `Are you sure you want to remove mainNumber: 00000111111 from Mark Gardner?`
-
+  // This is a "special" integration test to end-to-end test
+  // our permission system. We don't need to replicate this
+  // for all our features because we have broad low-level test coverage.
+  describe('When a contractor tries to raise a work order using the UI', () => {
     beforeEach(() => {
-      cy.loginWithAgentRole()
+      cy.loginWithContractorRole()
     })
 
-    it('shows a confirmation message when clicking on the remove button', () => {
+    it('rejects the request and shows the access-denied page instead', () => {
       cy.visit('/properties/00012345/raise-repair/new')
 
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
+      cy.contains('New repair').should('not.exist')
+      cy.url().should('not.contain', 'properties/00012345/raise-repair/new')
 
-      // remove first tenant
-      cy.contains('Remove').first().click()
-
-      // assert modal open
-      cy.contains(modalConfirmationMessage)
+      cy.contains('Access denied')
+      cy.url().should('contain', 'access-denied')
     })
-
-    it('hides confirmation modal when cancel clicked', () => {
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // remove first tenant
-      cy.contains('Remove').first().click()
-
-      // assert modal open
-      cy.contains(modalConfirmationMessage)
-
-      // click cancel button
-      cy.contains('Cancel').click()
-
-      // confirm hidden
-      cy.contains('Remove contact details').should('not.exist')
-      cy.contains(modalConfirmationMessage).should('not.exist')
-    })
-
-    it('sends displays a network error in the modal', () => {
-      cy.intercept(
-        {
-          method: 'DELETE',
-          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
-        },
-        {
-          statusCode: 401,
-        }
-      ).as('deleteContactRequest')
-
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // remove first tenant
-      cy.contains('Remove').first().click()
-
-      // assert modal open
-      cy.contains(modalConfirmationMessage)
-
-      // click confirmation button
-      cy.contains('Remove phone number').click()
-
-      // wait for network request
-      cy.wait(['@deleteContactRequest'])
-
-      // assert modal still open
-      cy.contains('Remove contact details')
-      cy.contains(modalConfirmationMessage)
-
-      // assert error message
-      cy.contains('Request failed with status code 401')
-    })
-
-    it('sends delete request when modal confirmed', () => {
-      cy.intercept(
-        {
-          method: 'DELETE',
-          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
-        },
-        {
-          statusCode: 204,
-        }
-      ).as('deleteContactRequest')
-
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // remove first tenant
-      cy.contains('Remove').first().click()
-
-      // assert modal open
-      cy.contains(modalConfirmationMessage)
-
-      // click confirmation button
-      cy.contains('Remove phone number').click()
-
-      // wait for network request
-      cy.wait(['@deleteContactRequest'])
-
-      // assert modal closed
-      cy.contains(modalConfirmationMessage).should('not.exist')
-
-      // assert new contact details fetched
-      cy.wait(['@contactDetailsRequest'])
-    })
-  })
-
-  context('When a user sets contact detail as main', () => {
-    const contactId = 'd00e640a-5df2-27f2-bb78-e1860040d21f'
-    const personId = 'cfe9c99f-7636-e23d-f08a-f36083e57d5d'
-
-    beforeEach(() => {
-      cy.loginWithAgentRole()
-    })
-
-    it('shows a confirmation message when clicking on the set as main button', () => {
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // update last tenant
-      cy.get('button:contains(Set as main contact)').last().click()
-
-      // assert modal open
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      )
-    })
-
-    it('hides confirmation modal when cancel clicked', () => {
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // update last tenant
-      cy.get('button:contains(Set as main contact)').last().click()
-
-      // assert modal open
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      )
-
-      // click cancel button
-      cy.contains('Cancel').click()
-
-      // confirm hidden
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      ).should('not.exist')
-    })
-
-    it('sends displays a network error in the modal', () => {
-      cy.intercept(
-        {
-          method: 'PATCH',
-          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
-        },
-        {
-          statusCode: 400,
-        }
-      ).as('patchContactRequest')
-
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // update last tenant
-      cy.get('button:contains(Set as main contact)').last().click()
-
-      // assert modal open
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      )
-
-      // click confirmation button
-      cy.get('[data-test=confirm-button]').click()
-
-      // wait for network request
-      cy.wait(['@patchContactRequest'])
-
-      // assert modal still open
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      )
-
-      // assert error message
-      cy.contains('Request failed with status code 400')
-    })
-
-    it('sends delete request when modal confirmed', () => {
-      cy.intercept(
-        {
-          method: 'PATCH',
-          path: `/api/contact-details?contactId=${contactId}&personId=${personId}`,
-        },
-        {
-          statusCode: 204,
-        }
-      ).as('patchContactRequest')
-
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      // update last tenant
-      cy.get('button:contains(Set as main contact)').last().click()
-
-      // assert modal open
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      )
-
-      // click confirmation button
-      cy.get('[data-test=confirm-button]').click()
-
-      // wait for network request
-      cy.wait(['@patchContactRequest'])
-
-      // assert modal closed
-      cy.contains(
-        `Are you sure you want to change the contact type from carer to MainNumber?`
-      ).should('not.exist')
-
-      // assert new contact details fetched
-      cy.wait(['@contactDetailsRequest'])
-    })
-  })
-
-  context('When a user edits a persons contact details', () => {
-    beforeEach(() => {
-      cy.loginWithAgentRole()
-    })
-
-    it('the edit contact details link contains the correct href', () => {
-      cy.visit('/properties/00012345/raise-repair/new')
-
-      cy.wait([
-        '@propertyRequest',
-        '@contactDetailsRequest',
-        '@sorPrioritiesRequest',
-        '@tradesRequest',
-      ])
-
-      cy.contains('Edit contact details').should(
-        'have.attr',
-        'href',
-        'https://manage-my-home-development.hackney.gov.uk/person/cfe9c99f-7636-e23d-f08a-f36083e57d5d/edit-contact-details'
-      )
-    })
-  })
-})
-
-// This is a "special" integration test to end-to-end test
-// our permission system. We don't need to replicate this
-// for all our features because we have broad low-level test coverage.
-describe('When a contractor tries to raise a work order using the UI', () => {
-  beforeEach(() => {
-    cy.loginWithContractorRole()
-  })
-
-  it('rejects the request and shows the access-denied page instead', () => {
-    cy.visit('/properties/00012345/raise-repair/new')
-
-    cy.contains('New repair').should('not.exist')
-    cy.url().should('not.contain', 'properties/00012345/raise-repair/new')
-
-    cy.contains('Access denied')
-    cy.url().should('contain', 'access-denied')
   })
 })
