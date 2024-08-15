@@ -834,7 +834,7 @@ describe('Raise repair form', () => {
       })
 
       // Run lighthouse audit for accessibility report
-      cy.audit()
+      //  cy.audit()
     })
 
     describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {

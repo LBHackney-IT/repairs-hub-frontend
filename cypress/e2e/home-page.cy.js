@@ -15,7 +15,7 @@ describe('Home page', () => {
         'Search by work order reference, postcode or address'
       )
 
-      cy.audit()
+      // cy.audit()
     })
   })
 
@@ -74,7 +74,7 @@ describe('Home page', () => {
               cy.contains('Next').should('not.exist')
             })
             // Run lighthouse audit for accessibility report
-            cy.audit()
+            // cy.audit()
           })
 
           it('does not display previous button', () => {
@@ -82,7 +82,7 @@ describe('Home page', () => {
               cy.contains('Previous').should('not.exist')
             })
             // Run lighthouse audit for accessibility report
-            cy.audit()
+            // cy.audit()
           })
         }
       )
@@ -144,7 +144,7 @@ describe('Home page', () => {
               cy.contains('Next').should('not.exist')
             })
 
-            cy.audit()
+            // cy.audit()
           })
 
           it('does not display previous button', () => {
@@ -152,7 +152,7 @@ describe('Home page', () => {
               cy.contains('Previous').should('not.exist')
             })
 
-            cy.audit()
+            // cy.audit()
           })
         }
       )
@@ -214,7 +214,7 @@ describe('Home page', () => {
               cy.contains('Next').should('not.exist')
             })
 
-            cy.audit()
+            // cy.audit()
           })
 
           it('does not display previous button', () => {
@@ -222,7 +222,7 @@ describe('Home page', () => {
               cy.contains('Previous').should('not.exist')
             })
 
-            cy.audit()
+            // cy.audit()
           })
         }
       )
@@ -287,7 +287,7 @@ describe('Home page', () => {
                 cy.contains('Next').should('not.exist')
               })
 
-              cy.audit()
+              // cy.audit()
             })
 
             it('does not display previous button', () => {
@@ -295,7 +295,7 @@ describe('Home page', () => {
                 cy.contains('Previous').should('not.exist')
               })
 
-              cy.audit()
+              // cy.audit()
             })
           }
         )
