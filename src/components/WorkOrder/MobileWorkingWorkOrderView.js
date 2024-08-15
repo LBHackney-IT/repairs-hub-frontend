@@ -42,36 +42,34 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const currentUser = await frontEndApiRequest({
-        method: 'get',
-        path: '/api/hub-user',
-      })
-
-      const workOrderPromise = frontEndApiRequest({
+      const workOrder = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const tasksAndSorsPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/tasks`,
-      })
-
-      const photosPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/images/${workOrderReference}`,
-      })
-
-      const workOrder = await workOrderPromise
-
-      const propertyObjectPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/properties/${workOrder.propertyReference}`,
-      })
-
-      const tasksAndSors = await tasksAndSorsPromise
-      const photos = await photosPromise
-      const propertyObject = await propertyObjectPromise
+      const [
+        currentUser,
+        tasksAndSors,
+        photos,
+        propertyObject,
+      ] = await Promise.allSettled([
+        frontEndApiRequest({
+          method: 'get',
+          path: '/api/hub-user',
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/workOrders/${workOrderReference}/tasks`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/workOrders/images/${workOrderReference}`,
+        }),
+        frontEndApiRequest({
+          method: 'get',
+          path: `/api/properties/${workOrder.propertyReference}`,
+        }),
+      ])
 
       setPhotos(photos)
       setCurrentUser(currentUser)
