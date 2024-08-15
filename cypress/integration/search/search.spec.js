@@ -118,16 +118,28 @@ describe('Search', () => {
       context('and an invalid work order reference is entered', () => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/00000000' },
-            (req) => {
-              req.reply({
-                statusCode: 404,
-                body: {
-                  message: 'Unable to locate work order 0',
-                },
-              })
+            {
+              method: 'GET',
+              path: '/api/workOrders/00000000',
+            },
+            {
+              statusCode: 404,
+              body: {
+                message: 'Unable to locate work order 0',
+              },
             }
           ).as('repairs_with_error')
+
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/workOrders/00000000/tasks',
+            },
+            {
+              statusCode: 200,
+              body: [],
+            }
+          ).as('workOrderTasksRequest')
 
           cy.visit('/')
 
@@ -137,7 +149,7 @@ describe('Search', () => {
 
           cy.visit('/work-orders/00000000')
 
-          cy.wait('@repairs_with_error')
+          cy.wait(['@repairs_with_error', '@workOrderTasksRequest'])
         })
 
         it('Displays an error message', () => {
