@@ -93,28 +93,20 @@ describe('Show work order page', () => {
         '@locationAlerts',
       ])
 
-      cy.get('.lbh-heading-h1').within(() => {
-        cy.contains('Work order: 10000012')
-      })
+      cy.get('.lbh-heading-h1').contains('Work order: 10000012')
+      cy.get('.lbh-body-m').contains('This is an urgent repair description')
 
-      cy.get('.lbh-body-m').within(() => {
-        cy.contains('This is an urgent repair description')
-      })
+      cy.get('.property-details-main-section').contains('Dwelling')
 
-      cy.get('.property-details-main-section').within(() => {
-        cy.contains('Dwelling')
-        cy.contains('16 Pitcairn House').should(
-          'have.attr',
-          'href',
-          '/properties/00012345'
-        )
-        cy.contains('St Thomass Square').should(
-          'have.attr',
-          'href',
-          '/properties/00012345'
-        )
-        cy.contains('E9 6PT')
-      })
+      cy.get('.property-details-main-section')
+        .contains('16 Pitcairn House')
+        .should('have.attr', 'href', '/properties/00012345')
+
+      cy.get('.property-details-main-section')
+        .contains('St Thomass Square')
+        .should('have.attr', 'href', '/properties/00012345')
+
+      cy.get('.property-details-main-section').contains('E9 6PT')
 
       cy.checkForTenureDetails(
         'Tenure: Secure',
@@ -133,15 +125,15 @@ describe('Show work order page', () => {
         'CV, VA, type3, type4'
       )
 
-      cy.get('.work-order-info').within(() => {
-        cy.contains('Status: In Progress')
-        cy.contains('Priority: U - Urgent (5 Working days)')
-        cy.contains('Raised by Dummy Agent')
-        cy.contains('18 Jan 2021, 15:28')
-        cy.contains('Target: 23 Jan 2021, 18:30')
-        cy.contains('Caller: Jill Smith')
-        cy.contains('07700 900999')
-      })
+      cy.get('.work-order-info').contains('Status: In Progress')
+      cy.get('.work-order-info').contains(
+        'Priority: U - Urgent (5 Working days)'
+      )
+      cy.get('.work-order-info').contains('Raised by Dummy Agent')
+      cy.get('.work-order-info').contains('18 Jan 2021, 15:28')
+      cy.get('.work-order-info').contains('Target: 23 Jan 2021, 18:30')
+      cy.get('.work-order-info').contains('Caller: Jill Smith')
+      cy.get('.work-order-info').contains('07700 900999')
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
@@ -203,10 +195,8 @@ describe('Show work order page', () => {
               '@locationAlerts',
             ])
 
-            cy.get('.appointment-details').within(() => {
-              cy.contains('Appointment details')
-              cy.contains('19 Mar 2021, 12:00-18:00')
-            })
+            cy.get('.appointment-details').contains('Appointment details')
+            cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
             cy.contains('Operatives: Operative 1, Operative 2')
           })
@@ -228,10 +218,8 @@ describe('Show work order page', () => {
               '@locationAlerts',
             ])
 
-            cy.get('.appointment-details').within(() => {
-              cy.contains('Appointment details')
-              cy.contains('19 Mar 2021, 12:00-18:00')
-            })
+            cy.get('.appointment-details').contains('Appointment details')
+            cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
             cy.contains('Operatives: Operative 1, Operative 2')
           })
@@ -254,10 +242,8 @@ describe('Show work order page', () => {
             '@locationAlerts',
           ])
 
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Appointment details')
-            cy.contains('19 Mar 2021, 12:00-18:00')
-          })
+          cy.get('.appointment-details').contains('Appointment details')
+          cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
           cy.contains('Operatives: Operative 1, Operative 2').should(
             'not.exist'
@@ -435,15 +421,14 @@ describe('Show work order page', () => {
       cy.get('a[id="caut-alerts"]').click()
 
       cy.contains('Cautionary alerts')
-      cy.get('[data-row-id=15]').within(() => {
-        cy.get('.text-dark-red').contains('CV')
-        cy.get('.text-dark-red').contains('No Lone Visits')
-      })
 
-      cy.get('[data-row-id=23]').within(() => {
-        cy.get('.text-dark-red').contains('VA')
-        cy.get('.text-dark-red').contains('Verbal Abuse or Threat of')
-      })
+      cy.get('[data-row-id=15] .text-dark-red').contains('CV')
+      cy.get('[data-row-id=15] .text-dark-red').contains('No Lone Visits')
+
+      cy.get('[data-row-id=23] .text-dark-red').contains('VA')
+      cy.get('[data-row-id=23] .text-dark-red').contains(
+        'Verbal Abuse or Threat of'
+      )
     })
 
     it('shows list of cautionary alerts page without highlighted codes', () => {
@@ -452,15 +437,12 @@ describe('Show work order page', () => {
       cy.get('a[id="cautionary-alerts"]').click()
 
       cy.contains('Cautionary alerts')
-      cy.get('[data-row-id=15]').within(() => {
-        cy.get('.text-dark-red').should('not.exist')
-        cy.get('.text-dark-red').should('not.exist')
-      })
 
-      cy.get('[data-row-id=23]').within(() => {
-        cy.get('.text-dark-red').should('not.exist')
-        cy.get('.text-dark-red').should('not.exist')
-      })
+      cy.get('[data-row-id=15] .text-dark-red').should('not.exist')
+      cy.get('[data-row-id=15] .text-dark-red').should('not.exist')
+
+      cy.get('[data-row-id=23] .text-dark-red').should('not.exist')
+      cy.get('[data-row-id=23] .text-dark-red').should('not.exist')
     })
 
     it('shows links to expand description text, if text is more than 3 lines', () => {
@@ -471,11 +453,10 @@ describe('Show work order page', () => {
 
       // contains not full description, checks for css class that hides the rest of the text (.truncate-line-3)
       cy.contains('Description')
-      cy.get('.truncate-line-3').within(() => {
-        cy.contains(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
-        )
-      })
+      cy.get('.truncate-line-3').contains(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+      )
+
       cy.get('a').contains('show more').click()
       //css class responsible for hiding the rest of the text should not exist
       cy.get('.truncate-line-3').should('not.exist')
@@ -486,12 +467,11 @@ describe('Show work order page', () => {
       )
 
       cy.get('a').contains('show less').click()
+
       //hides full text
-      cy.get('.truncate-line-3').within(() => {
-        cy.contains(
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
-        )
-      })
+      cy.get('.truncate-line-3').contains(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse'
+      )
     })
 
     it('shows images uploaded to workOrder', () => {
@@ -517,27 +497,37 @@ describe('Show work order page', () => {
       // 2. assert contains photos
       cy.contains('Photos')
 
-      cy.get('li[data-testid="fileGroup-152"]').within(() => {
-        cy.contains('Uploaded directly to work order')
-        cy.contains('Uploaded by Test Test (test.test@hackney.gov.uk)')
-        cy.contains('25 Jul 2024, 06:30')
-        cy.contains('Some description')
+      cy.get('li[data-testid="fileGroup-152"]').contains(
+        'Uploaded directly to work order'
+      )
+      cy.get('li[data-testid="fileGroup-152"]').contains(
+        'Uploaded by Test Test (test.test@hackney.gov.uk)'
+      )
+      cy.get('li[data-testid="fileGroup-152"]').contains('25 Jul 2024, 06:30')
+      cy.get('li[data-testid="fileGroup-152"]').contains('Some description')
 
-        cy.get('img[src="/mockfilepath/photo_1.jpg"]').should('exist')
-        cy.get('img[src="/mockfilepath/photo_2.jpg"]').should('exist')
-        cy.get('img[src="/mockfilepath/photo_3.jpg"]').should('exist')
-      })
+      cy.get(
+        'li[data-testid="fileGroup-152"] img[src="/mockfilepath/photo_1.jpg"]'
+      ).should('exist')
+      cy.get(
+        'li[data-testid="fileGroup-152"] img[src="/mockfilepath/photo_2.jpg"]'
+      ).should('exist')
+      cy.get(
+        'li[data-testid="fileGroup-152"] img[src="/mockfilepath/photo_3.jpg"]'
+      ).should('exist')
 
-      cy.get('li[data-testid="fileGroup-153"]').within(() => {
-        cy.contains('Closing work order')
-        cy.contains(
-          'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
-        )
-        cy.contains('21 Aug 2024, 13:21')
+      cy.get('li[data-testid="fileGroup-153"]').contains('Closing work order')
+      cy.get('li[data-testid="fileGroup-153"]').contains(
+        'Uploaded by Dennis Reynolds (dennis.reynolds@hackney.gov.uk)'
+      )
+      cy.get('li[data-testid="fileGroup-153"]').contains('21 Aug 2024, 13:21')
 
-        cy.get('img[src="/mockfilepath/photo_2.jpg"]').should('exist')
-        cy.get('img[src="/mockfilepath/photo_3.jpg"]').should('exist')
-      })
+      cy.get(
+        'li[data-testid="fileGroup-153"] img[src="/mockfilepath/photo_2.jpg"]'
+      ).should('exist')
+      cy.get(
+        'li[data-testid="fileGroup-153"] img[src="/mockfilepath/photo_3.jpg"]'
+      ).should('exist')
     })
 
     it('shows no images when none found', () => {
@@ -592,13 +582,9 @@ describe('Show work order page', () => {
           .contains('Close')
           .click({ force: true })
 
-        cy.get('.govuk-grid-column-one-third').within(() => {
-          cy.contains('a', 'Close').should(
-            'have.attr',
-            'href',
-            '/work-orders/10000012/close'
-          )
-        })
+        cy.get('.govuk-grid-column-one-third')
+          .contains('a', 'Close')
+          .should('have.attr', 'href', '/work-orders/10000012/close')
       })
 
       it('contains a link to update the order', () => {
@@ -615,13 +601,9 @@ describe('Show work order page', () => {
           .contains('Update')
           .click({ force: true })
 
-        cy.get('.govuk-grid-column-one-third').within(() => {
-          cy.contains('a', 'Update').should(
-            'have.attr',
-            'href',
-            '/work-orders/10000012/update'
-          )
-        })
+        cy.get('.govuk-grid-column-one-third')
+          .contains('a', 'Update')
+          .should('have.attr', 'href', '/work-orders/10000012/update')
       })
     })
   })
