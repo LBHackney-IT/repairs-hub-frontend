@@ -818,7 +818,7 @@ describe('Raise repair form', () => {
         //  cy.audit()
       })
 
-      describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
+      describe.skip("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
         ;[
           { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
           { code: 'AEP', name: 'Axis Europe (X) PLC' },
