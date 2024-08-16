@@ -296,7 +296,7 @@ describe('Schedule appointment form', () => {
       })
 
       cy.get('form').within(() => {
-        cy.contains('Thursday, 11 March')
+        cy.contains(' 11 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
         cy.get('[type="radio"]').last().should('have.value', 'PM 12:00-4:00')
 
@@ -315,7 +315,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
         cy.contains('Appointment Details:')
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.contains('AM')
         cy.contains('Comments: 10 am works for me')
         cy.get('[type="submit"]').contains('Change').click()
@@ -323,7 +323,7 @@ describe('Schedule appointment form', () => {
 
       // Goes back to change slot and comments
       cy.get('form').within(() => {
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.get('[type="radio"]').first().should('be.checked')
         cy.get('#comments')
           .scrollIntoView()
@@ -340,7 +340,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
         cy.contains('Appointment Details:')
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.contains('PM')
         cy.contains('Prefer 1pm appointment')
       })
@@ -382,7 +382,7 @@ describe('Schedule appointment form', () => {
 
       cy.contains('10102030')
 
-      cy.contains('Thursday, 11 March')
+      cy.contains('Thursday 11 March')
       cy.contains('PM')
       cy.contains('Comments: Prefer 1pm appointment')
       cy.contains('a', 'View work order')

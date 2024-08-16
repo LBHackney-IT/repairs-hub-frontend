@@ -364,15 +364,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',

@@ -1,11 +1,11 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
 } from '../../../../src/utils/statusCodes'
-import cy from 'date-fns/esm/locale/cy/index'
 
 const now = new Date('Wed Mar 10 2021 16:27:20 GMT+0000 (Greenwich Mean Time)')
 
@@ -94,7 +94,7 @@ describe('Rescheduling work order appointments', () => {
         cy.get('.appointment-calendar').contains('11').click({ force: true })
 
         cy.get('form').within(() => {
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.get('[type="radio"]')
             .first()
             .should('have.value', 'AM 8:00 -12:00')
@@ -110,7 +110,7 @@ describe('Rescheduling work order appointments', () => {
         cy.contains('Confirm date and time')
         cy.get('form').within(() => {
           cy.contains('Appointment Details:')
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.contains('AM')
           cy.contains('Comments: 10 am works for me')
         })
@@ -150,7 +150,7 @@ describe('Rescheduling work order appointments', () => {
           cy.contains('Appointment rescheduled')
           cy.contains('Reference number')
           cy.contains('10000012')
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.contains('Comments: 10 am works for me')
         })
       })
