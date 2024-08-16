@@ -12,35 +12,12 @@ const now = new Date('2022-02-11T12:00:00')
 describe('Raise repair form', () => {
   beforeEach(() => {
     cy.intercept(
-      { method: 'GET', path: '/api/properties/00012345' },
-      { fixture: 'properties/property.json' }
-    ).as('propertyRequest')
-
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
-      },
-      { fixture: 'contactDetails/contactDetails.json' }
-    ).as('contactDetailsRequest')
-
-    cy.intercept(
       {
         method: 'GET',
         path: '/api/contractors?propertyReference=00012345&tradeCode=PL',
       },
       { fixture: 'contractors/contractors.json' }
     ).as('contractorsRequest')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/schedule-of-rates/priorities' },
-      { fixture: 'scheduleOfRates/priorities.json' }
-    ).as('sorPrioritiesRequest')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/schedule-of-rates/trades?propRef=00012345' },
-      { fixture: 'scheduleOfRates/trades.json' }
-    ).as('tradesRequest')
 
     cy.intercept(
       {
