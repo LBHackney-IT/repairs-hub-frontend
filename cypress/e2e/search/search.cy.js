@@ -153,9 +153,9 @@ describe('Search', () => {
         })
 
         it('Displays an error message', () => {
-          cy.get('.govuk-error-message').within(() => {
-            cy.contains('Could not find a work order with reference 00000000')
-          })
+          cy.get('.govuk-error-message').contains(
+            'Could not find a work order with reference 00000000'
+          )
         })
       })
     }
@@ -208,12 +208,9 @@ describe('Search', () => {
         cy.get('[type="submit"]').contains('Search').click()
         cy.url().should('contains', 'work-orders/10000012')
 
-        cy.get('.lbh-heading-h1').within(() => {
-          cy.contains('Work order: 10000012')
-        })
-        cy.get('.lbh-body-m').within(() => {
-          cy.contains('This is an urgent repair description')
-        })
+        cy.get('.lbh-heading-h1').contains('Work order: 10000012')
+
+        cy.get('.lbh-body-m').contains('This is an urgent repair description')
       })
     })
   })

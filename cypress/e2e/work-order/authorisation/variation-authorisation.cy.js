@@ -54,15 +54,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -134,15 +133,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -200,15 +198,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -227,7 +224,7 @@ describe('Contract manager can authorise variation', () => {
 
     cy.contains('Updated Tasks SORs')
     cy.contains('Updated by: John Johnson (Alphatrack)')
-    cy.contains('Tuesday, 11 May 2021')
+    cy.contains('Tuesday 11 May 2021')
 
     cy.contains('Variation reason: More work needed')
 
@@ -308,11 +305,9 @@ describe('Contract manager can authorise variation', () => {
 
     cy.contains('Authorisation variation request: 10000012')
 
-    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-      cy.contains(
-        'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
-      )
-    })
+    cy.get('.govuk-warning-text.lbh-warning-text').contains(
+      'Work order is over your vary limit of £20000, please contact a manager to approve. You can still reject the variation request.'
+    )
 
     cy.get('[type="radio"]').contains('Approve request').should('not.exist')
     cy.get('[type="radio"]').check('Reject request')
@@ -369,15 +364,14 @@ describe('Contract manager can authorise variation', () => {
       .contains('Variation Authorisation')
       .click({ force: true })
 
-    cy.get('.govuk-grid-column-one-third').within(() => {
-      cy.contains('a', 'Variation Authorisation')
-        .should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/variation-authorisation'
-        )
-        .click()
-    })
+    cy.get('.govuk-grid-column-one-third')
+      .contains('a', 'Variation Authorisation')
+      .should(
+        'have.attr',
+        'href',
+        '/work-orders/10000012/variation-authorisation'
+      )
+      .click()
 
     cy.wait([
       '@workOrderRequest',
@@ -397,53 +391,50 @@ describe('Contract manager can authorise variation', () => {
 
     //un-collapse
     cy.get('.original-sors').click()
-    cy.get('.original-sor-summary').within(() => {
-      cy.contains('td', 'DES5R006 - Urgent call outs')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-    })
+    cy.get('.original-sor-summary td').contains('DES5R006 - Urgent call outs')
+    cy.get('.original-sor-summary td').contains('1')
+    cy.get('.original-sor-summary td').contains('£10')
 
     cy.get('.updated-sors').click()
-    cy.get('.updated-tasks-table').within(() => {
-      // Increased task
-      cy.contains('td', 'Increase')
-      cy.contains('td', 'DES5R005')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£4')
-      cy.contains('td', '1')
-      cy.contains('td', '£4')
-      cy.contains('td', '4000')
-      cy.contains('td', '£1600')
 
-      //Reduced task
-      cy.contains('td', 'Reduced')
-      cy.contains('td', 'DES5R006')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£19')
-      cy.contains('td', '10')
-      cy.contains('td', '£190')
-      cy.contains('td', '2')
-      cy.contains('td', '£38')
+    // Increased task
+    cy.get('.updated-tasks-table td').contains('Increase')
+    cy.get('.updated-tasks-table td').contains('DES5R005')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£4')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£4')
+    cy.get('.updated-tasks-table td').contains('4000')
+    cy.get('.updated-tasks-table td').contains('£1600')
 
-      //New task
-      cy.contains('td', 'Reduced')
-      cy.contains('td', 'DES5R007')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£25')
-      cy.contains('td', '0')
-      cy.contains('td', '£0')
-      cy.contains('td', '2')
-      cy.contains('td', '£50')
+    //Reduced task
+    cy.get('.updated-tasks-table td').contains('Reduced')
+    cy.get('.updated-tasks-table td').contains('DES5R006')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£19')
+    cy.get('.updated-tasks-table td').contains('10')
+    cy.get('.updated-tasks-table td').contains('£190')
+    cy.get('.updated-tasks-table td').contains('2')
+    cy.get('.updated-tasks-table td').contains('£38')
 
-      //Unchanged task
-      cy.contains('td', 'Unchanged')
-      cy.contains('td', 'DES5R006')
-      cy.contains('p', 'Normal Call outs')
-      cy.contains('td', '£10')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-      cy.contains('td', '1')
-      cy.contains('td', '£10')
-    })
+    //New task
+    cy.get('.updated-tasks-table td').contains('Reduced')
+    cy.get('.updated-tasks-table td').contains('DES5R007')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£25')
+    cy.get('.updated-tasks-table td').contains('0')
+    cy.get('.updated-tasks-table td').contains('£0')
+    cy.get('.updated-tasks-table td').contains('2')
+    cy.get('.updated-tasks-table td').contains('£50')
+
+    //Unchanged task
+    cy.get('.updated-tasks-table td').contains('Unchanged')
+    cy.get('.updated-tasks-table td').contains('DES5R006')
+    cy.get('.updated-tasks-table p').contains('Normal Call outs')
+    cy.get('.updated-tasks-table td').contains('£10')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£10')
+    cy.get('.updated-tasks-table td').contains('1')
+    cy.get('.updated-tasks-table td').contains('£10')
   })
 })

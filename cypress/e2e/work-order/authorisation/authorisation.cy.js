@@ -54,11 +54,10 @@ describe('Authorisation workflow for a work order', () => {
         { requestTimeout: 7000 }
       )
 
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Authorisation')
-          .should('have.attr', 'href', '/work-orders/10000012/authorisation')
-          .click()
-      })
+      cy.get('.govuk-grid-column-one-third')
+        .contains('a', 'Authorisation')
+        .should('have.attr', 'href', '/work-orders/10000012/authorisation')
+        .click()
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')
@@ -102,17 +101,19 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains(
+      cy.get('.lbh-list li')
+        .contains(
           'Raise a new work order for 16 Pitcairn House St Thomass Square'
-        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012'
         )
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-      })
+        .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000012')
+
+      cy.get('.lbh-list li')
+        .contains('Start a new search')
+        .should('have.attr', 'href', '/')
 
       //  cy.audit()
     })
@@ -124,11 +125,10 @@ describe('Authorisation workflow for a work order', () => {
 
       cy.wait(['@workOrderRequest', '@propertyRequest', '@tasksAndSorsRequest'])
 
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Authorisation')
-          .should('have.attr', 'href', '/work-orders/10000012/authorisation')
-          .click()
-      })
+      cy.get('.govuk-grid-column-one-third')
+        .contains('a', 'Authorisation')
+        .should('have.attr', 'href', '/work-orders/10000012/authorisation')
+        .click()
 
       cy.wait(['@hubUserRequest', '@tasksAndSorsRequest', '@workOrderRequest'])
 
@@ -162,19 +162,17 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('Book an appointment on DRS').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012/appointment/new'
-        )
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012'
-        )
-        cy.contains('Manage work orders').should('have.attr', 'href', '/')
-      })
+      cy.get('.lbh-list li')
+        .contains('Book an appointment on DRS')
+        .should('have.attr', 'href', '/work-orders/10000012/appointment/new')
+
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000012')
+
+      cy.get('.lbh-list li')
+        .contains('Manage work orders')
+        .should('have.attr', 'href', '/')
     })
 
     it('No link to authorise work order if status is not authorisation pending approval', () => {
@@ -191,9 +189,9 @@ describe('Authorisation workflow for a work order', () => {
         '@tasksAndSorsRequest',
       ])
 
-      cy.get('.govuk-grid-column-one-third').within(() => {
-        cy.contains('a', 'Authorisation').should('not.exist')
-      })
+      cy.get('.govuk-grid-column-one-third')
+        .contains('a', 'Authorisation')
+        .should('not.exist')
     })
 
     it('Can not authorise (approve) work order if over raise spend limit', () => {
@@ -210,11 +208,9 @@ describe('Authorisation workflow for a work order', () => {
       cy.contains('This work order requires your authorisation')
 
       // Warning text as work order is above user's raise limit (£1000)
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-        cy.contains(
-          'Work order is over your raise limit of £1000, please contact a manager to approve. You can still reject the authorisation request.'
-        )
-      })
+      cy.get('.govuk-warning-text.lbh-warning-text').contains(
+        'Work order is over your raise limit of £1000, please contact a manager to approve. You can still reject the authorisation request.'
+      )
 
       cy.get('[type="radio"]').contains('Approve request').should('not.exist')
       cy.get('[type="radio"]').check('Reject request')
@@ -245,17 +241,19 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains(
+      cy.get('.lbh-list li')
+        .contains(
           'Raise a new work order for 16 Pitcairn House St Thomass Square'
-        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012'
         )
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-      })
+        .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000012')
+
+      cy.get('.lbh-list li')
+        .contains('Start a new search')
+        .should('have.attr', 'href', '/')
     })
 
     it('Can not authorise (approve) work order if over target date', () => {
@@ -265,11 +263,9 @@ describe('Authorisation workflow for a work order', () => {
       cy.contains('This work order requires your authorisation')
 
       // Warning text as work order is over target date
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-        cy.contains(
-          'Work order cannot be approved, the target date has expired. Please reject and raise a new work order.'
-        )
-      })
+      cy.get('.govuk-warning-text.lbh-warning-text').contains(
+        'Work order cannot be approved, the target date has expired. Please reject and raise a new work order.'
+      )
 
       cy.get('[type="radio"]').contains('Approve request').should('not.exist')
       cy.get('[type="radio"]').check('Reject request')
@@ -300,17 +296,19 @@ describe('Authorisation workflow for a work order', () => {
       })
 
       // Actions to see relevant pages
-      cy.get('.lbh-list li').within(() => {
-        cy.contains(
+      cy.get('.lbh-list li')
+        .contains(
           'Raise a new work order for 16 Pitcairn House St Thomass Square'
-        ).should('have.attr', 'href', '/properties/00012345/raise-repair/new')
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10000012'
         )
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-      })
+        .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10000012')
+
+      cy.get('.lbh-list li')
+        .contains('Start a new search')
+        .should('have.attr', 'href', '/')
     })
   })
 })

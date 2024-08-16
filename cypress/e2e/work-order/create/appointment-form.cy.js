@@ -279,7 +279,7 @@ describe('Schedule appointment form', () => {
 
       //available slots appear for 17th of March, only available AM slot
       cy.get('form').within(() => {
-        cy.contains('Wednesday, 17 March')
+        cy.contains('Wednesday 17 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
         cy.get('[type="radio"]')
           .last()
@@ -287,7 +287,7 @@ describe('Schedule appointment form', () => {
 
         cy.get('[type="button"]').contains('Cancel').click({ force: true })
         //check that available slots dissapear
-        cy.contains('Wednesday, 17 March').should('not.exist')
+        cy.contains('Wednesday 17 March').should('not.exist')
       })
 
       //choose 11th of March, that has AM and PM slots available
@@ -296,7 +296,7 @@ describe('Schedule appointment form', () => {
       })
 
       cy.get('form').within(() => {
-        cy.contains('Thursday, 11 March')
+        cy.contains(' 11 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
         cy.get('[type="radio"]').last().should('have.value', 'PM 12:00-4:00')
 
@@ -315,7 +315,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
         cy.contains('Appointment Details:')
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.contains('AM')
         cy.contains('Comments: 10 am works for me')
         cy.get('[type="submit"]').contains('Change').click()
@@ -323,7 +323,7 @@ describe('Schedule appointment form', () => {
 
       // Goes back to change slot and comments
       cy.get('form').within(() => {
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.get('[type="radio"]').first().should('be.checked')
         cy.get('#comments')
           .scrollIntoView()
@@ -340,7 +340,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
         cy.contains('Appointment Details:')
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.contains('PM')
         cy.contains('Prefer 1pm appointment')
       })
@@ -382,7 +382,7 @@ describe('Schedule appointment form', () => {
 
       cy.contains('10102030')
 
-      cy.contains('Thursday, 11 March')
+      cy.contains('Thursday 11 March')
       cy.contains('PM')
       cy.contains('Comments: Prefer 1pm appointment')
       cy.contains('a', 'View work order')
@@ -434,6 +434,7 @@ describe('Schedule appointment form', () => {
         cy.get('#priorityCode').select('5 [N] NORMAL')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
+
         cy.get('#contactNumber')
           .clear({ force: true })
           .type('07788659111', { force: true })
@@ -446,13 +447,9 @@ describe('Schedule appointment form', () => {
 
       cy.get('#no-appointment').contains('No available appointments')
 
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10102030'
-        )
-      })
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10102030')
 
       //  cy.audit()
     })

@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
+
 import {
   STATUS_IN_PROGRESS,
   STATUS_NO_ACCESS,
@@ -77,11 +78,11 @@ describe('Rescheduling work order appointments', () => {
 
         cy.wait(['@tasks', '@workOrder', '@property'])
 
-        cy.get('.appointment-details').within(() => {
-          cy.contains('19 Mar 2021, 12:00-18:00')
+        cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
-          cy.contains('Reschedule appointment').click()
-        })
+        cy.get('.appointment-details')
+          .contains('Reschedule appointment')
+          .click()
 
         cy.wait(['@availableAppointments', '@tasks', '@workOrder', '@property'])
 
@@ -90,12 +91,10 @@ describe('Rescheduling work order appointments', () => {
 
         cy.contains('Work order task details')
 
-        cy.get('.appointment-calendar').within(() => {
-          cy.get('.available').contains('11').click({ force: true })
-        })
+        cy.get('.appointment-calendar').contains('11').click({ force: true })
 
         cy.get('form').within(() => {
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.get('[type="radio"]')
             .first()
             .should('have.value', 'AM 8:00 -12:00')
@@ -111,7 +110,7 @@ describe('Rescheduling work order appointments', () => {
         cy.contains('Confirm date and time')
         cy.get('form').within(() => {
           cy.contains('Appointment Details:')
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.contains('AM')
           cy.contains('Comments: 10 am works for me')
         })
@@ -151,7 +150,7 @@ describe('Rescheduling work order appointments', () => {
           cy.contains('Appointment rescheduled')
           cy.contains('Reference number')
           cy.contains('10000012')
-          cy.contains('Thursday, 11 March')
+          cy.contains('Thursday 11 March')
           cy.contains('Comments: 10 am works for me')
         })
       })
@@ -176,9 +175,9 @@ describe('Rescheduling work order appointments', () => {
 
         cy.wait(['@tasks', '@workOrder', '@property'])
 
-        cy.get('.appointment-details').within(() => {
-          cy.contains('Reschedule appointment').should('not.exist')
-        })
+        cy.get('.appointment-details')
+          .contains('Reschedule appointment')
+          .should('not.exist')
       })
 
       it('Shows an error message if navigating to appointment edit directly', () => {
@@ -277,11 +276,9 @@ describe('Rescheduling work order appointments', () => {
 
           cy.wait(['@tasks', '@workOrder', '@property'])
 
-          cy.get('.appointment-details').within(() => {
-            cy.contains('Open DRS to reschedule appointment').should(
-              'not.exist'
-            )
-          })
+          cy.get('.appointment-details')
+            .contains('Open DRS to reschedule appointment')
+            .should('not.exist')
         })
       })
     })

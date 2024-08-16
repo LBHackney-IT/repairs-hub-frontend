@@ -154,9 +154,11 @@ describe('Schedule appointment form', () => {
         cy.get('#priorityCode').select('2 [E] EMERGENCY')
         cy.get('#descriptionOfWork').get('.govuk-textarea').type('Testing')
         cy.get('#callerName').type('Bob Leek', { force: true })
+
         cy.get('#contactNumber')
           .clear({ force: true })
           .type('07788659111', { force: true })
+
         cy.get('[type="submit"]')
           .contains('Create work order')
           .click({ force: true })
@@ -243,27 +245,20 @@ describe('Schedule appointment form', () => {
           })
       })
 
-      cy.get('.govuk-panel').within(() => {
-        cy.get('.govuk-panel__title').contains('Work order created')
-        cy.get('.govuk-panel__body').within(() => {
-          cy.contains('Reference number')
-          cy.contains('10102030')
-        })
-      })
+      cy.get('.govuk-panel .govuk-panel__title').contains('Work order created')
 
-      cy.get('.lbh-list li').within(() => {
-        cy.contains('View work order').should(
-          'have.attr',
-          'href',
-          '/work-orders/10102030'
-        )
-        cy.contains('Back to 16 Pitcairn House').should(
-          'have.attr',
-          'href',
-          '/properties/00012345'
-        )
-        cy.contains('Start a new search').should('have.attr', 'href', '/')
-      })
+      cy.get('.govuk-panel .govuk-panel__body').contains('Reference number')
+      cy.get('.govuk-panel .govuk-panel__body').contains('10102030')
+
+      cy.get('.lbh-list li')
+        .contains('View work order')
+        .should('have.attr', 'href', '/work-orders/10102030')
+      cy.get('.lbh-list li')
+        .contains('Back to 16 Pitcairn House')
+        .should('have.attr', 'href', '/properties/00012345')
+      cy.get('.lbh-list li')
+        .contains('Start a new search')
+        .should('have.attr', 'href', '/')
 
       //  cy.audit()
     })
@@ -394,7 +389,7 @@ describe('Schedule appointment form', () => {
         cy.get('.available').contains('11').click({ force: true })
       })
       cy.get('form').within(() => {
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.get('[type="radio"]').first().should('have.value', 'AM 8:00 -12:00')
         cy.get('[type="radio"]').last().should('have.value', 'PM 12:00-4:00')
 
@@ -408,7 +403,7 @@ describe('Schedule appointment form', () => {
       cy.contains('Confirm date and time')
       cy.get('form').within(() => {
         cy.contains('Appointment Details:')
-        cy.contains('Thursday, 11 March')
+        cy.contains('Thursday 11 March')
         cy.contains('AM')
         cy.contains('Comments: 10 am works for me')
       })
@@ -451,7 +446,7 @@ describe('Schedule appointment form', () => {
 
       cy.contains('10102030')
 
-      cy.contains('Thursday, 11 March')
+      cy.contains('Thursday 11 March')
       cy.contains('AM')
       cy.contains('Comments: 10 am works for me')
       cy.contains('a', 'View work order')
