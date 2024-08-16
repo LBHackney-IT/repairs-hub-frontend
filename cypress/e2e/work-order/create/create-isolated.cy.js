@@ -73,7 +73,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders/budget-codes?contractorReference=*',
+        path: '/api/workOrders/budget-codes*',
       },
       { fixture: 'scheduleOfRates/budgetCodes.json' }
     ).as('budgetCodesRequest')
@@ -100,9 +100,6 @@ describe('Raise repair form', () => {
     ).as('apiCheck')
 
     cy.clock(now, ['Date'])
-
-    // ====
-    // as a user with agent and budget code officer roles
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -135,13 +132,11 @@ describe('Raise repair form', () => {
       { body: { propertyIsInLegalDisrepair: false } }
     ).as('propertyIsNotInLegalDisrepair')
 
-    // cy.clock(now)
-
-    cy.loginWithAgentAndBudgetCodeOfficerRole()
+    cy.clock(now)
   })
 
   it('Submits work order task details to raise a work order', () => {
-    // cy.loginWit`hAgentAndBudgetCodeOfficerRole()
+    cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')
     cy.wait([
@@ -153,7 +148,6 @@ describe('Raise repair form', () => {
 
     cy.get('.lbh-heading-h2').contains('Work order task details')
 
-    // cy.get('#repair-request-form').within(() => {
     // Expect contractors and sor code selection to be disabled until trade selected
     cy.get('#contractor').should('be.disabled')
     cy.get('input[id="rateScheduleItems[0][code]"]').should('be.disabled')
@@ -566,116 +560,102 @@ describe('Raise repair form', () => {
 
     cy.get('[type="submit"]').contains('Create work order').click()
 
-    cy.wait('@apiCheck', { timeout: 7000 })
-    // .then(({ request }) => {
+    cy.wait('@apiCheck', { timeout: 7000 }).then(({ request }) => {
+      const referenceIdUuid = request.body.reference[0].id
 
-    //   const referenceIdUuid = request.body.reference[0].id
-
-    //   cy.wrap(request.body).should('deep.equal', {
-    //     reference: [{ id: referenceIdUuid }],
-    //     descriptionOfWork: 'A problem',
-    //     priority: {
-    //       priorityCode: EMERGENCY_PRIORITY_CODE,
-    //       priorityDescription: '2 [E] EMERGENCY',
-    //       numberOfDays: 1,
-    //     },
-    //     workClass: { workClassCode: 0 },
-    //     workElement: [
-    //       {
-    //         rateScheduleItem: [
-    //           {
-    //             customCode: 'DES5R004',
-    //             customName: 'Emergency call out',
-    //             quantity: { amount: [1] },
-    //           },
-    //         ],
-    //         trade: [
-    //           {
-    //             code: 'SP',
-    //             customCode: 'PL',
-    //             customName: 'Plumbing - PL',
-    //           },
-    //         ],
-    //       },
-    //       {
-    //         rateScheduleItem: [
-    //           {
-    //             customCode: 'DES5R006',
-    //             customName: 'Urgent call outs',
-    //             quantity: { amount: [2] },
-    //           },
-    //         ],
-    //         trade: [
-    //           {
-    //             code: 'SP',
-    //             customCode: 'PL',
-    //             customName: 'Plumbing - PL',
-    //           },
-    //         ],
-    //       },
-    //     ],
-    //     site: {
-    //       property: [
-    //         {
-    //           propertyReference: '00012345',
-    //           address: {
-    //             addressLine: ['16 Pitcairn House  St Thomass Square'],
-    //             postalCode: 'E9 6PT',
-    //           },
-    //           reference: [
-    //             {
-    //               id: '00012345',
-    //             },
-    //           ],
-    //         },
-    //       ],
-    //     },
-    //     instructedBy: { name: 'Hackney Housing' },
-    //     assignedToPrimary: {
-    //       name: 'Purdy Contracts (P) Ltd',
-    //       organization: {
-    //         reference: [
-    //           {
-    //             id: 'PCL',
-    //           },
-    //         ],
-    //       },
-    //     },
-    //     customer: {
-    //       name: 'Test Caller',
-    //       person: {
-    //         name: {
-    //           full: 'Test Caller',
-    //         },
-    //         communication: [
-    //           {
-    //             channel: {
-    //               medium: '20',
-    //               code: '60',
-    //             },
-    //             value: '12345678910',
-    //           },
-    //         ],
-    //       },
-    //     },
-    //     budgetCode: { id: '4' },
-    //     multiTradeWorkOrder: false,
-    //   })
-    // })
+      cy.wrap(request.body).should('deep.equal', {
+        reference: [{ id: referenceIdUuid }],
+        descriptionOfWork: 'A problem',
+        priority: {
+          priorityCode: EMERGENCY_PRIORITY_CODE,
+          priorityDescription: '2 [E] EMERGENCY',
+          numberOfDays: 1,
+        },
+        workClass: { workClassCode: 0 },
+        workElement: [
+          {
+            rateScheduleItem: [
+              {
+                customCode: 'DES5R004',
+                customName: 'Emergency call out',
+                quantity: { amount: [1] },
+              },
+            ],
+            trade: [
+              {
+                code: 'SP',
+                customCode: 'PL',
+                customName: 'Plumbing - PL',
+              },
+            ],
+          },
+          {
+            rateScheduleItem: [
+              {
+                customCode: 'DES5R006',
+                customName: 'Urgent call outs',
+                quantity: { amount: [2] },
+              },
+            ],
+            trade: [
+              {
+                code: 'SP',
+                customCode: 'PL',
+                customName: 'Plumbing - PL',
+              },
+            ],
+          },
+        ],
+        site: {
+          property: [
+            {
+              propertyReference: '00012345',
+              address: {
+                addressLine: ['16 Pitcairn House  St Thomass Square'],
+                postalCode: 'E9 6PT',
+              },
+              reference: [
+                {
+                  id: '00012345',
+                },
+              ],
+            },
+          ],
+        },
+        instructedBy: { name: 'Hackney Housing' },
+        assignedToPrimary: {
+          name: 'Purdy Contracts (P) Ltd',
+          organization: {
+            reference: [
+              {
+                id: 'PCL',
+              },
+            ],
+          },
+        },
+        customer: {
+          name: 'Test Caller',
+          person: {
+            name: {
+              full: 'Test Caller',
+            },
+            communication: [
+              {
+                channel: {
+                  medium: '20',
+                  code: '60',
+                },
+                value: '12345678910',
+              },
+            ],
+          },
+        },
+        budgetCode: { id: '4' },
+        multiTradeWorkOrder: false,
+      })
+    })
 
     // Confirmation screen
-    // cy.wait(5000)
-
-    // cy.url().should('include', '/expected-path');
-
-    // cy.contains('immediate', { timeout: 10000, includeShadowDom: true })
-
-    // cy.get('h1', { timeout: 10000 }).contains('order', { timeout: 10000 })
-
-    // cy.get('div').contains('Work', { timeout: 10000 })
-
-    // cy.contains('Work order created', { timeout: 10000 })
-
     cy.get('.govuk-panel__title').contains('Work order created')
     cy.get('.govuk-panel').contains('Reference number')
     cy.get('.govuk-panel').contains('10102030')
@@ -701,21 +681,22 @@ describe('Raise repair form', () => {
   })
 
   describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
+    beforeEach(() => {
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
+        },
+        { fixture: 'contractors/multiTradeContractors.json' }
+      ).as('multiTradeContractorsRequest')
+
+      cy.loginWithAgentAndBudgetCodeOfficerRole()
+    })
     ;[
       { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
       { code: 'AEP', name: 'Axis Europe (X) PLC' },
       { code: 'HHL', name: 'Herts Heritage Ltd' },
     ].forEach((ctr) => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/contractors?propertyReference=00012345&tradeCode=MU',
-          },
-          { fixture: 'contractors/multiTradeContractors.json' }
-        ).as('multiTradeContractorsRequest')
-      })
-
       it('Searches SOR codes after entering three characters with a debounced API request', () => {
         cy.visit('/properties/00012345/raise-repair/new')
 
@@ -782,7 +763,7 @@ describe('Raise repair form', () => {
           cy.wait('@sorCodesRequestDES')
 
           // The three-character input triggering an API request should have been debounced from 2 requests to just 1
-          cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should('eq', 1)
+          cy.get('@sorCodesRequestDES.all').should('have.length', 1)
 
           cy.get('[data-testid="rateScheduleItems[0][code]"]')
             .parent()
@@ -799,7 +780,7 @@ describe('Raise repair form', () => {
           )
 
           // Entering more than three characters does not trigger more API requests
-          cy.requestsCountByUrl('/api/schedule-of-rates/codes*').should('eq', 1)
+          cy.get('@sorCodesRequestDES.all').should('have.length', 1)
 
           cy.get('#priorityCode')
             .find('option:selected')
@@ -909,6 +890,8 @@ describe('Raise repair form', () => {
   })
 
   it('Submits an immediate priority work order', () => {
+    cy.loginWithAgentAndBudgetCodeOfficerRole()
+
     cy.visit('/properties/00012345')
 
     cy.wait(['@propertyRequest', '@workOrdersRequest'])
@@ -965,6 +948,8 @@ describe('Raise repair form', () => {
   })
 
   it('Submits an order above the user raise limit for authorisation', () => {
+    cy.loginWithAgentAndBudgetCodeOfficerRole()
+
     cy.intercept(
       { method: 'POST', path: '/api/workOrders/schedule' },
       {
@@ -1019,11 +1004,9 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[1][quantity]"]').type('5')
 
     // Warning text as user's raise limit (£250) has been exceeded
-    cy.get('[data-testid=over-spend-limit]').within(() => {
-      cy.contains(
-        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-      )
-    })
+    cy.get('[data-testid=over-spend-limit]').contains(
+      'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+    )
 
     // Change quantity to make total 50.17 x 4 = 200.68
     cy.get('input[id="rateScheduleItems[1][quantity]"]').clear()
@@ -1041,11 +1024,9 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[2][quantity]"]').type('9')
 
     // Warning text as user's raise limit (£250) has been exceeded
-    cy.get('[data-testid=over-spend-limit]').within(() => {
-      cy.contains(
-        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-      )
-    })
+    cy.get('[data-testid=over-spend-limit]').contains(
+      'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+    )
 
     // Remove SOR at index 1 to make total cost 5.80 x 9 = 52.2
     cy.get('button[id="remove-rate-schedule-item-1"]').click()
@@ -1065,11 +1046,9 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[2][quantity]"]').type('44')
 
     // Warning text as user's raise limit (£250) has been exceeded
-    cy.get('[data-testid=over-spend-limit]').within(() => {
-      cy.contains(
-        'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
-      )
-    })
+    cy.get('[data-testid=over-spend-limit]').contains(
+      'The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation'
+    )
 
     // Fill in Repair Description
     cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
@@ -1084,40 +1063,36 @@ describe('Raise repair form', () => {
     cy.wait('@apiCheck')
 
     // Confirmation screen
-    cy.get('.govuk-panel').within(() => {
-      cy.get('.govuk-panel__title').contains(
-        'Work order created but requires authorisation'
-      )
-      cy.get('.govuk-panel__body').within(() => {
-        cy.contains('Reference number')
-        cy.contains('10102030')
-      })
-    })
+    cy.get('.govuk-panel__title').contains(
+      'Work order created but requires authorisation'
+    )
+
+    cy.get('.govuk-panel__body').contains('Reference number')
+    cy.get('.govuk-panel__body').contains('10102030')
 
     // Warning text as this work order is over the raise limit
-    cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-      cy.get('.govuk-warning-text__text').contains(
-        'Please request authorisation from a manager'
-      )
-    })
+    cy.get('.govuk-warning-text.lbh-warning-text')
+      .get('.govuk-warning-text__text')
+      .contains('Please request authorisation from a manager')
 
     // Actions to see relevant pages
-    cy.get('.lbh-list li').within(() => {
-      cy.contains('View work order').should(
-        'have.attr',
-        'href',
-        '/work-orders/10102030'
-      )
-      cy.contains('Back to 16 Pitcairn House').should(
-        'have.attr',
-        'href',
-        '/properties/00012345'
-      )
-      cy.contains('Start a new search').should('have.attr', 'href', '/')
-    })
+    cy.get('.lbh-list li')
+      .contains('View work order')
+      .should('have.attr', 'href', '/work-orders/10102030')
+
+    cy.get('.lbh-list li')
+      .contains('Back to 16 Pitcairn House')
+      .should('have.attr', 'href', '/properties/00012345')
+
+    cy.get('.lbh-list li')
+      .contains('Start a new search')
+      .should('have.attr', 'href', '/')
   })
+
   describe('when contractor is not Purdy', () => {
-    beforeEach(() => {})
+    beforeEach(() => {
+      cy.loginWithAgentAndBudgetCodeOfficerRole()
+    })
 
     it('Gets full list of budget codes', () => {
       cy.visit('/properties/00012345/raise-repair/new')
@@ -1129,31 +1104,29 @@ describe('Raise repair form', () => {
       ])
 
       cy.get('.lbh-heading-h2').contains('Work order task details')
-      cy.get('#repair-request-form').within(() => {
-        cy.get('#trade').type('Plumbing - PL')
-        cy.wait('@contractorsRequest')
 
-        cy.get('#contractor').type('HH Painting - H09')
-        cy.wait('@budgetCodesRequest')
+      cy.get('#trade').type('Plumbing - PL')
+      cy.wait('@contractorsRequest')
 
-        cy.get('[data-testid=budgetCode]').type(
-          'H2555 - 200157 - Garage Repairs'
-        )
-        cy.wait('@sorCodesRequest')
+      cy.get('#contractor').type('HH Painting - H09')
+      cy.wait('@budgetCodesRequest')
 
-        cy.get('input[id="rateScheduleItems[0][code]"]').clear()
-        cy.get('input[id="rateScheduleItems[0][code]"]').type(
-          'DES5R005 - Normal call outs - £1'
-        )
+      cy.get('[data-testid=budgetCode]').type('H2555 - 200157 - Garage Repairs')
+      cy.wait('@sorCodesRequest')
 
-        cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
-        cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
+      cy.get('input[id="rateScheduleItems[0][code]"]').clear()
+      cy.get('input[id="rateScheduleItems[0][code]"]').type(
+        'DES5R005 - Normal call outs - £1'
+      )
 
-        cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').clear()
+      cy.get('input[id="rateScheduleItems[0][quantity]"]').type('1')
 
-        cy.get('[data-testid=callerName]').type('Test Caller')
-        cy.get('[data-testid=contactNumber]').type('1')
-      })
+      cy.get('#descriptionOfWork').get('.govuk-textarea').type('A problem')
+
+      cy.get('[data-testid=callerName]').type('Test Caller')
+      cy.get('[data-testid=contactNumber]').type('1')
+
       cy.get('[type="submit"]')
         .contains('Create work order')
         .click({ force: true })
