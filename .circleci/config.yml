@@ -6,9 +6,6 @@ orbs:
   browser-tools: circleci/browser-tools@1.4.8
 
 executors:
-  # cypress-executor:
-  #   docker:
-  #     - image: circleci/node:16.13-stretch-browsers-legacy
   node-executor:
     docker:
       - image: cimg/node:20.16.0-browsers
