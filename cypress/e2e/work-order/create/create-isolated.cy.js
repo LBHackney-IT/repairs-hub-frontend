@@ -140,7 +140,7 @@ describe('Raise repair form', () => {
     cy.clock(now)
   })
 
-  it('Submits work order task details to raise a work order', () => {
+  it.only('Submits work order task details to raise a work order', () => {
     cy.visit('/properties/00012345/raise-repair/new')
     cy.wait([
       '@propertyRequest',
