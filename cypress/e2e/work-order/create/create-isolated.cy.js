@@ -73,7 +73,7 @@ describe('Raise repair form', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/workOrders/budget-codes?contractorReference=PCL',
+        path: '/api/workOrders/budget-codes?contractorReference=*',
       },
       { fixture: 'scheduleOfRates/budgetCodes.json' }
     ).as('budgetCodesRequest')
@@ -82,7 +82,7 @@ describe('Raise repair form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=*&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodesRequest')
@@ -707,22 +707,6 @@ describe('Raise repair form', () => {
             },
             { fixture: 'contractors/multiTradeContractors.json' }
           ).as('multiTradeContractorsRequest')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/workOrders/budget-codes?contractorReference=${ctr.code}`,
-            },
-            { fixture: 'scheduleOfRates/budgetCodes.json' }
-          ).as('budgetCodesRequest')
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=${ctr.code}&isRaisable=true`,
-            },
-            { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-          ).as('sorCodesRequest')
         })
 
         it('Searches SOR codes after entering three characters with a debounced API request', () => {
@@ -1147,24 +1131,7 @@ describe('Raise repair form', () => {
       })
     })
     describe('when contractor is not Purdy', () => {
-      beforeEach(() => {
-        cy.intercept(
-          {
-            method: 'GET',
-            path: '/api/workOrders/budget-codes',
-          },
-          { fixture: 'scheduleOfRates/budgetCodes.json' }
-        ).as('budgetCodesRequestForNonPurdy')
-
-        cy.intercept(
-          {
-            method: 'GET',
-            path:
-              '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=H09&isRaisable=true',
-          },
-          { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
-        ).as('sorCodesRequest')
-      })
+      beforeEach(() => {})
 
       it('Gets full list of budget codes', () => {
         cy.visit('/properties/00012345/raise-repair/new')
@@ -1181,7 +1148,7 @@ describe('Raise repair form', () => {
           cy.wait('@contractorsRequest')
 
           cy.get('#contractor').type('HH Painting - H09')
-          cy.wait('@budgetCodesRequestForNonPurdy')
+          cy.wait('@budgetCodesRequest')
 
           cy.get('[data-testid=budgetCode]').type(
             'H2555 - 200157 - Garage Repairs'
