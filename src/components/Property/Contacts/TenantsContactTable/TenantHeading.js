@@ -11,6 +11,7 @@ const TenantHeading = ({ fullName, personId }) => {
         href={editPageUrl}
         target="_blank"
         style={{ fontSize: 16 }}
+        rel="noreferrer"
       >
         Edit contact details
       </a>

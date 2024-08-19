@@ -114,7 +114,7 @@ const SelectOperatives = ({
   return (
     <>
       <fieldset
-        class="govuk-fieldset lbh-fieldset"
+        className="govuk-fieldset lbh-fieldset"
         role="group"
         aria-describedby="completionTime-hint"
       >
@@ -125,11 +125,11 @@ const SelectOperatives = ({
               (errors['percentage-0'] || duplicateOperativeErrors(errors)),
           })}
         >
-          <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">
+          <legend className="govuk-fieldset__legend govuk-fieldset__legend--s">
             Operatives
           </legend>
 
-          <span id="completionTime-hint" class="govuk-hint lbh-hint">
+          <span id="completionTime-hint" className="govuk-hint lbh-hint">
             Search by operative name and select from the list
           </span>
 

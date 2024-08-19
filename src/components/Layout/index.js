@@ -51,6 +51,7 @@ const Layout = ({ serviceName, children }) => {
                         className="lbh-link lbh-body-l"
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
                         target={link.id == 'support-page' ? '_blank' : ''}
+                        rel="noreferrer"
                       >
                         {link.description}
                       </a>

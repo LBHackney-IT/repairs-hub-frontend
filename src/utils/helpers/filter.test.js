@@ -12,7 +12,7 @@ describe('#setFilterOptions', () => {
     TradeCodes: { PL: true, BK: false, EL: true },
   }
 
-  it('it takes the formData sets what the applied filters are', () => {
+  it('takes the formData sets what the applied filters are', () => {
     expect(setFilterOptions(formData)).toEqual({
       ContractorReference: ['PCL', 'SCC'],
       Priorities: ['1'],

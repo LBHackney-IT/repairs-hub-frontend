@@ -51,7 +51,7 @@ const WorkOrdersHistoryRow = ({
 
 WorkOrdersHistoryRow.propTypes = {
   reference: PropTypes.number.isRequired,
-  dateRaised: PropTypes.oneOfType([Date, PropTypes.string]),
+  dateRaised: PropTypes.instanceOf(Date).isRequired,
   tradeDescription: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,

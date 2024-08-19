@@ -1,30 +1,52 @@
 {
   "env": {
     "browser": true,
-    "commonjs": true,
     "es6": true,
     "node": true,
-    "jest": true
+    "jest": true,
+    "commonjs": true
   },
   "parser": "@babel/eslint-parser",
-  "plugins": ["react", "jest"],
+  "parserOptions": {
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": ["react", "@typescript-eslint"],
   "extends": [
     "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
     "plugin:prettier/recommended",
-    "plugin:cypress/recommended"
+    "plugin:cypress/recommended",
+    "plugin:jest/recommended"
   ],
-  "parserOptions": {
-    "sourceType": "module",
-    "ecmaVersion": 2018
+  "rules": {
+    // Your custom rules here
+    "linebreak-style": ["error", "unix"],
+    "require-atomic-updates": "off",
+    "react/jsx-uses-vars": 2,
+    "@typescript-eslint/no-unused-expressions": "warn",
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "warn",
+    "@typescript-eslint/no-require-imports": "warn",
+    "react/no-children-prop": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "react/jsx-key": "warn",
+    "no-unsafe-optional-chaining": "warn",
+    "react/jsx-no-duplicate-props": "warn",
+    "jest/no-identical-title": "warn",
+    "jest/valid-expect": "warn",
+    "cypress/unsafe-to-chain-command": "warn",
+    "react/display-name": "warn",
+    "@typescript-eslint/no-explicit-any": "warn",
+    "jest/no-focused-tests": "warn"
   },
   "settings": {
     "react": {
       "version": "detect"
     }
-  },
-  "rules": {
-    "linebreak-style": ["error", "unix"],
-    "require-atomic-updates": "off",
-    "react/jsx-uses-vars": 2
   }
 }

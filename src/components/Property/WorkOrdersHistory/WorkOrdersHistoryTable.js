@@ -53,7 +53,14 @@ const WorkOrdersHistoryTable = ({
         </THead>
         <TBody>
           {workOrders.map((workOrder, index) => (
-            <WorkOrdersHistoryRow key={index} {...workOrder} />
+            <WorkOrdersHistoryRow
+              key={index}
+              reference={workOrder.reference}
+              dateRaised={workOrder.dateRaised}
+              tradeDescription={workOrder.tradeDescription}
+              description={workOrder.description}
+              status={workOrder.status}
+            />
           ))}
         </TBody>
       </Table>
@@ -67,7 +74,7 @@ WorkOrdersHistoryTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
       reference: PropTypes.number,
-      dateRaised: PropTypes.oneOfType([Date, PropTypes.string]),
+      dateRaised: PropTypes.instanceOf(Date),
       tradeDescription: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,

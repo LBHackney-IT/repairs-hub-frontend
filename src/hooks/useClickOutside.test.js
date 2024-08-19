@@ -22,12 +22,12 @@ describe('useClickOutside', () => {
   it('does nothing when the click is inside the element', () => {
     render(<MockComponent />)
     userEvent.click(screen.getByText('Inside text'))
-    expect(mockHandler).not.toBeCalled()
+    expect(mockHandler).not.toHaveBeenCalled()
   })
 
   it('fires the handler when there is a click outside the element', () => {
     render(<MockComponent />)
     userEvent.click(screen.getByText('Outside text'))
-    expect(mockHandler).toBeCalledTimes(1)
+    expect(mockHandler).toHaveBeenCalledTimes(1)
   })
 })

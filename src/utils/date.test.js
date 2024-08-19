@@ -190,7 +190,7 @@ describe('longMonthWeekday', () => {
       'Fri Feb 26 2021 00:00:00 GMT+0000 (Greenwich Mean Time)'
     )
 
-    expect(longMonthWeekday(date)).toEqual('Friday, 26 February')
+    expect(longMonthWeekday(date)).toEqual('Friday 26 February')
   })
 
   it('does not separate the date with a comma if the option is supplied', () => {
@@ -210,6 +210,6 @@ describe('longDateToStr', () => {
       'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
     )
 
-    expect(longDateToStr(date)).toEqual('Wednesday, 20 January 2021')
+    expect(longDateToStr(date)).toEqual('Wednesday 20 January 2021')
   })
 })
