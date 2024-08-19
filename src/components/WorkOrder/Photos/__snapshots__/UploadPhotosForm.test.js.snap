@@ -12,6 +12,8 @@ exports[`UploadPhotosForm component renders component 1`] = `
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
+            for="fileUpload"
+            id="fileUploadLegend"
           >
             Photo upload 
           </legend>
@@ -23,6 +25,7 @@ exports[`UploadPhotosForm component renders component 1`] = `
           </span>
           <input
             accept=".jpg, .jpeg, .png"
+            aria-labelledby="fileUploadLegend"
             class="govuk-file-upload custom-file-input"
             data-testid="fileUploadInput"
             id="fileUpload"

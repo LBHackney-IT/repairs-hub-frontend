@@ -17,7 +17,7 @@
 import './commands'
 import './audit'
 // Common steps in integration tests
-import './common-steps/checkForTenureDetails'
+// import './common-steps/checkForTenureDetails'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

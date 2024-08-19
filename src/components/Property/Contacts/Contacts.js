@@ -81,7 +81,7 @@ const Contacts = (props) => {
     <>
       <h2 className="lbh-heading-h2">
         Contacts
-        <span class="govuk-caption-m">
+        <span className="govuk-caption-m">
           Contact details for the current property
         </span>
       </h2>

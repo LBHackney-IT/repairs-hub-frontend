@@ -25,20 +25,20 @@ describe('useLocalStorage', () => {
   it('returns the default value if there is nothing in localstorage', () => {
     render(<MockComponent />)
     expect(screen.getByText('initial value'))
-    expect(global.Storage.prototype.getItem).toBeCalled()
+    expect(global.Storage.prototype.getItem).toHaveBeenCalled()
   })
 
-  it('it returns the saved value if in localstorage', () => {
+  it('returns the saved value if in localstorage', () => {
     render(<MockComponent />)
     expect(screen.getByText('saved value'))
-    expect(global.Storage.prototype.getItem).toBeCalled()
+    expect(global.Storage.prototype.getItem).toHaveBeenCalled()
   })
 
   it('displays and saves a changed value', () => {
     render(<MockComponent />)
     fireEvent.click(screen.getByRole('button'))
     expect(screen.getByText('new value'))
-    expect(global.Storage.prototype.setItem).toBeCalledWith(
+    expect(global.Storage.prototype.setItem).toHaveBeenCalledWith(
       'foo',
       JSON.stringify('new value')
     )

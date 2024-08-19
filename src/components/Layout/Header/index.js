@@ -17,6 +17,7 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
           href={link.href}
           key={index}
           target={link.id == 'support-page' ? '_blank' : ''}
+          rel="noreferrer"
         >
           {link.description}
         </a>

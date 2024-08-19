@@ -193,6 +193,7 @@ SummaryCloseWorkOrder.propTypes = {
   paymentType: PropTypes.string,
   description: PropTypes.string,
   files: PropTypes.array,
+  operativeNames: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default SummaryCloseWorkOrder
