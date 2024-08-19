@@ -118,9 +118,10 @@ jobs:
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
 
   build-deploy-staging:
-    executor: aws-cli/default
+    executor: node-executor
     steps:
       - *attach_workspace
+      - aws-cli/install
       - run:
           name: Swap node versions
           command: |
@@ -153,9 +154,10 @@ jobs:
             yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
 
   build-deploy-production:
-    executor: aws-cli/default
+    executor: node-executor
     steps:
       - *attach_workspace
+      - aws-cli/install
       - run:
           name: Swap node versions
           command: |
