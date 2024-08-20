@@ -57,6 +57,31 @@ jobs:
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             yarn test:unit
+
+      #   docker:
+      # - image: cypress/base:20  # This image includes Node.js 20 and Cypress pre-installed.
+
+      # - cypress/run:
+      #     package-manager: 'yarn'
+      #     start-command: |
+      #       export NEXT_PUBLIC_ENV_NAME=test
+      #       export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+      #       export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+      #       export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+      #       export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+      #       export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+      #       yarn start-server
+      #     cypress-command: |
+      #       export NEXT_PUBLIC_ENV_NAME=test
+      #       export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+      #       export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+      #       export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+      #       export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+      #       export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+      #       yarn cy:run:ci
+      #     parallelism: 3
+
+
   e2e:
     executor: node-executor
     steps:
@@ -65,16 +90,37 @@ jobs:
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
-      - run:
-          name: Run E2E
-          command: |
+      - cypress/install:
+          package-manager: yarn
+      - cypress/run:
+          package-manager: 'yarn'
+          start-command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
             export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn e2e
+            yarn start-server
+          cypress-command: |
+            export NEXT_PUBLIC_ENV_NAME=test
+            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+            yarn cy:run:ci
+          parallelism: 3
+      # - run:
+      #     name: Run E2E
+      #     command: |
+      #       export NEXT_PUBLIC_ENV_NAME=test
+      #       export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+      #       export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+      #       export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+      #       export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+      #       export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+      #       yarn e2e
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
@@ -232,32 +278,11 @@ jobs:
 workflows:
   version: 2
   continuous-delivery:
-    docker:
-      - image: cypress/base:20  # This image includes Node.js 20 and Cypress pre-installed.
     jobs:
       - install-dependencies
       - tests:
           requires:
             - install-dependencies
-      - cypress/run:
-          package-manager: 'yarn'
-          start-command: |
-            export NEXT_PUBLIC_ENV_NAME=test
-            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
-            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
-            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
-            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn start-server
-          cypress-command: |
-            export NEXT_PUBLIC_ENV_NAME=test
-            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
-            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
-            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
-            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn cy:run:ci
-          parallelism: 3
       - e2e:
           requires:
             - install-dependencies
