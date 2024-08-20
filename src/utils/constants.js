@@ -48,6 +48,6 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   },
   {
     contractorReference: 'WIG',
-    contractorName:'The Wiggett Group LTD',
+    contractorName: 'The Wiggett Group LTD',
   },
 ]
