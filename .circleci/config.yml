@@ -59,7 +59,6 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
-    # executor: cypress/default
     parallelism: 20
     steps:
       - *attach_workspace
@@ -67,7 +66,6 @@ jobs:
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
-      # - cypress/install
       - run:
           name: Run tests
           command: |
