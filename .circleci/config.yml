@@ -41,6 +41,7 @@ jobs:
             - ./node_modules
             - ./.next/cache
             - /home/circleci/.cache/Cypress
+            - /usr/local/bin/
       - persist_to_workspace:
           root: *workspace_root
           paths: .
