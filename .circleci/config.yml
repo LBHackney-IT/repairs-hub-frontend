@@ -32,9 +32,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn
-      - run:
-          name: Force install
-          command: ./node_modules/.bin/cypress install --force
+      # - run:
+      #     name: Force install
+      #     command: ./node_modules/.bin/cypress install --force
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
