@@ -60,7 +60,7 @@ jobs:
   e2e:
     executor: node-executor
     # executor: cypress/default
-    parallelism: 3
+    parallelism: 20
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
