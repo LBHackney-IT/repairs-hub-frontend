@@ -69,7 +69,7 @@ jobs:
           command: ./node_modules/.bin/cypress install --force
       # - cypress/install
       - run:
-          package-manager: 'yarn'
+          name: Run tests
           command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
