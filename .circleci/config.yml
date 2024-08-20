@@ -49,9 +49,9 @@ jobs:
           root: *workspace_root
           paths: 
             - .
-            - ./usr/bin/google-chrome-stable
-            - ./usr/local/bin/chromedriver
-            - ./home/circleci/.cache/Cypress/
+            - /usr/bin/google-chrome-stable
+            - /usr/local/bin/chromedriver
+            - /home/circleci/.cache/Cypress/
   e2e:
     executor: node-executor
     # executor: cypress/default
