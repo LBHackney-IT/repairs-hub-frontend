@@ -26,7 +26,9 @@ jobs:
     steps:
       - *attach_workspace
       - checkout
-      - browser-tools/install-browser-tools
+      # - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
@@ -41,7 +43,6 @@ jobs:
             - ./node_modules
             - ./.next/cache
             - /home/circleci/.cache/Cypress
-            - /usr/local/bin/
             - /usr/bin/google-chrome-stable
       - persist_to_workspace:
           root: *workspace_root
