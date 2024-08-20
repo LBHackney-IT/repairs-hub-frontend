@@ -238,6 +238,8 @@ workflows:
           requires:
             - install-dependencies
       - cypress/run:
+          docker:
+            - image: cypress/base:20  # This image includes Node.js 20 and Cypress pre-installed.
           package-manager: 'yarn'
           start-command: |
             export NEXT_PUBLIC_ENV_NAME=test
