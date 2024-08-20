@@ -26,39 +26,44 @@ jobs:
     steps:
       - *attach_workspace
       - checkout
-      # - browser-tools/install-browser-tools
-      - browser-tools/install-chrome
-      - browser-tools/install-chromedriver
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn
-      - run:
-          name: Force install
-          command: ./node_modules/.bin/cypress install --force
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
             - ./node_modules
             - ./.next/cache
-            # - ./home/circleci/.cache/Cypress
-            # - ./usr/bin/google-chrome-stable
-            # - ./usr/local/bin/chromedriver
+            - /home/circleci/.cache/Cypress
       - persist_to_workspace:
           root: *workspace_root
-          paths: 
-            - .
-            - /usr/bin/google-chrome-stable
-            - /usr/local/bin/chromedriver
-            - /home/circleci/.cache/Cypress/
+          paths: .
+
+  tests:
+    executor: node-executor
+    steps:
+      - *attach_workspace
+      - run:
+          name: Run Linter
+          command: yarn lint
+      - run:
+          name: Run Tests
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=test
+            export NEXT_PUBLIC_NODE_ENV=development
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+            yarn test:unit
   e2e:
     executor: node-executor
     # executor: cypress/default
     parallelism: 20
     steps:
       - *attach_workspace
-      # - browser-tools/install-browser-tools
+      - browser-tools/install-browser-tools
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
@@ -79,24 +84,6 @@ jobs:
           path: cypress/videos
       - store_artifacts:
           path: cypress/reports
-
-  tests:
-    executor: node-executor
-    steps:
-      - *attach_workspace
-      - run:
-          name: Run Linter
-          command: yarn lint
-      - run:
-          name: Run Tests
-          command: |
-            export NEXT_PUBLIC_ENV_NAME=test
-            export NEXT_PUBLIC_NODE_ENV=development
-            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
-            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
-            yarn test:unit
-
 
   build-deploy-development:
     executor: node-executor
