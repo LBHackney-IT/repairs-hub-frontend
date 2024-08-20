@@ -67,7 +67,7 @@ jobs:
       - run:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
-      - cypress/install
+      # - cypress/install
       - run:
           package-manager: 'yarn'
           command: |
