@@ -7,6 +7,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'PSL',
   'AIM',
   'TDK',
+  'WIG',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -44,5 +45,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'TDK',
     contractorName: 'TDK Mechanical Services (UK) Ltd',
+  },
+  {
+    contractorReference: 'WIG',
+    contractorName:'The Wiggett Group LTD',
   },
 ]
