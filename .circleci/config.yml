@@ -27,14 +27,14 @@ jobs:
       - *attach_workspace
       - checkout
       - browser-tools/install-browser-tools
-      - run:
-          name: Force install
-          command: ./node_modules/.bin/cypress install --force
       - restore_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn
+      - run:
+          name: Force install
+          command: ./node_modules/.bin/cypress install --force
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
