@@ -237,7 +237,7 @@ workflows:
       - tests:
           requires:
             - install-dependencies
-      - cypress/run
+      - cypress/run:
           start-command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
