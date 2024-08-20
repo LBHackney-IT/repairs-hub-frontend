@@ -34,9 +34,9 @@ jobs:
       - run:
           name: Install Dependencies
           command: yarn
-      # - run:
-      #     name: Force install
-      #     command: ./node_modules/.bin/cypress install --force
+      - run:
+          name: Force install
+          command: ./node_modules/.bin/cypress install --force
       - save_cache:
           key: dependency-cache-{{ checksum "yarn.lock" }}
           paths:
@@ -44,6 +44,7 @@ jobs:
             - ./.next/cache
             - /home/circleci/.cache/Cypress
             - /usr/bin/google-chrome-stable
+            - /usr/local/bin/chromedriver
       - persist_to_workspace:
           root: *workspace_root
           paths: .
