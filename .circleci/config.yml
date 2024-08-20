@@ -68,10 +68,17 @@ jobs:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
       - cypress/install
-      - cypress/run:
+      - run:
           package-manager: 'yarn'
-          start-command: yarn start-server
-          cypress-command: yarn cy:run:ci
+          command: |
+            export NEXT_PUBLIC_ENV_NAME=test
+            export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
+            export NEXT_PUBLIC_OUT_OF_HOURS_LINK=https://hackney.gov.uk
+            export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+            export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
+            export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
+            yarn start-server &
+            yarn cy:run:ci
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
