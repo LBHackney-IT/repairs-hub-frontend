@@ -60,6 +60,7 @@ jobs:
   e2e:
     # executor: node-executor
     executor: cypress/default
+    parallelism: 3
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
@@ -71,7 +72,6 @@ jobs:
           package-manager: 'yarn'
           start-command: yarn start-server
           cypress-command: yarn cy:run:ci
-          parallelism: 3
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
