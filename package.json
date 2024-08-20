@@ -18,7 +18,7 @@
     "lintfix": "eslint . --max-warnings 0 --fix",
     "test:e2e": "NODE_ENV=test start-test http://localhost:5001 cy:run",
     "e2e": "NODE_ENV=test start-test http://localhost:5001 cy:run:ci",
-    "cy:run": "cypress run --browser chrome --headless --record --key 6e6f69a6-0611-484c-a80a-c740bc9006b2  --parallel --group 'all tests'",
+    "cy:run": "cypress run --browser chrome --headless --record --key 31a18a85-d0e5-4c16-a1d4-5f0eab6a7c58  --parallel --group 'all tests'",
     "cy:run:ci": "cypress run --browser chrome --headless --env runAudit=true",
     "cy:open": "cypress open --browser chrome"
   },
