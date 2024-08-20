@@ -19,7 +19,7 @@ const storeData = async (data, filepath) => {
 }
 
 export default defineConfig({
-  projectId: 'RepairsHubFrontend',
+  projectId: 'abc123',
   e2e: {
     setupNodeEvents(on, config) {
       let testTitle
