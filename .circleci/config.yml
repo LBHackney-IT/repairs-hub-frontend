@@ -59,7 +59,7 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
-    parallelism: 20
+    parallelism: 30
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
