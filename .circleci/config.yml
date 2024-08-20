@@ -238,6 +238,7 @@ workflows:
           requires:
             - install-dependencies
       - cypress/run:
+          package-manager: 'yarn'
           start-command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
