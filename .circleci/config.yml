@@ -51,9 +51,9 @@ jobs:
     steps:
       - *attach_workspace
       # - browser-tools/install-browser-tools
-      # - run:
-      #     name: Force install
-      #     command: ./node_modules/.bin/cypress install --force
+      - run:
+          name: Force install
+          command: ./node_modules/.bin/cypress install --force
       # - cypress/install
       - run:
           name: Run tests
