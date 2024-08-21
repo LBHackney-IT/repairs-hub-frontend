@@ -71,8 +71,10 @@ exports[`MobileWorkingTasksAndSorsTable component renders tasks and SORs table p
             class="govuk-table__cell"
           >
             <a
-              class="govuk-link"
               href="/work-orders/10000000/tasks/1/edit"
+            />
+            <a
+              class="govuk-link"
             >
               Urgent call outs
             </a>
@@ -106,8 +108,10 @@ exports[`MobileWorkingTasksAndSorsTable component renders tasks and SORs table p
             class="govuk-table__cell"
           >
             <a
-              class="govuk-link"
               href="/work-orders/10000000/tasks/2/edit"
+            />
+            <a
+              class="govuk-link"
             >
               Normal call outs
             </a>
@@ -141,8 +145,10 @@ exports[`MobileWorkingTasksAndSorsTable component renders tasks and SORs table p
             class="govuk-table__cell"
           >
             <a
-              class="govuk-link"
               href="/work-orders/10000000/tasks/3/edit"
+            />
+            <a
+              class="govuk-link"
             >
               Inspect additional sec entrance
             </a>

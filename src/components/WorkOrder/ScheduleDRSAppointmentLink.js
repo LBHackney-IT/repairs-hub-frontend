@@ -11,6 +11,7 @@ const ScheduleDRSAppointmentLink = ({
   return (
     <>
       <Link
+        legacyBehavior
         href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
       >
         <a

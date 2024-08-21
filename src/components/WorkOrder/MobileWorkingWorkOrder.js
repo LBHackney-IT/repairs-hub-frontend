@@ -202,7 +202,10 @@ const MobileWorkingWorkOrder = ({
                 )}
 
                 <div className="govuk-!-margin-top-0">
-                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                  <Link
+                    href={`/work-orders/${workOrderReference}/tasks/new`}
+                    legacyBehavior
+                  >
                     <a
                       role="button"
                       draggable="false"

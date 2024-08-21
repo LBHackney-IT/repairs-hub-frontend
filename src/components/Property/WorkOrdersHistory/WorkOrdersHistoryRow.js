@@ -25,6 +25,7 @@ const WorkOrdersHistoryRow = ({
       {user && canAccessWorkOrder(user) && (
         <TD>
           <Link
+            legacyBehavior
             href={{
               pathname: '/work-orders/[reference]',
               query: { reference: `${reference}` },

@@ -41,7 +41,10 @@ const OperativeList = ({
 }
 const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
   <li>
-    <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
+    <Link
+      href={`/work-orders/${workOrderReference}/operatives/edit`}
+      legacyBehavior
+    >
       <a className="govuk-link">{operativeDisplay}</a>
     </Link>
   </li>
