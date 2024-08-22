@@ -56,7 +56,7 @@ const tasksAndSorsRow = ({
             </Link>
           </TD>
           <TD>
-            <Link href={sorLink}>
+            <Link href={sorLink} legacyBehavior>
               <a className="govuk-link">{description}</a>
             </Link>
           </TD>

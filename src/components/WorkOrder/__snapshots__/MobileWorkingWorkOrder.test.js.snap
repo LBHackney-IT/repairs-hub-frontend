@@ -479,10 +479,8 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
               >
                 Urgent call outs
               </a>
@@ -605,12 +603,10 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       class="govuk-!-margin-top-0"
     >
       <a
-        href="/work-orders/10000621/operatives/edit"
-      />
-      <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
+        href="/work-orders/10000621/operatives/edit"
         role="button"
       >
         Update operatives
@@ -1100,10 +1096,8 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
               >
                 Urgent call outs
               </a>
@@ -1140,12 +1134,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-!-margin-top-0"
     >
       <a
-        href="/work-orders/10000621/operatives/new"
-      />
-      <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
+        href="/work-orders/10000621/operatives/new"
         role="button"
       >
         Add operatives
@@ -1385,10 +1377,8 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/bde7c53b-8947-414c-b88f-9c5e3d875cbg/edit"
               >
                 Normal call outs
               </a>
@@ -1422,10 +1412,8 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
               >
                 Urgent call outs
               </a>
@@ -1493,12 +1481,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-!-margin-top-0"
     >
       <a
-        href="/work-orders/10000621/operatives/new"
-      />
-      <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
+        href="/work-orders/10000621/operatives/new"
         role="button"
       >
         Add operatives
@@ -1738,10 +1724,8 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
               >
                 Urgent call outs
               </a>
@@ -1809,12 +1793,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-!-margin-top-0"
     >
       <a
-        href="/work-orders/10000621/operatives/new"
-      />
-      <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
+        href="/work-orders/10000621/operatives/new"
         role="button"
       >
         Add operatives
@@ -2565,10 +2547,8 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
               class="govuk-table__cell"
             >
               <a
-                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
-              />
-              <a
                 class="govuk-link"
+                href="/work-orders/10000621/tasks/ade7c53b-8947-414c-b88f-9c5e3d875cbf/edit"
               >
                 Urgent call outs
               </a>
@@ -2691,12 +2671,10 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       class="govuk-!-margin-top-0"
     >
       <a
-        href="/work-orders/10000621/operatives/edit"
-      />
-      <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
+        href="/work-orders/10000621/operatives/edit"
         role="button"
       >
         Update operatives

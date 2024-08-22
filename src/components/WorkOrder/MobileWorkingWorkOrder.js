@@ -94,7 +94,10 @@ const MobileWorkingWorkOrder = ({
 
     return (
       <div className="govuk-!-margin-top-0">
-        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
+        <Link
+          legacyBehavior
+          href={`/work-orders/${workOrderReference}/operatives/${path}`}
+        >
           <a
             role="button"
             draggable="false"
@@ -204,16 +207,12 @@ const MobileWorkingWorkOrder = ({
                 <div className="govuk-!-margin-top-0">
                   <Link
                     href={`/work-orders/${workOrderReference}/tasks/new`}
-                    legacyBehavior
+                    role="button"
+                    draggable="false"
+                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                    data-module="govuk-button"
                   >
-                    <a
-                      role="button"
-                      draggable="false"
-                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                      data-module="govuk-button"
-                    >
-                      Add new SOR
-                    </a>
+                    Add new SOR
                   </Link>
                 </div>
 
