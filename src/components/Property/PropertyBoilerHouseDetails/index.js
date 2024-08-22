@@ -3,23 +3,12 @@ import { usePropertyBoilerHouse } from '../../../hooks/usePropertyBoilerHouse'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-const renderLegalDisrepair = (isInLegalDisrepair) => {
-  return (
-    isInLegalDisrepair && (
-      <WarningInfoBox
-        header="This property is currently under legal disrepair"
-        text="Before raising a work order you must call the Legal Disrepair Team"
-      />
-    )
-  )
-}
-
 const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
   const { loading, boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
     boilerHouseId
   )
 
-  {loading ? <Spinner resource="propertyBoilerHouseDetails"/> : renderLegalDisrepair(isInLegalDisrepair)}
+  if (loading) return <Spinner resource="propertyBoilerHouseDetails" />
 
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
 
