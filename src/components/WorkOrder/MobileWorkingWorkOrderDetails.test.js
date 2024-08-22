@@ -1,6 +1,5 @@
 import {
   render,
-  act,
   screen,
   waitForElementToBeRemoved,
 } from '@testing-library/react'
@@ -10,6 +9,10 @@ import { WorkOrder } from '@/models/workOrder'
 const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
 
 describe('MobileWorkingWorkOrderDetails component', () => {
   let workOrderData = {
@@ -101,12 +104,10 @@ describe('MobileWorkingWorkOrderDetails component', () => {
     )
     expect(asFragment()).toMatchSnapshot()
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+      screen.getByTestId('spinner-personAlerts'),
+    ])
 
     expect(axios).toHaveBeenCalledTimes(2)
 

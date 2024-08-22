@@ -13,51 +13,91 @@ exports[`Tabs component should render properly 1`] = `
     </h2>
     <ul
       class="govuk-tabs__list hackney-tabs-list"
+      role="tablist"
     >
       <li
-        class="govuk-tabs__list-item"
+        class="govuk-tabs__list-item govuk-tabs__list-item--selected"
+        role="presentation"
       >
         <a
+          aria-controls="tasks-and-sors-tab"
+          aria-selected="true"
           class="govuk-tabs__tab"
           href="#tasks-and-sors-tab"
+          id="tab_tasks-and-sors-tab"
+          role="tab"
+          tabindex="0"
         >
           Tasks and SORs
         </a>
       </li>
       <li
         class="govuk-tabs__list-item"
+        role="presentation"
       >
         <a
+          aria-controls="work-orders-history-tab"
+          aria-selected="false"
           class="govuk-tabs__tab"
           href="#work-orders-history-tab"
+          id="tab_work-orders-history-tab"
+          role="tab"
+          tabindex="-1"
         >
           Work orders history
         </a>
       </li>
     </ul>
     <div
+      aria-labelledby="tab_tasks-and-sors-tab"
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
       id="tasks-and-sors-tab"
+      role="tabpanel"
     />
     <div
-      class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
+      aria-labelledby="tab_work-orders-history-tab"
+      class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel govuk-tabs__panel--hidden"
       id="work-orders-history-tab"
+      role="tabpanel"
     >
-      <h2
-        class="lbh-heading-h2"
+      <svg
+        data-testid="spinner-undefined"
+        height="50"
+        stroke="#00703c"
+        viewBox="0 0 42 42"
+        width="50"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        Work orders history
-      </h2>
-      <div>
-        <hr
-          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
-        />
-        <h4
-          class="lbh-heading-h4"
+        <g
+          fill="none"
+          fill-rule="evenodd"
         >
-          There are no historical repairs
-        </h4>
-      </div>
+          <g
+            stroke-width="5"
+            transform="translate(3 3)"
+          >
+            <circle
+              cx="18"
+              cy="18"
+              r="18"
+              stroke-opacity=".5"
+            />
+            <path
+              d="M36 18c0-9.94-8.06-18-18-18"
+              transform="rotate(112.708 18 18)"
+            >
+              <animatetransform
+                attributeName="transform"
+                dur="1s"
+                from="0 18 18"
+                repeatCount="indefinite"
+                to="360 18 18"
+                type="rotate"
+              />
+            </path>
+          </g>
+        </g>
+      </svg>
     </div>
   </div>
 </DocumentFragment>

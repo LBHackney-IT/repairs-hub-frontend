@@ -1,5 +1,4 @@
 import {
-  act,
   render,
   screen,
   waitForElementToBeRemoved,
@@ -21,6 +20,10 @@ import UserContext from '@/components/UserContext'
 const axios = require('axios')
 
 jest.mock('axios', () => jest.fn())
+
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
 
 describe('RaiseWorkOrderForm component', () => {
   axios.mockResolvedValue({
@@ -116,11 +119,9 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+    ])
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -154,11 +155,9 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+    ])
 
     expect(asFragment()).toMatchSnapshot()
   })
@@ -223,11 +222,9 @@ describe('RaiseWorkOrderForm component', () => {
       </UserContext.Provider>
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+    ])
 
     expect(asFragment()).toMatchSnapshot()
   })

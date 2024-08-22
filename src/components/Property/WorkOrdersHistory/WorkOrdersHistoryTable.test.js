@@ -5,6 +5,7 @@ import { agent } from 'factories/agent'
 import { contractManager } from 'factories/contract_manager'
 import { authorisationManager } from 'factories/authorisation_manager'
 
+
 describe('WorkOrdersHistoryTable component', () => {
   const props = {
     tabName: 'Work orders history',

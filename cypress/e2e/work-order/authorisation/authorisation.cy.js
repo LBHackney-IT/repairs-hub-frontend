@@ -5,6 +5,10 @@ import 'cypress-audit/commands'
 // Mock date
 const now = new Date('Fri Jan 22 2021 18:27:20 GMT+0000 (Greenwich Mean Time)')
 
+jest.mock('next/router', () => ({
+  useRouter: jest.fn(),
+}))
+
 describe('Authorisation workflow for a work order', () => {
   beforeEach(() => {
     cy.loginWithAuthorisationManagerRole()
