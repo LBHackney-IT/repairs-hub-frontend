@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, render } from '@testing-library/react'
 import Tabs from './index'
 
 jest.mock('next/router', () => ({
@@ -17,6 +17,7 @@ describe('Tabs component', () => {
   }
 
   it('should render properly', async () => {
+    // await act(async () => {
     const { asFragment } = render(
       <Tabs
         tabsList={props.tabsList}
@@ -25,5 +26,6 @@ describe('Tabs component', () => {
       />
     )
     expect(asFragment()).toMatchSnapshot()
+    // })
   })
 })

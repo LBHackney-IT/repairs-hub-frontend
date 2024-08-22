@@ -64,7 +64,7 @@
     "@babel/plugin-transform-private-methods": "^7.22.5",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^5.11.6",
-    "@testing-library/react": "13",
+    "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^13.1.9",
     "@types/node": "^22.1.0",
     "@types/qs": "^6.9.15",
