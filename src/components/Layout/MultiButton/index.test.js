@@ -1,6 +1,7 @@
 import MultiButton from '.'
 import { fireEvent, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
+import { act } from 'react'
 
 beforeAll(() => {
   global.Storage.prototype.setItem = jest.fn()
@@ -59,11 +60,15 @@ describe('MultiButton', () => {
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
 
-    userEvent.click(screen.getByText('Select action'))
+    act(() => {
+      userEvent.click(screen.getByText('Select action'))
+    })
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe('')
 
-    userEvent.click(screen.getByText('Bar'))
+    act(() => {
+      userEvent.click(screen.getByText('Bar'))
+    })
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
   })
