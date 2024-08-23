@@ -76,4 +76,3 @@ describe('Property page - legal disrepair', () => {
     })
   })
 })
- 
