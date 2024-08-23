@@ -67,22 +67,21 @@ const PropertyView = ({ propertyReference }) => {
     getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
 
-
   const renderLegalDisrepair = (isInLegalDisrepair) => {
     return (
       isInLegalDisrepair && (
-      <div
-        style={{
-          marginRight: '18px',
-          paddingRight: '400px',
-          paddingBottom: '33px'
-        }}
-      >
+        <div
+          style={{
+            marginRight: '18px',
+            paddingRight: '400px',
+            paddingBottom: '33px',
+          }}
+        >
           <WarningInfoBox
             header="This property is currently under legal disrepair"
             text="Before raising a work order you must call the Legal Disrepair Team"
           />
-      </div>
+        </div>
       )
     )
   }
@@ -105,11 +104,11 @@ const PropertyView = ({ propertyReference }) => {
                 tenure={tenure}
                 tmoName={property.tmoName}
               />
-              {renderLegalDisrepair(isInLegalDisrepair)}  
+              {renderLegalDisrepair(isInLegalDisrepair)}
               <Tabs tabsList={tabsList} propertyReference={propertyReference} />
             </>
           )}
-        
+
           {error && <ErrorMessage label={error} />}
         </>
       )}
