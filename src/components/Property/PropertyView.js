@@ -15,6 +15,8 @@ const PropertyView = ({ propertyReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [legalDisrepairError, setLegalDisRepairError] = useState()
+
 
   const tabsList = ['Work orders history']
 
@@ -110,6 +112,7 @@ const PropertyView = ({ propertyReference }) => {
           )}
 
           {error && <ErrorMessage label={error} />}
+          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />} 
         </>
       )}
     </>
