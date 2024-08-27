@@ -5,18 +5,21 @@ import 'cypress-audit/commands'
 describe('Property page - legal disrepair', () => {
   context('When property is in legal disrepair', () => {
     beforeEach(() => {
-      cy.intercept(
+        cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+        ).as('propertyRequest')
+
+        cy.intercept(
         { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
         { fixture: 'properties/propertyInLegalDisrepair.json' }
-      ).as('propertyInLegalDisrepair')
+        ).as('propertyInLegalDisrepair')
     })
 
     it('Shows warning text', () => {
       cy.loginWithAgentRole()
 
       cy.visit('/properties/00012345')
-
-      cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
       cy.get('.warning-info-box').within(() => {
         cy.contains('This property is currently under legal disrepair')
@@ -42,8 +45,6 @@ describe('Property page - legal disrepair', () => {
 
         cy.visit('/properties/00012345')
 
-        cy.wait(['@propertyRequest', '@workOrdersRequest'])
-
         cy.get('[data-testid=over-spend-limit]').should('not.exist')
       })
     }
@@ -66,8 +67,6 @@ describe('Property page - legal disrepair', () => {
       cy.loginWithAgentRole()
 
       cy.visit('/properties/00012345')
-
-      cy.wait(['@propertyRequest', '@workOrdersRequest'])
 
       cy.get('[data-testid=over-spend-limit]').should('not.exist')
       cy.contains(
