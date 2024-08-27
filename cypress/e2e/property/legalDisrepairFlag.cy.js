@@ -5,15 +5,15 @@ import 'cypress-audit/commands'
 describe('Property page - legal disrepair', () => {
   context('When property is in legal disrepair', () => {
     beforeEach(() => {
-        cy.intercept(
+      cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
-        ).as('propertyRequest')
+      ).as('propertyRequest')
 
-        cy.intercept(
+      cy.intercept(
         { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
         { fixture: 'properties/propertyInLegalDisrepair.json' }
-        ).as('propertyInLegalDisrepair')
+      ).as('propertyInLegalDisrepair')
     })
 
     it('Shows warning text', () => {
