@@ -4,6 +4,7 @@ orbs:
   aws-cli: circleci/aws-cli@4.1.3
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
   browser-tools: circleci/browser-tools@1.4.8
+  cypress: cypress-io/cypress@3.3.1
 
 executors:
   node-executor:
@@ -58,6 +59,7 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
+    parallelism: 10
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
@@ -65,7 +67,7 @@ jobs:
           name: Force install
           command: ./node_modules/.bin/cypress install --force
       - run:
-          name: Run E2E With Lighthouse Audit
+          name: Run tests
           command: |
             export NEXT_PUBLIC_ENV_NAME=test
             export NEXT_PUBLIC_SCHEDULER_URL=$NEXT_PUBLIC_SCHEDULER_URL
@@ -73,7 +75,7 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn e2e:audit
+            yarn test:e2e 
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
