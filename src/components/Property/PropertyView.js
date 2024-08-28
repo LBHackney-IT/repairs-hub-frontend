@@ -6,6 +6,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Tabs from '../Tabs'
 import Meta from '../Meta'
+import WarningInfoBox from '../Template/WarningInfoBox'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -13,6 +14,9 @@ const PropertyView = ({ propertyReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
+  const [legalDisrepairError, setLegalDisRepairError] = useState()
+
   const tabsList = ['Work orders history']
 
   const getPropertyView = async (propertyReference) => {
@@ -40,11 +44,48 @@ const PropertyView = ({ propertyReference }) => {
     setLoading(false)
   }
 
+  const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/properties/legalDisrepair/${propertyReference}`,
+    })
+      .then((isInLegalDisrepair) =>
+        setIsInLegalDisrepair(isInLegalDisrepair.propertyIsInLegalDisrepair)
+      )
+      .catch((error) => {
+        console.error('Error loading legal disrepair status:', error.response)
+        setLegalDisRepairError(
+          `Error loading legal disrepair status: ${error.response?.status} with message: ${error.response?.data?.message}`
+        )
+      })
+      .finally(() => setLoading(false))
+  }
+
   useEffect(() => {
     setLoading(true)
 
     getPropertyView(propertyReference)
+    getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
+
+  const renderLegalDisrepair = (isInLegalDisrepair) => {
+    return (
+      isInLegalDisrepair && (
+        <div
+          style={{
+            marginRight: '18px',
+            paddingRight: '400px',
+            paddingBottom: '33px',
+          }}
+        >
+          <WarningInfoBox
+            header="This property is currently under legal disrepair"
+            text="Before raising a work order you must call the Legal Disrepair Team"
+          />
+        </div>
+      )
+    )
+  }
 
   return (
     <>
@@ -64,10 +105,13 @@ const PropertyView = ({ propertyReference }) => {
                 tenure={tenure}
                 tmoName={property.tmoName}
               />
+              {renderLegalDisrepair(isInLegalDisrepair)}
               <Tabs tabsList={tabsList} propertyReference={propertyReference} />
             </>
           )}
+
           {error && <ErrorMessage label={error} />}
+          {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
         </>
       )}
     </>
