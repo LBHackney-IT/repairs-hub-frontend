@@ -8,6 +8,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'AIM',
   'TDK',
   'WIG',
+  'FOS',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -49,5 +50,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'WIG',
     contractorName: 'The Wiggett Group LTD',
+  },
+  {
+    contractorReference: 'FOS',
+    contractorName: 'FOSTER PM (C1B)',
   },
 ]
