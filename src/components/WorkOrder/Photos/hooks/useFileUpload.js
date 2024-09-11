@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import uploadFiles from './uploadFiles'
 import validateFileUpload from './validateFileUpload'
+import { captureException } from '@sentry/nextjs'
 
 const useFileUpload = (workOrderReference, onSuccess) => {
   const [loadingStatus, setLoadingStatus] = useState(null)
@@ -9,6 +10,21 @@ const useFileUpload = (workOrderReference, onSuccess) => {
   const [uploadSuccess, setUploadSuccess] = useState(null)
 
   const [files, setFiles] = useState([])
+
+  useEffect(() => {
+    if (requestError === null) return
+
+    // capture request error on sentry
+    captureException(requestError, {
+      tags: {
+        section: 'File upload',
+      },
+      extra: {
+        workOrderReference,
+        files,
+      },
+    })
+  }, [requestError])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
