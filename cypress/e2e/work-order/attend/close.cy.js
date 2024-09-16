@@ -84,7 +84,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      // cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -493,8 +493,8 @@ describe('Closing my own work order', () => {
         cy.get('[type="submit"]').contains('Close work order').click()
       })
 
-      // assert validation passed, and on next page
-      cy.contains('Summary of updates to work order')
+      // check for confirmation message
+      cy.contains('Work order 10000621 successfully closed')
     })
 
     it('submits a request when user enters follow-on details', () => {
@@ -551,6 +551,9 @@ describe('Closing my own work order', () => {
       })
 
       cy.wait('@workOrderCompleteRequest')
+
+      // check for confirmation message
+      cy.contains('Work order 10000621 successfully closed')
     })
   })
 
