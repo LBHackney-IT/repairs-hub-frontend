@@ -134,6 +134,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .parent()
         .within(() => {
           cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'No further work required').click()
         })
 
       cy.get('#completionDate').type('2021-01-18') //Raised on 2021-01-18, 15:28
@@ -162,7 +163,6 @@ describe('Closing a work order on behalf of an operative', () => {
         .parent()
         .within(() => {
           cy.get('[value="Work Order Completed"]').should('be.checked')
-
           cy.contains('label', 'No access').click()
         })
 
@@ -195,6 +195,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .parent()
         .within(() => {
           cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'No further work required').click()
         })
 
       cy.get('#completionDate').type('2021-02-19')
@@ -646,6 +647,7 @@ describe('Closing a work order on behalf of an operative', () => {
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -700,6 +702,7 @@ describe('Closing a work order on behalf of an operative', () => {
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -753,6 +756,7 @@ describe('Closing a work order on behalf of an operative', () => {
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')
@@ -842,6 +846,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .parent()
             .within(() => {
               cy.contains('label', 'No access').click()
+              // cy.contains('label', 'No further work required').click()
             })
 
           cy.get('#completionDate').type('2021-01-19')
@@ -1104,6 +1109,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .parent()
             .within(() => {
               cy.contains('label', 'Visit completed').click()
+              cy.contains('label', 'No further work required').click()
             })
 
           cy.get('#completionDate').type('2021-01-19')
@@ -1345,6 +1351,7 @@ describe('Closing a work order on behalf of an operative', () => {
           .parent()
           .within(() => {
             cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'No further work required').click()
           })
 
         cy.get('#completionDate').type('2021-01-23')

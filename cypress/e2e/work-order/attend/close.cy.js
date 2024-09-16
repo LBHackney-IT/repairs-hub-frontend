@@ -354,6 +354,7 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-radios input[data-testid="reason"]').check(
         'Work Order Completed'
       )
+      cy.contains('label', 'No further work required').click()
 
       cy.get('#notes').type('I attended')
 
@@ -496,6 +497,7 @@ describe('Closing my own work order', () => {
         cy.get('.lbh-radios input[data-testid="reason"]').check(
           'Work Order Completed'
         ) // Checking by value, not text
+        cy.contains('label', 'No further work required').click()
 
         // cy.get('.govuk-button').contains('Next').click()
 
@@ -567,6 +569,7 @@ describe('Closing my own work order', () => {
         cy.get('.lbh-radios input[data-testid="reason"]').check(
           'Work Order Completed'
         ) // Checking by value, not text
+        cy.contains('label', 'No further work required').click()
 
         // cy.get('.govuk-button').contains('Next').click()
 
