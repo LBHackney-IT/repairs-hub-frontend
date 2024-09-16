@@ -69,7 +69,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             register={register}
             errors={errors}
             watch={watch}
-            includeFollowOnOptions={false}
           />
 
           <div className="govuk-form-group lbh-form-group">

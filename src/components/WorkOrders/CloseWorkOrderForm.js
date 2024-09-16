@@ -100,7 +100,6 @@ const CloseWorkOrderForm = ({
           reason={reason}
           followOnData={followOnData}
           followOnStatus={followOnStatus}
-          includeFollowOnOptions={false}
         />
 
         <div className="govuk-form-group lbh-form-group">
