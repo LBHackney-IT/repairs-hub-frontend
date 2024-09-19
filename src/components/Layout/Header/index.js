@@ -64,7 +64,7 @@ const HeaderComponent = ({ serviceName, toggleMobileMenu, mobileMenuOpen }) => {
         <div className="lbh-header__main">
           <div className="lbh-container lbh-header__wrapper lbh-header__wrapper--stacked">
             <div className="lbh-header__title">
-              <Link href="/">
+              <Link href="/" legacyBehavior>
                 <a className="lbh-header__title-link">
                   <div className="lbh-header__logo-container">
                     <svg

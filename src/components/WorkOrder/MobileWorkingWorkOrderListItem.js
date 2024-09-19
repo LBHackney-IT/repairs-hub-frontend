@@ -12,6 +12,7 @@ const MobileWorkingWorkOrderListItem = ({
 }) => {
   return (
     <Link
+      legacyBehavior
       href={`/operatives/${currentUser.operativePayrollNumber}/work-orders/${workOrder.reference}`}
     >
       <li

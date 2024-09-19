@@ -72,10 +72,12 @@ const Contacts = (props) => {
     return <WarningText text={text} />
   }
 
-  const tenants = contacts.filter((x) => x.tenureType === 'Tenant')
-  const householdMembers = contacts.filter(
-    (x) => x.tenureType === 'HouseholdMember'
-  )
+  const tenants = Array.isArray(contacts)
+    ? contacts?.filter((x) => x.tenureType === 'Tenant')
+    : []
+  const householdMembers = Array.isArray(contacts)
+    ? contacts?.filter((x) => x.tenureType === 'HouseholdMember')
+    : []
 
   return (
     <>

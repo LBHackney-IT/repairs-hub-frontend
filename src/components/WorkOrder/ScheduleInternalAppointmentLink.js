@@ -16,7 +16,7 @@ const ScheduleInternalAppointmentLink = ({
 
   return (
     <>
-      <Link href={href}>
+      <Link href={href} legacyBehavior>
         <a className="lbh-link">{linkText}</a>
       </Link>
       {appointmentIsToday && (

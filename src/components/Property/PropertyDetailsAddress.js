@@ -28,7 +28,7 @@ const PropertyDetailsAddress = ({
       <span className="govuk-!-font-size-14">{subTypeDescription}</span>
       <br></br>
       {hasLinkToProperty ? (
-        <Link href={`/properties/${propertyReference}`}>
+        <Link href={`/properties/${propertyReference}`} legacyBehavior>
           <a className="lbh-link">
             <Address address={address} />
           </a>

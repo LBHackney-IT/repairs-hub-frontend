@@ -10,7 +10,7 @@ const PropertyRow = ({
 }) => (
   <TR className="govuk-table__row--clickable lbh-body-s">
     <TD>
-      <Link href={`/properties/${propertyReference}`}>
+      <Link href={`/properties/${propertyReference}`} legacyBehavior>
         <a className="lbh-link">{address}</a>
       </Link>
     </TD>
