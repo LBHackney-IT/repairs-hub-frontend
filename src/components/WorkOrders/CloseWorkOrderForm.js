@@ -102,34 +102,6 @@ const CloseWorkOrderForm = ({
           followOnStatus={followOnStatus}
         />
 
-        <div className="govuk-form-group lbh-form-group">
-          <ControlledFileInput
-            files={files}
-            setFiles={setFiles}
-            validationError={errors?.fileUpload?.message}
-            isLoading={isLoading}
-            register={register('fileUpload', {
-              validate: () => {
-                const validation = validateFileUpload(files)
-
-                if (validation === null) return true
-                return validation
-              },
-            })}
-          />
-
-          {files.length > 0 && (
-            <TextArea
-              name="description"
-              showAsOptional
-              label="Photo description"
-              register={register}
-              error={errors && errors.description}
-              defaultValue={description}
-            />
-          )}
-        </div>
-
         {showFurtherWorkFields && (
           <>
             <h1 className="lbh-heading-h2">Details of further work required</h1>
@@ -160,6 +132,34 @@ const CloseWorkOrderForm = ({
             />
           </>
         )}
+
+        <div className="govuk-form-group lbh-form-group">
+          <ControlledFileInput
+            files={files}
+            setFiles={setFiles}
+            validationError={errors?.fileUpload?.message}
+            isLoading={isLoading}
+            register={register('fileUpload', {
+              validate: () => {
+                const validation = validateFileUpload(files)
+
+                if (validation === null) return true
+                return validation
+              },
+            })}
+          />
+
+          {files.length > 0 && (
+            <TextArea
+              name="description"
+              showAsOptional
+              label="Photo description"
+              register={register}
+              error={errors && errors.description}
+              defaultValue={description}
+            />
+          )}
+        </div>
 
         {/* Start time cannot be changed once set by an operative */}
         {!existingStartTime && (
