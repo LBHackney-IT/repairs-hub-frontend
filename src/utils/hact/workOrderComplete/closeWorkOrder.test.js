@@ -21,9 +21,10 @@ describe('buildCloseWorkOrderData', () => {
         {
           typeCode: '0',
           otherType: 'completed',
-          comments: 'Work order closed - A note',
+          comments: 'A note',
           eventTime: completionDate,
           paymentType: 'Payment type string',
+          noteGeneratedOnFrontend: true,
         },
       ],
     })
