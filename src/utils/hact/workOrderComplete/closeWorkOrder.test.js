@@ -13,6 +13,7 @@ describe('buildCloseWorkOrderData', () => {
         'A note',
         '00000001',
         'Reason',
+        false,
         'Payment type string'
       )
     ).toEqual({
@@ -24,7 +25,7 @@ describe('buildCloseWorkOrderData', () => {
           comments: 'A note',
           eventTime: completionDate,
           paymentType: 'Payment type string',
-          noteGeneratedOnFrontend: true,
+          noteGeneratedOnFrontend: false,
         },
       ],
     })
