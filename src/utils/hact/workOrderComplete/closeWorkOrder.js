@@ -9,6 +9,7 @@ export const buildCloseWorkOrderData = (
   reference,
   reason,
   paymentType,
+  noteGeneratedOnFrontend,
   followOnRequest = null
 ) => {
   const dataObject = {
@@ -24,7 +25,7 @@ export const buildCloseWorkOrderData = (
         comments: notes,
         eventTime: completionDate,
         ...(paymentType && { paymentType }),
-        noteGeneratedOnFrontend: true,
+        noteGeneratedOnFrontend,
       },
     ],
   }

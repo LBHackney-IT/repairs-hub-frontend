@@ -240,8 +240,9 @@ describe('Closing a work order on behalf of an operative', () => {
           {
             typeCode: '0',
             otherType: 'completed',
+            noteGeneratedOnFrontend: true,
             comments:
-              'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
+              'This has been repaired and I forgot I did it on a completely different date and time.',
             eventTime: '2021-02-19T13:01:00.000Z',
           },
         ],
@@ -318,6 +319,7 @@ describe('Closing a work order on behalf of an operative', () => {
             otherType: 'completed',
             comments: 'Work order closed - Tenant was not at home',
             eventTime: '2021-01-19T13:01:00.000Z',
+            noteGeneratedOnFrontend: false,
           },
         ],
       })
@@ -680,7 +682,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'Work order closed - A note - Assigned operatives Operative A : 100% - Bonus calculation'
+          'A note'
         )
 
       cy.get('@apiCheck')
@@ -734,7 +736,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'Work order closed - A note - Assigned operatives Operative A - Overtime work order (SMVs not included in Bonus)'
+          'A note'
         )
 
       cy.get('@apiCheck')
@@ -787,7 +789,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'Work order closed - A note - Assigned operatives Operative A : 100% - Close to base (Operative payment made)'
+          'A note'
         )
 
       cy.get('@apiCheck')
@@ -1039,6 +1041,7 @@ describe('Closing a work order on behalf of an operative', () => {
                     'Work order closed - A note - Assigned operatives Operative Y, Operative A, Operative B, Operative Z - Overtime work order (SMVs not included in Bonus)',
                   eventTime: '2021-01-19T13:01:00.000Z',
                   paymentType: 'Overtime',
+                  noteGeneratedOnFrontend: false,
                 },
               ],
             })
@@ -1184,10 +1187,10 @@ describe('Closing a work order on behalf of an operative', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments:
-                    'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60% - Bonus calculation',
+                  comments: 'A note',
                   eventTime: '2021-01-19T13:01:00.000Z',
                   paymentType: 'Bonus',
+                  noteGeneratedOnFrontend: true,
                 },
               ],
             })
@@ -1316,6 +1319,7 @@ describe('Closing a work order on behalf of an operative', () => {
                     'Work order closed - A note - Assigned operatives Operative Y : 100% - Bonus calculation',
                   eventTime: '2021-01-19T13:01:00.000Z',
                   paymentType: 'Bonus',
+                  noteGeneratedOnFrontend: false,
                 },
               ],
             })
@@ -1376,7 +1380,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'Work order closed - A note'
+          'A note'
         )
 
       // no operative assignment request made
@@ -1567,8 +1571,9 @@ describe('Closing a work order on behalf of an operative', () => {
           {
             typeCode: '0',
             otherType: 'completed',
-            comments: 'Work order closed - A note',
+            comments: 'A note',
             eventTime: '2021-01-23T12:00:00.000Z',
+            noteGeneratedOnFrontend: true,
           },
         ],
         followOnRequest: {

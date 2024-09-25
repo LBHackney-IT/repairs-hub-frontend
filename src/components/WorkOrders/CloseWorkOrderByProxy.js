@@ -17,6 +17,7 @@ import Panel from '@/components/Template/Panel'
 import { generalLinks } from '@/utils/successPageLinks'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
+import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -186,12 +187,25 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )
     }
 
+    let comments = notes // notes written by user
+
+    const reasonIsNoAccess = reason == 'No Access'
+
+    if (reasonIsNoAccess) {
+      comments = `Work order closed - ${buildWorkOrderCompleteNotes(
+        notes,
+        operativesWithPercentages,
+        paymentType
+      )}`
+    }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
-      notes, // notes written by user
+      comments,
       reference,
       reason,
       paymentType,
+      !reasonIsNoAccess,
       followOnDataRequest
     )
 
