@@ -21,9 +21,10 @@ export const buildCloseWorkOrderData = (
       {
         typeCode: reason == 'No Access' ? '70' : '0',
         otherType: 'completed',
-        comments: `Work order closed - ${notes}`,
+        comments: notes,
         eventTime: completionDate,
         ...(paymentType && { paymentType }),
+        noteGeneratedOnFrontend: true,
       },
     ],
   }

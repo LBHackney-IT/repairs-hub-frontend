@@ -14,10 +14,7 @@ import {
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import MobileWorkingCloseWorkOrderForm from '@/components/WorkOrders/MobileWorkingCloseWorkOrderForm'
 import FlashMessageContext from '@/components/FlashMessageContext'
-import {
-  BONUS_PAYMENT_TYPE,
-  workOrderNoteFragmentForPaymentType,
-} from '@/utils/paymentTypes'
+import { BONUS_PAYMENT_TYPE } from '@/utils/paymentTypes'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from './Photos/hooks/uploadFiles'
 
@@ -157,9 +154,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
-      [data.notes, workOrderNoteFragmentForPaymentType(paymentType)].join(
-        ' - '
-      ),
+      data.notes, // notes written by user
       workOrderReference,
       data.reason,
       paymentType,

@@ -8,7 +8,6 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
-  buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
@@ -163,12 +162,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       operativesWithPercentages
     )
 
-    let fullNotes = buildWorkOrderCompleteNotes(
-      notes,
-      operativesWithPercentages,
-      paymentType
-    )
-
     let followOnDataRequest = null
 
     if (followOnData !== null) {
@@ -195,7 +188,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
-      fullNotes,
+      notes, // notes written by user
       reference,
       reason,
       paymentType,
