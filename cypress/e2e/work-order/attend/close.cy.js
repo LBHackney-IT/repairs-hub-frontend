@@ -376,7 +376,7 @@ describe('Closing my own work order', () => {
             {
               typeCode: '0',
               otherType: 'completed',
-              comments: 'Work order closed',
+              comments: 'I attended',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
               noteGeneratedOnFrontend: true,
