@@ -155,9 +155,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     let notes = data.notes // notes written by user
 
-    const reasonIsNoAccess = data.reason == 'No Access'
-
-    if (reasonIsNoAccess) {
+    if (data.reason == 'No Access') {
       notes = `Work order closed - ${[
         data.notes,
         workOrderNoteFragmentForPaymentType(paymentType),
@@ -170,7 +168,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       workOrderReference,
       data.reason,
       paymentType,
-      !reasonIsNoAccess,
       followOnRequest
     )
 

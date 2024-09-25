@@ -12,9 +12,32 @@ describe('buildCloseWorkOrderData', () => {
         completionDate,
         'A note',
         '00000001',
-        'Reason',
-        'Payment type string',
-        false
+        'No Access',
+        'Payment type string'
+      )
+    ).toEqual({
+      workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
+      jobStatusUpdates: [
+        {
+          typeCode: '70',
+          otherType: 'completed',
+          comments: 'A note',
+          eventTime: completionDate,
+          paymentType: 'Payment type string',
+          noteGeneratedOnFrontend: false,
+        },
+      ],
+    })
+  })
+
+  it('builds form with noteGeneratedOnFrontend set as true', () => {
+    expect(
+      buildCloseWorkOrderData(
+        completionDate,
+        'A note',
+        '00000001',
+        'Completed',
+        'Payment type string'
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
@@ -25,7 +48,7 @@ describe('buildCloseWorkOrderData', () => {
           comments: 'A note',
           eventTime: completionDate,
           paymentType: 'Payment type string',
-          noteGeneratedOnFrontend: false,
+          noteGeneratedOnFrontend: true,
         },
       ],
     })

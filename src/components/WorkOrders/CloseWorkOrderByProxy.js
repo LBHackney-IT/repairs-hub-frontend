@@ -189,9 +189,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     let comments = notes // notes written by user
 
-    const reasonIsNoAccess = reason == 'No Access'
-
-    if (reasonIsNoAccess) {
+    if (reason == 'No Access') {
       comments = `Work order closed - ${buildWorkOrderCompleteNotes(
         notes,
         operativesWithPercentages,
@@ -205,7 +203,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       reference,
       reason,
       paymentType,
-      !reasonIsNoAccess,
       followOnDataRequest
     )
 
