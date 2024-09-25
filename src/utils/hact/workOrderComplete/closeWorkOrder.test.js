@@ -13,8 +13,8 @@ describe('buildCloseWorkOrderData', () => {
         'A note',
         '00000001',
         'Reason',
-        false,
-        'Payment type string'
+        'Payment type string',
+        false
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
