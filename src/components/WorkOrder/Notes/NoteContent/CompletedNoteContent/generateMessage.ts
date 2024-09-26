@@ -1,7 +1,3 @@
-import { Note } from '../../types'
-
-type PaymentType = 'Bonus' | 'Overtime' | 'CloseToBase' | null
-
 interface WorkOrderOperative {
   name: string
   jobPercentage: number
@@ -11,7 +7,7 @@ const generateMessage = (
   userComments: string,
   completionDate: Date | null,
   operativesWithPercentages: WorkOrderOperative[],
-  paymentType: PaymentType
+  paymentType: string
 ): string => {
   let note = 'Closed - Completed'
 
@@ -31,7 +27,7 @@ const generateMessage = (
 
   if (operativesWithPercentages.length > 0) {
     const showPercentage = paymentType !== 'Overtime'
-    const operativesWithPercentagesValue = operativesAndPercentagesForNotes(
+    const operativesWithPercentagesValue = formatOperatives(
       operativesWithPercentages,
       showPercentage
     )
@@ -40,28 +36,25 @@ const generateMessage = (
   }
 
   if (paymentType) {
-    note += ` - ${workOrderNoteFragmentForPaymentType(paymentType)}`
+    note += ` - ${formatPaymentType(paymentType)}`
   }
 
   return note
 }
 
-const workOrderNoteFragmentForPaymentType = (
-  paymentType: PaymentType
-): string => {
-  switch (paymentType) {
-    case 'Bonus':
-      return 'Bonus calculation'
-    case 'Overtime':
-      return 'Overtime work order (SMVs not included in Bonus)'
-    case 'CloseToBase':
-      return 'Close to base (Operative payment made)'
-    default:
-      return ''
-  }
+const paymentTypeMessaging: { [key: string]: string } = {
+  Bonus: 'Bonus calculation',
+  Overtime: 'Overtime work order (SMVs not included in Bonus)',
+  CloseToBase: 'Close to base (Operative payment made)',
 }
 
-const operativesAndPercentagesForNotes = (
+const formatPaymentType = (paymentType: string): string => {
+  if (paymentTypeMessaging.hasOwnProperty(paymentType))
+    return paymentTypeMessaging[paymentType]
+  return ''
+}
+
+const formatOperatives = (
   operativesWithPercentages: WorkOrderOperative[],
   showPercentages: boolean
 ): string => {
