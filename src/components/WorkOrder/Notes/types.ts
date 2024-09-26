@@ -9,6 +9,16 @@ export type Note = {
   otherType: string
 }
 
+export type WorkOrderRequest = {
+  closedDate: Date
+  paymentType: string
+  operatives: {
+    name: string
+    jobPercentage: number
+  }[]
+  followOnRequest?: FollowOnRequest
+}
+
 export type FollowOnRequest = {
   isSameTrade: boolean
   isDifferentTrades: boolean

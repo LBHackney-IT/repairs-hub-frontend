@@ -1,17 +1,9 @@
-import { FollowOnRequest, Note } from '../../types'
+import { FollowOnRequest, Note, WorkOrderRequest } from '../../types'
 import generateMessage from './generateMessage'
 
 interface Props {
   note: Note
-  workOrder: {
-    closedDate: Date
-    paymentType: string
-    operatives: {
-      name: string
-      jobPercentage: number
-    }[]
-    followOnRequest?: FollowOnRequest
-  }
+  workOrder: WorkOrderRequest
 }
 
 const CompletedNoteContent = ({ note, workOrder }: Props) => {
@@ -31,7 +23,7 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
 
       {/* <pre>{JSON.stringify(workOrder, null, 2)}</pre> */}
 
-      {workOrder.hasOwnProperty('followOnRequest') &&
+      {Object.prototype.hasOwnProperty.call(workOrder, 'followOnRequest') &&
         workOrder.followOnRequest !== null && (
           <>
             <div style={{ background: '#eee', padding: '15px' }}>
@@ -140,9 +132,10 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
           </>
         )}
 
-      <span>
+      {/* To do - add back later */}
+      {/* <span>
         <a href="#photos-tab">2 photos uploaded</a> <br />
-      </span>
+      </span> */}
     </>
   )
 }

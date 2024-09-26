@@ -1,5 +1,5 @@
 import { formatDateTime } from '@/utils/time'
-import { Note } from './types'
+import { Note, WorkOrderRequest } from './types'
 import NormalNoteContent from './NoteContent/NormalNoteContent'
 import NoteWithImageContent from './NoteContent/NoteWithImageContent'
 import CompletedNoteContent from './NoteContent/CompletedNoteContent'
@@ -18,12 +18,13 @@ const NoteInfo = ({ note }: { note: Note }) => {
 const IMAGE_DETECTION_STRING = 'Image from user: '
 
 const DetectImageNote = (userNote: string) => {
+  if (userNote === null) return false
   return userNote.includes(IMAGE_DETECTION_STRING)
 }
 
 interface Props {
   note: Note
-  workOrder: object
+  workOrder: WorkOrderRequest
 }
 
 const NoteEntry = ({ note, workOrder }: Props) => {
@@ -43,7 +44,7 @@ const NoteContent = ({
   workOrder,
 }: {
   note: Note
-  workOrder: object
+  workOrder: WorkOrderRequest
 }) => {
   if (
     note.noteGeneratedOnFrontend &&

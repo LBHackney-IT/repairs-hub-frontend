@@ -49,7 +49,7 @@ const paymentTypeMessaging: { [key: string]: string } = {
 }
 
 const formatPaymentType = (paymentType: string): string => {
-  if (paymentTypeMessaging.hasOwnProperty(paymentType))
+  if (Object.prototype.hasOwnProperty.call(paymentTypeMessaging, paymentType))
     return paymentTypeMessaging[paymentType]
   return ''
 }
