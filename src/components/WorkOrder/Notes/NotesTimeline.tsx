@@ -1,9 +1,9 @@
 import NoteEntry from './NoteEntry'
-import { Note } from './types'
+import { Note, WorkOrderRequest } from './types'
 
 interface Props {
   notes: Note[]
-  workOrder: object
+  workOrder: WorkOrderRequest
 }
 
 const NotesTimeline = ({ notes, workOrder }: Props) => {
