@@ -316,6 +316,8 @@ describe('Closing my own work order', () => {
               comments: 'Work order closed - I attended - Bonus calculation',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
+
+              noteGeneratedOnFrontend: false,
             },
           ],
         })
@@ -374,9 +376,10 @@ describe('Closing my own work order', () => {
             {
               typeCode: '0',
               otherType: 'completed',
-              comments: 'Work order closed - I attended - Bonus calculation',
+              comments: 'I attended',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
+              noteGeneratedOnFrontend: true,
             },
           ],
         })
@@ -613,6 +616,7 @@ describe('Closing my own work order', () => {
                   'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 paymentType: 'Overtime',
+                noteGeneratedOnFrontend: false,
               },
             ],
           })
@@ -679,10 +683,10 @@ describe('Closing my own work order', () => {
               {
                 typeCode: '0',
                 otherType: 'completed',
-                comments:
-                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                comments: 'I attended',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 paymentType: 'Overtime',
+                noteGeneratedOnFrontend: true,
               },
             ],
           })
@@ -749,9 +753,10 @@ describe('Closing my own work order', () => {
               {
                 typeCode: '0',
                 otherType: 'completed',
-                comments: 'Work order closed - I attended - Bonus calculation',
+                comments: 'I attended',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 paymentType: 'Bonus',
+                noteGeneratedOnFrontend: true,
               },
             ],
           })
