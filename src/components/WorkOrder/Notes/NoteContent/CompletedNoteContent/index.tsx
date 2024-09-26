@@ -1,4 +1,4 @@
-import { FollowOnRequest, Note, WorkOrderRequest } from '../../types'
+import { Note, WorkOrderRequest } from '../../types'
 import generateMessage from './generateMessage'
 
 interface Props {
@@ -20,8 +20,6 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
         {statusMessage}
         <br />
       </span>
-
-      {/* <pre>{JSON.stringify(workOrder, null, 2)}</pre> */}
 
       {Object.prototype.hasOwnProperty.call(workOrder, 'followOnRequest') &&
         workOrder.followOnRequest !== null && (
@@ -59,18 +57,15 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
                 )}
               </ul>
 
-              <br />
-
               {workOrder.followOnRequest.followOnTypeDescription !== null &&
                 workOrder.followOnRequest.followOnTypeDescription.trim()
                   .length > 0 && (
                   <>
+                    <br />
                     <span style={{ color: '#333' }}>
                       {workOrder.followOnRequest.followOnTypeDescription}
                       <br />
                     </span>
-
-                    <br />
                   </>
                 )}
 
@@ -80,6 +75,7 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
                   workOrder.followOnRequest.materialNotes.trim().length >
                     0)) && (
                 <>
+                  <br />
                   <span>
                     <strong>Materials required</strong>
                   </span>
@@ -104,24 +100,25 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
                     </ul>
                   )}
 
-                  <br />
-
                   {workOrder.followOnRequest.materialNotes !== null &&
                     workOrder.followOnRequest.materialNotes.trim().length >
                       0 && (
-                      <span style={{ color: '#333' }}>
-                        {workOrder.followOnRequest.materialNotes}
+                      <>
                         <br />
-                      </span>
+                        <span style={{ color: '#333' }}>
+                          {workOrder.followOnRequest.materialNotes}
+                          <br />
+                        </span>
+                      </>
                     )}
-
-                  <br />
                 </>
               )}
 
               {workOrder.followOnRequest.additionalNotes !== null &&
                 workOrder.followOnRequest.additionalNotes.trim().length > 0 && (
                   <>
+                    <br />
+
                     <span>
                       <strong>Additional notes</strong>
                       <br />
@@ -130,10 +127,10 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
                     <span style={{ color: '#333' }}>
                       {workOrder.followOnRequest.additionalNotes}
                     </span>
+                    <br />
                   </>
                 )}
             </div>
-            <br />
           </>
         )}
 

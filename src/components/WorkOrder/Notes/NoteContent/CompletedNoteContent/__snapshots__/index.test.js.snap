@@ -53,8 +53,8 @@ exports[`CompletedNoteContent component When further work is required should sho
     >
       Some additonal notes about the work required
     </span>
+    <br />
   </div>
-  <br />
 </DocumentFragment>
 `;
 
@@ -127,9 +127,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       some description about materials
       <br />
     </span>
-    <br />
   </div>
-  <br />
 </DocumentFragment>
 `;
 
@@ -184,9 +182,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       work required
       <br />
     </span>
-    <br />
   </div>
-  <br />
 </DocumentFragment>
 `;
 
