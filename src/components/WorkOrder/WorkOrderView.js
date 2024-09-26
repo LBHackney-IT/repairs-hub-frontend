@@ -145,6 +145,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   workOrderReference={workOrderReference}
                   tasksAndSors={tasksAndSors}
                   budgetCode={workOrder.budgetCode}
+                  workOrder={workOrder}
                 />
                 {/* Only displayed for print media */}
                 <PrintJobTicketDetails
