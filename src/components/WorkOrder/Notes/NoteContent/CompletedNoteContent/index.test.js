@@ -140,30 +140,86 @@ describe('CompletedNoteContent component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  it('should match snapshot when further work required', () => {
-    const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
-      paymentType: null,
-      operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
-      followOnRequest: {
-        id: 31,
-        isSameTrade: true,
-        isDifferentTrades: true,
-        requiredFollowOnTrades: ['Carpentry', 'Drainage'],
-        isMultipleOperatives: true,
-        followOnTypeDescription: 'work required',
-        stockItemsRequired: true,
-        nonStockItemsRequired: true,
-        materialNotes: 'materials required',
-        additionalNotes: 'additioanl notes',
-      },
-    }
-    const note = { note: 'User comment' }
+  describe('When further work is required', () => {
+    it('should show the type of work', () => {
+      const workOrder = {
+        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        paymentType: null,
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+        followOnRequest: {
+          id: 31,
+          isSameTrade: true,
+          isDifferentTrades: true,
+          requiredFollowOnTrades: ['Carpentry', 'Drainage'],
+          isMultipleOperatives: true,
+          followOnTypeDescription: 'work required',
+          stockItemsRequired: false,
+          nonStockItemsRequired: false,
+          materialNotes: null,
+          additionalNotes: null,
+        },
+      }
+      const note = { note: 'User comment' }
 
-    const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
-    )
+      const { asFragment } = render(
+        <CompletedNoteContent note={note} workOrder={workOrder} />
+      )
 
-    expect(asFragment()).toMatchSnapshot()
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should show materials', () => {
+      const workOrder = {
+        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        paymentType: null,
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+        followOnRequest: {
+          id: 31,
+          isSameTrade: true,
+          isDifferentTrades: false,
+          requiredFollowOnTrades: [],
+          isMultipleOperatives: false,
+          followOnTypeDescription: 'work required',
+          stockItemsRequired: true,
+          nonStockItemsRequired: true,
+          materialNotes: 'some description about materials',
+          additionalNotes: null,
+        },
+      }
+      const note = { note: 'User comment' }
+
+      const { asFragment } = render(
+        <CompletedNoteContent note={note} workOrder={workOrder} />
+      )
+
+      expect(asFragment()).toMatchSnapshot()
+    })
+
+    it('should show additional notes', () => {
+      const workOrder = {
+        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        paymentType: null,
+        operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+        followOnRequest: {
+          id: 31,
+          isSameTrade: true,
+          isDifferentTrades: false,
+          requiredFollowOnTrades: [],
+          isMultipleOperatives: false,
+          followOnTypeDescription: 'work required',
+          stockItemsRequired: false,
+          nonStockItemsRequired: false,
+          materialNotes: null,
+          additionalNotes: 'Some additonal notes about the work required',
+        },
+      }
+      const note = { note: 'User comment' }
+
+      const { asFragment } = render(
+        <CompletedNoteContent note={note} workOrder={workOrder} />
+      )
+
+      expect(asFragment()).toMatchSnapshot()
+    })
   })
 })

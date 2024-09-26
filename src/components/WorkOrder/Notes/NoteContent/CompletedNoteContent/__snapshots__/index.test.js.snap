@@ -1,6 +1,139 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CompletedNoteContent component should match snapshot when further work required 1`] = `
+exports[`CompletedNoteContent component When further work is required should show additional notes 1`] = `
+<DocumentFragment>
+  <span>
+    Closed - Completed: 26 September 2024 at 12:34 - User comment - Assigned operatives Operative Name: 100%
+    <br />
+  </span>
+  <div
+    style="background: rgb(238, 238, 238); padding: 15px;"
+  >
+    <span>
+      <strong
+        style="font-weight: 700; color: rgb(51, 51, 51);"
+      >
+        Details of further work required
+      </strong>
+       
+      <br />
+      <br />
+    </span>
+    <span>
+      <strong>
+        Type of work required
+      </strong>
+    </span>
+    <ul
+      class="lbh-list lbh-list--bullet lbh-body-s"
+      style="color: rgb(51, 51, 51);"
+    >
+      <li
+        style="margin-top: 5px;"
+      >
+        Same trade
+      </li>
+    </ul>
+    <br />
+    <span
+      style="color: rgb(51, 51, 51);"
+    >
+      work required
+      <br />
+    </span>
+    <br />
+    <span>
+      <strong>
+        Additional notes
+      </strong>
+      <br />
+    </span>
+    <span
+      style="color: rgb(51, 51, 51);"
+    >
+      Some additonal notes about the work required
+    </span>
+  </div>
+  <br />
+</DocumentFragment>
+`;
+
+exports[`CompletedNoteContent component When further work is required should show materials 1`] = `
+<DocumentFragment>
+  <span>
+    Closed - Completed: 26 September 2024 at 12:34 - User comment - Assigned operatives Operative Name: 100%
+    <br />
+  </span>
+  <div
+    style="background: rgb(238, 238, 238); padding: 15px;"
+  >
+    <span>
+      <strong
+        style="font-weight: 700; color: rgb(51, 51, 51);"
+      >
+        Details of further work required
+      </strong>
+       
+      <br />
+      <br />
+    </span>
+    <span>
+      <strong>
+        Type of work required
+      </strong>
+    </span>
+    <ul
+      class="lbh-list lbh-list--bullet lbh-body-s"
+      style="color: rgb(51, 51, 51);"
+    >
+      <li
+        style="margin-top: 5px;"
+      >
+        Same trade
+      </li>
+    </ul>
+    <br />
+    <span
+      style="color: rgb(51, 51, 51);"
+    >
+      work required
+      <br />
+    </span>
+    <br />
+    <span>
+      <strong>
+        Materials required
+      </strong>
+    </span>
+    <ul
+      class="lbh-list lbh-list--bullet lbh-body-s"
+      style="color: rgb(51, 51, 51);"
+    >
+      <li
+        style="margin-top: 5px;"
+      >
+        Stock items required
+      </li>
+      <li
+        style="margin-top: 5px;"
+      >
+        Non stock items required
+      </li>
+    </ul>
+    <br />
+    <span
+      style="color: rgb(51, 51, 51);"
+    >
+      some description about materials
+      <br />
+    </span>
+    <br />
+  </div>
+  <br />
+</DocumentFragment>
+`;
+
+exports[`CompletedNoteContent component When further work is required should show the type of work 1`] = `
 <DocumentFragment>
   <span>
     Closed - Completed: 26 September 2024 at 12:34 - User comment - Assigned operatives Operative Name: 100%
@@ -52,45 +185,6 @@ exports[`CompletedNoteContent component should match snapshot when further work 
       <br />
     </span>
     <br />
-    <span>
-      <strong>
-        Materials required
-      </strong>
-    </span>
-    <ul
-      class="lbh-list lbh-list--bullet lbh-body-s"
-      style="color: rgb(51, 51, 51);"
-    >
-      <li
-        style="margin-top: 5px;"
-      >
-        Stock items required
-      </li>
-      <li
-        style="margin-top: 5px;"
-      >
-        Non stock items required
-      </li>
-    </ul>
-    <br />
-    <span
-      style="color: rgb(51, 51, 51);"
-    >
-      materials required
-      <br />
-    </span>
-    <br />
-    <span>
-      <strong>
-        Additional notes
-      </strong>
-      <br />
-    </span>
-    <span
-      style="color: rgb(51, 51, 51);"
-    >
-      additioanl notes
-    </span>
   </div>
   <br />
 </DocumentFragment>

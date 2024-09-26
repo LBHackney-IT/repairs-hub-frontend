@@ -61,21 +61,24 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
 
               <br />
 
-              {workOrder.followOnRequest.followOnTypeDescription.trim().length >
-                0 && (
-                <>
-                  <span style={{ color: '#333' }}>
-                    {workOrder.followOnRequest.followOnTypeDescription}
-                    <br />
-                  </span>
+              {workOrder.followOnRequest.followOnTypeDescription !== null &&
+                workOrder.followOnRequest.followOnTypeDescription.trim()
+                  .length > 0 && (
+                  <>
+                    <span style={{ color: '#333' }}>
+                      {workOrder.followOnRequest.followOnTypeDescription}
+                      <br />
+                    </span>
 
-                  <br />
-                </>
-              )}
+                    <br />
+                  </>
+                )}
 
               {(workOrder.followOnRequest.stockItemsRequired ||
                 workOrder.followOnRequest.nonStockItemsRequired ||
-                workOrder.followOnRequest.materialNotes !== '') && (
+                (workOrder.followOnRequest.materialNotes !== null &&
+                  workOrder.followOnRequest.materialNotes.trim().length >
+                    0)) && (
                 <>
                   <span>
                     <strong>Materials required</strong>
@@ -103,30 +106,32 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
 
                   <br />
 
-                  {workOrder.followOnRequest.materialNotes.trim().length >
-                    0 && (
-                    <span style={{ color: '#333' }}>
-                      {workOrder.followOnRequest.materialNotes}
-                      <br />
-                    </span>
-                  )}
+                  {workOrder.followOnRequest.materialNotes !== null &&
+                    workOrder.followOnRequest.materialNotes.trim().length >
+                      0 && (
+                      <span style={{ color: '#333' }}>
+                        {workOrder.followOnRequest.materialNotes}
+                        <br />
+                      </span>
+                    )}
 
                   <br />
                 </>
               )}
 
-              {workOrder.followOnRequest.additionalNotes.trim().length > 0 && (
-                <>
-                  <span>
-                    <strong>Additional notes</strong>
-                    <br />
-                  </span>
+              {workOrder.followOnRequest.additionalNotes !== null &&
+                workOrder.followOnRequest.additionalNotes.trim().length > 0 && (
+                  <>
+                    <span>
+                      <strong>Additional notes</strong>
+                      <br />
+                    </span>
 
-                  <span style={{ color: '#333' }}>
-                    {workOrder.followOnRequest.additionalNotes}
-                  </span>
-                </>
-              )}
+                    <span style={{ color: '#333' }}>
+                      {workOrder.followOnRequest.additionalNotes}
+                    </span>
+                  </>
+                )}
             </div>
             <br />
           </>
