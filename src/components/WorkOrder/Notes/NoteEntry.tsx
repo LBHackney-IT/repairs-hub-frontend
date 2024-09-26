@@ -43,7 +43,7 @@ const NoteContent = ({
   workOrder,
 }: {
   note: Note
-  workOrder: Object
+  workOrder: object
 }) => {
   if (
     note.noteGeneratedOnFrontend &&

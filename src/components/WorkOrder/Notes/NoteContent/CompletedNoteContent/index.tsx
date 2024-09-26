@@ -5,7 +5,7 @@ interface Props {
   note: Note
   workOrder: {
     closedDate: Date
-    paymentType: string,
+    paymentType: string
     operatives: {
       name: string
       jobPercentage: number
@@ -69,16 +69,16 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
 
               <br />
 
-              {workOrder.followOnRequest.followOnTypeDescription.trim().length > 0 && (
-
+              {workOrder.followOnRequest.followOnTypeDescription.trim().length >
+                0 && (
                 <>
-                
-                <span style={{ color: '#333' }}>
-                {workOrder.followOnRequest.followOnTypeDescription}
-                <br />
-              </span>
+                  <span style={{ color: '#333' }}>
+                    {workOrder.followOnRequest.followOnTypeDescription}
+                    <br />
+                  </span>
 
-              <br /></>
+                  <br />
+                </>
               )}
 
               {(workOrder.followOnRequest.stockItemsRequired ||
@@ -111,7 +111,8 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
 
                   <br />
 
-                  {workOrder.followOnRequest.materialNotes.trim().length > 0 && (
+                  {workOrder.followOnRequest.materialNotes.trim().length >
+                    0 && (
                     <span style={{ color: '#333' }}>
                       {workOrder.followOnRequest.materialNotes}
                       <br />
