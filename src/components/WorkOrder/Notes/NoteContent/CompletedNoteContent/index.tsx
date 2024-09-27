@@ -7,9 +7,11 @@ interface Props {
 }
 
 const CompletedNoteContent = ({ note, workOrder }: Props) => {
+  const completionDate = new Date(workOrder.closedDated)
+  
   const statusMessage = generateMessage(
     note.note,
-    workOrder.closedDate,
+    completionDate,
     workOrder.operatives,
     workOrder.paymentType
   )

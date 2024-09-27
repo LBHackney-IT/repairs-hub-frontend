@@ -4,7 +4,7 @@ import CompletedNoteContent from '.'
 describe('CompletedNoteContent component', () => {
   it('should match snapshot when user comment is empty', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -19,7 +19,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when user comment is not empty', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -34,7 +34,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when no operative', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [],
     }
@@ -49,7 +49,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when one operative', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [{ name: 'Operative Name', jobPercentage: 50 }],
     }
@@ -64,7 +64,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when multiple operatives', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [
         { name: 'Operative One', jobPercentage: 50 },
@@ -82,7 +82,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when payment type is Bonus', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -97,7 +97,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when payment type is Close to Base', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'CloseToBase',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -112,7 +112,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when payment type is Overtime', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Overtime',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -127,7 +127,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when payment type is null', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: null,
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
     }
@@ -143,7 +143,7 @@ describe('CompletedNoteContent component', () => {
   describe('When further work is required', () => {
     it('should show the type of work', () => {
       const workOrder = {
-        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        closedDated: '2024-09-26T12:34:56',
         paymentType: null,
         operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
@@ -170,7 +170,7 @@ describe('CompletedNoteContent component', () => {
 
     it('should show materials', () => {
       const workOrder = {
-        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        closedDated: '2024-09-26T12:34:56',
         paymentType: null,
         operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
@@ -197,7 +197,7 @@ describe('CompletedNoteContent component', () => {
 
     it('should show additional notes', () => {
       const workOrder = {
-        closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+        closedDated: '2024-09-26T12:34:56',
         paymentType: null,
         operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {

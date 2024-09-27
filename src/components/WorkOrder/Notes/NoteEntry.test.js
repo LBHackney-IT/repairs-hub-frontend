@@ -53,7 +53,7 @@ describe('NoteEntry component', () => {
         otherType: 'completed',
       },
       workOrder: {
-        closedDate: new Date('2021-01-23T16:28:57.17811'),
+        closedDated: '2021-01-23T16:28:57.17811',
         operatives: [
           {
             name: 'Steve',
