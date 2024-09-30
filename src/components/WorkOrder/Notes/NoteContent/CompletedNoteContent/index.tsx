@@ -132,23 +132,24 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
                   </>
                 )}
             </div>
+          </>
+        )}
 
-            {workOrder?.uploadedFileCount !== null &&
-              workOrder.uploadedFileCount.totalFileCount > 0 && (
-                <>
-                  <br />
-                  <span>
-                    <a
-                      className="lbh-link"
-                      onClick={() => setActiveTab('photos-tab')}
-                      href="#photos-tab"
-                    >
-                      View photos
-                    </a>{' '}
-                    <br />
-                  </span>
-                </>
-              )}
+      {Object.prototype.hasOwnProperty.call(workOrder, 'uploadedFileCount') &&
+        workOrder.uploadedFileCount !== null &&
+        workOrder.uploadedFileCount.totalFileCount > 0 && (
+          <>
+            <br />
+            <span>
+              <a
+                className="lbh-link"
+                onClick={() => setActiveTab('photos-tab')}
+                href="#photos-tab"
+              >
+                View photos
+              </a>{' '}
+              <br />
+            </span>
           </>
         )}
     </>

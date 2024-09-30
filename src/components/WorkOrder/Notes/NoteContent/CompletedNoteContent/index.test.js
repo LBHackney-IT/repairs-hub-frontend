@@ -140,6 +140,24 @@ describe('CompletedNoteContent component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
+  it('should match snapshot when user has uploaded photos', () => {
+    const workOrder = {
+      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      paymentType: 'Bonus',
+      operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
+      uploadedFileCount: {
+        totalFileCount: 8,
+      },
+    }
+    const note = { note: 'User comment' }
+
+    const { asFragment } = render(
+      <CompletedNoteContent note={note} workOrder={workOrder} />
+    )
+
+    expect(asFragment()).toMatchSnapshot()
+  })
+
   describe('When further work is required', () => {
     it('should show the type of work', () => {
       const workOrder = {

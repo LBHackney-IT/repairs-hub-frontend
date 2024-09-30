@@ -266,3 +266,23 @@ exports[`CompletedNoteContent component should match snapshot when user comment 
   </span>
 </DocumentFragment>
 `;
+
+exports[`CompletedNoteContent component should match snapshot when user has uploaded photos 1`] = `
+<DocumentFragment>
+  <span>
+    Closed - Completed: 26 September 2024 at 12:34 - User comment - Assigned operatives Operative Name: 100% - Bonus calculation
+    <br />
+  </span>
+  <br />
+  <span>
+    <a
+      class="lbh-link"
+      href="#photos-tab"
+    >
+      View photos
+    </a>
+     
+    <br />
+  </span>
+</DocumentFragment>
+`;
