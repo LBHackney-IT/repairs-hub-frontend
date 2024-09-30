@@ -25,16 +25,21 @@ const DetectImageNote = (userNote: string) => {
 interface Props {
   note: Note
   workOrder: WorkOrderRequest
+  setActiveTab: (tab: string) => void
 }
 
-const NoteEntry = ({ note, workOrder }: Props) => {
+const NoteEntry = ({ note, workOrder, setActiveTab }: Props) => {
   return (
     <>
       <div className="note-info lbh-body-s">
         <NoteInfo note={note} />
       </div>
 
-      <NoteContent note={note} workOrder={workOrder} />
+      <NoteContent
+        note={note}
+        workOrder={workOrder}
+        setActiveTab={setActiveTab}
+      />
     </>
   )
 }
@@ -42,16 +47,24 @@ const NoteEntry = ({ note, workOrder }: Props) => {
 const NoteContent = ({
   note,
   workOrder,
+  setActiveTab,
 }: {
   note: Note
   workOrder: WorkOrderRequest
+  setActiveTab: (tab: string) => void
 }) => {
   if (
     note.noteGeneratedOnFrontend &&
     note.typeCode.toString() === '0' &&
     note.otherType === 'completed'
   ) {
-    return <CompletedNoteContent note={note} workOrder={workOrder} />
+    return (
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+        setActiveTab={setActiveTab}
+      />
+    )
   }
 
   if (DetectImageNote(note.note)) {

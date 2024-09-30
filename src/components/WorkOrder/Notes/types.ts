@@ -17,6 +17,9 @@ export type WorkOrderRequest = {
     jobPercentage: number
   }[]
   followOnRequest?: FollowOnRequest
+  uploadedFileCount?: {
+    totalFileCount: number
+  }
 }
 
 export type FollowOnRequest = {
