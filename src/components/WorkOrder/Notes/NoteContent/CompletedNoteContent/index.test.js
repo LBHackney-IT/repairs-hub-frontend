@@ -142,7 +142,7 @@ describe('CompletedNoteContent component', () => {
 
   it('should match snapshot when user has uploaded photos', () => {
     const workOrder = {
-      closedDate: new Date('2024-09-26T12:34:56'), // Replace with actual date fixture
+      closedDated: '2024-09-26T12:34:56',
       paymentType: 'Bonus',
       operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
       uploadedFileCount: {
