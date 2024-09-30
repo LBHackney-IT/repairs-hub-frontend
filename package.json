@@ -20,7 +20,8 @@
     "e2e:audit": "NODE_ENV=test start-test http://localhost:5001 cy:run:audit",
     "cy:run": "cypress run --browser chrome --headless",
     "cy:run:audit": "cypress run --browser chrome --headless --env runAudit=true",
-    "cy:open": "cypress open --browser chrome"
+    "cy:open": "cypress open --browser chrome",
+    "clear-eslint-cache": "eslint --cache --cache-location node_modules/.cache/.eslintcache --fix"
   },
   "dependencies": {
     "@reach/dialog": "^0.18.0",

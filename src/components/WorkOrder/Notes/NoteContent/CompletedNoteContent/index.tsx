@@ -4,9 +4,10 @@ import generateMessage from './generateMessage'
 interface Props {
   note: Note
   workOrder: WorkOrderRequest
+  setActiveTab: (tab: string) => void
 }
 
-const CompletedNoteContent = ({ note, workOrder }: Props) => {
+const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
   const statusMessage = generateMessage(
     note.note,
     workOrder.closedDate,
@@ -134,10 +135,23 @@ const CompletedNoteContent = ({ note, workOrder }: Props) => {
           </>
         )}
 
-      {/* To do - add back later */}
-      {/* <span>
-        <a href="#photos-tab">2 photos uploaded</a> <br />
-      </span> */}
+      {Object.prototype.hasOwnProperty.call(workOrder, 'uploadedFileCount') &&
+        workOrder.uploadedFileCount !== null &&
+        workOrder.uploadedFileCount.totalFileCount > 0 && (
+          <>
+            <br />
+            <span>
+              <a
+                className="lbh-link"
+                onClick={() => setActiveTab('photos-tab')}
+                href="#photos-tab"
+              >
+                View photos
+              </a>{' '}
+              <br />
+            </span>
+          </>
+        )}
     </>
   )
 }

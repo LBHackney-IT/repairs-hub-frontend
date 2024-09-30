@@ -57,6 +57,7 @@ const Tabs = ({
             workOrderReference={workOrderReference}
             workOrder={workOrder}
             tabName={tabName}
+            setActiveTab={setActiveTab}
           />
         )
       case 'pending-variation-tab':

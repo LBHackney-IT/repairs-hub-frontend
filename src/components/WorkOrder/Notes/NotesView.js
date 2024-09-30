@@ -7,7 +7,12 @@ import NotesTimeline from './NotesTimeline'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
 
-const NotesView = ({ workOrderReference, tabName, workOrder }) => {
+const NotesView = ({
+  workOrderReference,
+  tabName,
+  workOrder,
+  setActiveTab,
+}) => {
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -78,7 +83,13 @@ const NotesView = ({ workOrderReference, tabName, workOrder }) => {
         displayForm={displayForm}
         showForm={showForm}
       />
-      {notes && <NotesTimeline notes={notes} workOrder={workOrder} />}
+      {notes && (
+        <NotesTimeline
+          notes={notes}
+          workOrder={workOrder}
+          setActiveTab={setActiveTab}
+        />
+      )}
       {error && <ErrorMessage label={error} />}
     </>
   )
@@ -88,6 +99,7 @@ NotesView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   tabName: PropTypes.string.isRequired,
   workOrder: PropTypes.object.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
 }
 
 export default NotesView
