@@ -10,7 +10,7 @@ export type Note = {
 }
 
 export type WorkOrderRequest = {
-  closedDate: Date
+  closedDated: string
   paymentType: string
   operatives: {
     name: string
