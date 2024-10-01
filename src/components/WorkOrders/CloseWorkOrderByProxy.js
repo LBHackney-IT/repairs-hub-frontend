@@ -8,7 +8,6 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
-  buildWorkOrderCompleteNotes,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
@@ -18,6 +17,7 @@ import Panel from '@/components/Template/Panel'
 import { generalLinks } from '@/utils/successPageLinks'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
+import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -163,12 +163,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       operativesWithPercentages
     )
 
-    let fullNotes = buildWorkOrderCompleteNotes(
-      notes,
-      operativesWithPercentages,
-      paymentType
-    )
-
     let followOnDataRequest = null
 
     if (followOnData !== null) {
@@ -193,9 +187,19 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )
     }
 
+    let comments = notes // notes written by user
+
+    if (reason == 'No Access') {
+      comments = `Work order closed - ${buildWorkOrderCompleteNotes(
+        notes,
+        operativesWithPercentages,
+        paymentType
+      )}`
+    }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
-      fullNotes,
+      comments,
       reference,
       reason,
       paymentType,

@@ -186,4 +186,47 @@ describe('WorkOrderHeader component', () => {
       expect(asFragment()).toMatchSnapshot()
     })
   })
+
+  describe('when work order contains follow-on details', () => {
+    it('shows further work required flag', async () => {
+      const { asFragment } = render(
+        <UserContext.Provider value={{ user: agent }}>
+          <WorkOrderHeader
+            propertyReference={props.property.propertyReference}
+            workOrder={
+              new WorkOrder({
+                ...workOrderData,
+                status: 'Completed',
+                followOnRequest: {
+                  id: 27,
+                  isSameTrade: true,
+                  isDifferentTrades: true,
+                  requiredFollowOnTrades: ['Carpentry'],
+                  isMultipleOperatives: true,
+                  followOnTypeDescription: 'sdfsdf',
+                  stockItemsRequired: true,
+                  nonStockItemsRequired: true,
+                  materialNotes: 'sdfsd',
+                  additionalNotes: 'sdfsdf',
+                },
+              })
+            }
+            address={props.property.address}
+            subTypeDescription={props.property.hierarchyType.subTypeDescription}
+            tenure={props.tenure}
+            canRaiseRepair={props.property.canRaiseRepair}
+            schedulerSessionId={props.schedulerSessionId}
+          />
+        </UserContext.Provider>
+      )
+
+      await act(async () => {
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+      })
+      expect(asFragment()).toMatchSnapshot()
+    })
+  })
 })

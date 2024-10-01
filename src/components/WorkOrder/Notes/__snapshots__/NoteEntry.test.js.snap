@@ -1,6 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`NoteEntry component should render properle 1`] = `
+exports[`NoteEntry component should render a completed work order note 1`] = `
+<DocumentFragment>
+  <div
+    class="note-info lbh-body-s"
+  >
+    23 Jan 2021, 16:28 by Test user (sample@sample.com)
+  </div>
+  <span>
+    Closed - Completed: 23 January 2021 at 16:28 - comments left by user - Assigned operatives Steve: 15% - Bonus calculation
+    <br />
+  </span>
+</DocumentFragment>
+`;
+
+exports[`NoteEntry component should render a normal note 1`] = `
+<DocumentFragment>
+  <div
+    class="note-info lbh-body-s"
+  >
+    23 Jan 2021, 16:28 by Test user (sample@sample.com)
+  </div>
+  <span>
+    some pre-generated note
+    <br />
+  </span>
+</DocumentFragment>
+`;
+
+exports[`NoteEntry component should render note with image (repairs online) 1`] = `
 <DocumentFragment>
   <div
     class="note-info lbh-body-s"

@@ -7,6 +7,7 @@ import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
+import FurtherWorkRequiredFlag from './FurtherWorkRequiredFlag'
 
 const WorkOrderHeader = ({
   propertyReference,
@@ -64,6 +65,10 @@ const WorkOrderHeader = ({
             </span>
           </div>
         )}
+
+        {'followOnRequest' in workOrder &&
+          workOrder.followOnRequest !== null && <FurtherWorkRequiredFlag />}
+
         {workOrder.operatives.length > 0 &&
           ((workOrder.appointment && workOrder.appointmentISODatePassed()) ||
             readOnly) && <Operatives operatives={workOrder.operatives} />}

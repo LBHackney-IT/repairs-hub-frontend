@@ -12,6 +12,7 @@ const Tabs = ({
   workOrderReference,
   tasksAndSors,
   budgetCode,
+  workOrder,
 }) => {
   const router = useRouter()
 
@@ -54,7 +55,9 @@ const Tabs = ({
         return (
           <NotesView
             workOrderReference={workOrderReference}
+            workOrder={workOrder}
             tabName={tabName}
+            setActiveTab={setActiveTab}
           />
         )
       case 'pending-variation-tab':

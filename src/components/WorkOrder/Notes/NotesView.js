@@ -7,7 +7,12 @@ import NotesTimeline from './NotesTimeline'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
 
-const NotesView = ({ workOrderReference, tabName }) => {
+const NotesView = ({
+  workOrderReference,
+  tabName,
+  workOrder,
+  setActiveTab,
+}) => {
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
@@ -67,23 +72,25 @@ const NotesView = ({ workOrderReference, tabName }) => {
     getNotesView(workOrderReference)
   }, [])
 
+  if (loading) return <Spinner />
+
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          <NotesForm
-            onFormSubmit={onFormSubmit}
-            tabName={tabName}
-            workOrderReference={workOrderReference}
-            displayForm={displayForm}
-            showForm={showForm}
-          />
-          {notes && <NotesTimeline notes={notes} />}
-          {error && <ErrorMessage label={error} />}
-        </>
+      <NotesForm
+        onFormSubmit={onFormSubmit}
+        tabName={tabName}
+        workOrderReference={workOrderReference}
+        displayForm={displayForm}
+        showForm={showForm}
+      />
+      {notes && (
+        <NotesTimeline
+          notes={notes}
+          workOrder={workOrder}
+          setActiveTab={setActiveTab}
+        />
       )}
+      {error && <ErrorMessage label={error} />}
     </>
   )
 }
@@ -91,6 +98,8 @@ const NotesView = ({ workOrderReference, tabName }) => {
 NotesView.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   tabName: PropTypes.string.isRequired,
+  workOrder: PropTypes.object.isRequired,
+  setActiveTab: PropTypes.func.isRequired,
 }
 
 export default NotesView
