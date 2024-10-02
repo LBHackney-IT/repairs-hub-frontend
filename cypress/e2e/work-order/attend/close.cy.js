@@ -124,7 +124,6 @@ describe('Closing my own work order', () => {
       cy.contains('button', 'Confirm').click()
 
       // 1. invalid file type
-
       cy.get('input[type="file"]').selectFile({
         contents: Cypress.Buffer.from('file contents'),
         fileName: 'file.txt',
@@ -169,8 +168,7 @@ describe('Closing my own work order', () => {
       )
     })
 
-    // shows photo validation errors
-    it('shows error when network request fails  uploading photo', () => {
+    it('shows error when network request fails uploading photo', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         { statusCode: 500 }
@@ -206,7 +204,61 @@ describe('Closing my own work order', () => {
       )
     })
 
-    // uploads photos to work order
+    it('shows error when no photos selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // should contain error message
+      cy.contains('No photos were selected')
+
+      // adding photo clears error
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
+
+      cy.contains('No photos were selected').should('not.exist')
+
+      // submitting is blocked
+      cy.get('.photoUploadPreview-removeButton').click()
+      cy.contains('No photos were selected')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // error still present
+      cy.contains('No photos were selected')
+
+      // tick checkbox to submit
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(
+          `Work order ${workOrderReference} successfully closed with no access`
+        )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
     it('uploads files when closing work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
