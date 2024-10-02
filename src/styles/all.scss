@@ -39,6 +39,13 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/contact-details-table.scss';
 @import 'components/photos.scss';
 
+
+
+// checkbox
+.govuk-checkboxes--small .govuk-label.govuk-checkboxes__label {
+  margin-bottom: 0 !important;
+}
+
 // Form layout consistancy changes
 // only apply to specific forms
 
