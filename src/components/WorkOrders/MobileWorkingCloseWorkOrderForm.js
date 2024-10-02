@@ -16,6 +16,13 @@ const PAGES = {
   FOLLOW_ON_DETAILS: '2',
 }
 
+const FIELD_NAMES_ON_FIRST_PAGE = [
+  'reason',
+  'followOnStatus',
+  'fileUpload',
+  'description',
+]
+
 const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const {
     handleSubmit,
@@ -25,6 +32,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
     clearErrors,
     watch,
     getValues,
+    trigger,
   } = useForm({
     shouldUnregister: false,
   })
@@ -39,6 +47,16 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const [photosTouched, setPhotosTouched] = useState(false)
 
   const viewFollowOnDetailsPage = () => {
+    trigger(FIELD_NAMES_ON_FIRST_PAGE)
+
+    if (Object.keys(errors).length > 0) return
+
+    // validate file uploaded
+    if (files.length === 0 && !closeWithoutPhotos) {
+      // user must confirm submit without photos
+      return
+    }
+
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
