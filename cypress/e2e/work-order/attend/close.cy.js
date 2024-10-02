@@ -314,6 +314,8 @@ describe('Closing my own work order', () => {
       })
 
       cy.get('.govuk-button').contains('Close work order').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
 
       cy.waitFor('@getLinksRequest')
       cy.waitFor('@uploadToS3Request')
@@ -349,6 +351,8 @@ describe('Closing my own work order', () => {
 
       cy.get('#notes').type('I attended')
 
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -412,6 +416,8 @@ describe('Closing my own work order', () => {
 
       cy.get('#notes').type('I attended')
 
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -546,6 +552,8 @@ describe('Closing my own work order', () => {
 
         // close work order
         cy.get('[type="submit"]').contains('Close work order').click()
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+        cy.get('.govuk-button').contains('Close work order').click()
       })
 
       // check for confirmation message
@@ -603,6 +611,8 @@ describe('Closing my own work order', () => {
 
         // close work order
         cy.get('[type="submit"]').contains('Close work order').click()
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+        cy.get('.govuk-button').contains('Close work order').click()
       })
 
       cy.wait('@workOrderCompleteRequest')
@@ -648,6 +658,9 @@ describe('Closing my own work order', () => {
 
         cy.get('.lbh-radios input[data-testid="reason"]').check('No Access') // Checking by value, not text
 
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -721,6 +734,9 @@ describe('Closing my own work order', () => {
 
         cy.get('.govuk-button').contains('Close work order').click()
 
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+        cy.get('.govuk-button').contains('Close work order').click()
+
         cy.wait('@workOrderCompleteRequest')
 
         cy.get('@workOrderCompleteRequest')
@@ -789,6 +805,9 @@ describe('Closing my own work order', () => {
         ) // Checking by value, not text
         cy.contains('label', 'No further work required').click()
 
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
