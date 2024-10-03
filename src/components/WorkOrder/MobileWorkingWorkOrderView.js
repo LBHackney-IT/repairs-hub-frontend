@@ -19,7 +19,7 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 
-const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
+const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [property, setProperty] = useState({})
@@ -194,13 +194,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         requestData: closeWorkOrderFormData,
       })
 
-      setModalFlashMessage(
-        `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'closed'
-        }`
-      )
+      // conditional confirmation
+      if (files.length === 0) {
+        router.push(
+          `/operatives/${operativeId}/work-orders/${workOrderReference}/confirmation`
+        )
+      } else {
+        setModalFlashMessage(
+          `Work order ${workOrderReference} successfully ${
+            data.reason === 'No Access' ? 'closed with no access' : 'closed'
+          }`
+        )
+        router.push('/')
+      }
 
-      router.push('/')
     } catch (e) {
       console.error(e)
       setError(
