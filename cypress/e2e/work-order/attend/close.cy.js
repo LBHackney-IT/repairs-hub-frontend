@@ -601,8 +601,8 @@ describe('Closing my own work order', () => {
 
       // add follow-on details
       cy.contains('button', 'Add details').click()
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-      cy.contains('button', 'Add details').click()
+      // cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      // cy.contains('button', 'Add details').click()
 
       cy.get('form').within(() => {
         cy.get('.govuk-button').contains('Close work order').click()

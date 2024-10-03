@@ -46,14 +46,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   // So we dont show the error immediately
   const [photosTouched, setPhotosTouched] = useState(false)
 
-  const viewFollowOnDetailsPage = (e) => {
-    e.preventDefault()
-
-    try {
-      trigger(FIELD_NAMES_ON_FIRST_PAGE)
-    } catch (e) {
-      console.error('Trigger failed', e)
-    }
+  const viewFollowOnDetailsPage = () => {
+    trigger(FIELD_NAMES_ON_FIRST_PAGE)
 
     if (Object.keys(errors).length > 0) return
 
