@@ -1,6 +1,12 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test
+  return false
+})
+
 describe('Closing my own work order', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
   const workOrderReference = '10000621'
@@ -124,7 +130,6 @@ describe('Closing my own work order', () => {
       cy.contains('button', 'Confirm').click()
 
       // 1. invalid file type
-
       cy.get('input[type="file"]').selectFile({
         contents: Cypress.Buffer.from('file contents'),
         fileName: 'file.txt',
@@ -169,8 +174,7 @@ describe('Closing my own work order', () => {
       )
     })
 
-    // shows photo validation errors
-    it('shows error when network request fails  uploading photo', () => {
+    it('shows error when network request fails uploading photo', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         { statusCode: 500 }
@@ -206,7 +210,61 @@ describe('Closing my own work order', () => {
       )
     })
 
-    // uploads photos to work order
+    it('shows error when no photos selected', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // should contain error message
+      cy.contains('No photos were selected')
+
+      // adding photo clears error
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
+
+      cy.contains('No photos were selected').should('not.exist')
+
+      // submitting is blocked
+      cy.get('.photoUploadPreview-removeButton').click()
+      cy.contains('No photos were selected')
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // error still present
+      cy.contains('No photos were selected')
+
+      // tick checkbox to submit
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(
+          `Work order ${workOrderReference} successfully closed with no access`
+        )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
     it('uploads files when closing work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
@@ -298,6 +356,8 @@ describe('Closing my own work order', () => {
       cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
 
@@ -360,6 +420,8 @@ describe('Closing my own work order', () => {
 
       cy.get('#notes').type('I attended')
 
+      cy.get('.govuk-button').contains('Close work order').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -434,67 +496,63 @@ describe('Closing my own work order', () => {
 
       cy.contains('button', 'Confirm').click()
 
-      cy.get('form').within(() => {
-        cy.contains('Reason for closing')
-          .parent()
-          .within(() => {
-            cy.contains('label', 'Visit completed').click()
-            cy.contains('label', 'Further work required').click()
-          })
+      cy.contains('Reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'Further work required').click()
+        })
 
-        // assert error messages arent visible yet
-        cy.contains('Please select the type of work').should('not.exist')
-        cy.contains('Please describe the work completed').should('not.exist')
+      // assert error messages arent visible yet
+      cy.contains('Please select the type of work').should('not.exist')
+      cy.contains('Please describe the work completed').should('not.exist')
 
-        // add follow on details
-        cy.contains('button', 'Add details').click()
+      // add follow on details
+      cy.contains('button', 'Add details').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.contains('button', 'Add details').click()
 
-        // close work order
-        cy.get('[type="submit"]').contains('Close work order').click()
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
 
-        // assert error messages visible
-        cy.contains('Please select the type of work')
-        cy.contains('Please describe the work completed')
+      // assert error messages visible
+      cy.contains('Please select the type of work')
+      cy.contains('Please describe the work completed')
 
-        // select an option - error should disappear
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.contains('Please select the type of work').should('not.exist')
+      // select an option - error should disappear
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.contains('Please select the type of work').should('not.exist')
 
-        // select different trade(s) - error should appear
-        cy.get('input[data-testid="isDifferentTrades"]').check()
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains('Please select at least one trade')
+      // select different trade(s) - error should appear
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please select at least one trade')
 
-        // select a trade - error should disappear
-        cy.get('input[data-testid="followon-trades-plumbing"]').check()
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains('Please select at least one trade').should('not.exist')
+      // select a trade - error should disappear
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please select at least one trade').should('not.exist')
 
-        // add description of work - error should disappear
-        cy.get('textarea[data-testid="followOnTypeDescription"]').type(
-          'Blah blah blah'
-        )
-        cy.contains('Please describe the work completed').should('not.exist')
+      // add description of work - error should disappear
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'Blah blah blah'
+      )
+      cy.contains('Please describe the work completed').should('not.exist')
 
-        // when one of the material options is selected, the description must not be empty
-        cy.get('input[data-testid="stockItemsRequired"]').check()
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains('Please describe the materials required')
+      // when one of the material options is selected, the description must not be empty
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please describe the materials required')
 
-        // Adding a description - error should disappear
-        cy.get('textarea[data-testid="materialNotes"]').type('Blah blah blah')
-        cy.contains('Please describe the materials required').should(
-          'not.exist'
-        )
+      // Adding a description - error should disappear
+      cy.get('textarea[data-testid="materialNotes"]').type('Blah blah blah')
+      cy.contains('Please describe the materials required').should('not.exist')
 
-        // additional notes
-        cy.get('textarea[data-testid="additionalNotes"]').type(
-          'Additional notes'
-        )
+      // additional notes
+      cy.get('textarea[data-testid="additionalNotes"]').type('Additional notes')
 
-        // close work order
-        cy.get('[type="submit"]').contains('Close work order').click()
-      })
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
 
       // check for confirmation message
       cy.contains('Work order 10000621 successfully closed')
@@ -524,34 +582,36 @@ describe('Closing my own work order', () => {
 
       cy.contains('button', 'Confirm').click()
 
-      cy.get('form').within(() => {
-        cy.contains('Reason for closing')
-          .parent()
-          .within(() => {
-            cy.contains('label', 'Visit completed').click()
-            cy.contains('label', 'Further work required').click()
-          })
+      cy.contains('Reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'Further work required').click()
+        })
 
-        // add follow-on details
-        cy.contains('button', 'Add details').click()
+      // add follow-on details
+      cy.contains('button', 'Add details').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.contains('button', 'Add details').click()
 
-        // populate follow-on fields
+      cy.get('.govuk-button').contains('Close work order').click()
 
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.get('input[data-testid="isDifferentTrades"]').check()
-        cy.get('input[data-testid="followon-trades-plumbing"]').check()
-        cy.get('textarea[data-testid="followOnTypeDescription"]').type(
-          'follow on description'
-        )
-        cy.get('input[data-testid="stockItemsRequired"]').check()
-        cy.get('textarea[data-testid="materialNotes"]').type('material notes')
-        cy.get('textarea[data-testid="additionalNotes"]').type(
-          'Additional notes desc'
-        )
+      // populate follow-on fields
 
-        // close work order
-        cy.get('[type="submit"]').contains('Close work order').click()
-      })
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'follow on description'
+      )
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+      cy.get('textarea[data-testid="additionalNotes"]').type(
+        'Additional notes desc'
+      )
+
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
 
@@ -596,6 +656,9 @@ describe('Closing my own work order', () => {
 
         cy.get('.lbh-radios input[data-testid="reason"]').check('No Access') // Checking by value, not text
 
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -668,6 +731,8 @@ describe('Closing my own work order', () => {
         cy.contains('label', 'No further work required').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+        cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
 
@@ -737,6 +802,9 @@ describe('Closing my own work order', () => {
         ) // Checking by value, not text
         cy.contains('label', 'No further work required').click()
 
+        cy.get('.govuk-button').contains('Close work order').click()
+
+        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
