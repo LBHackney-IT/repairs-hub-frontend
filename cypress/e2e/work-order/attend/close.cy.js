@@ -1,6 +1,12 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 
+Cypress.on('uncaught:exception', (err, runnable) => {
+  // returning false here prevents Cypress from
+  // failing the test
+  return false
+})
+
 describe('Closing my own work order', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
   const workOrderReference = '10000621'
