@@ -501,15 +501,14 @@ describe('Closing my own work order', () => {
         // assert error messages arent visible yet
         cy.contains('Please select the type of work').should('not.exist')
         cy.contains('Please describe the work completed').should('not.exist')
-
-        // add follow on details
-        cy.contains('button', 'Add details').click()
       })
 
-      cy.get('form').within(() => {
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-        cy.contains('button', 'Add details').click()
+      // add follow on details
+      cy.contains('button', 'Add details').click()
+      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.contains('button', 'Add details').click()
 
+      cy.get('form').within(() => {
         // close work order
         cy.get('[type="submit"]').contains('Close work order').click()
 
@@ -592,15 +591,14 @@ describe('Closing my own work order', () => {
             cy.contains('label', 'Visit completed').click()
             cy.contains('label', 'Further work required').click()
           })
-
-        // add follow-on details
-        cy.contains('button', 'Add details').click()
       })
+
+      // add follow-on details
+      cy.contains('button', 'Add details').click()
       cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.contains('button', 'Add details').click()
 
       cy.get('form').within(() => {
-        cy.contains('button', 'Add details').click()
-
         cy.get('.govuk-button').contains('Close work order').click()
 
         // populate follow-on fields
