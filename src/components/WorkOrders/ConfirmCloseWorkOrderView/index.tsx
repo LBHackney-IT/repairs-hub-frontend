@@ -4,6 +4,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 import Spinner from '../../Spinner'
 import { useRouter } from 'next/router'
+import ErrorMessage from '../../Errors/ErrorMessage'
 
 interface Props {
   workOrderId: string
@@ -16,6 +17,52 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
   const [requestError, setRequestError] = useState<string | null>(null)
 
   const router = useRouter()
+
+  const handleSkip = () => {
+    router.push('/')
+  }
+
+  const buildRequestObject = (data: { reason: string; comments: string }) => {
+    const requestData = {
+      uploadWasTakingTooLong: false,
+      uploadFailed: false,
+      photosWereNotNecessary: false,
+      comments: data.comments,
+      workOrderId: workOrderId,
+    }
+
+    if (data.reason !== 'other') {
+      requestData[data.reason] = true
+    }
+
+    return requestData
+  }
+
+  const handleSubmit = (data: { reason: string; comments: string }) => {
+    if (loadingStatus !== null) return
+
+    const requestData = buildRequestObject(data)
+
+    setRequestError(null)
+    setLoadingStatus('Submitting feedback')
+
+    frontEndApiRequest({
+      method: 'post',
+      path: '/api/feedback/close-work-order-without-photo',
+      requestData,
+    })
+      .then(() => {
+        // dont turn off loading
+        // to hide screen flash
+        router.push('/')
+      })
+      .catch((err) => {
+        console.error(err)
+        setRequestError(err.message)
+
+        setLoadingStatus(null)
+      })
+  }
 
   if (loadingStatus)
     return (
@@ -39,54 +86,11 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
       </div>
 
       <ConfirmCloseWorkOrderWithoutPhotosForm
-        onSubmit={(data) => {
-          console.log('on submit', { data })
-
-          if (loadingStatus !== null) return
-
-          setRequestError(null)
-
-          console.log('Submit form request')
-
-          setLoadingStatus('Submitting feedback')
-
-          // setTimeout(() => {
-          //   setLoadingStatus(null)
-          // }, 2000)
-
-          const requestData = {
-            uploadWasTakingTooLong: false,
-            uploadFailed: false,
-            photosWereNotNecessary: false,
-            comments: data.comments,
-            workOrderId: workOrderId,
-          }
-
-          if (data.reason !== 'other') {
-            requestData[data.reason] = true
-          }
-
-          frontEndApiRequest({
-            method: 'post',
-            path: '/api/feedback/close-work-order-without-photo',
-            requestData,
-          })
-            .then((res) => {
-              console.log({ res })
-
-              // dont turn off loading
-              // to hide screen flash
-              router.push('/')
-            })
-            .catch((err) => {
-              console.log({ err })
-              setRequestError(err.message)
-
-              setLoadingStatus(null)
-            })
-            // .finally(() => {})
-        }}
+        onSkip={handleSkip}
+        onSubmit={handleSubmit}
       />
+
+      {requestError && <ErrorMessage label={requestError} />}
     </div>
   )
 }

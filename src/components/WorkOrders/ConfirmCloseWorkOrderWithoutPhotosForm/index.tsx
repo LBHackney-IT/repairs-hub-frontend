@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import { PrimarySubmitButton, Radio, TextArea } from '../../Form'
+import { Button, PrimarySubmitButton, Radio, TextArea } from '../../Form'
 
 interface Props {
   onSubmit: (data: { reason: string; comments: string }) => void
+  onSkip: () => void
 }
 
 const FORM_OPTIONS = [
@@ -24,18 +25,9 @@ const FORM_OPTIONS = [
 ]
 
 const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
-  const { onSubmit } = props
+  const { onSubmit, onSkip } = props
 
-  const {
-    handleSubmit,
-    register,
-    errors,
-    // setError,
-    // clearErrors,
-    watch,
-    getValues,
-    trigger,
-  } = useForm({
+  const { handleSubmit, register, errors, getValues } = useForm({
     shouldUnregister: false,
   })
 
@@ -46,8 +38,6 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
-          console.log({ data })
-
           setError(null)
 
           if (
@@ -102,8 +92,19 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
             error={errors.comments}
           />
 
-          <div>
-            <PrimarySubmitButton label="Take me to my jobs" />
+          <div style={{ display: 'flex' }}>
+            <div style={{ marginRight: '15px' }}>
+              <PrimarySubmitButton label="Submit" />
+            </div>
+
+            <div className="govuk-form-group lbh-form-group">
+              <Button
+                isSecondary
+                type="button"
+                onClick={onSkip}
+                label="Close"
+              />
+            </div>
           </div>
         </div>
       </form>
