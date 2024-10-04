@@ -256,13 +256,16 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.get('.modal-container').within(() => {
-        cy.contains(
-          `Work order ${workOrderReference} successfully closed with no access`
-        )
+      // check on confirmation page
+      cy.url().should(
+        'include',
+        `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      )
 
-        cy.get('[data-testid="modal-close"]').click()
-      })
+      cy.contains(`Work order ${workOrderReference} successfully closed`)
+
+      // close
+      cy.contains('button', 'Close').click()
     })
 
     it('uploads files when closing work order', () => {
@@ -382,15 +385,16 @@ describe('Closing my own work order', () => {
           ],
         })
 
-      cy.get('.modal-container').within(() => {
-        cy.contains(
-          `Work order ${workOrderReference} successfully closed with no access`
-        )
+      // check on confirmation page
+      cy.url().should(
+        'include',
+        `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      )
 
-        cy.get('[data-testid="modal-close"]').click()
-      })
+      cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-      cy.get('.modal-container').should('not.exist')
+      // close
+      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
@@ -405,7 +409,6 @@ describe('Closing my own work order', () => {
         '@photosRequest',
         '@locationAlerts',
         '@personAlerts',
-        // '@photosRequest',
       ])
 
       cy.contains('Payment type').should('not.exist')
@@ -446,13 +449,16 @@ describe('Closing my own work order', () => {
           ],
         })
 
-      cy.get('.modal-container').within(() => {
-        cy.contains(`Work order ${workOrderReference} successfully closed`)
+      // check on confirmation page
+      cy.url().should(
+        'include',
+        `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      )
 
-        cy.get('[data-testid="modal-close"]').click()
-      })
+      cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-      cy.get('.modal-container').should('not.exist')
+      // close
+      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h2').contains('Friday 11 June')
     })
@@ -684,15 +690,16 @@ describe('Closing my own work order', () => {
             ],
           })
 
-        cy.get('.modal-container').within(() => {
-          cy.contains(
-            `Work order ${workOrderReference} successfully closed with no access`
-          )
+        // check on confirmation page
+        cy.url().should(
+          'include',
+          `/operatives/1/work-orders/${workOrderReference}/confirmation`
+        )
 
-          cy.get('[data-testid="modal-close"]').click()
-        })
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-        cy.get('.modal-container').should('not.exist')
+        // close
+        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
@@ -756,13 +763,16 @@ describe('Closing my own work order', () => {
             ],
           })
 
-        cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully closed`)
+        // check on confirmation page
+        cy.url().should(
+          'include',
+          `/operatives/1/work-orders/${workOrderReference}/confirmation`
+        )
 
-          cy.get('[data-testid="modal-close"]').click()
-        })
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-        cy.get('.modal-container').should('not.exist')
+        // close
+        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
@@ -829,13 +839,16 @@ describe('Closing my own work order', () => {
             ],
           })
 
-        cy.get('.modal-container').within(() => {
-          cy.contains(`Work order ${workOrderReference} successfully closed`)
+        // check on confirmation page
+        cy.url().should(
+          'include',
+          `/operatives/1/work-orders/${workOrderReference}/confirmation`
+        )
 
-          cy.get('[data-testid="modal-close"]').click()
-        })
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-        cy.get('.modal-container').should('not.exist')
+        // close
+        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains('Friday 11 June')
       })
