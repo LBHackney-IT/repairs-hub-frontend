@@ -77,6 +77,7 @@ const Radio = (props: Props) => {
               ? {
                   value: option,
                   text: option,
+                  hint: null,
                   defaultChecked: false,
                 }
               : option
