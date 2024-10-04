@@ -207,7 +207,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         )
         router.push('/')
       }
-
     } catch (e) {
       console.error(e)
       setError(
