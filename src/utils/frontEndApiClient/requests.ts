@@ -4,14 +4,14 @@ import { paramsSerializer } from '@/utils/urls'
 export const frontEndApiRequest = async ({
   method,
   path,
-  params = {},
+  params = null,
   requestData,
   paramsSerializer,
 }: {
   method: Method
   path: string
   params?: object
-  requestData?: any
+  requestData?: object
   paramsSerializer?: any
 }) => {
   const { data } = await axios({
