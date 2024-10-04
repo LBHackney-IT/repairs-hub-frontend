@@ -262,9 +262,7 @@ describe('Closing my own work order', () => {
         `/operatives/1/work-orders/${workOrderReference}/confirmation`
       )
 
-      cy.contains(
-        `Work order ${workOrderReference} successfully closed with reason for closing`
-      )
+      cy.contains(`Work order ${workOrderReference} successfully closed`)
 
       // close
       cy.contains('button', 'Close').click()
@@ -393,9 +391,7 @@ describe('Closing my own work order', () => {
         `/operatives/1/work-orders/${workOrderReference}/confirmation`
       )
 
-      cy.contains(
-        `Work order ${workOrderReference} successfully closed with no access`
-      )
+      cy.contains(`Work order ${workOrderReference} successfully closed`)
 
       // close
       cy.contains('button', 'Close').click()
@@ -700,9 +696,7 @@ describe('Closing my own work order', () => {
           `/operatives/1/work-orders/${workOrderReference}/confirmation`
         )
 
-        cy.contains(
-          `Work order ${workOrderReference} successfully closed with no access`
-        )
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         // close
         cy.contains('button', 'Close').click()
