@@ -256,13 +256,18 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.get('.modal-container').within(() => {
-        cy.contains(
-          `Work order ${workOrderReference} successfully closed with no access`
-        )
+      // check on confirmation page
+      cy.url().should(
+        'include',
+        `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      )
 
-        cy.get('[data-testid="modal-close"]').click()
-      })
+      cy.contains(
+        `Work order ${workOrderReference} successfully closed with reason for closing`
+      )
+
+      // close
+      cy.contains('button', 'Close').click()
     })
 
     it('uploads files when closing work order', () => {
