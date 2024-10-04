@@ -1,12 +1,18 @@
-import axios from 'axios'
+import axios, { Method } from 'axios'
 import { paramsSerializer } from '@/utils/urls'
 
 export const frontEndApiRequest = async ({
   method,
   path,
-  params,
+  params = {},
   requestData,
   paramsSerializer,
+}: {
+  method: Method
+  path: string
+  params?: object
+  requestData?: any
+  paramsSerializer?: any
 }) => {
   const { data } = await axios({
     method: method,

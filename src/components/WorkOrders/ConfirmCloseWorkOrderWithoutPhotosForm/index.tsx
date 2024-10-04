@@ -4,7 +4,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import { Button, PrimarySubmitButton, Radio, TextArea } from '../../Form'
 
 interface Props {
-  onSubmit: (data: { reason: string; comments: string }) => void
+  onSubmit: (data: { [x: string]: any }) => void
   onSkip: () => void
 }
 
