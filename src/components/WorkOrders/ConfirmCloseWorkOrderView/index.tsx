@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ConfirmCloseWorkOrderWithoutPhotosForm from '../ConfirmCloseWorkOrderWithoutPhotosForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
@@ -16,7 +16,33 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
   const [loadingStatus, setLoadingStatus] = useState<string | null>(null)
   const [requestError, setRequestError] = useState<string | null>(null)
 
+  const [workOrder, setWorkOrder] = useState<{
+    status: string
+  } | null>(null)
+
   const router = useRouter()
+
+  useEffect(() => {
+    loadWorkOrder()
+  }, [])
+
+  const loadWorkOrder = () => {
+    setLoadingStatus('Fetching work order data')
+
+    frontEndApiRequest({
+      method: 'get',
+      path: `/api/workOrders/${workOrderId}`,
+    })
+      .then((res) => {
+        setWorkOrder(res)
+      })
+      .catch((err) => {
+        setRequestError(err.message)
+      })
+      .finally(() => {
+        setLoadingStatus(null)
+      })
+  }
 
   const handleSkip = () => {
     router.push('/')
@@ -74,13 +100,18 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
         <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
       </div>
     )
+  // `Work order ${workOrderReference} successfully ${
+  //   data.reason === 'No Access' ? 'closed with no access' : 'closed'
+  // }`
 
   return (
     <div>
       <div className="govuk-panel govuk-panel--confirmation lbh-panel">
         <h1 className="govuk-panel__title">
-          Work order {workOrderId} successfully closed with{' '}
-          <strong>reason for closing</strong>
+          Work order {workOrderId} successfully{' '}
+          {workOrder?.status === 'No Access'
+            ? 'closed with no access'
+            : 'closed'}
         </h1>
         {/* <div class="govuk-panel__body">Your reference number: HDJ2123F</div> */}
       </div>
