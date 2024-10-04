@@ -194,12 +194,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         requestData: closeWorkOrderFormData,
       })
 
-      // conditional confirmation
       if (files.length === 0) {
+        // confirmation page with form
         router.push(
           `/operatives/${operativeId}/work-orders/${workOrderReference}/confirmation`
         )
       } else {
+        // pre-existing confirmation message
         setModalFlashMessage(
           `Work order ${workOrderReference} successfully ${
             data.reason === 'No Access' ? 'closed with no access' : 'closed'

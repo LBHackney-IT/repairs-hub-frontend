@@ -83,9 +83,7 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
         router.push('/')
       })
       .catch((err) => {
-        console.error(err)
         setRequestError(err.message)
-
         setLoadingStatus(null)
       })
   }
@@ -100,9 +98,6 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
         <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
       </div>
     )
-  // `Work order ${workOrderReference} successfully ${
-  //   data.reason === 'No Access' ? 'closed with no access' : 'closed'
-  // }`
 
   return (
     <div>
@@ -113,7 +108,6 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
             ? 'closed with no access'
             : 'closed'}
         </h1>
-        {/* <div class="govuk-panel__body">Your reference number: HDJ2123F</div> */}
       </div>
 
       <ConfirmCloseWorkOrderWithoutPhotosForm

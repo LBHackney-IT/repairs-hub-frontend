@@ -1,14 +1,8 @@
-const { FALSE } = require('sass')
-
 describe('confirm close work order without a photo', () => {
   const workOrderReference = '10000621'
   const operativeId = '1234'
 
   beforeEach(() => {
-    // cy.intercept(`/api/workOrders/${workOrderReference}`, {
-    //   fixture: 'workOrders/workOrder.json',
-    // }).as('workOrderRequest')
-
     cy.intercept(
       { method: 'POST', path: '/api/workOrderComplete' },
       { body: '' }
