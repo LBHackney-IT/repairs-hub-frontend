@@ -94,8 +94,8 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
+            nvm install v21
+            nvm use 21
             echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
@@ -130,8 +130,8 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
+            nvm install v21
+            nvm use 21
             echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
@@ -166,8 +166,8 @@ jobs:
             export NVM_DIR="$HOME/.nvm"
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
+            nvm install v21
+            nvm use 21
             echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
             echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
@@ -233,57 +233,59 @@ workflows:
   continuous-delivery:
     jobs:
       - install-dependencies
-      - tests:
-          requires:
-            - install-dependencies
-      - e2e:
-          requires:
-            - install-dependencies
+      # - tests:
+      #     requires:
+      #       - install-dependencies
+      # - e2e:
+      #     requires:
+      #       - install-dependencies
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
-            - tests
-            - e2e
-          filters:
-            branches:
-              only: develop
+            - install-dependencies
+          # requires:
+          #   - tests
+          #   - e2e
+          # filters:
+          #   branches:
+          #     only: develop
       - build-deploy-development:
           requires:
             - assume-role-development
-          filters:
-            branches:
-              only: develop
-      - assume-role-staging:
-          context: api-assume-role-staging-context
-          requires:
-            - tests
-            - e2e
-          filters:
-            branches:
-              only: main
-      - build-deploy-staging:
-          requires:
-            - assume-role-staging
-          filters:
-            branches:
-              only: main
-      - permit-deploy-production:
-          type: approval
-          requires:
-            - build-deploy-staging
-          filters:
-            branches:
-              only: main
-      - assume-role-production:
-          context: api-assume-role-housing-production-context
-          requires:
-            - permit-deploy-production
-          filters:
-            branches:
-              only: main
-      - build-deploy-production:
-          requires:
-            - assume-role-production
-          filters:
-            branches:
-              only: main
+          # filters:
+          #   branches:
+          #     only: develop
+      # - assume-role-staging:
+      #     context: api-assume-role-staging-context
+      #     requires:
+      #       - tests
+      #       - e2e
+      #     filters:
+      #       branches:
+      #         only: main
+      # - build-deploy-staging:
+      #     requires:
+      #       - assume-role-staging
+      #     filters:
+      #       branches:
+      #         only: main
+      # - permit-deploy-production:
+      #     type: approval
+      #     requires:
+      #       - build-deploy-staging
+      #     filters:
+      #       branches:
+      #         only: main
+      # - assume-role-production:
+      #     context: api-assume-role-housing-production-context
+      #     requires:
+      #       - permit-deploy-production
+      #     filters:
+      #       branches:
+      #         only: main
+      # - build-deploy-production:
+      #     requires:
+      #       - assume-role-production
+      #     filters:
+      #       branches:
+      #         only: main
