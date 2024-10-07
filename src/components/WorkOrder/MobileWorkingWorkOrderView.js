@@ -172,12 +172,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
       ].join(' - ')}`
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       notes,
       workOrderReference,
       data.reason,
       paymentType,
+      followOnFunctionalityEnabled,
       followOnRequest
     )
 

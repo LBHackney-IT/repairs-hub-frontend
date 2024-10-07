@@ -206,12 +206,16 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )}`
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,
       comments,
       reference,
       reason,
       paymentType,
+      followOnFunctionalityEnabled,
       followOnDataRequest
     )
 
