@@ -250,9 +250,9 @@ describe('Closing a work order on behalf of an operative', () => {
           {
             typeCode: '0',
             otherType: 'completed',
-            noteGeneratedOnFrontend: true,
+            noteGeneratedOnFrontend: false,
             comments:
-              'This has been repaired and I forgot I did it on a completely different date and time.',
+              'Work order closed - This has been repaired and I forgot I did it on a completely different date and time.',
             eventTime: '2021-02-19T13:01:00.000Z',
           },
         ],
@@ -1192,10 +1192,10 @@ describe('Closing a work order on behalf of an operative', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments: 'A note',
+                  comments: 'Work order closed - A note',
                   eventTime: '2021-01-19T13:01:00.000Z',
                   paymentType: 'Bonus',
-                  noteGeneratedOnFrontend: true,
+                  noteGeneratedOnFrontend: false,
                 },
               ],
             })
