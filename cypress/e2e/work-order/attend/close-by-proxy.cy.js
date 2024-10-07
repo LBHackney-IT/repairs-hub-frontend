@@ -2,9 +2,9 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
-  beforeEach(() => {
-    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'false'
+  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'false')
 
+  beforeEach(() => {
     cy.intercept(
       {
         method: 'GET',

@@ -12,9 +12,9 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
-  beforeEach(() => {
-    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'true'
+  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'true')
 
+  beforeEach(() => {
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')

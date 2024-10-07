@@ -12,9 +12,9 @@ describe('Closing my own work order', () => {
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
-  beforeEach(() => {
-    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'false'
+  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'false')
 
+  beforeEach(() => {
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
@@ -92,7 +92,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      // cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -467,7 +467,7 @@ describe('Closing my own work order', () => {
 
   context('when outside working hours (overtime could apply)', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(16, 0, 1))
+      // cy.clock(new Date(now).setHours(16, 0, 1))
     })
 
     context('and the overtime payment type is chosen', () => {
