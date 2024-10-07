@@ -28,6 +28,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
   const [photos, setPhotos] = useState([])
+  const [featureToggles, setFeatureToggles] = useState({})
+
   const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
 
@@ -44,6 +46,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
+
+      const featureToggleData = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/simple-feature-toggle',
+      })
+
       const propertyObject = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
@@ -64,6 +72,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         path: `/api/workOrders/images/${workOrderReference}`,
       })
 
+      setFeatureToggles(featureToggleData)
       setPhotos(photos)
       setCurrentUser(currentUser)
 
@@ -255,6 +264,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
             <MobileWorkingCloseWorkOrderForm
               onSubmit={onWorkOrderCompleteSubmit}
               isLoading={loadingStatus !== null}
+              followOnFunctionalityEnabled={
+                featureToggles?.followOnFunctionalityEnabled ?? false
+              }
             />
           )}
 

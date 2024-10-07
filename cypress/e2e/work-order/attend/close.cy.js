@@ -12,9 +12,19 @@ describe('Closing my own work order', () => {
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
-  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'false')
-
   beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          followOnFunctionalityEnabled: false,
+        },
+      }
+    ).as('feature-toggle')
+
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')

@@ -9,17 +9,22 @@ interface Props {
   watch: any
   reason: string
   followOnStatus: string
+  followOnFunctionalityEnabled: boolean
 }
 
 const CloseWorkOrderFormReasonForClosing = (props: Props) => {
-  const { register, errors, watch, reason, followOnStatus } = props
+  const {
+    register,
+    errors,
+    watch,
+    reason,
+    followOnStatus,
+    followOnFunctionalityEnabled,
+  } = props
 
   const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
 
   const reasonWatchedValue = watch('reason')
-
-  const enableFollowOnOptions =
-    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED === 'true'
 
   useEffect(() => {
     // When navigating back from summary page, the watch hook isnt updating
@@ -41,7 +46,7 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
       options={CLOSURE_STATUS_OPTIONS.map((r) => ({
         ...r,
         defaultChecked: r.value === reason,
-        children: enableFollowOnOptions ? (
+        children: followOnFunctionalityEnabled ? (
           r.value === 'Work Order Completed' ? (
             <FurtherWorkRadio
               error={errors?.followOnStatus}

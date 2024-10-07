@@ -2,9 +2,19 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative - When follow-ons are enabled', () => {
-  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'true')
-
   beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          followOnFunctionalityEnabled: true,
+        },
+      }
+    ).as('feature-toggle')
+
     cy.intercept(
       {
         method: 'GET',

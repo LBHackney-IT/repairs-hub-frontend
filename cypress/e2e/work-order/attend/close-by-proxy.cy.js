@@ -2,9 +2,19 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
-  Cypress.env('NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED', 'false')
-
   beforeEach(() => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          followOnFunctionalityEnabled: false,
+        },
+      }
+    ).as('feature-toggle')
+
     cy.intercept(
       {
         method: 'GET',

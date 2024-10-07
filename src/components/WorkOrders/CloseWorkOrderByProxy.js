@@ -43,6 +43,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
+  const [featureToggles, setFeatureToggles] = useState({})
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -116,7 +117,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     }
   }
 
-  const getCloseWorkOrder = async () => {
+  const fetchInitialData = async () => {
     setError(null)
 
     try {
@@ -124,6 +125,13 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
+
+      const featureToggleData = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/simple-feature-toggle',
+      })
+
+      setFeatureToggles(featureToggleData)
 
       setWorkOrder(new WorkOrder(workOrder))
 
@@ -154,7 +162,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   useEffect(() => {
     setLoadingStatus('Loading workorder')
 
-    getCloseWorkOrder()
+    fetchInitialData()
   }, [])
 
   const onJobSubmit = async () => {
@@ -346,6 +354,9 @@ const CloseWorkOrderByProxy = ({ reference }) => {
                   existingStartTime={workOrder.startTime !== null}
                   followOnData={followOnData}
                   isLoading={loadingStatus !== null}
+                  followOnFunctionalityEnabled={
+                    featureToggles?.followOnFunctionalityEnabled ?? false
+                  }
                 />
               )}
 
