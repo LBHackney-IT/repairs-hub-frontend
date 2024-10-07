@@ -4,8 +4,6 @@ import UserContext from '../UserContext'
 import CloseWorkOrderForm from './CloseWorkOrderForm'
 
 describe('CloseWorkOrderForm component', () => {
-  process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'false'
-
   const operatives = [
     {
       id: 1,
@@ -58,6 +56,7 @@ describe('CloseWorkOrderForm component', () => {
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={false}
+          followOnFunctionalityEnabled={false}
         />
       </UserContext.Provider>
     )
@@ -90,6 +89,7 @@ describe('CloseWorkOrderForm component', () => {
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={true}
+          followOnFunctionalityEnabled={false}
         />
       </UserContext.Provider>
     )
@@ -98,8 +98,6 @@ describe('CloseWorkOrderForm component', () => {
 })
 
 describe('CloseWorkOrderForm component - when follow-on functionality is enabled', () => {
-  process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'true'
-
   const operatives = [
     {
       id: 1,
@@ -152,6 +150,7 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={false}
+          followOnFunctionalityEnabled={true}
         />
       </UserContext.Provider>
     )
@@ -184,6 +183,7 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={true}
+          followOnFunctionalityEnabled={true}
         />
       </UserContext.Provider>
     )

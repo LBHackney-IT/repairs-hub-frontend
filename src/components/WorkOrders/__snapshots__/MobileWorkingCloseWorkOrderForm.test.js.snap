@@ -384,10 +384,6 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
               </label>
             </div>
             <div
-              class="govuk-radios__conditional"
-              id="conditional-contact"
-            />
-            <div
               class="govuk-radios__item"
             >
               <input
