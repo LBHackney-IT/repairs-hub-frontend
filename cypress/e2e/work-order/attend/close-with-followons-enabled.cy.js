@@ -7,13 +7,13 @@ Cypress.on('uncaught:exception', (err, runnable) => {
   return false
 })
 
-describe('Closing my own work order', () => {
+describe('Closing my own work order - When follow-ons are enabled', () => {
   const now = new Date('Friday June 11 2021 13:49:15Z')
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'false'
+    process.env.NEXT_PUBLIC_FOLLOW_ON_FUNCTIONALITY_ENABLED = 'true'
 
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',

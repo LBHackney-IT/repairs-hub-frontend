@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 const defaultOptions = ['Yes', 'No']
 
 interface Props {
-  label: string
+  label?: string
   labelSize?: 's' | 'm' | 'l' | 'xl'
   showAsOptional?: boolean
   hint?: string
