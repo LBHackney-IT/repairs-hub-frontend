@@ -80,7 +80,7 @@ export const buildCloseWorkOrderData = (
     if (followOnRequest !== null) {
       dataObject['followOnRequest'] = followOnRequest
     }
-  } else if (reason == 'No Access') {
+  } else if (reason != 'No Access') {
     jobStatusUpdate.comments = `Work order closed - ${notes}`
   }
 
