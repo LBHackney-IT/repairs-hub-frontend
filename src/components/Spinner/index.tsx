@@ -1,4 +1,8 @@
-const Spinner = ({ resource }) => (
+interface Props {
+  resource?: string
+}
+
+const Spinner = ({ resource }: Props) => (
   <svg
     width="50"
     height="50"
