@@ -452,7 +452,7 @@ describe('Closing my own work order', () => {
             {
               typeCode: '0',
               otherType: 'completed',
-              comments: 'Work order closed - I attended',
+              comments: 'Work order closed - I attended - Bonus calculation',
               eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
               paymentType: 'Bonus',
               noteGeneratedOnFrontend: false,
@@ -603,7 +603,8 @@ describe('Closing my own work order', () => {
               {
                 typeCode: '0',
                 otherType: 'completed',
-                comments: 'Work order closed - I attended',
+                comments:
+                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 paymentType: 'Overtime',
                 noteGeneratedOnFrontend: false,
@@ -678,7 +679,7 @@ describe('Closing my own work order', () => {
               {
                 typeCode: '0',
                 otherType: 'completed',
-                comments: 'Work order closed - I attended',
+                comments: 'Work order closed - I attended - Bonus calculation',
                 eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
                 paymentType: 'Bonus',
                 noteGeneratedOnFrontend: false,

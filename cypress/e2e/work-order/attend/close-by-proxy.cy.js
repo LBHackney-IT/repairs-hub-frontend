@@ -691,7 +691,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'A note'
+          'Work order closed - A note - Assigned operatives Operative A : 100% - Bonus calculation'
         )
 
       cy.get('@apiCheck')
@@ -744,7 +744,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'A note'
+          'Work order closed - A note - Assigned operatives Operative A - Overtime work order (SMVs not included in Bonus)'
         )
 
       cy.get('@apiCheck')
@@ -796,7 +796,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'A note'
+          'Work order closed - A note - Assigned operatives Operative A : 100% - Close to base (Operative payment made)'
         )
 
       cy.get('@apiCheck')
@@ -1192,7 +1192,8 @@ describe('Closing a work order on behalf of an operative', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments: 'Work order closed - A note',
+                  comments:
+                    'Work order closed - A note - Assigned operatives Operative A : 40%, Operative B : 60% - Bonus calculation',
                   eventTime: '2021-01-19T13:01:00.000Z',
                   paymentType: 'Bonus',
                   noteGeneratedOnFrontend: false,
@@ -1384,7 +1385,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .should(
           'have.deep.nested.property',
           'jobStatusUpdates[0].comments',
-          'A note'
+          'Work order closed - A note'
         )
 
       // no operative assignment request made
