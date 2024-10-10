@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 import ConfirmCloseWorkOrderWithoutPhotosForm from '../ConfirmCloseWorkOrderWithoutPhotosForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
-import Spinner from '../../Spinner'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import SpinnerWithLabel from '../../SpinnerWithLabel'
 
 interface Props {
   workOrderId: string
@@ -88,16 +88,7 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
       })
   }
 
-  if (loadingStatus)
-    return (
-      <div
-        className="govuk-body"
-        style={{ display: 'flex', alignItems: 'center' }}
-      >
-        <Spinner />
-        <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
-      </div>
-    )
+  if (loadingStatus) return <SpinnerWithLabel label={loadingStatus} />
 
   return (
     <div>

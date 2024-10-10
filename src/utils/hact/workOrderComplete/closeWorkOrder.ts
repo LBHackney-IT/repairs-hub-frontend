@@ -47,6 +47,7 @@ export const buildCloseWorkOrderData = (
   reference: string,
   reason: string,
   paymentType: string,
+  followOnFunctionalityEnabled: boolean,
   followOnRequest: followOnDataRequest = null
 ): closeWorkOrderDataRequest => {
   const typeCode = reason == 'No Access' ? '70' : '0'
@@ -60,11 +61,6 @@ export const buildCloseWorkOrderData = (
     noteGeneratedOnFrontend: false,
   }
 
-  if (typeCode === '0') {
-    // completed job note is generated on frontend
-    jobStatusUpdate.noteGeneratedOnFrontend = true
-  }
-
   const dataObject = {
     workOrderReference: {
       id: reference,
@@ -74,8 +70,16 @@ export const buildCloseWorkOrderData = (
     jobStatusUpdates: [jobStatusUpdate],
   }
 
-  if (followOnRequest !== null) {
-    dataObject['followOnRequest'] = followOnRequest
+  // feature toggle
+  if (followOnFunctionalityEnabled) {
+    if (typeCode === '0') {
+      // completed job note is generated on frontend
+      jobStatusUpdate.noteGeneratedOnFrontend = true
+    }
+
+    if (followOnRequest !== null) {
+      dataObject['followOnRequest'] = followOnRequest
+    }
   }
 
   return dataObject
