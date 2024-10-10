@@ -196,18 +196,18 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     let comments = notes // notes written by user
 
-    if (reason == 'No Access') {
+    if (reason == 'No Access' || !followOnFunctionalityEnabled) {
       comments = `Work order closed - ${buildWorkOrderCompleteNotes(
         notes,
         operativesWithPercentages,
         paymentType
       )}`
     }
-
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       completionDate,

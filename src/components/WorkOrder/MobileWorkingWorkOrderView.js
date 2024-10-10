@@ -163,17 +163,17 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
       )
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     let notes = data.notes // notes written by user
 
-    if (data.reason == 'No Access') {
+    if (data.reason == 'No Access' || !followOnFunctionalityEnabled) {
       notes = `Work order closed - ${[
         data.notes,
         workOrderNoteFragmentForPaymentType(paymentType),
       ].join(' - ')}`
     }
-
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),

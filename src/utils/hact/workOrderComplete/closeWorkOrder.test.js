@@ -10,7 +10,7 @@ describe('buildCloseWorkOrderData', () => {
     expect(
       buildCloseWorkOrderData(
         completionDate,
-        'A note',
+        'Work order closed - A note',
         '00000001',
         'No Access',
         'Payment type string',
@@ -35,7 +35,7 @@ describe('buildCloseWorkOrderData', () => {
     expect(
       buildCloseWorkOrderData(
         completionDate,
-        'A note',
+        'Work order closed - A note',
         '00000001',
         'Completed',
         'Payment type string',
@@ -86,7 +86,7 @@ describe('buildCloseWorkOrderData - when follow on feature toggle enabled', () =
     expect(
       buildCloseWorkOrderData(
         completionDate,
-        'A note',
+        'Work order closed - A note',
         '00000001',
         'No Access',
         'Payment type string',
@@ -98,7 +98,7 @@ describe('buildCloseWorkOrderData - when follow on feature toggle enabled', () =
         {
           typeCode: '70',
           otherType: 'completed',
-          comments: 'A note',
+          comments: 'Work order closed - A note',
           eventTime: completionDate,
           paymentType: 'Payment type string',
           noteGeneratedOnFrontend: false,
