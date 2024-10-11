@@ -3,13 +3,13 @@ import uploadFiles from './uploadFiles'
 import validateFileUpload from './validateFileUpload'
 import { captureException } from '@sentry/nextjs'
 
-const useFileUpload = (workOrderReference, onSuccess) => {
+const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
   const [loadingStatus, setLoadingStatus] = useState(null)
   const [validationError, setValidationError] = useState(null)
   const [requestError, setRequestError] = useState(null)
   const [uploadSuccess, setUploadSuccess] = useState(null)
 
-  const [files, setFiles] = useState([])
+  const [files, setFiles] = useState<File[]>([])
 
   useEffect(() => {
     if (requestError === null) return
@@ -53,7 +53,7 @@ const useFileUpload = (workOrderReference, onSuccess) => {
     setLoadingStatus(null)
 
     if (!uploadResult.success) {
-      setRequestError(uploadResult.requestError.message)
+      setRequestError(uploadResult.requestError)
       return
     }
 
