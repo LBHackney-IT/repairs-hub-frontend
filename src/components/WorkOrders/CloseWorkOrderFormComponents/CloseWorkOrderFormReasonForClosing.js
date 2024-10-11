@@ -73,7 +73,7 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
           ) : null,
       }))}
       register={register({
-        required: 'Please select a reason',
+        required: 'Please select a reason for closing the work order',
       })}
       error={errors && errors.reason}
     />

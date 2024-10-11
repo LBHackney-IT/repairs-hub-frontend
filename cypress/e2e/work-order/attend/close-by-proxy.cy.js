@@ -70,7 +70,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.contains('Summary of updates to work order').should('not.exist')
 
     cy.get('form').within(() => {
-      cy.contains('Please select a reason')
+      cy.contains('Please select a reason for closing the work order')
       cy.contains('Please pick completion date')
       cy.contains('Please enter a value for completion time')
     })
