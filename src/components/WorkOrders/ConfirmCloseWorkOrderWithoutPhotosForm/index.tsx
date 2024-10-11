@@ -44,7 +44,7 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
             (data.comments === null || data.comments.trim() === '') &&
             data.reason === null
           ) {
-            setError('Please select an option, or add comments')
+            setError('Please select a reason, or add comments')
             return
           }
 
@@ -67,7 +67,7 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
             label="Reason for not adding a photo"
             options={FORM_OPTIONS}
             register={register({
-              required: 'Please select an option',
+              required: 'Please select a reason',
             })}
             error={errors.reason}
           />
@@ -83,7 +83,7 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
                   reason === 'other' &&
                   (value === null || value.trim() === '')
                 ) {
-                  return 'Please summarise why a photo cannot be uploaded'
+                  return 'Please give a reason'
                 }
 
                 return true
