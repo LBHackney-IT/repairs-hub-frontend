@@ -285,7 +285,7 @@ describe('Closing my own work order', () => {
       ).as('getLinksRequest')
 
       cy.intercept(
-        { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+        { method: 'PUT', path: '**/placeholder-upload-url' },
         {
           statusCode: 200,
         }
@@ -324,9 +324,11 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.waitFor('@getLinksRequest')
-      cy.waitFor('@uploadToS3Request')
-      cy.waitFor('@completeUploadRequest')
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
 
       cy.get('.modal-container').within(() => {
         cy.contains(
