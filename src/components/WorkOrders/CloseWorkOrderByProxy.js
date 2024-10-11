@@ -75,7 +75,11 @@ const CloseWorkOrderByProxy = ({ reference }) => {
           (value) => setLoadingStatus(value)
         )
 
-        if (!uploadResult.success) throw uploadResult.requestError
+        if (!uploadResult.success) {
+          setError(uploadResult.requestError)
+          setLoadingStatus(null)
+          return
+        }
 
         setLoadingStatus('Completing workorder')
       }
