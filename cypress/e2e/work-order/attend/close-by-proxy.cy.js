@@ -505,9 +505,7 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
     // should contain error message
-    cy.contains(
-      'Oops an error occurred with error status: 500 with message: undefined'
-    )
+    cy.contains('Request failed with status code 500')
   })
 
   // uploads photos to work order

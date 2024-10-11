@@ -19,7 +19,15 @@ const getPresignedUrls = async (
 
     return { success: true, result }
   } catch (error) {
-    return { success: false, error }
+    let errorMessage = ''
+
+    if (typeof error == 'string') {
+      errorMessage = error
+    } else {
+      errorMessage = error.message
+    }
+
+    return { success: false, error: errorMessage }
   }
 }
 
