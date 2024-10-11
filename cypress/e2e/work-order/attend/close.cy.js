@@ -112,7 +112,7 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.contains('Please select a reason for closing the work order')
+      cy.contains('Please select a reason')
     })
 
     it('shows validation errors when uploading files', () => {
@@ -657,7 +657,7 @@ describe('Closing my own work order', () => {
         cy.get('#notes').type('I attended')
 
         cy.get('.govuk-form-group--error').contains(
-          'Please select a reason for closing the work order'
+          'Please select a reason'
         )
 
         cy.get('.lbh-radios input[data-testid="reason"]').check('No Access') // Checking by value, not text
@@ -729,7 +729,7 @@ describe('Closing my own work order', () => {
         cy.get('#notes').type('I attended')
 
         cy.get('.govuk-form-group--error').contains(
-          'Please select a reason for closing the work order'
+          'Please select a reason'
         )
 
         cy.get('.lbh-radios input[data-testid="reason"]').check(
@@ -804,7 +804,7 @@ describe('Closing my own work order', () => {
         cy.get('#notes').type('I attended')
 
         cy.get('.govuk-form-group--error').contains(
-          'Please select a reason for closing the work order'
+          'Please select a reason'
         )
 
         cy.get('.lbh-radios input[data-testid="reason"]').check(
