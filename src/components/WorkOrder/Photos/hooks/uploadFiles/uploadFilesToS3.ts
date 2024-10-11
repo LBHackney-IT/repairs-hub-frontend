@@ -10,7 +10,8 @@ const uploadFilesToS3 = async (
 ): Promise<{ success: boolean; error?: any }> => {
   console.log({ links })
 
-  links[0].presignedUrl += 'h'
+  // to remove - forces first file upload to fail
+  //   links[0].presignedUrl += 'h'
 
   const promiseList = files.map((file, i) => {
     return uploadWrapper(file, links[i])
