@@ -74,9 +74,7 @@ describe('confirm close work order without a photo', () => {
 
     cy.wait('@submitFeedbackRequest')
 
-    cy.contains('Please give a reason').should(
-      'not.exist'
-    )
+    cy.contains('Please give a reason').should('not.exist')
   })
 
   it('submits the form', () => {
