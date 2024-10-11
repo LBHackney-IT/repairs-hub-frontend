@@ -65,6 +65,7 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
           <Radio
             name="reason"
             label="Reason for not adding a photo"
+            labelSize='s'
             options={FORM_OPTIONS}
             register={register({
               required: 'Please select a reason',
