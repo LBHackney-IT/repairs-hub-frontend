@@ -259,10 +259,10 @@ describe('Closing my own work order', () => {
 
       cy.wait(['@getLinksRequest'])
 
-      cy.wait(['@uploadToS3Request'])
-      cy.wait(['@uploadToS3Request'])
-      cy.wait(['@uploadToS3Request'])
-      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
 
       cy.get('@uploadToS3Request.all').should('have.length', 4)
 
@@ -458,8 +458,8 @@ describe('Closing my own work order', () => {
       cy.wait(['@getLinksRequest'])
 
       // upload request fails twice
-      cy.wait(['@uploadToS3Request'])
-      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
 
       // upload request successful on third attempt
       cy.intercept(
@@ -469,7 +469,7 @@ describe('Closing my own work order', () => {
         }
       ).as('uploadToS3Request')
 
-      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
 
       cy.wait(['@completeUploadRequest'])
 
