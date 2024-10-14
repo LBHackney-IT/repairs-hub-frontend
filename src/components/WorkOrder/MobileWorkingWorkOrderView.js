@@ -169,10 +169,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
     let notes = data.notes // notes written by user
 
     if (data.reason == 'No Access' || !followOnFunctionalityEnabled) {
-      notes = `Work order closed - ${[
+      notes = [
+        'Work order closed',
         data.notes,
         workOrderNoteFragmentForPaymentType(paymentType),
-      ].join(' - ')}`
+      ].join(' - ')
     }
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
