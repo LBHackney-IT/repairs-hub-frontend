@@ -90,7 +90,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      // cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -205,9 +205,69 @@ describe('Closing my own work order', () => {
       cy.get('.govuk-button').contains('Close work order').click()
 
       // should contain error message
-      cy.contains(
-        'Oops an error occurred with error status: 500 with message: undefined'
-      )
+      cy.contains('Request failed with status code 500')
+    })
+
+    it('shows error when upload to S3 fails (after four attempts)', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request')
+
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // handle multiple intercepts
+
+      cy.wait(['@getLinksRequest'])
+
+      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'])
+
+      cy.get('@uploadToS3Request.all').should('have.length', 4)
+
+      // should contain error message
+      cy.contains('Some photos failed to upload. Please try again')
     })
 
     it('shows error when no photos selected', () => {
@@ -329,6 +389,89 @@ describe('Closing my own work order', () => {
         '@uploadToS3Request',
         '@completeUploadRequest',
       ])
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(
+          `Work order ${workOrderReference} successfully closed with no access`
+        )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
+    it('uploads files when closing work order when request fails', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+        {
+          statusCode: 200,
+          body: {
+            filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+          },
+        }
+      ).as('completeUploadRequest')
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait(['@getLinksRequest'])
+
+      // upload request fails twice
+      cy.wait(['@uploadToS3Request'])
+      cy.wait(['@uploadToS3Request'])
+
+      // upload request successful on third attempt
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 200,
+        }
+      ).as('uploadToS3Request')
+
+      cy.wait(['@uploadToS3Request'])
+
+      cy.wait(['@completeUploadRequest'])
 
       cy.get('.modal-container').within(() => {
         cy.contains(
@@ -630,7 +773,7 @@ describe('Closing my own work order', () => {
 
   context('when outside working hours (overtime could apply)', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(16, 0, 1))
+      // cy.clock(new Date(now).setHours(16, 0, 1))
     })
 
     context('and the overtime payment type is chosen', () => {

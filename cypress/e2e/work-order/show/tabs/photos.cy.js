@@ -83,9 +83,9 @@ describe('Photos', () => {
     cy.contains('Save description').click()
 
     // triggers update request
-    cy.waitFor('@updateDescriptionRequest')
+    cy.wait('@updateDescriptionRequest')
     // triggers reload
-    cy.waitFor('@photos')
+    cy.wait('@photos')
 
     // add description
     cy.contains('Add description').click()
@@ -93,9 +93,9 @@ describe('Photos', () => {
     cy.contains('Add description').click()
 
     // triggers update request
-    cy.waitFor('@updateDescriptionRequest')
+    cy.wait('@updateDescriptionRequest')
     // triggers reload
-    cy.waitFor('@photos')
+    cy.wait('@photos')
   })
 
   it('shows validation errors when uploading files', () => {
@@ -168,14 +168,14 @@ describe('Photos', () => {
 
     cy.get('button').contains('Upload').click()
 
-    cy.waitFor('@getLinksRequest')
+    cy.wait('@getLinksRequest')
 
     // should contain error message
     cy.contains('Failed to upload files')
     cy.contains('Request failed with status code 500')
   })
 
-  it('shows shows success message when files uploaded', () => {
+  it('shows success message when files uploaded', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/images/upload*' },
       {
@@ -192,7 +192,7 @@ describe('Photos', () => {
     ).as('getLinksRequest')
 
     cy.intercept(
-      { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+      { method: 'PUT', path: '**/placeholder-upload-url' },
       {
         statusCode: 200,
       }
@@ -223,9 +223,78 @@ describe('Photos', () => {
 
     cy.get('button').contains('Upload').click()
 
-    cy.waitFor('@getLinksRequest')
-    cy.waitFor('@uploadToS3Request')
-    cy.waitFor('@completeUploadRequest')
+    cy.wait('@getLinksRequest')
+    cy.wait('@uploadToS3Request')
+    cy.wait('@completeUploadRequest')
+
+    cy.contains('Upload successful')
+    cy.contains('1 photo has been added to the work order')
+  })
+
+  it('completes upload when request fails multiple times', () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      {
+        statusCode: 200,
+        body: {
+          links: [
+            {
+              key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+              presignedUrl: 'https://test.com/placeholder-upload-url',
+            },
+          ],
+        },
+      }
+    ).as('getLinksRequest')
+
+    cy.intercept(
+      { method: 'PUT', path: '**/placeholder-upload-url' },
+      {
+        statusCode: 500,
+      }
+    ).as('uploadToS3Request')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+      {
+        statusCode: 200,
+        body: {
+          filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+        },
+      }
+    ).as('completeUploadRequest')
+
+    cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
+
+    cy.get('a[id="tab_photos-tab"]').click()
+
+    // select and upload file
+    cy.get('input[type="file"]').selectFile({
+      contents: Cypress.Buffer.from('file contents'),
+      fileName: 'file.png',
+      mimeType: 'image/png',
+      lastModified: Date.now(),
+    })
+    cy.get('textarea[data-testid="description"]').type('some description')
+
+    cy.get('button').contains('Upload').click()
+
+    cy.wait('@getLinksRequest')
+    // upload fails twice
+    cy.wait('@uploadToS3Request')
+    cy.wait('@uploadToS3Request')
+
+    cy.intercept(
+      { method: 'PUT', path: '**/placeholder-upload-url' },
+      {
+        statusCode: 200,
+      }
+    ).as('uploadToS3Request')
+
+    // upload successful
+    cy.wait('@uploadToS3Request')
+
+    cy.wait('@completeUploadRequest')
 
     cy.contains('Upload successful')
     cy.contains('1 photo has been added to the work order')
