@@ -23,7 +23,11 @@ const FIELD_NAMES_ON_FIRST_PAGE = [
   'description',
 ]
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
+const MobileWorkingCloseWorkOrderForm = ({
+  onSubmit,
+  isLoading,
+  followOnFunctionalityEnabled,
+}) => {
   const {
     handleSubmit,
     register,
@@ -99,6 +103,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             register={register}
             errors={errors}
             watch={watch}
+            followOnFunctionalityEnabled={followOnFunctionalityEnabled}
           />
 
           <div className="govuk-form-group lbh-form-group">
@@ -213,6 +218,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
 MobileWorkingCloseWorkOrderForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  followOnFunctionalityEnabled: PropTypes.bool.isRequired,
 }
 
 export default MobileWorkingCloseWorkOrderForm
