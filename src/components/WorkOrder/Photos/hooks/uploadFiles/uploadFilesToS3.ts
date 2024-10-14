@@ -8,11 +8,6 @@ const uploadFilesToS3 = async (
   links: Link[],
   onProgress: (completed: number, total: number) => void
 ): Promise<{ success: boolean; error?: any }> => {
-  console.log({ links })
-
-  // to remove - forces first file upload to fail
-  //   links[0].presignedUrl += 'h'
-
   const promiseList = files.map((file, i) => {
     return uploadWrapper(file, links[i])
   })
@@ -64,9 +59,16 @@ const uploadWrapper = async (
 
   const compressedFile = await imageCompression(file, compressionOptions)
 
-  return faultTolerantRequest(
-    async () => await uploadFileToS3(compressedFile, link)
+  const result = await faultTolerantRequest(
+    async () =>
+      new Promise((resolve, reject) => {
+        uploadFileToS3(compressedFile, link)
+          .then(() => resolve())
+          .catch(() => reject())
+      })
   )
+
+  return result
 }
 
 export default uploadFilesToS3
