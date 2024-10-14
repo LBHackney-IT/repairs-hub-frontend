@@ -2,7 +2,10 @@ import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchSimpleFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
@@ -18,8 +21,9 @@ import { BONUS_PAYMENT_TYPE } from '@/utils/paymentTypes'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 
-const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
+const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [property, setProperty] = useState({})
@@ -28,6 +32,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
   const [photos, setPhotos] = useState([])
+  const [featureToggles, setFeatureToggles] = useState({})
+
   const [loadingStatus, setLoadingStatus] = useState(null)
   const [error, setError] = useState()
 
@@ -44,6 +50,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         method: 'get',
         path: `/api/workOrders/${workOrderReference}`,
       })
+
+      const featureToggleData = await fetchSimpleFeatureToggles()
+
       const propertyObject = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${workOrder.propertyReference}`,
@@ -64,6 +73,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/images/${workOrderReference}`,
       })
 
+      setFeatureToggles(featureToggleData)
       setPhotos(photos)
       setCurrentUser(currentUser)
 
@@ -153,13 +163,17 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       )
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     let notes = data.notes // notes written by user
 
-    if (data.reason == 'No Access') {
-      notes = `Work order closed - ${[
+    if (data.reason == 'No Access' || !followOnFunctionalityEnabled) {
+      notes = [
+        'Work order closed',
         data.notes,
         workOrderNoteFragmentForPaymentType(paymentType),
-      ].join(' - ')}`
+      ].join(' - ')
     }
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
@@ -168,6 +182,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       workOrderReference,
       data.reason,
       paymentType,
+      followOnFunctionalityEnabled,
       followOnRequest
     )
 
@@ -194,13 +209,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         requestData: closeWorkOrderFormData,
       })
 
-      setModalFlashMessage(
-        `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'closed'
-        }`
-      )
-
-      router.push('/')
+      if (files.length === 0) {
+        // confirmation page with form
+        router.push(
+          `/operatives/${operativeId}/work-orders/${workOrderReference}/confirmation`
+        )
+      } else {
+        // pre-existing confirmation message
+        setModalFlashMessage(
+          `Work order ${workOrderReference} successfully ${
+            data.reason === 'No Access' ? 'closed with no access' : 'closed'
+          }`
+        )
+        router.push('/')
+      }
     } catch (e) {
       console.error(e)
       setError(
@@ -210,50 +232,43 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
   }
 
+  if (loadingStatus) return <SpinnerWithLabel label={loadingStatus} />
+
   return (
     <>
-      {loadingStatus ? (
-        <div
-          className="govuk-body"
-          style={{ display: 'flex', alignItems: 'center' }}
-        >
-          <Spinner />
-          <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
-        </div>
-      ) : (
-        <>
-          {!workOrderProgressedToClose &&
-            property &&
-            property.address &&
-            property.hierarchyType &&
-            tenure &&
-            workOrder && (
-              <>
-                <MobileWorkingWorkOrder
-                  workOrderReference={workOrderReference}
-                  property={property}
-                  tenure={tenure}
-                  workOrder={workOrder}
-                  tasksAndSors={tasksAndSors}
-                  error={error}
-                  onFormSubmit={onWorkOrderProgressToCloseSubmit}
-                  currentUserPayrollNumber={currentUser.operativePayrollNumber}
-                  paymentType={paymentType}
-                  photos={photos}
-                />
-              </>
-            )}
-
-          {workOrderProgressedToClose && (
-            <MobileWorkingCloseWorkOrderForm
-              onSubmit={onWorkOrderCompleteSubmit}
-              isLoading={loadingStatus !== null}
+      {!workOrderProgressedToClose &&
+        property &&
+        property.address &&
+        property.hierarchyType &&
+        tenure &&
+        workOrder && (
+          <>
+            <MobileWorkingWorkOrder
+              workOrderReference={workOrderReference}
+              property={property}
+              tenure={tenure}
+              workOrder={workOrder}
+              tasksAndSors={tasksAndSors}
+              error={error}
+              onFormSubmit={onWorkOrderProgressToCloseSubmit}
+              currentUserPayrollNumber={currentUser.operativePayrollNumber}
+              paymentType={paymentType}
+              photos={photos}
             />
-          )}
+          </>
+        )}
 
-          {error && <ErrorMessage label={error} />}
-        </>
+      {workOrderProgressedToClose && (
+        <MobileWorkingCloseWorkOrderForm
+          onSubmit={onWorkOrderCompleteSubmit}
+          isLoading={loadingStatus !== null}
+          followOnFunctionalityEnabled={
+            featureToggles?.followOnFunctionalityEnabled ?? false
+          }
+        />
       )}
+
+      {error && <ErrorMessage label={error} />}
     </>
   )
 }

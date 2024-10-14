@@ -9,13 +9,25 @@ import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/Follow
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
+import CheckboxSmall from '../Form/CheckboxSmall'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
+const FIELD_NAMES_ON_FIRST_PAGE = [
+  'reason',
+  'followOnStatus',
+  'fileUpload',
+  'description',
+]
+
+const MobileWorkingCloseWorkOrderForm = ({
+  onSubmit,
+  isLoading,
+  followOnFunctionalityEnabled,
+}) => {
   const {
     handleSubmit,
     register,
@@ -24,6 +36,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
     clearErrors,
     watch,
     getValues,
+    trigger,
   } = useForm({
     shouldUnregister: false,
   })
@@ -33,7 +46,21 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
+  const [closeWithoutPhotos, setCloseWithoutPhotos] = useState(false)
+  // So we dont show the error immediately
+  const [photosTouched, setPhotosTouched] = useState(false)
+
   const viewFollowOnDetailsPage = () => {
+    trigger(FIELD_NAMES_ON_FIRST_PAGE)
+
+    if (Object.keys(errors).length > 0) return
+
+    // validate file uploaded
+    if (files.length === 0 && !closeWithoutPhotos) {
+      // user must confirm submit without photos
+      return
+    }
+
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
@@ -56,7 +83,14 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
       <form
         role="form"
-        onSubmit={handleSubmit((data) => onSubmit(data, files))}
+        onSubmit={handleSubmit((data) => {
+          if (files.length === 0 && !closeWithoutPhotos) {
+            // user must confirm submit without photos
+            return
+          }
+
+          onSubmit(data, files)
+        })}
       >
         <div
           style={{
@@ -69,6 +103,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             register={register}
             errors={errors}
             watch={watch}
+            followOnFunctionalityEnabled={followOnFunctionalityEnabled}
           />
 
           <div className="govuk-form-group lbh-form-group">
@@ -79,6 +114,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
               isLoading={isLoading}
               register={register('fileUpload', {
                 validate: () => {
+                  setPhotosTouched(true)
+
                   const validation = validateFileUpload(files)
 
                   if (validation === null) return true
@@ -94,6 +131,34 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
                 showAsOptional
                 register={register}
               />
+            )}
+
+            {files.length === 0 && photosTouched && (
+              <div className="lbh-page-announcement lbh-page-announcement--warning">
+                <h3 className="lbh-page-announcement__title">
+                  No photos were selected
+                </h3>
+                <div className="lbh-page-announcement__content">
+                  <div>
+                    {' '}
+                    Adding photos will help improve the identification of
+                    follow-ons required and reduce errors.
+                  </div>
+
+                  <div style={{ marginTop: '30px !important' }}>
+                    <CheckboxSmall
+                      className="govuk-!-margin-0"
+                      labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
+                      name={'closeWorkOrderWithoutPhotos'}
+                      label={'I want to close the work order without photos'}
+                      onChange={() => {
+                        setCloseWithoutPhotos(() => !closeWithoutPhotos)
+                      }}
+                      checked={closeWithoutPhotos}
+                    />
+                  </div>
+                </div>
+              </div>
             )}
           </div>
 
@@ -153,6 +218,8 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
 MobileWorkingCloseWorkOrderForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  followOnFunctionalityEnabled: PropTypes.bool.isRequired,
 }
 
 export default MobileWorkingCloseWorkOrderForm

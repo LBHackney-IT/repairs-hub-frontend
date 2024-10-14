@@ -1,40 +1,25 @@
-import {
-  CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
-} from '@/root/src/utils/statusCodes'
+import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
+import FurtherWorkRadio from './FurtherWorksRadio'
 
-const FurtherWorkRadio = (props) => {
-  const { errors, visible, register, followOnStatus } = props
-
-  if (!visible) return null
-
-  return (
-    <Radios
-      name="followOnStatus"
-      options={FOLLOW_ON_STATUS_OPTIONS.map((x) => {
-        return {
-          ...x,
-          defaultChecked: x.value === followOnStatus,
-        }
-      })}
-      register={register({
-        required: 'Please confirm if further work is required',
-      })}
-      error={errors && errors.followOnStatus}
-    />
-  )
+interface Props {
+  register: any
+  errors: { [key: string]: { message: string } }
+  watch: any
+  reason: string
+  followOnStatus: string
+  followOnFunctionalityEnabled: boolean
 }
 
-const CloseWorkOrderFormReasonForClosing = (props) => {
+const CloseWorkOrderFormReasonForClosing = (props: Props) => {
   const {
     register,
     errors,
     watch,
     reason,
-    followOnData,
     followOnStatus,
+    followOnFunctionalityEnabled,
   } = props
 
   const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
@@ -61,16 +46,16 @@ const CloseWorkOrderFormReasonForClosing = (props) => {
       options={CLOSURE_STATUS_OPTIONS.map((r) => ({
         ...r,
         defaultChecked: r.value === reason,
-        children:
+        children: followOnFunctionalityEnabled ? (
           r.value === 'Work Order Completed' ? (
             <FurtherWorkRadio
-              errors={errors}
+              error={errors?.followOnStatus}
               register={register}
               visible={showFurtherWorkRadio}
-              followOnData={followOnData}
               followOnStatus={followOnStatus}
             />
-          ) : null,
+          ) : null
+        ) : null,
       }))}
       register={register({
         required: 'Please select a reason for closing the work order',
