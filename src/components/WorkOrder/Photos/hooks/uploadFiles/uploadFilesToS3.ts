@@ -57,15 +57,17 @@ const uploadWrapper = async (
     maxIteration: 1,
   }
 
-  const compressedFile = await imageCompression(file, compressionOptions)
+  let fileToUpload = file
+
+  // try to compress file. If fails, just use file
+  try {
+    fileToUpload = await imageCompression(file, compressionOptions)
+  } catch (err) {
+    console.error('failed to compress file - using original', err)
+  }
 
   const result = await faultTolerantRequest(
-    async () =>
-      new Promise((resolve, reject) => {
-        uploadFileToS3(compressedFile, link)
-          .then(() => resolve())
-          .catch(() => reject())
-      })
+    async () => await uploadFileToS3(fileToUpload, link)
   )
 
   return result
