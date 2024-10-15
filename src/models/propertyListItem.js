@@ -3,16 +3,9 @@
 
 export class PropertyListItem {
   constructor(property) {
-    if (typeof property.address === 'object') {
-      this.address = property.address.shortAddress
-      this.postalCode = property.address.postalCode
-      this.propertyType = property.hierarchyType.subTypeDescription
-      this.propertyReference = property.propertyReference
-    } else {
-      this.address = property.address
-      this.postalCode = property.postCode
-      this.propertyType = property.propertyType
-      this.propertyReference = property.propertyReference
-    }
+    this.address = property.assetAddress.addressLine1
+    this.postalCode = property.assetAddress.postCode
+    this.propertyType = property.assetType
+    this.propertyReference = property.assetId
   }
 }

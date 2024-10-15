@@ -5,14 +5,12 @@ import PropertiesTable from '../Properties/PropertiesTable'
 import { PrimarySubmitButton } from '../Form'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { searchApiRequest } from '@/utils/searchApiRequest'
 import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
 const Search = ({ query }) => {
-  const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
-
   let decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
@@ -65,20 +63,17 @@ const Search = ({ query }) => {
 
     try {
       if (searchQuery) {
-        const propertiesData = await frontEndApiRequest({
-          method: 'get',
-          path: '/api/properties/search',
-          params: {
-            searchText: searchQuery,
-            ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
-            ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
-          },
-        })
+        const pageSize = process.env.NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
+        const propertiesData = await searchApiRequest(
+          searchQuery,
+          pageNumber,
+          pageSize
+        )
 
         setSearchHitTotal(parseInt(propertiesData.total))
 
         setProperties(
-          propertiesData.properties.map(
+          propertiesData.results.assets.map(
             (property) => new PropertyListItem(property)
           )
         )
