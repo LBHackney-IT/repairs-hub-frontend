@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
-
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
@@ -8,7 +7,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 })
 
 describe('Closing my own work order', () => {
-  const now = new Date('Friday June 11 2021 13:49:15Z')
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
@@ -102,7 +100,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      Cypress.env('IsCurrentOperativeOvertime', false)
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -217,9 +215,88 @@ describe('Closing my own work order', () => {
       cy.get('.govuk-button').contains('Close work order').click()
 
       // should contain error message
-      cy.contains(
-        'Oops an error occurred with error status: 500 with message: undefined'
+      cy.contains('Request failed with status code 500')
+    })
+
+    it('shows error when upload to S3 fails (after four attempts)', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      const uploadToS3RequestResponses = [
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+      ]
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        (request) => {
+          request.reply(uploadToS3RequestResponses.shift())
+        }
+      ).as('uploadToS3Request')
+
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // handle multiple intercepts
+
+      cy.wait(['@getLinksRequest'])
+
+      cy.wait(
+        [
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+        ],
+        { timeout: 10000 }
       )
+      cy.get('@uploadToS3Request.all').should('have.length', 4)
+
+      // should contain error message
+      cy.contains('Some photos failed to upload. Please try again')
     })
 
     it('shows error when no photos selected', () => {
@@ -297,7 +374,7 @@ describe('Closing my own work order', () => {
       ).as('getLinksRequest')
 
       cy.intercept(
-        { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+        { method: 'PUT', path: '**/placeholder-upload-url' },
         {
           statusCode: 200,
         }
@@ -336,9 +413,101 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.waitFor('@getLinksRequest')
-      cy.waitFor('@uploadToS3Request')
-      cy.waitFor('@completeUploadRequest')
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(
+          `Work order ${workOrderReference} successfully closed with no access`
+        )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
+    it('uploads files when closing work order when request fails', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      const uploadToS3RequestResponses = [
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 200,
+        },
+      ]
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        (request) => {
+          request.reply(uploadToS3RequestResponses.shift())
+        }
+      ).as('uploadToS3Request')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+        {
+          statusCode: 200,
+          body: {
+            filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+          },
+        }
+      ).as('completeUploadRequest')
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+
+      // 1. invalid file type
+      cy.get('input[type="file"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      cy.wait(['@getLinksRequest'])
+
+      // upload request fails twice, last one succeeds
+      cy.wait(
+        ['@uploadToS3Request', '@uploadToS3Request', '@uploadToS3Request'],
+        { timeout: 10000 }
+      )
+
+      cy.wait(['@completeUploadRequest'])
 
       cy.get('.modal-container').within(() => {
         cy.contains(
@@ -378,23 +547,31 @@ describe('Closing my own work order', () => {
 
       cy.get('@workOrderCompleteRequest')
         .its('request.body')
-        .should('deep.equal', {
-          workOrderReference: {
-            id: workOrderReference,
-            description: '',
-            allocatedBy: '',
-          },
-          jobStatusUpdates: [
-            {
-              typeCode: '70',
-              otherType: 'completed',
-              comments: 'Work order closed - I attended - Bonus calculation',
-              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-              paymentType: 'Bonus',
-
-              noteGeneratedOnFrontend: false,
+        .should((body) => {
+          expect(body).to.deep.equal({
+            workOrderReference: {
+              id: workOrderReference,
+              description: '',
+              allocatedBy: '',
             },
-          ],
+            jobStatusUpdates: [
+              {
+                typeCode: '70',
+                otherType: 'completed',
+                comments: 'Work order closed - I attended - Bonus calculation',
+                eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: false,
+              },
+            ],
+          })
+
+          const eventTime = new Date(
+            body.jobStatusUpdates[0].eventTime
+          ).getTime()
+          const nowTime = new Date().getTime()
+
+          expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
       // check on confirmation page
@@ -408,7 +585,13 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+      cy.get('.lbh-heading-h2').contains(
+        new Date(new Date()).toLocaleDateString('en-GB', {
+          month: 'long',
+          weekday: 'long',
+          day: 'numeric',
+        })
+      )
     })
 
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
@@ -442,22 +625,31 @@ describe('Closing my own work order', () => {
 
       cy.get('@workOrderCompleteRequest')
         .its('request.body')
-        .should('deep.equal', {
-          workOrderReference: {
-            id: workOrderReference,
-            description: '',
-            allocatedBy: '',
-          },
-          jobStatusUpdates: [
-            {
-              typeCode: '0',
-              otherType: 'completed',
-              comments: 'Work order closed - I attended - Bonus calculation',
-              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-              paymentType: 'Bonus',
-              noteGeneratedOnFrontend: false,
+        .should((body) => {
+          expect(body).to.deep.equal({
+            workOrderReference: {
+              id: workOrderReference,
+              description: '',
+              allocatedBy: '',
             },
-          ],
+            jobStatusUpdates: [
+              {
+                typeCode: '0',
+                otherType: 'completed',
+                comments: 'Work order closed - I attended - Bonus calculation',
+                eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: false,
+              },
+            ],
+          })
+
+          const eventTime = new Date(
+            body.jobStatusUpdates[0].eventTime
+          ).getTime()
+          const nowTime = new Date().getTime()
+
+          expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
       // check on confirmation page
@@ -471,13 +663,19 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+      cy.get('.lbh-heading-h2').contains(
+        new Date(new Date()).toLocaleDateString('en-GB', {
+          month: 'long',
+          weekday: 'long',
+          day: 'numeric',
+        })
+      )
     })
   })
 
   context('when outside working hours (overtime could apply)', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(16, 0, 1))
+      Cypress.env('IsCurrentOperativeOvertime', true)
     })
 
     context('and the overtime payment type is chosen', () => {
@@ -520,23 +718,32 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '70',
-                otherType: 'completed',
-                comments:
-                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Overtime',
-                noteGeneratedOnFrontend: false,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '70',
+                  otherType: 'completed',
+                  comments:
+                    'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Overtime',
+                  noteGeneratedOnFrontend: false,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -550,7 +757,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
 
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
@@ -593,23 +806,32 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '0',
-                otherType: 'completed',
-                comments:
-                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Overtime',
-                noteGeneratedOnFrontend: false,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '0',
+                  otherType: 'completed',
+                  comments:
+                    'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Overtime',
+                  noteGeneratedOnFrontend: false,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -623,7 +845,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
     })
 
@@ -669,22 +897,32 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '0',
-                otherType: 'completed',
-                comments: 'Work order closed - I attended - Bonus calculation',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Bonus',
-                noteGeneratedOnFrontend: false,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '0',
+                  otherType: 'completed',
+                  comments:
+                    'Work order closed - I attended - Bonus calculation',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Bonus',
+                  noteGeneratedOnFrontend: false,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -698,7 +936,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
     })
   })

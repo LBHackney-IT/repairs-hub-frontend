@@ -515,15 +515,13 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
     // should contain error message
-    cy.contains(
-      'Oops an error occurred with error status: 500 with message: undefined'
-    )
+    cy.contains('Request failed with status code 500')
   })
 
   // uploads photos to work order
   it('uploads files when closing work order', () => {
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      { method: 'GET', path: '/api/workOrders/images/uploadLink?*' },
       {
         statusCode: 200,
         body: {
@@ -538,7 +536,7 @@ describe('Closing a work order on behalf of an operative', () => {
     ).as('getLinksRequest')
 
     cy.intercept(
-      { method: 'PUT', path: 'https://test.com/placeholder-upload-url' },
+      { method: 'PUT', path: '**/placeholder-upload-url' },
       {
         statusCode: 200,
       }
@@ -553,6 +551,7 @@ describe('Closing a work order on behalf of an operative', () => {
         },
       }
     ).as('completeUploadRequest')
+
     cy.visit('/work-orders/10000040/close')
     cy.wait('@workOrder')
 
@@ -591,9 +590,11 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.get('.govuk-table__row img').should('have.attr', 'src')
     cy.get('[type="submit"]').contains('Confirm and close').click()
 
-    cy.waitFor('@getLinksRequest')
-    cy.waitFor('@uploadToS3Request')
-    cy.waitFor('@completeUploadRequest')
+    cy.wait([
+      '@getLinksRequest',
+      '@uploadToS3Request',
+      '@completeUploadRequest',
+    ])
 
     cy.wait(['@apiCheck', '@startTime'])
 
