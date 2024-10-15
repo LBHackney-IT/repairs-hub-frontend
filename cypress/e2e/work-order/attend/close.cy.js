@@ -259,10 +259,18 @@ describe('Closing my own work order', () => {
 
       cy.wait(['@getLinksRequest'])
 
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(
+        [
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+        ],
+        { timeout: 10000 }
+      )
+      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
 
       cy.get('@uploadToS3Request.all').should('have.length', 4)
 
