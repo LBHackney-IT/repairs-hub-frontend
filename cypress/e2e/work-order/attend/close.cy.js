@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
-
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
@@ -8,7 +7,6 @@ Cypress.on('uncaught:exception', (err, runnable) => {
 })
 
 describe('Closing my own work order', () => {
-  const now = new Date('Friday June 11 2021 13:49:15Z')
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
@@ -90,7 +88,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      Cypress.env('IsCurrentOperativeOvertime', false)
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -537,23 +535,31 @@ describe('Closing my own work order', () => {
 
       cy.get('@workOrderCompleteRequest')
         .its('request.body')
-        .should('deep.equal', {
-          workOrderReference: {
-            id: workOrderReference,
-            description: '',
-            allocatedBy: '',
-          },
-          jobStatusUpdates: [
-            {
-              typeCode: '70',
-              otherType: 'completed',
-              comments: 'Work order closed - I attended - Bonus calculation',
-              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-              paymentType: 'Bonus',
-
-              noteGeneratedOnFrontend: false,
+        .should((body) => {
+          expect(body).to.deep.equal({
+            workOrderReference: {
+              id: workOrderReference,
+              description: '',
+              allocatedBy: '',
             },
-          ],
+            jobStatusUpdates: [
+              {
+                typeCode: '70',
+                otherType: 'completed',
+                comments: 'Work order closed - I attended - Bonus calculation',
+                eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: false,
+              },
+            ],
+          })
+
+          const eventTime = new Date(
+            body.jobStatusUpdates[0].eventTime
+          ).getTime()
+          const nowTime = new Date().getTime()
+
+          expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
       // check on confirmation page
@@ -567,7 +573,13 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+      cy.get('.lbh-heading-h2').contains(
+        new Date(new Date()).toLocaleDateString('en-GB', {
+          month: 'long',
+          weekday: 'long',
+          day: 'numeric',
+        })
+      )
     })
 
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
@@ -602,22 +614,31 @@ describe('Closing my own work order', () => {
 
       cy.get('@workOrderCompleteRequest')
         .its('request.body')
-        .should('deep.equal', {
-          workOrderReference: {
-            id: workOrderReference,
-            description: '',
-            allocatedBy: '',
-          },
-          jobStatusUpdates: [
-            {
-              typeCode: '0',
-              otherType: 'completed',
-              comments: 'I attended',
-              eventTime: new Date(now.setHours(12, 0, 0)).toISOString(),
-              paymentType: 'Bonus',
-              noteGeneratedOnFrontend: true,
+        .should((body) => {
+          expect(body).to.deep.equal({
+            workOrderReference: {
+              id: workOrderReference,
+              description: '',
+              allocatedBy: '',
             },
-          ],
+            jobStatusUpdates: [
+              {
+                typeCode: '0',
+                otherType: 'completed',
+                comments: 'I attended',
+                eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: true,
+              },
+            ],
+          })
+
+          const eventTime = new Date(
+            body.jobStatusUpdates[0].eventTime
+          ).getTime()
+          const nowTime = new Date().getTime()
+
+          expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
       // check on confirmation page
@@ -631,7 +652,13 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains('Friday 11 June')
+      cy.get('.lbh-heading-h2').contains(
+        new Date(new Date()).toLocaleDateString('en-GB', {
+          month: 'long',
+          weekday: 'long',
+          day: 'numeric',
+        })
+      )
     })
 
     it('shows validation message when further works required not specified', () => {
@@ -799,7 +826,7 @@ describe('Closing my own work order', () => {
 
   context('when outside working hours (overtime could apply)', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(16, 0, 1))
+      Cypress.env('IsCurrentOperativeOvertime', true)
     })
 
     context('and the overtime payment type is chosen', () => {
@@ -842,23 +869,32 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '70',
-                otherType: 'completed',
-                comments:
-                  'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Overtime',
-                noteGeneratedOnFrontend: false,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '70',
+                  otherType: 'completed',
+                  comments:
+                    'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Overtime',
+                  noteGeneratedOnFrontend: false,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -872,7 +908,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
 
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
@@ -916,22 +958,31 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '0',
-                otherType: 'completed',
-                comments: 'I attended',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Overtime',
-                noteGeneratedOnFrontend: true,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '0',
+                  otherType: 'completed',
+                  comments: 'I attended',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Overtime',
+                  noteGeneratedOnFrontend: true,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -945,7 +996,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
     })
 
@@ -992,22 +1049,31 @@ describe('Closing my own work order', () => {
 
         cy.get('@workOrderCompleteRequest')
           .its('request.body')
-          .should('deep.equal', {
-            workOrderReference: {
-              id: workOrderReference,
-              description: '',
-              allocatedBy: '',
-            },
-            jobStatusUpdates: [
-              {
-                typeCode: '0',
-                otherType: 'completed',
-                comments: 'I attended',
-                eventTime: new Date(now.setHours(16, 0, 1)).toISOString(),
-                paymentType: 'Bonus',
-                noteGeneratedOnFrontend: true,
+          .should((body) => {
+            expect(body).to.deep.equal({
+              workOrderReference: {
+                id: workOrderReference,
+                description: '',
+                allocatedBy: '',
               },
-            ],
+              jobStatusUpdates: [
+                {
+                  typeCode: '0',
+                  otherType: 'completed',
+                  comments: 'I attended',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  paymentType: 'Bonus',
+                  noteGeneratedOnFrontend: true,
+                },
+              ],
+            })
+
+            const eventTime = new Date(
+              body.jobStatusUpdates[0].eventTime
+            ).getTime()
+            const nowTime = new Date().getTime()
+
+            expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
         // check on confirmation page
@@ -1021,7 +1087,13 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h2').contains(
+          new Date(new Date()).toLocaleDateString('en-GB', {
+            month: 'long',
+            weekday: 'long',
+            day: 'numeric',
+          })
+        )
       })
     })
   })

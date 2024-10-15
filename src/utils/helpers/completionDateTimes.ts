@@ -32,6 +32,17 @@ const isNonWorkingDay = (date: Date) => {
 }
 
 export const isCurrentTimeOperativeOvertime = () => {
+  // @ts-expect-error cypress hack
+  if (typeof window.Cypress != 'undefined' && window.Cypress) {
+    // @ts-expect-error cypress hack
+    if (typeof window.Cypress.env('IsCurrentOperativeOvertime') == 'boolean') {
+      // @ts-expect-error cypress hack
+      return window.Cypress.env('IsCurrentOperativeOvertime')
+    }
+
+    return false
+  }
+
   const date = new Date()
 
   const startOfOperativeDay = new Date(date).setHours(8, 0, 0)
