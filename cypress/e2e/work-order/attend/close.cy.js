@@ -90,7 +90,7 @@ describe('Closing my own work order', () => {
 
   context('during normal working hours', () => {
     beforeEach(() => {
-      cy.clock(new Date(now).setHours(12, 0, 0))
+      // cy.clock(new Date(now).setHours(12, 0, 0))
     })
 
     it('shows a validation error when no reason is selected', () => {
@@ -224,33 +224,27 @@ describe('Closing my own work order', () => {
         }
       ).as('getLinksRequest')
 
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
+      const uploadToS3RequestResponses = [
         {
           statusCode: 500,
-        }
-      ).as('uploadToS3Request1')
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+      ]
 
       cy.intercept(
         { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 500,
+        (request) => {
+          request.reply(uploadToS3RequestResponses.shift())
         }
-      ).as('uploadToS3Request2')
-
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 500,
-        }
-      ).as('uploadToS3Request3')
-
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 500,
-        }
-      ).as('uploadToS3Request4')
+      ).as('uploadToS3Request')
 
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -282,17 +276,13 @@ describe('Closing my own work order', () => {
 
       cy.wait(
         [
-          '@uploadToS3Request1',
-          '@uploadToS3Request2',
-          '@uploadToS3Request3',
-          '@uploadToS3Request4',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
+          '@uploadToS3Request',
         ],
         { timeout: 10000 }
       )
-      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      // cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-
       cy.get('@uploadToS3Request.all').should('have.length', 4)
 
       // should contain error message
@@ -444,19 +434,27 @@ describe('Closing my own work order', () => {
         }
       ).as('getLinksRequest')
 
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
+      const uploadToS3RequestResponses = [
         {
           statusCode: 500,
-        }
-      ).as('uploadToS3Request1')
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 500,
+        },
+        {
+          statusCode: 200,
+        },
+      ]
 
       cy.intercept(
         { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 500,
+        (request) => {
+          request.reply(uploadToS3RequestResponses.shift())
         }
-      ).as('uploadToS3Request2')
+      ).as('uploadToS3Request')
 
       cy.intercept(
         { method: 'POST', path: '/api/workOrders/images/completeUpload' },
@@ -493,18 +491,11 @@ describe('Closing my own work order', () => {
 
       cy.wait(['@getLinksRequest'])
 
-      // upload request fails twice
-      cy.wait(['@uploadToS3Request1', 'uploadToS3Request2'], { timeout: 10000 })
-
-      // upload request successful on third attempt
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 200,
-        }
-      ).as('uploadToS3Request3')
-
-      cy.wait(['@uploadToS3Request3'], { timeout: 10000 })
+      // upload request fails twice, last one succeeds
+      cy.wait(
+        ['@uploadToS3Request', '@uploadToS3Request', '@uploadToS3Request'],
+        { timeout: 10000 }
+      )
 
       cy.wait(['@completeUploadRequest'])
 
