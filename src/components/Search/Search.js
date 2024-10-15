@@ -10,10 +10,7 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
-
 const Search = ({ query }) => {
-  const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
-
   let decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
@@ -66,13 +63,15 @@ const Search = ({ query }) => {
 
     try {
       if (searchQuery) {
+        const pageSize = process.env.NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
         const propertiesData = await searchApiRequest(
           searchQuery,
-          pageNumber
+          pageNumber,
+          pageSize
         )
 
         setSearchHitTotal(parseInt(propertiesData.total))
-        
+
         setProperties(
           propertiesData.results.assets.map(
             (property) => new PropertyListItem(property)
