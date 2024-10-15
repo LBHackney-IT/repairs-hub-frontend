@@ -9,7 +9,10 @@ import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchSimpleFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
@@ -18,6 +21,7 @@ import { generalLinks } from '@/utils/successPageLinks'
 import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
+import SpinnerWithLabel from '../SpinnerWithLabel'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -43,6 +47,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
+  const [featureToggles, setFeatureToggles] = useState({})
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -120,7 +125,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     }
   }
 
-  const getCloseWorkOrder = async () => {
+  const fetchInitialData = async () => {
     setError(null)
 
     try {
@@ -128,6 +133,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         method: 'get',
         path: `/api/workOrders/${reference}`,
       })
+
+      const featureToggleData = await fetchSimpleFeatureToggles()
+
+      setFeatureToggles(featureToggleData)
 
       setWorkOrder(new WorkOrder(workOrder))
 
@@ -158,7 +167,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   useEffect(() => {
     setLoadingStatus('Loading workorder')
 
-    getCloseWorkOrder()
+    fetchInitialData()
   }, [])
 
   const onJobSubmit = async () => {
@@ -191,9 +200,12 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       )
     }
 
+    const followOnFunctionalityEnabled =
+      featureToggles?.followOnFunctionalityEnabled ?? false
+
     let comments = notes // notes written by user
 
-    if (reason == 'No Access') {
+    if (reason == 'No Access' || !followOnFunctionalityEnabled) {
       comments = `Work order closed - ${buildWorkOrderCompleteNotes(
         notes,
         operativesWithPercentages,
@@ -207,6 +219,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       reference,
       reason,
       paymentType,
+      followOnFunctionalityEnabled,
       followOnDataRequest
     )
 
@@ -307,92 +320,83 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setStartTime(formData.startTime)
   }
 
+  if (loadingStatus) return <SpinnerWithLabel label={loadingStatus} />
+
   return (
     <>
-      {loadingStatus ? (
-        <div
-          className="govuk-body"
-          style={{ display: 'flex', alignItems: 'center' }}
-        >
-          <Spinner />
-          <span style={{ margin: '0 0 0 15px' }}>{loadingStatus}</span>
-        </div>
-      ) : (
+      {!workOrder && error && <ErrorMessage label={error} />}
+
+      {workOrder && (
         <>
-          {!workOrder && error && <ErrorMessage label={error} />}
-
-          {workOrder && (
-            <>
-              {currentPage === FORM_PAGE && (
-                <CloseWorkOrderForm
-                  reference={workOrder.reference}
-                  onSubmit={onGetToSummary}
-                  notes={notes}
-                  completionTime={completionTime}
-                  completionDate={completionDate}
-                  startTime={startTime}
-                  startDate={startDate}
-                  reason={reason}
-                  followOnStatus={followOnStatus}
-                  operativeAssignmentMandatory={workOrder.canAssignOperative}
-                  assignedOperativesToWorkOrder={selectedOperatives}
-                  availableOperatives={availableOperatives}
-                  dateRaised={workOrder.dateRaised}
-                  selectedPercentagesToShowOnEdit={
-                    selectedPercentagesToShowOnEdit
-                  }
-                  defaultFiles={files}
-                  description={description}
-                  closingByProxy={true}
-                  totalSMV={workOrder.totalSMVs}
-                  jobIsSplitByOperative={workOrder.isSplit}
-                  paymentType={paymentType}
-                  existingStartTime={workOrder.startTime !== null}
-                  followOnData={followOnData}
-                  isLoading={loadingStatus !== null}
-                />
-              )}
-
-              {currentPage === SUMMARY_PAGE && (
-                <SummaryCloseWorkOrder
-                  onJobSubmit={onJobSubmit}
-                  notes={notes}
-                  completionDate={completionDate}
-                  reason={reason}
-                  operativeNames={
-                    workOrder.canAssignOperative &&
-                    operativesWithPercentages &&
-                    operativesWithPercentages.map(
-                      (op) =>
-                        `${op.operative.name}${
-                          op.percentage ? ` : ${op.percentage}` : ''
-                        }`
-                    )
-                  }
-                  changeStep={changeCurrentPage}
-                  reference={workOrder.reference}
-                  paymentType={paymentType}
-                  startDate={startDate}
-                  followOnData={followOnData}
-                  files={files}
-                  description={description}
-                />
-              )}
-              {currentPage === CONFIRMATION_PAGE && (
-                <SuccessPage
-                  banner={
-                    <Panel
-                      title="Work order closed"
-                      workOrderReference={workOrder.reference}
-                    />
-                  }
-                  links={generalLinks(workOrder.reference)}
-                />
-              )}
-
-              {error && <ErrorMessage label={error} />}
-            </>
+          {currentPage === FORM_PAGE && (
+            <CloseWorkOrderForm
+              reference={workOrder.reference}
+              onSubmit={onGetToSummary}
+              notes={notes}
+              completionTime={completionTime}
+              completionDate={completionDate}
+              startTime={startTime}
+              startDate={startDate}
+              reason={reason}
+              followOnStatus={followOnStatus}
+              operativeAssignmentMandatory={workOrder.canAssignOperative}
+              assignedOperativesToWorkOrder={selectedOperatives}
+              availableOperatives={availableOperatives}
+              dateRaised={workOrder.dateRaised}
+              selectedPercentagesToShowOnEdit={selectedPercentagesToShowOnEdit}
+              defaultFiles={files}
+              description={description}
+              closingByProxy={true}
+              totalSMV={workOrder.totalSMVs}
+              jobIsSplitByOperative={workOrder.isSplit}
+              paymentType={paymentType}
+              existingStartTime={workOrder.startTime !== null}
+              followOnData={followOnData}
+              isLoading={loadingStatus !== null}
+              followOnFunctionalityEnabled={
+                featureToggles?.followOnFunctionalityEnabled ?? false
+              }
+            />
           )}
+
+          {currentPage === SUMMARY_PAGE && (
+            <SummaryCloseWorkOrder
+              onJobSubmit={onJobSubmit}
+              notes={notes}
+              completionDate={completionDate}
+              reason={reason}
+              operativeNames={
+                workOrder.canAssignOperative &&
+                operativesWithPercentages &&
+                operativesWithPercentages.map(
+                  (op) =>
+                    `${op.operative.name}${
+                      op.percentage ? ` : ${op.percentage}` : ''
+                    }`
+                )
+              }
+              changeStep={changeCurrentPage}
+              reference={workOrder.reference}
+              paymentType={paymentType}
+              startDate={startDate}
+              followOnData={followOnData}
+              files={files}
+              description={description}
+            />
+          )}
+          {currentPage === CONFIRMATION_PAGE && (
+            <SuccessPage
+              banner={
+                <Panel
+                  title="Work order closed"
+                  workOrderReference={workOrder.reference}
+                />
+              }
+              links={generalLinks(workOrder.reference)}
+            />
+          )}
+
+          {error && <ErrorMessage label={error} />}
         </>
       )}
     </>

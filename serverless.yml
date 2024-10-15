@@ -70,6 +70,7 @@ functions:
       SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
+      FOLLOW_ON_FUNCTIONALITY_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-followon-functionality}
 
 resources:
   Resources:

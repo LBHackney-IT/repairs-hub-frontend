@@ -56,16 +56,16 @@ describe('confirm close work order without a photo', () => {
     cy.contains('button', 'Submit').click()
 
     // contains error
-    cy.contains('Please select an option')
+    cy.contains('Please select a reason')
 
     // select other
     cy.get("input[value='other']").check()
     cy.contains('button', 'Submit').click()
 
-    cy.contains('Please select an option').should('not.exist')
+    cy.contains('Please select a reason').should('not.exist')
 
     // contains error
-    cy.contains('Please summarise why a photo cannot be uploaded')
+    cy.contains('Please give a reason')
 
     cy.get('[data-testid="comments"]').type('some comments')
 
@@ -74,9 +74,7 @@ describe('confirm close work order without a photo', () => {
 
     cy.wait('@submitFeedbackRequest')
 
-    cy.contains('Please summarise why a photo cannot be uploaded').should(
-      'not.exist'
-    )
+    cy.contains('Please give a reason').should('not.exist')
   })
 
   it('submits the form', () => {
