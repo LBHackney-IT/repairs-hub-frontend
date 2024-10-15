@@ -229,7 +229,28 @@ describe('Closing my own work order', () => {
         {
           statusCode: 500,
         }
-      ).as('uploadToS3Request')
+      ).as('uploadToS3Request1')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request2')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request3')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request4')
 
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -261,10 +282,10 @@ describe('Closing my own work order', () => {
 
       cy.wait(
         [
-          '@uploadToS3Request',
-          '@uploadToS3Request',
-          '@uploadToS3Request',
-          '@uploadToS3Request',
+          '@uploadToS3Request1',
+          '@uploadToS3Request2',
+          '@uploadToS3Request3',
+          '@uploadToS3Request4',
         ],
         { timeout: 10000 }
       )
@@ -428,7 +449,14 @@ describe('Closing my own work order', () => {
         {
           statusCode: 500,
         }
-      ).as('uploadToS3Request')
+      ).as('uploadToS3Request1')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 500,
+        }
+      ).as('uploadToS3Request2')
 
       cy.intercept(
         { method: 'POST', path: '/api/workOrders/images/completeUpload' },
@@ -466,8 +494,7 @@ describe('Closing my own work order', () => {
       cy.wait(['@getLinksRequest'])
 
       // upload request fails twice
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request1', 'uploadToS3Request2'], { timeout: 10000 })
 
       // upload request successful on third attempt
       cy.intercept(
@@ -475,9 +502,9 @@ describe('Closing my own work order', () => {
         {
           statusCode: 200,
         }
-      ).as('uploadToS3Request')
+      ).as('uploadToS3Request3')
 
-      cy.wait(['@uploadToS3Request'], { timeout: 10000 })
+      cy.wait(['@uploadToS3Request3'], { timeout: 10000 })
 
       cy.wait(['@completeUploadRequest'])
 
