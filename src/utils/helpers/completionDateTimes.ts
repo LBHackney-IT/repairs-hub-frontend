@@ -1,6 +1,5 @@
 import { isWeekend, format, getHours, isWithinInterval } from 'date-fns'
 import { bankHolidays } from './bankHolidays'
-import { lowPriorityHolidays } from './lowPriorityHolidays'
 
 const WORKDAY_START_HOUR = 8
 const WORKDAY_END_HOUR = 18
@@ -19,44 +18,31 @@ export const isCurrentTimeOutOfHours = () => {
 
   if (isNonWorkingDay(now)) {
     return true
-  } else {
-    if (
-      getHours(now) < WORKDAY_START_HOUR ||
-      getHours(now) >= WORKDAY_END_HOUR
-    ) {
-      return true
-    }
+  }
+
+  if (getHours(now) < WORKDAY_START_HOUR || getHours(now) >= WORKDAY_END_HOUR) {
+    return true
   }
 
   return false
 }
 
-const isNonWorkingDay = (date: Date, lowPriority: boolean = false) =>
-  isWeekend(date) ||
-  isBankHoliday(date) ||
-  (lowPriority && isLowPriorityHoliday(date))
-
-// Sometimes Hackney have holidays which only apply to low priority orders.
-const isLowPriorityHoliday = (date: Date) => {
-  const formattedDate = format(date, 'yyyy-MM-dd')
-
-  return lowPriorityHolidays.some((holiday) => holiday === formattedDate)
+const isNonWorkingDay = (date: Date) => {
+  return isWeekend(date) || isBankHoliday(date)
 }
 
 export const isCurrentTimeOperativeOvertime = () => {
-  return isOperativeOverTime(new Date())
-}
+  const date = new Date()
 
-const isOperativeOverTime = (date: Date) => {
   const startOfOperativeDay = new Date(date).setHours(8, 0, 0)
   const endOfOperativeDay = new Date(date).setHours(16, 0, 0)
 
   if (isNonWorkingDay(date)) {
     return true
-  } else {
-    return !isWithinInterval(date, {
-      start: startOfOperativeDay,
-      end: endOfOperativeDay,
-    })
   }
+
+  return !isWithinInterval(date, {
+    start: startOfOperativeDay,
+    end: endOfOperativeDay,
+  })
 }
