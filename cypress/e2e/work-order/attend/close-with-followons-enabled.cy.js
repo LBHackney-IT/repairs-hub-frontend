@@ -985,7 +985,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
                   typeCode: '0',
                   otherType: 'completed',
                   comments: 'I attended',
-                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder                  
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                   paymentType: 'Bonus',
                   noteGeneratedOnFrontend: true,
                 },
