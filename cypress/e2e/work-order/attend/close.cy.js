@@ -817,7 +817,8 @@ describe('Closing my own work order', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments: 'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
+                  comments:
+                    'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
                   eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                   paymentType: 'Overtime',
                   noteGeneratedOnFrontend: false,
@@ -907,7 +908,8 @@ describe('Closing my own work order', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments: 'Work order closed - I attended - Bonus calculation',
+                  comments:
+                    'Work order closed - I attended - Bonus calculation',
                   eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                   paymentType: 'Bonus',
                   noteGeneratedOnFrontend: false,
