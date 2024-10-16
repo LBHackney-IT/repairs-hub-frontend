@@ -1,16 +1,18 @@
 {
-  "notes": "Variation reason: It's a big job!",
-  "tasks": [
-    {
-      "id": "a10db47a-04f0-4cff-9e2c-8d81b6bb2d7b",
-      "code": "49000001",
-      "description": "1 Pound Cash Item for use if",
-      "unitCost": 1,
-      "originalQuantity": 50,
-      "currentQuantity": 251,
-      "variedQuantity": 200000
-    }
-  ],
-  "authorName": "Mr Contractor",
-  "variationDate": "2021-04-22T09:46:35.713889Z"
+  "variation": {
+    "notes": "Variation reason: It's a big job!",
+    "tasks": [
+      {
+        "id": "a10db47a-04f0-4cff-9e2c-8d81b6bb2d7b",
+        "code": "49000001",
+        "description": "1 Pound Cash Item for use if",
+        "unitCost": 1,
+        "originalQuantity": 50,
+        "currentQuantity": 251,
+        "variedQuantity": 200000
+      }
+    ],
+    "authorName": "Mr Contractor",
+    "variationDate": "2021-04-22T09:46:35.713889Z"
+  }
 }
