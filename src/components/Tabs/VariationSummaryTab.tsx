@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import UserContext from '../UserContext'
@@ -7,41 +6,53 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import VariationAuthorisationSummary from '../WorkOrder/Authorisation/VariationAuthorisationSummary'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
+import {
+  Variation,
+  VariationResponseObject,
+} from '../../types/variations/types'
 
-const VariationSummaryTab = ({ workOrderReference }) => {
-  const [error, setError] = useState()
-  const [loading, setLoading] = useState(false)
-  const [variationTasks, setVariationTasks] = useState({})
+interface Props {
+  workOrderReference: string
+}
+
+const VariationSummaryTab = ({ workOrderReference }: Props) => {
+  const [error, setError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [variation, setVariation] = useState<Variation | null>(null)
   const [originalSors, setOriginalSors] = useState([])
   const { user } = useContext(UserContext)
   const [totalCostAfterVariation, setTotalCostAfterVariation] = useState()
 
-  const requestVariationTasks = async (workOrderReference) => {
+  const requestVariationTasks = async (workOrderReference: string) => {
     setError(null)
 
     try {
-      const variationTasks = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-      })
+      const variationResponse: VariationResponseObject = await frontEndApiRequest(
+        {
+          method: 'get',
+          path: `/api/workOrders/${workOrderReference}/variation-tasks`,
+        }
+      )
 
-      setVariationTasks(variationTasks)
+      setVariation(variationResponse.variation)
+
       const totalCostAfterVariation = calculateTotalVariedCost(
-        variationTasks.tasks
+        variationResponse.variation.tasks
       )
       setTotalCostAfterVariation(totalCostAfterVariation)
     } catch (e) {
-      setVariationTasks(null)
+      setVariation(null)
       console.error('An error has occured:', e.response)
       if (e.response?.status === 404) {
         setError(
           `Could not find a work order with reference ${workOrderReference}`
         )
-      } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-        )
+        return
       }
+
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
     }
 
     setLoading(false)
@@ -77,7 +88,7 @@ const VariationSummaryTab = ({ workOrderReference }) => {
 
   if (loading) return <Spinner />
 
-  if (variationTasks && variationTasks.tasks && originalSors) {
+  if (variation && variation.tasks && originalSors) {
     return (
       <>
         {user.roles.includes('contract_manager') && (
@@ -91,7 +102,7 @@ const VariationSummaryTab = ({ workOrderReference }) => {
         )}
 
         <VariationAuthorisationSummary
-          variationTasks={variationTasks}
+          variationTasks={variation}
           originalSors={originalSors}
           totalCostAfterVariation={totalCostAfterVariation}
         />
@@ -103,10 +114,6 @@ const VariationSummaryTab = ({ workOrderReference }) => {
   return (
     <p className="lbh-body-s">There are no variations for this work order.</p>
   )
-}
-
-VariationSummaryTab.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default VariationSummaryTab
