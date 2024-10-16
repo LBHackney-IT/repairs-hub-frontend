@@ -75,46 +75,33 @@ const VariationSummaryTab = ({ workOrderReference }) => {
     getTasksAndSorsView(workOrderReference)
   }, [])
 
-  const variationAuthLink = () => {
-    if (user.roles.includes('contract_manager')) {
-      return (
-        <div className="display-inline">
-          <Link
-            href={`/work-orders/${workOrderReference}/variation-authorisation`}
-          >
-            <a className="lbh-link">Variation Authorisation</a>
-          </Link>
-        </div>
-      )
-    }
+  if (loading) return <Spinner />
+
+  if (variationTasks && variationTasks.tasks && originalSors) {
+    return (
+      <>
+        {user.roles.includes('contract_manager') && (
+          <div className="display-inline">
+            <Link
+              href={`/work-orders/${workOrderReference}/variation-authorisation`}
+            >
+              <a className="lbh-link">Variation Authorisation</a>
+            </Link>
+          </div>
+        )}
+
+        <VariationAuthorisationSummary
+          variationTasks={variationTasks}
+          originalSors={originalSors}
+          totalCostAfterVariation={totalCostAfterVariation}
+        />
+        {error && <ErrorMessage label={error} />}
+      </>
+    )
   }
 
   return (
-    <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {variationTasks && variationTasks.tasks && originalSors ? (
-            <>
-              {variationAuthLink()}
-              <VariationAuthorisationSummary
-                variationTasks={variationTasks}
-                originalSors={originalSors}
-                totalCostAfterVariation={totalCostAfterVariation}
-              />
-              {error && <ErrorMessage label={error} />}
-            </>
-          ) : (
-            <>
-              <p className="lbh-body-s">
-                There are no variations for this work order.
-              </p>
-            </>
-          )}
-        </>
-      )}
-    </>
+    <p className="lbh-body-s">There are no variations for this work order.</p>
   )
 }
 
