@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { useState, useEffect } from 'react'
@@ -18,18 +17,26 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { calculateTotalVariedCost } from '@/utils/helpers/calculations'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import { rejectLinks, generalLinks } from '@/utils/successPageLinks'
+import {
+  Variation,
+  VariationResponseObject,
+} from '../../../types/variations/types'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
 
-const VariationAuthorisationView = ({ workOrderReference }) => {
-  const [error, setError] = useState()
+interface Props {
+  workOrderReference: string
+}
+
+const VariationAuthorisationView = ({ workOrderReference }: Props) => {
+  const [error, setError] = useState<string | null>()
   const [loading, setLoading] = useState(false)
   const [formSuccess, setFormSuccess] = useState(false)
-  const [variationTasks, setVariationTasks] = useState({})
+  const [variation, setVariation] = useState<Variation | null>(null)
   const [originalSors, setOriginalSors] = useState([])
-  const [varySpendLimit, setVarySpendLimit] = useState()
-  const [overSpendLimit, setOverSpendLimit] = useState()
+  const [varySpendLimit, setVarySpendLimit] = useState<number>()
+  const [overSpendLimit, setOverSpendLimit] = useState<boolean | null>(null)
   const [totalCostAfterVariation, setTotalCostAfterVariation] = useState()
   const [formActions, setFormActions] = useState([
     APPROVE_REQUEST,
@@ -42,7 +49,10 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
-  const [workOrder, setWorkOrder] = useState()
+  const [workOrder, setWorkOrder] = useState<{
+    property: object
+    propertyReference: string
+  } | null>(null)
 
   const requestVariationTasks = async (workOrderReference) => {
     setError(null)
@@ -53,23 +63,25 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const variationTasks = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-      })
+      const variationResponse: VariationResponseObject = await frontEndApiRequest(
+        {
+          method: 'get',
+          path: `/api/workOrders/${workOrderReference}/variation-tasks`,
+        }
+      )
 
       const user = await frontEndApiRequest({
         method: 'get',
         path: '/api/hub-user',
       })
 
-      setVariationTasks(variationTasks)
+      setVariation(variationResponse.variation)
       setBudgetCode(workOrder.budgetCode)
       setVarySpendLimit(parseFloat(user.varyLimit))
       setWorkOrder(workOrder)
 
       const totalCostAfterVariation = calculateTotalVariedCost(
-        variationTasks.tasks
+        variationResponse.variation.tasks
       )
       setTotalCostAfterVariation(totalCostAfterVariation)
 
@@ -78,7 +90,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
         setFormActions([REJECT_REQUEST])
       }
     } catch (e) {
-      setVariationTasks(null)
+      setVariation(null)
       console.error('An error has occured:', e.response)
       if (e.response?.status === 404) {
         setError(
@@ -173,7 +185,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
       ) : (
         <>
           {!formSuccess &&
-            variationTasks.tasks &&
+            variation?.tasks &&
             originalSors &&
             totalCostAfterVariation &&
             !isNaN(varySpendLimit) && (
@@ -186,7 +198,7 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                   <a className="lbh-link">See work order</a>
                 </Link>
                 <VariationAuthorisationSummary
-                  variationTasks={variationTasks}
+                  variationTasks={variation}
                   originalSors={originalSors}
                   totalCostAfterVariation={totalCostAfterVariation}
                   budgetCode={budgetCode}
@@ -284,8 +296,8 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
                   ? generalLinks(workOrderReference)
                   : rejectLinks(
                       workOrderReference,
-                      workOrder.propertyReference,
-                      workOrder.property
+                      workOrder?.propertyReference,
+                      workOrder?.property
                     )
               }
             />
@@ -294,10 +306,6 @@ const VariationAuthorisationView = ({ workOrderReference }) => {
       )}
     </>
   )
-}
-
-VariationAuthorisationView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default VariationAuthorisationView

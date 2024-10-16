@@ -1,6 +1,9 @@
-import PropTypes from 'prop-types'
+interface Props {
+  text: string
+  name?: string
+}
 
-const WarningText = ({ text, name }) => {
+const WarningText = ({ text, name }: Props) => {
   return (
     <div className="govuk-warning-text lbh-warning-text" data-testid={name}>
       <span className="govuk-warning-text__icon" aria-hidden="true">
@@ -12,10 +15,6 @@ const WarningText = ({ text, name }) => {
       </strong>
     </div>
   )
-}
-
-WarningText.propTypes = {
-  text: PropTypes.string.isRequired,
 }
 
 export default WarningText

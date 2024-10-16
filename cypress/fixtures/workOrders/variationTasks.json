@@ -1,43 +1,45 @@
 {
-  "notes": "Variation reason: More work needed",
-  "tasks": [
-    {
-      "code": "DES5R005",
-      "currentQuantity": 1,
-      "description": "Normal Call outs",
-      "id": "abcd",
-      "originalQuantity": 1,
-      "unitCost": 4.0,
-      "variedQuantity": 4000
-    },
-    {
-      "code": "DES5R006",
-      "currentQuantity": 10,
-      "description": "Normal Call outs",
-      "id": "abc",
-      "originalQuantity": 1,
-      "unitCost": 19.0,
-      "variedQuantity": 2
-    },
-    {
-      "code": "DES5R007",
-      "currentQuantity": 0,
-      "description": "Normal Call outs",
-      "id": "abcde",
-      "originalQuantity": 0,
-      "unitCost": 25.0,
-      "variedQuantity": 2
-    },
-    {
-      "code": "DES5R006",
-      "currentQuantity": 1,
-      "description": "Urgent call outs",
-      "id": "abcde",
-      "originalQuantity": 1,
-      "unitCost": 10.0,
-      "variedQuantity": 1
-    }
-  ],
-  "authorName": "John Johnson (Alphatrack)",
-  "variationDate": "2021-05-11T16:04:05.008Z"
+  "variation": {
+    "notes": "Variation reason: More work needed",
+    "tasks": [
+      {
+        "code": "DES5R005",
+        "currentQuantity": 1,
+        "description": "Normal Call outs",
+        "id": "abcd",
+        "originalQuantity": 1,
+        "unitCost": 4.0,
+        "variedQuantity": 4000
+      },
+      {
+        "code": "DES5R006",
+        "currentQuantity": 10,
+        "description": "Normal Call outs",
+        "id": "abc",
+        "originalQuantity": 1,
+        "unitCost": 19.0,
+        "variedQuantity": 2
+      },
+      {
+        "code": "DES5R007",
+        "currentQuantity": 0,
+        "description": "Normal Call outs",
+        "id": "abcde",
+        "originalQuantity": 0,
+        "unitCost": 25.0,
+        "variedQuantity": 2
+      },
+      {
+        "code": "DES5R006",
+        "currentQuantity": 1,
+        "description": "Urgent call outs",
+        "id": "abcde",
+        "originalQuantity": 1,
+        "unitCost": 10.0,
+        "variedQuantity": 1
+      }
+    ],
+    "authorName": "John Johnson (Alphatrack)",
+    "variationDate": "2021-05-11T16:04:05.008Z"
+  }
 }
