@@ -98,9 +98,10 @@ const Tabs = ({
           return (
             <li key={i} className="govuk-tabs__list-item">
               <a
-                onClick={() =>
+                onClick={(e) => {
+                  e.preventDefault()
                   setActiveTab(tabsList.find((elem) => elem === tab))
-                }
+                }}
                 className="govuk-tabs__tab"
                 href={`#${formatTabNameToId(tab)}`}
               >
