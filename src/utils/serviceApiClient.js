@@ -231,7 +231,28 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
-      Sentry.captureException(error)
+      if (axios.isAxiosError(error)) {
+        const { response } = error
+        // Handle the error as needed
+        // const errorMessage = response?.data?.message || 'An error occurred';
+
+        // Capture the error in Sentry
+        Sentry.captureException(error, {
+          tags: {
+            status: response?.status,
+            statusText: response?.statusText,
+          },
+          extra: {
+            responseData: response?.data,
+            status: response?.status,
+            statusText: response?.statusText,
+            config: error.config, // Original request configuration
+          },
+        })
+      } else {
+        // Handle non-Axios errors
+        Sentry.captureException(error)
+      }
 
       const errorResponse = error.response
       if (errorResponse) {
