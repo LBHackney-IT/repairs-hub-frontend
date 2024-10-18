@@ -3,8 +3,6 @@ import axios from 'axios'
 import * as HttpStatus from 'http-status-codes'
 import { isAuthorised } from './googleAuth'
 import { paramsSerializer } from './urls'
-import { cache } from './middleware/cache'
-import { CACHE_MAX_AGE_IN_SECONDS } from './helpers/cache'
 import logger from 'loglevel'
 
 // Sentry doesn't load the config for API routes automatically
@@ -21,177 +19,131 @@ const {
 
 logger.setLevel(logger.levels[LOG_LEVEL || 'INFO'])
 
-export const externalAPIRequest = cache(
-  async (request, response, cacheRequest = false) => {
-    const cacheKey = encodeURIComponent(request.url)
+export const externalAPIRequest = async (request) => {
+  const cookies = cookie.parse(request.headers.cookie ?? '')
+  const token = cookies[GSSO_TOKEN_NAME]
 
-    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
-      const { data } = request.cache.get(cacheKey)
-
-      response.setHeader(
-        'Cache-Control',
-        `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
-      )
-      response.setHeader('X-Cache', 'HIT')
-
-      return data
-    }
-
-    const cookies = cookie.parse(request.headers.cookie ?? '')
-    const token = cookies[GSSO_TOKEN_NAME]
-
-    const headers = {
-      'x-api-key': REPAIRS_SERVICE_API_KEY,
-      'x-hackney-user': token,
-      Authorization: token,
-      'Content-Type': 'application/json',
-    }
-
-    let { path, ...queryParams } = request.query
-
-    const api = axios.create()
-
-    // Log request
-    api.interceptors.request.use((request) => {
-      logger.info(
-        'Starting External API request:',
-        JSON.stringify({
-          ...request,
-          headers: {
-            ...request.headers,
-            'x-api-key': '[REMOVED]',
-            'x-hackney-user': '[REMOVED]',
-            Authorization: '[REMOVED]',
-          },
-        })
-      )
-
-      return request
-    })
-
-    // Log successful responses
-    api.interceptors.response.use((response) => {
-      logger.info(
-        `External API response: ${response.status} ${
-          response.statusText
-        } ${JSON.stringify(response.data)}`
-      )
-
-      return response
-    })
-
-    try {
-      const { data } = await api({
-        method: request.method,
-        headers,
-        url: path?.join('/'),
-        params: queryParams,
-        paramsSerializer,
-        ...(request.body && { data: request.body }),
-      })
-
-      if (cacheRequest && request.cache) {
-        request.cache.set(cacheKey, { data })
-      }
-
-      response.setHeader('Cache-Control', 'no-cache')
-      response.setHeader('X-Cache', 'MISS')
-
-      return data
-    } catch (error) {
-      const errorToThrow = new Error(error)
-
-      errorToThrow.response = error.response
-      throw errorToThrow
-    }
+  const headers = {
+    'x-api-key': REPAIRS_SERVICE_API_KEY,
+    'x-hackney-user': token,
+    Authorization: token,
+    'Content-Type': 'application/json',
   }
-)
 
-export const serviceAPIRequest = cache(
-  async (request, response, cacheRequest = false) => {
-    const cacheKey = encodeURIComponent(request.url)
+  let { path, ...queryParams } = request.query
 
-    if (cacheRequest && request.cache && request.cache.has(cacheKey)) {
-      const { data } = request.cache.get(cacheKey)
+  const api = axios.create()
 
-      response.setHeader(
-        'Cache-Control',
-        `public,max-age=${CACHE_MAX_AGE_IN_SECONDS}`
-      )
-      response.setHeader('X-Cache', 'HIT')
-
-      return data
-    }
-
-    const cookies = cookie.parse(request.headers.cookie ?? '')
-    const token = cookies[GSSO_TOKEN_NAME]
-
-    const headers = {
-      'x-api-key': REPAIRS_SERVICE_API_KEY,
-      'x-hackney-user': token,
-      Authorization: token,
-      'Content-Type': 'application/json',
-    }
-
-    let { path, ...queryParams } = request.query
-
-    const api = axios.create()
-
-    // Log request
-    api.interceptors.request.use((request) => {
-      logger.info(
-        'Starting Service API request:',
-        JSON.stringify({
-          ...request,
-          headers: {
-            ...request.headers,
-            'x-api-key': '[REMOVED]',
-            'x-hackney-user': '[REMOVED]',
-            Authorization: '[REMOVED]',
-          },
-        })
-      )
-
-      return request
-    })
-
-    // Log successful responses
-    api.interceptors.response.use((response) => {
-      logger.info(
-        `Service API response: ${response.status} ${
-          response.statusText
-        } ${JSON.stringify(response.data)}`
-      )
-
-      return response
-    })
-
-    try {
-      const { data } = await api({
-        method: request.method,
-        headers,
-        url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
-        params: queryParams,
-        paramsSerializer,
-        ...(request.body && { data: request.body }),
+  // Log request
+  api.interceptors.request.use((request) => {
+    logger.info(
+      'Starting External API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          'x-api-key': '[REMOVED]',
+          'x-hackney-user': '[REMOVED]',
+          Authorization: '[REMOVED]',
+        },
       })
+    )
 
-      if (cacheRequest && request.cache) {
-        request.cache.set(cacheKey, { data })
-      }
+    return request
+  })
 
-      response.setHeader('Cache-Control', 'no-cache')
-      response.setHeader('X-Cache', 'MISS')
+  // Log successful responses
+  api.interceptors.response.use((response) => {
+    logger.info(
+      `External API response: ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
+    )
 
-      return data
-    } catch (error) {
-      const errorToThrow = new Error(error)
+    return response
+  })
 
-      errorToThrow.response = error.response
-      throw errorToThrow
-    }
+  try {
+    const { data } = await api({
+      method: request.method,
+      headers,
+      url: path?.join('/'),
+      params: queryParams,
+      paramsSerializer,
+      ...(request.body && { data: request.body }),
+    })
+
+    return data
+  } catch (error) {
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
   }
-)
+}
+
+export const serviceAPIRequest = async (request) => {
+  const cookies = cookie.parse(request.headers.cookie ?? '')
+  const token = cookies[GSSO_TOKEN_NAME]
+
+  const headers = {
+    'x-api-key': REPAIRS_SERVICE_API_KEY,
+    'x-hackney-user': token,
+    Authorization: token,
+    'Content-Type': 'application/json',
+  }
+
+  let { path, ...queryParams } = request.query
+
+  const api = axios.create()
+
+  // Log request
+  api.interceptors.request.use((request) => {
+    logger.info(
+      'Starting Service API request:',
+      JSON.stringify({
+        ...request,
+        headers: {
+          ...request.headers,
+          'x-api-key': '[REMOVED]',
+          'x-hackney-user': '[REMOVED]',
+          Authorization: '[REMOVED]',
+        },
+      })
+    )
+
+    return request
+  })
+
+  // Log successful responses
+  api.interceptors.response.use((response) => {
+    logger.info(
+      `Service API response: ${response.status} ${
+        response.statusText
+      } ${JSON.stringify(response.data)}`
+    )
+
+    return response
+  })
+
+  try {
+    const { data } = await api({
+      method: request.method,
+      headers,
+      url: `${REPAIRS_SERVICE_API_URL}/${path?.join('/')}`,
+      params: queryParams,
+      paramsSerializer,
+      ...(request.body && { data: request.body }),
+    })
+
+    return data
+  } catch (error) {
+    const errorToThrow = new Error(error)
+
+    errorToThrow.response = error.response
+    throw errorToThrow
+  }
+}
 
 export const configurationAPIRequest = async (request) => {
   const cookies = cookie.parse(request.headers.cookie ?? '')
@@ -294,14 +246,16 @@ export const authoriseServiceAPIRequest = (callBack) => {
         )
 
         // When we get a 404 from the service API
-        errorResponse?.status === HttpStatus.NOT_FOUND
-          ? res
-              .status(HttpStatus.NOT_FOUND)
-              .json({ message: errorResponse?.data || 'Resource not found' })
-          : // Return the actual error status and message from the service API
-            res
-              .status(errorResponse?.status)
-              .json({ message: errorResponse?.data || 'Service API error' })
+        if (errorResponse?.status === HttpStatus.NOT_FOUND) {
+          res
+            .status(HttpStatus.NOT_FOUND)
+            .json({ message: errorResponse?.data || 'Resource not found' })
+        } else {
+          // Return the actual error status and message from the service API
+          res
+            .status(errorResponse?.status)
+            .json({ message: errorResponse?.data || 'Service API error' })
+        }
       } else if (error.request) {
         // The request was made but no response was received
         logger.error('Cannot connect to Service API')
