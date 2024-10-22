@@ -272,9 +272,9 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         >
           <a
             class="lbh-link"
-            href="/work-orders/10000012/appointment/new"
+            href="/work-orders/10000012/appointment/edit"
           >
-            Schedule appointment
+            Reschedule appointment
           </a>
         </div>
       </div>
