@@ -69,7 +69,18 @@ const ScheduleAppointment = (props: Props) => {
     }, 500)
   }
 
-  if (externalAppointmentManagementUrl) {
+  const canSetAppointment = () => {
+
+if (workOrder.isHigherPriority()) return false
+
+// add isDrs property to workOrder response
+
+if (workOrder.contractorReference === "H04")
+// 
+  }
+
+  // if (externalAppointmentManagementUrl) {
+  if (canSetAppointment()) {
     if (schedulerSessionId) {
       return (
         <ScheduleDRSAppointmentLink
