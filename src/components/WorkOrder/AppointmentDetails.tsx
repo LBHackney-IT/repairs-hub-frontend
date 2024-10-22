@@ -45,7 +45,7 @@ const AppointmentDetails = ({
                     externalAppointmentManagementUrl={
                       workOrder.externalAppointmentManagementUrl
                     }
-                    hasExistingAppointment={workOrder.appointment !== null}
+                    hasExistingAppointment={workOrder.appointment}
                     // openExternalLinkEventHandler={openExternalLinkEventHandler}
                     resetSchedulerSessionId={resetSchedulerSessionId}
                     schedulerSessionId={schedulerSessionId}
