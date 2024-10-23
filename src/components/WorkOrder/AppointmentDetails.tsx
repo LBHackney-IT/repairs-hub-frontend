@@ -14,7 +14,6 @@ import ScheduleAppointment from './ScheduleAppointment'
 const AppointmentDetails = ({
   workOrder,
   schedulerSessionId,
-
   resetSchedulerSessionId,
 }) => {
   const { user } = useContext(UserContext)
