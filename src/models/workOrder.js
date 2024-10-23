@@ -31,14 +31,14 @@ export class WorkOrder {
   }
 
   isOutOfHoursGas = () => {
-    const GasBreakdownContractorReference = 'H04'
-    const OohTradeCode = 'OO'
+    const gasBreakdownContractorReference = 'H04'
+    const oohTradeCode = 'OO'
 
     var contractorReference = this.contractorReference
 
-    if (contractorReference != GasBreakdownContractorReference) return false // contractor must be "H04"
+    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
     var tradeCode = this.tradeCode
-    return tradeCode == OohTradeCode
+    return tradeCode == oohTradeCode
   }
 
   completionReason = () => {

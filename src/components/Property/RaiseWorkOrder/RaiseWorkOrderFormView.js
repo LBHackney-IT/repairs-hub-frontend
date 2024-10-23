@@ -72,11 +72,11 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
   )
 
   const isOutOfHoursGas = (contractorReference, tradeCode) => {
-    const GasBreakdownContractorReference = 'H04'
-    const OohTradeCode = 'OO'
+    const gasBreakdownContractorReference = 'H04'
+    const oohTradeCode = 'OO'
 
-    if (contractorReference != GasBreakdownContractorReference) return false // contractor must be "H04"
-    return tradeCode == OohTradeCode
+    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
+    return tradeCode == oohTradeCode
   }
 
   const onFormSubmit = async (formData) => {
