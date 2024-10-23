@@ -73,6 +73,7 @@ functions:
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       FOLLOW_ON_FUNCTIONALITY_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-followon-functionality}
+      NEXT_PUBLIC_SEARCH_API_URL: ${ssm:/housing-tl/${self:provider.stage}/search-api-url-v2}
 
 resources:
   Resources:
