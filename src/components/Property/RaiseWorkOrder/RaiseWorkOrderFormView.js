@@ -19,6 +19,7 @@ import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 import AddMultipleSORs from './AddMultipleSORs'
+import { tr } from 'date-fns/locale'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -70,6 +71,14 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     false
   )
 
+  const isOutOfHoursGas = (contractorReference, tradeCode) => {
+    const GasBreakdownContractorReference = 'H04'
+    const OohTradeCode = 'OO'
+
+    if (contractorReference != GasBreakdownContractorReference) return false // contractor must be "H04"
+    return tradeCode == OohTradeCode
+  }
+
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
@@ -107,7 +116,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       } else if (
         PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
           formData.priority.priorityCode
-        )
+        ) &&
+        !isOutOfHoursGas(contractorReference, tradeCode)
       ) {
         router.push({
           pathname: `/work-orders/${id}/appointment/new`,
