@@ -23,7 +23,22 @@ export class WorkOrder {
   }
 
   canBeScheduled = () => {
-    return this.statusAllowsScheduling() && this.isAppointmentRequired()
+    return (
+      this.statusAllowsScheduling() &&
+      this.isAppointmentRequired() &&
+      !this.isOutOfHoursGas()
+    )
+  }
+
+  isOutOfHoursGas = () => {
+    const GasBreakdownContractorReference = 'H04'
+    const OohTradeCode = 'OO'
+
+    var contractorReference = this.contractorReference
+
+    if (contractorReference != GasBreakdownContractorReference) return false // contractor must be "H04"
+    var tradeCode = this.tradeCode
+    return tradeCode == OohTradeCode
   }
 
   completionReason = () => {
