@@ -70,6 +70,14 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     false
   )
 
+  const isOutOfHoursGas = (contractorReference, tradeCode) => {
+    const gasBreakdownContractorReference = 'H04'
+    const oohTradeCode = 'OO'
+
+    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
+    return tradeCode == oohTradeCode
+  }
+
   const onFormSubmit = async (formData) => {
     setLoading(true)
 
@@ -107,7 +115,8 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       } else if (
         PRIORITY_CODES_REQUIRING_APPOINTMENTS.includes(
           formData.priority.priorityCode
-        )
+        ) &&
+        !isOutOfHoursGas(contractorReference, tradeCode)
       ) {
         router.push({
           pathname: `/work-orders/${id}/appointment/new`,
