@@ -19,7 +19,6 @@ import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 import AddMultipleSORs from './AddMultipleSORs'
-import { tr } from 'date-fns/locale'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
