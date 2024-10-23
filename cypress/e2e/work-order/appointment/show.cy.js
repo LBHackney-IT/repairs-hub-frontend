@@ -31,7 +31,7 @@ describe('Managing work order appointments', () => {
       { body: [] }
     )
 
-    cy.clock(new Date('2021-01-22T18:30:00.00000'))
+    // cy.clock(new Date('2021-01-22T18:30:00.00000'))
   })
 
   context('When the work order has no appointment', () => {
@@ -76,6 +76,39 @@ describe('Managing work order appointments', () => {
           cy.contains('a', 'Open DRS to book an appointment').should(
             'not.exist'
           )
+
+          cy.contains('Not applicable')
+        })
+      })
+    })
+
+    context('For OOH gas work order', () => {
+      it('Does not show a link to schedule an appointment', () => {
+        cy.fixture('workOrders/externallyManagedAppointment.json').then(
+          (workOrder) => {
+            workOrder.priority = '[U] URGENT'
+            workOrder.priorityCode = 3
+
+            workOrder.tradeCode = 'OO'
+            workOrder.contractorReference = 'H04'
+
+            cy.intercept(
+              { method: 'GET', path: '/api/workOrders/10000012' },
+              { body: workOrder }
+            )
+          }
+        )
+        cy.visit('/work-orders/10000012')
+
+        cy.get('.appointment-details').within(() => {
+          cy.contains('Appointment details')
+          cy.contains('a', 'Schedule an appointment').should('not.exist')
+
+          cy.contains('a', 'Open DRS to book an appointment').should(
+            'not.exist'
+          )
+
+          cy.contains('Not applicable')
         })
       })
     })
