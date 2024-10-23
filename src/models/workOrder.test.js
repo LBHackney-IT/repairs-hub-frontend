@@ -69,21 +69,36 @@ describe('WorkOrder', () => {
     )
 
     allowedStatuses.forEach((status) => {
-      it('returns true', () => {
+      it('returns true when valid status', () => {
+        // Arrange
         const workOrder = new WorkOrder({
           status,
           priorityCode: NORMAL_PRIORITY_CODE,
         })
 
-        expect(workOrder.canBeScheduled()).toBe(true)
+        workOrder.isOutOfHoursGas = jest.fn(() => false)
+
+        // Act
+        const result = workOrder.canBeScheduled()
+
+        // Assert
+
+        expect(result).toBe(true)
       })
     })
 
     CLOSED_STATUS_DESCRIPTIONS.forEach((status) => {
-      it('returns false', () => {
+      it('returns false when invalid status', () => {
+        // Arrange
         const workOrder = new WorkOrder({ status })
 
-        expect(workOrder.canBeScheduled()).toBe(false)
+        workOrder.isOutOfHoursGas = jest.fn(() => false)
+
+        // Act
+        const result = workOrder.canBeScheduled()
+
+        // Assert
+        expect(result).toBe(false)
       })
     })
 
@@ -92,10 +107,17 @@ describe('WorkOrder', () => {
     ]
 
     allowedPriorityCodes.forEach((code) => {
-      it(`returns true when the priorityCode is ${code}`, () => {
+      it(`returns true when allowed priority code`, () => {
+        // Arrange
         const workOrder = new WorkOrder({ priorityCode: code })
 
-        expect(workOrder.canBeScheduled()).toBe(true)
+        workOrder.isOutOfHoursGas = jest.fn(() => false)
+
+        // Act
+        const result = workOrder.canBeScheduled()
+
+        // Assert
+        expect(result).toBe(true)
       })
     })
 
@@ -104,11 +126,52 @@ describe('WorkOrder', () => {
     ]
 
     disabledPriorities.forEach((code) => {
-      it(`returns false when the priorityCode is ${code}`, () => {
+      it(`returns false when invalid priority code`, () => {
+        // Arrange
         const workOrder = new WorkOrder({ priorityCode: code })
 
-        expect(workOrder.canBeScheduled()).toBe(false)
+        workOrder.isOutOfHoursGas = jest.fn(() => false)
+
+        // Act
+        const result = workOrder.canBeScheduled()
+
+        // Assert
+        expect(result).toBe(false)
       })
+    })
+
+    it(`returns false when work order is out of hours gas`, () => {
+      // Arrange
+      const workOrder = new WorkOrder({
+        contractorReference: 'H04',
+        tradeCode: 'OO',
+      })
+
+      workOrder.statusAllowsScheduling = jest.fn(() => true)
+      workOrder.isAppointmentRequired = jest.fn(() => true)
+
+      // Act
+      const result = workOrder.canBeScheduled()
+
+      // Assert
+      expect(result).toBe(false)
+    })
+
+    it(`returns true when work order is not out of hours gas`, () => {
+      // Arrange
+      const workOrder = new WorkOrder({
+        contractorReference: 'H01',
+        tradeCode: 'PL',
+      })
+
+      workOrder.statusAllowsScheduling = jest.fn(() => true)
+      workOrder.isAppointmentRequired = jest.fn(() => true)
+
+      // Act
+      const result = workOrder.canBeScheduled()
+
+      // Assert
+      expect(result).toBe(true)
     })
   })
 
