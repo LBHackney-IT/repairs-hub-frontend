@@ -64,9 +64,11 @@ describe('WorkOrder', () => {
   })
 
   describe('canBeScheduled()', () => {
-    WORK_ORDERS_STATUSES.filter(
+    const allowedStatuses = WORK_ORDERS_STATUSES.filter(
       (status) => !CLOSED_STATUS_DESCRIPTIONS.includes(status)
-    ).forEach((status) => {
+    )
+
+    allowedStatuses.forEach((status) => {
       it('returns true', () => {
         const workOrder = new WorkOrder({
           status,
@@ -84,18 +86,24 @@ describe('WorkOrder', () => {
         expect(workOrder.canBeScheduled()).toBe(false)
       })
     })
-    ;[
+
+    const allowedPriorityCodes = [
       (URGENT_PRIORITY_CODE, NORMAL_PRIORITY_CODE, SURVEY_PRIORITY_CODE),
-    ].forEach((code) => {
+    ]
+
+    allowedPriorityCodes.forEach((code) => {
       it(`returns true when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
         expect(workOrder.canBeScheduled()).toBe(true)
       })
     })
-    ;[
+
+    const disabledPriorities = [
       (IMMEDIATE_PRIORITY_CODE, EMERGENCY_PRIORITY_CODE, PLANNED_PRIORITY_CODE),
-    ].forEach((code) => {
+    ]
+
+    disabledPriorities.forEach((code) => {
       it(`returns false when the priorityCode is ${code}`, () => {
         const workOrder = new WorkOrder({ priorityCode: code })
 
