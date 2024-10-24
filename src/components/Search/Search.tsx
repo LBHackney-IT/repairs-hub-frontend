@@ -10,7 +10,6 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
-// Define types for props
 interface SearchProps {
   query?: {
     searchText?: string
@@ -26,7 +25,6 @@ interface PropertyData {
 const Search: React.FC<SearchProps> = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
 
-  // Decode query parameter
   const decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
@@ -38,7 +36,6 @@ const Search: React.FC<SearchProps> = ({ query }) => {
 
   const userCanSearchForProperty = user && canSearchForProperty(user)
 
-  // State management
   const [searchTextInput, setSearchTextInput] = useState<string>('')
   const [properties, setProperties] = useState<PropertyListItem[]>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -66,7 +63,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
         searchForProperties(decodedQueryParamSearchText, pageNumber)
       }
     }
-  }, []) // Only runs once
+  }, [])
 
   useEffect(() => {
     if (pageNumber && searchTextInput) {
@@ -74,11 +71,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
     }
   }, [pageNumber])
 
-  // Search for properties function
-  const searchForProperties = async (
-    searchQuery: string,
-    pageNumber?: string
-  ) => {
+  const searchForProperties = async (searchQuery, pageNumber) => {
     setLoading(true)
     setError(null)
 
@@ -97,6 +90,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
         })
 
         setSearchHitTotal(parseInt(propertiesData.total))
+
         setProperties(
           propertiesData.properties.map(
             (property) => new PropertyListItem(property)
@@ -106,8 +100,8 @@ const Search: React.FC<SearchProps> = ({ query }) => {
         setSearchHitTotal(0)
         setProperties([])
       }
-    } catch (e: any) {
-      setProperties([])
+    } catch (e) {
+      setProperties(null)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -116,7 +110,6 @@ const Search: React.FC<SearchProps> = ({ query }) => {
     setLoading(false)
   }
 
-  // Handle form submit
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
@@ -132,7 +125,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
           searchText: searchTextInput,
         },
       })
-      searchForProperties(searchTextInput, '1')
+      searchForProperties(searchTextInput, 1)
     }
   }
 
@@ -148,8 +141,8 @@ const Search: React.FC<SearchProps> = ({ query }) => {
           <h1 className="lbh-heading-h1">{searchHeadingText}</h1>
 
           <div className="govuk-form-group lbh-form-group">
-            <form onSubmit={handleSubmit}>
-              <label htmlFor="input-search" className="govuk-label lbh-label">
+            <form>
+              <label htmlFor={'input-search'} className="govuk-label lbh-label">
                 {searchLabelText}
               </label>
               <input
@@ -160,7 +153,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
                 value={searchTextInput}
                 onChange={(event) => setSearchTextInput(event.target.value)}
               />
-              <PrimarySubmitButton label="Search" />
+              <PrimarySubmitButton label="Search" onClick={handleSubmit} />
             </form>
           </div>
         </section>

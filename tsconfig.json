@@ -25,6 +25,6 @@
       "@/utils/*": ["src/utils/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Search/Search.test.tsx", "src/components/Search/Search.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Search/Search.test.tsx", "src/components/Search/Search.tsx"],
   "exclude": ["node_modules", "build", "dist", ".next"]
 }
