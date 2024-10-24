@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, FormEvent } from 'react'
 import { useRouter } from 'next/router'
 import UserContext from '../UserContext'
 import PropertiesTable from '../Properties/PropertiesTable'
@@ -10,9 +10,23 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
-const Search = ({ query }) => {
+// Define types for props
+interface SearchProps {
+  query?: {
+    searchText?: string
+    pageNumber?: string
+  }
+}
+
+interface PropertyData {
+  total: string
+  properties: PropertyListItem[]
+}
+
+const Search: React.FC<SearchProps> = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
 
+  // Decode query parameter
   let decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
@@ -24,11 +38,12 @@ const Search = ({ query }) => {
 
   const userCanSearchForProperty = user && canSearchForProperty(user)
 
-  const [searchTextInput, setSearchTextInput] = useState('')
-  const [properties, setProperties] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [searchHitTotal, setSearchHitTotal] = useState()
+  // State management
+  const [searchTextInput, setSearchTextInput] = useState<string>('')
+  const [properties, setProperties] = useState<PropertyListItem[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [searchHitTotal, setSearchHitTotal] = useState<number | null>(null)
 
   const WORK_ORDER_REFERENCE_REGEX = /^[0-9]{7,10}$/g
 
@@ -51,7 +66,7 @@ const Search = ({ query }) => {
         searchForProperties(decodedQueryParamSearchText, pageNumber)
       }
     }
-  }, [])
+  }, []) // Only runs once
 
   useEffect(() => {
     if (pageNumber && searchTextInput) {
@@ -59,13 +74,17 @@ const Search = ({ query }) => {
     }
   }, [pageNumber])
 
-  const searchForProperties = async (searchQuery, pageNumber) => {
+  // Search for properties function
+  const searchForProperties = async (
+    searchQuery: string,
+    pageNumber?: string
+  ) => {
     setLoading(true)
     setError(null)
 
     try {
       if (searchQuery) {
-        const propertiesData = await frontEndApiRequest({
+        const propertiesData: PropertyData = await frontEndApiRequest({
           method: 'get',
           path: '/api/properties/search',
           params: {
@@ -73,10 +92,11 @@ const Search = ({ query }) => {
             ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
             ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
           },
+          requestData: null,
+          paramsSerializer: null,
         })
 
         setSearchHitTotal(parseInt(propertiesData.total))
-
         setProperties(
           propertiesData.properties.map(
             (property) => new PropertyListItem(property)
@@ -86,8 +106,8 @@ const Search = ({ query }) => {
         setSearchHitTotal(0)
         setProperties([])
       }
-    } catch (e) {
-      setProperties(null)
+    } catch (e: any) {
+      setProperties([])
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -96,7 +116,8 @@ const Search = ({ query }) => {
     setLoading(false)
   }
 
-  const handleSubmit = (e) => {
+  // Handle form submit
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (
@@ -111,11 +132,11 @@ const Search = ({ query }) => {
           searchText: searchTextInput,
         },
       })
-      searchForProperties(searchTextInput, 1)
+      searchForProperties(searchTextInput, '1')
     }
   }
 
-  const workOrderUrl = (reference) => {
+  const workOrderUrl = (reference: string) => {
     router.push(`/work-orders/${reference}`)
   }
 
@@ -127,8 +148,8 @@ const Search = ({ query }) => {
           <h1 className="lbh-heading-h1">{searchHeadingText}</h1>
 
           <div className="govuk-form-group lbh-form-group">
-            <form>
-              <label htmlFor={'input-search'} className="govuk-label lbh-label">
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="input-search" className="govuk-label lbh-label">
                 {searchLabelText}
               </label>
               <input
@@ -139,7 +160,7 @@ const Search = ({ query }) => {
                 value={searchTextInput}
                 onChange={(event) => setSearchTextInput(event.target.value)}
               />
-              <PrimarySubmitButton label="Search" onClick={handleSubmit} />
+              <PrimarySubmitButton label="Search" />
             </form>
           </div>
         </section>
