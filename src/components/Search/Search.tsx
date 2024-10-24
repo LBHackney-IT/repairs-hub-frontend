@@ -27,7 +27,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
 
   // Decode query parameter
-  let decodedQueryParamSearchText = query?.searchText
+  const decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
 
