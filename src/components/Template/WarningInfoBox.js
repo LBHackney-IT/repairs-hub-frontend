@@ -25,6 +25,7 @@ const WarningInfoBox = ({ header, text, name }) => {
 WarningInfoBox.propTypes = {
   header: PropTypes.string.isRequired,
   text: PropTypes.string.isRequired,
+  name: PropTypes.string.isNotRequired,
 }
 
 export default WarningInfoBox
