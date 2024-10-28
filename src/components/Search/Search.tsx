@@ -85,8 +85,6 @@ const Search: React.FC<SearchProps> = ({ query }) => {
             ...(searchQuery && { pageSize: NEXT_PUBLIC_PROPERTIES_PAGE_SIZE }),
             ...(pageNumber && { pageNumber: parseInt(pageNumber) }),
           },
-          requestData: null,
-          paramsSerializer: null,
         })
 
         setSearchHitTotal(parseInt(propertiesData.total))
