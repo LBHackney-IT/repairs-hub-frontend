@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, FormEvent } from 'react'
 import { useRouter } from 'next/router'
 import UserContext from '../UserContext'
 import PropertiesTable from '../Properties/PropertiesTable'
@@ -10,10 +10,22 @@ import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
-const Search = ({ query }) => {
+interface SearchProps {
+  query?: {
+    searchText?: string
+    pageNumber?: string
+  }
+}
+
+interface PropertyData {
+  total: string
+  properties: PropertyListItem[]
+}
+
+const Search: React.FC<SearchProps> = ({ query }) => {
   const { NEXT_PUBLIC_PROPERTIES_PAGE_SIZE } = process.env
 
-  let decodedQueryParamSearchText = query?.searchText
+  const decodedQueryParamSearchText = query?.searchText
     ? decodeURIComponent(query.searchText.replace(/\+/g, ' '))
     : ''
 
@@ -24,11 +36,11 @@ const Search = ({ query }) => {
 
   const userCanSearchForProperty = user && canSearchForProperty(user)
 
-  const [searchTextInput, setSearchTextInput] = useState('')
-  const [properties, setProperties] = useState([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [searchHitTotal, setSearchHitTotal] = useState()
+  const [searchTextInput, setSearchTextInput] = useState<string>('')
+  const [properties, setProperties] = useState<PropertyListItem[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [searchHitTotal, setSearchHitTotal] = useState<number | null>(null)
 
   const WORK_ORDER_REFERENCE_REGEX = /^[0-9]{7,10}$/g
 
@@ -65,7 +77,7 @@ const Search = ({ query }) => {
 
     try {
       if (searchQuery) {
-        const propertiesData = await frontEndApiRequest({
+        const propertiesData: PropertyData = await frontEndApiRequest({
           method: 'get',
           path: '/api/properties/search',
           params: {
@@ -96,7 +108,7 @@ const Search = ({ query }) => {
     setLoading(false)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (
@@ -115,7 +127,7 @@ const Search = ({ query }) => {
     }
   }
 
-  const workOrderUrl = (reference) => {
+  const workOrderUrl = (reference: string) => {
     router.push(`/work-orders/${reference}`)
   }
 
