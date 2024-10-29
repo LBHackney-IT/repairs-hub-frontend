@@ -90,6 +90,12 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
 
   return (
     <>
+    <CurrentUserWrapper>
+        {({ currentUser }) => (
+          <MobileWorkingPastWorkOrdersView currentUser={currentUser} />
+        )}
+      </CurrentUserWrapper>
+      
       <Meta title="Manage work orders" />
       <div className="mobile-working-title-banner">
         <h2 className="lbh-heading-h2">
