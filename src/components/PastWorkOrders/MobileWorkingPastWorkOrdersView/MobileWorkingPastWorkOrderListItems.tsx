@@ -1,4 +1,4 @@
-import MobileWorkingWorkOrderListItem from '../WorkOrder/MobileWorkingWorkOrderListItem'
+import MobileWorkingWorkOrderListItem from '../../WorkOrder/MobileWorkingWorkOrderListItem'
 
 export const MobileWorkingPastWorkOrderListItems = ({
   workOrders,

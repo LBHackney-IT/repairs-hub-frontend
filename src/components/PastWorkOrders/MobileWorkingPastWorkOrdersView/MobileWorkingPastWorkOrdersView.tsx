@@ -2,11 +2,11 @@ import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
-import Spinner from '../Spinner'
-import ErrorMessage from '../Errors/ErrorMessage'
-import WarningInfoBox from '../Template/WarningInfoBox'
-import Meta from '../Meta'
-import { WorkOrder } from '../../models/workOrder'
+import Spinner from '../../Spinner'
+import ErrorMessage from '../../Errors/ErrorMessage'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+import Meta from '../../Meta'
+import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingPastWorkOrderListItems } from './MobileWorkingPastWorkOrderListItems'
 
 const SIXTY_SECONDS = 60 * 1000
@@ -24,23 +24,21 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/016062/workorders`,
+        path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
 
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
-      console.log(currentUser)
 
       const sortedWorkOrderItems = sortWorkOrderItems(currentUser, workOrders)
-
       setVisitedWorkOrders(visitedWorkOrders)
       setSortedWorkOrders(sortedWorkOrderItems)
     } catch (e) {
       setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
 
-      console.error('An error has occured:', e.response)
+      console.error('An error has occured:', e)
       setError(
         `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
@@ -99,7 +97,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
         </h2>
       </div>
 
-      <h3 className="lbh-heading-h3">Work orders</h3>
+      <h3 className="lbh-heading-h3">Past Work orders</h3>
       {sortedWorkOrders === null ? (
         <Spinner />
       ) : (

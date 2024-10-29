@@ -2,11 +2,22 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import MobileWorkingWorkOrdersView from './MobileWorkingWorkOrdersView'
+import MobileWorkingPastWorkOrdersView from './MobileWorkingPastWorkOrdersView'
+
+interface CurrentUser {
+  sub: string
+  name: string
+  email: string
+  varyLimit: string
+  raiseLimit: string
+  contractors: any[] // Adjust!
+  operativePayrollNumber: string | null
+  isOneJobAtATime: boolean
+}
 
 const CurrentUserWrapper = () => {
-  const [currentUser, setCurrentUser] = useState(null)
-  const [error, setError] = useState()
+  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
+  const [error, setError] = useState<string | null>()
   const [loading, setLoading] = useState(false)
 
   const getOperativeWorkOrderView = async () => {
@@ -18,7 +29,9 @@ const CurrentUserWrapper = () => {
         method: 'get',
         path: '/api/hub-user',
       })
-      console.log(currentUser)
+      console.log({ currentUser })
+      currentUser.isOneJobAtATime = true
+      currentUser.operativePayrollNumber = '016062'
       setCurrentUser(currentUser)
     } catch (e) {
       setError(
@@ -40,7 +53,7 @@ const CurrentUserWrapper = () => {
       ) : (
         <>
           {!!currentUser && (
-            <MobileWorkingWorkOrdersView currentUser={currentUser} />
+            <MobileWorkingPastWorkOrdersView currentUser={currentUser} />
           )}
           {error && <ErrorMessage label={error} />}
         </>
