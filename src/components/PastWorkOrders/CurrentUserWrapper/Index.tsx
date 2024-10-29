@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import MobileWorkingPastWorkOrdersView from './MobileWorkingPastWorkOrdersView'
 
 interface CurrentUser {
   sub: string
@@ -15,9 +14,18 @@ interface CurrentUser {
   isOneJobAtATime: boolean
 }
 
-const CurrentUserWrapper = () => {
-  const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null)
-  const [error, setError] = useState<string | null>()
+// Define props interface for child components
+interface WithCurrentUserProps {
+  currentUser: CurrentUser
+}
+
+interface Props {
+  children: (props: WithCurrentUserProps) => React.ReactNode
+}
+
+const CurrentUserWrapper = ({ children }: Props) => {
+  const [currentUser, setCurrentUser] = useState(null)
+  const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
 
   const getOperativeWorkOrderView = async () => {
@@ -29,9 +37,7 @@ const CurrentUserWrapper = () => {
         method: 'get',
         path: '/api/hub-user',
       })
-      console.log({ currentUser })
-      currentUser.isOneJobAtATime = true
-      currentUser.operativePayrollNumber = '016062'
+
       setCurrentUser(currentUser)
     } catch (e) {
       setError(
@@ -52,9 +58,7 @@ const CurrentUserWrapper = () => {
         <Spinner />
       ) : (
         <>
-          {!!currentUser && (
-            <MobileWorkingPastWorkOrdersView currentUser={currentUser} />
-          )}
+          {!!currentUser && children({ currentUser })}
           {error && <ErrorMessage label={error} />}
         </>
       )}

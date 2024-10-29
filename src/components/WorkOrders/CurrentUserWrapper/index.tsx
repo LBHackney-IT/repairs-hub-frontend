@@ -3,13 +3,15 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
-// Define the shape of the current user
 interface CurrentUser {
-  // Add your user properties here
-  // For example:
-  id: string
+  sub: string
   name: string
-  // ... other user properties
+  email: string
+  varyLimit: string
+  raiseLimit: string
+  contractors: any[] // Adjust!
+  operativePayrollNumber: string | null
+  isOneJobAtATime: boolean
 }
 
 // Define props interface for child components
@@ -23,7 +25,7 @@ interface Props {
 
 const CurrentUserWrapper = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
 
   const getOperativeWorkOrderView = async () => {
@@ -35,7 +37,7 @@ const CurrentUserWrapper = ({ children }: Props) => {
         method: 'get',
         path: '/api/hub-user',
       })
-      console.log(currentUser)
+
       setCurrentUser(currentUser)
     } catch (e) {
       setError(
@@ -56,10 +58,7 @@ const CurrentUserWrapper = ({ children }: Props) => {
         <Spinner />
       ) : (
         <>
-          {!!currentUser &&
-            children({ currentUser })
-            // <MobileWorkingWorkOrdersView currentUser={currentUser} />
-          }
+          {!!currentUser && children({ currentUser })}
           {error && <ErrorMessage label={error} />}
         </>
       )}

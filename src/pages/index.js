@@ -6,6 +6,7 @@ import { ALL_ROLES } from '@/utils/user'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
 import MobileWorkingPastWorkOrdersView from '../components/PastWorkOrders/MobileWorkingPastWorkOrdersView/MobileWorkingPastWorkOrdersView'
+import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -14,11 +15,13 @@ const Home = ({ query }) => {
 
   const HomeView = () => {
     return (
-      // <CurrentUserWrapper>
-      //   {({ currentUser }) => (
-          <MobileWorkingPastWorkOrdersView />
-      //   )}
-      // </CurrentUserWrapper>
+      <>
+        <CurrentUserWrapper>
+          {({ currentUser }) => (
+            <MobileWorkingPastWorkOrdersView currentUser={currentUser} />
+          )}
+        </CurrentUserWrapper>
+      </>
     )
 
     // return <MobileWorkingPastWorkOrdersView />
