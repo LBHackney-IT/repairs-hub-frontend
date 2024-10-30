@@ -2,17 +2,7 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-
-interface CurrentUser {
-  sub: string
-  name: string
-  email: string
-  varyLimit: string
-  raiseLimit: string
-  contractors: any[] // Adjust!
-  operativePayrollNumber: string | null
-  isOneJobAtATime: boolean
-}
+import { CurrentUser } from '@/root/src/types/variations/types'
 
 // Define props interface for child components
 interface WithCurrentUserProps {
