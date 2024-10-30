@@ -3,34 +3,43 @@ import Spinner from '@/components/Spinner'
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import { ALL_ROLES } from '@/utils/user'
+import {
+  canSeeWorkOrders,
+  canSeeOperativeWorkOrders,
+} from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import PastOrdersCurrentUserWrapper from '../components/PastWorkOrders/CurrentUserWrapper'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
 import MobileWorkingPastWorkOrdersView from '../components/PastWorkOrders/MobileWorkingPastWorkOrdersView/MobileWorkingPastWorkOrdersView'
 import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
+import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
+import NewTabs from '../components/NewTabs/Index'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(true)
 
+  const [currentWorkOrders, setCurrentWorkOrders] = useState(true)
+  const [pastWorkOrders, setPastWorkOrders] = useState(false)
+
   const HomeView = () => {
     return (
       <>
+        <NewTabs />
+
         <CurrentUserWrapper>
           {({ currentUser }) => (
-            <MobileWorkingPastWorkOrdersView currentUser={currentUser} />
+            <MobileWorkingWorkOrdersView currentUser={currentUser} />
           )}
         </CurrentUserWrapper>
       </>
     )
-
-    // return <MobileWorkingPastWorkOrdersView />
     // if (user && canSeeWorkOrders(user)) {
     //   // Use saved filter preset in local storage as the default applied filters (if present)
     //   const defaultFilters = JSON.parse(
     //     localStorage.getItem('RH - default work order filters')
     //   )
-
     //   if (Object.entries(query).length === 0) {
     //     return (
     //       <WorkOrdersView

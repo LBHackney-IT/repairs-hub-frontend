@@ -23,7 +23,7 @@ interface Props {
   children: (props: WithCurrentUserProps) => React.ReactNode
 }
 
-const CurrentUserWrapper = ({ children }: Props) => {
+const PastOrdersCurrentUserWrapper = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState(null)
   const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
@@ -66,4 +66,4 @@ const CurrentUserWrapper = ({ children }: Props) => {
   )
 }
 
-export default CurrentUserWrapper
+export default PastOrdersCurrentUserWrapper
