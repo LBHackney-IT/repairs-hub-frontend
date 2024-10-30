@@ -47,7 +47,7 @@ export const daysAfter = (date, days) => {
 }
 
 export const daysBeforeDateRangeExcWeekend = (date, days) => {
-  let daysCountdown = Array(8).fill('')
+  let daysCountdown = Array(7).fill('')
   daysCountdown.forEach((_, index) => {
     daysCountdown[index] = new Date(date.getTime() - days * DAY)
     days -= 1
