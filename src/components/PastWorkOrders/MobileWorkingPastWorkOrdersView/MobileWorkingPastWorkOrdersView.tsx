@@ -8,41 +8,54 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingPastWorkOrderListItems } from './MobileWorkingPastWorkOrderListItems'
+import {
+  CurrentUser,
+  WorkOrderType,
+  WorkOrdersType,
+} from '@/root/src/types/variations/types'
 
 const SIXTY_SECONDS = 60 * 1000
 
 const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
+  const yesterday = new Date()
+  yesterday.setDate(currentDate.getDate() - 1)
   const lastSevenDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [error, setError] = useState<string | null>()
-  console.log(lastSevenDays)
+  const [selectedDate, setSelectedDate] = useState<Date>(yesterday)
+  const targetDate = selectedDate.toISOString().split('T')[0]
+
   const getOperativeWorkOrderView = async () => {
     setError(null)
 
-    // try {
-    //   const data = await frontEndApiRequest({
-    //     method: 'get',
-    //     path: `/api/operatives/017233/workorders`,
-    //   })
+    try {
+      const data = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/operatives/017233/workOrdersNew?date=${targetDate}`,
+      })
 
-    //   const workOrders = data.map((wo) => new WorkOrder(wo))
+      const workOrders: WorkOrdersType = data.map(
+        (wo: WorkOrderType) => new WorkOrder(wo)
+      )
 
-    //   const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
+      const visitedWorkOrders = workOrders.filter((wo: WorkOrderType) =>
+        wo.hasBeenVisited()
+      )
 
-    //   const sortedWorkOrderItems = sortWorkOrderItems(currentUser, workOrders)
-    //   setVisitedWorkOrders(visitedWorkOrders)
-    //   setSortedWorkOrders(sortedWorkOrderItems)
-    // } catch (e) {
-    //   setVisitedWorkOrders(null)
-    //   setSortedWorkOrders(null)
+      const sortedWorkOrderItems = sortWorkOrderItems(currentUser, workOrders)
+      setVisitedWorkOrders(visitedWorkOrders)
+      setSortedWorkOrders(sortedWorkOrderItems)
+    } catch (e) {
+      setVisitedWorkOrders(null)
+      setSortedWorkOrders(null)
 
-    //   console.error('An error has occured:', e)
-    //   setError(
-    //     `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-    //   )
-    // }
+      console.error('An error has occured:', e)
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+      )
+    }
   }
 
   const intervalRef = useRef(null)
@@ -63,9 +76,12 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     return () => {
       clearInterval(intervalRef.current)
     }
-  }, [currentUser?.operativePayrollNumber])
+  }, [currentUser?.operativePayrollNumber, targetDate])
 
-  const sortWorkOrderItems = (currentUser, workOrders) => {
+  const sortWorkOrderItems = (
+    currentUser: CurrentUser,
+    workOrders: WorkOrdersType
+  ) => {
     const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
 
     const startedWorkOrders = workOrders.filter(
@@ -88,6 +104,11 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
       .slice(0, 1)
   }
 
+  const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedDate = event.target.value
+    setSelectedDate(new Date(selectedDate))
+  }
+
   return (
     <>
       <Meta title="Manage work orders" />
@@ -95,19 +116,19 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
         <h3>Past Orders</h3>
       </div>
 
-      <h3 className="lbh-heading-h3">Select date</h3>
-      <div className="lbh-heading-h2">
-        <select name="date-picker" id="date-picker">
+      <div className="lbh-heading-h4">
+        <h3 className="lbh-heading-h3">Select date</h3>
+        <select name="date-picker" id="date-picker" onChange={handleDateChange}>
           {lastSevenDays.map((day, index) => {
             return (
-              <option value={day.toString()} key={index}>
+              <option value={day} key={index}>
                 {day.toString().slice(3, 10)}
               </option>
             )
           })}
         </select>
       </div>
-      {/* {sortedWorkOrders === null ? (
+      {sortedWorkOrders === null ? (
         <Spinner />
       ) : (
         <>
@@ -126,7 +147,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
           )}
           {error && <ErrorMessage label={error} />}
         </>
-      )} */}
+      )}
     </>
   )
 }
