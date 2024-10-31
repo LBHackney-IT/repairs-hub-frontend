@@ -15,8 +15,11 @@ provider:
       - image/jpg
       - multipart/form-data
   tracing:
-    lambda: true
-
+    lambda: Active
+    apiGateway: true
+  logs:
+    restApi: true
+    
 package:
   individually: true
   exclude:
