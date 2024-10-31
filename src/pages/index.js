@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import Spinner from '@/components/Spinner'
 
 import UserContext from '@/components/UserContext'
@@ -17,16 +19,20 @@ import NewTabs from '../components/NewTabs/Index'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
+  const router = useRouter()
+
+  const titles = ['Current Work Orders', 'Past Work Orders']
 
   const [loading, setLoading] = useState(true)
 
-  const [currentWorkOrders, setCurrentWorkOrders] = useState(true)
-  const [pastWorkOrders, setPastWorkOrders] = useState(false)
+  const handleTabClick = (index) => {
+    index === 1 && router.push('/oldjobs')
+  }
 
   const HomeView = () => {
     return (
       <>
-        <NewTabs />
+        <NewTabs titles={titles} onTabChange={handleTabClick} />
 
         <CurrentUserWrapper>
           {({ currentUser }) => (

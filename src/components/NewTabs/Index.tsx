@@ -1,16 +1,11 @@
-import { ReactEventHandler, useState } from 'react'
-import { useRouter } from 'next/router'
-const NewTabs = () => {
-  const router = useRouter()
-  const tabTitles = ['Current Work Orders', 'Past Work Orders']
+import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import { OPERATIVE_ROLE } from '@/utils/user'
 
-  const [activeTab, setActiveTab] = useState(0)
-
-  const changeActiveTab = (e: React.MouseEvent<HTMLElement>, index: number) => {
-    setActiveTab(index)
-    activeTab === 1 ? router.push('/oldjobs') : router.push('/')
-  }
-
+interface TabProps {
+  titles: string[]
+  onTabChange?: (index: number) => void
+}
+const NewTabs = ({ titles, onTabChange }: TabProps) => {
   return (
     <>
       <div
@@ -18,13 +13,10 @@ const NewTabs = () => {
         data-module="govuk-tabs"
       >
         <ul className="govuk-tabs__list hackney-tabs-list govuk-tabs__panel hackney-tabs-info hackney-tabs-panel">
-          {tabTitles.map((tab, i) => {
+          {titles.map((tab, i) => {
             return (
               <li key={i} className="govuk-tabs__list-item">
-                <a
-                  onClick={(e) => changeActiveTab(e, i)}
-                  className="govuk-tabs__tab"
-                >
+                <a onClick={() => onTabChange(i)} className={`govuk-tabs__tab`}>
                   {tab}
                 </a>
               </li>
@@ -35,5 +27,9 @@ const NewTabs = () => {
     </>
   )
 }
+
+export const getServerSideProps = getQueryProps
+
+NewTabs.permittedRoles = [OPERATIVE_ROLE]
 
 export default NewTabs
