@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
+
+import { Select } from '../../Form'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WarningInfoBox from '../../Template/WarningInfoBox'
@@ -111,43 +113,45 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
 
   return (
     <>
-      <Meta title="Manage work orders" />
-      <div className="mobile-working-title-banner">
-        <h3>Past Orders</h3>
-      </div>
-
-      <div className="lbh-heading-h4">
-        <h3 className="lbh-heading-h3">Select date</h3>
-        <select name="date-picker" id="date-picker" onChange={handleDateChange}>
-          {lastSevenDays.map((day, index) => {
-            return (
-              <option value={day} key={index}>
-                {day.toString().slice(3, 10)}
-              </option>
-            )
-          })}
-        </select>
-      </div>
-      {sortedWorkOrders === null ? (
-        <Spinner />
-      ) : (
-        <>
-          {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
-            <ol className="lbh-list mobile-working-work-order-list">
-              <MobileWorkingPastWorkOrderListItems
-                workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
-                currentUser={currentUser}
+      <Meta title="Manage past work orders" />
+      <div className="container">
+        <div className="date-picker-container">
+          <h2 className="lbh-heading-h2">Select date</h2>
+          <select
+            name="date-picker"
+            id="date-picker"
+            onChange={handleDateChange}
+          >
+            {lastSevenDays.map((day, index) => {
+              return (
+                <option value={day} key={index}>
+                  {day.toString().slice(3, 10)}
+                </option>
+              )
+            })}
+          </select>
+        </div>
+        {sortedWorkOrders === null ? (
+          <Spinner />
+        ) : (
+          <>
+            {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
+              <ol className="lbh-list mobile-working-work-order-list">
+                <MobileWorkingPastWorkOrderListItems
+                  workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
+                  currentUser={currentUser}
+                />
+              </ol>
+            ) : (
+              <WarningInfoBox
+                header="No work orders displayed"
+                text="Please contact your supervisor"
               />
-            </ol>
-          ) : (
-            <WarningInfoBox
-              header="No work orders displayed"
-              text="Please contact your supervisor"
-            />
-          )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
+            )}
+            {error && <ErrorMessage label={error} />}
+          </>
+        )}
+      </div>
     </>
   )
 }
