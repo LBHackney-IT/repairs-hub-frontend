@@ -30,6 +30,8 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 @import 'components/mobile-working/mobile-menu';
 @import 'components/mobile-working/mobile-working-title-banner';
 @import 'components/mobile-working/date-picker';
+@import 'components/mobile-working/mobile-work-order-container.scss';
+@import 'components/mobile-working/mobile-tabs.scss';
 @import 'components/operative/operative-work-order-list-item';
 @import 'components/operative/work-order';
 @import 'components/grid';

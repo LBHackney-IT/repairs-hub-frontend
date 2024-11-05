@@ -18,8 +18,8 @@ const OperativePastWorkOrderPage = () => {
   }
   return (
     <>
-      <NewTabs titles={titles} onTabChange={handleTabClick} />
       <Meta title={`Past Work Orders`} />
+      <NewTabs titles={titles} onTabChange={handleTabClick} />
       <CurrentUserWrapper>
         {({ currentUser }) => (
           <MobileWorkingPastWorkOrdersView currentUser={currentUser} />

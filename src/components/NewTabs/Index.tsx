@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
 
@@ -6,24 +8,23 @@ interface TabProps {
   onTabChange?: (index: number) => void
 }
 const NewTabs = ({ titles, onTabChange }: TabProps) => {
+  const [workOrdersSelected, setWorkOrdersSelected] = useState<boolean>(false)
   return (
     <>
-      <div
-        className="govuk-tabs lbh-tabs govuk-!-display-none-print"
-        data-module="govuk-tabs"
-      >
-        <ul className="govuk-tabs__list hackney-tabs-list govuk-tabs__panel hackney-tabs-info hackney-tabs-panel">
-          {titles.map((tab, i) => {
-            return (
-              <li key={i} className="govuk-tabs__list-item">
-                <a onClick={() => onTabChange(i)} className={`govuk-tabs__tab`}>
-                  {tab}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
-      </div>
+      <ul className="hackney-tabs-list-mobile govuk-tabs__list">
+        {titles.map((tab, i) => {
+          return (
+            <li
+              onClick={() => onTabChange(i)}
+              key={i}
+              className="govuk-tabs__list-item-mobile"
+              aria-selected={workOrdersSelected ? 'true' : 'false'}
+            >
+              {tab}
+            </li>
+          )
+        })}
+      </ul>
     </>
   )
 }

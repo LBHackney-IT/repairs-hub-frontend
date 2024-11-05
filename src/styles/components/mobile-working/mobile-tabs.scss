@@ -1,0 +1,23 @@
+  @media (max-width: 640px) {
+    .hackney-tabs-list-mobile {
+        display: flex;
+        justify-content: flex-start;
+        gap: 2px;
+        margin: 0;
+        }
+        .govuk-tabs__list-item-mobile {
+          list-style: none;
+          background-color: repairs-hub-colour('light-grey');
+          text-align: center;
+          margin: 0;
+          &[aria-selected='true'] {
+            background-color: repairs-hub-colour('dark-green') !important;
+            color: repairs-hub-colour('black') !important;
+          }
+        }
+         .govuk-tabs__list-item--selected {
+          background-color: repairs-hub-colour('dark-green') !important;
+          color: repairs-hub-colour('black') !important;
+        }
+        
+  }

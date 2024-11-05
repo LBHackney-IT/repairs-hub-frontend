@@ -114,7 +114,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage past work orders" />
-      <div className="container">
+      <div className="mobile-work-order-container">
         <div className="date-picker-container">
           <label htmlFor="date-picker" className="lbh-heading-h2">
             Select date

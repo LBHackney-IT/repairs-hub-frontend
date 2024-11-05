@@ -91,33 +91,31 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <div className="mobile-working-title-banner">
-        <h2 className="lbh-heading-h2">
+      <div className="mobile-work-order-container">
+        <h3 className="lbh-heading-h3">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
-        </h2>
-      </div>
-
-      <h3 className="lbh-heading-h3">Work orders</h3>
-      {sortedWorkOrders === null ? (
-        <Spinner />
-      ) : (
-        <>
-          {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
-            <ol className="lbh-list mobile-working-work-order-list">
-              <MobileWorkingWorkOrderListItems
-                workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
-                currentUser={currentUser}
+        </h3>
+        {sortedWorkOrders === null ? (
+          <Spinner />
+        ) : (
+          <>
+            {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
+              <ol className="lbh-list mobile-working-work-order-list">
+                <MobileWorkingWorkOrderListItems
+                  workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
+                  currentUser={currentUser}
+                />
+              </ol>
+            ) : (
+              <WarningInfoBox
+                header="No work orders displayed"
+                text="Please contact your supervisor"
               />
-            </ol>
-          ) : (
-            <WarningInfoBox
-              header="No work orders displayed"
-              text="Please contact your supervisor"
-            />
-          )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
+            )}
+            {error && <ErrorMessage label={error} />}
+          </>
+        )}
+      </div>
     </>
   )
 }

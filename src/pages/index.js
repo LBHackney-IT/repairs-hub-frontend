@@ -21,18 +21,24 @@ const Home = ({ query }) => {
   const { user } = useContext(UserContext)
   const router = useRouter()
 
+  const [loading, setLoading] = useState(true)
+  const [workOrdersSelected, setWorkOrdersSelected] = useState(true)
+
   const titles = ['Current Work Orders', 'Past Work Orders']
 
-  const [loading, setLoading] = useState(true)
-
   const handleTabClick = (index) => {
+    setWorkOrdersSelected(false)
     index === 1 && router.push('/oldjobs')
   }
 
   const HomeView = () => {
     return (
       <>
-        <NewTabs titles={titles} onTabChange={handleTabClick} />
+        <NewTabs
+          titles={titles}
+          onTabChange={handleTabClick}
+          workOrdersSelected={workOrdersSelected}
+        />
 
         <CurrentUserWrapper>
           {({ currentUser }) => (
