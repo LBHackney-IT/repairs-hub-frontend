@@ -25,12 +25,6 @@ package:
   exclude:
     - ./**
 
-custom:
-  provisionedConcurrency:
-    development: 1
-    staging: 1
-    production: 6
-
 functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
@@ -162,3 +156,7 @@ custom:
     production:
       - subnet-0beb266003a56ca82
       - subnet-06a697d86a9b6ed01
+  provisionedConcurrency:
+    development: 1
+    staging: 1
+    production: 6
