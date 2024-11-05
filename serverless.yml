@@ -15,8 +15,11 @@ provider:
       - image/jpg
       - multipart/form-data
   tracing:
-    lambda: true
-
+    lambda: Active
+    apiGateway: true
+  logs:
+    restApi: true
+    
 package:
   individually: true
   exclude:
@@ -26,6 +29,7 @@ functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
     handler: src/lambda.handler
+    provisionedConcurrency: ${self:custom.provisionedConcurrency.${self:provider.stage}}
     package:
       include:
         - src/lambda.js
@@ -152,3 +156,7 @@ custom:
     production:
       - subnet-0beb266003a56ca82
       - subnet-06a697d86a9b6ed01
+  provisionedConcurrency:
+    development: 1
+    staging: 1
+    production: 6
