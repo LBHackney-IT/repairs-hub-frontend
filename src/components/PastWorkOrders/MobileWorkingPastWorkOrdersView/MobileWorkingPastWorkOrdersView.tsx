@@ -4,6 +4,7 @@ import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 
 import { Select } from '../../Form'
+import DatePicker from '../../DatePicker/Index'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WarningInfoBox from '../../Template/WarningInfoBox'
@@ -115,24 +116,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     <>
       <Meta title="Manage past work orders" />
       <div className="mobile-work-order-container">
-        <div className="date-picker-container">
-          <label htmlFor="date-picker" className="lbh-heading-h2">
-            Select date
-          </label>
-          <select
-            name="date-picker"
-            id="date-picker"
-            onChange={handleDateChange}
-          >
-            {lastSevenDays.map((day, index) => {
-              return (
-                <option value={day} key={index}>
-                  {day.toString().slice(3, 10)}
-                </option>
-              )
-            })}
-          </select>
-        </div>
+        <DatePicker options={lastSevenDays} handleChange={handleDateChange} />
         {sortedWorkOrders === null ? (
           <Spinner />
         ) : (
