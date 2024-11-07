@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when loading 1`] = `
+<DocumentFragment>
+  <div
+    class="mobile-work-order-container"
+  >
+    <div
+      class="date-picker-container"
+    >
+      <label
+        class="lbh-heading-h2"
+        for="date-picker"
+      >
+        Select date
+      </label>
+      <select
+        id="date-picker"
+        name="date-picker"
+      >
+        <option
+          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 06
+        </option>
+        <option
+          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 05
+        </option>
+        <option
+          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 04
+        </option>
+        <option
+          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 01
+        </option>
+        <option
+          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Oct 31
+        </option>
+      </select>
+    </div>
+    <div>
+      Loading...
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there is no work orders 1`] = `
+<DocumentFragment>
+  <div
+    class="mobile-work-order-container"
+  >
+    <div
+      class="date-picker-container"
+    >
+      <label
+        class="lbh-heading-h2"
+        for="date-picker"
+      >
+        Select date
+      </label>
+      <select
+        id="date-picker"
+        name="date-picker"
+      >
+        <option
+          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 06
+        </option>
+        <option
+          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 05
+        </option>
+        <option
+          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 04
+        </option>
+        <option
+          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 01
+        </option>
+        <option
+          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Oct 31
+        </option>
+      </select>
+    </div>
+    <div
+      class="warning-info-box govuk-inset-text lbh-inset-text"
+    >
+      <div
+        class="lbh-warning-text govuk-warning-text"
+      >
+        <span
+          aria-hidden="true"
+          class="govuk-warning-text__icon"
+        >
+          !
+        </span>
+        <div
+          class="govuk-warning-text__text"
+        >
+          <span
+            class="govuk-warning-text__assistive"
+          >
+            Warning
+          </span>
+          <p
+            class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+          >
+            No work orders displayed
+          </p>
+          <p
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            Please contact your supervisor
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MobileWorkingPastWorkOrdersView Component should show loading spinner initially 1`] = `
+<DocumentFragment>
+  <div
+    class="mobile-work-order-container"
+  >
+    <div
+      class="date-picker-container"
+    >
+      <label
+        class="lbh-heading-h2"
+        for="date-picker"
+      >
+        Select date
+      </label>
+      <select
+        id="date-picker"
+        name="date-picker"
+      >
+        <option
+          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 06
+        </option>
+        <option
+          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 05
+        </option>
+        <option
+          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 04
+        </option>
+        <option
+          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 01
+        </option>
+        <option
+          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Oct 31
+        </option>
+      </select>
+    </div>
+    <div>
+      Loading...
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`MobileWorkingPastWorkOrdersView Component should update the selected date correctly 1`] = `
+<DocumentFragment>
+  <div
+    class="mobile-work-order-container"
+  >
+    <div
+      class="date-picker-container"
+    >
+      <label
+        class="lbh-heading-h2"
+        for="date-picker"
+      >
+        Select date
+      </label>
+      <select
+        id="date-picker"
+        name="date-picker"
+      >
+        <option
+          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 06
+        </option>
+        <option
+          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 05
+        </option>
+        <option
+          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 04
+        </option>
+        <option
+          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 01
+        </option>
+        <option
+          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Oct 31
+        </option>
+      </select>
+    </div>
+    <div>
+      Loading...
+    </div>
+  </div>
+</DocumentFragment>
+`;
