@@ -1,6 +1,7 @@
 import Meta from '@/components/Meta'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { useMemo } from 'react'
 
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
@@ -16,10 +17,18 @@ const OperativePastWorkOrderPage = () => {
   const handleTabClick = (index: number) => {
     index === 0 && router.push('/')
   }
+
+  const ariaSelected = useMemo(() => {
+    return router.pathname === '/oldjobs' ? 1 : 0
+  }, [router.pathname])
   return (
     <>
       <Meta title={`Past Work Orders`} />
-      <NewTabs titles={titles} onTabChange={handleTabClick} />
+      <NewTabs
+        titles={titles}
+        onTabChange={handleTabClick}
+        ariaSelected={ariaSelected}
+      />
       <CurrentUserWrapper>
         {({ currentUser }) => (
           <MobileWorkingPastWorkOrdersView currentUser={currentUser} />

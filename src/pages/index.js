@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router'
+import { useMemo } from 'react'
 
 import Spinner from '@/components/Spinner'
 
@@ -22,14 +23,16 @@ const Home = ({ query }) => {
   const router = useRouter()
 
   const [loading, setLoading] = useState(true)
-  const [workOrdersSelected, setWorkOrdersSelected] = useState(true)
 
   const titles = ['Current Work Orders', 'Past Work Orders']
 
   const handleTabClick = (index) => {
-    setWorkOrdersSelected(false)
     index === 1 && router.push('/oldjobs')
   }
+
+  const ariaSelected = useMemo(() => {
+    return router.pathname === '/oldjobs' ? 1 : 0
+  }, [router.pathname])
 
   const HomeView = () => {
     return (
@@ -37,7 +40,7 @@ const Home = ({ query }) => {
         <NewTabs
           titles={titles}
           onTabChange={handleTabClick}
-          workOrdersSelected={workOrdersSelected}
+          ariaSelected={ariaSelected}
         />
 
         <CurrentUserWrapper>

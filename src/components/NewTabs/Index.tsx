@@ -6,9 +6,14 @@ import { OPERATIVE_ROLE } from '@/utils/user'
 interface TabProps {
   titles: string[]
   onTabChange?: (index: number) => void
+  ariaSelected: 0 | 1
 }
-const NewTabs = ({ titles, onTabChange }: TabProps) => {
-  const [workOrdersSelected, setWorkOrdersSelected] = useState<boolean>(false)
+const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent, i: number) => {
+    if (e.key === 'Enter') {
+      onTabChange(i)
+    }
+  }
   return (
     <>
       <ul className="hackney-tabs-list-mobile govuk-tabs__list">
@@ -16,11 +21,16 @@ const NewTabs = ({ titles, onTabChange }: TabProps) => {
           return (
             <li
               onClick={() => onTabChange(i)}
+              onKeyDown={(e) => handleKeyDown(e, i)}
               key={i}
+              id={`tab-${i + 1}`}
               className="govuk-tabs__list-item-mobile"
-              aria-selected={workOrdersSelected ? 'true' : 'false'}
+              aria-selected={ariaSelected === i ? 'true' : 'false'}
+              role="tab"
+              aria-controls={`tabpanel-${i + 1}`}
+              tabIndex={0}
             >
-              {tab}
+              <a className="govuk-tabs_list-item-mobile-a-tag">{tab}</a>
             </li>
           )
         })}
