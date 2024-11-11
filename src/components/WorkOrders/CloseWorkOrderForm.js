@@ -14,12 +14,14 @@ import {
   OVERTIME_PAYMENT_TYPE,
   optionsForPaymentType,
 } from '../../utils/paymentTypes'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
+import { canRaiseAFollowOn } from '../../utils/userPermissions'
+import UserContext from '../UserContext'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -57,6 +59,8 @@ const CloseWorkOrderForm = ({
     clearErrors,
     setError,
   } = useForm({})
+
+  const { user } = useContext(UserContext)
 
   const [startTimeIsRequired, setStartTimeIsRequired] = useState(false)
 
@@ -100,7 +104,9 @@ const CloseWorkOrderForm = ({
           watch={watch}
           reason={reason}
           followOnStatus={followOnStatus}
-          followOnFunctionalityEnabled={followOnFunctionalityEnabled}
+          followOnFunctionalityEnabled={
+            followOnFunctionalityEnabled && canRaiseAFollowOn(user)
+          }
         />
 
         {showFurtherWorkFields && (
