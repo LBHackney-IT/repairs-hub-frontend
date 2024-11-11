@@ -156,7 +156,7 @@ context('When an operative is logged in', () => {
     })
   })
 
-  context.only('When operative clicks a tab', () => {
+  context('When operative clicks a tab', () => {
     it('Goes to correct page', () => {
       cy.intercept(
         {
