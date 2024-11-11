@@ -31,35 +31,33 @@ export type CurrentUser = {
 }
 
 export type Appointment = {
-  date: string;                    
-  description: string;
-  start: string;                  
-  end: string;                    
-  reason: string;
-  note: string | null;
-  assignedStart: string;           
-  assignedEnd: string;             
-  startedAt: string;               
-};
+  date: string
+  description: string
+  start: string
+  end: string
+  reason: string
+  note: string | null
+  assignedStart: string
+  assignedEnd: string
+  startedAt: string
+}
 
 export type WorkOrderType = {
-  appointment: Appointment;
-  reference: number;
-  dateRaised: string;  
-  hasBeenVisited: () => boolean;           
-  lastUpdated: string | null;      
-  priority: string;
-  priorityCode: string | null;
-  property: string;
-  propertyPostCode: string;
-  owner: string;
-  description: string;
-  propertyReference: string;
-  tradeCode: string;
-  tradeDescription: string;
-  status: string;
-};
+  appointment: Appointment
+  reference: number
+  dateRaised: string
+  hasBeenVisited: () => boolean
+  lastUpdated: string | null
+  priority: string
+  priorityCode: string | null
+  property: string
+  propertyPostCode: string
+  owner: string
+  description: string
+  propertyReference: string
+  tradeCode: string
+  tradeDescription: string
+  status: string
+}
 
-export type WorkOrdersType = WorkOrderType[] 
-
-
+export type WorkOrdersType = WorkOrderType[]

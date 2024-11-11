@@ -11,6 +11,7 @@ import {
   canSeeOperativeWorkOrders,
 } from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import Search from '../components/Search/Search'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
 import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
