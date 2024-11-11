@@ -11,9 +11,7 @@ import {
   canSeeOperativeWorkOrders,
 } from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import PastOrdersCurrentUserWrapper from '../components/PastWorkOrders/CurrentUserWrapper'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
-import MobileWorkingPastWorkOrdersView from '../components/PastWorkOrders/MobileWorkingPastWorkOrdersView/MobileWorkingPastWorkOrdersView'
 import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
 import NewTabs from '../components/NewTabs/Index'
@@ -35,45 +33,49 @@ const Home = ({ query }) => {
   }, [router.pathname])
 
   const HomeView = () => {
-    return (
-      <>
-        <NewTabs
-          titles={titles}
-          onTabChange={handleTabClick}
-          ariaSelected={ariaSelected}
-        />
-
-        <CurrentUserWrapper>
-          {({ currentUser }) => (
-            <MobileWorkingWorkOrdersView currentUser={currentUser} />
-          )}
-        </CurrentUserWrapper>
-      </>
-    )
-    // if (user && canSeeWorkOrders(user)) {
-    //   // Use saved filter preset in local storage as the default applied filters (if present)
-    //   const defaultFilters = JSON.parse(
-    //     localStorage.getItem('RH - default work order filters')
-    //   )
-    //   if (Object.entries(query).length === 0) {
-    //     return (
-    //       <WorkOrdersView
-    //         pageNumber={1}
-    //         {...(defaultFilters && { query: defaultFilters })}
-    //       />
-    //     )
-    //   } else {
-    //     return <WorkOrdersView query={query} />
-    //   }
-    // } else if (user && canSeeOperativeWorkOrders(user)) {
-    //   return <MobileWorkingWorkOrdersView />
-    // } else {
-    //   if (Object.entries(query).length === 0) {
-    //     return <Search />
-    //   } else {
-    //     return <Search query={query} />
-    //   }
-    // }
+    if (user && canSeeWorkOrders(user)) {
+      // Use saved filter preset in local storage as the default applied filters (if present)
+      const defaultFilters = JSON.parse(
+        localStorage.getItem('RH - default work order filters')
+      )
+      if (Object.entries(query).length === 0) {
+        return (
+          <>
+            <WorkOrdersView
+              pageNumber={1}
+              {...(defaultFilters && { query: defaultFilters })}
+            />
+          </>
+        )
+      } else {
+        return (
+          <>
+            <WorkOrdersView query={query} />
+          </>
+        )
+      }
+    } else if (user && canSeeOperativeWorkOrders(user)) {
+      return (
+        <>
+          <NewTabs
+            titles={titles}
+            onTabChange={handleTabClick}
+            ariaSelected={ariaSelected}
+          />
+          <CurrentUserWrapper>
+            {({ currentUser }) => (
+              <MobileWorkingWorkOrdersView currentUser={currentUser} />
+            )}
+          </CurrentUserWrapper>
+        </>
+      )
+    } else {
+      if (Object.entries(query).length === 0) {
+        return <Search />
+      } else {
+        return <Search query={query} />
+      }
+    }
   }
 
   useEffect(() => {
