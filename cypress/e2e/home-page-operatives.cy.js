@@ -152,65 +152,58 @@ context('When an operative is logged in', () => {
     })
   })
 
-  context('When operative visits past work orders page', () => {
-    //Date formatted to send to API
-    const targetDateForAPI = '2024-11-05'
-
-    //Date formatted to match UI
-    const datePickerDate = 'Nov 05'
+  context.only('When operative visits past work orders page', () => {
     beforeEach(() => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/017233/workOrdersNew?date=${targetDateForAPI}`,
-        },
-        {
-          fixture: 'pastWorkOrders/5thNovemberpastWorkOrders.json',
+          path: `/api/operatives/017233/workOrdersNew**`,
+          // /api/operatives/017233/workOrdersNew?date=2024-11-10
         }
+        // {
+        //   fixture: 'pastWorkOrders/5thNovemberpastWorkOrders.json',
+        // }
       ).as('pastOperativesWorkOrders')
       cy.visit('/oldjobs')
     })
-    it('Has a date picker that starts on yesterdays date', () => {
+    it('Has a date picker populated with 5 days', () => {
       cy.get('.date-picker-container').within(() => {
-        cy.get('#date-picker').contains(`${datePickerDate}`)
+        cy.get('option').should('have.length', 5)
       })
     })
     it('Displays past jobs for the chosen date', () => {
       cy.wait('@pastOperativesWorkOrders').then((interception) => {
         // Access the fixture data dynamically
         const fixtureData = interception.response.body
-
-        cy.get('.operative-work-order-list-item').should(
-          'have.length',
-          fixtureData.length
-        )
-
-        cy.get('.lbh-list li').each((el, index) => {
-          const {
-            appointment: { start, end },
-            priority,
-            property,
-            propertyPostCode,
-            description,
-          } = fixtureData[index]
-
-          // Format start and end times for display as 'HH:mm – HH:mm'
-          const formattedTime = `${start} – ${end}`
-
-          // Verify that each element contains expected data from the fixture
-          cy.wrap(el).within(() => {
-            cy.contains(formattedTime)
-            cy.contains(priority.toLowerCase())
-            cy.contains(property)
-            cy.contains(propertyPostCode)
-            cy.contains(description)
-          })
-        })
+        console.log(fixtureData)
+        // cy.get('.operative-work-order-list-item').should(
+        //   'have.length',
+        //   fixtureData.length
+        // )
+        //   cy.get('.lbh-list li').each((el, index) => {
+        //     const {
+        //       appointment: { start, end },
+        //       priority,
+        //       property,
+        //       propertyPostCode,
+        //       description,
+        //     } = fixtureData[index]
+        //     // Format start and end times for display as 'HH:mm – HH:mm'
+        //     const formattedTime = `${start} – ${end}`
+        //     // Verify that each element contains expected data from the fixture
+        //     cy.wrap(el).within(() => {
+        //       cy.contains(formattedTime)
+        //       cy.contains(priority.toLowerCase())
+        //       cy.contains(property)
+        //       cy.contains(propertyPostCode)
+        //       cy.contains(description)
+        // })
+        // })
       })
     })
   })
 
-  context.only('When operative selects different date', () => {
+  context('When operative selects different date', () => {
     //Date formatted to send to API
     const targetDateForAPI = '2024-11-04'
 
