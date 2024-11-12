@@ -213,6 +213,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
         Sentry.setUser({ name: user.name, email: user.email })
       }
 
+      // Configure cookie removal in Sentry scope
       Sentry.configureScope((scope) => {
         scope.addEventProcessor((event) => {
           if (event.request?.cookies[GSSO_TOKEN_NAME]) {
@@ -231,11 +232,64 @@ export const authoriseServiceAPIRequest = (callBack) => {
       // Call the function defined in the API route
       return await callBack(req, res, user)
     } catch (error) {
-      Sentry.captureException(error)
-
       const errorResponse = error.response
+
+      const categorizeError = (error) => {
+        if (errorResponse?.status) {
+          return {
+            category: 'api_error',
+            statusCode: errorResponse.status,
+            type: HttpStatus.getStatusText(errorResponse.status),
+          }
+        } else if (error.request) {
+          return {
+            category: 'network_error',
+            statusCode: 0,
+            type: 'CONNECTION_FAILURE',
+          }
+        } else {
+          return {
+            category: 'setup_error',
+            statusCode: -1,
+            type: 'CLIENT_SETUP_ERROR',
+          }
+        }
+      }
+
+      const errorCategory = categorizeError(error)
+
+      Sentry.configureScope((scope) => {
+        // Add error metadata
+        scope.setTag('error.category', errorCategory.category)
+        scope.setTag('error.status_code', errorCategory.statusCode)
+        scope.setTag('error.type', errorCategory.type)
+
+        scope.setContext('request', {
+          path: req.path,
+          method: req.method,
+          query: req.query,
+        })
+
+        scope.setFingerprint([
+          errorCategory.category,
+          errorCategory.statusCode.toString(),
+          errorCategory.type,
+        ])
+
+        if (errorResponse) {
+          scope.setContext('api_response', {
+            status: errorResponse.status,
+            statusText: errorResponse.statusText,
+            data: errorResponse.data,
+          })
+        }
+      })
+
+      Sentry.captureException(error, {
+        level: errorResponse?.status >= 500 ? 'error' : 'warning',
+      })
+
       if (errorResponse) {
-        // The request was made and the server responded with a non-200 status
         logger.error(
           'Service API response',
           JSON.stringify({
@@ -245,28 +299,22 @@ export const authoriseServiceAPIRequest = (callBack) => {
           })
         )
 
-        // When we get a 404 from the service API
         if (errorResponse?.status === HttpStatus.NOT_FOUND) {
           res
             .status(HttpStatus.NOT_FOUND)
             .json({ message: errorResponse?.data || 'Resource not found' })
         } else {
-          // Return the actual error status and message from the service API
           res
             .status(errorResponse?.status)
             .json({ message: errorResponse?.data || 'Service API error' })
         }
       } else if (error.request) {
-        // The request was made but no response was received
         logger.error('Cannot connect to Service API')
-
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'No response received from Service API' })
       } else {
-        // Something happened in setting up the request that triggered an Error
         logger.error('API Client could not setup request', error.message)
-
         res
           .status(HttpStatus.INTERNAL_SERVER_ERROR)
           .json({ message: 'API Client request setup error' })
