@@ -2,6 +2,8 @@
 import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
+  const workOrderReference = '1000w0040'
+
   beforeEach(() => {
     cy.intercept(
       {
@@ -31,17 +33,17 @@ describe('Closing a work order on behalf of an operative', () => {
     ).as('workOrderFilters')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000040/tasks' },
+      { method: 'GET', path: `/api/workOrders/${workOrderReference}/tasks` },
       { body: [] }
     ).as('tasksRequest')
 
     cy.fixture('workOrders/workOrder.json')
       .then((workOrder) => {
-        workOrder.reference = 10000040
+        workOrder.reference = workOrderReference
         workOrder.paymentType = null
         workOrder.startTime = null
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
           { body: workOrder }
         )
       })
@@ -70,8 +72,44 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.loginWithContractManagerRole()
   })
 
+  const interceptFileUpload = () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      {
+        statusCode: 200,
+        body: {
+          links: [
+            {
+              key: `${workOrderReference}/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9`,
+              presignedUrl: 'https://test.com/placeholder-upload-url',
+            },
+          ],
+        },
+      }
+    ).as('getLinksRequest')
+
+    cy.intercept(
+      { method: 'PUT', path: '**/placeholder-upload-url' },
+      {
+        statusCode: 200,
+      }
+    ).as('uploadToS3Request')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+      {
+        statusCode: 200,
+        body: {
+          filesUploaded: [
+            `${workOrderReference}/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9`,
+          ],
+        },
+      }
+    ).as('completeUploadRequest')
+  }
+
   it('shows errors when attempting submission with invalid inputs', () => {
-    cy.visit('/work-orders/10000040/close')
+    cy.visit(`/work-orders/${workOrderReference}/close`)
 
     cy.wait('@workOrder')
 
@@ -137,7 +175,9 @@ describe('Closing a work order on behalf of an operative', () => {
   })
 
   it('allows valid inputs, shows a confirmation page, allows editing and and submits the form including a completed reason', () => {
-    cy.visit('/work-orders/10000040/close')
+    interceptFileUpload()
+
+    cy.visit(`/work-orders/${workOrderReference}/close`)
 
     cy.wait('@workOrder')
 
@@ -147,6 +187,15 @@ describe('Closing a work order on behalf of an operative', () => {
         .within(() => {
           cy.contains('label', 'Visit completed').click()
         })
+
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
 
       cy.get('#completionDate').type('2021-01-18') //Raised on 2021-01-18, 15:28
 
@@ -221,6 +270,7 @@ describe('Closing a work order on behalf of an operative', () => {
         .type(
           'This has been repaired and I forgot I did it on a completely different date and time.'
         )
+
       cy.get('[type="submit"]').contains('Close work order').click()
     })
 
@@ -242,7 +292,7 @@ describe('Closing a work order on behalf of an operative', () => {
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
-          id: '10000040',
+          id: workOrderReference,
           description: '',
           allocatedBy: '',
         },
@@ -265,14 +315,14 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Reference number')
-        cy.contains('10000040')
+        cy.contains(workOrderReference)
       })
     })
 
     // Actions to see relevant pages
     cy.get('.lbh-list li')
       .contains('View work order')
-      .should('have.attr', 'href', '/work-orders/10000040')
+      .should('have.attr', 'href', `/work-orders/${workOrderReference}`)
 
     cy.get('.lbh-list li')
       .contains('Manage work orders')
@@ -282,7 +332,9 @@ describe('Closing a work order on behalf of an operative', () => {
   })
 
   it('allows valid inputs, shows a confirmation page, allows editing and and submits the form including a no access reason', () => {
-    cy.visit('/work-orders/10000040/close')
+    interceptFileUpload()
+
+    cy.visit(`/work-orders/${workOrderReference}/close`)
 
     cy.wait('@workOrder')
 
@@ -292,6 +344,15 @@ describe('Closing a work order on behalf of an operative', () => {
         .within(() => {
           cy.contains('label', 'No access').click()
         })
+
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
 
       cy.get('#completionDate').type('2021-01-19')
 
@@ -319,7 +380,7 @@ describe('Closing a work order on behalf of an operative', () => {
       .its('request.body')
       .should('deep.equal', {
         workOrderReference: {
-          id: '10000040',
+          id: workOrderReference,
           description: '',
           allocatedBy: '',
         },
@@ -342,14 +403,14 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Reference number')
-        cy.contains('10000040')
+        cy.contains(workOrderReference)
       })
     })
 
     // Actions to see relevant pages
     cy.get('.lbh-list li')
       .contains('View work order')
-      .should('have.attr', 'href', '/work-orders/10000040')
+      .should('have.attr', 'href', `/work-orders/${workOrderReference}`)
 
     cy.get('.lbh-list li')
       .contains('Manage work orders')
@@ -359,7 +420,9 @@ describe('Closing a work order on behalf of an operative', () => {
   })
 
   it('sends request to /starttime when startTime selected', () => {
-    cy.visit('/work-orders/10000040/close')
+    interceptFileUpload()
+
+    cy.visit(`/work-orders/${workOrderReference}/close`)
 
     cy.wait('@workOrder')
 
@@ -369,6 +432,15 @@ describe('Closing a work order on behalf of an operative', () => {
         .within(() => {
           cy.contains('label', 'No access').click()
         })
+
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
 
       cy.get('#startDate').type('2021-01-20')
 
@@ -403,14 +475,14 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Reference number')
-        cy.contains('10000040')
+        cy.contains(workOrderReference)
       })
     })
 
     // Actions to see relevant pages
     cy.get('.lbh-list li')
       .contains('View work order')
-      .should('have.attr', 'href', '/work-orders/10000040')
+      .should('have.attr', 'href', `/work-orders/${workOrderReference}`)
 
     cy.get('.lbh-list li')
       .contains('Manage work orders')
@@ -420,7 +492,7 @@ describe('Closing a work order on behalf of an operative', () => {
   })
 
   it('shows validation errors when uploading files', () => {
-    cy.visit('/work-orders/10000040/close')
+    cy.visit(`/work-orders/${workOrderReference}/close`)
     cy.wait('@workOrder')
 
     // 1. invalid file type
@@ -466,14 +538,13 @@ describe('Closing a work order on behalf of an operative', () => {
     )
   })
 
-  // shows photo validation errors
   it('shows error when network request fails uploading photo', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/images/upload*' },
       { statusCode: 500 }
     ).as('getLinksRequest')
 
-    cy.visit('/work-orders/10000040/close')
+    cy.visit(`/work-orders/${workOrderReference}/close`)
     cy.wait('@workOrder')
 
     // 1. invalid file type
@@ -518,41 +589,10 @@ describe('Closing a work order on behalf of an operative', () => {
     cy.contains('Request failed with status code 500')
   })
 
-  // uploads photos to work order
   it('uploads files when closing work order', () => {
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/images/uploadLink?*' },
-      {
-        statusCode: 200,
-        body: {
-          links: [
-            {
-              key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
-              presignedUrl: 'https://test.com/placeholder-upload-url',
-            },
-          ],
-        },
-      }
-    ).as('getLinksRequest')
+    interceptFileUpload()
 
-    cy.intercept(
-      { method: 'PUT', path: '**/placeholder-upload-url' },
-      {
-        statusCode: 200,
-      }
-    ).as('uploadToS3Request')
-
-    cy.intercept(
-      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
-      {
-        statusCode: 200,
-        body: {
-          filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
-        },
-      }
-    ).as('completeUploadRequest')
-
-    cy.visit('/work-orders/10000040/close')
+    cy.visit(`/work-orders/${workOrderReference}/close`)
     cy.wait('@workOrder')
 
     // 1. invalid file type
@@ -603,7 +643,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('.govuk-panel__title').contains('Work order closed')
       cy.get('.govuk-panel__body').within(() => {
         cy.contains('Reference number')
-        cy.contains('10000040')
+        cy.contains(workOrderReference)
       })
     })
   })
@@ -611,12 +651,12 @@ describe('Closing a work order on behalf of an operative', () => {
   describe('when the work allows operative and payment type selection', () => {
     beforeEach(() => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-        workOrder.reference = 10000040
+        workOrder.reference = workOrderReference
         workOrder.contractorReference = 'H10' // DLO contractor reference
         workOrder.canAssignOperative = true
         workOrder.operatives = []
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -651,7 +691,9 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     it('allows specifying a payment type of bonus by default', () => {
-      cy.visit('/work-orders/10000040/close')
+      interceptFileUpload()
+
+      cy.visit(`/work-orders/${workOrderReference}/close`)
 
       cy.wait(['@workOrder', '@operatives'])
 
@@ -661,6 +703,15 @@ describe('Closing a work order on behalf of an operative', () => {
           .within(() => {
             cy.contains('label', 'Visit completed').click()
           })
+
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
         cy.get('#completionDate').type('2021-01-23')
 
@@ -705,7 +756,9 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     it('allows specifying a payment type of overtime', () => {
-      cy.visit('/work-orders/10000040/close')
+      interceptFileUpload()
+
+      cy.visit(`/work-orders/${workOrderReference}/close`)
 
       cy.wait(['@workOrder', '@operatives'])
 
@@ -715,6 +768,15 @@ describe('Closing a work order on behalf of an operative', () => {
           .within(() => {
             cy.contains('label', 'Visit completed').click()
           })
+
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
         cy.get('#completionDate').type('2021-01-23')
 
@@ -758,7 +820,9 @@ describe('Closing a work order on behalf of an operative', () => {
     })
 
     it('allows specifying a payment type of close to base', () => {
-      cy.visit('/work-orders/10000040/close')
+      interceptFileUpload()
+
+      cy.visit(`/work-orders/${workOrderReference}/close`)
 
       cy.wait(['@workOrder', '@operatives'])
 
@@ -768,6 +832,15 @@ describe('Closing a work order on behalf of an operative', () => {
           .within(() => {
             cy.contains('label', 'Visit completed').click()
           })
+
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
         cy.get('#completionDate').type('2021-01-23')
 
@@ -813,7 +886,7 @@ describe('Closing a work order on behalf of an operative', () => {
       describe('And the workorder has existing operatives assigned', () => {
         beforeEach(() => {
           cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-            workOrder.reference = 10000040
+            workOrder.reference = workOrderReference
             workOrder.canAssignOperative = true
             workOrder.totalSMVs = 76
             workOrder.operatives = [
@@ -831,7 +904,7 @@ describe('Closing a work order on behalf of an operative', () => {
               },
             ]
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -848,7 +921,9 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         it('requires total value of split % to be 100', () => {
-          cy.visit('/work-orders/10000040/close')
+          interceptFileUpload()
+
+          cy.visit(`/work-orders/${workOrderReference}/close`)
 
           cy.wait(['@workOrder', '@operatives'])
 
@@ -857,6 +932,15 @@ describe('Closing a work order on behalf of an operative', () => {
             .within(() => {
               cy.contains('label', 'No access').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-19')
 
@@ -1001,7 +1085,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               relatedWorkOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
               },
               operativesAssigned: [
                 {
@@ -1036,7 +1120,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
                 description: '',
                 allocatedBy: '',
               },
@@ -1077,7 +1161,7 @@ describe('Closing a work order on behalf of an operative', () => {
           ).as('workOrders')
 
           cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-            workOrder.reference = 10000040
+            workOrder.reference = workOrderReference
             workOrder.canAssignOperative = true
             workOrder.totalSMVs = 76
             workOrder.isSplit = true
@@ -1094,7 +1178,7 @@ describe('Closing a work order on behalf of an operative', () => {
               },
             ]
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -1111,7 +1195,9 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         it('closes work order with existing pre-split by operative', () => {
-          cy.visit('/work-orders/10000040/close')
+          interceptFileUpload()
+
+          cy.visit(`/work-orders/${workOrderReference}/close`)
 
           cy.wait(['@workOrder', '@operatives'])
 
@@ -1120,6 +1206,15 @@ describe('Closing a work order on behalf of an operative', () => {
             .within(() => {
               cy.contains('label', 'Visit completed').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-19')
 
@@ -1162,7 +1257,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               relatedWorkOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
               },
               operativesAssigned: [
                 {
@@ -1185,7 +1280,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
                 description: '',
                 allocatedBy: '',
               },
@@ -1212,12 +1307,12 @@ describe('Closing a work order on behalf of an operative', () => {
         beforeEach(() => {
           // Viewing the work order page
           cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-            workOrder.reference = 10000040
+            workOrder.reference = workOrderReference
             workOrder.contractorReference = 'H10' // DLO contractor reference
             workOrder.canAssignOperative = true
             workOrder.operatives = []
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -1234,7 +1329,9 @@ describe('Closing a work order on behalf of an operative', () => {
         })
 
         it('requires the submission of at least one operative', () => {
-          cy.visit('/work-orders/10000040/close')
+          interceptFileUpload()
+
+          cy.visit(`/work-orders/${workOrderReference}/close`)
 
           cy.wait(['@workOrder', '@operatives'])
 
@@ -1257,6 +1354,15 @@ describe('Closing a work order on behalf of an operative', () => {
             .within(() => {
               cy.contains('label', 'No access').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-19')
 
@@ -1297,7 +1403,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               relatedWorkOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
               },
               operativesAssigned: [
                 {
@@ -1314,7 +1420,7 @@ describe('Closing a work order on behalf of an operative', () => {
             .its('request.body')
             .should('deep.equal', {
               workOrderReference: {
-                id: '10000040',
+                id: workOrderReference,
                 description: '',
                 allocatedBy: '',
               },
@@ -1342,18 +1448,20 @@ describe('Closing a work order on behalf of an operative', () => {
   describe('when the work does not allow operative and payment type selection', () => {
     beforeEach(() => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-        workOrder.reference = 10000040
+        workOrder.reference = workOrderReference
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
           { body: workOrder }
         ).as('workOrder')
       })
     })
 
     it('payment type and operative selection is not possible', () => {
-      cy.visit('/work-orders/10000040/close')
+      interceptFileUpload()
+
+      cy.visit(`/work-orders/${workOrderReference}/close`)
 
       cy.wait(['@workOrder'])
 
@@ -1363,6 +1471,15 @@ describe('Closing a work order on behalf of an operative', () => {
           .within(() => {
             cy.contains('label', 'Visit completed').click()
           })
+
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
         cy.get('#completionDate').type('2021-01-23')
 

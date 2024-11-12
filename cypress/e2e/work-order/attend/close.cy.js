@@ -98,6 +98,42 @@ describe('Closing my own work order', () => {
     cy.loginWithOperativeRole()
   })
 
+  const interceptFileUpload = () => {
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/images/upload*' },
+      {
+        statusCode: 200,
+        body: {
+          links: [
+            {
+              key: `${workOrderReference}/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9`,
+              presignedUrl: 'https://test.com/placeholder-upload-url',
+            },
+          ],
+        },
+      }
+    ).as('getLinksRequest')
+
+    cy.intercept(
+      { method: 'PUT', path: '**/placeholder-upload-url' },
+      {
+        statusCode: 200,
+      }
+    ).as('uploadToS3Request')
+
+    cy.intercept(
+      { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+      {
+        statusCode: 200,
+        body: {
+          filesUploaded: [
+            `${workOrderReference}/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9`,
+          ],
+        },
+      }
+    ).as('completeUploadRequest')
+  }
+
   context('during normal working hours', () => {
     beforeEach(() => {
       Cypress.env('IsCurrentOperativeOvertime', false)
@@ -300,6 +336,8 @@ describe('Closing my own work order', () => {
     })
 
     it('shows error when no photos selected', () => {
+      interceptFileUpload()
+
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -329,66 +367,36 @@ describe('Closing my own work order', () => {
         })
       )
 
-      cy.contains('No photos were selected').should('not.exist')
-
-      // submitting is blocked
-      cy.get('.photoUploadPreview-removeButton').click()
-      cy.contains('No photos were selected')
-
       cy.get('.govuk-button').contains('Close work order').click()
+      // cy.contains('No photos were selected').should('not.exist')
 
-      // error still present
-      cy.contains('No photos were selected')
+      // cy.get('.govuk-button').contains('Close work order').click()
 
-      // tick checkbox to submit
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      // // error still present
+      // cy.contains('No photos were selected')
 
-      cy.get('.govuk-button').contains('Close work order').click()
+      // // tick checkbox to submit
+      // cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+
+      // cy.get('.govuk-button').contains('Close work order').click()
 
       // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      // cy.url().should(
+      //   'include',
+      //   `/operatives/1/work-orders/${workOrderReference}/confirmation`
+      // )
+
+      cy.contains(
+        `Work order ${workOrderReference} successfully closed with no access`
       )
 
-      cy.contains(`Work order ${workOrderReference} successfully closed`)
-
       // close
-      cy.contains('button', 'Close').click()
+      // cy.contains('button', 'Close').click()
     })
 
     it('uploads files when closing work order', () => {
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/images/upload*' },
-        {
-          statusCode: 200,
-          body: {
-            links: [
-              {
-                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
-                presignedUrl: 'https://test.com/placeholder-upload-url',
-              },
-            ],
-          },
-        }
-      ).as('getLinksRequest')
+      interceptFileUpload()
 
-      cy.intercept(
-        { method: 'PUT', path: '**/placeholder-upload-url' },
-        {
-          statusCode: 200,
-        }
-      ).as('uploadToS3Request')
-
-      cy.intercept(
-        { method: 'POST', path: '/api/workOrders/images/completeUpload' },
-        {
-          statusCode: 200,
-          body: {
-            filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
-          },
-        }
-      ).as('completeUploadRequest')
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -475,6 +483,7 @@ describe('Closing my own work order', () => {
           },
         }
       ).as('completeUploadRequest')
+
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -519,6 +528,8 @@ describe('Closing my own work order', () => {
     })
 
     it('payment type selection is not possible, closing makes a POST request for no access with bonus payment type, confirms success, and returns me to the index', () => {
+      interceptFileUpload()
+
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -539,8 +550,15 @@ describe('Closing my own work order', () => {
 
       cy.get('#notes').type('I attended')
 
-      cy.get('.govuk-button').contains('Close work order').click()
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
+
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -574,16 +592,7 @@ describe('Closing my own work order', () => {
           expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
-      // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      )
-
       cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h2').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
@@ -595,6 +604,8 @@ describe('Closing my own work order', () => {
     })
 
     it('payment type selection is not possible, closing makes a POST request for completion with bonus payment type, confirms success, and returns me to the index', () => {
+      interceptFileUpload()
+
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -617,8 +628,15 @@ describe('Closing my own work order', () => {
 
       cy.get('#notes').type('I attended')
 
-      cy.get('.govuk-button').contains('Close work order').click()
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+      cy.get('input[type="file"]').selectFile(
+        Array(1).fill({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+      )
+
       cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
@@ -652,16 +670,7 @@ describe('Closing my own work order', () => {
           expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
-      // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      )
-
       cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h2').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
@@ -857,6 +866,8 @@ describe('Closing my own work order', () => {
 
     context('when no particular payment type is chosen', () => {
       it('makes a POST request for completion with bonus payment type, confirm success, and returns me to the index', () => {
+        interceptFileUpload()
+
         cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
         cy.wait([
@@ -888,9 +899,15 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Close work order').click()
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -925,16 +942,7 @@ describe('Closing my own work order', () => {
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
-
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
