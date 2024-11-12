@@ -9,6 +9,10 @@ const validateFileUpload = (files) => {
     return `You cannot attach more than ${MAX_FILE_COUNT} photos`
   }
 
+  if (files.length === 0) {
+    return `No photos were selected`
+  }
+
   for (const file of files) {
     if (!allowedFileTypes.has(file.type)) {
       return `Unsupported file type "${file.type}". Allowed types: PNG & JPG`
