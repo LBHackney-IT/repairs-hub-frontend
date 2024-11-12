@@ -43,6 +43,10 @@ export const canAccessWorkOrder = (user) => {
   )
 }
 
+export const canRaiseAFollowOn = (user) => {
+  return !user.hasContractorPermissions
+}
+
 export const canSeeWorkOrders = (user) => {
   return (
     user.hasContractorPermissions ||
