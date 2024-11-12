@@ -669,6 +669,8 @@ describe('Closing my own work order', () => {
 
     context('and the overtime payment type is chosen', () => {
       it('makes a POST request for no access with overtime payment type, confirms success, and returns me to the index', () => {
+        interceptFileUpload()
+
         cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
         cy.wait([
@@ -698,9 +700,15 @@ describe('Closing my own work order', () => {
 
         cy.get('.lbh-radios input[data-testid="reason"]').check('No Access') // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Close work order').click()
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
 
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -735,16 +743,7 @@ describe('Closing my own work order', () => {
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
-
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
@@ -756,6 +755,8 @@ describe('Closing my own work order', () => {
       })
 
       it('makes a POST request for completion with overtime payment type, confirms success, and returns me to the index', () => {
+        interceptFileUpload()
+
         cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
         cy.wait([
@@ -787,8 +788,15 @@ describe('Closing my own work order', () => {
           'Work Order Completed'
         ) // Checking by value, not text
 
-        cy.get('.govuk-button').contains('Close work order').click()
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
+        cy.get('input[type="file"]').selectFile(
+          Array(1).fill({
+            contents: Cypress.Buffer.from('file contents'),
+            fileName: 'file.png',
+            mimeType: 'image/png',
+            lastModified: Date.now(),
+          })
+        )
+
         cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
@@ -823,16 +831,7 @@ describe('Closing my own work order', () => {
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
-
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h2').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
