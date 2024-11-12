@@ -9,6 +9,7 @@ import {
   canSeeOperativeWorkOrders,
   canAttendOwnWorkOrder,
   canAssignBudgetCode,
+  canRaiseAFollowOn,
 } from './userPermissions'
 
 describe('canSeeAllFilters', () => {
@@ -66,6 +67,30 @@ describe('canSeeAppointmentDetailsInfo', () => {
     it('returns false', () => {
       expect(canSeeAppointmentDetailsInfo(user)).toBe(false)
     })
+  })
+})
+
+describe('canRaiseAFollowOn', () => {
+  it('returns true when user is not a contractor', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasAgentPermissions: true,
+      hasContractorPermissions: false,
+      hasContractManagerPermissions: true,
+    }
+    expect(canRaiseAFollowOn(user)).toBe(true)
+  })
+
+  it('returns false when user is a contractor', () => {
+    const user = {
+      name: 'Test Testerston',
+      email: 'test@test.com',
+      hasAgentPermissions: false,
+      hasContractorPermissions: true,
+      hasContractManagerPermissions: false,
+    }
+    expect(canRaiseAFollowOn(user)).toBe(false)
   })
 })
 

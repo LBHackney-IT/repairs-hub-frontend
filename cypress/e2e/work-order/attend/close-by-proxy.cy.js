@@ -67,7 +67,7 @@ describe('Closing a work order on behalf of an operative', () => {
       { body: '' }
     ).as('jobStatusUpdateRequest')
 
-    cy.loginWithContractorRole()
+    cy.loginWithContractManagerRole()
   })
 
   it('shows errors when attempting submission with invalid inputs', () => {
