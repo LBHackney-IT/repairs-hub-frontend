@@ -2166,6 +2166,8 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       })
 
       it('allows specifying a payment type of bonus by default', () => {
+        interceptFileUpload()
+
         cy.visit(`/work-orders/${workOrderReference}/close`)
 
         cy.wait(['@workOrder', '@operatives'])
@@ -2177,6 +2179,15 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
               cy.contains('label', 'Visit completed').click()
               cy.contains('label', 'No further work required').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-23')
 
@@ -2221,6 +2232,8 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       })
 
       it('allows specifying a payment type of overtime', () => {
+        interceptFileUpload()
+
         cy.visit(`/work-orders/${workOrderReference}/close`)
 
         cy.wait(['@workOrder', '@operatives'])
@@ -2232,6 +2245,15 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
               cy.contains('label', 'Visit completed').click()
               cy.contains('label', 'No further work required').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-23')
 
@@ -2275,6 +2297,8 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       })
 
       it('allows specifying a payment type of close to base', () => {
+        interceptFileUpload()
+
         cy.visit(`/work-orders/${workOrderReference}/close`)
 
         cy.wait(['@workOrder', '@operatives'])
@@ -2286,6 +2310,15 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
               cy.contains('label', 'Visit completed').click()
               cy.contains('label', 'No further work required').click()
             })
+
+          cy.get('input[type="file"]').selectFile(
+            Array(1).fill({
+              contents: Cypress.Buffer.from('file contents'),
+              fileName: 'file.png',
+              mimeType: 'image/png',
+              lastModified: Date.now(),
+            })
+          )
 
           cy.get('#completionDate').type('2021-01-23')
 
