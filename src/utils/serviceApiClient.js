@@ -234,24 +234,20 @@ export const authoriseServiceAPIRequest = (callBack) => {
     } catch (error) {
       const errorResponse = error.response
 
-      // Helper function to categorize errors
       const categorizeError = (error) => {
         if (errorResponse?.status) {
-          // API Errors
           return {
             category: 'api_error',
             statusCode: errorResponse.status,
             type: HttpStatus.getStatusText(errorResponse.status),
           }
         } else if (error.request) {
-          // Network Errors
           return {
             category: 'network_error',
             statusCode: 0,
             type: 'CONNECTION_FAILURE',
           }
         } else {
-          // Client Setup Errors
           return {
             category: 'setup_error',
             statusCode: -1,
@@ -262,28 +258,24 @@ export const authoriseServiceAPIRequest = (callBack) => {
 
       const errorCategory = categorizeError(error)
 
-      // Configure Sentry context for this error
       Sentry.configureScope((scope) => {
         // Add error metadata
         scope.setTag('error.category', errorCategory.category)
         scope.setTag('error.status_code', errorCategory.statusCode)
         scope.setTag('error.type', errorCategory.type)
 
-        // Add request context
         scope.setContext('request', {
           path: req.path,
           method: req.method,
           query: req.query,
         })
 
-        // Set fingerprint to group similar errors
         scope.setFingerprint([
           errorCategory.category,
           errorCategory.statusCode.toString(),
           errorCategory.type,
         ])
 
-        // Add extra context for API errors
         if (errorResponse) {
           scope.setContext('api_response', {
             status: errorResponse.status,
@@ -293,12 +285,10 @@ export const authoriseServiceAPIRequest = (callBack) => {
         }
       })
 
-      // Capture the exception with enhanced context
       Sentry.captureException(error, {
         level: errorResponse?.status >= 500 ? 'error' : 'warning',
       })
 
-      // Log error details
       if (errorResponse) {
         logger.error(
           'Service API response',
