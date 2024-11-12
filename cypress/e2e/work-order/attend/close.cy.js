@@ -368,30 +368,10 @@ describe('Closing my own work order', () => {
       )
 
       cy.get('.govuk-button').contains('Close work order').click()
-      // cy.contains('No photos were selected').should('not.exist')
-
-      // cy.get('.govuk-button').contains('Close work order').click()
-
-      // // error still present
-      // cy.contains('No photos were selected')
-
-      // // tick checkbox to submit
-      // cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-
-      // cy.get('.govuk-button').contains('Close work order').click()
-
-      // check on confirmation page
-      // cy.url().should(
-      //   'include',
-      //   `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      // )
 
       cy.contains(
         `Work order ${workOrderReference} successfully closed with no access`
       )
-
-      // close
-      // cy.contains('button', 'Close').click()
     })
 
     it('uploads files when closing work order', () => {

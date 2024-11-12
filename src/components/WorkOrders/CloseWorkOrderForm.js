@@ -88,7 +88,6 @@ const CloseWorkOrderForm = ({
   }, [followOnStatusWatchedValue])
 
   const [files, setFiles] = useState(defaultFiles ?? [])
-  const [photosTouched, setPhotosTouched] = useState(false)
 
   return (
     <div className="close-work-order-form">
@@ -149,10 +148,6 @@ const CloseWorkOrderForm = ({
             isLoading={isLoading}
             register={register('fileUpload', {
               validate: () => {
-                setPhotosTouched(true)
-
-                // if (files.length == 0) return 'No files selected'
-
                 const validation = validateFileUpload(files)
 
                 if (validation === null) return true
@@ -171,34 +166,6 @@ const CloseWorkOrderForm = ({
               defaultValue={description}
             />
           )}
-
-          {/* {files.length === 0 && photosTouched && (
-            <div className="lbh-page-announcement lbh-page-announcement--warning">
-              <h3 className="lbh-page-announcement__title">
-                No photos were selected
-              </h3>
-              <div className="lbh-page-announcement__content">
-                <div>
-                  {' '}
-                  Adding photos will help improve the identification of
-                  follow-ons required and reduce errors.
-                </div>
-
-                <div style={{ marginTop: '30px !important' }}>
-                  <CheckboxSmall
-                    className="govuk-!-margin-0"
-                    labelClassName="lbh-body-xs govuk-!-margin-0 govuk-!-margin-bottom-5"
-                    name={'closeWorkOrderWithoutPhotos'}
-                    label={'I want to close the work order without photos'}
-                    onChange={() => {
-                      // setCloseWithoutPhotos(() => !closeWithoutPhotos)
-                    }}
-                    checked={closeWithoutPhotos}
-                  />
-                </div>
-              </div>
-            </div>
-          )} */}
         </div>
 
         {/* Start time cannot be changed once set by an operative */}
