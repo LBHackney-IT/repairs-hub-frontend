@@ -9,7 +9,7 @@ const DatePicker = ({ options, handleChange }: DatePickerProps) => {
       <label htmlFor="date-picker" className="lbh-heading-h2">
         Select date
       </label>
-      <select name="date-picker" id="date-picker" onChange={handleChange}>
+      <select id="date-picker" name="date-picker" onChange={handleChange}>
         {options.map((day, index) => {
           return (
             <option value={day} key={index}>

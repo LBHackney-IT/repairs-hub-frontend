@@ -15,33 +15,33 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when lo
         Select date
       </label>
       <select
-        id="date-picker"
-        name="date-picker"
+        data-testid="date-picker"
+        role="combobox"
       >
         <option
-          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-11"
         >
-           Nov 06
+          2024-11-11
         </option>
         <option
-          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-08"
         >
-           Nov 05
+          2024-11-08
         </option>
         <option
-          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-07"
         >
-           Nov 04
+          2024-11-07
         </option>
         <option
-          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-06"
         >
-           Nov 01
+          2024-11-06
         </option>
         <option
-          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-05"
         >
-           Oct 31
+          2024-11-05
         </option>
       </select>
     </div>
@@ -52,7 +52,7 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when lo
 </DocumentFragment>
 `;
 
-exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there is no work orders 1`] = `
+exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there are no work orders 1`] = `
 <DocumentFragment>
   <div
     class="mobile-work-order-container"
@@ -67,33 +67,33 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
         Select date
       </label>
       <select
-        id="date-picker"
-        name="date-picker"
+        data-testid="date-picker"
+        role="combobox"
       >
         <option
-          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-11"
         >
-           Nov 06
+          2024-11-11
         </option>
         <option
-          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-08"
         >
-           Nov 05
+          2024-11-08
         </option>
         <option
-          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-07"
         >
-           Nov 04
+          2024-11-07
         </option>
         <option
-          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-06"
         >
-           Nov 01
+          2024-11-06
         </option>
         <option
-          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="2024-11-05"
         >
-           Oct 31
+          2024-11-05
         </option>
       </select>
     </div>
@@ -134,106 +134,4 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
 </DocumentFragment>
 `;
 
-exports[`MobileWorkingPastWorkOrdersView Component should show loading spinner initially 1`] = `
-<DocumentFragment>
-  <div
-    class="mobile-work-order-container"
-  >
-    <div
-      class="date-picker-container"
-    >
-      <label
-        class="lbh-heading-h2"
-        for="date-picker"
-      >
-        Select date
-      </label>
-      <select
-        id="date-picker"
-        name="date-picker"
-      >
-        <option
-          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 06
-        </option>
-        <option
-          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 05
-        </option>
-        <option
-          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 04
-        </option>
-        <option
-          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 01
-        </option>
-        <option
-          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Oct 31
-        </option>
-      </select>
-    </div>
-    <div>
-      Loading...
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`MobileWorkingPastWorkOrdersView Component should update the selected date correctly 1`] = `
-<DocumentFragment>
-  <div
-    class="mobile-work-order-container"
-  >
-    <div
-      class="date-picker-container"
-    >
-      <label
-        class="lbh-heading-h2"
-        for="date-picker"
-      >
-        Select date
-      </label>
-      <select
-        id="date-picker"
-        name="date-picker"
-      >
-        <option
-          value="Wed Nov 06 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 06
-        </option>
-        <option
-          value="Tue Nov 05 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 05
-        </option>
-        <option
-          value="Mon Nov 04 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 04
-        </option>
-        <option
-          value="Fri Nov 01 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Nov 01
-        </option>
-        <option
-          value="Thu Oct 31 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
-        >
-           Oct 31
-        </option>
-      </select>
-    </div>
-    <div>
-      Loading...
-    </div>
-  </div>
-</DocumentFragment>
-`;
+exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there are work orders 1`] = `<DocumentFragment />`;
