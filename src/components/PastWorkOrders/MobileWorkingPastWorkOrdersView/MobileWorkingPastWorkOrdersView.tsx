@@ -35,7 +35,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/017233/workOrdersNew?date=${targetDate}`,
+        path: `/api/operatives/${currentUser.operativePayrollNumber}/workOrdersNew?date=${targetDate}`,
       })
 
       const workOrders: WorkOrdersType = data.map(

@@ -24,7 +24,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/017233/workorders`,
+        path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
