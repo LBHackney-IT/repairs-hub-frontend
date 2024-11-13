@@ -308,7 +308,7 @@ context('When an operative is logged in', () => {
   )
 
   context('When network request fails', () => {
-    it.only('Shows an error', () => {
+    it('Shows an error', () => {
       cy.intercept(
         {
           method: 'GET',
