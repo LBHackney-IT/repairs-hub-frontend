@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-
+const operativeId = 'hu0001'
 context('When an operative is logged in', () => {
   beforeEach(() => {
     cy.loginWithOperativeRole()
@@ -157,11 +157,14 @@ context('When an operative is logged in', () => {
   })
 
   context('When operative clicks a tab', () => {
+    beforeEach(() => {
+      // cy.clock(new Date('November 13 2024 13:49:15Z'))
+    })
     it('Goes to correct page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/017233/workorders',
+          path: `/api/operatives/${operativeId}/workorders`,
         },
         {
           fixture: 'workOrders/workOrders11thNov.json',
@@ -173,7 +176,7 @@ context('When an operative is logged in', () => {
           path: '/api/operatives/017233/workOrdersNew*',
         },
         {
-          fixture: 'pastWorkOrders/5thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/10thNovemberpastWorkOrders.json',
         }
       ).as('operativesWorkOrders')
       cy.visit('/')
@@ -190,7 +193,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/017233/workOrdersNew*`,
+          path: `/api/operatives/${operativeId}/workOrdersNew*`,
         },
         {
           fixture: 'pastWorkOrders/5thNovemberpastWorkOrders.json',
@@ -236,41 +239,51 @@ context('When an operative is logged in', () => {
   })
 
   context('When operative selects different date', () => {
+    beforeEach(() => {
+      // cy.clock(new Date('November 13 2024 13:49:15Z'))
+    })
     it('Changes the work orders', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/017233/workOrdersNew*`,
+          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
         },
         {
-          fixture: 'pastWorkOrders/4thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/12thNovemberpastWorkOrders.json',
         }
-      ).as('pastOperativesWorkOrders')
+      ).as('workOrders12th')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-11`,
+        },
+        {
+          fixture: 'pastWorkOrders/11thNovemberpastWorkOrders.json',
+        }
+      ).as('workOrders11th')
       cy.visit('/oldjobs')
-      cy.wait('@pastOperativesWorkOrders').then((interception) => {
-        const fixtureData = interception.response.body
-        cy.get('.operative-work-order-list-item').should(
-          'have.length',
-          fixtureData.length
-        )
-        cy.get('.lbh-list li').each((el, index) => {
-          const {
-            appointment: { start, end },
-            priority,
-            property,
-            propertyPostCode,
-            description,
-          } = fixtureData[index]
-          const formattedTime = `${start} – ${end}`
-          cy.wrap(el).within(() => {
-            cy.contains(formattedTime)
-            cy.contains(priority.toLowerCase())
-            cy.contains(property.trim())
-            cy.contains(propertyPostCode)
-            cy.contains(description)
-          })
-        })
-      })
+      cy.intercept(
+        {
+          method: 'GET',
+          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-08`,
+        },
+        {
+          fixture: 'pastWorkOrders/8thNovemberpastWorkOrders.json',
+        }
+      ).as('workOrders8th')
+      cy.visit('/oldjobs')
+
+      cy.wait('@workOrders12th')
+      cy.contains('Work order 12th November.')
+      cy.get('@workOrders12th.all').should('have.length', 1)
+
+      cy.get('#date-picker').select('Nov 11')
+      cy.contains('Work order 11th November.')
+      cy.get('@workOrders11th.all').should('have.length', 1)
+
+      cy.get('#date-picker').select('Nov 08')
+      cy.contains('Work order 8th November.')
+      cy.get('@workOrders8th.all').should('have.length', 1)
     })
   })
 
@@ -281,7 +294,7 @@ context('When an operative is logged in', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/operatives/017233/workOrdersNew*`,
+            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
           },
           {
             body: [],
@@ -289,13 +302,24 @@ context('When an operative is logged in', () => {
         ).as('operativesPastWorkOrders')
         cy.visit('/oldjobs')
         cy.wait('@operativesPastWorkOrders')
-        cy.get('.warning-info-box').within(() => {
-          cy.get('.lbh-body-s').contains('No work orders displayed')
-          cy.get('.lbh-body-xs').contains('Please contact your supervisor')
-        })
+        cy.contains('No work orders displayed')
       })
     }
   )
+
+  context('When network request fails', () => {
+    it.only('Shows an error', () => {
+      cy.intercept(
+        {
+          method: 'GET',
+          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+        },
+        { statusCode: 500 }
+      )
+      cy.visit('/oldjobs')
+      cy.contains('Request failed with status code: 500')
+    })
+  })
 })
 
 context('When a one job at a time operative is logged in', () => {

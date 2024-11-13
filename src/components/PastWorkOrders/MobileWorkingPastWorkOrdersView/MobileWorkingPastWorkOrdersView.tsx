@@ -52,10 +52,9 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     } catch (e) {
       setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
-
       console.error('An error has occured:', e)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Request failed with status code: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
   }
@@ -116,7 +115,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
       <Meta title="Manage past work orders" />
       <div className="mobile-work-order-container">
         <DatePicker options={lastSevenDays} handleChange={handleDateChange} />
-        {sortedWorkOrders === null ? (
+        {sortedWorkOrders === null && !error ? (
           <Spinner />
         ) : (
           <>
@@ -127,13 +126,15 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
                   currentUser={currentUser}
                 />
               </ol>
-            ) : (
+            ) : !error ? (
               <WarningInfoBox
                 header="No work orders displayed"
                 text="Please contact your supervisor"
               />
+            ) : (
+              <ErrorMessage label={error} />
             )}
-            {error && <ErrorMessage label={error} />}
+            )
           </>
         )}
       </div>
