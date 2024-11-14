@@ -1,9 +1,8 @@
 import React from 'react'
 import { operative } from 'factories/operative'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import MobileWorkingPastWorkOrdersView from './MobileWorkingPastWorkOrdersView'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { WorkOrder } from '../../../models/workOrder'
 
 jest.mock('@/utils/frontEndApiClient/requests')
 
