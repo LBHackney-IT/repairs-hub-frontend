@@ -28,8 +28,8 @@ describe('PastWorkOrdersDatePicker Component', () => {
       // Check the text content matches the expected day display
       const formattedDate = expectedDate.toString().slice(3, 10)
       expect(option.textContent).toContain(formattedDate)
-      expect(asFragment()).toMatchSnapshot()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
   it('should be populated with the previous 5 working days', () => {
     const currentDate = beginningOfDay(new Date('2024-04-05'))
@@ -49,8 +49,8 @@ describe('PastWorkOrdersDatePicker Component', () => {
       // Check the text content matches the expected day display
       const formattedDate = expectedDate.toString().slice(3, 10)
       expect(option.textContent).toContain(formattedDate)
-      expect(asFragment()).toMatchSnapshot()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
   it('should be populated with the previous 5 working days spanning a different year', () => {
     const currentDate = beginningOfDay(new Date('2024-01-01'))
@@ -70,7 +70,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       // Check the text content matches the expected day display
       const formattedDate = expectedDate.toString().slice(3, 10)
       expect(option.textContent).toContain(formattedDate)
-      expect(asFragment()).toMatchSnapshot()
     })
+    expect(asFragment()).toMatchSnapshot()
   })
 })
