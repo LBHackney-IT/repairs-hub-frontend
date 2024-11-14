@@ -37,7 +37,6 @@ describe('MobileWorkingPastWorkOrdersView Component', () => {
   })
 
   it('should match snapshot when there are work orders', async () => {
-    // Mock a dynamic API response with generated work orders
     const mockWorkOrders = workOrders
     frontEndApiRequest.mockResolvedValueOnce(mockWorkOrders)
 
