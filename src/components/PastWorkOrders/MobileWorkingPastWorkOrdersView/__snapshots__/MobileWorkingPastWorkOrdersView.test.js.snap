@@ -1,57 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when loading 1`] = `
-<DocumentFragment>
-  <div
-    class="mobile-work-order-container"
-  >
-    <div
-      class="date-picker-container"
-    >
-      <label
-        class="lbh-heading-h2"
-        for="date-picker"
-      >
-        Select date
-      </label>
-      <select
-        data-testid="date-picker"
-        role="combobox"
-      >
-        <option
-          value="2024-11-11"
-        >
-          2024-11-11
-        </option>
-        <option
-          value="2024-11-08"
-        >
-          2024-11-08
-        </option>
-        <option
-          value="2024-11-07"
-        >
-          2024-11-07
-        </option>
-        <option
-          value="2024-11-06"
-        >
-          2024-11-06
-        </option>
-        <option
-          value="2024-11-05"
-        >
-          2024-11-05
-        </option>
-      </select>
-    </div>
-    <div>
-      Loading...
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
 exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there are no work orders 1`] = `
 <DocumentFragment>
   <div
@@ -67,33 +15,33 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
         Select date
       </label>
       <select
-        data-testid="date-picker"
-        role="combobox"
+        id="date-picker"
+        name="date-picker"
       >
         <option
-          value="2024-11-11"
+          value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
-          2024-11-11
+           Nov 13
         </option>
         <option
-          value="2024-11-08"
+          value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
-          2024-11-08
+           Nov 12
         </option>
         <option
-          value="2024-11-07"
+          value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
-          2024-11-07
+           Nov 11
         </option>
         <option
-          value="2024-11-06"
+          value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
-          2024-11-06
+           Nov 08
         </option>
         <option
-          value="2024-11-05"
+          value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
-          2024-11-05
+           Nov 07
         </option>
       </select>
     </div>
@@ -134,4 +82,89 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
 </DocumentFragment>
 `;
 
-exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there are work orders 1`] = `<DocumentFragment />`;
+exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when there are work orders 1`] = `
+<DocumentFragment>
+  <div
+    class="mobile-work-order-container"
+  >
+    <div
+      class="date-picker-container"
+    >
+      <label
+        class="lbh-heading-h2"
+        for="date-picker"
+      >
+        Select date
+      </label>
+      <select
+        id="date-picker"
+        name="date-picker"
+      >
+        <option
+          value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 13
+        </option>
+        <option
+          value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 12
+        </option>
+        <option
+          value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 11
+        </option>
+        <option
+          value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 08
+        </option>
+        <option
+          value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+        >
+           Nov 07
+        </option>
+      </select>
+    </div>
+    <svg
+      data-testid="spinner-undefined"
+      height="50"
+      stroke="#00703c"
+      viewBox="0 0 42 42"
+      width="50"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <g
+        fill="none"
+        fill-rule="evenodd"
+      >
+        <g
+          stroke-width="5"
+          transform="translate(3 3)"
+        >
+          <circle
+            cx="18"
+            cy="18"
+            r="18"
+            stroke-opacity=".5"
+          />
+          <path
+            d="M36 18c0-9.94-8.06-18-18-18"
+            transform="rotate(112.708 18 18)"
+          >
+            <animatetransform
+              attributeName="transform"
+              dur="1s"
+              from="0 18 18"
+              repeatCount="indefinite"
+              to="360 18 18"
+              type="rotate"
+            />
+          </path>
+        </g>
+      </g>
+    </svg>
+  </div>
+</DocumentFragment>
+`;

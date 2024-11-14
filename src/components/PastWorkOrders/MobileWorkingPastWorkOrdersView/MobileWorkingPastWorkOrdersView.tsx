@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
-import { longMonthWeekday } from '@/utils/date'
+import { beginningOfDay } from '@/utils/time'
 
-import DatePicker from '../../DatePicker/Index'
+import PastWorkOrdersDatePicker from '../../PastWorkOrdersDatePicker/Index'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WarningInfoBox from '../../Template/WarningInfoBox'
@@ -22,7 +21,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const yesterday = new Date()
   yesterday.setDate(currentDate.getDate() - 1)
-  const lastSevenDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
+
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [error, setError] = useState<string | null>()
@@ -114,7 +113,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     <>
       <Meta title="Manage past work orders" />
       <div className="mobile-work-order-container">
-        <DatePicker options={lastSevenDays} handleChange={handleDateChange} />
+        <PastWorkOrdersDatePicker handleChange={handleDateChange} />
         {sortedWorkOrders === null && !error ? (
           <Spinner />
         ) : (
@@ -134,7 +133,6 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
             ) : (
               <ErrorMessage label={error} />
             )}
-            )
           </>
         )}
       </div>
