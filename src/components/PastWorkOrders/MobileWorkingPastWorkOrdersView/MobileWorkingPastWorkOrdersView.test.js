@@ -34,6 +34,7 @@ const workOrders = [
 describe('MobileWorkingPastWorkOrdersView Component', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    TimezoneMock.register('Europe/London')
   })
 
   it('should match snapshot when there are work orders', async () => {
@@ -61,5 +62,8 @@ describe('MobileWorkingPastWorkOrdersView Component', () => {
     ).toBeInTheDocument()
 
     expect(asFragment()).toMatchSnapshot()
+  })
+  afterEach(() => {
+    TimezoneMock.unregister()
   })
 })
