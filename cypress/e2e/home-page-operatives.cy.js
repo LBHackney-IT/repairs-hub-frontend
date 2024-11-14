@@ -174,7 +174,7 @@ context('When an operative is logged in', () => {
           path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
         },
         {
-          fixture: 'pastWorkOrders/12thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
         }
       ).as('operativesWorkOrders')
       cy.visit('/')
@@ -195,7 +195,7 @@ context('When an operative is logged in', () => {
           path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
         },
         {
-          fixture: 'pastWorkOrders/12thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
         }
       ).as('workOrders12th')
       cy.visit('/oldjobs')
@@ -224,7 +224,7 @@ context('When an operative is logged in', () => {
           path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
         },
         {
-          fixture: 'pastWorkOrders/12thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
         }
       ).as('workOrders12th')
       cy.intercept(
@@ -233,7 +233,7 @@ context('When an operative is logged in', () => {
           path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-11`,
         },
         {
-          fixture: 'pastWorkOrders/11thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/11thNovemberPastWorkOrders.json',
         }
       ).as('workOrders11th')
       cy.visit('/oldjobs')
@@ -243,7 +243,7 @@ context('When an operative is logged in', () => {
           path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-08`,
         },
         {
-          fixture: 'pastWorkOrders/8thNovemberpastWorkOrders.json',
+          fixture: 'pastWorkOrders/8thNovemberPastWorkOrders.json',
         }
       ).as('workOrders8th')
       cy.visit('/oldjobs')
