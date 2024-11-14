@@ -2,17 +2,14 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import PastWorkOrdersDatePicker from './Index'
 import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
+import TimezoneMock from 'timezone-mock'
 
 const mockHandleDateChange = jest.fn()
-// jest.mock('timezone-mock', () => ({
-//   install: jest.fn(),
-//   unregister: jest.fn(),
-// }))
 
 describe('PastWorkOrdersDatePicker Component', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    // TimezoneMock.install('Europe/London')
+    TimezoneMock.register('Europe/London')
   })
 
   it('should be populated with the previous 5 working days', () => {
@@ -80,7 +77,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
     expect(asFragment()).toMatchSnapshot()
   })
 
-  // afterEach(() => {
-  //   TimezoneMock.unregister()
-  // })
+  afterEach(() => {
+    TimezoneMock.unregister()
+  })
 })
