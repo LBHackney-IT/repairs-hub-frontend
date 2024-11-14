@@ -4,10 +4,15 @@ import PastWorkOrdersDatePicker from './Index'
 import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
 
 const mockHandleDateChange = jest.fn()
+// jest.mock('timezone-mock', () => ({
+//   install: jest.fn(),
+//   unregister: jest.fn(),
+// }))
 
 describe('PastWorkOrdersDatePicker Component', () => {
   beforeEach(() => {
     jest.clearAllMocks()
+    // TimezoneMock.install('Europe/London')
   })
 
   it('should be populated with the previous 5 working days', () => {
@@ -29,10 +34,11 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const formattedDate = expectedDate.toString().slice(3, 10)
       expect(option.textContent).toContain(formattedDate)
     })
+
     expect(asFragment()).toMatchSnapshot()
   })
   it('should be populated with the previous 5 working days', () => {
-    const currentDate = beginningOfDay(new Date('2024-04-05'))
+    const currentDate = beginningOfDay(new Date('2024-04-11'))
     const lastFiveWorkingDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
 
     const { asFragment } = render(
@@ -73,4 +79,8 @@ describe('PastWorkOrdersDatePicker Component', () => {
     })
     expect(asFragment()).toMatchSnapshot()
   })
+
+  // afterEach(() => {
+  //   TimezoneMock.unregister()
+  // })
 })
