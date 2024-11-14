@@ -19,26 +19,31 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
         name="date-picker"
       >
         <option
+          data-testid="date-option"
           value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 13
         </option>
         <option
+          data-testid="date-option"
           value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 12
         </option>
         <option
+          data-testid="date-option"
           value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 11
         </option>
         <option
+          data-testid="date-option"
           value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 08
         </option>
         <option
+          data-testid="date-option"
           value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 07
@@ -101,26 +106,31 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
         name="date-picker"
       >
         <option
+          data-testid="date-option"
           value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 13
         </option>
         <option
+          data-testid="date-option"
           value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 12
         </option>
         <option
+          data-testid="date-option"
           value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 11
         </option>
         <option
+          data-testid="date-option"
           value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 08
         </option>
         <option
+          data-testid="date-option"
           value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
         >
            Nov 07

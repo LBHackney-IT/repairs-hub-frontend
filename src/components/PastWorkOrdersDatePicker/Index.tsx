@@ -1,13 +1,14 @@
 import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
 
 interface PastWorkOrdersDatePickerProps {
+  currentDate: Date
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
 const PastWorkOrdersDatePicker = ({
+  currentDate,
   handleChange,
 }: PastWorkOrdersDatePickerProps) => {
-  const currentDate = beginningOfDay(new Date())
   const lastSevenDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
 
   return (
@@ -18,7 +19,7 @@ const PastWorkOrdersDatePicker = ({
       <select id="date-picker" name="date-picker" onChange={handleChange}>
         {lastSevenDays.map((day, index) => {
           return (
-            <option value={day} key={index}>
+            <option data-testid={`date-option`} value={day} key={index}>
               {day.toString().slice(3, 10)}
             </option>
           )
