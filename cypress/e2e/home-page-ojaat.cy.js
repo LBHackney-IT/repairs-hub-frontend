@@ -25,7 +25,7 @@ describe('Home page - one job at a time', () => {
 
     context('When they have work orders attached to them', () => {
       beforeEach(() => {
-        cy.clock(new Date('June 11 2021 13:49:15Z'))
+        // cy.clock(new Date('June 11 2021 13:49:15Z'))
 
         cy.intercept(
           {
@@ -72,7 +72,7 @@ describe('Home page - one job at a time', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h3').contains('Friday 11 June')
 
         cy.get('.appointment-details').should('have.length', 3)
 
@@ -107,7 +107,7 @@ describe('Home page - one job at a time', () => {
       'When they have a work order started and other work orders attached to them',
       () => {
         beforeEach(() => {
-          cy.clock(new Date('June 11 2021 13:49:15Z'))
+          // cy.clock(new Date('June 11 2021 13:49:15Z'))
 
           cy.intercept(
             {
@@ -154,7 +154,7 @@ describe('Home page - one job at a time', () => {
           cy.visit('/')
           cy.wait('@operativesWorkOrders')
 
-          cy.get('.lbh-heading-h2').contains('Friday 11 June')
+          cy.get('.lbh-heading-h3').contains('Friday 11 June')
 
           cy.get('.appointment-details').should('have.length', 3)
 

@@ -585,7 +585,7 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains(
+      cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
           month: 'long',
           weekday: 'long',
@@ -663,7 +663,7 @@ describe('Closing my own work order', () => {
       // close
       cy.contains('button', 'Close').click()
 
-      cy.get('.lbh-heading-h2').contains(
+      cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
           month: 'long',
           weekday: 'long',
@@ -757,7 +757,7 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains(
+        cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
             month: 'long',
             weekday: 'long',
@@ -845,7 +845,7 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains(
+        cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
             month: 'long',
             weekday: 'long',
@@ -936,7 +936,7 @@ describe('Closing my own work order', () => {
         // close
         cy.contains('button', 'Close').click()
 
-        cy.get('.lbh-heading-h2').contains(
+        cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
             month: 'long',
             weekday: 'long',
