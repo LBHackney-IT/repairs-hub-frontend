@@ -157,8 +157,8 @@ context('When an operative is logged in', () => {
   })
 
   context('When operative clicks a tab', () => {
-    cy.clock(new Date('November 13 2024 13:49:15Z'))
     it('Goes to correct page', () => {
+      cy.clock(new Date('November 13 2024 13:49:15Z'))
       cy.intercept(
         {
           method: 'GET',
