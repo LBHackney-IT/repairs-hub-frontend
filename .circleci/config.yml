@@ -58,6 +58,7 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
+    parallelism: 2
     steps:
       - *attach_workspace
       - browser-tools/install-browser-tools
@@ -73,7 +74,15 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn e2e:audit
+
+            # Split tests and run them in parallel using CircleCI's built in timing-based splitter
+            find cypress/e2e -type f -name "*.[jt]s" | sort | uniq > circleci_test_files.txt
+            cat circleci_test_files.txt
+
+            # Cypress expects files to be separated with commas
+            TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
+            echo $TESTFILES
+            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cy:run:audit --spec \"$TESTFILES\""
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
