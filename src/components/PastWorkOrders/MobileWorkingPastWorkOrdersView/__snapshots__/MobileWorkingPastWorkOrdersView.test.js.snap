@@ -20,33 +20,45 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
-          value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731456000000"
         >
-           Nov 13
+          4-11-13
         </option>
         <option
           data-testid="date-option"
-          value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731369600000"
         >
-           Nov 12
+          4-11-12
         </option>
         <option
           data-testid="date-option"
-          value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731283200000"
         >
-           Nov 11
+          4-11-11
         </option>
         <option
           data-testid="date-option"
-          value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731196800000"
         >
-           Nov 08
+          4-11-10
         </option>
         <option
           data-testid="date-option"
-          value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731110400000"
         >
-           Nov 07
+          4-11-09
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731024000000"
+        >
+          4-11-08
+        </option>
+        <option
+          data-testid="date-option"
+          value="1730937600000"
+        >
+          4-11-07
         </option>
       </select>
     </div>
@@ -107,33 +119,45 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
-          value="Wed Nov 13 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731456000000"
         >
-           Nov 13
+          4-11-13
         </option>
         <option
           data-testid="date-option"
-          value="Tue Nov 12 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731369600000"
         >
-           Nov 12
+          4-11-12
         </option>
         <option
           data-testid="date-option"
-          value="Mon Nov 11 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731283200000"
         >
-           Nov 11
+          4-11-11
         </option>
         <option
           data-testid="date-option"
-          value="Fri Nov 08 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731196800000"
         >
-           Nov 08
+          4-11-10
         </option>
         <option
           data-testid="date-option"
-          value="Thu Nov 07 2024 00:00:00 GMT+0000 (Greenwich Mean Time)"
+          value="1731110400000"
         >
-           Nov 07
+          4-11-09
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731024000000"
+        >
+          4-11-08
+        </option>
+        <option
+          data-testid="date-option"
+          value="1730937600000"
+        >
+          4-11-07
         </option>
       </select>
     </div>

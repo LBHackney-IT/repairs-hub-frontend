@@ -3,6 +3,7 @@ import { operative } from 'factories/operative'
 import { render, screen } from '@testing-library/react'
 import MobileWorkingPastWorkOrdersView from './MobileWorkingPastWorkOrdersView'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import TimezoneMock from 'timezone-mock'
 
 jest.mock('@/utils/frontEndApiClient/requests')
 
