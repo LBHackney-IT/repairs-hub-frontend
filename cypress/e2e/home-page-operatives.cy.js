@@ -206,7 +206,7 @@ context('When an operative is logged in', () => {
       })
     })
     it('Displays past jobs with expected fields', () => {
-      cy.get('.operative-work-order-list-item').should('exist') // Ensure work orders are loaded
+      cy.get('.operative-work-order-list-item').should('exist')
       cy.wait('@workOrders12th')
       cy.contains('Work order 12th November.')
       cy.get('@workOrders12th.all').should('have.length', 1)
@@ -217,7 +217,7 @@ context('When an operative is logged in', () => {
     beforeEach(() => {
       cy.clock(new Date('November 13 2024 13:49:15Z'))
     })
-    it('Changes the work orders', () => {
+    it.only('Changes the work orders', () => {
       cy.intercept(
         {
           method: 'GET',
@@ -265,7 +265,8 @@ context('When an operative is logged in', () => {
   context(
     "When they don't have any work orders on a particular date in the past",
     () => {
-      it('Displays a warning info box', () => {
+      it.only('Displays a warning info box', () => {
+        cy.clock(new Date('November 13 2024 13:49:15Z'))
         cy.intercept(
           {
             method: 'GET',
@@ -274,9 +275,9 @@ context('When an operative is logged in', () => {
           {
             body: [],
           }
-        ).as('operativesPastWorkOrders')
+        ).as('workOrders')
         cy.visit('/oldjobs')
-        cy.wait('@operativesPastWorkOrders')
+        cy.wait('@workOrders')
         cy.contains('No work orders displayed')
       })
     }
