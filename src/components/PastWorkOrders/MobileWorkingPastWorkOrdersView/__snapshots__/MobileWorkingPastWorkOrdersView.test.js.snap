@@ -20,6 +20,12 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
+          value="1731542400000"
+        >
+          4-11-14
+        </option>
+        <option
+          data-testid="date-option"
           value="1731456000000"
         >
           4-11-13
@@ -53,12 +59,6 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           value="1731024000000"
         >
           4-11-08
-        </option>
-        <option
-          data-testid="date-option"
-          value="1730937600000"
-        >
-          4-11-07
         </option>
       </select>
     </div>
@@ -119,6 +119,12 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
+          value="1731542400000"
+        >
+          4-11-14
+        </option>
+        <option
+          data-testid="date-option"
           value="1731456000000"
         >
           4-11-13
@@ -152,12 +158,6 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           value="1731024000000"
         >
           4-11-08
-        </option>
-        <option
-          data-testid="date-option"
-          value="1730937600000"
-        >
-          4-11-07
         </option>
       </select>
     </div>
