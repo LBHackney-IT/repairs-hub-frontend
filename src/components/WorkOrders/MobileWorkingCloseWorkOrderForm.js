@@ -9,6 +9,7 @@ import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/Follow
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
+import Link from 'next/link'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -108,6 +109,21 @@ const MobileWorkingCloseWorkOrderForm = ({
                 },
               })}
             />
+
+            {errors?.fileUpload && files.length === 0 && (
+              <div className="lbh-page-announcement lbh-page-announcement--warning">
+                <h3 className="lbh-page-announcement__title">
+                  No photos were selected
+                </h3>
+                <div className="lbh-page-announcement__content">
+                  <div>
+                    It is mandatory to add photos when completing a work order.
+                    If you need help please{' '}
+                    <Link href="/latest-changes">see the guide</Link>.
+                  </div>
+                </div>
+              </div>
+            )}
 
             {files.length > 0 && (
               <TextArea
