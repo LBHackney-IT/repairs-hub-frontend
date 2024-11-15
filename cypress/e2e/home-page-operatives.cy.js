@@ -216,37 +216,37 @@ context('When an operative is logged in', () => {
   context('When operative selects different date', () => {
     beforeEach(() => {
       cy.clock(new Date('November 13 2024 13:49:15Z'))
-    })
-    it.only('Changes the work orders', () => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
-        },
-        {
-          fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
-        }
-      ).as('workOrders12th')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-11`,
-        },
-        {
-          fixture: 'pastWorkOrders/11thNovemberPastWorkOrders.json',
-        }
-      ).as('workOrders11th')
-      cy.visit('/oldjobs')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-08`,
-        },
-        {
-          fixture: 'pastWorkOrders/8thNovemberPastWorkOrders.json',
-        }
-      ).as('workOrders8th')
-      cy.visit('/oldjobs')
+      it.only('Changes the work orders', () => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+          },
+          {
+            fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
+          }
+        ).as('workOrders12th')
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-11`,
+          },
+          {
+            fixture: 'pastWorkOrders/11thNovemberPastWorkOrders.json',
+          }
+        ).as('workOrders11th')
+        cy.visit('/oldjobs')
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-08`,
+          },
+          {
+            fixture: 'pastWorkOrders/8thNovemberPastWorkOrders.json',
+          }
+        ).as('workOrders8th')
+        cy.visit('/oldjobs')
+      })
 
       cy.wait('@workOrders12th')
       cy.contains('Work order 12th November.')
