@@ -112,7 +112,9 @@ const DrsSyncView = () => {
   const groupedByStatus: { [key: string]: number } = {}
 
   workOrders?.forEach((workOrder) => {
-    if (groupedByStatus.hasOwnProperty(workOrder.status)) {
+    if (
+      Object.prototype.hasOwnProperty.call(groupedByStatus, workOrder.status)
+    ) {
       groupedByStatus[workOrder.status]++
     } else {
       groupedByStatus[workOrder.status] = 1
@@ -194,7 +196,9 @@ const DrsSyncView = () => {
                     <button onClick={() => handleClearStatus(x.reference)}>
                       Reset status
                     </button>
-                    <button disabled>WIP - Fetch reference from DRS (order found on DRS)</button>
+                    <button disabled>
+                      WIP - Fetch reference from DRS (order found on DRS)
+                    </button>
                   </div>
 
                   <pre>{JSON.stringify(x, null, 2)}</pre>
