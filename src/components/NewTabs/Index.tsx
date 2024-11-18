@@ -16,7 +16,7 @@ const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
   }
   return (
     <>
-      <ul className="hackney-tabs-list-mobile govuk-tabs__list">
+      <ul className="new-hackney-tabs-list govuk-tabs__list">
         {titles.map((tab, i) => {
           return (
             <li
@@ -24,13 +24,13 @@ const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
               onKeyDown={(e) => handleKeyDown(e, i)}
               key={i}
               id={`tab-${i + 1}`}
-              className="govuk-tabs__list-item-mobile"
+              className="new-govuk-tabs__list-item"
               aria-selected={ariaSelected === i ? 'true' : 'false'}
               role="tab"
               aria-controls={`tabpanel-${i + 1}`}
               tabIndex={0}
             >
-              <a className="govuk-tabs_list-item-mobile-a-tag">{tab}</a>
+              <a className="new-govuk-tabs_list-item-a-tag">{tab}</a>
             </li>
           )
         })}
