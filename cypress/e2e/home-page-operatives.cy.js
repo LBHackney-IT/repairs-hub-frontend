@@ -180,7 +180,7 @@ context('When an operative is logged in', () => {
       cy.visit('/')
       cy.get('.govuk-tabs_list-item-mobile-a-tag').should('have.length', 2)
       cy.get('.govuk-tabs_list-item-mobile-a-tag').eq(1).click()
-      cy.url().should('include', 'oldjobs')
+      cy.url().should('include', 'pastworkorders')
       cy.get('.govuk-tabs_list-item-mobile-a-tag').eq(0).click()
       cy.url().should('include', '/')
     })
@@ -198,7 +198,7 @@ context('When an operative is logged in', () => {
           fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
         }
       ).as('workOrders12th')
-      cy.visit('/oldjobs')
+      cy.visit('/pastworkorders')
     })
     it('Has a date picker populated with 5 days', () => {
       cy.get('.date-picker-container').within(() => {
@@ -235,7 +235,7 @@ context('When an operative is logged in', () => {
             fixture: 'pastWorkOrders/11thNovemberPastWorkOrders.json',
           }
         ).as('workOrders11th')
-        cy.visit('/oldjobs')
+        cy.visit('/pastworkorders')
         cy.intercept(
           {
             method: 'GET',
@@ -245,7 +245,7 @@ context('When an operative is logged in', () => {
             fixture: 'pastWorkOrders/8thNovemberPastWorkOrders.json',
           }
         ).as('workOrders8th')
-        cy.visit('/oldjobs')
+        cy.visit('/pastworkorders')
       })
 
       cy.wait('@workOrders12th')
@@ -276,7 +276,7 @@ context('When an operative is logged in', () => {
             body: [],
           }
         ).as('workOrders')
-        cy.visit('/oldjobs')
+        cy.visit('/pastworkorders')
         cy.wait('@workOrders')
         cy.contains('No work orders displayed')
       })
@@ -293,7 +293,7 @@ context('When an operative is logged in', () => {
         },
         { statusCode: 500 }
       )
-      cy.visit('/oldjobs')
+      cy.visit('/pastworkorders')
       cy.contains('Request failed with status code: 500')
     })
   })

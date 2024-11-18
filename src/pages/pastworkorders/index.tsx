@@ -9,7 +9,7 @@ import MobileWorkingPastWorkOrdersView from '../../components/PastWorkOrders/Mob
 import CurrentUserWrapper from '../../components/WorkOrders/CurrentUserWrapper'
 import NewTabs from '../../components/NewTabs/Index'
 
-const OperativePastWorkOrderPage = () => {
+const PastWorkOrderPage = () => {
   const router = useRouter()
 
   const titles = ['Current Work Orders', 'Past Work Orders']
@@ -19,7 +19,7 @@ const OperativePastWorkOrderPage = () => {
   }
 
   const ariaSelected = useMemo(() => {
-    return router.pathname === '/oldjobs' ? 1 : 0
+    return router.pathname === '/pastworkorders' ? 1 : 0
   }, [router.pathname])
   return (
     <>
@@ -40,6 +40,6 @@ const OperativePastWorkOrderPage = () => {
 
 export const getServerSideProps = getQueryProps
 
-OperativePastWorkOrderPage.permittedRoles = [OPERATIVE_ROLE]
+PastWorkOrderPage.permittedRoles = [OPERATIVE_ROLE]
 
-export default OperativePastWorkOrderPage
+export default PastWorkOrderPage

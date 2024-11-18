@@ -26,11 +26,11 @@ const Home = ({ query }) => {
   const titles = ['Current Work Orders', 'Past Work Orders']
 
   const handleTabClick = (index) => {
-    index === 1 && router.push('/oldjobs')
+    index === 1 && router.push('/pastworkorders')
   }
 
   const ariaSelected = useMemo(() => {
-    return router.pathname === '/oldjobs' ? 1 : 0
+    return router.pathname === '/pastworkorders' ? 1 : 0
   }, [router.pathname])
 
   const HomeView = () => {
