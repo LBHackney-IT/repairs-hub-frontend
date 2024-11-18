@@ -42,6 +42,11 @@ const Home = ({ query }) => {
       if (Object.entries(query).length === 0) {
         return (
           <>
+            <NewTabs
+              titles={titles}
+              onTabChange={handleTabClick}
+              ariaSelected={ariaSelected}
+            />
             <WorkOrdersView
               pageNumber={1}
               {...(defaultFilters && { query: defaultFilters })}
