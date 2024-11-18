@@ -1,0 +1,72 @@
+        .new-hackney-tabs-list {
+        display: flex;
+        justify-content: flex-start;
+        gap: 2px;
+        margin: 0 0 10px 0 !important;
+        border: none !important; 
+        }
+        .new-govuk-tabs__list-item {
+          display: block;
+          list-style: none;
+          background-color: repairs-hub-colour('light-grey');
+          text-align: center;
+          margin: 0;
+          height: 4rem;
+          width: 20rem;
+          padding: 1rem; 
+          font-size: 30px;
+          line-height: 1.4;
+          cursor: pointer;
+          text-decoration: underline;
+          font-family: 'Open Sans', sans-serif;
+          padding-bottom: 22px;
+          &[aria-selected='true'] {
+            background-color: repairs-hub-colour('dark-green') !important;
+            color: repairs-hub-colour('white') !important;
+            text-decoration: none;
+            transform: scale(1.05);
+          }
+        }
+        .new-govuk-tabs_list-item-a-tag {
+            
+          .new-govuk-tabs__list-item-mobile-a-tag--selected {
+            background-color: repairs-hub-colour('dark-green') !important;
+            color: repairs-hub-colour('black') !important;
+          }
+        }
+  
+        @media (max-width: 640px) {
+            .new-hackney-tabs-list {
+                display: flex;
+                justify-content: flex-start;
+                gap: 2px;
+                margin: 0 0 10px 0;
+                }
+                .new-govuk-tabs__list-item {
+                  display: block;
+                  list-style: none;
+                  background-color: repairs-hub-colour('light-grey');
+                  text-align: center;
+                  margin: 0;
+                  height: 4rem;
+                  width: 7rem;
+                  padding: 1rem; 
+                  font-size: 20px;
+                  line-height: 1.4;
+                  cursor: pointer;
+                  text-decoration: underline;
+                  padding-bottom: 30px;
+                  &[aria-selected='true'] {
+                    background-color: repairs-hub-colour('dark-green') !important;
+                    color: repairs-hub-colour('white') !important;
+                    text-decoration: none;
+                    transform: scale(1.05);
+                  }
+                }
+                .new-govuk-tabs_list-item-a-tag {
+                  .new-govuk-tabs__list-item-mobile-a-tag--selected {
+                    background-color: repairs-hub-colour('dark-green') !important;
+                    color: repairs-hub-colour('black') !important;
+                  }
+                }
+          }
