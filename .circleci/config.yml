@@ -53,7 +53,8 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
-      - browser-tools/install-browser-tools
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
           name: Force install
           command: yarn cypress install --force
