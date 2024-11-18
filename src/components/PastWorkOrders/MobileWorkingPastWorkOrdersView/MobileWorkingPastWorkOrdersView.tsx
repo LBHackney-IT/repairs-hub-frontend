@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { beginningOfDay } from '@/utils/time'
+import { getYesterdayDate } from '@/root/src/utils/date'
+import { beginningOfDay } from '@/root/src/utils/time'
 
 import PastWorkOrdersDatePicker from '../../PastWorkOrdersDatePicker/Index'
 import Spinner from '../../Spinner'
@@ -19,9 +20,7 @@ const SIXTY_SECONDS = 60 * 1000
 
 const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
-  const yesterday = new Date()
-  yesterday.setDate(currentDate.getDate() - 1)
-
+  const yesterday = new Date(getYesterdayDate(currentDate))
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [error, setError] = useState<string | null>()
