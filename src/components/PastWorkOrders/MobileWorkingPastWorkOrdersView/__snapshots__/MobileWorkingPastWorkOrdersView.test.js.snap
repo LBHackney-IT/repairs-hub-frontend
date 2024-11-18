@@ -20,6 +20,24 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
+          value="1731801600000"
+        >
+          4-11-17
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731715200000"
+        >
+          4-11-16
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731628800000"
+        >
+          4-11-15
+        </option>
+        <option
+          data-testid="date-option"
           value="1731542400000"
         >
           4-11-14
@@ -41,24 +59,6 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           value="1731283200000"
         >
           4-11-11
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731196800000"
-        >
-          4-11-10
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731110400000"
-        >
-          4-11-09
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731024000000"
-        >
-          4-11-08
         </option>
       </select>
     </div>
@@ -119,6 +119,24 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
       >
         <option
           data-testid="date-option"
+          value="1731801600000"
+        >
+          4-11-17
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731715200000"
+        >
+          4-11-16
+        </option>
+        <option
+          data-testid="date-option"
+          value="1731628800000"
+        >
+          4-11-15
+        </option>
+        <option
+          data-testid="date-option"
           value="1731542400000"
         >
           4-11-14
@@ -140,24 +158,6 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           value="1731283200000"
         >
           4-11-11
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731196800000"
-        >
-          4-11-10
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731110400000"
-        >
-          4-11-09
-        </option>
-        <option
-          data-testid="date-option"
-          value="1731024000000"
-        >
-          4-11-08
         </option>
       </select>
     </div>

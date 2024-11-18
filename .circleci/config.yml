@@ -48,6 +48,9 @@ jobs:
           name: Run Linter
           command: yarn lint
       - run:
+          name: Update Past Orders tests
+          command: yarn test:update-past-orders
+      - run:
           name: Run Tests
           command: |
             export NEXT_PUBLIC_ENV_NAME=test
