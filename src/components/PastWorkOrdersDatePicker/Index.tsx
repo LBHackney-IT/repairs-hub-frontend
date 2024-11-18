@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { getWorkingDaysBeforeDate } from '@/utils/time'
 
 interface PastWorkOrdersDatePickerProps {
@@ -18,9 +19,10 @@ const PastWorkOrdersDatePicker = ({
       </label>
       <select id="date-picker" name="date-picker" onChange={handleChange}>
         {lastSevenDays.map((day, index) => {
+          const formattedDate = format(day, 'MMM dd')
           return (
             <option data-testid={`date-option`} value={day} key={index}>
-              {day.toString().slice(3, 10)}
+              {formattedDate}
             </option>
           )
         })}
