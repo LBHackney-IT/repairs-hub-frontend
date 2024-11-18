@@ -19,43 +19,43 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1723161600000"
       >
-        4-08-09
+        Aug 09
       </option>
       <option
         data-testid="date-option"
         value="1723075200000"
       >
-        4-08-08
+        Aug 08
       </option>
       <option
         data-testid="date-option"
         value="1722988800000"
       >
-        4-08-07
+        Aug 07
       </option>
       <option
         data-testid="date-option"
         value="1722902400000"
       >
-        4-08-06
+        Aug 06
       </option>
       <option
         data-testid="date-option"
         value="1722816000000"
       >
-        4-08-05
+        Aug 05
       </option>
       <option
         data-testid="date-option"
         value="1722729600000"
       >
-        4-08-04
+        Aug 04
       </option>
       <option
         data-testid="date-option"
         value="1722643200000"
       >
-        4-08-03
+        Aug 03
       </option>
     </select>
   </div>
@@ -81,43 +81,43 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1712707200000"
       >
-        4-04-10
+        Apr 10
       </option>
       <option
         data-testid="date-option"
         value="1712620800000"
       >
-        4-04-09
+        Apr 09
       </option>
       <option
         data-testid="date-option"
         value="1712534400000"
       >
-        4-04-08
+        Apr 08
       </option>
       <option
         data-testid="date-option"
         value="1712448000000"
       >
-        4-04-07
+        Apr 07
       </option>
       <option
         data-testid="date-option"
         value="1712361600000"
       >
-        4-04-06
+        Apr 06
       </option>
       <option
         data-testid="date-option"
         value="1712275200000"
       >
-        4-04-05
+        Apr 05
       </option>
       <option
         data-testid="date-option"
         value="1712188800000"
       >
-        4-04-04
+        Apr 04
       </option>
     </select>
   </div>
@@ -143,43 +143,43 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1703980800000"
       >
-        3-12-31
+        Dec 31
       </option>
       <option
         data-testid="date-option"
         value="1703894400000"
       >
-        3-12-30
+        Dec 30
       </option>
       <option
         data-testid="date-option"
         value="1703808000000"
       >
-        3-12-29
+        Dec 29
       </option>
       <option
         data-testid="date-option"
         value="1703721600000"
       >
-        3-12-28
+        Dec 28
       </option>
       <option
         data-testid="date-option"
         value="1703635200000"
       >
-        3-12-27
+        Dec 27
       </option>
       <option
         data-testid="date-option"
         value="1703548800000"
       >
-        3-12-26
+        Dec 26
       </option>
       <option
         data-testid="date-option"
         value="1703462400000"
       >
-        3-12-25
+        Dec 25
       </option>
     </select>
   </div>

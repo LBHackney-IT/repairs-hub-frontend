@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import PastWorkOrdersDatePicker from './Index'
 import { beginningOfDay, getWorkingDaysBeforeDate } from '@/utils/time'
 import TimezoneMock from 'timezone-mock'
+import { format } from 'date-fns'
 
 const mockHandleDateChange = jest.fn()
 
@@ -28,7 +29,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const expectedDate = lastFiveWorkingDays[index]
 
       // Check the text content matches the expected day display
-      const formattedDate = expectedDate.toString().slice(3, 10)
+      const formattedDate = format(expectedDate, 'MMM dd')
       expect(option.textContent).toContain(formattedDate)
     })
 
@@ -50,7 +51,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const expectedDate = lastFiveWorkingDays[index]
 
       // Check the text content matches the expected day display
-      const formattedDate = expectedDate.toString().slice(3, 10)
+      const formattedDate = format(expectedDate, 'MMM dd')
       expect(option.textContent).toContain(formattedDate)
     })
     expect(asFragment()).toMatchSnapshot()
@@ -71,7 +72,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const expectedDate = lastFiveWorkingDays[index]
 
       // Check the text content matches the expected day display
-      const formattedDate = expectedDate.toString().slice(3, 10)
+      const formattedDate = format(expectedDate, 'MMM dd')
       expect(option.textContent).toContain(formattedDate)
     })
     expect(asFragment()).toMatchSnapshot()
