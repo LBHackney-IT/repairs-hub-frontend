@@ -22,43 +22,43 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           data-testid="date-option"
           value="1731801600000"
         >
-          4-11-17
+          Nov 17
         </option>
         <option
           data-testid="date-option"
           value="1731715200000"
         >
-          4-11-16
+          Nov 16
         </option>
         <option
           data-testid="date-option"
           value="1731628800000"
         >
-          4-11-15
+          Nov 15
         </option>
         <option
           data-testid="date-option"
           value="1731542400000"
         >
-          4-11-14
+          Nov 14
         </option>
         <option
           data-testid="date-option"
           value="1731456000000"
         >
-          4-11-13
+          Nov 13
         </option>
         <option
           data-testid="date-option"
           value="1731369600000"
         >
-          4-11-12
+          Nov 12
         </option>
         <option
           data-testid="date-option"
           value="1731283200000"
         >
-          4-11-11
+          Nov 11
         </option>
       </select>
     </div>
@@ -121,43 +121,43 @@ exports[`MobileWorkingPastWorkOrdersView Component should match snapshot when th
           data-testid="date-option"
           value="1731801600000"
         >
-          4-11-17
+          Nov 17
         </option>
         <option
           data-testid="date-option"
           value="1731715200000"
         >
-          4-11-16
+          Nov 16
         </option>
         <option
           data-testid="date-option"
           value="1731628800000"
         >
-          4-11-15
+          Nov 15
         </option>
         <option
           data-testid="date-option"
           value="1731542400000"
         >
-          4-11-14
+          Nov 14
         </option>
         <option
           data-testid="date-option"
           value="1731456000000"
         >
-          4-11-13
+          Nov 13
         </option>
         <option
           data-testid="date-option"
           value="1731369600000"
         >
-          4-11-12
+          Nov 12
         </option>
         <option
           data-testid="date-option"
           value="1731283200000"
         >
-          4-11-11
+          Nov 11
         </option>
       </select>
     </div>
