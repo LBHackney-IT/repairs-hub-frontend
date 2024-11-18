@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import PastWorkOrdersDatePicker from './Index'
-import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
+import { beginningOfDay, getWorkingDaysBeforeDate } from '@/utils/time'
 import TimezoneMock from 'timezone-mock'
 
 const mockHandleDateChange = jest.fn()
@@ -14,7 +14,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
 
   it('should be populated with the previous 5 working days', () => {
     const currentDate = beginningOfDay(new Date('2024-08-10'))
-    const lastFiveWorkingDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
+    const lastFiveWorkingDays = getWorkingDaysBeforeDate(currentDate, 7)
 
     const { asFragment } = render(
       <PastWorkOrdersDatePicker
@@ -36,7 +36,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
   })
   it('should be populated with the previous 5 working days', () => {
     const currentDate = beginningOfDay(new Date('2024-04-11'))
-    const lastFiveWorkingDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
+    const lastFiveWorkingDays = getWorkingDaysBeforeDate(currentDate, 7)
 
     const { asFragment } = render(
       <PastWorkOrdersDatePicker
@@ -57,7 +57,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
   })
   it('should be populated with the previous 5 working days spanning a different year', () => {
     const currentDate = beginningOfDay(new Date('2024-01-01'))
-    const lastFiveWorkingDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
+    const lastFiveWorkingDays = getWorkingDaysBeforeDate(currentDate, 7)
 
     const { asFragment } = render(
       <PastWorkOrdersDatePicker
