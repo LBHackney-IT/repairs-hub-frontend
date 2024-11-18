@@ -39,8 +39,4 @@ const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
   )
 }
 
-export const getServerSideProps = getQueryProps
-
-NewTabs.permittedRoles = [OPERATIVE_ROLE]
-
 export default NewTabs
