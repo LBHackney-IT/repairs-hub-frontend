@@ -56,7 +56,7 @@ jobs:
       - browser-tools/install-browser-tools
       - run:
           name: Force install
-          command: ./node_modules/.bin/cypress install --force
+          command: yarn cypress install --force
       - run:
           name: Run E2E With Lighthouse Audit
           command: |
