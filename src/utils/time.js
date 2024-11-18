@@ -46,11 +46,11 @@ export const daysAfter = (date, days) => {
   return new Date(date.getTime() + days * DAY)
 }
 
-export const daysBeforeDateRangeExcWeekend = (date, days) => {
+export const getWorkingDaysBeforeDate = (date, numberOfDays) => {
   let daysCountdown = Array(7).fill('')
   daysCountdown.forEach((_, index) => {
-    daysCountdown[index] = new Date(date.getTime() - days * DAY)
-    days -= 1
+    daysCountdown[index] = new Date(date.getTime() - numberOfDays * DAY)
+    numberOfDays -= 1
   })
 
   const removeWeekends = daysCountdown.filter(

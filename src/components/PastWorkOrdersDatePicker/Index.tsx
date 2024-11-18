@@ -1,4 +1,4 @@
-import { beginningOfDay, daysBeforeDateRangeExcWeekend } from '@/utils/time'
+import { getWorkingDaysBeforeDate } from '@/utils/time'
 
 interface PastWorkOrdersDatePickerProps {
   currentDate: Date
@@ -9,7 +9,7 @@ const PastWorkOrdersDatePicker = ({
   currentDate,
   handleChange,
 }: PastWorkOrdersDatePickerProps) => {
-  const lastSevenDays = daysBeforeDateRangeExcWeekend(currentDate, 7)
+  const lastSevenDays = getWorkingDaysBeforeDate(currentDate, 7)
 
   return (
     <div className="date-picker-container">
