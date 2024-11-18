@@ -244,13 +244,8 @@ workflows:
   version: 2
   continuous-delivery:
     jobs:
-      - install-dependencies
-      - tests:
-          requires:
-            - install-dependencies
-      - e2e:
-          requires:
-            - install-dependencies
+      - tests
+      - e2e
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:
