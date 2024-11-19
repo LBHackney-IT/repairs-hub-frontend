@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, screen } from '@testing-library/react'
 import PastWorkOrdersDatePicker from './Index'
-import { beginningOfDay, getWorkingDaysBeforeDate } from '@/utils/time'
+import { beginningOfDay } from '@/utils/time'
 import TimezoneMock from 'timezone-mock'
 import { format } from 'date-fns'
 
