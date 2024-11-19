@@ -7,7 +7,7 @@ import { format } from 'date-fns'
 
 const mockHandleDateChange = jest.fn()
 
-export const getWorkingDaysBeforeDateForTests = (date, totalDaysToProcess) => {
+const getWorkingDaysBeforeDateForTests = (date, totalDaysToProcess) => {
   const DAY = 24 * 60 * 60 * 1000 // One day in milliseconds
 
   // Generate an array of the past `totalDaysToProcess` days in UTC
