@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { getYesterdayDate } from '@/root/src/utils/date'
-import { beginningOfDay } from '@/root/src/utils/time'
+import { beginningOfDay, getWorkingDaysBeforeDate } from '@/root/src/utils/time'
 
 import PastWorkOrdersDatePicker from '../../PastWorkOrdersDatePicker/Index'
 import Spinner from '../../Spinner'
@@ -26,6 +26,8 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const [error, setError] = useState<string | null>()
   const [selectedDate, setSelectedDate] = useState<Date>(yesterday)
   const targetDate = selectedDate.toISOString().split('T')[0]
+
+  const lastFiveWorkingDays = getWorkingDaysBeforeDate(currentDate, 7)
 
   const getOperativeWorkOrderView = async () => {
     setError(null)
@@ -113,8 +115,8 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
       <Meta title="Manage past work orders" />
       <div className="mobile-work-order-container">
         <PastWorkOrdersDatePicker
-          currentDate={currentDate}
           handleChange={handleDateChange}
+          lastFiveWorkingDays={lastFiveWorkingDays}
         />
         {sortedWorkOrders === null && !error ? (
           <Spinner />

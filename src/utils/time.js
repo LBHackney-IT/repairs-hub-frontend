@@ -47,7 +47,7 @@ export const daysAfter = (date, days) => {
 }
 
 export const getWorkingDaysBeforeDate = (date, numberOfDays) => {
-  let daysCountdown = Array(7).fill('')
+  let daysCountdown = Array(numberOfDays).fill('')
   daysCountdown.forEach((_, index) => {
     daysCountdown[index] = new Date(date.getTime() - numberOfDays * DAY)
     numberOfDays -= 1

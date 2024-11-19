@@ -45,18 +45,6 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
       >
         Aug 05
       </option>
-      <option
-        data-testid="date-option"
-        value="1722729600000"
-      >
-        Aug 04
-      </option>
-      <option
-        data-testid="date-option"
-        value="1722643200000"
-      >
-        Aug 03
-      </option>
     </select>
   </div>
 </DocumentFragment>
@@ -79,6 +67,12 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
     >
       <option
         data-testid="date-option"
+        value="1712793600000"
+      >
+        Apr 11
+      </option>
+      <option
+        data-testid="date-option"
         value="1712707200000"
       >
         Apr 10
@@ -97,27 +91,9 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
       </option>
       <option
         data-testid="date-option"
-        value="1712448000000"
-      >
-        Apr 07
-      </option>
-      <option
-        data-testid="date-option"
-        value="1712361600000"
-      >
-        Apr 06
-      </option>
-      <option
-        data-testid="date-option"
         value="1712275200000"
       >
         Apr 05
-      </option>
-      <option
-        data-testid="date-option"
-        value="1712188800000"
-      >
-        Apr 04
       </option>
     </select>
   </div>
@@ -141,15 +117,9 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
     >
       <option
         data-testid="date-option"
-        value="1703980800000"
+        value="1704067200000"
       >
-        Dec 31
-      </option>
-      <option
-        data-testid="date-option"
-        value="1703894400000"
-      >
-        Dec 30
+        Jan 01
       </option>
       <option
         data-testid="date-option"
@@ -174,12 +144,6 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         value="1703548800000"
       >
         Dec 26
-      </option>
-      <option
-        data-testid="date-option"
-        value="1703462400000"
-      >
-        Dec 25
       </option>
     </select>
   </div>
