@@ -78,6 +78,11 @@ export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
   { name: 'followon-trades-plumbing', label: 'Plumbing', value: 'Plumbing' },
   { name: 'followon-trades-leakshub', label: 'LeaksHub', value: 'LeaksHub' },
   { name: 'followon-trades-roofing', label: 'Roofing', value: 'Roofing' },
+  {
+    name: 'followon-trades-scaffolding',
+    label: 'Scaffolding',
+    value: 'Scaffolding',
+  },
   { name: 'followon-trades-UPVC', label: 'UPVC', value: 'UPVC' },
   {
     name: 'followon-trades-other',
