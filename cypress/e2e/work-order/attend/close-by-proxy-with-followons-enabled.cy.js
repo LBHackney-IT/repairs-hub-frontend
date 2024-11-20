@@ -2814,7 +2814,9 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // assert error messages arent visible yet
         cy.contains('Please select the type of work').should('not.exist')
-        cy.contains('Please provide detail of the work required').should('not.exist')
+        cy.contains('Please provide detail of the work required').should(
+          'not.exist'
+        )
 
         // close work order
         cy.get('[type="submit"]').contains('Close work order').click()
@@ -2841,7 +2843,9 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'Blah blah blah'
         )
-        cy.contains('Please provide detail of the work required').should('not.exist')
+        cy.contains('Please provide detail of the work required').should(
+          'not.exist'
+        )
 
         // when one of the material options is selected, the description must not be empty
         cy.get('input[data-testid="stockItemsRequired"]').check()

@@ -575,7 +575,9 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       // assert error messages arent visible yet
       cy.contains('Please select the type of work').should('not.exist')
-      cy.contains('Please provide detail of the work required').should('not.exist')
+      cy.contains('Please provide detail of the work required').should(
+        'not.exist'
+      )
 
       // add follow on details
       cy.contains('button', 'Add details').click()
@@ -607,7 +609,9 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('textarea[data-testid="followOnTypeDescription"]').type(
         'Blah blah blah'
       )
-      cy.contains('Please provide detail of the work required').should('not.exist')
+      cy.contains('Please provide detail of the work required').should(
+        'not.exist'
+      )
 
       // when one of the material options is selected, the description must not be empty
       cy.get('input[data-testid="stockItemsRequired"]').check()
