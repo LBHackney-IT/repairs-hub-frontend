@@ -93,7 +93,9 @@ const WorkOrderUpdateView = ({ reference }) => {
         )
       } else {
         setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
         )
       }
     }
@@ -179,7 +181,9 @@ const WorkOrderUpdateView = ({ reference }) => {
       setSorCodeArrays([[]])
       setTasks(null)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 

@@ -22,7 +22,9 @@ const CurrentUserWrapper = () => {
       setCurrentUser(currentUser)
     } catch (e) {
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 

@@ -49,7 +49,9 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
       console.error(e)
 
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 
@@ -93,7 +95,9 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
       console.error('An error has occured:', e.response)
 
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 
