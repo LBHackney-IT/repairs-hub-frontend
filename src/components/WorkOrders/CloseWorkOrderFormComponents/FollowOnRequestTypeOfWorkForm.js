@@ -166,7 +166,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             if (getValues('followOnStatus') !== 'furtherWorkRequired')
               return true
 
-            if (!value) return 'Please describe the work completed'
+            if (!value) return 'Please provide detail of the work required'
 
             return true
           },
