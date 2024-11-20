@@ -4,6 +4,7 @@ orbs:
   aws-cli: circleci/aws-cli@4.1.3
   aws_assume_role: lbh-hackit/aws_assume_role@0.1.0
   browser-tools: circleci/browser-tools@1.4.8
+  node: circleci/node@6.3.0
 
 executors:
   node-executor:
@@ -23,27 +24,16 @@ jobs:
   install-dependencies:
     executor: node-executor
     steps:
-      - *attach_workspace
       - checkout
-      - restore_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn
-      - save_cache:
-          key: dependency-cache-{{ checksum "yarn.lock" }}
-          paths:
-            - ./node_modules
-            - ./.next/cache
-            - /home/circleci/.cache/Cypress
-      - persist_to_workspace:
-          root: *workspace_root
-          paths: .
+      - node/install-packages:
+          pkg-manager: yarn
 
   tests:
     executor: node-executor
     steps:
-      - *attach_workspace
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           name: Run Linter
           command: yarn lint
@@ -58,12 +48,16 @@ jobs:
             yarn test:unit
   e2e:
     executor: node-executor
+    parallelism: 4
     steps:
-      - *attach_workspace
-      - browser-tools/install-browser-tools
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - browser-tools/install-chrome
+      - browser-tools/install-chromedriver
       - run:
           name: Force install
-          command: ./node_modules/.bin/cypress install --force
+          command: yarn cypress install --force
       - run:
           name: Run E2E With Lighthouse Audit
           command: |
@@ -73,31 +67,33 @@ jobs:
             export NEXT_PUBLIC_PROPERTIES_PAGE_SIZE=$NEXT_PUBLIC_PROPERTIES_PAGE_SIZE
             export NEXT_PUBLIC_SUPPORT_LINK=https://sites.google.com/hackney.gov.uk/repairshubsupport
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=true
-            yarn e2e:audit
+
+            # Split tests and run them in parallel using CircleCI's built in timing-based splitter
+            find cypress/e2e -type f -name "*.[jt]s" | sort | uniq > circleci_test_files.txt
+            cat circleci_test_files.txt
+
+            # Cypress expects files to be separated with commas
+            TESTFILES=$(circleci tests split --split-by=timings circleci_test_files.txt | perl -pe 'chomp if eof' | tr '\n' ',')
+            echo $TESTFILES
+            NODE_ENV=test yarn start-test http://localhost:5001 "yarn cy:run:audit --reporter cypress-multi-reporters --reporter-options configFile=cypress-reporter-config.json --spec \"$TESTFILES\""
+            yarn node scripts/fix-junit-xml.js
       - store_artifacts:
           path: cypress/screenshots
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
           path: cypress/reports
+      - store_test_results:
+          path: cypress/results/
 
   build-deploy-development:
     executor: node-executor
     steps:
       - *attach_workspace
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
       - aws-cli/install
-      - run:
-          name: Swap node versions
-          command: |
-            set +e
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
           name: deploy
           command: |
@@ -121,19 +117,10 @@ jobs:
     executor: node-executor
     steps:
       - *attach_workspace
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
       - aws-cli/install
-      - run:
-          name: Swap node versions
-          command: |
-            set +e
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
           name: deploy
           command: |
@@ -157,19 +144,10 @@ jobs:
     executor: node-executor
     steps:
       - *attach_workspace
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
       - aws-cli/install
-      - run:
-          name: Swap node versions
-          command: |
-            set +e
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-            export NVM_DIR="$HOME/.nvm"
-            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-            nvm install v14
-            nvm use 14
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
       - run:
           name: deploy
           command: |
@@ -232,13 +210,8 @@ workflows:
   version: 2
   continuous-delivery:
     jobs:
-      - install-dependencies
-      - tests:
-          requires:
-            - install-dependencies
-      - e2e:
-          requires:
-            - install-dependencies
+      - tests
+      - e2e
       - assume-role-development:
           context: api-assume-role-housing-development-context
           requires:

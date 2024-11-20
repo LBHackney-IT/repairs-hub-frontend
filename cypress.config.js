@@ -19,6 +19,10 @@ const storeData = async (data, filepath) => {
 }
 
 export default defineConfig({
+  reporter: 'cypress-multi-reporters',
+  reporterOptions: {
+    configFile: 'cypress-reporter-config.json',
+  },
   e2e: {
     setupNodeEvents(on, config) {
       let testTitle
