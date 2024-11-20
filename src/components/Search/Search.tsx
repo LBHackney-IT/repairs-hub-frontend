@@ -101,7 +101,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
     } catch (e) {
       setProperties(null)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 
