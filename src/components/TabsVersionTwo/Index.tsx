@@ -1,14 +1,9 @@
-import { useState } from 'react'
-
-import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import { OPERATIVE_ROLE } from '@/utils/user'
-
 interface TabProps {
   titles: string[]
   onTabChange?: (index: number) => void
   ariaSelected: 0 | 1
 }
-const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
+const TabsVersionTwo = ({ titles, onTabChange, ariaSelected }: TabProps) => {
   const handleKeyDown = (e: React.KeyboardEvent, i: number) => {
     if (e.key === 'Enter') {
       onTabChange(i)
@@ -39,4 +34,4 @@ const NewTabs = ({ titles, onTabChange, ariaSelected }: TabProps) => {
   )
 }
 
-export default NewTabs
+export default TabsVersionTwo

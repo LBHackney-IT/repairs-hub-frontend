@@ -15,7 +15,7 @@ import Search from '../components/Search/Search'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
 import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
-import NewTabs from '../components/NewTabs/Index'
+import TabsVersionTwo from '../components/TabsVersionTwo/Index'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -58,7 +58,7 @@ const Home = ({ query }) => {
     } else if (user && canSeeOperativeWorkOrders(user)) {
       return (
         <>
-          <NewTabs
+          <TabsVersionTwo
             titles={titles}
             onTabChange={handleTabClick}
             ariaSelected={ariaSelected}

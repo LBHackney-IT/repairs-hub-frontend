@@ -7,7 +7,7 @@ import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
 import MobileWorkingPastWorkOrdersView from '../../components/PastWorkOrders/MobileWorkingPastWorkOrdersView/MobileWorkingPastWorkOrdersView'
 import CurrentUserWrapper from '../../components/WorkOrders/CurrentUserWrapper'
-import NewTabs from '../../components/NewTabs/Index'
+import TabsVersionTwo from '../../components/TabsVersionTwo/Index'
 
 const PastWorkOrderPage = () => {
   const router = useRouter()
@@ -24,7 +24,7 @@ const PastWorkOrderPage = () => {
   return (
     <>
       <Meta title={`Past Work Orders`} />
-      <NewTabs
+      <TabsVersionTwo
         titles={titles}
         onTabChange={handleTabClick}
         ariaSelected={ariaSelected}
