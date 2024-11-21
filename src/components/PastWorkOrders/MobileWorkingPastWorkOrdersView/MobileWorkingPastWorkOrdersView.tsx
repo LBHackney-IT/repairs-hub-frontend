@@ -19,7 +19,7 @@ import {
 const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const yesterday = new Date(getYesterdayDate(currentDate))
-  const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
+
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [error, setError] = useState<string | null>()
   const [selectedDate, setSelectedDate] = useState<Date>(yesterday)
@@ -33,21 +33,17 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/workOrdersNew?date=${targetDate}`,
+        path: `/api/operatives/016062/workOrdersNew?date=${targetDate}`,
       })
 
       const workOrders: WorkOrdersType = data.map(
         (wo: WorkOrderType) => new WorkOrder(wo)
       )
-      const visitedWorkOrders = workOrders.filter((wo: WorkOrderType) =>
-        wo.hasBeenVisited()
-      )
 
-      const sortedWorkOrderItems = sortWorkOrderItems(currentUser, workOrders)
-      setVisitedWorkOrders(visitedWorkOrders)
+      const sortedWorkOrderItems = sortWorkOrderItems(workOrders)
+
       setSortedWorkOrders(sortedWorkOrderItems)
     } catch (e) {
-      setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
       console.error('An error has occured:', e)
       setError(
@@ -70,30 +66,12 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     }
   }, [currentUser?.operativePayrollNumber, targetDate])
 
-  const sortWorkOrderItems = (
-    currentUser: CurrentUser,
-    workOrders: WorkOrdersType
-  ) => {
-    const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
-
-    const startedWorkOrders = workOrders.filter(
-      (wo) => !wo.hasBeenVisited() && !!wo.appointment.startedAt?.length
-    )
-
-    // The operative is NOT an OJAAT operative
-    if (!currentUser.isOneJobAtATime) return inProgressWorkOrders
-
-    // If the operative has started a work order
-    if (startedWorkOrders?.length) return startedWorkOrders
-
-    // Return the next unstarted work order
-    return inProgressWorkOrders
-      .sort((a, b) => {
-        return a.appointment.assignedStart.localeCompare(
-          b.appointment.assignedStart
-        )
-      })
-      .slice(0, 1)
+  const sortWorkOrderItems = (workOrders: WorkOrdersType) => {
+    return workOrders.sort((a, b) => {
+      return a.appointment.assignedStart.localeCompare(
+        b.appointment.assignedStart
+      )
+    })
   }
 
   const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -112,10 +90,10 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
           <Spinner />
         ) : (
           <>
-            {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
+            {sortedWorkOrders?.length ? (
               <ol className="lbh-list mobile-working-work-order-list">
                 <MobileWorkingPastWorkOrderListItems
-                  workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
+                  workOrders={[...sortedWorkOrders]}
                   currentUser={currentUser}
                 />
               </ol>
