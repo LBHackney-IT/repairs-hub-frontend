@@ -51,7 +51,9 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
       }
 
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 
@@ -72,7 +74,9 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
       setOriginalSors(null)
       console.error('An error has occured:', e.response)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 

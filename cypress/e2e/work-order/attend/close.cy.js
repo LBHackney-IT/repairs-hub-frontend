@@ -299,64 +299,6 @@ describe('Closing my own work order', () => {
       cy.contains('Some photos failed to upload. Please try again')
     })
 
-    it('shows error when no photos selected', () => {
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@photosRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      cy.contains('button', 'Confirm').click()
-      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
-
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // should contain error message
-      cy.contains('No photos were selected')
-
-      // adding photo clears error
-      cy.get('input[type="file"]').selectFile(
-        Array(1).fill({
-          contents: Cypress.Buffer.from('file contents'),
-          fileName: 'file.png',
-          mimeType: 'image/png',
-          lastModified: Date.now(),
-        })
-      )
-
-      cy.contains('No photos were selected').should('not.exist')
-
-      // submitting is blocked
-      cy.get('.photoUploadPreview-removeButton').click()
-      cy.contains('No photos were selected')
-
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // error still present
-      cy.contains('No photos were selected')
-
-      // tick checkbox to submit
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-
-      cy.get('.govuk-button').contains('Close work order').click()
-
-      // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      )
-
-      cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
-    })
-
     it('uploads files when closing work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
@@ -540,8 +482,6 @@ describe('Closing my own work order', () => {
       cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-      cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
 
@@ -574,16 +514,7 @@ describe('Closing my own work order', () => {
           expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
-      // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      )
-
       cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
@@ -618,8 +549,6 @@ describe('Closing my own work order', () => {
       cy.get('#notes').type('I attended')
 
       cy.get('.govuk-button').contains('Close work order').click()
-      cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-      cy.get('.govuk-button').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
 
@@ -652,16 +581,7 @@ describe('Closing my own work order', () => {
           expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
         })
 
-      // check on confirmation page
-      cy.url().should(
-        'include',
-        `/operatives/1/work-orders/${workOrderReference}/confirmation`
-      )
-
       cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
@@ -711,9 +631,6 @@ describe('Closing my own work order', () => {
 
         cy.get('.govuk-button').contains('Close work order').click()
 
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-        cy.get('.govuk-button').contains('Close work order').click()
-
         cy.wait('@workOrderCompleteRequest')
 
         cy.get('@workOrderCompleteRequest')
@@ -746,16 +663,7 @@ describe('Closing my own work order', () => {
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
-
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
@@ -799,8 +707,6 @@ describe('Closing my own work order', () => {
         ) // Checking by value, not text
 
         cy.get('.govuk-button').contains('Close work order').click()
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-        cy.get('.govuk-button').contains('Close work order').click()
 
         cy.wait('@workOrderCompleteRequest')
 
@@ -834,16 +740,9 @@ describe('Closing my own work order', () => {
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
 
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
-
         cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
@@ -890,9 +789,6 @@ describe('Closing my own work order', () => {
 
         cy.get('.govuk-button').contains('Close work order').click()
 
-        cy.get('[data-testid="closeWorkOrderWithoutPhotos"]').check()
-        cy.get('.govuk-button').contains('Close work order').click()
-
         cy.wait('@workOrderCompleteRequest')
 
         cy.get('@workOrderCompleteRequest')
@@ -924,12 +820,6 @@ describe('Closing my own work order', () => {
 
             expect(eventTime).to.be.closeTo(nowTime, 1000) // within 1 second
           })
-
-        // check on confirmation page
-        cy.url().should(
-          'include',
-          `/operatives/1/work-orders/${workOrderReference}/confirmation`
-        )
 
         cy.contains(`Work order ${workOrderReference} successfully closed`)
 

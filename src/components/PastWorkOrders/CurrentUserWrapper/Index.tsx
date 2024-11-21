@@ -31,7 +31,9 @@ const CurrentUserWrapper = ({ children }: Props) => {
       setCurrentUser(currentUser)
     } catch (e) {
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
 
