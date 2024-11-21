@@ -16,8 +16,6 @@ import {
   WorkOrdersType,
 } from '@/root/src/types/variations/types'
 
-const SIXTY_SECONDS = 60 * 1000
-
 const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const yesterday = new Date(getYesterdayDate(currentDate))
@@ -35,7 +33,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/workOrdersNew?date=${targetDate}`,
+        path: `/api/operatives/016062/workOrdersNew?date=${targetDate}`,
       })
 
       const workOrders: WorkOrdersType = data.map(
@@ -66,12 +64,6 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
-
-    const intervalId = setInterval(() => {
-      getOperativeWorkOrderView()
-    }, SIXTY_SECONDS)
-
-    intervalRef.current = intervalId
 
     return () => {
       clearInterval(intervalRef.current)
