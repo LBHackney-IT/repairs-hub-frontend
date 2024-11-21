@@ -9,6 +9,8 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'TDK',
   'WIG',
   'FOS',
+  'PUR',
+  'HER',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -54,5 +56,13 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'FOS',
     contractorName: 'FOSTER PM (C1B)',
+  },
+  {
+    contractorReference: 'PUR',
+    contractorName: 'PURDY CONTRACTS',
+  },
+  {
+    contractorReference: 'HER',
+    contractorName: 'HERTS HERITAGE',
   },
 ]
