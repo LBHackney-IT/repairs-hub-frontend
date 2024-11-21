@@ -428,9 +428,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-      // close
-      cy.contains('button', 'Close').click()
-
       cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
           month: 'long',
@@ -498,9 +495,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         })
 
       cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-      // close
-      cy.contains('button', 'Close').click()
 
       cy.get('.lbh-heading-h3').contains(
         new Date(new Date()).toLocaleDateString('en-GB', {
@@ -823,9 +817,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
         cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-        // close
-        cy.contains('button', 'Close').click()
-
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
             month: 'long',
@@ -904,9 +895,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           })
 
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
-        cy.contains('button', 'Close').click()
 
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
