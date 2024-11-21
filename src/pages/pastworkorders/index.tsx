@@ -1,8 +1,6 @@
 import Meta from '@/components/Meta'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
 import { useMemo } from 'react'
-
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import { OPERATIVE_ROLE } from '@/utils/user'
 import MobileWorkingPastWorkOrdersView from '../../components/PastWorkOrders/MobileWorkingPastWorkOrdersView/MobileWorkingPastWorkOrdersView'
