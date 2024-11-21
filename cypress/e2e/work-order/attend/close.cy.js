@@ -823,9 +823,6 @@ describe('Closing my own work order', () => {
 
         cy.contains(`Work order ${workOrderReference} successfully closed`)
 
-        // close
-        cy.contains('button', 'Close').click()
-
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
             month: 'long',
