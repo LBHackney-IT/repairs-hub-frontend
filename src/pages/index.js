@@ -15,23 +15,11 @@ import Search from '../components/Search/Search'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
 import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
 import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
-import TabsVersionTwo from '../components/TabsVersionTwo/Index'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
-  const router = useRouter()
 
   const [loading, setLoading] = useState(true)
-
-  const titles = ['Current Work Orders', 'Past Work Orders']
-
-  const handleTabClick = (index) => {
-    index === 1 && router.push('/pastworkorders')
-  }
-
-  const ariaSelected = useMemo(() => {
-    return router.pathname === '/pastworkorders' ? 1 : 0
-  }, [router.pathname])
 
   const HomeView = () => {
     if (user && canSeeWorkOrders(user)) {
@@ -58,11 +46,6 @@ const Home = ({ query }) => {
     } else if (user && canSeeOperativeWorkOrders(user)) {
       return (
         <>
-          <TabsVersionTwo
-            titles={titles}
-            onTabChange={handleTabClick}
-            ariaSelected={ariaSelected}
-          />
           <CurrentUserWrapper>
             {({ currentUser }) => (
               <MobileWorkingWorkOrdersView currentUser={currentUser} />
