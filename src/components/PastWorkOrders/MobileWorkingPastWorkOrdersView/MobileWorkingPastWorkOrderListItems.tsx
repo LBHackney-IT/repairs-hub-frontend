@@ -16,7 +16,6 @@ export const MobileWorkingPastWorkOrderListItems = ({
   if (workOrders === null || workOrders?.length === 0) {
     return <></>
   }
-
   return workOrders.map((workOrder, index) => (
     <MobileWorkingWorkOrderListItem
       key={index}
