@@ -77,8 +77,8 @@ describe('WorkOrdersFilter component', () => {
           description: 'Avonline Network (A) Ltd',
         },
         {
-          key: 'PCL',
-          description: 'Purdy Contracts (P) Ltd',
+          key: 'PUR',
+          description: 'PURDY CONTRACTS (C2A)',
         },
         {
           key: 'SCC',
@@ -87,7 +87,7 @@ describe('WorkOrdersFilter component', () => {
       ],
     },
     appliedFilters: {
-      ContractorReference: ['PCL', 'AVP'],
+      ContractorReference: ['PUR', 'AVP'],
       StatusCode: ['80'],
       Priorities: ['1', '2'],
     },

@@ -12,10 +12,7 @@ const OperativeWorkOrderPage = ({ query }) => {
   return (
     <>
       <Meta title={`Work Order ${query.id}`} />
-      <MobileWorkingWorkOrderView
-        workOrderReference={query.id}
-        operativeId={query.operativeId}
-      />
+      <MobileWorkingWorkOrderView workOrderReference={query.id} />
     </>
   )
 }

@@ -111,12 +111,12 @@ describe('Filter work orders', () => {
         cy.intercept(
           {
             path:
-              '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PCL&IncludeHistorical=false',
+              '/api/workOrders/?PageSize=10&PageNumber=1&TradeCodes=PL&ContractorReference=PUR&IncludeHistorical=false',
           },
           workOrders.filter(
             (workOrder) =>
               workOrder.tradeCode === 'PL' &&
-              workOrder.owner === 'Purdy Contracts (P) Ltd'
+              workOrder.owner === 'PURDY CONTRACTS (C2A)'
           )
         )
       })
@@ -174,7 +174,7 @@ describe('Filter work orders', () => {
         .find('[name="ContractorReference.AVP"]')
         .should('not.be.checked')
       cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.PCL"]')
+        .find('[name="ContractorReference.PUR"]')
         .should('not.be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.SCC"]')
@@ -446,7 +446,7 @@ describe('Filter work orders', () => {
 
       // Filter by trade and contractor
       cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.PCL"]')
+        .find('[name="ContractorReference.PUR"]')
         .check()
       cy.get('.trade-filters').within(() => {
         cy.contains('Show all 6').click()
@@ -457,7 +457,7 @@ describe('Filter work orders', () => {
       cy.wait(['@filters', '@workOrdersPlumbingAndPurdy'])
 
       cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.PCL"]')
+        .find('[name="ContractorReference.PUR"]')
         .should('be.checked')
       cy.get('.govuk-checkboxes')
         .find('[name="TradeCodes.PL"]')
@@ -706,7 +706,7 @@ describe('Filter work orders', () => {
         .find('[name="ContractorReference.AVP"]')
         .should('not.exist')
       cy.get('.govuk-checkboxes')
-        .find('[name="ContractorReference.PCL"]')
+        .find('[name="ContractorReference.PUR"]')
         .should('not.exist')
       cy.get('.govuk-checkboxes')
         .find('[name="ContractorReference.SCC"]')
@@ -796,7 +796,7 @@ describe('Filter work orders', () => {
           .find('[name="ContractorReference.AVP"]')
           .should('exist')
         cy.get('.govuk-checkboxes')
-          .find('[name="ContractorReference.PCL"]')
+          .find('[name="ContractorReference.PUR"]')
           .should('exist')
         cy.get('.govuk-checkboxes')
           .find('[name="ContractorReference.SCC"]')

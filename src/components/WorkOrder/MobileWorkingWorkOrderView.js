@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
-import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import {
   fetchSimpleFeatureToggles,
@@ -23,7 +22,7 @@ import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 
-const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
+const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [property, setProperty] = useState({})
@@ -96,7 +95,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         )
       } else {
         setError(
-          `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
         )
       }
     }
@@ -131,7 +132,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
       console.error(e)
 
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
     }
   }
@@ -213,24 +216,18 @@ const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
         requestData: closeWorkOrderFormData,
       })
 
-      if (files.length === 0) {
-        // confirmation page with form
-        router.push(
-          `/operatives/${operativeId}/work-orders/${workOrderReference}/confirmation`
-        )
-      } else {
-        // pre-existing confirmation message
-        setModalFlashMessage(
-          `Work order ${workOrderReference} successfully ${
-            data.reason === 'No Access' ? 'closed with no access' : 'closed'
-          }`
-        )
-        router.push('/')
-      }
+      setModalFlashMessage(
+        `Work order ${workOrderReference} successfully ${
+          data.reason === 'No Access' ? 'closed with no access' : 'closed'
+        }`
+      )
+      router.push('/')
     } catch (e) {
       console.error(e)
       setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
+        `Oops an error occurred with error status: ${
+          e.response?.status
+        } with message: ${JSON.stringify(e.response?.data?.message)}`
       )
       setLoadingStatus(null)
     }

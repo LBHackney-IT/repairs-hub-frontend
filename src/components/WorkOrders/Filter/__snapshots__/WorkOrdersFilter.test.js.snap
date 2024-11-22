@@ -101,7 +101,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -123,7 +123,7 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -318,16 +318,16 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
-                  Purdy Contracts (P) Ltd
+                  PURDY CONTRACTS (C2A)
                 </label>
               </div>
               <div
@@ -745,7 +745,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -767,7 +767,7 @@ exports[`WorkOrdersFilter component when logged in as a combined authorisation m
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -1318,7 +1318,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -1340,7 +1340,7 @@ exports[`WorkOrdersFilter component when logged in as a combined contract manage
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -1874,7 +1874,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -1896,7 +1896,7 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -2091,16 +2091,16 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
-                  Purdy Contracts (P) Ltd
+                  PURDY CONTRACTS (C2A)
                 </label>
               </div>
               <div
@@ -2518,7 +2518,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -2540,7 +2540,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -2735,16 +2735,16 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
-                  Purdy Contracts (P) Ltd
+                  PURDY CONTRACTS (C2A)
                 </label>
               </div>
               <div
@@ -3145,7 +3145,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -3167,7 +3167,7 @@ exports[`WorkOrdersFilter component when logged in as a contractor with one cont
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -3701,7 +3701,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                       class="filter-tag lbh-body-xs"
                     >
                       <button
-                        aria-label="Remove Purdy Contracts (P) Ltd filter"
+                        aria-label="Remove PURDY CONTRACTS (C2A) filter"
                         class="govuk-!-margin-left-1 filter-remove-button"
                         type="button"
                       >
@@ -3723,7 +3723,7 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                           />
                         </svg>
                       </button>
-                      Purdy Contracts (P) Ltd
+                      PURDY CONTRACTS (C2A)
                     </li>
                     <li
                       class="filter-tag lbh-body-xs"
@@ -3918,16 +3918,16 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
-                  Purdy Contracts (P) Ltd
+                  PURDY CONTRACTS (C2A)
                 </label>
               </div>
               <div
