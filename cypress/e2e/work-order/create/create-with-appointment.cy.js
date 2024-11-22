@@ -142,7 +142,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@contractors'])
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
         cy.wait('@sorCodesPCL')
 
@@ -214,7 +214,7 @@ describe('Schedule appointment form', () => {
                 },
                 instructedBy: { name: 'Hackney Housing' },
                 assignedToPrimary: {
-                  name: 'Purdy Contracts (P) Ltd',
+                  name: 'PURDY CONTRACTS (C2A)',
                   organization: {
                     reference: [
                       {
@@ -280,7 +280,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@contractors'])
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
         cy.wait('@sorCodesPCL')
 
@@ -351,7 +351,7 @@ describe('Schedule appointment form', () => {
                 },
                 instructedBy: { name: 'Hackney Housing' },
                 assignedToPrimary: {
-                  name: 'Purdy Contracts (P) Ltd',
+                  name: 'PURDY CONTRACTS (C2A)',
                   organization: {
                     reference: [
                       {
@@ -743,7 +743,7 @@ describe('Schedule appointment form', () => {
 
           cy.wait(['@contractors'])
 
-          cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+          cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
           cy.wait('@sorCodesPCL')
 

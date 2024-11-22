@@ -268,7 +268,7 @@ describe('Raise repair form', () => {
     cy.get('input[id="rateScheduleItems[0][quantity]"]').should('be.disabled')
 
     // Select a contractor
-    cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
     cy.wait('@budgetCodesRequest')
 
@@ -314,7 +314,7 @@ describe('Raise repair form', () => {
 
     cy.wait('@contractorsRequest')
 
-    cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
     cy.get('[data-testid=budgetCode]').type('H2555 - 200108 - Gutter Clearance')
 
@@ -728,7 +728,7 @@ describe('Raise repair form', () => {
         },
         instructedBy: { name: 'Hackney Housing' },
         assignedToPrimary: {
-          name: 'Purdy Contracts (P) Ltd',
+          name: 'PURDY CONTRACTS (C2A)',
           organization: {
             reference: [
               {
@@ -797,7 +797,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })
     ;[
-      { code: 'PCL', name: 'Purdy Contracts (P) Ltd' },
+      { code: 'PCL', name: 'PURDY CONTRACTS (C2A)' },
       { code: 'AEP', name: 'Axis Europe (X) PLC' },
       { code: 'HHL', name: 'Herts Heritage Ltd' },
     ].forEach((ctr) => {
@@ -1011,7 +1011,7 @@ describe('Raise repair form', () => {
 
       cy.wait('@contractorsRequest')
 
-      cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+      cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
       cy.wait('@budgetCodesRequest')
 
@@ -1078,7 +1078,7 @@ describe('Raise repair form', () => {
     cy.get('#trade').type('Plumbing - PL')
     cy.wait('@contractorsRequest')
 
-    cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
     cy.wait('@budgetCodesRequest')
 
@@ -1336,7 +1336,7 @@ describe('Raise repair form', () => {
 
         cy.wait('@contractorsRequest')
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
         cy.get('[data-testid=budgetCode]').should('not.exist')
 

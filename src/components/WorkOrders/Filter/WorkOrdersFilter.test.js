@@ -78,7 +78,7 @@ describe('WorkOrdersFilter component', () => {
         },
         {
           key: 'PCL',
-          description: 'Purdy Contracts (P) Ltd',
+          description: 'PURDY CONTRACTS (C2A)',
         },
         {
           key: 'SCC',

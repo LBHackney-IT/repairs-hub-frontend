@@ -116,7 +116,7 @@ describe('Filter work orders', () => {
           workOrders.filter(
             (workOrder) =>
               workOrder.tradeCode === 'PL' &&
-              workOrder.owner === 'Purdy Contracts (P) Ltd'
+              workOrder.owner === 'PURDY CONTRACTS (C2A)'
           )
         )
       })

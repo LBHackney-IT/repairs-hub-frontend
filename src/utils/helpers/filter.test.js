@@ -89,7 +89,7 @@ describe('SelectedFilterOptions', () => {
       },
       {
         key: 'PCL',
-        description: 'Purdy Contracts (P) Ltd',
+        description: 'PURDY CONTRACTS (C2A)',
       },
       {
         key: 'SCC',
@@ -113,7 +113,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)'],
         Priority: ['Immediate'],
         Status: ['In Progress'],
         Trade: ['Electrical'],
@@ -134,7 +134,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd', 'Avonline Network (A) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)', 'Avonline Network (A) Ltd'],
         Priority: ['Immediate', 'Emergency'],
         Status: ['In Progress', 'Complete'],
         Trade: ['Electrical', 'Plumbing'],
@@ -153,7 +153,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd', 'Avonline Network (A) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)', 'Avonline Network (A) Ltd'],
         Priority: ['Immediate'],
       })
     })

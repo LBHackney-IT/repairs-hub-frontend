@@ -111,7 +111,7 @@ describe('Raise repair form', () => {
 
         cy.wait('@contractorsRequest')
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL', {
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR', {
           delay: 0,
         })
 
@@ -237,7 +237,7 @@ describe('Raise repair form', () => {
 
         cy.wait('@contractorsRequest')
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
         cy.contains('+ Add multiple SOR codes').click()
       })
 
