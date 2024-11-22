@@ -9,18 +9,18 @@ import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/Follow
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
+import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const FIELD_NAMES_ON_FIRST_PAGE = [
+const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'reason',
   'followOnStatus',
   'fileUpload',
-  'description',
-]
+])
 
 const MobileWorkingCloseWorkOrderForm = ({
   onSubmit,
@@ -46,10 +46,15 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewFollowOnDetailsPage = () => {
-    trigger(FIELD_NAMES_ON_FIRST_PAGE)
+    trigger([...FIELD_NAMES_ON_FIRST_PAGE])
 
-    if (Object.keys(errors).length > 0) return
-
+    if (
+      Object.keys(errors).filter((key) => FIELD_NAMES_ON_FIRST_PAGE.has(key))
+        .length > 0
+    ) {
+      console.info({ errors })
+      return
+    }
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
@@ -134,37 +139,40 @@ const MobileWorkingCloseWorkOrderForm = ({
           )}
         </div>
 
-        <div
-          style={{
-            display: currentPage === PAGES.FOLLOW_ON_DETAILS ? 'block' : 'none',
-          }}
-        >
-          <h1 className="lbh-heading-h2">Details of further work required</h1>
+        {currentPage === PAGES.FOLLOW_ON_DETAILS && (
+          <div>
+            <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-          <FollowOnRequestTypeOfWorkForm
-            errors={errors}
-            register={register}
-            getValues={getValues}
-            setError={setError}
-            clearErrors={clearErrors}
-            watch={watch}
-          />
+            <FollowOnRequestMaterialsSupervisorCalledForm
+              register={register}
+              errors={errors}
+            />
 
-          <FollowOnRequestMaterialsForm
-            register={register}
-            getValues={getValues}
-            errors={errors}
-          />
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
+            />
 
-          <TextArea
-            name="additionalNotes"
-            label="Additional notes"
-            register={register}
-            error={errors && errors.additionalNotes}
-          />
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+            />
 
-          <PrimarySubmitButton label="Close work order" />
-        </div>
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+            />
+
+            <PrimarySubmitButton label="Close work order" />
+          </div>
+        )}
       </form>
     </div>
   )

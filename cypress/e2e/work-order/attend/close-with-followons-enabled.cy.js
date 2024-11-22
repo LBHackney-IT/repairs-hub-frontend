@@ -556,6 +556,9 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Please provide detail of the work required').should(
         'not.exist'
       )
+      cy.contains(
+        'Please confirm whether you have contacted your supervisor'
+      ).should('not.exist')
 
       // add follow on details
       cy.contains('button', 'Add details').click()
@@ -566,6 +569,13 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       // assert error messages visible
       cy.contains('Please select the type of work')
       cy.contains('Please provide detail of the work required')
+      cy.contains('Please confirm whether you have contacted your supervisor')
+
+      // select option
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.contains(
+        'Please confirm whether you have contacted your supervisor'
+      ).should('not.exist')
 
       // select an option - error should disappear
       cy.get('input[data-testid="isSameTrade"]').check()
@@ -645,7 +655,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('.govuk-button').contains('Close work order').click()
 
       // populate follow-on fields
-
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
       cy.get('input[data-testid="isSameTrade"]').check()
       cy.get('input[data-testid="isDifferentTrades"]').check()
       cy.get('input[data-testid="followon-trades-plumbing"]').check()
@@ -662,6 +672,46 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('[type="submit"]').contains('Close work order').click()
 
       cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .then((body) => {
+          const { jobStatusUpdates, ...restBody } = body
+          const [latestStatus] = jobStatusUpdates
+          const { eventTime, ...restStatus } = latestStatus
+
+          expect({
+            ...restBody,
+            jobStatusUpdates: [restStatus],
+          }).to.deep.equal({
+            workOrderReference: {
+              id: '10000621',
+              description: '',
+              allocatedBy: '',
+            },
+            jobStatusUpdates: [
+              {
+                typeCode: '0',
+                otherType: 'completed',
+                comments: '',
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: true,
+              },
+            ],
+            followOnRequest: {
+              isSameTrade: true,
+              isDifferentTrades: true,
+              isMultipleOperatives: false,
+              requiredFollowOnTrades: ['Plumbing'],
+              followOnTypeDescription: 'follow on description',
+              stockItemsRequired: true,
+              nonStockItemsRequired: false,
+              materialNotes: 'material notes',
+              additionalNotes: 'Additional notes desc',
+              supervisorCalled: true,
+            },
+          })
+        })
 
       // check for confirmation message
       cy.contains('Work order 10000621 successfully closed')
