@@ -92,6 +92,8 @@ const MobileWorkingCloseWorkOrderForm = ({
 
           <div className="govuk-form-group lbh-form-group">
             <ControlledFileInput
+              label="Photos"
+              hint="Select all the photos you want to add (up to 10 photos)"
               files={files}
               setFiles={setFiles}
               validationError={errors?.fileUpload?.message}

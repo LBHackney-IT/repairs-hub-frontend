@@ -48,6 +48,7 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
               isLoading={loadingStatus !== null}
               disabled={loadingStatus !== null}
               label="Photo upload"
+              hint="Select all the photos you want to add (up to 10 photos)"
             />
 
             {files.length > 0 && (
