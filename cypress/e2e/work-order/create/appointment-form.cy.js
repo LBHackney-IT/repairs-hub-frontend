@@ -36,7 +36,7 @@ describe('Schedule appointment form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodes')
@@ -158,7 +158,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@contractors'])
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
         cy.wait('@sorCodes')
 
@@ -233,11 +233,11 @@ describe('Schedule appointment form', () => {
                 },
                 instructedBy: { name: 'Hackney Housing' },
                 assignedToPrimary: {
-                  name: 'Purdy Contracts (P) Ltd',
+                  name: 'PURDY CONTRACTS (C2A)',
                   organization: {
                     reference: [
                       {
-                        id: 'PCL',
+                        id: 'PUR',
                       },
                     ],
                   },
@@ -422,7 +422,7 @@ describe('Schedule appointment form', () => {
 
         cy.wait(['@contractors'])
 
-        cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+        cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
         cy.wait('@sorCodes')
 

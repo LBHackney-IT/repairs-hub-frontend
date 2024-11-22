@@ -35,8 +35,8 @@ describe('buildScheduleWorkOrderFormData', () => {
     ],
     trade: 'Plumbing',
     tradeCode: 'PL',
-    contractor: 'Purdy Contracts (P) Ltd - PCL',
-    contractorRef: 'PCL',
+    contractor: 'PURDY CONTRACTS (C2A) - PUR',
+    contractorRef: 'PUR',
     quantity: '1',
     priorityDescription: '4 [U] URGENT',
     priorityCode: URGENT_PRIORITY_CODE,
@@ -58,8 +58,8 @@ describe('buildScheduleWorkOrderFormData', () => {
     ],
     trade: 'Plumbing',
     tradeCode: 'PL',
-    contractor: 'Purdy Contracts (P) Ltd - PCL',
-    contractorRef: 'PCL',
+    contractor: 'PURDY CONTRACTS (C2A) - PUR',
+    contractorRef: 'PUR',
     quantity: '1',
     priorityDescription: '9[P] PLANNED MAINT',
     priorityCode: PLANNED_PRIORITY_CODE,
@@ -158,11 +158,11 @@ describe('buildScheduleWorkOrderFormData', () => {
         name: 'Hackney Housing',
       },
       assignedToPrimary: {
-        name: 'Purdy Contracts (P) Ltd',
+        name: 'PURDY CONTRACTS (C2A)',
         organization: {
           reference: [
             {
-              id: 'PCL',
+              id: 'PUR',
             },
           ],
         },
@@ -270,11 +270,11 @@ describe('buildScheduleWorkOrderFormData', () => {
         name: 'Hackney Housing',
       },
       assignedToPrimary: {
-        name: 'Purdy Contracts (P) Ltd',
+        name: 'PURDY CONTRACTS (C2A)',
         organization: {
           reference: [
             {
-              id: 'PCL',
+              id: 'PUR',
             },
           ],
         },
