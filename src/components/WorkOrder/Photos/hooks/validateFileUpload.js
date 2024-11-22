@@ -5,6 +5,8 @@ const MAX_FILE_SIZE = 20000000
 const MAX_FILE_COUNT = 10
 
 const validateFileUpload = (files) => {
+  if (files.length === 0) return null
+
   if (files.length > MAX_FILE_COUNT) {
     return `You cannot attach more than ${MAX_FILE_COUNT} photos`
   }
