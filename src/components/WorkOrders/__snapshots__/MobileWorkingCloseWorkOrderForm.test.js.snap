@@ -85,16 +85,15 @@ exports[`MobileWorkingCloseWorkOrderForm component - when follow-on functionalit
           <div>
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--s"
-              for="fileUpload"
               id="fileUploadLegend"
             >
-              Photos 
+              Work order photos
             </legend>
             <span
               class="govuk-hint lbh-hint"
               id="photos-hint"
             >
-              Select all the photos you want to add (up to 10 photos)
+              Add photos showing the repair you completed (up to 10 photos)
             </span>
             <input
               accept=".jpg, .jpeg, .png"
@@ -291,6 +290,35 @@ exports[`MobileWorkingCloseWorkOrderForm component - when follow-on functionalit
             name="materialNotes"
             rows="4"
           />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <div>
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
+              id="fileUploadLegend"
+            >
+              Follow on photos
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="photos-hint"
+            >
+              Add photos showing the follow on work needed (up to 10 photos)
+            </span>
+            <input
+              accept=".jpg, .jpeg, .png"
+              aria-labelledby="fileUploadLegend"
+              class="govuk-file-upload custom-file-input"
+              data-testid="fileUploadInput"
+              id="fileUpload"
+              multiple=""
+              name="fileUpload"
+              style="margin-top: 10px;"
+              type="file"
+            />
+          </div>
         </div>
         <div
           class="govuk-form-group lbh-form-group"
@@ -409,16 +437,15 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
           <div>
             <legend
               class="govuk-fieldset__legend govuk-fieldset__legend--s"
-              for="fileUpload"
               id="fileUploadLegend"
             >
-              Photos 
+              Work order photos
             </legend>
             <span
               class="govuk-hint lbh-hint"
               id="photos-hint"
             >
-              Select all the photos you want to add (up to 10 photos)
+              Add photos showing the repair you completed (up to 10 photos)
             </span>
             <input
               accept=".jpg, .jpeg, .png"
@@ -615,6 +642,35 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
             name="materialNotes"
             rows="4"
           />
+        </div>
+        <div
+          class="govuk-form-group lbh-form-group"
+        >
+          <div>
+            <legend
+              class="govuk-fieldset__legend govuk-fieldset__legend--s"
+              id="fileUploadLegend"
+            >
+              Follow on photos
+            </legend>
+            <span
+              class="govuk-hint lbh-hint"
+              id="photos-hint"
+            >
+              Add photos showing the follow on work needed (up to 10 photos)
+            </span>
+            <input
+              accept=".jpg, .jpeg, .png"
+              aria-labelledby="fileUploadLegend"
+              class="govuk-file-upload custom-file-input"
+              data-testid="fileUploadInput"
+              id="fileUpload"
+              multiple=""
+              name="fileUpload"
+              style="margin-top: 10px;"
+              type="file"
+            />
+          </div>
         </div>
         <div
           class="govuk-form-group lbh-form-group"

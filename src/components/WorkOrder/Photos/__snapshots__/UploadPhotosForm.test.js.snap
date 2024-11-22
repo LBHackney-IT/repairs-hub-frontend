@@ -12,10 +12,9 @@ exports[`UploadPhotosForm component renders component 1`] = `
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photo upload 
+            Photo upload
           </legend>
           <span
             class="govuk-hint lbh-hint"

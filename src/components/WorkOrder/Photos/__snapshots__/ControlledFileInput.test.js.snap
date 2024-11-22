@@ -5,17 +5,12 @@ exports[`ControlledFileInput component renders component when no files selected 
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
-      for="fileUpload"
       id="fileUploadLegend"
-    >
-      Photos 
-    </legend>
+    />
     <span
       class="govuk-hint lbh-hint"
       id="photos-hint"
-    >
-      Select all the photos you want to add (up to 10 photos)
-    </span>
+    />
     <input
       accept=".jpg, .jpeg, .png"
       aria-labelledby="fileUploadLegend"
@@ -36,17 +31,12 @@ exports[`ControlledFileInput component renders shows file previews 1`] = `
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
-      for="fileUpload"
       id="fileUploadLegend"
-    >
-      Photos 
-    </legend>
+    />
     <span
       class="govuk-hint lbh-hint"
       id="photos-hint"
-    >
-      Select all the photos you want to add (up to 10 photos)
-    </span>
+    />
     <input
       accept=".jpg, .jpeg, .png"
       aria-labelledby="fileUploadLegend"
@@ -91,17 +81,12 @@ exports[`ControlledFileInput component renders shows validation error 1`] = `
   <div>
     <legend
       class="govuk-fieldset__legend govuk-fieldset__legend--s"
-      for="fileUpload"
       id="fileUploadLegend"
-    >
-      Photos 
-    </legend>
+    />
     <span
       class="govuk-hint lbh-hint"
       id="photos-hint"
-    >
-      Select all the photos you want to add (up to 10 photos)
-    </span>
+    />
     <span
       class="govuk-error-message lbh-error-message"
       data-error-id=""

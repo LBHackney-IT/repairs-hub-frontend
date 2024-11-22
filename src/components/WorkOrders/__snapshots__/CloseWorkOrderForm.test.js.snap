@@ -83,10 +83,9 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -696,10 +695,9 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -1395,10 +1393,9 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -2004,10 +2001,9 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
