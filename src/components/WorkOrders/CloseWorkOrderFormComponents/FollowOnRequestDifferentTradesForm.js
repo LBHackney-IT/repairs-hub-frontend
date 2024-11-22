@@ -9,7 +9,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   return (
     <ul>
       {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
-        <li style={{ display: 'flex' }}>
+        <li style={{ display: 'flex' }} key={name}>
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs govuk-!-margin-0"

@@ -7,8 +7,8 @@ interface Props {
   register: any
   errors: { [key: string]: { message: string } }
   watch: any
-  reason: string
-  followOnStatus: string
+  reason?: string
+  followOnStatus?: string
   followOnFunctionalityEnabled: boolean
 }
 

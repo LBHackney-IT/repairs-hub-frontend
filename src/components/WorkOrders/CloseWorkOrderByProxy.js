@@ -200,7 +200,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.stockItemsRequired,
         followOnData.nonStockItemsRequired,
         followOnData.materialNotes,
-        followOnData.additionalNotes
+        followOnData.additionalNotes,
+        followOnData.supervisorCalled
       )
     }
 
@@ -250,8 +251,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       const requiredFollowOnTrades = []
 
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach((x) => {
-        console.log({ x })
-
         if (formData[x.name]) requiredFollowOnTrades.push(x)
       })
 
@@ -265,6 +264,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         nonStockItemsRequired: formData.nonStockItemsRequired,
         materialNotes: formData.materialNotes,
         additionalNotes: formData.additionalNotes,
+        supervisorCalled: formData.supervisorCalled === 'Yes',
       }
 
       setFollowOnData(followOnData)

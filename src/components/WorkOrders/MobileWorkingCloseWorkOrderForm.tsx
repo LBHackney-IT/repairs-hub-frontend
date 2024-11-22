@@ -4,23 +4,23 @@ import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
-import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
+import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
   FOLLOW_ON_DETAILS: '2',
 }
 
-const FIELD_NAMES_ON_FIRST_PAGE = [
+const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'reason',
   'followOnStatus',
   'workOrderFileUpload',
-  'description',
-]
+])
 
 const MobileWorkingCloseWorkOrderForm = ({
   onSubmit,
@@ -46,10 +46,15 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewFollowOnDetailsPage = () => {
-    trigger(FIELD_NAMES_ON_FIRST_PAGE)
+    trigger([...FIELD_NAMES_ON_FIRST_PAGE])
 
-    if (Object.keys(errors).length > 0) return
-
+    if (
+      Object.keys(errors).filter((key) => FIELD_NAMES_ON_FIRST_PAGE.has(key))
+        .length > 0
+    ) {
+      console.info({ errors })
+      return
+    }
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
@@ -138,65 +143,68 @@ const MobileWorkingCloseWorkOrderForm = ({
           )}
         </div>
 
-        <div
-          style={{
-            display: currentPage === PAGES.FOLLOW_ON_DETAILS ? 'block' : 'none',
-          }}
-        >
-          <h1 className="lbh-heading-h2">Details of further work required</h1>
+        {currentPage === PAGES.FOLLOW_ON_DETAILS && (
+          <div>
+            <h1 className="lbh-heading-h2">Details of further work required</h1>
 
-          <FollowOnRequestTypeOfWorkForm
-            errors={errors}
-            register={register}
-            getValues={getValues}
-            setError={setError}
-            clearErrors={clearErrors}
-            watch={watch}
-          />
-
-          <FollowOnRequestMaterialsForm
-            register={register}
-            getValues={getValues}
-            errors={errors}
-          />
-
-          <div className="govuk-form-group lbh-form-group">
-            <ControlledFileInput
-              label="Follow on photos"
-              hint="Add photos showing the follow on work needed (up to 10 photos)"
-              files={followOnFiles}
-              setFiles={setFollowOnFiles}
-              validationError={errors?.followOnFileUpload?.message}
-              isLoading={isLoading}
-              register={register('followOnFileUpload', {
-                validate: () => {
-                  const validation = validateFileUpload(followOnFiles)
-
-                  if (validation === null) return true
-                  return validation
-                },
-              })}
+            <FollowOnRequestMaterialsSupervisorCalledForm
+              register={register}
+              errors={errors}
             />
 
-            {followOnFiles.length > 0 && (
-              <TextArea
-                name="description"
-                label="Photo description"
-                showAsOptional
-                register={register}
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
+            />
+
+            <div className="govuk-form-group lbh-form-group">
+              <ControlledFileInput
+                label="Follow on photos"
+                hint="Add photos showing the follow on work needed (up to 10 photos)"
+                files={followOnFiles}
+                setFiles={setFollowOnFiles}
+                validationError={errors?.followOnFileUpload?.message}
+                isLoading={isLoading}
+                register={register('followOnFileUpload', {
+                  validate: () => {
+                    const validation = validateFileUpload(followOnFiles)
+
+                    if (validation === null) return true
+                    return validation
+                  },
+                })}
               />
-            )}
+
+              {followOnFiles.length > 0 && (
+                <TextArea
+                  name="description"
+                  label="Photo description"
+                  showAsOptional
+                  register={register}
+                />
+              )}
+            </div>
+
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+            />
+
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+            />
+
+            <PrimarySubmitButton label="Close work order" />
           </div>
-
-          <TextArea
-            name="additionalNotes"
-            label="Additional notes"
-            register={register}
-            error={errors && errors.additionalNotes}
-          />
-
-          <PrimarySubmitButton label="Close work order" />
-        </div>
+        )}
       </form>
     </div>
   )

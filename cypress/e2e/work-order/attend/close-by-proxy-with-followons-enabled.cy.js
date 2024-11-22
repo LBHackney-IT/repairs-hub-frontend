@@ -2813,6 +2813,9 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           })
 
         // assert error messages arent visible yet
+        cy.contains(
+          'Please confirm whether you have contacted your supervisor'
+        ).should('not.exist')
         cy.contains('Please select the type of work').should('not.exist')
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
@@ -2822,8 +2825,15 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.get('[type="submit"]').contains('Close work order').click()
 
         // assert error messages visible
+        cy.contains('Please confirm whether you have contacted your supervisor')
         cy.contains('Please select the type of work')
         cy.contains('Please provide detail of the work required')
+
+        // select an option - error should disappear
+        cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+        cy.contains(
+          'Please confirm whether you have contacted your supervisor'
+        ).should('not.exist')
 
         // select an option - error should disappear
         cy.get('input[data-testid="isSameTrade"]').check()
@@ -2904,7 +2914,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           })
 
         // populate follow-on fields
-
+        cy.get('input[data-testid="supervisorCalled"]').check('Yes')
         cy.get('input[data-testid="isSameTrade"]').check()
         cy.get('input[data-testid="isDifferentTrades"]').check()
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
@@ -2984,6 +2994,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             nonStockItemsRequired: false,
             materialNotes: 'material notes',
             additionalNotes: 'Additional notes desc',
+            supervisorCalled: true,
           },
         })
     })
