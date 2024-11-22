@@ -22,6 +22,7 @@ import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
+import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -112,6 +113,13 @@ const CloseWorkOrderForm = ({
         {showFurtherWorkFields && (
           <>
             <h1 className="lbh-heading-h2">Details of further work required</h1>
+
+            <FollowOnRequestMaterialsSupervisorCalledForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+              followOnData={followOnData}
+            />
 
             <FollowOnRequestTypeOfWorkForm
               errors={errors}
