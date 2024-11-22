@@ -118,7 +118,7 @@ const MobileWorkingCloseWorkOrderForm = ({
 
             {workOrderFiles.length > 0 && (
               <TextArea
-                name="description"
+                name="workOrderPhotoDescription"
                 label="Photo description"
                 showAsOptional
                 register={register}
@@ -183,7 +183,7 @@ const MobileWorkingCloseWorkOrderForm = ({
 
               {followOnFiles.length > 0 && (
                 <TextArea
-                  name="description"
+                  name="followOnPhotoDescription"
                   label="Photo description"
                   showAsOptional
                   register={register}

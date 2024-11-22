@@ -196,13 +196,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
     try {
       if (workOrderFiles.length > 0) {
-        const description = data.description
-
         const uploadResult = await uploadFiles(
           workOrderFiles,
           workOrderReference,
           'Closing work order',
-          description,
+          data.workOrderPhotoDescription,
           (value) => setLoadingStatus(value)
         )
 
@@ -214,13 +212,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       }
 
       if (followOnFiles.length > 0) {
-        const description = data.description
-
         const uploadResult = await uploadFiles(
           followOnFiles,
           workOrderReference,
           'Raising a follow on',
-          description,
+          data.followOnPhotoDescription,
           (value) => setLoadingStatus(value)
         )
 
