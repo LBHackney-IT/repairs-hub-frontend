@@ -4,7 +4,7 @@ describe('#setFilterOptions', () => {
   const formData = {
     ContractorReference: {
       AVP: false,
-      PCL: true,
+      PUR: true,
       SCC: true,
     },
     StatusCode: { 30: false, 50: false, 80: true },

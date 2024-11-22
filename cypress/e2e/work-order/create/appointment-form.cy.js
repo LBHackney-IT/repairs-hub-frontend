@@ -36,7 +36,7 @@ describe('Schedule appointment form', () => {
       {
         method: 'GET',
         path:
-          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PCL&isRaisable=true',
+          '/api/schedule-of-rates/codes?tradeCode=PL&propertyReference=00012345&contractorReference=PUR&isRaisable=true',
       },
       { fixture: 'scheduleOfRates/codesWithIsRaisableTrue.json' }
     ).as('sorCodes')
