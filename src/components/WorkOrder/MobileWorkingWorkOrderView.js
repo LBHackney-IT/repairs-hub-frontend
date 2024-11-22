@@ -209,8 +209,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           const uploadResult = await uploadFiles(
             workOrderFiles,
             workOrderReference,
-            'Closing work order',
             data.workOrderPhotoDescription,
+            'Closing work order',
             fileUploadCompleteCallback
           )
 
@@ -225,8 +225,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           const uploadResult = await uploadFiles(
             followOnFiles,
             workOrderReference,
-            'Raising a follow on',
             data.followOnPhotoDescription,
+            'Raising a follow on',
             fileUploadCompleteCallback
           )
 
