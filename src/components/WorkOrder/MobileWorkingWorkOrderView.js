@@ -21,6 +21,7 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
+import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -139,7 +140,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
   }
 
-  const onWorkOrderCompleteSubmit = async (data, files) => {
+  const onWorkOrderCompleteSubmit = async (
+    data,
+    workOrderFiles,
+    followOnFiles
+  ) => {
     setLoadingStatus('Completing workorder')
 
     let followOnRequest = null
@@ -191,25 +196,49 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
-      if (files.length > 0) {
-        const description = data.description
+      if (workOrderFiles.length > 0 || followOnFiles.length > 0) {
+        // initiate both uploads
+        var totalFilesToUpload = workOrderFiles.length + followOnFiles.length
 
-        const uploadResult = await uploadFiles(
-          files,
-          workOrderReference,
-          'Closing work order',
-          description,
-          (value) => setLoadingStatus(value)
+        const fileUploadCompleteCallback = fileUploadStatusLogger(
+          totalFilesToUpload,
+          setLoadingStatus
         )
 
-        if (!uploadResult.success) {
-          setError(uploadResult.requestError)
-          setLoadingStatus(null)
-          return
+        if (workOrderFiles.length > 0) {
+          const uploadResult = await uploadFiles(
+            workOrderFiles,
+            workOrderReference,
+            'Closing work order',
+            data.workOrderPhotoDescription,
+            fileUploadCompleteCallback
+          )
+
+          if (!uploadResult.success) {
+            setError(uploadResult.requestError)
+            setLoadingStatus(null)
+            return
+          }
         }
 
-        setLoadingStatus('Completing workorder')
+        if (followOnFiles.length > 0) {
+          const uploadResult = await uploadFiles(
+            followOnFiles,
+            workOrderReference,
+            'Raising a follow on',
+            data.followOnPhotoDescription,
+            fileUploadCompleteCallback
+          )
+
+          if (!uploadResult.success) {
+            setError(uploadResult.requestError)
+            setLoadingStatus(null)
+            return
+          }
+        }
       }
+
+      setLoadingStatus('Completing workorder')
 
       await frontEndApiRequest({
         method: 'post',

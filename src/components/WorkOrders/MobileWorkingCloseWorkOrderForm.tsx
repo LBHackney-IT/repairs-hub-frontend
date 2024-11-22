@@ -4,12 +4,12 @@ import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
 import { useState } from 'react'
-import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
+import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -19,7 +19,7 @@ const PAGES = {
 const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'reason',
   'followOnStatus',
-  'fileUpload',
+  'workOrderFileUpload',
 ])
 
 const MobileWorkingCloseWorkOrderForm = ({
@@ -62,7 +62,9 @@ const MobileWorkingCloseWorkOrderForm = ({
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
 
-  const [files, setFiles] = useState([])
+  const [workOrderFiles, setWorkOrderFiles] = useState([])
+  const [followOnFiles, setFollowOnFiles] = useState([])
+  // const [workOrderFiles, setFiles] = useState([])
 
   return (
     <div className="mobile-working-close-work-order-form">
@@ -78,7 +80,7 @@ const MobileWorkingCloseWorkOrderForm = ({
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
-          onSubmit(data, files)
+          onSubmit(data, workOrderFiles, followOnFiles)
         })}
       >
         <div
@@ -97,23 +99,26 @@ const MobileWorkingCloseWorkOrderForm = ({
 
           <div className="govuk-form-group lbh-form-group">
             <ControlledFileInput
-              files={files}
-              setFiles={setFiles}
-              validationError={errors?.fileUpload?.message}
+              label="Work order photos"
+              hint="Add photos showing the repair you completed (up to 10 photos)"
+              files={workOrderFiles}
+              setFiles={setWorkOrderFiles}
+              validationError={errors?.workOrderFileUpload?.message}
               isLoading={isLoading}
-              register={register('fileUpload', {
+              register={register('workOrderFileUpload', {
                 validate: () => {
-                  const validation = validateFileUpload(files)
+                  const validation = validateFileUpload(workOrderFiles)
 
                   if (validation === null) return true
                   return validation
                 },
               })}
+              testId="WorkOrderPhotoUpload"
             />
 
-            {files.length > 0 && (
+            {workOrderFiles.length > 0 && (
               <TextArea
-                name="description"
+                name="workOrderPhotoDescription"
                 label="Photo description"
                 showAsOptional
                 register={register}
@@ -169,6 +174,35 @@ const MobileWorkingCloseWorkOrderForm = ({
               register={register}
               error={errors && errors.additionalNotes}
             />
+
+            <div className="govuk-form-group lbh-form-group">
+              <ControlledFileInput
+                label="Follow on photos"
+                hint="Add photos showing the follow on work needed (up to 10 photos)"
+                files={followOnFiles}
+                setFiles={setFollowOnFiles}
+                validationError={errors?.followOnFileUpload?.message}
+                isLoading={isLoading}
+                register={register('followOnFileUpload', {
+                  validate: () => {
+                    const validation = validateFileUpload(followOnFiles)
+
+                    if (validation === null) return true
+                    return validation
+                  },
+                })}
+                testId="FollowOnPhotoUpload"
+              />
+
+              {followOnFiles.length > 0 && (
+                <TextArea
+                  name="followOnPhotoDescription"
+                  label="Photo description"
+                  showAsOptional
+                  register={register}
+                />
+              )}
+            </div>
 
             <PrimarySubmitButton label="Close work order" />
           </div>

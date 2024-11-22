@@ -126,7 +126,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Please select a reason for closing the work order')
     })
 
-    it('shows validation errors when uploading files', () => {
+    it('shows validation errors when uploading photos', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -302,7 +302,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Some photos failed to upload. Please try again')
     })
 
-    it('uploads files when closing work order', () => {
+    it('uploads photos when closing work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -366,6 +366,115 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         cy.contains(
           `Work order ${workOrderReference} successfully closed with no access`
         )
+
+        cy.get('[data-testid="modal-close"]').click()
+      })
+    })
+
+    it('uploads photos when added for work order and follow on', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/images/upload*' },
+        {
+          statusCode: 200,
+          body: {
+            links: [
+              {
+                key: '10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9',
+                presignedUrl: 'https://test.com/placeholder-upload-url',
+              },
+            ],
+          },
+        }
+      ).as('getLinksRequest')
+
+      cy.intercept(
+        { method: 'PUT', path: '**/placeholder-upload-url' },
+        {
+          statusCode: 200,
+        }
+      ).as('uploadToS3Request')
+
+      cy.intercept(
+        { method: 'POST', path: '/api/workOrders/images/completeUpload' },
+        {
+          statusCode: 200,
+          body: {
+            filesUploaded: ['10008056/575a54a6-6ca0-4ceb-a1a6-c831a8368bb9'],
+          },
+        }
+      ).as('completeUploadRequest')
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+      cy.contains('label', 'Further work required').click()
+
+      // 1. add work order images
+      cy.get('input[data-testid="WorkOrderPhotoUpload"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      // add follow on details
+      cy.contains('button', 'Add details').click()
+
+      // populate follow-on fields
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'follow on description'
+      )
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+      cy.get('textarea[data-testid="additionalNotes"]').type(
+        'Additional notes desc'
+      )
+
+      // add second follow on image
+      cy.get('input[data-testid="FollowOnPhotoUpload"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // wait for two uploads
+
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
+
+      cy.get('@getLinksRequest.all').should('have.length', 2)
+      cy.get('@uploadToS3Request.all').should('have.length', 2)
+      cy.get('@completeUploadRequest.all').should('have.length', 2)
+
+      cy.get('.modal-container').within(() => {
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })

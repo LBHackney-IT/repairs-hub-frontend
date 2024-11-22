@@ -22,6 +22,7 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
+import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -72,12 +73,17 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     try {
       if (files.length > 0) {
+        const fileUploadCompleteCallback = fileUploadStatusLogger(
+          files.length,
+          setLoadingStatus
+        )
+
         const uploadResult = await uploadFiles(
           files,
           reference,
           'Closing work order',
           description,
-          (value) => setLoadingStatus(value)
+          fileUploadCompleteCallback
         )
 
         if (!uploadResult.success) {

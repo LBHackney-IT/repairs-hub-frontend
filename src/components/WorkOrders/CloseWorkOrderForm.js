@@ -153,6 +153,8 @@ const CloseWorkOrderForm = ({
             setFiles={setFiles}
             validationError={errors?.fileUpload?.message}
             isLoading={isLoading}
+            label="Photos"
+            hint="Select all the photos you want to add (up to 10 photos)"
             register={register('fileUpload', {
               validate: () => {
                 const validation = validateFileUpload(files)
@@ -161,6 +163,7 @@ const CloseWorkOrderForm = ({
                 return validation
               },
             })}
+            testId="PhotoUploadForm"
           />
 
           {files.length > 0 && (

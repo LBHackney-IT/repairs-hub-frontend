@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import uploadFiles from './uploadFiles'
 import validateFileUpload from './validateFileUpload'
 import { captureException } from '@sentry/nextjs'
+import fileUploadStatusLogger from './uploadFiles/fileUploadStatusLogger'
 
 const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
   const [loadingStatus, setLoadingStatus] = useState(null)
@@ -42,12 +43,17 @@ const useFileUpload = (workOrderReference: string, onSuccess: () => void) => {
 
     const description = e.target.description.value
 
+    const fileUploadCompleteCallback = fileUploadStatusLogger(
+      files.length,
+      setLoadingStatus
+    )
+
     const uploadResult = await uploadFiles(
       files,
       workOrderReference,
       'Uploaded directly to work order',
       description,
-      setLoadingStatus
+      fileUploadCompleteCallback
     )
 
     setLoadingStatus(null)
