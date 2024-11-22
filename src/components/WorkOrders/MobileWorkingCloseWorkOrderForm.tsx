@@ -145,7 +145,6 @@ const MobileWorkingCloseWorkOrderForm = ({
 
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
-              getValues={getValues}
               errors={errors}
             />
 
