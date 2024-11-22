@@ -732,7 +732,7 @@ describe('Raise repair form', () => {
           organization: {
             reference: [
               {
-                id: 'PCL',
+                id: 'PUR',
               },
             ],
           },
@@ -797,7 +797,7 @@ describe('Raise repair form', () => {
       cy.loginWithAgentAndBudgetCodeOfficerRole()
     })
     ;[
-      { code: 'PCL', name: 'PURDY CONTRACTS (C2A)' },
+      { code: 'PUR', name: 'PURDY CONTRACTS (C2A)' },
       { code: 'AEP', name: 'Axis Europe (X) PLC' },
       { code: 'HHL', name: 'Herts Heritage Ltd' },
     ].forEach((ctr) => {

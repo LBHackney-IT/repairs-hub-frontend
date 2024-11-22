@@ -36,7 +36,7 @@ describe('buildScheduleWorkOrderFormData', () => {
     trade: 'Plumbing',
     tradeCode: 'PL',
     contractor: 'PURDY CONTRACTS (C2A) - PUR',
-    contractorRef: 'PCL',
+    contractorRef: 'PUR',
     quantity: '1',
     priorityDescription: '4 [U] URGENT',
     priorityCode: URGENT_PRIORITY_CODE,
@@ -59,7 +59,7 @@ describe('buildScheduleWorkOrderFormData', () => {
     trade: 'Plumbing',
     tradeCode: 'PL',
     contractor: 'PURDY CONTRACTS (C2A) - PUR',
-    contractorRef: 'PCL',
+    contractorRef: 'PUR',
     quantity: '1',
     priorityDescription: '9[P] PLANNED MAINT',
     priorityCode: PLANNED_PRIORITY_CODE,
@@ -162,7 +162,7 @@ describe('buildScheduleWorkOrderFormData', () => {
         organization: {
           reference: [
             {
-              id: 'PCL',
+              id: 'PUR',
             },
           ],
         },
@@ -274,7 +274,7 @@ describe('buildScheduleWorkOrderFormData', () => {
         organization: {
           reference: [
             {
-              id: 'PCL',
+              id: 'PUR',
             },
           ],
         },

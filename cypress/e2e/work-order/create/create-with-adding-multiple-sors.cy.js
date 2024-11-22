@@ -76,7 +76,7 @@ describe('Raise repair form', () => {
         query: {
           tradeCode: 'PL',
           propertyReference: '00012345',
-          contractorReference: 'PCL',
+          contractorReference: 'PUR',
           isRaisable: 'true',
         },
       },

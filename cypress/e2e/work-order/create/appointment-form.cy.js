@@ -237,7 +237,7 @@ describe('Schedule appointment form', () => {
                   organization: {
                     reference: [
                       {
-                        id: 'PCL',
+                        id: 'PUR',
                       },
                     ],
                   },
