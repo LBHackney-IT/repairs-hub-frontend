@@ -116,7 +116,6 @@ const CloseWorkOrderForm = ({
 
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
-              getValues={getValues}
               errors={errors}
               followOnData={followOnData}
             />
