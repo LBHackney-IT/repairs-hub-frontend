@@ -162,6 +162,19 @@ const MobileWorkingCloseWorkOrderForm = ({
               watch={watch}
             />
 
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+            />
+
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+            />
+
             <div className="govuk-form-group lbh-form-group">
               <ControlledFileInput
                 label="Follow on photos"
@@ -190,19 +203,6 @@ const MobileWorkingCloseWorkOrderForm = ({
                 />
               )}
             </div>
-
-            <FollowOnRequestMaterialsForm
-              register={register}
-              getValues={getValues}
-              errors={errors}
-            />
-
-            <TextArea
-              name="additionalNotes"
-              label="Additional notes"
-              register={register}
-              error={errors && errors.additionalNotes}
-            />
 
             <PrimarySubmitButton label="Close work order" />
           </div>
