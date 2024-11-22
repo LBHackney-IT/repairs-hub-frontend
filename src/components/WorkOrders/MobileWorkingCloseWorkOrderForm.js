@@ -18,7 +18,7 @@ const PAGES = {
 const FIELD_NAMES_ON_FIRST_PAGE = [
   'reason',
   'followOnStatus',
-  'fileUpload',
+  'workOrderFileUpload',
   'description',
 ]
 
@@ -57,7 +57,9 @@ const MobileWorkingCloseWorkOrderForm = ({
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
 
-  const [files, setFiles] = useState([])
+  const [workOrderFiles, setWorkOrderFiles] = useState([])
+  const [followOnFiles, setFollowOnFiles] = useState([])
+  // const [workOrderFiles, setFiles] = useState([])
 
   return (
     <div className="mobile-working-close-work-order-form">
@@ -73,7 +75,7 @@ const MobileWorkingCloseWorkOrderForm = ({
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
-          onSubmit(data, files)
+          onSubmit(data, workOrderFiles, followOnFiles)
         })}
       >
         <div
@@ -92,15 +94,15 @@ const MobileWorkingCloseWorkOrderForm = ({
 
           <div className="govuk-form-group lbh-form-group">
             <ControlledFileInput
-              label="Photos"
-              hint="Select all the photos you want to add (up to 10 photos)"
-              files={files}
-              setFiles={setFiles}
-              validationError={errors?.fileUpload?.message}
+              label="Work order photos"
+              hint="Add photos showing the repair you completed (up to 10 photos)"
+              files={workOrderFiles}
+              setFiles={setWorkOrderFiles}
+              validationError={errors?.workOrderFileUpload?.message}
               isLoading={isLoading}
-              register={register('fileUpload', {
+              register={register('workOrderFileUpload', {
                 validate: () => {
-                  const validation = validateFileUpload(files)
+                  const validation = validateFileUpload(workOrderFiles)
 
                   if (validation === null) return true
                   return validation
@@ -108,7 +110,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               })}
             />
 
-            {files.length > 0 && (
+            {workOrderFiles.length > 0 && (
               <TextArea
                 name="description"
                 label="Photo description"
@@ -157,6 +159,34 @@ const MobileWorkingCloseWorkOrderForm = ({
             getValues={getValues}
             errors={errors}
           />
+
+          <div className="govuk-form-group lbh-form-group">
+            <ControlledFileInput
+              label="Follow on photos"
+              hint="Add photos showing the follow on work needed (up to 10 photos)"
+              files={followOnFiles}
+              setFiles={setFollowOnFiles}
+              validationError={errors?.followOnFileUpload?.message}
+              isLoading={isLoading}
+              register={register('followOnFileUpload', {
+                validate: () => {
+                  const validation = validateFileUpload(followOnFiles)
+
+                  if (validation === null) return true
+                  return validation
+                },
+              })}
+            />
+
+            {followOnFiles.length > 0 && (
+              <TextArea
+                name="description"
+                label="Photo description"
+                showAsOptional
+                register={register}
+              />
+            )}
+          </div>
 
           <TextArea
             name="additionalNotes"

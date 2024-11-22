@@ -139,7 +139,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
   }
 
-  const onWorkOrderCompleteSubmit = async (data, files) => {
+  const onWorkOrderCompleteSubmit = async (
+    data,
+    workOrderFiles,
+    followOnFiles
+  ) => {
     setLoadingStatus('Completing workorder')
 
     let followOnRequest = null
@@ -190,11 +194,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
-      if (files.length > 0) {
+      if (workOrderFiles.length > 0) {
         const description = data.description
 
         const uploadResult = await uploadFiles(
-          files,
+          workOrderFiles,
           workOrderReference,
           'Closing work order',
           description,
@@ -206,9 +210,27 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           setLoadingStatus(null)
           return
         }
-
-        setLoadingStatus('Completing workorder')
       }
+
+      if (followOnFiles.length > 0) {
+        const description = data.description
+
+        const uploadResult = await uploadFiles(
+          followOnFiles,
+          workOrderReference,
+          'Raising a follow on',
+          description,
+          (value) => setLoadingStatus(value)
+        )
+
+        if (!uploadResult.success) {
+          setError(uploadResult.requestError)
+          setLoadingStatus(null)
+          return
+        }
+      }
+
+      setLoadingStatus('Completing workorder')
 
       await frontEndApiRequest({
         method: 'post',
