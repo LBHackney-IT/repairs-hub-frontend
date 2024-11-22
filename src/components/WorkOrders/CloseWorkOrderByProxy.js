@@ -81,8 +81,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         const uploadResult = await uploadFiles(
           files,
           reference,
-          'Closing work order',
           description,
+          'Closing work order',
           fileUploadCompleteCallback
         )
 
