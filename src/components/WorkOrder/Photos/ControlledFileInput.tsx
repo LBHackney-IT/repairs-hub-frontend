@@ -14,6 +14,7 @@ interface Props {
   label: string
   hint: string
   disabled?: boolean
+  testId: string
 }
 
 const ControlledFileInput = (props: Props) => {
@@ -26,6 +27,7 @@ const ControlledFileInput = (props: Props) => {
     label,
     hint,
     disabled = false,
+    testId,
   } = props
 
   const inputRef = useRef()
@@ -53,7 +55,7 @@ const ControlledFileInput = (props: Props) => {
         name="fileUpload"
         id="fileUpload"
         aria-labelledby="fileUploadLegend"
-        data-testid="fileUploadInput"
+        data-testid={testId}
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}

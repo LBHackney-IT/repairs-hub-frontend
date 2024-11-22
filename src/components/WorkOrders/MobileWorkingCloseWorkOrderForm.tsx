@@ -113,6 +113,7 @@ const MobileWorkingCloseWorkOrderForm = ({
                   return validation
                 },
               })}
+              testId="WorkOrderPhotoUpload"
             />
 
             {workOrderFiles.length > 0 && (
@@ -177,6 +178,7 @@ const MobileWorkingCloseWorkOrderForm = ({
                     return validation
                   },
                 })}
+                testId="FollowOnPhotoUpload"
               />
 
               {followOnFiles.length > 0 && (

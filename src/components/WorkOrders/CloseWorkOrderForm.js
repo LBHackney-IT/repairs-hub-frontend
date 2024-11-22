@@ -163,6 +163,7 @@ const CloseWorkOrderForm = ({
                 return validation
               },
             })}
+            testId="PhotoUploadForm"
           />
 
           {files.length > 0 && (
