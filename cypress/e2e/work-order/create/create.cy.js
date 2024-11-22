@@ -170,7 +170,7 @@ describe('Raise repair form', () => {
 
       cy.wait('@contractorsRequest')
 
-      cy.get('#contractor').type('Purdy Contracts (P) Ltd - PCL')
+      cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
 
       cy.wait('@budgetCodesRequest')
     })
