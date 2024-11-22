@@ -6,19 +6,16 @@ import uploadFileToS3 from './uploadFileToS3'
 const uploadFilesToS3 = async (
   files: File[],
   links: Link[],
-  onProgress: (completed: number, total: number) => void
+  fileUploadCompleteCallback: () => void
 ): Promise<{ success: boolean; error?: any }> => {
   const promiseList = files.map((file, i) => {
     return uploadWrapper(file, links[i])
   })
 
-  let completed = 0
-
   // wrap with callback to track how many have been completed
   const wrappedPromises = promiseList.map((promise) =>
     promise.then((result) => {
-      completed += 1
-      onProgress(completed, promiseList.length)
+      fileUploadCompleteCallback()
       return result
     })
   )
