@@ -1,5 +1,4 @@
 export const MULTITRADE_ENABLED_CONTRACTORS = [
-  'PCL',
   'AEP',
   'HHL',
   'FPM',
@@ -12,7 +11,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'PUR',
   'HER',
 ]
-export const PURDY_CONTRACTOR_REFERENCE = 'PCL'
+export const PURDY_CONTRACTOR_REFERENCE = 'PUR'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
 // If a contractor doesnt have any 'MU' sorCodes, the contractor will
@@ -21,10 +20,6 @@ export const MULTITRADE_TRADE_CODE = 'MU'
 // so a contractor should need to have 'MU' sorCodes.
 // To get around this, we must hardcode these contractors in the dropdown
 export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
-  {
-    contractorReference: 'PCL',
-    contractorName: 'Purdy Contracts (P) Ltd',
-  },
   {
     contractorReference: 'FPM',
     contractorName: 'Foster Property Maintenance',
@@ -59,10 +54,10 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   },
   {
     contractorReference: 'PUR',
-    contractorName: 'PURDY CONTRACTS',
+    contractorName: 'PURDY CONTRACTS (C2A)',
   },
   {
     contractorReference: 'HER',
-    contractorName: 'HERTS HERITAGE',
+    contractorName: 'HERTS HERITAGE (C2B)',
   },
 ]
