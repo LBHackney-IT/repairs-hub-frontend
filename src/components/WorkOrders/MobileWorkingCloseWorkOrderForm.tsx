@@ -46,8 +46,6 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [currentPage, setCurrentPage] = useState(PAGES.WORK_ORDER_STATUS)
 
   const viewFollowOnDetailsPage = () => {
-    console.log('click')
-
     trigger([...FIELD_NAMES_ON_FIRST_PAGE])
 
     if (
@@ -57,12 +55,6 @@ const MobileWorkingCloseWorkOrderForm = ({
       console.info({ errors })
       return
     }
-
-    // if (Object.keys(errors).length > 0) {
-    //   console.info({ errors })
-    //   return
-    // }
-
     setCurrentPage(PAGES.FOLLOW_ON_DETAILS)
   }
 
