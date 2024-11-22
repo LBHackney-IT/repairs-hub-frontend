@@ -318,14 +318,14 @@ exports[`WorkOrdersFilter component when logged in as a combined agent/contracto
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
                   PURDY CONTRACTS (C2A)
                 </label>
@@ -2091,14 +2091,14 @@ exports[`WorkOrdersFilter component when logged in as a contract manager should 
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
                   PURDY CONTRACTS (C2A)
                 </label>
@@ -2735,14 +2735,14 @@ exports[`WorkOrdersFilter component when logged in as a contractor with more tha
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
                   PURDY CONTRACTS (C2A)
                 </label>
@@ -3918,14 +3918,14 @@ exports[`WorkOrdersFilter component when logged in as an authorisation manager s
                 <input
                   checked=""
                   class="govuk-checkboxes__input"
-                  data-testid="ContractorReference.PCL"
-                  id="ContractorReference.PCL"
-                  name="ContractorReference.PCL"
+                  data-testid="ContractorReference.PUR"
+                  id="ContractorReference.PUR"
+                  name="ContractorReference.PUR"
                   type="checkbox"
                 />
                 <label
                   class="govuk-label govuk-checkboxes__label lbh-body-xs"
-                  for="ContractorReference.PCL"
+                  for="ContractorReference.PUR"
                 >
                   PURDY CONTRACTS (C2A)
                 </label>
