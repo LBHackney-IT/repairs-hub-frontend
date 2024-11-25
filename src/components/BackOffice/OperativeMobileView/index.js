@@ -19,8 +19,9 @@ const OperativeMobileView = () => {
         path: '/api/operatives',
       })
         .then((res) => {
-          const sortedOperatives = res
-            .sort((a, b) => a.name.localeCompare(b.name))
+          const sortedOperatives = res.sort((a, b) =>
+            a.name.localeCompare(b.name)
+          )
           setOperatives(sortedOperatives)
         })
         .finally(() => {
@@ -28,7 +29,6 @@ const OperativeMobileView = () => {
           resolve()
         })
     })
-
 
   const refresh = () => {
     // hacky implementation? yes! but idc, this is backoffice
@@ -140,7 +140,7 @@ const OperativeMobileView = () => {
                     <option
                       key={x.operativePayrollNumber}
                       value={x.operativePayrollNumber}
-                      style={{ whiteSpace: 'pre'}}
+                      style={{ whiteSpace: 'pre' }}
                     >
                       {x.name} ({x.payrollNumber}) - {x.id}
                     </option>
