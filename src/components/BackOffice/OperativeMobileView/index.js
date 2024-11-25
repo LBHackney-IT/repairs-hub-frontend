@@ -142,7 +142,7 @@ const OperativeMobileView = () => {
                       value={x.operativePayrollNumber}
                       style={{ whiteSpace: 'pre'}}
                     >
-                      {x.name} ({x.payrollNumber}) - {x.id?.toString().padStart(3, " ")}
+                      {x.name} ({x.payrollNumber}) - {x.id}
                     </option>
                   ))}
                 </select>
