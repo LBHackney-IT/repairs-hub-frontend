@@ -21,6 +21,30 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   const [error, setError] = useState()
 
+  // const featureToggleData = await fetchSimpleFeatureToggles()
+  // returns
+  // const data = {
+  //   followOnFunctionalityEnabled:
+  //     process.env.FOLLOW_ON_FUNCTIONALITY_ENABLED === 'true',
+  //   pastWorkOrdersFunctionalityEnabled:
+  //     process.env.PAST_WORK_ORDERS_ENABLED === 'true',
+  // }
+
+  // cy.intercept(
+  //   {
+  //     method: 'GET',
+  //     path: '/api/simple-feature-toggle',
+  //   },
+  //   {
+  //     body: {
+  //       followOnFunctionalityEnabled: false,
+  //     },
+  //   }
+  // ).as('feature-toggle')
+
+  // add to .env.local PAST_WORK_ORDERS_ENABLED=true|false
+
+
   const titles = ['Current Work Orders', 'Past Work Orders']
 
   const handleTabClick = (index) => {
