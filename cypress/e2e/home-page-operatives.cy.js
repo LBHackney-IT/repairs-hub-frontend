@@ -155,7 +155,32 @@ context('When an operative is logged in', () => {
       })
     })
   })
-
+  context('When past work orders is not enabled', () => {
+    it.only(`Doesn't display the tabs`, () => {
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/simple-feature-toggle',
+        },
+        {
+          body: {
+            pastWorkOrdersFunctionalityEnabled: false,
+          },
+        }
+      ).as('tab-toggle')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: `/api/operatives/${operativeId}/workorders`,
+        },
+        {
+          fixture: 'workOrders/workOrders11thNov.json',
+        }
+      ).as('operativesWorkOrders')
+      cy.visit('/')
+      cy.get('.new-hackney-tabs-list').should('not.exist')
+    })
+  })
   context('When operative clicks a tab', () => {
     it('Goes to correct page', () => {
       cy.clock(new Date('November 13 2024 13:49:15Z'))
@@ -216,7 +241,7 @@ context('When an operative is logged in', () => {
   context('When operative selects different date', () => {
     beforeEach(() => {
       cy.clock(new Date('November 13 2024 13:49:15Z'))
-      it.only('Changes the work orders', () => {
+      it('Changes the work orders', () => {
         cy.intercept(
           {
             method: 'GET',
@@ -265,7 +290,7 @@ context('When an operative is logged in', () => {
   context(
     "When they don't have any work orders on a particular date in the past",
     () => {
-      it.only('Displays a warning info box', () => {
+      it('Displays a warning info box', () => {
         cy.clock(new Date('November 13 2024 13:49:15Z'))
         cy.intercept(
           {
