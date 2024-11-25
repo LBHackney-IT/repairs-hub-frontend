@@ -19,9 +19,9 @@ const OperativeMobileView = () => {
         path: '/api/operatives',
       })
         .then((res) => {
-          const sortedOperatives = res.sort((a, b) =>
-            a.name.localeCompare(b.name)
-          )
+          const sortedOperatives = res
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(mapOperativeToHubUser)
           setOperatives(sortedOperatives)
         })
         .finally(() => {
@@ -29,6 +29,20 @@ const OperativeMobileView = () => {
           resolve()
         })
     })
+
+  const mapOperativeToHubUser = (operative) => {
+    return {
+      id: operative.id,
+      sub: 'placeholder',
+      name: operative.name,
+      email: 'placeholder',
+      varyLimit: 'placeholder',
+      raiseLimit: 'placeholder',
+      contractors: [],
+      operativePayrollNumber: operative.payrollNumber,
+      isOneJobAtATime: operative.isOnejobatatime,
+    }
+  }
 
   const refresh = () => {
     // hacky implementation? yes! but idc, this is backoffice
@@ -142,7 +156,7 @@ const OperativeMobileView = () => {
                       value={x.operativePayrollNumber}
                       style={{ whiteSpace: 'pre' }}
                     >
-                      {x.name} ({x.payrollNumber}) - {x.id}
+                      {x.name} ({x.operativePayrollNumber}) - {x.id}
                     </option>
                   ))}
                 </select>

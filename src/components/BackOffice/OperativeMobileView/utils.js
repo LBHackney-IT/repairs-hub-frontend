@@ -5,6 +5,6 @@ export const filterOperatives = (operatives, operativeFilter) => {
     (x) =>
       x.id?.toString().includes(operativeFilter) ||
       x.name?.toLowerCase().includes(operativeFilter) ||
-      x.payrollNumber?.toLowerCase().includes(operativeFilter)
+      x.operativePayrollNumber?.toLowerCase().includes(operativeFilter)
   )
 }
