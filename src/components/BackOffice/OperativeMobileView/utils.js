@@ -1,17 +1,9 @@
 export const filterOperatives = (operatives, operativeFilter) => {
-  let filteredOperativeList = operatives
+  if (!operativeFilter) return operatives;
 
-  if (operativeFilter !== '') {
-    filteredOperativeList = filteredOperativeList.filter((x) =>
-      x.name.toLowerCase().includes(operativeFilter.toLowerCase())
-    )
-  }
-
-  // if (showOnlyOJAT) {
-  //   filteredOperativeList = filteredOperativeList.filter(
-  //     (x) => x.isOneJobAtATime
-  //   )
-  // }
-
-  return filteredOperativeList
+  return operatives.filter((x) =>
+    x.id?.toString().includes(operativeFilter) ||
+    x.name?.toLowerCase().includes(operativeFilter) ||
+    x.payrollNumber?.toLowerCase().includes(operativeFilter)
+  );
 }
