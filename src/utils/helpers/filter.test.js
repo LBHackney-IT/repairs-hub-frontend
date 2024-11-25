@@ -4,7 +4,7 @@ describe('#setFilterOptions', () => {
   const formData = {
     ContractorReference: {
       AVP: false,
-      PCL: true,
+      PUR: true,
       SCC: true,
     },
     StatusCode: { 30: false, 50: false, 80: true },
@@ -14,7 +14,7 @@ describe('#setFilterOptions', () => {
 
   it('takes the formData sets what the applied filters are', () => {
     expect(setFilterOptions(formData)).toEqual({
-      ContractorReference: ['PCL', 'SCC'],
+      ContractorReference: ['PUR', 'SCC'],
       Priorities: ['1'],
       StatusCode: ['80'],
       TradeCodes: ['PL', 'EL'],
@@ -88,8 +88,8 @@ describe('SelectedFilterOptions', () => {
         description: 'Avonline Network (A) Ltd',
       },
       {
-        key: 'PCL',
-        description: 'Purdy Contracts (P) Ltd',
+        key: 'PUR',
+        description: 'PURDY CONTRACTS (C2A)',
       },
       {
         key: 'SCC',
@@ -101,7 +101,7 @@ describe('SelectedFilterOptions', () => {
   describe('#getSelectedFilterOptions', () => {
     it('when one option of each filter category is selected', () => {
       const appliedFilters = {
-        ContractorReference: 'PCL',
+        ContractorReference: 'PUR',
         StatusCode: '80',
         Priorities: '1',
         TradeCodes: 'EL',
@@ -113,7 +113,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)'],
         Priority: ['Immediate'],
         Status: ['In Progress'],
         Trade: ['Electrical'],
@@ -122,7 +122,7 @@ describe('SelectedFilterOptions', () => {
 
     it('when more than one option of all filter categories are selected', () => {
       const appliedFilters = {
-        ContractorReference: ['PCL', 'AVP'],
+        ContractorReference: ['PUR', 'AVP'],
         StatusCode: ['80', '50'],
         Priorities: ['1', '2'],
         TradeCodes: ['EL', 'PL'],
@@ -134,7 +134,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd', 'Avonline Network (A) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)', 'Avonline Network (A) Ltd'],
         Priority: ['Immediate', 'Emergency'],
         Status: ['In Progress', 'Complete'],
         Trade: ['Electrical', 'Plumbing'],
@@ -143,7 +143,7 @@ describe('SelectedFilterOptions', () => {
 
     it('when not all filter categories are selected', () => {
       const appliedFilters = {
-        ContractorReference: ['PCL', 'AVP'],
+        ContractorReference: ['PUR', 'AVP'],
         Priorities: '1',
       }
 
@@ -153,7 +153,7 @@ describe('SelectedFilterOptions', () => {
           filters
         ).getSelectedFilterOptions()
       ).toEqual({
-        Contractor: ['Purdy Contracts (P) Ltd', 'Avonline Network (A) Ltd'],
+        Contractor: ['PURDY CONTRACTS (C2A)', 'Avonline Network (A) Ltd'],
         Priority: ['Immediate'],
       })
     })

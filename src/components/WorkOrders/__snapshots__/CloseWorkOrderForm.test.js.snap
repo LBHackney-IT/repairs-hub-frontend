@@ -83,10 +83,9 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -98,7 +97,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
             accept=".jpg, .jpeg, .png"
             aria-labelledby="fileUploadLegend"
             class="govuk-file-upload custom-file-input"
-            data-testid="fileUploadInput"
+            data-testid="PhotoUploadForm"
             id="fileUpload"
             multiple=""
             name="fileUpload"
@@ -696,10 +695,9 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -711,7 +709,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
             accept=".jpg, .jpeg, .png"
             aria-labelledby="fileUploadLegend"
             class="govuk-file-upload custom-file-input"
-            data-testid="fileUploadInput"
+            data-testid="PhotoUploadForm"
             id="fileUpload"
             multiple=""
             name="fileUpload"
@@ -1395,10 +1393,9 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -1410,7 +1407,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             accept=".jpg, .jpeg, .png"
             aria-labelledby="fileUploadLegend"
             class="govuk-file-upload custom-file-input"
-            data-testid="fileUploadInput"
+            data-testid="PhotoUploadForm"
             id="fileUpload"
             multiple=""
             name="fileUpload"
@@ -2004,10 +2001,9 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         <div>
           <legend
             class="govuk-fieldset__legend govuk-fieldset__legend--s"
-            for="fileUpload"
             id="fileUploadLegend"
           >
-            Photos 
+            Photos
           </legend>
           <span
             class="govuk-hint lbh-hint"
@@ -2019,7 +2015,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
             accept=".jpg, .jpeg, .png"
             aria-labelledby="fileUploadLegend"
             class="govuk-file-upload custom-file-input"
-            data-testid="fileUploadInput"
+            data-testid="PhotoUploadForm"
             id="fileUpload"
             multiple=""
             name="fileUpload"
