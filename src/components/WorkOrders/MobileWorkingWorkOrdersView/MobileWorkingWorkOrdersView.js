@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  frontEndApiRequest,
+  fetchSimpleFeatureToggles,
+} from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../../Spinner'
@@ -12,6 +15,7 @@ import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListIte
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
 
 const SIXTY_SECONDS = 60 * 1000
+let toggleStatus
 
 const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const router = useRouter()
@@ -21,29 +25,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   const [error, setError] = useState()
 
-  // const featureToggleData = await fetchSimpleFeatureToggles()
-  // returns
-  // const data = {
-  //   followOnFunctionalityEnabled:
-  //     process.env.FOLLOW_ON_FUNCTIONALITY_ENABLED === 'true',
-  //   pastWorkOrdersFunctionalityEnabled:
-  //     process.env.PAST_WORK_ORDERS_ENABLED === 'true',
-  // }
-
-  // cy.intercept(
-  //   {
-  //     method: 'GET',
-  //     path: '/api/simple-feature-toggle',
-  //   },
-  //   {
-  //     body: {
-  //       followOnFunctionalityEnabled: false,
-  //     },
-  //   }
-  // ).as('feature-toggle')
-
-  // add to .env.local PAST_WORK_ORDERS_ENABLED=true|false
-
+  const featureToggleStatus = async () => {
+    const featureToggleDataStatus = await fetchSimpleFeatureToggles()
+    return featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled
+  }
 
   const titles = ['Current Work Orders', 'Past Work Orders']
 
@@ -63,6 +48,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         method: 'get',
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
+      toggleStatus = await featureToggleStatus()
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
@@ -130,11 +116,15 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <TabsVersionTwo
-        titles={titles}
-        onTabChange={handleTabClick}
-        ariaSelected={ariaSelected}
-      />
+      {toggleStatus === true ? (
+        <TabsVersionTwo
+          titles={titles}
+          onTabChange={handleTabClick}
+          ariaSelected={ariaSelected}
+        />
+      ) : (
+        <></>
+      )}
       <div className="mobile-work-order-container">
         <h3 className="lbh-heading-h3">
           {longMonthWeekday(currentDate, { commaSeparated: false })}
