@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { getYesterdayDate } from '@/root/src/utils/date'
 import { beginningOfDay, getWorkingDaysBeforeDate } from '@/root/src/utils/time'
@@ -51,18 +51,11 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     }
   }
 
-  const intervalRef = useRef(null)
-
   useEffect(() => {
     // dont try fetch if currentUser not loaded yet
     if (currentUser === null) return
 
-    // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
-
-    return () => {
-      clearInterval(intervalRef.current)
-    }
   }, [currentUser?.operativePayrollNumber, targetDate])
 
   const sortWorkOrderItems = (workOrders: WorkOrdersType) => {
