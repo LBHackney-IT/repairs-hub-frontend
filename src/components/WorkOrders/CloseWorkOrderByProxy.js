@@ -22,6 +22,7 @@ import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '../../utils/statusCodes'
 import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
+import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -72,12 +73,17 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
     try {
       if (files.length > 0) {
+        const fileUploadCompleteCallback = fileUploadStatusLogger(
+          files.length,
+          setLoadingStatus
+        )
+
         const uploadResult = await uploadFiles(
           files,
           reference,
-          'Closing work order',
           description,
-          (value) => setLoadingStatus(value)
+          'Closing work order',
+          fileUploadCompleteCallback
         )
 
         if (!uploadResult.success) {
@@ -200,7 +206,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.stockItemsRequired,
         followOnData.nonStockItemsRequired,
         followOnData.materialNotes,
-        followOnData.additionalNotes
+        followOnData.additionalNotes,
+        followOnData.supervisorCalled
       )
     }
 
@@ -250,8 +257,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       const requiredFollowOnTrades = []
 
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach((x) => {
-        console.log({ x })
-
         if (formData[x.name]) requiredFollowOnTrades.push(x)
       })
 
@@ -265,6 +270,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         nonStockItemsRequired: formData.nonStockItemsRequired,
         materialNotes: formData.materialNotes,
         additionalNotes: formData.additionalNotes,
+        supervisorCalled: formData.supervisorCalled === 'Yes',
       }
 
       setFollowOnData(followOnData)

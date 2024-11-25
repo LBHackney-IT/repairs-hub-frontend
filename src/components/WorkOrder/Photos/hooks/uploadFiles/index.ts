@@ -5,17 +5,13 @@ import completeUpload from './completeUpload'
 const uploadFiles = async (
   files: File[],
   workOrderReference: string,
-  uploadGroupLabel: string,
   description: string,
-  setLoadingStatus = null
+  uploadGroupLabel: string,
+  fileUploadCompleteCallback: () => void
 ): Promise<{
   success: boolean
   requestError?: string
 }> => {
-  if (setLoadingStatus !== null) {
-    setLoadingStatus(`Uploading ${files.length} file(s)`)
-  }
-
   // 1. get presigned urls
   const uploadUrlsResult = await getPresignedUrls(
     workOrderReference,
@@ -23,8 +19,6 @@ const uploadFiles = async (
   )
 
   if (!uploadUrlsResult.success) {
-    if (setLoadingStatus !== null) setLoadingStatus(null)
-
     return {
       success: false,
       requestError: uploadUrlsResult.error,
@@ -33,20 +27,14 @@ const uploadFiles = async (
 
   const presignedUrls = uploadUrlsResult.result.links
 
-  function onProgress(completed: number, total: number) {
-    setLoadingStatus(`${completed} of ${total} file(s) uploaded`)
-  }
-
   // 2. Upload files to S3
   const uploadFilesToS3Response = await uploadFilesToS3(
     files,
     presignedUrls,
-    onProgress
+    fileUploadCompleteCallback
   )
 
   if (!uploadFilesToS3Response.success) {
-    if (setLoadingStatus !== null) setLoadingStatus(null)
-
     return {
       success: false,
       requestError: uploadFilesToS3Response.error,
@@ -62,8 +50,6 @@ const uploadFiles = async (
   )
 
   if (!completeUploadResult.success) {
-    if (setLoadingStatus !== null) setLoadingStatus(null)
-
     return {
       success: false,
       requestError: completeUploadResult.error,

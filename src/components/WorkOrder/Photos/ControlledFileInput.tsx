@@ -1,21 +1,35 @@
-import { useRef } from 'react'
+import { Dispatch, SetStateAction, useRef } from 'react'
 
 import ErrorMessage from '../../Errors/ErrorMessage'
 import PhotoUploadPreview from './PhotoUploadPreview'
 import classNames from 'classnames'
 import useUpdateFileInput from './hooks/useUpdateFileInput'
 
-const ControlledFileInput = ({
-  files,
-  setFiles,
-  validationError,
-  isLoading,
-  register,
-  label = 'Photos',
-  labelSize = 's',
-  disabled = false,
-  showAsOptional = false,
-}) => {
+interface Props {
+  files: File[]
+  setFiles: Dispatch<SetStateAction<File[]>>
+  validationError: string
+  isLoading: boolean
+  register: any
+  label: string
+  hint: string
+  disabled?: boolean
+  testId: string
+}
+
+const ControlledFileInput = (props: Props) => {
+  const {
+    files,
+    setFiles,
+    validationError,
+    isLoading,
+    register,
+    label,
+    hint,
+    disabled = false,
+    testId,
+  } = props
+
   const inputRef = useRef()
 
   // extracted to enable mocking
@@ -24,15 +38,14 @@ const ControlledFileInput = ({
   return (
     <div>
       <legend
-        htmlFor="fileUpload"
         id="fileUploadLegend"
-        className={`govuk-fieldset__legend govuk-fieldset__legend--${labelSize}`}
+        className={`govuk-fieldset__legend govuk-fieldset__legend--s`}
       >
-        {label} {showAsOptional && '(optional) '}
+        {label}
       </legend>
 
-      <span id={`${'photos'}-hint`} className="govuk-hint lbh-hint">
-        Select all the photos you want to add (up to 10 photos)
+      <span id="photos-hint" className="govuk-hint lbh-hint">
+        {hint}
       </span>
 
       {validationError && <ErrorMessage label={validationError} />}
@@ -42,14 +55,14 @@ const ControlledFileInput = ({
         name="fileUpload"
         id="fileUpload"
         aria-labelledby="fileUploadLegend"
-        data-testid="fileUploadInput"
+        data-testid={testId}
         className={classNames('govuk-file-upload custom-file-input', {
           'govuk-form-group--error': validationError,
         })}
         type="file"
         multiple
         accept=".jpg, .jpeg, .png"
-        onInput={(e) => {
+        onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
           setFiles(Object.values(e.target.files))
         }}
         style={{

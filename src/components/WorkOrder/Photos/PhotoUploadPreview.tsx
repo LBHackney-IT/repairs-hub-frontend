@@ -1,4 +1,14 @@
-const PhotoUploadPreview = ({ files, setFiles, disabled = false }) => {
+import { Dispatch, SetStateAction } from 'react'
+
+interface Props {
+  files: File[]
+  setFiles: Dispatch<SetStateAction<File[]>>
+  disabled: boolean
+}
+
+const PhotoUploadPreview = (props: Props) => {
+  const { files, setFiles, disabled = false } = props
+
   return (
     <div className="photoUploadPreview">
       {files.map((x, index) => (
@@ -19,8 +29,8 @@ const PhotoUploadPreview = ({ files, setFiles, disabled = false }) => {
             onClick={() => {
               if (disabled) return
 
-              setFiles((files) => {
-                var newArr = [...files]
+              setFiles((prevFiles: File[]) => {
+                const newArr = [...prevFiles]
                 newArr.splice(index, 1)
                 return newArr
               })

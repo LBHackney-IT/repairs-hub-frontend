@@ -22,6 +22,7 @@ import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
+import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 
 const CloseWorkOrderForm = ({
   reference,
@@ -113,6 +114,12 @@ const CloseWorkOrderForm = ({
           <>
             <h1 className="lbh-heading-h2">Details of further work required</h1>
 
+            <FollowOnRequestMaterialsSupervisorCalledForm
+              register={register}
+              errors={errors}
+              followOnData={followOnData}
+            />
+
             <FollowOnRequestTypeOfWorkForm
               errors={errors}
               register={register}
@@ -146,6 +153,8 @@ const CloseWorkOrderForm = ({
             setFiles={setFiles}
             validationError={errors?.fileUpload?.message}
             isLoading={isLoading}
+            label="Photos"
+            hint="Select all the photos you want to add (up to 10 photos)"
             register={register('fileUpload', {
               validate: () => {
                 const validation = validateFileUpload(files)
@@ -154,6 +163,7 @@ const CloseWorkOrderForm = ({
                 return validation
               },
             })}
+            testId="PhotoUploadForm"
           />
 
           {files.length > 0 && (
