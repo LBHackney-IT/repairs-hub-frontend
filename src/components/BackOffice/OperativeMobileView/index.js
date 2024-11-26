@@ -22,7 +22,6 @@ const OperativeMobileView = () => {
           const sortedOperatives = res
             .sort((a, b) => a.name.localeCompare(b.name))
             .map(mapOperativeToHubUser)
-
           setOperatives(sortedOperatives)
         })
         .finally(() => {
@@ -33,6 +32,7 @@ const OperativeMobileView = () => {
 
   const mapOperativeToHubUser = (operative) => {
     return {
+      id: operative.id,
       sub: 'placeholder',
       name: operative.name,
       email: 'placeholder',
@@ -43,8 +43,6 @@ const OperativeMobileView = () => {
       isOneJobAtATime: operative.isOnejobatatime,
     }
   }
-
-  // const refresh =
 
   const refresh = () => {
     // hacky implementation? yes! but idc, this is backoffice
@@ -156,8 +154,9 @@ const OperativeMobileView = () => {
                     <option
                       key={x.operativePayrollNumber}
                       value={x.operativePayrollNumber}
+                      style={{ whiteSpace: 'pre' }}
                     >
-                      {x.name}
+                      {x.name} ({x.operativePayrollNumber}) - {x.id}
                     </option>
                   ))}
                 </select>
