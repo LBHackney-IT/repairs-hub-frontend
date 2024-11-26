@@ -2,11 +2,20 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import MobileWorkingWorkOrdersView from './MobileWorkingWorkOrdersView'
+import { CurrentUser } from '@/root/src/types/variations/types'
 
-const CurrentUserWrapper = () => {
+// Define props interface for child components
+interface WithCurrentUserProps {
+  currentUser: CurrentUser
+}
+
+interface Props {
+  children: (props: WithCurrentUserProps) => React.ReactNode
+}
+
+const CurrentUserWrapper = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState(null)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string>()
   const [loading, setLoading] = useState(false)
 
   const getOperativeWorkOrderView = async () => {
@@ -41,9 +50,7 @@ const CurrentUserWrapper = () => {
         <Spinner />
       ) : (
         <>
-          {!!currentUser && (
-            <MobileWorkingWorkOrdersView currentUser={currentUser} />
-          )}
+          {!!currentUser && children({ currentUser })}
           {error && <ErrorMessage label={error} />}
         </>
       )}

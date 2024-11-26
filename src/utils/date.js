@@ -1,3 +1,5 @@
+import { beginningOfDay } from './time'
+
 export const convertDate = (dateAsString) => {
   if (dateAsString) {
     return new Date(dateAsString)
@@ -86,3 +88,8 @@ export const longDateToStr = (date) =>
     month: 'long',
     day: 'numeric',
   })
+
+export const getYesterdayDate = (currentDate) => {
+  const yesterday = new Date()
+  return yesterday.setDate(currentDate.getDate() - 1)
+}
