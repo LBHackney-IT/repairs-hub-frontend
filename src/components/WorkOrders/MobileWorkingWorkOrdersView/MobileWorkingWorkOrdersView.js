@@ -1,5 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { useState, useEffect, useRef, useMemo } from 'react'
+import { useRouter } from 'next/router'
+import {
+  frontEndApiRequest,
+  fetchSimpleFeatureToggles,
+} from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../../Spinner'
@@ -8,15 +12,39 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListItems'
+import TabsVersionTwo from '../../TabsVersionTwo/Index'
 
 const SIXTY_SECONDS = 60 * 1000
 
 const MobileWorkingWorkOrdersView = ({ currentUser }) => {
+  const router = useRouter()
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
+  const [toggleStatus, setToggleStatus] = useState(null)
 
   const [error, setError] = useState()
+
+  const titles = ['Current Work Orders', 'Past Work Orders']
+
+  const featureToggleStatus = async () => {
+    try {
+      const featureToggleDataStatus = await fetchSimpleFeatureToggles()
+      setToggleStatus(
+        featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled
+      )
+    } catch (error) {
+      console.error('Error fetching toggle status:', error)
+    }
+  }
+
+  const handleTabClick = (index) => {
+    index === 1 && router.push('/pastworkorders')
+  }
+
+  const ariaSelected = useMemo(() => {
+    return router.pathname === '/pastworkorders' ? 1 : 0
+  }, [router.pathname])
 
   const getOperativeWorkOrderView = async () => {
     setError(null)
@@ -55,6 +83,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
+    featureToggleStatus()
 
     const intervalId = setInterval(() => {
       getOperativeWorkOrderView()
@@ -93,33 +122,40 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      <div className="mobile-working-title-banner">
-        <h2 className="lbh-heading-h2">
-          {longMonthWeekday(currentDate, { commaSeparated: false })}
-        </h2>
-      </div>
-
-      <h3 className="lbh-heading-h3">Work orders</h3>
-      {sortedWorkOrders === null ? (
-        <Spinner />
+      {toggleStatus === true ? (
+        <TabsVersionTwo
+          titles={titles}
+          onTabChange={handleTabClick}
+          ariaSelected={ariaSelected}
+        />
       ) : (
-        <>
-          {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
-            <ol className="lbh-list mobile-working-work-order-list">
-              <MobileWorkingWorkOrderListItems
-                workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
-                currentUser={currentUser}
-              />
-            </ol>
-          ) : (
-            <WarningInfoBox
-              header="No work orders displayed"
-              text="Please contact your supervisor"
-            />
-          )}
-          {error && <ErrorMessage label={error} />}
-        </>
+        <></>
       )}
+      <div className="mobile-work-order-container">
+        <h3 className="lbh-heading-h3">
+          {longMonthWeekday(currentDate, { commaSeparated: false })}
+        </h3>
+        {sortedWorkOrders === null ? (
+          <Spinner />
+        ) : (
+          <>
+            {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
+              <ol className="lbh-list mobile-working-work-order-list">
+                <MobileWorkingWorkOrderListItems
+                  workOrders={[...sortedWorkOrders, ...visitedWorkOrders]}
+                  currentUser={currentUser}
+                />
+              </ol>
+            ) : (
+              <WarningInfoBox
+                header="No work orders displayed"
+                text="Please contact your supervisor"
+              />
+            )}
+            {error && <ErrorMessage label={error} />}
+          </>
+        )}
+      </div>
     </>
   )
 }
