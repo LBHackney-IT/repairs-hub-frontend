@@ -15,22 +15,28 @@ import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListIte
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
 
 const SIXTY_SECONDS = 60 * 1000
-let toggleStatus
 
 const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const router = useRouter()
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
+  const [toggleStatus, setToggleStatus] = useState(null)
 
   const [error, setError] = useState()
 
-  const featureToggleStatus = async () => {
-    const featureToggleDataStatus = await fetchSimpleFeatureToggles()
-    return featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled
-  }
-
   const titles = ['Current Work Orders', 'Past Work Orders']
+
+  const featureToggleStatus = async () => {
+    try {
+      const featureToggleDataStatus = await fetchSimpleFeatureToggles()
+      setToggleStatus(
+        featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled
+      )
+    } catch (error) {
+      console.error('Error fetching toggle status:', error)
+    }
+  }
 
   const handleTabClick = (index) => {
     index === 1 && router.push('/pastworkorders')
@@ -48,7 +54,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         method: 'get',
         path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
       })
-      toggleStatus = await featureToggleStatus()
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
@@ -78,6 +83,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
+    featureToggleStatus()
 
     const intervalId = setInterval(() => {
       getOperativeWorkOrderView()
