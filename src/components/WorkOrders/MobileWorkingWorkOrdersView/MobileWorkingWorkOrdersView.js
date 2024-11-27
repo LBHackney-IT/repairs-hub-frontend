@@ -146,10 +146,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
           <Spinner />
         ) : (
           <>
-            <p>
-              Using DRS appointments:{' '}
-              {toggleStatus.useDrsAppointments.toString()}
-            </p>
             {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
               <ol className="lbh-list mobile-working-work-order-list">
                 <MobileWorkingWorkOrderListItems
