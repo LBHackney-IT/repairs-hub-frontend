@@ -52,7 +52,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
     options.forEach((option, index) => {
       const expectedDate = lastFiveWorkingDays[index]
       // Check the text content matches the expected day display
-      const formattedDate = format(expectedDate, 'MMM dd')
+      const formattedDate = format(expectedDate, 'EEE d MMM')
 
       expect(option.textContent).toContain(formattedDate)
     })
@@ -76,7 +76,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const expectedDate = lastFiveWorkingDays[index]
 
       // Check the text content matches the expected day display
-      const formattedDate = format(expectedDate, 'MMM dd')
+      const formattedDate = format(expectedDate, 'EEE d MMM')
       expect(option.textContent).toContain(formattedDate)
     })
     expect(asFragment()).toMatchSnapshot()
@@ -98,7 +98,7 @@ describe('PastWorkOrdersDatePicker Component', () => {
       const expectedDate = lastFiveWorkingDays[index]
 
       // Check the text content matches the expected day display
-      const formattedDate = format(expectedDate.d, 'MMM dd')
+      const formattedDate = format(expectedDate.d, 'EEE d MMM')
       expect(option.textContent).toContain(formattedDate)
     })
     expect(asFragment()).toMatchSnapshot()
