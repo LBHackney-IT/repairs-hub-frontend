@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PastWorkOrdersDatePicker Component should be populated with the previous 5 working days 1`] = `
+<DocumentFragment>
+  <div
+    class="date-picker-container"
+  >
+    <label
+      class="lbh-heading-h2"
+      for="date-picker"
+    >
+      Select date
+    </label>
+    <select
+      id="date-picker"
+      name="date-picker"
+    >
+      <option
+        data-testid="date-option"
+        value="1723161600000"
+      >
+        Fri 9 Aug
+      </option>
+      <option
+        data-testid="date-option"
+        value="1723075200000"
+      >
+        Thu 8 Aug
+      </option>
+      <option
+        data-testid="date-option"
+        value="1722988800000"
+      >
+        Wed 7 Aug
+      </option>
+      <option
+        data-testid="date-option"
+        value="1722902400000"
+      >
+        Tue 6 Aug
+      </option>
+      <option
+        data-testid="date-option"
+        value="1722816000000"
+      >
+        Mon 5 Aug
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PastWorkOrdersDatePicker Component should be populated with the previous 5 working days 2`] = `
+<DocumentFragment>
+  <div
+    class="date-picker-container"
+  >
+    <label
+      class="lbh-heading-h2"
+      for="date-picker"
+    >
+      Select date
+    </label>
+    <select
+      id="date-picker"
+      name="date-picker"
+    >
+      <option
+        data-testid="date-option"
+        value="1712793600000"
+      >
+        Thu 11 Apr
+      </option>
+      <option
+        data-testid="date-option"
+        value="1712707200000"
+      >
+        Wed 10 Apr
+      </option>
+      <option
+        data-testid="date-option"
+        value="1712620800000"
+      >
+        Tue 9 Apr
+      </option>
+      <option
+        data-testid="date-option"
+        value="1712534400000"
+      >
+        Mon 8 Apr
+      </option>
+      <option
+        data-testid="date-option"
+        value="1712275200000"
+      >
+        Fri 5 Apr
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`PastWorkOrdersDatePicker Component should be populated with the previous 5 working days spanning a different year 1`] = `
+<DocumentFragment>
+  <div
+    class="date-picker-container"
+  >
+    <label
+      class="lbh-heading-h2"
+      for="date-picker"
+    >
+      Select date
+    </label>
+    <select
+      id="date-picker"
+      name="date-picker"
+    >
+      <option
+        data-testid="date-option"
+        value="1704067200000"
+      >
+        Mon 1 Jan
+      </option>
+      <option
+        data-testid="date-option"
+        value="1703808000000"
+      >
+        Fri 29 Dec
+      </option>
+      <option
+        data-testid="date-option"
+        value="1703721600000"
+      >
+        Thu 28 Dec
+      </option>
+      <option
+        data-testid="date-option"
+        value="1703635200000"
+      >
+        Wed 27 Dec
+      </option>
+      <option
+        data-testid="date-option"
+        value="1703548800000"
+      >
+        Tue 26 Dec
+      </option>
+    </select>
+  </div>
+</DocumentFragment>
+`;

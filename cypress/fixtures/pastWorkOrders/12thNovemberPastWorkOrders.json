@@ -1,0 +1,28 @@
+[
+  {
+    "appointment": {
+      "date": "2024-11-04",
+      "description": "Externally Managed Appointment",
+      "start": "08:00",
+      "end": "16:15",
+      "reason": "FIRST",
+      "note": null,
+      "assignedStart": "14:03",
+      "assignedEnd": "15:12",
+      "startedAt": "14:03"
+    },
+    "reference": 10420397,
+    "dateRaised": "2024-11-01T12:06:53.097007Z",
+    "lastUpdated": null,
+    "priority": "[E] EMERGENCY",
+    "priorityCode": null,
+    "property": "Ken House",
+    "propertyPostCode": "N100 2RR",
+    "owner": "HH General Building Repai",
+    "description": "Work order 12th November.",
+    "propertyReference": "00087229",
+    "tradeCode": "CP",
+    "tradeDescription": "Carpentry and Joinery - CP",
+    "status": "Completed"
+  }
+]

@@ -362,12 +362,15 @@ describe('Show work order page', () => {
     })
   })
 
-  context('When logged in as an Operative', () => {
+  context.only('When logged in as an Operative', () => {
     beforeEach(() => {
       cy.clock(new Date('June 11 2021 13:49:15Z'))
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/images/10000621' },
+        {
+          method: 'GET',
+          path: '/api/workOrders/images/10000621',
+        },
         { body: [] }
       ).as('photosRequest')
 

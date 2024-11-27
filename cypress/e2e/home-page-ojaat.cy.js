@@ -72,7 +72,7 @@ describe('Home page - one job at a time', () => {
         cy.visit('/')
         cy.wait('@operativesWorkOrders')
 
-        cy.get('.lbh-heading-h2').contains('Friday 11 June')
+        cy.get('.lbh-heading-h3').contains('Friday 11 June')
 
         cy.get('.appointment-details').should('have.length', 3)
 
@@ -154,7 +154,7 @@ describe('Home page - one job at a time', () => {
           cy.visit('/')
           cy.wait('@operativesWorkOrders')
 
-          cy.get('.lbh-heading-h2').contains('Friday 11 June')
+          cy.get('.lbh-heading-h3').contains('Friday 11 June')
 
           cy.get('.appointment-details').should('have.length', 3)
 

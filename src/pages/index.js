@@ -1,7 +1,8 @@
-import Search from '@/components/Search/Search'
+import { useRouter } from 'next/router'
+import { useMemo } from 'react'
+
 import Spinner from '@/components/Spinner'
-import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
-import MobileWorkingWorkOrdersView from '@/components/WorkOrders/MobileWorkingWorkOrdersView'
+
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
 import { ALL_ROLES } from '@/utils/user'
@@ -10,6 +11,10 @@ import {
   canSeeOperativeWorkOrders,
 } from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
+import Search from '../components/Search/Search'
+import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
+import MobileWorkingWorkOrdersView from '../components/WorkOrders/MobileWorkingWorkOrdersView/MobileWorkingWorkOrdersView'
+import WorkOrdersView from '@/components/WorkOrders/WorkOrdersView'
 
 const Home = ({ query }) => {
   const { user } = useContext(UserContext)
@@ -22,19 +27,32 @@ const Home = ({ query }) => {
       const defaultFilters = JSON.parse(
         localStorage.getItem('RH - default work order filters')
       )
-
       if (Object.entries(query).length === 0) {
         return (
-          <WorkOrdersView
-            pageNumber={1}
-            {...(defaultFilters && { query: defaultFilters })}
-          />
+          <>
+            <WorkOrdersView
+              pageNumber={1}
+              {...(defaultFilters && { query: defaultFilters })}
+            />
+          </>
         )
       } else {
-        return <WorkOrdersView query={query} />
+        return (
+          <>
+            <WorkOrdersView query={query} />
+          </>
+        )
       }
     } else if (user && canSeeOperativeWorkOrders(user)) {
-      return <MobileWorkingWorkOrdersView />
+      return (
+        <>
+          <CurrentUserWrapper>
+            {({ currentUser }) => (
+              <MobileWorkingWorkOrdersView currentUser={currentUser} />
+            )}
+          </CurrentUserWrapper>
+        </>
+      )
     } else {
       if (Object.entries(query).length === 0) {
         return <Search />

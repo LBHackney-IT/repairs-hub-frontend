@@ -46,6 +46,21 @@ export const daysAfter = (date, days) => {
   return new Date(date.getTime() + days * DAY)
 }
 
+export const getWorkingDaysBeforeDate = (date, numberOfDays) => {
+  let daysCountdown = Array(numberOfDays).fill('')
+  daysCountdown.forEach((_, index) => {
+    daysCountdown[index] = new Date(date.getTime() - numberOfDays * DAY)
+    numberOfDays -= 1
+  })
+
+  const removeWeekends = daysCountdown.filter(
+    (date) =>
+      date.toString().slice(0, 3) !== 'Sat' &&
+      date.toString().slice(0, 3) !== 'Sun'
+  )
+  return removeWeekends.reverse()
+}
+
 export const dateEqual = (date, otherDate) => {
   return date.getTime() === otherDate.getTime()
 }
