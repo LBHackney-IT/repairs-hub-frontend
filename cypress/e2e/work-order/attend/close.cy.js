@@ -19,6 +19,7 @@ describe('Closing my own work order', () => {
       {
         body: {
           followOnFunctionalityEnabled: false,
+          fetchAppointmentsFromDrs: true,
         },
       }
     ).as('feature-toggle')
