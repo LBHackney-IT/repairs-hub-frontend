@@ -91,7 +91,7 @@ describe('Closing my own work order', () => {
     ).as('workOrderCompleteRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/operatives/hu0001/workorders' },
+      { method: 'GET', path: '/api/operatives/hu0001/appointments' },
       { body: [] }
     )
 

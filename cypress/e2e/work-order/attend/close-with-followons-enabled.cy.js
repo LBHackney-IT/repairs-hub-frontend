@@ -92,7 +92,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     ).as('workOrderCompleteRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/operatives/hu0001/workorders' },
+      { method: 'GET', path: '/api/operatives/hu0001/appointments' },
       { body: [] }
     )
 
