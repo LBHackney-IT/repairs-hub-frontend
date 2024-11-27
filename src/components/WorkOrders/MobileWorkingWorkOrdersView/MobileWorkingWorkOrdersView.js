@@ -48,11 +48,16 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   const getOperativeWorkOrderView = async () => {
     setError(null)
+    const useDrsAppointments = true // fetchFeatureToggles().useDrsAppointments
 
     try {
+      const url = useDrsAppointments
+        ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
+        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`;
+
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
+        path: url,
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
