@@ -165,7 +165,6 @@ context('When an operative is logged in', () => {
         {
           body: {
             pastWorkOrdersFunctionalityEnabled: false,
-            fetchAppointmentsFromDrs: false,
           },
         }
       ).as('tab-toggle')
@@ -321,34 +320,6 @@ context('When an operative is logged in', () => {
       )
       cy.visit('/pastworkorders')
       cy.contains('Request failed with status code: 500')
-    })
-  })
-
-  context('When fetchAppointmentsFromDrs is enabled', () => {
-    it.only(`Calls the appointments endpoint`, () => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/simple-feature-toggle',
-        },
-        {
-          body: {
-            fetchAppointmentsFromDrs: true,
-          },
-        }
-      ).as('tab-toggle')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: `/api/operatives/${operativeId}/appointments`,
-        },
-        {
-          fixture: 'workOrders/workOrders11thNov.json',
-        }
-      ).as('operativesAppointments')
-
-      cy.visit('/')
-      cy.wait('@operativesAppointments')
     })
   })
 })

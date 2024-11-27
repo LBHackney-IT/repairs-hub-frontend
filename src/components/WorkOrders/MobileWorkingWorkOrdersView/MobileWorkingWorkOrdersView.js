@@ -81,6 +81,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
+    featureToggleStatus()
 
     const intervalId = setInterval(() => {
       getOperativeWorkOrderView()
