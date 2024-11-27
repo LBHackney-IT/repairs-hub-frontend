@@ -30,12 +30,12 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const featureToggleStatus = async () => {
     try {
       const featureToggleDataStatus = await fetchSimpleFeatureToggles()
-      setToggleStatus(
-        {
-          pastWorkOrdersFunctionalityEnabled: featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled || false,
-          useDrsAppointments: featureToggleDataStatus.fetchAppointmentsFromDrs || true,
-        }
-      )
+      setToggleStatus({
+        pastWorkOrdersFunctionalityEnabled:
+          featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled || false,
+        useDrsAppointments:
+          featureToggleDataStatus.fetchAppointmentsFromDrs || true,
+      })
     } catch (error) {
       console.error('Error fetching toggle status:', error)
     }
@@ -55,7 +55,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     try {
       const url = toggleStatus.fetchAppointmentsFromDrs
         ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
-        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`;
+        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
 
       const data = await frontEndApiRequest({
         method: 'get',
@@ -146,7 +146,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
           <Spinner />
         ) : (
           <>
-            <p>Using DRS appointments: {toggleStatus.useDrsAppointments.toString()}</p>
+            <p>
+              Using DRS appointments:{' '}
+              {toggleStatus.useDrsAppointments.toString()}
+            </p>
             {sortedWorkOrders?.length || visitedWorkOrders?.length ? (
               <ol className="lbh-list mobile-working-work-order-list">
                 <MobileWorkingWorkOrderListItems
