@@ -2,7 +2,6 @@
         display: flex;
         justify-content: flex-start;
         gap: 2px;
-        margin: 0 0 10px 0 !important;
         border: none !important; 
         }
         .v2-govuk-tabs__list-item {
@@ -40,7 +39,7 @@
                 display: flex;
                 justify-content: flex-start;
                 gap: 2px;
-                margin: 0 0 10px 0;
+                margin-bottom: 0 !important;
                 }
                 .v2-govuk-tabs__list-item {
                   display: block;

@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import { getWorkingDaysBeforeDate } from '@/utils/time'
 
 interface PastWorkOrdersDatePickerProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
@@ -17,7 +16,7 @@ const PastWorkOrdersDatePicker = ({
       </label>
       <select id="date-picker" name="date-picker" onChange={handleChange}>
         {lastFiveWorkingDays.map((day, index) => {
-          const formattedDate = format(day, 'MMM dd')
+          const formattedDate = format(day, 'EEE d MMM')
           return (
             <option data-testid={`date-option`} value={day} key={index}>
               {formattedDate}
