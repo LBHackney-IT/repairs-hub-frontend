@@ -19,31 +19,31 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1723161600000"
       >
-        Aug 09
+        Fri 9 Aug
       </option>
       <option
         data-testid="date-option"
         value="1723075200000"
       >
-        Aug 08
+        Thu 8 Aug
       </option>
       <option
         data-testid="date-option"
         value="1722988800000"
       >
-        Aug 07
+        Wed 7 Aug
       </option>
       <option
         data-testid="date-option"
         value="1722902400000"
       >
-        Aug 06
+        Tue 6 Aug
       </option>
       <option
         data-testid="date-option"
         value="1722816000000"
       >
-        Aug 05
+        Mon 5 Aug
       </option>
     </select>
   </div>
@@ -69,31 +69,31 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1712793600000"
       >
-        Apr 11
+        Thu 11 Apr
       </option>
       <option
         data-testid="date-option"
         value="1712707200000"
       >
-        Apr 10
+        Wed 10 Apr
       </option>
       <option
         data-testid="date-option"
         value="1712620800000"
       >
-        Apr 09
+        Tue 9 Apr
       </option>
       <option
         data-testid="date-option"
         value="1712534400000"
       >
-        Apr 08
+        Mon 8 Apr
       </option>
       <option
         data-testid="date-option"
         value="1712275200000"
       >
-        Apr 05
+        Fri 5 Apr
       </option>
     </select>
   </div>
@@ -119,31 +119,31 @@ exports[`PastWorkOrdersDatePicker Component should be populated with the previou
         data-testid="date-option"
         value="1704067200000"
       >
-        Jan 01
+        Mon 1 Jan
       </option>
       <option
         data-testid="date-option"
         value="1703808000000"
       >
-        Dec 29
+        Fri 29 Dec
       </option>
       <option
         data-testid="date-option"
         value="1703721600000"
       >
-        Dec 28
+        Thu 28 Dec
       </option>
       <option
         data-testid="date-option"
         value="1703635200000"
       >
-        Dec 27
+        Wed 27 Dec
       </option>
       <option
         data-testid="date-option"
         value="1703548800000"
       >
-        Dec 26
+        Tue 26 Dec
       </option>
     </select>
   </div>

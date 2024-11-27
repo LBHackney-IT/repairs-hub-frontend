@@ -24,11 +24,13 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const [selectedDate, setSelectedDate] = useState<Date>(yesterday)
   const targetDate = selectedDate.toISOString().split('T')[0]
 
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
   const lastFiveWorkingDays = getWorkingDaysBeforeDate(currentDate, 7)
 
   const getOperativeWorkOrderView = async () => {
     setError(null)
-
+    setIsLoading(true)
     try {
       const data = await frontEndApiRequest({
         method: 'get',
@@ -49,6 +51,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
         `Request failed with status code: ${e.response?.status} with message: ${e.response?.data?.message}`
       )
     }
+    setIsLoading(false)
   }
 
   useEffect(() => {
@@ -67,9 +70,11 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   }
 
   const handleDateChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setIsLoading(true)
     const selectedDate = event.target.value
     setSelectedDate(new Date(selectedDate))
   }
+
   return (
     <>
       <Meta title="Manage past work orders" />
@@ -78,27 +83,23 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
           handleChange={handleDateChange}
           lastFiveWorkingDays={lastFiveWorkingDays}
         />
-        {sortedWorkOrders === null && !error ? (
+        {isLoading ? (
           <Spinner />
+        ) : error ? (
+          <ErrorMessage label={error} />
+        ) : sortedWorkOrders?.length ? (
+          <ol className="lbh-list mobile-working-work-order-list">
+            <MobileWorkingPastWorkOrderListItems
+              workOrders={sortedWorkOrders}
+              currentUser={currentUser}
+            />
+          </ol>
         ) : (
-          <>
-            {sortedWorkOrders?.length ? (
-              <ol className="lbh-list mobile-working-work-order-list">
-                <MobileWorkingPastWorkOrderListItems
-                  workOrders={[...sortedWorkOrders]}
-                  currentUser={currentUser}
-                />
-              </ol>
-            ) : !error ? (
-              <WarningInfoBox
-                header="No work orders displayed"
-                text="Please contact your supervisor"
-                name="No jobs warning"
-              />
-            ) : (
-              <ErrorMessage label={error} />
-            )}
-          </>
+          <WarningInfoBox
+            header="No work orders displayed"
+            text="Please contact your supervisor"
+            name="No jobs warning"
+          />
         )}
       </div>
     </>
