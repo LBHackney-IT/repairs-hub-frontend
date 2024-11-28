@@ -21,22 +21,11 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
-  const [toggleStatus, setToggleStatus] = useState(null)
+  const [featureToggleStatus, setFeatureToggleStatus] = useState(null)
 
   const [error, setError] = useState()
 
   const titles = ['Current Work Orders', 'Past Work Orders']
-
-  const featureToggleStatus = async () => {
-    try {
-      const featureToggleDataStatus = await fetchSimpleFeatureToggles()
-      setToggleStatus(
-        featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled
-      )
-    } catch (error) {
-      console.error('Error fetching toggle status:', error)
-    }
-  }
 
   const handleTabClick = (index) => {
     index === 1 && router.push('/pastworkorders')
@@ -48,11 +37,14 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   const getOperativeWorkOrderView = async () => {
     setError(null)
-
     try {
+      const url = featureToggleStatus?.fetchAppointmentsFromDrs
+        ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
+        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
+
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/workorders`,
+        path: url,
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
@@ -78,12 +70,17 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const intervalRef = useRef(null)
 
   useEffect(() => {
-    // dont try fetch if currentUser not loaded yet
-    if (currentUser === null) return
+    fetchSimpleFeatureToggles().then((data) => {
+      setFeatureToggleStatus(data)
+    })
+  }, [])
+
+  useEffect(() => {
+    // Fetch after user and feature toggles are loaded
+    if (currentUser === null || featureToggleStatus === null) return
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
-    featureToggleStatus()
 
     const intervalId = setInterval(() => {
       getOperativeWorkOrderView()
@@ -94,7 +91,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     return () => {
       clearInterval(intervalRef.current)
     }
-  }, [currentUser?.operativePayrollNumber])
+  }, [currentUser?.operativePayrollNumber, featureToggleStatus])
 
   const sortWorkOrderItems = (currentUser, workOrders) => {
     const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
@@ -122,7 +119,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      {toggleStatus === true ? (
+      {featureToggleStatus?.pastWorkOrdersFunctionalityEnabled == true ? (
         <TabsVersionTwo
           titles={titles}
           onTabChange={handleTabClick}
