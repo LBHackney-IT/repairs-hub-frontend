@@ -91,6 +91,7 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
+        // '@photos',
       ])
 
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
@@ -193,6 +194,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
+              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -216,6 +218,7 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
+              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -240,6 +243,7 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
+            // '@photos',
           ])
 
           cy.get('.appointment-details').contains('Appointment details')
@@ -340,6 +344,7 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
+          // '@photos'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
