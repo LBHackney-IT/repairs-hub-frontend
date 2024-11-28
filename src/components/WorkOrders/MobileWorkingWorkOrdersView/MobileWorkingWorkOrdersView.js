@@ -21,6 +21,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
+  const [featureToggleStatus, setFeatureToggleStatus] = useState(null)
 
   const [error, setError] = useState()
 
@@ -34,20 +35,18 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     return router.pathname === '/pastworkorders' ? 1 : 0
   }, [router.pathname])
 
-  const featureToggleStatus = fetchSimpleFeatureToggles()
   const getOperativeWorkOrderView = async () => {
     setError(null)
-
     try {
-      const url =
-        featureToggleStatus.fetchAppointmentsFromDrs == true
-          ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
-          : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
+      const url = featureToggleStatus?.fetchAppointmentsFromDrs
+        ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
+        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
 
       const data = await frontEndApiRequest({
         method: 'get',
         path: url,
       })
+      console.log(url, featureToggleStatus)
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
@@ -72,8 +71,15 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const intervalRef = useRef(null)
 
   useEffect(() => {
-    // dont try fetch if currentUser not loaded yet
-    if (currentUser === null) return
+    fetchSimpleFeatureToggles().then((data) => {
+      setFeatureToggleStatus(data)
+    })
+  }, [])
+
+  useEffect(() => {
+    // Fetch after user and feature toggles are loaded
+    if (currentUser === null || featureToggleStatus === null)
+      return
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
@@ -87,7 +93,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     return () => {
       clearInterval(intervalRef.current)
     }
-  }, [currentUser?.operativePayrollNumber])
+  }, [currentUser?.operativePayrollNumber, featureToggleStatus])
 
   const sortWorkOrderItems = (currentUser, workOrders) => {
     const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
