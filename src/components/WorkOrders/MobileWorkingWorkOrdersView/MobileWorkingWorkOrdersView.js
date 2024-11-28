@@ -26,7 +26,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   const titles = ['Current Work Orders', 'Past Work Orders']
 
-
   const handleTabClick = (index) => {
     index === 1 && router.push('/pastworkorders')
   }
@@ -40,9 +39,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     setError(null)
 
     try {
-      const url = featureToggleStatus.fetchAppointmentsFromDrs == true
-        ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
-        : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
+      const url =
+        featureToggleStatus.fetchAppointmentsFromDrs == true
+          ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
+          : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
 
       const data = await frontEndApiRequest({
         method: 'get',
