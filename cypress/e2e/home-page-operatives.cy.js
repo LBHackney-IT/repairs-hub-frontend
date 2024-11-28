@@ -166,7 +166,6 @@ context('When an operative is logged in', () => {
           body: {
             pastWorkOrdersFunctionalityEnabled: false,
             fetchAppointmentsFromDrs: false,
-
           },
         }
       ).as('tab-toggle')
