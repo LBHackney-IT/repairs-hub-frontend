@@ -78,8 +78,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
   useEffect(() => {
     // Fetch after user and feature toggles are loaded
-    if (currentUser === null || featureToggleStatus === null)
-      return
+    if (currentUser === null || featureToggleStatus === null) return
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()

@@ -346,13 +346,12 @@ context('When an operative is logged in', () => {
           fixture: 'workOrders/workOrders11thNov.json',
         }
       ).as('operativesAppointments')
-  
+
       cy.visit('/')
       cy.wait('@operativesAppointments')
     })
   })
 })
-
 
 context('When a one job at a time operative is logged in', () => {
   beforeEach(() => {
