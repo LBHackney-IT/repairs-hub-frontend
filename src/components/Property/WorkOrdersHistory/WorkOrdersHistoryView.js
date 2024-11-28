@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
+import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
@@ -12,6 +13,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
+  const [filter, setFilter] = useState('CCTV Engineer')
 
   const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
     setError(null)
@@ -55,16 +57,23 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
     getWorkOrdersHistoryView(propertyReference, newPageNumber)
   }
 
+  const handleChange = (e) => {
+    setFilter(e.target.value)
+  }
+
   const renderWorkOrdersHistoryTable = () => {
     if (workOrders?.length > 0) {
       return (
-        <WorkOrdersHistoryTable
-          workOrders={workOrders}
-          tabName={tabName}
-          pageNumber={pageNumber}
-          loadMoreWorkOrders={loadMoreWorkOrders}
-          pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
-        />
+        <>
+          <WorkOrdersHistoryFilter handleChange={handleChange} />
+          <WorkOrdersHistoryTable
+            workOrders={workOrders}
+            tabName={tabName}
+            pageNumber={pageNumber}
+            loadMoreWorkOrders={loadMoreWorkOrders}
+            pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
+          />
+        </>
       )
     }
 
