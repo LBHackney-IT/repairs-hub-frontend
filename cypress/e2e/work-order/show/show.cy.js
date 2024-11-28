@@ -372,7 +372,7 @@ describe('Show work order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/appointments',
+          path: '/api/operatives/hu0001/workorders',
         },
         {
           fixture: 'operatives/workOrders.json',

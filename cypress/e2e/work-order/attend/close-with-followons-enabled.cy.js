@@ -20,7 +20,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       {
         body: {
           followOnFunctionalityEnabled: true,
-          fetchAppointmentsFromDrs: true,
         },
       }
     ).as('feature-toggle')
@@ -93,7 +92,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     ).as('workOrderCompleteRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/operatives/hu0001/appointments' },
+      { method: 'GET', path: '/api/operatives/hu0001/workorders' },
       { body: [] }
     )
 

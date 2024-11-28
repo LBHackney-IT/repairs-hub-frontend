@@ -34,7 +34,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         pastWorkOrdersFunctionalityEnabled:
           featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled || false,
         fetchAppointmentsFromDrs:
-          featureToggleDataStatus.fetchAppointmentsFromDrs || true,
+          featureToggleDataStatus.fetchAppointmentsFromDrs || false,
       })
     } catch (error) {
       console.error('Error fetching toggle status:', error)

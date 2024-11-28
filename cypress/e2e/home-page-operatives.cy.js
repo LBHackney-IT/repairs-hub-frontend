@@ -34,7 +34,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/appointments',
+          path: '/api/operatives/hu0001/workorders',
         },
         {
           fixture: 'operatives/workOrders.json',
@@ -137,7 +137,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/appointments',
+          path: '/api/operatives/hu0001/workorders',
         },
         {
           body: [],
@@ -165,14 +165,13 @@ context('When an operative is logged in', () => {
         {
           body: {
             pastWorkOrdersFunctionalityEnabled: false,
-            fetchAppointmentsFromDrs: true,
           },
         }
       ).as('tab-toggle')
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/appointments`,
+          path: `/api/operatives/${operativeId}/workorders`,
         },
         {
           fixture: 'workOrders/workOrders11thNov.json',
@@ -188,7 +187,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/appointments`,
+          path: `/api/operatives/${operativeId}/workorders`,
         },
         {
           fixture: 'workOrders/workOrders11thNov.json',
@@ -352,7 +351,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/appointments',
+          path: '/api/operatives/hu0001/workorders',
         },
         {
           fixture: 'operatives/workOrders.json',
@@ -430,7 +429,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/appointments',
+          path: '/api/operatives/hu0001/workorders',
         },
         {
           body: [],
