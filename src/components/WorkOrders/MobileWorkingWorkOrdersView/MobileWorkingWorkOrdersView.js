@@ -46,7 +46,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         method: 'get',
         path: url,
       })
-      console.log(url, featureToggleStatus)
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
       const visitedWorkOrders = workOrders.filter((wo) => wo.hasBeenVisited())
