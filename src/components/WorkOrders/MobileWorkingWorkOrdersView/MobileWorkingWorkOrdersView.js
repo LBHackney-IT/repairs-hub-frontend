@@ -21,25 +21,11 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
-  const [toggleStatus, setToggleStatus] = useState(null)
 
   const [error, setError] = useState()
 
   const titles = ['Current Work Orders', 'Past Work Orders']
 
-  const featureToggleStatus = async () => {
-    try {
-      const featureToggleDataStatus = await fetchSimpleFeatureToggles()
-      setToggleStatus({
-        pastWorkOrdersFunctionalityEnabled:
-          featureToggleDataStatus.pastWorkOrdersFunctionalityEnabled || false,
-        fetchAppointmentsFromDrs:
-          featureToggleDataStatus.fetchAppointmentsFromDrs || false,
-      })
-    } catch (error) {
-      console.error('Error fetching toggle status:', error)
-    }
-  }
 
   const handleTabClick = (index) => {
     index === 1 && router.push('/pastworkorders')
@@ -49,11 +35,12 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     return router.pathname === '/pastworkorders' ? 1 : 0
   }, [router.pathname])
 
+  const featureToggleStatus = fetchSimpleFeatureToggles()
   const getOperativeWorkOrderView = async () => {
     setError(null)
 
     try {
-      const url = toggleStatus.fetchAppointmentsFromDrs
+      const url = featureToggleStatus.fetchAppointmentsFromDrs == true
         ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
         : `/api/operatives/${currentUser.operativePayrollNumber}/workorders`
 
@@ -90,7 +77,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
-    featureToggleStatus()
 
     const intervalId = setInterval(() => {
       getOperativeWorkOrderView()
@@ -129,7 +115,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      {toggleStatus?.pastWorkOrdersFunctionalityEnabled === true ? (
+      {featureToggleStatus?.pastWorkOrdersFunctionalityEnabled == true ? (
         <TabsVersionTwo
           titles={titles}
           onTabChange={handleTabClick}
