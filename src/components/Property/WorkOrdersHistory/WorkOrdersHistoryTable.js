@@ -56,7 +56,7 @@ const WorkOrdersHistoryTable = ({
             <WorkOrdersHistoryRow
               key={index}
               reference={workOrder.reference}
-              dateRaised={workOrder.dateRaised}
+              dateRaised={new Date(workOrder.dateRaised)}
               tradeDescription={workOrder.tradeDescription}
               description={workOrder.description}
               status={workOrder.status}
@@ -74,7 +74,7 @@ WorkOrdersHistoryTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
       reference: PropTypes.number,
-      dateRaised: PropTypes.instanceOf(Date),
+      dateRaised: PropTypes.string,
       tradeDescription: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,
