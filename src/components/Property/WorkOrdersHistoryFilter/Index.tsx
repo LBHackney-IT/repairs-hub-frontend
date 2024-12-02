@@ -9,6 +9,7 @@ const WorkOrdersHistoryFilter = ({
   handleChange,
 }: WorkOrdersHistoryFilterProps) => {
   const [trades, setTrades] = useState(null)
+
   const getTrades = async () => {
     try {
       const data = await fetchTrades()
@@ -24,7 +25,7 @@ const WorkOrdersHistoryFilter = ({
   return (
     <div className="trade-picker-container">
       <label htmlFor="trade-picker" className="lbh-heading-h2">
-        Filter Work Orders
+        Filter by trade:
       </label>
       {trades !== null && (
         <select id="trade-picker" name="trade-picker" onChange={handleChange}>
@@ -40,7 +41,6 @@ const WorkOrdersHistoryFilter = ({
               </option>
             )
           })}
-          )
         </select>
       )}
     </div>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
 import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter'
 import Spinner from '../../Spinner'
@@ -13,7 +13,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [filter, setFilter] = useState('CCTV Engineer')
+  const [tradeToFilterBy, setTradeToFilterBy] = useState(null)
 
   const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
     setError(null)
@@ -58,8 +58,15 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   }
 
   const handleChange = (e) => {
-    setFilter(e.target.value)
+    setTradeToFilterBy(e.target.value)
   }
+
+  const filteredOrders = useMemo(() => {
+    if (!tradeToFilterBy) return null
+    return workOrders.filter((order) =>
+      order.tradeDescription.includes(tradeToFilterBy)
+    )
+  }, [tradeToFilterBy, workOrders])
 
   const renderWorkOrdersHistoryTable = () => {
     if (workOrders?.length > 0) {
@@ -67,7 +74,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
         <>
           <WorkOrdersHistoryFilter handleChange={handleChange} />
           <WorkOrdersHistoryTable
-            workOrders={workOrders}
+            workOrders={filteredOrders || workOrders}
             tabName={tabName}
             pageNumber={pageNumber}
             loadMoreWorkOrders={loadMoreWorkOrders}
@@ -81,7 +88,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
       return (
         <>
           <h2 className="lbh-heading-h2">{tabName}</h2>
-
+          <WorkOrdersHistoryFilter handleChange={handleChange} />
           <div>
             <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
             <h4 className="lbh-heading-h4">There are no historical repairs</h4>
