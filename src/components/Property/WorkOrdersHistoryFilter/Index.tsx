@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchTrades } from '../../../components/BackOffice/AddSORCodes/utils'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 interface WorkOrdersHistoryFilterProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
@@ -12,8 +12,11 @@ const WorkOrdersHistoryFilter = ({
 
   const getTrades = async () => {
     try {
-      const data = await fetchTrades()
-      setTrades(data)
+      const workOrderFilters = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/filter/WorkOrder',
+      })
+      setTrades(workOrderFilters.Trades)
     } catch (e) {
       console.error('An error has occured:', e.response)
     }
@@ -30,7 +33,7 @@ const WorkOrdersHistoryFilter = ({
       {trades !== null && (
         <select id="trade-picker" name="trade-picker" onChange={handleChange}>
           {trades.map((trade, index) => {
-            const tradeName = trade.name
+            const tradeName = trade.description
             return (
               <option
                 data-testid={`trade-option`}
