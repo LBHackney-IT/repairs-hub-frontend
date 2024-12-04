@@ -43,11 +43,6 @@ exports[`Tabs component should render properly 1`] = `
       class="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
       id="work-orders-history-tab"
     >
-      <h2
-        class="lbh-heading-h2"
-      >
-        Work orders history
-      </h2>
       <div>
         <hr
           class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
@@ -55,7 +50,7 @@ exports[`Tabs component should render properly 1`] = `
         <h4
           class="lbh-heading-h4"
         >
-          There are no historical repairs
+          There are no historical repairs for this property.
         </h4>
       </div>
     </div>
