@@ -37,12 +37,7 @@ const LatestChangesView = () => {
           closing the work order:
         </p>
 
-        <Image
-          src={closeWorkOrder}
-          width={300}
-          height={300}
-          alt="Close work order"
-        />
+        <Image src={closeWorkOrder} width={600} alt="Close work order" />
 
         <p className="govuk-!-margin-bottom-5">
           You can still add your photos that are relevant to the job you have
@@ -60,12 +55,7 @@ const LatestChangesView = () => {
           first question.
         </p>
 
-        <Image
-          src={detailsOfFurtherWork}
-          width={300}
-          height={600}
-          alt="Close work order"
-        />
+        <Image src={detailsOfFurtherWork} width={600} alt="Close work order" />
 
         <p className="govuk-!-margin-bottom-5">
           At the bottom of the follow on form you will be able to add photos to
@@ -73,12 +63,7 @@ const LatestChangesView = () => {
           that will help the admin team raise the new work order:
         </p>
 
-        <Image
-          src={additionalNotes}
-          width={600}
-          height={300}
-          alt="Close work order"
-        />
+        <Image src={additionalNotes} width={600} alt="Close work order" />
 
         <h2 className="govuk-heading-l govuk-!-margin-bottom-5 govuk-!-margin-top-8">
           How will it impact how I do my job?
