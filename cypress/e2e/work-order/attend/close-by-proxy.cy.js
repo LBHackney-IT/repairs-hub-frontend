@@ -11,6 +11,7 @@ describe('Closing a work order on behalf of an operative', () => {
       {
         body: {
           followOnFunctionalityEnabled: false,
+          fetchAppointmentsFromDrs: false,
         },
       }
     ).as('feature-toggle')
