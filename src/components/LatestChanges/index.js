@@ -142,7 +142,7 @@ const LatestChangesView = () => {
           </li>
           <li>
             If you have any questions about the technical functionality or how
-            it works, contact our Housing Product team at
+            it works, contact our Housing Product team at{' '}
             <a href="mailto:repairshub.feedback@hackney.gov.uk">
               repairshub.feedback@hackney.gov.uk
             </a>
