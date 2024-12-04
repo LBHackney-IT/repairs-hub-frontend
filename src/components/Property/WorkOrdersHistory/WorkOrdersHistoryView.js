@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import WorkOrdersHistoryTable from './WorkOrdersHistoryTable'
-import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
@@ -13,7 +12,6 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
   const [workOrders, setWorkOrders] = useState([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const [tradeToFilterBy, setTradeToFilterBy] = useState(null)
 
   const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
     setError(null)
@@ -57,24 +55,12 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
     getWorkOrdersHistoryView(propertyReference, newPageNumber)
   }
 
-  const handleChange = (e) => {
-    setTradeToFilterBy(e.target.value)
-  }
-
-  const filteredOrders = useMemo(() => {
-    if (!tradeToFilterBy) return null
-    return workOrders.filter((order) =>
-      order.tradeDescription.includes(tradeToFilterBy)
-    )
-  }, [tradeToFilterBy, workOrders])
-
   const renderWorkOrdersHistoryTable = () => {
     if (workOrders?.length > 0) {
       return (
         <>
-          <WorkOrdersHistoryFilter handleChange={handleChange} />
           <WorkOrdersHistoryTable
-            workOrders={filteredOrders || workOrders}
+            workOrders={workOrders}
             tabName={tabName}
             pageNumber={pageNumber}
             loadMoreWorkOrders={loadMoreWorkOrders}
@@ -87,11 +73,11 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
     if (!error) {
       return (
         <>
-          <h2 className="lbh-heading-h2">{tabName}</h2>
-          <WorkOrdersHistoryFilter handleChange={handleChange} />
           <div>
             <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-            <h4 className="lbh-heading-h4">There are no historical repairs</h4>
+            <h4 className="lbh-heading-h4">
+              There are no historical repairs for this property.
+            </h4>
           </div>
         </>
       )

@@ -1,9 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
+import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 
 const WorkOrdersHistoryTable = ({
   workOrders,
@@ -13,6 +14,7 @@ const WorkOrdersHistoryTable = ({
   pageSize,
 }) => {
   const { user } = useContext(UserContext)
+  const [tradeToFilterBy, setTradeToFilterBy] = useState(null)
 
   const moreWorkOrdersAvailable = () => {
     // TODO: Replace with a real count from the API
@@ -37,36 +39,96 @@ const WorkOrdersHistoryTable = ({
     }
   }
 
-  return (
-    <>
-      <h2 className="lbh-heading-h2">{tabName}</h2>
+  const handleChange = (e) => {
+    setTradeToFilterBy(e.target.value)
+  }
 
-      <Table className="govuk-!-margin-top-5 work-orders-history-table">
-        <THead>
-          <TR className="lbh-body">
-            {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
-            <TH scope="col">Date raised</TH>
-            <TH scope="col">Trade</TH>
-            <TH scope="col">Status</TH>
-            <TH scope="col">Description</TH>
-          </TR>
-        </THead>
-        <TBody>
-          {workOrders.map((workOrder, index) => (
-            <WorkOrdersHistoryRow
-              key={index}
-              reference={workOrder.reference}
-              dateRaised={new Date(workOrder.dateRaised)}
-              tradeDescription={workOrder.tradeDescription}
-              description={workOrder.description}
-              status={workOrder.status}
-            />
-          ))}
-        </TBody>
-      </Table>
-      {workOrders && renderLoadMoreWorkOrders()}
-    </>
-  )
+  const filteredOrders = useMemo(() => {
+    return workOrders.filter((order) =>
+      order.tradeDescription.includes(tradeToFilterBy)
+    )
+  }, [tradeToFilterBy, workOrders])
+
+  if (!tradeToFilterBy && workOrders?.length > 0) {
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <Table className="govuk-!-margin-top-5 work-orders-history-table">
+          <THead>
+            <TR className="lbh-body">
+              {user && canAccessWorkOrder(user) && (
+                <TH scope="col">Reference</TH>
+              )}
+              <TH scope="col">Date raised</TH>
+              <TH scope="col">Trade</TH>
+              <TH scope="col">Status</TH>
+              <TH scope="col">Description</TH>
+            </TR>
+          </THead>
+          <TBody>
+            {workOrders.map((workOrder, index) => (
+              <WorkOrdersHistoryRow
+                key={index}
+                reference={workOrder.reference}
+                dateRaised={new Date(workOrder.dateRaised)}
+                tradeDescription={workOrder.tradeDescription}
+                description={workOrder.description}
+                status={workOrder.status}
+              />
+            ))}
+          </TBody>
+        </Table>
+        {workOrders && renderLoadMoreWorkOrders()}
+      </>
+    )
+  }
+
+  if (filteredOrders?.length > 0) {
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <Table className="govuk-!-margin-top-5 work-orders-history-table">
+          <THead>
+            <TR className="lbh-body">
+              {user && canAccessWorkOrder(user) && (
+                <TH scope="col">Reference</TH>
+              )}
+              <TH scope="col">Date raised</TH>
+              <TH scope="col">Trade</TH>
+              <TH scope="col">Status</TH>
+              <TH scope="col">Description</TH>
+            </TR>
+          </THead>
+          <TBody>
+            {filteredOrders.map((workOrder, index) => (
+              <WorkOrdersHistoryRow
+                key={index}
+                reference={workOrder.reference}
+                dateRaised={new Date(workOrder.dateRaised)}
+                tradeDescription={workOrder.tradeDescription}
+                description={workOrder.description}
+                status={workOrder.status}
+              />
+            ))}
+          </TBody>
+        </Table>
+      </>
+    )
+  }
+
+  if (tradeToFilterBy && filteredOrders.length === 0) {
+    return (
+      <>
+        <h2 className="lbh-heading-h2">{tabName}</h2>
+        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <h4 className="lbh-heading-h4">
+          There are no historical repairs with {tradeToFilterBy}.
+        </h4>
+      </>
+    )
+  }
 }
 
 WorkOrdersHistoryTable.propTypes = {
@@ -86,3 +148,64 @@ WorkOrdersHistoryTable.propTypes = {
 }
 
 export default WorkOrdersHistoryTable
+
+// if (!tradeToFilterBy && workOrders?.length > 0) {
+//   return (
+//     <>
+//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
+//       <WorkOrdersHistoryTable
+//         workOrders={workOrders}
+//         tabName={tabName}
+//         pageNumber={pageNumber}
+//         loadMoreWorkOrders={loadMoreWorkOrders}
+//         pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
+//       />
+//     </>
+//   )
+// }
+
+// if (filteredOrders?.length > 0) {
+//   return (
+//     <>
+//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
+//       <WorkOrdersHistoryTable
+//         workOrders={filteredOrders}
+//         tabName={tabName}
+//         pageNumber={pageNumber}
+//         loadMoreWorkOrders={loadMoreWorkOrders}
+//         pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
+//       />
+//     </>
+//   )
+// }
+
+// if (!tradeToFilterBy && workOrders.length === 0) {
+//   // No work orders available
+//   return (
+//     <>
+//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
+//       <div>
+//         <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+//         <h4 className="lbh-heading-h4">
+//           There are no historical repairs for this property.
+//         </h4>
+//       </div>
+//     </>
+//   )
+// }
+
+// if (tradeToFilterBy && filteredOrders.length === 0) {
+//   // No work orders within the filter
+//   return (
+//     <>
+//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
+//       <div>
+//         <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
+//         <h4 className="lbh-heading-h4">
+//           There are no historical repairs with {tradeToFilterBy}.
+//         </h4>
+//       </div>
+//     </>
+//   )
+// }
+// }
