@@ -120,7 +120,6 @@ const MobileWorkingCloseWorkOrderForm = ({
               <TextArea
                 name="workOrderPhotoDescription"
                 label="Photo description"
-                showAsOptional
                 register={register}
               />
             )}
@@ -198,7 +197,6 @@ const MobileWorkingCloseWorkOrderForm = ({
                 <TextArea
                   name="followOnPhotoDescription"
                   label="Photo description"
-                  showAsOptional
                   register={register}
                 />
               )}
