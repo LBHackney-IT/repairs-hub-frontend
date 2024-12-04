@@ -29,7 +29,7 @@ const WorkOrdersHistoryFilter = ({
 
   return (
     <div className="trade-picker-container">
-      <label htmlFor="trade-picker" className="lbh-heading-h4">
+      <label htmlFor="trade-picker" className="govuk-label lbh-label">
         Filter by trade:
       </label>
       {trades !== null && (
