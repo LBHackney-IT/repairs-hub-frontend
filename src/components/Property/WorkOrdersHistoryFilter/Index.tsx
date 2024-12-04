@@ -33,14 +33,21 @@ const WorkOrdersHistoryFilter = ({
         Filter by trade:
       </label>
       {trades !== null && (
-        <select id="trade-picker" name="trade-picker" onChange={handleChange}>
+        <select
+          id="trade-picker"
+          className="govuk-select lbh-select"
+          name="trade-picker"
+          onChange={handleChange}
+          data-testid="trade-picker"
+        >
           {trades.map((trade, index) => {
             const tradeName = trade.description
             return (
               <option
                 data-testid={`trade-option`}
                 value={trade.name}
-                key={index}
+                key={trade.name}
+                className="govuk-select lbh-select"
               >
                 {tradeName}
               </option>
