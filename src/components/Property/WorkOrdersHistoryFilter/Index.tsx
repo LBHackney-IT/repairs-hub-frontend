@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
-import { Button } from '../../Form'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 interface WorkOrdersHistoryFilterProps {
   handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
-  clearFilters: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  clearFilters: () => void
 }
 
 const WorkOrdersHistoryFilter = ({
@@ -52,7 +51,7 @@ const WorkOrdersHistoryFilter = ({
       <a
         className="lbh-link lbh-body-xs"
         href="#work-orders-history-tab"
-        onClick={(e) => clearFilters(e)}
+        onClick={clearFilters}
       >
         Clear filters
       </a>
