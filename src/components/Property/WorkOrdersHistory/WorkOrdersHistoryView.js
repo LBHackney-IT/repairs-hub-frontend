@@ -73,6 +73,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
     if (!error) {
       return (
         <>
+          <h2 className="lbh-heading-h2">{tabName}</h2>
           <div>
             <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
             <h4 className="lbh-heading-h4">
