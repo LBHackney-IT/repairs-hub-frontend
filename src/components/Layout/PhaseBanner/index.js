@@ -7,7 +7,7 @@ const PhaseBanner = () => {
         {/* <h3 className="lbh-announcement__title">Site-wide announcement</h3> */}
         <div className="lbh-announcement__content">
           <p className="lbh-body-s">
-            You can now add photos to Repairs Hub!{' '}
+            Follow on functionality in Repairs Hub!{' '}
             <Link className="lbh-link" href="/latest-changes">
               Read more
             </Link>{' '}
