@@ -49,11 +49,18 @@ const WorkOrdersHistoryTable = ({
     )
   }, [tradeToFilterBy, workOrders])
 
+  const clearFilters = () => {
+    setTradeToFilterBy(null)
+  }
+
   if (!tradeToFilterBy && workOrders?.length > 0) {
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <WorkOrdersHistoryFilter
+          handleChange={handleChange}
+          clearFilters={clearFilters}
+        />
         <Table className="govuk-!-margin-top-5 work-orders-history-table">
           <THead>
             <TR className="lbh-body">
@@ -88,7 +95,10 @@ const WorkOrdersHistoryTable = ({
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <WorkOrdersHistoryFilter
+          handleChange={handleChange}
+          clearFilters={clearFilters}
+        />
         <Table className="govuk-!-margin-top-5 work-orders-history-table">
           <THead>
             <TR className="lbh-body">
@@ -122,7 +132,10 @@ const WorkOrdersHistoryTable = ({
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter handleChange={handleChange} />
+        <WorkOrdersHistoryFilter
+          handleChange={handleChange}
+          clearFilters={clearFilters}
+        />
         <h4 className="lbh-heading-h4">
           There are no historical repairs with {tradeToFilterBy}.
         </h4>
@@ -148,64 +161,3 @@ WorkOrdersHistoryTable.propTypes = {
 }
 
 export default WorkOrdersHistoryTable
-
-// if (!tradeToFilterBy && workOrders?.length > 0) {
-//   return (
-//     <>
-//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
-//       <WorkOrdersHistoryTable
-//         workOrders={workOrders}
-//         tabName={tabName}
-//         pageNumber={pageNumber}
-//         loadMoreWorkOrders={loadMoreWorkOrders}
-//         pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
-//       />
-//     </>
-//   )
-// }
-
-// if (filteredOrders?.length > 0) {
-//   return (
-//     <>
-//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
-//       <WorkOrdersHistoryTable
-//         workOrders={filteredOrders}
-//         tabName={tabName}
-//         pageNumber={pageNumber}
-//         loadMoreWorkOrders={loadMoreWorkOrders}
-//         pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
-//       />
-//     </>
-//   )
-// }
-
-// if (!tradeToFilterBy && workOrders.length === 0) {
-//   // No work orders available
-//   return (
-//     <>
-//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
-//       <div>
-//         <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-//         <h4 className="lbh-heading-h4">
-//           There are no historical repairs for this property.
-//         </h4>
-//       </div>
-//     </>
-//   )
-// }
-
-// if (tradeToFilterBy && filteredOrders.length === 0) {
-//   // No work orders within the filter
-//   return (
-//     <>
-//       {/* <WorkOrdersHistoryFilter handleChange={handleChange} /> */}
-//       <div>
-//         <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-//         <h4 className="lbh-heading-h4">
-//           There are no historical repairs with {tradeToFilterBy}.
-//         </h4>
-//       </div>
-//     </>
-//   )
-// }
-// }
