@@ -89,7 +89,7 @@ describe('Show property', () => {
     })
 
     context('when no repairs have been raised on the property', () => {
-      it.only('Displays no repairs text', () => {
+      it('Displays no repairs text', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory'])
         cy.get('.govuk-tabs__tab').contains('Work orders history').click()
