@@ -13,6 +13,7 @@ import Meta from '../../Meta'
 import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListItems'
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
+import { Button } from '../../Form'
 
 const SIXTY_SECONDS = 60 * 1000
 
@@ -22,6 +23,8 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [featureToggleStatus, setFeatureToggleStatus] = useState(null)
+
+  const [isLoading, setIsLoading] = useState(false)
 
   const [error, setError] = useState()
 
@@ -36,7 +39,12 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   }, [router.pathname])
 
   const getOperativeWorkOrderView = async () => {
+    if (currentUser === null || featureToggleStatus === null) return
+
     setError(null)
+
+    setIsLoading(true)
+
     try {
       const url = featureToggleStatus?.fetchAppointmentsFromDrs
         ? `/api/operatives/${currentUser.operativePayrollNumber}/appointments`
@@ -45,6 +53,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       const data = await frontEndApiRequest({
         method: 'get',
         path: url,
+        timeout: 5000,
       })
 
       const workOrders = data.map((wo) => new WorkOrder(wo))
@@ -54,7 +63,10 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
 
       setVisitedWorkOrders(visitedWorkOrders)
       setSortedWorkOrders(sortedWorkOrderItems)
+
+      setIsLoading(false)
     } catch (e) {
+      setIsLoading(false)
       setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
 
@@ -62,9 +74,15 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       setError(
         `Oops an error occurred with error status: ${
           e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
+        } with message: ${JSON.stringify(
+          e.response?.data?.message
+        )}: with code: ${e.code}`
       )
     }
+  }
+
+  const handleRefresh = () => {
+    getOperativeWorkOrderView()
   }
 
   const intervalRef = useRef(null)
@@ -130,10 +148,29 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         <></>
       )}
       <div className="mobile-work-order-container">
-        <h3 className="lbh-heading-h3">
-          {longMonthWeekday(currentDate, { commaSeparated: false })}
-        </h3>
-        {sortedWorkOrders === null ? (
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+          }}
+        >
+          <h3
+            className="lbh-heading-h3"
+            style={{ flexShrink: 0, marginRight: '15px', marginBottom: '15px' }}
+          >
+            {longMonthWeekday(currentDate, { commaSeparated: false })}
+          </h3>
+
+          <Button
+            style={{ marginTop: 0, marginBottom: '15px' }}
+            onClick={handleRefresh}
+            label="Refresh"
+            type="button"
+          />
+        </div>
+
+        {isLoading ? (
           <Spinner />
         ) : (
           <>
@@ -150,8 +187,12 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
                 text="Please contact your supervisor"
               />
             )}
-            {error && <ErrorMessage label={error} />}
           </>
+        )}
+        {error && (
+          <div>
+            <ErrorMessage label={error} />
+          </div>
         )}
       </div>
     </>
