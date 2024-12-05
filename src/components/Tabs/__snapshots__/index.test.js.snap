@@ -55,7 +55,7 @@ exports[`Tabs component should render properly 1`] = `
         <h4
           class="lbh-heading-h4"
         >
-          There are no historical repairs
+          There are no historical repairs for this property.
         </h4>
       </div>
     </div>
