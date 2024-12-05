@@ -70,12 +70,13 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       setVisitedWorkOrders(null)
       setSortedWorkOrders(null)
 
-
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${
           e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}: with code: ${e.code}`
+        } with message: ${JSON.stringify(
+          e.response?.data?.message
+        )}: with code: ${e.code}`
       )
     }
   }
@@ -146,19 +147,25 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
         <></>
       )}
       <div className="mobile-work-order-container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', flexWrap: "wrap" }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+          }}
+        >
           <h3
             className="lbh-heading-h3"
-            style={{ flexShrink: 0, marginRight: '15px', marginBottom: "15px" }}
+            style={{ flexShrink: 0, marginRight: '15px', marginBottom: '15px' }}
           >
             {longMonthWeekday(currentDate, { commaSeparated: false })}
           </h3>
 
           <Button
-            style={{ marginTop: 0, marginBottom: "15px" }}
+            style={{ marginTop: 0, marginBottom: '15px' }}
             onClick={handleRefresh}
             label="Refresh"
-            type='button'
+            type="button"
           />
         </div>
 
