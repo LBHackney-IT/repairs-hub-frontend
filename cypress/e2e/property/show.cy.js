@@ -113,6 +113,15 @@ describe('Show property', () => {
           { method: 'GET', path: '/api/workOrders/10000012/tasks' },
           { body: [] }
         )
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/filter/WorkOrder',
+          },
+          {
+            fixture: 'filter/trades.json',
+          }
+        ).as('trades')
 
         // Mock many properties for the first page of results
         let properties = [...Array(50).keys()]
@@ -135,7 +144,7 @@ describe('Show property', () => {
             description: 'A non-latest repair',
             propertyReference: '00012345',
             tradeCode: 'DE',
-            tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+            tradeDescription: 'Door Entry Engineer - DE',
             status: 'In Progress',
           }
         })
@@ -154,6 +163,20 @@ describe('Show property', () => {
           dateRaised: '2021-01-01T11:02:00.334849',
           description: 'The earliest repair for page one',
           status: 'Work complete',
+        }
+
+        properties[25] = {
+          reference: parseInt('10000025'),
+          dateRaised: '2021-01-22T11:02:00.334849',
+          lastUpdated: null,
+          priority: '2 [E] EMERGENCY',
+          property: '315 Banister House  Homerton High Street',
+          owner: 'Alphatrack (S) Systems Lt',
+          description: 'A non-latest repair',
+          propertyReference: '00012345',
+          tradeCode: 'DE',
+          tradeDescription: 'Plumbing',
+          status: 'In Progress',
         }
 
         cy.intercept(
@@ -204,7 +227,7 @@ describe('Show property', () => {
             cy.contains('10000050')
             cy.contains('1 Feb 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('In progress')
             cy.contains('The latest repair')
           })
@@ -213,11 +236,34 @@ describe('Show property', () => {
             cy.contains('10000001')
             cy.contains('1 Jan 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('Work complete')
             cy.contains('The earliest repair for page one')
           })
         })
+      })
+
+      it('Displays a dropdown populated with trades to filter by', () => {
+        cy.fixture('filter/trades.json').then((trades) => {
+          cy.contains('Filter by trade:')
+          trades.Trades.map((trade) => {
+            cy.get('select').contains(trade.description)
+          })
+        })
+      })
+
+      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+        cy.get('select').select('Door Entry Engineer')
+        cy.get('[data-ref] > :nth-child(3)').each(($el) => {
+          expect($el).to.contain('Door Entry Engineer')
+        })
+        cy.get('.trade-picker-container > .lbh-link').click()
+        cy.contains('Plumbing')
+      })
+
+      it.only('Displays error text when no work orders exist in filtered trade', () => {
+        cy.get('select').select('Electrical')
+        cy.contains('There are no historical repairs with Electrical')
       })
 
       it('Clicks the first repair of work orders history', () => {
@@ -246,7 +292,7 @@ describe('Show property', () => {
           cy.contains('10000000')
           cy.contains('1 Jan 2020')
           cy.contains('11:02')
-          cy.contains('DOOR ENTRY ENGINEER - DE')
+          cy.contains('Door Entry Engineer - DE')
           cy.contains('Work complete')
           cy.contains('The oldest repair')
         })
@@ -276,7 +322,7 @@ describe('Show property', () => {
                 description: 'The only repair',
                 propertyReference: '00012345',
                 tradeCode: 'DE',
-                tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+                tradeDescription: 'Door Entry Engineer - DE',
                 status: 'In Progress',
               },
             ],
