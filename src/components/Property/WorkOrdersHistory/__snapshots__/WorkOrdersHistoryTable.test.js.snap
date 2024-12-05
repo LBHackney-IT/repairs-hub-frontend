@@ -7,6 +7,22 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
   >
     Work orders history
   </h2>
+  <div
+    class="trade-picker-container"
+  >
+    <label
+      class="govuk-label lbh-label"
+      for="trade-picker"
+    >
+      Filter by trade:
+    </label>
+    <a
+      class="lbh-link lbh-body-xs"
+      href="#work-orders-history-tab"
+    >
+      Clear filters
+    </a>
+  </div>
   <table
     class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
@@ -151,6 +167,22 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
   >
     Work orders history
   </h2>
+  <div
+    class="trade-picker-container"
+  >
+    <label
+      class="govuk-label lbh-label"
+      for="trade-picker"
+    >
+      Filter by trade:
+    </label>
+    <a
+      class="lbh-link lbh-body-xs"
+      href="#work-orders-history-tab"
+    >
+      Clear filters
+    </a>
+  </div>
   <table
     class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
@@ -295,6 +327,22 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
   >
     Work orders history
   </h2>
+  <div
+    class="trade-picker-container"
+  >
+    <label
+      class="govuk-label lbh-label"
+      for="trade-picker"
+    >
+      Filter by trade:
+    </label>
+    <a
+      class="lbh-link lbh-body-xs"
+      href="#work-orders-history-tab"
+    >
+      Clear filters
+    </a>
+  </div>
   <table
     class="govuk-table lbh-table govuk-!-margin-top-5 work-orders-history-table"
   >
