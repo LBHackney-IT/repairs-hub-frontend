@@ -261,9 +261,11 @@ describe('Show property', () => {
         cy.contains('Plumbing')
       })
 
-      it.only('Displays error text when no work orders exist in filtered trade', () => {
+      it('Displays error text when no work orders exist in filtered trade', () => {
         cy.get('select').select('Electrical')
         cy.contains('There are no historical repairs with Electrical')
+        cy.get('.trade-picker-container > .lbh-link').click()
+        cy.contains('Door Entry Engineer')
       })
 
       it('Clicks the first repair of work orders history', () => {
