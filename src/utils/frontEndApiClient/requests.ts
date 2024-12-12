@@ -7,16 +7,19 @@ export const frontEndApiRequest = async ({
   params = null,
   requestData,
   paramsSerializer,
+  timeout,
 }: {
   method: Method
   path: string
   params?: object
   requestData?: object
   paramsSerializer?: any
+  timeout?: number
 }) => {
   const config: AxiosRequestConfig = {
     method: method,
     url: path,
+    timeout,
     ...(requestData && { data: requestData }),
     ...(paramsSerializer && { paramsSerializer }),
   }
