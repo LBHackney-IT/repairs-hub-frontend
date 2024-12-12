@@ -39,8 +39,8 @@ const WorkOrdersHistoryTable = ({
     }
   }
 
-  const handleChange = (e) => {
-    setTradeToFilterBy(e.target.value)
+  const onSelectTrade = (trade) => {
+    setTradeToFilterBy(trade)
   }
 
   const filteredOrders = useMemo(() => {
@@ -58,7 +58,7 @@ const WorkOrdersHistoryTable = ({
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
         <WorkOrdersHistoryFilter
-          handleChange={handleChange}
+          onSelectTrade={(e) => onSelectTrade(e.target.value)}
           clearFilters={clearFilters}
         />
         <Table className="govuk-!-margin-top-5 work-orders-history-table">
@@ -96,7 +96,7 @@ const WorkOrdersHistoryTable = ({
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
         <WorkOrdersHistoryFilter
-          handleChange={handleChange}
+          onSelectTrade={(e) => onSelectTrade(e.target.value)}
           clearFilters={clearFilters}
         />
         <Table className="govuk-!-margin-top-5 work-orders-history-table">
@@ -133,7 +133,7 @@ const WorkOrdersHistoryTable = ({
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
         <WorkOrdersHistoryFilter
-          handleChange={handleChange}
+          onSelectTrade={(e) => onSelectTrade(e.target.value)}
           clearFilters={clearFilters}
         />
         <h4 className="lbh-heading-h4">

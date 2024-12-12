@@ -2,13 +2,13 @@ import { useEffect, useState, useRef } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 interface WorkOrdersHistoryFilterProps {
-  handleChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  onSelectTrade: (e: React.ChangeEvent<HTMLSelectElement>) => void
   clearFilters: () => void
   isUnselectable: boolean
 }
 
 const WorkOrdersHistoryFilter = ({
-  handleChange,
+  onSelectTrade,
   clearFilters,
 }: WorkOrdersHistoryFilterProps) => {
   const [trades, setTrades] = useState(null)
@@ -48,7 +48,7 @@ const WorkOrdersHistoryFilter = ({
           id="trade-picker"
           className="govuk-select lbh-select"
           name="trade-picker"
-          onChange={handleChange}
+          onChange={onSelectTrade}
           data-testid="trade-picker"
         >
           <option value="">Select a trade</option>
