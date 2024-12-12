@@ -111,7 +111,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_DEVELOPMENT
             export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_DEVELOPMENT
-            yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage development
+            yarn build && yarn --production=true && npx --yes serverless deploy --stage development
 
   build-deploy-staging:
     executor: node-executor
@@ -138,7 +138,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_STAGING
             export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_STAGING
-            yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage staging
+            yarn build && yarn --production=true && npx --yes serverless deploy --stage staging
 
   build-deploy-production:
     executor: node-executor
@@ -165,7 +165,7 @@ jobs:
             export NEXT_PUBLIC_SENTRY_DSN=$SENTRY_DSN
             export NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED=$NEXT_PUBLIC_BUDGET_CODE_SELECTION_ENABLED_PRODUCTION
             export NEXT_PUBLIC_MMH_FRONTEND_URL=$NEXT_PUBLIC_MMH_FRONTEND_URL_PRODUCTION
-            yarn build && yarn --production=true && sudo npm i -g serverless@"<3" && sls deploy --stage production
+            yarn build && yarn --production=true && npx --yes serverless deploy --stage production
 
   assume-role-development:
     executor: docker-python
@@ -223,6 +223,8 @@ workflows:
       - build-deploy-development:
           requires:
             - assume-role-development
+          context:
+            - "Serverless Framework"
           filters:
             branches:
               only: develop
@@ -237,6 +239,8 @@ workflows:
       - build-deploy-staging:
           requires:
             - assume-role-staging
+          context:
+            - "Serverless Framework"
           filters:
             branches:
               only: main
@@ -257,6 +261,8 @@ workflows:
       - build-deploy-production:
           requires:
             - assume-role-production
+          context:
+            - "Serverless Framework"
           filters:
             branches:
               only: main
