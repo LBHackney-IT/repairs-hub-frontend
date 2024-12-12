@@ -159,4 +159,4 @@ custom:
   provisionedConcurrency:
     development: 0
     staging: 0
-    production: 14
+    production: 25
