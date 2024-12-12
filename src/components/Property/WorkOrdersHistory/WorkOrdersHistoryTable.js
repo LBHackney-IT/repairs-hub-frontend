@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from 'react'
+import { useContext, useState, useMemo, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
@@ -53,7 +53,7 @@ const WorkOrdersHistoryTable = ({
     setTradeToFilterBy(null)
   }
 
-  if (!tradeToFilterBy && workOrders?.length > 0) {
+  const RenderHeadingAndFilters = () => {
     return (
       <>
         <h2 className="lbh-heading-h2">{tabName}</h2>
@@ -61,69 +61,53 @@ const WorkOrdersHistoryTable = ({
           onSelectTrade={(e) => onSelectTrade(e.target.value)}
           clearFilters={clearFilters}
         />
-        <Table className="govuk-!-margin-top-5 work-orders-history-table">
-          <THead>
-            <TR className="lbh-body">
-              {user && canAccessWorkOrder(user) && (
-                <TH scope="col">Reference</TH>
-              )}
-              <TH scope="col">Date raised</TH>
-              <TH scope="col">Trade</TH>
-              <TH scope="col">Status</TH>
-              <TH scope="col">Description</TH>
-            </TR>
-          </THead>
-          <TBody>
-            {workOrders.map((workOrder, index) => (
-              <WorkOrdersHistoryRow
-                key={index}
-                reference={workOrder.reference}
-                dateRaised={new Date(workOrder.dateRaised)}
-                tradeDescription={workOrder.tradeDescription}
-                description={workOrder.description}
-                status={workOrder.status}
-              />
-            ))}
-          </TBody>
-        </Table>
-        {workOrders && renderLoadMoreWorkOrders()}
       </>
     )
   }
 
-  if (filteredOrders?.length > 0) {
+  const RenderWorkOrdersTable = (orders, user) => {
+    return (
+      <Table className="govuk-!-margin-top-5 work-orders-history-table">
+        <THead>
+          <TR className="lbh-body">
+            {user && canAccessWorkOrder(user) && <TH scope="col">Reference</TH>}
+            <TH scope="col">Date raised</TH>
+            <TH scope="col">Trade</TH>
+            <TH scope="col">Status</TH>
+            <TH scope="col">Description</TH>
+          </TR>
+        </THead>
+        <TBody>
+          {orders.map((workOrder, index) => (
+            <WorkOrdersHistoryRow
+              key={index}
+              reference={workOrder.reference}
+              dateRaised={new Date(workOrder.dateRaised)}
+              tradeDescription={workOrder.tradeDescription}
+              description={workOrder.description}
+              status={workOrder.status}
+            />
+          ))}
+        </TBody>
+      </Table>
+    )
+  }
+
+  if (!tradeToFilterBy && workOrders.length > 0) {
     return (
       <>
-        <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter
-          onSelectTrade={(e) => onSelectTrade(e.target.value)}
-          clearFilters={clearFilters}
-        />
-        <Table className="govuk-!-margin-top-5 work-orders-history-table">
-          <THead>
-            <TR className="lbh-body">
-              {user && canAccessWorkOrder(user) && (
-                <TH scope="col">Reference</TH>
-              )}
-              <TH scope="col">Date raised</TH>
-              <TH scope="col">Trade</TH>
-              <TH scope="col">Status</TH>
-              <TH scope="col">Description</TH>
-            </TR>
-          </THead>
-          <TBody>
-            {filteredOrders.map((workOrder, index) => (
-              <WorkOrdersHistoryRow
-                key={index}
-                reference={workOrder.reference}
-                dateRaised={new Date(workOrder.dateRaised)}
-                tradeDescription={workOrder.tradeDescription}
-                description={workOrder.description}
-                status={workOrder.status}
-              />
-            ))}
-          </TBody>
-        </Table>
+        {RenderHeadingAndFilters()}
+        {RenderWorkOrdersTable(workOrders, user)}
+        {workOrders && renderLoadMoreWorkOrders()}
+      </>
+    )
+  }
+  // Do we need to be able to load more filteredWorkOrders?
+  if (filteredOrders.length > 0) {
+    return (
+      <>
+        {RenderHeadingAndFilters()}
+        {RenderWorkOrdersTable(filteredOrders, user)}
       </>
     )
   }
@@ -131,11 +115,7 @@ const WorkOrdersHistoryTable = ({
   if (tradeToFilterBy && filteredOrders.length === 0) {
     return (
       <>
-        <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter
-          onSelectTrade={(e) => onSelectTrade(e.target.value)}
-          clearFilters={clearFilters}
-        />
+        {RenderHeadingAndFilters()}
         <h4 className="lbh-heading-h4">
           There are no historical repairs with {tradeToFilterBy}.
         </h4>
