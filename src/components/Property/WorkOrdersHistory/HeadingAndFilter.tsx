@@ -1,6 +1,16 @@
 import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 
-const HeadingAndFilters = ({ onSelectTrade, clearFilters, tabName }) => {
+interface HeadingAndFiltersProps {
+  onSelectTrade: (trade: string) => void
+  clearFilters: () => void
+  tabName: string
+}
+
+const HeadingAndFilters = ({
+  onSelectTrade,
+  clearFilters,
+  tabName,
+}: HeadingAndFiltersProps) => {
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
