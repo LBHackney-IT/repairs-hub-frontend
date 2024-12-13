@@ -1,10 +1,10 @@
-import { useContext, useState, useMemo, useCallback } from 'react'
+import { useContext, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
+import HeadingAndFilters from './HeadingAndFilter'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
-import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 
 const WorkOrdersHistoryTable = ({
   workOrders,
@@ -53,18 +53,6 @@ const WorkOrdersHistoryTable = ({
     setTradeToFilterBy(null)
   }
 
-  const RenderHeadingAndFilters = () => {
-    return (
-      <>
-        <h2 className="lbh-heading-h2">{tabName}</h2>
-        <WorkOrdersHistoryFilter
-          onSelectTrade={(e) => onSelectTrade(e.target.value)}
-          clearFilters={clearFilters}
-        />
-      </>
-    )
-  }
-
   const RenderWorkOrdersTable = (orders, user) => {
     return (
       <Table className="govuk-!-margin-top-5 work-orders-history-table">
@@ -96,7 +84,11 @@ const WorkOrdersHistoryTable = ({
   if (!tradeToFilterBy && workOrders.length > 0) {
     return (
       <>
-        {RenderHeadingAndFilters()}
+        <HeadingAndFilters
+          onSelectTrade={onSelectTrade}
+          clearFilters={clearFilters}
+          tabName={tabName}
+        />
         {RenderWorkOrdersTable(workOrders, user)}
         {workOrders && renderLoadMoreWorkOrders()}
       </>
@@ -106,7 +98,11 @@ const WorkOrdersHistoryTable = ({
   if (filteredOrders.length > 0) {
     return (
       <>
-        {RenderHeadingAndFilters()}
+        <HeadingAndFilters
+          onSelectTrade={onSelectTrade}
+          clearFilters={clearFilters}
+          tabName={tabName}
+        />
         {RenderWorkOrdersTable(filteredOrders, user)}
       </>
     )
@@ -115,7 +111,11 @@ const WorkOrdersHistoryTable = ({
   if (tradeToFilterBy && filteredOrders.length === 0) {
     return (
       <>
-        {RenderHeadingAndFilters()}
+        <HeadingAndFilters
+          onSelectTrade={onSelectTrade}
+          clearFilters={clearFilters}
+          tabName={tabName}
+        />
         <h4 className="lbh-heading-h4">
           There are no historical repairs with {tradeToFilterBy}.
         </h4>
