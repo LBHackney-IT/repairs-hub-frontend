@@ -4,7 +4,6 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 interface WorkOrdersHistoryFilterProps {
   onSelectTrade: (e: React.ChangeEvent<HTMLSelectElement>) => void
   clearFilters: () => void
-  isUnselectable: boolean
 }
 
 const WorkOrdersHistoryFilter = ({
