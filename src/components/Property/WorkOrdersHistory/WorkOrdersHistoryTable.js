@@ -46,6 +46,10 @@ const WorkOrdersHistoryTable = ({
   }
 
   const onSelectTrade = async (trade) => {
+    if (trade === '') {
+      setTradeCode(null)
+      return
+    }
     try {
       setLoading(true)
       const workOrderFilters = await frontEndApiRequest({
