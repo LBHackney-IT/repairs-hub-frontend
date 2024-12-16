@@ -68,7 +68,7 @@ const WorkOrdersHistoryTable = ({
           method: 'get',
           params: {
             propertyReference: propertyReference,
-            PageNumber: pageNumber,
+            PageNumber: 1,
             sort: 'dateraised:desc',
             TradeCodes: filterKey,
           },
@@ -133,11 +133,9 @@ const WorkOrdersHistoryTable = ({
     }
     if (tradeCode && filteredOrders.length === 0) {
       return (
-        <>
-          <h4 className="lbh-heading-h4">
-            There are no historical repairs with {tradeDescription}.
-          </h4>
-        </>
+        <h4 className="lbh-heading-h4">
+          There are no historical repairs with {tradeDescription}.
+        </h4>
       )
     }
   }
