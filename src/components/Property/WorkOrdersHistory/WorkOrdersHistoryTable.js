@@ -2,8 +2,8 @@ import { useContext, useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
-import HeadingAndFilters from './HeadingAndFilter'
 import Spinner from '../../Spinner'
+import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
@@ -112,60 +112,42 @@ const WorkOrdersHistoryTable = ({
     )
   }
 
-  if (loading) {
-    return (
-      <>
-        <HeadingAndFilters
-          onSelectTrade={onSelectTrade}
-          clearFilters={clearFilters}
-          tabName={tabName}
-        />
-        <Spinner />
-      </>
-    )
+  const RenderTableOrNoWorkOrdersFound = () => {
+    if (loading) {
+      return <Spinner />
+    }
+    if (!tradeCode && workOrders.length > 0) {
+      return (
+        <>
+          {RenderWorkOrdersTable(workOrders, user)}
+          {workOrders && renderLoadMoreWorkOrders()}
+        </>
+      )
+    }
+    if (filteredOrders.length > 0) {
+      return <>{RenderWorkOrdersTable(filteredOrders, user)}</>
+    }
+    if (tradeCode && filteredOrders.length === 0) {
+      return (
+        <>
+          <h4 className="lbh-heading-h4">
+            There are no historical repairs with {tradeDescription}.
+          </h4>
+        </>
+      )
+    }
   }
 
-  if (!tradeCode && workOrders.length > 0) {
-    return (
-      <>
-        <HeadingAndFilters
-          onSelectTrade={onSelectTrade}
-          clearFilters={clearFilters}
-          tabName={tabName}
-        />
-        {RenderWorkOrdersTable(workOrders, user)}
-        {workOrders && renderLoadMoreWorkOrders()}
-      </>
-    )
-  }
-  // Do we need to be able to load more filteredWorkOrders?
-  if (filteredOrders.length > 0) {
-    return (
-      <>
-        <HeadingAndFilters
-          onSelectTrade={onSelectTrade}
-          clearFilters={clearFilters}
-          tabName={tabName}
-        />
-        {RenderWorkOrdersTable(filteredOrders, user)}
-      </>
-    )
-  }
-
-  if (tradeCode && filteredOrders.length === 0) {
-    return (
-      <>
-        <HeadingAndFilters
-          onSelectTrade={onSelectTrade}
-          clearFilters={clearFilters}
-          tabName={tabName}
-        />
-        <h4 className="lbh-heading-h4">
-          There are no historical repairs with {tradeDescription}.
-        </h4>
-      </>
-    )
-  }
+  return (
+    <>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
+      <WorkOrdersHistoryFilter
+        onSelectTrade={(e) => onSelectTrade(e.target.value)}
+        clearFilters={clearFilters}
+      />
+      {RenderTableOrNoWorkOrdersFound()}
+    </>
+  )
 }
 
 WorkOrdersHistoryTable.propTypes = {
