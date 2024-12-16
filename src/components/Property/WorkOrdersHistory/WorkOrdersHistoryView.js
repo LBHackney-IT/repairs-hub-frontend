@@ -65,6 +65,7 @@ const WorkOrdersHistoryView = ({ propertyReference, tabName }) => {
             pageNumber={pageNumber}
             loadMoreWorkOrders={loadMoreWorkOrders}
             pageSize={WORK_ORDERS_HISTORY_PAGE_SIZE}
+            propertyReference={propertyReference}
           />
         </>
       )

@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import HeadingAndFilters from './HeadingAndFilter'
+import Spinner from '../../Spinner'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 const WorkOrdersHistoryTable = ({
   workOrders,
@@ -12,9 +14,13 @@ const WorkOrdersHistoryTable = ({
   pageNumber,
   loadMoreWorkOrders,
   pageSize,
+  propertyReference,
 }) => {
   const { user } = useContext(UserContext)
-  const [tradeToFilterBy, setTradeToFilterBy] = useState(null)
+  const [tradeCode, setTradeCode] = useState(null)
+  const [tradeDescription, setTradeDescription] = useState(null)
+  const [filteredOrders, setFilteredOrders] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const moreWorkOrdersAvailable = () => {
     // TODO: Replace with a real count from the API
@@ -39,18 +45,44 @@ const WorkOrdersHistoryTable = ({
     }
   }
 
-  const onSelectTrade = (trade) => {
-    setTradeToFilterBy(trade)
+  const onSelectTrade = async (trade) => {
+    try {
+      setLoading(true)
+      const workOrderFilters = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/filter/WorkOrder',
+      })
+      const filterKeyAndDescription = workOrderFilters.Trades.find(
+        (element) => element.description === trade
+      )
+      const filterKey = filterKeyAndDescription.key
+      setTradeCode(filterKey)
+      setTradeDescription(trade)
+      try {
+        const data = await frontEndApiRequest({
+          path: '/api/workOrders/',
+          method: 'get',
+          params: {
+            propertyReference: propertyReference,
+            PageSize: pageSize,
+            PageNumber: pageNumber,
+            sort: 'dateraised:desc',
+            TradeCodes: filterKey,
+          },
+        })
+        setFilteredOrders(data)
+      } catch (e) {
+        console.error('Failed to fetch filtered work orders:', e.response)
+      }
+    } catch (e) {
+      console.error('An error has occured:', e.response)
+    } finally {
+      setLoading(false)
+    }
   }
 
-  const filteredOrders = useMemo(() => {
-    return workOrders.filter((order) =>
-      order.tradeDescription.includes(tradeToFilterBy)
-    )
-  }, [tradeToFilterBy, workOrders])
-
   const clearFilters = () => {
-    setTradeToFilterBy(null)
+    setTradeCode(null)
   }
 
   const RenderWorkOrdersTable = (orders, user) => {
@@ -81,7 +113,20 @@ const WorkOrdersHistoryTable = ({
     )
   }
 
-  if (!tradeToFilterBy && workOrders.length > 0) {
+  if (loading) {
+    return (
+      <>
+        <HeadingAndFilters
+          onSelectTrade={onSelectTrade}
+          clearFilters={clearFilters}
+          tabName={tabName}
+        />
+        <Spinner />
+      </>
+    )
+  }
+
+  if (!tradeCode && workOrders.length > 0) {
     return (
       <>
         <HeadingAndFilters
@@ -108,7 +153,7 @@ const WorkOrdersHistoryTable = ({
     )
   }
 
-  if (tradeToFilterBy && filteredOrders.length === 0) {
+  if (tradeCode && filteredOrders.length === 0) {
     return (
       <>
         <HeadingAndFilters
@@ -117,7 +162,7 @@ const WorkOrdersHistoryTable = ({
           tabName={tabName}
         />
         <h4 className="lbh-heading-h4">
-          There are no historical repairs with {tradeToFilterBy}.
+          There are no historical repairs with {tradeDescription}.
         </h4>
       </>
     )
@@ -138,6 +183,7 @@ WorkOrdersHistoryTable.propTypes = {
   pageNumber: PropTypes.number,
   loadMoreWorkOrders: PropTypes.func,
   pageSize: PropTypes.number.isRequired,
+  propertyReference: PropTypes.string.isRequired,
 }
 
 export default WorkOrdersHistoryTable
