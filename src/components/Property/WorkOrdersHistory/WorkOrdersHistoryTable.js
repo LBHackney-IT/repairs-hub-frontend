@@ -15,6 +15,7 @@ const WorkOrdersHistoryTable = ({
   loadMoreWorkOrders,
   pageSize,
   propertyReference,
+  setPageNumber,
 }) => {
   const { user } = useContext(UserContext)
   const [tradeCode, setTradeCode] = useState(null)
@@ -46,6 +47,7 @@ const WorkOrdersHistoryTable = ({
   }
 
   const onSelectTrade = async (trade) => {
+    setPageNumber(1)
     if (trade === '') {
       setTradeCode(null)
       return
@@ -68,7 +70,7 @@ const WorkOrdersHistoryTable = ({
           method: 'get',
           params: {
             propertyReference: propertyReference,
-            PageNumber: pageNumber,
+            PageNumber: 1,
             sort: 'dateraised:desc',
             TradeCodes: filterKey,
           },
@@ -85,6 +87,7 @@ const WorkOrdersHistoryTable = ({
   }
 
   const clearFilters = () => {
+    setPageNumber(1)
     setTradeCode(null)
   }
 
@@ -133,11 +136,9 @@ const WorkOrdersHistoryTable = ({
     }
     if (tradeCode && filteredOrders.length === 0) {
       return (
-        <>
-          <h4 className="lbh-heading-h4">
-            There are no historical repairs with {tradeDescription}.
-          </h4>
-        </>
+        <h4 className="lbh-heading-h4">
+          There are no historical repairs with {tradeDescription}.
+        </h4>
       )
     }
   }
