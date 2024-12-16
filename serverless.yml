@@ -1,11 +1,9 @@
 service: repairs-hub-frontend
 
-frameworkVersion: '2'
-
 provider:
   name: aws
   runtime: nodejs20.x
-  timeout: 10
+  timeout: 30
   region: eu-west-2
   stage: ${opt:stage}
   lambdaHashingVersion: 20201221
@@ -161,4 +159,4 @@ custom:
   provisionedConcurrency:
     development: 0
     staging: 0
-    production: 14
+    production: 25
