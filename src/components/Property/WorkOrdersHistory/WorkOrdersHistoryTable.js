@@ -15,6 +15,7 @@ const WorkOrdersHistoryTable = ({
   loadMoreWorkOrders,
   pageSize,
   propertyReference,
+  setPageNumber,
 }) => {
   const { user } = useContext(UserContext)
   const [tradeCode, setTradeCode] = useState(null)
@@ -46,6 +47,7 @@ const WorkOrdersHistoryTable = ({
   }
 
   const onSelectTrade = async (trade) => {
+    setPageNumber(1)
     if (trade === '') {
       setTradeCode(null)
       return
@@ -85,6 +87,7 @@ const WorkOrdersHistoryTable = ({
   }
 
   const clearFilters = () => {
+    setPageNumber(1)
     setTradeCode(null)
   }
 
