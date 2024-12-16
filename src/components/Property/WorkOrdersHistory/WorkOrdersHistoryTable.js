@@ -64,7 +64,6 @@ const WorkOrdersHistoryTable = ({
           method: 'get',
           params: {
             propertyReference: propertyReference,
-            PageSize: pageSize,
             PageNumber: pageNumber,
             sort: 'dateraised:desc',
             TradeCodes: filterKey,
