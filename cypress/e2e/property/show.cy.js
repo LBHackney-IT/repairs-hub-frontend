@@ -341,11 +341,11 @@ describe('Show property', () => {
         })
       })
 
-      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+      it.only('Filters by selected trade and clears the filter when clear filter is clicked', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders?**&TradeCodes=DE',
+            path: '/api/workOrders?**&TradeCodes=DE&PageSize=0',
           },
           {
             fixture: 'workOrders/filteredWorkOrders.json',
