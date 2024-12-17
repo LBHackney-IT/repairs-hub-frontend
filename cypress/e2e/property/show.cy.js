@@ -341,7 +341,7 @@ describe('Show property', () => {
         })
       })
 
-      it.only('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
         cy.intercept(
           {
             method: 'GET',
