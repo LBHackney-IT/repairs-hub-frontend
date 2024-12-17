@@ -73,6 +73,7 @@ const WorkOrdersHistoryTable = ({
             PageNumber: 1,
             sort: 'dateraised:desc',
             TradeCodes: filterKey,
+            PageSize: 0,
           },
         })
         setFilteredOrders(data)
