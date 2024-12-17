@@ -1,4 +1,4 @@
-import { useContext, useState, useMemo } from 'react'
+import { useContext, useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
@@ -17,6 +17,7 @@ const WorkOrdersHistoryTable = ({
   propertyReference,
   setPageNumber,
 }) => {
+  const [trades, setTrades] = useState(null)
   const { user } = useContext(UserContext)
   const [tradeCode, setTradeCode] = useState(null)
   const [tradeDescription, setTradeDescription] = useState(null)
