@@ -135,7 +135,7 @@ describe('Show property', () => {
             description: 'A non-latest repair',
             propertyReference: '00012345',
             tradeCode: 'DE',
-            tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+            tradeDescription: 'Door Entry Engineer - DE',
             status: 'In Progress',
           }
         })
@@ -204,7 +204,7 @@ describe('Show property', () => {
             cy.contains('10000050')
             cy.contains('1 Feb 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('In progress')
             cy.contains('The latest repair')
           })
@@ -213,7 +213,7 @@ describe('Show property', () => {
             cy.contains('10000001')
             cy.contains('1 Jan 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('Work complete')
             cy.contains('The earliest repair for page one')
           })
@@ -246,13 +246,109 @@ describe('Show property', () => {
           cy.contains('10000000')
           cy.contains('1 Jan 2020')
           cy.contains('11:02')
-          cy.contains('DOOR ENTRY ENGINEER - DE')
+          cy.contains('Door Entry Engineer - DE')
           cy.contains('Work complete')
           cy.contains('The oldest repair')
         })
 
         // Run lighthouse audit for accessibility report
         //  cy.audit()
+      })
+    })
+
+    context('When filter dropdown is used', () => {
+      beforeEach(() => {
+        let workOrderCount = 50
+        let workOrders = []
+
+        for (let i = 0; i < workOrderCount; i++) {
+          const referenceIndexString = `100000${i}`
+
+          workOrders.push({
+            reference: parseInt(referenceIndexString),
+            dateRaised: '2021-01-22T11:02:00.334849',
+            lastUpdated: null,
+            priority: '2 [E] EMERGENCY',
+            property: '315 Banister House  Homerton High Street',
+            owner: 'Alphatrack (S) Systems Lt',
+            description: 'A non-latest repair',
+            propertyReference: '00012345',
+            tradeCode: 'DE',
+            tradeDescription: 'Door Entry Engineer - DE',
+            status: 'In Progress',
+          })
+        }
+
+        // Set some fields on the latest repair to check
+
+        workOrders[25] = {
+          reference: 10000025,
+          ' dateRaised': '2021-01-22T11:02:00.334849',
+          lastUpdated: null,
+          priority: '2 [E] EMERGENCY',
+          property: '315 Banister House  Homerton High Street',
+          owner: 'Alphatrack (S) Systems Lt',
+          description: 'A non-latest repair',
+          propertyReference: '00012345',
+          tradeCode: 'PL',
+          tradeDescription: 'Plumbing',
+          status: 'In Progress',
+        }
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: workOrders }
+        ).as('workOrder')
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/filter/WorkOrder',
+          },
+          {
+            fixture: 'filter/trades.json',
+          }
+        ).as('trades')
+        cy.visit('/properties/00012345')
+      })
+      it('Displays a dropdown populated with trades to filter by', () => {
+        cy.fixture('filter/trades.json').then((trades) => {
+          cy.contains('Filter by trade:')
+          trades.Trades.map((trade) => {
+            cy.get('select').contains(trade.description)
+          })
+        })
+      })
+
+      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+        cy.get('[data-ref="10000025"]').as('plumbingWorkOrder')
+        cy.get('.trade-picker-container > .lbh-link').as('clearAllFiltersLink')
+        cy.intercept(
+          {
+            method: 'GET',
+            path: '/api/workOrders?**&TradeCodes=DE&PageSize=0',
+          },
+          {
+            fixture: 'workOrders/filteredWorkOrders.json',
+          }
+        ).as('filteredWorkOrders')
+        cy.wait('@workOrder')
+        cy.get('@plumbingWorkOrder').should('exist')
+        cy.get('select').select('Door Entry Engineer')
+        cy.wait('@filteredWorkOrders')
+        cy.get('@plumbingWorkOrder').should('not.exist')
+        cy.get('@clearAllFiltersLink').click()
+        cy.get('[data-ref="10000025"] > :nth-child(3)').should('exist')
+      })
+      it('Displays error text when no work orders exist in filtered trade', () => {
+        cy.get('.trade-picker-container > .lbh-link').as('clearAllFiltersLink')
+        cy.get('select').select('Electrical')
+        cy.contains('There are no historical repairs with Electrical')
+        cy.get('@clearAllFiltersLink').click()
+        cy.contains('Door Entry Engineer')
       })
     })
 
@@ -276,7 +372,7 @@ describe('Show property', () => {
                 description: 'The only repair',
                 propertyReference: '00012345',
                 tradeCode: 'DE',
-                tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+                tradeDescription: 'Door Entry Engineer - DE',
                 status: 'In Progress',
               },
             ],
