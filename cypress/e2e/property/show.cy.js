@@ -135,7 +135,7 @@ describe('Show property', () => {
             description: 'A non-latest repair',
             propertyReference: '00012345',
             tradeCode: 'DE',
-            tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+            tradeDescription: 'Door Entry Engineer - DE',
             status: 'In Progress',
           }
         })
@@ -204,7 +204,7 @@ describe('Show property', () => {
             cy.contains('10000050')
             cy.contains('1 Feb 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('In progress')
             cy.contains('The latest repair')
           })
@@ -213,7 +213,7 @@ describe('Show property', () => {
             cy.contains('10000001')
             cy.contains('1 Jan 2021')
             cy.contains('11:02')
-            cy.contains('DOOR ENTRY ENGINEER - DE')
+            cy.contains('Door Entry Engineer - DE')
             cy.contains('Work complete')
             cy.contains('The earliest repair for page one')
           })
@@ -246,7 +246,7 @@ describe('Show property', () => {
           cy.contains('10000000')
           cy.contains('1 Jan 2020')
           cy.contains('11:02')
-          cy.contains('DOOR ENTRY ENGINEER - DE')
+          cy.contains('Door Entry Engineer - DE')
           cy.contains('Work complete')
           cy.contains('The oldest repair')
         })
@@ -372,7 +372,7 @@ describe('Show property', () => {
                 description: 'The only repair',
                 propertyReference: '00012345',
                 tradeCode: 'DE',
-                tradeDescription: 'DOOR ENTRY ENGINEER - DE',
+                tradeDescription: 'Door Entry Engineer - DE',
                 status: 'In Progress',
               },
             ],
