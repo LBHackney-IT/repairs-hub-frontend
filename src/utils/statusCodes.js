@@ -85,6 +85,11 @@ export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
   },
   { name: 'followon-trades-UPVC', label: 'UPVC', value: 'UPVC' },
   {
+    name: 'followon-trades-surveyor-inspection',
+    label: 'Surveyors Inspection',
+    value: 'SurveyorsInspection',
+  },
+  {
     name: 'followon-trades-other',
     label: 'Other (please specify in the text box below)',
     value: 'Other',
