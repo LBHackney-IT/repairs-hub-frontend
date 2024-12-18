@@ -323,11 +323,9 @@ describe('Show property', () => {
         })
       })
 
-      it.only('Filters by selected trade and clears the filter when clear filter is clicked', () => {
-        const plumbingWorkOrder = cy.get('[data-ref="10000025"]')
-        const clearAllFiltersLink = cy.get(
-          '.trade-picker-container > .lbh-link'
-        )
+      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+        cy.get('[data-ref="10000025"]').as('plumbingWorkOrder')
+        cy.get('.trade-picker-container > .lbh-link').as('clearAllFiltersLink')
         cy.intercept(
           {
             method: 'GET',
@@ -338,20 +336,18 @@ describe('Show property', () => {
           }
         ).as('filteredWorkOrders')
         cy.wait('@workOrder')
-        plumbingWorkOrder.should('exist')
+        cy.get('@plumbingWorkOrder').should('exist')
         cy.get('select').select('Door Entry Engineer')
         cy.wait('@filteredWorkOrders')
-        plumbingWorkOrder.should('not.exist')
-        clearAllFiltersLink.click()
+        cy.get('@plumbingWorkOrder').should('not.exist')
+        cy.get('@clearAllFiltersLink').click()
         cy.get('[data-ref="10000025"] > :nth-child(3)').should('exist')
       })
       it('Displays error text when no work orders exist in filtered trade', () => {
-        const clearAllFiltersLink = cy.get(
-          '.trade-picker-container > .lbh-link'
-        )
+        cy.get('.trade-picker-container > .lbh-link').as('clearAllFiltersLink')
         cy.get('select').select('Electrical')
         cy.contains('There are no historical repairs with Electrical')
-        clearAllFiltersLink.click()
+        cy.get('@clearAllFiltersLink').click()
         cy.contains('Door Entry Engineer')
       })
     })
