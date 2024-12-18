@@ -17,7 +17,6 @@ const WorkOrdersHistoryTable = ({
   propertyReference,
   setPageNumber,
 }) => {
-  const [trades, setTrades] = useState(null)
   const { user } = useContext(UserContext)
   const [tradeCode, setTradeCode] = useState(null)
   const [tradeDescription, setTradeDescription] = useState(null)

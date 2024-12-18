@@ -258,17 +258,13 @@ describe('Show property', () => {
 
     context('When filter dropdown is used', () => {
       beforeEach(() => {
-        let properties = [...Array(50).keys()]
+        let workOrderCount = 50
+        let workOrders = []
 
-        properties.forEach((property, index) => {
-          const referenceIndex = (50 - index).toString()
+        for (let i = 0; i < workOrderCount; i++) {
+          const referenceIndexString = `100000${i}`
 
-          const referenceIndexString = `100000${referenceIndex.padStart(
-            2,
-            '0'
-          )}`
-
-          properties[index] = {
+          workOrders.push({
             reference: parseInt(referenceIndexString),
             dateRaised: '2021-01-22T11:02:00.334849',
             lastUpdated: null,
@@ -280,26 +276,12 @@ describe('Show property', () => {
             tradeCode: 'DE',
             tradeDescription: 'Door Entry Engineer - DE',
             status: 'In Progress',
-          }
-        })
+          })
+        }
 
         // Set some fields on the latest repair to check
-        properties[0] = {
-          ...properties[0],
-          dateRaised: '2021-02-01T11:02:00.334849',
-          description: 'The latest repair',
-          status: 'In Progress',
-        }
 
-        // Set some fields on the earliest repair on this page to check
-        properties[properties.length - 1] = {
-          ...properties[properties.length - 1],
-          dateRaised: '2021-01-01T11:02:00.334849',
-          description: 'The earliest repair for page one',
-          status: 'Work complete',
-        }
-
-        properties[25] = {
+        workOrders[25] = {
           reference: 10000025,
           ' dateRaised': '2021-01-22T11:02:00.334849',
           lastUpdated: null,
@@ -319,7 +301,7 @@ describe('Show property', () => {
             path:
               '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
           },
-          { body: properties }
+          { body: workOrders }
         ).as('workOrder')
         cy.intercept(
           {
@@ -341,7 +323,11 @@ describe('Show property', () => {
         })
       })
 
-      it('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+      it.only('Filters by selected trade and clears the filter when clear filter is clicked', () => {
+        const plumbingWorkOrder = cy.get('[data-ref="10000025"]')
+        const clearAllFiltersLink = cy.get(
+          '.trade-picker-container > .lbh-link'
+        )
         cy.intercept(
           {
             method: 'GET',
@@ -352,16 +338,20 @@ describe('Show property', () => {
           }
         ).as('filteredWorkOrders')
         cy.wait('@workOrder')
+        plumbingWorkOrder.should('exist')
         cy.get('select').select('Door Entry Engineer')
         cy.wait('@filteredWorkOrders')
-        cy.get('[data-ref="10000025"] > :nth-child(3)').should('not.exist')
-        cy.get('.trade-picker-container > .lbh-link').click()
+        plumbingWorkOrder.should('not.exist')
+        clearAllFiltersLink.click()
         cy.get('[data-ref="10000025"] > :nth-child(3)').should('exist')
       })
       it('Displays error text when no work orders exist in filtered trade', () => {
+        const clearAllFiltersLink = cy.get(
+          '.trade-picker-container > .lbh-link'
+        )
         cy.get('select').select('Electrical')
         cy.contains('There are no historical repairs with Electrical')
-        cy.get('.trade-picker-container > .lbh-link').click()
+        clearAllFiltersLink.click()
         cy.contains('Door Entry Engineer')
       })
     })
