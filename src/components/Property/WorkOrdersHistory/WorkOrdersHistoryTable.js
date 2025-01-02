@@ -1,9 +1,12 @@
-import { useContext } from 'react'
+import { useContext, useState, useMemo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import UserContext from '../../UserContext'
 import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
+import Spinner from '../../Spinner'
+import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 import { canAccessWorkOrder } from '@/utils/userPermissions'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 const WorkOrdersHistoryTable = ({
   workOrders,
@@ -11,8 +14,14 @@ const WorkOrdersHistoryTable = ({
   pageNumber,
   loadMoreWorkOrders,
   pageSize,
+  propertyReference,
+  setPageNumber,
 }) => {
   const { user } = useContext(UserContext)
+  const [tradeCode, setTradeCode] = useState(null)
+  const [tradeDescription, setTradeDescription] = useState(null)
+  const [filteredOrders, setFilteredOrders] = useState([])
+  const [loading, setLoading] = useState(false)
 
   const moreWorkOrdersAvailable = () => {
     // TODO: Replace with a real count from the API
@@ -37,10 +46,54 @@ const WorkOrdersHistoryTable = ({
     }
   }
 
-  return (
-    <>
-      <h2 className="lbh-heading-h2">{tabName}</h2>
+  const onSelectTrade = async (trade) => {
+    setPageNumber(1)
+    if (trade === '') {
+      setTradeCode(null)
+      return
+    }
+    try {
+      setLoading(true)
+      const workOrderFilters = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/filter/WorkOrder',
+      })
+      const filterKeyAndDescription = workOrderFilters.Trades.find(
+        (element) => element.description === trade
+      )
+      const filterKey = filterKeyAndDescription.key
+      setTradeCode(filterKey)
+      setTradeDescription(trade)
+      try {
+        const data = await frontEndApiRequest({
+          path: '/api/workOrders/',
+          method: 'get',
+          params: {
+            propertyReference: propertyReference,
+            PageNumber: 1,
+            sort: 'dateraised:desc',
+            TradeCodes: filterKey,
+            PageSize: 0, //Fetch all
+          },
+        })
+        setFilteredOrders(data)
+      } catch (e) {
+        console.error('Failed to fetch filtered work orders:', e.response)
+      }
+    } catch (e) {
+      console.error('An error has occured:', e.response)
+    } finally {
+      setLoading(false)
+    }
+  }
 
+  const clearFilters = () => {
+    setPageNumber(1)
+    setTradeCode(null)
+  }
+
+  const RenderWorkOrdersTable = (orders, user) => {
+    return (
       <Table className="govuk-!-margin-top-5 work-orders-history-table">
         <THead>
           <TR className="lbh-body">
@@ -52,11 +105,11 @@ const WorkOrdersHistoryTable = ({
           </TR>
         </THead>
         <TBody>
-          {workOrders.map((workOrder, index) => (
+          {orders.map((workOrder, index) => (
             <WorkOrdersHistoryRow
               key={index}
               reference={workOrder.reference}
-              dateRaised={workOrder.dateRaised}
+              dateRaised={new Date(workOrder.dateRaised)}
               tradeDescription={workOrder.tradeDescription}
               description={workOrder.description}
               status={workOrder.status}
@@ -64,7 +117,41 @@ const WorkOrdersHistoryTable = ({
           ))}
         </TBody>
       </Table>
-      {workOrders && renderLoadMoreWorkOrders()}
+    )
+  }
+
+  const RenderTableOrNoWorkOrdersFound = () => {
+    if (loading) {
+      return <Spinner />
+    }
+    if (!tradeCode && workOrders.length > 0) {
+      return (
+        <>
+          {RenderWorkOrdersTable(workOrders, user)}
+          {workOrders && renderLoadMoreWorkOrders()}
+        </>
+      )
+    }
+    if (filteredOrders.length > 0) {
+      return <>{RenderWorkOrdersTable(filteredOrders, user)}</>
+    }
+    if (tradeCode && filteredOrders.length === 0) {
+      return (
+        <h4 className="lbh-heading-h4">
+          There are no historical repairs with {tradeDescription}.
+        </h4>
+      )
+    }
+  }
+
+  return (
+    <>
+      <h2 className="lbh-heading-h2">{tabName}</h2>
+      <WorkOrdersHistoryFilter
+        onSelectTrade={(e) => onSelectTrade(e.target.value)}
+        clearFilters={clearFilters}
+      />
+      {RenderTableOrNoWorkOrdersFound()}
     </>
   )
 }
@@ -74,7 +161,7 @@ WorkOrdersHistoryTable.propTypes = {
   workOrders: PropTypes.arrayOf(
     PropTypes.shape({
       reference: PropTypes.number,
-      dateRaised: PropTypes.instanceOf(Date),
+      dateRaised: PropTypes.string,
       tradeDescription: PropTypes.string,
       status: PropTypes.string,
       description: PropTypes.string,
@@ -83,6 +170,7 @@ WorkOrdersHistoryTable.propTypes = {
   pageNumber: PropTypes.number,
   loadMoreWorkOrders: PropTypes.func,
   pageSize: PropTypes.number.isRequired,
+  propertyReference: PropTypes.string.isRequired,
 }
 
 export default WorkOrdersHistoryTable
