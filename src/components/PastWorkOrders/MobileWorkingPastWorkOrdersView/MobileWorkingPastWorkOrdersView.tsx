@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { getYesterdayDate } from '@/root/src/utils/date'
 import { beginningOfDay, getWorkingDaysBeforeDate } from '@/root/src/utils/time'
@@ -22,7 +22,15 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
   const [error, setError] = useState<string | null>()
   const [selectedDate, setSelectedDate] = useState<Date>(yesterday)
-  const targetDate = selectedDate.toISOString().split('T')[0]
+
+  const isSunday = selectedDate.getDay() === 0
+  const targetDate = useMemo(() => {
+    const date = isSunday
+      ? yesterday.setDate(selectedDate.getDate() - 2)
+      : selectedDate
+    const targetDate = new Date(date).toISOString().split('T')[0]
+    return targetDate
+  }, [selectedDate])
 
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
