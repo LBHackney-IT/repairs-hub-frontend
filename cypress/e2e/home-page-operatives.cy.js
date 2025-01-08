@@ -204,8 +204,8 @@ context('When an operative is logged in', () => {
         }
       ).as('operativesPastWorkOrders')
       cy.visit('/')
-      cy.get('#tab-1 > .v2-govuk-tabs_list-item-a-tag').should('exist')
-      cy.get('#tab-2 > .v2-govuk-tabs_list-item-a-tag').should('exist')
+      cy.get('#tab-1 > .v2-govuk-tabs_list-item-a-tag').should('be.visible')
+      cy.get('#tab-2 > .v2-govuk-tabs_list-item-a-tag').should('be.visible')
       cy.get('#tab-2 > .v2-govuk-tabs_list-item-a-tag').click()
       cy.url().should('include', 'pastworkorders')
       cy.get('#tab-1 > .v2-govuk-tabs_list-item-a-tag').click()
