@@ -183,8 +183,8 @@ context('When an operative is logged in', () => {
     })
   })
   context('When operative clicks a tab', () => {
-    it('Goes to correct page', () => {
-      cy.clock(new Date('November 13 2024 13:49:15Z'))
+    it.only('Goes to correct page', () => {
+      // cy.clock(new Date('November 13 2024 13:49:15Z'))
       cy.intercept(
         {
           method: 'GET',
@@ -204,11 +204,11 @@ context('When an operative is logged in', () => {
         }
       ).as('operativesPastWorkOrders')
       cy.visit('/')
-      cy.get('#tab-1').should('exist')
-      cy.get('#tab-2').should('exist')
-      cy.get('#tab-2').click()
+      cy.get('#tab-1 > .v2-govuk-tabs_list-item-a-tag').should('exist')
+      cy.get('#tab-2 > .v2-govuk-tabs_list-item-a-tag').should('exist')
+      cy.get('#tab-2 > .v2-govuk-tabs_list-item-a-tag').click()
       cy.url().should('include', 'pastworkorders')
-      cy.get('#tab-1').click()
+      cy.get('#tab-1 > .v2-govuk-tabs_list-item-a-tag').click()
       cy.url().should('include', '/')
     })
   })
