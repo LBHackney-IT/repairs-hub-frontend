@@ -34,7 +34,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/workorders',
+          path: '/api/operatives/hu0001/appointments',
         },
         {
           fixture: 'operatives/workOrders.json',
@@ -137,7 +137,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/workorders',
+          path: '/api/operatives/hu0001/appointments',
         },
         {
           body: [],
@@ -172,7 +172,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/workorders`,
+          path: `/api/operatives/${operativeId}/appointments`,
         },
         {
           fixture: 'workOrders/workOrders11thNov.json',
@@ -188,7 +188,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/workorders`,
+          path: `/api/operatives/${operativeId}/appointments`,
         },
         {
           fixture: 'workOrders/workOrders11thNov.json',
@@ -202,7 +202,7 @@ context('When an operative is logged in', () => {
         {
           fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
         }
-      ).as('operativesWorkOrders')
+      ).as('operativesPastWorkOrders')
       cy.visit('/')
       cy.get('.govuk-tabs_list-item-mobile-a-tag').should('have.length', 2)
       cy.get('.govuk-tabs_list-item-mobile-a-tag').eq(1).click()
@@ -380,7 +380,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/workorders',
+          path: '/api/operatives/hu0001/appointments',
         },
         {
           fixture: 'operatives/workOrders.json',
@@ -458,7 +458,7 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/operatives/hu0001/workorders',
+          path: '/api/operatives/hu0001/appointments',
         },
         {
           body: [],
