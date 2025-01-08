@@ -156,7 +156,7 @@ context('When an operative is logged in', () => {
     })
   })
   context('When past work orders is not enabled', () => {
-    it.only(`Doesn't display the tabs`, () => {
+    it(`Doesn't display the tabs`, () => {
       cy.intercept(
         {
           method: 'GET',
@@ -325,7 +325,7 @@ context('When an operative is logged in', () => {
   })
 
   context('When fetchAppointmentsFromDrs is enabled', () => {
-    it.only(`Calls the appointments endpoint`, () => {
+    it(`Calls the appointments endpoint`, () => {
       cy.intercept(
         {
           method: 'GET',
