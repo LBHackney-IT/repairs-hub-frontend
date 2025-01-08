@@ -197,7 +197,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+          path: `/api/operatives/${operativeId}/appointments?date=2024-11-12`,
         },
         {
           fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
@@ -218,7 +218,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+          path: `/api/operatives/${operativeId}/appointments?date=2024-11-12`,
         },
         {
           fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
@@ -246,7 +246,7 @@ context('When an operative is logged in', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+            path: `/api/operatives/${operativeId}/appointments?date=2024-11-12`,
           },
           {
             fixture: 'pastWorkOrders/12thNovemberPastWorkOrders.json',
@@ -255,7 +255,7 @@ context('When an operative is logged in', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-11`,
+            path: `/api/operatives/${operativeId}/appointments?date=2024-11-11`,
           },
           {
             fixture: 'pastWorkOrders/11thNovemberPastWorkOrders.json',
@@ -265,7 +265,7 @@ context('When an operative is logged in', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-08`,
+            path: `/api/operatives/${operativeId}/appointments?date=2024-11-08`,
           },
           {
             fixture: 'pastWorkOrders/8thNovemberPastWorkOrders.json',
@@ -296,7 +296,7 @@ context('When an operative is logged in', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+            path: `/api/operatives/${operativeId}/appointments?date=2024-11-12`,
           },
           {
             body: [],
@@ -315,7 +315,7 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: `/api/operatives/${operativeId}/workOrdersNew?date=2024-11-12`,
+          path: `/api/operatives/${operativeId}/appointments?date=2024-11-12`,
         },
         { statusCode: 500 }
       )
