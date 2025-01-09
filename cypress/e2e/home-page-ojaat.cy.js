@@ -30,7 +30,7 @@ describe('Home page - one job at a time', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/operatives/hu0001/workorders',
+            path: '/api/operatives/hu0001/appointments',
           },
           {
             fixture: 'operatives/workOrders.json',
@@ -112,7 +112,7 @@ describe('Home page - one job at a time', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: '/api/operatives/hu0001/workorders',
+              path: '/api/operatives/hu0001/appointments',
             },
             {
               fixture: 'operatives/workOrders-ojaat.json',
@@ -184,7 +184,7 @@ describe('Home page - one job at a time', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/operatives/hu0001/workorders',
+            path: '/api/operatives/hu0001/appointments',
           },
           {
             body: [],
