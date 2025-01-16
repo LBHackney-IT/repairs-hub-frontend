@@ -24,7 +24,7 @@ const WarningInfoBox = ({ header, text, name }) => {
 
 WarningInfoBox.propTypes = {
   header: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
+  text: PropTypes.string,
   name: PropTypes.string.isRequired,
 }
 
