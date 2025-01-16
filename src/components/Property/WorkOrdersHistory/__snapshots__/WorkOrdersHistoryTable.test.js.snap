@@ -19,7 +19,7 @@ exports[`WorkOrdersHistoryTable component when logged in as a contract manager s
     <a
       class="lbh-link lbh-body-xs"
       href="#work-orders-history-tab"
-      style="padding: 10px;"
+      style="padding: 10px; margin-left: 0.7rem;"
     >
       Clear filters
     </a>
@@ -180,7 +180,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an agent should rend
     <a
       class="lbh-link lbh-body-xs"
       href="#work-orders-history-tab"
-      style="padding: 10px;"
+      style="padding: 10px; margin-left: 0.7rem;"
     >
       Clear filters
     </a>
@@ -341,7 +341,7 @@ exports[`WorkOrdersHistoryTable component when logged in as an authorisation man
     <a
       class="lbh-link lbh-body-xs"
       href="#work-orders-history-tab"
-      style="padding: 10px;"
+      style="padding: 10px; margin-left: 0.7rem;"
     >
       Clear filters
     </a>
