@@ -105,7 +105,6 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
         ) : (
           <WarningInfoBox
             header="No work orders displayed"
-            text="Please contact your supervisor"
             name="No jobs warning"
           />
         )}
