@@ -46,10 +46,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     setIsLoading(true)
 
     try {
-      // const url = featureToggleStatus?.fetchAppointmentsFromDrs
-      //   ? `/api/operatives/004549/appointments`
-      //   : `/api/operatives/004549/workorders`
-
       const data = await frontEndApiRequest({
         method: 'get',
         path: `/api/operatives/${currentUser.operativePayrollNumber}/appointments`,
