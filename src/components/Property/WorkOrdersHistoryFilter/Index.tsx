@@ -68,7 +68,7 @@ const WorkOrdersHistoryFilter = ({
       )}
       <a
         className="lbh-link lbh-body-xs"
-        style={{ padding: '10px' }}
+        style={{ padding: '10px', marginLeft: '0.7rem' }}
         href="#work-orders-history-tab"
         onClick={handleClearFilters}
       >
