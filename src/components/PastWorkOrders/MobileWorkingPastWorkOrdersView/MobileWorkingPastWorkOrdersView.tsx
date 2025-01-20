@@ -42,7 +42,7 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
     try {
       const data = await frontEndApiRequest({
         method: 'get',
-        path: `/api/operatives/${currentUser.operativePayrollNumber}/workOrdersNew?date=${targetDate}`,
+        path: `/api/operatives/${currentUser.operativePayrollNumber}/appointments?date=${targetDate}`,
       })
 
       const workOrders: WorkOrdersType = data.map(
@@ -105,7 +105,6 @@ const MobileWorkingPastWorkOrdersView = ({ currentUser }) => {
         ) : (
           <WarningInfoBox
             header="No work orders displayed"
-            text="Please contact your supervisor"
             name="No jobs warning"
           />
         )}
