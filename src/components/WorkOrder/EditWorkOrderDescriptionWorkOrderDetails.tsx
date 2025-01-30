@@ -7,6 +7,7 @@ import { Button, PrimarySubmitButton } from '../Form'
 import CharacterCountLimitedTextArea from '../Form/CharacterCountLimitedTextArea'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
+
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 
 import {
@@ -90,7 +91,7 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
               maxLength={230}
               requiredText="Please enter a repair description"
               register={register}
-              defaultText={workOrder.description}
+              defaultValue={workOrder.description}
               error={errors && errors.editRepairDescription}
               currentLength={230 - workOrder.description.length}
             />
