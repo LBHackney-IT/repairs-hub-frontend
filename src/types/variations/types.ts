@@ -61,3 +61,22 @@ export type WorkOrderType = {
 }
 
 export type WorkOrdersType = WorkOrderType[]
+
+export type UpdateWorkOrderDescriptionWorkOrderDetailsProps = {
+  workOrderReference: string
+}
+
+export type FormValues = {
+  editRepairDescription: string
+}
+
+export type WorkOrderEditDescriptionType = {
+  reference: string
+  description: string
+  priorityCode: string
+  status: string
+  appointment?: { date: string; start: string }
+  contractorReference?: string
+  tradeCode?: string
+  target?: string
+}

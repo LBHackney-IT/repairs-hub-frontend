@@ -6,10 +6,11 @@ const CharacterCountLimitedTextArea = ({
   register,
   requiredText,
   maxLength,
+  currentLength = maxLength,
   ...otherProps
 }) => {
   const [remainingCharacterCount, setRemainingCharacterCount] = useState(
-    maxLength
+    currentLength
   )
 
   return (
