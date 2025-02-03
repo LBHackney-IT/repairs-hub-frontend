@@ -27,7 +27,9 @@ export const getWorkOrder = async (workOrderReference: string) => {
       error:
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
-          : `Oops, an error occurred: ${e.response?.status} with message: ${JSON.stringify(e.response?.data?.message)}`,
+          : `Oops, an error occurred: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
     }
   }
 }
