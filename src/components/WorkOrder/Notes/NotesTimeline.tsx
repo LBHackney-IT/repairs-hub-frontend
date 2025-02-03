@@ -14,16 +14,25 @@ const NotesTimeline = ({ notes, workOrder, setActiveTab }: Props) => {
 
   return (
     <ul className="lbh-list note-timeline">
-      {notes.map((note, index) => (
-        <li key={index} className="note-entry lbh-body-s" data-note-id={index}>
-          <NoteEntry
+      {notes.map((note, index) => {
+        const previousNote =
+          index < notes.length - 1 ? notes[index + 1].note : null
+
+        return (
+          <li
             key={index}
-            note={note}
-            workOrder={workOrder}
-            setActiveTab={setActiveTab}
-          />
-        </li>
-      ))}
+            className="note-entry lbh-body-s"
+            data-note-id={index}
+          >
+            <NoteEntry
+              note={note}
+              previousNote={previousNote}
+              workOrder={workOrder}
+              setActiveTab={setActiveTab}
+            />
+          </li>
+        )
+      })}
     </ul>
   )
 }

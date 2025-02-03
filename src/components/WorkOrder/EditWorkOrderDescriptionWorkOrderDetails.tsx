@@ -17,6 +17,7 @@ import {
 } from '../../types/variations/types'
 
 import { getWorkOrder } from '@/utils/helpers/workOrders'
+import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 
 const UpdateWorkOrderDescriptionWorkOrderDetails = ({
   workOrderReference,
@@ -49,6 +50,10 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
   }, [workOrderReference])
 
   const onSubmit = async (data: FormValues) => {
+    const noteData = buildNoteFormData({
+      note: data.editRepairDescription,
+      workOrderReference: workOrder.reference,
+    })
     try {
       await frontEndApiRequest({
         method: 'patch',
@@ -57,6 +62,11 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
           workOrderId: workOrder.reference,
           description: data.editRepairDescription,
         },
+      })
+      await frontEndApiRequest({
+        method: 'post',
+        path: `http://localdev.hackney.gov.uk:5001/api/jobStatusUpdate`,
+        requestData: noteData,
       })
       router.push(`/work-orders/${workOrder.reference}`)
     } catch (error) {
