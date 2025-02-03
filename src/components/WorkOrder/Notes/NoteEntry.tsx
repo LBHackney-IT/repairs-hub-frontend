@@ -25,11 +25,10 @@ const DetectImageNote = (userNote: string) => {
 interface Props {
   note: Note
   workOrder: WorkOrderRequest
-  previousNote: string | null
   setActiveTab: (tab: string) => void
 }
 
-const NoteEntry = ({ note, workOrder, previousNote, setActiveTab }: Props) => {
+const NoteEntry = ({ note, workOrder, setActiveTab }: Props) => {
   return (
     <>
       <div className="note-info lbh-body-s">
@@ -38,7 +37,6 @@ const NoteEntry = ({ note, workOrder, previousNote, setActiveTab }: Props) => {
 
       <NoteContent
         note={note}
-        previousNote={previousNote}
         workOrder={workOrder}
         setActiveTab={setActiveTab}
       />
@@ -49,12 +47,10 @@ const NoteEntry = ({ note, workOrder, previousNote, setActiveTab }: Props) => {
 const NoteContent = ({
   note,
   workOrder,
-  previousNote,
   setActiveTab,
 }: {
   note: Note
   workOrder: WorkOrderRequest
-  previousNote: string | null
   setActiveTab: (tab: string) => void
 }) => {
   if (
@@ -75,7 +71,7 @@ const NoteContent = ({
     return <NoteWithImageContent note={note} />
   }
 
-  return <NormalNoteContent note={note} previousNote={previousNote} />
+  return <NormalNoteContent note={note} />
 }
 
 export default NoteEntry

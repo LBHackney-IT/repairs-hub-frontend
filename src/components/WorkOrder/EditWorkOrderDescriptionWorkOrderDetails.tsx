@@ -51,7 +51,7 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
-      note: data.editRepairDescription,
+      note: `Work Order description updated: ${data.editRepairDescription}`,
       workOrderReference: workOrder.reference,
     })
     try {
