@@ -4,5 +4,3 @@ export const isDLOContractorReference = (contractorReference) =>
   contractorReference && contractorReference.match(DLO_REFERENCE_REGEX)
 
 export const isContractorScheduledInternally = isDLOContractorReference
-
-

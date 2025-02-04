@@ -3,8 +3,9 @@ import { WorkOrder } from '@/models/workOrder'
 import { ApiResponseType } from '../../types/variations/types'
 import { NoteData } from '../../types/edit-workorder/types'
 
-
-export const getWorkOrder = async (workOrderReference: string):  Promise<ApiResponseType<WorkOrder | null>> => {
+export const getWorkOrder = async (
+  workOrderReference: string
+): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
     const workOrderData = await frontEndApiRequest({
       method: 'get',
@@ -33,67 +34,67 @@ export const getWorkOrder = async (workOrderReference: string):  Promise<ApiResp
 }
 
 export const editDescription = async (
-    id: string,
-    description: string
-  ): Promise<ApiResponseType<null>> => {
-    try {
-      await frontEndApiRequest({
-        method: "patch",
-        path: `/api/workOrders/updateDescription`,
-        requestData: {
-          workOrderId: id,
-          description: description,
-        },
-      });
-  
-      return {
-        success: true,
-        response: null,
-        error: null,
-      };
-    } catch (e: any) {
-      console.error("An error has occurred:", e);
-  
-      return {
-        success: false,
-        response: null,
-        error:
-          e.response?.status === 400
-            ? "Invalid request data"
-            : `Oops, an error occurred: ${
-                e.response?.status
-              } with message: ${JSON.stringify(e.response?.data?.message)}`,
-      };
+  id: string,
+  description: string
+): Promise<ApiResponseType<null>> => {
+  try {
+    await frontEndApiRequest({
+      method: 'patch',
+      path: `/api/workOrders/updateDescription`,
+      requestData: {
+        workOrderId: id,
+        description: description,
+      },
+    })
+
+    return {
+      success: true,
+      response: null,
+      error: null,
     }
-  };
-  
+  } catch (e: any) {
+    console.error('An error has occurred:', e)
+
+    return {
+      success: false,
+      response: null,
+      error:
+        e.response?.status === 400
+          ? 'Invalid request data'
+          : `Oops, an error occurred: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
+    }
+  }
+}
+
 export const postNote = async (
-    noteData: NoteData
-  ): Promise<ApiResponseType<null>> => {
-    try {
-      await frontEndApiRequest({
-        method: 'post',
-        path: `/api/jobStatusUpdate`,
-        requestData: noteData,
-      });
-  
-      return {
-        success: true,
-        response: null, 
-        error: null,
-      };
-    } catch (e) {
-      console.error("An error has occurred:", e);
-  
-      return {
-        success: false,
-        response: null,
-        error:
-          e.response?.status === 400
-            ? `Invalid request data`
-            : `Oops, an error occurred: ${
-                e.response?.status
-              } with message: ${JSON.stringify(e.response?.data?.message)}`,
-      };
+  noteData: NoteData
+): Promise<ApiResponseType<null>> => {
+  try {
+    await frontEndApiRequest({
+      method: 'post',
+      path: `/api/jobStatusUpdate`,
+      requestData: noteData,
+    })
+
+    return {
+      success: true,
+      response: null,
+      error: null,
     }
-  };
+  } catch (e) {
+    console.error('An error has occurred:', e)
+
+    return {
+      success: false,
+      response: null,
+      error:
+        e.response?.status === 400
+          ? `Invalid request data`
+          : `Oops, an error occurred: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
+    }
+  }
+}
