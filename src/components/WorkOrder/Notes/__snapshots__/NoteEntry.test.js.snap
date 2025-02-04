@@ -22,7 +22,6 @@ exports[`NoteEntry component should render a normal note 1`] = `
     23 Jan 2021, 16:28 by Test user (sample@sample.com)
   </div>
   <span>
-    <br />
     some pre-generated note
     <br />
   </span>

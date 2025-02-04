@@ -51,7 +51,7 @@ const EditWorkOrderDescription = ({
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
-      note: `Work Order description updated: ${data.editRepairDescription}`,
+      note: `Description updated: ${data.editRepairDescription}`,
       workOrderReference: workOrder.reference,
     })
     const editDescriptionResponse = await editDescription(
@@ -78,9 +78,10 @@ const EditWorkOrderDescription = ({
       <BackButton />
       <GridRow>
         <GridColumn width="two-thirds">
-          <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-            Work order:
-            {workOrder.reference.toString().padStart(8, '0')}
+          <h1 className="lbh-heading-h1 display-inline ">
+            {`Edit work order: ${workOrder.reference
+              .toString()
+              .padStart(8, '0')}`}
           </h1>
           <form
             role="form"
@@ -89,7 +90,7 @@ const EditWorkOrderDescription = ({
           >
             <CharacterCountLimitedTextArea
               name="editRepairDescription"
-              label="Edit repair description"
+              label="Repair description"
               required
               maxLength={230}
               requiredText="Please enter a repair description"
@@ -98,13 +99,15 @@ const EditWorkOrderDescription = ({
               error={errors && errors.editRepairDescription}
               currentLength={230 - workOrder.description.length}
             />
-            <Button
-              label="Cancel"
-              type="button"
-              isSecondary
-              onClick={onCancel}
-            />
-            <PrimarySubmitButton label="Save" />
+            <div className="button-group">
+              <Button
+                label="Cancel"
+                type="button"
+                isSecondary
+                onClick={onCancel}
+              />
+              <PrimarySubmitButton className="primary-button" label="Save" />
+            </div>
           </form>
         </GridColumn>
       </GridRow>

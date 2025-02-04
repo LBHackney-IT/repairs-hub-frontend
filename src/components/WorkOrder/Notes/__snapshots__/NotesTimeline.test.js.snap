@@ -25,7 +25,6 @@ exports[`NotesTimeline component should render properly when there are notes 1`]
         8 Feb 2021, 15:06 by Random Name (random.name@hackney.gov.uk)
       </div>
       <span>
-        <br />
         A more recent note about this repair
         <br />
       </span>
@@ -40,7 +39,6 @@ exports[`NotesTimeline component should render properly when there are notes 1`]
         8 Feb 2021, 15:05 by Random Name (random.name@hackney.gov.uk)
       </div>
       <span>
-        <br />
         A note about the repair
         <br />
       </span>
