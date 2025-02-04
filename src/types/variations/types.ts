@@ -61,20 +61,3 @@ export type WorkOrderType = {
 }
 
 export type WorkOrdersType = WorkOrderType[]
-
-export type WorkOrderEditDescriptionType = {
-  reference: string
-  description: string
-  priorityCode: string
-  status: string
-  appointment?: { date: string; start: string }
-  contractorReference?: string
-  tradeCode?: string
-  target?: string
-}
-
-export type ApiResponseType<T> = {
-  success: boolean
-  response: T | null
-  error: string | null
-}

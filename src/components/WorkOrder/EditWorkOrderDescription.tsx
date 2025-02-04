@@ -99,14 +99,21 @@ const EditWorkOrderDescription = ({
               error={errors && errors.editRepairDescription}
               currentLength={230 - workOrder.description.length}
             />
-            <div className="button-group">
+            <div
+              style={{
+                display: 'flex',
+                gap: '1rem',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+            >
               <Button
                 label="Cancel"
                 type="button"
                 isSecondary
                 onClick={onCancel}
               />
-              <PrimarySubmitButton className="primary-button" label="Save" />
+              <PrimarySubmitButton style={{ margin: '0' }} label="Save" />
             </div>
           </form>
         </GridColumn>

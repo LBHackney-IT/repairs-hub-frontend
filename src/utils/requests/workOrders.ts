@@ -1,6 +1,6 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
-import { ApiResponseType } from '../../types/variations/types'
+import { ApiResponseType } from '../../types/requests/types'
 import { NoteData } from '../../types/edit-workorder/types'
 
 export const getWorkOrder = async (
