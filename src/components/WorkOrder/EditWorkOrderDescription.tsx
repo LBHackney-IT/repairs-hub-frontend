@@ -8,24 +8,24 @@ import CharacterCountLimitedTextArea from '../Form/CharacterCountLimitedTextArea
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 
-import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
+import {
+  EditWorkOrderDescriptionProps,
+  FormValues,
+} from '../../types/edit-workorder/types'
+
+import { WorkOrder } from '@/models/workOrder'
 
 import {
-  UpdateWorkOrderDescriptionWorkOrderDetailsProps,
-  FormValues,
-  WorkOrderEditDescriptionType,
-} from '../../types/variations/types'
-
-import { getWorkOrder } from '@/utils/helpers/workOrders'
+  getWorkOrder,
+  postNote,
+  editDescription,
+} from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 
-const UpdateWorkOrderDescriptionWorkOrderDetails = ({
+const EditWorkOrderDescription = ({
   workOrderReference,
-}: UpdateWorkOrderDescriptionWorkOrderDetailsProps) => {
-  const [
-    workOrder,
-    setWorkOrder,
-  ] = useState<WorkOrderEditDescriptionType | null>(null)
+}: EditWorkOrderDescriptionProps) => {
+  const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -38,40 +38,32 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
   const router = useRouter()
 
   useEffect(() => {
-    const fetchWorkOrder = async () => {
-      setLoading(true)
-      const { workOrder, error } = await getWorkOrder(workOrderReference)
-      setWorkOrder(workOrder as WorkOrderEditDescriptionType)
-      setError(error)
-      setLoading(false)
-    }
-
     fetchWorkOrder()
   }, [workOrderReference])
+
+  const fetchWorkOrder = async () => {
+    setLoading(true)
+    const { response, error } = await getWorkOrder(workOrderReference)
+    setWorkOrder(response)
+    setError(error)
+    setLoading(false)
+  }
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
       note: `Work Order description updated: ${data.editRepairDescription}`,
       workOrderReference: workOrder.reference,
     })
-    try {
-      await frontEndApiRequest({
-        method: 'patch',
-        path: `/api/workOrders/updateDescription`,
-        requestData: {
-          workOrderId: workOrder.reference,
-          description: data.editRepairDescription,
-        },
-      })
-      await frontEndApiRequest({
-        method: 'post',
-        path: `http://localdev.hackney.gov.uk:5001/api/jobStatusUpdate`,
-        requestData: noteData,
-      })
-      router.push(`/work-orders/${workOrder.reference}`)
-    } catch (error) {
-      console.log(error)
-    }
+    const editDescriptionResponse = await editDescription(
+      workOrder.reference,
+      data.editRepairDescription
+    )
+    const postNoteResponse = await postNote(noteData)
+
+    if (!editDescriptionResponse.success)
+      throw new Error('Failed to edit description')
+    if (!postNoteResponse.success) throw new Error('Failed to post note')
+    router.push(`/work-orders/${workOrder.reference}`)
   }
 
   const onCancel = () => {
@@ -87,7 +79,8 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
       <GridRow>
         <GridColumn width="two-thirds">
           <h1 className="lbh-heading-h1 display-inline govuk-!-margin-right-6">
-            Work order: {workOrder.reference.toString().padStart(8, '0')}
+            Work order:
+            {workOrder.reference.toString().padStart(8, '0')}
           </h1>
           <form
             role="form"
@@ -119,4 +112,4 @@ const UpdateWorkOrderDescriptionWorkOrderDetails = ({
   )
 }
 
-export default UpdateWorkOrderDescriptionWorkOrderDetails
+export default EditWorkOrderDescription

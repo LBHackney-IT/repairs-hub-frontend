@@ -62,14 +62,6 @@ export type WorkOrderType = {
 
 export type WorkOrdersType = WorkOrderType[]
 
-export type UpdateWorkOrderDescriptionWorkOrderDetailsProps = {
-  workOrderReference: string
-}
-
-export type FormValues = {
-  editRepairDescription: string
-}
-
 export type WorkOrderEditDescriptionType = {
   reference: string
   description: string
@@ -80,3 +72,10 @@ export type WorkOrderEditDescriptionType = {
   tradeCode?: string
   target?: string
 }
+
+
+export type ApiResponseType<T> = {
+  success: boolean;
+  response: T | null;
+  error: string | null;
+};
