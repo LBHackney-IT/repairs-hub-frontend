@@ -8,7 +8,7 @@ import {
   DATA_ADMIN_ROLE,
 } from '@/utils/user'
 
-const EditWorkOrderDescriptionPage = ({ query }) => {
+const EditPage = ({ query }) => {
   return (
     <>
       <Meta title={`Edit Work Order description ${query.id}`} />
@@ -19,11 +19,11 @@ const EditWorkOrderDescriptionPage = ({ query }) => {
 
 export const getServerSideProps = getQueryProps
 
-EditWorkOrderDescriptionPage.permittedRoles = [
+EditPage.permittedRoles = [
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
   DATA_ADMIN_ROLE,
 ]
 
-export default EditWorkOrderDescriptionPage
+export default EditPage
