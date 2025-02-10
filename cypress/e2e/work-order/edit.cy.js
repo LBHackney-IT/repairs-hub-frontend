@@ -124,7 +124,7 @@ describe('Editing a work order description', () => {
   })
 
   context('When network request fails', () => {
-    it.only('Shows an error', () => {
+    it('Shows an error', () => {
       cy.loginWithAuthorisationManagerRole()
       cy.intercept(
         {
