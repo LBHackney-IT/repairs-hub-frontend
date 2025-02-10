@@ -1,4 +1,4 @@
-export type EditWorkOrderDescriptionProps = {
+export type EditWorkOrderProps = {
   workOrderReference: string
 }
 

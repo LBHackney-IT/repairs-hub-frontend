@@ -9,7 +9,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 
 import {
-  EditWorkOrderDescriptionProps,
+  EditWorkOrderProps,
   FormValues,
 } from '../../types/edit-workorder/types'
 
@@ -22,9 +22,7 @@ import {
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 
-const EditWorkOrderDescription = ({
-  workOrderReference,
-}: EditWorkOrderDescriptionProps) => {
+const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -122,4 +120,4 @@ const EditWorkOrderDescription = ({
   )
 }
 
-export default EditWorkOrderDescription
+export default EditWorkOrder

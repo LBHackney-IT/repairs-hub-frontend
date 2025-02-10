@@ -1,5 +1,5 @@
 import Meta from '@/components/Meta'
-import EditWorkOrderDescription from '@/root/src/components/WorkOrder/EditWorkOrderDescription'
+import EditWorkOrder from '@/root/src/components/WorkOrder/EditWorkOrder'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import {
   AGENT_ROLE,
@@ -12,7 +12,7 @@ const EditPage = ({ query }) => {
   return (
     <>
       <Meta title={`Edit Work Order description ${query.id}`} />
-      <EditWorkOrderDescription workOrderReference={query.id} />
+      <EditWorkOrder workOrderReference={query.id} />
     </>
   )
 }
