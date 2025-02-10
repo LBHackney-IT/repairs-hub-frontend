@@ -1,44 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditWorkOrder Component should render correctly 1`] = `
+exports[`EditWorkOrder Component should render correctly after fetching work order 1`] = `
 <DocumentFragment>
-  <svg
-    data-testid="spinner-undefined"
-    height="50"
-    stroke="#00703c"
-    viewBox="0 0 42 42"
-    width="50"
-    xmlns="http://www.w3.org/2000/svg"
+  <div
+    class="govuk-!-display-none-print"
   >
-    <g
-      fill="none"
-      fill-rule="evenodd"
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
     >
-      <g
-        stroke-width="5"
-        transform="translate(3 3)"
+      Back
+    </a>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-two-thirds"
       >
-        <circle
-          cx="18"
-          cy="18"
-          r="18"
-          stroke-opacity=".5"
-        />
-        <path
-          d="M36 18c0-9.94-8.06-18-18-18"
-          transform="rotate(112.708 18 18)"
+        <h1
+          class="lbh-heading-h1 display-inline "
         >
-          <animatetransform
-            attributeName="transform"
-            dur="1s"
-            from="0 18 18"
-            repeatCount="indefinite"
-            to="360 18 18"
-            type="rotate"
-          />
-        </path>
-      </g>
-    </g>
-  </svg>
+          Edit work order: 10000040
+        </h1>
+        <form
+          id="edit-description-form"
+          role="form"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="editRepairDescription-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="editRepairDescription"
+            >
+              Repair description
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <textarea
+              aria-describedby="editRepairDescription-hint editRepairDescription-error"
+              class="govuk-textarea lbh-textarea"
+              data-testid="editRepairDescription"
+              id="editRepairDescription"
+              name="editRepairDescription"
+              rows="4"
+            >
+              Fix the leaking pipe
+            </textarea>
+          </div>
+          <span
+            aria-live="polite"
+            class="govuk-hint govuk-character-count__message"
+          >
+            You have 210 characters remaining.
+          </span>
+          <div
+            style="display: flex; gap: 1rem; align-items: center; justify-content: space-between;"
+          >
+            <button
+              class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+              data-module="govuk-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <button
+                class="govuk-button lbh-button"
+                data-module="govuk-button"
+                style="margin: 0px;"
+                type="submit"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </DocumentFragment>
 `;
