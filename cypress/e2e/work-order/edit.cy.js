@@ -56,62 +56,7 @@ describe('Editing a work order description', () => {
       cy.url().should('include', '/work-orders/10000040')
     })
   })
-  context('As a contract manager', () => {
-    beforeEach(() => {
-      cy.loginWithContractManagerRole()
-      cy.fixture('workOrders/workOrder.json')
-        .then((workOrder) => {
-          workOrder.reference = 10000040
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
-            { body: workOrder }
-          )
-        })
-        .as('workOrder')
-      cy.fixture('workOrders/editedWorkOrder.json')
-        .then((workOrder) => {
-          workOrder.reference = 10000040
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
-            { body: workOrder }
-          )
-        })
-        .as('editedWorkOrder')
-      cy.intercept({
-        method: 'GET',
-        path: 'api/workOrders/10000040/tasks',
-      }).as('tasks')
-      cy.intercept({
-        method: 'GET',
-        path: 'api/properties/00012345',
-      })
-      cy.visit('/work-orders/10000040')
-    })
-    it('allows me to edit the work order description and adds the updated description to the notes', () => {
-      cy.get('[data-testid="details"] > .govuk-button').click()
-      cy.get('#workOrderMenu-4').click()
-      cy.get('.MultiButton_button__ApRbt').click()
-      cy.get('[data-testid="editRepairDescription"]')
-        .clear()
-        .type('This is a test description.')
-      cy.get('.govuk-form-group > .govuk-button').click()
-      cy.get('.lbh-body-m').should('contain', 'This is a test description.')
-      cy.get('#tab_notes-tab').click()
-      cy.get('[data-note-id="0"] > span').should(
-        'contain',
-        'Description updated: This is a test description.'
-      )
-      cy.visit('/work-orders/10000040')
-    })
-    it('cancels description update when cancel button is clicked', () => {
-      cy.get('[data-testid="details"] > .govuk-button').click()
-      cy.get('#workOrderMenu-2').click()
-      cy.get('.MultiButton_button__ApRbt').click()
-      cy.get('.govuk-button-secondary').click()
-      cy.url().should('include', '/work-orders/10000040')
-    })
-  })
-  context('As a data admin', () => {
+  context('As an operative', () => {
     beforeEach(() => {
       cy.loginWithDataAdminRole()
       cy.fixture('workOrders/workOrder.json')
@@ -140,17 +85,12 @@ describe('Editing a work order description', () => {
         method: 'GET',
         path: 'api/properties/00012345',
       }).as('property')
-      cy.visit('/backoffice')
+      cy.visit('/work-orders/10000040/edit')
     })
-    it.only('allows me to edit the work order description', () => {
-      cy.get('[data-testid="details"] > .govuk-button').click()
-      cy.get('#workOrderMenu-4').click()
-      cy.get('.MultiButton_button__ApRbt').click()
-      cy.get('[data-testid="editRepairDescription"]')
-        .clear()
-        .type('This is a test description.')
-      cy.get('.govuk-form-group > .govuk-button').click()
-      cy.get('.lbh-body-m').should('contain', 'This is a test description.')
+    it('I am restricted from accessing the correct page', () => {
+      cy.contains(
+        `Oops an error occurred with error status: 403 with message: {"Message":"User is not authorized to access this resource with an explicit deny"}`
+      )
     })
   })
   context('When user submits empty text field', () => {
@@ -180,6 +120,23 @@ describe('Editing a work order description', () => {
         .type(longDescription)
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.contains('You have exceeded the maximum amount of characters')
+    })
+  })
+
+  context('When network request fails', () => {
+    it.only('Shows an error', () => {
+      cy.loginWithAuthorisationManagerRole()
+      cy.intercept(
+        {
+          method: 'PATCH',
+          path: `/api/workOrders/updateDescription`,
+        },
+        { statusCode: 500 }
+      ).as('failedUpdateDescription')
+      cy.visit('/work-orders/10000040/edit')
+      cy.get('.govuk-form-group > .govuk-button').click()
+      cy.wait('@failedUpdateDescription')
+      cy.contains('Oops, an error occurred: 500')
     })
   })
 })

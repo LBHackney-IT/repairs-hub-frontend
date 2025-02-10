@@ -61,8 +61,8 @@ const EditWorkOrderDescription = ({
     const postNoteResponse = await postNote(noteData)
 
     if (!editDescriptionResponse.success)
-      throw new Error('Failed to edit description')
-    if (!postNoteResponse.success) throw new Error('Failed to post note')
+      setError(editDescriptionResponse.error)
+    if (!postNoteResponse.success) setError(postNoteResponse.error)
     router.push(`/work-orders/${workOrder.reference}`)
   }
 
