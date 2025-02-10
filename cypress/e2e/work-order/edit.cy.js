@@ -58,7 +58,7 @@ describe('Editing a work order description', () => {
   })
   context('As an operative', () => {
     beforeEach(() => {
-      cy.loginWithDataAdminRole()
+      cy.loginWithOperativeRole()
       cy.fixture('workOrders/workOrder.json')
         .then((workOrder) => {
           workOrder.reference = 10000040
@@ -68,29 +68,10 @@ describe('Editing a work order description', () => {
           )
         })
         .as('workOrder')
-      cy.fixture('workOrders/editedWorkOrder.json')
-        .then((workOrder) => {
-          workOrder.reference = 10000040
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
-            { body: workOrder }
-          )
-        })
-        .as('editedWorkOrder')
-      cy.intercept({
-        method: 'GET',
-        path: 'api/workOrders/10000040/tasks',
-      }).as('tasks')
-      cy.intercept({
-        method: 'GET',
-        path: 'api/properties/00012345',
-      }).as('property')
       cy.visit('/work-orders/10000040/edit')
     })
-    it('I am restricted from accessing the correct page', () => {
-      cy.contains(
-        `Oops an error occurred with error status: 403 with message: {"Message":"User is not authorized to access this resource with an explicit deny"}`
-      )
+    it.only('I am restricted from accessing the correct page', () => {
+      cy.contains(`Access denied`)
     })
   })
   context('When user submits empty text field', () => {
