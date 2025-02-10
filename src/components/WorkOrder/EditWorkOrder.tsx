@@ -56,11 +56,17 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       workOrder.reference,
       data.editRepairDescription
     )
+    if (!editDescriptionResponse.success) {
+      setError(editDescriptionResponse.error)
+      return
+    }
+
     const postNoteResponse = await postNote(noteData)
 
-    if (!editDescriptionResponse.success)
-      setError(editDescriptionResponse.error)
-    if (!postNoteResponse.success) setError(postNoteResponse.error)
+    if (!postNoteResponse.success) {
+      setError(postNoteResponse.error)
+      return
+    }
     router.push(`/work-orders/${workOrder.reference}`)
   }
 
