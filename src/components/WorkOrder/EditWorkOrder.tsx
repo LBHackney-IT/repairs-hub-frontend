@@ -9,7 +9,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 
 import {
-  EditWorkOrderDescriptionProps,
+  EditWorkOrderProps,
   FormValues,
 } from '../../types/edit-workorder/types'
 
@@ -22,9 +22,7 @@ import {
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 
-const EditWorkOrderDescription = ({
-  workOrderReference,
-}: EditWorkOrderDescriptionProps) => {
+const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -58,11 +56,17 @@ const EditWorkOrderDescription = ({
       workOrder.reference,
       data.editRepairDescription
     )
+    if (!editDescriptionResponse.success) {
+      setError(editDescriptionResponse.error)
+      return
+    }
+
     const postNoteResponse = await postNote(noteData)
 
-    if (!editDescriptionResponse.success)
-      throw new Error('Failed to edit description')
-    if (!postNoteResponse.success) throw new Error('Failed to post note')
+    if (!postNoteResponse.success) {
+      setError(postNoteResponse.error)
+      return
+    }
     router.push(`/work-orders/${workOrder.reference}`)
   }
 
@@ -122,4 +126,4 @@ const EditWorkOrderDescription = ({
   )
 }
 
-export default EditWorkOrderDescription
+export default EditWorkOrder
