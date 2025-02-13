@@ -9,13 +9,10 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
-import ScheduleAppointment from './ScheduleAppointment'
+import ScheduleDRSAppointment from './ScheduleDRSAppointment'
+import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 
-const AppointmentDetails = ({
-  workOrder,
-  schedulerSessionId,
-  resetSchedulerSessionId,
-}) => {
+const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -40,17 +37,21 @@ const AppointmentDetails = ({
                   )}
 
                 {canScheduleAppointment(user) && workOrder.canBeScheduled() && (
-                  <ScheduleAppointment
-                    externalAppointmentManagementUrl={
-                      workOrder.externalAppointmentManagementUrl
-                    }
-                    hasExistingAppointment={workOrder.appointment}
-                    // openExternalLinkEventHandler={openExternalLinkEventHandler}
-                    resetSchedulerSessionId={resetSchedulerSessionId}
-                    schedulerSessionId={schedulerSessionId}
-                    workOrder={workOrder}
-                    workOrderReference={workOrder.reference}
-                  />
+                  <>
+                    {workOrder?.externalAppointmentManagementUrl ? (
+                      <ScheduleDRSAppointment
+                        hasExistingAppointment={workOrder.appointment}
+                        workOrder={workOrder}
+                        workOrderReference={workOrder.reference}
+                      />
+                    ) : (
+                      <ScheduleInternalAppointmentLink
+                        hasExistingAppointment={workOrder.appointment}
+                        workOrderReference={workOrder.reference}
+                        appointmentIsToday={workOrder.appointmentIsToday()}
+                      />
+                    )}
+                  </>
                 )}
 
                 {canSeeAppointmentDetailsInfo(user) &&
