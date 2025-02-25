@@ -1,0 +1,89 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EditWorkOrder Component should render correctly after fetching work order 1`] = `
+<DocumentFragment>
+  <div
+    class="govuk-!-display-none-print"
+  >
+    <a
+      class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+      role="button"
+    >
+      Back
+    </a>
+    <div
+      class="govuk-grid-row undefined"
+    >
+      <div
+        class="govuk-grid-column-two-thirds"
+      >
+        <h1
+          class="lbh-heading-h1 display-inline "
+        >
+          Edit work order: 10000040
+        </h1>
+        <form
+          id="edit-description-form"
+          role="form"
+        >
+          <div
+            class="govuk-form-group lbh-form-group"
+            id="editRepairDescription-form-group"
+          >
+            <label
+              class="govuk-label lbh-label"
+              for="editRepairDescription"
+            >
+              Repair description
+              <span
+                class="govuk-required"
+              >
+                *
+              </span>
+            </label>
+            <textarea
+              aria-describedby="editRepairDescription-hint editRepairDescription-error"
+              class="govuk-textarea lbh-textarea"
+              data-testid="editRepairDescription"
+              id="editRepairDescription"
+              name="editRepairDescription"
+              rows="4"
+            >
+              Fix the leaking pipe
+            </textarea>
+          </div>
+          <span
+            aria-live="polite"
+            class="govuk-hint govuk-character-count__message"
+          >
+            You have 210 characters remaining.
+          </span>
+          <div
+            style="display: flex; gap: 1rem; align-items: center; justify-content: space-between;"
+          >
+            <button
+              class="govuk-button lbh-button govuk-button-secondary lbh-button--secondary"
+              data-module="govuk-button"
+              type="button"
+            >
+              Cancel
+            </button>
+            <div
+              class="govuk-form-group lbh-form-group"
+            >
+              <button
+                class="govuk-button lbh-button"
+                data-module="govuk-button"
+                style="margin: 0px;"
+                type="submit"
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

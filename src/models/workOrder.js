@@ -10,6 +10,8 @@ import {
 } from '@/utils/statusCodes'
 
 export class WorkOrder {
+  reference
+  description
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
   }

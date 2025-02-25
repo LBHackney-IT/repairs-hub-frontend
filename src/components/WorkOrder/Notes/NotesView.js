@@ -20,7 +20,6 @@ const NotesView = ({
 
   const onFormSubmit = async (formData) => {
     setLoading(true)
-
     try {
       await frontEndApiRequest({
         method: 'post',
