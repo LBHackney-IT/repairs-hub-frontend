@@ -46,6 +46,12 @@ Populate this with a set of variables. This should be stored in a safe place in
 
 If you need to add or change a variable on CI or a deployed environment, first see the 'Managing environment variables' section below.
 
+## Install pre-commit hook 
+
+Install pre-commit hook - [guide here](https://docs.gitguardian.com/ggshield-docs/integrations/git-hooks/pre-commit)
+
+Then add the `GITGUARDIAN_API_KEY` environment variable. The key can be found in Parameter Store (Housing-Development).
+
 ### Authentication
 
 You need a `@hackney.gov.uk` Google account with the correct Google group membership to log in. Speak to Hackney IT if you don't have this.

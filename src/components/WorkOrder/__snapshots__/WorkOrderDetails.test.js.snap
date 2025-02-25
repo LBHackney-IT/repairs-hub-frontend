@@ -276,6 +276,27 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   Print Job Ticket
                 </p>
               </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-4-hint"
+                  id="workOrderMenu-4"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="4"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-4"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-4-hint"
+                >
+                  Edit Work Order description
+                </p>
+              </div>
             </fieldset>
           </details>
         </div>
@@ -720,6 +741,27 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   Print Job Ticket
                 </p>
               </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-5-hint"
+                  id="workOrderMenu-5"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="5"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-5"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-5-hint"
+                >
+                  Edit Work Order description
+                </p>
+              </div>
             </fieldset>
           </details>
         </div>
@@ -1046,6 +1088,27 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   id="workOrderMenu-3-hint"
                 >
                   Print Job Ticket
+                </p>
+              </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-4-hint"
+                  id="workOrderMenu-4"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="4"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-4"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-4-hint"
+                >
+                  Edit Work Order description
                 </p>
               </div>
             </fieldset>
@@ -1907,6 +1970,27 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
                   Print Job Ticket
                 </p>
               </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-2-hint"
+                  id="workOrderMenu-2"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="2"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-2"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-2-hint"
+                >
+                  Edit Work Order description
+                </p>
+              </div>
             </fieldset>
           </details>
         </div>
@@ -2288,6 +2372,27 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
                   Print Job Ticket
                 </p>
               </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-2-hint"
+                  id="workOrderMenu-2"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="2"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-2"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-2-hint"
+                >
+                  Edit Work Order description
+                </p>
+              </div>
             </fieldset>
           </details>
         </div>
@@ -2667,6 +2772,27 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   id="workOrderMenu-1-hint"
                 >
                   Print Job Ticket
+                </p>
+              </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-2-hint"
+                  id="workOrderMenu-2"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="2"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-2"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-2-hint"
+                >
+                  Edit Work Order description
                 </p>
               </div>
             </fieldset>
@@ -3071,6 +3197,27 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   Print Job Ticket
                 </p>
               </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-3-hint"
+                  id="workOrderMenu-3"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="3"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-3"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-3-hint"
+                >
+                  Edit Work Order description
+                </p>
+              </div>
             </fieldset>
           </details>
         </div>
@@ -3348,6 +3495,27 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   id="workOrderMenu-1-hint"
                 >
                   Print Job Ticket
+                </p>
+              </div>
+              <div>
+                <input
+                  aria-describedby="workOrderMenu-2-hint"
+                  id="workOrderMenu-2"
+                  name="workOrderMenu"
+                  type="radio"
+                  value="2"
+                />
+                <label
+                  class="lbh-body-s undefined"
+                  for="workOrderMenu-2"
+                >
+                  Edit
+                </label>
+                <p
+                  class="lbh-body-xs undefined"
+                  id="workOrderMenu-2-hint"
+                >
+                  Edit Work Order description
                 </p>
               </div>
             </fieldset>
