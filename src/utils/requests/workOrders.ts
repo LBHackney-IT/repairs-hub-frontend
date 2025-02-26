@@ -1,7 +1,7 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { ApiResponseType } from '../../types/requests/types'
-import { NoteData } from '../../types/edit-workorder/types'
+import { NoteData } from '../../types/generic/types'
 
 export const getWorkOrder = async (
   workOrderReference: string
@@ -33,14 +33,14 @@ export const getWorkOrder = async (
   }
 }
 
-export const editDescription = async (
+export const editWorkOrder = async (
   id: string,
   description: string
 ): Promise<ApiResponseType<null>> => {
   try {
     await frontEndApiRequest({
       method: 'patch',
-      path: `/api/workOrders/updateDescription`,
+      path: `/api/workOrders/editWorkOrder`,
       requestData: {
         workOrderId: id,
         description: description,

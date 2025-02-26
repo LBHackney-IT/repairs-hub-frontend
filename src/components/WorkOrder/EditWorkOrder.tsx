@@ -8,17 +8,14 @@ import CharacterCountLimitedTextArea from '../Form/CharacterCountLimitedTextArea
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 
-import {
-  EditWorkOrderProps,
-  FormValues,
-} from '../../types/edit-workorder/types'
+import { EditWorkOrderProps, FormValues } from '../../types/generic/types'
 
 import { WorkOrder } from '@/models/workOrder'
 
 import {
   getWorkOrder,
   postNote,
-  editDescription,
+  editWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 
@@ -52,12 +49,12 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       note: `Description updated: ${data.editRepairDescription}`,
       workOrderReference: workOrder.reference,
     })
-    const editDescriptionResponse = await editDescription(
+    const editWorkOrderResponse = await editWorkOrder(
       workOrder.reference,
       data.editRepairDescription
     )
-    if (!editDescriptionResponse.success) {
-      setError(editDescriptionResponse.error)
+    if (!editWorkOrderResponse.success) {
+      setError(editWorkOrderResponse.error)
       return
     }
 
@@ -89,7 +86,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
           </h1>
           <form
             role="form"
-            id="edit-description-form"
+            id="edit-work-order-form"
             onSubmit={handleSubmit(onSubmit)}
           >
             <CharacterCountLimitedTextArea
