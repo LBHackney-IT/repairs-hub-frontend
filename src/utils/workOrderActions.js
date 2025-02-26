@@ -74,7 +74,7 @@ export const WORK_ORDER_ACTIONS = [
   {
     href: 'edit',
     title: 'Edit',
-    description: 'Edit Work Order',
+    description: 'Edit Work Order description',
     permittedRoles: [
       AGENT_ROLE,
       AUTHORISATION_MANAGER_ROLE,

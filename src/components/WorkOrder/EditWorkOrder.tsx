@@ -8,8 +8,6 @@ import CharacterCountLimitedTextArea from '../Form/CharacterCountLimitedTextArea
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 
-import { EditWorkOrderProps, FormValues } from '../../types/generic/types'
-
 import { WorkOrder } from '@/models/workOrder'
 
 import {
@@ -18,6 +16,14 @@ import {
   editWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
+
+export type EditWorkOrderProps = {
+  workOrderReference: string
+}
+
+export type FormValues = {
+  editRepairDescription: string
+}
 
 const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)

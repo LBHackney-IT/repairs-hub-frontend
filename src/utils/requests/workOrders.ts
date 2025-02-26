@@ -1,7 +1,7 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { ApiResponseType } from '../../types/requests/types'
-import { NoteData } from '../../types/generic/types'
+import { NoteDataType } from '../../types/requests/types'
 
 export const getWorkOrder = async (
   workOrderReference: string
@@ -69,7 +69,7 @@ export const editWorkOrder = async (
 }
 
 export const postNote = async (
-  noteData: NoteData
+  noteData: NoteDataType
 ): Promise<ApiResponseType<null>> => {
   try {
     await frontEndApiRequest({
