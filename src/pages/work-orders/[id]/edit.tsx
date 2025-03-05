@@ -11,7 +11,7 @@ import {
 const EditPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Edit Work Order description ${query.id}`} />
+      <Meta title={`Edit Work Order ${query.id}`} />
       <EditWorkOrder workOrderReference={query.id} />
     </>
   )
