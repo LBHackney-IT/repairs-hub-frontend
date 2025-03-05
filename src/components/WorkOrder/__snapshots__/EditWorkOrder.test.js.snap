@@ -23,7 +23,7 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
           Edit work order: 10000040
         </h1>
         <form
-          id="edit-description-form"
+          id="edit-work-order-form"
           role="form"
         >
           <div
