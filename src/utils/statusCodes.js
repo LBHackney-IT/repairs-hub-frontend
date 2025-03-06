@@ -91,7 +91,7 @@ export const FOLLOW_ON_REQUEST_AVAILABLE_TRADES = [
   },
   {
     name: 'followon-trades-other',
-    label: 'Other (please specify in the text box below)',
+    label: 'Other',
     value: 'Other',
   },
 ]
