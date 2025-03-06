@@ -14,6 +14,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     clearErrors,
     watch,
     followOnData,
+    reference,
   } = props
 
   const selectedFurtherWorkRequired =
@@ -128,6 +129,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 <FollowOnRequestDifferentTradesForm
                   register={register}
                   errors={errors}
+                  watch={watch}
                   requiredFollowOnTrades={
                     followOnData?.requiredFollowOnTrades ?? []
                   }

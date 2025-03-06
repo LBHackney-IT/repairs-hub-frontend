@@ -1,4 +1,4 @@
-export type ApiResponseType<T> = {
+export type ApiResponseType<T = unknown> = {
   success: boolean
   response: T | null
   error: string | null
