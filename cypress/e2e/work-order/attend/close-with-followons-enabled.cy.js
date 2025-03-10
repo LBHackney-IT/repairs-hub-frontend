@@ -768,7 +768,16 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('input[data-testid="supervisorCalled"]').check('Yes')
       cy.get('input[data-testid="isSameTrade"]').check()
       cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.intercept(
+        { method: 'GET', path: '/api/filter/WorkOrder' },
+        { fixture: 'filter/trades.json' }
+      ).as('trades')
       cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('input[data-testid="followon-trades-other"]').check()
+      cy.get('[data-testid="otherTrade"]')
+        .click()
+        .clear()
+        .type('Electrical{enter}')
       cy.get('textarea[data-testid="followOnTypeDescription"]').type(
         'follow on description'
       )
@@ -812,13 +821,14 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
               isSameTrade: true,
               isDifferentTrades: true,
               isMultipleOperatives: false,
-              requiredFollowOnTrades: ['Plumbing'],
+              requiredFollowOnTrades: ['Plumbing', 'Other'],
               followOnTypeDescription: 'follow on description',
               stockItemsRequired: true,
               nonStockItemsRequired: false,
               materialNotes: 'material notes',
               additionalNotes: 'Additional notes desc',
               supervisorCalled: true,
+              otherTrade: 'Electrical',
             },
           })
         })
