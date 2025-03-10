@@ -107,6 +107,8 @@ const SummaryCloseWorkOrder = ({
                             {followOnData.requiredFollowOnTrades
                               .map((x) => x.value)
                               .join(', ')}
+                            {followOnData.otherTrade &&
+                              `: ${followOnData.otherTrade}`}
                             )
                           </li>
                         )}
