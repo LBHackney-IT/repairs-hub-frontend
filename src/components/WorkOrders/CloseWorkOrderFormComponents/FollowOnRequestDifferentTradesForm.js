@@ -49,8 +49,13 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             return trade.description
           })}
           defaultValue="Please specify"
-          register={register}
-          error={error && { message: error }}
+          register={register({ required: 'Please select a trade' })}
+          error={
+            error ||
+            (watch('otherTrade') === ''
+              ? { message: `This field can't be empty` }
+              : null)
+          }
         />
       )}
     </ul>

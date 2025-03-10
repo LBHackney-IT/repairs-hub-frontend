@@ -61,9 +61,9 @@ const DataList = ({
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         defaultValue={defaultValue}
+        required
         {...(value && { value })}
       />
-
       <datalist id={`autocomplete-list-${name}`}>
         {options.map((item, i) => (
           <option key={item + i} value={item} />
