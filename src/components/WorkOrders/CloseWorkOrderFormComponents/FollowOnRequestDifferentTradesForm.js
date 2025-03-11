@@ -8,6 +8,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   const { register, requiredFollowOnTrades, watch } = props
 
   const [trades, setTrades] = useState([])
+  const [filteredTrades, setFilteredTrades] = useState([])
   const [error, setError] = useState(null)
 
   const selectedTrades = new Set(requiredFollowOnTrades.map((x) => x.name))
@@ -18,6 +19,10 @@ const FollowOnRequestDifferentTradesForm = (props) => {
     fetchTrades()
   }, [])
 
+  useEffect(() => {
+    filterTrades()
+  }, [trades])
+
   const fetchTrades = async () => {
     const tradesResponse = await getTrades()
     if (!tradesResponse.success) {
@@ -26,6 +31,28 @@ const FollowOnRequestDifferentTradesForm = (props) => {
     }
     setTrades(tradesResponse.response)
   }
+
+  const filterTrades = () => {
+    const codesToFilter = [
+      'CP',
+      'DR',
+      'GR',
+      'GS',
+      'EL',
+      'MU',
+      'PN',
+      'PL',
+      'RF',
+      'SC',
+      'UP',
+      'SV',
+    ]
+    const filteredTrades = trades.filter(
+      (trade) => !codesToFilter.includes(trade.key)
+    )
+    setFilteredTrades(filteredTrades)
+  }
+
   return (
     <ul>
       {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
@@ -43,13 +70,14 @@ const FollowOnRequestDifferentTradesForm = (props) => {
       ))}
       {isDifferentTradesChecked && (
         <DataList
-          label=""
+          label="Please specify"
           name="otherTrade"
-          options={trades.map((trade) => {
+          options={filteredTrades.map((trade) => {
             return trade.description
           })}
-          defaultValue="Please specify"
           register={register({ required: 'Please select a trade' })}
+          required={true}
+          hint="Select or type a trade"
           error={
             error ||
             (watch('otherTrade') === ''

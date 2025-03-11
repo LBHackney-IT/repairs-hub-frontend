@@ -61,7 +61,7 @@ const DataList = ({
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         defaultValue={defaultValue}
-        required
+        required={required}
         {...(value && { value })}
       />
       <datalist id={`autocomplete-list-${name}`}>
