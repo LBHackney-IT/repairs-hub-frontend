@@ -14,7 +14,6 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     clearErrors,
     watch,
     followOnData,
-    reference,
   } = props
 
   const selectedFurtherWorkRequired =
