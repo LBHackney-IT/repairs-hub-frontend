@@ -86,7 +86,6 @@ const FollowOnRequestDifferentTradesForm = (props) => {
               setRemainingCharacterCount(maxLength - e.target.value.length)
             }
             remainingCharacterCount={remainingCharacterCount}
-            required={true}
           />
           {error && <ErrorMessage label={error} />}
         </>
