@@ -32,6 +32,7 @@ exports[`BudgetCodeItemView component should render a datalist with formatted bu
         id="budgetCode"
         list="autocomplete-list-budgetCode"
         name="budgetCode"
+        required=""
         value=""
       />
       <datalist
