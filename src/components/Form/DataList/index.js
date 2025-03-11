@@ -88,7 +88,6 @@ const DataList = ({
         list={`autocomplete-list-${name}`}
         autoComplete="off"
         defaultValue={defaultValue}
-        required={required}
         {...(value && { value })}
       />
       {maxLength ? (
