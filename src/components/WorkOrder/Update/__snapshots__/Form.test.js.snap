@@ -510,7 +510,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
             id="rateScheduleItems[undefined][code]"
             list="autocomplete-list-rateScheduleItems[undefined][code]"
             name="rateScheduleItems[undefined][code]"
-            required=""
             value="DES5R004 - Immediate call outs"
           />
           <datalist
@@ -871,7 +870,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
             id="rateScheduleItems[undefined][code]"
             list="autocomplete-list-rateScheduleItems[undefined][code]"
             name="rateScheduleItems[undefined][code]"
-            required=""
             value="DES5R004 - Immediate call outs"
           />
           <datalist
