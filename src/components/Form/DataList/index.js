@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
