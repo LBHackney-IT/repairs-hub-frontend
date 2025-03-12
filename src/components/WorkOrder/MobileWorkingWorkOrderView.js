@@ -168,7 +168,8 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         data.nonStockItemsRequired,
         data.materialNotes,
         data.additionalNotes,
-        data.supervisorCalled === 'Yes'
+        data.supervisorCalled === 'Yes',
+        data.otherTrade
       )
     }
 

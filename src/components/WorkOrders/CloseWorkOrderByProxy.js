@@ -207,10 +207,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.nonStockItemsRequired,
         followOnData.materialNotes,
         followOnData.additionalNotes,
-        followOnData.supervisorCalled
+        followOnData.supervisorCalled,
+        followOnData.otherTrade
       )
     }
-
     const followOnFunctionalityEnabled =
       featureToggles?.followOnFunctionalityEnabled ?? false
 
@@ -271,6 +271,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         materialNotes: formData.materialNotes,
         additionalNotes: formData.additionalNotes,
         supervisorCalled: formData.supervisorCalled === 'Yes',
+        otherTrade: formData.otherTrade,
       }
 
       setFollowOnData(followOnData)
