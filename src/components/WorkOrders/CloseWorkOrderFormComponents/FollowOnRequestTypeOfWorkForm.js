@@ -128,6 +128,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 <FollowOnRequestDifferentTradesForm
                   register={register}
                   errors={errors}
+                  watch={watch}
                   requiredFollowOnTrades={
                     followOnData?.requiredFollowOnTrades ?? []
                   }
