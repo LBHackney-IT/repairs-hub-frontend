@@ -1,13 +1,18 @@
 import { ApiResponseType } from '../../types/requests/types'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
-export const getTrades = async (): Promise<ApiResponseType> => {
+export type Trades = {
+  key: string
+  description: string
+}
+
+export const getTrades = async (): Promise<ApiResponseType<Trades[]>> => {
   try {
     const workOrderFilters = await frontEndApiRequest({
       method: 'get',
       path: '/api/filter/WorkOrder',
     })
-
+console.log(workOrderFilters)
     return {
       success: true,
       response: workOrderFilters.Trades,
