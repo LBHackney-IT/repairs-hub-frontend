@@ -50,14 +50,15 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
                 {workOrder.followOnRequest.isDifferentTrades && (
                   <li style={{ marginTop: '5px' }}>
                     Different trade(s):{' '}
-                    {[
-                      ...workOrder.followOnRequest.requiredFollowOnTrades.filter(
-                        (trade) => trade !== 'Other'
-                      ),
-                      workOrder.followOnRequest.otherTrade
-                        ? `Other: ${workOrder.followOnRequest.otherTrade}`
-                        : null,
-                    ].join(', ')}
+                    {workOrder.followOnRequest.requiredFollowOnTrades
+                      .map((trade) => {
+                        if (trade !== 'Other') {
+                          return trade
+                        } else {
+                          return `Other: ${workOrder.followOnRequest.otherTrade}`
+                        }
+                      })
+                      .join(', ')}
                   </li>
                 )}
                 {workOrder.followOnRequest.isMultipleOperatives && (
