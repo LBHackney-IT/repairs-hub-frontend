@@ -81,7 +81,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             hint="Select or type a trade"
             widthClass="govuk-!-width-full"
             error={errors.otherTrade}
-            maxLength={100}
+            maxLength={maxLength}
             onChange={(e) =>
               setRemainingCharacterCount(maxLength - e.target.value.length)
             }
