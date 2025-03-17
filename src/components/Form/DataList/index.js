@@ -75,8 +75,8 @@ const DataList = ({
                   message: 'You have exceeded the maximum amount of characters',
                 },
                 pattern: {
-                  value: /^[A-Za-z\s:\/]+$/i,
-                  message: 'Only alphabetical characters are allowed',
+                  value: /^[A-Za-z\s:/]+$/i,
+                  message: 'Invalid character entered',
                 },
               })
             : register
