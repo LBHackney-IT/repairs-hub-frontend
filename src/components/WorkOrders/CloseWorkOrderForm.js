@@ -113,13 +113,11 @@ const CloseWorkOrderForm = ({
         {showFurtherWorkFields && (
           <>
             <h1 className="lbh-heading-h2">Details of further work required</h1>
-
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
               followOnData={followOnData}
             />
-
             <FollowOnRequestTypeOfWorkForm
               errors={errors}
               register={register}
@@ -130,13 +128,31 @@ const CloseWorkOrderForm = ({
               followOnData={followOnData}
             />
 
+            <Radios
+              label="Estimated duration"
+              name="estimatedDuration"
+              labelSize="s"
+              options={[
+                '30 mins',
+                '1 hour',
+                '2-3 hours',
+                'Half day',
+                'Full day',
+                'More than a day',
+                'Unknown',
+              ]}
+              register={register({
+                required: 'Select estimated duration',
+              })}
+              error={errors && errors.estimatedDuration}
+            />
+
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}
               errors={errors}
               followOnData={followOnData}
             />
-
             <TextArea
               name="additionalNotes"
               label="Additional notes"
