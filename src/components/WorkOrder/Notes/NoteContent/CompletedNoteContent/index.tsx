@@ -77,7 +77,20 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
                     </span>
                   </>
                 )}
+              {workOrder.followOnRequest.estimatedDuration && (
+                <>
+                  <br />
+                  <span>
+                    <strong>Estimated duration</strong>
+                    <br />
+                  </span>
 
+                  <span style={{ color: '#333' }}>
+                    {workOrder.followOnRequest.estimatedDuration}
+                  </span>
+                  <br />
+                </>
+              )}
               {(workOrder.followOnRequest.stockItemsRequired ||
                 workOrder.followOnRequest.nonStockItemsRequired ||
                 (workOrder.followOnRequest.materialNotes !== null &&
