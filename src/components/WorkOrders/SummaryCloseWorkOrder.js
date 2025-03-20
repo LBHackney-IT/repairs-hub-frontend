@@ -123,7 +123,12 @@ const SummaryCloseWorkOrder = ({
                     </>
                   }
                 />
-
+                {followOnData.estimatedDuration && (
+                  <TableRow
+                    label="Estimated duration"
+                    value={followOnData.estimatedDuration}
+                  />
+                )}
                 {(followOnData.stockItemsRequired ||
                   followOnData.nonStockItemsRequired ||
                   followOnData.materialNotes !== '') && (
