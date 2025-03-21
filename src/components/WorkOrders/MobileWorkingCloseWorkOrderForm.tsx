@@ -179,6 +179,7 @@ const MobileWorkingCloseWorkOrderForm = ({
                 required: 'Select estimated duration',
               })}
               error={errors && errors.estimatedDuration}
+              data-testid="estimatedDuration"
             />
 
             <FollowOnRequestMaterialsForm
