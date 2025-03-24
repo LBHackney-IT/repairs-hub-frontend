@@ -100,7 +100,7 @@ export const buildFollowOnRequestData = (
   additionalNotes: string,
   supervisorCalled: boolean,
   estimatedDuration: string,
-  otherTrade?: string,
+  otherTrade?: string
 ): followOnDataRequest => {
   return {
     isSameTrade,
