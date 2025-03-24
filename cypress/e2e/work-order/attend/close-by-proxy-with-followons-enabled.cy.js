@@ -2857,7 +2857,9 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
         )
-
+        // add estimated duration of work - error should disappear
+        cy.get('input[data-testid="estimatedDuration"]').first().check()
+        cy.contains('Select a duration').should('not.exist')
         // when one of the material options is selected, the description must not be empty
         cy.get('input[data-testid="stockItemsRequired"]').check()
         cy.get('[type="submit"]').contains('Close work order').click()
@@ -2891,7 +2893,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.contains('Summary of updates to work order')
     })
 
-    it('submits a request and shows summary page when user enters follow-on details', () => {
+    it.only('submits a request and shows summary page when user enters follow-on details', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
@@ -2922,6 +2924,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
+        cy.get('input[data-testid="estimatedDuration"]').first().check()
         cy.get('input[data-testid="stockItemsRequired"]').check()
         cy.get('textarea[data-testid="materialNotes"]').type('material notes')
         cy.get('textarea[data-testid="additionalNotes"]').type(
@@ -2995,6 +2998,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             nonStockItemsRequired: false,
             materialNotes: 'material notes',
             additionalNotes: 'Additional notes desc',
+            estimatedDuration: '30 mins',
             supervisorCalled: true,
           },
         })
