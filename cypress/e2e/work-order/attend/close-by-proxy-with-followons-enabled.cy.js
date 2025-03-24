@@ -2893,7 +2893,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.contains('Summary of updates to work order')
     })
 
-    it.only('submits a request and shows summary page when user enters follow-on details', () => {
+    it('submits a request and shows summary page when user enters follow-on details', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
