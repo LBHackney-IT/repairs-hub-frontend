@@ -136,15 +136,17 @@ const CloseWorkOrderForm = ({
                 '30 mins',
                 '1 hour',
                 '2-3 hours',
-                'Half day',
-                'Full day',
-                'More than a day',
+                'Half a day',
+                '1 day',
+                'More than 1 day',
                 'Unknown',
               ]}
               register={register({
                 required: 'Select estimated duration',
               })}
               error={errors && errors.estimatedDuration}
+              isGrid={true}
+              labelHasGreyBackground={true}
             />
 
             <FollowOnRequestMaterialsForm

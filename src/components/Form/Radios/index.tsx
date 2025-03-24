@@ -40,6 +40,8 @@ const Radio = (props: Props) => {
     children,
     required,
     isRadiosInline = false,
+    isGrid,
+    labelHasGreyBackground,
     ...otherProps
   } = props
 
@@ -70,6 +72,7 @@ const Radio = (props: Props) => {
         className={cx('govuk-radios lbh-radios', {
           'govuk-radios--inline': isRadiosInline,
         })}
+        style={isGrid && { display: 'grid', gridTemplateColumns: '1fr 1fr' }}
       >
         {options.map((option) => {
           const { value, text, defaultChecked, hint } =
@@ -105,6 +108,13 @@ const Radio = (props: Props) => {
                 <label
                   className="govuk-label lbh-label govuk-radios__label"
                   htmlFor={`${name}_${value}`}
+                  style={
+                    labelHasGreyBackground && {
+                      background: '#F5F6F8',
+                      marginLeft: '1rem',
+                      borderRadius: '5px',
+                    }
+                  }
                 >
                   {text}
                 </label>
