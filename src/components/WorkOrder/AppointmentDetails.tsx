@@ -10,12 +10,9 @@ import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
 import ScheduleAppointment from './ScheduleAppointment'
+import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 
-const AppointmentDetails = ({
-  workOrder,
-  schedulerSessionId,
-  resetSchedulerSessionId,
-}) => {
+const AppointmentDetails = ({ workOrder }) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -39,19 +36,35 @@ const AppointmentDetails = ({
                     <AppointmentDetailsInfo workOrder={workOrder} />
                   )}
 
-                {canScheduleAppointment(user) && workOrder.canBeScheduled() && (
+                {/* {canScheduleAppointment(user) && workOrder.canBeScheduled() && (
                   <ScheduleAppointment
                     externalAppointmentManagementUrl={
                       workOrder.externalAppointmentManagementUrl
                     }
                     hasExistingAppointment={workOrder.appointment}
-                    // openExternalLinkEventHandler={openExternalLinkEventHandler}
-                    resetSchedulerSessionId={resetSchedulerSessionId}
-                    schedulerSessionId={schedulerSessionId}
                     workOrder={workOrder}
                     workOrderReference={workOrder.reference}
                   />
-                )}
+                )} */}
+
+                {canScheduleAppointment(user) &&
+                  workOrder.canBeScheduled() &&
+                  (workOrder?.externalAppointmentManagementUrl ? (
+                    <ScheduleAppointment
+                      externalAppointmentManagementUrl={
+                        workOrder.externalAppointmentManagementUrl
+                      }
+                      hasExistingAppointment={workOrder.appointment}
+                      workOrder={workOrder}
+                      workOrderReference={workOrder.reference}
+                    />
+                  ) : (
+                    <ScheduleInternalAppointmentLink
+                      workOrderReference={workOrder.reference}
+                      hasExistingAppointment={workOrder.appointment}
+                      appointmentIsToday={workOrder.appointmentIsToday()}
+                    />
+                  ))}
 
                 {canSeeAppointmentDetailsInfo(user) &&
                   !workOrder.appointment &&
