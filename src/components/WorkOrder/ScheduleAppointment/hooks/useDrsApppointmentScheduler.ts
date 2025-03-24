@@ -35,24 +35,18 @@ export const useDrsAppointmentScheduler = (workOrderReference: string) => {
   const handleExternalLinkOpen = async () => {
     userOpenedWBM.current = true
 
-    try {
-      const jobStatusUpdate = buildDataFromScheduleAppointment(
-        workOrderReference.toString(),
-        `${user.name} opened the DRS Web Booking Manager`
-      )
+    const jobStatusUpdate = buildDataFromScheduleAppointment(
+      workOrderReference.toString(),
+      `${user.name} opened the DRS Web Booking Manager`
+    )
 
-      await frontEndApiRequest({
-        method: 'post',
-        path: '/api/jobStatusUpdate',
-        requestData: jobStatusUpdate,
-      })
+    await frontEndApiRequest({
+      method: 'post',
+      path: '/api/jobStatusUpdate',
+      requestData: jobStatusUpdate,
+    })
 
-      setTimeout(() => fetchSchedulerSessionId(), 500)
-    } catch (err) {
-      setError(
-        `Failed to update job status: ${err?.message || 'Unknown error'}`
-      )
-    }
+    setTimeout(() => fetchSchedulerSessionId(), 500)
   }
 
   useEffect(() => {
