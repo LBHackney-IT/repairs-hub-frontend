@@ -1,5 +1,4 @@
 import { useContext } from 'react'
-import PropTypes from 'prop-types'
 import UserContext from '../UserContext'
 import { STATUS_CANCELLED } from '@/utils/statusCodes'
 import {
@@ -9,10 +8,14 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
-import ScheduleAppointment from './ScheduleAppointment'
+import ScheduleAppointment from './ScheduleAppointment/ScheduleAppointment'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
 
-const AppointmentDetails = ({ workOrder }) => {
+interface Props {
+  workOrder: WorkOrder
+}
+
+const AppointmentDetails = ({ workOrder }: Props) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -35,17 +38,6 @@ const AppointmentDetails = ({ workOrder }) => {
                   workOrder.status !== STATUS_CANCELLED && (
                     <AppointmentDetailsInfo workOrder={workOrder} />
                   )}
-
-                {/* {canScheduleAppointment(user) && workOrder.canBeScheduled() && (
-                  <ScheduleAppointment
-                    externalAppointmentManagementUrl={
-                      workOrder.externalAppointmentManagementUrl
-                    }
-                    hasExistingAppointment={workOrder.appointment}
-                    workOrder={workOrder}
-                    workOrderReference={workOrder.reference}
-                  />
-                )} */}
 
                 {canScheduleAppointment(user) &&
                   workOrder.canBeScheduled() &&
@@ -78,10 +70,6 @@ const AppointmentDetails = ({ workOrder }) => {
       )}
     </>
   )
-}
-
-AppointmentDetails.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
 }
 
 export default AppointmentDetails

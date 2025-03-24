@@ -13,6 +13,9 @@ export class WorkOrder {
   reference
   description
   externalAppointmentManagementUrl
+  startTime
+  appointment
+  status
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
