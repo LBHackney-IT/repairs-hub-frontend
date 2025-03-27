@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
+import Radios from '../Form/Radios'
 import { useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
@@ -159,6 +160,27 @@ const MobileWorkingCloseWorkOrderForm = ({
               setError={setError}
               clearErrors={clearErrors}
               watch={watch}
+            />
+
+            <Radios
+              label="Estimated duration"
+              name="estimatedDuration"
+              labelSize="s"
+              options={[
+                '30 mins',
+                '1 hour',
+                '2-3 hours',
+                'Half day',
+                'Full day',
+                'More than a day',
+                'Unknown',
+              ]}
+              register={register({
+                required: 'Select estimated duration',
+              })}
+              error={errors && errors.estimatedDuration}
+              data-testid="estimatedDuration"
+              isGrid={true}
             />
 
             <FollowOnRequestMaterialsForm
