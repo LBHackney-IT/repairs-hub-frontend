@@ -14,6 +14,7 @@ export type followOnDataRequest = {
   materialNotes: string
   additionalNotes: string
   supervisorCalled: boolean
+  estimatedDuration: string
   otherTrade?: string
 }
 
@@ -98,6 +99,7 @@ export const buildFollowOnRequestData = (
   materialNotes: string,
   additionalNotes: string,
   supervisorCalled: boolean,
+  estimatedDuration: string,
   otherTrade?: string
 ): followOnDataRequest => {
   return {
@@ -111,6 +113,7 @@ export const buildFollowOnRequestData = (
     materialNotes,
     additionalNotes,
     supervisorCalled,
+    estimatedDuration,
     otherTrade,
   }
 }
