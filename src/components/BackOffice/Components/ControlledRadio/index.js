@@ -65,14 +65,12 @@ const ControlledRadio = ({
               checked={selectedOption !== null && selectedOption === value}
               {...otherProps}
             />
-
             <label
               className="govuk-label lbh-label govuk-radios__label"
               htmlFor={`${name}_${value}`}
             >
               {text}
             </label>
-
             {hint && (
               <span
                 id={`${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`}

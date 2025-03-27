@@ -60,7 +60,6 @@ const Radio = (props: Props) => {
       <span id={`${name}-hint`} className="govuk-hint lbh-hint">
         {hint}
       </span>
-
       {hint && (
         <span id={`${name}-hint`} className="govuk-hint lbh-hint">
           {hint}
@@ -128,7 +127,6 @@ const Radio = (props: Props) => {
                   </span>
                 )}
               </div>
-
               {option.children != null && (
                 <div
                   className="govuk-radios__conditional"

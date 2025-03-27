@@ -99,12 +99,12 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
           <div className="display-inline">
             <Link
               href={`/work-orders/${workOrderReference}/variation-authorisation`}
+              className="lbh-link"
             >
-              <a className="lbh-link">Variation Authorisation</a>
+              Variation Authorisation
             </Link>
           </div>
         )}
-
         <VariationAuthorisationSummary
           variationTasks={variation}
           originalSors={originalSors}

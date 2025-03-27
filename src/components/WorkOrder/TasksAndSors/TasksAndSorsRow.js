@@ -51,13 +51,13 @@ const tasksAndSorsRow = ({
       ) : (
         <>
           <TD>
-            <Link href={sorLink}>
-              <a className="govuk-link">{code}</a>
+            <Link href={sorLink} className="govuk-link">
+              {code}
             </Link>
           </TD>
           <TD>
-            <Link href={sorLink}>
-              <a className="govuk-link">{description}</a>
+            <Link href={sorLink} className="govuk-link">
+              {description}
             </Link>
           </TD>
         </>
