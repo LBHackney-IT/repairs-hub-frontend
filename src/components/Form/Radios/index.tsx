@@ -71,14 +71,11 @@ const Radio = (props: Props) => {
       <div
         className={cx('govuk-radios lbh-radios', {
           'govuk-radios--inline': isRadiosInline,
-          'govuk-radios--maxWidthRemove': isGrid,
         })}
         style={
           isGrid && {
-            display: 'grid',
+            display: 'inline-grid',
             gridTemplateColumns: '1fr 1fr',
-            alignItems: 'start',
-            maxWidth: '90%',
           }
         }
       >

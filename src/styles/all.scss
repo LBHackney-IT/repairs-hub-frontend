@@ -145,12 +145,6 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
   }
 }
 
-@media (max-width: 640px) {
-  .govuk-radios--maxWidthRemove {
-    max-width: none !important;
-  }
-}
-
 @media (max-width: 414px) {
   .govuk-radios__label[for^="estimatedDuration"] {
     font-size: 0.95rem !important;
