@@ -180,6 +180,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               })}
               error={errors && errors.estimatedDuration}
               data-testid="estimatedDuration"
+              isGrid={true}
             />
 
             <FollowOnRequestMaterialsForm

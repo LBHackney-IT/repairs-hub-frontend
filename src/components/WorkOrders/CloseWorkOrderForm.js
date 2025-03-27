@@ -146,7 +146,6 @@ const CloseWorkOrderForm = ({
               })}
               error={errors && errors.estimatedDuration}
               isGrid={true}
-              labelHasGreyBackground={true}
             />
 
             <FollowOnRequestMaterialsForm
