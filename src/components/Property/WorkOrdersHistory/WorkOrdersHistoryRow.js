@@ -29,8 +29,9 @@ const WorkOrdersHistoryRow = ({
               pathname: '/work-orders/[reference]',
               query: { reference: `${reference}` },
             }}
+            className="lbh-link"
           >
-            <a className="lbh-link">{reference}</a>
+            {reference}
           </Link>
         </TD>
       )}

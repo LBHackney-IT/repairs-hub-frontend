@@ -41,8 +41,11 @@ const OperativeList = ({
 }
 const OperativeListLinkItem = ({ workOrderReference, operativeDisplay }) => (
   <li>
-    <Link href={`/work-orders/${workOrderReference}/operatives/edit`}>
-      <a className="govuk-link">{operativeDisplay}</a>
+    <Link
+      href={`/work-orders/${workOrderReference}/operatives/edit`}
+      className="govuk-link"
+    >
+      {operativeDisplay}
     </Link>
   </li>
 )

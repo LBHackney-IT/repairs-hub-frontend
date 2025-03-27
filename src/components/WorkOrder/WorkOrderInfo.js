@@ -25,7 +25,6 @@ const WorkOrderInfo = ({ workOrder }) => {
           </span>
         )}
       </div>
-
       <div className="lbh-body-xs govuk-!-margin-bottom-2">
         <span>Raised by {workOrder.raisedBy}</span>
         {workOrder.dateRaised && (
@@ -35,7 +34,6 @@ const WorkOrderInfo = ({ workOrder }) => {
           </>
         )}
       </div>
-
       {workOrder.target && (
         <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span className="lbh-!-font-weight-bold">
@@ -43,7 +41,6 @@ const WorkOrderInfo = ({ workOrder }) => {
           </span>
         </div>
       )}
-
       {workOrder.callerName && (
         <div className="lbh-body-xs govuk-!-margin-bottom-2">
           <span>Caller: {workOrder.callerName}</span>

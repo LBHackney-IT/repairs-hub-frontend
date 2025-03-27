@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from 'next/legacy/image'
 import BackButton from '../Layout/BackButton'
 import closeWorkOrder from '../../../public/images/closeworkorder.jpg'
 import detailsOfFurtherWork from '../../../public/images/detailsoffurtherwork.jpg'

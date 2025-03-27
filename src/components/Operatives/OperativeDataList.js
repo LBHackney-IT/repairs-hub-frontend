@@ -45,7 +45,6 @@ const OperativeDataList = ({
         widthClass="govuk-!-width-full"
         disabled={disabled}
       />
-
       {disabled && (
         <input
           name={`operative-${index}`}

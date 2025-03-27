@@ -34,10 +34,12 @@ const UserLogin = ({ gssoUrl, submitText }) => {
 
         <p className="lbh-body support-link">
           If you have any issues with Repairs Hub, check our{' '}
-          <Link href={process.env.NEXT_PUBLIC_SUPPORT_LINK}>
-            <a title="support-page" target="_blank">
-              Support page.
-            </a>
+          <Link
+            href={process.env.NEXT_PUBLIC_SUPPORT_LINK}
+            title="support-page"
+            target="_blank"
+          >
+            Support page.
           </Link>{' '}
         </p>
       </section>
