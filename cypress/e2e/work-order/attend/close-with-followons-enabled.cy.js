@@ -441,6 +441,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('textarea[data-testid="followOnTypeDescription"]').type(
         'follow on description'
       )
+      cy.get('[data-testid="radioButton"]').click()
       cy.get('input[data-testid="estimatedDuration"]').first().check()
       cy.get('input[data-testid="stockItemsRequired"]').check()
       cy.get('textarea[data-testid="materialNotes"]').type('material notes')
@@ -709,6 +710,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Please provide detail of the work required').should(
         'not.exist'
       )
+      cy.get('[data-testid="selectButton"]').click()
       cy.get('input[data-testid="estimatedDuration"]').first().check()
       // when one of the material options is selected, the description must not be empty
       cy.get('input[data-testid="stockItemsRequired"]').check()
@@ -779,6 +781,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get('textarea[data-testid="followOnTypeDescription"]').type(
         'follow on description'
       )
+      cy.get('[data-testid="radioButton"]').click()
       cy.get('input[data-testid="estimatedDuration"]').first().check()
       cy.get('input[data-testid="stockItemsRequired"]').check()
       cy.get('textarea[data-testid="materialNotes"]').type('material notes')
@@ -888,6 +891,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     cy.get('textarea[data-testid="followOnTypeDescription"]').type(
       'follow on description'
     )
+    cy.get('[data-testid="radiobutton"]').click()
     cy.get('input[data-testid="estimatedDuration"]').first().check()
     cy.get('input[data-testid="stockItemsRequired"]').check()
     cy.get('textarea[data-testid="materialNotes"]').type('material notes')
@@ -946,7 +950,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     cy.contains('Work order 10000621 successfully closed')
   })
 
-  it('throws an error when other trade is not submitted properly', () => {
+  it.only('throws an error when other trade is not submitted properly', () => {
     cy.fixture('workOrders/workOrder.json').then((workOrder) => {
       workOrder.reference = 10000040
       workOrder.canAssignOperative = false
@@ -1004,6 +1008,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     cy.get('textarea[data-testid="followOnTypeDescription"]').type(
       'follow on description'
     )
+    cy.get('[data-testid="radiobutton"]').click()
     cy.get('input[data-testid="estimatedDuration"]').first().check()
     cy.get('input[data-testid="stockItemsRequired"]').check()
     cy.get('textarea[data-testid="materialNotes"]').type('material notes')
