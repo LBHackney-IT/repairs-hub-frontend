@@ -132,29 +132,34 @@ const CloseWorkOrderForm = ({
             />
 
             <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                setIsDropdown(false)
-                setIsRadio(true)
-              }}
-              style={{ cursor: 'pointer' }}
-              data-testid="radioButton"
-            >
-              Radio
-            </button>
-            <button
-              onClick={(e) => {
-                e.preventDefault()
-                setIsRadio(false)
-                setIsDropdown(true)
-              }}
-              style={{ cursor: 'pointer' }}
-              data-testid="dropdownButton"
-            >
-              Dropdown
-            </button>
-
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsDropdown(false)
+                  setIsRadio(true)
+                }}
+                style={{ cursor: 'pointer', borderRadius: '5px' }}
+                data-testid="radioButton"
+              >
+                Radio
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsRadio(false)
+                  setIsDropdown(true)
+                }}
+                style={{
+                  cursor: 'pointer',
+                  marginTop: '0',
+                  borderRadius: '5px',
+                }}
+                data-testid="dropdownButton"
+              >
+                Dropdown
+              </button>
+            </div>
             {isRadio && (
               <Radios
                 label="Estimated duration"
@@ -194,6 +199,7 @@ const CloseWorkOrderForm = ({
                   required: 'Select estimated duration',
                 })}
                 error={errors && errors.estimatedDuration}
+                widthClass="govuk-!-width-one-half"
               />
             )}
 
