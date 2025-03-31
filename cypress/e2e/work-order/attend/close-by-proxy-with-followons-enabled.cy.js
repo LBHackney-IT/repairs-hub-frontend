@@ -2858,7 +2858,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           'not.exist'
         )
         // add estimated duration of work - error should disappear]
-        cy.get('[data-testid="radiobutton"]').click()
+        cy.get('[data-testid="radioButton"]').click()
         cy.get('input[data-testid="estimatedDuration"]').first().check()
         cy.contains('Select a duration').should('not.exist')
         // when one of the material options is selected, the description must not be empty
@@ -2925,8 +2925,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
-        cy.get('[data-testid="radiobutton"]').click()
-        cy.get('[data-testid="radiobutton"]').click()
+        cy.get('[data-testid="radioButton"]').click()
         cy.get('input[data-testid="estimatedDuration"]').first().check()
         cy.get('input[data-testid="stockItemsRequired"]').check()
         cy.get('textarea[data-testid="materialNotes"]').type('material notes')
