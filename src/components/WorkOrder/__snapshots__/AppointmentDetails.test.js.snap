@@ -131,7 +131,7 @@ exports[`AppointmentDetails component Work order (non DRS) with an appointment w
         class="lbh-link"
         href="/work-orders/10000012/appointment/edit"
       >
-        Reschedule appointment
+        Reschedule appointment (non DRS)
       </a>
     </div>
   </div>
@@ -178,7 +178,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
         class="lbh-link"
         href="/work-orders/10000012/appointment/new"
       >
-        Schedule appointment
+        Schedule appointment (non DRS)
       </a>
     </div>
   </div>
