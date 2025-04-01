@@ -16,8 +16,6 @@ const WorkOrderHeader = ({
   subTypeDescription,
   tenure,
   canRaiseRepair,
-  schedulerSessionId,
-  resetSchedulerSessionId,
   setLocationAlerts,
   setPersonAlerts,
 }) => {
@@ -47,11 +45,7 @@ const WorkOrderHeader = ({
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails
-          workOrder={workOrder}
-          schedulerSessionId={schedulerSessionId}
-          resetSchedulerSessionId={resetSchedulerSessionId}
-        />
+        <AppointmentDetails workOrder={workOrder} />
         <div className="lbh-body-xs govuk-!-margin-top-1">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
