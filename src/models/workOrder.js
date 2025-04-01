@@ -12,6 +12,8 @@ import {
 export class WorkOrder {
   reference
   description
+  externalAppointmentManagementUrl
+
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
   }
