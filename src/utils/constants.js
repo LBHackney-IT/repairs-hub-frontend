@@ -45,6 +45,10 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
     contractorName: 'TDK Mechanical Services (UK) Ltd',
   },
   {
+    contractorReference: 'TMS',
+    contractorName: 'TDK Mech Services Communal Heating',
+  },
+  {
     contractorReference: 'WIG',
     contractorName: 'The Wiggett Group LTD',
   },
