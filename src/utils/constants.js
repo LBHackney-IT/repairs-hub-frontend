@@ -6,12 +6,14 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'PSL',
   'AIM',
   'TDK',
+  'TMS',
   'WIG',
   'FOS',
   'PUR',
   'HER',
   'SEN',
 ]
+
 export const PURDY_CONTRACTOR_REFERENCE = 'PUR'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
@@ -68,5 +70,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'SEN',
     contractorName: 'Saltash Enterprise Ltd',
+  },
+  {
+    contractorReference: 'HHL',
+    contractorName: 'Herts Heritage Ltd',
   },
 ]
