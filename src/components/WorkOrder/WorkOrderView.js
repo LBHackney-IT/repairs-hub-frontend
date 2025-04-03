@@ -8,7 +8,6 @@ import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
-import { getOrCreateSchedulerSessionId } from '../../utils/frontEndApiClient/users/schedulerSession'
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
@@ -17,7 +16,6 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
-  const [schedulerSessionId, setSchedulerSessionId] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const tabsList = [
@@ -27,11 +25,6 @@ const WorkOrderView = ({ workOrderReference }) => {
     'Work orders history',
     'Photos',
   ]
-
-  const getSchedulerSessionId = async () => {
-    const schedulerSessionId = await getOrCreateSchedulerSessionId()
-    setSchedulerSessionId(schedulerSessionId)
-  }
 
   const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -83,11 +76,6 @@ const WorkOrderView = ({ workOrderReference }) => {
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
       )
 
-      // Call getOrCreateSchedulerSessionId if it is a DRS work order
-      if (workOrder.externalAppointmentManagementUrl) {
-        await getSchedulerSessionId()
-      }
-
       setWorkOrder(new WorkOrder(workOrder))
       setProperty(propertyObject.property)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
@@ -134,8 +122,6 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  resetSchedulerSessionId={getSchedulerSessionId}
-                  schedulerSessionId={schedulerSessionId}
                   tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}

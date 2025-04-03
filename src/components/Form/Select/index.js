@@ -75,6 +75,19 @@ Select.propTypes = {
   ).isRequired,
   selected: PropTypes.string,
   children: PropTypes.node,
+  onChange: PropTypes.func,
+  required: PropTypes.bool,
+  isUnselectable: PropTypes.bool,
+  ignoreValue: PropTypes.bool,
+  defaultValue: PropTypes.string,
+  value: PropTypes.string,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }).isRequired,
+  disabled: PropTypes.bool,
+  register: PropTypes.func,
+  widthClass: PropTypes.string,
+  hint: PropTypes.string,
 }
 
 export default Select

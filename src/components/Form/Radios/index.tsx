@@ -24,6 +24,7 @@ interface Props {
   children?: JSX.Element
   required?: boolean
   isRadiosInline?: boolean
+  isGrid?: boolean
   [key: string]: any
 }
 
@@ -40,6 +41,7 @@ const Radio = (props: Props) => {
     children,
     required,
     isRadiosInline = false,
+    isGrid,
     ...otherProps
   } = props
 
@@ -70,6 +72,12 @@ const Radio = (props: Props) => {
         className={cx('govuk-radios lbh-radios', {
           'govuk-radios--inline': isRadiosInline,
         })}
+        style={
+          isGrid && {
+            display: 'inline-grid',
+            gridTemplateColumns: '1fr 1fr',
+          }
+        }
       >
         {options.map((option) => {
           const { value, text, defaultChecked, hint } =

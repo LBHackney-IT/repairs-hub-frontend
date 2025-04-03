@@ -1,11 +1,13 @@
 interface Props {
   resource?: string
+  width?: number
+  height?: number
 }
 
-const Spinner = ({ resource }: Props) => (
+const Spinner = ({ resource, width = 50, height = 50 }: Props) => (
   <svg
-    width="50"
-    height="50"
+    width={width}
+    height={width}
     viewBox="0 0 42 42"
     xmlns="http://www.w3.org/2000/svg"
     stroke="#00703c"
