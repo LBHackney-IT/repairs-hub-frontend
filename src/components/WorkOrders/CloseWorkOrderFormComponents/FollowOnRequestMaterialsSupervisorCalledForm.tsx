@@ -4,10 +4,11 @@ interface Props {
   register: any
   errors: { [key: string]: { message: string } }
   followOnData?: { supervisorCalled: boolean }
+  hasWhiteBackground?: boolean
 }
 
 const FollowOnRequestMaterialsSupervisorCalledForm = (props: Props) => {
-  const { register, errors, followOnData } = props
+  const { register, errors, followOnData, hasWhiteBackground } = props
 
   const options = [
     {
@@ -35,6 +36,7 @@ const FollowOnRequestMaterialsSupervisorCalledForm = (props: Props) => {
         required: 'Please confirm whether you have contacted your supervisor',
       })}
       error={errors && errors.supervisorCalled}
+      hasWhiteBackground={hasWhiteBackground}
     />
   )
 }

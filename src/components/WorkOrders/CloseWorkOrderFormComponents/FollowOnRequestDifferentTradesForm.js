@@ -22,7 +22,13 @@ const codesToFilter = new Set(
 )
 
 const FollowOnRequestDifferentTradesForm = (props) => {
-  const { register, requiredFollowOnTrades, watch, errors } = props
+  const {
+    register,
+    requiredFollowOnTrades,
+    watch,
+    errors,
+    hasWhiteBackground,
+  } = props
 
   const [trades, setTrades] = useState([])
   const [error, setError] = useState(null)
@@ -59,6 +65,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             label={label}
             register={register}
             checked={selectedTrades.has(name)}
+            hasWhiteBackground={hasWhiteBackground}
           />
         </li>
       ))}

@@ -140,6 +140,7 @@ const CloseWorkOrderForm = ({
                   register={register}
                   errors={errors}
                   followOnData={followOnData}
+                  hasWhiteBackground={true}
                 />
               </div>
               <div style={{ gridColumn: '1', marginTop: '0' }}>
@@ -151,6 +152,7 @@ const CloseWorkOrderForm = ({
                   clearErrors={clearErrors}
                   watch={watch}
                   followOnData={followOnData}
+                  hasWhiteBackground={true}
                 />
               </div>
               <div style={{ gridColumn: '1 / -1', marginTop: '0' }}>
@@ -202,6 +204,7 @@ const CloseWorkOrderForm = ({
                     })}
                     error={errors && errors.estimatedDuration}
                     isGrid={true}
+                    hasWhiteBackground={true}
                   />
                 )}
                 {isDropdown && (
@@ -232,6 +235,7 @@ const CloseWorkOrderForm = ({
                   getValues={getValues}
                   errors={errors}
                   followOnData={followOnData}
+                  hasWhiteBackground={true}
                 />
               </div>
               <div style={{ gridColumn: '2', gridRow: '2', marginTop: '0' }}>
