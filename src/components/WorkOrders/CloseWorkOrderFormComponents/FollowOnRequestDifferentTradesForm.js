@@ -66,7 +66,11 @@ const FollowOnRequestDifferentTradesForm = (props) => {
     >
       {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
         <li
-          style={{ ...(isGrid && { marginTop: '0' }), display: 'flex' }}
+          style={{
+            ...(isGrid && { marginTop: '0' }),
+            ...(name === 'followon-trades-other' && { gridColumn: 'span 2' }),
+            display: 'flex',
+          }}
           key={name}
         >
           <Checkbox
@@ -79,27 +83,34 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             checked={selectedTrades.has(name)}
             hasWhiteBackground={hasWhiteBackground}
           />
+          {name === 'followon-trades-other' && isDifferentTradesChecked && (
+            <div
+              style={
+                isGrid && {
+                  paddingLeft: '20px',
+                  borderLeft: `3px solid ${error ? '#be3a34' : '#b1b4b6'}`,
+                }
+              }
+            >
+              <DataList
+                label="Please specify"
+                name="otherTrade"
+                options={filteredTrades.map((trade) => trade.description)}
+                register={register}
+                hint="Select or type a trade"
+                widthClass="govuk-!-width-full"
+                error={errors.otherTrade}
+                maxLength={maxLength}
+                onChange={(e) =>
+                  setRemainingCharacterCount(maxLength - e.target.value.length)
+                }
+                remainingCharacterCount={remainingCharacterCount}
+              />
+              {error && <ErrorMessage label={error} />}
+            </div>
+          )}
         </li>
       ))}
-      {isDifferentTradesChecked && (
-        <>
-          <DataList
-            label="Please specify"
-            name="otherTrade"
-            options={filteredTrades.map((trade) => trade.description)}
-            register={register}
-            hint="Select or type a trade"
-            widthClass="govuk-!-width-full"
-            error={errors.otherTrade}
-            maxLength={maxLength}
-            onChange={(e) =>
-              setRemainingCharacterCount(maxLength - e.target.value.length)
-            }
-            remainingCharacterCount={remainingCharacterCount}
-          />
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
     </ul>
   )
 }
