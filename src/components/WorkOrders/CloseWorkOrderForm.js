@@ -119,6 +119,7 @@ const CloseWorkOrderForm = ({
               backgroundColor: '#f3f3f3',
               padding: '2rem',
               display: 'flex',
+              flexDirection: 'column',
               flexWrap: 'wrap',
               marginBottom: '10px',
             }}
@@ -128,126 +129,113 @@ const CloseWorkOrderForm = ({
                 Details of further work required
               </h1>
             </div>
-            <div
-              style={{
-                display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
-                width: '100%',
-              }}
-            >
-              <div style={{ gridColumn: '1' }}>
-                <FollowOnRequestMaterialsSupervisorCalledForm
-                  register={register}
-                  errors={errors}
-                  followOnData={followOnData}
-                  hasWhiteBackground={true}
-                />
-              </div>
-              <div style={{ gridColumn: '1', marginTop: '0' }}>
-                <FollowOnRequestTypeOfWorkForm
-                  errors={errors}
-                  register={register}
-                  getValues={getValues}
-                  setError={setError}
-                  clearErrors={clearErrors}
-                  watch={watch}
-                  followOnData={followOnData}
-                  hasWhiteBackground={true}
-                />
-              </div>
-              <div style={{ gridColumn: '1 / -1', marginTop: '0' }}>
-                <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
-                <div style={{ display: 'flex', gap: '10px' }}>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setIsDropdown(false)
-                      setIsRadio(true)
-                    }}
-                    style={{ cursor: 'pointer', borderRadius: '5px' }}
-                    data-testid="radioButton"
-                  >
-                    Radio
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setIsRadio(false)
-                      setIsDropdown(true)
-                    }}
-                    style={{
-                      cursor: 'pointer',
-                      marginTop: '0',
-                      borderRadius: '5px',
-                    }}
-                    data-testid="dropdownButton"
-                  >
-                    Dropdown
-                  </button>
-                </div>
-                {isRadio && (
-                  <Radios
-                    label="Estimated duration"
-                    name="estimatedDuration"
-                    labelSize="s"
-                    options={[
-                      '30 mins',
-                      '1 hour',
-                      '2-3 hours',
-                      'Half a day',
-                      '1 day',
-                      'More than 1 day',
-                      'Unknown',
-                    ]}
-                    register={register({
-                      required: 'Select estimated duration',
-                    })}
-                    error={errors && errors.estimatedDuration}
-                    isGrid={true}
-                    hasWhiteBackground={true}
-                  />
-                )}
-                {isDropdown && (
-                  <Select
-                    label="Estimated duration"
-                    name="estimatedDuration"
-                    options={[
-                      '30 mins',
-                      '1 hour',
-                      '2-3 hours',
-                      'Half a day',
-                      '1 day',
-                      'More than 1 day',
-                      'Unknown',
-                    ]}
-                    register={register({
-                      required: 'Select estimated duration',
-                    })}
-                    error={errors && errors.estimatedDuration}
-                    widthClass="govuk-!-width-one-half"
-                  />
-                )}
-              </div>
 
-              <div style={{ gridColumn: '2', gridRow: '1', marginTop: '0' }}>
-                <FollowOnRequestMaterialsForm
-                  register={register}
-                  getValues={getValues}
-                  errors={errors}
-                  followOnData={followOnData}
-                  hasWhiteBackground={true}
-                />
-              </div>
-              <div style={{ gridColumn: '2', gridRow: '2', marginTop: '0' }}>
-                <TextArea
-                  name="additionalNotes"
-                  label="Additional notes"
-                  register={register}
-                  error={errors && errors.additionalNotes}
-                  defaultValue={followOnData?.additionalNotes ?? ''}
-                />
-              </div>
+            <FollowOnRequestMaterialsSupervisorCalledForm
+              register={register}
+              errors={errors}
+              followOnData={followOnData}
+              hasWhiteBackground={true}
+            />
+
+            <FollowOnRequestTypeOfWorkForm
+              errors={errors}
+              register={register}
+              getValues={getValues}
+              setError={setError}
+              clearErrors={clearErrors}
+              watch={watch}
+              followOnData={followOnData}
+              hasWhiteBackground={true}
+              isGrid={true}
+            />
+
+            <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsDropdown(false)
+                  setIsRadio(true)
+                }}
+                style={{ cursor: 'pointer', borderRadius: '5px' }}
+                data-testid="radioButton"
+              >
+                Radio
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsRadio(false)
+                  setIsDropdown(true)
+                }}
+                style={{
+                  cursor: 'pointer',
+                  marginTop: '0',
+                  borderRadius: '5px',
+                }}
+                data-testid="dropdownButton"
+              >
+                Dropdown
+              </button>
             </div>
+            {isRadio && (
+              <Radios
+                label="Estimated duration"
+                name="estimatedDuration"
+                labelSize="s"
+                options={[
+                  '30 mins',
+                  '1 hour',
+                  '2-3 hours',
+                  'Half a day',
+                  '1 day',
+                  'More than 1 day',
+                  'Unknown',
+                ]}
+                register={register({
+                  required: 'Select estimated duration',
+                })}
+                error={errors && errors.estimatedDuration}
+                isGrid={true}
+                hasWhiteBackground={true}
+              />
+            )}
+            {isDropdown && (
+              <Select
+                label="Estimated duration"
+                name="estimatedDuration"
+                options={[
+                  '30 mins',
+                  '1 hour',
+                  '2-3 hours',
+                  'Half a day',
+                  '1 day',
+                  'More than 1 day',
+                  'Unknown',
+                ]}
+                register={register({
+                  required: 'Select estimated duration',
+                })}
+                error={errors && errors.estimatedDuration}
+                widthClass="govuk-!-width-one-half"
+              />
+            )}
+
+            <FollowOnRequestMaterialsForm
+              register={register}
+              getValues={getValues}
+              errors={errors}
+              followOnData={followOnData}
+              hasWhiteBackground={true}
+            />
+
+            <TextArea
+              name="additionalNotes"
+              label="Additional notes"
+              register={register}
+              error={errors && errors.additionalNotes}
+              defaultValue={followOnData?.additionalNotes ?? ''}
+            />
           </div>
         )}
 

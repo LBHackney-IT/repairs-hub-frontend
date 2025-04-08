@@ -15,6 +15,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     watch,
     followOnData,
     hasWhiteBackground,
+    isGrid,
   } = props
 
   const selectedFurtherWorkRequired =
@@ -136,6 +137,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                   requiredFollowOnTrades={
                     followOnData?.requiredFollowOnTrades ?? []
                   }
+                  isGrid={isGrid}
                 />
               </>
             }

@@ -28,6 +28,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
     watch,
     errors,
     hasWhiteBackground,
+    isGrid,
   } = props
 
   const [trades, setTrades] = useState([])
@@ -54,9 +55,20 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   const filteredTrades = trades.filter((trade) => !codesToFilter.has(trade.key))
 
   return (
-    <ul>
+    <ul
+      style={
+        isGrid && {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          rowGap: '1rem',
+        }
+      }
+    >
       {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
-        <li style={{ display: 'flex' }} key={name}>
+        <li
+          style={{ ...(isGrid && { marginTop: '0' }), display: 'flex' }}
+          key={name}
+        >
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs govuk-!-margin-0"
