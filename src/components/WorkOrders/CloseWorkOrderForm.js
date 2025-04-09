@@ -114,13 +114,29 @@ const CloseWorkOrderForm = ({
         />
 
         {showFurtherWorkFields && (
-          <>
-            <h1 className="lbh-heading-h2">Details of further work required</h1>
+          <div
+            style={{
+              backgroundColor: '#f3f3f3',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'wrap',
+              marginBottom: '10px',
+            }}
+          >
+            <div style={{ flexBasis: '100%' }}>
+              <h1 className="lbh-heading-h2">
+                Details of further work required
+              </h1>
+            </div>
+
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
+
             <FollowOnRequestTypeOfWorkForm
               errors={errors}
               register={register}
@@ -129,6 +145,8 @@ const CloseWorkOrderForm = ({
               clearErrors={clearErrors}
               watch={watch}
               followOnData={followOnData}
+              hasWhiteBackground={true}
+              isGrid={true}
             />
 
             <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
@@ -179,9 +197,9 @@ const CloseWorkOrderForm = ({
                 })}
                 error={errors && errors.estimatedDuration}
                 isGrid={true}
+                hasWhiteBackground={true}
               />
             )}
-
             {isDropdown && (
               <Select
                 label="Estimated duration"
@@ -208,7 +226,9 @@ const CloseWorkOrderForm = ({
               getValues={getValues}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
+
             <TextArea
               name="additionalNotes"
               label="Additional notes"
@@ -216,7 +236,7 @@ const CloseWorkOrderForm = ({
               error={errors && errors.additionalNotes}
               defaultValue={followOnData?.additionalNotes ?? ''}
             />
-          </>
+          </div>
         )}
 
         <div className="govuk-form-group lbh-form-group">

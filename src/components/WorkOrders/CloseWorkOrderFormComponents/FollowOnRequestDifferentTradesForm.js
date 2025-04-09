@@ -22,7 +22,14 @@ const codesToFilter = new Set(
 )
 
 const FollowOnRequestDifferentTradesForm = (props) => {
-  const { register, requiredFollowOnTrades, watch, errors } = props
+  const {
+    register,
+    requiredFollowOnTrades,
+    watch,
+    errors,
+    hasWhiteBackground,
+    isGrid,
+  } = props
 
   const [trades, setTrades] = useState([])
   const [error, setError] = useState(null)
@@ -48,9 +55,24 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   const filteredTrades = trades.filter((trade) => !codesToFilter.has(trade.key))
 
   return (
-    <ul>
+    <ul
+      style={
+        isGrid && {
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          rowGap: '1rem',
+        }
+      }
+    >
       {FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(({ name, label }) => (
-        <li style={{ display: 'flex' }} key={name}>
+        <li
+          style={{
+            ...(isGrid && { marginTop: '0' }),
+            ...(name === 'followon-trades-other' && { gridColumn: 'span 2' }),
+            display: 'flex',
+          }}
+          key={name}
+        >
           <Checkbox
             className="govuk-!-margin-0"
             labelClassName="lbh-body-xs govuk-!-margin-0"
@@ -59,28 +81,36 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             label={label}
             register={register}
             checked={selectedTrades.has(name)}
+            hasWhiteBackground={hasWhiteBackground}
           />
+          {name === 'followon-trades-other' && isDifferentTradesChecked && (
+            <div
+              style={
+                isGrid && {
+                  paddingLeft: '20px',
+                  borderLeft: `3px solid ${error ? '#be3a34' : '#b1b4b6'}`,
+                }
+              }
+            >
+              <DataList
+                label="Please specify"
+                name="otherTrade"
+                options={filteredTrades.map((trade) => trade.description)}
+                register={register}
+                hint="Select or type a trade"
+                widthClass="govuk-!-width-full"
+                error={errors.otherTrade}
+                maxLength={maxLength}
+                onChange={(e) =>
+                  setRemainingCharacterCount(maxLength - e.target.value.length)
+                }
+                remainingCharacterCount={remainingCharacterCount}
+              />
+              {error && <ErrorMessage label={error} />}
+            </div>
+          )}
         </li>
       ))}
-      {isDifferentTradesChecked && (
-        <>
-          <DataList
-            label="Please specify"
-            name="otherTrade"
-            options={filteredTrades.map((trade) => trade.description)}
-            register={register}
-            hint="Select or type a trade"
-            widthClass="govuk-!-width-full"
-            error={errors.otherTrade}
-            maxLength={maxLength}
-            onChange={(e) =>
-              setRemainingCharacterCount(maxLength - e.target.value.length)
-            }
-            remainingCharacterCount={remainingCharacterCount}
-          />
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
     </ul>
   )
 }
