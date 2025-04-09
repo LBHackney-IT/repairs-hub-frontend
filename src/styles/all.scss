@@ -137,6 +137,10 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
   }
 }
 
+.white-background::before {
+  background-color: white;
+}
+
 @media (min-width: 800px) {
   .latest-changes {
     img {
