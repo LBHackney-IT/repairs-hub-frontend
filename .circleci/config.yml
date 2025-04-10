@@ -56,6 +56,17 @@ jobs:
       - browser-tools/install-chrome
       - browser-tools/install-chromedriver
       - run:
+          name: Install Xvfb
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y xvfb libgtk-3-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2
+      - run:
+          name: Start Xvfb
+          command: |
+            Xvfb :99 -screen 0 1280x1024x24 &
+            echo "export DISPLAY=:99" >> $BASH_ENV
+          background: true
+      - run:
           name: Force install
           command: yarn cypress install --force
       - run:
