@@ -28,8 +28,5 @@ module.exports = {
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
-  reporters: [
-    ['jest-clean-console-reporter', { rules: reporterRules }],
-    '@jest/reporters/build/SummaryReporter',
-  ],
+  reporters: ['@jest/reporters/build/SummaryReporter'],
 }
