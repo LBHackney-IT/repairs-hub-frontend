@@ -27,7 +27,7 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
         <strong>
           Open DRS
         </strong>
-        to reschedule appointment
+         to reschedule appointment
       </a>
     </div>
   </div>
