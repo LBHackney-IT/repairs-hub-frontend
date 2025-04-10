@@ -27,7 +27,6 @@ functions:
   repairs-hub-frontend:
     name: ${self:service}-${self:provider.stage}
     handler: src/lambda.handler
-    provisionedConcurrency: ${self:custom.provisionedConcurrency.${self:provider.stage}}
     package:
       include:
         - src/lambda.js
@@ -157,10 +156,6 @@ custom:
     production:
       - subnet-0beb266003a56ca82
       - subnet-06a697d86a9b6ed01
-  provisionedConcurrency:
-    development: 0
-    staging: 0
-    production: 25
   tag-manager-id:
     development: ""
     staging: ""
