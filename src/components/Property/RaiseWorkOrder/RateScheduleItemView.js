@@ -28,13 +28,14 @@ const RateScheduleItemView = ({
   useEffect(() => {
     if (arrayOfRateScheduleItemComponentIndexes.length > 1) {
       if (
-        formState.rateScheduleItems.length <
-        arrayOfRateScheduleItemComponentIndexes.length
+        formState?.rateScheduleItems &&
+        formState?.rateScheduleItems.length <
+          arrayOfRateScheduleItemComponentIndexes.length
       ) {
         arrayOfRateScheduleItemComponentIndexes.pop()
       }
     }
-  }, arrayOfRateScheduleItemComponentIndexes)
+  }, [arrayOfRateScheduleItemComponentIndexes])
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
