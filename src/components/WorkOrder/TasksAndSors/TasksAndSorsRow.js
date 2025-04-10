@@ -33,8 +33,8 @@ const tasksAndSorsRow = ({
         {taskQuantity === 0
           ? '-'
           : isOriginal
-            ? standardMinuteValue * originalQuantity
-            : standardMinuteValue * quantity}
+          ? standardMinuteValue * originalQuantity
+          : standardMinuteValue * quantity}
       </TD>
     </TR>
   ) : (
