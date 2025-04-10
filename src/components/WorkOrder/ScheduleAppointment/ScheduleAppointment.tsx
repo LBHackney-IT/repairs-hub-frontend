@@ -20,8 +20,7 @@ const ScheduleAppointment = ({
     schedulerSessionId,
     isLoading,
     error,
-    handleExternalLinkOpen,
-    useDrsAppointmentScheduler(workOrderReference)
+    handleExternalLinkOpen }= useDrsAppointmentScheduler(workOrderReference)
 
   if (isLoading) {
     return (
