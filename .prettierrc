@@ -1,6 +1,13 @@
 {
   "semi": false,
   "singleQuote": true,
-  "endOfLine": "auto",
-  "useTabs": false
+  "endOfLine": "lf",
+  "useTabs": false,
+  "trailingComma": "es5"
 }
+
+
+
+
+
+

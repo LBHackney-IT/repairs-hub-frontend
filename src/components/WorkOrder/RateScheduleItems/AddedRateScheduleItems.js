@@ -28,8 +28,8 @@ const AddedRateScheduleItems = ({
         sorCodeArrays: validSorCodeArray
           ? validSorCodeArray
           : sorSearchRequest
-          ? sorCodeArrays[index]
-          : sorCodeArrays[0],
+            ? sorCodeArrays[index]
+            : sorCodeArrays[0],
       }
     })
 
