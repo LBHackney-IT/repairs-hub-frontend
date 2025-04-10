@@ -43,9 +43,7 @@ describe('MultiButton', () => {
   it('allows a user to choose between options', () => {
     render(<MockComponent />)
 
-    act(() => {
-      fireEvent.click(screen.getByText('Bar'))
-    })
+    fireEvent.click(screen.getByText('Bar'))
 
     expect(screen.getAllByText('Bar').length).toBe(2)
   })
@@ -56,31 +54,29 @@ describe('MultiButton', () => {
     expect(screen.getAllByText('Bar').length).toBe(2)
   })
 
-  it('closes the details panel after an option is clicked', () => {
+  it('closes the details panel after an option is clicked', async () => {
+    const user = userEvent.setup()
+
     render(<MockComponent />)
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
 
-    act(() => {
-      userEvent.click(screen.getByText('Select action'))
-    })
+    await user.click(screen.getByText('Select action'))
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe('')
 
-    act(() => {
-      userEvent.click(screen.getByText('Bar'))
-    })
+    await user.click(screen.getByText('Bar'))
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
   })
 
-  it('closes the details panel after the enter key is pressed', () => {
+  it('closes the details panel after the enter key is pressed', async () => {
+    const user = userEvent.setup()
+
     render(<MockComponent />)
 
-    act(() => {
-      userEvent.click(screen.getByText('Select action'))
-      fireEvent.keyUp(screen.getByText('Bar'), { key: 'Enter', code: 'Enter' })
-    })
+    await user.click(screen.getByText('Select action'))
+    fireEvent.keyUp(screen.getByText('Bar'), { key: 'Enter', code: 'Enter' })
 
     expect(screen.getByTestId('details').getAttribute('open')).toBe(null)
   })
