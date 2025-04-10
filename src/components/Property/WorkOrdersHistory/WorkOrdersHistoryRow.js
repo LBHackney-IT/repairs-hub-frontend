@@ -24,13 +24,7 @@ const WorkOrdersHistoryRow = ({
     >
       {user && canAccessWorkOrder(user) && (
         <TD>
-          <Link
-            href={{
-              pathname: '/work-orders/[reference]',
-              query: { reference: `${reference}` },
-            }}
-            className="lbh-link"
-          >
+          <Link href={`/work-orders/${reference}`} className="lbh-link">
             {reference}
           </Link>
         </TD>

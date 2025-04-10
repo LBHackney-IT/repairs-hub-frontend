@@ -4,6 +4,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 const mockHandler = jest.fn()
+jest.mock('next/router', () => ({ useRouter: jest.fn() }))
 
 const MockComponent = () => {
   const ref = useRef(null)
