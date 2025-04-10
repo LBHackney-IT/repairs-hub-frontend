@@ -59,12 +59,10 @@ describe('PropertyFlags', () => {
 
     expect(asFragment()).toMatchSnapshot()
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+      screen.getByTestId('spinner-personAlerts'),
+    ])
 
     expect(axios).toHaveBeenCalledTimes(2)
 
@@ -131,12 +129,10 @@ describe('PropertyFlags', () => {
       />
     )
 
-    await act(async () => {
-      await waitForElementToBeRemoved([
-        screen.getByTestId('spinner-locationAlerts'),
-        screen.getByTestId('spinner-personAlerts'),
-      ])
-    })
+    await waitForElementToBeRemoved([
+      screen.getByTestId('spinner-locationAlerts'),
+      screen.getByTestId('spinner-personAlerts'),
+    ])
 
     expect(mockSetParentLocationAlerts).toHaveBeenCalledWith([
       {

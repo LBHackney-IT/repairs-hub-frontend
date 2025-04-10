@@ -168,7 +168,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="completionTime-hour"
                 inputmode="numeric"
                 name="completionTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -188,7 +188,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="completionTime-minutes"
                 inputmode="numeric"
                 name="completionTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />
@@ -780,7 +780,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="startTime-hour"
                 inputmode="numeric"
                 name="startTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -800,7 +800,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="startTime-minutes"
                 inputmode="numeric"
                 name="startTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />
@@ -870,7 +870,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="completionTime-hour"
                 inputmode="numeric"
                 name="completionTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -890,7 +890,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
                 id="completionTime-minutes"
                 inputmode="numeric"
                 name="completionTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />
@@ -1478,7 +1478,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
                 id="completionTime-hour"
                 inputmode="numeric"
                 name="completionTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -1498,7 +1498,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
                 id="completionTime-minutes"
                 inputmode="numeric"
                 name="completionTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />
@@ -2086,7 +2086,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 id="startTime-hour"
                 inputmode="numeric"
                 name="startTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -2106,7 +2106,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 id="startTime-minutes"
                 inputmode="numeric"
                 name="startTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />
@@ -2176,7 +2176,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 id="completionTime-hour"
                 inputmode="numeric"
                 name="completionTime-hour"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="14"
               />
@@ -2196,7 +2196,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
                 id="completionTime-minutes"
                 inputmode="numeric"
                 name="completionTime-minutes"
-                pattern="^\\\\d{1,2}$"
+                pattern="^\\d{1,2}$"
                 type="text"
                 value="30"
               />

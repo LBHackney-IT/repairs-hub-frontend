@@ -18,7 +18,7 @@ const ScheduleDRSAppointmentLink = ({
         onClick={openLinkEventHandler}
       >
         <strong>Open DRS</strong>to{' '}
-        {hasExistingAppointment ? 'reschedule' : 'book an'}appointment
+        {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
       </Link>
       {appointmentIsToday && (
         <ScheduleWarning hasExistingAppointment={hasExistingAppointment} />

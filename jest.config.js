@@ -1,6 +1,5 @@
-let reporterRules = require('./reporter-rules.json')
-
 module.exports = {
+  testEnvironment: 'jsdom',
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
@@ -17,7 +16,7 @@ module.exports = {
     '/node_modules/(?!(lbh-frontend)/)',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
-  moduleDirectories: ['node_modules', '.'],
+  moduleDirectories: ['node_modules', __dirname],
   moduleNameMapper: {
     '^.+\\.(css|scss)$': '<rootDir>/src/styles/__mocks__/styleMock.js',
     '^@/components/(.*)$': '<rootDir>/src/components/$1',
@@ -28,5 +27,5 @@ module.exports = {
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
   },
-  reporters: ['@jest/reporters/build/SummaryReporter'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
 }
