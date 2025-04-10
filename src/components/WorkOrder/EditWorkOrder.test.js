@@ -5,6 +5,7 @@ import { getWorkOrder } from '@/utils/requests/workOrders'
 jest.mock('@/utils/requests/workOrders', () => ({
   getWorkOrder: jest.fn(),
 }))
+jest.mock('next/router', () => ({ useRouter: jest.fn() }))
 
 const mockWorkOrder = {
   reference: 10000040,
