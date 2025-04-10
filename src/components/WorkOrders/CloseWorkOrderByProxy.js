@@ -53,7 +53,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [
     selectedPercentagesToShowOnEdit,
     setSelectedPercentagesToShowOnEdit,
-  ] = useState([])
+    useState([])
 
   const [followOnData, setFollowOnData] = useState(null)
 

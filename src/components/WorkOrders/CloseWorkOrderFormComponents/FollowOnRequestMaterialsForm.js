@@ -7,7 +7,7 @@ const FollowOnRequestMaterialsForm = (props) => {
     errors,
     followOnData,
     hasWhiteBackground,
-  } = props
+    props
 
   return (
     <>

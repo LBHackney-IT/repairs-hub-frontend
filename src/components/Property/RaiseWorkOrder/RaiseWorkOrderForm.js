@@ -126,8 +126,9 @@ const RaiseWorkOrderForm = ({
     existingHigherPriorityCode
   ) => {
     if (existingHigherPriorityCode) {
-      description = getPriorityObjectByCode(existingHigherPriorityCode)
-        ?.description
+      description = getPriorityObjectByCode(
+        existingHigherPriorityCode
+      )?.description
     }
 
     if (getPriorityObjectByDescription(description)) {

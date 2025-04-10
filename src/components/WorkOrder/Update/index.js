@@ -27,18 +27,14 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [
-    showAdditionalRateScheduleItems,
-    setShowAdditionalRateScheduleItems,
-  ] = useState(false)
+  const [showAdditionalRateScheduleItems, setShowAdditionalRateScheduleItems] =
+    useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
   const [contractorReference, setContractorReference] = useState()
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState()
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState()
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
@@ -117,9 +113,8 @@ const WorkOrderUpdateView = ({ reference }) => {
     })
 
   const incrementalSORSearchRequired = async (contractorRef) => {
-    const orderApplicable = MULTITRADE_ENABLED_CONTRACTORS.includes(
-      contractorRef
-    )
+    const orderApplicable =
+      MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef)
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)

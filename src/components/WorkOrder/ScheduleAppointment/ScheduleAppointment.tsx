@@ -21,7 +21,7 @@ const ScheduleAppointment = ({
     isLoading,
     error,
     handleExternalLinkOpen,
-  } = useDrsAppointmentScheduler(workOrderReference)
+    useDrsAppointmentScheduler(workOrderReference)
 
   if (isLoading) {
     return (

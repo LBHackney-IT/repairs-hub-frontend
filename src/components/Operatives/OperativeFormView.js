@@ -17,10 +17,8 @@ const OperativeFormView = ({ workOrderReference }) => {
   const [currentUser, setCurrentUser] = useState({})
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
-  const [
-    selectedPercentagesToShowOnEdit,
-    setSelectedPercentagesToShowOnEdit,
-  ] = useState([])
+  const [selectedPercentagesToShowOnEdit, setSelectedPercentagesToShowOnEdit] =
+    useState([])
 
   const OPERATIVE_ID_REGEX = /\[(\d+)\]$/
 

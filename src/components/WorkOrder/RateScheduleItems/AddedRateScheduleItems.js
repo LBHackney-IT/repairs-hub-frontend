@@ -16,10 +16,8 @@ const AddedRateScheduleItems = ({
 }) => {
   const [rateScheduleItems, setRateScheduleItems] = useState([...addedTasks])
   const [nextFreeIndex, setNextFreeIndex] = useState(addedTasks.length)
-  const [
-    rateScheduleItemSorCodeArray,
-    setRateScheduleItemSorCodeArray,
-  ] = useState([])
+  const [rateScheduleItemSorCodeArray, setRateScheduleItemSorCodeArray] =
+    useState([])
   useEffect(() => {
     let scheduleItem_SorCodeArray = rateScheduleItems.map((item, index) => {
       const validSorCodeArray = sorCodeArrays.find(

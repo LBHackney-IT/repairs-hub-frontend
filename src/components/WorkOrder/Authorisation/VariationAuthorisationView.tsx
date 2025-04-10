@@ -63,12 +63,11 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
         path: `/api/workOrders/${workOrderReference}`,
       })
 
-      const variationResponse: VariationResponseObject = await frontEndApiRequest(
-        {
+      const variationResponse: VariationResponseObject =
+        await frontEndApiRequest({
           method: 'get',
           path: `/api/workOrders/${workOrderReference}/variation-tasks`,
-        }
-      )
+        })
 
       const user = await frontEndApiRequest({
         method: 'get',
