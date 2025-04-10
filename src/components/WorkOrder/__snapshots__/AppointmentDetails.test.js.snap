@@ -79,7 +79,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
         <strong>
           Open DRS
         </strong>
-        to book an appointment
+         to book an appointment
       </a>
     </div>
   </div>

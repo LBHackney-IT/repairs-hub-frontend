@@ -63,7 +63,7 @@ exports[`AppointmentDetails component Shows a success state 1`] = `
     <strong>
       Open DRS
     </strong>
-    to book an appointment
+     to book an appointment
   </a>
 </DocumentFragment>
 `;
