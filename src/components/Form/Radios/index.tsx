@@ -42,6 +42,7 @@ const Radio = (props: Props) => {
     required,
     isRadiosInline = false,
     isGrid,
+    hasWhiteBackground,
     ...otherProps
   } = props
 
@@ -110,7 +111,12 @@ const Radio = (props: Props) => {
                 />
 
                 <label
-                  className="govuk-label lbh-label govuk-radios__label"
+                  className={cx(
+                    'govuk-label',
+                    'lbh-label',
+                    'govuk-radios__label',
+                    hasWhiteBackground && 'white-background'
+                  )}
                   htmlFor={`${name}_${value}`}
                 >
                   {text}

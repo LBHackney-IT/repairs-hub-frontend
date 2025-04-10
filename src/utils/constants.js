@@ -6,11 +6,13 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'PSL',
   'AIM',
   'TDK',
+  'TMS',
   'WIG',
   'FOS',
   'PUR',
   'HER',
 ]
+
 export const PURDY_CONTRACTOR_REFERENCE = 'PUR'
 export const MULTITRADE_TRADE_CODE = 'MU'
 
@@ -45,6 +47,10 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
     contractorName: 'TDK Mechanical Services (UK) Ltd',
   },
   {
+    contractorReference: 'TMS',
+    contractorName: 'TDK Mech Services Communal Heating',
+  },
+  {
     contractorReference: 'WIG',
     contractorName: 'The Wiggett Group LTD',
   },
@@ -59,5 +65,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'HER',
     contractorName: 'HERTS HERITAGE (C2B)',
+  },
+  {
+    contractorReference: 'HHL',
+    contractorName: 'Herts Heritage Ltd',
   },
 ]

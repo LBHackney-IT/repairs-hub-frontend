@@ -7,6 +7,7 @@ import isPast from 'date-fns/isPast'
 import TimeInput from '../Form/TimeInput'
 import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
+import Select from '../Form/Select'
 import SelectOperatives from '../Operatives/SelectOperatives'
 import {
   BONUS_PAYMENT_TYPE,
@@ -71,6 +72,8 @@ const CloseWorkOrderForm = ({
   }
 
   const [showFurtherWorkFields, setShowFurtherWorkFields] = useState(false)
+  const [isRadio, setIsRadio] = useState(false)
+  const [isDropdown, setIsDropdown] = useState(false)
 
   const followOnStatusWatchedValue = watch('followOnStatus')
 
@@ -111,13 +114,29 @@ const CloseWorkOrderForm = ({
         />
 
         {showFurtherWorkFields && (
-          <>
-            <h1 className="lbh-heading-h2">Details of further work required</h1>
+          <div
+            style={{
+              backgroundColor: '#f3f3f3',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'wrap',
+              marginBottom: '10px',
+            }}
+          >
+            <div style={{ flexBasis: '100%' }}>
+              <h1 className="lbh-heading-h2">
+                Details of further work required
+              </h1>
+            </div>
+
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
+
             <FollowOnRequestTypeOfWorkForm
               errors={errors}
               register={register}
@@ -126,34 +145,90 @@ const CloseWorkOrderForm = ({
               clearErrors={clearErrors}
               watch={watch}
               followOnData={followOnData}
-            />
-
-            <Radios
-              label="Estimated duration"
-              name="estimatedDuration"
-              labelSize="s"
-              options={[
-                '30 mins',
-                '1 hour',
-                '2-3 hours',
-                'Half a day',
-                '1 day',
-                'More than 1 day',
-                'Unknown',
-              ]}
-              register={register({
-                required: 'Select estimated duration',
-              })}
-              error={errors && errors.estimatedDuration}
+              hasWhiteBackground={true}
               isGrid={true}
             />
+
+            <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsDropdown(false)
+                  setIsRadio(true)
+                }}
+                style={{ cursor: 'pointer', borderRadius: '5px' }}
+                data-testid="radioButton"
+              >
+                Radio
+              </button>
+              <button
+                onClick={(e) => {
+                  e.preventDefault()
+                  setIsRadio(false)
+                  setIsDropdown(true)
+                }}
+                style={{
+                  cursor: 'pointer',
+                  marginTop: '0',
+                  borderRadius: '5px',
+                }}
+                data-testid="dropdownButton"
+              >
+                Dropdown
+              </button>
+            </div>
+            {isRadio && (
+              <Radios
+                label="Estimated duration"
+                name="estimatedDuration"
+                labelSize="s"
+                options={[
+                  '30 mins',
+                  '1 hour',
+                  '2-3 hours',
+                  'Half a day',
+                  '1 day',
+                  'More than 1 day',
+                  'Unknown',
+                ]}
+                register={register({
+                  required: 'Select estimated duration',
+                })}
+                error={errors && errors.estimatedDuration}
+                isGrid={true}
+                hasWhiteBackground={true}
+              />
+            )}
+            {isDropdown && (
+              <Select
+                label="Estimated duration"
+                name="estimatedDuration"
+                options={[
+                  '30 mins',
+                  '1 hour',
+                  '2-3 hours',
+                  'Half a day',
+                  '1 day',
+                  'More than 1 day',
+                  'Unknown',
+                ]}
+                register={register({
+                  required: 'Select estimated duration',
+                })}
+                error={errors && errors.estimatedDuration}
+                widthClass="govuk-!-width-one-half"
+              />
+            )}
 
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
+
             <TextArea
               name="additionalNotes"
               label="Additional notes"
@@ -161,7 +236,7 @@ const CloseWorkOrderForm = ({
               error={errors && errors.additionalNotes}
               defaultValue={followOnData?.additionalNotes ?? ''}
             />
-          </>
+          </div>
         )}
 
         <div className="govuk-form-group lbh-form-group">

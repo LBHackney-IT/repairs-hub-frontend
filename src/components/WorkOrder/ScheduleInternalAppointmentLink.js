@@ -17,7 +17,7 @@ const ScheduleInternalAppointmentLink = ({
   return (
     <>
       <Link href={href} className="lbh-link">
-        {linkText}
+        {linkText} (non DRS)
       </Link>
       {appointmentIsToday && (
         <ScheduleWarning hasExistingAppointment={hasExistingAppointment} />
