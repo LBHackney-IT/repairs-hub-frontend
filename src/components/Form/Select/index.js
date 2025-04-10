@@ -83,7 +83,7 @@ Select.propTypes = {
   value: PropTypes.string,
   error: PropTypes.shape({
     message: PropTypes.string,
-  }).isRequired,
+  }),
   disabled: PropTypes.bool,
   register: PropTypes.func,
   widthClass: PropTypes.string,
