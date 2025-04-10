@@ -7,7 +7,6 @@ import { authorisationManager } from 'factories/authorisation_manager'
 
 jest.mock('next/router', () => ({ useRouter: jest.fn() }))
 
-
 describe('Search component', () => {
   ;[agent, contractManager, authorisationManager].forEach((role) => {
     describe(`when logged in as ${role}`, () => {
