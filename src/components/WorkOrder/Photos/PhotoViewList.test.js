@@ -62,7 +62,10 @@ describe('PhotoViewList component', () => {
     ]
 
     const { asFragment } = render(
-      <PhotoViewList photos={photos} onSubmitSetDescription={() => {}} />
+      <PhotoViewList
+        photos={photos}
+        onSubmitSetDescription={() => {}}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

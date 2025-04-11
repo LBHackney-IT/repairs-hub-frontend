@@ -57,11 +57,17 @@ const TimeInput = forwardRef(
             {label} {showAsOptional && '(optional) '}
             {required && <span className="govuk-required">*</span>}
           </legend>
-          <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+          <span
+            id={`${name}-hint`}
+            className="govuk-hint lbh-hint"
+          >
             {hint}
           </span>
           {error && <ErrorMessage label={error.message} />}
-          <div className="govuk-date-input lbh-date-input" id={name}>
+          <div
+            className="govuk-date-input lbh-date-input"
+            id={name}
+          >
             <div className="govuk-date-input__item">
               <label
                 className="govuk-label lbh-label govuk-date-input__label"

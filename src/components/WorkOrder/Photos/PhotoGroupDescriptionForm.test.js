@@ -7,7 +7,10 @@ import {
 describe('UpdateDescriptionButton component', () => {
   it('renders UpdateDescriptionButton component with no description', () => {
     const { asFragment } = render(
-      <UpdateDescriptionButton description={''} showForm={() => {}} />
+      <UpdateDescriptionButton
+        description={''}
+        showForm={() => {}}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

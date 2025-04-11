@@ -38,10 +38,8 @@ const SORContracts = () => {
   const [selectedOption, setSelectedOption] = useState(radioOptions[0].value)
 
   const [sourcePropertyReference, setSourcePropertyReference] = useState('')
-  const [
-    destinationPropertyReference,
-    setDestinationPropertyReference,
-  ] = useState('')
+  const [destinationPropertyReference, setDestinationPropertyReference] =
+    useState('')
   const [showDialog, setShowDialog] = useState(false)
 
   const {

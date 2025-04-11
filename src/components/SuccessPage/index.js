@@ -11,15 +11,14 @@ const SuccessPage = ({ ...props }) => {
         {props.links.map((link, i) => {
           return (
             <li key={i}>
-              <Link href={link.href}>
-                <a
-                  className="lbh-link"
-                  onClick={link.onClick}
-                  target={link.target}
-                  rel={link.rel}
-                >
-                  {link.text}
-                </a>
+              <Link
+                href={link.href}
+                className="lbh-link"
+                onClick={link.onClick}
+                target={link.target}
+                rel={link.rel}
+              >
+                {link.text}
               </Link>
             </li>
           )

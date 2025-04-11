@@ -16,7 +16,9 @@ const WorkOrderUpdateSummary = ({
   variationReason,
   budgetCode,
 }) => {
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
     // The API validates whether the total variation cost is over the logged in
     // user's vary spend limit & updates WO status to 'Pending Approval' if true
     const WorkOrderUpdateFormData = buildVariationFormData(
@@ -51,7 +53,11 @@ const WorkOrderUpdateSummary = ({
   return (
     <div>
       <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
-      <form role="form" id="repair-request-form" onSubmit={onSubmit}>
+      <form
+        role="form"
+        id="repair-request-form"
+        onSubmit={onSubmit}
+      >
         <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
 
         <UpdateSummaryRateScheduleItems

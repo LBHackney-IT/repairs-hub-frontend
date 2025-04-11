@@ -1,4 +1,4 @@
-import { v4 as uuidv4 } from 'uuid'
+const { v4: uuidv4 } = require('uuid')
 import { MULTITRADE_TRADE_CODE } from '@/utils/constants'
 
 export const buildScheduleWorkOrderFormData = (workOrderData) => {

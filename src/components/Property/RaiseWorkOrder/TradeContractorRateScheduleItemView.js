@@ -45,10 +45,8 @@ const TradeContractorRateScheduleItemView = ({
   const [loadingSorCodes, setLoadingSorCodes] = useState(false)
   const [loadingBudgetCodes, setLoadingBudgetCodes] = useState(false)
 
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState(false)
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState(false)
 
   const { user } = useContext(UserContext)
 

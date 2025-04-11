@@ -15,7 +15,10 @@ const TimeSlotForm = ({
   const { handleSubmit, register, errors } = useForm({})
 
   return (
-    <div className="govuk-grid-row" id="available-slots">
+    <div
+      className="govuk-grid-row"
+      id="available-slots"
+    >
       <div className="govuk-grid-column-full">
         <form
           role="form"
@@ -58,7 +61,10 @@ const TimeSlotForm = ({
               onClick={onCancel}
               className="govuk-!-margin-right-4"
             />
-            <Button label="Add" type="submit" />
+            <Button
+              label="Add"
+              type="submit"
+            />
           </div>
         </form>
       </div>

@@ -26,11 +26,17 @@ const TextInput = ({
       additionalDivClasses
     )}
   >
-    <label className="govuk-label lbh-label" htmlFor={name}>
+    <label
+      className="govuk-label lbh-label"
+      htmlFor={name}
+    >
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hintf lbh-hint">
+      <span
+        id={`${name}-hint`}
+        className="govuk-hintf lbh-hint"
+      >
         {hint}
       </span>
     )}

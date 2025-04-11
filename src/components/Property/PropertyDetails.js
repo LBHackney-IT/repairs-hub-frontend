@@ -27,21 +27,18 @@ const PropertyDetails = ({
           propertyReference={propertyReference}
         />
       </div>
-
       {isCurrentTimeOutOfHours() && (
         <div>
-          <Link href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK}>
-            <a
-              target="_blank"
-              rel="noopener"
-              className="lbh-link lbh-body-l lbh-!-font-weight-medium"
-            >
-              Out of hours note
-            </a>
+          <Link
+            href={process.env.NEXT_PUBLIC_OUT_OF_HOURS_LINK}
+            target="_blank"
+            rel="noopener"
+            className="lbh-link lbh-body-l lbh-!-font-weight-medium"
+          >
+            Out of hours note
           </Link>
         </div>
       )}
-
       <PropertyDetailsGrid
         propertyReference={propertyReference}
         boilerHouseId={boilerHouseId}

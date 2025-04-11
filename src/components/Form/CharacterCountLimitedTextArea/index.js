@@ -9,9 +9,8 @@ const CharacterCountLimitedTextArea = ({
   currentLength = maxLength,
   ...otherProps
 }) => {
-  const [remainingCharacterCount, setRemainingCharacterCount] = useState(
-    currentLength
-  )
+  const [remainingCharacterCount, setRemainingCharacterCount] =
+    useState(currentLength)
 
   return (
     <>

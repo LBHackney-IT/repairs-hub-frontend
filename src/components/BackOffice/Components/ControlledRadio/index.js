@@ -24,11 +24,17 @@ const ControlledRadio = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className={`govuk-label govuk-label--${labelSize}`} htmlFor={name}>
+    <label
+      className={`govuk-label govuk-label--${labelSize}`}
+      htmlFor={name}
+    >
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+      <span
+        id={`${name}-hint`}
+        className="govuk-hint lbh-hint"
+      >
         {hint}
       </span>
     )}
@@ -45,7 +51,10 @@ const ControlledRadio = ({
             ? { value: option, text: option, defaultChecked: false }
             : option
         return (
-          <div className="govuk-radios__item" key={text}>
+          <div
+            className="govuk-radios__item"
+            key={text}
+          >
             <input
               className={cx('govuk-radios__input', {
                 'govuk-input--error': error,
@@ -65,14 +74,12 @@ const ControlledRadio = ({
               checked={selectedOption !== null && selectedOption === value}
               {...otherProps}
             />
-
             <label
               className="govuk-label lbh-label govuk-radios__label"
               htmlFor={`${name}_${value}`}
             >
               {text}
             </label>
-
             {hint && (
               <span
                 id={`${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`}

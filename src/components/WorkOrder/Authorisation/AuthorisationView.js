@@ -137,8 +137,11 @@ const AuthorisationView = ({ workOrderReference }) => {
               <h1 className="lbh-heading-h1 govuk-!-margin-right-6 govuk-!-margin-bottom-0">
                 Authorisation request: {workOrderReference}{' '}
               </h1>
-              <Link href={`/work-orders/${workOrderReference}`}>
-                <a className="lbh-link">See work order</a>
+              <Link
+                href={`/work-orders/${workOrderReference}`}
+                className="lbh-link"
+              >
+                See work order
               </Link>
               <br></br>
               <br></br>
@@ -155,7 +158,10 @@ const AuthorisationView = ({ workOrderReference }) => {
                 />
               )}
 
-              <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
+              <form
+                role="form"
+                onSubmit={handleSubmit(onSubmitForm)}
+              >
                 <Radios
                   label="This work order requires your authorisation"
                   name="options"

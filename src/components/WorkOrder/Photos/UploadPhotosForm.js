@@ -16,7 +16,10 @@ const UploadPhotosForm = ({ workOrderReference, onSuccess }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="govuk-!-margin-0">
+      <form
+        onSubmit={handleSubmit}
+        className="govuk-!-margin-0"
+      >
         <div>
           {uploadSuccess && (
             <section className="lbh-page-announcement govuk-!-margin-top-3">

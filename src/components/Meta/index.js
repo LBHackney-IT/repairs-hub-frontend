@@ -21,8 +21,14 @@ const Meta = ({ title }) => {
         name="viewport"
         content="width=device-width, initial-scale=1, viewport-fit=cover"
       />
-      <meta name="theme-color" content="#0b0c0c" />
-      <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+      <meta
+        name="theme-color"
+        content="#0b0c0c"
+      />
+      <meta
+        httpEquiv="X-UA-Compatible"
+        content="IE=edge"
+      />
     </Head>
   )
 }

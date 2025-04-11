@@ -28,13 +28,14 @@ const RateScheduleItemView = ({
   useEffect(() => {
     if (arrayOfRateScheduleItemComponentIndexes.length > 1) {
       if (
-        formState.rateScheduleItems.length <
-        arrayOfRateScheduleItemComponentIndexes.length
+        formState?.rateScheduleItems &&
+        formState?.rateScheduleItems.length <
+          arrayOfRateScheduleItemComponentIndexes.length
       ) {
         arrayOfRateScheduleItemComponentIndexes.pop()
       }
     }
-  }, arrayOfRateScheduleItemComponentIndexes)
+  }, [arrayOfRateScheduleItemComponentIndexes])
 
   const [rateScheduleItemPriorities, setRateScheduleItemPriorities] = useState(
     []
@@ -88,9 +89,8 @@ const RateScheduleItemView = ({
     const sorCodeObject = getSorCodeObject(code, index)
 
     if (sorCodeObject?.priority?.priorityCode) {
-      const rateScheduleItemPriorityAtSameIndex = rateScheduleItemPriorities.find(
-        (e) => e.index === index
-      )
+      const rateScheduleItemPriorityAtSameIndex =
+        rateScheduleItemPriorities.find((e) => e.index === index)
 
       if (rateScheduleItemPriorityAtSameIndex) {
         rateScheduleItemPriorityAtSameIndex.code =
@@ -157,9 +157,8 @@ const RateScheduleItemView = ({
         arrayOfRateScheduleItemComponentIndexes.filter((i) => i !== index)
     )
 
-    const remainingRateScheduleItemPriorities = rateScheduleItemPriorities.filter(
-      (i) => i.index !== index
-    )
+    const remainingRateScheduleItemPriorities =
+      rateScheduleItemPriorities.filter((i) => i.index !== index)
     setRateScheduleItemPriorities(remainingRateScheduleItemPriorities)
 
     const remainingRateScheduleItemCosts = rateScheduleItemCosts.filter(
@@ -231,13 +230,21 @@ const RateScheduleItemView = ({
             {apiError && <ErrorMessage label={apiError} />}
           </div>
           <div>
-            <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+            <a
+              className="lbh-link"
+              href="#"
+              onClick={addRateScheduleItem}
+            >
               + Add another SOR code
             </a>
           </div>
           <div>
             {!disabled && (
-              <a className="lbh-link" href="#" onClick={changePageView}>
+              <a
+                className="lbh-link"
+                href="#"
+                onClick={changePageView}
+              >
                 + Add multiple SOR codes
               </a>
             )}

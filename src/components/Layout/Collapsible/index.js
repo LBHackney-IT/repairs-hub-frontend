@@ -18,8 +18,15 @@ const Collapsible = ({
         onClick={() => setOpen(!open)}
       >
         <h3 className="lbh-heading-h3 lbh-collapsible__heading">{heading}</h3>
-        <svg width="17" height="10" viewBox="0 0 17 10">
-          <path d="M2 1.5L8.5 7.5L15 1.5" strokeWidth="3" />
+        <svg
+          width="17"
+          height="10"
+          viewBox="0 0 17 10"
+        >
+          <path
+            d="M2 1.5L8.5 7.5L15 1.5"
+            strokeWidth="3"
+          />
         </svg>
       </div>
       <div

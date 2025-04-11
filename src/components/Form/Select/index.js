@@ -25,11 +25,17 @@ const Select = ({
       'govuk-form-group--error': error,
     })}
   >
-    <label className="govuk-label lbh-label" htmlFor={name}>
+    <label
+      className="govuk-label lbh-label"
+      htmlFor={name}
+    >
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
-      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+      <span
+        id={`${name}-hint`}
+        className="govuk-hint lbh-hint"
+      >
         {hint}
       </span>
     )}
@@ -47,12 +53,20 @@ const Select = ({
       disabled={disabled}
       defaultValue={defaultValue}
     >
-      {isUnselectable && <option key="empty" value=""></option>}
+      {isUnselectable && (
+        <option
+          key="empty"
+          value=""
+        ></option>
+      )}
       {options.map((option, i) => {
         const { value, text } =
           typeof option === 'string' ? { value: option, text: option } : option
         return (
-          <option key={value + i} value={value}>
+          <option
+            key={value + i}
+            value={value}
+          >
             {text}
           </option>
         )
@@ -83,7 +97,7 @@ Select.propTypes = {
   value: PropTypes.string,
   error: PropTypes.shape({
     message: PropTypes.string,
-  }).isRequired,
+  }),
   disabled: PropTypes.bool,
   register: PropTypes.func,
   widthClass: PropTypes.string,

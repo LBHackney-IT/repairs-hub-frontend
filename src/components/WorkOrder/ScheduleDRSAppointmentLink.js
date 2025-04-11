@@ -12,16 +12,13 @@ const ScheduleDRSAppointmentLink = ({
     <>
       <Link
         href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
+        className="lbh-link"
+        target="_blank"
+        rel="noopener"
+        onClick={openLinkEventHandler}
       >
-        <a
-          className="lbh-link"
-          target="_blank"
-          rel="noopener"
-          onClick={openLinkEventHandler}
-        >
-          <strong>Open DRS</strong> to{' '}
-          {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
-        </a>
+        <strong>Open DRS</strong> to{' '}
+        {hasExistingAppointment ? 'reschedule' : 'book an'} appointment
       </Link>
       {appointmentIsToday && (
         <ScheduleWarning hasExistingAppointment={hasExistingAppointment} />

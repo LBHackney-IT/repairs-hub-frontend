@@ -15,7 +15,10 @@ const PropertiesTable = ({ properties }) => (
       </THead>
       <TBody>
         {properties.map((property, index) => (
-          <PropertyRow key={index} {...property} />
+          <PropertyRow
+            key={index}
+            {...property}
+          />
         ))}
       </TBody>
     </Table>

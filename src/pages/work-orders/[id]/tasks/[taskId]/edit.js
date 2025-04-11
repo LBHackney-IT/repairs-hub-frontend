@@ -8,7 +8,10 @@ const EditWorkOrderTaskPage = ({ query }) => {
     <>
       <Meta title={`Update Work Order ${query.id}`} />
 
-      <EditTaskForm workOrderReference={query.id} taskId={query.taskId} />
+      <EditTaskForm
+        workOrderReference={query.id}
+        taskId={query.taskId}
+      />
     </>
   )
 }

@@ -4,16 +4,18 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 
 const PropertyBoilerHouseDetails = ({ boilerHouseId }) => {
-  const { loading, boilerHouse, boilerHouseError } = usePropertyBoilerHouse(
-    boilerHouseId
-  )
+  const { loading, boilerHouse, boilerHouseError } =
+    usePropertyBoilerHouse(boilerHouseId)
 
   if (loading) return <Spinner resource="propertyBoilerHouseDetails" />
 
   if (boilerHouseError) return <ErrorMessage label={boilerHouseError} />
 
   return (
-    <li className="bg-dark-green" data-testid="boiler-house-details">
+    <li
+      className="bg-dark-green"
+      data-testid="boiler-house-details"
+    >
       BoilerHouse:{' '}
       <a
         data-testid="boiler-house-details-link"

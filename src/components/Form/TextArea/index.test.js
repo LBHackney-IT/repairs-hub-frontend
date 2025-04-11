@@ -6,7 +6,10 @@ describe('TextArea component', () => {
     const inputName = 'my-text-area'
     const inputLabel = 'My text area'
     const { getByLabelText } = render(
-      <TextArea name={inputName} label={inputLabel} />
+      <TextArea
+        name={inputName}
+        label={inputLabel}
+      />
     )
 
     const labelRegex = new RegExp(`s*${inputLabel}s*`)

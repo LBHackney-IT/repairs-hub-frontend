@@ -78,12 +78,11 @@ describe('WorkOrderHeader component', () => {
           />
         </UserContext.Provider>
       )
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
+
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
 
       expect(asFragment()).toMatchSnapshot()
     })
@@ -103,12 +102,11 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+
       expect(asFragment()).toMatchSnapshot()
     })
 
@@ -148,12 +146,11 @@ describe('WorkOrderHeader component', () => {
           </UserContext.Provider>
         )
 
-        await act(async () => {
-          await waitForElementToBeRemoved([
-            screen.getByTestId('spinner-locationAlerts'),
-            screen.getByTestId('spinner-personAlerts'),
-          ])
-        })
+        await waitForElementToBeRemoved([
+          screen.getByTestId('spinner-locationAlerts'),
+          screen.getByTestId('spinner-personAlerts'),
+        ])
+
         expect(asFragment()).toMatchSnapshot()
       })
     })
@@ -177,12 +174,11 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+
       expect(asFragment()).toMatchSnapshot()
     })
   })
@@ -220,12 +216,11 @@ describe('WorkOrderHeader component', () => {
         </UserContext.Provider>
       )
 
-      await act(async () => {
-        await waitForElementToBeRemoved([
-          screen.getByTestId('spinner-locationAlerts'),
-          screen.getByTestId('spinner-personAlerts'),
-        ])
-      })
+      await waitForElementToBeRemoved([
+        screen.getByTestId('spinner-locationAlerts'),
+        screen.getByTestId('spinner-personAlerts'),
+      ])
+
       expect(asFragment()).toMatchSnapshot()
     })
   })

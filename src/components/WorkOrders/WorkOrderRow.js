@@ -20,8 +20,11 @@ const WorkOrderRow = ({
     className="govuk-table__row--clickable lbh-body-s hackney-work-order-table"
   >
     <TD className="lbh-body-xs">
-      <Link href={`/work-orders/${reference}`}>
-        <a className="lbh-link">{reference}</a>
+      <Link
+        href={`/work-orders/${reference}`}
+        className="lbh-link"
+      >
+        {reference}
       </Link>
     </TD>
     <TD className="lbh-body-xs">
@@ -33,7 +36,10 @@ const WorkOrderRow = ({
     <TD className="lbh-body-xs">{priority}</TD>
     <TD className="lbh-body-xs">{property}</TD>
     <TD>
-      <Status text={status} className="lbh-body-xs work-order-status" />
+      <Status
+        text={status}
+        className="lbh-body-xs work-order-status"
+      />
     </TD>
     <TD className="lbh-body-xs">{tradeDescription}</TD>
     <TD className="description lbh-body-xs">

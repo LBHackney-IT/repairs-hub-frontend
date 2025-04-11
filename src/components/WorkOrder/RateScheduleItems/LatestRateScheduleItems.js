@@ -5,7 +5,10 @@ import { TextInput } from '../../Form'
 const LatestRateScheduleItems = ({ latestTasks, errors, register }) => {
   return (
     <div>
-      <section className="section" id="existing-rate-schedule-items">
+      <section
+        className="section"
+        id="existing-rate-schedule-items"
+      >
         <h2 className="lbh-heading-h2">
           Latest tasks and SORS against the work order
         </h2>

@@ -10,9 +10,15 @@ class AppDocument extends Document {
 
   render() {
     return (
-      <Html lang="en" className="govuk-template lbh-template">
+      <Html
+        lang="en"
+        className="govuk-template lbh-template"
+      >
         <Head>
-          <link rel="icon" href="/hackney_favicon.ico" />
+          <link
+            rel="icon"
+            href="/hackney_favicon.ico"
+          />
           {TAG_MANAGER_ID && (
             <script
               dangerouslySetInnerHTML={{

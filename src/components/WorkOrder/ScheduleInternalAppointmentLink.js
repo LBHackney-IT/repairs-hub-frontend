@@ -11,13 +11,16 @@ const ScheduleInternalAppointmentLink = ({
     : `/work-orders/${workOrderReference}/appointment/new`
 
   const linkText = hasExistingAppointment
-    ? 'Reschedule appointment'
-    : 'Schedule appointment'
+    ? 'Reschedule appointment (non DRS)'
+    : 'Schedule appointment (non DRS)'
 
   return (
     <>
-      <Link href={href}>
-        <a className="lbh-link">{linkText} (non DRS)</a>
+      <Link
+        href={href}
+        className="lbh-link"
+      >
+        {linkText}
       </Link>
       {appointmentIsToday && (
         <ScheduleWarning hasExistingAppointment={hasExistingAppointment} />

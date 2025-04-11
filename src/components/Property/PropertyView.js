@@ -108,7 +108,10 @@ const PropertyView = ({ propertyReference }) => {
                 tmoName={property.tmoName}
               />
               {renderLegalDisrepair(isInLegalDisrepair)}
-              <Tabs tabsList={tabsList} propertyReference={propertyReference} />
+              <Tabs
+                tabsList={tabsList}
+                propertyReference={propertyReference}
+              />
             </>
           )}
 

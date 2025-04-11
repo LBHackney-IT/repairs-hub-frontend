@@ -66,7 +66,10 @@ const VariationAuthorisationSummary = ({
               <BudgetCode budgetCode={budgetCode} />
             </TH>
           ) : (
-            <TH scope="row" className="border-none" />
+            <TH
+              scope="row"
+              className="border-none"
+            />
           )}
 
           <TD
@@ -111,19 +114,34 @@ const VariationAuthorisationSummary = ({
             <TR>
               <TH scope="col">SOR Status</TH>
               <TH scope="col">SOR code</TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Unit Cost
               </TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Quantity
               </TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Cost
               </TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Varied quantity
               </TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Varied Cost
               </TH>
             </TR>
@@ -132,7 +150,10 @@ const VariationAuthorisationSummary = ({
           <TBody>
             {variationTasks.tasks
               ? variationTasks.tasks.map((task, index) => (
-                  <TR index={index} key={index}>
+                  <TR
+                    index={index}
+                    key={index}
+                  >
                     <TD>
                       <Status text={sorStatus(task)} />
                     </TD>
@@ -169,10 +190,16 @@ const VariationAuthorisationSummary = ({
           <THead>
             <TR>
               <TH scope="col">SOR code</TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Quantity
               </TH>
-              <TH scope="col" type="numeric">
+              <TH
+                scope="col"
+                type="numeric"
+              >
                 Cost
               </TH>
             </TR>

@@ -6,7 +6,10 @@ const NoAvailableAppointments = ({ workOrderReference }) => {
     <div className="govuk-grid-row">
       <div className="govuk-grid-column-full">
         <div className="timeslot-form govuk-!-padding-4">
-          <h2 className="lbh-heading-h2" id="no-appointment">
+          <h2
+            className="lbh-heading-h2"
+            id="no-appointment"
+          >
             No available appointments
           </h2>
           <p className="lbh-body">
@@ -16,10 +19,11 @@ const NoAvailableAppointments = ({ workOrderReference }) => {
         </div>
         <ul className="lbh-list govuk-!-margin-top-9">
           <li>
-            <Link href={`/work-orders/${workOrderReference}`}>
-              <a className="lbh-link">
-                <strong>View work order</strong>
-              </a>
+            <Link
+              href={`/work-orders/${workOrderReference}`}
+              className="lbh-link"
+            >
+              <strong>View work order</strong>
             </Link>
           </li>
         </ul>

@@ -19,12 +19,18 @@ const TenanctContact = ({ tenant, reloadContacts }) => {
 
   return (
     <div className="tenantContactsTable-contact">
-      <TenantHeading fullName={tenant.fullName} personId={tenant.personId} />
+      <TenantHeading
+        fullName={tenant.fullName}
+        personId={tenant.personId}
+      />
 
       <hr />
 
       {!sortedPhoneNumbers.length && (
-        <p className="govuk-body-s" style={{ marginTop: '15px' }}>
+        <p
+          className="govuk-body-s"
+          style={{ marginTop: '15px' }}
+        >
           No contact details
         </p>
       )}

@@ -146,7 +146,10 @@ const OperativeMobileView = () => {
                   value={operativePayrollNumber}
                   onChange={(e) => setOperativePayrollNumber(e.target.value)}
                 >
-                  <option value="-1" defaultChecked>
+                  <option
+                    value="-1"
+                    defaultChecked
+                  >
                     Select an operative
                   </option>
 

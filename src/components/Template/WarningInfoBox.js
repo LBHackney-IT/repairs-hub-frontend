@@ -7,7 +7,10 @@ const WarningInfoBox = ({ header, text, name }) => {
       data-testid={name}
     >
       <div className="lbh-warning-text govuk-warning-text">
-        <span className="govuk-warning-text__icon" aria-hidden="true">
+        <span
+          className="govuk-warning-text__icon"
+          aria-hidden="true"
+        >
           !
         </span>
         <div className="govuk-warning-text__text">

@@ -8,23 +8,27 @@
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "ecmaVersion": 2020,
+    "ecmaVersion": 2022,
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react", 
+    "react-hooks", 
+    "@typescript-eslint"
+  ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
-    "plugin:prettier/recommended",
+    "plugin:react-hooks/recommended",
     "plugin:cypress/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended", 
+    "plugin:prettier/recommended"
   ],
   "rules": {
-    // Your custom rules here
     "linebreak-style": ["error", "unix"],
     "require-atomic-updates": "off",
     "react/jsx-uses-vars": 2,
@@ -42,11 +46,16 @@
     "cypress/unsafe-to-chain-command": "warn",
     "react/display-name": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
-    "jest/no-focused-tests": "warn"
+    "jest/no-focused-tests": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
   },
   "settings": {
     "react": {
       "version": "detect"
+    },
+    "next": {
+      "rootDir": ["./"]
     }
   }
 }

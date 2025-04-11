@@ -5,7 +5,10 @@ import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
 const ContactsTable = ({ contacts }) => {
   if (!contacts.length) {
     return (
-      <p className="govuk-body-s" style={{ marginTop: '15px' }}>
+      <p
+        className="govuk-body-s"
+        style={{ marginTop: '15px' }}
+      >
         No household members
       </p>
     )
@@ -23,7 +26,10 @@ const ContactsTable = ({ contacts }) => {
       </THead>
       <TBody>
         {contacts.map((contact, index) => (
-          <ContactsRow key={index} contact={contact} />
+          <ContactsRow
+            key={index}
+            contact={contact}
+          />
         ))}
       </TBody>
     </Table>

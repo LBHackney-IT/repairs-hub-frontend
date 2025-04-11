@@ -3,7 +3,10 @@ import Button from '../Button'
 
 const PrimarySubmitButton = ({ ...otherProps }) => (
   <div className="govuk-form-group lbh-form-group">
-    <Button type="submit" {...otherProps}></Button>
+    <Button
+      type="submit"
+      {...otherProps}
+    ></Button>
   </div>
 )
 

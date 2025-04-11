@@ -27,18 +27,14 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [
-    showAdditionalRateScheduleItems,
-    setShowAdditionalRateScheduleItems,
-  ] = useState(false)
+  const [showAdditionalRateScheduleItems, setShowAdditionalRateScheduleItems] =
+    useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
   const [contractorReference, setContractorReference] = useState()
-  const [
-    orderRequiresIncrementalSearch,
-    setOrderRequiresIncrementalSearch,
-  ] = useState()
+  const [orderRequiresIncrementalSearch, setOrderRequiresIncrementalSearch] =
+    useState()
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
@@ -52,15 +48,15 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [formState, setFormState] = useState({})
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
-  const onGetToSummary = (e) => {
-    updateExistingTasksQuantities(e, tasks)
+  const onGetToSummary = (data) => {
+    updateExistingTasksQuantities(data, tasks)
 
     setAddedTasks(
-      e.rateScheduleItems
-        ? e.rateScheduleItems
-            .filter((e) => e != null)
-            .map((e, index) => {
-              return { id: index, ...e, code: e.code.split(' - ')[0] }
+      data.rateScheduleItems
+        ? data.rateScheduleItems
+            .filter((data) => data != null)
+            .map((data, index) => {
+              return { id: index, ...data, code: data.code.split(' - ')[0] }
             })
         : []
     )
@@ -117,9 +113,8 @@ const WorkOrderUpdateView = ({ reference }) => {
     })
 
   const incrementalSORSearchRequired = async (contractorRef) => {
-    const orderApplicable = MULTITRADE_ENABLED_CONTRACTORS.includes(
-      contractorRef
-    )
+    const orderApplicable =
+      MULTITRADE_ENABLED_CONTRACTORS.includes(contractorRef)
 
     if (!orderApplicable) {
       setOrderRequiresIncrementalSearch(false)
