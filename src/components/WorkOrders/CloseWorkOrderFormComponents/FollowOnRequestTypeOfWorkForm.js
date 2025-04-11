@@ -14,6 +14,8 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     clearErrors,
     watch,
     followOnData,
+    hasWhiteBackground,
+    isGrid,
   } = props
 
   const selectedFurtherWorkRequired =
@@ -93,6 +95,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
               },
             })}
             checked={followOnData?.isSameTrade ?? false}
+            hasWhiteBackground={hasWhiteBackground}
           />
 
           <Checkbox
@@ -102,6 +105,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             label={'Different trade(s)'}
             error={errors && errors?.isDifferentTrades}
             checked={followOnData?.isDifferentTrades ?? false}
+            hasWhiteBackground={hasWhiteBackground}
             register={register({
               validate: () => {
                 // doesnt validate itself - just running the validate function
@@ -128,9 +132,12 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
                 <FollowOnRequestDifferentTradesForm
                   register={register}
                   errors={errors}
+                  watch={watch}
+                  hasWhiteBackground={hasWhiteBackground}
                   requiredFollowOnTrades={
                     followOnData?.requiredFollowOnTrades ?? []
                   }
+                  isGrid={isGrid}
                 />
               </>
             }
@@ -143,6 +150,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             name={'isMultipleOperatives'}
             checked={followOnData?.isMultipleOperatives ?? false}
             label={'Multiple operatives'}
+            hasWhiteBackground={hasWhiteBackground}
             register={register({
               validate: () => {
                 // doesnt validate itself - just running the validate function

@@ -107,6 +107,8 @@ const SummaryCloseWorkOrder = ({
                             {followOnData.requiredFollowOnTrades
                               .map((x) => x.value)
                               .join(', ')}
+                            {followOnData.otherTrade &&
+                              `: ${followOnData.otherTrade}`}
                             )
                           </li>
                         )}
@@ -121,7 +123,12 @@ const SummaryCloseWorkOrder = ({
                     </>
                   }
                 />
-
+                {followOnData.estimatedDuration && (
+                  <TableRow
+                    label="Estimated duration"
+                    value={followOnData.estimatedDuration}
+                  />
+                )}
                 {(followOnData.stockItemsRequired ||
                   followOnData.nonStockItemsRequired ||
                   followOnData.materialNotes !== '') && (

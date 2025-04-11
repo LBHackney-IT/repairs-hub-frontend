@@ -1,3 +1,8 @@
+jest.mock('./ScheduleAppointment/hooks/useDrsApppointmentScheduler', () => ({
+  useDrsAppointmentScheduler: jest.fn(),
+}))
+import { useDrsAppointmentScheduler } from './ScheduleAppointment/hooks/useDrsApppointmentScheduler'
+
 import { render } from '@testing-library/react'
 import UserContext from '../UserContext'
 import { agent } from 'factories/agent'
@@ -35,6 +40,17 @@ describe('AppointmentDetails component', () => {
     start: '12:00',
   }
 
+  beforeEach(() => {
+    jest.clearAllMocks()
+
+    useDrsAppointmentScheduler.mockReturnValue({
+      schedulerSessionId: schedulerSessionId,
+      isLoading: false,
+      error: null,
+      handleExternalLinkOpen: jest.fn(),
+    })
+  })
+
   describe('DRS work order', () => {
     let drsWorkOrder = {
       ...workOrderData,
@@ -51,10 +67,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -69,10 +82,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -89,10 +99,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -107,10 +114,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -134,10 +138,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -152,10 +153,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -172,10 +170,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()
@@ -190,10 +185,7 @@ describe('AppointmentDetails component', () => {
 
           const { asFragment } = render(
             <UserContext.Provider value={{ user: agent }}>
-              <AppointmentDetails
-                workOrder={workOrder}
-                schedulerSessionId={schedulerSessionId}
-              />
+              <AppointmentDetails workOrder={workOrder} />
             </UserContext.Provider>
           )
           expect(asFragment()).toMatchSnapshot()

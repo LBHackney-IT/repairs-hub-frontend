@@ -11,6 +11,7 @@ const Checkbox = ({
   hidden,
   labelClassName,
   hintText,
+  hasWhiteBackground,
   children,
   showChildren,
 }) => (
@@ -31,7 +32,11 @@ const Checkbox = ({
       {...(checked && { defaultChecked: checked })}
     />
     <label
-      className={cx('govuk-label govuk-checkboxes__label', labelClassName)}
+      className={cx(
+        'govuk-label govuk-checkboxes__label',
+        hasWhiteBackground && 'white-background',
+        labelClassName
+      )}
       htmlFor={name}
     >
       {label}

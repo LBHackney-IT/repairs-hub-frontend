@@ -32,4 +32,6 @@ export type FollowOnRequest = {
   nonStockItemsRequired: boolean
   materialNotes: string
   additionalNotes: string
+  estimatedDuration: string
+  otherTrade?: string
 }
