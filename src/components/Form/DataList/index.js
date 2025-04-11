@@ -100,7 +100,10 @@ const DataList = ({
       ) : null}
       <datalist id={`autocomplete-list-${name}`}>
         {options.map((item, i) => (
-          <option key={item + i} value={item} />
+          <option
+            key={item + i}
+            value={item}
+          />
         ))}
       </datalist>
     </div>

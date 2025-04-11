@@ -26,7 +26,11 @@ const NotesForm = ({
         </h2>
         {!displayForm && (
           <div className="display-inline">
-            <a className="lbh-link" href="#" onClick={showForm}>
+            <a
+              className="lbh-link"
+              href="#"
+              onClick={showForm}
+            >
               Add a new note
             </a>
           </div>
@@ -35,7 +39,11 @@ const NotesForm = ({
       <div className="govuk-grid-row">
         <div className="govuk-grid-column-two-thirds">
           {displayForm && (
-            <form role="form" id="notes-form" onSubmit={handleSubmit(onSubmit)}>
+            <form
+              role="form"
+              id="notes-form"
+              onSubmit={handleSubmit(onSubmit)}
+            >
               <TextArea
                 name="note"
                 label="Note"

@@ -70,7 +70,10 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             'govuk-form-group--error': errors.typeOfWork,
           })}
         >
-          <label className={`govuk-label govuk-label--m`} htmlFor={name}>
+          <label
+            className={`govuk-label govuk-label--m`}
+            htmlFor={name}
+          >
             Type of work required
           </label>
 

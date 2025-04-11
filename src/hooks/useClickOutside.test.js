@@ -13,7 +13,10 @@ const MockComponent = () => {
 
   return (
     <>
-      <a className="lbh-link" href="#">
+      <a
+        className="lbh-link"
+        href="#"
+      >
         Outside text
       </a>
       <div ref={ref}>Inside text</div>

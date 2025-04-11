@@ -12,7 +12,10 @@ const PhotoUploadPreview = (props: Props) => {
   return (
     <div className="photoUploadPreview">
       {files.map((x, index) => (
-        <div key={x.name} className="photoUploadPreview-container">
+        <div
+          key={x.name}
+          className="photoUploadPreview-container"
+        >
           <div className="photoUploadPreview-imageContainer">
             <img
               className="photoUploadPreview-image"

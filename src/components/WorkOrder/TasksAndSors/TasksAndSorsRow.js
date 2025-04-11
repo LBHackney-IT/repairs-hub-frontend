@@ -18,7 +18,10 @@ const tasksAndSorsRow = ({
   readOnly,
 }) => {
   return !showOperativeTasksAndSorsRow ? (
-    <TR index={index} className="lbh-body">
+    <TR
+      index={index}
+      className="lbh-body"
+    >
       <TD>{code}</TD>
       <TD>{description}</TD>
       <TD>{taskQuantity}</TD>
@@ -51,12 +54,18 @@ const tasksAndSorsRow = ({
       ) : (
         <>
           <TD>
-            <Link href={sorLink} className="govuk-link">
+            <Link
+              href={sorLink}
+              className="govuk-link"
+            >
               {code}
             </Link>
           </TD>
           <TD>
-            <Link href={sorLink} className="govuk-link">
+            <Link
+              href={sorLink}
+              className="govuk-link"
+            >
               {description}
             </Link>
           </TD>

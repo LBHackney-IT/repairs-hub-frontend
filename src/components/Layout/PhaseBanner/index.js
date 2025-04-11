@@ -8,7 +8,10 @@ const PhaseBanner = () => {
         <div className="lbh-announcement__content">
           <p className="lbh-body-s">
             Follow on functionality in Repairs Hub!{' '}
-            <Link className="lbh-link" href="/latest-changes">
+            <Link
+              className="lbh-link"
+              href="/latest-changes"
+            >
               Read more
             </Link>{' '}
             about these changes and provide your{' '}

@@ -22,7 +22,10 @@ const UpdateSummaryRateScheduleItems = ({
           id={object.description.toLowerCase().replace(/\s/g, '-')}
         >
           {index === 0 ? (
-            <th scope="row" className="govuk-table__header border-none">
+            <th
+              scope="row"
+              className="govuk-table__header border-none"
+            >
               <BudgetCode budgetCode={budgetCode} />
             </th>
           ) : (
@@ -72,7 +75,10 @@ const UpdateSummaryRateScheduleItems = ({
         key={`${dataAttribute}-${index}`}
         id={`${dataAttribute}-${index}`}
       >
-        <th scope="row" className="govuk-table__header">
+        <th
+          scope="row"
+          className="govuk-table__header"
+        >
           {[task.code, task.description].filter(Boolean).join(' - ')}
         </th>
 
@@ -84,7 +90,11 @@ const UpdateSummaryRateScheduleItems = ({
         <td className="govuk-table__cell">£{parseFloat(task.cost)}</td>
         {dataAttribute !== 'original-task' && (
           <td className="govuk-table__cell">
-            <a className="lbh-link" onClick={changeStep} href="#">
+            <a
+              className="lbh-link"
+              onClick={changeStep}
+              href="#"
+            >
               Edit
             </a>
           </td>
@@ -101,13 +111,22 @@ const UpdateSummaryRateScheduleItems = ({
       <>
         <THead>
           <TR className="lbh-body">
-            <TH scope="col" width="one-half">
+            <TH
+              scope="col"
+              width="one-half"
+            >
               SOR code
             </TH>
-            <TH scope="col" width="one-quarter">
+            <TH
+              scope="col"
+              width="one-quarter"
+            >
               Quantity
             </TH>
-            <TH scope="col" width="one-quarter">
+            <TH
+              scope="col"
+              width="one-quarter"
+            >
               Cost (unit)
             </TH>
             <TH scope="col">{''}</TH>

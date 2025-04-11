@@ -158,7 +158,10 @@ const AuthorisationView = ({ workOrderReference }) => {
                 />
               )}
 
-              <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
+              <form
+                role="form"
+                onSubmit={handleSubmit(onSubmitForm)}
+              >
                 <Radios
                   label="This work order requires your authorisation"
                   name="options"

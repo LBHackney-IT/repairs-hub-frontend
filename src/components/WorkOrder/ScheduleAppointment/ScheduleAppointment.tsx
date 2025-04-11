@@ -30,7 +30,10 @@ const ScheduleAppointment = ({
           justifyContent: 'flex-start',
         }}
       >
-        <Spinner width={20} height={20} />
+        <Spinner
+          width={20}
+          height={20}
+        />
         <span style={{ margin: '0 0 0 10px' }}>Fetching DRS session...</span>
       </span>
     )

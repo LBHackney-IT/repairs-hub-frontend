@@ -167,12 +167,20 @@ const AddedRateScheduleItems = ({
     <>
       <div>{showRateScheduleItems(rateScheduleItems)}</div>
       <div>
-        <a className="lbh-link" href="#" onClick={addRateScheduleItem}>
+        <a
+          className="lbh-link"
+          href="#"
+          onClick={addRateScheduleItem}
+        >
           + Add another SOR code
         </a>
       </div>
       <div>
-        <a className="lbh-link" href="#" onClick={changePageView}>
+        <a
+          className="lbh-link"
+          href="#"
+          onClick={changePageView}
+        >
           + Add multiple SOR codes
         </a>
       </div>

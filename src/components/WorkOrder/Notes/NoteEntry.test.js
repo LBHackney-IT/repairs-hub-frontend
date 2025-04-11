@@ -17,7 +17,10 @@ describe('NoteEntry component', () => {
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={{}} />
+      <NoteEntry
+        note={props.note}
+        workOrder={{}}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -36,7 +39,10 @@ describe('NoteEntry component', () => {
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={{}} />
+      <NoteEntry
+        note={props.note}
+        workOrder={{}}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
@@ -65,7 +71,10 @@ describe('NoteEntry component', () => {
     }
 
     const { asFragment } = render(
-      <NoteEntry note={props.note} workOrder={props.workOrder} />
+      <NoteEntry
+        note={props.note}
+        workOrder={props.workOrder}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

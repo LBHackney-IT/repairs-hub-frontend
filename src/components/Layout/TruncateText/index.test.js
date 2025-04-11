@@ -8,14 +8,20 @@ describe('TruncateText component', () => {
 
   it('should render truncate text, with truncate line of 3', () => {
     const { asFragment } = render(
-      <TruncateText text={props.text} numberOfLines="3" />
+      <TruncateText
+        text={props.text}
+        numberOfLines="3"
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })
 
   it('should render truncate text, with truncate line of 5', () => {
     const { asFragment } = render(
-      <TruncateText text={props.text} numberOfLines="5" />
+      <TruncateText
+        text={props.text}
+        numberOfLines="5"
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

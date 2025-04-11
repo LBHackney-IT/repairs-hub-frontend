@@ -13,13 +13,23 @@ const WorkOrderTasks = ({ tasks }) => {
         <Table className="govuk-!-margin-top-1 govuk-!-margin-bottom-3">
           <THead>
             <TR className="lbh-body">
-              <TH scope="col" width="one-quarter">
+              <TH
+                scope="col"
+                width="one-quarter"
+              >
                 SOR Code
               </TH>
-              <TH scope="col" width="one-half">
+              <TH
+                scope="col"
+                width="one-half"
+              >
                 Description
               </TH>
-              <TH scope="col" type="numeric" width="one-quarter">
+              <TH
+                scope="col"
+                type="numeric"
+                width="one-quarter"
+              >
                 Quantity (est.)
               </TH>
             </TR>
@@ -29,7 +39,10 @@ const WorkOrderTasks = ({ tasks }) => {
               <TR key={index}>
                 <TD width="one-quarter">{entry.code}</TD>
                 <TD width="one-half">{entry.description}</TD>
-                <TD type="numeric" width="one-quarter">
+                <TD
+                  type="numeric"
+                  width="one-quarter"
+                >
                   {entry.quantity}
                 </TD>
               </TR>

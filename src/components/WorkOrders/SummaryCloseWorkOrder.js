@@ -11,7 +11,10 @@ const TableRow = (props) => {
 
   return (
     <TR>
-      <TH width="one-quarter" scope="row">
+      <TH
+        width="one-quarter"
+        scope="row"
+      >
         {label}
       </TH>
       <TD width="three-quarters">{value}</TD>
@@ -38,7 +41,10 @@ const SummaryCloseWorkOrder = ({
   return (
     <div>
       <h1 className="lbh-heading-h1">Close work order: {reference}</h1>
-      <form role="form" onSubmit={handleSubmit(onJobSubmit)}>
+      <form
+        role="form"
+        onSubmit={handleSubmit(onJobSubmit)}
+      >
         <h4 className="lbh-heading-h4">Summary of updates to work order</h4>
         <Table>
           <TBody>
@@ -62,12 +68,21 @@ const SummaryCloseWorkOrder = ({
             )}
 
             {operativeNames?.length > 0 && (
-              <TableRow label="Operatives" value={operativeNames.join(', ')} />
+              <TableRow
+                label="Operatives"
+                value={operativeNames.join(', ')}
+              />
             )}
 
-            <TableRow label="Reason" value={reason} />
+            <TableRow
+              label="Reason"
+              value={reason}
+            />
 
-            <TableRow label="Notes" value={notes} />
+            <TableRow
+              label="Notes"
+              value={notes}
+            />
 
             {files instanceof Array && files.length > 0 && (
               <TableRow

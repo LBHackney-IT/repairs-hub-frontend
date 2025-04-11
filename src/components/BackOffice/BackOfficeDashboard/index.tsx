@@ -30,7 +30,11 @@ const BackOfficeDashboard = () => {
       <ul className="govuk-list">
         {links.map(({ description, link }, index) => (
           <li key={index}>
-            <Link href={link} className="govuk-link" legacyBehavior>
+            <Link
+              href={link}
+              className="govuk-link"
+              legacyBehavior
+            >
               {description}
             </Link>
           </li>

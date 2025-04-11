@@ -44,7 +44,10 @@ const ControlledFileInput = (props: Props) => {
         {label}
       </legend>
 
-      <span id="photos-hint" className="govuk-hint lbh-hint">
+      <span
+        id="photos-hint"
+        className="govuk-hint lbh-hint"
+      >
         {hint}
       </span>
 

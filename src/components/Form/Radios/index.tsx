@@ -58,11 +58,17 @@ const Radio = (props: Props) => {
         {label} {showAsOptional && '(optional) '}
         {required && <span className="govuk-required">*</span>}
       </legend>
-      <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+      <span
+        id={`${name}-hint`}
+        className="govuk-hint lbh-hint"
+      >
         {hint}
       </span>
       {hint && (
-        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+        <span
+          id={`${name}-hint`}
+          className="govuk-hint lbh-hint"
+        >
           {hint}
         </span>
       )}

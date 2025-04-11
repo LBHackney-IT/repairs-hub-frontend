@@ -218,7 +218,10 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                   />
                 )}
 
-                <form role="form" onSubmit={handleSubmit(onSubmitForm)}>
+                <form
+                  role="form"
+                  onSubmit={handleSubmit(onSubmitForm)}
+                >
                   {!showSummary && (
                     <Radios
                       label="This work order requires your authorisation"

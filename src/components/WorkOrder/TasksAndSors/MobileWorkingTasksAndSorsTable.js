@@ -17,7 +17,10 @@ const MobileWorkingTasksAndSorsTable = ({
             <TH scope="col">Qty</TH>
             <TH scope="col">SOR</TH>
             <TH scope="col">Description</TH>
-            <TH scope="col" type="numeric">
+            <TH
+              scope="col"
+              type="numeric"
+            >
               SMV
             </TH>
           </TR>

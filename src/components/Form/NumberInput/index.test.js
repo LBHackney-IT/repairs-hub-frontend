@@ -6,7 +6,10 @@ describe('NumberInput', () => {
     const inputName = 'my-number-input'
     const inputLabel = 'My Input'
     const { getByLabelText } = render(
-      <NumberInput name={inputName} label={inputLabel} />
+      <NumberInput
+        name={inputName}
+        label={inputLabel}
+      />
     )
 
     const labelRegex = new RegExp(`s*${inputLabel}s*`)
@@ -21,7 +24,11 @@ describe('NumberInput', () => {
     let newValue = ''
     const myAction = jest.fn((e) => (newValue = e.target.value))
     const { getByLabelText } = render(
-      <NumberInput name={'my-input'} label={'My Input'} onChange={myAction} />
+      <NumberInput
+        name={'my-input'}
+        label={'My Input'}
+        onChange={myAction}
+      />
     )
 
     fireEvent.change(getByLabelText(/\s*My Input\s*/), {

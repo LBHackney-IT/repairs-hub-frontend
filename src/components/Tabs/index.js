@@ -96,7 +96,10 @@ const Tabs = ({
       <ul className="govuk-tabs__list hackney-tabs-list">
         {tabsList.map((tab, i) => {
           return (
-            <li key={i} className="govuk-tabs__list-item">
+            <li
+              key={i}
+              className="govuk-tabs__list-item"
+            >
               <a
                 onClick={(e) => {
                   e.preventDefault()

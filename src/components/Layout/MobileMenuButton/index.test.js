@@ -6,7 +6,10 @@ describe('MobileMenuButton', () => {
     const mockFunction = jest.fn()
 
     const { getByTestId } = render(
-      <MobileMenuButton onClick={mockFunction} mobileMenuOpen={false} />
+      <MobileMenuButton
+        onClick={mockFunction}
+        mobileMenuOpen={false}
+      />
     )
 
     fireEvent(
@@ -21,7 +24,10 @@ describe('MobileMenuButton', () => {
 
   it('renders the open menu icon when mobileMenuOpen is false', () => {
     const { getByTestId } = render(
-      <MobileMenuButton onClick={jest.fn()} mobileMenuOpen={false} />
+      <MobileMenuButton
+        onClick={jest.fn()}
+        mobileMenuOpen={false}
+      />
     )
 
     expect(getByTestId('menu-open')).toBeInTheDocument()
@@ -29,7 +35,10 @@ describe('MobileMenuButton', () => {
 
   it('renders the close menu icon when mobileMenuOpen is true', () => {
     const { getByTestId } = render(
-      <MobileMenuButton onClick={jest.fn()} mobileMenuOpen={true} />
+      <MobileMenuButton
+        onClick={jest.fn()}
+        mobileMenuOpen={true}
+      />
     )
 
     expect(getByTestId('menu-close')).toBeInTheDocument()

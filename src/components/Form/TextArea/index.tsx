@@ -38,14 +38,20 @@ const TextArea = (props: Props) => {
       })}
     >
       {label && (
-        <label className="govuk-label lbh-label" htmlFor={name}>
+        <label
+          className="govuk-label lbh-label"
+          htmlFor={name}
+        >
           {label}
           {required && <span className="govuk-required">*</span>}
           {showAsOptional && ' (optional)'}
         </label>
       )}
       {hint && (
-        <span id={`${name}-hint`} className="govuk-hint lbh-hint">
+        <span
+          id={`${name}-hint`}
+          className="govuk-hint lbh-hint"
+        >
           {hint}
         </span>
       )}

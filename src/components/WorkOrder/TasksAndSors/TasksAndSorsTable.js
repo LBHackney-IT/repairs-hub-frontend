@@ -21,13 +21,22 @@ const TasksAndSorsTable = ({
             <TH scope="col">SOR</TH>
             <TH scope="col">Description</TH>
             <TH scope="col">Quantity (est.)</TH>
-            <TH scope="col" type="numeric">
+            <TH
+              scope="col"
+              type="numeric"
+            >
               Unit cost
             </TH>
-            <TH scope="col" type="numeric">
+            <TH
+              scope="col"
+              type="numeric"
+            >
               Cost (est.)
             </TH>
-            <TH scope="col" type="numeric">
+            <TH
+              scope="col"
+              type="numeric"
+            >
               Total SMV
             </TH>
           </TR>
@@ -52,14 +61,23 @@ const TasksAndSorsTable = ({
             }
             className="lbh-body-s"
           >
-            <TD colSpan="2" className="border-none">
+            <TD
+              colSpan="2"
+              className="border-none"
+            >
               {<BudgetCode budgetCode={budgetCode} />}
             </TD>
             <TD className="border-none">{}</TD>
-            <TD type="numeric" className="border-none">
+            <TD
+              type="numeric"
+              className="border-none"
+            >
               <strong>Total</strong>
             </TD>
-            <TD type="numeric" className="border-none">
+            <TD
+              type="numeric"
+              className="border-none"
+            >
               <strong>
                 £
                 {calculateTotal(
@@ -69,7 +87,10 @@ const TasksAndSorsTable = ({
                 ).toFixed(2)}
               </strong>
             </TD>
-            <TD type="numeric" className="border-none">
+            <TD
+              type="numeric"
+              className="border-none"
+            >
               <strong>
                 {calculateTotal(
                   tasks,

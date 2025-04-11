@@ -104,7 +104,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
         {!!workOrder?.startTime && (
           <>
             <h5 className="lbh-heading-h5">Started At</h5>
-            <p className="govuk-body" data-test="startedAtValue">
+            <p
+              className="govuk-body"
+              data-test="startedAtValue"
+            >
               {formatDateTime(workOrder.startTime)}
             </p>
           </>
@@ -135,7 +138,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
                   Caut. alerts
                 </a>
               </GridColumn>
-              <GridColumn width="one-half" className="govuk-!-margin-top-0">
+              <GridColumn
+                width="one-half"
+                className="govuk-!-margin-top-0"
+              >
                 <div className="govuk-warning-text lbh-warning-text">
                   <span
                     className="govuk-warning-text__icon person-alert--icon"
@@ -155,7 +161,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
             <GridColumn width="one-half">
               <div className="lbh-body property-name">Address</div>
             </GridColumn>
-            <GridColumn width="one-half" className="align-grid-column">
+            <GridColumn
+              width="one-half"
+              className="align-grid-column"
+            >
               <div className="lbh-body">
                 {property.address.shortAddress} {property.address.postalCode}
               </div>
@@ -167,7 +176,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Contact</div>
               </GridColumn>
-              <GridColumn width="one-half" className="align-grid-column">
+              <GridColumn
+                width="one-half"
+                className="align-grid-column"
+              >
                 <div className="lbh-body">{workOrder.callerName}</div>
               </GridColumn>
             </GridRow>
@@ -178,7 +190,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Telephone no</div>
               </GridColumn>
-              <GridColumn width="one-half" className="align-grid-column">
+              <GridColumn
+                width="one-half"
+                className="align-grid-column"
+              >
                 <div className="lbh-body">
                   <a
                     className="lbh-link"
@@ -197,7 +212,10 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
               <GridColumn width="one-half">
                 <div className="lbh-body property-name">Comment</div>
               </GridColumn>
-              <GridColumn width="one-half" className="align-grid-column">
+              <GridColumn
+                width="one-half"
+                className="align-grid-column"
+              >
                 <div className="lbh-body">{workOrder.appointment.note}</div>
               </GridColumn>
             </GridRow>

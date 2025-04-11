@@ -9,7 +9,10 @@ describe('TenureDetail component with TMO name', () => {
 
   it('should render properly', async () => {
     const { asFragment } = render(
-      <TenureDetail text={props.text} detail={props.detail} />
+      <TenureDetail
+        text={props.text}
+        detail={props.detail}
+      />
     )
     expect(asFragment()).toMatchSnapshot()
   })

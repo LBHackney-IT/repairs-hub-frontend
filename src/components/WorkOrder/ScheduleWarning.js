@@ -5,7 +5,12 @@ const ScheduleWarning = ({ hasExistingAppointment }) => {
     hasExistingAppointment ? 'rescheduling' : 'scheduling'
   }`
 
-  return <WarningInfoBox header="Appointment is today" text={warningText} />
+  return (
+    <WarningInfoBox
+      header="Appointment is today"
+      text={warningText}
+    />
+  )
 }
 
 export default ScheduleWarning

@@ -129,7 +129,10 @@ const SelectOperatives = ({
             Operatives
           </legend>
 
-          <span id="completionTime-hint" className="govuk-hint lbh-hint">
+          <span
+            id="completionTime-hint"
+            className="govuk-hint lbh-hint"
+          >
             Search by operative name and select from the list
           </span>
 
@@ -151,7 +154,10 @@ const SelectOperatives = ({
               currentUserPayrollNumber === selectedOperative?.payrollNumber
 
             return (
-              <div key={index} className="operatives-group">
+              <div
+                key={index}
+                className="operatives-group"
+              >
                 <OperativeDataList
                   label={`Operative name ${index + 1} *`}
                   name={

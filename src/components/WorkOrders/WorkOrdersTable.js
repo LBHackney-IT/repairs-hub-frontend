@@ -15,32 +15,56 @@ const WorkOrdersTable = ({
     <Table className="govuk-!-margin-top-5 govuk-!-width-full hackney-work-order-table">
       <THead>
         <TR className="lbh-body">
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Reference
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Date raised
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Priority
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Property
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Status
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Trade
           </TH>
-          <TH scope="col" className="lbh-body-xs">
+          <TH
+            scope="col"
+            className="lbh-body-xs"
+          >
             Description
           </TH>
         </TR>
       </THead>
       <TBody>
         {workOrders.map((job, index) => (
-          <WorkOrderRow key={index} {...job} />
+          <WorkOrderRow
+            key={index}
+            {...job}
+          />
         ))}
       </TBody>
     </Table>

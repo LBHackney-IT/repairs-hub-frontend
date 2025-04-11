@@ -33,7 +33,10 @@ const PhotoGroupDescriptionForm = ({
   }
 
   return (
-    <UpdateDescriptionButton description={description} showForm={showForm} />
+    <UpdateDescriptionButton
+      description={description}
+      showForm={showForm}
+    />
   )
 }
 

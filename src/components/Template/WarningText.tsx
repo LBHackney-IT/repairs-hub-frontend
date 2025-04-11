@@ -5,8 +5,14 @@ interface Props {
 
 const WarningText = ({ text, name }: Props) => {
   return (
-    <div className="govuk-warning-text lbh-warning-text" data-testid={name}>
-      <span className="govuk-warning-text__icon" aria-hidden="true">
+    <div
+      className="govuk-warning-text lbh-warning-text"
+      data-testid={name}
+    >
+      <span
+        className="govuk-warning-text__icon"
+        aria-hidden="true"
+      >
         !
       </span>
       <strong className="govuk-warning-text__text">

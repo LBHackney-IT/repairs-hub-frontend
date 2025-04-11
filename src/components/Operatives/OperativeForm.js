@@ -21,7 +21,10 @@ const OperativeForm = ({
 
         <h2 className="lbh-heading-h2">Add operative</h2>
 
-        <form role="form" onSubmit={handleSubmit(onSubmit)}>
+        <form
+          role="form"
+          onSubmit={handleSubmit(onSubmit)}
+        >
           <SelectOperatives
             assignedOperativesToWorkOrder={assignedOperativesToWorkOrder}
             availableOperatives={availableOperatives}

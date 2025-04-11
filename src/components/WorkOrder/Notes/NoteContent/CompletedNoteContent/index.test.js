@@ -11,7 +11,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: '' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -26,7 +29,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -41,7 +47,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -56,7 +65,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -74,7 +86,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -89,7 +104,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -104,7 +122,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -119,7 +140,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -134,7 +158,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -152,7 +179,10 @@ describe('CompletedNoteContent component', () => {
     const note = { note: 'User comment' }
 
     const { asFragment } = render(
-      <CompletedNoteContent note={note} workOrder={workOrder} />
+      <CompletedNoteContent
+        note={note}
+        workOrder={workOrder}
+      />
     )
 
     expect(asFragment()).toMatchSnapshot()
@@ -180,7 +210,10 @@ describe('CompletedNoteContent component', () => {
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()
@@ -207,7 +240,10 @@ describe('CompletedNoteContent component', () => {
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()
@@ -234,7 +270,10 @@ describe('CompletedNoteContent component', () => {
       const note = { note: 'User comment' }
 
       const { asFragment } = render(
-        <CompletedNoteContent note={note} workOrder={workOrder} />
+        <CompletedNoteContent
+          note={note}
+          workOrder={workOrder}
+        />
       )
 
       expect(asFragment()).toMatchSnapshot()

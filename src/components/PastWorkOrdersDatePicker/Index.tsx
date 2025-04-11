@@ -11,14 +11,25 @@ const PastWorkOrdersDatePicker = ({
 }: PastWorkOrdersDatePickerProps) => {
   return (
     <div className="date-picker-container">
-      <label htmlFor="date-picker" className="lbh-heading-h2">
+      <label
+        htmlFor="date-picker"
+        className="lbh-heading-h2"
+      >
         Select date
       </label>
-      <select id="date-picker" name="date-picker" onChange={handleChange}>
+      <select
+        id="date-picker"
+        name="date-picker"
+        onChange={handleChange}
+      >
         {lastFiveWorkingDays.map((day, index) => {
           const formattedDate = format(day, 'EEE d MMM')
           return (
-            <option data-testid={`date-option`} value={day} key={index}>
+            <option
+              data-testid={`date-option`}
+              value={day}
+              key={index}
+            >
               {formattedDate}
             </option>
           )

@@ -142,7 +142,10 @@ const Search: React.FC<SearchProps> = ({ query }) => {
 
           <div className="govuk-form-group lbh-form-group">
             <form>
-              <label htmlFor={'input-search'} className="govuk-label lbh-label">
+              <label
+                htmlFor={'input-search'}
+                className="govuk-label lbh-label"
+              >
                 {searchLabelText}
               </label>
               <input
@@ -153,7 +156,10 @@ const Search: React.FC<SearchProps> = ({ query }) => {
                 value={searchTextInput}
                 onChange={(event) => setSearchTextInput(event.target.value)}
               />
-              <PrimarySubmitButton label="Search" onClick={handleSubmit} />
+              <PrimarySubmitButton
+                label="Search"
+                onClick={handleSubmit}
+              />
             </form>
           </div>
         </section>

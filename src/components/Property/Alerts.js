@@ -5,7 +5,10 @@ const Alerts = ({ alerts, alertType }) => {
     <>
       {alerts.map((alert, index) => {
         return (
-          <li className="bg-orange" key={index}>
+          <li
+            className="bg-orange"
+            key={index}
+          >
             {alertType} Alert: {alert.comments} (<strong>{alert.type}</strong>)
           </li>
         )

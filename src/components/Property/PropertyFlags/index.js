@@ -68,12 +68,18 @@ const PropertyFlags = ({
 
   const renderLocationAlerts = () =>
     locationAlerts.length > 0 && (
-      <Alerts alerts={locationAlerts} alertType="Address" />
+      <Alerts
+        alerts={locationAlerts}
+        alertType="Address"
+      />
     )
 
   const renderPersonAlerts = () =>
     personAlerts.length > 0 && (
-      <Alerts alerts={personAlerts} alertType="Contact" />
+      <Alerts
+        alerts={personAlerts}
+        alertType="Contact"
+      />
     )
 
   const showBoilerHouseDetails = () =>
@@ -102,7 +108,10 @@ const PropertyFlags = ({
       }}
     >
       {tenure && Object.keys(tenure).length > 0 && (
-        <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
+        <Tenure
+          tenure={tenure}
+          canRaiseRepair={canRaiseRepair}
+        />
       )}
 
       {showBoilerHouseDetails() && (
@@ -118,7 +127,10 @@ const PropertyFlags = ({
       {locationAlertsError && <ErrorMessage label={locationAlertsError} />}
 
       {tmoName && tmoName !== TMO_HACKNEY_DEFAULT && (
-        <TenureDetail text="TMO" detail={tmoName} />
+        <TenureDetail
+          text="TMO"
+          detail={tmoName}
+        />
       )}
 
       {personAlertsLoading ? (

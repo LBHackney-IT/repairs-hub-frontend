@@ -3,7 +3,10 @@ import TenanctContact from './TenantContact'
 const TenantContactsTable = ({ tenants, reloadContacts }) => {
   if (!tenants.length) {
     return (
-      <p className="govuk-body-s" style={{ marginTop: '15px' }}>
+      <p
+        className="govuk-body-s"
+        style={{ marginTop: '15px' }}
+      >
         No tenants
       </p>
     )
@@ -14,7 +17,10 @@ const TenantContactsTable = ({ tenants, reloadContacts }) => {
       <ul>
         {tenants.map((tenant, index) => (
           <li key={index}>
-            <TenanctContact tenant={tenant} reloadContacts={reloadContacts} />
+            <TenanctContact
+              tenant={tenant}
+              reloadContacts={reloadContacts}
+            />
           </li>
         ))}
       </ul>

@@ -104,7 +104,10 @@ const WorkOrdersFilter = ({
       return (
         <div key={filterCategory}>
           <h4 className="lbh-heading-h4">{filterCategory}</h4>
-          <ul className="filter-tags" id={`selected-filters-${filterCategory}`}>
+          <ul
+            className="filter-tags"
+            id={`selected-filters-${filterCategory}`}
+          >
             {selectedFilters[filterCategory].map((option, i) => {
               return (
                 <FilterTag

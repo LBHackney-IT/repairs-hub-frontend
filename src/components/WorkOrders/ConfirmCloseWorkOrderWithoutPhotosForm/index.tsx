@@ -52,7 +52,10 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
         })}
       >
         <div>
-          <h2 className="lbh-heading-h2 " style={{ marginBottom: '45px' }}>
+          <h2
+            className="lbh-heading-h2 "
+            style={{ marginBottom: '45px' }}
+          >
             You closed the work order without photos. Help us understand why.
           </h2>
 
