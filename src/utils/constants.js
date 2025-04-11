@@ -10,6 +10,7 @@ export const MULTITRADE_ENABLED_CONTRACTORS = [
   'FOS',
   'PUR',
   'HER',
+  'SEN',
 ]
 export const PURDY_CONTRACTOR_REFERENCE = 'PUR'
 export const MULTITRADE_TRADE_CODE = 'MU'
@@ -63,5 +64,9 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   {
     contractorReference: 'HER',
     contractorName: 'HERTS HERITAGE (C2B)',
+  },
+  {
+    contractorReference: 'SEN',
+    contractorName: 'Saltash Enterprise Ltd - SEN',
   },
 ]
