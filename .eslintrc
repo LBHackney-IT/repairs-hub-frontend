@@ -29,7 +29,6 @@
     "plugin:prettier/recommended"
   ],
   "rules": {
-    // Your existing custom rules
     "linebreak-style": ["error", "unix"],
     "require-atomic-updates": "off",
     "react/jsx-uses-vars": 2,
@@ -48,10 +47,6 @@
     "react/display-name": "warn",
     "@typescript-eslint/no-explicit-any": "warn",
     "jest/no-focused-tests": "warn",
-
-   
-    
-    // New rules for React 19
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn"
   },
