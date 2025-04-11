@@ -16,7 +16,9 @@ const WorkOrderUpdateSummary = ({
   variationReason,
   budgetCode,
 }) => {
-  const onSubmit = async () => {
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
     // The API validates whether the total variation cost is over the logged in
     // user's vary spend limit & updates WO status to 'Pending Approval' if true
     const WorkOrderUpdateFormData = buildVariationFormData(

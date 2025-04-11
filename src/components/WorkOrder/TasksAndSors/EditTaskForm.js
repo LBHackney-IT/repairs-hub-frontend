@@ -58,7 +58,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setLoading(false)
   }
 
-  useEffect(async () => {
+  const onCreate = async () => {
     setLoading(true)
     setError(null)
 
@@ -102,6 +102,10 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     }
 
     setLoading(false)
+  }
+
+  useEffect(() => {
+    onCreate()
   }, [])
 
   return (

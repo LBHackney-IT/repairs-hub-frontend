@@ -48,15 +48,15 @@ const WorkOrderUpdateView = ({ reference }) => {
   const [formState, setFormState] = useState({})
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
-  const onGetToSummary = (e) => {
-    updateExistingTasksQuantities(e, tasks)
+  const onGetToSummary = (data) => {
+    updateExistingTasksQuantities(data, tasks)
 
     setAddedTasks(
-      e.rateScheduleItems
-        ? e.rateScheduleItems
-            .filter((e) => e != null)
-            .map((e, index) => {
-              return { id: index, ...e, code: e.code.split(' - ')[0] }
+      data.rateScheduleItems
+        ? data.rateScheduleItems
+            .filter((data) => data != null)
+            .map((data, index) => {
+              return { id: index, ...data, code: data.code.split(' - ')[0] }
             })
         : []
     )
