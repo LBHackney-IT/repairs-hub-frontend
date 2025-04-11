@@ -75,4 +75,8 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
     contractorReference: 'HHL',
     contractorName: 'Herts Heritage Ltd',
   },
+  {
+    contractorReference: 'SEN',
+    contractorName: 'Saltash Enterprise Ltd',
+  },
 ]
