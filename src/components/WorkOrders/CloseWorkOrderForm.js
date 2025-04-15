@@ -72,8 +72,6 @@ const CloseWorkOrderForm = ({
   }
 
   const [showFurtherWorkFields, setShowFurtherWorkFields] = useState(false)
-  const [isRadio, setIsRadio] = useState(false)
-  const [isDropdown, setIsDropdown] = useState(false)
 
   const followOnStatusWatchedValue = watch('followOnStatus')
 
@@ -149,77 +147,26 @@ const CloseWorkOrderForm = ({
               isGrid={true}
             />
 
-            <label style={{ fontSize: '25px' }}>Radio or Dropdown?</label>
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                onClick={(e) => {
-                  e.preventDefault()
-                  setIsDropdown(false)
-                  setIsRadio(true)
-                }}
-                style={{ cursor: 'pointer', borderRadius: '5px' }}
-                data-testid="radioButton"
-              >
-                Radio
-              </button>
-              <button
-                onClick={(e) => {
-                  e.preventDefault()
-                  setIsRadio(false)
-                  setIsDropdown(true)
-                }}
-                style={{
-                  cursor: 'pointer',
-                  marginTop: '0',
-                  borderRadius: '5px',
-                }}
-                data-testid="dropdownButton"
-              >
-                Dropdown
-              </button>
-            </div>
-            {isRadio && (
-              <Radios
-                label="Estimated duration"
-                name="estimatedDuration"
-                labelSize="s"
-                options={[
-                  '30 mins',
-                  '1 hour',
-                  '2-3 hours',
-                  'Half a day',
-                  '1 day',
-                  'More than 1 day',
-                  'Unknown',
-                ]}
-                register={register({
-                  required: 'Select estimated duration',
-                })}
-                error={errors && errors.estimatedDuration}
-                isGrid={true}
-                hasWhiteBackground={true}
-              />
-            )}
-            {isDropdown && (
-              <Select
-                label="Estimated duration"
-                name="estimatedDuration"
-                options={[
-                  '30 mins',
-                  '1 hour',
-                  '2-3 hours',
-                  'Half a day',
-                  '1 day',
-                  'More than 1 day',
-                  'Unknown',
-                ]}
-                register={register({
-                  required: 'Select estimated duration',
-                })}
-                error={errors && errors.estimatedDuration}
-                widthClass="govuk-!-width-one-half"
-              />
-            )}
+            <Radios
+              label="Estimated duration"
+              name="estimatedDuration"
+              labelSize="s"
+              options={[
+                '30 mins',
+                '1 hour',
+                '2-3 hours',
+                'Half a day',
+                '1 day',
+                'More than 1 day',
+                'Unknown',
+              ]}
+              register={register({
+                required: 'Select estimated duration',
+              })}
+              error={errors && errors.estimatedDuration}
+              isGrid={true}
+              hasWhiteBackground={true}
+            />
 
             <FollowOnRequestMaterialsForm
               register={register}
