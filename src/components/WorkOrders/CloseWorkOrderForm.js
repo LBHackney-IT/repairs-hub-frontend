@@ -7,6 +7,7 @@ import isPast from 'date-fns/isPast'
 import TimeInput from '../Form/TimeInput'
 import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
+import Select from '../Form/Select'
 import SelectOperatives from '../Operatives/SelectOperatives'
 import {
   BONUS_PAYMENT_TYPE,
@@ -111,13 +112,27 @@ const CloseWorkOrderForm = ({
         />
 
         {showFurtherWorkFields && (
-          <>
-            <h1 className="lbh-heading-h2">Details of further work required</h1>
+          <div
+            style={{
+              backgroundColor: '#f3f3f3',
+              padding: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              flexWrap: 'wrap',
+              marginBottom: '10px',
+            }}
+          >
+            <div style={{ flexBasis: '100%' }}>
+              <h1 className="lbh-heading-h2">
+                Details of further work required
+              </h1>
+            </div>
 
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
 
             <FollowOnRequestTypeOfWorkForm
@@ -128,6 +143,29 @@ const CloseWorkOrderForm = ({
               clearErrors={clearErrors}
               watch={watch}
               followOnData={followOnData}
+              hasWhiteBackground={true}
+              isGrid={true}
+            />
+
+            <Radios
+              label="Estimated duration"
+              name="estimatedDuration"
+              labelSize="s"
+              options={[
+                '30 mins',
+                '1 hour',
+                '2-3 hours',
+                'Half a day',
+                '1 day',
+                'More than 1 day',
+                'Unknown',
+              ]}
+              register={register({
+                required: 'Select estimated duration',
+              })}
+              error={errors && errors.estimatedDuration}
+              isGrid={true}
+              hasWhiteBackground={true}
             />
 
             <FollowOnRequestMaterialsForm
@@ -135,6 +173,7 @@ const CloseWorkOrderForm = ({
               getValues={getValues}
               errors={errors}
               followOnData={followOnData}
+              hasWhiteBackground={true}
             />
 
             <TextArea
@@ -144,7 +183,7 @@ const CloseWorkOrderForm = ({
               error={errors && errors.additionalNotes}
               defaultValue={followOnData?.additionalNotes ?? ''}
             />
-          </>
+          </div>
         )}
 
         <div className="govuk-form-group lbh-form-group">
