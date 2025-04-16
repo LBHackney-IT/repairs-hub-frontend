@@ -2928,6 +2928,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         )
 
         // other fields
+        cy.get('input[data-testid="stockItemsRequired"]').check()
         cy.get('#completionDate').type('2021-01-23')
         cy.get('[data-testid=completionTime-hour]').type('12')
         cy.get('[data-testid=completionTime-minutes]').type('00')
