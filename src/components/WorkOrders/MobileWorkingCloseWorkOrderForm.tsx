@@ -164,27 +164,6 @@ const MobileWorkingCloseWorkOrderForm = ({
               watch={watch}
             />
 
-            <Radios
-              label="Estimated duration"
-              name="estimatedDuration"
-              labelSize="s"
-              options={[
-                '30 mins',
-                '1 hour',
-                '2-3 hours',
-                'Half day',
-                'Full day',
-                'More than a day',
-                'Unknown',
-              ]}
-              register={register({
-                required: 'Select estimated duration',
-              })}
-              error={errors && errors.estimatedDuration}
-              data-testid="estimatedDuration"
-              isGrid={true}
-            />
-
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}

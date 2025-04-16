@@ -442,7 +442,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         'follow on description'
       )
 
-      cy.get('input[data-testid="estimatedDuration"]').first().check()
       cy.get('input[data-testid="stockItemsRequired"]').check()
       cy.get('textarea[data-testid="materialNotes"]').type('material notes')
       cy.get('textarea[data-testid="additionalNotes"]').type(
@@ -711,7 +710,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         'not.exist'
       )
 
-      cy.get('input[data-testid="estimatedDuration"]').first().check()
       // when one of the material options is selected, the description must not be empty
       cy.get('input[data-testid="stockItemsRequired"]').check()
       cy.get('[type="submit"]').contains('Close work order').click()
@@ -782,7 +780,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         'follow on description'
       )
 
-      cy.get('input[data-testid="estimatedDuration"]').first().check()
       cy.get('input[data-testid="stockItemsRequired"]').check()
       cy.get('textarea[data-testid="materialNotes"]').type('material notes')
       cy.get('textarea[data-testid="additionalNotes"]').type(
@@ -830,7 +827,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
               materialNotes: 'material notes',
               additionalNotes: 'Additional notes desc',
               supervisorCalled: true,
-              estimatedDuration: '30 mins',
               otherTrade: 'Concrete Work',
             },
           })
@@ -892,7 +888,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       'follow on description'
     )
 
-    cy.get('input[data-testid="estimatedDuration"]').first().check()
     cy.get('input[data-testid="stockItemsRequired"]').check()
     cy.get('textarea[data-testid="materialNotes"]').type('material notes')
     cy.get('textarea[data-testid="additionalNotes"]').type(
@@ -940,7 +935,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
             materialNotes: 'material notes',
             additionalNotes: 'Additional notes desc',
             supervisorCalled: true,
-            estimatedDuration: '30 mins',
             otherTrade: 'Cheese Making',
           },
         })
@@ -1009,7 +1003,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       'follow on description'
     )
 
-    cy.get('input[data-testid="estimatedDuration"]').first().check()
     cy.get('input[data-testid="stockItemsRequired"]').check()
     cy.get('textarea[data-testid="materialNotes"]').type('material notes')
     cy.get('textarea[data-testid="additionalNotes"]').type(
