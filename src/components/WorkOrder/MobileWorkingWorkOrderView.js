@@ -169,7 +169,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         data.materialNotes,
         data.additionalNotes,
         data.supervisorCalled === 'Yes',
-        data.estimatedDuration,
         data.otherTrade
       )
     }

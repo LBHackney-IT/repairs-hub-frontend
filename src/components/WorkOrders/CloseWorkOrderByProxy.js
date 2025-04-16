@@ -208,7 +208,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.materialNotes,
         followOnData.additionalNotes,
         followOnData.supervisorCalled,
-        followOnData.estimatedDuration,
         followOnData.otherTrade
       )
     }
@@ -272,7 +271,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         materialNotes: formData.materialNotes,
         additionalNotes: formData.additionalNotes,
         supervisorCalled: formData.supervisorCalled === 'Yes',
-        estimatedDuration: formData.estimatedDuration,
         otherTrade: formData.otherTrade,
       }
 
