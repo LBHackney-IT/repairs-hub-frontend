@@ -7,7 +7,6 @@ import isPast from 'date-fns/isPast'
 import TimeInput from '../Form/TimeInput'
 import TextArea from '../Form/TextArea'
 import Radios from '../Form/Radios'
-import Select from '../Form/Select'
 import SelectOperatives from '../Operatives/SelectOperatives'
 import {
   BONUS_PAYMENT_TYPE,
@@ -145,27 +144,6 @@ const CloseWorkOrderForm = ({
               followOnData={followOnData}
               hasWhiteBackground={true}
               isGrid={true}
-            />
-
-            <Radios
-              label="Estimated duration"
-              name="estimatedDuration"
-              labelSize="s"
-              options={[
-                '30 mins',
-                '1 hour',
-                '2-3 hours',
-                'Half a day',
-                '1 day',
-                'More than 1 day',
-                'Unknown',
-              ]}
-              register={register({
-                required: 'Select estimated duration',
-              })}
-              error={errors && errors.estimatedDuration}
-              isGrid={true}
-              hasWhiteBackground={true}
             />
 
             <FollowOnRequestMaterialsForm
