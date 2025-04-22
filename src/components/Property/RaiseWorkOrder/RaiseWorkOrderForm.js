@@ -51,7 +51,14 @@ const RaiseWorkOrderForm = ({
   setIsIncrementalSearchEnabled,
   setPriorities,
 }) => {
-  const { register, handleSubmit, errors, setValue, getValues, watch } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setValue,
+    getValues,
+    watch,
+  } = useForm({
     defaultValues: { ...formState },
   })
 
@@ -211,7 +218,6 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-
             <RaiseWorkOrderFollowOn
               register={register}
               errors={errors}
