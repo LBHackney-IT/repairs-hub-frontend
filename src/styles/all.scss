@@ -46,6 +46,120 @@ $govuk-font-family: 'GDS Transport', arial, sans-serif !important;
 // Form layout consistancy changes
 // only apply to specific forms
 
+
+.wo-hierarchy {
+  &-list {
+    display: flex;
+    flex-direction: column;
+  }
+  &-list-row {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0;
+    // padding-top: 30px; // :not(:first-child)
+
+    // margin: 30px 0;
+
+  }
+
+  &-row-left {
+    position: relative;
+    margin-right: 30px;
+  }
+
+  &-row-right {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    // margin-top: 30px;
+    flex-grow: 1;
+    // padding-top: 30px;
+  }
+
+  &-left-circle {
+    background-color: #fff;
+    border-radius: 100%;
+    border: 2px solid #777;
+    width: 20px;
+    height: 20px;
+    top: -25px;
+    left: -10px;
+    z-index: 2;
+    display: block;
+    position: absolute;
+  }
+  &-left-bar {
+    width: 2px;
+    background-color: #777;
+    height: calc(100% + 20px);
+    position: absolute;
+    top: 6px;
+    left: 0;
+    margin-top: 0;
+    z-index: 1;
+  }
+
+
+
+  
+  &-bottom-container {
+    margin-top: 0;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    position: relative;
+  }
+
+  &-link-and-trade {
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    color: #444;
+  }
+
+  &-date {
+    color: #666;
+    margin-bottom: 10px;
+
+    // margin-bottom: 15px;
+  }
+
+  &-link {
+    margin-right: 20px;
+    display: block;
+    font-weight: 600;
+  }
+
+  &-hr {
+    border-color: transparent;
+    background-color: #eee;
+    margin-bottom: 30px;
+  }
+
+
+
+
+    // Last row styles
+
+
+
+    &-list-row:last-child &-left-bar {
+      display: none;
+    }
+
+    &-list-row:last-child &-hr {
+      display: none;
+    }
+    &-list-row:last-child  &-left-circle {
+      background-color: #eee;
+    }
+
+
+   
+}
+
+
 .photos-tab,
 .close-work-order-form,
 .mobile-working-close-work-order-form,

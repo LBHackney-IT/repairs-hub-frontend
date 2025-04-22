@@ -4,7 +4,6 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import Link from 'next/link'
-import { formatDateTime } from '@/root/src/utils/time'
 import { format } from 'date-fns'
 import Status from '../../WorkOrder/Status'
 
@@ -16,27 +15,29 @@ interface Props {
 }
 
 const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
-  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([])
   const [error, setError] = useState<string | null>(null)
 
-  const getWorkOrdersHistoryView = async (propertyReference, pageNumber) => {
+  const fetchWorkOrders = async (propertyReference: string) => {
+    setIsLoading(true)
+
     setError(null)
     setWorkOrders([])
 
     try {
-      const data = await frontEndApiRequest({
+      const response = await frontEndApiRequest({
         path: '/api/workOrders/',
         method: 'get',
         params: {
           propertyReference: propertyReference,
           PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
-          PageNumber: pageNumber,
+          PageNumber: 1,
           sort: 'dateraised:desc',
         },
       })
 
-      setWorkOrders([...workOrders, ...data])
+      setWorkOrders(response)
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)
@@ -51,9 +52,7 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
-
-    getWorkOrdersHistoryView(propertyReference, 1)
+    fetchWorkOrders(propertyReference)
   }, [])
 
   if (isLoading) {
@@ -64,89 +63,26 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
       {workOrders?.length > 0 && (
-        <ul
-          className="lbh-body-m"
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-          }}
-        >
+        <ul className="lbh-body-m wo-hierarchy-list">
           {workOrders?.map((x) => (
-            <li
-              style={{
-                display: 'flex',
-                flexDirection: 'row',
-                minHeight: '50px',
-                marginTop: '30px', // :not(:first-child)
-              }}
-              key={x.reference}
-            >
-              <div style={{ position: 'relative', marginRight: '30px' }}>
-                <div
-                  style={{
-                    background: '#fff',
-                    borderRadius: '100%',
-                    border: '2px solid #777',
-                    width: '20px',
-                    height: '20px',
-                    position: 'absolute',
-                    top: -4,
-                    left: -11,
-                    zIndex: 2,
-                  }}
-                ></div>
-                <div
-                  style={{
-                    width: '2px',
-                    background: '#777',
-                    // marginRight: '30px',
-                    height: 'calc(100% + 30px)',
-                    position: 'absolute',
-                    top: 6,
-                    left: 0,
-                    marginTop: 0,
-                    zIndex: 1,
-                  }}
-                ></div>
+            <li className="wo-hierarchy-list-row" key={x.reference}>
+              <div className="wo-hierarchy-row-left">
+                <span className="wo-hierarchy-left-bar" />
+                <span className="wo-hierarchy-left-circle" />
               </div>
 
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginTop: 0,
-                  flexGrow: 1,
-                }}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    flexDirection: 'row',
-                  }}
-                >
-                  <div style={{ color: '#666', marginBottom: '15px' }}>
+              <div className="wo-hierarchy-row-right">
+                <div className="wo-hierarchy-bottom-container">
+                  <div className="wo-hierarchy-date">
                     {format(new Date(x.dateRaised), 'd MMMM yyyy')}
                   </div>
 
                   <div style={{ marginTop: 0 }}>
                     <Status text={x.status} className="work-order-status" />
                   </div>
-                </div>
-                <div
-                  style={{
-                    marginTop: 0,
-                    marginBottom: '15px',
-                    display: 'flex',
-                  }}
-                >
-                  <span
-                    style={{
-                      marginRight: '15px',
-                      display: 'block',
-                      fontWeight: 'normal',
-                    }}
-                  >
+                </div>k
+                <div className="wo-hierarchy-link-and-trade">
+                  <span className="wo-hierarchy-link">
                     <Link href={`/work-orders/${x.reference}`}>
                       {x.reference}
                     </Link>
@@ -156,9 +92,7 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
                 </div>
 
                 <p style={{ marginTop: 0 }}>{x.description}</p>
-                <hr
-                  style={{ borderColor: 'transparent', background: '#eee' }}
-                />
+                <hr className="wo-hierarchy-hr" />
               </div>
             </li>
           ))}
