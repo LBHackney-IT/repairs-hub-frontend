@@ -6,7 +6,7 @@ const defaultOptions = ['Yes', 'No']
 
 interface Props {
   label?: string
-  labelSize?: 's' | 'm' | 'l' | 'xl'
+  labelSize?: 'xs' | 's' | 'm' | 'l' | 'xl'
   showAsOptional?: boolean
   hint?: string
   name: string

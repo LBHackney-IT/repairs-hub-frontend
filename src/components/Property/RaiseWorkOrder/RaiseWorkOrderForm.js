@@ -20,6 +20,7 @@ import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -50,7 +51,7 @@ const RaiseWorkOrderForm = ({
   setIsIncrementalSearchEnabled,
   setPriorities,
 }) => {
-  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+  const { register, handleSubmit, errors, setValue, getValues, watch } = useForm({
     defaultValues: { ...formState },
   })
 
@@ -210,6 +211,14 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
+
+            <RaiseWorkOrderFollowOn
+              register={register}
+              errors={errors}
+              propertyReference={propertyReference}
+              watch={watch}
+            />
+
             <TradeContractorRateScheduleItemView
               register={register}
               errors={errors}
