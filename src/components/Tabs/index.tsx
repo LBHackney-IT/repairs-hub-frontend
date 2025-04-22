@@ -58,7 +58,7 @@ const Tabs = (props: Props) => {
       case 'related-work-orders-tab':
         return (
           <RelatedWorkOrdersView
-            propertyReference={propertyReference}
+            workOrderReference={workOrderReference}
             tabName={tabName}
           />
         )

@@ -6,40 +6,43 @@ import { WorkOrder } from '@/root/src/models/workOrder'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import Status from '../../WorkOrder/Status'
+import classNames from 'classnames'
 
-const WORK_ORDERS_HISTORY_PAGE_SIZE = 50
+interface WorkOrderHierarchy {
+  rootParentId: string
+  workOrders: {
+    directParentId: string
+    isRoot: boolean
+    isSelf: boolean
+    workOrder: WorkOrder
+  }[]
+}
 
 interface Props {
   tabName: string
-  propertyReference: string
+  workOrderReference: string
 }
 
-const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
+const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [workOrders, setWorkOrders] = useState<WorkOrder[]>([])
+  const [hierarchy, setHierarchy] = useState<WorkOrderHierarchy | null>(null)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchWorkOrders = async (propertyReference: string) => {
+  const fetchHierarchy = async () => {
     setIsLoading(true)
 
     setError(null)
-    setWorkOrders([])
+    setHierarchy(null)
 
     try {
-      const response = await frontEndApiRequest({
-        path: '/api/workOrders/',
+      const response: WorkOrderHierarchy = await frontEndApiRequest({
+        path: `/api/workOrders/${workOrderReference}/hierarchy`,
         method: 'get',
-        params: {
-          propertyReference: propertyReference,
-          PageSize: WORK_ORDERS_HISTORY_PAGE_SIZE,
-          PageNumber: 1,
-          sort: 'dateraised:desc',
-        },
       })
 
-      setWorkOrders(response)
+      setHierarchy(response)
     } catch (e) {
-      setWorkOrders(null)
+      setHierarchy(null)
       console.error('An error has occured:', e.response)
       setError(
         `Oops an error occurred with error status: ${
@@ -52,7 +55,7 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
   }
 
   useEffect(() => {
-    fetchWorkOrders(propertyReference)
+    fetchHierarchy()
   }, [])
 
   if (isLoading) {
@@ -62,10 +65,15 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
   return (
     <>
       <h2 className="lbh-heading-h2">{tabName}</h2>
-      {workOrders?.length > 0 && (
+      {hierarchy && (
         <ul className="lbh-body-m wo-hierarchy-list">
-          {workOrders?.map((x) => (
-            <li className="wo-hierarchy-list-row" key={x.reference}>
+          {hierarchy?.workOrders?.map(({ workOrder, isSelf }) => (
+            <li
+              className={classNames('wo-hierarchy-list-row', {
+                'wo-hierarchy-list-row--self': isSelf,
+              })}
+              key={workOrder.reference}
+            >
               <div className="wo-hierarchy-row-left">
                 <span className="wo-hierarchy-left-bar" />
                 <span className="wo-hierarchy-left-circle" />
@@ -74,42 +82,35 @@ const RelatedWorkOrdersView = ({ propertyReference, tabName }: Props) => {
               <div className="wo-hierarchy-row-right">
                 <div className="wo-hierarchy-bottom-container">
                   <div className="wo-hierarchy-date">
-                    {format(new Date(x.dateRaised), 'd MMMM yyyy')}
+                    {format(new Date(workOrder.dateRaised), 'd MMMM yyyy')}
                   </div>
 
                   <div style={{ marginTop: 0 }}>
-                    <Status text={x.status} className="work-order-status" />
+                    <Status
+                      text={workOrder.status}
+                      className="work-order-status"
+                    />
                   </div>
-                </div>k
+                </div>
                 <div className="wo-hierarchy-link-and-trade">
                   <span className="wo-hierarchy-link">
-                    <Link href={`/work-orders/${x.reference}`}>
-                      {x.reference}
+                    <Link href={`/work-orders/${workOrder.reference}`}>
+                      {workOrder.reference}
                     </Link>
                   </span>
 
-                  <div style={{ marginTop: 0 }}>{x.tradeDescription}</div>
+                  <div style={{ marginTop: 0 }}>
+                    {workOrder.tradeDescription}
+                  </div>
                 </div>
 
-                <p style={{ marginTop: 0 }}>{x.description}</p>
+                <p style={{ marginTop: 0 }}>{workOrder.description}</p>
                 <hr className="wo-hierarchy-hr" />
               </div>
             </li>
           ))}
         </ul>
       )}
-
-      {/* {workOrders?.length === 0 && !error && (
-        <>
-          <h2 className="lbh-heading-h2">{tabName}</h2>
-          <div>
-            <hr className="govuk-section-break govuk-section-break--l govuk-section-break--visible" />
-            <h4 className="lbh-heading-h4">
-              There are no historical repairs for this property.
-            </h4>
-          </div>
-        </>
-      )} */}
 
       {error && <ErrorMessage label={error} />}
     </>
