@@ -57,9 +57,11 @@ export const buildUser = (
         return BUDGET_CODE_OFFICER_ROLE
       } else if (isDataAdminGroupName(groupName)) {
         return DATA_ADMIN_ROLE
+      } else if (isFollowOnAdminGroupName(groupName)) {
+        return FOLLOWON_ADMIN_ROLE
       }
 
-      console.log(`User group name not recognised: ${groupName}`)
+      console.warn(`User group name not recognised: ${groupName}`)
     })
   }
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
@@ -21,6 +21,8 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn'
+import UserContext from '../../UserContext'
+import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -61,6 +63,8 @@ const RaiseWorkOrderForm = ({
   } = useForm({
     defaultValues: { ...formState },
   })
+
+  const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
@@ -218,12 +222,15 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <RaiseWorkOrderFollowOn
-              register={register}
-              errors={errors}
-              propertyReference={propertyReference}
-              watch={watch}
-            />
+
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
 
             <TradeContractorRateScheduleItemView
               register={register}

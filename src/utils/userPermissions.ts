@@ -76,3 +76,6 @@ export const canAttendOwnWorkOrder = (user) => {
 
 export const canAssignBudgetCode = (user) =>
   user.hasBudgetCodeOfficerPermissions
+
+export const canAssignFollowOnRelationship = (user) =>
+  user.hasFollowOnAdminPermissions
