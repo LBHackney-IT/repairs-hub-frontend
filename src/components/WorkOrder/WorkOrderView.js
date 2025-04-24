@@ -9,6 +9,17 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 
+const tabsList = [
+  'Tasks and SORs',
+  'Notes',
+  'Pending variation',
+  'Work orders history',
+  'Related work orders',
+  'Photos',
+]
+
+const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
+
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [workOrder, setWorkOrder] = useState({})
@@ -18,15 +29,6 @@ const WorkOrderView = ({ workOrderReference }) => {
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
-  const tabsList = [
-    'Tasks and SORs',
-    'Notes',
-    'Pending variation',
-    'Work orders history',
-    'Photos',
-  ]
-
-  const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
   const printClickHandler = (e) => {
     e.preventDefault()
