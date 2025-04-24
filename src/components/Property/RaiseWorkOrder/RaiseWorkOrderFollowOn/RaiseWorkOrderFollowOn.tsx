@@ -10,8 +10,8 @@ interface Props {
 }
 
 const RADIO_OPTIONS = [
-  { text: 'Yes', value: true },
-  { text: 'No', value: false },
+  { text: 'Yes', value: 'true' },
+  { text: 'No', value: 'false' },
 ]
 
 const RaiseWorkOrderFollowOn = (props: Props) => {
@@ -38,9 +38,8 @@ const RaiseWorkOrderFollowOn = (props: Props) => {
         labelSize={'s'}
         options={RADIO_OPTIONS.map((x) => ({
           ...x,
-          defaultChecked: false,
           children:
-            x.value === true ? (
+            x.value === 'true' ? (
               <FollowOnLookup
                 visible={showFollowOnLookup}
                 propertyReference={propertyReference}
