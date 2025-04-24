@@ -91,8 +91,6 @@ const RaiseWorkOrderForm = ({
           : daysInHours(priority.daysToComplete),
     })
 
-    console.log({ formData })
-
     // follow-on parent
     const parentWorkOrderId =
       formData?.isFollowOn === 'true' && formData?.parentWorkOrder

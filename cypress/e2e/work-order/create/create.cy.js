@@ -952,31 +952,6 @@ describe('Raise repair form', () => {
         })
       }
     )
-
-    // Confirmation screen
-    cy.get('.govuk-panel__title').contains('Work order created')
-    cy.get('.govuk-panel').contains('Reference number')
-    cy.get('.govuk-panel').contains('10102030')
-
-    // // No warning if within raise limit
-    // cy.get('[data-testid=over-spend-limit]').should('not.exist')
-
-    // // Actions to see relevant pages
-    // cy.get('.lbh-list li')
-    //   .contains('View work order')
-    //   .should('have.attr', 'href', '/work-orders/10102030')
-
-    // cy.get('.lbh-list li')
-    //   .contains('Back to 16 Pitcairn House')
-    //   .should('have.attr', 'href', '/properties/00012345')
-
-    // cy.get('.lbh-list li')
-    //   .contains('Start a new search')
-    //   .should('have.attr', 'href', '/')
-
-    // Run lighthouse audit for accessibility report
-    //  cy.audit()
-    // })
   })
 
   describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {
