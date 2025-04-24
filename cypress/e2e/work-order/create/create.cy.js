@@ -7,7 +7,7 @@ import {
   NORMAL_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
 
-// const now = new Date('2022-02-11T12:00:00')
+const now = new Date('2022-02-11T12:00:00')
 
 describe('Raise repair form', () => {
   beforeEach(() => {
@@ -122,7 +122,7 @@ describe('Raise repair form', () => {
       }
     ).as('apiCheck')
 
-    // cy.clock(now, ['Date'])
+    cy.clock(now, ['Date'])
   })
 
   it('Validates missing form inputs', () => {
