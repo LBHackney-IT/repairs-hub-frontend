@@ -91,7 +91,15 @@ const RaiseWorkOrderForm = ({
           : daysInHours(priority.daysToComplete),
     })
 
-    onFormSubmit(scheduleWorkOrderFormData)
+    console.log({ formData })
+
+    // follow-on parent
+    const parentWorkOrderId =
+      formData?.isFollowOn === 'true' && formData?.parentWorkOrder
+        ? formData.parentWorkOrder
+        : null
+
+    onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
   }
 
   const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
@@ -222,7 +230,6 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-
             {canAssignFollowOnRelationship(user) && (
               <RaiseWorkOrderFollowOn
                 register={register}

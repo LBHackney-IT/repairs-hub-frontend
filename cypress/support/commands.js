@@ -26,6 +26,23 @@
 
 import 'cypress-audit/commands'
 
+Cypress.Commands.add('loginWithFollowOnAdminRole', () => {
+  const gssoTestKey = Cypress.env('GSSO_TEST_KEY_FOLLOWON_ADMIN')
+
+  cy.getCookies().should('be.empty')
+  cy.setCookie(Cypress.env('GSSO_TOKEN_NAME'), gssoTestKey)
+  cy.getCookie(Cypress.env('GSSO_TOKEN_NAME')).should(
+    'have.property',
+    'value',
+    gssoTestKey
+  )
+
+  cy.intercept(
+    { method: 'GET', path: '/api/hub-user' },
+    { fixture: 'hubUser/user.json' }
+  )
+})
+
 Cypress.Commands.add('loginWithAgentRole', () => {
   const gssoTestKey = Cypress.env('GSSO_TEST_KEY_AGENT')
 

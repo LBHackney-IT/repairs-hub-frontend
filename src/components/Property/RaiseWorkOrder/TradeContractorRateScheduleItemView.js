@@ -131,7 +131,6 @@ const TradeContractorRateScheduleItemView = ({
       } else {
         await prepareSORData(contractorRef, tradeCode)
       }
-      console.log(`Contractor: ${contractorRef}`)
       var ctr = contractorRef.toLowerCase()
 
       if (ctr.includes('h02')) {

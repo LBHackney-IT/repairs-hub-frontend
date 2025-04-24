@@ -7,7 +7,7 @@ import {
   NORMAL_PRIORITY_CODE,
 } from '../../../../src/utils/helpers/priorities'
 
-const now = new Date('2022-02-11T12:00:00')
+// const now = new Date('2022-02-11T12:00:00')
 
 describe('Raise repair form', () => {
   beforeEach(() => {
@@ -122,7 +122,7 @@ describe('Raise repair form', () => {
       }
     ).as('apiCheck')
 
-    cy.clock(now, ['Date'])
+    // cy.clock(now, ['Date'])
   })
 
   it('Validates missing form inputs', () => {
@@ -782,6 +782,201 @@ describe('Raise repair form', () => {
 
     // Run lighthouse audit for accessibility report
     //  cy.audit()
+  })
+
+  it('Hides follow-on fields when user doesnt have permissions', () => {
+    cy.loginWithAgentRole()
+
+    cy.visit('/properties/00012345/raise-repair/new')
+    cy.wait([
+      '@propertyRequest',
+      '@contactDetailsRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+    ])
+
+    cy.get('.lbh-heading-h2').contains('Work order task details')
+
+    cy.contains(
+      '.govuk-fieldset__legend',
+      'Is this for follow on works?'
+    ).should('not.exist')
+  })
+
+  it('Creates repair with follow-on parent', () => {
+    cy.loginWithFollowOnAdminRole()
+
+    cy.visit('/properties/00012345/raise-repair/new')
+    cy.wait([
+      '@propertyRequest',
+      '@contactDetailsRequest',
+      '@sorPrioritiesRequest',
+      '@tradesRequest',
+    ])
+
+    cy.get('.lbh-heading-h2').contains('Work order task details')
+    cy.contains('Is this for follow on works?')
+
+    // add parent workOrder
+    cy.get(':nth-child(1) > [data-testid="isFollowOn"]').click()
+
+    cy.get('[type="submit"]').click()
+    cy.contains('Please select a work order')
+
+    cy.get('[data-testid="parentWorkOrder"]').clear().type('invalid value')
+    cy.get('[type="submit"]').click()
+    cy.contains('Invalid work order reference')
+
+    cy.get('[data-testid="parentWorkOrder"]').clear().type('10001234')
+    cy.get('[type="submit"]').click()
+
+    cy.get('#trade').type('Plumbing - PL')
+
+    cy.wait('@contractorsRequest')
+    cy.get('#contractor').type('PURDY CONTRACTS (C2A) - PUR')
+
+    cy.get('input[id="rateScheduleItems[0][code]"]').type(
+      'INP5R001 - Pre insp of wrks by Constructr - £1{enter}'
+    )
+    cy.get('[data-testid="rateScheduleItems[0][quantity]"]').type(1)
+
+    cy.get('[data-testid="priorityCode"]').select('5 [N] NORMAL')
+
+    cy.get('[data-testid="descriptionOfWork"]').type('description')
+    cy.get('[data-testid="callerName"]').type('steve')
+    cy.get('[data-testid="contactNumber"]').type('1234')
+
+    cy.intercept(
+      {
+        method: 'POST',
+        path: '/api/workOrders/schedule?parentWorkOrderId=10001234',
+      },
+      {
+        body: {
+          id: 10102030,
+          statusCode: 200,
+          statusCodeDescription: '???',
+          externallyManagedAppointment: false,
+        },
+      }
+    ).as('scheduleRepairWithFollowOnRequest')
+
+    cy.get('[type="submit"]').contains('Create work order').click()
+
+    cy.wait('@scheduleRepairWithFollowOnRequest', { timeout: 7000 }).then(
+      ({ request }) => {
+        const referenceIdUuid = request.body.reference[0].id
+
+        cy.wrap(request.body).should('deep.equal', {
+          reference: [
+            {
+              id: referenceIdUuid,
+            },
+          ],
+          descriptionOfWork: 'description',
+          priority: {
+            priorityCode: 4,
+            priorityDescription: '5 [N] NORMAL',
+            numberOfDays: 21,
+          },
+          workClass: {
+            workClassCode: 0,
+          },
+          workElement: [
+            {
+              rateScheduleItem: [
+                {
+                  customCode: 'INP5R001',
+                  customName: 'Pre insp of wrks by Constructr',
+                  quantity: {
+                    amount: [1],
+                  },
+                },
+              ],
+              trade: [
+                {
+                  code: 'SP',
+                  customCode: 'PL',
+                  customName: 'Plumbing - PL',
+                },
+              ],
+            },
+          ],
+          site: {
+            property: [
+              {
+                propertyReference: '00012345',
+                address: {
+                  addressLine: ['16 Pitcairn House  St Thomass Square'],
+                  postalCode: 'E9 6PT',
+                },
+                reference: [
+                  {
+                    id: '00012345',
+                  },
+                ],
+              },
+            ],
+          },
+          instructedBy: {
+            name: 'Hackney Housing',
+          },
+          assignedToPrimary: {
+            name: 'PURDY CONTRACTS (C2A)',
+            organization: {
+              reference: [
+                {
+                  id: 'PUR',
+                },
+              ],
+            },
+          },
+          customer: {
+            name: 'steve',
+            person: {
+              name: {
+                full: 'steve',
+              },
+              communication: [
+                {
+                  channel: {
+                    medium: '20',
+                    code: '60',
+                  },
+                  value: '1234',
+                },
+              ],
+            },
+          },
+          multiTradeWorkOrder: false,
+        })
+      }
+    )
+
+    // Confirmation screen
+    cy.get('.govuk-panel__title').contains('Work order created')
+    cy.get('.govuk-panel').contains('Reference number')
+    cy.get('.govuk-panel').contains('10102030')
+
+    // // No warning if within raise limit
+    // cy.get('[data-testid=over-spend-limit]').should('not.exist')
+
+    // // Actions to see relevant pages
+    // cy.get('.lbh-list li')
+    //   .contains('View work order')
+    //   .should('have.attr', 'href', '/work-orders/10102030')
+
+    // cy.get('.lbh-list li')
+    //   .contains('Back to 16 Pitcairn House')
+    //   .should('have.attr', 'href', '/properties/00012345')
+
+    // cy.get('.lbh-list li')
+    //   .contains('Start a new search')
+    //   .should('have.attr', 'href', '/')
+
+    // Run lighthouse audit for accessibility report
+    //  cy.audit()
+    // })
   })
 
   describe("when the order is for the 'multi trade' trade and the contractor is Purdy, Axis, or HHL", () => {

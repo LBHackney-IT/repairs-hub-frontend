@@ -105,7 +105,7 @@ const FollowOnLookup = ({
         },
       })
 
-      setWorkOrders(workOrders)
+      setWorkOrders(() => workOrders)
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)
@@ -140,7 +140,7 @@ const FollowOnLookup = ({
   return (
     <div>
       <DataList
-        name="originalWorkOrder"
+        name="parentWorkOrder"
         label="Please select the original work order this relates to"
         options={workOrders?.map((x) => x.reference) || []}
         register={register({
@@ -148,7 +148,7 @@ const FollowOnLookup = ({
           validate: (value) =>
             isValidWorkOrderReference(value) || 'Invalid work order reference',
         })}
-        error={errors && errors.originalWorkOrder}
+        error={errors && errors.parentWorkOrder}
         widthClass="govuk-!-width-one-half"
       />
       {error && <ErrorMessage label={error} />}
