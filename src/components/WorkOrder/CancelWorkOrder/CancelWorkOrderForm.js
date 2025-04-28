@@ -77,7 +77,10 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
               error={errors && errors.cancelReason}
             />
 
-            <PrimarySubmitButton label="Cancel repair" />
+            <PrimarySubmitButton
+              id="submit-work-order-cancel"
+              label="Cancel repair"
+            />
           </form>
         </div>
       </div>

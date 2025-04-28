@@ -120,7 +120,11 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
                 isSecondary
                 onClick={onCancel}
               />
-              <PrimarySubmitButton style={{ margin: '0' }} label="Save" />
+              <PrimarySubmitButton
+                id="submit-work-order-edit"
+                style={{ margin: '0' }}
+                label="Save"
+              />
             </div>
           </form>
         </GridColumn>
