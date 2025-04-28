@@ -30,10 +30,10 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
             7 February 2025
           </div>
           <div
-            style="margin-top: 0px;"
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
           >
             <span
-              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status govuk-!-margin-0"
             >
               In progress
             </span>
@@ -92,10 +92,10 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
             30 March 2022
           </div>
           <div
-            style="margin-top: 0px;"
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
           >
             <span
-              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status"
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status govuk-!-margin-0"
             >
               In progress
             </span>
@@ -154,10 +154,10 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
             10 February 2022
           </div>
           <div
-            style="margin-top: 0px;"
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
           >
             <span
-              class="govuk-tag lbh-tag lbh-tag--status-cancelled work-order-status"
+              class="govuk-tag lbh-tag lbh-tag--status-cancelled work-order-status govuk-!-margin-0"
             >
               Cancelled
             </span>
@@ -216,10 +216,10 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
             28 January 2022
           </div>
           <div
-            style="margin-top: 0px;"
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
           >
             <span
-              class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status"
+              class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-0"
             >
               Completed
             </span>

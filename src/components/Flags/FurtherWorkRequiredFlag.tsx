@@ -7,7 +7,7 @@ const FurtherWorkRequiredFlag = () => {
         padding: '2px 6px',
         borderRadius: '6px',
         display: 'inline-block',
-        color: '#180c02',
+        color: '#482305',
       }}
     >
       Further work required
