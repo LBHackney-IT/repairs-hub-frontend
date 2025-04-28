@@ -55,7 +55,10 @@ const NotesForm = ({
                 ref={register}
               />
 
-              <PrimarySubmitButton label="Publish note" />
+              <PrimarySubmitButton
+                id="submit-note-create"
+                label="Publish note"
+              />
             </form>
           )}
         </div>

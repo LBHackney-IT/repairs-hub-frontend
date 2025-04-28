@@ -322,6 +322,7 @@ exports[`WorkOrderUpdateSummary component should render properly over vary spend
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Confirm and close
@@ -634,6 +635,7 @@ exports[`WorkOrderUpdateSummary component should render properly within vary spe
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Confirm and close

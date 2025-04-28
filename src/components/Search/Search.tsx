@@ -153,7 +153,11 @@ const Search: React.FC<SearchProps> = ({ query }) => {
                 value={searchTextInput}
                 onChange={(event) => setSearchTextInput(event.target.value)}
               />
-              <PrimarySubmitButton label="Search" onClick={handleSubmit} />
+              <PrimarySubmitButton
+                id="submit-search"
+                label="Search"
+                onClick={handleSubmit}
+              />
             </form>
           </div>
         </section>

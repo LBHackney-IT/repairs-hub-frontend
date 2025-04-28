@@ -137,7 +137,10 @@ const NewTaskForm = ({ workOrderReference }) => {
                   index={'operative'}
                 />
                 <div className="button-pair">
-                  <PrimarySubmitButton label="Confirm" />
+                  <PrimarySubmitButton
+                    id="submit-work-order-task-add"
+                    label="Confirm"
+                  />
                 </div>
               </form>
             </>

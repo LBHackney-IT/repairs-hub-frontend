@@ -602,6 +602,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Close work order
@@ -1304,6 +1305,7 @@ exports[`CloseWorkOrderForm component - when follow-on functionality is enabled 
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Close work order
@@ -1912,6 +1914,7 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Close work order
@@ -2610,6 +2613,7 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
         <button
           class="govuk-button lbh-button"
           data-module="govuk-button"
+          id="submit-work-order-close"
           type="submit"
         >
           Close work order
