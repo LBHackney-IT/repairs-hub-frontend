@@ -69,7 +69,11 @@ const WorkOrderDetails = ({
           </GridColumn>
         </GridRow>
 
-        {workOrder?.isFollowOn && <FollowOnFlag />}
+        {workOrder?.isFollowOn && (
+          <div className="govuk-!-margin-top-2">
+            <FollowOnFlag />
+          </div>
+        )}
 
         <p className="lbh-body-m">{workOrder.description}</p>
 
