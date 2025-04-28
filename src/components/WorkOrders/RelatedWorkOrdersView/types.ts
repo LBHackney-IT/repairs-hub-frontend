@@ -1,11 +1,19 @@
-import { WorkOrder } from '@/root/src/models/workOrder'
-
 export interface WorkOrderHierarchy {
   rootParentId: string
   workOrders: {
     directParentId: string
     isRoot: boolean
     isSelf: boolean
-    workOrder: WorkOrder
+    workOrder: HierarchyWorkOrder
   }[]
+}
+
+class HierarchyWorkOrder {
+  reference: string
+  dateRaised: string
+  description: string
+  status: string
+  tradeCode: string
+  tradeDescription: string
+  isFollowOn: boolean
 }
