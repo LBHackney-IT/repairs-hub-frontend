@@ -4,9 +4,9 @@ import PropertyDetails from './PropertyDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import Tabs from '../Tabs'
 import Meta from '../Meta'
 import WarningInfoBox from '../Template/WarningInfoBox'
+import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -16,8 +16,6 @@ const PropertyView = ({ propertyReference }) => {
   const [error, setError] = useState()
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
   const [legalDisrepairError, setLegalDisRepairError] = useState()
-
-  const tabsList = ['Work orders history']
 
   const getPropertyView = async (propertyReference) => {
     setError(null)
@@ -108,7 +106,8 @@ const PropertyView = ({ propertyReference }) => {
                 tmoName={property.tmoName}
               />
               {renderLegalDisrepair(isInLegalDisrepair)}
-              <Tabs tabsList={tabsList} propertyReference={propertyReference} />
+
+              <PropertyViewTabs propertyReference={propertyReference} />
             </>
           )}
 
