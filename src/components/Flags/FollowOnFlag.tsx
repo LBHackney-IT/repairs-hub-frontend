@@ -1,18 +1,18 @@
-const FurtherWorkRequiredFlag = () => {
+const FollowOnFlag = () => {
   return (
     <div
       className="lbh-body-xs govuk-!-margin-top-1"
       style={{
-        background: '#f7ba87',
         padding: '2px 6px',
         borderRadius: '6px',
         display: 'inline-block',
-        color: '#180c02',
+        color: '#003327',
+        border: '2px solid #009975',
       }}
     >
-      Further work required
+      Follow on
     </div>
   )
 }
 
-export default FurtherWorkRequiredFlag
+export default FollowOnFlag
