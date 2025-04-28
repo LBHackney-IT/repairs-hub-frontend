@@ -1,6 +1,9 @@
 import { WorkOrder } from '@/root/src/models/workOrder'
 import Tabs from '..'
 import { TabName } from '../types'
+import { useContext, useMemo } from 'react'
+import UserContext from '../../UserContext'
+import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
 
 const tabsList: TabName[] = [
   TabName.TasksAndSors,
@@ -28,9 +31,20 @@ const WorkOrderViewTabs = (props: Props) => {
     workOrder,
   } = props
 
+  const { user } = useContext(UserContext)
+
+  // Contractor cannot view RelatedWorkOrders tab
+  const filteredTabs = useMemo(
+    () =>
+      canSeeRelatedWorkOrdersTab(user)
+        ? tabsList
+        : tabsList.filter((x) => x !== TabName.RelatedWorkOrders),
+    [user]
+  )
+
   return (
     <Tabs
-      tabsList={tabsList}
+      tabsList={filteredTabs}
       propertyReference={propertyReference}
       workOrderReference={workOrderReference}
       tasksAndSors={tasksAndSors}
