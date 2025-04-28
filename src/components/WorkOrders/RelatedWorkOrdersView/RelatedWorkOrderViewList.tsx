@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import Status from '../../WorkOrder/Status'
 import Link from 'next/link'
 import { WorkOrderHierarchy } from './types'
+import FollowOnFlag from '../../Flags/FollowOnFlag'
 
 interface Props {
   hierarchy: WorkOrderHierarchy
@@ -29,8 +30,21 @@ const RelatedWorkOrderViewList = ({ hierarchy }: Props) => {
                 {format(new Date(workOrder.dateRaised), 'd MMMM yyyy')}
               </div>
 
-              <div style={{ marginTop: 0 }}>
-                <Status text={workOrder.status} className="work-order-status" />
+              <div
+                style={{
+                  marginTop: 0,
+                  display: 'flex',
+                  flexDirection: 'row',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center',
+                }}
+              >
+                {workOrder?.isFollowOn && <FollowOnFlag />}
+
+                <Status
+                  text={workOrder.status}
+                  className="work-order-status govuk-!-margin-0"
+                />
               </div>
             </div>
             <div className="wo-hierarchy-link-and-trade">
