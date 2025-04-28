@@ -4,19 +4,10 @@ import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import Tabs from '../Tabs'
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
-
-const tabsList = [
-  'Tasks and SORs',
-  'Notes',
-  'Pending variation',
-  'Work orders history',
-  'Related work orders',
-  'Photos',
-]
+import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -129,14 +120,15 @@ const WorkOrderView = ({ workOrderReference }) => {
                   setLocationAlerts={setLocationAlerts}
                   setPersonAlerts={setPersonAlerts}
                 />
-                <Tabs
-                  tabsList={tabsList}
+
+                <WorkOrderViewTabs
                   propertyReference={property.propertyReference}
                   workOrderReference={workOrderReference}
                   tasksAndSors={tasksAndSors}
                   budgetCode={workOrder.budgetCode}
                   workOrder={workOrder}
                 />
+
                 {/* Only displayed for print media */}
                 <PrintJobTicketDetails
                   workOrder={workOrder}
