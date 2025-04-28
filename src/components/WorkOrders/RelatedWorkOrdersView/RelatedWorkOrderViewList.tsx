@@ -1,7 +1,6 @@
 import classNames from 'classnames'
 import { format } from 'date-fns'
 import Status from '../../WorkOrder/Status'
-import Link from 'next/link'
 import { WorkOrderHierarchy } from './types'
 import FollowOnFlag from '../../Flags/FollowOnFlag'
 
@@ -10,6 +9,10 @@ interface Props {
 }
 
 const RelatedWorkOrderViewList = ({ hierarchy }: Props) => {
+  if (hierarchy?.workOrders?.length === 1 && hierarchy?.workOrders[0].isSelf) {
+    return <p className="lbh-body-s">No related work orders</p>
+  }
+
   return (
     <ul className="lbh-body-m wo-hierarchy-list">
       {hierarchy?.workOrders?.map(({ workOrder, isSelf }) => (
