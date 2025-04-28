@@ -11,9 +11,6 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     fetchAppointmentsFromDrs:
       process.env.FETCH_APPOINTMENTS_FROM_DRS === 'true',
-
-    relatedWorkOrdersTabEnabled:
-      process.env.RELATED_WORKORDRES_TAB_ENABLED === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)
