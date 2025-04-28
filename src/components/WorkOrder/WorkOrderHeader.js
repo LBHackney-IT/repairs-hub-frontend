@@ -7,7 +7,7 @@ import Operatives from './Operatives'
 import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
-import FurtherWorkRequiredFlag from './FurtherWorkRequiredFlag'
+import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
 
 const WorkOrderHeader = ({
   propertyReference,
