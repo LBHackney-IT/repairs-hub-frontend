@@ -1,9 +1,11 @@
 import { WorkOrder } from '@/root/src/models/workOrder'
 import Tabs from '..'
 import { TabName } from '../types'
-import { useContext, useMemo } from 'react'
+import { useContext } from 'react'
 import UserContext from '../../UserContext'
 import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
+
+const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 
 const tabsList: TabName[] = [
   TabName.TasksAndSors,
@@ -34,13 +36,11 @@ const WorkOrderViewTabs = (props: Props) => {
   const { user } = useContext(UserContext)
 
   // Contractor cannot view RelatedWorkOrders tab
-  const filteredTabs = useMemo(
-    () =>
-      canSeeRelatedWorkOrdersTab(user)
-        ? tabsList
-        : tabsList.filter((x) => x !== TabName.RelatedWorkOrders),
-    [user]
-  )
+  const filteredTabs =
+    !canSeeRelatedWorkOrdersTab(user) ||
+    NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED !== 'true'
+      ? tabsList.filter((x) => x !== TabName.RelatedWorkOrders)
+      : tabsList
 
   return (
     <Tabs
