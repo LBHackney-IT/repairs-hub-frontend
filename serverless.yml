@@ -55,6 +55,7 @@ functions:
       AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/authorisation-managers-group}
       BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/budget-code-officer-group}
       DATA_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/data-admin-group}
+      FOLLOWON_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/followon-admin-group}
       CONFIGURATION_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/configuration-api-url}
       CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}

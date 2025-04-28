@@ -78,10 +78,16 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     return tradeCode == oohTradeCode
   }
 
-  const onFormSubmit = async (formData) => {
+  const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
 
     try {
+      const params = {}
+
+      if (parentWorkOrderId != null) {
+        params['parentWorkOrderId'] = parentWorkOrderId
+      }
+
       const {
         id,
         statusCode,
@@ -91,6 +97,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
         method: 'post',
         path: `/api/workOrders/schedule`,
         requestData: formData,
+        params,
       })
       setWorkOrderReference(id)
 
