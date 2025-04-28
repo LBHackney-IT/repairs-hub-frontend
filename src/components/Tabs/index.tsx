@@ -7,14 +7,15 @@ import VariationSummaryTab from './VariationSummaryTab'
 import PhotosTab from '../WorkOrder/Photos/PhotosTab'
 import { WorkOrder } from '../../models/workOrder'
 import RelatedWorkOrdersView from '../WorkOrders/RelatedWorkOrdersView/RelatedWorkOrdersView'
+import { TabName } from './types'
 
 interface Props {
-  tabsList: string[]
-  propertyReference: string
-  workOrderReference: string
-  tasksAndSors: any // not sure
-  budgetCode: any
-  workOrder: WorkOrder
+  tabsList: TabName[]
+  propertyReference?: string
+  workOrderReference?: string
+  tasksAndSors?: any // not sure
+  budgetCode?: any
+  workOrder?: WorkOrder
 }
 
 const Tabs = (props: Props) => {
