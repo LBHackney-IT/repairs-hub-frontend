@@ -133,6 +133,7 @@ exports[`MobileWorkingCloseWorkOrderForm component - when follow-on functionalit
           <button
             class="govuk-button lbh-button"
             data-module="govuk-button"
+            id="submit-work-order-close"
             type="submit"
           >
             Close work order
@@ -273,6 +274,7 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
           <button
             class="govuk-button lbh-button"
             data-module="govuk-button"
+            id="submit-work-order-close"
             type="submit"
           >
             Close work order

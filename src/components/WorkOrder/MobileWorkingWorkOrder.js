@@ -228,7 +228,10 @@ const MobileWorkingWorkOrder = ({
                 {renderOperativeManagementLink(operativesCount)}
 
                 {workOrder?.startTime ? (
-                  <PrimarySubmitButton label="Confirm" />
+                  <PrimarySubmitButton
+                    id="submit-work-order-details-confirm"
+                    label="Confirm"
+                  />
                 ) : (
                   <div className="govuk-form-group lbh-form-group">
                     <Button

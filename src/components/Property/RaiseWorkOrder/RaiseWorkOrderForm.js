@@ -336,7 +336,10 @@ const RaiseWorkOrderForm = ({
               />
             )}
 
-            <PrimarySubmitButton label="Create work order" />
+            <PrimarySubmitButton
+              id="submit-work-order-create"
+              label="Create work order"
+            />
           </form>
         </div>
       </div>
