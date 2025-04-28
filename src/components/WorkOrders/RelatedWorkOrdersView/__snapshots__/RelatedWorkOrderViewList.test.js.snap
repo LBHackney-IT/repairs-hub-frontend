@@ -256,3 +256,13 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
   </ul>
 </DocumentFragment>
 `;
+
+exports[`RelatedWorkOrderViewList component should render when no related work orders 1`] = `
+<DocumentFragment>
+  <p
+    class="lbh-body-s"
+  >
+    No related work orders
+  </p>
+</DocumentFragment>
+`;
