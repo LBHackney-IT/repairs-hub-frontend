@@ -142,7 +142,10 @@ const MobileWorkingCloseWorkOrderForm = ({
               onClick={viewFollowOnDetailsPage}
             />
           ) : (
-            <PrimarySubmitButton label={`Close work order`} />
+            <PrimarySubmitButton
+              id="submit-work-order-close"
+              label="Close work order"
+            />
           )}
         </div>
 
@@ -205,7 +208,10 @@ const MobileWorkingCloseWorkOrderForm = ({
               )}
             </div>
 
-            <PrimarySubmitButton label="Close work order" />
+            <PrimarySubmitButton
+              id="submit-work-order-close"
+              label="Close work order"
+            />
           </div>
         )}
       </form>

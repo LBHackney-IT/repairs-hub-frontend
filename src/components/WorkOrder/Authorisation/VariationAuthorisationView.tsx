@@ -237,7 +237,10 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                   )}
 
                   {selectedOption === APPROVE_REQUEST && !showSummary && (
-                    <PrimarySubmitButton label="Submit" />
+                    <PrimarySubmitButton
+                      id="submit-variation-request-approve"
+                      label="Submit"
+                    />
                   )}
 
                   {selectedOption === REJECT_REQUEST && !showSummary && (
@@ -252,7 +255,10 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                         defaultValue={rejectionReasonToShow}
                       />
 
-                      <PrimarySubmitButton label="Continue" />
+                      <PrimarySubmitButton
+                        id="submit-variation-request-reject"
+                        label="Continue"
+                      />
                     </>
                   )}
 
@@ -274,7 +280,10 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
                           </Link>
                         </span>
                       </div>
-                      <PrimarySubmitButton label="Submit" />
+                      <PrimarySubmitButton
+                        id="submit-variation-request-rejection-reason"
+                        label="Submit"
+                      />
                     </>
                   )}
                 </form>

@@ -74,6 +74,7 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
               <button
                 class="govuk-button lbh-button"
                 data-module="govuk-button"
+                id="submit-work-order-edit"
                 style="margin: 0px;"
                 type="submit"
               >

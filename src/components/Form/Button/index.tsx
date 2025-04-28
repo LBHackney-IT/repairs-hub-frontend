@@ -1,6 +1,6 @@
 import cx from 'classnames'
 
-interface Props {
+export interface Props {
   onClick: () => void
   label: string
   type: 'submit' | 'reset' | 'button'
