@@ -38,6 +38,7 @@ const FollowOnLookup = (props: Props) => {
           PageSize: 5,
           PageNumber: 1,
           sort: 'dateraised:desc',
+          IncludeFollowOns: false,
         },
       })
 
