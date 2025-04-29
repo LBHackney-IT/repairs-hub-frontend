@@ -2686,6 +2686,7 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       <button
         class="govuk-button lbh-button"
         data-module="govuk-button"
+        id="submit-work-order-details-confirm"
         type="submit"
       >
         Confirm

@@ -90,6 +90,7 @@ exports[`NotesForm component should render properly when display form is true 1`
           <button
             class="govuk-button lbh-button"
             data-module="govuk-button"
+            id="submit-note-create"
             type="submit"
           >
             Publish note

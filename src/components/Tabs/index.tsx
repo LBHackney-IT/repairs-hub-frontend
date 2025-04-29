@@ -5,15 +5,29 @@ import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
 import NotesView from '../WorkOrder/Notes/NotesView'
 import VariationSummaryTab from './VariationSummaryTab'
 import PhotosTab from '../WorkOrder/Photos/PhotosTab'
+import { WorkOrder } from '../../models/workOrder'
+import RelatedWorkOrdersView from '../WorkOrders/RelatedWorkOrdersView/RelatedWorkOrdersView'
+import { TabName } from './types'
 
-const Tabs = ({
-  tabsList,
-  propertyReference,
-  workOrderReference,
-  tasksAndSors,
-  budgetCode,
-  workOrder,
-}) => {
+interface Props {
+  tabsList: TabName[]
+  propertyReference?: string
+  workOrderReference?: string
+  tasksAndSors?: any // not sure
+  budgetCode?: any
+  workOrder?: WorkOrder
+}
+
+const Tabs = (props: Props) => {
+  const {
+    tabsList,
+    propertyReference,
+    workOrderReference,
+    tasksAndSors,
+    budgetCode,
+    workOrder,
+  } = props
+
   const router = useRouter()
 
   const formatTabNameToId = (tabName) => {
@@ -42,10 +56,17 @@ const Tabs = ({
             tabName={tabName}
           />
         )
+      case 'related-work-orders-tab':
+        return (
+          <RelatedWorkOrdersView
+            workOrderReference={workOrderReference}
+            tabName={tabName}
+          />
+        )
+
       case 'tasks-and-sors-tab':
         return (
           <TasksAndSorsView
-            workOrderReference={workOrderReference}
             tabName={tabName}
             tasksAndSors={tasksAndSors}
             budgetCode={budgetCode}
@@ -61,12 +82,7 @@ const Tabs = ({
           />
         )
       case 'pending-variation-tab':
-        return (
-          <VariationSummaryTab
-            workOrderReference={workOrderReference}
-            tabName={tabName}
-          />
-        )
+        return <VariationSummaryTab workOrderReference={workOrderReference} />
       case 'photos-tab':
         return (
           <PhotosTab
@@ -84,7 +100,7 @@ const Tabs = ({
     }
   }
 
-  let activeTabId = formatTabNameToId(activeTab)
+  const activeTabId = formatTabNameToId(activeTab)
 
   return (
     <div
@@ -113,7 +129,7 @@ const Tabs = ({
       </ul>
 
       {tabsList.map((tab, i) => {
-        let tabId = formatTabNameToId(tab)
+        const tabId = formatTabNameToId(tab)
 
         return (
           <div

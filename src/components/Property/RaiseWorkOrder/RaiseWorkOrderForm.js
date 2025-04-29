@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
 import BackButton from '../../Layout/BackButton'
@@ -20,6 +20,9 @@ import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
+import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
+import UserContext from '../../UserContext'
+import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 
 const RaiseWorkOrderForm = ({
   propertyReference,
@@ -50,9 +53,18 @@ const RaiseWorkOrderForm = ({
   setIsIncrementalSearchEnabled,
   setPriorities,
 }) => {
-  const { register, handleSubmit, errors, setValue, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    errors,
+    setValue,
+    getValues,
+    watch,
+  } = useForm({
     defaultValues: { ...formState },
   })
+
+  const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState()
@@ -79,7 +91,13 @@ const RaiseWorkOrderForm = ({
           : daysInHours(priority.daysToComplete),
     })
 
-    onFormSubmit(scheduleWorkOrderFormData)
+    // follow-on parent
+    const parentWorkOrderId =
+      formData?.isFollowOn === 'true' && formData?.parentWorkOrder
+        ? formData.parentWorkOrder
+        : null
+
+    onFormSubmit(scheduleWorkOrderFormData, parentWorkOrderId)
   }
 
   const getPropertyInfoOnLegalDisrepair = (propertyReference) => {
@@ -210,6 +228,15 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
+            {canAssignFollowOnRelationship(user) && (
+              <RaiseWorkOrderFollowOn
+                register={register}
+                errors={errors}
+                propertyReference={propertyReference}
+                watch={watch}
+              />
+            )}
+
             <TradeContractorRateScheduleItemView
               register={register}
               errors={errors}
@@ -309,7 +336,10 @@ const RaiseWorkOrderForm = ({
               />
             )}
 
-            <PrimarySubmitButton label="Create work order" />
+            <PrimarySubmitButton
+              id="submit-work-order-create"
+              label="Create work order"
+            />
           </form>
         </div>
       </div>

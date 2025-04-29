@@ -34,7 +34,10 @@ const OperativeForm = ({
             currentUserPayrollNumber={currentUserPayrollNumber}
           />
 
-          <PrimarySubmitButton label={'Confirm'} />
+          <PrimarySubmitButton
+            id="submit-work-order-operative-add"
+            label={'Confirm'}
+          />
         </form>
       </div>
     </>

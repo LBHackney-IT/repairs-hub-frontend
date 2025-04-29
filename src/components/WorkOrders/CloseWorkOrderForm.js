@@ -311,7 +311,10 @@ const CloseWorkOrderForm = ({
           defaultValue={notes}
         />
 
-        <PrimarySubmitButton label="Close work order" />
+        <PrimarySubmitButton
+          id="submit-work-order-close"
+          label="Close work order"
+        />
       </form>
     </div>
   )

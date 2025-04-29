@@ -8,6 +8,7 @@ import MultiButton from '../Layout/MultiButton'
 
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
+import FollowOnFlag from '../Flags/FollowOnFlag'
 
 const WorkOrderDetails = ({
   property,
@@ -67,6 +68,13 @@ const WorkOrderDetails = ({
               )}
           </GridColumn>
         </GridRow>
+
+        {workOrder?.isFollowOn && (
+          <div className="govuk-!-margin-top-2">
+            <FollowOnFlag />
+          </div>
+        )}
+
         <p className="lbh-body-m">{workOrder.description}</p>
 
         <WorkOrderHeader

@@ -95,7 +95,10 @@ const ConfirmCloseWorkOrderWithoutPhotosForm = (props: Props) => {
 
           <div style={{ display: 'flex' }}>
             <div style={{ marginRight: '15px' }}>
-              <PrimarySubmitButton label="Submit" />
+              <PrimarySubmitButton
+                id="submit-work-order-close-confirm-without-photos"
+                label="Submit"
+              />
             </div>
 
             <div className="govuk-form-group lbh-form-group">

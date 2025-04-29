@@ -1,0 +1,156 @@
+import { render } from '@testing-library/react'
+import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
+
+describe('RelatedWorkOrderViewList component', () => {
+  it('should render properly', () => {
+    const props = {
+      hierarchy: {
+        rootParentId: 10008300,
+        workOrders: [
+          {
+            workOrder: {
+              reference: 10008300,
+              dateRaised: '2025-02-07T09:46:23.034309Z',
+              lastUpdated: null,
+              priority: '[N] NORMAL',
+              priorityCode: 4,
+              property: '13 Pitcairn House',
+              propertyPostCode: 'E9 6PT',
+              owner: 'HH General Building Repai',
+              description:
+                'PLM - tenant reporting water tank in the kitchen has never been changed and other properties have - Please inspect and report',
+              propertyReference: '00023401',
+              tradeCode: 'PL',
+              tradeDescription: 'Plumbing - PL',
+              status: 'In Progress',
+              drsSyncStatus: null,
+              timeOrderSentToDrs: null,
+              appointmentReason: null,
+              bookingLifeCycleStatus: null,
+            },
+            isRoot: true,
+            isSelf: true,
+            directParentId: 10008300,
+          },
+          {
+            workOrder: {
+              reference: 10000929,
+              dateRaised: '2022-03-30T13:29:51.239905Z',
+              lastUpdated: null,
+              priority: '5 [N] NORMAL',
+              priorityCode: 4,
+              property: 'Booster Pump 1-40 Vanner Point 4 Wick Road',
+              propertyPostCode: 'E9 5AX',
+              owner: 'Purdy Contracts (P) Ltd',
+              description: 'rd',
+              propertyReference: '00100033',
+              tradeCode: 'DR',
+              tradeDescription: 'Drainage - DR',
+              status: 'In Progress',
+              drsSyncStatus: null,
+              timeOrderSentToDrs: null,
+              appointmentReason: null,
+              bookingLifeCycleStatus: null,
+            },
+            isRoot: false,
+            isSelf: false,
+            directParentId: 10000897,
+          },
+          {
+            workOrder: {
+              reference: 10000897,
+              dateRaised: '2022-02-10T17:28:27.827869Z',
+              lastUpdated: null,
+              priority: '9 [P] PLANNED MAINT',
+              priorityCode: 9,
+              property: '12 Pitcairn House St Thomass Square',
+              propertyPostCode: 'E9 6PT',
+              owner: 'HH Surveyors/Inspector',
+              description: 'planned priority test 10/02',
+              propertyReference: '00023400',
+              tradeCode: 'SV',
+              tradeDescription: 'Surveyors Inspection - SV',
+              status: 'Cancelled',
+              drsSyncStatus: null,
+              timeOrderSentToDrs: null,
+              appointmentReason: null,
+              bookingLifeCycleStatus: null,
+            },
+            isRoot: false,
+            isSelf: false,
+            directParentId: 10000878,
+          },
+          {
+            workOrder: {
+              reference: 10000878,
+              dateRaised: '2022-01-28T15:35:00.162537Z',
+              lastUpdated: null,
+              priority: 'Surveying 60 working days',
+              priorityCode: 6,
+              property: 'Booster Pump 1-40 Vanner Point 4 Wick Road',
+              propertyPostCode: 'E9 5AX',
+              owner: 'Herts Heritage Ltd',
+              description: 'rd',
+              propertyReference: '00100033',
+              tradeCode: 'PL',
+              tradeDescription: 'Plumbing - PL',
+              status: 'Completed',
+              drsSyncStatus: null,
+              timeOrderSentToDrs: null,
+              appointmentReason: null,
+              bookingLifeCycleStatus: null,
+            },
+            isRoot: false,
+            isSelf: false,
+            directParentId: 10001186,
+          },
+        ],
+      },
+    }
+
+    const { asFragment } = render(
+      <RelatedWorkOrderViewList hierarchy={props.hierarchy} />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('should render when no related work orders', () => {
+    const props = {
+      hierarchy: {
+        rootParentId: 10008300,
+        workOrders: [
+          {
+            workOrder: {
+              reference: 10008300,
+              dateRaised: '2025-02-07T09:46:23.034309Z',
+              lastUpdated: null,
+              priority: '[N] NORMAL',
+              priorityCode: 4,
+              property: '13 Pitcairn House',
+              propertyPostCode: 'E9 6PT',
+              owner: 'HH General Building Repai',
+              description:
+                'PLM - tenant reporting water tank in the kitchen has never been changed and other properties have - Please inspect and report',
+              propertyReference: '00023401',
+              tradeCode: 'PL',
+              tradeDescription: 'Plumbing - PL',
+              status: 'In Progress',
+              drsSyncStatus: null,
+              timeOrderSentToDrs: null,
+              appointmentReason: null,
+              bookingLifeCycleStatus: null,
+            },
+            isRoot: true,
+            isSelf: true,
+            directParentId: 10008300,
+          },
+        ],
+      },
+    }
+
+    const { asFragment } = render(
+      <RelatedWorkOrderViewList hierarchy={props.hierarchy} />
+    )
+    expect(asFragment()).toMatchSnapshot()
+  })
+})

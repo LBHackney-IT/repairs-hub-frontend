@@ -1,0 +1,268 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RelatedWorkOrderViewList component should render properly 1`] = `
+<DocumentFragment>
+  <ul
+    class="lbh-body-m wo-hierarchy-list"
+  >
+    <li
+      class="wo-hierarchy-list-row wo-hierarchy-list-row--self"
+    >
+      <div
+        class="wo-hierarchy-row-left"
+      >
+        <span
+          class="wo-hierarchy-left-bar"
+        />
+        <span
+          class="wo-hierarchy-left-circle"
+        />
+      </div>
+      <div
+        class="wo-hierarchy-row-right"
+      >
+        <div
+          class="wo-hierarchy-bottom-container"
+        >
+          <div
+            class="wo-hierarchy-date"
+          >
+            7 February 2025
+          </div>
+          <div
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
+          >
+            <span
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status govuk-!-margin-0"
+            >
+              In progress
+            </span>
+          </div>
+        </div>
+        <div
+          class="wo-hierarchy-link-and-trade"
+        >
+          <span
+            class="wo-hierarchy-link"
+          >
+            <a
+              href="/work-orders/10008300"
+            >
+              10008300
+            </a>
+          </span>
+          <div
+            style="margin-top: 0px;"
+          >
+            Plumbing - PL
+          </div>
+        </div>
+        <p
+          style="margin-top: 0px;"
+        >
+          PLM - tenant reporting water tank in the kitchen has never been changed and other properties have - Please inspect and report
+        </p>
+        <hr
+          class="wo-hierarchy-hr"
+        />
+      </div>
+    </li>
+    <li
+      class="wo-hierarchy-list-row"
+    >
+      <div
+        class="wo-hierarchy-row-left"
+      >
+        <span
+          class="wo-hierarchy-left-bar"
+        />
+        <span
+          class="wo-hierarchy-left-circle"
+        />
+      </div>
+      <div
+        class="wo-hierarchy-row-right"
+      >
+        <div
+          class="wo-hierarchy-bottom-container"
+        >
+          <div
+            class="wo-hierarchy-date"
+          >
+            30 March 2022
+          </div>
+          <div
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
+          >
+            <span
+              class="govuk-tag lbh-tag lbh-tag--status-in-progress work-order-status govuk-!-margin-0"
+            >
+              In progress
+            </span>
+          </div>
+        </div>
+        <div
+          class="wo-hierarchy-link-and-trade"
+        >
+          <span
+            class="wo-hierarchy-link"
+          >
+            <a
+              href="/work-orders/10000929"
+            >
+              10000929
+            </a>
+          </span>
+          <div
+            style="margin-top: 0px;"
+          >
+            Drainage - DR
+          </div>
+        </div>
+        <p
+          style="margin-top: 0px;"
+        >
+          rd
+        </p>
+        <hr
+          class="wo-hierarchy-hr"
+        />
+      </div>
+    </li>
+    <li
+      class="wo-hierarchy-list-row"
+    >
+      <div
+        class="wo-hierarchy-row-left"
+      >
+        <span
+          class="wo-hierarchy-left-bar"
+        />
+        <span
+          class="wo-hierarchy-left-circle"
+        />
+      </div>
+      <div
+        class="wo-hierarchy-row-right"
+      >
+        <div
+          class="wo-hierarchy-bottom-container"
+        >
+          <div
+            class="wo-hierarchy-date"
+          >
+            10 February 2022
+          </div>
+          <div
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
+          >
+            <span
+              class="govuk-tag lbh-tag lbh-tag--status-cancelled work-order-status govuk-!-margin-0"
+            >
+              Cancelled
+            </span>
+          </div>
+        </div>
+        <div
+          class="wo-hierarchy-link-and-trade"
+        >
+          <span
+            class="wo-hierarchy-link"
+          >
+            <a
+              href="/work-orders/10000897"
+            >
+              10000897
+            </a>
+          </span>
+          <div
+            style="margin-top: 0px;"
+          >
+            Surveyors Inspection - SV
+          </div>
+        </div>
+        <p
+          style="margin-top: 0px;"
+        >
+          planned priority test 10/02
+        </p>
+        <hr
+          class="wo-hierarchy-hr"
+        />
+      </div>
+    </li>
+    <li
+      class="wo-hierarchy-list-row"
+    >
+      <div
+        class="wo-hierarchy-row-left"
+      >
+        <span
+          class="wo-hierarchy-left-bar"
+        />
+        <span
+          class="wo-hierarchy-left-circle"
+        />
+      </div>
+      <div
+        class="wo-hierarchy-row-right"
+      >
+        <div
+          class="wo-hierarchy-bottom-container"
+        >
+          <div
+            class="wo-hierarchy-date"
+          >
+            28 January 2022
+          </div>
+          <div
+            style="margin-top: 0px; display: flex; flex-direction: row; justify-content: flex-end; align-items: center;"
+          >
+            <span
+              class="govuk-tag lbh-tag lbh-tag--status-completed work-order-status govuk-!-margin-0"
+            >
+              Completed
+            </span>
+          </div>
+        </div>
+        <div
+          class="wo-hierarchy-link-and-trade"
+        >
+          <span
+            class="wo-hierarchy-link"
+          >
+            <a
+              href="/work-orders/10000878"
+            >
+              10000878
+            </a>
+          </span>
+          <div
+            style="margin-top: 0px;"
+          >
+            Plumbing - PL
+          </div>
+        </div>
+        <p
+          style="margin-top: 0px;"
+        >
+          rd
+        </p>
+        <hr
+          class="wo-hierarchy-hr"
+        />
+      </div>
+    </li>
+  </ul>
+</DocumentFragment>
+`;
+
+exports[`RelatedWorkOrderViewList component should render when no related work orders 1`] = `
+<DocumentFragment>
+  <p
+    class="lbh-body-s"
+  >
+    No related work orders
+  </p>
+</DocumentFragment>
+`;

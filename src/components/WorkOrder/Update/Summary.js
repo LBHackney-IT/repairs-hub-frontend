@@ -76,7 +76,10 @@ const WorkOrderUpdateSummary = ({
           />
         )}
 
-        <PrimarySubmitButton label="Confirm and close" />
+        <PrimarySubmitButton
+          id="submit-work-order-close"
+          label="Confirm and close"
+        />
       </form>
     </div>
   )

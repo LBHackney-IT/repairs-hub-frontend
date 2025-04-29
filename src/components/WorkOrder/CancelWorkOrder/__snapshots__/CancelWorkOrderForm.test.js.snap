@@ -135,6 +135,7 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
             <button
               class="govuk-button lbh-button"
               data-module="govuk-button"
+              id="submit-work-order-cancel"
               type="submit"
             >
               Cancel repair
@@ -342,6 +343,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             <button
               class="govuk-button lbh-button"
               data-module="govuk-button"
+              id="submit-work-order-cancel"
               type="submit"
             >
               Cancel repair
@@ -549,6 +551,7 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
             <button
               class="govuk-button lbh-button"
               data-module="govuk-button"
+              id="submit-work-order-cancel"
               type="submit"
             >
               Cancel repair

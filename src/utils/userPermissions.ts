@@ -55,6 +55,10 @@ export const canSeeWorkOrders = (user) => {
   )
 }
 
+export const canSeeRelatedWorkOrdersTab = (user) => {
+  return !user.hasContractorPermissions
+}
+
 export const canSeeOperativeWorkOrders = (user) => {
   return user.hasOperativePermissions
 }
@@ -76,3 +80,6 @@ export const canAttendOwnWorkOrder = (user) => {
 
 export const canAssignBudgetCode = (user) =>
   user.hasBudgetCodeOfficerPermissions
+
+export const canAssignFollowOnRelationship = (user) =>
+  user.hasFollowOnAdminPermissions
