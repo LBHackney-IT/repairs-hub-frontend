@@ -438,6 +438,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -903,6 +909,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -1251,6 +1263,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -1647,6 +1665,12 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -1824,6 +1848,12 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
               In Progress: 22 Jan 2021, 18:15
             </strong>
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -2131,6 +2161,12 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -2534,6 +2570,12 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -2935,6 +2977,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -3352,6 +3400,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -3658,6 +3712,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
-import { TabName } from '../../Tabs/types'
+import { TabName } from '../../Tabs/tabNames'
 import { WorkOrder } from '@/root/src/models/workOrder'
 
 interface Props {

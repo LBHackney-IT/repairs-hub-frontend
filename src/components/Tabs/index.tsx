@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import { WorkOrder } from '../../models/workOrder'
-import { TabName, TABS_REGISTRY } from './types'
+import { TabName } from './tabNames'
 import classNames from 'classnames'
+import { TAB_REGISTRY } from './tabRegistry'
 
 interface Props {
   tabsList: TabName[]
@@ -35,8 +36,8 @@ const Tabs = (props: Props) => {
 
     if (currentQuery === null) return firstTab
 
-    const matchingTabs = Object.keys(TABS_REGISTRY)
-      .map((x) => TABS_REGISTRY[x])
+    const matchingTabs = Object.keys(TAB_REGISTRY)
+      .map((x) => TAB_REGISTRY[x])
       .filter((x) => x.id === currentQuery)
 
     if (matchingTabs.length === 0) return firstTab
@@ -53,12 +54,12 @@ const Tabs = (props: Props) => {
       pathname: router.pathname,
       query: {
         ...router.query,
-        [QUERY_KEY]: TABS_REGISTRY[newTab].id,
+        [QUERY_KEY]: TAB_REGISTRY[newTab].id,
       },
     })
   }
 
-  const TabComponent = TABS_REGISTRY[currentTab].component
+  const TabComponent = TAB_REGISTRY[currentTab].component
 
   return (
     <div>

@@ -4,7 +4,7 @@ import NormalNoteContent from './NoteContent/NormalNoteContent'
 import NoteWithImageContent from './NoteContent/NoteWithImageContent'
 import CompletedNoteContent from './NoteContent/CompletedNoteContent'
 import { WorkOrder } from '@/root/src/models/workOrder'
-import { TabName } from '../../Tabs/types'
+import { TabName } from '../../Tabs/tabNames'
 
 const NoteInfo = ({ note }: { note: Note }) => {
   const { time, user, userEmail } = note

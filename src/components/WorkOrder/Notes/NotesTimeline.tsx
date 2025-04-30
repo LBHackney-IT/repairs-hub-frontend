@@ -1,7 +1,7 @@
 import { WorkOrder } from '@/root/src/models/workOrder'
 import NoteEntry from './NoteEntry'
 import { Note } from './types'
-import { TabName } from '../../Tabs/types'
+import { TabName } from '../../Tabs/tabNames'
 
 interface Props {
   notes: Note[]

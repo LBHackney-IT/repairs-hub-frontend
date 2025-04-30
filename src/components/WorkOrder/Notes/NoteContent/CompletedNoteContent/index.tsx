@@ -1,7 +1,7 @@
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { Note } from '../../types'
 import generateMessage from './generateMessage'
-import { TabName } from '@/root/src/components/Tabs/types'
+import { TabName } from '@/root/src/components/Tabs/tabNames'
 
 interface Props {
   note: Note
