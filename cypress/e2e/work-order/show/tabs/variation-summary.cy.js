@@ -39,7 +39,7 @@ describe('Pending variation tab on work-order page', () => {
       // Now select Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click()
 
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation')
         cy.contains('Summary of Tasks and SORs')
 
@@ -136,7 +136,7 @@ describe('Pending variation tab on work-order page', () => {
 
       // Now select Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click()
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation').should('not.exist')
         cy.contains('Summary of Tasks and SORs')
 
@@ -233,7 +233,7 @@ describe('Pending variation tab on work-order page', () => {
 
       // Now select Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click()
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('a', 'Variation Authorisation').should('not.exist')
         cy.contains('Summary of Tasks and SORs')
 
@@ -367,7 +367,7 @@ describe('Pending variation tab on work-order page', () => {
 
       // Now select Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click({ force: true })
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
@@ -403,7 +403,7 @@ describe('Pending variation tab on work-order page', () => {
 
       // Now select Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click({ force: true })
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
@@ -439,7 +439,7 @@ describe('Pending variation tab on work-order page', () => {
 
       // Now select Variation Pending variation tab
       cy.contains('.tabs-button', 'Pending variation').click({ force: true })
-      cy.contains('.tabs-button', 'Pending variation').within(() => {
+      cy.get('#pending-variation-tab').within(() => {
         cy.contains('There are no variations for this work order.')
       })
       // Run lighthouse audit for accessibility report
