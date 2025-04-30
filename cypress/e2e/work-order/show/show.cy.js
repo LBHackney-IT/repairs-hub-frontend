@@ -347,8 +347,7 @@ describe('Show work order page', () => {
           // '@photos'
         ])
 
-        cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
-
+        cy.contains('.tabs-button', 'Tasks and SORs')
         cy.contains('.tabs-button', 'Work orders history').click()
 
         cy.wait('@workOrdersHistoryRequest')
