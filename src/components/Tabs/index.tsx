@@ -82,15 +82,17 @@ const Tabs = (props: Props) => {
 
       <hr className="tabs-hr" />
 
-      <TabComponent
-        tabName={currentTab}
-        propertyReference={propertyReference}
-        workOrderReference={workOrderReference}
-        tasksAndSors={tasksAndSors}
-        budgetCode={budgetCode}
-        workOrder={workOrder}
-        setActiveTab={setActiveTab}
-      />
+      <div id={TAB_REGISTRY[currentTab].id}>
+        <TabComponent
+          tabName={currentTab}
+          propertyReference={propertyReference}
+          workOrderReference={workOrderReference}
+          tasksAndSors={tasksAndSors}
+          budgetCode={budgetCode}
+          workOrder={workOrder}
+          setActiveTab={setActiveTab}
+        />
+      </div>
     </div>
   )
 }
