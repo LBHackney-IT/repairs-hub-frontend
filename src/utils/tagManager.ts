@@ -14,11 +14,15 @@ declare global {
  * @returns {void}
  */
 export function emitTagManagerEvent(eventData: GTMEvent): void {
-  if (typeof window !== 'undefined') {
-    window.dataLayer = window.dataLayer || []
-    window.dataLayer.push(eventData)
-    console.log('GTM event emitted:', eventData)
-  } else {
-    console.warn('Window object not found. GTM event not emitted:', eventData)
+  try {
+    if (typeof window !== 'undefined') {
+      window.dataLayer = window.dataLayer || []
+      window.dataLayer.push(eventData)
+      console.log('GTM event emitted:', eventData)
+    } else {
+      console.warn('Window object not found. GTM event not emitted:', eventData)
+    }
+  } catch (error) {
+    console.error('Error emitting GTM event:', error)
   }
 }

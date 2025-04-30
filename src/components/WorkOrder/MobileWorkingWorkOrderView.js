@@ -250,7 +250,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
       const isNoAccess = data.reason === 'No Access'
 
-      try {
+      if (featureToggles?.googleTagManagerEnabled)
         emitTagManagerEvent({
           event: 'work-order-closed',
           workOrderClosedDetails: {
@@ -260,9 +260,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             followOnPhotosUploaded: followOnFiles?.length > 0,
           },
         })
-      } catch (e) {
-        console.error('Error sending tag manager event', e)
-      }
 
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
