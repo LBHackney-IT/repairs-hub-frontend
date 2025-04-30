@@ -35,7 +35,7 @@ const AppointmentDetails = ({ workOrder }: Props) => {
               <>
                 {canSeeAppointmentDetailsInfo(user) &&
                   workOrder.appointment &&
-                  workOrder.status !== STATUS_CANCELLED && (
+                  workOrder.status !== STATUS_CANCELLED.description && (
                     <AppointmentDetailsInfo workOrder={workOrder} />
                   )}
 
