@@ -1,21 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/router'
-import WorkOrdersHistoryView from '../Property/WorkOrdersHistory/WorkOrdersHistoryView'
-import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
-import NotesView from '../WorkOrder/Notes/NotesView'
-import VariationSummaryTab from './VariationSummaryTab'
-import PhotosTab from '../WorkOrder/Photos/PhotosTab'
 import { WorkOrder } from '../../models/workOrder'
-import RelatedWorkOrdersView from '../WorkOrders/RelatedWorkOrdersView/RelatedWorkOrdersView'
-import { TabName } from './types'
+import { TabName, TABS_REGISTRY } from './types'
+import classNames from 'classnames'
 
 interface Props {
   tabsList: TabName[]
-  propertyReference?: string
-  workOrderReference?: string
-  tasksAndSors?: any // not sure
-  budgetCode?: any
-  workOrder?: WorkOrder
+  propertyReference: string
+  workOrderReference: string
+  tasksAndSors: any // not sure
+  budgetCode: any
+  workOrder: WorkOrder
+  setActiveTab: (tab: string) => void
 }
 
 const Tabs = (props: Props) => {
@@ -26,121 +22,74 @@ const Tabs = (props: Props) => {
     tasksAndSors,
     budgetCode,
     workOrder,
+    setActiveTab,
   } = props
 
   const router = useRouter()
 
-  const formatTabNameToId = (tabName) => {
-    if (tabName.includes('tab')) {
-      return tabName
-    }
+  const QUERY_KEY = 'currentTab'
 
-    return `${tabName.replace(/ +/g, '-').toLowerCase()}-tab`
-  }
-  const [activeTab, setActiveTab] = useState(
-    router.asPath.split('#')[1] || formatTabNameToId(tabsList[0])
-  )
+  const [currentTab, setCurrentTab] = useState<TabName>(() => {
+    const firstTab = tabsList[0]
+    const currentQuery = router?.query?.[QUERY_KEY] ?? null
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      require('lbh-frontend').initAll()
-    }
-  }, [])
+    if (currentQuery === null) return firstTab
 
-  const renderTabComponentView = (activeTabId, tabName) => {
-    switch (activeTabId) {
-      case 'work-orders-history-tab':
-        return (
-          <WorkOrdersHistoryView
-            propertyReference={propertyReference}
-            tabName={tabName}
-          />
-        )
-      case 'related-work-orders-tab':
-        return (
-          <RelatedWorkOrdersView
-            workOrderReference={workOrderReference}
-            tabName={tabName}
-          />
-        )
+    const matchingTabs = Object.keys(TABS_REGISTRY)
+      .map((x) => TABS_REGISTRY[x])
+      .filter((x) => x.id === currentQuery)
 
-      case 'tasks-and-sors-tab':
-        return (
-          <TasksAndSorsView
-            tabName={tabName}
-            tasksAndSors={tasksAndSors}
-            budgetCode={budgetCode}
-          />
-        )
-      case 'notes-tab':
-        return (
-          <NotesView
-            workOrderReference={workOrderReference}
-            workOrder={workOrder}
-            tabName={tabName}
-            setActiveTab={setActiveTab}
-          />
-        )
-      case 'pending-variation-tab':
-        return <VariationSummaryTab workOrderReference={workOrderReference} />
-      case 'photos-tab':
-        return (
-          <PhotosTab
-            workOrderReference={workOrderReference}
-            tabName={tabName}
-          />
-        )
-      default:
-        return (
-          <WorkOrdersHistoryView
-            propertyReference={propertyReference}
-            tabName={tabName}
-          />
-        )
-    }
+    if (matchingTabs.length === 0) return firstTab
+
+    return matchingTabs[0].name
+  })
+
+  const handleSelectTab = (newTab: TabName) => {
+    if (newTab === currentTab) return
+
+    setCurrentTab(() => newTab)
+
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        ...router.query,
+        [QUERY_KEY]: TABS_REGISTRY[newTab].id,
+      },
+    })
   }
 
-  const activeTabId = formatTabNameToId(activeTab)
+  const TabComponent = TABS_REGISTRY[currentTab].component
 
   return (
-    <div
-      className="govuk-tabs lbh-tabs govuk-!-display-none-print"
-      data-module="govuk-tabs"
-    >
-      <h2 className="govuk-tabs__title">Contents</h2>
-
-      <ul className="govuk-tabs__list hackney-tabs-list">
+    <div>
+      <ul className="tabs-list">
         {tabsList.map((tab, i) => {
           return (
-            <li key={i} className="govuk-tabs__list-item">
-              <a
-                onClick={(e) => {
-                  e.preventDefault()
-                  setActiveTab(tabsList.find((elem) => elem === tab))
-                }}
-                className="govuk-tabs__tab"
-                href={`#${formatTabNameToId(tab)}`}
+            <li key={i} className="tabs-list-item">
+              <button
+                onClick={() => handleSelectTab(tab)}
+                className={classNames('tabs-button', {
+                  active: tab === currentTab,
+                })}
               >
                 {tab}
-              </a>
+              </button>
             </li>
           )
         })}
       </ul>
 
-      {tabsList.map((tab, i) => {
-        const tabId = formatTabNameToId(tab)
+      <hr className="tabs-hr" />
 
-        return (
-          <div
-            key={i}
-            className="govuk-tabs__panel hackney-tabs-info hackney-tabs-panel"
-            id={tabId}
-          >
-            {activeTabId == tabId && renderTabComponentView(activeTabId, tab)}
-          </div>
-        )
-      })}
+      <TabComponent
+        tabName={currentTab}
+        propertyReference={propertyReference}
+        workOrderReference={workOrderReference}
+        tasksAndSors={tasksAndSors}
+        budgetCode={budgetCode}
+        workOrder={workOrder}
+        setActiveTab={setActiveTab}
+      />
     </div>
   )
 }
