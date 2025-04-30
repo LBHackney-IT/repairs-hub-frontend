@@ -28,20 +28,24 @@ exports[`Tabs component should render properly 1`] = `
     <hr
       class="tabs-hr"
     />
-    <h2
-      class="lbh-heading-h2"
+    <div
+      id="work-orders-history-tab"
     >
-      Work orders history
-    </h2>
-    <div>
-      <hr
-        class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
-      />
-      <h4
-        class="lbh-heading-h4"
+      <h2
+        class="lbh-heading-h2"
       >
-        There are no historical repairs for this property.
-      </h4>
+        Work orders history
+      </h2>
+      <div>
+        <hr
+          class="govuk-section-break govuk-section-break--l govuk-section-break--visible"
+        />
+        <h4
+          class="lbh-heading-h4"
+        >
+          There are no historical repairs for this property.
+        </h4>
+      </div>
     </div>
   </div>
 </DocumentFragment>
