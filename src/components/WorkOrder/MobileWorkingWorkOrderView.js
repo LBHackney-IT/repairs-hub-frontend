@@ -282,9 +282,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
   return (
     <>
-      <button onClick={() => emitTagManagerEvent({ event: 'test-event' })}>
-        Test
-      </button>
       {!workOrderProgressedToClose &&
         property &&
         property.address &&
