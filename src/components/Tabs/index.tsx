@@ -7,12 +7,12 @@ import { TAB_REGISTRY } from './tabRegistry'
 
 interface Props {
   tabsList: TabName[]
-  propertyReference: string
-  workOrderReference: string
-  tasksAndSors: any // not sure
-  budgetCode: any
-  workOrder: WorkOrder
-  setActiveTab: (tab: string) => void
+  propertyReference?: string
+  workOrderReference?: string
+  tasksAndSors?: any // not sure
+  budgetCode?: any
+  workOrder?: WorkOrder
+  setActiveTab?: (tabName: TabName) => void
 }
 
 const Tabs = (props: Props) => {
