@@ -90,6 +90,10 @@
 
   // self styles
   &-list-row--self &-left-circle {
-    background-color: #ddd;
+    // background-color: #ddd;
+    background-color: #eee;
+    border-width: 3px;
+    top: -26px;
+    left: -11px;
   }
 }
