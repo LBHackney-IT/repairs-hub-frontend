@@ -45,11 +45,9 @@ exports[`RelatedWorkOrderViewList component should render properly 1`] = `
           <span
             class="wo-hierarchy-link"
           >
-            <a
-              href="/work-orders/10008300"
-            >
+            <p>
               10008300
-            </a>
+            </p>
           </span>
           <div
             style="margin-top: 0px;"
