@@ -24,6 +24,8 @@ import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollo
 import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 
+const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
+
 const RaiseWorkOrderForm = ({
   propertyReference,
   address,
@@ -228,14 +230,15 @@ const RaiseWorkOrderForm = ({
             id="repair-request-form"
             onSubmit={handleSubmit(onSubmit)}
           >
-            {canAssignFollowOnRelationship(user) && (
-              <RaiseWorkOrderFollowOn
-                register={register}
-                errors={errors}
-                propertyReference={propertyReference}
-                watch={watch}
-              />
-            )}
+            {canAssignFollowOnRelationship(user) &&
+              NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED === 'true' && (
+                <RaiseWorkOrderFollowOn
+                  register={register}
+                  errors={errors}
+                  propertyReference={propertyReference}
+                  watch={watch}
+                />
+              )}
 
             <TradeContractorRateScheduleItemView
               register={register}
