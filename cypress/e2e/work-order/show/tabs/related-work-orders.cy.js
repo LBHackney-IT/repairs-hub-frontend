@@ -39,7 +39,7 @@ describe('Related work orders', () => {
 
       cy.visit('/work-orders/10000012')
 
-      cy.get('#tab_related-work-orders-tab').click()
+      cy.contains('.tabs-button', 'Related work orders').click()
 
       cy.wait('@getHierarchyRequest')
 
@@ -61,7 +61,7 @@ describe('Related work orders', () => {
 
       cy.visit('/work-orders/10000012')
 
-      cy.get('#tab_related-work-orders-tab').click()
+      cy.contains('.tabs-button', 'Related work orders').click()
 
       cy.wait('@getHierarchyRequest')
 

@@ -1,5 +1,5 @@
 import Tabs from '..'
-import { TabName } from '../types'
+import { TabName } from '../tabNames'
 
 const tabsList: TabName[] = [TabName.WorkOrderHistory]
 

@@ -347,9 +347,8 @@ describe('Show work order page', () => {
           // '@photos'
         ])
 
-        cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
-
-        cy.get('a[id="tab_work-orders-history-tab"]').click()
+        cy.contains('.tabs-button', 'Tasks and SORs')
+        cy.contains('.tabs-button', 'Work orders history').click()
 
         cy.wait('@workOrdersHistoryRequest')
 
@@ -362,7 +361,7 @@ describe('Show work order page', () => {
     })
   })
 
-  context.only('When logged in as an Operative', () => {
+  context('When logged in as an Operative', () => {
     beforeEach(() => {
       cy.clock(new Date('June 11 2021 13:49:15Z'))
 
