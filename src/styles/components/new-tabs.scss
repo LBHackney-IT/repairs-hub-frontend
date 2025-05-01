@@ -37,6 +37,7 @@
     &-list {
       grid-auto-flow: column;
       grid-column-gap: 5px;
+      grid-template-columns: minmax(auto, 200px);
     }
 
     &-button {
