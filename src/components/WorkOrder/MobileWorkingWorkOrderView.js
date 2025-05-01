@@ -22,6 +22,7 @@ import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
+import { emitTagManagerEvent } from '@/utils/tagManager'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -247,9 +248,22 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         requestData: closeWorkOrderFormData,
       })
 
+      const isNoAccess = data.reason === 'No Access'
+
+      if (featureToggles?.googleTagManagerEnabled)
+        emitTagManagerEvent({
+          event: 'work-order-closed',
+          workOrderClosedDetails: {
+            visitCompleted: !isNoAccess,
+            photosUploaded: workOrderFiles?.length > 0,
+            followOnRequested: followOnRequest !== null,
+            followOnPhotosUploaded: followOnFiles?.length > 0,
+          },
+        })
+
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'closed'
+          isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
       router.push('/')
