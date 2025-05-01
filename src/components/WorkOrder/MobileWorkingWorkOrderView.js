@@ -24,7 +24,7 @@ import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { emitTagManagerEvent } from '@/utils/tagManager'
 
-const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
+const MobileWorkingWorkOrderView = ({ workOrderReference, operativeId }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
   const [property, setProperty] = useState({})
