@@ -52,9 +52,13 @@ const RelatedWorkOrderViewList = ({ hierarchy }: Props) => {
             </div>
             <div className="wo-hierarchy-link-and-trade">
               <span className="wo-hierarchy-link">
-                <a href={`/work-orders/${workOrder.reference}`}>
-                  {workOrder.reference}
-                </a>
+                {isSelf ? (
+                  <p>{workOrder.reference}</p>
+                ) : (
+                  <a href={`/work-orders/${workOrder.reference}`}>
+                    {workOrder.reference}
+                  </a>
+                )}
               </span>
 
               <div style={{ marginTop: 0 }}>{workOrder.tradeDescription}</div>
