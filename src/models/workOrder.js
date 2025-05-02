@@ -14,11 +14,14 @@ export class WorkOrder {
   description
   externalAppointmentManagementUrl
   startTime
-  appointment
+  // appointment
   status
   dateRaised
   tradeDescription
   isFollowOn
+
+  closedDated
+  owner
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)

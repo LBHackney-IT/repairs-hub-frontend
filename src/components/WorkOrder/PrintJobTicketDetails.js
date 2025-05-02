@@ -98,12 +98,12 @@ const PrintJobTicketDetails = ({
               </tr>
               <tr>
                 <td className="lbh-body-s">
-                  <strong>
+                  {/* <strong>
                     {workOrder.operatives.length > 1
                       ? 'Operatives: '
                       : 'Operative: '}
-                  </strong>
-                  {workOrder.operatives.length > 0 &&
+                  </strong> */}
+                  {/* {workOrder.operatives.length > 0 &&
                     ((workOrder.appointment &&
                       workOrder.appointmentISODatePassed()) ||
                       readOnly) && (
@@ -112,7 +112,7 @@ const PrintJobTicketDetails = ({
                           .map((operative) => operative.name)
                           .join(', ')}`}
                       </>
-                    )}
+                    )} */}
                 </td>
               </tr>
               <tr>

@@ -13,13 +13,13 @@ const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
-  const [workOrder, setWorkOrder] = useState({})
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
   const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string | null>()
 
   const printClickHandler = (e) => {
     e.preventDefault()
@@ -45,7 +45,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrderPromise = frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
 
       const tasksAndSorsPromise = frontEndApiRequest({

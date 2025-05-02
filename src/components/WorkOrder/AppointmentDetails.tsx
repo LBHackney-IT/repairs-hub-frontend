@@ -10,12 +10,14 @@ import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
 import ScheduleAppointment from './ScheduleAppointment/ScheduleAppointment'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
+import { WorkOrderAppointmentDetails } from './WorkOrderHeader'
 
 interface Props {
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
 }
 
-const AppointmentDetails = ({ workOrder }: Props) => {
+const AppointmentDetails = ({ workOrder, appointmentDetails }: Props) => {
   const { user } = useContext(UserContext)
 
   return (
@@ -28,40 +30,47 @@ const AppointmentDetails = ({ workOrder }: Props) => {
         </div>
       )}
       {(canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
-        <div className="appointment-details">
-          <p className="govuk-!-font-size-14">Appointment details</p>
+        <div className="appointment-details" style={{ marginTop: 0 }}>
+          {/* <p className="govuk-!-font-size-14">Appointment details</p> */}
           <div className="lbh-body-s govuk-!-margin-0">
             {user && (
               <>
                 {canSeeAppointmentDetailsInfo(user) &&
-                  workOrder.appointment &&
+                  appointmentDetails?.appointment &&
                   workOrder.status !== STATUS_CANCELLED && (
-                    <AppointmentDetailsInfo workOrder={workOrder} />
+                    <AppointmentDetailsInfo
+                      appointmentDetails={appointmentDetails}
+                    />
                   )}
 
                 {canScheduleAppointment(user) &&
                   workOrder.canBeScheduled() &&
-                  (workOrder?.externalAppointmentManagementUrl ? (
+                  (appointmentDetails?.externalAppointmentManagementUrl ? (
                     <ScheduleAppointment
-                      externalAppointmentManagementUrl={
-                        workOrder.externalAppointmentManagementUrl
-                      }
-                      hasExistingAppointment={workOrder.appointment}
-                      workOrder={workOrder}
+                      hasExistingAppointment={!!appointmentDetails?.appointment}
                       workOrderReference={workOrder.reference}
+                      appointmentIsToday={workOrder.appointmentIsToday()}
+                      externalAppointmentManagementUrl={
+                        appointmentDetails?.externalAppointmentManagementUrl
+                      }
                     />
                   ) : (
                     <ScheduleInternalAppointmentLink
                       workOrderReference={workOrder.reference}
-                      hasExistingAppointment={workOrder.appointment}
+                      hasExistingAppointment={appointmentDetails?.appointment}
                       appointmentIsToday={workOrder.appointmentIsToday()}
                     />
                   ))}
 
                 {canSeeAppointmentDetailsInfo(user) &&
-                  !workOrder.appointment &&
+                  !appointmentDetails?.appointment &&
                   !workOrder.canBeScheduled() && (
-                    <p className="lbh-!-font-weight-bold">Not applicable</p>
+                    <p
+                      className="lbh-!-font-weight-bold"
+                      style={{ marginTop: 0 }}
+                    >
+                      Not applicable
+                    </p>
                   )}
               </>
             )}
