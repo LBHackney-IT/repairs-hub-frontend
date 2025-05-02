@@ -103,7 +103,6 @@ const WorkOrderHeader = (props: Props) => {
         <div>
           <p className="govuk-!-font-size-14">Appointment details</p>
           {isLoading ? (
-
             <span
               style={{
                 color: '#64748b',
