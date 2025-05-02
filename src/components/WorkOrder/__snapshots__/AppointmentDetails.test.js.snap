@@ -4,30 +4,16 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
-      <p
-        class="govuk-!-font-size-14"
-      >
-        19 Mar 2021, 12:00-18:00
-      </p>
       <a
         class="lbh-link"
-        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
-        rel="noopener"
-        target="_blank"
+        href="/work-orders/10000012/appointment/new"
       >
-        <strong>
-          Open DRS
-        </strong>
-         to reschedule appointment
+        Schedule appointment (non DRS)
       </a>
     </div>
   </div>
@@ -38,19 +24,16 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
       <p
-        class="govuk-!-font-size-14"
+        class="lbh-!-font-weight-bold"
+        style="margin-top: 0px;"
       >
-        19 Mar 2021, 12:00-18:00
+        Not applicable
       </p>
     </div>
   </div>
@@ -61,25 +44,16 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
       <a
         class="lbh-link"
-        href="https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID"
-        rel="noopener"
-        target="_blank"
+        href="/work-orders/10000012/appointment/new"
       >
-        <strong>
-          Open DRS
-        </strong>
-         to book an appointment
+        Schedule appointment (non DRS)
       </a>
     </div>
   </div>
@@ -90,17 +64,14 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
       <p
         class="lbh-!-font-weight-bold"
+        style="margin-top: 0px;"
       >
         Not applicable
       </p>
@@ -113,25 +84,16 @@ exports[`AppointmentDetails component Work order (non DRS) with an appointment w
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
-      <p
-        class="govuk-!-font-size-14"
-      >
-        19 Mar 2021, 12:00-18:00
-      </p>
       <a
         class="lbh-link"
-        href="/work-orders/10000012/appointment/edit"
+        href="/work-orders/10000012/appointment/new"
       >
-        Reschedule appointment (non DRS)
+        Schedule appointment (non DRS)
       </a>
     </div>
   </div>
@@ -142,19 +104,16 @@ exports[`AppointmentDetails component Work order (non DRS) with an appointment w
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
       <p
-        class="govuk-!-font-size-14"
+        class="lbh-!-font-weight-bold"
+        style="margin-top: 0px;"
       >
-        19 Mar 2021, 12:00-18:00
+        Not applicable
       </p>
     </div>
   </div>
@@ -165,12 +124,8 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
@@ -189,17 +144,14 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
 <DocumentFragment>
   <div
     class="appointment-details"
+    style="margin-top: 0px;"
   >
-    <p
-      class="govuk-!-font-size-14"
-    >
-      Appointment details
-    </p>
     <div
       class="lbh-body-s govuk-!-margin-0"
     >
       <p
         class="lbh-!-font-weight-bold"
+        style="margin-top: 0px;"
       >
         Not applicable
       </p>

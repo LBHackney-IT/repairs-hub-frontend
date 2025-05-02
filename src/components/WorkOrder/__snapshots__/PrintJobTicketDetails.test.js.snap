@@ -112,11 +112,7 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <tr>
             <td
               class="lbh-body-s"
-            >
-              <strong>
-                Operatives: 
-              </strong>
-            </td>
+            />
           </tr>
           <tr>
             <td
@@ -445,11 +441,7 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <tr>
             <td
               class="lbh-body-s"
-            >
-              <strong>
-                Operative: 
-              </strong>
-            </td>
+            />
           </tr>
           <tr>
             <td
