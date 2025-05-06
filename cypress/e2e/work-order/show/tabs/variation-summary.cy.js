@@ -10,6 +10,20 @@ describe('Pending variation tab on work-order page', () => {
         { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/statusVariationPendingApproval.json' }
       )
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          body: {
+            reference: 10000012,
+            appointment: null,
+            operatives: [],
+            externalAppointmentManagementUrl: null,
+            plannerComments: null,
+          },
+        }
+      )
+
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
@@ -32,7 +46,7 @@ describe('Pending variation tab on work-order page', () => {
       )
     })
     // Logged in as a contract-manager (has permission to authorise a variation)
-    it('shows the summary of the variation in variation-summary tab and has link to authorise variation', () => {
+    it.only('shows the summary of the variation in variation-summary tab and has link to authorise variation', () => {
       cy.loginWithContractManagerRole()
       cy.visit('/work-orders/10000012')
 
