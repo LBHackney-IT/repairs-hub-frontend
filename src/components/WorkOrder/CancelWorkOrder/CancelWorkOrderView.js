@@ -43,7 +43,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
 
       setWorkOrder(new WorkOrder(workOrder))

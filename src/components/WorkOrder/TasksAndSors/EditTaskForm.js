@@ -65,7 +65,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     try {
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
 
       const currentUser = await frontEndApiRequest({

@@ -139,7 +139,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     try {
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${reference}`,
+        path: `/api/workOrders/${reference}/new`,
       })
 
       const featureToggleData = await fetchSimpleFeatureToggles()

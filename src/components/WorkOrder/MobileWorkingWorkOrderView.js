@@ -49,7 +49,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
 
       const featureToggleData = await fetchSimpleFeatureToggles()

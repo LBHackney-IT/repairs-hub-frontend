@@ -24,7 +24,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     try {
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${reference}`,
+        path: `/api/workOrders/${reference}/new`,
       })
 
       const sorCodes = await frontEndApiRequest({

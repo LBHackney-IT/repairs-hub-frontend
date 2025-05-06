@@ -6,7 +6,7 @@ const onWindowFocusCallback = async (workOrderReference) => {
   try {
     await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
+      path: `/api/workOrders/${workOrderReference}/new`,
     })
   } catch (e) {
     console.error(e)

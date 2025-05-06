@@ -37,7 +37,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     try {
       const workOrderData = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
       const workOrder = new WorkOrder(workOrderData)
 
