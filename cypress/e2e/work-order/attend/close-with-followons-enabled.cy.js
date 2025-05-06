@@ -25,7 +25,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       }
     ).as('feature-toggle')
 
-    cy.intercept(`/api/workOrders/${workOrderReference}`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 

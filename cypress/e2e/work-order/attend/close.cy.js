@@ -24,7 +24,7 @@ describe('Closing my own work order', () => {
       }
     ).as('feature-toggle')
 
-    cy.intercept(`/api/workOrders/${workOrderReference}`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
 
