@@ -26,13 +26,7 @@ describe('Editing a work order description', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/appointments/10000040' },
         {
-          body: {
-            reference: 10000012,
-            appointment: null,
-            operatives: [],
-            externalAppointmentManagementUrl: null,
-            plannerComments: null,
-          },
+          fixture: 'workOrderAppointments/noAppointment.json',
         }
       )
 

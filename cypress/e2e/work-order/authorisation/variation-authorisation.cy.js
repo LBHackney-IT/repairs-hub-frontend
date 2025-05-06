@@ -23,13 +23,7 @@ describe('Contract manager can authorise variation', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/appointments/10000012' },
       {
-        body: {
-          reference: 10000012,
-          appointment: null,
-          operatives: [],
-          externalAppointmentManagementUrl: null,
-          plannerComments: null,
-        },
+        fixture: 'workOrderAppointments/noAppointment.json',
       }
     )
 
