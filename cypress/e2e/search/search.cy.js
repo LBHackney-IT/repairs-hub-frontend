@@ -120,7 +120,7 @@ describe('Search', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: '/api/workOrders/00000000',
+              path: '/api/workOrders/00000000/new',
             },
             {
               statusCode: 404,
