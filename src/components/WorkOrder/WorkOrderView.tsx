@@ -12,12 +12,12 @@ import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState({})
+  const [property, setProperty] = useState<any>()
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
-  const [tenure, setTenure] = useState({})
+  const [tenure, setTenure] = useState()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>()
 
@@ -115,7 +115,6 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}
                   setPersonAlerts={setPersonAlerts}
