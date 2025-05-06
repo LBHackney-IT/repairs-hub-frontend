@@ -20,6 +20,19 @@ describe('Updating a work order', () => {
         })
         .as('workOrder')
 
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+        {
+          body: {
+            reference: 10000040,
+            appointment: null,
+            operatives: [],
+            externalAppointmentManagementUrl: null,
+            plannerComments: null,
+          },
+        }
+      )
+
       cy.fixture('workOrders/tasksAndSors.json')
         .then((tasksAndSors) => {
           tasksAndSors.splice(1, 2)
@@ -717,6 +730,19 @@ describe('Updating a work order', () => {
           { body: workOrder }
         ).as('workOrderRequest')
       })
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+        {
+          body: {
+            reference: 10000012,
+            appointment: null,
+            operatives: [],
+            externalAppointmentManagementUrl: null,
+            plannerComments: null,
+          },
+        }
+      )
     })
 
     it('does not show link list of operatives, when there is only one', () => {
