@@ -83,7 +83,7 @@ const WorkOrderHeader = (props: Props) => {
       </div>
       <div className="govuk-grid-column-one-third">
         <div>
-          <p className="govuk-!-font-size-14">Appointment details</p>
+          {/* <p className="govuk-!-font-size-14">Appointment details</p> */}
           {isLoading ? (
             <span
               style={{
@@ -102,8 +102,8 @@ const WorkOrderHeader = (props: Props) => {
           ) : (
             <div
               style={{
-                background: '#fafafa',
-                padding: 15,
+                // background: '#fafafa',
+                // padding: 15,
                 marginTop: 5,
               }}
             >

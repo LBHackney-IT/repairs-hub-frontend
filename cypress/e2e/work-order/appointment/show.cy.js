@@ -7,9 +7,23 @@ describe('Managing work order appointments', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/workOrder.json' }
     )
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        body: {
+          reference: 10000012,
+          appointment: null,
+          operatives: [],
+          externalAppointmentManagementUrl: null,
+          plannerComments: null,
+        },
+      }
+    )
+
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -62,7 +76,7 @@ describe('Managing work order appointments', () => {
             workOrder.priority = '1 [I] IMMEDIATE'
             workOrder.priorityCode = 1
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           }
@@ -93,7 +107,7 @@ describe('Managing work order appointments', () => {
             workOrder.contractorReference = 'H04'
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           }
@@ -115,10 +129,25 @@ describe('Managing work order appointments', () => {
 
     context('For a lower priority work order (Urgent or Normal)', () => {
       it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
+        // cy.intercept(
+        //   { method: 'GET', path: '/api/workOrders/10000012/new' },
+        //   { fixture: 'workOrders/externallyManagedAppointment.json' }
+        // )
+
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
-          { fixture: 'workOrders/externallyManagedAppointment.json' }
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            body: {
+              reference: 10000012,
+              appointment: null,
+              operatives: [],
+              externalAppointmentManagementUrl:
+                'https://scheduler.example.hackney.gov.uk?bookingId=1',
+              plannerComments: null,
+            },
+          }
         )
+
         cy.visit('/work-orders/10000012')
 
         cy.get('.appointment-details').within(() => {
@@ -142,9 +171,41 @@ describe('Managing work order appointments', () => {
 
   context('When the work order has an existing appointment', () => {
     beforeEach(() => {
+      // cy.intercept(
+      //   { method: 'GET', path: '/api/workOrders/10000012' },
+      //   { fixture: 'workOrders/workOrder.json' }
+      // )
+
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/withAppointment.json' }
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          body: {
+            reference: 10000012,
+            appointment: {
+              date: '2021-03-19',
+              description: 'PM Slot',
+              end: '18:00',
+              start: '12:00',
+            },
+            operatives: [
+              {
+                id: 0,
+                payrollNumber: '0',
+                name: 'Operative 1',
+                trades: ['DE'],
+              },
+              {
+                id: 1,
+                payrollNumber: '1',
+                name: 'Operative 2',
+                trades: ['DE'],
+              },
+            ],
+            externalAppointmentManagementUrl:
+              'https://scheduler.example.hackney.gov.uk?bookingId=1',
+            plannerComments: null,
+          },
+        }
       )
     })
 
@@ -161,8 +222,21 @@ describe('Managing work order appointments', () => {
   context('When the work order has an immediate priority', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/priorityImmediate.json' }
+      )
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+        {
+          body: {
+            reference: 10000040,
+            appointment: null,
+            operatives: [],
+            externalAppointmentManagementUrl: null,
+            plannerComments: null,
+          },
+        }
       )
     })
 

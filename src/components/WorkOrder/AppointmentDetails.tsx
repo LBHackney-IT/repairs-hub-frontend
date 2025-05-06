@@ -31,7 +31,7 @@ const AppointmentDetails = ({ workOrder, appointmentDetails }: Props) => {
       )}
       {(canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
         <div className="appointment-details" style={{ marginTop: 0 }}>
-          {/* <p className="govuk-!-font-size-14">Appointment details</p> */}
+          <p className="govuk-!-font-size-14">Appointment details</p>
           <div className="lbh-body-s govuk-!-margin-0">
             {user && (
               <>
