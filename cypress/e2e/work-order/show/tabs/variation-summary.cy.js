@@ -7,7 +7,7 @@ describe('Pending variation tab on work-order page', () => {
     beforeEach(() => {
       // Stub requests
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/statusVariationPendingApproval.json' }
       )
       cy.intercept(
@@ -341,7 +341,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         )
       })
@@ -377,7 +377,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000037
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000037' },
+          { method: 'GET', path: '/api/workOrders/10000037/new' },
           { body: workOrder }
         )
       })
@@ -413,7 +413,7 @@ describe('Pending variation tab on work-order page', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000032
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000032' },
+          { method: 'GET', path: '/api/workOrders/10000032/new' },
           { body: workOrder }
         )
       })

@@ -58,7 +58,7 @@ describe('Show work order page', () => {
       cy.loginWithAgentRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
 
@@ -172,7 +172,7 @@ describe('Show work order page', () => {
             }
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -268,7 +268,7 @@ describe('Show work order page', () => {
         ).as('workOrdersHistoryRequest')
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { fixture: 'workOrders/priorityImmediate.json' }
         ).as('historicalWorkOrderRequest')
 
@@ -561,7 +561,7 @@ describe('Show work order page', () => {
   describe('Work order actions', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
 
