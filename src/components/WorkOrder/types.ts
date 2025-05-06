@@ -1,4 +1,3 @@
-
 export type WorkOrderAppointmentDetails = {
   reference: string
   appointment: {
