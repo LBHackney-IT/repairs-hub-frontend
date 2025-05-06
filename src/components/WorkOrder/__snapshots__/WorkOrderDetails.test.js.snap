@@ -413,18 +413,18 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -885,18 +885,18 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -1241,18 +1241,18 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -1650,18 +1650,18 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               />
@@ -1819,18 +1819,18 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -2142,18 +2142,18 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -2551,18 +2551,18 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -2960,18 +2960,18 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >
@@ -3390,18 +3390,18 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               />
@@ -3697,18 +3697,18 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
         class="govuk-grid-column-one-third"
       >
         <div>
-          <p
-            class="govuk-!-font-size-14"
-          >
-            Appointment details
-          </p>
           <div
-            style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+            style="margin-top: 5px;"
           >
             <div
               class="appointment-details"
               style="margin-top: 0px;"
             >
+              <p
+                class="govuk-!-font-size-14"
+              >
+                Appointment details
+              </p>
               <div
                 class="lbh-body-s govuk-!-margin-0"
               >

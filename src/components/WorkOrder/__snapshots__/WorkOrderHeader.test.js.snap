@@ -108,18 +108,18 @@ exports[`WorkOrderHeader component when work order contains follow-on details sh
       class="govuk-grid-column-one-third"
     >
       <div>
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
         <div
-          style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+          style="margin-top: 5px;"
         >
           <div
             class="appointment-details"
             style="margin-top: 0px;"
           >
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
             <div
               class="lbh-body-s govuk-!-margin-0"
             >
@@ -268,18 +268,18 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
       class="govuk-grid-column-one-third"
     >
       <div>
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
         <div
-          style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+          style="margin-top: 5px;"
         >
           <div
             class="appointment-details"
             style="margin-top: 0px;"
           >
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
             <div
               class="lbh-body-s govuk-!-margin-0"
             >
@@ -422,18 +422,18 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
       class="govuk-grid-column-one-third"
     >
       <div>
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
         <div
-          style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+          style="margin-top: 5px;"
         >
           <div
             class="appointment-details"
             style="margin-top: 0px;"
           >
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
             <div
               class="lbh-body-s govuk-!-margin-0"
             >
@@ -576,18 +576,18 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
       class="govuk-grid-column-one-third"
     >
       <div>
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
         <div
-          style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+          style="margin-top: 5px;"
         >
           <div
             class="appointment-details"
             style="margin-top: 0px;"
           >
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
             <div
               class="lbh-body-s govuk-!-margin-0"
             >
@@ -730,18 +730,18 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
       class="govuk-grid-column-one-third"
     >
       <div>
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
         <div
-          style="background: rgb(250, 250, 250); padding: 15px; margin-top: 5px;"
+          style="margin-top: 5px;"
         >
           <div
             class="appointment-details"
             style="margin-top: 0px;"
           >
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
             <div
               class="lbh-body-s govuk-!-margin-0"
             >
