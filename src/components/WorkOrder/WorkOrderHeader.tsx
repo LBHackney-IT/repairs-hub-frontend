@@ -41,19 +41,21 @@ const WorkOrderHeader = (props: Props) => {
   ] = useState<WorkOrderAppointmentDetails>()
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
-  const fetchAppointments = async () => {
+  const fetchAppointmentDetails = async () => {
     setIsLoading(true)
-    const appointments: WorkOrderAppointmentDetails = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/appointments/${workOrder.reference}/`,
-    })
+    const appointmentDetails: WorkOrderAppointmentDetails = await frontEndApiRequest(
+      {
+        method: 'get',
+        path: `/api/workOrders/appointments/${workOrder.reference}/`,
+      }
+    )
 
-    setAppointmentDetails(appointments)
+    setAppointmentDetails(appointmentDetails)
     setIsLoading(false)
   }
 
   useEffect(() => {
-    fetchAppointments()
+    fetchAppointmentDetails()
   }, [])
 
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(

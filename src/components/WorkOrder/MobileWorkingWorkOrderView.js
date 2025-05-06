@@ -30,6 +30,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState({})
   const [currentUser, setCurrentUser] = useState({})
   const [workOrder, setWorkOrder] = useState({})
+  const [appointmentDetails, setAppointmentDetails] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [tenure, setTenure] = useState({})
   const [photos, setPhotos] = useState([])
@@ -50,6 +51,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       const workOrder = await frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/new`,
+      })
+
+      const appointmentDetails = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/appointments/${workOrderReference}/`,
       })
 
       const featureToggleData = await fetchSimpleFeatureToggles()
@@ -83,10 +89,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       )
 
       setWorkOrder(new WorkOrder(workOrder))
+      setAppointmentDetails(appointmentDetails)
       setProperty(propertyObject.property)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
+      setAppointmentDetails(null)
       setProperty(null)
       setPhotos(null)
       console.error('An error has occured:', e.response)
@@ -294,6 +302,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
               property={property}
               tenure={tenure}
               workOrder={workOrder}
+              appointmentDetails={appointmentDetails}
               tasksAndSors={tasksAndSors}
               error={error}
               onFormSubmit={onWorkOrderProgressToCloseSubmit}

@@ -33,6 +33,7 @@ const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
   workOrder,
+  appointmentDetails,
   tasksAndSors,
   onFormSubmit,
   currentUserPayrollNumber,
@@ -77,7 +78,7 @@ const MobileWorkingWorkOrder = ({
       })
   }
 
-  const operativesCount = workOrder.operatives.length
+  const operativesCount = appointmentDetails?.operatives.length
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -173,7 +174,7 @@ const MobileWorkingWorkOrder = ({
                 )}
                 {operativesCount > 1 && (
                   <OperativeList
-                    operatives={workOrder.operatives}
+                    operatives={appointmentDetails?.operatives}
                     currentUserPayrollNumber={currentUserPayrollNumber}
                     workOrderReference={workOrderReference}
                     readOnly={readOnly}
@@ -218,7 +219,7 @@ const MobileWorkingWorkOrder = ({
 
                 {operativesCount > 1 && (
                   <OperativeList
-                    operatives={workOrder.operatives}
+                    operatives={appointmentDetails?.operatives}
                     currentUserPayrollNumber={currentUserPayrollNumber}
                     workOrderReference={workOrderReference}
                     readOnly={readOnly}
@@ -254,6 +255,7 @@ MobileWorkingWorkOrder.propTypes = {
   workOrderReference: PropTypes.string.isRequired,
   property: PropTypes.object.isRequired,
   workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
+  appointmentDetails: PropTypes.object.isRequired,
   tasksAndSors: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.string,
