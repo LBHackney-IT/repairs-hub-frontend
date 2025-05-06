@@ -10,7 +10,7 @@ import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
 import ScheduleAppointment from './ScheduleAppointment/ScheduleAppointment'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
-import { WorkOrderAppointmentDetails } from './WorkOrderHeader'
+import { WorkOrderAppointmentDetails } from './types'
 
 interface Props {
   workOrder: WorkOrder

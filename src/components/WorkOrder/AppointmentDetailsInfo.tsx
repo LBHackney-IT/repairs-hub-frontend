@@ -1,5 +1,5 @@
 import { dateToStr } from '@/utils/date'
-import { WorkOrderAppointmentDetails } from './WorkOrderHeader'
+import { WorkOrderAppointmentDetails } from './types'
 
 interface Props {
   appointmentDetails: WorkOrderAppointmentDetails

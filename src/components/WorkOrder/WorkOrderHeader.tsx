@@ -10,6 +10,7 @@ import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { useEffect, useState } from 'react'
 import Spinner from '../Spinner'
+import { WorkOrderAppointmentDetails } from './types'
 
 interface Props {
   propertyReference: string
@@ -20,25 +21,6 @@ interface Props {
   canRaiseRepair: boolean
   setLocationAlerts: () => void
   setPersonAlerts: () => void
-}
-
-export type WorkOrderAppointmentDetails = {
-  reference: string
-  appointment: {
-    date: string
-    description: string
-    start: string
-    end: string
-    reason: string
-    note: string
-    assignedStart: string
-    assignedEnd: string
-    startedAt: string
-    bookingLifeCycleStatus: string
-  }
-  operatives: object[]
-  externalAppointmentManagementUrl: string
-  plannerComments: string
 }
 
 const WorkOrderHeader = (props: Props) => {
@@ -148,7 +130,7 @@ const WorkOrderHeader = (props: Props) => {
                   <FurtherWorkRequiredFlag />
                 )}
 
-              {appointmentDetails?.operatives.length > 0 &&
+              {appointmentDetails?.operatives?.length > 0 &&
                 ((appointmentDetails?.appointment &&
                   workOrder.appointmentISODatePassed()) ||
                   readOnly) && (
