@@ -173,32 +173,7 @@ describe('Managing work order appointments', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/appointments/10000012' },
         {
-          body: {
-            reference: 10000012,
-            appointment: {
-              date: '2021-03-19',
-              description: 'PM Slot',
-              end: '18:00',
-              start: '12:00',
-            },
-            operatives: [
-              {
-                id: 0,
-                payrollNumber: '0',
-                name: 'Operative 1',
-                trades: ['DE'],
-              },
-              {
-                id: 1,
-                payrollNumber: '1',
-                name: 'Operative 2',
-                trades: ['DE'],
-              },
-            ],
-            externalAppointmentManagementUrl:
-              'https://scheduler.example.hackney.gov.uk?bookingId=1',
-            plannerComments: null,
-          },
+          fixture: 'workOrderAppointments/withAppointment.json',
         }
       )
     })

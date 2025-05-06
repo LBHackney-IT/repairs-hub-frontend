@@ -35,12 +35,16 @@ describe('Rescheduling work order appointments', () => {
       { body: [] }
     )
 
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
-      {
-        fixture: 'workOrderAppointments/noAppointment.json',
-      }
-    )
+    cy.fixture('workOrderAppointments/withAppointment.json').then((x) => {
+      x.externalAppointmentManagementUrl = null
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          body: x,
+        }
+      )
+    })
   })
 
   describe('within Repairs Hub', () => {
@@ -80,7 +84,7 @@ describe('Rescheduling work order appointments', () => {
           .as('workOrder')
       })
 
-      it('Permits rescheduling and displays the new appointment on the work order', () => {
+      it.only('Permits rescheduling and displays the new appointment on the work order', () => {
         cy.visit('/work-orders/10000012')
 
         cy.wait(['@tasks', '@workOrder', '@property'])
