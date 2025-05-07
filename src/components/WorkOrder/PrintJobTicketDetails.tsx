@@ -4,14 +4,27 @@ import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
+import { WorkOrderAppointmentDetails } from './types'
 
-const PrintJobTicketDetails = ({
-  workOrder,
-  property,
-  locationAlerts,
-  personAlerts,
-  tasksAndSors,
-}) => {
+interface Props {
+  workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
+  tasksAndSors: object[]
+  locationAlerts: any
+  personAlerts: any
+  property: any
+}
+
+const PrintJobTicketDetails = (props: Props) => {
+  const {
+    workOrder,
+    property,
+    locationAlerts,
+    personAlerts,
+    tasksAndSors,
+    appointmentDetails,
+  } = props
+
   const cautionaryAlertsType = getCautionaryAlertsType([
     ...locationAlerts,
     ...personAlerts,
@@ -77,11 +90,11 @@ const PrintJobTicketDetails = ({
               <tr>
                 <td className="lbh-body-s">
                   <strong>Appointment date: </strong>
-                  {workOrder.appointment && (
+                  {appointmentDetails?.appointment && (
                     <>
                       {
                         formatDateTime(
-                          new Date(workOrder.appointment['date'])
+                          new Date(appointmentDetails?.appointment['date'])
                         ).split(',')[0]
                       }
                     </>
@@ -91,28 +104,28 @@ const PrintJobTicketDetails = ({
               <tr>
                 <td className="lbh-body-s">
                   <strong>Appointment slot: </strong>
-                  {workOrder.appointment && (
-                    <>{workOrder?.appointment['description']}</>
+                  {appointmentDetails?.appointment && (
+                    <>{appointmentDetails?.appointment['description']}</>
                   )}
                 </td>
               </tr>
               <tr>
                 <td className="lbh-body-s">
-                  {/* <strong>
-                    {workOrder.operatives.length > 1
+                  <strong>
+                    {appointmentDetails?.operatives.length > 1
                       ? 'Operatives: '
                       : 'Operative: '}
-                  </strong> */}
-                  {/* {workOrder.operatives.length > 0 &&
-                    ((workOrder.appointment &&
-                      workOrder.appointmentISODatePassed()) ||
+                  </strong>
+                  {appointmentDetails?.operatives.length > 0 &&
+                    ((appointmentDetails?.appointment &&
+                      appointmentDetails?.appointmentISODatePassed()) ||
                       readOnly) && (
                       <>
-                        {`${workOrder.operatives
+                        {`${appointmentDetails?.operatives
                           .map((operative) => operative.name)
                           .join(', ')}`}
                       </>
-                    )} */}
+                    )}
                 </td>
               </tr>
               <tr>
@@ -176,8 +189,8 @@ const PrintJobTicketDetails = ({
                 <tr>
                   <td className="lbh-body-s">
                     <strong>Appointment notes: </strong>
-                    {workOrder.appointment && (
-                      <>{workOrder.appointment['note'] || 'None'}</>
+                    {appointmentDetails?.appointment && (
+                      <>{appointmentDetails?.appointment['note'] || 'None'}</>
                     )}
                   </td>
                 </tr>
@@ -226,7 +239,7 @@ const PrintJobTicketDetails = ({
           <div className="govuk-!-margin-top-4">
             <p className="lbh-body-s display-inline">
               <strong>Planner comments: </strong>
-              {workOrder.plannerComments}
+              {appointmentDetails?.plannerComments}
             </p>
           </div>
 
@@ -257,19 +270,6 @@ const PrintJobTicketDetails = ({
       </div>
     </>
   )
-}
-
-PrintJobTicketDetails.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  property: PropTypes.object.isRequired,
-  tasksAndSors: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      description: PropTypes.string,
-      quantity: PropTypes.number,
-      standardMinuteValue: PropTypes.number,
-    })
-  ).isRequired,
 }
 
 export default PrintJobTicketDetails

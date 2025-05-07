@@ -8,12 +8,17 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
+import { WorkOrderAppointmentDetails } from './types'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
   const [property, setProperty] = useState<any>()
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [
+    appointmentDetails,
+    setAppointmentDetails,
+  ] = useState<WorkOrderAppointmentDetails>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
@@ -48,6 +53,13 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/workOrders/${workOrderReference}/new`,
       })
 
+      const appointmentDetailsPromise: Promise<WorkOrderAppointmentDetails> = frontEndApiRequest(
+        {
+          method: 'get',
+          path: `/api/workOrders/appointments/${workOrderReference}`,
+        }
+      )
+
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
@@ -60,10 +72,17 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/properties/${workOrder.propertyReference}`,
       })
 
-      const [tasksAndSors, propertyObject] = await Promise.all([
+      const [
+        tasksAndSors,
+        propertyObject,
+        appointmentDetails,
+      ] = await Promise.all([
         tasksAndSorsPromise,
         propertyPromise,
+        appointmentDetailsPromise,
       ])
+
+      setAppointmentDetails(appointmentDetails)
 
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
@@ -135,6 +154,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   tasksAndSors={tasksAndSors}
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
+                  appointmentDetails={appointmentDetails}
                 />
               </>
             )}

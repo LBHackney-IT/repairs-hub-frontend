@@ -134,7 +134,7 @@ const WorkOrderHeader = (props: Props) => {
 
               {appointmentDetails?.operatives?.length > 0 &&
                 ((appointmentDetails?.appointment &&
-                  workOrder.appointmentISODatePassed()) ||
+                  appointmentDetails?.appointmentISODatePassed()) ||
                   readOnly) && (
                   <Operatives operatives={appointmentDetails?.operatives} />
                 )}

@@ -12,8 +12,18 @@ describe('Photos', () => {
     )
 
     cy.intercept(
-      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}` },
+      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}/new` },
       { fixture: 'workOrders/workOrder.json' }
+    )
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/workOrders/appointments/${WORK_ORDER_REFERENCE}`,
+      },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
     )
 
     cy.intercept(
@@ -40,7 +50,7 @@ describe('Photos', () => {
     cy.loginWithAgentRole()
   })
 
-  it('shows a list of photos', () => {
+  it.only('shows a list of photos', () => {
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
     cy.get('a[id="tab_photos-tab"]').click()

@@ -9,6 +9,13 @@ context('when a variation is made', () => {
     }).as('workOrderRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
+    cy.intercept(
       { method: 'GET', path: '/api/workOrders/images/10000621' },
       { body: [] }
     ).as('photosRequest')

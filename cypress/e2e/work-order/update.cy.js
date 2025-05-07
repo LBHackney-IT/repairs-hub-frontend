@@ -23,13 +23,7 @@ describe('Updating a work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/appointments/10000040' },
         {
-          body: {
-            reference: 10000040,
-            appointment: null,
-            operatives: [],
-            externalAppointmentManagementUrl: null,
-            plannerComments: null,
-          },
+          fixture: 'workOrderAppointments/noAppointment.json',
         }
       )
 
@@ -1126,7 +1120,14 @@ describe('Updating a work order', () => {
         workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
-        workOrder.operatives = [
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { body: workOrder }
+        ).as('workOrderRequestMultipleOperatives')
+      })
+
+      cy.fixture('workOrderAppointments/noAppointment.json').then((body) => {
+        body.operatives = [
           {
             id: 2,
             payrollNumber: 'OP002',
@@ -1142,10 +1143,13 @@ describe('Updating a work order', () => {
             jobPercentage: 50,
           },
         ]
+
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621/new' },
-          { body: workOrder }
-        ).as('workOrderRequestMultipleOperatives')
+          { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+          {
+            body,
+          }
+        )
       })
 
       cy.intercept(

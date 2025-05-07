@@ -49,7 +49,7 @@ const AppointmentDetails = ({ workOrder, appointmentDetails }: Props) => {
                     <ScheduleAppointment
                       hasExistingAppointment={!!appointmentDetails?.appointment}
                       workOrderReference={workOrder.reference}
-                      appointmentIsToday={workOrder.appointmentIsToday()}
+                      appointmentIsToday={appointmentDetails?.appointmentIsToday()}
                       externalAppointmentManagementUrl={
                         appointmentDetails?.externalAppointmentManagementUrl
                       }
@@ -58,7 +58,7 @@ const AppointmentDetails = ({ workOrder, appointmentDetails }: Props) => {
                     <ScheduleInternalAppointmentLink
                       workOrderReference={workOrder.reference}
                       hasExistingAppointment={appointmentDetails?.appointment}
-                      appointmentIsToday={workOrder.appointmentIsToday()}
+                      appointmentIsToday={appointmentDetails?.appointmentIsToday()}
                     />
                   ))}
 
