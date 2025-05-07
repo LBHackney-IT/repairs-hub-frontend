@@ -4,16 +4,16 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 
 const TextInput = ({
   label,
-  hint,
+  hint = '',
   name,
   register,
   error,
   type = 'text',
-  widthClass,
+  widthClass = '',
   required,
-  onBlur,
+  onBlur = null,
   defaultValue,
-  additionalDivClasses,
+  additionalDivClasses = '',
   ...otherProps
 }) => (
   <div
