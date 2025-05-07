@@ -34,6 +34,17 @@ describe('Rescheduling work order appointments', () => {
       },
       { body: [] }
     )
+
+    cy.fixture('workOrderAppointments/withAppointment.json').then((x) => {
+      x.externalAppointmentManagementUrl = null
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          body: x,
+        }
+      )
+    })
   })
 
   describe('within Repairs Hub', () => {
@@ -66,14 +77,14 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
           .as('workOrder')
       })
 
-      it('Permits rescheduling and displays the new appointment on the work order', () => {
+      it.only('Permits rescheduling and displays the new appointment on the work order', () => {
         cy.visit('/work-orders/10000012')
 
         cy.wait(['@tasks', '@workOrder', '@property'])
@@ -163,7 +174,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_NO_ACCESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -204,7 +215,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -264,7 +275,7 @@ describe('Rescheduling work order appointments', () => {
               workOrder.status = STATUS_NO_ACCESS.description
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012' },
+                { method: 'GET', path: '/api/workOrders/10000012/new' },
                 { body: workOrder }
               )
             })

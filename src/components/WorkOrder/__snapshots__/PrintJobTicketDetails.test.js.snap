@@ -96,7 +96,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
               <strong>
                 Appointment date: 
               </strong>
-              18 Jan 2021
             </td>
           </tr>
           <tr>
@@ -106,7 +105,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
               <strong>
                 Appointment slot: 
               </strong>
-              Appointment Description
             </td>
           </tr>
           <tr>
@@ -114,7 +112,7 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
               class="lbh-body-s"
             >
               <strong>
-                Operatives: 
+                Operative: 
               </strong>
             </td>
           </tr>
@@ -207,7 +205,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
                 <strong>
                   Appointment notes: 
                 </strong>
-                Some appointment note
               </td>
             </tr>
           </tbody>
@@ -284,7 +281,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <strong>
             Planner comments: 
           </strong>
-          plannerComments
         </p>
       </div>
       <table
@@ -616,7 +612,6 @@ exports[`PrintJobTicketDetails component Renders the PrintJobTicketDetails compo
           <strong>
             Planner comments: 
           </strong>
-          plannerComments
         </p>
       </div>
       <table

@@ -1,16 +1,5 @@
 [
   {
-    "appointment": {
-      "date": "2024-11-11",
-      "description": "Externally Managed Appointment",
-      "start": "08:00",
-      "end": "16:15",
-      "reason": "FIRST",
-      "note": null,
-      "assignedStart": "13:08",
-      "assignedEnd": "13:48",
-      "startedAt": "13:08"
-    },
     "reference": 10423939,
     "dateRaised": "2024-11-08T11:33:52.401032Z",
     "lastUpdated": null,

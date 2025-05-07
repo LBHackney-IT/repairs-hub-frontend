@@ -16,8 +16,5 @@
   "callerName": "Jill Smith",
   "callerNumber": "07700 900999",
   "contractorReference": "H01",
-  "operatives": [],
-  "appointment": null,
-  "externalAppointmentManagementUrl": "https://scheduler.example.hackney.gov.uk?bookingId=1",
   "canAssignOperative": true
 }

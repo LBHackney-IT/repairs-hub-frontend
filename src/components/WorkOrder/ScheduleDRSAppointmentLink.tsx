@@ -1,17 +1,27 @@
 import Link from 'next/link'
 import ScheduleWarning from './ScheduleWarning'
 
-const ScheduleDRSAppointmentLink = ({
-  workOrder,
-  schedulerSessionId,
-  openLinkEventHandler,
-  hasExistingAppointment,
-  appointmentIsToday,
-}) => {
+interface Props {
+  schedulerSessionId: string
+  openLinkEventHandler: () => void
+  hasExistingAppointment: boolean
+  appointmentIsToday: boolean
+  externalAppointmentManagementUrl: string
+}
+
+const ScheduleDRSAppointmentLink = (props: Props) => {
+  const {
+    schedulerSessionId,
+    openLinkEventHandler,
+    hasExistingAppointment,
+    appointmentIsToday,
+    externalAppointmentManagementUrl,
+  } = props
+
   return (
     <>
       <Link
-        href={`${workOrder.externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
+        href={`${externalAppointmentManagementUrl}&sessionId=${schedulerSessionId}`}
       >
         <a
           className="lbh-link"

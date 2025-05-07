@@ -9,7 +9,7 @@ export const getWorkOrder = async (
   try {
     const workOrderData = await frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
+      path: `/api/workOrders/${workOrderReference}/new`,
     })
 
     return {

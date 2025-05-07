@@ -31,7 +31,7 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
 
     frontEndApiRequest({
       method: 'get',
-      path: `/api/workOrders/${workOrderId}`,
+      path: `/api/workOrders/${workOrderId}/new`,
     })
       .then((res) => {
         setWorkOrder(res)

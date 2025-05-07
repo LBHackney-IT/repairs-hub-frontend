@@ -22,9 +22,16 @@ describe('Authorisation workflow for a work order', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
     ).as('workOrderRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       {
@@ -177,7 +184,7 @@ describe('Authorisation workflow for a work order', () => {
 
     it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('nonPendingWorkOrderRequest')
 

@@ -82,7 +82,7 @@ describe('Search', () => {
       context('and a valid work order reference is entered', () => {
         beforeEach(() => {
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { fixture: 'workOrders/workOrder.json' }
           )
 
@@ -120,7 +120,7 @@ describe('Search', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: '/api/workOrders/00000000',
+              path: '/api/workOrders/00000000/new',
             },
             {
               statusCode: 404,
@@ -180,7 +180,7 @@ describe('Search', () => {
         )
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrder.json' }
         )
         cy.intercept(

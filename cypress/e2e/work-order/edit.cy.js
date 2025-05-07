@@ -8,7 +8,7 @@ describe('Editing a work order description', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           )
         })
@@ -17,11 +17,19 @@ describe('Editing a work order description', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           )
         })
         .as('editedWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
+
       cy.intercept({
         method: 'GET',
         path: 'api/workOrders/10000040/tasks',
@@ -63,7 +71,7 @@ describe('Editing a work order description', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           )
         })

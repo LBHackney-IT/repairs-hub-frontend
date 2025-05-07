@@ -12,7 +12,7 @@ describe('Work order cancellations', () => {
 
       // Viewing the work order page
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrder')
       cy.intercept(
@@ -164,7 +164,7 @@ describe('Work order cancellations', () => {
           workOrder.priorityCode = 2
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })
@@ -203,7 +203,7 @@ describe('Work order cancellations', () => {
           workOrder.contractorReference = 'HCK'
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })

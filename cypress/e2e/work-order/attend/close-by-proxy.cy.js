@@ -42,7 +42,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.paymentType = null
         workOrder.startTime = null
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         )
       })
@@ -617,7 +617,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.canAssignOperative = true
         workOrder.operatives = []
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -832,7 +832,7 @@ describe('Closing a work order on behalf of an operative', () => {
               },
             ]
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: '/api/workOrders/10000040/new' },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -1095,7 +1095,7 @@ describe('Closing a work order on behalf of an operative', () => {
               },
             ]
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: '/api/workOrders/10000040/new' },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -1218,7 +1218,7 @@ describe('Closing a work order on behalf of an operative', () => {
             workOrder.canAssignOperative = true
             workOrder.operatives = []
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: '/api/workOrders/10000040/new' },
               { body: workOrder }
             ).as('workOrder')
           })
@@ -1347,7 +1347,7 @@ describe('Closing a work order on behalf of an operative', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         ).as('workOrder')
       })

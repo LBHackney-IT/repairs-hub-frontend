@@ -142,7 +142,7 @@ const WorkOrderUpdateView = ({ reference }) => {
 
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${reference}`,
+        path: `/api/workOrders/${reference}/new`,
       })
 
       const tasks = await frontEndApiRequest({

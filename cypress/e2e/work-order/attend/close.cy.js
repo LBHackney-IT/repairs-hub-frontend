@@ -24,9 +24,25 @@ describe('Closing my own work order', () => {
       }
     ).as('feature-toggle')
 
-    cy.intercept(`/api/workOrders/${workOrderReference}`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/workOrders/appointments/${workOrderReference}`,
+      },
+      {
+        body: {
+          reference: workOrderReference,
+          appointment: null,
+          operatives: [],
+          externalAppointmentManagementUrl: null,
+          plannerComments: null,
+        },
+      }
+    )
 
     cy.intercept(
       { method: 'GET', path: `/api/properties/${propertyReference}` },

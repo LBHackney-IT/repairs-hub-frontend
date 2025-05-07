@@ -107,45 +107,53 @@ exports[`WorkOrderHeader component when work order contains follow-on details sh
     <div
       class="govuk-grid-column-one-third"
     >
-      <div
-        class="appointment-details"
-      >
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
+      <div>
         <div
-          class="lbh-body-s govuk-!-margin-0"
+          style="margin-top: 5px;"
         >
-          <p
-            class="lbh-!-font-weight-bold"
+          <div
+            class="appointment-details"
+            style="margin-top: 0px;"
           >
-            Not applicable
-          </p>
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
+            <div
+              class="lbh-body-s govuk-!-margin-0"
+            >
+              <p
+                class="lbh-!-font-weight-bold"
+                style="margin-top: 0px;"
+              >
+                Not applicable
+              </p>
+            </div>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            <span>
+              Assigned to: Alphatrack (S) Systems Lt
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs"
+          >
+            <span>
+              <strong>
+                Completed: 22 Jan 2021, 18:15
+              </strong>
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+            style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+          >
+            Further work required
+          </div>
         </div>
-      </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-      >
-        <span>
-          Assigned to: Alphatrack (S) Systems Lt
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs"
-      >
-        <span>
-          <strong>
-            Completed: 22 Jan 2021, 18:15
-          </strong>
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-        style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
-      >
-        Further work required
       </div>
     </div>
   </div>
@@ -259,40 +267,47 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
     <div
       class="govuk-grid-column-one-third"
     >
-      <div
-        class="appointment-details"
-      >
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
+      <div>
         <div
-          class="lbh-body-s govuk-!-margin-0"
+          style="margin-top: 5px;"
         >
-          <a
-            class="lbh-link"
-            href="/work-orders/10000012/appointment/new"
+          <div
+            class="appointment-details"
+            style="margin-top: 0px;"
           >
-            Schedule appointment (non DRS)
-          </a>
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
+            <div
+              class="lbh-body-s govuk-!-margin-0"
+            >
+              <a
+                class="lbh-link"
+                href="/work-orders/10000012/appointment/new"
+              >
+                Schedule appointment (non DRS)
+              </a>
+            </div>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            <span>
+              Assigned to: Alphatrack (S) Systems Lt
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs"
+          >
+            <span>
+              <strong>
+                In Progress: 22 Jan 2021, 18:15
+              </strong>
+            </span>
+          </div>
         </div>
-      </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-      >
-        <span>
-          Assigned to: Alphatrack (S) Systems Lt
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs"
-      >
-        <span>
-          <strong>
-            In Progress: 22 Jan 2021, 18:15
-          </strong>
-        </span>
       </div>
     </div>
   </div>
@@ -406,39 +421,47 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
     <div
       class="govuk-grid-column-one-third"
     >
-      <div
-        class="appointment-details"
-      >
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
+      <div>
         <div
-          class="lbh-body-s govuk-!-margin-0"
+          style="margin-top: 5px;"
         >
-          <p
-            class="lbh-!-font-weight-bold"
+          <div
+            class="appointment-details"
+            style="margin-top: 0px;"
           >
-            Not applicable
-          </p>
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
+            <div
+              class="lbh-body-s govuk-!-margin-0"
+            >
+              <p
+                class="lbh-!-font-weight-bold"
+                style="margin-top: 0px;"
+              >
+                Not applicable
+              </p>
+            </div>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            <span>
+              Assigned to: Alphatrack (S) Systems Lt
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs"
+          >
+            <span>
+              <strong>
+                Completed: 22 Jan 2021, 18:15
+              </strong>
+            </span>
+          </div>
         </div>
-      </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-      >
-        <span>
-          Assigned to: Alphatrack (S) Systems Lt
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs"
-      >
-        <span>
-          <strong>
-            Completed: 22 Jan 2021, 18:15
-          </strong>
-        </span>
       </div>
     </div>
   </div>
@@ -552,39 +575,47 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
     <div
       class="govuk-grid-column-one-third"
     >
-      <div
-        class="appointment-details"
-      >
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
+      <div>
         <div
-          class="lbh-body-s govuk-!-margin-0"
+          style="margin-top: 5px;"
         >
-          <p
-            class="lbh-!-font-weight-bold"
+          <div
+            class="appointment-details"
+            style="margin-top: 0px;"
           >
-            Not applicable
-          </p>
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
+            <div
+              class="lbh-body-s govuk-!-margin-0"
+            >
+              <p
+                class="lbh-!-font-weight-bold"
+                style="margin-top: 0px;"
+              >
+                Not applicable
+              </p>
+            </div>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            <span>
+              Assigned to: Alphatrack (S) Systems Lt
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs"
+          >
+            <span>
+              <strong>
+                No Access: 22 Jan 2021, 18:15
+              </strong>
+            </span>
+          </div>
         </div>
-      </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-      >
-        <span>
-          Assigned to: Alphatrack (S) Systems Lt
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs"
-      >
-        <span>
-          <strong>
-            No Access: 22 Jan 2021, 18:15
-          </strong>
-        </span>
       </div>
     </div>
   </div>
@@ -698,45 +729,48 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
     <div
       class="govuk-grid-column-one-third"
     >
-      <div
-        class="appointment-details"
-      >
-        <p
-          class="govuk-!-font-size-14"
-        >
-          Appointment details
-        </p>
+      <div>
         <div
-          class="lbh-body-s govuk-!-margin-0"
+          style="margin-top: 5px;"
         >
-          <p
-            class="lbh-!-font-weight-bold"
+          <div
+            class="appointment-details"
+            style="margin-top: 0px;"
           >
-            Not applicable
-          </p>
+            <p
+              class="govuk-!-font-size-14"
+            >
+              Appointment details
+            </p>
+            <div
+              class="lbh-body-s govuk-!-margin-0"
+            >
+              <p
+                class="lbh-!-font-weight-bold"
+                style="margin-top: 0px;"
+              >
+                Not applicable
+              </p>
+            </div>
+          </div>
+          <div
+            class="lbh-body-xs govuk-!-margin-top-1"
+          >
+            <span>
+              Assigned to: Alphatrack (S) Systems Lt
+            </span>
+          </div>
+          <div
+            class="lbh-body-xs"
+          >
+            <span>
+              <strong>
+                Completed: 22 Jan 2021, 18:15
+              </strong>
+            </span>
+          </div>
         </div>
       </div>
-      <div
-        class="lbh-body-xs govuk-!-margin-top-1"
-      >
-        <span>
-          Assigned to: Alphatrack (S) Systems Lt
-        </span>
-      </div>
-      <div
-        class="lbh-body-xs"
-      >
-        <span>
-          <strong>
-            Completed: 22 Jan 2021, 18:15
-          </strong>
-        </span>
-      </div>
-      <p
-        class="lbh-body-xs"
-      >
-        Operatives: Operative 1, Operative 2
-      </p>
     </div>
   </div>
 </DocumentFragment>

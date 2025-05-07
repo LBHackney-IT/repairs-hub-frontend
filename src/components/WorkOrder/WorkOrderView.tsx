@@ -8,18 +8,23 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
+import { WorkOrderAppointmentDetails } from './types'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState({})
-  const [workOrder, setWorkOrder] = useState({})
+  const [property, setProperty] = useState<any>()
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [
+    appointmentDetails,
+    setAppointmentDetails,
+  ] = useState<WorkOrderAppointmentDetails>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState([])
   const [personAlerts, setPersonAlerts] = useState([])
-  const [tenure, setTenure] = useState({})
+  const [tenure, setTenure] = useState()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string | null>()
 
   const printClickHandler = (e) => {
     e.preventDefault()
@@ -45,8 +50,15 @@ const WorkOrderView = ({ workOrderReference }) => {
     try {
       const workOrderPromise = frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
+
+      const appointmentDetailsPromise: Promise<WorkOrderAppointmentDetails> = frontEndApiRequest(
+        {
+          method: 'get',
+          path: `/api/workOrders/appointments/${workOrderReference}`,
+        }
+      )
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
@@ -60,10 +72,17 @@ const WorkOrderView = ({ workOrderReference }) => {
         path: `/api/properties/${workOrder.propertyReference}`,
       })
 
-      const [tasksAndSors, propertyObject] = await Promise.all([
+      const [
+        tasksAndSors,
+        propertyObject,
+        appointmentDetails,
+      ] = await Promise.all([
         tasksAndSorsPromise,
         propertyPromise,
+        appointmentDetailsPromise,
       ])
+
+      setAppointmentDetails(appointmentDetails)
 
       setTasksAndSors(
         sortObjectsByDateKey(tasksAndSors, ['dateAdded'], 'dateAdded')
@@ -115,7 +134,6 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}
                   setPersonAlerts={setPersonAlerts}
@@ -136,6 +154,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   tasksAndSors={tasksAndSors}
                   locationAlerts={locationAlerts}
                   personAlerts={personAlerts}
+                  appointmentDetails={appointmentDetails}
                 />
               </>
             )}

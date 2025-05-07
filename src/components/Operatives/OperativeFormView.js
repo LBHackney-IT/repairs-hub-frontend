@@ -14,6 +14,7 @@ const OperativeFormView = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
   const [workOrder, setWorkOrder] = useState()
+  const [appointmentDetails, setAppointmentDetails] = useState()
   const [currentUser, setCurrentUser] = useState({})
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
@@ -61,13 +62,20 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       const workOrder = await frontEndApiRequest({
         method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
+        path: `/api/workOrders/${workOrderReference}/new`,
       })
 
       setWorkOrder(new WorkOrder(workOrder))
 
+      const appointmentDetails = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/appointments/${workOrderReference}`,
+      })
+
+      setAppointmentDetails(appointmentDetails)
+
       const sortedOperatives = sortOperativesWithPayrollFirst(
-        workOrder.operatives,
+        appointmentDetails?.operatives,
         currentUser.operativePayrollNumber
       )
 

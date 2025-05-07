@@ -233,21 +233,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     <h4
       class="lbh-heading-h4"
     >
-      Operatives
-    </h4>
-    <ol
-      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-    >
-      <li>
-        Test1 - 50%
-      </li>
-      <li>
-        Test2 - 50%
-      </li>
-    </ol>
-    <h4
-      class="lbh-heading-h4"
-    >
       Status
     </h4>
     <span
@@ -574,31 +559,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
         Add new SOR
       </a>
     </div>
-    <h4
-      class="lbh-heading-h4"
-    >
-      Operatives
-    </h4>
-    <ol
-      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-    >
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test1 - 50%
-        </a>
-      </li>
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test2 - 50%
-        </a>
-      </li>
-    </ol>
     <div
       class="govuk-!-margin-top-0"
     >
@@ -1137,10 +1097,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/operatives/new"
+        href="/work-orders/10000621/operatives/edit"
         role="button"
       >
-        Add operatives
+        Update operatives
       </a>
     </div>
     <div
@@ -1484,10 +1444,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/operatives/new"
+        href="/work-orders/10000621/operatives/edit"
         role="button"
       >
-        Add operatives
+        Update operatives
       </a>
     </div>
     <div
@@ -1796,10 +1756,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/operatives/new"
+        href="/work-orders/10000621/operatives/edit"
         role="button"
       >
-        Add operatives
+        Update operatives
       </a>
     </div>
     <div
@@ -2642,31 +2602,6 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
         Add new SOR
       </a>
     </div>
-    <h4
-      class="lbh-heading-h4"
-    >
-      Operatives
-    </h4>
-    <ol
-      class="govuk-list govuk-!-margin-top-6 govuk-!-margin-bottom-9"
-    >
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test1 - 50%
-        </a>
-      </li>
-      <li>
-        <a
-          class="govuk-link"
-          href="/work-orders/10000621/operatives/edit"
-        >
-          Test2 - 50%
-        </a>
-      </li>
-    </ol>
     <div
       class="govuk-!-margin-top-0"
     >

@@ -14,11 +14,18 @@ describe('Updating a work order', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           )
         })
         .as('workOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000040' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.fixture('workOrders/tasksAndSors.json')
         .then((tasksAndSors) => {
@@ -490,7 +497,7 @@ describe('Updating a work order', () => {
             workOrder.reference = 10000040
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: '/api/workOrders/10000040/new' },
               { body: workOrder }
             )
           })
@@ -713,10 +720,17 @@ describe('Updating a work order', () => {
           },
         ]
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621' },
+          { method: 'GET', path: '/api/workOrders/10000621/new' },
           { body: workOrder }
         ).as('workOrderRequest')
       })
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
     })
 
     it('does not show link list of operatives, when there is only one', () => {
@@ -1106,7 +1120,14 @@ describe('Updating a work order', () => {
         workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
-        workOrder.operatives = [
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { body: workOrder }
+        ).as('workOrderRequestMultipleOperatives')
+      })
+
+      cy.fixture('workOrderAppointments/noAppointment.json').then((body) => {
+        body.operatives = [
           {
             id: 2,
             payrollNumber: 'OP002',
@@ -1122,10 +1143,13 @@ describe('Updating a work order', () => {
             jobPercentage: 50,
           },
         ]
+
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621' },
-          { body: workOrder }
-        ).as('workOrderRequestMultipleOperatives')
+          { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+          {
+            body,
+          }
+        )
       })
 
       cy.intercept(
