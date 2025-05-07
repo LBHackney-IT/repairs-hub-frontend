@@ -19,6 +19,8 @@ export class WorkOrder {
   dateRaised
   tradeDescription
   isFollowOn
+  callerName
+  callerNumber
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
