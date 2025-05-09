@@ -1,5 +1,5 @@
 import { formatBudgetCode } from '@/utils/helpers/budgetCodes'
-import { BudgetCode as BudgetCodeType } from '../../models/budgetCodeModel'
+import { BudgetCode as BudgetCodeType } from '../../models/budgetCode'
 
 interface Props {
   budgetCode: BudgetCodeType

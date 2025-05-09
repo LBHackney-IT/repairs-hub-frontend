@@ -8,7 +8,7 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
-import { CautionaryAlert } from '../../models/cautionaryAlertsModel'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env

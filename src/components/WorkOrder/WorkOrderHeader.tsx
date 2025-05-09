@@ -7,7 +7,7 @@ import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
-import { CautionaryAlert } from '../../models/cautionaryAlertsModel'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
 
 interface Props {

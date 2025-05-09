@@ -9,7 +9,7 @@ import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
 import { Tenure } from '../../models/tenure'
-import { CautionaryAlert } from '../../models/cautionaryAlertsModel'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
 interface Props {
   property: any

@@ -9,7 +9,7 @@ import PropertyBoilerHouseDetails from '../PropertyBoilerHouseDetails'
 import {
   CautionaryAlert,
   CautionaryAlertsResponse,
-} from '@/root/src/models/cautionaryAlertsModel'
+} from '@/root/src/models/cautionaryAlerts'
 import { Tenure } from '@/root/src/models/tenure'
 
 interface Props {

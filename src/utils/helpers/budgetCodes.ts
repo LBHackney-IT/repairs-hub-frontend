@@ -1,4 +1,4 @@
-import { BudgetCode } from '../../models/budgetCodeModel'
+import { BudgetCode } from '../../models/budgetCode'
 
 export const formatBudgetCodeForOption = (
   budgetCode: BudgetCode,
