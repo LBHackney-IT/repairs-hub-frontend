@@ -8,7 +8,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
-import { Operative } from './Operative'
+import { Operative } from './operativeModel'
 import { Appointment } from './appointment'
 
 export class WorkOrder {

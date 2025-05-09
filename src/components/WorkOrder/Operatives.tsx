@@ -1,4 +1,4 @@
-import { Operative } from '../../models/Operative'
+import { Operative } from '../../models/operativeModel'
 
 interface Props {
   operatives: Operative[]
