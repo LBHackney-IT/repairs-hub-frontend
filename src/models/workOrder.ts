@@ -9,7 +9,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
 import { Operative } from './Operative'
-import { Appointment } from './Appointment'
+import { Appointment } from './appointmentModel'
 
 export class WorkOrder {
   reference: string
