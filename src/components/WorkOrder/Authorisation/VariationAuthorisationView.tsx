@@ -23,6 +23,7 @@ import {
 } from '../../../types/variations/types'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 import { WorkOrder } from '@/root/src/models/workOrder'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -94,16 +95,21 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     } catch (e) {
       setVariation(null)
       console.error('An error has occured:', e.response)
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(
+            `Oops an error occurred with error status: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          )
+        }
       }
     }
 

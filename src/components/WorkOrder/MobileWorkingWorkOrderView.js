@@ -24,6 +24,7 @@ import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
+import { APIResponseError } from '../../types/requests/types'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -95,16 +96,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       setPhotos(null)
       console.error('An error has occured:', e.response)
 
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(
+            `Oops an error occurred with error status: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          )
+        }
       }
     }
 

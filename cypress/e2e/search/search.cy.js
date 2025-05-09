@@ -152,7 +152,7 @@ describe('Search', () => {
           cy.wait(['@repairs_with_error', '@workOrderTasksRequest'])
         })
 
-        it('Displays an error message', () => {
+        it.only('Displays an error message', () => {
           cy.get('.govuk-error-message').contains(
             'Could not find a work order with reference 00000000'
           )

@@ -23,6 +23,7 @@ import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { getWorkOrder } from '../../utils/requests/workOrders'
+import { APIResponseError } from '../../types/requests/types'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -167,11 +168,15 @@ const CloseWorkOrderByProxy = ({ reference }) => {
 
       console.error('An error has occured:', e.response)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     }
     setLoadingStatus(null)
   }

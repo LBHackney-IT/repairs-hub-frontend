@@ -9,7 +9,7 @@ const onWindowFocusCallback = async (workOrderReference) => {
     const getWorkOrderResponse = await getWorkOrder(workOrderReference)
 
     if (!getWorkOrderResponse.success) {
-      console.error(getWorkOrderResponse.error)
+      console.error(getWorkOrderResponse.error.message)
       return
     }
 

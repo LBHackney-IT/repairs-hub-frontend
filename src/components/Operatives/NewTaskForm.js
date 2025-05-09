@@ -9,6 +9,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { getWorkOrder } from '../../utils/requests/workOrders'
+import { APIResponseError } from '../../types/requests/types'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
@@ -59,11 +60,16 @@ const NewTaskForm = ({ workOrderReference }) => {
       setExistingTasks(tasksAndSors)
     } catch (e) {
       setSorCodes([])
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     }
 
     setLoading(false)

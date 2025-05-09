@@ -23,6 +23,7 @@ import {
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -114,9 +115,14 @@ const AuthorisationView = ({ workOrderReference }) => {
       }
     } catch (e) {
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${e.response?.status}`
+        )
+      }
     }
 
     setLoading(false)

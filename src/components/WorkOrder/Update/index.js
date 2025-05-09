@@ -17,6 +17,7 @@ import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -184,11 +185,16 @@ const WorkOrderUpdateView = ({ reference }) => {
       setCurrentUser(null)
       setSorCodeArrays([[]])
       setTasks(null)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     }
 
     setLoading(false)

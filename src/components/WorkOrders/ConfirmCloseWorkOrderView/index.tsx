@@ -6,6 +6,8 @@ import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { ApiResponseType } from '@/root/src/types/requests/types'
+import { WorkOrder } from '@/root/src/models/workOrder'
 
 interface Props {
   workOrderId: string
@@ -30,12 +32,14 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
   const loadWorkOrder = async () => {
     setLoadingStatus('Fetching work order data')
 
-    const workOrderResponse = await getWorkOrder(workOrderId)
+    const workOrderResponse: ApiResponseType<WorkOrder> = await getWorkOrder(
+      workOrderId
+    )
 
     if (workOrderResponse.success) {
-      setWorkOrder(workOrderResponse.response)
+      setWorkOrder(workOrderResponse?.response)
     } else {
-      setRequestError(workOrderResponse.error)
+      setRequestError(workOrderResponse.error.message)
     }
 
     setLoadingStatus(null)

@@ -45,7 +45,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
 
     if (!workOrderResponse.success) {
       setWorkOrder(null)
-      setError(workOrderResponse.error)
+      setError(workOrderResponse.error.message)
     } else {
       setWorkOrder(workOrderResponse.response)
     }

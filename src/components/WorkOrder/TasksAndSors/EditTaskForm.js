@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const EditTaskForm = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState({})
@@ -98,11 +99,15 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     } catch (e) {
       console.error('An error has occured:', e.response)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     }
 
     setLoading(false)
