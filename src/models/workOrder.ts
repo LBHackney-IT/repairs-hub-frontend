@@ -34,6 +34,8 @@ export class WorkOrder {
   callerName: string
   callerNumber: string
   plannerComments: string
+  propertyReference: string
+  property: string
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)

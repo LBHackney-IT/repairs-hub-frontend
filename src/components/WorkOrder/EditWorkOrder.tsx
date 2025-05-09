@@ -44,9 +44,14 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrder = async () => {
     setLoading(true)
-    const { response, error } = await getWorkOrder(workOrderReference)
-    setWorkOrder(response)
-    setError(error)
+    const workOrderResponse = await getWorkOrder(workOrderReference)
+
+    if (!workOrderResponse.success) {
+      setError(workOrderResponse.error.message)
+    } else {
+      setWorkOrder(workOrderResponse.response)
+    }
+
     setLoading(false)
   }
 
@@ -60,14 +65,14 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       data.editRepairDescription
     )
     if (!editWorkOrderResponse.success) {
-      setError(editWorkOrderResponse.error)
+      setError(editWorkOrderResponse.error.message)
       return
     }
 
     const postNoteResponse = await postNote(noteData)
 
     if (!postNoteResponse.success) {
-      setError(postNoteResponse.error)
+      setError(postNoteResponse.error.message)
       return
     }
     router.push(`/work-orders/${workOrder.reference}`)

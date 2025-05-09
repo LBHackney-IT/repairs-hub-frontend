@@ -21,6 +21,9 @@ import {
   Variation,
   VariationResponseObject,
 } from '../../../types/variations/types'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { WorkOrder } from '@/root/src/models/workOrder'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -49,19 +52,19 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
-  const [workOrder, setWorkOrder] = useState<{
-    property: object
-    propertyReference: string
-  } | null>(null)
+  const [workOrder, setWorkOrder] = useState<WorkOrder>(null)
 
   const requestVariationTasks = async (workOrderReference) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const variationResponse: VariationResponseObject = await frontEndApiRequest(
         {
@@ -78,7 +81,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
       setVariation(variationResponse.variation)
       setBudgetCode(workOrder.budgetCode)
       setVarySpendLimit(parseFloat(user.varyLimit))
-      setWorkOrder(workOrder)
+      setWorkOrder(() => workOrder)
 
       const totalCostAfterVariation = calculateTotalVariedCost(
         variationResponse.variation.tasks
@@ -92,16 +95,21 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     } catch (e) {
       setVariation(null)
       console.error('An error has occured:', e.response)
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(
+            `Oops an error occurred with error status: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          )
+        }
       }
     }
 
