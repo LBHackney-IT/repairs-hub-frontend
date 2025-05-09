@@ -1,17 +1,32 @@
-import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from 'src/utils/time'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import WarningText from '@/components/Template/WarningText'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
-const PrintJobTicketDetails = ({
-  workOrder,
-  property,
-  locationAlerts,
-  personAlerts,
-  tasksAndSors,
-}) => {
+interface Props {
+  workOrder: WorkOrder
+  property: object
+  tasksAndSors: {
+    code: string
+    description: string
+    quantity: number
+    standardMinuteValue: number
+  }[]
+  locationAlerts: CautionaryAlert[]
+  personAlerts: CautionaryAlert[]
+}
+
+const PrintJobTicketDetails = (props: Props) => {
+  const {
+    workOrder,
+    property,
+    locationAlerts,
+    personAlerts,
+    tasksAndSors,
+  } = props
+
   const cautionaryAlertsType = getCautionaryAlertsType([
     ...locationAlerts,
     ...personAlerts,
@@ -258,19 +273,6 @@ const PrintJobTicketDetails = ({
       </div>
     </>
   )
-}
-
-PrintJobTicketDetails.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  property: PropTypes.object.isRequired,
-  tasksAndSors: PropTypes.arrayOf(
-    PropTypes.shape({
-      code: PropTypes.string,
-      description: PropTypes.string,
-      quantity: PropTypes.number,
-      standardMinuteValue: PropTypes.number,
-    })
-  ).isRequired,
 }
 
 export default PrintJobTicketDetails

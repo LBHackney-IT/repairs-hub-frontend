@@ -8,8 +8,8 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
-import { Operative } from './operative'
 import { Appointment } from './appointment'
+import { Operative } from './operative'
 
 export class WorkOrder {
   reference: string
