@@ -5,20 +5,11 @@ import { getWorkOrder } from './requests/workOrders'
 const onWindowFocusCallback = async (workOrderReference) => {
   // fetch workOrder page to trigger manual sync
   // (calling this endpoint will fetch latest appointment from DRS)
-  try {
-    const getWorkOrderResponse = await getWorkOrder(workOrderReference)
 
-    if (!getWorkOrderResponse.success) {
-      console.error(getWorkOrderResponse.error.message)
-      return
-    }
+  const getWorkOrderResponse = await getWorkOrder(workOrderReference)
 
-    await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
-    })
-  } catch (e) {
-    console.error(e)
+  if (!getWorkOrderResponse.success) {
+    console.error(getWorkOrderResponse.error.message)
   }
 }
 
