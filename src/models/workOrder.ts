@@ -9,7 +9,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
 import { Appointment } from './appointment'
-import { Operative } from './operative'
+import { Operative } from './operativeModel'
 
 export class WorkOrder {
   reference: string
@@ -33,6 +33,7 @@ export class WorkOrder {
   raisedBy: string
   callerName: string
   callerNumber: string
+  plannerComments: string
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)

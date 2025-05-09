@@ -7,7 +7,14 @@ import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
 interface Props {
   workOrder: WorkOrder
-  property: object
+  property: {
+    tmoName: string
+    address: {
+      addressLine: string
+      streetSuffix: string
+      postalCode: string
+    }
+  }
   tasksAndSors: {
     code: string
     description: string
