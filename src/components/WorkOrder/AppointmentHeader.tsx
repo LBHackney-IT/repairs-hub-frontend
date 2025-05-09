@@ -1,5 +1,5 @@
 import { longMonthWeekday } from '@/utils/date'
-import { Appointment } from '@/models/Appointment'
+import { Appointment } from '../../models/appointment'
 
 interface Props {
   appointment: Appointment
