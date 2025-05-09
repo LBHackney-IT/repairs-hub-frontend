@@ -8,22 +8,22 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
+import { Tenure } from '../../models/tenure'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState({})
-  const [workOrder, setWorkOrder] = useState({})
+  const [property, setProperty] = useState<any>({})
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [locationAlerts, setLocationAlerts] = useState([])
-  const [personAlerts, setPersonAlerts] = useState([])
-  const [tenure, setTenure] = useState({})
+  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>()
+  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>()
+  const [tenure, setTenure] = useState<Tenure>()
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string | null>()
 
-  const printClickHandler = (e) => {
-    e.preventDefault()
-
+  const printClickHandler = () => {
     if (document.getElementById('rear-image')) {
       window.print()
     } else {
@@ -115,7 +115,6 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
-                  tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}
                   setPersonAlerts={setPersonAlerts}

@@ -1,39 +1,57 @@
-import PropTypes from 'prop-types'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Alerts from '../Alerts'
-import Tenure from '../Tenure'
+import TenureComponent from '../Tenure'
 import TenureDetail from '../TenureDetail'
 import { useEffect, useState } from 'react'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import PropertyBoilerHouseDetails from '../PropertyBoilerHouseDetails'
+import {
+  CautionaryAlert,
+  CautionaryAlertsResponse,
+} from '@/root/src/models/cautionaryAlerts'
+import { Tenure } from '@/root/src/models/tenure'
 
-const PropertyFlags = ({
-  canRaiseRepair,
-  tenure,
-  tmoName,
-  propertyReference,
-  boilerHouseId,
-  setParentLocationAlerts,
-  setParentPersonAlerts,
-}) => {
-  //Properties with TMO names set to this value aren't actually TMOs
-  const TMO_HACKNEY_DEFAULT = 'London Borough of Hackney'
+interface Props {
+  canRaiseRepair: boolean
+  tenure: Tenure
+  tmoName?: string
+  propertyReference: string
+  boilerHouseId?: string
+  setParentLocationAlerts: (alerts: CautionaryAlert[]) => void
+  setParentPersonAlerts: (alerts: CautionaryAlert[]) => void
+}
 
-  const [locationAlerts, setLocationAlerts] = useState([])
+//Properties with TMO names set to this value aren't actually TMOs
+const TMO_HACKNEY_DEFAULT = 'London Borough of Hackney'
+
+const PropertyFlags = (props: Props) => {
+  const {
+    canRaiseRepair,
+    tenure,
+    tmoName,
+    propertyReference,
+    boilerHouseId,
+    setParentLocationAlerts,
+    setParentPersonAlerts,
+  } = props
+
+  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>()
   const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
-  const [locationAlertsError, setLocationAlertsError] = useState()
+  const [locationAlertsError, setLocationAlertsError] = useState<
+    string | null
+  >()
 
-  const [personAlerts, setPersonAlerts] = useState([])
+  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>()
   const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
-  const [personAlertsError, setPersonAlertsError] = useState()
+  const [personAlertsError, setPersonAlertsError] = useState<string | null>()
 
   const getLocationAlerts = () => {
     frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${propertyReference}/location-alerts`,
     })
-      .then((data) => {
+      .then((data: CautionaryAlertsResponse) => {
         setLocationAlerts(data.alerts)
         setParentLocationAlerts && setParentLocationAlerts(data.alerts)
       })
@@ -52,7 +70,7 @@ const PropertyFlags = ({
       method: 'get',
       path: `/api/properties/${tenureId}/person-alerts`,
     })
-      .then((data) => {
+      .then((data: CautionaryAlertsResponse) => {
         setPersonAlerts(data.alerts)
         setParentPersonAlerts && setParentPersonAlerts(data.alerts)
       })
@@ -102,7 +120,7 @@ const PropertyFlags = ({
       }}
     >
       {tenure && Object.keys(tenure).length > 0 && (
-        <Tenure tenure={tenure} canRaiseRepair={canRaiseRepair} />
+        <TenureComponent tenure={tenure} canRaiseRepair={canRaiseRepair} />
       )}
 
       {showBoilerHouseDetails() && (
@@ -129,16 +147,6 @@ const PropertyFlags = ({
       {personAlertsError && <ErrorMessage label={personAlertsError} />}
     </ul>
   )
-}
-
-PropertyFlags.propTypes = {
-  canRaiseRepair: PropTypes.bool.isRequired,
-  tenure: PropTypes.object,
-  tmoName: PropTypes.string,
-  propertyReference: PropTypes.string.isRequired,
-  boilerHouseId: PropTypes.string.isRequired,
-  setParentLocationAlerts: PropTypes.func,
-  setParentPersonAlerts: PropTypes.func,
 }
 
 export default PropertyFlags

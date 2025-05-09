@@ -8,17 +8,31 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
+import { Appointment } from './Appointment'
+import { Operative } from './Operative'
 
 export class WorkOrder {
-  reference
-  description
-  externalAppointmentManagementUrl
-  startTime
-  appointment
-  status
-  dateRaised
-  tradeDescription
-  isFollowOn
+  reference: string
+  description: string
+  externalAppointmentManagementUrl: string
+  startTime: string
+  appointment: Appointment
+  status: string
+  dateRaised: string
+  tradeDescription: string
+  isFollowOn: boolean
+  contractorReference: string
+  tradeCode: string
+  priorityCode
+  target
+  budgetCode
+  closedDated
+  operatives: Operative[]
+  owner
+  priority: string
+  raisedBy: string
+  callerName: string
+  callerNumber: string
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)
@@ -44,10 +58,10 @@ export class WorkOrder {
     const gasBreakdownContractorReference = 'H04'
     const oohTradeCode = 'OO'
 
-    var contractorReference = this.contractorReference
+    const contractorReference = this.contractorReference
 
     if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
-    var tradeCode = this.tradeCode
+    const tradeCode = this.tradeCode
     return tradeCode == oohTradeCode
   }
 
