@@ -44,9 +44,14 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrder = async () => {
     setLoading(true)
-    const { response, error } = await getWorkOrder(workOrderReference)
-    setWorkOrder(response)
-    setError(error.message)
+    const workOrderResponse = await getWorkOrder(workOrderReference)
+
+    if (!workOrderResponse.success) {
+      setError(workOrderResponse.error.message)
+    } else {
+      setWorkOrder(workOrderResponse.response)
+    }
+
     setLoading(false)
   }
 
