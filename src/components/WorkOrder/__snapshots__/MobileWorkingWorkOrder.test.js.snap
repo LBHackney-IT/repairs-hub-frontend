@@ -8,9 +8,7 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -268,9 +266,7 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -635,9 +631,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -885,9 +879,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -1166,9 +1158,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -1513,9 +1503,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -1825,9 +1813,7 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -2075,9 +2061,7 @@ exports[`MobileWorkingWorkOrder component with single operative when the current
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div
@@ -2325,9 +2309,7 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
     <h2
       class="lbh-heading-h2"
     >
-      Friday 3 September
-      <br />
-      08:00 – 13:00
+      No appointment
     </h2>
   </div>
   <div

@@ -36,13 +36,13 @@ const PropertyFlags = (props: Props) => {
     setParentPersonAlerts,
   } = props
 
-  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>()
+  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
   const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
   const [locationAlertsError, setLocationAlertsError] = useState<
     string | null
   >()
 
-  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>()
+  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
   const [personAlertsLoading, setPersonAlertsLoading] = useState(false)
   const [personAlertsError, setPersonAlertsError] = useState<string | null>()
 
