@@ -16,6 +16,7 @@ import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -140,10 +141,13 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: '/api/hub-user',
       })
 
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}`,
-      })
+      const workOrderResponse = await getWorkOrder(reference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const tasks = await frontEndApiRequest({
         method: 'get',

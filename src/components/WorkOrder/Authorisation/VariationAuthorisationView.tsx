@@ -21,6 +21,8 @@ import {
   Variation,
   VariationResponseObject,
 } from '../../../types/variations/types'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { WorkOrder } from '@/root/src/models/workOrder'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -49,19 +51,19 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
   const { handleSubmit, register, errors } = useForm({
     mode: 'onChange',
   })
-  const [workOrder, setWorkOrder] = useState<{
-    property: object
-    propertyReference: string
-  } | null>(null)
+  const [workOrder, setWorkOrder] = useState<WorkOrder>(null)
 
   const requestVariationTasks = async (workOrderReference) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const variationResponse: VariationResponseObject = await frontEndApiRequest(
         {
@@ -78,7 +80,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
       setVariation(variationResponse.variation)
       setBudgetCode(workOrder.budgetCode)
       setVarySpendLimit(parseFloat(user.varyLimit))
-      setWorkOrder(workOrder)
+      setWorkOrder(() => workOrder)
 
       const totalCostAfterVariation = calculateTotalVariedCost(
         variationResponse.variation.tasks

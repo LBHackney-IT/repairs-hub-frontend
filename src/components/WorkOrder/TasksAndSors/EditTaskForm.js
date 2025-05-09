@@ -9,6 +9,7 @@ import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 
 const EditTaskForm = ({ workOrderReference, taskId }) => {
   const [tasks, setTasks] = useState({})
@@ -63,10 +64,13 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const currentUser = await frontEndApiRequest({
         method: 'get',

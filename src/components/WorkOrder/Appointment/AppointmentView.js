@@ -14,6 +14,7 @@ import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '@/models/workOrder'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
@@ -35,11 +36,13 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderData = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
-      const workOrder = new WorkOrder(workOrderData)
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       if (!workOrder.statusAllowsScheduling()) {
         setError(

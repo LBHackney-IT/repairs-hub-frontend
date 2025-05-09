@@ -5,6 +5,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 
 interface Props {
   workOrderId: string
@@ -26,22 +27,18 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
     loadWorkOrder()
   }, [])
 
-  const loadWorkOrder = () => {
+  const loadWorkOrder = async () => {
     setLoadingStatus('Fetching work order data')
 
-    frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/${workOrderId}`,
-    })
-      .then((res) => {
-        setWorkOrder(res)
-      })
-      .catch((err) => {
-        setRequestError(err.message)
-      })
-      .finally(() => {
-        setLoadingStatus(null)
-      })
+    const workOrderResponse = await getWorkOrder(workOrderId)
+
+    if (workOrderResponse.success) {
+      setWorkOrder(workOrderResponse.response)
+    } else {
+      setRequestError(workOrderResponse.error)
+    }
+
+    setLoadingStatus(null)
   }
 
   const handleSkip = () => {

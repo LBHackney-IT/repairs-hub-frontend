@@ -8,6 +8,7 @@ import RateScheduleItem from '../WorkElement/RateScheduleItem'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
+import { getWorkOrder } from '../../utils/requests/workOrders'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
@@ -22,10 +23,13 @@ const NewTaskForm = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}`,
-      })
+      const workOrderResponse = await getWorkOrder(reference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const sorCodes = await frontEndApiRequest({
         path: '/api/schedule-of-rates/codes',

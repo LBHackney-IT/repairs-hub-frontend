@@ -8,6 +8,7 @@ import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/a
 import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
+import { getWorkOrder } from '../../utils/requests/workOrders'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
@@ -59,12 +60,15 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       setCurrentUser(currentUser)
 
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference)
 
-      setWorkOrder(new WorkOrder(workOrder))
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
+
+      setWorkOrder(workOrder)
 
       const sortedOperatives = sortOperativesWithPayrollFirst(
         workOrder.operatives,

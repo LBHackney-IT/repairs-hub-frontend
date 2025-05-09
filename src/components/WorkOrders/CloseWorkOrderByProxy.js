@@ -3,7 +3,6 @@ import CloseWorkOrderForm from './CloseWorkOrderForm'
 import { useState, useEffect } from 'react'
 import { convertToDateFormat } from '@/utils/date'
 import SummaryCloseWorkOrder from './SummaryCloseWorkOrder'
-import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import {
   buildCloseWorkOrderData,
@@ -23,6 +22,7 @@ import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
+import { getWorkOrder } from '../../utils/requests/workOrders'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -137,14 +137,16 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}`,
-      })
-
       const featureToggleData = await fetchSimpleFeatureToggles()
-
       setFeatureToggles(featureToggleData)
+
+      const workOrderResponse = await getWorkOrder(reference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       setWorkOrder(new WorkOrder(workOrder))
 
