@@ -169,14 +169,12 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             <h2 className="lbh-heading-h2 " style={{ color: '#0CA789' }}>
               Edit contact details for repair
             </h2>
-            {/* <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
-              Caller name
-            </h3> */}
             <TextInput
               name="callerName"
               label="Caller name"
               required={true}
               defaultValue={workOrder.callerName}
+              isLabelGreen={true}
               register={register({
                 required: 'Please enter a caller name',
                 maxLength: {
@@ -187,14 +185,12 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
               })}
               error={errors && errors.callerName}
             />
-            {/* <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
-              Caller number
-            </h3> */}
             <TextInput
               name="contactNumber"
               label="Telephone number"
               required={true}
               defaultValue={workOrder.callerNumber}
+              isLabelGreen={true}
               register={register({
                 required: 'Please enter a telephone number',
                 validate: (value) => {
