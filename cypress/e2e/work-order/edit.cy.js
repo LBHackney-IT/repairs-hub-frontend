@@ -28,17 +28,19 @@ describe('Editing a work order description', () => {
       }).as('tasks')
       cy.visit('/work-orders/10000040')
     })
-    it('allows me to edit the work order description and adds the updated description to the notes', () => {
+    it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type('This is a test description.')
+      cy.get('[data-testid="callerName"]').clear().type('Test Name')
+      cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
       cy.intercept({
         method: 'PATCH',
-        path: '/api/workOrders/updateDescription',
-      }).as('updateDescription')
+        path: '/api/workOrders/editWorkOrder',
+      }).as('editWorkOrder')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.get('#tab_notes-tab').click()
@@ -70,37 +72,79 @@ describe('Editing a work order description', () => {
         .as('workOrder')
       cy.visit('/work-orders/10000040/edit')
     })
-    it.only('I am restricted from accessing the correct page', () => {
+    it('I am restricted from accessing the correct page', () => {
       cy.contains(`Access denied`)
     })
   })
-  context('When user submits empty text field', () => {
+  context('When user submits empty fields', () => {
     it('Shows an error', () => {
       cy.loginWithAuthorisationManagerRole()
       cy.intercept({
         method: 'PATCH',
-        path: `/api/workOrders/updateDescription`,
+        path: `/api/workOrders/editWorkOrder`,
       })
       cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="editRepairDescription"]').clear()
+      cy.get('[data-testid="callerName"]').clear()
+      cy.get('[data-testid="contactNumber"]').clear()
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.contains('Please enter a repair description')
+      cy.contains('Please enter a caller name')
+      cy.contains('Please enter a telephone number')
     })
   })
-  context('When user submits too many characters', () => {
+  context('When user submits too many characters for all fields', () => {
     it('Shows an error', () => {
       const longDescription = new Array(240).join('a')
+      const longName = new Array(56).join('a')
+      const longContactNumber = new Array(13).join('1')
       cy.loginWithAuthorisationManagerRole()
       cy.intercept({
         method: 'PATCH',
-        path: `/api/workOrders/updateDescription`,
+        path: `/api/workOrders/editWorkOrder`,
       })
       cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type(longDescription)
+      cy.get('[data-testid="callerName"]').clear().type(longName)
+      cy.get('[data-testid="contactNumber"]').clear().type(longContactNumber)
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.contains('You have exceeded the maximum amount of characters')
+      cy.contains('You have exceeded the maximum amount of 50 characters')
+      cy.contains('Please enter a valid UK telephone number (11 digits)')
+    })
+  })
+  context('When user enters invalid characters for telephone number', () => {
+    it('Shows an error', () => {
+      const invalidContactNumber = new Array(11).join('a')
+      cy.loginWithAuthorisationManagerRole()
+      cy.intercept({
+        method: 'PATCH',
+        path: `/api/workOrders/editWorkOrder`,
+      })
+      cy.visit('/work-orders/10000040/edit')
+      cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
+      cy.get('.govuk-form-group > .govuk-button').click()
+      cy.contains(
+        'Telephone number should be a number and with no empty spaces'
+      )
+    })
+  })
+  context('When user enters a space in the telephone number', () => {
+    it('Shows an error', () => {
+      const invalidContactNumber = '01234 567890'
+      cy.loginWithAuthorisationManagerRole()
+      cy.intercept({
+        method: 'PATCH',
+        path: `/api/workOrders/editWorkOrder`,
+      })
+      cy.visit('/work-orders/10000040/edit')
+      cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
+      cy.get('.govuk-form-group > .govuk-button').click()
+      cy.contains(
+        'Telephone number should be a number and with no empty spaces'
+      )
     })
   })
 
@@ -110,13 +154,13 @@ describe('Editing a work order description', () => {
       cy.intercept(
         {
           method: 'PATCH',
-          path: `/api/workOrders/updateDescription`,
+          path: `/api/workOrders/editWorkOrder`,
         },
         { statusCode: 500 }
-      ).as('failedUpdateDescription')
+      ).as('failedEditWorkOrder')
       cy.visit('/work-orders/10000040/edit')
       cy.get('.govuk-form-group > .govuk-button').click()
-      cy.wait('@failedUpdateDescription')
+      cy.wait('@failedEditWorkOrder')
       cy.contains('Oops, an error occurred: 500')
     })
   })
