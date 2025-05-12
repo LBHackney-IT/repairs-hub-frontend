@@ -10,6 +10,9 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
+import { getWorkOrder } from '../../utils/requests/workOrders'
+import { ApiError } from 'next/dist/server/api-utils'
+import { APIResponseError } from '../../types/requests/types'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -43,17 +46,20 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderPromise = frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderPromise = getWorkOrder(workOrderReference)
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
-      const workOrder = await workOrderPromise
+      const workOrderResponse = await workOrderPromise
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const propertyPromise = frontEndApiRequest({
         method: 'get',
@@ -77,16 +83,20 @@ const WorkOrderView = ({ workOrderReference }) => {
       setProperty(null)
       console.error('An error has occured:', e.response)
 
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(
+            `Oops an error occurred with error status: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          )
+        }
       }
     }
 
