@@ -46,7 +46,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   const fetchTrades = async () => {
     const tradesResponse = await getTrades()
     if (!tradesResponse.success) {
-      setError(tradesResponse.error)
+      setError(tradesResponse.error.message)
       return
     }
     setTrades(tradesResponse.response)

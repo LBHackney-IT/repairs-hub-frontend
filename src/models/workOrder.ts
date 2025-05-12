@@ -9,13 +9,15 @@ import {
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
 import { FollowOnRequest } from './followOnRequest'
+import { Appointment } from './appointment'
+import { Operative } from './operativeModel'
 
 export class WorkOrder {
   reference: string
   description: string
   externalAppointmentManagementUrl: string
   startTime: string
-  appointment: any
+  appointment: Appointment
   status: string
   dateRaised: string
   tradeDescription: string
@@ -27,14 +29,20 @@ export class WorkOrder {
 
   closedDated: string
   paymentType: string
-  operatives: {
-    name: string
-    jobPercentage: number
-  }[]
+  operatives: Operative[]
   followOnRequest?: FollowOnRequest
   uploadedFileCount?: {
     totalFileCount: number
   }
+  budgetCode
+  owner
+  priority: string
+  raisedBy: string
+  callerName: string
+  callerNumber: string
+  plannerComments: string
+  propertyReference: string
+  property: string
 
   constructor(workOrderData) {
     Object.assign(this, workOrderData)

@@ -22,6 +22,9 @@ import uploadFiles from './Photos/hooks/uploadFiles'
 import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
+import { emitTagManagerEvent } from '@/utils/tagManager'
+import { getWorkOrder } from '../../utils/requests/workOrders'
+import { APIResponseError } from '../../types/requests/types'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -46,10 +49,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const featureToggleData = await fetchSimpleFeatureToggles()
 
@@ -90,16 +96,20 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       setPhotos(null)
       console.error('An error has occured:', e.response)
 
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(
+            `Oops an error occurred with error status: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          )
+        }
       }
     }
 
@@ -247,9 +257,22 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         requestData: closeWorkOrderFormData,
       })
 
+      const isNoAccess = data.reason === 'No Access'
+
+      if (featureToggles?.googleTagManagerEnabled)
+        emitTagManagerEvent({
+          event: 'work-order-closed',
+          workOrderClosedDetails: {
+            visitCompleted: !isNoAccess,
+            photosUploaded: workOrderFiles?.length > 0,
+            followOnRequested: followOnRequest !== null,
+            followOnPhotosUploaded: followOnFiles?.length > 0,
+          },
+        })
+
       setModalFlashMessage(
         `Work order ${workOrderReference} successfully ${
-          data.reason === 'No Access' ? 'closed with no access' : 'closed'
+          isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
       router.push('/')
