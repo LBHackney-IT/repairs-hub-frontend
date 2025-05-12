@@ -14,6 +14,8 @@ import NoAvailableAppointments from './NoAvailableAppointments'
 import { WorkOrder } from '@/models/workOrder'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
@@ -35,11 +37,13 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderData = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
-      const workOrder = new WorkOrder(workOrderData)
+      const workOrderResponse = await getWorkOrder(workOrderReference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       if (!workOrder.statusAllowsScheduling()) {
         setError(
@@ -83,11 +87,16 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       setTenure(null)
       setAvailableAppointments(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     } finally {
       setLoading(false)
     }
