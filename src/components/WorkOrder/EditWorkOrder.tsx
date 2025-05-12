@@ -7,6 +7,8 @@ import { Button, PrimarySubmitButton } from '../Form'
 import { TextInput, CharacterCountLimitedTextArea } from '../Form'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
+import TenantContactsTable from '../../components/Property/Contacts/TenantsContactTable/TenantsContactTable'
+import ContactsTable from '../../components/Property/Contacts/ContactsTable'
 
 import { WorkOrder } from '@/models/workOrder'
 
@@ -16,6 +18,7 @@ import {
   editWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
+import { getTenureId, getContactDetails } from '../../utils/requests/property'
 
 export type EditWorkOrderProps = {
   workOrderReference: string
@@ -30,6 +33,10 @@ export type FormValues = {
 const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
+  const [tenureId, setTenureId] = useState<string | null>(null)
+  const [contacts, setContacts] = useState([])
+  const [tenants, setTenants] = useState([])
+  const [householdMembers, setHouseholdMembers] = useState([])
   const [error, setError] = useState<string | null>(null)
 
   const {
@@ -44,6 +51,10 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
     fetchWorkOrder()
   }, [workOrderReference])
 
+  useEffect(() => {
+    fetchTenureId()
+  }, [workOrder])
+
   const fetchWorkOrder = async () => {
     setLoading(true)
     const workOrderResponse = await getWorkOrder(workOrderReference)
@@ -56,6 +67,43 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
     setLoading(false)
   }
+
+  const fetchTenureId = async () => {
+    if (!workOrder) {
+      return null
+    }
+    const tenureIdResponse = await getTenureId(workOrder.propertyReference)
+    if (!tenureIdResponse.success) {
+      setError(tenureIdResponse.error.message)
+    } else {
+      setTenureId(tenureIdResponse.response)
+    }
+  }
+
+  useEffect(() => {
+    fetchContactDetails()
+  }, [tenureId])
+
+  const fetchContactDetails = async () => {
+    if (!tenureId) {
+      // no tenure to associate contacts with
+      setContacts([])
+      return
+    }
+    const contactDetailsResponse = await getContactDetails(tenureId)
+    if (!contactDetailsResponse.success) {
+      setError(contactDetailsResponse.error.message)
+    } else {
+      setContacts(contactDetailsResponse.response)
+    }
+  }
+
+  useEffect(() => {
+    setTenants(contacts.filter((x) => x.tenureType === 'Tenant'))
+    setHouseholdMembers(
+      contacts.filter((x) => x.tenureType === 'HouseholdMember')
+    )
+  }, [contacts])
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
@@ -121,9 +169,9 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             <h2 className="lbh-heading-h2 " style={{ color: '#0CA789' }}>
               Edit contact details for repair
             </h2>
-            <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
+            {/* <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
               Caller name
-            </h3>
+            </h3> */}
             <TextInput
               name="callerName"
               label="Caller name"
@@ -139,9 +187,9 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
               })}
               error={errors && errors.callerName}
             />
-            <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
+            {/* <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
               Caller number
-            </h3>
+            </h3> */}
             <TextInput
               name="contactNumber"
               label="Telephone number"
@@ -180,6 +228,21 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
                 label="Save"
               />
             </div>
+            <h3
+              className="lbh-heading-h3"
+              style={{ color: '#505a5f', fontWeight: 'normal' }}
+            >
+              Tenants
+            </h3>
+            <TenantContactsTable tenants={tenants} reloadContacts={contacts} />
+
+            <h3
+              className="lbh-heading-h3"
+              style={{ color: '#505a5f', fontWeight: 'normal' }}
+            >
+              Household members
+            </h3>
+            <ContactsTable contacts={householdMembers} />
           </form>
         </GridColumn>
       </GridRow>
