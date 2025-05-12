@@ -1,8 +1,11 @@
-import PropTypes from 'prop-types'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from '@/utils/time'
 
-const WorkOrderInfo = ({ workOrder }) => {
+interface Props {
+  workOrder: WorkOrder
+}
+
+const WorkOrderInfo = ({ workOrder }: Props) => {
   return (
     <div className="work-order-info">
       <div className="lbh-body-s govuk-!-margin-bottom-2">
@@ -57,10 +60,6 @@ const WorkOrderInfo = ({ workOrder }) => {
       )}
     </div>
   )
-}
-
-WorkOrderInfo.propTypes = {
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
 }
 
 export default WorkOrderInfo
