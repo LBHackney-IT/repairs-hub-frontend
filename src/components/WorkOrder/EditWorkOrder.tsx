@@ -149,13 +149,8 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
                     return 'Telephone number should be a number and with no empty spaces'
                   }
                   if (value.length !== 11) {
-                    return 'Telephone number must be 11 digits'
+                    return 'Please enter a valid UK telephone number (11 digits)'
                   }
-                },
-                maxLength: {
-                  value: 11,
-                  message:
-                    'Please enter a valid UK telephone number (11 digits)',
                 },
               })}
               error={errors && errors.contactNumber}
