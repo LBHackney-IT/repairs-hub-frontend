@@ -40,9 +40,10 @@ describe('Notes', () => {
   it('Fill out notes form and update the work order status', () => {
     cy.visit('/work-orders/10000012')
     // Tasks and SORs tab should be active
-    cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+    cy.contains('.tabs-button', 'Tasks and SORs').click()
+
     // Now select Notes tab
-    cy.get('a[id="tab_notes-tab"]').click()
+    cy.contains('.tabs-button', 'Notes').click()
     cy.get('#notes-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Notes')
       // Form hidden by default
@@ -57,10 +58,7 @@ describe('Notes', () => {
       })
 
       // Enter a valid note
-      cy.get('#note')
-        .get('.govuk-textarea')
-        .clear()
-        .type('A note about the repair')
+      cy.get('.govuk-textarea').clear().type('A note about the repair')
       // Submit form
       cy.get('[type="submit"]').contains('Publish note').click()
     })
@@ -84,7 +82,7 @@ describe('Notes', () => {
   it('Displays notes as a timeline', () => {
     cy.visit('/work-orders/10000012')
 
-    cy.get('a[id="tab_notes-tab"]').click()
+    cy.contains('.tabs-button', 'Notes').click()
 
     cy.get('#notes-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Notes')
@@ -111,7 +109,7 @@ describe('Notes', () => {
     )
 
     cy.visit('/work-orders/10000012')
-    cy.get('a[id="tab_notes-tab"]').click()
+    cy.contains('.tabs-button', 'Notes').click()
 
     cy.get('#notes-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Notes')
@@ -120,9 +118,10 @@ describe('Notes', () => {
   })
 
   it('Navigate directly to notes tab', () => {
-    cy.visit('/work-orders/10000012#notes-tab')
+    cy.visit('/work-orders/10000012?currentTab=notes-tab')
     // Notes tab should be active
-    cy.get('.govuk-tabs__list-item--selected a').contains('Notes')
+
+    cy.contains('.tabs-button', 'Notes').should('have.class', 'active')
 
     cy.get('#notes-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Notes')
