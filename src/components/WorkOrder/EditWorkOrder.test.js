@@ -87,7 +87,6 @@ describe('EditWorkOrder Component', () => {
     )
 
     // Wait for the async fetch to complete and the form to render
-    await waitFor(() => {})
     await waitFor(() =>
       expect(getByText('Edit work order: 10000040')).toBeInTheDocument()
     )
