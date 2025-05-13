@@ -1,10 +1,10 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
-import { Tenure } from '../../models/tenure'
+import { Property } from '../../models/property'
 
-export const getTenureId = async (
+export const getPropertyData = async (
   workOrderPropertyReference: string
-): Promise<ApiResponseType<Tenure['id'] | null>> => {
+): Promise<ApiResponseType<Property>> => {
   try {
     const propertyData = await frontEndApiRequest({
       method: 'get',
@@ -13,7 +13,7 @@ export const getTenureId = async (
 
     return {
       success: true,
-      response: propertyData.tenure.id,
+      response: propertyData,
       error: null,
     }
   } catch (e) {
@@ -48,7 +48,7 @@ export const getContactDetails = async (
       method: 'get',
       path: `/api/contact-details/${tenureId}`,
     })
-    console.log('Contact details:', contactDetails)
+   
     return {
       success: true,
       response: contactDetails,
