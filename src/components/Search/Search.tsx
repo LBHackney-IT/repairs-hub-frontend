@@ -148,6 +148,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
               <input
                 className="govuk-input lbh-input govuk-input--width-10"
                 id="input-search"
+                data-testid="input-search"
                 name="search-name"
                 type="text"
                 value={searchTextInput}
@@ -156,7 +157,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
               <PrimarySubmitButton
                 id="submit-search"
                 label="Search"
-                disabled={!searchTextInput || searchTextInput.length <= 1}
+                disabled={!searchTextInput.trim() || searchTextInput.trim().length <= 1}
                 onClick={handleSubmit}
               />
             </form>
