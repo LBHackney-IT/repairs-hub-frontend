@@ -48,7 +48,7 @@ export const getContactDetails = async (
       method: 'get',
       path: `/api/contact-details/${tenureId}`,
     })
-   
+
     return {
       success: true,
       response: contactDetails,
