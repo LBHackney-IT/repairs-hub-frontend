@@ -34,7 +34,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
@@ -59,7 +58,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
@@ -105,7 +103,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
                   data-testid="sor-code-0"
                   disabled=""
@@ -136,7 +133,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-0 govuk-!-width-full"
                   data-testid="quantity-0"
                   id="quantity-0"
@@ -162,7 +158,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
                   data-testid="sor-code-1"
                   disabled=""
@@ -193,7 +188,6 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-1 govuk-!-width-full"
                   data-testid="quantity-1"
                   id="quantity-1"
@@ -309,7 +303,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
@@ -334,7 +327,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
@@ -380,7 +372,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
                   data-testid="sor-code-0"
                   disabled=""
@@ -411,7 +402,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-0 govuk-!-width-full"
                   data-testid="quantity-0"
                   id="quantity-0"
@@ -437,7 +427,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
                   data-testid="sor-code-1"
                   disabled=""
@@ -468,7 +457,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-1 govuk-!-width-full"
                   data-testid="quantity-1"
                   id="quantity-1"
@@ -563,7 +551,6 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
             </span>
           </label>
           <input
-            aria-describedby=""
             class="govuk-input lbh-input govuk-!-width-full"
             data-testid="rateScheduleItems[undefined][quantity]"
             id="rateScheduleItems[undefined][quantity]"
@@ -683,7 +670,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
@@ -708,7 +694,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
@@ -754,7 +739,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   SOR code 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-0 govuk-!-width-full"
                   data-testid="sor-code-0"
                   disabled=""
@@ -785,7 +769,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   Quantity 
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-0 govuk-!-width-full"
                   data-testid="quantity-0"
                   id="quantity-0"
@@ -811,7 +794,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input sor-code-1 govuk-!-width-full"
                   data-testid="sor-code-1"
                   disabled=""
@@ -842,7 +824,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                    
                 </label>
                 <input
-                  aria-describedby=""
                   class="govuk-input lbh-input quantity-1 govuk-!-width-full"
                   data-testid="quantity-1"
                   id="quantity-1"
@@ -930,7 +911,6 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
             </span>
           </label>
           <input
-            aria-describedby=""
             class="govuk-input lbh-input govuk-!-width-full"
             data-testid="rateScheduleItems[undefined][quantity]"
             id="rateScheduleItems[undefined][quantity]"

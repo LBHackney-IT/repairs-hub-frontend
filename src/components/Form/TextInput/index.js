@@ -4,14 +4,14 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 
 const TextInput = ({
   label,
-  hint = '',
+  hint,
   name,
   register,
   error,
   type = 'text',
   widthClass = '',
   required,
-  onBlur = null,
+  onBlur = '',
   defaultValue,
   additionalDivClasses = '',
   isLabelGreen = false,

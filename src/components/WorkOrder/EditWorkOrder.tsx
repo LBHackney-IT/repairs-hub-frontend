@@ -172,6 +172,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             <TextInput
               name="callerName"
               label="Caller name"
+              hint={'Please enter a caller name'}
               required={true}
               defaultValue={workOrder.callerName}
               isLabelGreen={true}
@@ -188,6 +189,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             <TextInput
               name="contactNumber"
               label="Telephone number"
+              hint={'Please enter a telephone number'}
               required={true}
               defaultValue={workOrder.callerNumber}
               isLabelGreen={true}

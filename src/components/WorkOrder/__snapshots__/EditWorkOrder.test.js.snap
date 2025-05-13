@@ -86,8 +86,14 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
                 *
               </span>
             </label>
+            <span
+              class="govuk-hintf lbh-hint"
+              id="callerName-hint"
+            >
+              Please enter a caller name
+            </span>
             <input
-              aria-describedby=""
+              aria-describedby="callerName-hint"
               class="govuk-input lbh-input "
               data-testid="callerName"
               id="callerName"
@@ -112,8 +118,14 @@ exports[`EditWorkOrder Component should render correctly after fetching work ord
                 *
               </span>
             </label>
+            <span
+              class="govuk-hintf lbh-hint"
+              id="contactNumber-hint"
+            >
+              Please enter a telephone number
+            </span>
             <input
-              aria-describedby=""
+              aria-describedby="contactNumber-hint"
               class="govuk-input lbh-input "
               data-testid="contactNumber"
               id="contactNumber"

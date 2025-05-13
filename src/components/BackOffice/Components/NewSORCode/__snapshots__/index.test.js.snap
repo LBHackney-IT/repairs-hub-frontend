@@ -28,7 +28,6 @@ exports[`NewSORCode component should render the component 1`] = `
           SOR code 
         </label>
         <input
-          aria-describedby=""
           class="govuk-input lbh-input "
           data-testid="sor-code-input"
           id="sor-code-input"
@@ -51,7 +50,6 @@ exports[`NewSORCode component should render the component 1`] = `
           Cost (£) 
         </label>
         <input
-          aria-describedby=""
           class="govuk-input lbh-input "
           data-testid="sor-code-cost-input"
           id="sor-code-cost-input"
@@ -76,7 +74,6 @@ exports[`NewSORCode component should render the component 1`] = `
           Standard Minute Value 
         </label>
         <input
-          aria-describedby=""
           class="govuk-input lbh-input "
           data-testid="sor-code-smv-input"
           id="sor-code-smv-input"
