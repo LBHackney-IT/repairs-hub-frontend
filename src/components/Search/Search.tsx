@@ -72,6 +72,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
   }, [pageNumber])
 
   const searchForProperties = async (searchQuery, pageNumber) => {
+    if (!searchQuery || searchQuery.length <= 1) return
     setLoading(true)
     setError(null)
 
