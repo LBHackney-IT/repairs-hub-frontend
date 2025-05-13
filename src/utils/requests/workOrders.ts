@@ -1,4 +1,7 @@
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchSimpleFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
@@ -40,6 +43,13 @@ export const getWorkOrderNew = async (
   includeAppointmentData: boolean = false
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
+    const featureToggleData = await fetchSimpleFeatureToggles()
+
+    if (!featureToggleData?.enableNewAppointmentEndpoint) {
+      // default to old endpoint if FT disabled
+      return await getWorkOrder(workOrderReference)
+    }
+
     const workOrderData = await frontEndApiRequest({
       method: 'get',
       path: `/api/workOrders/${workOrderReference}/new`,
