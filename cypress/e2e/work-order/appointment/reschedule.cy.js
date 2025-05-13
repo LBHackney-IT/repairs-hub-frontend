@@ -56,7 +56,7 @@ describe('Rescheduling work order appointments', () => {
         { body: '' }
       ).as('apiCheckjobStatus')
 
-      cy.clock(now)
+      // cy.clock(now)
     })
 
     context('When the work order is not in a closed state', () => {
@@ -175,8 +175,19 @@ describe('Rescheduling work order appointments', () => {
       })
     })
 
-    context('When the work order is in a closed state', () => {
+    context.only('When the work order is in a closed state', () => {
       beforeEach(() => {
+        
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/withAppointment.json',
+          }
+        )
+      })
+
+      it('Does not show a reschedule link', () => {
         cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_NO_ACCESS.description
@@ -188,15 +199,6 @@ describe('Rescheduling work order appointments', () => {
           })
           .as('workOrder')
 
-        cy.intercept(
-          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
-          {
-            fixture: 'workOrderAppointments/withAppointment.json',
-          }
-        )
-      })
-
-      it('Does not show a reschedule link', () => {
         cy.visit('/work-orders/10000012')
 
         cy.wait(['@tasks', '@workOrder', '@property'])
@@ -207,6 +209,17 @@ describe('Rescheduling work order appointments', () => {
       })
 
       it('Shows an error message if navigating to appointment edit directly', () => {
+        cy.fixture('workOrders/withAppointment.json')
+          .then((workOrder) => {
+            workOrder.status = STATUS_NO_ACCESS.description
+
+            cy.intercept(
+              { method: 'GET', path: '/api/workOrders/10000012' },
+              { body: workOrder }
+            )
+          })
+          .as('workOrder')
+
         cy.visit('/work-orders/10000012/appointment/edit')
 
         cy.wait('@workOrder')
