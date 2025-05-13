@@ -41,27 +41,29 @@ const mockPropertyData = {
   },
 }
 
-const mockContactDetails = {
-  fullName: 'FAKE_Deborah FAKE_Kirby',
-  tenureType: 'Tenant',
-  personId: '6cf60708-b5ff-777f-63a2-39fe4e9493c4',
-  phoneNumbers: [
-    {
-      contactType: 'phone',
-      value: '12345678912',
-      description: null,
-      subType: 'mainNumber',
-      contactId: '7bf8bf36-e923-491c-b7e4-c77a9d204803',
-    },
-    {
-      contactType: 'phone',
-      value: '12345678912',
-      description: null,
-      subType: 'socialWorker',
-      contactId: '3a3009b8-0e86-48de-8316-200f25d95f25',
-    },
-  ],
-}
+const mockContactDetails = [
+  {
+    fullName: 'FAKE_Deborah FAKE_Kirby',
+    tenureType: 'Tenant',
+    personId: '6cf60708-b5ff-777f-63a2-39fe4e9493c4',
+    phoneNumbers: [
+      {
+        contactType: 'phone',
+        value: '12345678912',
+        description: null,
+        subType: 'mainNumber',
+        contactId: '7bf8bf36-e923-491c-b7e4-c77a9d204803',
+      },
+      {
+        contactType: 'phone',
+        value: '12345678912',
+        description: null,
+        subType: 'socialWorker',
+        contactId: '3a3009b8-0e86-48de-8316-200f25d95f25',
+      },
+    ],
+  },
+]
 describe('EditWorkOrder Component', () => {
   beforeEach(() => {
     getWorkOrder.mockResolvedValue({
