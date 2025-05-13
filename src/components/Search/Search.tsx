@@ -157,7 +157,9 @@ const Search: React.FC<SearchProps> = ({ query }) => {
               <PrimarySubmitButton
                 id="submit-search"
                 label="Search"
-                disabled={!searchTextInput.trim() || searchTextInput.trim().length <= 1}
+                disabled={
+                  !searchTextInput.trim() || searchTextInput.trim().length <= 1
+                }
                 onClick={handleSubmit}
               />
             </form>
