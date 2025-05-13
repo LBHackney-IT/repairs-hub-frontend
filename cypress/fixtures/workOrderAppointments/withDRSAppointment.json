@@ -20,6 +20,6 @@
       "trades": ["DE"]
     }
   ],
-  "externalAppointmentManagementUrl": null,
+  "externalAppointmentManagementUrl": "/scheduler?bookingId=1",
   "plannerComments": null
 }

@@ -61,6 +61,13 @@ describe('Rescheduling work order appointments', () => {
 
     context('When the work order is not in a closed state', () => {
       beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          {
+            fixture: 'workOrders/withAppointment.json',
+          }
+        ).as('workOrder')
+
         cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_IN_PROGRESS.description
@@ -70,7 +77,14 @@ describe('Rescheduling work order appointments', () => {
               { body: workOrder }
             )
           })
-          .as('workOrder')
+          .as('workOrderOld')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/withAppointment.json',
+          }
+        )
       })
 
       it('Permits rescheduling and displays the new appointment on the work order', () => {
@@ -84,7 +98,12 @@ describe('Rescheduling work order appointments', () => {
           .contains('Reschedule appointment')
           .click()
 
-        cy.wait(['@availableAppointments', '@tasks', '@workOrder', '@property'])
+        cy.wait([
+          '@availableAppointments',
+          '@tasks',
+          '@workOrderOld',
+          '@property',
+        ])
 
         //Appointment page with calendar
         cy.url().should('contains', 'work-orders/10000012/appointment/edit')
@@ -168,6 +187,13 @@ describe('Rescheduling work order appointments', () => {
             )
           })
           .as('workOrder')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/withAppointment.json',
+          }
+        )
       })
 
       it('Does not show a reschedule link', () => {
@@ -204,7 +230,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -219,6 +245,13 @@ describe('Rescheduling work order appointments', () => {
           { method: 'POST', path: '/api/jobStatusUpdate' },
           { body: '' }
         ).as('apiCheckjobStatus')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/withDRSAppointment.json',
+          }
+        )
       })
 
       it('Permits rescheduling and calls the API to make a note of when DRS was opened', () => {
@@ -269,6 +302,13 @@ describe('Rescheduling work order appointments', () => {
               )
             })
             .as('workOrder')
+
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+            {
+              fixture: 'workOrderAppointments/withDRSAppointment.json',
+            }
+          )
         })
 
         it('Does not show a reschedule link', () => {

@@ -172,7 +172,7 @@ describe('Work order cancellations', () => {
           workOrder.priorityCode = 2
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })
@@ -211,7 +211,7 @@ describe('Work order cancellations', () => {
           workOrder.contractorReference = 'HCK'
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })
