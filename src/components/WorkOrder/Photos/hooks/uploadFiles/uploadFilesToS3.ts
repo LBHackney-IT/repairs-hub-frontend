@@ -3,7 +3,42 @@ import imageCompression from 'browser-image-compression'
 import faultTolerantRequest from './faultTolerantRequest'
 import uploadFileToS3 from './uploadFileToS3'
 
-const uploadFilesToS3 = async (
+const uploadFilesToS3Series = async (
+  files: File[],
+  links: Link[],
+  fileUploadCompleteCallback: () => void
+): Promise<{ success: boolean; error?: any }> => {
+  let allSucceeded = true
+
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    const link = links[i]
+
+    try {
+      const result = await uploadWrapper(file, link)
+
+      if (!result.success) {
+        allSucceeded = false
+      }
+    } catch (error) {
+      console.error(`Error uploading file ${i}:`, error)
+      allSucceeded = false
+    } finally {
+      fileUploadCompleteCallback()
+    }
+  }
+
+  if (allSucceeded) {
+    return { success: true }
+  } else {
+    return {
+      success: false,
+      error: 'Some photos failed to upload. Please try again',
+    }
+  }
+}
+
+const uploadFilesToS3Parallel = async (
   files: File[],
   links: Link[],
   fileUploadCompleteCallback: () => void
@@ -56,7 +91,6 @@ const uploadWrapper = async (
 
   let fileToUpload = file
 
-  // try to compress file. If fails, just use file
   try {
     fileToUpload = await imageCompression(file, compressionOptions)
   } catch (err) {
@@ -70,4 +104,4 @@ const uploadWrapper = async (
   return result
 }
 
-export default uploadFilesToS3
+export default uploadFilesToS3Series
