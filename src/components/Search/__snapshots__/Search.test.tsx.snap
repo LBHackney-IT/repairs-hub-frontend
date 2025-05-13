@@ -34,6 +34,7 @@ exports[`Search component renders a search form 1`] = `
             <button
               class="govuk-button lbh-button"
               data-module="govuk-button"
+              disabled=""
               id="submit-search"
               type="submit"
             >
