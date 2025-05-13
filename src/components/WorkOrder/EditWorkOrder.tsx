@@ -7,6 +7,8 @@ import { Button, PrimarySubmitButton } from '../Form'
 import { TextInput, CharacterCountLimitedTextArea } from '../Form'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
+import TenantContactsTable from '../../components/Property/Contacts/TenantsContactTable/TenantsContactTable'
+import ContactsTable from '../../components/Property/Contacts/ContactsTable'
 
 import { WorkOrder } from '@/models/workOrder'
 
@@ -16,6 +18,10 @@ import {
   editWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
+import {
+  getPropertyData,
+  getContactDetails,
+} from '../../utils/requests/property'
 
 export type EditWorkOrderProps = {
   workOrderReference: string
@@ -30,6 +36,9 @@ export type FormValues = {
 const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
+  const [contacts, setContacts] = useState([])
+  const [tenants, setTenants] = useState([])
+  const [householdMembers, setHouseholdMembers] = useState([])
   const [error, setError] = useState<string | null>(null)
 
   const {
@@ -41,19 +50,48 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const router = useRouter()
 
   useEffect(() => {
-    fetchWorkOrder()
+    fetchWorkOrderDetails()
   }, [workOrderReference])
 
-  const fetchWorkOrder = async () => {
+  const fetchWorkOrderDetails = async () => {
     setLoading(true)
     const workOrderResponse = await getWorkOrder(workOrderReference)
 
     if (!workOrderResponse.success) {
       setError(workOrderResponse.error.message)
-    } else {
-      setWorkOrder(workOrderResponse.response)
+      setLoading(false)
+      return
     }
-
+    const propertyDataResponse = await getPropertyData(
+      workOrderResponse.response.propertyReference
+    )
+    if (!propertyDataResponse.success) {
+      setError(propertyDataResponse.error.message)
+      setLoading(false)
+      return
+    }
+    if (propertyDataResponse.response.tenure.id === null) {
+      setLoading(false)
+      return
+    }
+    const contactDetailsResponse = await getContactDetails(
+      propertyDataResponse.response.tenure?.id
+    )
+    if (!contactDetailsResponse.success) {
+      setError(contactDetailsResponse.error.message)
+      setLoading(false)
+      return
+    }
+    setWorkOrder(workOrderResponse.response)
+    setContacts(contactDetailsResponse.response)
+    setTenants(
+      contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
+    )
+    setHouseholdMembers(
+      contactDetailsResponse.response.filter(
+        (x) => x.tenureType === 'HouseholdMember'
+      )
+    )
     setLoading(false)
   }
 
@@ -121,14 +159,13 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
             <h2 className="lbh-heading-h2 " style={{ color: '#0CA789' }}>
               Edit contact details for repair
             </h2>
-            <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
-              Caller name
-            </h3>
             <TextInput
               name="callerName"
               label="Caller name"
+              hint={'Please enter a caller name'}
               required={true}
               defaultValue={workOrder.callerName}
+              isLabelGreen={true}
               register={register({
                 required: 'Please enter a caller name',
                 maxLength: {
@@ -139,14 +176,13 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
               })}
               error={errors && errors.callerName}
             />
-            <h3 className="lbh-heading-h3 " style={{ color: '#0CA789' }}>
-              Caller number
-            </h3>
             <TextInput
               name="contactNumber"
               label="Telephone number"
+              hint={'Please enter a telephone number'}
               required={true}
               defaultValue={workOrder.callerNumber}
+              isLabelGreen={true}
               register={register({
                 required: 'Please enter a telephone number',
                 validate: (value) => {
@@ -180,6 +216,21 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
                 label="Save"
               />
             </div>
+            <h3
+              className="lbh-heading-h3"
+              style={{ color: '#505a5f', fontWeight: 'normal' }}
+            >
+              Tenants
+            </h3>
+            <TenantContactsTable tenants={tenants} reloadContacts={contacts} />
+
+            <h3
+              className="lbh-heading-h3"
+              style={{ color: '#505a5f', fontWeight: 'normal' }}
+            >
+              Household members
+            </h3>
+            <ContactsTable contacts={householdMembers} />
           </form>
         </GridColumn>
       </GridRow>

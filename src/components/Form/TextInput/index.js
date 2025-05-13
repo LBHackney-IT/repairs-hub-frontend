@@ -4,16 +4,17 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 
 const TextInput = ({
   label,
-  hint = '',
+  hint,
   name,
   register,
   error,
   type = 'text',
   widthClass = '',
   required,
-  onBlur = null,
+  onBlur = '',
   defaultValue,
   additionalDivClasses = '',
+  isLabelGreen = false,
   ...otherProps
 }) => (
   <div
@@ -26,7 +27,11 @@ const TextInput = ({
       additionalDivClasses
     )}
   >
-    <label className="govuk-label lbh-label" htmlFor={name}>
+    <label
+      className="govuk-label lbh-label"
+      htmlFor={name}
+      {...(isLabelGreen && { style: { color: '#0CA789' } })}
+    >
       {label} {required && <span className="govuk-required">*</span>}
     </label>
     {hint && (
