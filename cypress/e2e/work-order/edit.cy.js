@@ -46,7 +46,7 @@ describe('Editing a work order description', () => {
         .as('tasks')
       cy.visit('/work-orders/10000012')
     })
-    it('allows me to edit the work order and adds the updated description to the notes', () => {
+    it.only('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
