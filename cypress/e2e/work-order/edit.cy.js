@@ -21,14 +21,14 @@ describe('Editing a work order description', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
-      )
+      ).as('property')
       cy.intercept(
         {
           method: 'GET',
           path: 'api/contact-details/5cbe6215-5979-388b-9a5c-534cad2bfdb1',
         },
         { fixture: 'contactDetails/contactDetails.json' }
-      )
+      ).as('contactDetails')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type('This is a test description.')
