@@ -48,7 +48,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const router = useRouter()
 
   useEffect(() => {
-    fetchWorkOrderDetails()
+    fetchWorkOrder()
   }, [workOrderReference])
 
   useEffect(() => {
