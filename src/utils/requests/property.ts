@@ -2,7 +2,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { Property } from '../../models/property'
 
-export const getTenureId = async (
+export const getPropertyData = async (
   workOrderPropertyReference: string
 ): Promise<ApiResponseType<Property>> => {
   try {
