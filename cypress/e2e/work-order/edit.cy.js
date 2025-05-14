@@ -12,38 +12,34 @@ describe('Editing a work order description', () => {
           )
         })
         .as('workOrder')
+      cy.fixture('properties/property.json').then((property) => {
+        cy.intercept(
+          {
+            method: 'GET',
+            path: `/api/properties/${property.property.propertyReference}`,
+          },
+          { body: property }
+        ).as('property')
 
-      let tenureId
-      cy.fixture('properties/property.json')
-        .then((property) => {
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/properties/${property.property.propertyReference}`,
-            },
-            { body: property },
-            (tenureId = property.tenure.id)
-          )
-        })
-        .as('property')
-      cy.fixture('contactDetails/contactDetails.json')
-        .then((contactDetails) => {
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/contact-details/${tenureId}`,
-            },
-            { body: contactDetails }
-          )
-        })
-        .as('contactDetails')
+        cy.fixture('contactDetails/contactDetails.json').then(
+          (contactDetails) => {
+            cy.intercept(
+              {
+                method: 'GET',
+                path: `/api/contact-details/${property.tenure.id}`,
+              },
+              { body: contactDetails }
+            ).as('contactDetails')
+          }
+        )
+      })
       cy.intercept({
         method: 'GET',
         path: 'api/workOrders/10000012/tasks',
       }).as('tasks')
       cy.visit('/work-orders/10000012')
     })
-    it.only('allows me to edit the work order and adds the updated description to the notes', () => {
+    it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
