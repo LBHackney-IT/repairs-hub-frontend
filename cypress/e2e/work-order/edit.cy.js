@@ -33,7 +33,7 @@ describe('Editing a work order description', () => {
         .clear()
         .type('This is a test description.')
       cy.get('[data-testid="callerName"]').clear().type('Test Name')
-      cy.get('[data-testid="contactNumber"]').clear().type('01234567899')
+      cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
       cy.intercept({
         method: 'PATCH',
         path: '/api/workOrders/editWorkOrder',
@@ -49,7 +49,7 @@ describe('Editing a work order description', () => {
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
-      cy.contains('01234567899')
+      cy.contains('01234567890')
       cy.get('#tab_notes-tab').click()
       cy.get('[data-note-id="0"] > span').should(
         'contain',
