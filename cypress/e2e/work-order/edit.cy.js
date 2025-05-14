@@ -265,7 +265,7 @@ describe('Editing a work order description', () => {
         .as('workOrder')
       cy.visit('/work-orders/10000040/edit')
     })
-    it.only('I am restricted from accessing the correct page', () => {
+    it('I am restricted from accessing the correct page', () => {
       cy.contains(`Access denied`)
     })
   })
