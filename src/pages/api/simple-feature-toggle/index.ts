@@ -11,6 +11,11 @@ export default authoriseServiceAPIRequest(async (req, res) => {
 
     fetchAppointmentsFromDrs:
       process.env.FETCH_APPOINTMENTS_FROM_DRS === 'true',
+
+    googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
+
+    enableNewAppointmentEndpoint:
+      process.env.NEW_APPOINTMENT_ENDPOINT_ENABLED === 'true',
   }
 
   res.status(HttpStatus.StatusCodes.OK).json(data)
