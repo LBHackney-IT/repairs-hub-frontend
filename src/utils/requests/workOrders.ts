@@ -36,7 +36,9 @@ export const getWorkOrder = async (
 
 export const editWorkOrder = async (
   id: string,
-  description: string
+  description: string,
+  callerName: string,
+  callerNumber: string
 ): Promise<ApiResponseType<null>> => {
   try {
     await frontEndApiRequest({
@@ -45,6 +47,8 @@ export const editWorkOrder = async (
       requestData: {
         workOrderId: id,
         description: description,
+        callerName: callerName,
+        callerNumber: callerNumber,
       },
     })
 
