@@ -208,6 +208,15 @@ describe('Editing a work order description', () => {
           )
         })
         .as('workOrder')
+      cy.fixture('workOrders/editedWorkOrder.json')
+        .then((workOrder) => {
+          workOrder.reference = 10000040
+          cy.intercept(
+            { method: 'GET', path: '/api/workOrders/10000040' },
+            { body: workOrder }
+          )
+        })
+        .as('editedWorkOrder')
       cy.intercept({
         method: 'GET',
         path: 'api/workOrders/10000040/tasks',
@@ -226,15 +235,7 @@ describe('Editing a work order description', () => {
         path: '/api/workOrders/updateDescription',
       }).as('updateDescription')
       cy.get('.govuk-form-group > .govuk-button').click()
-      cy.fixture('workOrders/editedWorkOrder.json')
-        .then((workOrder) => {
-          workOrder.reference = 10000040
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
-            { body: workOrder }
-          )
-        })
-        .as('editedWorkOrder')
+
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.get('#tab_notes-tab').click()
       cy.get('[data-note-id="0"] > span').should(
