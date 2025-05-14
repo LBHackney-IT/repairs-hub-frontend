@@ -17,18 +17,20 @@ describe('Editing a work order description', () => {
     it.only('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
+      // cy.intercept(
+      //   { method: 'GET', path: '/api/properties/00012345' },
+      //   { fixture: 'properties/property.json' }
+      // ).as('property')
+      // cy.intercept(
+      //   {
+      //     method: 'GET',
+      //     path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+      //   },
+      //   { fixture: 'contactDetails/contactDetails.json' }
+      // ).as('contactDetails')
       cy.get('.MultiButton_button__ApRbt').click()
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      ).as('property')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
-        },
-        { fixture: 'contactDetails/contactDetails.json' }
-      ).as('contactDetails')
+      // cy.wait('@property')
+      // cy.wait('@contactDetails')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type('This is a test description.')
