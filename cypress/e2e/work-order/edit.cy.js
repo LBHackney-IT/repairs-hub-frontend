@@ -5,6 +5,7 @@ describe('Editing a work order description', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        console.log('Loaded workOrder fixture:', workOrder)
         cy.intercept(
           {
             method: 'GET',
@@ -62,6 +63,8 @@ describe('Editing a work order description', () => {
         .as('editedWorkOrder')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
+      cy.contains('Test Name')
+      cy.contains('01234567890')
       cy.get('#tab_notes-tab').click()
       cy.get('[data-note-id="0"] > span').should(
         'contain',
