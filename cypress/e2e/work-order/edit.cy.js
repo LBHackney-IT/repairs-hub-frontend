@@ -7,11 +7,11 @@ describe('Editing a work order description', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
-      )
+      ).as('workOrder')
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
         { fixture: 'workOrders/task.json' }
-      )
+      ).as('tasks')
       cy.visit('/work-orders/10000012')
     })
     it.only('allows me to edit the work order and adds the updated description to the notes', () => {
