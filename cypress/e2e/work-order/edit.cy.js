@@ -5,7 +5,6 @@ describe('Editing a work order description', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
-        console.log('Loaded workOrder fixture:', workOrder)
         cy.intercept(
           {
             method: 'GET',
@@ -34,10 +33,17 @@ describe('Editing a work order description', () => {
           )
         })
       })
-      cy.intercept({
-        method: 'GET',
-        path: 'api/workOrders/10000012/tasks',
-      }).as('tasks')
+      cy.fixture('workOrders/task.json')
+        .then((tasks) => {
+          cy.intercept(
+            {
+              method: 'GET',
+              path: 'api/workOrders/10000012/tasks',
+            },
+            { body: tasks }
+          )
+        })
+        .as('tasks')
       cy.visit('/work-orders/10000012')
     })
     it('allows me to edit the work order and adds the updated description to the notes', () => {
