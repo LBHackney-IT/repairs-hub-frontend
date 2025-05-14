@@ -20,7 +20,7 @@ describe('Editing a work order description', () => {
           cy.intercept(
             {
               method: 'GET',
-              path: `/api/properties/${property.propertyReference}`,
+              path: `/api/properties/${property.property.propertyReference}`,
             },
             { body: property },
             (tenureId = property.tenure.id)
