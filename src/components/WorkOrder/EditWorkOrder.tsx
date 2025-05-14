@@ -18,10 +18,7 @@ import {
   editWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
-import {
-  getPropertyData,
-  getContactDetails,
-} from '../../utils/requests/property'
+import { getTenureId, getContactDetails } from '../../utils/requests/property'
 
 export type EditWorkOrderProps = {
   workOrderReference: string
@@ -36,6 +33,7 @@ export type FormValues = {
 const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [workOrder, setWorkOrder] = useState<WorkOrder | null>(null)
   const [loading, setLoading] = useState(true)
+  const [tenureId, setTenureId] = useState<string | null>(null)
   const [contacts, setContacts] = useState([])
   const [tenants, setTenants] = useState([])
   const [householdMembers, setHouseholdMembers] = useState([])
@@ -50,50 +48,62 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const router = useRouter()
 
   useEffect(() => {
-    fetchWorkOrderDetails()
+    fetchWorkOrder()
   }, [workOrderReference])
 
-  const fetchWorkOrderDetails = async () => {
+  useEffect(() => {
+    fetchTenureId()
+  }, [workOrder])
+
+  const fetchWorkOrder = async () => {
     setLoading(true)
     const workOrderResponse = await getWorkOrder(workOrderReference)
 
     if (!workOrderResponse.success) {
       setError(workOrderResponse.error.message)
-      setLoading(false)
-      return
+    } else {
+      setWorkOrder(workOrderResponse.response)
     }
-    const propertyDataResponse = await getPropertyData(
-      workOrderResponse.response.propertyReference
-    )
-    if (!propertyDataResponse.success) {
-      setError(propertyDataResponse.error.message)
-      setLoading(false)
-      return
-    }
-    if (propertyDataResponse.response.tenure.id === null) {
-      setLoading(false)
-      return
-    }
-    const contactDetailsResponse = await getContactDetails(
-      propertyDataResponse.response.tenure?.id
-    )
-    if (!contactDetailsResponse.success) {
-      setError(contactDetailsResponse.error.message)
-      setLoading(false)
-      return
-    }
-    setWorkOrder(workOrderResponse.response)
-    setContacts(contactDetailsResponse.response)
-    setTenants(
-      contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
-    )
-    setHouseholdMembers(
-      contactDetailsResponse.response.filter(
-        (x) => x.tenureType === 'HouseholdMember'
-      )
-    )
+
     setLoading(false)
   }
+
+  const fetchTenureId = async () => {
+    if (!workOrder) {
+      return null
+    }
+    const tenureIdResponse = await getTenureId(workOrder.propertyReference)
+    if (!tenureIdResponse.success) {
+      setError(tenureIdResponse.error.message)
+    } else {
+      setTenureId(tenureIdResponse.response.tenure.id)
+    }
+  }
+
+  useEffect(() => {
+    fetchContactDetails()
+  }, [tenureId])
+
+  const fetchContactDetails = async () => {
+    if (!tenureId) {
+      // no tenure to associate contacts with
+      setContacts([])
+      return
+    }
+    const contactDetailsResponse = await getContactDetails(tenureId)
+    if (!contactDetailsResponse.success) {
+      setError(contactDetailsResponse.error.message)
+    } else {
+      setContacts(contactDetailsResponse.response)
+    }
+  }
+
+  useEffect(() => {
+    setTenants(contacts.filter((x) => x.tenureType === 'Tenant'))
+    setHouseholdMembers(
+      contacts.filter((x) => x.tenureType === 'HouseholdMember')
+    )
+  }, [contacts])
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
