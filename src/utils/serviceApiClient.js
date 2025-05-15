@@ -117,7 +117,7 @@ export const serviceAPIRequest = async (request) => {
 
   // Log successful responses
   api.interceptors.response.use((response) => {
-    const target = `${response.request?.method} ${response.request?.path}`
+    const target = `${response.request?.method} ${response.request?.url}`
     const data = JSON.stringify(response.data)
     const dataLength = Array.isArray(response.data)
       ? `(${response.data.length} items)`
@@ -293,7 +293,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
       })
 
       if (errorResponse) {
-        const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`
+        const target = `${errorResponse.request?.method} ${errorResponse.request?.url}`
         logger.error(
           `Service API response for ${target} ERROR`,
           JSON.stringify({
