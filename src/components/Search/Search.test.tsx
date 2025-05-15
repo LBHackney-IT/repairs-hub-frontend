@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import UserContext from '../UserContext'
 import Search from './Search'
 import { agent } from 'factories/agent'
@@ -34,5 +34,28 @@ describe('Search component', () => {
     )
 
     expect(asFragment()).toMatchSnapshot()
+  })
+
+  it('disables search button when input is empty or one character', async () => {
+    render(
+      <UserContext.Provider value={{ user: agent }}>
+        <Search />
+      </UserContext.Provider>
+    )
+
+    const searchButton = screen.getByRole('button', { name: 'Search' })
+    const searchInput = screen.getByTestId('input-search') as HTMLInputElement
+
+    // Enabled with two characters
+    fireEvent.change(searchInput, { target: { value: 'ab' } })
+    await waitFor(() => expect(searchButton).not.toBeDisabled())
+
+    // Disabled with one character
+    fireEvent.change(searchInput, { target: { value: 'a' } })
+    await waitFor(() => expect(searchButton).toBeDisabled())
+
+    // Disabled when empty
+    fireEvent.change(searchInput, { target: { value: '' } })
+    await waitFor(() => expect(searchButton).toBeDisabled())
   })
 })

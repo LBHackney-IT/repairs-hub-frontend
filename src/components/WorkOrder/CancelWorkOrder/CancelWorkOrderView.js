@@ -8,6 +8,7 @@ import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
@@ -40,21 +41,13 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
   const getCancelWorkOrderView = async () => {
     setError(null)
 
-    try {
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+    const workOrderResponse = await getWorkOrder(workOrderReference)
 
-      setWorkOrder(new WorkOrder(workOrder))
-    } catch (e) {
+    if (!workOrderResponse.success) {
       setWorkOrder(null)
-      console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(workOrderResponse.error.message)
+    } else {
+      setWorkOrder(workOrderResponse.response)
     }
 
     setLoading(false)

@@ -72,6 +72,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
   }, [pageNumber])
 
   const searchForProperties = async (searchQuery, pageNumber) => {
+    if (!searchQuery.trim() || searchQuery.trim().length <= 1) return
     setLoading(true)
     setError(null)
 
@@ -148,6 +149,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
               <input
                 className="govuk-input lbh-input govuk-input--width-10"
                 id="input-search"
+                data-testid="input-search"
                 name="search-name"
                 type="text"
                 value={searchTextInput}
@@ -156,6 +158,9 @@ const Search: React.FC<SearchProps> = ({ query }) => {
               <PrimarySubmitButton
                 id="submit-search"
                 label="Search"
+                disabled={
+                  !searchTextInput.trim() || searchTextInput.trim().length <= 1
+                }
                 onClick={handleSubmit}
               />
             </form>

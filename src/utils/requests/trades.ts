@@ -1,4 +1,4 @@
-import { ApiResponseType } from '../../types/requests/types'
+import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
 export type Trades = {
@@ -23,12 +23,13 @@ export const getTrades = async (): Promise<ApiResponseType<Trades[]>> => {
     return {
       success: false,
       response: null,
-      error:
+      error: new APIResponseError(
         e.response?.status === 400
           ? `Invalid request data`
           : `Oops, an error occurred: ${
               e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`,
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+      ),
     }
   }
 }

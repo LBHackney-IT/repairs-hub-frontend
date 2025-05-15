@@ -21,6 +21,18 @@ describe('Contract manager can authorise variation', () => {
     ).as('workOrderRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { fixture: 'workOrders/statusVariationPendingApproval.json' }
+    ).as('workOrderRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
+    cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/variation-tasks' },
       { fixture: 'workOrders/variationTasks.json' }
     ).as('variationTasksRequest')

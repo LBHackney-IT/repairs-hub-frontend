@@ -116,7 +116,7 @@ const MobileWorkingWorkOrder = ({
         <Spinner />
       ) : (
         <>
-          <AppointmentHeader workOrder={workOrder} />
+          <AppointmentHeader appointment={workOrder?.appointment} />
           <div className="govuk-!-margin-top-4">
             <BackButton />
           </div>

@@ -1,11 +1,19 @@
 import Link from 'next/link'
 import ScheduleWarning from './ScheduleWarning'
 
-const ScheduleInternalAppointmentLink = ({
-  workOrderReference,
-  hasExistingAppointment,
-  appointmentIsToday,
-}) => {
+interface Props {
+  workOrderReference: string
+  hasExistingAppointment: boolean
+  appointmentIsToday: boolean
+}
+
+const ScheduleInternalAppointmentLink = (props: Props) => {
+  const {
+    workOrderReference,
+    hasExistingAppointment,
+    appointmentIsToday,
+  } = props
+
   const href = hasExistingAppointment
     ? `/work-orders/${workOrderReference}/appointment/edit`
     : `/work-orders/${workOrderReference}/appointment/new`

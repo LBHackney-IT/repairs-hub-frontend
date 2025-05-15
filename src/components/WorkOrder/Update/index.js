@@ -16,6 +16,8 @@ import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -140,10 +142,13 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: '/api/hub-user',
       })
 
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${reference}`,
-      })
+      const workOrderResponse = await getWorkOrder(reference)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const tasks = await frontEndApiRequest({
         method: 'get',
@@ -180,11 +185,16 @@ const WorkOrderUpdateView = ({ reference }) => {
       setCurrentUser(null)
       setSorCodeArrays([[]])
       setTasks(null)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
+      }
     }
 
     setLoading(false)
