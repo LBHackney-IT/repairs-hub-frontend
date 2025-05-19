@@ -65,10 +65,21 @@ describe('Editing a work order description', () => {
         .type('This is a test description.')
       cy.get('[data-testid="callerName"]').clear().type('Test Name')
       cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
-      cy.intercept({
-        method: 'PATCH',
-        path: '/api/workOrders/editWorkOrder',
-      }).as('editWorkOrder')
+      cy.intercept(
+        {
+          method: 'PATCH',
+          path: '/api/workOrders/editWorkOrder',
+        },
+        {
+          statusCode: 200,
+          body: {
+            workOrderId: 10000012,
+            description: 'This is a new test description.',
+            callerName: 'Test Name',
+            callerNumber: '01234567890',
+          },
+        }
+      ).as('editWorkOrder')
       cy.intercept(
         {
           method: 'GET',
