@@ -104,6 +104,10 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'workOrders/editedWorkOrder.json' }
       ).as('editedWorkOrder')
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('property12345')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.wait('@editedWorkOrder')
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
