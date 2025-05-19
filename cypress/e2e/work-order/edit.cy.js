@@ -8,14 +8,16 @@ describe('Editing a work order description', () => {
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-        { fixture: 'workOrders/task.json' }
-      ).as('tasks')
+    })
+    it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00012345' },
         { fixture: 'properties/property.json' }
       ).as('property')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { fixture: 'workOrders/task.json' }
+      ).as('tasks')
       cy.intercept(
         {
           method: 'GET',
@@ -31,8 +33,6 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
-    })
-    it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.visit('/work-orders/10000012')
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.intercept(
@@ -72,6 +72,38 @@ describe('Editing a work order description', () => {
       cy.visit('/work-orders/10000012')
     })
     it('cancels description update when cancel button is clicked', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { fixture: 'workOrders/task.json' }
+      ).as('tasks')
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+        },
+        { fixture: 'properties/personAlerts.json' }
+      ).as('personAlerts')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/properties/00012345/location-alerts',
+        },
+        { fixture: 'properties/personAlerts.json' }
+      ).as('locationAlerts')
+      cy.visit('/work-orders/10000012')
+      cy.get('[data-testid="details"] > .govuk-button').click()
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       cy.visit('/work-orders/10000012')
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
