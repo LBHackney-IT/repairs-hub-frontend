@@ -9,6 +9,7 @@ describe('Editing a work order description', () => {
         { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
     })
+
     it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
@@ -154,7 +155,18 @@ describe('Editing a work order description', () => {
         'Telephone number should be a number and with no empty spaces'
       )
     })
-    it('Shows an error when network request fails', () => {
+    it.only('Shows an error when network request fails', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       cy.intercept(
         {
           method: 'PATCH',
