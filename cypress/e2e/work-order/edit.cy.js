@@ -36,15 +36,15 @@ describe('Editing a work order description', () => {
     })
     it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
-      cy.get('#workOrderMenu-2').click()
-      cy.get('.MultiButton_button__ApRbt').click()
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/contact-details/5cbe6215-5979-388b-9a5c-534cad2bfdb1',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
         },
         { fixture: 'contactDetails/contactDetails.json' }
       ).as('contactDetails')
+      cy.get('#workOrderMenu-2').click()
+      cy.get('.MultiButton_button__ApRbt').click()
       cy.intercept(
         {
           method: 'GET',
@@ -77,7 +77,7 @@ describe('Editing a work order description', () => {
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
       cy.get('.govuk-button-secondary').click()
-      cy.url().should('include', '/work-orders/10000012')
+      cy.url().should('equal', 'http://localhost:5001/work-orders/10000012')
     })
     it('shows an error when user submits empty fields', () => {
       cy.visit('/work-orders/10000012/edit')
