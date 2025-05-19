@@ -147,6 +147,17 @@ describe('Editing a work order description', () => {
       )
     })
     it('Shows an error when user enters a space in the telephone number', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       const invalidContactNumber = '01234 567890'
       cy.visit('/work-orders/10000012/edit')
       cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
@@ -155,7 +166,7 @@ describe('Editing a work order description', () => {
         'Telephone number should be a number and with no empty spaces'
       )
     })
-    it.only('Shows an error when network request fails', () => {
+    it('Shows an error when network request fails', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
