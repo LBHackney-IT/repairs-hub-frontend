@@ -11,7 +11,7 @@ describe('Editing a work order description', () => {
     })
     it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
+        { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
       ).as('property')
       cy.intercept(
@@ -73,7 +73,7 @@ describe('Editing a work order description', () => {
     })
     it('cancels description update when cancel button is clicked', () => {
       cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
+        { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
       ).as('property')
       cy.intercept(
