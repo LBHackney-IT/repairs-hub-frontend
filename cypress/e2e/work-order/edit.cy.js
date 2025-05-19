@@ -87,8 +87,7 @@ describe('Editing a work order description', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrderToEdit.json' }
-      )
-      .as('workOrder')
+      ).as('workOrder')
       cy.visit('/work-orders/10000012/edit')
     })
     it('I am restricted from accessing the correct page', () => {
