@@ -60,7 +60,7 @@ describe('Editing a work order description', () => {
           method: 'GET',
           path: '/api/workOrders/10000012',
         },
-        { fixture: 'workorders/editedWorkOrder.json' }
+        { fixture: 'workOrders/editedWorkOrder.json' }
       ).as('editedWorkOrder')
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
