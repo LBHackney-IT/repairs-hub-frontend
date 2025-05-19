@@ -4,10 +4,13 @@ describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
-      ).as('workOrder')
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000040
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrder')
+      })
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
         { fixture: 'workOrders/task.json' }
