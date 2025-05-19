@@ -105,6 +105,7 @@ describe('Editing a work order description', () => {
         { fixture: 'workOrders/editedWorkOrder.json' }
       ).as('editedWorkOrder')
       cy.get('.govuk-form-group > .govuk-button').click()
+      cy.wait('@editedWorkOrder')
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
       cy.contains('01234567890')
