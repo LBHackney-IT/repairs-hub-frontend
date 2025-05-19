@@ -138,6 +138,17 @@ describe('Editing a work order description', () => {
       cy.contains('Please enter a valid UK telephone number (11 digits)')
     })
     it('Shows an error when user enters invalid characters for telephone number', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       const invalidContactNumber = new Array(11).join('a')
       cy.visit('/work-orders/10000012/edit')
       cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
