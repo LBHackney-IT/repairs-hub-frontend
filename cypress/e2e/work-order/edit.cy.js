@@ -45,6 +45,13 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'contactDetails/contactDetails.json' }
       ).as('contactDetails')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/workOrders/10000012',
+        },
+        { fixture: 'workOrders/editedWorkOrder.json' }
+      ).as('editedWorkOrder')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type('This is a test description.')
@@ -55,13 +62,6 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: '/api/workOrders/editWorkOrder',
       }).as('editWorkOrder')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/workOrders/10000012',
-        },
-        { fixture: 'workOrders/editedWorkOrder.json' }
-      ).as('editedWorkOrder')
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
       cy.contains('01234567890')
