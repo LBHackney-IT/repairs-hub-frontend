@@ -35,6 +35,7 @@ describe('Editing a work order description', () => {
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
       cy.visit('/work-orders/10000012')
+      cy.wait('@workOrder')
       cy.get('[data-testid="details"] > .govuk-button', {
         timeout: 15000,
       }).click()
