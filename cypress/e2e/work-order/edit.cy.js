@@ -31,10 +31,9 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
-      cy.visit('/work-orders/10000012')
-      cy.wait('@workOrder')
     })
     it('allows me to edit the work order and adds the updated description to the notes', () => {
+      cy.visit('/work-orders/10000012')
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.intercept(
         {
@@ -73,6 +72,7 @@ describe('Editing a work order description', () => {
       cy.visit('/work-orders/10000012')
     })
     it('cancels description update when cancel button is clicked', () => {
+      cy.visit('/work-orders/10000012')
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
