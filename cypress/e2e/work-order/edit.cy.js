@@ -7,12 +7,12 @@ describe('Editing a work order description', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000040' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrder')
       })
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { method: 'GET', path: '/api/workOrders/10000040/tasks' },
         { fixture: 'workOrders/task.json' }
       ).as('tasks')
       cy.intercept(
@@ -30,7 +30,7 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
-      cy.visit('/work-orders/10000012')
+      cy.visit('/work-orders/10000040')
     })
     it.only('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
@@ -60,7 +60,7 @@ describe('Editing a work order description', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000012',
+          path: '/api/workOrders/10000040',
         },
         { fixture: 'workorders/editedWorkOrder.json' }
       ).as('editedWorkOrder')
@@ -73,14 +73,14 @@ describe('Editing a work order description', () => {
         'contain',
         'Description updated: This is a test description.'
       )
-      cy.visit('/work-orders/10000012')
+      cy.visit('/work-orders/10000040')
     })
     it('cancels description update when cancel button is clicked', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.get('.MultiButton_button__ApRbt').click()
       cy.get('.govuk-button-secondary').click()
-      cy.url().should('include', '/work-orders/10000012')
+      cy.url().should('include', '/work-orders/10000040')
     })
   })
   context('As an operative', () => {
@@ -89,13 +89,13 @@ describe('Editing a work order description', () => {
       cy.fixture('workOrders/workOrder.json')
         .then((workOrder) => {
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000040' },
             { body: workOrder }
           )
         })
         .as('workOrder')
 
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
     })
     it('I am restricted from accessing the correct page', () => {
       cy.contains(`Access denied`)
@@ -108,7 +108,7 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: `/api/workOrders/editWorkOrder`,
       })
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="editRepairDescription"]').clear()
       cy.get('[data-testid="callerName"]').clear()
       cy.get('[data-testid="contactNumber"]').clear()
@@ -128,7 +128,7 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: `/api/workOrders/editWorkOrder`,
       })
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type(longDescription)
@@ -148,7 +148,7 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: `/api/workOrders/editWorkOrder`,
       })
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.contains(
@@ -164,7 +164,7 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: `/api/workOrders/editWorkOrder`,
       })
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
       cy.get('[data-testid="contactNumber"]').clear().type(invalidContactNumber)
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.contains(
@@ -183,7 +183,7 @@ describe('Editing a work order description', () => {
         },
         { statusCode: 500 }
       ).as('failedEditWorkOrder')
-      cy.visit('/work-orders/10000012/edit')
+      cy.visit('/work-orders/10000040/edit')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.wait('@failedEditWorkOrder')
       cy.contains('Oops, an error occurred: 500')
