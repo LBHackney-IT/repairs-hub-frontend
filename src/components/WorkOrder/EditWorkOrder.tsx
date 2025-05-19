@@ -38,7 +38,6 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
   const [loading, setLoading] = useState(true)
   const [contacts, setContacts] = useState([])
   const [tenants, setTenants] = useState([])
-  const [tenureId, setTenureId] = useState<string | null>(null)
   const [householdMembers, setHouseholdMembers] = useState([])
   const [error, setError] = useState<string | null>(null)
 
@@ -63,80 +62,38 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       setLoading(false)
       return
     }
-    // const propertyDataResponse = await getPropertyData(
-    //   workOrderResponse.response.propertyReference
-    // )
-    // if (!propertyDataResponse.success) {
-    //   setError(propertyDataResponse.error.message)
-    //   setLoading(false)
-    //   return
-    // }
-    // if (propertyDataResponse.response.tenure.id === null) {
-    //   setLoading(false)
-    //   return
-    // }
-    // const contactDetailsResponse = await getContactDetails(
-    //   propertyDataResponse.response.tenure?.id
-    // )
-    // if (!contactDetailsResponse.success) {
-    //   setError(contactDetailsResponse.error.message)
-    //   setLoading(false)
-    //   return
-    // }
-    // setWorkOrder(workOrderResponse.response)
-    // setContacts(contactDetailsResponse.response)
-    // setTenants(
-    //   contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
-    // )
-    // setHouseholdMembers(
-    //   contactDetailsResponse.response.filter(
-    //     (x) => x.tenureType === 'HouseholdMember'
-    //   )
-    // )
-    setWorkOrder(workOrderResponse.response)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    fetchTenureId()
-  }, [workOrder])
-
-  const fetchTenureId = async () => {
-    if (!workOrder) {
-      return null
-    }
     const propertyDataResponse = await getPropertyData(
-      workOrder.propertyReference
+      workOrderResponse.response.propertyReference
     )
     if (!propertyDataResponse.success) {
       setError(propertyDataResponse.error.message)
-    } else {
-      setTenureId(propertyDataResponse.response.tenure?.id)
-    }
-  }
-
-  useEffect(() => {
-    fetchContactDetails()
-  }, [tenureId])
-
-  const fetchContactDetails = async () => {
-    if (!tenureId) {
+      setLoading(false)
       return
     }
-    const contactDetailsResponse = await getContactDetails(tenureId)
+    if (propertyDataResponse.response.tenure.id === null) {
+      setLoading(false)
+      return
+    }
+    const contactDetailsResponse = await getContactDetails(
+      propertyDataResponse.response.tenure?.id
+    )
     if (!contactDetailsResponse.success) {
       setError(contactDetailsResponse.error.message)
-    } else {
-      setContacts(contactDetailsResponse.response)
+      setLoading(false)
+      return
     }
-  }
-
-  useEffect(() => {
-    setTenants(contacts.filter((x) => x.tenureType === 'Tenant'))
-    setHouseholdMembers(
-      contacts.filter((x) => x.tenureType === 'HouseholdMember')
+    setWorkOrder(workOrderResponse.response)
+    setContacts(contactDetailsResponse.response)
+    setTenants(
+      contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
     )
-  }, [contacts])
+    setHouseholdMembers(
+      contactDetailsResponse.response.filter(
+        (x) => x.tenureType === 'HouseholdMember'
+      )
+    )
+    setLoading(false)
+  }
 
   const onSubmit = async (data: FormValues) => {
     const noteData = buildNoteFormData({
