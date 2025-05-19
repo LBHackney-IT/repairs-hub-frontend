@@ -82,6 +82,23 @@ describe('Editing a work order description', () => {
       ).as('editWorkOrder')
       cy.intercept(
         {
+          method: 'POST',
+          path: '/api/jobStatusUpdate',
+        },
+        {
+          statusCode: 200,
+          body: {
+            relatedWorkOrderReference: {
+              id: 10000012,
+            },
+            comments: 'Description updated: This is a new test description.',
+            typeCode: '0',
+            otherType: 'addNote',
+          },
+        }
+      ).as('addNote')
+      cy.intercept(
+        {
           method: 'GET',
           path: '/api/workOrders/10000012',
         },
