@@ -72,6 +72,7 @@ describe('Editing a work order description', () => {
       )
       cy.visit('/work-orders/10000012')
     })
+
     it('cancels description update when cancel button is clicked', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
@@ -112,7 +113,19 @@ describe('Editing a work order description', () => {
       cy.get('.govuk-button-secondary').click()
       cy.url().should('equal', 'http://localhost:5001/work-orders/10000012')
     })
+
     it('shows an error when user submits empty fields', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       cy.visit('/work-orders/10000012/edit')
       cy.get('[data-testid="editRepairDescription"]').clear()
       cy.get('[data-testid="callerName"]').clear()
@@ -123,6 +136,17 @@ describe('Editing a work order description', () => {
       cy.contains('Please enter a telephone number')
     })
     it('shows an error when user submits too many characters for all fields', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       const longDescription = new Array(240).join('a')
       const longName = new Array(56).join('a')
       const longContactNumber = new Array(13).join('1')
@@ -137,6 +161,7 @@ describe('Editing a work order description', () => {
       cy.contains('You have exceeded the maximum amount of 50 characters')
       cy.contains('Please enter a valid UK telephone number (11 digits)')
     })
+
     it('Shows an error when user enters invalid characters for telephone number', () => {
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
