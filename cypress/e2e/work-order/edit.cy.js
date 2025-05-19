@@ -36,8 +36,12 @@ describe('Editing a work order description', () => {
           method: 'GET',
           path: '/api/properties/00012345/location-alerts',
         },
-        { fixture: 'properties/personAlerts.json' }
+        { fixture: 'properties/locationAlerts.json' }
       ).as('locationAlerts')
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        { body: {} }
+      ).as('featureToggle')
       cy.visit('/work-orders/10000012')
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.intercept(
@@ -54,7 +58,7 @@ describe('Editing a work order description', () => {
           method: 'GET',
           path: '/api/workOrders/10000012',
         },
-        { fixture: 'workOrders/editedWorkOrder.json' }
+        { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('editedWorkOrder')
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
@@ -66,6 +70,13 @@ describe('Editing a work order description', () => {
         method: 'PATCH',
         path: '/api/workOrders/editWorkOrder',
       }).as('editWorkOrder')
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/workOrders/10000012',
+        },
+        { fixture: 'workOrders/editedWorkOrder.json' }
+      ).as('editedWorkOrder')
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
       cy.contains('01234567890')
