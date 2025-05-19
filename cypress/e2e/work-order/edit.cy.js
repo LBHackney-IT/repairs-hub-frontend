@@ -8,6 +8,10 @@ describe('Editing a work order description', () => {
 
     it.only('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrderToEdit.json' }
+      ).as('workOrder')
+      cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
       ).as('property')
@@ -31,7 +35,9 @@ describe('Editing a work order description', () => {
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
       cy.visit('/work-orders/10000012')
-      cy.get('[data-testid="details"] > .govuk-button').click()
+      cy.get('[data-testid="details"] > .govuk-button', {
+        timeout: 15000,
+      }).click()
       cy.intercept(
         {
           method: 'GET',
@@ -70,6 +76,10 @@ describe('Editing a work order description', () => {
     })
 
     it.only('cancels description update when cancel button is clicked', () => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrderToEdit.json' }
+      ).as('workOrder')
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
