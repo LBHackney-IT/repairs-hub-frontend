@@ -50,7 +50,6 @@ describe('Editing a work order description', () => {
         .type('This is a test description.')
       cy.get('[data-testid="callerName"]').clear().type('Test Name')
       cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
-      cy.wait('@contactDetails')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.intercept({
         method: 'PATCH',
