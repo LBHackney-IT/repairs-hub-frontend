@@ -6,7 +6,7 @@ describe('Editing a work order description', () => {
       cy.loginWithAuthorisationManagerRole()
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
+        { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
@@ -28,6 +28,7 @@ describe('Editing a work order description', () => {
         { fixture: 'properties/personAlerts.json' }
       ).as('locationAlerts')
       cy.visit('/work-orders/10000012')
+      cy.wait('@workOrder')
     })
     it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
@@ -83,15 +84,11 @@ describe('Editing a work order description', () => {
   context('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
-      cy.fixture('workOrders/workOrder.json')
-        .then((workOrder) => {
-          cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
-            { body: workOrder }
-          )
-        })
-        .as('workOrder')
-
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrderToEdit.json' }
+      )
+      .as('workOrder')
       cy.visit('/work-orders/10000012/edit')
     })
     it('I am restricted from accessing the correct page', () => {
