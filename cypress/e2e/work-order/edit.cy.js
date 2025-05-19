@@ -13,6 +13,10 @@ describe('Editing a work order description', () => {
         { fixture: 'workOrders/task.json' }
       ).as('tasks')
       cy.intercept(
+        { method: 'GET', path: '/api/properties/00012345' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
+      cy.intercept(
         {
           method: 'GET',
           path:
@@ -33,23 +37,20 @@ describe('Editing a work order description', () => {
     it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
-      cy.intercept(
-        { method: 'GET', path: '/api/properties/00012345' },
-        { fixture: 'properties/property.json' }
-      ).as('property')
+      cy.get('.MultiButton_button__ApRbt').click()
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+          path: '/api/contact-details/5cbe6215-5979-388b-9a5c-534cad2bfdb1',
         },
         { fixture: 'contactDetails/contactDetails.json' }
       ).as('contactDetails')
-      cy.get('.MultiButton_button__ApRbt').click()
       cy.get('[data-testid="editRepairDescription"]')
         .clear()
         .type('This is a test description.')
       cy.get('[data-testid="callerName"]').clear().type('Test Name')
       cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
+      cy.wait('@contactDetails')
       cy.get('.govuk-form-group > .govuk-button').click()
       cy.intercept({
         method: 'PATCH',
