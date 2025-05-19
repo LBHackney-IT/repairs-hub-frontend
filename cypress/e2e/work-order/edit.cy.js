@@ -32,7 +32,7 @@ describe('Editing a work order description', () => {
       ).as('locationAlerts')
       cy.visit('/work-orders/10000040')
     })
-    it.only('allows me to edit the work order and adds the updated description to the notes', () => {
+    it('allows me to edit the work order and adds the updated description to the notes', () => {
       cy.get('[data-testid="details"] > .govuk-button').click()
       cy.get('#workOrderMenu-2').click()
       cy.intercept(
