@@ -65,7 +65,6 @@ describe('Editing a work order description', () => {
         .type('This is a test description.')
       cy.get('[data-testid="callerName"]').clear().type('Test Name')
       cy.get('[data-testid="contactNumber"]').clear().type('01234567890')
-      cy.get('.govuk-form-group > .govuk-button').click()
       cy.intercept({
         method: 'PATCH',
         path: '/api/workOrders/editWorkOrder',
@@ -77,6 +76,7 @@ describe('Editing a work order description', () => {
         },
         { fixture: 'workOrders/editedWorkOrder.json' }
       ).as('editedWorkOrder')
+      cy.get('.govuk-form-group > .govuk-button').click()
       cy.get('.lbh-body-m').should('contain', 'This is a test description.')
       cy.contains('Test Name')
       cy.contains('01234567890')
