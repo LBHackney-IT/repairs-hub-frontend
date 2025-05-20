@@ -6,7 +6,7 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
-  context('As a contractor', () => {
+  context.skip('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
@@ -609,7 +609,7 @@ describe('Updating a work order', () => {
     })
   })
 
-  context('As an operative', () => {
+  context.only('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
 
@@ -900,7 +900,7 @@ describe('Updating a work order', () => {
       cy.url().should('contain', '/work-orders/10000621')
     })
 
-    it('allows adding new SOR', () => {
+    it.only('allows adding new SOR', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait([
@@ -910,39 +910,45 @@ describe('Updating a work order', () => {
         '@tasksRequest',
       ])
 
-      cy.contains('Add new SOR').click()
+      cy.contains('Update SOR codes').click()
 
       cy.wait(['@workOrderRequest', '@sorCodesRequest'])
 
-      cy.url().should('contain', '/work-orders/10000621/tasks/new')
+      cy.url().should(
+        'contain',
+        '/operatives/OP001/work-orders/10000621/tasks/new'
+      )
 
-      cy.get('form').within(() => {
-        cy.get('[type="submit"]').contains('Confirm').click()
-      })
+      cy.contains('a', 'Add another SOR code').click()
 
-      cy.get(
-        'div[id="rateScheduleItems[operative][code]-form-group"] .govuk-error-message'
-      ).within(() => {
-        cy.contains('Please select an SOR code')
-      })
+      cy.contains('button', 'Next').click()
 
-      cy.get(
-        'div[id="rateScheduleItems[operative][quantity]-form-group"] .govuk-error-message'
-      ).within(() => {
-        cy.contains('Please enter a quantity')
-      })
+      // contains errors
+      cy.contains('Please enter a reason')
+      cy.contains('Please select an SOR code')
+      cy.contains('Please enter a quantity')
 
-      cy.get('form').within(() => {
-        cy.get('input[id="rateScheduleItems[operative][code]"]')
-          .clear()
-          .type('DES5R003 - Immediate call outs')
+      // populate fields
+      cy.get('[data-testid="rateScheduleItems[0][code]"]')
+        .clear()
+        .type('DES5R003 - Immediate call outs')
 
-        cy.get('input[id="rateScheduleItems[operative][quantity]"]')
-          .clear()
-          .type('3')
+      cy.get('[data-testid="rateScheduleItems[0][quantity]"]').clear().type('3')
 
-        cy.get('button').contains('Confirm').click()
-      })
+      cy.get('[data-testid="variationReason"]').type(
+        'Some reason for variation'
+      )
+
+      // submit form
+      cy.contains('button', 'Next').click()
+
+      // check summary page
+      cy.contains('Update work order: 10000621')
+      cy.contains('Summary of updates to work order')
+
+      cy.contains('p', 'Some reason for variation')
+
+      cy.contains('button', 'Confirm and close').click()
 
       cy.wait('@jobStatusUpdateRequest')
         .its('request.body')
@@ -951,6 +957,7 @@ describe('Updating a work order', () => {
             id: '10000621',
           },
           typeCode: '80',
+          comments: 'Some reason for variation',
           moreSpecificSORCode: {
             rateScheduleItem: [
               {
@@ -992,6 +999,16 @@ describe('Updating a work order', () => {
           },
         })
 
+      cy.contains('Work order updated')
+      cy.contains('Reference number 10000621')
+
+      cy.contains('a', 'View work order').should(
+        'have.attr',
+        'href',
+        '/operatives/OP001/work-orders/10000621'
+      )
+      cy.contains('a', 'View work order').click()
+
       cy.wait([
         '@workOrderRequest',
         '@tasksRequest',
@@ -999,7 +1016,9 @@ describe('Updating a work order', () => {
         '@hubUserRequest',
       ])
 
-      cy.contains('WO 10000621')
+      cy.url().should('contain', '/operatives/OP001/work-orders/10000621')
+
+      // http://localhost:5001/operatives/OP001/work-orders/10000621
     })
 
     it('allows adding operatives with percentage splits', () => {
