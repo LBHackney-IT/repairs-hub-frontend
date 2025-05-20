@@ -196,7 +196,7 @@ const MobileWorkingWorkOrder = ({
 
             {!readOnly && (
               <>
-                {areTasksUpdated(tasksAndSors) && (
+                {/* {areTasksUpdated(tasksAndSors) && (
                   <CharacterCountLimitedTextArea
                     name="variationReason"
                     maxLength={250}
@@ -207,19 +207,30 @@ const MobileWorkingWorkOrder = ({
                     register={register}
                     error={errors && errors.variationReason}
                   />
-                )}
+                )} */}
 
                 <div className="govuk-!-margin-top-0">
-                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-                    <a
-                      role="button"
-                      draggable="false"
+                  {isVariationPendingApprovalStatus ? (
+                    <button
                       className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                      data-module="govuk-button"
+                      disabled
                     >
-                      Add new SOR
-                    </a>
-                  </Link>
+                      Update SOR codes
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/tasks/new`}
+                    >
+                      <a
+                        role="button"
+                        draggable="false"
+                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                        data-module="govuk-button"
+                      >
+                        Update SOR codes
+                      </a>
+                    </Link>
+                  )}
                 </div>
 
                 {operativesCount > 1 && (
