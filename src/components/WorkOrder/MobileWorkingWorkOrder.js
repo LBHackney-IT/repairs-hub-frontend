@@ -28,7 +28,6 @@ import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
-import WarningText from '../Template/WarningText'
 import WarningInfoBox from '../Template/WarningInfoBox'
 
 const MobileWorkingWorkOrder = ({
@@ -236,6 +235,7 @@ const MobileWorkingWorkOrder = ({
                   <>
                     <br></br>
                     <WarningInfoBox
+                      className="variant-warning"
                       header="Work order cannot be closed"
                       name="approvalWarning"
                       text="Variation approval is pending. Please contact your manager to approve the variation to the work order."

@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
-const WarningInfoBox = ({ header, text, name }) => {
+const WarningInfoBox = ({ header, text, name, className }) => {
   return (
     <div
-      className="warning-info-box govuk-inset-text lbh-inset-text"
+      className={cn(
+        'warning-info-box govuk-inset-text lbh-inset-text',
+        className
+      )}
       data-testid={name}
     >
       <div className="lbh-warning-text govuk-warning-text">
