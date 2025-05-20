@@ -30,6 +30,8 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
 
+const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
+
 const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
@@ -112,7 +114,7 @@ const MobileWorkingWorkOrder = ({
   }
 
   const isVariationPendingApprovalStatus =
-    workOrder?.status === 'Variation Pending Approval'
+    workOrder?.status === VARIATION_PENDING_APPROVAL_STATUS
 
   return (
     <>
