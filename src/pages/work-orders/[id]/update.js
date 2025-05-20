@@ -7,12 +7,7 @@ const WorkOrderUpdatePage = ({ query }) => {
   return (
     <>
       <Meta title={`Update Work Order ${query.id}`} />
-      <WorkOrderUpdateView
-        reference={query.id}
-        onSuccess={() => {
-          console.log('on success')
-        }}
-      />
+      <WorkOrderUpdateView reference={query.id} />
     </>
   )
 }
