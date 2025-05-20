@@ -609,7 +609,7 @@ describe('Updating a work order', () => {
     })
   })
 
-  context.only('As an operative', () => {
+  context('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
 
@@ -900,7 +900,7 @@ describe('Updating a work order', () => {
       cy.url().should('contain', '/work-orders/10000621')
     })
 
-    it.only('allows adding new SOR', () => {
+    it('allows adding new SOR', () => {
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait([
@@ -1017,8 +1017,6 @@ describe('Updating a work order', () => {
       ])
 
       cy.url().should('contain', '/operatives/OP001/work-orders/10000621')
-
-      // http://localhost:5001/operatives/OP001/work-orders/10000621
     })
 
     it('allows adding operatives with percentage splits', () => {
