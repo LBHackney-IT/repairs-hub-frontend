@@ -157,6 +157,10 @@ describe('Editing a work order description', () => {
     describe('When I trigger errors', () => {
       beforeEach(() => {
         cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrderToEdit.json' }
+        ).as('workOrder')
+        cy.intercept(
           { method: 'GET', path: '/api/properties/00014886' },
           { fixture: 'properties/property.json' }
         ).as('property')
