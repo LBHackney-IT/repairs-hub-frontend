@@ -234,7 +234,7 @@ describe('Updating a work order', () => {
           .type('Needs more work')
         cy.get('[type="submit"]').contains('Next').click()
       })
-      cy.get('[type="submit"]').contains('Confirm and close').click()
+      cy.get('[type="submit"]').contains('Confirm variation').click()
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -420,13 +420,12 @@ describe('Updating a work order', () => {
         cy.contains('Needs more work')
       })
 
-      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
-        cy.contains(
-          'Your variation cost exceeds £250 and will be sent for approval.'
-        )
-      })
+      cy.contains("Manager Approval Needed for Variation")
+      cy.contains(
+        'Your variation cost exceeds £250 and will need manager approval before proceeding. Please contact your manager to approve this variation.'
+      )
 
-      cy.get('[type="submit"]').contains('Confirm and close').click()
+      cy.get('[type="submit"]').contains('Confirm variation').click()
 
       cy.wait('@apiCheck')
         .its('request.body')
@@ -948,7 +947,7 @@ describe('Updating a work order', () => {
 
       cy.contains('p', 'Some reason for variation')
 
-      cy.contains('button', 'Confirm and close').click()
+      cy.contains('button', 'Confirm variation').click()
 
       cy.wait('@jobStatusUpdateRequest')
         .its('request.body')
