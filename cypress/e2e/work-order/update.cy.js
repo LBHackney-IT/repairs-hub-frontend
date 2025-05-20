@@ -420,7 +420,7 @@ describe('Updating a work order', () => {
         cy.contains('Needs more work')
       })
 
-      cy.contains("Manager Approval Needed for Variation")
+      cy.contains('Manager Approval Needed for Variation')
       cy.contains(
         'Your variation cost exceeds £250 and will need manager approval before proceeding. Please contact your manager to approve this variation.'
       )
