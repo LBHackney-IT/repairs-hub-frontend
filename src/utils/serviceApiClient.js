@@ -123,8 +123,7 @@ export const serviceAPIRequest = async (request) => {
       ? `(${response.data.length} items)`
       : ''
     logger.info(
-      `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
-      `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
+      `Service API response for ${target}: ${response.status} ${dataLength} ${data}``Service API response for ${target}: ${response.status} ${dataLength} ${data}`
     )
 
     return response
