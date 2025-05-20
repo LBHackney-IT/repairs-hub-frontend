@@ -150,7 +150,7 @@ describe('Editing a work order description', () => {
           { fixture: 'properties/property.json' }
         ).as('property')
         cy.get('.govuk-button-secondary').click()
-        cy.url().should('equal', 'http://localhost:5001/work-orders/10000012')
+        cy.location('pathname').should('eq', '/work-orders/10000012')
       })
     })
 
