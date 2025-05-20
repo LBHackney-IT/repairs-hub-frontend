@@ -296,25 +296,40 @@ exports[`WorkOrderUpdateSummary component should render properly over vary spend
           More work is necessary
         </p>
       </div>
+      <br />
       <div
-        class="govuk-warning-text lbh-warning-text"
+        class="warning-info-box govuk-inset-text lbh-inset-text variant-warning"
+        data-testid="approvalWarning"
       >
-        <span
-          aria-hidden="true"
-          class="govuk-warning-text__icon"
-        >
-          !
-        </span>
-        <strong
-          class="govuk-warning-text__text"
+        <div
+          class="lbh-warning-text govuk-warning-text"
         >
           <span
-            class="govuk-warning-text__assistive"
+            aria-hidden="true"
+            class="govuk-warning-text__icon"
           >
-            Warning
+            !
           </span>
-          Your variation cost exceeds £20 and will be sent for approval.
-        </strong>
+          <div
+            class="govuk-warning-text__text"
+          >
+            <span
+              class="govuk-warning-text__assistive"
+            >
+              Warning
+            </span>
+            <p
+              class="govuk-!-margin-top-0 lbh-body-s lbh-!-font-weight-bold"
+            >
+              Manager Approval Needed for Variation
+            </p>
+            <p
+              class="lbh-body-xs govuk-!-margin-top-1"
+            >
+              Your variation cost exceeds £20 and will need manager approval before proceeding. Please contact your manager to approve this variation.
+            </p>
+          </div>
+        </div>
       </div>
       <div
         class="govuk-form-group lbh-form-group"
@@ -325,7 +340,7 @@ exports[`WorkOrderUpdateSummary component should render properly over vary spend
           id="submit-work-order-close"
           type="submit"
         >
-          Confirm and close
+          Confirm variation
         </button>
       </div>
     </form>
@@ -638,7 +653,7 @@ exports[`WorkOrderUpdateSummary component should render properly within vary spe
           id="submit-work-order-close"
           type="submit"
         >
-          Confirm and close
+          Confirm variation
         </button>
       </div>
     </form>
