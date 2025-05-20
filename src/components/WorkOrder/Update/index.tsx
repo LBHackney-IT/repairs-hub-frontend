@@ -53,7 +53,7 @@ const WorkOrderUpdateView = (props: Props) => {
   const [
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
-  ] = useState<boolean>()
+  ] = useState<any>()
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
@@ -332,6 +332,9 @@ const WorkOrderUpdateView = (props: Props) => {
             setVariationReason={setVariationReason}
             variationReason={variationReason}
             contractorReference={contractorReference}
+            sorSearchRequest={
+              orderRequiresIncrementalSearch && sorSearchRequest
+            }
             sorCodeArrays={sorCodeArrays}
             setSorCodeArrays={setSorCodeArrays}
             setPageToMultipleSORs={(formState) => {
