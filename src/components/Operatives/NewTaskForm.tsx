@@ -12,7 +12,6 @@ const NewTaskForm = (props: Props) => {
   return (
     <WorkOrderUpdateView
       reference={workOrderReference}
-      // isMobileView={true}
       mobileViewLinks={mobileViewUpdateWorkOrderLinks(
         operativePayrollNumber,
         workOrderReference
