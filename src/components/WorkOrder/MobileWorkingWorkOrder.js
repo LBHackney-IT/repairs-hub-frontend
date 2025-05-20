@@ -4,14 +4,9 @@ import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
-import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
 import Radios from '@/components/Form/Radios'
-import {
-  Button,
-  CharacterCountLimitedTextArea,
-  PrimarySubmitButton,
-} from '../Form'
+import { Button, PrimarySubmitButton } from '../Form'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
@@ -196,19 +191,6 @@ const MobileWorkingWorkOrder = ({
 
             {!readOnly && (
               <>
-                {/* {areTasksUpdated(tasksAndSors) && (
-                  <CharacterCountLimitedTextArea
-                    name="variationReason"
-                    maxLength={250}
-                    requiredText="Please enter a reason"
-                    label="Variation reason"
-                    placeholder="Write a reason for the variation..."
-                    required={true}
-                    register={register}
-                    error={errors && errors.variationReason}
-                  />
-                )} */}
-
                 <div className="govuk-!-margin-top-0">
                   {isVariationPendingApprovalStatus ? (
                     <button

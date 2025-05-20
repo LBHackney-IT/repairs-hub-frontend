@@ -46,10 +46,6 @@ const WorkOrderUpdateView = (props: Props) => {
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
-  const [
-    showAdditionalRateScheduleItems,
-    setShowAdditionalRateScheduleItems,
-  ] = useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
@@ -86,7 +82,6 @@ const WorkOrderUpdateView = (props: Props) => {
   }
 
   const changeCurrentPage = () => {
-    setShowAdditionalRateScheduleItems(true)
     setShowSummaryPage(false)
   }
 
@@ -101,18 +96,6 @@ const WorkOrderUpdateView = (props: Props) => {
       })
       setOverSpendLimit(overSpendLimit)
       setShowUpdateSuccess(true)
-
-      // const title = overSpendLimit
-      //   ? 'Variation requires authorisation'
-      //   : 'Work order updated'
-      // const links = overSpendLimit
-      //   ? generalLinks(reference)
-      //   : updateWorkOrderLinks(reference)
-      // const warningText = overSpendLimit
-      //   ? 'Please request authorisation from a manager'
-      //   : ''
-
-      // onSuccess && onSuccess(title, links, warningText)
     } catch (e) {
       console.error(e)
 
@@ -345,14 +328,10 @@ const WorkOrderUpdateView = (props: Props) => {
             latestTasks={tasks}
             originalTasks={originalTasks}
             addedTasks={addedTasks}
-            showAdditionalRateScheduleItems={showAdditionalRateScheduleItems}
             onGetToSummary={onGetToSummary}
             setVariationReason={setVariationReason}
             variationReason={variationReason}
             contractorReference={contractorReference}
-            sorSearchRequest={
-              orderRequiresIncrementalSearch && sorSearchRequest
-            }
             sorCodeArrays={sorCodeArrays}
             setSorCodeArrays={setSorCodeArrays}
             setPageToMultipleSORs={(formState) => {
