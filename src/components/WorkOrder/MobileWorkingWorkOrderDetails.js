@@ -9,6 +9,7 @@ import ErrorMessage from '@/components/Errors/ErrorMessage'
 import { useRouter } from 'next/router'
 import { getCautionaryAlertsType } from '@/utils/cautionaryAlerts'
 import { formatDateTime } from '../../utils/time'
+import Status from './Status'
 
 const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
   const [locationAlertsLoading, setLocationAlertsLoading] = useState(false)
@@ -80,6 +81,15 @@ const MobileWorkingWorkOrderDetails = ({ property, tenure, workOrder }) => {
         <h1 className="lbh-heading-h1">
           WO&nbsp;{workOrder.reference.toString().padStart(8, '0')}
         </h1>
+
+        <div>
+          <Status
+            text={workOrder?.status}
+            className="lbh-body-xs work-order-status"
+          />
+        </div>
+        <br></br>
+
         <div className="priority-text govuk-!-margin-top-0">
           {workOrder.isHigherPriority() ? (
             <h3 className="text-dark-red lbh-heading-h3">
