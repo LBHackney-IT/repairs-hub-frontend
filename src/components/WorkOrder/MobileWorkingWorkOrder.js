@@ -27,6 +27,29 @@ import WarningInfoBox from '../Template/WarningInfoBox'
 
 const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
 
+const TempDisabledButton = ({ disabled, text, href, className }) => {
+  return (
+    <>
+      {disabled ? (
+        <button className={className} disabled>
+          {text}
+        </button>
+      ) : (
+        <Link href={href}>
+          <a
+            role="button"
+            draggable="false"
+            className={className}
+            data-module="govuk-button"
+          >
+            {text}
+          </a>
+        </Link>
+      )}
+    </>
+  )
+}
+
 const MobileWorkingWorkOrder = ({
   workOrderReference,
   property,
@@ -80,33 +103,6 @@ const MobileWorkingWorkOrder = ({
     workOrder.status
   )
   const { register, errors, handleSubmit } = useForm()
-
-  const renderOperativeManagementLink = (operativesCount) => {
-    let path, linkText
-
-    if (operativesCount <= 1) {
-      path = 'new'
-      linkText = 'Add operatives'
-    } else {
-      path = 'edit'
-      linkText = 'Update operatives'
-    }
-
-    return (
-      <div className="govuk-!-margin-top-0">
-        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            data-module="govuk-button"
-          >
-            {linkText}
-          </a>
-        </Link>
-      </div>
-    )
-  }
 
   const isVariationPendingApprovalStatus =
     workOrder?.status === VARIATION_PENDING_APPROVAL_STATUS
@@ -191,28 +187,27 @@ const MobileWorkingWorkOrder = ({
 
             {!readOnly && (
               <>
-                <div className="govuk-!-margin-top-0">
-                  {isVariationPendingApprovalStatus ? (
-                    <button
-                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                      disabled
-                    >
-                      Update SOR codes
-                    </button>
-                  ) : (
-                    <Link
-                      href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/tasks/new`}
-                    >
-                      <a
-                        role="button"
-                        draggable="false"
-                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                        data-module="govuk-button"
-                      >
-                        Update SOR codes
-                      </a>
-                    </Link>
-                  )}
+                <div
+                  className="govuk-!-margin-top-0"
+                  style={{ display: 'grid' }}
+                >
+                  <TempDisabledButton
+                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary "
+                    disabled={isVariationPendingApprovalStatus}
+                    href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/tasks/new`}
+                    text={'Update SOR codes'}
+                  />
+
+                  <TempDisabledButton
+                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                    disabled={isVariationPendingApprovalStatus}
+                    href={`/work-orders/${workOrderReference}/operatives/${
+                      operativesCount <= 1 ? 'new' : 'edit'
+                    }`}
+                    text={`${
+                      operativesCount <= 1 ? 'Add' : 'update'
+                    } operatives`}
+                  />
                 </div>
 
                 {operativesCount > 1 && (
@@ -223,8 +218,6 @@ const MobileWorkingWorkOrder = ({
                     readOnly={readOnly}
                   />
                 )}
-
-                {renderOperativeManagementLink(operativesCount)}
 
                 {isVariationPendingApprovalStatus && (
                   <>

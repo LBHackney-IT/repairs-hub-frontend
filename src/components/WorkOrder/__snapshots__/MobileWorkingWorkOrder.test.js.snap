@@ -579,15 +579,25 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
     </div>
     <div
       class="govuk-!-margin-top-0"
+      style="display: grid;"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
         href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
         Update SOR codes
+      </a>
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/edit"
+        role="button"
+      >
+        update operatives
       </a>
     </div>
     <h4
@@ -615,19 +625,6 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
         </a>
       </li>
     </ol>
-    <div
-      class="govuk-!-margin-top-0"
-    >
-      <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-        data-module="govuk-button"
-        draggable="false"
-        href="/work-orders/10000621/operatives/edit"
-        role="button"
-      >
-        Update operatives
-      </a>
-    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >
@@ -1151,9 +1148,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     </div>
     <div
       class="govuk-!-margin-top-0"
+      style="display: grid;"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
         href="/operatives/1/work-orders/10000621/tasks/new"
@@ -1161,10 +1159,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Update SOR codes
       </a>
-    </div>
-    <div
-      class="govuk-!-margin-top-0"
-    >
       <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
@@ -1475,9 +1469,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     </div>
     <div
       class="govuk-!-margin-top-0"
+      style="display: grid;"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
         href="/operatives/1/work-orders/10000621/tasks/new"
@@ -1485,10 +1480,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Update SOR codes
       </a>
-    </div>
-    <div
-      class="govuk-!-margin-top-0"
-    >
       <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
@@ -1764,9 +1755,10 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
     </div>
     <div
       class="govuk-!-margin-top-0"
+      style="display: grid;"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
         href="/operatives/1/work-orders/10000621/tasks/new"
@@ -1774,10 +1766,6 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       >
         Update SOR codes
       </a>
-    </div>
-    <div
-      class="govuk-!-margin-top-0"
-    >
       <a
         class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
         data-module="govuk-button"
@@ -2641,15 +2629,25 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
     </div>
     <div
       class="govuk-!-margin-top-0"
+      style="display: grid;"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
         href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
         Update SOR codes
+      </a>
+      <a
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        data-module="govuk-button"
+        draggable="false"
+        href="/work-orders/10000621/operatives/edit"
+        role="button"
+      >
+        update operatives
       </a>
     </div>
     <h4
@@ -2677,19 +2675,6 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
         </a>
       </li>
     </ol>
-    <div
-      class="govuk-!-margin-top-0"
-    >
-      <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-        data-module="govuk-button"
-        draggable="false"
-        href="/work-orders/10000621/operatives/edit"
-        role="button"
-      >
-        Update operatives
-      </a>
-    </div>
     <div
       class="govuk-form-group lbh-form-group"
     >
