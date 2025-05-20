@@ -187,26 +187,12 @@ const MobileWorkingWorkOrder = ({
 
             {!readOnly && (
               <>
-                <div
-                  className="govuk-!-margin-top-0"
-                  style={{ display: 'grid' }}
-                >
+                <div className="govuk-!-margin-top-0">
                   <TempDisabledButton
                     className="govuk-button govuk-secondary lbh-button lbh-button--secondary "
                     disabled={isVariationPendingApprovalStatus}
                     href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/tasks/new`}
                     text={'Update SOR codes'}
-                  />
-
-                  <TempDisabledButton
-                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                    disabled={isVariationPendingApprovalStatus}
-                    href={`/work-orders/${workOrderReference}/operatives/${
-                      operativesCount <= 1 ? 'new' : 'edit'
-                    }`}
-                    text={`${
-                      operativesCount <= 1 ? 'Add' : 'update'
-                    } operatives`}
                   />
                 </div>
 
@@ -218,6 +204,19 @@ const MobileWorkingWorkOrder = ({
                     readOnly={readOnly}
                   />
                 )}
+
+                <div className="govuk-!-margin-top-0">
+                  <TempDisabledButton
+                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                    disabled={isVariationPendingApprovalStatus}
+                    href={`/work-orders/${workOrderReference}/operatives/${
+                      operativesCount <= 1 ? 'new' : 'edit'
+                    }`}
+                    text={`${
+                      operativesCount <= 1 ? 'Add' : 'Update'
+                    } operatives`}
+                  />
+                </div>
 
                 {isVariationPendingApprovalStatus && (
                   <>

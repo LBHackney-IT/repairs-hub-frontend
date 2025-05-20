@@ -6,7 +6,7 @@ import {
 } from '../../../src/utils/constants'
 
 describe('Updating a work order', () => {
-  context.skip('As a contractor', () => {
+  context('As a contractor', () => {
     beforeEach(() => {
       cy.loginWithContractorRole()
 
