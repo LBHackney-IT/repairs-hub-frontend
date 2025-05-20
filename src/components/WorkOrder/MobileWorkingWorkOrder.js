@@ -236,9 +236,9 @@ const MobileWorkingWorkOrder = ({
                   <>
                     <br></br>
                     <WarningInfoBox
-                      header="Variation pending approval"
+                      header="Work order cannot be closed"
                       name="approvalWarning"
-                      text="You cannot close the work order until the variation has been approved. Please contact your manager"
+                      text="Variation approval is pending. Please contact your manager to approve the variation to the work order."
                     />
                   </>
                 )}
