@@ -60,10 +60,10 @@ export const fetchFeatureToggles = async () => {
 }
 
 export const createSorExistenceValidator = (
-  tradeCode,
-  propertyRef,
-  contractorRef,
-  isRaisable
+  tradeCode: string,
+  propertyRef: string,
+  contractorRef: string,
+  isRaisable: boolean | null = null
 ) => {
   return async (codesForValidation) => {
     const validationResults = {
@@ -76,17 +76,22 @@ export const createSorExistenceValidator = (
       return { ...validationResults, allCodesValid: true }
     }
 
+    const params = {
+      tradeCode: tradeCode,
+      propertyReference: propertyRef,
+      contractorReference: contractorRef,
+      sorCode: codesForValidation,
+    }
+
+    if (isRaisable) {
+      params['isRaisable'] = isRaisable
+    }
+
     try {
       const sorCodes = await frontEndApiRequest({
         method: 'get',
         path: '/api/schedule-of-rates/check',
-        params: {
-          tradeCode: tradeCode,
-          propertyReference: propertyRef,
-          contractorReference: contractorRef,
-          sorCode: codesForValidation,
-          isRaisable: isRaisable,
-        },
+        params,
         ...(paramsSerializer && { paramsSerializer }),
       })
 

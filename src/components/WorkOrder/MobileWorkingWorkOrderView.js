@@ -115,19 +115,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
   const onWorkOrderProgressToCloseSubmit = async (formData) => {
     try {
-      if (formData.variationReason) {
-        await frontEndApiRequest({
-          method: 'post',
-          path: `/api/jobStatusUpdate`,
-          requestData: buildVariationFormData(
-            tasksAndSors,
-            [],
-            workOrderReference,
-            formData.variationReason
-          ),
-        })
-      }
-
       formData.paymentType && setPaymentType(formData.paymentType)
       setWorkOrderProgressedToClose(true)
     } catch (e) {
