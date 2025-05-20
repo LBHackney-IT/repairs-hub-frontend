@@ -10,6 +10,14 @@ exports[`MobileWorkingWorkOrderDetails component should render properly work ord
     >
       WO 10000621
     </h1>
+    <div>
+      <span
+        class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs work-order-status"
+      >
+        In progress
+      </span>
+    </div>
+    <br />
     <div
       class="priority-text govuk-!-margin-top-0"
     >
@@ -217,6 +225,14 @@ exports[`MobileWorkingWorkOrderDetails component should render properly work ord
     >
       WO 10000621
     </h1>
+    <div>
+      <span
+        class="govuk-tag lbh-tag lbh-tag--status-in-progress lbh-body-xs work-order-status"
+      >
+        In progress
+      </span>
+    </div>
+    <br />
     <div
       class="priority-text govuk-!-margin-top-0"
     >

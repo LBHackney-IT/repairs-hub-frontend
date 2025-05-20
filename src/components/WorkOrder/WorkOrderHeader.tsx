@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import PropertyDetailsAddress from '../Property/PropertyDetailsAddress'
 import PropertyFlags from '../Property/PropertyFlags'
 import WorkOrderInfo from './WorkOrderInfo'
@@ -8,17 +7,32 @@ import { formatDateTime } from 'src/utils/time'
 import { WorkOrder } from '@/models/workOrder'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
+import { CautionaryAlert } from '../../models/cautionaryAlerts'
+import { Tenure } from '../../models/tenure'
 
-const WorkOrderHeader = ({
-  propertyReference,
-  workOrder,
-  address,
-  subTypeDescription,
-  tenure,
-  canRaiseRepair,
-  setLocationAlerts,
-  setPersonAlerts,
-}) => {
+interface Props {
+  propertyReference: string
+  workOrder: WorkOrder
+  address: object
+  subTypeDescription: string
+  tenure: Tenure
+  canRaiseRepair: boolean
+  setLocationAlerts: (alerts: CautionaryAlert[]) => void
+  setPersonAlerts: (alerts: CautionaryAlert[]) => void
+}
+
+const WorkOrderHeader = (props: Props) => {
+  const {
+    propertyReference,
+    workOrder,
+    address,
+    subTypeDescription,
+    tenure,
+    canRaiseRepair,
+    setLocationAlerts,
+    setPersonAlerts,
+  } = props
+
   const readOnly = CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES.includes(
     workOrder.status
   )
@@ -69,17 +83,6 @@ const WorkOrderHeader = ({
       </div>
     </div>
   )
-}
-
-WorkOrderHeader.propTypes = {
-  propertyReference: PropTypes.string.isRequired,
-  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
-  address: PropTypes.object.isRequired,
-  subTypeDescription: PropTypes.string.isRequired,
-  tenure: PropTypes.object.isRequired,
-  canRaiseRepair: PropTypes.bool.isRequired,
-  setLocationAlerts: PropTypes.func,
-  setPersonAlerts: PropTypes.func,
 }
 
 export default WorkOrderHeader

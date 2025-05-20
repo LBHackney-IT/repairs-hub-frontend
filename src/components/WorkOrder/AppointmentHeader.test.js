@@ -5,13 +5,11 @@ describe('AppointmentHeader component', () => {
   it('should render the date when the appointment has one', () => {
     const { asFragment } = render(
       <AppointmentHeader
-        workOrder={{
-          appointment: {
-            date: '2021-03-19',
-            description: 'PM Slot',
-            end: '18:00',
-            start: '12:00',
-          },
+        appointment={{
+          date: '2021-03-19',
+          description: 'PM Slot',
+          end: '18:00',
+          start: '12:00',
         }}
       />
     )

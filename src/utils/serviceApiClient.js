@@ -124,6 +124,7 @@ export const serviceAPIRequest = async (request) => {
       : ''
     logger.info(
       `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
+      `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
     )
 
     return response
@@ -295,6 +296,7 @@ export const authoriseServiceAPIRequest = (callBack) => {
       if (errorResponse) {
         const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`
         logger.error(
+          `Service API response for ${target} ERROR`,
           `Service API response for ${target} ERROR`,
           JSON.stringify({
             status: errorResponse?.status,
