@@ -28,6 +28,8 @@ import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
+import WarningText from '../Template/WarningText'
+import WarningInfoBox from '../Template/WarningInfoBox'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -109,6 +111,9 @@ const MobileWorkingWorkOrder = ({
       </div>
     )
   }
+
+  const isVariationPendingApprovalStatus =
+    workOrder?.status === 'Variation Pending Approval'
 
   return (
     <>
@@ -227,10 +232,22 @@ const MobileWorkingWorkOrder = ({
 
                 {renderOperativeManagementLink(operativesCount)}
 
+                {isVariationPendingApprovalStatus && (
+                  <>
+                    <br></br>
+                    <WarningInfoBox
+                      header="Variation pending approval"
+                      name="approvalWarning"
+                      text="You cannot close the work order until the variation has been approved. Please contact your manager"
+                    />
+                  </>
+                )}
+
                 {workOrder?.startTime ? (
                   <PrimarySubmitButton
                     id="submit-work-order-details-confirm"
                     label="Confirm"
+                    disabled={isVariationPendingApprovalStatus}
                   />
                 ) : (
                   <div className="govuk-form-group lbh-form-group">
