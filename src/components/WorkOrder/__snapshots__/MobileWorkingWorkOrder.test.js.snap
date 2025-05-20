@@ -581,13 +581,13 @@ exports[`MobileWorkingWorkOrder component with multiple operatives when has stat
       class="govuk-!-margin-top-0"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/tasks/new"
+        href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
-        Add new SOR
+        Update SOR codes
       </a>
     </div>
     <h4
@@ -1153,13 +1153,13 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       class="govuk-!-margin-top-0"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/tasks/new"
+        href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
-        Add new SOR
+        Update SOR codes
       </a>
     </div>
     <div
@@ -1474,47 +1474,16 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <br />
     </div>
     <div
-      class="govuk-form-group lbh-form-group"
-      id="variationReason-form-group"
-    >
-      <label
-        class="govuk-label lbh-label"
-        for="variationReason"
-      >
-        Variation reason
-        <span
-          class="govuk-required"
-        >
-          *
-        </span>
-      </label>
-      <textarea
-        aria-describedby="variationReason-hint variationReason-error"
-        class="govuk-textarea lbh-textarea"
-        data-testid="variationReason"
-        id="variationReason"
-        name="variationReason"
-        placeholder="Write a reason for the variation..."
-        rows="4"
-      />
-    </div>
-    <span
-      aria-live="polite"
-      class="govuk-hint govuk-character-count__message"
-    >
-      You have 250 characters remaining.
-    </span>
-    <div
       class="govuk-!-margin-top-0"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/tasks/new"
+        href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
-        Add new SOR
+        Update SOR codes
       </a>
     </div>
     <div
@@ -1794,47 +1763,16 @@ exports[`MobileWorkingWorkOrder component with single operative when has status 
       <br />
     </div>
     <div
-      class="govuk-form-group lbh-form-group"
-      id="variationReason-form-group"
-    >
-      <label
-        class="govuk-label lbh-label"
-        for="variationReason"
-      >
-        Variation reason
-        <span
-          class="govuk-required"
-        >
-          *
-        </span>
-      </label>
-      <textarea
-        aria-describedby="variationReason-hint variationReason-error"
-        class="govuk-textarea lbh-textarea"
-        data-testid="variationReason"
-        id="variationReason"
-        name="variationReason"
-        placeholder="Write a reason for the variation..."
-        rows="4"
-      />
-    </div>
-    <span
-      aria-live="polite"
-      class="govuk-hint govuk-character-count__message"
-    >
-      You have 250 characters remaining.
-    </span>
-    <div
       class="govuk-!-margin-top-0"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/tasks/new"
+        href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
-        Add new SOR
+        Update SOR codes
       </a>
     </div>
     <div
@@ -2705,13 +2643,13 @@ exports[`MobileWorkingWorkOrder component with startTime when the workOrder has 
       class="govuk-!-margin-top-0"
     >
       <a
-        class="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+        class="govuk-button govuk-secondary lbh-button lbh-button--secondary "
         data-module="govuk-button"
         draggable="false"
-        href="/work-orders/10000621/tasks/new"
+        href="/operatives/1/work-orders/10000621/tasks/new"
         role="button"
       >
-        Add new SOR
+        Update SOR codes
       </a>
     </div>
     <h4

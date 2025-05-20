@@ -7,7 +7,10 @@ const NewTaskPage = ({ query }) => {
   return (
     <>
       <Meta title={`Add New Work Order ${query.id}`} />
-      <NewTaskForm workOrderReference={query.id} />
+      <NewTaskForm
+        workOrderReference={query.id}
+        operativePayrollNumber={query.operativeId}
+      />
     </>
   )
 }
