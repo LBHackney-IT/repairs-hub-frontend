@@ -6,7 +6,7 @@ const onWindowFocusCallback = async (workOrderReference) => {
   // fetch workOrder page to trigger manual sync
   // (calling this endpoint will fetch latest appointment from DRS)
 
-  const getWorkOrderResponse = await getWorkOrder(workOrderReference)
+  const getWorkOrderResponse = await getWorkOrder(workOrderReference, true)
 
   if (!getWorkOrderResponse.success) {
     console.error(getWorkOrderResponse.error.message)

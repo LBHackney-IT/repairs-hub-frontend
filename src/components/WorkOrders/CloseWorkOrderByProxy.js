@@ -141,7 +141,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       const featureToggleData = await fetchSimpleFeatureToggles()
       setFeatureToggles(featureToggleData)
 
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrder(reference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

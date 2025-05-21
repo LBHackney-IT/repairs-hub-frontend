@@ -65,7 +65,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

@@ -10,7 +10,7 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
-import { getWorkOrder, getWorkOrderNew } from '../../utils/requests/workOrders'
+import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
@@ -45,7 +45,7 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderPromise = getWorkOrderNew(workOrderReference, true)
+      const workOrderPromise = getWorkOrder(workOrderReference, true)
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',

@@ -8,7 +8,6 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
-import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
 import {
   buildCloseWorkOrderData,
@@ -49,7 +48,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

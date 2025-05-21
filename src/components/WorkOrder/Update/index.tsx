@@ -152,7 +152,7 @@ const WorkOrderUpdateView = (props: Props) => {
         path: '/api/hub-user',
       })
 
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrder(reference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

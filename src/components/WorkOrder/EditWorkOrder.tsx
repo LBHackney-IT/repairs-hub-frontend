@@ -13,9 +13,9 @@ import ContactsTable from '../../components/Property/Contacts/ContactsTable'
 import { WorkOrder } from '@/models/workOrder'
 
 import {
-  getWorkOrder,
   postNote,
   editWorkOrder,
+  getWorkOrder,
 } from '@/utils/requests/workOrders'
 import { buildNoteFormData } from '../../utils/hact/jobStatusUpdate/notesForm'
 import {
@@ -55,7 +55,7 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrderDetails = async () => {
     setLoading(true)
-    const workOrderResponse = await getWorkOrder(workOrderReference)
+    const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
     if (!workOrderResponse.success) {
       setError(workOrderResponse.error.message)

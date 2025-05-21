@@ -15,7 +15,6 @@ import {
   buildAuthorisationRejectedFormData,
 } from '@/utils/hact/jobStatusUpdate/authorisation'
 import { calculateTotal } from '@/utils/helpers/calculations'
-import { WorkOrder } from '@/models/workOrder'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import Panel from '@/components/Template/Panel'
 import {
@@ -82,7 +81,7 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
