@@ -60,7 +60,7 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       setCurrentUser(currentUser)
 
-      const workOrderResponse = await getWorkOrder(workOrderReference, false)
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
