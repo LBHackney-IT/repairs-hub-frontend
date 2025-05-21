@@ -234,7 +234,7 @@ describe('Updating a work order', () => {
           .type('Needs more work')
         cy.get('[type="submit"]').contains('Next').click()
       })
-      cy.get('[type="submit"]').contains('Confirm variation').click()
+      cy.get('[type="submit"]').contains('Confirm and close').click()
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -420,12 +420,13 @@ describe('Updating a work order', () => {
         cy.contains('Needs more work')
       })
 
-      cy.contains('Manager Approval Needed for Variation')
-      cy.contains(
-        'Your variation cost exceeds £250 and will need manager approval before proceeding. Please contact your manager to approve this variation.'
-      )
+      cy.get('.govuk-warning-text.lbh-warning-text').within(() => {
+        cy.contains(
+          'Your variation cost exceeds £250 and will be sent for approval.'
+        )
+      })
 
-      cy.get('[type="submit"]').contains('Confirm variation').click()
+      cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
         .its('request.body')
@@ -909,45 +910,39 @@ describe('Updating a work order', () => {
         '@tasksRequest',
       ])
 
-      cy.contains('Update SOR codes').click()
+      cy.contains('Add new SOR').click()
 
       cy.wait(['@workOrderRequest', '@sorCodesRequest'])
 
-      cy.url().should(
-        'contain',
-        '/operatives/OP001/work-orders/10000621/tasks/new'
-      )
+      cy.url().should('contain', '/work-orders/10000621/tasks/new')
 
-      cy.contains('a', 'Add another SOR code').click()
+      cy.get('form').within(() => {
+        cy.get('[type="submit"]').contains('Confirm').click()
+      })
 
-      cy.contains('button', 'Next').click()
+      cy.get(
+        'div[id="rateScheduleItems[operative][code]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Please select an SOR code')
+      })
 
-      // contains errors
-      cy.contains('Please enter a reason')
-      cy.contains('Please select an SOR code')
-      cy.contains('Please enter a quantity')
+      cy.get(
+        'div[id="rateScheduleItems[operative][quantity]-form-group"] .govuk-error-message'
+      ).within(() => {
+        cy.contains('Please enter a quantity')
+      })
 
-      // populate fields
-      cy.get('[data-testid="rateScheduleItems[0][code]"]')
-        .clear()
-        .type('DES5R003 - Immediate call outs')
+      cy.get('form').within(() => {
+        cy.get('input[id="rateScheduleItems[operative][code]"]')
+          .clear()
+          .type('DES5R003 - Immediate call outs')
 
-      cy.get('[data-testid="rateScheduleItems[0][quantity]"]').clear().type('3')
+        cy.get('input[id="rateScheduleItems[operative][quantity]"]')
+          .clear()
+          .type('3')
 
-      cy.get('[data-testid="variationReason"]').type(
-        'Some reason for variation'
-      )
-
-      // submit form
-      cy.contains('button', 'Next').click()
-
-      // check summary page
-      cy.contains('Update work order: 10000621')
-      cy.contains('Summary of updates to work order')
-
-      cy.contains('p', 'Some reason for variation')
-
-      cy.contains('button', 'Confirm variation').click()
+        cy.get('button').contains('Confirm').click()
+      })
 
       cy.wait('@jobStatusUpdateRequest')
         .its('request.body')
@@ -956,7 +951,6 @@ describe('Updating a work order', () => {
             id: '10000621',
           },
           typeCode: '80',
-          comments: 'Some reason for variation',
           moreSpecificSORCode: {
             rateScheduleItem: [
               {
@@ -998,16 +992,6 @@ describe('Updating a work order', () => {
           },
         })
 
-      cy.contains('Work order updated')
-      cy.contains('Reference number 10000621')
-
-      cy.contains('a', 'View work order').should(
-        'have.attr',
-        'href',
-        '/operatives/OP001/work-orders/10000621'
-      )
-      cy.contains('a', 'View work order').click()
-
       cy.wait([
         '@workOrderRequest',
         '@tasksRequest',
@@ -1015,7 +999,7 @@ describe('Updating a work order', () => {
         '@hubUserRequest',
       ])
 
-      cy.url().should('contain', '/operatives/OP001/work-orders/10000621')
+      cy.contains('WO 10000621')
     })
 
     it('allows adding operatives with percentage splits', () => {

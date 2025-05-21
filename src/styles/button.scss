@@ -3,11 +3,3 @@
     display: none;
   }
 }
-
-
-.lbh-button--secondary:disabled,
-.lbh-button--secondary:disabled:hover {
-  color: hsl(166 50% 10% / 1);
-  border-color: hsl(166 50% 10% / 1);
-  background: hsl(166 3% 79% / 1);
-}
