@@ -7,9 +7,17 @@ describe('Managing work order appointments', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/workOrder.json' }
     )
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -62,7 +70,7 @@ describe('Managing work order appointments', () => {
             workOrder.priority = '1 [I] IMMEDIATE'
             workOrder.priorityCode = 1
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           }
@@ -93,7 +101,7 @@ describe('Managing work order appointments', () => {
             workOrder.contractorReference = 'H04'
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           }
@@ -116,9 +124,23 @@ describe('Managing work order appointments', () => {
     context('For a lower priority work order (Urgent or Normal)', () => {
       it('Shows a link to schedule an appointment via DRS Web Booking Manager', () => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/externallyManagedAppointment.json' }
         )
+
+        cy.fixture('workOrderAppointments/withDRSAppointment.json').then(
+          (body) => {
+            body.appointment = null
+
+            cy.intercept(
+              { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+              {
+                body: body,
+              }
+            )
+          }
+        )
+
         cy.visit('/work-orders/10000012')
 
         cy.get('.appointment-details').within(() => {
@@ -128,7 +150,7 @@ describe('Managing work order appointments', () => {
           cy.contains('a', 'Open DRS to book an appointment').should(
             'have.attr',
             'href',
-            'https://scheduler.example.hackney.gov.uk?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
+            '/scheduler?bookingId=1&sessionId=SCHEDULER_SESSION_ID'
           )
           cy.contains('a', 'Open DRS to book an appointment').should(
             'have.attr',
@@ -143,8 +165,15 @@ describe('Managing work order appointments', () => {
   context('When the work order has an existing appointment', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/withAppointment.json' }
+      )
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          fixture: 'workOrderAppointments/withDRSAppointment.json',
+        }
       )
     })
 
@@ -161,7 +190,7 @@ describe('Managing work order appointments', () => {
   context('When the work order has an immediate priority', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/priorityImmediate.json' }
       )
     })
