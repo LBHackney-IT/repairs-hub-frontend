@@ -86,33 +86,6 @@ const MobileWorkingWorkOrder = ({
   )
   const { register, errors, handleSubmit } = useForm()
 
-  const renderOperativeManagementLink = (operativesCount) => {
-    let path, linkText
-
-    if (operativesCount <= 1) {
-      path = 'new'
-      linkText = 'Add operatives'
-    } else {
-      path = 'edit'
-      linkText = 'Update operatives'
-    }
-
-    return (
-      <div className="govuk-!-margin-top-0">
-        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            data-module="govuk-button"
-          >
-            {linkText}
-          </a>
-        </Link>
-      </div>
-    )
-  }
-
   const isVariationPendingApprovalStatus =
     workOrder?.status === VARIATION_PENDING_APPROVAL_STATUS
 
@@ -210,16 +183,26 @@ const MobileWorkingWorkOrder = ({
                 )}
 
                 <div className="govuk-!-margin-top-0">
-                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-                    <a
-                      role="button"
-                      draggable="false"
+                  {isVariationPendingApprovalStatus ? (
+                    <button
+                      disabled
+                      type="button"
                       className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                      data-module="govuk-button"
                     >
                       Add new SOR
-                    </a>
-                  </Link>
+                    </button>
+                  ) : (
+                    <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                      <a
+                        role="button"
+                        draggable="false"
+                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                        data-module="govuk-button"
+                      >
+                        Add new SOR
+                      </a>
+                    </Link>
+                  )}
                 </div>
 
                 {operativesCount > 1 && (
@@ -231,7 +214,32 @@ const MobileWorkingWorkOrder = ({
                   />
                 )}
 
-                {renderOperativeManagementLink(operativesCount)}
+                <div className="govuk-!-margin-top-0">
+                  {isVariationPendingApprovalStatus ? (
+                    <button
+                      disabled
+                      type="button"
+                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                    >
+                      {operativesCount <= 1 ? 'Add' : 'Update'} operatives
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/work-orders/${workOrderReference}/operatives/${
+                        operativesCount <= 1 ? 'new' : 'edit'
+                      }`}
+                    >
+                      <a
+                        role="button"
+                        draggable="false"
+                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                        data-module="govuk-button"
+                      >
+                        {operativesCount <= 1 ? 'Add' : 'Update'} operatives
+                      </a>
+                    </Link>
+                  )}
+                </div>
 
                 {isVariationPendingApprovalStatus && (
                   <>
