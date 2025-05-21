@@ -1,0 +1,25 @@
+{
+  "property": {
+    "propertyReference": "00014886",
+    "address": {
+      "shortAddress": "313 Banister House",
+      "postalCode": "E9 6BT",
+      "addressLine": "313 Banister House",
+      "streetSuffix": null
+    },
+    "hierarchyType": {
+      "levelCode": null,
+      "subTypeCode": null,
+      "subTypeDescription": "Dwelling"
+    },
+    "tmoName": "London Borough of Hackney",
+    "canRaiseRepair": true,
+    "boilerHouseId": ""
+  },
+  "tenure": {
+    "typeCode": "SEC",
+    "typeDescription": "Secure",
+    "tenancyAgreementReference": "004200/01",
+    "id": "4552c539-2e00-8533-078d-9cc59d9115da"
+  }
+}
