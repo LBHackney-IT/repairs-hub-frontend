@@ -4,9 +4,14 @@ import MobileWorkingWorkOrderDetails from './MobileWorkingWorkOrderDetails'
 import MobileWorkingTasksAndSorsTable from './TasksAndSors/MobileWorkingTasksAndSorsTable'
 import Link from 'next/link'
 import { sortArrayByDate } from '@/utils/helpers/array'
+import { areTasksUpdated } from '@/utils/tasks'
 import { useForm } from 'react-hook-form'
 import Radios from '@/components/Form/Radios'
-import { Button, PrimarySubmitButton } from '../Form'
+import {
+  Button,
+  CharacterCountLimitedTextArea,
+  PrimarySubmitButton,
+} from '../Form'
 import OperativeList from '../Operatives/OperativeList'
 import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import AppointmentHeader from './AppointmentHeader'
@@ -26,29 +31,6 @@ import PhotoViewList from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
 
 const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
-
-const TempDisabledButton = ({ disabled, text, href, className }) => {
-  return (
-    <>
-      {disabled ? (
-        <button className={className} disabled>
-          {text}
-        </button>
-      ) : (
-        <Link href={href}>
-          <a
-            role="button"
-            draggable="false"
-            className={className}
-            data-module="govuk-button"
-          >
-            {text}
-          </a>
-        </Link>
-      )}
-    </>
-  )
-}
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -103,6 +85,33 @@ const MobileWorkingWorkOrder = ({
     workOrder.status
   )
   const { register, errors, handleSubmit } = useForm()
+
+  const renderOperativeManagementLink = (operativesCount) => {
+    let path, linkText
+
+    if (operativesCount <= 1) {
+      path = 'new'
+      linkText = 'Add operatives'
+    } else {
+      path = 'edit'
+      linkText = 'Update operatives'
+    }
+
+    return (
+      <div className="govuk-!-margin-top-0">
+        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
+          <a
+            role="button"
+            draggable="false"
+            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+            data-module="govuk-button"
+          >
+            {linkText}
+          </a>
+        </Link>
+      </div>
+    )
+  }
 
   const isVariationPendingApprovalStatus =
     workOrder?.status === VARIATION_PENDING_APPROVAL_STATUS
@@ -187,13 +196,30 @@ const MobileWorkingWorkOrder = ({
 
             {!readOnly && (
               <>
-                <div className="govuk-!-margin-top-0">
-                  <TempDisabledButton
-                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary "
-                    disabled={isVariationPendingApprovalStatus}
-                    href={`/operatives/${currentUserPayrollNumber}/work-orders/${workOrderReference}/tasks/new`}
-                    text={'Update SOR codes'}
+                {areTasksUpdated(tasksAndSors) && (
+                  <CharacterCountLimitedTextArea
+                    name="variationReason"
+                    maxLength={250}
+                    requiredText="Please enter a reason"
+                    label="Variation reason"
+                    placeholder="Write a reason for the variation..."
+                    required={true}
+                    register={register}
+                    error={errors && errors.variationReason}
                   />
+                )}
+
+                <div className="govuk-!-margin-top-0">
+                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                    <a
+                      role="button"
+                      draggable="false"
+                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                      data-module="govuk-button"
+                    >
+                      Add new SOR
+                    </a>
+                  </Link>
                 </div>
 
                 {operativesCount > 1 && (
@@ -205,18 +231,7 @@ const MobileWorkingWorkOrder = ({
                   />
                 )}
 
-                <div className="govuk-!-margin-top-0">
-                  <TempDisabledButton
-                    className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                    disabled={isVariationPendingApprovalStatus}
-                    href={`/work-orders/${workOrderReference}/operatives/${
-                      operativesCount <= 1 ? 'new' : 'edit'
-                    }`}
-                    text={`${
-                      operativesCount <= 1 ? 'Add' : 'Update'
-                    } operatives`}
-                  />
-                </div>
+                {renderOperativeManagementLink(operativesCount)}
 
                 {isVariationPendingApprovalStatus && (
                   <>

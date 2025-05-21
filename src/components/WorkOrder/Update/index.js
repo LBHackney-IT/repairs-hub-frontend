@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import BackButton from '../../Layout/BackButton'
@@ -15,52 +16,42 @@ import SuccessPage from '../../SuccessPage/index'
 import { updateWorkOrderLinks, generalLinks } from '@/utils/successPageLinks'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
-import { WorkOrder } from '@/root/src/models/workOrder'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
 
-interface CurrentUser {
-  name: string
-  email: string
-  varyLimit: string
-  raiseLimit: string
-  contractors: any[]
-  operativePayrollNumber: string
-  isOneJobAtATime: boolean
-}
-
-interface Props {
-  reference: string
-  mobileViewLinks?: { href: string; text: string }[]
-}
-
-const WorkOrderUpdateView = (props: Props) => {
-  const { reference, mobileViewLinks } = props
-
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState<string | null>()
-  const [currentUser, setCurrentUser] = useState<CurrentUser>()
+const WorkOrderUpdateView = ({ reference }) => {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
+  const [currentUser, setCurrentUser] = useState({})
   const [tasks, setTasks] = useState([])
   const [originalTasks, setOriginalTasks] = useState([])
-  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [workOrder, setWorkOrder] = useState()
   const [variationReason, setVariationReason] = useState('')
   const [addedTasks, setAddedTasks] = useState([])
   const [showSummaryPage, setShowSummaryPage] = useState(false)
+  const [
+    showAdditionalRateScheduleItems,
+    setShowAdditionalRateScheduleItems,
+  ] = useState(false)
   const [showUpdateSuccess, setShowUpdateSuccess] = useState(false)
   const [overSpendLimit, setOverSpendLimit] = useState()
   const [budgetCode, setBudgetCode] = useState()
-  const [contractorReference, setContractorReference] = useState<string>()
+  const [contractorReference, setContractorReference] = useState()
   const [
     orderRequiresIncrementalSearch,
     setOrderRequiresIncrementalSearch,
-  ] = useState<any>()
+  ] = useState()
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
 
   const FORM_PAGE = 1
   const ADDING_MULTIPLE_SOR_PAGE = 2
+  // const SUMMARY_PAGE = 3
+  // const UPDATE_SUCCESS_PAGE = 4
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
 
   //multiple SORs
-  const [formState, setFormState] = useState<any>()
+  const [formState, setFormState] = useState({})
   const [announcementMessage, setAnnouncementMessage] = useState('')
 
   const onGetToSummary = (e) => {
@@ -80,11 +71,12 @@ const WorkOrderUpdateView = (props: Props) => {
   }
 
   const changeCurrentPage = () => {
+    setShowAdditionalRateScheduleItems(true)
     setShowSummaryPage(false)
   }
 
   const onFormSubmit = async (formData, overSpendLimit) => {
-    setIsLoading(true)
+    setLoading(true)
 
     try {
       await frontEndApiRequest({
@@ -110,7 +102,7 @@ const WorkOrderUpdateView = (props: Props) => {
       }
     }
 
-    setIsLoading(false)
+    setLoading(false)
   }
 
   const sorSearchRequest = (searchText) =>
@@ -197,7 +189,7 @@ const WorkOrderUpdateView = (props: Props) => {
       )
     }
 
-    setIsLoading(false)
+    setLoading(false)
   }
 
   const getCurrentSORCodes = () => {
@@ -226,7 +218,7 @@ const WorkOrderUpdateView = (props: Props) => {
   }
 
   useEffect(() => {
-    setIsLoading(true)
+    setLoading(true)
 
     getWorkOrderUpdateForm(reference)
   }, [])
@@ -273,102 +265,114 @@ const WorkOrderUpdateView = (props: Props) => {
     setSorCodeArrays(codes)
   }
 
-  const getSuccessPageLinks = () => {
-    if (mobileViewLinks) return mobileViewLinks
-    if (overSpendLimit) return generalLinks(reference)
-    return updateWorkOrderLinks(reference)
-  }
-
-  if (isLoading) {
-    return <Spinner />
-  }
-
-  if (!currentUser || !tasks) {
-    return null
-  }
-
   return (
     <>
-      {showUpdateSuccess && (
-        <SuccessPage
-          banner={
-            <PageAnnouncement
-              title={
-                overSpendLimit
-                  ? 'Variation requires authorisation'
-                  : 'Work order updated'
-              }
-              workOrderReference={reference}
-            />
-          }
-          links={getSuccessPageLinks()}
-          warningText={
-            overSpendLimit ? 'Please request authorisation from a manager' : ''
-          }
-        />
-      )}
-
-      {renderAnnouncement()}
-      {currentPage === FORM_PAGE && !showUpdateSuccess && !showSummaryPage && (
+      {loading ? (
+        <Spinner />
+      ) : (
         <>
-          <BackButton />
-          <h1 className="lbh-heading-h1">Update work order: {reference}</h1>
+          {currentUser && tasks && (
+            <>
+              {showUpdateSuccess && (
+                <SuccessPage
+                  banner={
+                    <PageAnnouncement
+                      title={
+                        overSpendLimit
+                          ? 'Variation requires authorisation'
+                          : 'Work order updated'
+                      }
+                      workOrderReference={reference}
+                    />
+                  }
+                  links={
+                    overSpendLimit
+                      ? generalLinks(reference)
+                      : updateWorkOrderLinks(reference)
+                  }
+                  warningText={
+                    overSpendLimit
+                      ? 'Please request authorisation from a manager'
+                      : ''
+                  }
+                />
+              )}
 
-          <WorkOrderUpdateForm
-            latestTasks={tasks}
-            originalTasks={originalTasks}
-            addedTasks={addedTasks}
-            onGetToSummary={onGetToSummary}
-            setVariationReason={setVariationReason}
-            variationReason={variationReason}
-            contractorReference={contractorReference}
-            sorSearchRequest={
-              orderRequiresIncrementalSearch && sorSearchRequest
-            }
-            sorCodeArrays={sorCodeArrays}
-            setSorCodeArrays={setSorCodeArrays}
-            setPageToMultipleSORs={(formState) => {
-              setAnnouncementMessage('')
-              setFormState(formState)
-              setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-            }}
-          />
+              {renderAnnouncement()}
+              {currentPage === FORM_PAGE &&
+                !showSummaryPage &&
+                !showUpdateSuccess && (
+                  <>
+                    <BackButton />
+                    <h1 className="lbh-heading-h1">
+                      Update work order: {reference}
+                    </h1>
+
+                    <WorkOrderUpdateForm
+                      latestTasks={tasks}
+                      originalTasks={originalTasks}
+                      addedTasks={addedTasks}
+                      showAdditionalRateScheduleItems={
+                        showAdditionalRateScheduleItems
+                      }
+                      onGetToSummary={onGetToSummary}
+                      setVariationReason={setVariationReason}
+                      variationReason={variationReason}
+                      contractorReference={contractorReference}
+                      sorSearchRequest={
+                        orderRequiresIncrementalSearch && sorSearchRequest
+                      }
+                      sorCodeArrays={sorCodeArrays}
+                      setSorCodeArrays={setSorCodeArrays}
+                      setPageToMultipleSORs={(formState) => {
+                        setAnnouncementMessage('')
+                        setFormState(formState)
+                        setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
+                      }}
+                    />
+                  </>
+                )}
+              {showSummaryPage && !showUpdateSuccess && (
+                <WorkOrderUpdateSummary
+                  latestTasks={tasks}
+                  originalTasks={originalTasks}
+                  addedTasks={addedTasks}
+                  varySpendLimit={parseFloat(currentUser.varyLimit)}
+                  reference={reference}
+                  onFormSubmit={onFormSubmit}
+                  changeStep={changeCurrentPage}
+                  variationReason={variationReason}
+                  budgetCode={budgetCode}
+                />
+              )}
+
+              {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
+                <AddMultipleSORs
+                  currentSorCodes={getCurrentSORCodes()}
+                  setPageBackToFormView={() => {
+                    setCurrentPage(FORM_PAGE)
+                  }}
+                  sorExistenceValidationCallback={createSorExistenceValidator(
+                    workOrder.tradeCode,
+                    workOrder.propertyReference,
+                    workOrder.contractorReference
+                  )}
+                  setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
+                  setAnnouncementMessage={setAnnouncementMessage}
+                  setIsPriorityEnabled={() => {}}
+                />
+              )}
+            </>
+          )}
+          {error && <ErrorMessage label={error} />}
         </>
       )}
-      {showSummaryPage && !showUpdateSuccess && (
-        <WorkOrderUpdateSummary
-          latestTasks={tasks}
-          originalTasks={originalTasks}
-          addedTasks={addedTasks}
-          varySpendLimit={parseFloat(currentUser.varyLimit)}
-          reference={reference}
-          onFormSubmit={onFormSubmit}
-          changeStep={changeCurrentPage}
-          variationReason={variationReason}
-          budgetCode={budgetCode}
-        />
-      )}
-
-      {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-        <AddMultipleSORs
-          currentSorCodes={getCurrentSORCodes()}
-          setPageBackToFormView={() => {
-            setCurrentPage(FORM_PAGE)
-          }}
-          sorExistenceValidationCallback={createSorExistenceValidator(
-            workOrder.tradeCode,
-            workOrder.propertyReference,
-            workOrder.contractorReference
-          )}
-          setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-          setAnnouncementMessage={setAnnouncementMessage}
-          setIsPriorityEnabled={() => {}}
-        />
-      )}
-
-      {error && <ErrorMessage label={error} />}
     </>
   )
+}
+
+WorkOrderUpdateView.propTypes = {
+  reference: PropTypes.string.isRequired,
 }
 
 export default WorkOrderUpdateView
