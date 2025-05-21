@@ -1,6 +1,6 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
-import { APIResponseError, ApiResponseType } from '../../types/requests/types'
+import { ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 
 export const getWorkOrder = async (
@@ -23,13 +23,12 @@ export const getWorkOrder = async (
     return {
       success: false,
       response: null,
-      error: new APIResponseError(
+      error:
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
           : `Oops, an error occurred: ${
               e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-      ),
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
     }
   }
 }
@@ -59,13 +58,12 @@ export const editWorkOrder = async (
     return {
       success: false,
       response: null,
-      error: new APIResponseError(
+      error:
         e.response?.status === 400
           ? 'Invalid request data'
           : `Oops, an error occurred: ${
               e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-      ),
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
     }
   }
 }
@@ -91,13 +89,12 @@ export const postNote = async (
     return {
       success: false,
       response: null,
-      error: new APIResponseError(
+      error:
         e.response?.status === 400
           ? `Invalid request data`
           : `Oops, an error occurred: ${
               e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-      ),
+            } with message: ${JSON.stringify(e.response?.data?.message)}`,
     }
   }
 }

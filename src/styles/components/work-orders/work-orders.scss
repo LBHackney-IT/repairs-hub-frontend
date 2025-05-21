@@ -36,8 +36,7 @@
     &--status-variation-pending-approval,
     &--status-authorisation-pending-approval {
       background-color: repairs-hub-colour('yellow');
-      // color: repairs-hub-colour('black');
-      color: #514005;
+      color: repairs-hub-colour('black');
       white-space: normal;
     }
     &--status-variation-approved {

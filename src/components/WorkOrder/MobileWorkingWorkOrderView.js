@@ -23,8 +23,6 @@ import { workOrderNoteFragmentForPaymentType } from '../../utils/paymentTypes'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { emitTagManagerEvent } from '@/utils/tagManager'
-import { getWorkOrder } from '../../utils/requests/workOrders'
-import { APIResponseError } from '../../types/requests/types'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -49,13 +47,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
 
       const featureToggleData = await fetchSimpleFeatureToggles()
 
@@ -96,20 +91,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       setPhotos(null)
       console.error('An error has occured:', e.response)
 
-      if (e instanceof APIResponseError) {
-        setError(e.message)
+      if (e.response?.status === 404) {
+        setError(
+          `Could not find a work order with reference ${workOrderReference}`
+        )
       } else {
-        if (e.response?.status === 404) {
-          setError(
-            `Could not find a work order with reference ${workOrderReference}`
-          )
-        } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
-        }
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
       }
     }
 
@@ -124,6 +115,19 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
   const onWorkOrderProgressToCloseSubmit = async (formData) => {
     try {
+      if (formData.variationReason) {
+        await frontEndApiRequest({
+          method: 'post',
+          path: `/api/jobStatusUpdate`,
+          requestData: buildVariationFormData(
+            tasksAndSors,
+            [],
+            workOrderReference,
+            formData.variationReason
+          ),
+        })
+      }
+
       formData.paymentType && setPaymentType(formData.paymentType)
       setWorkOrderProgressedToClose(true)
     } catch (e) {
