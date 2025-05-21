@@ -1,4 +1,4 @@
-import NewTaskPage from 'src/pages/work-orders/[id]/tasks/new'
+import NewTaskPage from '@/root/src/pages/operatives/[operativeId]/work-orders/[id]/tasks/new'
 import {
   AGENT_ROLE,
   CONTRACTOR_ROLE,
