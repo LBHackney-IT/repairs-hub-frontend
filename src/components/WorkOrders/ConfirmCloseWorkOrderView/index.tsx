@@ -33,7 +33,8 @@ const ConfirmCloseWorkOrderView = (props: Props) => {
     setLoadingStatus('Fetching work order data')
 
     const workOrderResponse: ApiResponseType<WorkOrder> = await getWorkOrder(
-      workOrderId, false
+      workOrderId,
+      false
     )
 
     if (workOrderResponse.success) {
