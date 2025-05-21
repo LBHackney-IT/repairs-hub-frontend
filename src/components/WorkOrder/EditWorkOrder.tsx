@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useRouter } from 'next/router'
 import { useForm } from 'react-hook-form'
 import { GridRow, GridColumn } from '../Layout/Grid'
@@ -44,14 +44,9 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
 
   const fetchWorkOrder = async () => {
     setLoading(true)
-    const workOrderResponse = await getWorkOrder(workOrderReference)
-
-    if (!workOrderResponse.success) {
-      setError(workOrderResponse.error.message)
-    } else {
-      setWorkOrder(workOrderResponse.response)
-    }
-
+    const { response, error } = await getWorkOrder(workOrderReference)
+    setWorkOrder(response)
+    setError(error)
     setLoading(false)
   }
 
@@ -65,14 +60,14 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       data.editRepairDescription
     )
     if (!editWorkOrderResponse.success) {
-      setError(editWorkOrderResponse.error.message)
+      setError(editWorkOrderResponse.error)
       return
     }
 
     const postNoteResponse = await postNote(noteData)
 
     if (!postNoteResponse.success) {
-      setError(postNoteResponse.error.message)
+      setError(postNoteResponse.error)
       return
     }
     router.push(`/work-orders/${workOrder.reference}`)

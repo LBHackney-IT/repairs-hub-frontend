@@ -1,9 +1,4 @@
-import { BudgetCode } from '../../models/budgetCode'
-
-export const formatBudgetCodeForOption = (
-  budgetCode: BudgetCode,
-  separator = ' - '
-) =>
+export const formatBudgetCodeForOption = (budgetCode, separator = ' - ') =>
   [
     budgetCode?.externalCostCode,
     budgetCode?.corporateSubjectiveCode,
@@ -12,7 +7,7 @@ export const formatBudgetCodeForOption = (
     .filter((x) => x)
     .join(separator)
 
-export const formatBudgetCode = (budgetCode: BudgetCode) =>
+export const formatBudgetCode = (budgetCode) =>
   [
     budgetCode?.externalCostCode,
     [budgetCode?.corporateSubjectiveCode, budgetCode?.descriptionOfWorks]

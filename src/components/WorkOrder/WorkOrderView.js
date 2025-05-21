@@ -8,25 +8,22 @@ import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
-import { Tenure } from '../../models/tenure'
-import { getWorkOrder } from '../../utils/requests/workOrders'
-import { ApiError } from 'next/dist/server/api-utils'
-import { APIResponseError } from '../../types/requests/types'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
 const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState<any>({})
-  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [property, setProperty] = useState({})
+  const [workOrder, setWorkOrder] = useState({})
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
-  const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
-  const [tenure, setTenure] = useState<Tenure>()
+  const [locationAlerts, setLocationAlerts] = useState([])
+  const [personAlerts, setPersonAlerts] = useState([])
+  const [tenure, setTenure] = useState({})
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>()
+  const [error, setError] = useState()
 
-  const printClickHandler = () => {
+  const printClickHandler = (e) => {
+    e.preventDefault()
+
     if (document.getElementById('rear-image')) {
       window.print()
     } else {
@@ -46,20 +43,17 @@ const WorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderPromise = getWorkOrder(workOrderReference)
+      const workOrderPromise = frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
         path: `/api/workOrders/${workOrderReference}/tasks`,
       })
 
-      const workOrderResponse = await workOrderPromise
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
+      const workOrder = await workOrderPromise
 
       const propertyPromise = frontEndApiRequest({
         method: 'get',
@@ -83,20 +77,16 @@ const WorkOrderView = ({ workOrderReference }) => {
       setProperty(null)
       console.error('An error has occured:', e.response)
 
-      if (e instanceof APIResponseError) {
-        setError(e.message)
+      if (e.response?.status === 404) {
+        setError(
+          `Could not find a work order with reference ${workOrderReference}`
+        )
       } else {
-        if (e.response?.status === 404) {
-          setError(
-            `Could not find a work order with reference ${workOrderReference}`
-          )
-        } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
-        }
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
       }
     }
 
@@ -125,6 +115,7 @@ const WorkOrderView = ({ workOrderReference }) => {
                   property={property}
                   workOrder={workOrder}
                   tenure={tenure}
+                  tasksAndSors={tasksAndSors}
                   printClickHandler={printClickHandler}
                   setLocationAlerts={setLocationAlerts}
                   setPersonAlerts={setPersonAlerts}

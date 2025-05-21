@@ -1,10 +1,6 @@
 import WarningInfoBox from '../Template/WarningInfoBox'
 
-interface Props {
-  hasExistingAppointment: boolean
-}
-
-const ScheduleWarning = ({ hasExistingAppointment }: Props) => {
+const ScheduleWarning = ({ hasExistingAppointment }) => {
   const warningText = `Contact the operative before ${
     hasExistingAppointment ? 'rescheduling' : 'scheduling'
   }`
