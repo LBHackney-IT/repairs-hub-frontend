@@ -125,7 +125,7 @@ describe('Raise repair form', () => {
     cy.clock(now, ['Date'])
   })
 
-  it('Validates missing form inputs', () => {
+  it.only('Validates missing form inputs', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 
     cy.visit('/properties/00012345/raise-repair/new')

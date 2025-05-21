@@ -1,7 +1,11 @@
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import {
+  fetchSimpleFeatureToggles,
+  frontEndApiRequest,
+} from '@/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 export const getWorkOrder = async (
   workOrderReference: string
@@ -34,9 +38,68 @@ export const getWorkOrder = async (
   }
 }
 
+export const getWorkOrderNew = async (
+  workOrderReference: string,
+  includeAppointmentData: boolean = false
+): Promise<ApiResponseType<WorkOrder | null>> => {
+  try {
+    const featureToggleData = await fetchSimpleFeatureToggles()
+
+    if (!featureToggleData?.enableNewAppointmentEndpoint) {
+      // default to old endpoint if FT disabled
+      return await getWorkOrder(workOrderReference)
+    }
+
+    const workOrderData = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/workOrders/${workOrderReference}/new`,
+    })
+
+    const workOrder = new WorkOrder(workOrderData)
+
+    if (includeAppointmentData) {
+      const appointmentOperativeData: WorkOrderAppointmentDetails = await frontEndApiRequest(
+        {
+          method: 'get',
+          path: `/api/workOrders/appointments/${workOrderReference}/`,
+        }
+      )
+
+      // map appointment/operative data from new endpoint
+      workOrder.appointment = appointmentOperativeData.appointment
+      workOrder.operatives = appointmentOperativeData.operatives
+      workOrder.externalAppointmentManagementUrl =
+        appointmentOperativeData.externalAppointmentManagementUrl
+      workOrder.plannerComments = appointmentOperativeData.plannerComments
+    }
+
+    return {
+      success: true,
+      response: workOrder,
+      error: null,
+    }
+  } catch (e) {
+    console.error('An error has occurred:', e.response)
+
+    return {
+      success: false,
+      response: null,
+      error: new APIResponseError(
+        e.response?.status === 404
+          ? `Could not find a work order with reference ${workOrderReference}`
+          : `Oops, an error occurred: ${
+              e.response?.status
+            } with message: ${JSON.stringify(e.response?.data?.message)}`
+      ),
+    }
+  }
+}
+
 export const editWorkOrder = async (
   id: string,
-  description: string
+  description: string,
+  callerName: string,
+  callerNumber: string
 ): Promise<ApiResponseType<null>> => {
   try {
     await frontEndApiRequest({
@@ -45,6 +108,8 @@ export const editWorkOrder = async (
       requestData: {
         workOrderId: id,
         description: description,
+        callerName: callerName,
+        callerNumber: callerNumber,
       },
     })
 

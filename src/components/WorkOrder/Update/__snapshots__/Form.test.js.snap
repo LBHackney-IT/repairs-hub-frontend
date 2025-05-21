@@ -34,7 +34,7 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   SOR code 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
                   id="originalRateScheduleItems[0][code]"
@@ -58,7 +58,7 @@ exports[`WorkOrderUpdateForm component should render properly when there are no 
                   Quantity 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
                   id="originalRateScheduleItems[0][quantity]"
@@ -303,7 +303,7 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   SOR code 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
                   id="originalRateScheduleItems[0][code]"
@@ -327,7 +327,7 @@ exports[`WorkOrderUpdateForm component should render properly with 250 character
                   Quantity 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
                   id="originalRateScheduleItems[0][quantity]"
@@ -670,7 +670,7 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   SOR code 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][code]"
                   disabled=""
                   id="originalRateScheduleItems[0][code]"
@@ -694,7 +694,7 @@ exports[`WorkOrderUpdateForm component should render properly with unlimited cha
                   Quantity 
                 </label>
                 <input
-                  class="govuk-input lbh-input undefined"
+                  class="govuk-input lbh-input "
                   data-testid="originalRateScheduleItems[0][quantity]"
                   disabled=""
                   id="originalRateScheduleItems[0][quantity]"
