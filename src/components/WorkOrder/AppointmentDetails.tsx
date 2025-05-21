@@ -35,8 +35,10 @@ const AppointmentDetails = ({ workOrder }: Props) => {
               <>
                 {canSeeAppointmentDetailsInfo(user) &&
                   workOrder.appointment &&
-                  workOrder.status !== STATUS_CANCELLED && (
-                    <AppointmentDetailsInfo workOrder={workOrder} />
+                  workOrder.status !== STATUS_CANCELLED.description && (
+                    <AppointmentDetailsInfo
+                      appointment={workOrder?.appointment}
+                    />
                   )}
 
                 {canScheduleAppointment(user) &&
@@ -46,14 +48,14 @@ const AppointmentDetails = ({ workOrder }: Props) => {
                       externalAppointmentManagementUrl={
                         workOrder.externalAppointmentManagementUrl
                       }
-                      hasExistingAppointment={workOrder.appointment}
+                      hasExistingAppointment={!!workOrder?.appointment}
                       workOrder={workOrder}
                       workOrderReference={workOrder.reference}
                     />
                   ) : (
                     <ScheduleInternalAppointmentLink
                       workOrderReference={workOrder.reference}
-                      hasExistingAppointment={workOrder.appointment}
+                      hasExistingAppointment={!!workOrder?.appointment}
                       appointmentIsToday={workOrder.appointmentIsToday()}
                     />
                   ))}

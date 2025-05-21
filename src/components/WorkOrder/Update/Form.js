@@ -99,6 +99,7 @@ WorkOrderUpdateForm.propTypes = {
   variationReason: PropTypes.string.isRequired,
   contractorReference: PropTypes.string.isRequired,
   sorCodeArrays: PropTypes.array.isRequired,
+  formState: PropTypes.object,
   setSorCodeArrays: PropTypes.func.isRequired,
 }
 
