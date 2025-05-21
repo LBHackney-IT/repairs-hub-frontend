@@ -17,7 +17,7 @@ describe('Work order cancellations', () => {
       ).as('workOrder')
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderOld')
 
@@ -177,7 +177,7 @@ describe('Work order cancellations', () => {
           workOrder.priorityCode = 2
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })

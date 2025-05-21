@@ -42,7 +42,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         workOrder.paymentType = null
         workOrder.startTime = null
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         )
       })
@@ -623,7 +623,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           workOrder.canAssignOperative = true
           workOrder.operatives = []
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -841,7 +841,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
                 },
               ]
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1111,7 +1111,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
                 },
               ]
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1242,7 +1242,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
               workOrder.canAssignOperative = true
               workOrder.operatives = []
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -1371,7 +1371,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           workOrder.canAssignOperative = false
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -1982,7 +1982,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           workOrder.canAssignOperative = true
           workOrder.operatives = []
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -2200,7 +2200,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
                 },
               ]
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2470,7 +2470,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
                 },
               ]
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2601,7 +2601,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
               workOrder.canAssignOperative = true
               workOrder.operatives = []
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040' },
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
                 { body: workOrder }
               ).as('workOrder')
             })
@@ -2730,7 +2730,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           workOrder.canAssignOperative = false
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           ).as('workOrder')
         })
@@ -2897,7 +2897,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         ).as('workOrder')
       })

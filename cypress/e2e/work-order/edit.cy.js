@@ -9,7 +9,7 @@ describe('Editing a work order description', () => {
     describe(`When I don't trigger any errors`, () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
         cy.intercept(
@@ -60,7 +60,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
@@ -104,7 +104,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -141,7 +141,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -157,7 +157,7 @@ describe('Editing a work order description', () => {
     describe('When I trigger errors', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
         cy.intercept(
@@ -239,7 +239,7 @@ describe('Editing a work order description', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
       cy.visit('/work-orders/10000012/edit')

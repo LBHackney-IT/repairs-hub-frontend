@@ -61,7 +61,7 @@ describe('Schedule appointment form', () => {
         workOrder.target = targetTime
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10102030' },
+          { method: 'GET', path: '/api/workOrders/10102030/new' },
           { body: workOrder }
         )
       })
@@ -462,7 +462,7 @@ describe('Schedule appointment form', () => {
           workOrder.status = STATUS_CANCELLED.description
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10102030' },
+            { method: 'GET', path: '/api/workOrders/10102030/new' },
             { body: workOrder }
           )
         })

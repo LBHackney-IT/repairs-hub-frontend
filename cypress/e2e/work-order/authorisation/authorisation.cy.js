@@ -27,7 +27,7 @@ describe('Authorisation workflow for a work order', () => {
     ).as('workOrderRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
     )
 

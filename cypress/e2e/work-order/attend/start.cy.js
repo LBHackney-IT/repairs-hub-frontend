@@ -7,7 +7,7 @@ describe('Starting my own work order', () => {
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept(`/api/workOrders/${workOrderReference}`, {
+    cy.intercept(`/api/workOrders/${workOrderReference}/new`, {
       fixture: 'workOrders/workOrderWithoutStartTime.json',
     }).as('workOrderRequest')
 

@@ -110,7 +110,10 @@ describe('Closing my own work order', () => {
           x.status = 'Variation Pending Approval'
 
           cy.intercept(
-            { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
+            {
+              method: 'GET',
+              path: `/api/workOrders/${workOrderReference}/new`,
+            },
             { body: x }
           )
         })

@@ -73,7 +73,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_IN_PROGRESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -212,7 +212,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_NO_ACCESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })
@@ -308,7 +308,7 @@ describe('Rescheduling work order appointments', () => {
               workOrder.status = STATUS_NO_ACCESS.description
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012' },
+                { method: 'GET', path: '/api/workOrders/10000012/new' },
                 { body: workOrder }
               )
             })
