@@ -1,24 +1,13 @@
 import Link from 'next/link'
 import ScheduleWarning from './ScheduleWarning'
-import { WorkOrder } from '../../models/workOrder'
 
-interface Props {
-  workOrder: WorkOrder
-  schedulerSessionId: string
-  openLinkEventHandler: () => void
-  hasExistingAppointment: boolean
-  appointmentIsToday: boolean
-}
-
-const ScheduleDRSAppointmentLink = (props: Props) => {
-  const {
-    workOrder,
-    schedulerSessionId,
-    openLinkEventHandler,
-    hasExistingAppointment,
-    appointmentIsToday,
-  } = props
-
+const ScheduleDRSAppointmentLink = ({
+  workOrder,
+  schedulerSessionId,
+  openLinkEventHandler,
+  hasExistingAppointment,
+  appointmentIsToday,
+}) => {
   return (
     <>
       <Link

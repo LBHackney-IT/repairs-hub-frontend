@@ -124,7 +124,7 @@ const Layout = ({ serviceName, children }) => {
 
 Layout.propTypes = {
   serviceName: PropTypes.string.isRequired,
-  feedbackLink: PropTypes.string,
+  feedbackLink: PropTypes.string.isRequired,
 }
 
 export default Layout

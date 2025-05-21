@@ -1,26 +1,26 @@
+import PropTypes from 'prop-types'
 import { longMonthWeekday } from '@/utils/date'
-import { Appointment } from '../../models/appointment'
 
-interface Props {
-  appointment: Appointment
-}
-
-const AppointmentHeader = ({ appointment }: Props) => {
+const AppointmentHeader = ({ workOrder }) => {
   return (
     <div className="mobile-working-title-banner">
-      {appointment ? (
+      {workOrder.appointment ? (
         <h2 className="lbh-heading-h2">
-          {longMonthWeekday(appointment?.date, {
+          {longMonthWeekday(workOrder.appointment.date, {
             commaSeparated: false,
           })}
           <br />
-          {`${appointment?.start} – ${appointment?.end}`}
+          {`${workOrder.appointment.start} – ${workOrder.appointment.end}`}
         </h2>
       ) : (
         <h2 className="lbh-heading-h2">No appointment</h2>
       )}
     </div>
   )
+}
+
+AppointmentHeader.propTypes = {
+  workOrder: PropTypes.object.isRequired,
 }
 
 export default AppointmentHeader

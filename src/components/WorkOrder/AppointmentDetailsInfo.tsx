@@ -1,17 +1,22 @@
 import { dateToStr } from '@/utils/date'
-import { Appointment } from '../../types/variations/types'
 
 interface Props {
-  appointment: Appointment
+  workOrder: {
+    appointment: {
+      date: Date
+      start: string
+      end: string
+    }
+  }
 }
 
 const AppointmentDetailsInfo = (props: Props) => {
-  const { appointment } = props
+  const { workOrder } = props
 
   return (
     <p className="govuk-!-font-size-14">
-      {dateToStr(new Date(appointment?.date))}, {appointment?.start}-
-      {appointment?.end}
+      {dateToStr(new Date(workOrder.appointment.date))},{' '}
+      {workOrder.appointment.start}-{workOrder.appointment.end}
     </p>
   )
 }

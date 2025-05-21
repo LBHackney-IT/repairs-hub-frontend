@@ -104,44 +104,6 @@ describe('Closing my own work order', () => {
       Cypress.env('IsCurrentOperativeOvertime', false)
     })
 
-    it('prevents operative from closing job when variation pending approval', () => {
-      cy.fixture('workOrders/workOrder.json')
-        .then((x) => {
-          x.status = 'Variation Pending Approval'
-
-          cy.intercept(
-            { method: 'GET', path: `/api/workOrders/${workOrderReference}` },
-            { body: x }
-          )
-        })
-        .as('workOrderRequest')
-
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@photosRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // contains status badge
-      cy.contains('.govuk-tag', 'Variation pending approval')
-
-      // warning message
-      cy.get('[data-testid="approvalWarning"]').contains(
-        'Work order cannot be closed'
-      )
-      cy.get('[data-testid="approvalWarning"]').contains(
-        'Variation approval is pending. Please contact your manager to approve the variation to the work order.'
-      )
-
-      // button is disabled
-      cy.contains('Confirm').should('be.disabled')
-    })
-
     it('shows a validation error when no reason is selected', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 

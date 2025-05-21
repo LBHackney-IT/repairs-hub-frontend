@@ -1,4 +1,5 @@
 import { useContext } from 'react'
+import PropTypes from 'prop-types'
 import UserContext from '../UserContext'
 import WorkOrderHeader from './WorkOrderHeader'
 import { GridRow, GridColumn } from '../Layout/Grid'
@@ -8,28 +9,15 @@ import MultiButton from '../Layout/MultiButton'
 import { WORK_ORDER_ACTIONS } from 'src/utils/workOrderActions'
 import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
-import { Tenure } from '../../models/tenure'
-import { CautionaryAlert } from '../../models/cautionaryAlerts'
 
-interface Props {
-  property: any
-  workOrder: WorkOrder
-  tenure: Tenure
-  setLocationAlerts: (alerts: CautionaryAlert[]) => void
-  setPersonAlerts: (alerts: CautionaryAlert[]) => void
-  printClickHandler: () => void
-}
-
-const WorkOrderDetails = (props: Props) => {
-  const {
-    property,
-    workOrder,
-    tenure,
-    printClickHandler,
-    setLocationAlerts,
-    setPersonAlerts,
-  } = props
-
+const WorkOrderDetails = ({
+  property,
+  workOrder,
+  tenure,
+  printClickHandler,
+  setLocationAlerts,
+  setPersonAlerts,
+}) => {
   const { user } = useContext(UserContext)
 
   const workOrderActionMenu = () => {
@@ -46,10 +34,7 @@ const WorkOrderDetails = (props: Props) => {
       if (action.href === 'print') {
         return {
           ...action,
-          onClickHandler: (e) => {
-            e.preventDefault()
-            printClickHandler()
-          },
+          onClickHandler: printClickHandler,
         }
       } else {
         return action
@@ -98,6 +83,7 @@ const WorkOrderDetails = (props: Props) => {
           address={property.address}
           subTypeDescription={property.hierarchyType.subTypeDescription}
           tenure={tenure}
+          hasLinkToProperty={true}
           canRaiseRepair={property.canRaiseRepair}
           setLocationAlerts={setLocationAlerts}
           setPersonAlerts={setPersonAlerts}
@@ -105,6 +91,14 @@ const WorkOrderDetails = (props: Props) => {
       </div>
     </>
   )
+}
+
+WorkOrderDetails.propTypes = {
+  property: PropTypes.object.isRequired,
+  workOrder: PropTypes.instanceOf(WorkOrder).isRequired,
+  tenure: PropTypes.object.isRequired,
+  setLocationAlerts: PropTypes.func,
+  setPersonAlerts: PropTypes.func,
 }
 
 export default WorkOrderDetails

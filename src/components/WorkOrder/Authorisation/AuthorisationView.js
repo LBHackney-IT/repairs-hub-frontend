@@ -22,8 +22,6 @@ import {
   authorisationApprovedLinks,
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
-import { APIResponseError } from '@/root/src/types/requests/types'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -82,13 +80,11 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
+      const workOrderData = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
+      const workOrder = new WorkOrder(workOrderData)
 
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
@@ -115,14 +111,9 @@ const AuthorisationView = ({ workOrderReference }) => {
       }
     } catch (e) {
       console.error('An error has occured:', e.response)
-
-      if (e instanceof APIResponseError) {
-        setError(e.message)
-      } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status}`
-        )
-      }
+      setError(
+        `Oops an error occurred with error status: ${e.response?.status}`
+      )
     }
 
     setLoading(false)

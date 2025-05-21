@@ -8,8 +8,6 @@ import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/a
 import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
-import { getWorkOrder } from '../../utils/requests/workOrders'
-import { APIResponseError } from '../../types/requests/types'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
@@ -61,15 +59,12 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       setCurrentUser(currentUser)
 
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrder = await frontEndApiRequest({
+        method: 'get',
+        path: `/api/workOrders/${workOrderReference}`,
+      })
 
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
-
-      const workOrder = workOrderResponse.response
-
-      setWorkOrder(workOrder)
+      setWorkOrder(new WorkOrder(workOrder))
 
       const sortedOperatives = sortOperativesWithPayrollFirst(
         workOrder.operatives,
@@ -91,20 +86,16 @@ const OperativeFormView = ({ workOrderReference }) => {
       setAvailableOperatives([])
       console.error('An error has occured:', e.response)
 
-      if (e instanceof APIResponseError) {
-        setError(e.message)
+      if (e.response?.status === 404) {
+        setError(
+          `Could not find a work order with reference ${workOrderReference}`
+        )
       } else {
-        if (e.response?.status === 404) {
-          setError(
-            `Could not find a work order with reference ${workOrderReference}`
-          )
-        } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
-        }
+        setError(
+          `Oops an error occurred with error status: ${
+            e.response?.status
+          } with message: ${JSON.stringify(e.response?.data?.message)}`
+        )
       }
     }
 
