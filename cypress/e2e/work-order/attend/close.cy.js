@@ -1,12 +1,13 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
+
 Cypress.on('uncaught:exception', (err, runnable) => {
   // returning false here prevents Cypress from
   // failing the test
   return false
 })
 
-describe('Closing my own work order', () => {
+describe('Closing my own work order - When follow-ons are enabled', () => {
   const workOrderReference = '10000621'
   const propertyReference = '00012345'
 
@@ -18,7 +19,7 @@ describe('Closing my own work order', () => {
       },
       {
         body: {
-          followOnFunctionalityEnabled: false,
+          followOnFunctionalityEnabled: true,
           fetchAppointmentsFromDrs: false,
         },
       }
@@ -104,47 +105,6 @@ describe('Closing my own work order', () => {
       Cypress.env('IsCurrentOperativeOvertime', false)
     })
 
-    it('prevents operative from closing job when variation pending approval', () => {
-      cy.fixture('workOrders/workOrder.json')
-        .then((x) => {
-          x.status = 'Variation Pending Approval'
-
-          cy.intercept(
-            {
-              method: 'GET',
-              path: `/api/workOrders/${workOrderReference}/new`,
-            },
-            { body: x }
-          )
-        })
-        .as('workOrderRequest')
-
-      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
-
-      cy.wait([
-        '@workOrderRequest',
-        '@propertyRequest',
-        '@tasksRequest',
-        '@photosRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
-
-      // contains status badge
-      cy.contains('.govuk-tag', 'Variation pending approval')
-
-      // warning message
-      cy.get('[data-testid="approvalWarning"]').contains(
-        'Work order cannot be closed'
-      )
-      cy.get('[data-testid="approvalWarning"]').contains(
-        'Variation approval is pending. Please contact your manager to approve the variation to the work order.'
-      )
-
-      // button is disabled
-      cy.contains('Confirm').should('be.disabled')
-    })
-
     it('shows a validation error when no reason is selected', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
@@ -167,7 +127,7 @@ describe('Closing my own work order', () => {
       cy.contains('Please select a reason for closing the work order')
     })
 
-    it('shows validation errors when uploading files', () => {
+    it('shows validation errors when uploading photos', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([
@@ -256,6 +216,8 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
+      cy.wait('@getLinksRequest')
+
       // should contain error message
       cy.contains('Request failed with status code 500')
     })
@@ -341,7 +303,7 @@ describe('Closing my own work order', () => {
       cy.contains('Some photos failed to upload. Please try again')
     })
 
-    it('uploads files when closing work order', () => {
+    it('uploads photos when closing work order', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -397,11 +359,9 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.wait([
-        '@getLinksRequest',
-        '@uploadToS3Request',
-        '@completeUploadRequest',
-      ])
+      cy.wait('@getLinksRequest')
+      cy.wait('@uploadToS3Request')
+      cy.wait('@completeUploadRequest')
 
       cy.get('.modal-container').within(() => {
         cy.contains(
@@ -412,7 +372,7 @@ describe('Closing my own work order', () => {
       })
     })
 
-    it('uploads files when closing work order when request fails', () => {
+    it('uploads photos when added for work order and follow on', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -428,25 +388,10 @@ describe('Closing my own work order', () => {
         }
       ).as('getLinksRequest')
 
-      const uploadToS3RequestResponses = [
-        {
-          statusCode: 500,
-        },
-        {
-          statusCode: 500,
-        },
-        {
-          statusCode: 500,
-        },
-        {
-          statusCode: 200,
-        },
-      ]
-
       cy.intercept(
         { method: 'PUT', path: '**/placeholder-upload-url' },
-        (request) => {
-          request.reply(uploadToS3RequestResponses.shift())
+        {
+          statusCode: 200,
         }
       ).as('uploadToS3Request')
 
@@ -471,10 +416,40 @@ describe('Closing my own work order', () => {
       ])
 
       cy.contains('button', 'Confirm').click()
-      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
 
-      // 1. invalid file type
-      cy.get('input[type="file"]').selectFile({
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        'Work Order Completed'
+      )
+      cy.contains('label', 'Further work required').click()
+
+      // 1. add work order images
+      cy.get('input[data-testid="WorkOrderPhotoUpload"]').selectFile({
+        contents: Cypress.Buffer.from('file contents'),
+        fileName: 'file.png',
+        mimeType: 'image/png',
+        lastModified: Date.now(),
+      })
+
+      // add follow on details
+      cy.contains('button', 'Add details').click()
+
+      // populate follow-on fields
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'follow on description'
+      )
+
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+      cy.get('textarea[data-testid="additionalNotes"]').type(
+        'Additional notes desc'
+      )
+
+      // add second follow on image
+      cy.get('input[data-testid="FollowOnPhotoUpload"]').selectFile({
         contents: Cypress.Buffer.from('file contents'),
         fileName: 'file.png',
         mimeType: 'image/png',
@@ -483,20 +458,25 @@ describe('Closing my own work order', () => {
 
       cy.get('.govuk-button').contains('Close work order').click()
 
-      cy.wait(['@getLinksRequest'])
+      // wait for two uploads
 
-      // upload request fails twice, last one succeeds
-      cy.wait(
-        ['@uploadToS3Request', '@uploadToS3Request', '@uploadToS3Request'],
-        { timeout: 10000 }
-      )
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
+      cy.wait([
+        '@getLinksRequest',
+        '@uploadToS3Request',
+        '@completeUploadRequest',
+      ])
 
-      cy.wait(['@completeUploadRequest'])
+      cy.get('@getLinksRequest.all').should('have.length', 2)
+      cy.get('@uploadToS3Request.all').should('have.length', 2)
+      cy.get('@completeUploadRequest.all').should('have.length', 2)
 
       cy.get('.modal-container').within(() => {
-        cy.contains(
-          `Work order ${workOrderReference} successfully closed with no access`
-        )
+        cy.contains(`Work order ${workOrderReference} successfully closed`)
 
         cy.get('[data-testid="modal-close"]').click()
       })
@@ -543,6 +523,7 @@ describe('Closing my own work order', () => {
                 comments: 'Work order closed - I attended - Bonus calculation',
                 eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                 paymentType: 'Bonus',
+
                 noteGeneratedOnFrontend: false,
               },
             ],
@@ -587,6 +568,7 @@ describe('Closing my own work order', () => {
       cy.get('.lbh-radios input[data-testid="reason"]').check(
         'Work Order Completed'
       )
+      cy.contains('label', 'No further work required').click()
 
       cy.get('#notes').type('I attended')
 
@@ -607,10 +589,10 @@ describe('Closing my own work order', () => {
               {
                 typeCode: '0',
                 otherType: 'completed',
-                comments: 'Work order closed - I attended - Bonus calculation',
+                comments: 'I attended',
                 eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                 paymentType: 'Bonus',
-                noteGeneratedOnFrontend: false,
+                noteGeneratedOnFrontend: true,
               },
             ],
           })
@@ -633,6 +615,404 @@ describe('Closing my own work order', () => {
         })
       )
     })
+
+    it('shows validation message when further works required not specified', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.contains('Reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Visit completed').click()
+        })
+
+      cy.get('[type="submit"]').contains('Close work order').click()
+
+      cy.contains('Please confirm if further work is required')
+    })
+
+    it('shows validation when user enters follow-on details', () => {
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.contains('Reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'Further work required').click()
+        })
+
+      // assert error messages arent visible yet
+      cy.contains('Please select the type of work').should('not.exist')
+      cy.contains('Please provide detail of the work required').should(
+        'not.exist'
+      )
+      cy.contains(
+        'Please confirm whether you have contacted your supervisor'
+      ).should('not.exist')
+
+      // add follow on details
+      cy.contains('button', 'Add details').click()
+
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
+
+      // assert error messages visible
+      cy.contains('Please select the type of work')
+      cy.contains('Please provide detail of the work required')
+      cy.contains('Please confirm whether you have contacted your supervisor')
+
+      // select option
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.contains(
+        'Please confirm whether you have contacted your supervisor'
+      ).should('not.exist')
+
+      // select an option - error should disappear
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.contains('Please select the type of work').should('not.exist')
+
+      // select different trade(s) - error should appear
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please select at least one trade')
+
+      // select a trade - error should disappear
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please select at least one trade').should('not.exist')
+
+      // add description of work - error should disappear
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'Blah blah blah'
+      )
+      cy.contains('Please provide detail of the work required').should(
+        'not.exist'
+      )
+
+      // when one of the material options is selected, the description must not be empty
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('[type="submit"]').contains('Close work order').click()
+      cy.contains('Please describe the materials required')
+
+      // Adding a description - error should disappear
+      cy.get('textarea[data-testid="materialNotes"]').type('Blah blah blah')
+      cy.contains('Please describe the materials required').should('not.exist')
+
+      // additional notes
+      cy.get('textarea[data-testid="additionalNotes"]').type('Additional notes')
+
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
+
+      // check for confirmation message
+      cy.contains('Work order 10000621 successfully closed')
+    })
+
+    it('submits a request when user enters follow-on details', () => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000040
+        workOrder.canAssignOperative = false
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
+          { body: workOrder }
+        ).as('workOrder')
+      })
+
+      cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+      cy.wait([
+        '@workOrderRequest',
+        '@propertyRequest',
+        '@tasksRequest',
+        '@photosRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('button', 'Confirm').click()
+
+      cy.contains('Reason for closing')
+        .parent()
+        .within(() => {
+          cy.contains('label', 'Visit completed').click()
+          cy.contains('label', 'Further work required').click()
+        })
+
+      // add follow-on details
+      cy.contains('button', 'Add details').click()
+
+      cy.get('.govuk-button').contains('Close work order').click()
+
+      // populate follow-on fields
+      cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="isSameTrade"]').check()
+      cy.get('input[data-testid="isDifferentTrades"]').check()
+      cy.intercept(
+        { method: 'GET', path: '/api/filter/WorkOrder' },
+        { fixture: 'filter/trades.json' }
+      ).as('trades')
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('input[data-testid="followon-trades-other"]').check()
+      cy.get('[data-testid="otherTrade"]').type('Concrete Work')
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        'follow on description'
+      )
+
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+      cy.get('textarea[data-testid="additionalNotes"]').type(
+        'Additional notes desc'
+      )
+
+      // close work order
+      cy.get('[type="submit"]').contains('Close work order').click()
+
+      cy.wait('@workOrderCompleteRequest')
+
+      cy.get('@workOrderCompleteRequest')
+        .its('request.body')
+        .then((body) => {
+          const { jobStatusUpdates, ...restBody } = body
+          const [latestStatus] = jobStatusUpdates
+          const { eventTime, ...restStatus } = latestStatus
+
+          expect({
+            ...restBody,
+            jobStatusUpdates: [restStatus],
+          }).to.deep.equal({
+            workOrderReference: {
+              id: '10000621',
+              description: '',
+              allocatedBy: '',
+            },
+            jobStatusUpdates: [
+              {
+                typeCode: '0',
+                otherType: 'completed',
+                comments: '',
+                paymentType: 'Bonus',
+                noteGeneratedOnFrontend: true,
+              },
+            ],
+            followOnRequest: {
+              isSameTrade: true,
+              isDifferentTrades: true,
+              isMultipleOperatives: false,
+              requiredFollowOnTrades: ['Plumbing', 'Other'],
+              followOnTypeDescription: 'follow on description',
+              stockItemsRequired: true,
+              nonStockItemsRequired: false,
+              materialNotes: 'material notes',
+              additionalNotes: 'Additional notes desc',
+              supervisorCalled: true,
+              otherTrade: 'Concrete Work',
+            },
+          })
+        })
+
+      // check for confirmation message
+      cy.contains('Work order 10000621 successfully closed')
+    })
+  })
+
+  it('submits a request when user enters other trade follow on that is not in dropdown', () => {
+    cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+      workOrder.reference = 10000040
+      workOrder.canAssignOperative = false
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { body: workOrder }
+      ).as('workOrder')
+    })
+
+    cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+    cy.wait([
+      '@workOrderRequest',
+      '@propertyRequest',
+      '@tasksRequest',
+      '@photosRequest',
+      '@locationAlerts',
+      '@personAlerts',
+    ])
+
+    cy.contains('button', 'Confirm').click()
+
+    cy.contains('Reason for closing')
+      .parent()
+      .within(() => {
+        cy.contains('label', 'Visit completed').click()
+        cy.contains('label', 'Further work required').click()
+      })
+
+    // add follow-on details
+    cy.contains('button', 'Add details').click()
+
+    cy.get('.govuk-button').contains('Close work order').click()
+
+    // populate follow-on fields
+    cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.get('input[data-testid="isSameTrade"]').check()
+    cy.get('input[data-testid="isDifferentTrades"]').check()
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      { fixture: 'filter/trades.json' }
+    ).as('trades')
+    cy.get('input[data-testid="followon-trades-plumbing"]').check()
+    cy.get('input[data-testid="followon-trades-other"]').check()
+    cy.get('[data-testid="otherTrade"]').type('Cheese Making')
+    cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+      'follow on description'
+    )
+
+    cy.get('input[data-testid="stockItemsRequired"]').check()
+    cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+    cy.get('textarea[data-testid="additionalNotes"]').type(
+      'Additional notes desc'
+    )
+
+    // close work order
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.wait('@workOrderCompleteRequest')
+
+    cy.get('@workOrderCompleteRequest')
+      .its('request.body')
+      .then((body) => {
+        const { jobStatusUpdates, ...restBody } = body
+        const [latestStatus] = jobStatusUpdates
+        const { eventTime, ...restStatus } = latestStatus
+
+        expect({
+          ...restBody,
+          jobStatusUpdates: [restStatus],
+        }).to.deep.equal({
+          workOrderReference: {
+            id: '10000621',
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: '',
+              paymentType: 'Bonus',
+              noteGeneratedOnFrontend: true,
+            },
+          ],
+          followOnRequest: {
+            isSameTrade: true,
+            isDifferentTrades: true,
+            isMultipleOperatives: false,
+            requiredFollowOnTrades: ['Plumbing', 'Other'],
+            followOnTypeDescription: 'follow on description',
+            stockItemsRequired: true,
+            nonStockItemsRequired: false,
+            materialNotes: 'material notes',
+            additionalNotes: 'Additional notes desc',
+            supervisorCalled: true,
+            otherTrade: 'Cheese Making',
+          },
+        })
+      })
+
+    // check for confirmation message
+    cy.contains('Work order 10000621 successfully closed')
+  })
+
+  it('throws an error when other trade is not submitted properly', () => {
+    cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+      workOrder.reference = 10000040
+      workOrder.canAssignOperative = false
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040/new' },
+        { body: workOrder }
+      ).as('workOrder')
+    })
+
+    cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+    cy.wait([
+      '@workOrderRequest',
+      '@propertyRequest',
+      '@tasksRequest',
+      '@photosRequest',
+      '@locationAlerts',
+      '@personAlerts',
+    ])
+
+    cy.contains('button', 'Confirm').click()
+
+    cy.contains('Reason for closing')
+      .parent()
+      .within(() => {
+        cy.contains('label', 'Visit completed').click()
+        cy.contains('label', 'Further work required').click()
+      })
+
+    // add follow-on details
+    cy.contains('button', 'Add details').click()
+
+    cy.get('.govuk-button').contains('Close work order').click()
+
+    // populate follow-on fields
+    cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.get('input[data-testid="isSameTrade"]').check()
+    cy.get('input[data-testid="isDifferentTrades"]').check()
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      { fixture: 'filter/trades.json' }
+    ).as('trades')
+    cy.get('input[data-testid="followon-trades-plumbing"]').check()
+    cy.get('input[data-testid="followon-trades-other"]').check()
+    cy.get('[data-testid="otherTrade"]').should('have.value', '')
+    cy.get('[type="submit"]').contains('Close work order').click()
+    cy.contains(`This field can't be empty`)
+    const longString = 'A'.repeat(101)
+    cy.get('[data-testid="otherTrade"]')
+      .type(longString)
+      .should('have.value', longString)
+    cy.get('[type="submit"]').contains('Close work order').click()
+    cy.contains('You have exceeded the maximum amount of characters')
+    cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+      'follow on description'
+    )
+
+    cy.get('input[data-testid="stockItemsRequired"]').check()
+    cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+    cy.get('textarea[data-testid="additionalNotes"]').type(
+      'Additional notes desc'
+    )
+
+    // close work order
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.get('@workOrderCompleteRequest.all').should('have.length', 0)
   })
 
   context('when outside working hours (overtime could apply)', () => {
@@ -690,7 +1070,7 @@ describe('Closing my own work order', () => {
                   otherType: 'completed',
                   comments:
                     'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
-                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder                  paymentType: 'Bonus',
                   paymentType: 'Overtime',
                   noteGeneratedOnFrontend: false,
                 },
@@ -747,6 +1127,7 @@ describe('Closing my own work order', () => {
         cy.get('.lbh-radios input[data-testid="reason"]').check(
           'Work Order Completed'
         ) // Checking by value, not text
+        cy.contains('label', 'No further work required').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -765,11 +1146,10 @@ describe('Closing my own work order', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments:
-                    'Work order closed - I attended - Overtime work order (SMVs not included in Bonus)',
-                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
+                  comments: 'I attended',
+                  eventTime: body.jobStatusUpdates[0].eventTime, // placeholder                  paymentType: 'Bonus',
                   paymentType: 'Overtime',
-                  noteGeneratedOnFrontend: false,
+                  noteGeneratedOnFrontend: true,
                 },
               ],
             })
@@ -783,8 +1163,6 @@ describe('Closing my own work order', () => {
           })
 
         cy.contains(`Work order ${workOrderReference} successfully closed`)
-
-        // close
 
         cy.get('.lbh-heading-h3').contains(
           new Date(new Date()).toLocaleDateString('en-GB', {
@@ -828,6 +1206,7 @@ describe('Closing my own work order', () => {
         cy.get('.lbh-radios input[data-testid="reason"]').check(
           'Work Order Completed'
         ) // Checking by value, not text
+        cy.contains('label', 'No further work required').click()
 
         cy.get('.govuk-button').contains('Close work order').click()
 
@@ -846,11 +1225,10 @@ describe('Closing my own work order', () => {
                 {
                   typeCode: '0',
                   otherType: 'completed',
-                  comments:
-                    'Work order closed - I attended - Bonus calculation',
+                  comments: 'I attended',
                   eventTime: body.jobStatusUpdates[0].eventTime, // placeholder
                   paymentType: 'Bonus',
-                  noteGeneratedOnFrontend: false,
+                  noteGeneratedOnFrontend: true,
                 },
               ],
             })

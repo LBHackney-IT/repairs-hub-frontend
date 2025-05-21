@@ -1024,6 +1024,23 @@ describe('Updating a work order', () => {
         { fixture: 'operatives/operatives.json' }
       ).as('operatives')
 
+      cy.fixture('workOrders/workOrder.json').then((x) => {
+        x.operatives = [
+          {
+            id: 1,
+            payrollNumber: 'OP001',
+            name: 'Operative A',
+            trades: [],
+            jobPercentage: 0,
+          },
+        ]
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+          { body: x }
+        ).as('workOrderRequest')
+      })
+
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
