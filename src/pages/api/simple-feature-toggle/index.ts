@@ -6,9 +6,6 @@ export default authoriseServiceAPIRequest(async (req, res) => {
     followOnFunctionalityEnabled:
       process.env.FOLLOW_ON_FUNCTIONALITY_ENABLED === 'true',
 
-    pastWorkOrdersFunctionalityEnabled:
-      process.env.PAST_WORK_ORDERS_ENABLED === 'true',
-
     fetchAppointmentsFromDrs:
       process.env.FETCH_APPOINTMENTS_FROM_DRS === 'true',
 
