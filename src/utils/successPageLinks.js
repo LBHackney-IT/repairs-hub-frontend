@@ -106,18 +106,6 @@ export const generalLinks = (workOrderReference) => {
   ]
 }
 
-export const mobileViewUpdateWorkOrderLinks = (
-  payrollNumber,
-  workOrderReference
-) => {
-  return [
-    {
-      href: `/operatives/${payrollNumber}/work-orders/${workOrderReference}`,
-      text: 'View work order',
-    },
-  ]
-}
-
 export const updateWorkOrderLinks = (workOrderReference) => {
   return [
     {
