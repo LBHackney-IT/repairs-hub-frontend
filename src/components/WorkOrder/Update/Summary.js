@@ -4,7 +4,6 @@ import { calculateTotal } from '@/utils/helpers/calculations'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import UpdateSummaryRateScheduleItems from '../RateScheduleItems/UpdateSummaryRateScheduleItems'
 import WarningText from '../../Template/WarningText'
-import WarningInfoBox from '../../Template/WarningInfoBox'
 
 const WorkOrderUpdateSummary = ({
   reference,
@@ -72,20 +71,14 @@ const WorkOrderUpdateSummary = ({
         </div>
 
         {overSpendLimit && (
-          <>
-            <br></br>
-            <WarningInfoBox
-              className="variant-warning"
-              header="Manager Approval Needed for Variation"
-              name="approvalWarning"
-              text={`Your variation cost exceeds £${varySpendLimit} and will need manager approval before proceeding. Please contact your manager to approve this variation.`}
-            />
-          </>
+          <WarningText
+            text={`Your variation cost exceeds £${varySpendLimit} and will be sent for approval.`}
+          />
         )}
 
         <PrimarySubmitButton
           id="submit-work-order-close"
-          label="Confirm variation"
+          label="Confirm and close"
         />
       </form>
     </div>

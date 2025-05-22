@@ -227,7 +227,7 @@ workflows:
           requires:
             - assume-role-development
           context:
-            - 'Serverless Framework'
+            - "Serverless Framework"
           filters:
             branches:
               only: develop
@@ -243,7 +243,7 @@ workflows:
           requires:
             - assume-role-staging
           context:
-            - 'Serverless Framework'
+            - "Serverless Framework"
           filters:
             branches:
               only: main
@@ -265,7 +265,7 @@ workflows:
           requires:
             - assume-role-production
           context:
-            - 'Serverless Framework'
+            - "Serverless Framework"
           filters:
             branches:
               only: main
