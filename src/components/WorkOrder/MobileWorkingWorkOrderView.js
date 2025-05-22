@@ -24,6 +24,7 @@ import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusL
 import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
