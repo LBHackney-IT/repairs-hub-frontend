@@ -12,7 +12,6 @@ export const getTrades = async (): Promise<ApiResponseType<Trades[]>> => {
       method: 'get',
       path: '/api/filter/WorkOrder',
     })
-    console.log(workOrderFilters)
     return {
       success: true,
       response: workOrderFilters.Trades,

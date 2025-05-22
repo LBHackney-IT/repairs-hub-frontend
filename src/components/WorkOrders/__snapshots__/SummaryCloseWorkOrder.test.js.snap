@@ -226,15 +226,8 @@ exports[`SummaryCloseWorkOrder component includes follow-on request details 1`] 
               class="govuk-table__cell govuk-!-width-three-quarters"
             >
               <ul>
-                <li
-                  style="margin-top: 5px;"
-                >
-                  Same trade
-                </li>
-                <li
-                  style="margin-top: 5px;"
-                >
-                  Different trade(s) (Plumbing, Electrical, Other)
+                <li>
+                  Plumbing, Electrical, Other
                 </li>
                 <li
                   style="margin-top: 5px;"
@@ -435,15 +428,8 @@ exports[`SummaryCloseWorkOrder component includes only includes materials requir
               class="govuk-table__cell govuk-!-width-three-quarters"
             >
               <ul>
-                <li
-                  style="margin-top: 5px;"
-                >
-                  Same trade
-                </li>
-                <li
-                  style="margin-top: 5px;"
-                >
-                  Different trade(s) (Plumbing, Electrical, Other)
+                <li>
+                  Plumbing, Electrical, Other
                 </li>
                 <li
                   style="margin-top: 5px;"
