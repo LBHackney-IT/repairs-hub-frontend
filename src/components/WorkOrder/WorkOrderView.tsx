@@ -117,7 +117,7 @@ const WorkOrderView = ({ workOrderReference }) => {
           {property &&
             property.address &&
             property.hierarchyType &&
-            tenure &&
+            // tenure &&
             workOrder && (
               <>
                 <WorkOrderDetails
