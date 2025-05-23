@@ -722,7 +722,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -830,7 +830,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040' },
+        { method: 'GET', path: '/api/workOrders/10000040/new' },
         { body: workOrder }
       ).as('workOrder')
     })
@@ -937,7 +937,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       workOrder.canAssignOperative = false
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000040' },
+        { method: 'GET', path: '/api/workOrders/10000040/new' },
         { body: workOrder }
       ).as('workOrder')
     })
