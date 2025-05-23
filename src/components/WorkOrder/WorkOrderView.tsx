@@ -116,6 +116,10 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     return <Spinner />
   }
 
+  if (error) {
+    return <ErrorMessage label={error} />
+  }
+
   return (
     <>
       <WorkOrderDetails
@@ -143,7 +147,6 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
         locationAlerts={locationAlerts}
         personAlerts={personAlerts}
       />
-      {error && <ErrorMessage label={error} />}
     </>
   )
 }
