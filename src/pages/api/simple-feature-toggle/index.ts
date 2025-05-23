@@ -3,9 +3,6 @@ import { authoriseServiceAPIRequest } from '@/utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
   const data = {
-    fetchAppointmentsFromDrs:
-      process.env.FETCH_APPOINTMENTS_FROM_DRS === 'true',
-
     googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
 
     enableNewAppointmentEndpoint:
