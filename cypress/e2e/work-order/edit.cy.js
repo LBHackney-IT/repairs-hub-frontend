@@ -12,18 +12,30 @@ describe('Editing a work order description', () => {
           { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
+
+
         cy.intercept(
           { method: 'GET', path: '/api/properties/00014886' },
           { fixture: 'properties/property.json' }
         ).as('property')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/tasks' },
           { fixture: 'workOrders/task.json' }
         ).as('tasks')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/notes' },
           { fixture: 'workOrders/editedDescriptionNotes.json' }
         ).as('workOrderNotes')
+
         cy.intercept(
           {
             method: 'GET',
@@ -32,6 +44,7 @@ describe('Editing a work order description', () => {
           },
           { fixture: 'properties/personAlerts.json' }
         ).as('personAlerts')
+
         cy.intercept(
           {
             method: 'GET',
@@ -39,10 +52,11 @@ describe('Editing a work order description', () => {
           },
           { fixture: 'properties/locationAlerts.json' }
         ).as('locationAlerts')
-        cy.intercept(
-          { method: 'GET', path: '/api/simple-feature-toggle' },
-          { body: {} }
-        ).as('featureToggle')
+
+        // cy.intercept(
+        //   { method: 'GET', path: '/api/simple-feature-toggle' },
+        //   { body: {} }
+        // ).as('featureToggle')
       })
 
       it('allows me to edit the work order and adds the updated description to the notes', () => {
