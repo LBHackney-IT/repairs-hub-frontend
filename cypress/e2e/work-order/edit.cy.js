@@ -20,7 +20,6 @@ describe('Editing a work order description', () => {
           }
         )
 
-
         cy.intercept(
           { method: 'GET', path: '/api/properties/00014886' },
           { fixture: 'properties/property.json' }

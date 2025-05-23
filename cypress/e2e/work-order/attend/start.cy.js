@@ -12,13 +12,14 @@ describe('Starting my own work order', () => {
     }).as('workOrderRequest')
 
     cy.intercept(
-      { method: 'GET', path: `/api/workOrders/appointments/${workOrderReference}` },
+      {
+        method: 'GET',
+        path: `/api/workOrders/appointments/${workOrderReference}`,
+      },
       {
         fixture: 'workOrderAppointments/noAppointment.json',
       }
     )
-
-
 
     cy.intercept(
       { method: 'GET', path: `/api/workOrders/images/${workOrderReference}` },
