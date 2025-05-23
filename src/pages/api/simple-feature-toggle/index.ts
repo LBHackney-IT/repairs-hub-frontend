@@ -3,9 +3,6 @@ import { authoriseServiceAPIRequest } from '@/utils/serviceApiClient'
 
 export default authoriseServiceAPIRequest(async (req, res) => {
   const data = {
-    pastWorkOrdersFunctionalityEnabled:
-      process.env.PAST_WORK_ORDERS_ENABLED === 'true',
-
     googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
 
     enableNewAppointmentEndpoint:
