@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
 import { paramsSerializer } from '@/utils/urls'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 export const frontEndApiRequest = async ({
   method,
@@ -33,7 +34,7 @@ export const frontEndApiRequest = async ({
   return data
 }
 
-export const fetchSimpleFeatureToggles = async () => {
+export const fetchSimpleFeatureToggles: () => Promise<SimpleFeatureToggleResponse> = async () => {
   const featureToggleData = await frontEndApiRequest({
     method: 'get',
     path: '/api/simple-feature-toggle',
