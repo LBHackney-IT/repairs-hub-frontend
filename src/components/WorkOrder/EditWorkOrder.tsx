@@ -62,36 +62,40 @@ const EditWorkOrder = ({ workOrderReference }: EditWorkOrderProps) => {
       setLoading(false)
       return
     }
+
+    setWorkOrder(workOrderResponse.response)
+
     const propertyDataResponse = await getPropertyData(
       workOrderResponse.response.propertyReference
     )
+
     if (!propertyDataResponse.success) {
       setError(propertyDataResponse.error.message)
       setLoading(false)
       return
     }
-    if (propertyDataResponse.response.tenure.id === null) {
-      setLoading(false)
-      return
-    }
-    const contactDetailsResponse = await getContactDetails(
-      propertyDataResponse.response.tenure?.id
-    )
-    if (!contactDetailsResponse.success) {
-      setError(contactDetailsResponse.error.message)
-      setLoading(false)
-      return
-    }
-    setWorkOrder(workOrderResponse.response)
-    setContacts(contactDetailsResponse.response)
-    setTenants(
-      contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
-    )
-    setHouseholdMembers(
-      contactDetailsResponse.response.filter(
-        (x) => x.tenureType === 'HouseholdMember'
+
+    const tenure = propertyDataResponse.response.tenure
+
+    if (tenure != null) {
+      const contactDetailsResponse = await getContactDetails(tenure?.id)
+      if (!contactDetailsResponse.success) {
+        setError(contactDetailsResponse.error.message)
+        setLoading(false)
+        return
+      }
+
+      setContacts(contactDetailsResponse.response)
+      setTenants(
+        contactDetailsResponse.response.filter((x) => x.tenureType === 'Tenant')
       )
-    )
+      setHouseholdMembers(
+        contactDetailsResponse.response.filter(
+          (x) => x.tenureType === 'HouseholdMember'
+        )
+      )
+    }
+
     setLoading(false)
   }
 
