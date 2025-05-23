@@ -303,19 +303,8 @@ context('When an operative is logged in', () => {
     })
   })
 
-  context('When fetchAppointmentsFromDrs is enabled', () => {
+  context('When fetching appointments from drs', () => {
     it(`Calls the appointments endpoint`, () => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/simple-feature-toggle',
-        },
-        {
-          body: {
-            fetchAppointmentsFromDrs: true,
-          },
-        }
-      ).as('tab-toggle')
       cy.intercept(
         {
           method: 'GET',
