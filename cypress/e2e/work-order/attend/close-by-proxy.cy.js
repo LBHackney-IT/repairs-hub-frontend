@@ -10,7 +10,6 @@ describe('Closing a work order on behalf of an operative', () => {
       },
       {
         body: {
-          fetchAppointmentsFromDrs: false,
           enableNewAppointmentEndpoint: true,
         },
       }
