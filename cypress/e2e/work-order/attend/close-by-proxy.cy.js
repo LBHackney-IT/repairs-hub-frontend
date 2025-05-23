@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 import 'cypress-audit/commands'
 
-describe('Closing a work order on behalf of an operative - When follow-ons are enabled', () => {
+describe('Closing a work order on behalf of an operative', () => {
   beforeEach(() => {
     cy.intercept(
       {
@@ -10,7 +10,6 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       },
       {
         body: {
-          followOnFunctionalityEnabled: true,
           fetchAppointmentsFromDrs: false,
           enableNewAppointmentEndpoint: true,
         },

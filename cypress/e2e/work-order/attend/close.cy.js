@@ -19,7 +19,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       },
       {
         body: {
-          followOnFunctionalityEnabled: true,
           fetchAppointmentsFromDrs: false,
         },
       }

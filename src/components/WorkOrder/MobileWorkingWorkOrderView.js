@@ -183,12 +183,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       )
     }
 
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
-
     let notes = data.notes // notes written by user
 
-    if (data.reason == 'No Access' || !followOnFunctionalityEnabled) {
+    if (data.reason == 'No Access') {
       notes = [
         'Work order closed',
         data.notes,
@@ -202,7 +199,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       workOrderReference,
       data.reason,
       paymentType,
-      followOnFunctionalityEnabled,
       followOnRequest
     )
 
@@ -317,9 +313,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         <MobileWorkingCloseWorkOrderForm
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
-          followOnFunctionalityEnabled={
-            featureToggles?.followOnFunctionalityEnabled ?? false
-          }
         />
       )}
 
