@@ -98,7 +98,6 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
-        // '@photos',
       ])
 
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
@@ -144,8 +143,6 @@ describe('Show work order page', () => {
       cy.get('.work-order-info').contains('12345678912')
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
-
-      //  cy.audit()
     })
 
     context('When the work order has been assigned operatives', () => {
@@ -202,7 +199,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -226,7 +222,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -251,7 +246,6 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
-            // '@photos',
           ])
 
           cy.get('.appointment-details').contains('Appointment details')
@@ -352,7 +346,6 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
-          // '@photos'
         ])
 
         cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
