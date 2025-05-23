@@ -6,9 +6,6 @@ export default authoriseServiceAPIRequest(async (req, res) => {
     pastWorkOrdersFunctionalityEnabled:
       process.env.PAST_WORK_ORDERS_ENABLED === 'true',
 
-    fetchAppointmentsFromDrs:
-      process.env.FETCH_APPOINTMENTS_FROM_DRS === 'true',
-
     googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
 
     enableNewAppointmentEndpoint:

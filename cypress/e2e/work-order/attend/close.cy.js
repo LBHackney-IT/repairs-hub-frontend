@@ -12,18 +12,6 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
   const propertyReference = '00012345'
 
   beforeEach(() => {
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          fetchAppointmentsFromDrs: false,
-        },
-      }
-    ).as('feature-toggle')
-
     cy.intercept(`/api/workOrders/${workOrderReference}`, {
       fixture: 'workOrders/workOrder.json',
     }).as('workOrderRequest')

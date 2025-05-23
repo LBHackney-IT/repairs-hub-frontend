@@ -6,18 +6,6 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          fetchAppointmentsFromDrs: false,
-        },
-      }
-    ).as('feature-toggle')
-
-    cy.intercept(
-      {
-        method: 'GET',
         path: '/api/workOrders?*',
       },
       { body: [] }
