@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import WorkOrderDetails from './WorkOrderDetails'
 import Spinner from '../Spinner'
@@ -10,19 +9,24 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
-import { getWorkOrder, getWorkOrderNew } from '../../utils/requests/workOrders'
+import { getWorkOrderNew } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { Property } from '../../models/property'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
-const WorkOrderView = ({ workOrderReference }) => {
-  const [property, setProperty] = useState<any>({})
+interface Props {
+  workOrderReference: string
+}
+
+const WorkOrderView = ({ workOrderReference }: Props) => {
+  const [property, setProperty] = useState<Property>()
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
   const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
   const [tenure, setTenure] = useState<Tenure>()
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>()
 
   const printClickHandler = () => {
@@ -43,6 +47,8 @@ const WorkOrderView = ({ workOrderReference }) => {
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
+
+    setIsLoading(true)
 
     try {
       const workOrderPromise = getWorkOrderNew(workOrderReference, true)
@@ -99,63 +105,47 @@ const WorkOrderView = ({ workOrderReference }) => {
       }
     }
 
-    setLoading(false)
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    setLoading(true)
-
     getWorkOrderView(workOrderReference)
   }, [])
 
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
     <>
-      {loading ? (
-        <Spinner />
-      ) : (
-        <>
-          {property &&
-            property.address &&
-            property.hierarchyType &&
-            tenure &&
-            workOrder && (
-              <>
-                <WorkOrderDetails
-                  property={property}
-                  workOrder={workOrder}
-                  tenure={tenure}
-                  printClickHandler={printClickHandler}
-                  setLocationAlerts={setLocationAlerts}
-                  setPersonAlerts={setPersonAlerts}
-                />
+      <WorkOrderDetails
+        property={property}
+        workOrder={workOrder}
+        tenure={tenure}
+        printClickHandler={printClickHandler}
+        setLocationAlerts={setLocationAlerts}
+        setPersonAlerts={setPersonAlerts}
+      />
 
-                <WorkOrderViewTabs
-                  propertyReference={property.propertyReference}
-                  workOrderReference={workOrderReference}
-                  tasksAndSors={tasksAndSors}
-                  budgetCode={workOrder.budgetCode}
-                  workOrder={workOrder}
-                />
+      <WorkOrderViewTabs
+        propertyReference={property?.propertyReference}
+        workOrderReference={workOrderReference}
+        tasksAndSors={tasksAndSors}
+        budgetCode={workOrder?.budgetCode}
+        workOrder={workOrder}
+      />
 
-                {/* Only displayed for print media */}
-                <PrintJobTicketDetails
-                  workOrder={workOrder}
-                  property={property}
-                  tasksAndSors={tasksAndSors}
-                  locationAlerts={locationAlerts}
-                  personAlerts={personAlerts}
-                />
-              </>
-            )}
-          {error && <ErrorMessage label={error} />}
-        </>
-      )}
+      {/* Only displayed for print media */}
+      <PrintJobTicketDetails
+        workOrder={workOrder}
+        property={property}
+        tasksAndSors={tasksAndSors}
+        locationAlerts={locationAlerts}
+        personAlerts={personAlerts}
+      />
+      {error && <ErrorMessage label={error} />}
     </>
   )
-}
-
-WorkOrderView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default WorkOrderView
