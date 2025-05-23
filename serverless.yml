@@ -74,7 +74,6 @@ functions:
       SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
-      FOLLOW_ON_FUNCTIONALITY_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-followon-functionality}
       PAST_WORK_ORDERS_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-past-workorders-functionality}
       FETCH_APPOINTMENTS_FROM_DRS: ${ssm:/repairs-hub/${self:provider.stage}/enable-fetch-appointments-from-drs}
       NEW_APPOINTMENT_ENDPOINT_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-new-appointments-endpoint}

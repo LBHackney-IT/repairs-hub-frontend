@@ -47,7 +47,6 @@ const CloseWorkOrderForm = ({
   isLoading,
   defaultFiles,
   description,
-  followOnFunctionalityEnabled,
 }) => {
   const {
     handleSubmit,
@@ -105,9 +104,7 @@ const CloseWorkOrderForm = ({
           watch={watch}
           reason={reason}
           followOnStatus={followOnStatus}
-          followOnFunctionalityEnabled={
-            followOnFunctionalityEnabled && canRaiseAFollowOn(user)
-          }
+          canRaiseAFollowOn={canRaiseAFollowOn(user)}
         />
 
         {showFurtherWorkFields && (
@@ -334,7 +331,6 @@ CloseWorkOrderForm.propTypes = {
   jobIsSplitByOperative: PropTypes.bool.isRequired,
   paymentType: PropTypes.string,
   existingStartTime: PropTypes.bool.isRequired,
-  followOnFunctionalityEnabled: PropTypes.bool.isRequired,
 }
 
 export default CloseWorkOrderForm
