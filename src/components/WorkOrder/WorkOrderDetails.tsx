@@ -10,9 +10,10 @@ import { WorkOrder } from '@/models/workOrder'
 import FollowOnFlag from '../Flags/FollowOnFlag'
 import { Tenure } from '../../models/tenure'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
+import { Property } from '../../models/property'
 
 interface Props {
-  property: any
+  property: Property
   workOrder: WorkOrder
   tenure: Tenure
   setLocationAlerts: (alerts: CautionaryAlert[]) => void

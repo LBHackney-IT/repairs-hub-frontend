@@ -1369,6 +1369,10 @@ exports[`CloseWorkOrderForm component should not render startDate or startTime 1
             </label>
           </div>
           <div
+            class="govuk-radios__conditional"
+            id="conditional-contact"
+          />
+          <div
             class="govuk-radios__item"
           >
             <input
@@ -1977,6 +1981,10 @@ exports[`CloseWorkOrderForm component should render properly 1`] = `
               Visit completed
             </label>
           </div>
+          <div
+            class="govuk-radios__conditional"
+            id="conditional-contact"
+          />
           <div
             class="govuk-radios__item"
           >
