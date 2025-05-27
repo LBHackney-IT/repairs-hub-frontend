@@ -31,7 +31,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       <li
         style="margin-top: 5px;"
       >
-        Same trade
+        Trade(s): 
       </li>
     </ul>
     <br />
@@ -89,7 +89,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       <li
         style="margin-top: 5px;"
       >
-        Same trade
+        Trade(s): 
       </li>
     </ul>
     <br />
@@ -162,12 +162,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       <li
         style="margin-top: 5px;"
       >
-        Same trade
-      </li>
-      <li
-        style="margin-top: 5px;"
-      >
-        Different trade(s): Carpentry, Drainage
+        Trade(s): Carpentry, Drainage
       </li>
       <li
         style="margin-top: 5px;"
