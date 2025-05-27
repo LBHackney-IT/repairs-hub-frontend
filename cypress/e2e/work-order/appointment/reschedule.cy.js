@@ -175,7 +175,7 @@ describe('Rescheduling work order appointments', () => {
       })
     })
 
-    context.only('When the work order is in a closed state', () => {
+    context('When the work order is in a closed state', () => {
       beforeEach(() => {
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/appointments/10000012' },
