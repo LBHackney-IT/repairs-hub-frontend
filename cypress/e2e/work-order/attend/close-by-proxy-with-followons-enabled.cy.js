@@ -2964,7 +2964,6 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-      console.log('apiCheck', cy.get('@apiCheck'))
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {

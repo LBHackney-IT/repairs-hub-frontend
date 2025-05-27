@@ -362,7 +362,7 @@ describe('Show work order page', () => {
     })
   })
 
-  context.only('When logged in as an Operative', () => {
+  context('When logged in as an Operative', () => {
     beforeEach(() => {
       cy.clock(new Date('June 11 2021 13:49:15Z'))
 
