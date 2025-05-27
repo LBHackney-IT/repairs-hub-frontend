@@ -23,8 +23,6 @@ export type WorkOrderRequest = {
 }
 
 export type FollowOnRequest = {
-  isSameTrade: boolean
-  isDifferentTrades: boolean
   requiredFollowOnTrades: string[]
   isMultipleOperatives: boolean
   followOnTypeDescription: string
