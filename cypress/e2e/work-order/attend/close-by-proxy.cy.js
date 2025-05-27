@@ -2804,7 +2804,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.contains(
           'Please confirm whether you have contacted your supervisor'
         ).should('not.exist')
-        cy.contains('Please select the type of work').should('not.exist')
+        cy.contains('Please select at least one trade').should('not.exist')
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
         )
@@ -2814,23 +2814,15 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // assert error messages visible
         cy.contains('Please confirm whether you have contacted your supervisor')
-        cy.contains('Please select the type of work')
+        cy.contains('Please select at least one trade')
         cy.contains('Please provide detail of the work required')
+        cy.contains('Please confirm if multiple operatives are required')
 
         // select an option - error should disappear
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
         cy.contains(
           'Please confirm whether you have contacted your supervisor'
         ).should('not.exist')
-
-        // select an option - error should disappear
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.contains('Please select the type of work').should('not.exist')
-
-        // select different trade(s) - error should appear
-        cy.get('input[data-testid="isDifferentTrades"]').check()
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains('Please select at least one trade')
 
         // select a trade - error should disappear
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
@@ -2844,6 +2836,13 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
         )
+
+        // select if multiple operatives are required - error should disappear
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
+        cy.get('[type="submit"]').contains('Close work order').click()
+        cy.contains(
+          'Please confirm if multiple operatives are required'
+        ).should('not.exist')
 
         // when one of the material options is selected, the description must not be empty
         cy.get('input[data-testid="stockItemsRequired"]').check()
@@ -2903,9 +2902,8 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.get('input[data-testid="isDifferentTrades"]').check()
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
@@ -2938,8 +2936,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.contains('Summary of further work required')
 
       cy.get('.govuk-table__row').contains('Type of work required')
-      cy.get('.govuk-table__row').contains('Same trade')
-      cy.get('.govuk-table__row').contains('Different trade(s) (Plumbing)')
+      cy.get('.govuk-table__row').contains('Plumbing')
       cy.get('.govuk-table__row').contains('follow on description')
 
       cy.get('.govuk-table__row').contains('Materials required')
@@ -2973,9 +2970,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             },
           ],
           followOnRequest: {
-            isSameTrade: true,
-            isDifferentTrades: true,
-            isMultipleOperatives: false,
+            isMultipleOperatives: true,
             requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'follow on description',
             stockItemsRequired: true,
