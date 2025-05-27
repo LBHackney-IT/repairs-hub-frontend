@@ -1,8 +1,13 @@
 import * as HttpStatus from 'http-status-codes'
 import { authoriseServiceAPIRequest } from '@/utils/serviceApiClient'
 
+export interface SimpleFeatureToggleResponse {
+  googleTagManagerEnabled: boolean
+  enableNewAppointmentEndpoint: boolean
+}
+
 export default authoriseServiceAPIRequest(async (req, res) => {
-  const data = {
+  const data: SimpleFeatureToggleResponse = {
     googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
 
     enableNewAppointmentEndpoint:
