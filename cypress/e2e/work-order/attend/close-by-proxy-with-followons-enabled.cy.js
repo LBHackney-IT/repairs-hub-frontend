@@ -2827,7 +2827,8 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // assert error messages visible
         cy.contains('Please confirm whether you have contacted your supervisor')
-        cy.contains('Please select the type of work')
+        cy.contains('Please select at least one trade')
+        cy.contains('Please confirm if multiple operatives are required')
         cy.contains('Please provide detail of the work required')
 
         // select an option - error should disappear
@@ -2836,19 +2837,17 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           'Please confirm whether you have contacted your supervisor'
         ).should('not.exist')
 
-        // select an option - error should disappear
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.contains('Please select the type of work').should('not.exist')
-
-        // select different trade(s) - error should appear
-        cy.get('input[data-testid="isDifferentTrades"]').check()
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains('Please select at least one trade')
-
         // select a trade - error should disappear
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
         cy.get('[type="submit"]').contains('Close work order').click()
         cy.contains('Please select at least one trade').should('not.exist')
+
+        // select if multiple operatives are required - error should disappear
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
+        cy.get('[type="submit"]').contains('Close work order').click()
+        cy.contains(
+          'Please confirm if multiple operatives are required'
+        ).should('not.exist')
 
         // add description of work - error should disappear
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
@@ -2916,12 +2915,11 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
-        cy.get('input[data-testid="isSameTrade"]').check()
-        cy.get('input[data-testid="isDifferentTrades"]').check()
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
         cy.get('textarea[data-testid="materialNotes"]').type('material notes')
         cy.get('textarea[data-testid="additionalNotes"]').type(
           'Additional notes desc'
@@ -2951,8 +2949,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.contains('Summary of further work required')
 
       cy.get('.govuk-table__row').contains('Type of work required')
-      cy.get('.govuk-table__row').contains('Same trade')
-      cy.get('.govuk-table__row').contains('Different trade(s) (Plumbing)')
+      cy.get('.govuk-table__row').contains('Plumbing')
       cy.get('.govuk-table__row').contains('follow on description')
 
       cy.get('.govuk-table__row').contains('Materials required')
@@ -2967,7 +2964,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
+      console.log('apiCheck', cy.get('@apiCheck'))
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -2986,9 +2983,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             },
           ],
           followOnRequest: {
-            isSameTrade: true,
-            isDifferentTrades: true,
-            isMultipleOperatives: false,
+            isMultipleOperatives: true,
             requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'follow on description',
             stockItemsRequired: true,
