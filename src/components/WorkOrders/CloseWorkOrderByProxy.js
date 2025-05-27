@@ -8,10 +8,7 @@ import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import {
-  fetchSimpleFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
@@ -49,7 +46,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
-  const [featureToggles, setFeatureToggles] = useState({})
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -138,9 +134,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setError(null)
 
     try {
-      const featureToggleData = await fetchSimpleFeatureToggles()
-      setFeatureToggles(featureToggleData)
-
       const workOrderResponse = await getWorkOrder(reference)
 
       if (!workOrderResponse.success) {
@@ -216,12 +209,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.otherTrade
       )
     }
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
 
     let comments = notes // notes written by user
 
-    if (reason == 'No Access' || !followOnFunctionalityEnabled) {
+    if (reason == 'No Access') {
       comments = `Work order closed - ${buildWorkOrderCompleteNotes(
         notes,
         operativesWithPercentages,
@@ -235,7 +226,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       reference,
       reason,
       paymentType,
-      followOnFunctionalityEnabled,
       followOnDataRequest
     )
 
@@ -367,9 +357,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
               existingStartTime={workOrder.startTime !== null}
               followOnData={followOnData}
               isLoading={loadingStatus !== null}
-              followOnFunctionalityEnabled={
-                featureToggles?.followOnFunctionalityEnabled ?? false
-              }
             />
           )}
 

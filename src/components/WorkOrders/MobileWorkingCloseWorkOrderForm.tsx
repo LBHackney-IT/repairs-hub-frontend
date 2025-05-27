@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
-import Radios from '../Form/Radios'
-import Select from '../Form/Select'
 import { useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
@@ -24,11 +22,7 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-const MobileWorkingCloseWorkOrderForm = ({
-  onSubmit,
-  isLoading,
-  followOnFunctionalityEnabled,
-}) => {
+const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
   const {
     handleSubmit,
     register,
@@ -97,7 +91,7 @@ const MobileWorkingCloseWorkOrderForm = ({
             register={register}
             errors={errors}
             watch={watch}
-            followOnFunctionalityEnabled={followOnFunctionalityEnabled}
+            canRaiseAFollowOn={true}
           />
 
           <div className="govuk-form-group lbh-form-group">
@@ -222,7 +216,6 @@ const MobileWorkingCloseWorkOrderForm = ({
 MobileWorkingCloseWorkOrderForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  followOnFunctionalityEnabled: PropTypes.bool.isRequired,
 }
 
 export default MobileWorkingCloseWorkOrderForm
