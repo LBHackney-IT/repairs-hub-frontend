@@ -2890,7 +2890,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       cy.contains('Summary of updates to work order')
     })
 
-    it('submits a request and shows summary page when user enters follow-on details', () => {
+    it('submits a request and shows summary page when user enters follow-on details with multiple operatives needed', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
@@ -2983,6 +2983,110 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
           ],
           followOnRequest: {
             isMultipleOperatives: true,
+            requiredFollowOnTrades: ['Plumbing'],
+            followOnTypeDescription: 'follow on description',
+            stockItemsRequired: true,
+            nonStockItemsRequired: false,
+            materialNotes: 'material notes',
+            additionalNotes: 'Additional notes desc',
+            supervisorCalled: true,
+          },
+        })
+    })
+
+    it('submits a request and shows summary page when user enters follow-on details with multiple operatives not needed', () => {
+      cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+        workOrder.reference = 10000040
+        workOrder.canAssignOperative = false
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000040' },
+          { body: workOrder }
+        ).as('workOrder')
+      })
+
+      cy.visit('/work-orders/10000040/close')
+
+      cy.wait('@workOrder')
+
+      cy.get('form').within(() => {
+        cy.contains('Reason for closing')
+          .parent()
+          .within(() => {
+            cy.contains('label', 'Visit completed').click()
+            cy.contains('label', 'Further work required').click()
+          })
+
+        // populate follow-on fields
+        cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+        cy.get('input[data-testid="followon-trades-plumbing"]').check()
+        cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+          'follow on description'
+        )
+        cy.get('[data-testid="isMultipleOperatives"]').check('false')
+        cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+        cy.get('textarea[data-testid="additionalNotes"]').type(
+          'Additional notes desc'
+        )
+
+        // other fields
+        cy.get('input[data-testid="stockItemsRequired"]').check()
+        cy.get('#completionDate').type('2021-01-23')
+        cy.get('[data-testid=completionTime-hour]').type('12')
+        cy.get('[data-testid=completionTime-minutes]').type('00')
+        cy.get('#notes').type('A note')
+
+        // close work order
+        cy.get('[type="submit"]').contains('Close work order').click()
+      })
+
+      // assert validation passed, and on next page
+      cy.contains('Summary of updates to work order')
+      cy.get('.govuk-table__row').contains('Completion time')
+      cy.get('.govuk-table__row').contains('2021/01/23')
+      cy.get('.govuk-table__row').contains('12:00:00')
+      cy.get('.govuk-table__row').contains('Reason')
+      cy.get('.govuk-table__row').contains('Work Order Completed')
+      cy.get('.govuk-table__row').contains('Notes')
+      cy.get('.govuk-table__row').contains('A note')
+
+      cy.contains('Summary of further work required')
+
+      cy.get('.govuk-table__row').contains('Type of work required')
+      cy.get('.govuk-table__row').contains('Plumbing')
+      cy.get('.govuk-table__row').contains('follow on description')
+
+      cy.get('.govuk-table__row').contains('Materials required')
+      cy.get('.govuk-table__row').contains('Stock items required')
+      cy.get('.govuk-table__row').contains('material notes')
+
+      cy.get('.govuk-table__row').contains('Additional notes')
+      cy.get('.govuk-table__row').contains('Additional notes desc')
+
+      // validate request object
+
+      cy.get('[type="submit"]').contains('Confirm and close').click()
+
+      cy.wait('@apiCheck')
+      cy.get('@apiCheck')
+        .its('request.body')
+        .should('deep.equal', {
+          workOrderReference: {
+            id: '10000040',
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: 'A note',
+              eventTime: '2021-01-23T12:00:00.000Z',
+              noteGeneratedOnFrontend: true,
+            },
+          ],
+          followOnRequest: {
+            isMultipleOperatives: false,
             requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'follow on description',
             stockItemsRequired: true,

@@ -713,7 +713,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Work order 10000621 successfully closed')
     })
 
-    it('submits a request when user enters follow-on details', () => {
+    it('submits a request when user enters follow-on details multiple operatives needed', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
@@ -816,6 +816,110 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       // check for confirmation message
       cy.contains('Work order 10000621 successfully closed')
     })
+  })
+
+  it.only('submits a request when user enters follow-on details multiple operatives not needed', () => {
+    cy.fixture('workOrders/workOrder.json').then((workOrder) => {
+      workOrder.reference = 10000040
+      workOrder.canAssignOperative = false
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000040' },
+        { body: workOrder }
+      ).as('workOrder')
+    })
+
+    cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
+
+    cy.wait([
+      '@workOrderRequest',
+      '@propertyRequest',
+      '@tasksRequest',
+      '@photosRequest',
+      '@locationAlerts',
+      '@personAlerts',
+    ])
+
+    cy.contains('button', 'Confirm').click()
+
+    cy.contains('Reason for closing')
+      .parent()
+      .within(() => {
+        cy.contains('label', 'Visit completed').click()
+        cy.contains('label', 'Further work required').click()
+      })
+
+    // add follow-on details
+    cy.contains('button', 'Add details').click()
+
+    cy.get('.govuk-button').contains('Close work order').click()
+
+    // populate follow-on fields
+    cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.intercept(
+      { method: 'GET', path: '/api/filter/WorkOrder' },
+      { fixture: 'filter/trades.json' }
+    ).as('trades')
+    cy.get('input[data-testid="followon-trades-plumbing"]').check()
+    cy.get('input[data-testid="followon-trades-other"]').check()
+    cy.get('[data-testid="otherTrade"]').type('Concrete Work')
+    cy.get('[data-testid="isMultipleOperatives"]').check('false')
+    cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+      'follow on description'
+    )
+
+    cy.get('input[data-testid="stockItemsRequired"]').check()
+    cy.get('textarea[data-testid="materialNotes"]').type('material notes')
+    cy.get('textarea[data-testid="additionalNotes"]').type(
+      'Additional notes desc'
+    )
+
+    // close work order
+    cy.get('[type="submit"]').contains('Close work order').click()
+
+    cy.wait('@workOrderCompleteRequest')
+
+    cy.get('@workOrderCompleteRequest')
+      .its('request.body')
+      .then((body) => {
+        const { jobStatusUpdates, ...restBody } = body
+        const [latestStatus] = jobStatusUpdates
+        const { eventTime, ...restStatus } = latestStatus
+
+        expect({
+          ...restBody,
+          jobStatusUpdates: [restStatus],
+        }).to.deep.equal({
+          workOrderReference: {
+            id: '10000621',
+            description: '',
+            allocatedBy: '',
+          },
+          jobStatusUpdates: [
+            {
+              typeCode: '0',
+              otherType: 'completed',
+              comments: '',
+              paymentType: 'Bonus',
+              noteGeneratedOnFrontend: true,
+            },
+          ],
+          followOnRequest: {
+            isMultipleOperatives: false,
+            requiredFollowOnTrades: ['Plumbing', 'Other'],
+            followOnTypeDescription: 'follow on description',
+            stockItemsRequired: true,
+            nonStockItemsRequired: false,
+            materialNotes: 'material notes',
+            additionalNotes: 'Additional notes desc',
+            supervisorCalled: true,
+            otherTrade: 'Concrete Work',
+          },
+        })
+      })
+
+    // check for confirmation message
+    cy.contains('Work order 10000621 successfully closed')
   })
 
   it('submits a request when user enters other trade follow on that is not in dropdown', () => {
