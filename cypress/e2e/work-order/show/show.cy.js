@@ -587,6 +587,36 @@ describe('Show work order page', () => {
     context('When a contractor is logged in', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderRequest')
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00014886' },
+          { fixture: 'properties/property.json' }
+        ).as('property')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/notes' },
+          { fixture: 'workOrders/notes.json' }
+        ).as('notesRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+          { body: [] }
+        ).as('tasksRequest')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: [] }
+        ).as('workOrdersRequest')
+        cy.intercept(
+          { method: 'GET', path: '/api/simple-feature-toggle' },
+          { body: {} }
+        ).as('featureToggle')
       })
 
       it('contains a link to close the order', () => {
