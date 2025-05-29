@@ -31,7 +31,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       <li
         style="margin-top: 5px;"
       >
-        Trade(s): 
+        Trade(s): Plumbing, Electrical
       </li>
     </ul>
     <br />
@@ -89,7 +89,7 @@ exports[`CompletedNoteContent component When further work is required should sho
       <li
         style="margin-top: 5px;"
       >
-        Trade(s): 
+        Trade(s): Plumbing, Electrical
       </li>
     </ul>
     <br />
