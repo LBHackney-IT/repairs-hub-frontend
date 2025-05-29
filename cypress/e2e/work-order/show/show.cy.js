@@ -134,7 +134,7 @@ describe('Show work order page', () => {
       cy.get('.work-order-info').contains('18 Jan 2021, 15:28')
       cy.get('.work-order-info').contains('Target: 23 Jan 2021, 18:30')
       cy.get('.work-order-info').contains('Caller: Jill Smith')
-      cy.get('.work-order-info').contains('07700 900999')
+      cy.get('.work-order-info').contains('12345678912')
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
