@@ -59,7 +59,7 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
             clearErrors={clearErrors}
             watch={watch}
             hasWhiteBackground={hasWhiteBackground}
-            requiredFollowOnTrades={followOnData?.requiredFollowOnTrades ?? []}
+            requiredFollowOnTrades={followOnData?.requiredFollowOnTrades}
             isGrid={isGrid}
             getValues={getValues}
           />
