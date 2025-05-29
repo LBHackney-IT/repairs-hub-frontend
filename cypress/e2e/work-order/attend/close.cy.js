@@ -818,7 +818,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
     })
   })
 
-  it.only('submits a request when user enters follow-on details multiple operatives not needed', () => {
+  it('submits a request when user enters follow-on details multiple operatives not needed', () => {
     cy.fixture('workOrders/workOrder.json').then((workOrder) => {
       workOrder.reference = 10000040
       workOrder.canAssignOperative = false
