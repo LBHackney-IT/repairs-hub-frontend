@@ -191,7 +191,7 @@ describe('CompletedNoteContent component', () => {
         operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
           id: 31,
-          requiredFollowOnTrades: [],
+          requiredFollowOnTrades: ['Plumbing', 'Electrical'],
           isMultipleOperatives: false,
           followOnTypeDescription: 'work required',
           stockItemsRequired: true,
@@ -216,7 +216,7 @@ describe('CompletedNoteContent component', () => {
         operatives: [{ name: 'Operative Name', jobPercentage: 100 }],
         followOnRequest: {
           id: 31,
-          requiredFollowOnTrades: [],
+          requiredFollowOnTrades: ['Plumbing', 'Electrical'],
           isMultipleOperatives: false,
           followOnTypeDescription: 'work required',
           stockItemsRequired: false,
