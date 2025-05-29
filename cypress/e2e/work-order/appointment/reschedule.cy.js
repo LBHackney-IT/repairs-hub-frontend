@@ -56,7 +56,7 @@ describe('Rescheduling work order appointments', () => {
         { body: '' }
       ).as('apiCheckjobStatus')
 
-      // cy.clock(now)
+      cy.clock(now)
     })
 
     context('When the work order is not in a closed state', () => {
@@ -93,6 +93,29 @@ describe('Rescheduling work order appointments', () => {
         cy.wait(['@tasks', '@workOrder', '@property'])
 
         cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
+        // cy.intercept(
+        //   {
+        //     method: 'GET',
+        //     path:
+        //       '/api/properties/4552c539-2e00-8533-078d-9cc59d9115da/person-alerts',
+        //   },
+        //   { fixture: 'properties/personAlerts.json' }
+        // ).as('personAlerts')
+        // cy.intercept(
+        //   {
+        //     method: 'GET',
+        //     path: '/api/properties/00012345/location-alerts',
+        //   },
+        //   { fixture: 'properties/locationAlerts.json' }
+        // ).as('locationAlerts')
+        // cy.intercept(
+        //   {
+        //     method: 'GET',
+        //     path:
+        //       '/api/properties/guid-pk/4552c539-2e00-8533-078d-9cc59d9115da',
+        //   },
+        //   { fixture: 'properties/boilerHouse.json' }
+        // ).as('boilerHouse')
 
         cy.get('.appointment-details')
           .contains('Reschedule appointment')
