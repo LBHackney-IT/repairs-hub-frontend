@@ -89,7 +89,7 @@ describe('Show work order page', () => {
       ).as('featureToggle')
     })
 
-    it.only('Shows various details about the work order, property and assigned contractor', () => {
+    it('Shows various details about the work order, property and assigned contractor', () => {
       cy.visit('/work-orders/10000012')
 
       cy.wait([
