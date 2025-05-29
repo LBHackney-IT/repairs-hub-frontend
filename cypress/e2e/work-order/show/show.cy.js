@@ -83,6 +83,10 @@ describe('Show work order page', () => {
         },
         { body: [] }
       ).as('workOrdersRequest')
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        { body: {} }
+      ).as('featureToggle')
     })
 
     it.only('Shows various details about the work order, property and assigned contractor', () => {
