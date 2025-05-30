@@ -191,15 +191,13 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     if (followOnData !== null) {
       const requiredFollowOnTrades = []
 
-      if (followOnData.isDifferentTrades) {
+      if (followOnData.requiredFollowOnTrades) {
         requiredFollowOnTrades.push(
           ...followOnData.requiredFollowOnTrades.map((x) => x.value)
         )
       }
 
       followOnDataRequest = buildFollowOnRequestData(
-        followOnData.isSameTrade,
-        followOnData.isDifferentTrades,
         followOnData.isMultipleOperatives,
         requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
@@ -258,9 +256,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
-        isSameTrade: formData.isSameTrade,
-        isDifferentTrades: formData.isDifferentTrades,
-        isMultipleOperatives: formData.isMultipleOperatives,
+        isMultipleOperatives: formData.isMultipleOperatives === 'true',
         requiredFollowOnTrades: requiredFollowOnTrades,
         followOnTypeDescription: formData.followOnTypeDescription,
         stockItemsRequired: formData.stockItemsRequired,

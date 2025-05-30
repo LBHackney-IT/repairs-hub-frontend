@@ -199,8 +199,6 @@ describe('WorkOrderHeader component', () => {
                 status: 'Completed',
                 followOnRequest: {
                   id: 27,
-                  isSameTrade: true,
-                  isDifferentTrades: true,
                   requiredFollowOnTrades: ['Carpentry'],
                   isMultipleOperatives: true,
                   followOnTypeDescription: 'sdfsdf',
