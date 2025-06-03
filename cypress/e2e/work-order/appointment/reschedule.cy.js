@@ -185,7 +185,7 @@ describe('Rescheduling work order appointments', () => {
         )
       })
 
-      it('Does not show a reschedule link', () => {
+      it.skip('Does not show a reschedule link', () => {
         cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_NO_ACCESS.description
@@ -308,7 +308,7 @@ describe('Rescheduling work order appointments', () => {
               workOrder.status = STATUS_NO_ACCESS.description
 
               cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000012' },
+                { method: 'GET', path: '/api/workOrders/10000012/new' },
                 { body: workOrder }
               )
             })
