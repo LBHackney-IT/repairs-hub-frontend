@@ -185,7 +185,7 @@ describe('Rescheduling work order appointments', () => {
         )
       })
 
-      it.skip('Does not show a reschedule link', () => {
+      it('Does not show a reschedule link', () => {
         cy.fixture('workOrders/withAppointment.json')
           .then((workOrder) => {
             workOrder.status = STATUS_NO_ACCESS.description
