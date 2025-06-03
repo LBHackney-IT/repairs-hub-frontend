@@ -4,8 +4,6 @@ import {
 } from '../../paymentTypes'
 
 export type followOnDataRequest = {
-  isSameTrade: boolean
-  isDifferentTrades: boolean
   isMultipleOperatives: boolean
   requiredFollowOnTrades: string[]
   followOnTypeDescription: string
@@ -49,7 +47,6 @@ export const buildCloseWorkOrderData = (
   reference: string,
   reason: string,
   paymentType: string,
-  followOnFunctionalityEnabled: boolean,
   followOnRequest: followOnDataRequest = null
 ): closeWorkOrderDataRequest => {
   const typeCode = reason == 'No Access' ? '70' : '0'
@@ -72,24 +69,19 @@ export const buildCloseWorkOrderData = (
     jobStatusUpdates: [jobStatusUpdate],
   }
 
-  // feature toggle
-  if (followOnFunctionalityEnabled) {
-    if (typeCode === '0') {
-      // completed job note is generated on frontend
-      jobStatusUpdate.noteGeneratedOnFrontend = true
-    }
+  if (typeCode === '0') {
+    // completed job note is generated on frontend
+    jobStatusUpdate.noteGeneratedOnFrontend = true
+  }
 
-    if (followOnRequest !== null) {
-      dataObject['followOnRequest'] = followOnRequest
-    }
+  if (followOnRequest !== null) {
+    dataObject['followOnRequest'] = followOnRequest
   }
 
   return dataObject
 }
 
 export const buildFollowOnRequestData = (
-  isSameTrade: boolean,
-  isDifferentTrades: boolean,
   isMultipleOperatives: boolean,
   requiredFollowOnTrades: string[],
   followOnTypeDescription: string,
@@ -101,8 +93,6 @@ export const buildFollowOnRequestData = (
   otherTrade?: string
 ): followOnDataRequest => {
   return {
-    isSameTrade,
-    isDifferentTrades,
     isMultipleOperatives,
     requiredFollowOnTrades,
     followOnTypeDescription,
