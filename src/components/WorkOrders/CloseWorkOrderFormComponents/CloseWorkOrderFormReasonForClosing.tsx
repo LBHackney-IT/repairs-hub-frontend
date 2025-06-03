@@ -9,7 +9,7 @@ interface Props {
   watch: any
   reason?: string
   followOnStatus?: string
-  followOnFunctionalityEnabled: boolean
+  canRaiseAFollowOn: boolean
 }
 
 const CloseWorkOrderFormReasonForClosing = (props: Props) => {
@@ -19,7 +19,7 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
     watch,
     reason,
     followOnStatus,
-    followOnFunctionalityEnabled,
+    canRaiseAFollowOn,
   } = props
 
   const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
@@ -46,7 +46,7 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
       options={CLOSURE_STATUS_OPTIONS.map((r) => ({
         ...r,
         defaultChecked: r.value === reason,
-        children: followOnFunctionalityEnabled ? (
+        children: canRaiseAFollowOn ? (
           r.value === 'Work Order Completed' ? (
             <FurtherWorkRadio
               error={errors?.followOnStatus}

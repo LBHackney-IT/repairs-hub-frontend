@@ -13,8 +13,7 @@ describe('buildCloseWorkOrderData', () => {
         'Work order closed - A note',
         '00000001',
         'No Access',
-        'Payment type string',
-        false
+        'Payment type string'
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
@@ -38,8 +37,7 @@ describe('buildCloseWorkOrderData', () => {
         'Work order closed - A note',
         '00000001',
         'Completed',
-        'Payment type string',
-        false
+        'Payment type string'
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
@@ -50,7 +48,7 @@ describe('buildCloseWorkOrderData', () => {
           comments: 'Work order closed - A note',
           eventTime: completionDate,
           paymentType: 'Payment type string',
-          noteGeneratedOnFrontend: false,
+          noteGeneratedOnFrontend: true,
         },
       ],
     })
@@ -61,20 +59,13 @@ describe('buildCloseWorkOrderData', () => {
       null,
       null,
       null,
-      'Work Order Completed',
-      false
+      'Work Order Completed'
     )
     expect(response.jobStatusUpdates[0].typeCode).toEqual('0')
   })
 
   it('has a typeCode of 70 when supplied a reason of "No Access"', () => {
-    const response = buildCloseWorkOrderData(
-      null,
-      null,
-      null,
-      'No Access',
-      false
-    )
+    const response = buildCloseWorkOrderData(null, null, null, 'No Access')
     expect(response.jobStatusUpdates[0].typeCode).toEqual('70')
   })
 })
@@ -89,8 +80,7 @@ describe('buildCloseWorkOrderData - when follow on feature toggle enabled', () =
         'Work order closed - A note',
         '00000001',
         'No Access',
-        'Payment type string',
-        true
+        'Payment type string'
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
@@ -114,8 +104,7 @@ describe('buildCloseWorkOrderData - when follow on feature toggle enabled', () =
         'A note',
         '00000001',
         'Completed',
-        'Payment type string',
-        true
+        'Payment type string'
       )
     ).toEqual({
       workOrderReference: { id: '00000001', description: '', allocatedBy: '' },
@@ -137,20 +126,13 @@ describe('buildCloseWorkOrderData - when follow on feature toggle enabled', () =
       null,
       null,
       null,
-      'Work Order Completed',
-      true
+      'Work Order Completed'
     )
     expect(response.jobStatusUpdates[0].typeCode).toEqual('0')
   })
 
   it('has a typeCode of 70 when supplied a reason of "No Access"', () => {
-    const response = buildCloseWorkOrderData(
-      null,
-      null,
-      null,
-      'No Access',
-      true
-    )
+    const response = buildCloseWorkOrderData(null, null, null, 'No Access')
     expect(response.jobStatusUpdates[0].typeCode).toEqual('70')
   })
 })
