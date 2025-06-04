@@ -82,7 +82,6 @@ export const buildUser = (
         return FOLLOWON_ADMIN_ROLE
       }
 
-
       console.warn(`User group name not recognised: ${groupName}`)
     })
   }
@@ -111,7 +110,8 @@ export const buildUser = (
   const isFollowOnAdminGroupName = (groupName: string) =>
     groupName === FOLLOWON_ADMIN_GOOGLE_GROUPNAME
 
-  const isDloContractorGroupName = (groupName: string) => groupName === DLO_CONTRACTOR_GOOGLE_GROUPNAME
+  const isDloContractorGroupName = (groupName: string) =>
+    groupName === DLO_CONTRACTOR_GOOGLE_GROUPNAME
 
   const groupNames = authServiceGroups.filter(
     (groupName) =>
