@@ -44,7 +44,14 @@ export const canAccessWorkOrder = (user) => {
 }
 
 export const canRaiseAFollowOn = (user) => {
-  return !user.hasContractorPermissions
+  // contractors cannot raise a follow on
+  // but the contractor permission includes the DLO contractor group
+  // so if they are a dlo contractor, they can raise a follow on
+  if (user.hasContractorPermissions && !user.hasDLOContractorPermissions) {
+    return false
+  }
+
+  return true
 }
 
 export const canSeeWorkOrders = (user) => {
