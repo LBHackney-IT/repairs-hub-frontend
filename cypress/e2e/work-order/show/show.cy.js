@@ -61,7 +61,10 @@ describe('Show work order page', () => {
         { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
-
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/appointments/10000012' },
         {
@@ -87,6 +90,10 @@ describe('Show work order page', () => {
         },
         { body: [] }
       ).as('workOrdersRequest')
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        { body: {} }
+      ).as('featureToggle')
     })
 
     it('Shows various details about the work order, property and assigned contractor', () => {
@@ -99,7 +106,13 @@ describe('Show work order page', () => {
         '@personAlerts',
         '@locationAlerts',
       ])
-
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
       cy.get('.lbh-body-m').contains('This is an urgent repair description')
 
@@ -589,6 +602,36 @@ describe('Show work order page', () => {
     context('When a contractor is logged in', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderRequest')
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00014886' },
+          { fixture: 'properties/property.json' }
+        ).as('property')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/notes' },
+          { fixture: 'workOrders/notes.json' }
+        ).as('notesRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+          { body: [] }
+        ).as('tasksRequest')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: [] }
+        ).as('workOrdersRequest')
+        cy.intercept(
+          { method: 'GET', path: '/api/simple-feature-toggle' },
+          { body: {} }
+        ).as('featureToggle')
       })
 
       it('contains a link to close the order', () => {

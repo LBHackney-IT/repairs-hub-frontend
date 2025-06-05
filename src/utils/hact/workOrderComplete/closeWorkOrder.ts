@@ -4,8 +4,6 @@ import {
 } from '../../paymentTypes'
 
 export type followOnDataRequest = {
-  isSameTrade: boolean
-  isDifferentTrades: boolean
   isMultipleOperatives: boolean
   requiredFollowOnTrades: string[]
   followOnTypeDescription: string
@@ -84,8 +82,6 @@ export const buildCloseWorkOrderData = (
 }
 
 export const buildFollowOnRequestData = (
-  isSameTrade: boolean,
-  isDifferentTrades: boolean,
   isMultipleOperatives: boolean,
   requiredFollowOnTrades: string[],
   followOnTypeDescription: string,
@@ -97,8 +93,6 @@ export const buildFollowOnRequestData = (
   otherTrade?: string
 ): followOnDataRequest => {
   return {
-    isSameTrade,
-    isDifferentTrades,
     isMultipleOperatives,
     requiredFollowOnTrades,
     followOnTypeDescription,
