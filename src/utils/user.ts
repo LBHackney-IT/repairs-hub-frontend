@@ -58,6 +58,10 @@ export const buildUser = (
         return AUTHORISATION_MANAGER_ROLE
       }
 
+      if (isDloContractorGroupName(groupName)) {
+        return DLO_CONTRACTOR_ROLE
+      }
+
       if (isContractorGroupName(groupName)) {
         return CONTRACTOR_ROLE
       }
@@ -76,10 +80,6 @@ export const buildUser = (
 
       if (isFollowOnAdminGroupName(groupName)) {
         return FOLLOWON_ADMIN_ROLE
-      }
-
-      if (isDloContractorGroupName(groupName)) {
-        return DLO_CONTRACTOR_ROLE
       }
 
       console.warn(`User group name not recognised: ${groupName}`)
@@ -118,6 +118,7 @@ export const buildUser = (
       isContractManagerGroupName(groupName) ||
       isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
+      isDloContractorGroupName(groupName) ||
       isContractorGroupName(groupName) ||
       isOperativeGroupName(groupName) ||
       isBudgetCodeOfficerGroupName(groupName) ||
