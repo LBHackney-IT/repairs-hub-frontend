@@ -3,17 +3,17 @@ import 'cypress-audit/commands'
 
 describe('Closing a work order on behalf of an operative', () => {
   beforeEach(() => {
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/simple-feature-toggle',
-      },
-      {
-        body: {
-          enableNewAppointmentEndpoint: true,
-        },
-      }
-    ).as('feature-toggle')
+    // cy.intercept(
+    //   {
+    //     method: 'GET',
+    //     path: '/api/simple-feature-toggle',
+    //   },
+    //   {
+    //     body: {
+    //       enableNewAppointmentEndpoint: true,
+    //     },
+    //   }
+    // ).as('feature-toggle')
 
     cy.intercept(
       {
@@ -46,13 +46,6 @@ describe('Closing a work order on behalf of an operative', () => {
         )
       })
       .as('workOrder')
-
-    cy.intercept(
-      { method: 'GET', path: '/api/workOrders/appointments/10000040' },
-      {
-        fixture: 'workOrderAppointments/noAppointment.json',
-      }
-    )
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -832,15 +825,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
-            })
-
-            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
-              x.operatives = [
+              workOrder.operatives = [
                 {
                   id: 1,
                   name: 'Operative A',
@@ -855,12 +840,9 @@ describe('Closing a work order on behalf of an operative', () => {
                 },
               ]
               cy.intercept(
-                {
-                  method: 'GET',
-                  path: '/api/workOrders/appointments/10000040',
-                },
-                { body: x }
-              )
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
             })
 
             cy.intercept(
@@ -1115,15 +1097,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
               workOrder.isSplit = true
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
-            })
-
-            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
-              x.operatives = [
+              workOrder.operatives = [
                 {
                   id: 1,
                   jobPercentage: 40,
@@ -1136,12 +1110,9 @@ describe('Closing a work order on behalf of an operative', () => {
                 },
               ]
               cy.intercept(
-                {
-                  method: 'GET',
-                  path: '/api/workOrders/appointments/10000040',
-                },
-                { body: x }
-              )
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
             })
 
             cy.intercept(
@@ -2213,15 +2184,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.reference = 10000040
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
-            })
-
-            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
-              x.operatives = [
+              workOrder.operatives = [
                 {
                   id: 1,
                   name: 'Operative A',
@@ -2236,12 +2199,9 @@ describe('Closing a work order on behalf of an operative', () => {
                 },
               ]
               cy.intercept(
-                {
-                  method: 'GET',
-                  path: '/api/workOrders/appointments/10000040',
-                },
-                { body: x }
-              )
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
             })
 
             cy.intercept(
@@ -2496,15 +2456,7 @@ describe('Closing a work order on behalf of an operative', () => {
               workOrder.canAssignOperative = true
               workOrder.totalSMVs = 76
               workOrder.isSplit = true
-
-              cy.intercept(
-                { method: 'GET', path: '/api/workOrders/10000040/new' },
-                { body: workOrder }
-              ).as('workOrder')
-            })
-
-            cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
-              x.operatives = [
+              workOrder.operatives = [
                 {
                   id: 1,
                   jobPercentage: 40,
@@ -2517,12 +2469,9 @@ describe('Closing a work order on behalf of an operative', () => {
                 },
               ]
               cy.intercept(
-                {
-                  method: 'GET',
-                  path: '/api/workOrders/appointments/10000040',
-                },
-                { body: x }
-              )
+                { method: 'GET', path: '/api/workOrders/10000040/new' },
+                { body: workOrder }
+              ).as('workOrder')
             })
 
             cy.intercept(
@@ -2867,7 +2816,7 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains(
           'Please confirm whether you have contacted your supervisor'
         ).should('not.exist')
-        cy.contains('Please select at least one trade').should('not.exist')
+        cy.contains('Please select the type of work').should('not.exist')
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
         )
@@ -2878,8 +2827,8 @@ describe('Closing a work order on behalf of an operative', () => {
         // assert error messages visible
         cy.contains('Please confirm whether you have contacted your supervisor')
         cy.contains('Please select at least one trade')
-        cy.contains('Please provide detail of the work required')
         cy.contains('Please confirm if multiple operatives are required')
+        cy.contains('Please provide detail of the work required')
 
         // select an option - error should disappear
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
@@ -2892,6 +2841,13 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.get('[type="submit"]').contains('Close work order').click()
         cy.contains('Please select at least one trade').should('not.exist')
 
+        // select if multiple operatives are required - error should disappear
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
+        cy.get('[type="submit"]').contains('Close work order').click()
+        cy.contains(
+          'Please confirm if multiple operatives are required'
+        ).should('not.exist')
+
         // add description of work - error should disappear
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'Blah blah blah'
@@ -2899,13 +2855,6 @@ describe('Closing a work order on behalf of an operative', () => {
         cy.contains('Please provide detail of the work required').should(
           'not.exist'
         )
-
-        // select if multiple operatives are required - error should disappear
-        cy.get('[data-testid="isMultipleOperatives"]').check('true')
-        cy.get('[type="submit"]').contains('Close work order').click()
-        cy.contains(
-          'Please confirm if multiple operatives are required'
-        ).should('not.exist')
 
         // when one of the material options is selected, the description must not be empty
         cy.get('input[data-testid="stockItemsRequired"]').check()
@@ -2940,7 +2889,7 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.contains('Summary of updates to work order')
     })
 
-    it('submits a request and shows summary page when user enters follow-on details multiple operatives needed', () => {
+    it('submits a request and shows summary page when user enters follow-on details with multiple operatives needed', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
@@ -2966,10 +2915,10 @@ describe('Closing a work order on behalf of an operative', () => {
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
-        cy.get('[data-testid="isMultipleOperatives"]').check('true')
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
+        cy.get('[data-testid="isMultipleOperatives"]').check('true')
         cy.get('textarea[data-testid="materialNotes"]').type('material notes')
         cy.get('textarea[data-testid="additionalNotes"]').type(
           'Additional notes desc'
@@ -3014,7 +2963,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
@@ -3045,13 +2993,13 @@ describe('Closing a work order on behalf of an operative', () => {
         })
     })
 
-    it('submits a request and shows summary page when user enters follow-on details multiple operatives not needed', () => {
+    it('submits a request and shows summary page when user enters follow-on details with multiple operatives not needed', () => {
       cy.fixture('workOrders/workOrder.json').then((workOrder) => {
         workOrder.reference = 10000040
         workOrder.canAssignOperative = false
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { body: workOrder }
         ).as('workOrder')
       })
@@ -3071,10 +3019,10 @@ describe('Closing a work order on behalf of an operative', () => {
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
-        cy.get('[data-testid="isMultipleOperatives"]').check('false')
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
         )
+        cy.get('[data-testid="isMultipleOperatives"]').check('false')
         cy.get('textarea[data-testid="materialNotes"]').type('material notes')
         cy.get('textarea[data-testid="additionalNotes"]').type(
           'Additional notes desc'
@@ -3119,7 +3067,6 @@ describe('Closing a work order on behalf of an operative', () => {
       cy.get('[type="submit"]').contains('Confirm and close').click()
 
       cy.wait('@apiCheck')
-
       cy.get('@apiCheck')
         .its('request.body')
         .should('deep.equal', {
