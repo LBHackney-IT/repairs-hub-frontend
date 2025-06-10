@@ -38,7 +38,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [featureToggles, setFeatureToggles] = useState({})
 
   const [loadingStatus, setLoadingStatus] = useState(null)
-  const [error, setError] = useState(null)
+  const [error, setError] = useState()
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(

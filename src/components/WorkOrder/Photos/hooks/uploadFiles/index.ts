@@ -2,12 +2,11 @@ import getPresignedUrls from './getPresignedUrls'
 import uploadFilesToS3 from './uploadFilesToS3'
 import completeUpload from './completeUpload'
 import { captureException } from '@sentry/nextjs'
-import { Exception } from 'sass'
 
-class UploadError extends Error {
+class FileUploadError extends Error {
   constructor(message: string) {
     super(message)
-    this.name = 'UploadError'
+    this.name = 'FileUploadError'
   }
 }
 
@@ -28,7 +27,7 @@ const uploadFiles = async (
       files.length
     )
     if (!uploadUrlsResult.success)
-      throw new UploadError(uploadUrlsResult.error as string)
+      throw new FileUploadError(uploadUrlsResult.error as string)
 
     const presignedUrls = uploadUrlsResult.result.links
 
@@ -39,7 +38,7 @@ const uploadFiles = async (
       fileUploadCompleteCallback
     )
     if (!uploadFilesToS3Response.success)
-      throw new UploadError(uploadFilesToS3Response.error as string)
+      throw new FileUploadError(uploadFilesToS3Response.error as string)
 
     // 3. Complete upload
     const completeUploadResult = await completeUpload(
@@ -49,9 +48,9 @@ const uploadFiles = async (
       uploadGroupLabel
     )
     if (!completeUploadResult.success)
-      throw new UploadError(completeUploadResult.error as string)
+      throw new FileUploadError(completeUploadResult.error as string)
   } catch (error) {
-    if (error instanceof UploadError)
+    if (error instanceof FileUploadError)
       captureException('Failed to upload photos', {
         tags: {
           section: 'File upload',
