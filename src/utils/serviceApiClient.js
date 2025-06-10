@@ -55,7 +55,8 @@ export const externalAPIRequest = async (request) => {
   // Log successful responses
   api.interceptors.response.use((response) => {
     logger.info(
-      `External API response: ${response.status} ${response.statusText
+      `External API response: ${response.status} ${
+        response.statusText
       } ${JSON.stringify(response.data)}`
     )
 
@@ -177,7 +178,8 @@ export const configurationAPIRequest = async (request) => {
   // Log successful responses
   api.interceptors.response.use((response) => {
     logger.info(
-      `Configuration API response: ${response.status} ${response.statusText
+      `Configuration API response: ${response.status} ${
+        response.statusText
       } ${JSON.stringify(response.data)}`
     )
 
