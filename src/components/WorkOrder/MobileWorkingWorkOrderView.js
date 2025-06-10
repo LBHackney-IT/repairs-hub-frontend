@@ -25,6 +25,7 @@ import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
+import { captureException } from '@sentry/nextjs'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -38,12 +39,28 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [featureToggles, setFeatureToggles] = useState({})
 
   const [loadingStatus, setLoadingStatus] = useState(null)
-  const [error, setError] = useState()
+  const [error, setError] = useState(null)
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
+
+  useEffect(() => {
+    if (typeof error !== 'string') return
+    if (!error?.includes('Some photos failed to upload')) return
+
+    // capture request error on sentry
+    captureException(error, {
+      tags: {
+        section: 'File upload',
+      },
+      extra: {
+        workOrderReference,
+        photos,
+      },
+    })
+  }, [error])
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)

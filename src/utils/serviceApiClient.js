@@ -55,8 +55,7 @@ export const externalAPIRequest = async (request) => {
   // Log successful responses
   api.interceptors.response.use((response) => {
     logger.info(
-      `External API response: ${response.status} ${
-        response.statusText
+      `External API response: ${response.status} ${response.statusText
       } ${JSON.stringify(response.data)}`
     )
 
@@ -178,8 +177,7 @@ export const configurationAPIRequest = async (request) => {
   // Log successful responses
   api.interceptors.response.use((response) => {
     logger.info(
-      `Configuration API response: ${response.status} ${
-        response.statusText
+      `Configuration API response: ${response.status} ${response.statusText
       } ${JSON.stringify(response.data)}`
     )
 
@@ -217,19 +215,15 @@ export const authoriseServiceAPIRequest = (callBack) => {
       }
 
       // Configure cookie removal in Sentry scope
-      Sentry.configureScope((scope) => {
-        scope.addEventProcessor((event) => {
-          if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-            event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-          }
+      Sentry.getCurrentScope().addEventProcessor((event) => {
+        if (event.request?.cookies[GSSO_TOKEN_NAME])
+          event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
 
-          if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
-            event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
-              '[REMOVED]'
-          }
+        if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME])
+          event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
+            '[REMOVED]'
 
-          return event
-        })
+        return event
       })
 
       // Call the function defined in the API route
@@ -261,12 +255,11 @@ export const authoriseServiceAPIRequest = (callBack) => {
 
       const errorCategory = categorizeError(error)
 
-      Sentry.configureScope((scope) => {
+      Sentry.withScope((scope) => {
         // Add error metadata
         scope.setTag('error.category', errorCategory.category)
         scope.setTag('error.status_code', errorCategory.statusCode)
         scope.setTag('error.type', errorCategory.type)
-
         scope.setContext('request', {
           path: req.path,
           method: req.method,
