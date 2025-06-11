@@ -1,6 +1,5 @@
 /// <reference types="cypress" />
 
-import 'cypress-audit/commands'
 import { NORMAL_PRIORITY_CODE } from '../../../../src/utils/helpers/priorities'
 import { STATUS_CANCELLED } from '../../../../src/utils/statusCodes'
 
@@ -61,11 +60,18 @@ describe('Schedule appointment form', () => {
         workOrder.target = targetTime
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10102030' },
+          { method: 'GET', path: '/api/workOrders/10102030/new' },
           { body: workOrder }
         )
       })
       .as('workOrder')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10102030' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/tasks' },
@@ -388,8 +394,6 @@ describe('Schedule appointment form', () => {
       cy.contains('a', 'View work order')
       cy.contains('a', 'Back to 16 Pitcairn House')
       cy.contains('a', 'Start a new search')
-
-      //  cy.audit()
     })
   })
 
@@ -450,8 +454,6 @@ describe('Schedule appointment form', () => {
       cy.get('.lbh-list li')
         .contains('View work order')
         .should('have.attr', 'href', '/work-orders/10102030')
-
-      //  cy.audit()
     })
   })
 
@@ -462,7 +464,7 @@ describe('Schedule appointment form', () => {
           workOrder.status = STATUS_CANCELLED.description
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10102030' },
+            { method: 'GET', path: '/api/workOrders/10102030/new' },
             { body: workOrder }
           )
         })

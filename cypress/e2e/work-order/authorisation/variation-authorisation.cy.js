@@ -16,7 +16,7 @@ describe('Contract manager can authorise variation', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/statusVariationPendingApproval.json' }
     ).as('workOrderRequest')
 

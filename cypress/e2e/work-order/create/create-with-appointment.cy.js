@@ -62,9 +62,16 @@ describe('Schedule appointment form', () => {
     ).as('trades')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10102030' },
+      { method: 'GET', path: '/api/workOrders/10102030/new' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrder')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10102030' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10102030/notes' },

@@ -49,7 +49,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

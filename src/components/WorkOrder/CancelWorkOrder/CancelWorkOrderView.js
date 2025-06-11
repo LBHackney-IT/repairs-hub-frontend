@@ -4,7 +4,6 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
@@ -41,7 +40,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
   const getCancelWorkOrderView = async () => {
     setError(null)
 
-    const workOrderResponse = await getWorkOrder(workOrderReference)
+    const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
     if (!workOrderResponse.success) {
       setWorkOrder(null)
