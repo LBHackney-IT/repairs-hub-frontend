@@ -39,12 +39,12 @@ const FollowOnRequestTypeOfWorkForm = (
 
   const URGENCY_OPTIONS = [
     {
-      value: 'true',
-      text: 'Yes',
+      value: true,
+      text: 'Yes, this is an emergency',
       defaultChecked: followOnData?.isEmergency === true,
     },
     {
-      value: 'false',
+      value: false,
       text: 'No',
       defaultChecked: followOnData?.isEmergency === false,
     },
@@ -52,13 +52,13 @@ const FollowOnRequestTypeOfWorkForm = (
 
   const MULTIPLE_OPERATIVES_REQUIRED_OPTIONS = [
     {
-      value: 'true',
+      value: true,
       text: 'Yes',
       hint: null,
       defaultChecked: followOnData?.isMultipleOperatives === true,
     },
     {
-      value: 'false',
+      value: false,
       text: 'No',
       hint: null,
       defaultChecked: followOnData?.isMultipleOperatives === false,

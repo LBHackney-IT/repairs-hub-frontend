@@ -8,7 +8,6 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
-import router from 'next/router'
 import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
