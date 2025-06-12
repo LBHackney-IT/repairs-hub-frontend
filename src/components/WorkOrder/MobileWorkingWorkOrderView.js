@@ -167,6 +167,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       })
 
       followOnRequest = buildFollowOnRequestData(
+        data.isEmergency === 'true',
         data.isMultipleOperatives === 'true',
         requiredFollowOnTrades,
         data.followOnTypeDescription,
@@ -267,7 +268,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
-      router.push('/')
+      // router.push('/')
     } catch (e) {
       console.error(e)
       setError(

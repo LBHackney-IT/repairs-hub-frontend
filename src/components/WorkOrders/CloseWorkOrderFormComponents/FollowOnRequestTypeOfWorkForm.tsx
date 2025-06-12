@@ -2,10 +2,29 @@ import classNames from 'classnames'
 import { Radio, TextArea } from '../../Form'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import FollowOnRequestDifferentTradesForm from './FollowOnRequestDifferentTradesForm'
-import { FOLLOW_ON_REQUEST_AVAILABLE_TRADES } from '@/utils/statusCodes'
-import { useEffect, useState } from 'react'
+import {
+  DeepMap,
+  FieldError,
+  FieldValues,
+  UseFormMethods,
+} from 'react-hook-form'
+import { followOnDataRequest } from '@/root/src/utils/hact/workOrderComplete/closeWorkOrder'
 
-const FollowOnRequestTypeOfWorkForm = (props) => {
+interface FollowOnRequestTypeOfWorkFormProps {
+  errors: DeepMap<FieldValues, FieldError>
+  register: UseFormMethods['register']
+  getValues: (payload?: string | string[]) => unknown
+  setError: (name: string, error: FieldError) => void
+  clearErrors: (name?: string | string[]) => void
+  watch: CallableFunction
+  followOnData?: Partial<followOnDataRequest>
+  hasWhiteBackground?: boolean
+  isGrid?: boolean
+}
+
+const FollowOnRequestTypeOfWorkForm = (
+  props: FollowOnRequestTypeOfWorkFormProps
+): JSX.Element => {
   const {
     errors,
     register,
@@ -18,15 +37,28 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
     isGrid,
   } = props
 
+  const URGENCY_OPTIONS = [
+    {
+      value: 'true',
+      text: 'Yes',
+      defaultChecked: followOnData?.isEmergency === true,
+    },
+    {
+      value: 'false',
+      text: 'No',
+      defaultChecked: followOnData?.isEmergency === false,
+    },
+  ]
+
   const MULTIPLE_OPERATIVES_REQUIRED_OPTIONS = [
     {
-      value: true,
+      value: 'true',
       text: 'Yes',
       hint: null,
       defaultChecked: followOnData?.isMultipleOperatives === true,
     },
     {
-      value: false,
+      value: 'false',
       text: 'No',
       hint: null,
       defaultChecked: followOnData?.isMultipleOperatives === false,
@@ -39,6 +71,20 @@ const FollowOnRequestTypeOfWorkForm = (props) => {
         className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
         style={{ marginTop: 0 }}
       >
+        <div style={{ marginBottom: '3rem' }}>
+          <Radio
+            labelSize="s"
+            label="Is this an emergency?"
+            name="isEmergency"
+            options={URGENCY_OPTIONS}
+            register={register({
+              required: 'Please confirm if this is an emergency',
+            })}
+            error={errors && errors.isEmergency}
+            hasWhiteBackground={hasWhiteBackground}
+          />
+        </div>
+
         <div
           className={classNames('lbh-form-group', {
             'govuk-form-group--error': errors.typeOfWork,
