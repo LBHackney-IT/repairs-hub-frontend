@@ -71,24 +71,20 @@ describe('canSeeAppointmentDetailsInfo', () => {
 })
 
 describe('canRaiseAFollowOn', () => {
-  it('returns true when user is not a contractor', () => {
+  it('returns true when user is not an external contractor', () => {
     const user = {
       name: 'Test Testerston',
       email: 'test@test.com',
-      hasAgentPermissions: true,
-      hasContractorPermissions: false,
-      hasContractManagerPermissions: true,
+      hasExternalContractorPermissions: false,
     }
     expect(canRaiseAFollowOn(user)).toBe(true)
   })
 
-  it('returns false when user is a contractor', () => {
+  it('returns false when user is an external contractor', () => {
     const user = {
       name: 'Test Testerston',
       email: 'test@test.com',
-      hasAgentPermissions: false,
-      hasContractorPermissions: true,
-      hasContractManagerPermissions: false,
+      hasExternalContractorPermissions: true,
     }
     expect(canRaiseAFollowOn(user)).toBe(false)
   })
