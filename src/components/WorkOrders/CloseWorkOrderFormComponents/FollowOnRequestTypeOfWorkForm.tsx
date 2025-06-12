@@ -73,6 +73,7 @@ const FollowOnRequestTypeOfWorkForm = (
       >
         <div style={{ marginBottom: '3rem' }}>
           <Radio
+            data-testid="followonRequestUrgency"
             labelSize="s"
             label="Is this an emergency?"
             name="isEmergency"

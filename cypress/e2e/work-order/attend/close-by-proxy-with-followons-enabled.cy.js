@@ -2833,6 +2833,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // select an option - error should disappear
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+        cy.get('input[data-testid="followonRequestUrgency"]').check('true')
         cy.contains(
           'Please confirm whether you have contacted your supervisor'
         ).should('not.exist')
@@ -2915,6 +2916,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+        cy.get('input[data-testid="followonRequestUrgency"]').check('true')
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
@@ -3019,6 +3021,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+        cy.get('input[data-testid="followonRequestUrgency"]').check('true')
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
