@@ -3,7 +3,7 @@ import '@/styles/all.scss'
 import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
-import { configureScope, setUser } from '@sentry/nextjs'
+import * as Sentry from '@sentry/nextjs'
 
 import {
   isAuthorised,
@@ -33,7 +33,7 @@ class MyApp extends App {
     const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
 
     if (userDetails) {
-      setUser({ name: userDetails.name, email: userDetails.email })
+      Sentry.setUser({ name: userDetails.name, email: userDetails.email })
     }
 
     return (
@@ -69,18 +69,16 @@ MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
     return { accessDenied: true }
   }
 
-  configureScope((scope) => {
-    scope.addEventProcessor((event) => {
-      if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-        event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-      }
+  Sentry.getCurrentScope().addEventProcessor((event) => {
+    if (event.request?.cookies[GSSO_TOKEN_NAME]) {
+      event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
+    }
 
-      if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
-        event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
-      }
+    if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+      event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
+    }
 
-      return event
-    })
+    return event
   })
 
   if (userAuthorisedForPage(pageComponent, userDetails)) {
