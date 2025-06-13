@@ -628,7 +628,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Please confirm if further work is required')
     })
 
-    it.only('shows validation when user enters follow-on details', () => {
+    it('shows validation when user enters follow-on details', () => {
       cy.visit(`/operatives/1/work-orders/${workOrderReference}`)
 
       cy.wait([

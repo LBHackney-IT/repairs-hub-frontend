@@ -30,13 +30,11 @@ interface MobileWorkingCloseWorkOrderFormProps {
     followOnFiles: File[]
   ) => void
   isLoading: boolean
-  featureToggles?: SimpleFeatureToggleResponse
 }
 
 const MobileWorkingCloseWorkOrderForm = ({
   onSubmit,
   isLoading,
-  featureToggles,
 }: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
@@ -172,9 +170,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               setError={setError}
               clearErrors={clearErrors}
               watch={watch}
-              featureToggles={featureToggles}
             />
-
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}

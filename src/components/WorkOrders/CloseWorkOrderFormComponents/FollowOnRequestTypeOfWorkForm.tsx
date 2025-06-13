@@ -23,7 +23,6 @@ interface FollowOnRequestTypeOfWorkFormProps {
   followOnData?: Partial<followOnDataRequest>
   hasWhiteBackground?: boolean
   isGrid?: boolean
-  featureToggles?: SimpleFeatureToggleResponse
 }
 
 const FollowOnRequestTypeOfWorkForm = (
@@ -39,21 +38,17 @@ const FollowOnRequestTypeOfWorkForm = (
     followOnData,
     hasWhiteBackground,
     isGrid,
-    featureToggles,
   } = props
 
   const [
     simpleFeatureToggles,
     setSimpleFeatureToggles,
-  ] = useState<SimpleFeatureToggleResponse>(featureToggles)
+  ] = useState<SimpleFeatureToggleResponse>()
 
   useEffect(() => {
-    // Handle case of user directly navigating to this page
-    if (!featureToggles) {
-      fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
-        setSimpleFeatureToggles(fetchedFeatureToggles)
-      })
-    }
+    fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
+      setSimpleFeatureToggles(fetchedFeatureToggles)
+    })
   }, [])
 
   const URGENCY_OPTIONS = [

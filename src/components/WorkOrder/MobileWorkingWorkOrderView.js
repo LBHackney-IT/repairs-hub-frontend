@@ -310,7 +310,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         <MobileWorkingCloseWorkOrderForm
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
-          featureToggles={featureToggles}
         />
       )}
 
