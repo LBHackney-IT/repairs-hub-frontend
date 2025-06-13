@@ -130,6 +130,15 @@ export const buildUser = (
 
   const hasRole = (r: string) => roles.includes(r)
 
+  const hasExternalContractorPermissions = () => {
+    if (hasRole(DLO_CONTRACTOR_ROLE)) {
+      // internal contractor
+      return false
+    }
+
+    return hasRole(CONTRACTOR_ROLE)
+  }
+
   return {
     name: name,
     email: email,
@@ -138,6 +147,7 @@ export const buildUser = (
     hasAgentPermissions: hasRole(AGENT_ROLE),
     hasContractorPermissions: hasRole(CONTRACTOR_ROLE),
     hasDLOContractorPermissions: hasRole(DLO_CONTRACTOR_ROLE),
+    hasExternalContractorPermissions: hasExternalContractorPermissions(),
     hasContractManagerPermissions: hasRole(CONTRACT_MANAGER_ROLE),
     hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),
