@@ -2916,7 +2916,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
 
         // populate follow-on fields
         cy.get('input[data-testid="supervisorCalled"]').check('Yes')
-        cy.get('input[data-testid="followonRequestUrgency"]').check('true')
+        cy.get('input[data-testid="followonRequestUrgency"]').check('false')
         cy.get('input[data-testid="followon-trades-plumbing"]').check()
         cy.get('textarea[data-testid="followOnTypeDescription"]').type(
           'follow on description'
@@ -2984,6 +2984,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             },
           ],
           followOnRequest: {
+            isEmergency: false,
             isMultipleOperatives: true,
             requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'follow on description',
@@ -3089,6 +3090,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             },
           ],
           followOnRequest: {
+            isEmergency: true,
             isMultipleOperatives: false,
             requiredFollowOnTrades: ['Plumbing'],
             followOnTypeDescription: 'follow on description',
