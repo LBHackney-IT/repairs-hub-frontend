@@ -6,7 +6,7 @@ import ErrorMessage from '../../../Errors/ErrorMessage'
 import WarningInfoBox from '../../../Template/WarningInfoBox'
 import Contract from '@/root/src/models/contract'
 import { getContract } from '@/root/src/utils/requests/contracts'
-import { dateToStr } from '@/root/src/utils/date'
+import ContractInformationView from './ContractInformationView'
 
 interface ContractViewProps {
   contractReference: string
@@ -40,12 +40,7 @@ const ContractView = ({ contractReference }: ContractViewProps) => {
       ) : error ? (
         <ErrorMessage label={error} />
       ) : contract ? (
-        <>
-          <p>{`Contractor reference: ${contract.contractorReference}`}</p>
-          <p>{`Expiration date: ${dateToStr(contract.terminationDate)}`}</p>
-          <p>{`Start date: ${dateToStr(contract.effectiveDate)}`}</p>
-          <p>{`Is raisable: ${contract.isRaisable.toString()}`}</p>
-        </>
+        <ContractInformationView contract={contract} />
       ) : (
         <WarningInfoBox
           header="Contract not found"
