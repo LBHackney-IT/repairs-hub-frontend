@@ -10,6 +10,7 @@ import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -29,7 +30,7 @@ interface MobileWorkingCloseWorkOrderFormProps {
     followOnFiles: File[]
   ) => void
   isLoading: boolean
-  featureToggles?: Record<string, boolean>
+  featureToggles?: SimpleFeatureToggleResponse
 }
 
 const MobileWorkingCloseWorkOrderForm = ({

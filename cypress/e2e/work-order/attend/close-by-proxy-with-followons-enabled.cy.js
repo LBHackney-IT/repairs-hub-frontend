@@ -2814,6 +2814,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
             cy.contains('label', 'Further work required').click()
           })
 
+        cy.wait('@feature-toggle')
         // assert error messages arent visible yet
         cy.contains(
           'Please confirm whether you have contacted your supervisor'

@@ -9,6 +9,9 @@ import {
   UseFormMethods,
 } from 'react-hook-form'
 import { followOnDataRequest } from '@/root/src/utils/hact/workOrderComplete/closeWorkOrder'
+import { useEffect, useState } from 'react'
+import { fetchSimpleFeatureToggles } from '@/root/src/utils/frontEndApiClient/requests'
+import { SimpleFeatureToggleResponse } from '@/root/src/pages/api/simple-feature-toggle'
 
 interface FollowOnRequestTypeOfWorkFormProps {
   errors: DeepMap<FieldValues, FieldError>
@@ -20,7 +23,7 @@ interface FollowOnRequestTypeOfWorkFormProps {
   followOnData?: Partial<followOnDataRequest>
   hasWhiteBackground?: boolean
   isGrid?: boolean
-  featureToggles?: Record<string, boolean>
+  featureToggles?: SimpleFeatureToggleResponse
 }
 
 const FollowOnRequestTypeOfWorkForm = (
@@ -38,6 +41,20 @@ const FollowOnRequestTypeOfWorkForm = (
     isGrid,
     featureToggles,
   } = props
+
+  const [
+    simpleFeatureToggles,
+    setSimpleFeatureToggles,
+  ] = useState<SimpleFeatureToggleResponse>(featureToggles)
+
+  useEffect(() => {
+    // Handle case of user directly navigating to this page
+    if (!featureToggles) {
+      fetchSimpleFeatureToggles().then((fetchedFeatureToggles) => {
+        setSimpleFeatureToggles(fetchedFeatureToggles)
+      })
+    }
+  }, [])
 
   const URGENCY_OPTIONS = [
     {
@@ -73,7 +90,10 @@ const FollowOnRequestTypeOfWorkForm = (
         className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
         style={{ marginTop: 0 }}
       >
-        {featureToggles?.enableFollowOnIsEmergencyField && (
+        {!simpleFeatureToggles?.enableFollowOnIsEmergencyField && (
+          <h1>IsEmergency is off: {JSON.stringify(simpleFeatureToggles)}</h1>
+        )}
+        {simpleFeatureToggles?.enableFollowOnIsEmergencyField && (
           <div style={{ marginBottom: '3rem' }}>
             <Radio
               data-testid="followonRequestUrgency"
