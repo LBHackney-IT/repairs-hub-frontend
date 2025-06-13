@@ -84,6 +84,18 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       { body: [] }
     )
 
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableFollowOnIsEmergencyField: true,
+        },
+      }
+    ).as('feature-toggle')
+
     cy.loginWithOperativeRole()
   })
 
