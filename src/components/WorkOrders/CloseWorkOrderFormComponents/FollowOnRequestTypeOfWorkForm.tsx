@@ -85,9 +85,6 @@ const FollowOnRequestTypeOfWorkForm = (
         className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
         style={{ marginTop: 0 }}
       >
-        {!simpleFeatureToggles?.enableFollowOnIsEmergencyField && (
-          <h1>IsEmergency is off: {JSON.stringify(simpleFeatureToggles)}</h1>
-        )}
         {simpleFeatureToggles?.enableFollowOnIsEmergencyField && (
           <div style={{ marginBottom: '3rem' }}>
             <Radio
