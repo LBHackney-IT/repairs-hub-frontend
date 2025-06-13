@@ -2,8 +2,14 @@ import Link from 'next/link'
 import cx from 'classnames'
 
 import { dateToStr } from '@/root/src/utils/date'
+import Contract from '@/root/src/models/contract'
 
-const ContractListItem = ({ contract, index }) => {
+interface ContractListItemProps {
+  contract: Contract
+  index: number
+}
+
+const ContractListItem = ({ contract, index }: ContractListItemProps) => {
   return (
     <Link href={`/backoffice/contracts/${contract.contractReference}`}>
       <li
