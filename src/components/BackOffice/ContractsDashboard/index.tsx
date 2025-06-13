@@ -8,13 +8,15 @@ import WarningInfoBox from '../../Template/WarningInfoBox'
 import { ContractsListItems } from './ContractsListItems'
 import { getContracts } from '@/root/src/utils/requests/contracts'
 
+import Contract from '@/root/src/models/contract'
+
 const ContractsDashboard = () => {
   const router = useRouter()
   const pageFromQuery = parseInt(router.query.page as string) || 1
 
   const [isLoading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>()
-  const [contracts, setContracts] = useState<null | any[]>(null)
+  const [contracts, setContracts] = useState<null | Contract[]>(null)
   const [pageNumber, setPageNumber] = useState(pageFromQuery)
   const pageSize = 10
 
@@ -68,7 +70,7 @@ const ContractsDashboard = () => {
       ) : error ? (
         <ErrorMessage label={error} />
       ) : contracts?.length ? (
-        <ol className="lbh-list mobile-working-work-order-list">
+        <ol className="lbh-list">
           <ContractsListItems
             filteredContracts={filteredContracts()}
             pageNumber={pageNumber}
@@ -78,8 +80,8 @@ const ContractsDashboard = () => {
         </ol>
       ) : (
         <WarningInfoBox
-          header="No work orders displayed"
-          name="No jobs warning"
+          header="No contracts found"
+          name="No contracts warning"
         />
       )}
     </Layout>
