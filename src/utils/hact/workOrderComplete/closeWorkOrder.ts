@@ -4,6 +4,7 @@ import {
 } from '../../paymentTypes'
 
 export type followOnDataRequest = {
+  isEmergency: boolean
   isMultipleOperatives: boolean
   requiredFollowOnTrades: string[]
   followOnTypeDescription: string
@@ -82,6 +83,7 @@ export const buildCloseWorkOrderData = (
 }
 
 export const buildFollowOnRequestData = (
+  isEmergency: boolean,
   isMultipleOperatives: boolean,
   requiredFollowOnTrades: string[],
   followOnTypeDescription: string,
@@ -93,6 +95,7 @@ export const buildFollowOnRequestData = (
   otherTrade?: string
 ): followOnDataRequest => {
   return {
+    isEmergency,
     isMultipleOperatives,
     requiredFollowOnTrades,
     followOnTypeDescription,

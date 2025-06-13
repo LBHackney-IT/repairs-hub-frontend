@@ -76,6 +76,7 @@ functions:
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
       NEW_APPOINTMENT_ENDPOINT_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-new-appointments-endpoint}
+      FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
 
 resources:
@@ -160,3 +161,7 @@ custom:
     development: ""
     staging: ""
     production: GTM-MLCLBXH2
+  follow-on-is-emergency-field-enabled:
+    development: true
+    staging: false
+    production: false

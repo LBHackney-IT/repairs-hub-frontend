@@ -198,6 +198,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       }
 
       followOnDataRequest = buildFollowOnRequestData(
+        followOnData.isEmergency,
         followOnData.isMultipleOperatives,
         requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
@@ -256,6 +257,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
+        isEmergency: formData.isEmergency === 'true',
         isMultipleOperatives: formData.isMultipleOperatives === 'true',
         requiredFollowOnTrades: requiredFollowOnTrades,
         followOnTypeDescription: formData.followOnTypeDescription,
