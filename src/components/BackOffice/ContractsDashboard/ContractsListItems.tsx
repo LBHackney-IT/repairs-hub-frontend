@@ -1,12 +1,21 @@
 import ContractListItem from './ContractListItem'
 import { Button } from '../../Form'
 
+import Contract from '@/root/src/models/contract'
+
+interface ContractListItemsProps {
+  filteredContracts: Contract[]
+  setPageNumber: (pageNumber: number) => void
+  pageNumber: number
+  totalPages: number
+}
+
 export const ContractsListItems = ({
   filteredContracts,
   setPageNumber,
   pageNumber,
   totalPages,
-}) => {
+}: ContractListItemsProps) => {
   if (filteredContracts === null || filteredContracts?.length === 0) {
     return <></>
   }
