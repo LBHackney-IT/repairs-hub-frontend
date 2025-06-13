@@ -7,9 +7,11 @@ export const fetchContractors = async () => {
   })
 }
 
-export const fetchContracts = async (contractorReference) => {
+export const fetchActiveContractsByContractorReference = async (
+  contractorReference
+) => {
   return await frontEndApiRequest({
     method: 'get',
-    path: `/api/backoffice/contracts?contractorReference=${contractorReference}`,
+    path: `/api/backoffice/contracts?IsActive=true&ContractorReference=${contractorReference}`,
   })
 }
