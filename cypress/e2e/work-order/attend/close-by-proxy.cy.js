@@ -54,6 +54,18 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       { method: 'POST', path: '/api/jobStatusUpdate' },
       { body: '' }
     ).as('jobStatusUpdateRequest')
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableFollowOnIsEmergencyField: true,
+        },
+      }
+    ).as('feature-toggle')
   })
 
   describe('When logged in as a contractor', () => {

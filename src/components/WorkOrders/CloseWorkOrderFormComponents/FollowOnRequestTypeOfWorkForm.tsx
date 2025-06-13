@@ -20,6 +20,7 @@ interface FollowOnRequestTypeOfWorkFormProps {
   followOnData?: Partial<followOnDataRequest>
   hasWhiteBackground?: boolean
   isGrid?: boolean
+  featureToggles?: Record<string, boolean>
 }
 
 const FollowOnRequestTypeOfWorkForm = (
@@ -35,6 +36,7 @@ const FollowOnRequestTypeOfWorkForm = (
     followOnData,
     hasWhiteBackground,
     isGrid,
+    featureToggles,
   } = props
 
   const URGENCY_OPTIONS = [
@@ -71,20 +73,22 @@ const FollowOnRequestTypeOfWorkForm = (
         className="govuk-fieldset govuk-!-margin-bottom-2 govuk-!-padding-2 lbh-fieldset"
         style={{ marginTop: 0 }}
       >
-        <div style={{ marginBottom: '3rem' }}>
-          <Radio
-            data-testid="followonRequestUrgency"
-            labelSize="s"
-            label="Is this an emergency?"
-            name="isEmergency"
-            options={URGENCY_OPTIONS}
-            register={register({
-              required: 'Please confirm if this is an emergency',
-            })}
-            error={errors && errors.isEmergency}
-            hasWhiteBackground={hasWhiteBackground}
-          />
-        </div>
+        {featureToggles?.enableFollowOnIsEmergencyField && (
+          <div style={{ marginBottom: '3rem' }}>
+            <Radio
+              data-testid="followonRequestUrgency"
+              labelSize="s"
+              label="Is this an emergency?"
+              name="isEmergency"
+              options={URGENCY_OPTIONS}
+              register={register({
+                required: 'Please confirm if this is an emergency',
+              })}
+              error={errors && errors.isEmergency}
+              hasWhiteBackground={hasWhiteBackground}
+            />
+          </div>
+        )}
 
         <div
           className={classNames('lbh-form-group', {

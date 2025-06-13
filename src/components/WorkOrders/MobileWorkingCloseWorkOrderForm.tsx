@@ -22,7 +22,21 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
+interface MobileWorkingCloseWorkOrderFormProps {
+  onSubmit: (
+    data: Record<string, any>,
+    workOrderFiles: File[],
+    followOnFiles: File[]
+  ) => void
+  isLoading: boolean
+  featureToggles?: Record<string, boolean>
+}
+
+const MobileWorkingCloseWorkOrderForm = ({
+  onSubmit,
+  isLoading,
+  featureToggles,
+}: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
     register,
@@ -60,8 +74,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
   const [workOrderFiles, setWorkOrderFiles] = useState([])
   const [followOnFiles, setFollowOnFiles] = useState([])
-
-  // const [workOrderFiles, setFiles] = useState([])
 
   return (
     <div className="mobile-working-close-work-order-form">
@@ -159,6 +171,7 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
               setError={setError}
               clearErrors={clearErrors}
               watch={watch}
+              featureToggles={featureToggles}
             />
 
             <FollowOnRequestMaterialsForm

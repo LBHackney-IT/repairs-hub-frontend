@@ -10,6 +10,7 @@ describe('Closing a work order on behalf of an operative - When follow-ons are e
       },
       {
         body: {
+          enableFollowOnIsEmergencyField: true,
           followOnFunctionalityEnabled: true,
           fetchAppointmentsFromDrs: false,
         },
