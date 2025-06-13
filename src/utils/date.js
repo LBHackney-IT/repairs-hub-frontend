@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import { beginningOfDay } from './time'
 
 export const convertDate = (dateAsString) => {
@@ -82,12 +83,7 @@ export function longMonthWeekday(date, { commaSeparated = true } = {}) {
 }
 
 export const longDateToStr = (date) =>
-  new Date(date).toLocaleDateString('en-GB', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
+  format(new Date(date), 'EEEE, d MMMM yyyy')
 
 export const getYesterdayDate = (currentDate) => {
   const yesterday = new Date()
