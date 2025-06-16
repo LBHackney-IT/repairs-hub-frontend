@@ -83,7 +83,7 @@ export function longMonthWeekday(date, { commaSeparated = true } = {}) {
 }
 
 export const longDateToStr = (date) =>
-  format(new Date(date), 'EEEE, d MMMM yyyy')
+  format(new Date(date), 'EEEE d MMMM yyyy')
 
 export const getYesterdayDate = (currentDate) => {
   const yesterday = new Date()
