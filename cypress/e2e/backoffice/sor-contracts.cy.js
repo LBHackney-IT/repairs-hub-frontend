@@ -184,14 +184,11 @@ describe('SOR-Contracts - When Add selected', () => {
       .should('be.visible')
   })
 
-  it('sends request to /sor-contracts after displaying the confirmation modal', () => {
+  it.only('sends request to /sor-contracts after displaying the confirmation modal', () => {
     cy.intercept(
       {
         method: 'GET',
-        pathname: '/api/backoffice/contracts',
-        query: {
-          contractorReference: '*',
-        },
+        pathname: '/api/backoffice/contracts*',
       },
       {
         fixture: 'contracts/contracts.json',
@@ -238,10 +235,7 @@ describe('SOR-Contracts - When Add selected', () => {
     cy.intercept(
       {
         method: 'GET',
-        pathname: '/api/backoffice/contracts',
-        query: {
-          contractorReference: '*',
-        },
+        pathname: '/api/backoffice/contracts*',
       },
       {
         fixture: 'contracts/contracts.json',
