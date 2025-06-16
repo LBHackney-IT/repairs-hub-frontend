@@ -45,7 +45,7 @@ export const buildUser = (
   const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)
 
   const rolesFromGroups = (groupNames: string[]) => {
-    return groupNames.map((groupName) => {
+    const roles: string[] = groupNames.map((groupName) => {
       if (isAgentGroupName(groupName)) {
         return AGENT_ROLE
       }
@@ -84,6 +84,12 @@ export const buildUser = (
 
       console.warn(`User group name not recognised: ${groupName}`)
     })
+
+    if (roles.includes(DLO_CONTRACTOR_ROLE)) {
+      roles.push(CONTRACTOR_ROLE)
+    }
+
+    return roles
   }
 
   const isAgentGroupName = (groupName: string) =>
