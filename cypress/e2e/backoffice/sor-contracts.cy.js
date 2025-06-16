@@ -184,7 +184,7 @@ describe('SOR-Contracts - When Add selected', () => {
       .should('be.visible')
   })
 
-  it.only('sends request to /sor-contracts after displaying the confirmation modal', () => {
+  it('sends request to /sor-contracts after displaying the confirmation modal', () => {
     cy.intercept(
       {
         method: 'GET',
