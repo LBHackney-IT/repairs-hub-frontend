@@ -167,6 +167,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       })
 
       followOnRequest = buildFollowOnRequestData(
+        data.isEmergency === 'true',
         data.isMultipleOperatives === 'true',
         requiredFollowOnTrades,
         data.followOnTypeDescription,
