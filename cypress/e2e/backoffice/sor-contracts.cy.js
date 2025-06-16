@@ -189,6 +189,10 @@ describe('SOR-Contracts - When Add selected', () => {
       {
         method: 'GET',
         pathname: '/api/backoffice/contracts*',
+        query: {
+          IsActive: '*',
+          ContractorReference: '*',
+        },
       },
       {
         fixture: 'contracts/contracts.json',
@@ -198,7 +202,7 @@ describe('SOR-Contracts - When Add selected', () => {
     cy.intercept(
       {
         method: 'POST',
-        path: '/api/backOffice/sor-contracts',
+        path: '/api/backOffice/sor-contracts*',
       },
       {
         body: '',
@@ -236,6 +240,10 @@ describe('SOR-Contracts - When Add selected', () => {
       {
         method: 'GET',
         pathname: '/api/backoffice/contracts*',
+        query: {
+          IsActive: '*',
+          ContractorReference: '*',
+        },
       },
       {
         fixture: 'contracts/contracts.json',
