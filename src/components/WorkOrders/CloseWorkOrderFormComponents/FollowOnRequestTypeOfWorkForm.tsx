@@ -54,7 +54,7 @@ const FollowOnRequestTypeOfWorkForm = (
   const URGENCY_OPTIONS = [
     {
       value: true,
-      text: 'Yes, this is an emergency',
+      text: 'Yes',
       defaultChecked: followOnData?.isEmergency === true,
     },
     {
