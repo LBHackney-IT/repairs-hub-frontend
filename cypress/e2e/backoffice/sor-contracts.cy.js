@@ -190,7 +190,6 @@ describe('SOR-Contracts - When Add selected', () => {
         method: 'GET',
         pathname: '/api/backoffice/contracts',
         query: {
-          isActive: 'true',
           contractorReference: '*',
         },
       },
@@ -241,7 +240,6 @@ describe('SOR-Contracts - When Add selected', () => {
         method: 'GET',
         pathname: '/api/backoffice/contracts',
         query: {
-          isActive: 'true',
           contractorReference: '*',
         },
       },
@@ -263,7 +261,7 @@ describe('SOR-Contracts - When Add selected', () => {
     const propertyReference = '12345678'
     cy.get('[data-test="destinationPropertyReference"]').type(propertyReference)
 
-    const contractor = 'DECORATION ALLOWANCE'
+    const contractor = 'Purdy Contracts (P) Ltd'
     cy.get('[data-testid="contractor"]').type(contractor)
 
     const contract = 'F22-H04-GSC3'
