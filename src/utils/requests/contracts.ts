@@ -1,8 +1,6 @@
-import {
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
-import Contract from "@/models/contract"
+import Contract from '@/models/contract'
 
 export const getContracts = async (
   isActive?: boolean,
@@ -11,7 +9,9 @@ export const getContracts = async (
   try {
     const contracts = await frontEndApiRequest({
       method: 'get',
-      path: `/api/backoffice/contracts?IsActive=${isActive ? isActive : ''}&ContractorReference=${contractorReference ? contractorReference : ''}`,
+      path: `/api/backoffice/contracts?IsActive=${
+        isActive ? isActive : ''
+      }&ContractorReference=${contractorReference ? contractorReference : ''}`,
     })
 
     return {
