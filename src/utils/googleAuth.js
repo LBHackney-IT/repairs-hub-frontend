@@ -1,6 +1,6 @@
 import cookie from 'cookie'
 import jsonwebtoken from 'jsonwebtoken'
-import { buildUser } from './auth/user'
+import { buildUser } from './user'
 
 const { GSSO_TOKEN_NAME } = process.env
 

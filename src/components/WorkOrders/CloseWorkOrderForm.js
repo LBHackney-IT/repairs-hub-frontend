@@ -20,7 +20,7 @@ import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowO
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
-import { canRaiseAFollowOn } from '../../utils/auth/userPermissions'
+import { canRaiseAFollowOn } from '../../utils/userPermissions'
 import UserContext from '../UserContext'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 

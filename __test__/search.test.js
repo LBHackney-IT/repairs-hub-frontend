@@ -5,7 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '../src/utils/auth/user'
+} from '../src/utils/user'
 
 describe('SearchPage.permittedRoles', () => {
   ;[

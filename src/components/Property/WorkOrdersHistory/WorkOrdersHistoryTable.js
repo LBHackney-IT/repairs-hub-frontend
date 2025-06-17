@@ -5,7 +5,7 @@ import WorkOrdersHistoryRow from './WorkOrdersHistoryRow'
 import Spinner from '../../Spinner'
 import WorkOrdersHistoryFilter from '../WorkOrdersHistoryFilter/Index'
 import { Table, THead, TBody, TR, TH } from '../../Layout/Table'
-import { canAccessWorkOrder } from '@/root/src/utils/auth/userPermissions'
+import { canAccessWorkOrder } from '@/root/src/utils/userPermissions'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 
 const WorkOrdersHistoryTable = ({

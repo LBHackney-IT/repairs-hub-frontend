@@ -1,4 +1,4 @@
-import { CONTRACT_MANAGER_ROLE } from '@/root/src/utils/auth/user'
+import { CONTRACT_MANAGER_ROLE } from '@/root/src/utils/user'
 import VariationAuthorisationView from '@/components/WorkOrder/Authorisation/VariationAuthorisationView'
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'

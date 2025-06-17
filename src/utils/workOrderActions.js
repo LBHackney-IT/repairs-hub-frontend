@@ -11,7 +11,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   DATA_ADMIN_ROLE,
-} from './auth/user'
+} from './user'
 
 export const WORK_ORDER_ACTIONS = [
   {

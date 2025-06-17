@@ -1,4 +1,4 @@
-import { DATA_ADMIN_ROLE } from '@/root/src/utils/auth/user'
+import { DATA_ADMIN_ROLE } from '@/root/src/utils/user'
 
 import Meta from '../../components/Meta'
 

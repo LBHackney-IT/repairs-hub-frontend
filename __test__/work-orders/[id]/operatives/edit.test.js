@@ -5,7 +5,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '@/root/src/utils/auth/user'
+} from '@/root/src/utils/user'
 
 describe('EditWorkOrderOperativePage.permittedRoles', () => {
   ;[OPERATIVE_ROLE].forEach((role) => {

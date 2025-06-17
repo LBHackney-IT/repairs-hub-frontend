@@ -5,7 +5,7 @@ import {
   AGENT_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '@/root/src/utils/auth/user'
+} from '@/root/src/utils/user'
 
 const WorkOrderCancelPage = ({ query }) => {
   return (

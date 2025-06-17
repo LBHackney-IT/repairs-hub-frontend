@@ -7,7 +7,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
-import { canSearchForProperty } from '@/root/src/utils/auth/userPermissions'
+import { canSearchForProperty } from '@/root/src/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
 
 interface SearchProps {

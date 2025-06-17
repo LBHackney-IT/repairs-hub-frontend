@@ -1,4 +1,4 @@
-import { OPERATIVE_ROLE } from '../user'
+import { OPERATIVE_ROLE } from './user'
 
 export const canSeeAllFilters = (user) => {
   return (

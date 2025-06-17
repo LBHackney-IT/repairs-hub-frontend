@@ -4,7 +4,7 @@ import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '@/root/src/utils/auth/user'
+} from '@/root/src/utils/user'
 
 const WorkOrderUpdatePage = ({ query }) => {
   return (
