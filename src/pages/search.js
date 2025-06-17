@@ -4,7 +4,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
-} from '@/root/src/utils/user'
+} from 'src/utils/user'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 const SearchPage = ({ query }) => {

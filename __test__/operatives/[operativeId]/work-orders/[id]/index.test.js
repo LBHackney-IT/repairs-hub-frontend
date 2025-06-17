@@ -4,7 +4,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '@/root/src/utils/user'
+} from 'src/utils/user'
 import OperativeWorkOrderPage from '@/pages/operatives/[operativeId]/work-orders/[id]'
 
 describe('OperativeWorkOrderPage.permittedRoles', () => {

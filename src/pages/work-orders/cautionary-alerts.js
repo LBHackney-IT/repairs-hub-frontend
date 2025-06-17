@@ -1,6 +1,6 @@
 import CautionaryAlertsView from '@/components/CautionaryAlerts/CautionaryAlertsView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import { OPERATIVE_ROLE } from '@/root/src/utils/user'
+import { OPERATIVE_ROLE } from 'src/utils/user'
 
 const CautionaryAlertsPage = ({ query }) => {
   if (Object.entries(query).length === 0) {

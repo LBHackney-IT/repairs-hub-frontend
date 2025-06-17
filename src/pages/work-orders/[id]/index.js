@@ -2,7 +2,7 @@ import Meta from '@/components/Meta'
 import WorkOrderView from '@/components/WorkOrder/WorkOrderView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
-import { ALL_ROLES } from '@/root/src/utils/user'
+import { ALL_ROLES } from 'src/utils/user'
 
 const WorkOrderPage = ({ query }) => {
   return (

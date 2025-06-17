@@ -22,7 +22,7 @@ import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
 import UserContext from '../../UserContext'
-import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
+import { canAssignFollowOnRelationship } from 'src/utils/userPermissions'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 

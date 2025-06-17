@@ -1,6 +1,6 @@
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import { OPERATIVE_ROLE } from '@/root/src/utils/user'
+import { OPERATIVE_ROLE } from 'src/utils/user'
 import MobileWorkingWorkOrderView from '../../../../../components/WorkOrder/MobileWorkingWorkOrderView'
 
 const OperativeWorkOrderPage = ({ query }) => {

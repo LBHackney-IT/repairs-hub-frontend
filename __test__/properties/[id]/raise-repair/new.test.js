@@ -5,7 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '@/root/src/utils/user'
+} from 'src/utils/user'
 
 describe('RaiseRepairPage.permittedRoles', () => {
   ;[AGENT_ROLE, CONTRACT_MANAGER_ROLE, AUTHORISATION_MANAGER_ROLE].forEach(

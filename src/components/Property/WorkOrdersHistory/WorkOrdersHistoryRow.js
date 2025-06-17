@@ -6,7 +6,7 @@ import Status from '../../WorkOrder/Status'
 import { dateToStr } from '@/utils/date'
 import { extractTimeFromDate } from '@/utils/time'
 import { TR, TD } from '../../Layout/Table'
-import { canAccessWorkOrder } from '@/root/src/utils/userPermissions'
+import { canAccessWorkOrder } from 'src/utils/userPermissions'
 
 const WorkOrdersHistoryRow = ({
   reference,

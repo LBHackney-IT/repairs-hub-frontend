@@ -1,7 +1,7 @@
 import { deleteSessions } from '@/utils/googleAuth'
 import { closeDRSSession } from '@/utils/scheduling/drs/webServices/sessions'
 import cookie from 'cookie'
-import { ALL_ROLES } from '@/root/src/utils/user'
+import { ALL_ROLES } from 'src/utils/user'
 
 const Logout = () => null
 

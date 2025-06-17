@@ -2,7 +2,7 @@ import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import OperativeFormView from '@/components/Operatives/OperativeFormView'
 
-import { OPERATIVE_ROLE } from '@/root/src/utils/user'
+import { OPERATIVE_ROLE } from 'src/utils/user'
 
 const NewWorkOrderOperativePage = ({ query }) => {
   return (

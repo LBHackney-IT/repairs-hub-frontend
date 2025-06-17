@@ -2,7 +2,7 @@ import {
   AGENT_ROLE,
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
-} from '@/root/src/utils/user'
+} from 'src/utils/user'
 import Meta from '@/components/Meta'
 import AppointmentView from '@/components/WorkOrder/Appointment/AppointmentView'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
