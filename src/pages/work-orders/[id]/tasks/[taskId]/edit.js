@@ -1,4 +1,4 @@
-import { OPERATIVE_ROLE } from '@/utils/user'
+import { OPERATIVE_ROLE } from '@/auth/user'
 import Meta from '@/components/Meta'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import EditTaskForm from '@/components/WorkOrder/TasksAndSors/EditTaskForm'

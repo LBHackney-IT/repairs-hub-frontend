@@ -5,11 +5,11 @@ import Spinner from '@/components/Spinner'
 
 import UserContext from '@/components/UserContext'
 import { useContext, useEffect, useState } from 'react'
-import { ALL_ROLES } from '@/utils/user'
+import { ALL_ROLES } from '@/auth/user'
 import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
-} from '@/utils/userPermissions'
+} from '@/auth/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import Search from '../components/Search/Search'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'

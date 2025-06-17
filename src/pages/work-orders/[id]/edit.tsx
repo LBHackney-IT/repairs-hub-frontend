@@ -6,7 +6,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
   DATA_ADMIN_ROLE,
-} from '@/utils/user'
+} from '@/auth/user'
 
 const EditPage = ({ query }) => {
   return (

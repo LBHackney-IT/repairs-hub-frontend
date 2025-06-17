@@ -3,7 +3,7 @@ import Tabs from '..'
 import { TabName } from '../types'
 import { useContext } from 'react'
 import UserContext from '../../UserContext'
-import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
+import { canSeeRelatedWorkOrdersTab } from '@/auth/userPermissions'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 

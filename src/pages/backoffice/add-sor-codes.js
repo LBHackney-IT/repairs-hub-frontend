@@ -1,4 +1,4 @@
-import { DATA_ADMIN_ROLE } from '@/utils/user'
+import { DATA_ADMIN_ROLE } from '@/auth/user'
 import Meta from '../../components/Meta'
 
 import { getQueryProps } from '../../utils/helpers/serverSideProps'

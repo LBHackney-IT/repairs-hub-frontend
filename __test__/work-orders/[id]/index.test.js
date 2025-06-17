@@ -5,7 +5,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from 'src/utils/user'
+} from '@/auth/user'
 
 describe('WorkOrderPage.permittedRoles', () => {
   ;[

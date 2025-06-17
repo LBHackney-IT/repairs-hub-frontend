@@ -91,8 +91,11 @@ export const buildUser = (
   const isAgentGroupName = (groupName: string) =>
     !!agentGroupRegex.test(groupName)
 
-  const isContractorGroupName = (groupName: string) =>
-    !!contractorGroupRegex.test(groupName)
+  const isContractorGroupName = (groupName: string) => {
+    const result = contractorGroupRegex.test(groupName)
+
+    return !!result
+  }
 
   const isContractManagerGroupName = (groupName: string) =>
     groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME

@@ -6,7 +6,7 @@ import UserContext from '../../UserContext'
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Collapsible from '../../Layout/Collapsible'
 import FilterTag from '../../Tag/FilterTag'
-import { canSeeAllFilters } from '@/utils/userPermissions'
+import { canSeeAllFilters } from '@/auth/userPermissions'
 import { convertToSentenceCases } from '@/utils/helpers/textConverter'
 
 const WorkOrdersFilter = ({

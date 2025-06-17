@@ -1,7 +1,7 @@
 import DrsSyncView from '../../components/BackOffice/DrsSync'
 import Meta from '../../components/Meta'
 import { getQueryProps } from '../../utils/helpers/serverSideProps'
-import { DATA_ADMIN_ROLE } from '../../utils/user'
+import { DATA_ADMIN_ROLE } from '../../auth/user'
 
 const DrsSync = () => {
   return (

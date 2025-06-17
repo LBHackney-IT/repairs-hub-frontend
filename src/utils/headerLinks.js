@@ -5,7 +5,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
   ALL_ROLES,
-} from './user'
+} from '../auth/user'
 
 const HEADER_LINKS = [
   {

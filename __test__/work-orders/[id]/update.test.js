@@ -5,7 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from 'src/utils/user'
+} from '@/auth/user'
 
 describe('WorkOrderUpdatePage.permittedRoles', () => {
   ;[CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE].forEach((role) => {

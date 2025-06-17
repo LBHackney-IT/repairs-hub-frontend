@@ -8,17 +8,31 @@ import {
 } from './user'
 
 const {
-  AGENTS_GOOGLE_GROUPNAME,
   CONTRACT_MANAGERS_GOOGLE_GROUPNAME,
   AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME,
   OPERATIVES_GOOGLE_GROUPNAME,
-  CONTRACTORS_GOOGLE_GROUPNAME,
   BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
+  DLO_CONTRACTOR_GOOGLE_GROUPNAME,
 } = process.env
+
+const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-alphatrack'
+const AGENT_GROUP_NAME = 'repairs-hub-agent-agilysis-staging'
 
 describe('buildUser', () => {
   describe('when called with a single agent group name', () => {
-    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
+    const user = buildUser('', '', [AGENT_GROUP_NAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
 
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
@@ -52,7 +66,65 @@ describe('buildUser', () => {
   })
 
   describe('when called with a single contractor group name', () => {
-    const user = buildUser('', '', [CONTRACTORS_GOOGLE_GROUPNAME])
+    const user = buildUser('', '', [CONTRACTOR_GROUP_NAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(true)
+      })
+    })
+
+    describe('hasContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasContractorPermissions).toBe(true)
+      })
+    })
+
+    describe('hasAgentPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAgentPermissions).toBe(false)
+      })
+    })
+
+    describe('hasContractManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasContractManagerPermissions).toBe(false)
+      })
+    })
+
+    describe('hasAuthorisationManagerPermissions', () => {
+      it('returns false', () => {
+        expect(user.hasAuthorisationManagerPermissions).toBe(false)
+      })
+    })
+
+    describe('hasOperativePermissions', () => {
+      it('returns false', () => {
+        expect(user.hasOperativePermissions).toBe(false)
+      })
+    })
+  })
+
+  describe('when called with a single dlo contractor group name', () => {
+    const user = buildUser('', '', [DLO_CONTRACTOR_GOOGLE_GROUPNAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(true)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
 
     describe('hasContractorPermissions', () => {
       it('returns true', () => {
@@ -87,6 +159,19 @@ describe('buildUser', () => {
 
   describe('when called with a single contract manager group name', () => {
     const user = buildUser('', '', [CONTRACT_MANAGERS_GOOGLE_GROUPNAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
+
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
         expect(user.hasContractorPermissions).toBe(false)
@@ -120,6 +205,19 @@ describe('buildUser', () => {
 
   describe('when called with a single authorisation manager group name', () => {
     const user = buildUser('', '', [AUTHORISATION_MANAGERS_GOOGLE_GROUPNAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
+
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
         expect(user.hasContractorPermissions).toBe(false)
@@ -151,41 +249,20 @@ describe('buildUser', () => {
     })
   })
 
-  describe('when called with a single operative group name', () => {
-    const user = buildUser('', '', [OPERATIVES_GOOGLE_GROUPNAME])
-    describe('hasContractorPermissions', () => {
-      it('returns false', () => {
-        expect(user.hasContractorPermissions).toBe(false)
-      })
-    })
-
-    describe('hasAgentPermissions', () => {
-      it('returns false', () => {
-        expect(user.hasAgentPermissions).toBe(false)
-      })
-    })
-
-    describe('hasContractManagerPermissions', () => {
-      it('returns false', () => {
-        expect(user.hasContractManagerPermissions).toBe(false)
-      })
-    })
-
-    describe('hasAuthorisationManagerPermissions', () => {
-      it('returns true', () => {
-        expect(user.hasAuthorisationManagerPermissions).toBe(false)
-      })
-    })
-
-    describe('hasOperativePermissions', () => {
-      it('returns true', () => {
-        expect(user.hasOperativePermissions).toBe(true)
-      })
-    })
-  })
-
   describe('hasRole', () => {
-    const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
+    const user = buildUser('', '', [AGENT_GROUP_NAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
 
     describe('when the supplied role maps to the group name for the user', () => {
       it('returns true', () => {
@@ -220,7 +297,7 @@ describe('buildUser', () => {
 
   describe('hasAnyPermissions', () => {
     describe('when the group name for the user maps to a recognised role', () => {
-      const user = buildUser('', '', [AGENTS_GOOGLE_GROUPNAME])
+      const user = buildUser('', '', [AGENT_GROUP_NAME])
 
       it('returns true', () => {
         expect(user.hasAnyPermissions).toBe(true)
@@ -246,6 +323,19 @@ describe('buildUser', () => {
 
   describe('when called with a single operative group name', () => {
     const user = buildUser('', '', [OPERATIVES_GOOGLE_GROUPNAME])
+
+    describe('hasDLOContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasDLOContractorPermissions).toBe(false)
+      })
+    })
+
+    describe('hasExternalContractorPermissions', () => {
+      it('returns true', () => {
+        expect(user.hasExternalContractorPermissions).toBe(false)
+      })
+    })
+
     describe('hasContractorPermissions', () => {
       it('returns false', () => {
         expect(user.hasContractorPermissions).toBe(false)
