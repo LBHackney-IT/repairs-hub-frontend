@@ -16,7 +16,7 @@ const {
 } = process.env
 
 const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-alphatrack'
-const AGENT_GROUP_NAME = 'repairs-hub-agent-agilysis-staging'
+const AGENT_GROUP_NAME = 'repairs-hub-agents'
 
 describe('buildUser', () => {
   describe('when called with a single agent group name', () => {
