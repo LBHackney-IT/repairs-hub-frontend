@@ -10,7 +10,7 @@ export const fetchContractors = async () => {
 }
 
 export const fetchContracts = async (
-  isActive: boolean = true,
+  isActive?: boolean,
   contractorReference?: string
 ): Promise<ApiResponseType<Contract[] | null>> => {
   try {
