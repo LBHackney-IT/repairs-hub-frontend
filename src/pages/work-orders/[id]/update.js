@@ -1,7 +1,10 @@
 import Meta from '@/components/Meta'
 import WorkOrderUpdateView from '@/components/WorkOrder/Update'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '@/root/src/utils/auth/user'
+import {
+  CONTRACTOR_ROLE,
+  CONTRACT_MANAGER_ROLE,
+} from '@/root/src/utils/auth/user'
 
 const WorkOrderUpdatePage = ({ query }) => {
   return (
