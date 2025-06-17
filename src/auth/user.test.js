@@ -15,8 +15,8 @@ const {
   DLO_CONTRACTOR_GOOGLE_GROUPNAME,
 } = process.env
 
-const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-staging-alphatrack'
-const AGENT_GROUP_NAME = 'repairs-hub-agents-staging'
+const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-alphatrack'
+const AGENT_GROUP_NAME = 'repairs-hub-agents'
 
 describe('buildUser', () => {
   describe('when called with a single agent group name', () => {
