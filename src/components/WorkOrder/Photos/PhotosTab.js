@@ -5,6 +5,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import UploadPhotosForm from './UploadPhotosForm'
 import PhotoViewList from './PhotoViewList'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const PhotosTab = ({ workOrderReference }) => {
   const [photos, setPhotos] = useState([])
@@ -24,11 +25,7 @@ const PhotosTab = ({ workOrderReference }) => {
     } catch (e) {
       setPhotos(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setIsLoading(false)
@@ -47,11 +44,7 @@ const PhotosTab = ({ workOrderReference }) => {
       getPhotos(workOrderReference)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setIsLoading(false)
