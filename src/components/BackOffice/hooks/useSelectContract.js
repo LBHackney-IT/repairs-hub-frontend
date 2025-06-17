@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import {
-  fetchContractors,
-  fetchActiveContractsByContractorReference,
-} from '../requests'
+import { fetchContractors, fetchContracts } from '../requests'
 
 const useSelectContract = () => {
   const [contractors, setContractors] = useState(null)
@@ -39,10 +36,7 @@ const useSelectContract = () => {
 
     setLoadingContracts(true)
 
-    fetchActiveContractsByContractorReference(
-      true,
-      selectedContractor.contractorReference
-    )
+    fetchContracts(true, selectedContractor.contractorReference)
       .then((res) => {
         const contractReferences = res.map((contract) => {
           return contract.contractReference
