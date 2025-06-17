@@ -3,6 +3,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { CurrentUser } from '@/root/src/types/variations/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 // Define props interface for child components
 interface WithCurrentUserProps {
@@ -30,7 +31,7 @@ const CurrentUserWrapper = ({ children }: Props) => {
 
       setCurrentUser(currentUser)
     } catch (e) {
-      setError(formatErrorMessage(e))
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
