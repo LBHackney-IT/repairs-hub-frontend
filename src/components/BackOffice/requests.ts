@@ -1,17 +1,24 @@
-import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import Contract from '@/models/contract'
 
-export const getContracts = async (
-  isActive?: boolean,
+export const fetchContractors = async () => {
+  return await frontEndApiRequest({
+    method: 'get',
+    path: '/api/contractors?getAllContractors=true',
+  })
+}
+
+export const fetchContracts = async (
+  isActive: boolean = true,
   contractorReference?: string
 ): Promise<ApiResponseType<Contract[] | null>> => {
   try {
     const contracts = await frontEndApiRequest({
       method: 'get',
-      path: `/api/backoffice/contracts?IsActive=${
+      path: `/api/backoffice/contracts?isActive=${
         isActive ? isActive : ''
-      }&ContractorReference=${contractorReference ? contractorReference : ''}`,
+      }&contractorReference=${contractorReference ? contractorReference : ''}`,
     })
 
     return {
@@ -36,7 +43,7 @@ export const getContracts = async (
   }
 }
 
-export const getContract = async (
+export const fetchContract = async (
   contractReference: string
 ): Promise<ApiResponseType<Contract | null>> => {
   try {
