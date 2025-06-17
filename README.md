@@ -198,7 +198,7 @@ Refer to this [matrix of user page permissions](https://accounts.google.com/Serv
 
 Access to an individual page is controlled by the `permittedRoles` attribute on the page component. For example, the home page can be accessed by everyone and contains [this list of permitted users](https://github.com/LBHackney-IT/repairs-hub-frontend/blob/develop/src/pages/index.js#L75-L81).
 
-Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/src/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
+Logic for finer-grained access control for features within a page such as buttons are currently found in [userPermissions.js](/@/utils/userPermissions.js) and also [workOrderActions.js](/src/utils/workOrderActions.js).
 
 ## DRS Web Booking Manager flow
 

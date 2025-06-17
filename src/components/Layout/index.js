@@ -7,7 +7,7 @@ import cx from 'classnames'
 import { headerLinksForUser } from '@/utils/headerLinks'
 import FlashMessageContext from '../FlashMessageContext'
 import { useRouter } from 'next/router'
-import { canAttendOwnWorkOrder } from 'src/utils/userPermissions'
+import { canAttendOwnWorkOrder } from '@/utils/userPermissions'
 
 const Layout = ({ serviceName, children }) => {
   const { user } = useContext(UserContext)

@@ -9,7 +9,7 @@ import { ALL_ROLES } from 'src/utils/user'
 import {
   canSeeWorkOrders,
   canSeeOperativeWorkOrders,
-} from 'src/utils/userPermissions'
+} from '@/utils/userPermissions'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import Search from '../components/Search/Search'
 import CurrentUserWrapper from '../components/WorkOrders/CurrentUserWrapper'
