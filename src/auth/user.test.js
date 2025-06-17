@@ -15,7 +15,7 @@ const {
   DLO_CONTRACTOR_GOOGLE_GROUPNAME,
 } = process.env
 
-const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-staging-alphatrack'
+const CONTRACTOR_GROUP_NAME = 'repairs-hub-contractors-alphatrack-staging'
 const AGENT_GROUP_NAME = 'repairs-hub-agents-staging'
 
 describe('buildUser', () => {
