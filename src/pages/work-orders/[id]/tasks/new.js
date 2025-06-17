@@ -1,7 +1,7 @@
 import Meta from '@/components/Meta'
 import NewTaskForm from '@/components/Operatives/NewTaskForm'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import { OPERATIVE_ROLE } from '@/auth/user'
+import { OPERATIVE_ROLE } from '@/root/src/utils/auth/user'
 
 const NewTaskPage = ({ query }) => {
   return (

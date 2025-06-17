@@ -6,7 +6,7 @@ import ContractorDataList from './ContractorDataList'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import BudgetCodeItemView from './BudgetCodeItemView'
 import UserContext from '@/components/UserContext'
-import { canAssignBudgetCode } from '@/auth/userPermissions'
+import { canAssignBudgetCode } from '@/root/src/utils/auth/userPermissions'
 import {
   MULTITRADE_TRADE_CODE,
   MULTITRADE_ENABLED_CONTRACTORS,

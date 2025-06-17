@@ -1,6 +1,6 @@
 import Meta from '@/components/Meta'
 import CloseWorkOrderByProxy from '@/components/WorkOrders/CloseWorkOrderByProxy'
-import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '@/auth/user'
+import { CONTRACTOR_ROLE, CONTRACT_MANAGER_ROLE } from '@/root/src/utils/auth/user'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 
 const WorkOrderClosePage = ({ query }) => {

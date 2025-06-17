@@ -5,7 +5,7 @@ import {
   CONTRACTOR_ROLE,
   CONTRACT_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '../src/auth/user'
+} from '../src/utils/auth/user'
 
 describe('Home.permittedRoles', () => {
   ;[

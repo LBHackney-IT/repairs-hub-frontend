@@ -4,7 +4,7 @@ import { STATUS_CANCELLED } from '@/utils/statusCodes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
-} from '@/auth/userPermissions'
+} from '@/root/src/utils/auth/userPermissions'
 import { WorkOrder } from '@/models/workOrder'
 import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'

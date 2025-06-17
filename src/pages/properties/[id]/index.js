@@ -5,7 +5,7 @@ import {
   AUTHORISATION_MANAGER_ROLE,
   CONTRACT_MANAGER_ROLE,
   CONTRACTOR_ROLE,
-} from '@/auth/user'
+} from '@/root/src/utils/auth/user'
 
 const PropertyPage = ({ query }) => {
   return <PropertyView propertyReference={query.id} />

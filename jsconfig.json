@@ -8,8 +8,7 @@
       "@/models/*": ["src/models/*"],
       "@/pages/*": ["src/pages/*"],
       "@/styles/*": ["src/styles/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/auth/*": ["src/auth/*"]
+      "@/utils/*": ["src/utils/*"]
     }
   },
   "exclude": ["node_modules", "build", "dist", ".next"]

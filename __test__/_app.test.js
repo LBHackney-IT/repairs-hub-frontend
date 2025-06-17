@@ -1,5 +1,5 @@
 import MyApp from '../src/pages/_app'
-import { AGENT_ROLE, CONTRACTOR_ROLE } from '../src/auth/user'
+import { AGENT_ROLE, CONTRACTOR_ROLE } from '../src/utils/auth/user'
 
 import { createRequest, createResponse } from 'node-mocks-http'
 import jsonwebtoken from 'jsonwebtoken'

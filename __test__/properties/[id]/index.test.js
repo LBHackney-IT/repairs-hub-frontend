@@ -5,7 +5,7 @@ import {
   CONTRACT_MANAGER_ROLE,
   AUTHORISATION_MANAGER_ROLE,
   OPERATIVE_ROLE,
-} from '@/auth/user'
+} from '@/root/src/utils/auth/user'
 
 describe('PropertyPage.permittedRoles', () => {
   ;[
