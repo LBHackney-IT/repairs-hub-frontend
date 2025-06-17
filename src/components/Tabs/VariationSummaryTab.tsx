@@ -10,6 +10,7 @@ import {
   Variation,
   VariationResponseObject,
 } from '../../types/variations/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 interface Props {
   workOrderReference: string
@@ -50,7 +51,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
         return
       }
 
-      setError(formatErrorMessage(e))
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -69,7 +70,7 @@ const VariationSummaryTab = ({ workOrderReference }: Props) => {
     } catch (e) {
       setOriginalSors(null)
       console.error('An error has occured:', e.response)
-      setError(formatErrorMessage(e))
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

@@ -9,6 +9,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import { canSearchForProperty } from '@/utils/userPermissions'
 import { PropertyListItem } from '@/models/propertyListItem'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 interface SearchProps {
   query?: {
@@ -101,7 +102,7 @@ const Search: React.FC<SearchProps> = ({ query }) => {
       }
     } catch (e) {
       setProperties(null)
-      setError(formatErrorMessage(e))
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

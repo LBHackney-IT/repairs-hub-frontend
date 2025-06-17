@@ -4,6 +4,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { WorkOrderHierarchy } from './types'
 import RelatedWorkOrderViewList from './RelatedWorkOrderViewList'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface Props {
   tabName: string
@@ -31,7 +32,7 @@ const RelatedWorkOrdersView = ({ workOrderReference, tabName }: Props) => {
     } catch (e) {
       setHierarchy(null)
       console.error('An error has occured:', e.response)
-      setError(formatErrorMessage(e))
+      setError(formatRequestErrorMessage(e))
     }
 
     setIsLoading(false)
