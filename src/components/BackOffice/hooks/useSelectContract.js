@@ -29,7 +29,7 @@ const useSelectContract = () => {
 
   const getContracts = async () => {
     const contractsResponse = await fetchContracts(
-      null,
+      true,
       selectedContractor.contractorReference
     )
 
