@@ -14,6 +14,8 @@ import {
 import UserContext from '@/components/UserContext'
 import Meta from '@/components/Meta'
 
+// Comment to trigger pipeline
+
 const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
 const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
   process.env.NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME
