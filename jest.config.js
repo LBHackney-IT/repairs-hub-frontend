@@ -27,6 +27,7 @@ module.exports = {
     '^@/root/(.*)$': '<rootDir>/$1',
     '^@/styles/(.*)$': '<rootDir>/src/styles/$1',
     '^@/utils/(.*)$': '<rootDir>/src/utils/$1',
+    '^@/auth/(.*)$': '<rootDir>/src/auth/$1',
   },
   reporters: [
     ['jest-clean-console-reporter', { rules: reporterRules }],
