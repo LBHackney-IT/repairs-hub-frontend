@@ -19,6 +19,7 @@ import router from 'next/router'
 import { createWOLinks, LinksWithDRSBooking } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 import AddMultipleSORs from './AddMultipleSORs'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const RaiseWorkOrderFormView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -136,11 +137,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
     } catch (e) {
       console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -179,11 +176,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }) => {
       setPriorities(null)
       setTrades(null)
       console.error('An error has occurred:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

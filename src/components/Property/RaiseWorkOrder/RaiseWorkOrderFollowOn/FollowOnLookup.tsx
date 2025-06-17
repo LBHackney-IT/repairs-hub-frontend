@@ -4,6 +4,7 @@ import { DataList } from '../../../Form'
 import SpinnerWithLabel from '../../../SpinnerWithLabel'
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { WorkOrder } from '@/root/src/models/workOrder'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface Props {
   visible: boolean
@@ -46,11 +47,7 @@ const FollowOnLookup = (props: Props) => {
     } catch (e) {
       setWorkOrders(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setIsLoading(false)

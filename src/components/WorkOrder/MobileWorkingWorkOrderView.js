@@ -25,6 +25,7 @@ import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -104,11 +105,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }
@@ -142,11 +139,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 
@@ -271,11 +264,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       router.push('/')
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
     }
   }
