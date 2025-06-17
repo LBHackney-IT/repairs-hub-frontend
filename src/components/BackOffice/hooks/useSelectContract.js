@@ -40,6 +40,7 @@ const useSelectContract = () => {
     setLoadingContracts(true)
 
     fetchActiveContractsByContractorReference(
+      true,
       selectedContractor.contractorReference
     )
       .then((res) => {
