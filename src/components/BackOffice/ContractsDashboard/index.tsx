@@ -6,7 +6,7 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import { ContractsListItems } from './ContractsListItems'
-import { getContracts } from '@/root/src/utils/requests/contracts'
+import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 
 import Contract from '@/root/src/models/contract'
 
@@ -24,10 +24,8 @@ const ContractsDashboard = () => {
     if (pageNumber !== pageFromQuery) {
       setPageNumber(pageFromQuery)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query.page])
 
-  // When user clicks next/prev, update the URL (which will update pageNumber via the effect above)
   const handleSetPageNumber = (newPage: number) => {
     router.replace(
       {
@@ -43,8 +41,8 @@ const ContractsDashboard = () => {
   const endIndex = startIndex + pageSize
   const totalPages = Math.ceil(contracts?.length / 10)
 
-  const fetchContracts = async () => {
-    const contractsReponse = await getContracts()
+  const getContracts = async () => {
+    const contractsReponse = await fetchContracts(null, null)
 
     if (!contractsReponse.success) {
       setError(contractsReponse.error?.message)
@@ -56,7 +54,7 @@ const ContractsDashboard = () => {
   }
 
   useEffect(() => {
-    fetchContracts()
+    getContracts()
   }, [])
 
   const filteredContracts = () => {

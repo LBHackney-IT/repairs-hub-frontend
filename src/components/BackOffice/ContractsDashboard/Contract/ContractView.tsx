@@ -5,7 +5,7 @@ import Spinner from '../../../Spinner'
 import ErrorMessage from '../../../Errors/ErrorMessage'
 import WarningInfoBox from '../../../Template/WarningInfoBox'
 import Contract from '@/root/src/models/contract'
-import { getContract } from '@/root/src/utils/requests/contracts'
+import { fetchContract } from '@/root/src/components/BackOffice/requests'
 import ContractInformationView from './ContractInformationView'
 
 interface ContractViewProps {
@@ -17,8 +17,8 @@ const ContractView = ({ contractReference }: ContractViewProps) => {
   const [error, setError] = useState<string | null>()
   const [isLoading, setLoading] = useState(true)
 
-  const fetchContract = async () => {
-    const contractResponse = await getContract(contractReference)
+  const getContract = async () => {
+    const contractResponse = await fetchContract(contractReference)
 
     if (!contractResponse.success) {
       setError(contractResponse.error?.message)
@@ -30,7 +30,7 @@ const ContractView = ({ contractReference }: ContractViewProps) => {
   }
 
   useEffect(() => {
-    fetchContract()
+    getContract()
   }, [])
 
   return (
