@@ -36,9 +36,12 @@ const useSelectContract = () => {
 
     setLoadingContracts(true)
 
-    fetchContracts(selectedContractor.contractorReference)
+    fetchContracts(true, selectedContractor.contractorReference)
       .then((res) => {
-        setContracts(res)
+        const contractReferences = res.map((contract) => {
+          return contract.contractReference
+        })
+        setContracts(contractReferences)
       })
       .finally(() => {
         setLoadingContracts(false)
