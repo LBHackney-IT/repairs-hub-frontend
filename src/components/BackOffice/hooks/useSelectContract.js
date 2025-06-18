@@ -27,6 +27,18 @@ const useSelectContract = () => {
       })
   }, [])
 
+  const getContracts = async () => {
+    const contractsResponse = await fetchContracts(
+      true,
+      selectedContractor.contractorReference
+    )
+
+    const contractReferences = contractsResponse.response.map((contract) => {
+      return contract.contractReference
+    })
+    setContracts(contractReferences)
+  }
+
   useEffect(() => {
     if (selectedContractor === null) {
       setContracts(null)
@@ -34,18 +46,11 @@ const useSelectContract = () => {
       return
     }
 
+    getContracts()
+
     setLoadingContracts(true)
 
-    fetchContracts(true, selectedContractor.contractorReference)
-      .then((res) => {
-        const contractReferences = res.map((contract) => {
-          return contract.contractReference
-        })
-        setContracts(contractReferences)
-      })
-      .finally(() => {
-        setLoadingContracts(false)
-      })
+    setLoadingContracts(false)
   }, [selectedContractor])
 
   const handleSelectContractor = (e) => {
