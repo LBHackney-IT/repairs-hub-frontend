@@ -688,12 +688,7 @@ describe('Show work order page', () => {
     it('doesnt throw error', () => {
       cy.visit('/work-orders/10000012')
 
-      cy.wait([
-        '@workOrderRequest',
-        '@tasksRequest',
-        '@locationAlerts',
-        '@personAlerts',
-      ])
+      cy.wait(['@workOrderRequest', '@tasksRequest', '@locationAlerts'])
 
       cy.contains('Work order: 10000012')
       cy.contains('This is an urgent repair description')
