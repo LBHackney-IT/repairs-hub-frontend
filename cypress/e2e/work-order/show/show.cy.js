@@ -83,10 +83,6 @@ describe('Show work order page', () => {
         },
         { body: [] }
       ).as('workOrdersRequest')
-      cy.intercept(
-        { method: 'GET', path: '/api/simple-feature-toggle' },
-        { body: {} }
-      ).as('featureToggle')
     })
 
     it('Shows various details about the work order, property and assigned contractor', () => {
@@ -613,10 +609,7 @@ describe('Show work order page', () => {
           },
           { body: [] }
         ).as('workOrdersRequest')
-        cy.intercept(
-          { method: 'GET', path: '/api/simple-feature-toggle' },
-          { body: {} }
-        ).as('featureToggle')
+
       })
 
       it('contains a link to close the order', () => {
@@ -663,7 +656,7 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000088' },
+      { method: 'GET', path: '/api/workOrders/10000088/new' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest-10000088')
 
