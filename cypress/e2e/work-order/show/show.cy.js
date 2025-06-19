@@ -659,39 +659,35 @@ describe('Show work order page', () => {
     })
   })
 
-  describe('When tenure is null', () => {
-    beforeEach(() => {
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
-      ).as('workOrderRequest')
+  describe('When tenure is null doesnt throw error', () => {
+    cy.loginWithContractorRole()
 
-      cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
-        { body: [] }
-      ).as('tasksRequest')
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'workOrders/workOrder.json' }
+    ).as('workOrderRequest')
 
-      cy.loginWithContractorRole()
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { body: [] }
+    ).as('tasksRequest')
 
-      cy.fixture('properties/property.json')
-        .then((property) => {
-          property.tenure = null
+    cy.fixture('properties/property.json')
+      .then((property) => {
+        property.tenure = null
 
-          cy.intercept(
-            { method: 'GET', path: '/api/properties/00012345' },
-            { body: property }
-          )
-        })
-        .as('property')
-    })
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { body: property }
+        )
+      })
+      .as('property')
 
-    it('doesnt throw error', () => {
-      cy.visit('/work-orders/10000012')
+    cy.visit('/work-orders/10000012')
 
-      cy.wait(['@workOrderRequest', '@tasksRequest'])
+    cy.wait(['@workOrderRequest'])
 
-      cy.contains('Work order: 10000012')
-      cy.contains('This is an urgent repair description')
-    })
+    cy.contains('Work order: 10000012')
+    cy.contains('This is an urgent repair description')
   })
 })
