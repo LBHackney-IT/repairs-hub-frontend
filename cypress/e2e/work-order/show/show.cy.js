@@ -664,12 +664,12 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000088' },
+      { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
-    ).as('workOrderRequest-10000088')
+    ).as('workOrderRequest-10000012')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000088/tasks' },
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
       { body: [] }
     ).as('tasksRequest')
 
@@ -684,11 +684,11 @@ describe('Show work order page', () => {
       })
       .as('property')
 
-    cy.visit('/work-orders/10000088')
+    cy.visit('/work-orders/10000012')
 
-    cy.wait(['@workOrderRequest-10000088'])
+    cy.wait(['@workOrderRequest-10000012'])
 
-    cy.contains('Work order: 10000088')
+    cy.contains('Work order: 10000012')
     cy.contains('This is an urgent repair description')
   })
 })
