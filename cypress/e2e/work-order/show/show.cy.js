@@ -665,7 +665,7 @@ describe('Show work order page', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000088' },
       { fixture: 'workOrders/workOrder.json' }
-    ).as('workOrderRequest')
+    ).as('workOrderRequest-10000088')
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000088/tasks' },
@@ -685,7 +685,7 @@ describe('Show work order page', () => {
 
     cy.visit('/work-orders/10000088')
 
-    cy.wait(['@workOrderRequest'])
+    cy.wait(['@workOrderRequest-10000088'])
 
     cy.contains('Work order: 10000088')
     cy.contains('This is an urgent repair description')
