@@ -5,6 +5,15 @@ import 'cypress-audit/commands'
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(
+      { method: 'GET', path: '/api/simple-feature-toggle' },
+      {
+        body: {
+          enableNewAppointmentEndpoint: false,
+        },
+      }
+    ).as('featureToggle')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
@@ -655,7 +664,7 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000088/new' },
+      { method: 'GET', path: '/api/workOrders/10000088' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest-10000088')
 
