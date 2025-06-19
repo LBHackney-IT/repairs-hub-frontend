@@ -609,7 +609,6 @@ describe('Show work order page', () => {
           },
           { body: [] }
         ).as('workOrdersRequest')
-
       })
 
       it('contains a link to close the order', () => {
