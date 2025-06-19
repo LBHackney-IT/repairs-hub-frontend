@@ -658,4 +658,45 @@ describe('Show work order page', () => {
       })
     })
   })
+
+  describe('When tenure is null', () => {
+    beforeEach(() => {
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012' },
+        { fixture: 'workOrders/workOrder.json' }
+      ).as('workOrderRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+        { body: [] }
+      ).as('tasksRequest')
+
+      cy.loginWithContractorRole()
+
+      cy.fixture('properties/property.json')
+        .then((property) => {
+          property.tenure = null
+
+          cy.intercept(
+            { method: 'GET', path: '/api/properties/00012345' },
+            { body: property }
+          )
+        })
+        .as('property')
+    })
+
+    it('doesnt throw error', () => {
+      cy.visit('/work-orders/10000012')
+
+      cy.wait([
+        '@workOrderRequest',
+        '@tasksRequest',
+        '@locationAlerts',
+        '@personAlerts',
+      ])
+
+      cy.contains('Work order: 10000012')
+      cy.contains('This is an urgent repair description')
+    })
+  })
 })
