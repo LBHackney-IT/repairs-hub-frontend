@@ -1,8 +1,11 @@
+import { DeepMap, FieldError, FieldValues } from 'react-hook-form'
 import Radios from '../../Form/Radios'
 
 interface Props {
   register: any
-  errors: { [key: string]: { message: string } }
+  errors:
+    | DeepMap<FieldValues, FieldError>
+    | { [key: string]: { message: string } }
   followOnData?: { supervisorCalled: boolean }
   hasWhiteBackground?: boolean
 }

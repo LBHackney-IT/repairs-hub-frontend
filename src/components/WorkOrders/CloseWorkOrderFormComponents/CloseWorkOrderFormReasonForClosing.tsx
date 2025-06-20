@@ -2,10 +2,11 @@ import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
 import FurtherWorkRadio from './FurtherWorksRadio'
+import { DeepMap, DefaultValues, FieldError } from 'react-hook-form/dist/types'
 
 interface Props {
   register: any
-  errors: { [key: string]: { message: string } }
+  errors: DeepMap<DefaultValues<Record<string, unknown>>, FieldError>
   watch: any
   reason?: string
   followOnStatus?: string
