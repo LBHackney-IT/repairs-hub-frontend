@@ -55,7 +55,7 @@ const ContractListItem = ({ contract, index }: ContractListItemProps) => {
               'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
             )}
           >
-            {`Sum of SORs ${contract.sorCost}`}
+            {`Sum of SORs £${contract.sorCost}`}
           </h4>
         </div>
         <div className="govuk-!-margin-0">
