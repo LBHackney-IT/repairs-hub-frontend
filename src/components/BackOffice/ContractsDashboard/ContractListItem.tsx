@@ -19,20 +19,44 @@ const ContractListItem = ({ contract, index }: ContractListItemProps) => {
       >
         <div className="appointment-details">
           <div>
-            <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-display-inline">
+            <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2">
               Contract Reference: {`${contract.contractReference}`}
             </h3>
           </div>
-          <h4 className="lbh-heading-h4 govuk-!-margin-0 govuk-!-display-inline">
-            {`Contractor Reference: ${contract.contractorReference}`}
+          <h4 className="lbh-heading-h4 govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize">
+            {`Contractor: ${contract.contractorName}`}
           </h4>
-          <p
+          <h4 className="lbh-heading-h4 govuk-!-margin-0 govuk-!-margin-bottom-2">
+            {`Contractor code: ${contract.contractorReference}`}
+          </h4>
+          <h4
             className={cx(
               'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
             )}
           >
-            {`Expiration Date: ${dateToStr(contract.terminationDate)}`}
-          </p>
+            {`Contract start date: ${dateToStr(contract.effectiveDate)}`}
+          </h4>
+          <h4
+            className={cx(
+              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
+            )}
+          >
+            {`Contract expiry date: ${dateToStr(contract.terminationDate)}`}
+          </h4>
+          <h4
+            className={cx(
+              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
+            )}
+          >
+            {`Count of SORs: ${contract.sorCount}`}
+          </h4>
+          <h4
+            className={cx(
+              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
+            )}
+          >
+            {`Sum of SORs ${contract.sorCost}`}
+          </h4>
         </div>
         <div className="govuk-!-margin-0">
           <span className="arrow right"></span>
