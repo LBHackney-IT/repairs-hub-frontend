@@ -2,12 +2,13 @@ import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
 import FurtherWorkRadio from './FurtherWorksRadio'
-import { DeepMap, DefaultValues, FieldError } from 'react-hook-form/dist/types'
+import { FieldErrors } from 'react-hook-form'
+import { DefaultValues } from '../MobileWorkingCloseWorkOrderForm'
 
 interface Props {
-  register: any
-  errors: DeepMap<DefaultValues<Record<string, unknown>>, FieldError>
-  watch: any
+  register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
+  errors: FieldErrors<DefaultValues>
+  watch: ReturnType<typeof import('react-hook-form')['useForm']>['watch']
   reason?: string
   followOnStatus?: string
   canRaiseAFollowOn: boolean

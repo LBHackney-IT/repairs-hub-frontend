@@ -22,7 +22,7 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-interface DefaultValues {
+export interface DefaultValues {
   workOrderFileUpload?: FileList | null
   followOnFileUpload?: FileList | null
   workOrderFiles?: File[]
@@ -40,6 +40,8 @@ interface DefaultValues {
   isEmergency?: boolean
   isMultipleOperatives?: boolean
   otherTrade?: string
+  reason?: string
+  followOnStatus?: string
 }
 
 interface MobileWorkingCloseWorkOrderFormProps {
