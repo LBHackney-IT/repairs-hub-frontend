@@ -5,6 +5,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WorkOrdersFilter from './WorkOrdersFilter'
 import { SelectedFilterOptions } from '@/utils/helpers/filter'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const WorkOrdersFilterView = ({
   onFilterSubmit,
@@ -44,11 +45,7 @@ const WorkOrdersFilterView = ({
     } catch (e) {
       setFilters(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

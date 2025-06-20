@@ -10,6 +10,7 @@ import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -22,7 +23,19 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
+interface MobileWorkingCloseWorkOrderFormProps {
+  onSubmit: (
+    data: Record<string, any>,
+    workOrderFiles: File[],
+    followOnFiles: File[]
+  ) => void
+  isLoading: boolean
+}
+
+const MobileWorkingCloseWorkOrderForm = ({
+  onSubmit,
+  isLoading,
+}: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
     register,
@@ -60,8 +73,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
 
   const [workOrderFiles, setWorkOrderFiles] = useState([])
   const [followOnFiles, setFollowOnFiles] = useState([])
-
-  // const [workOrderFiles, setFiles] = useState([])
 
   return (
     <div className="mobile-working-close-work-order-form">
@@ -160,7 +171,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
               clearErrors={clearErrors}
               watch={watch}
             />
-
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}

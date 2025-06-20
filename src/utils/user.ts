@@ -45,58 +45,57 @@ export const buildUser = (
   const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)
 
   const rolesFromGroups = (groupNames: string[]) => {
-    const roles: string[] = groupNames.map((groupName) => {
+    const roles = new Set<string>()
+
+    groupNames.forEach((groupName) => {
       if (isAgentGroupName(groupName)) {
-        return AGENT_ROLE
+        roles.add(AGENT_ROLE)
       }
 
       if (isContractManagerGroupName(groupName)) {
-        return CONTRACT_MANAGER_ROLE
+        roles.add(CONTRACT_MANAGER_ROLE)
       }
 
       if (isAuthorisationManagerGroupName(groupName)) {
-        return AUTHORISATION_MANAGER_ROLE
+        roles.add(AUTHORISATION_MANAGER_ROLE)
       }
 
       if (isDloContractorGroupName(groupName)) {
-        return DLO_CONTRACTOR_ROLE
+        roles.add(DLO_CONTRACTOR_ROLE)
       }
 
       if (isContractorGroupName(groupName)) {
-        return CONTRACTOR_ROLE
+        roles.add(CONTRACTOR_ROLE)
       }
 
       if (isOperativeGroupName(groupName)) {
-        return OPERATIVE_ROLE
+        roles.add(OPERATIVE_ROLE)
       }
 
       if (isBudgetCodeOfficerGroupName(groupName)) {
-        return BUDGET_CODE_OFFICER_ROLE
+        roles.add(BUDGET_CODE_OFFICER_ROLE)
       }
 
       if (isDataAdminGroupName(groupName)) {
-        return DATA_ADMIN_ROLE
+        roles.add(DATA_ADMIN_ROLE)
       }
 
       if (isFollowOnAdminGroupName(groupName)) {
-        return FOLLOWON_ADMIN_ROLE
+        roles.add(FOLLOWON_ADMIN_ROLE)
       }
-
-      console.warn(`User group name not recognised: ${groupName}`)
     })
 
-    if (roles.includes(DLO_CONTRACTOR_ROLE)) {
-      roles.push(CONTRACTOR_ROLE)
-    }
-
-    return roles
+    return [...roles]
   }
 
   const isAgentGroupName = (groupName: string) =>
     !!agentGroupRegex.test(groupName)
 
-  const isContractorGroupName = (groupName: string) =>
-    !!contractorGroupRegex.test(groupName)
+  const isContractorGroupName = (groupName: string) => {
+    const result = contractorGroupRegex.test(groupName)
+
+    return !!result
+  }
 
   const isContractManagerGroupName = (groupName: string) =>
     groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME

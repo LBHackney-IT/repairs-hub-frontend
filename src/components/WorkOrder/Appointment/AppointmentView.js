@@ -16,6 +16,7 @@ import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const AppointmentView = ({ workOrderReference, successText }) => {
   const [property, setProperty] = useState({})
@@ -91,11 +92,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     } finally {
       setLoading(false)
@@ -130,11 +127,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
       setScheduleAppointmentSuccess(true)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

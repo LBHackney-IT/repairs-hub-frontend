@@ -10,6 +10,7 @@ import ErrorMessage from '../Errors/ErrorMessage'
 import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const NewTaskForm = ({ workOrderReference }) => {
   const [loading, setLoading] = useState(false)
@@ -64,11 +65,7 @@ const NewTaskForm = ({ workOrderReference }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
 
@@ -104,11 +101,7 @@ const NewTaskForm = ({ workOrderReference }) => {
     } catch (e) {
       console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

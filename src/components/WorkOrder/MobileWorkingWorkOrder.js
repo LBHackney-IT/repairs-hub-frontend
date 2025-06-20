@@ -29,6 +29,7 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
 import WarningInfoBox from '../Template/WarningInfoBox'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
 
@@ -69,11 +70,7 @@ const MobileWorkingWorkOrder = ({
       .catch((e) => {
         console.error(e)
 
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       })
       .finally(() => {
         setLoading(false)

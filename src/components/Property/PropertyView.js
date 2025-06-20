@@ -7,6 +7,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
 import WarningInfoBox from '../Template/WarningInfoBox'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const PropertyView = ({ propertyReference }) => {
   const [property, setProperty] = useState({})
@@ -34,11 +35,7 @@ const PropertyView = ({ propertyReference }) => {
     } catch (e) {
       setProperty(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

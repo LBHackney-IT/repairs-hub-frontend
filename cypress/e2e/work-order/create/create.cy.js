@@ -125,6 +125,28 @@ describe('Raise repair form', () => {
     cy.clock(now, ['Date'])
   })
 
+  it('Doesnt throw error when tenure is null', () => {
+    cy.loginWithAgentAndBudgetCodeOfficerRole()
+
+    cy.fixture('properties/property.json')
+      .then((property) => {
+        property.tenure = null
+
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { body: property }
+        )
+      })
+      .as('propertyRequest')
+
+    cy.visit('/properties/00012345/raise-repair/new')
+
+    cy.wait(['@propertyRequest', '@sorPrioritiesRequest', '@tradesRequest'])
+
+    cy.contains('New repair')
+    cy.contains('Dwelling: 16 Pitcairn House')
+  })
+
   it('Validates missing form inputs', () => {
     cy.loginWithAgentAndBudgetCodeOfficerRole()
 

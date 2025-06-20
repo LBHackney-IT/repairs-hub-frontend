@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface CurrentUser {
   sub: string
@@ -40,9 +41,7 @@ const PastOrdersCurrentUserWrapper = ({ children }: Props) => {
 
       setCurrentUser(currentUser)
     } catch (e) {
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status} with message: ${e.response?.data?.message}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

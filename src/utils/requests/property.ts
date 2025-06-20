@@ -1,6 +1,7 @@
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { PropertyResponse } from '../../models/propertyResponse'
+import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
 export const getPropertyData = async (
   workOrderPropertyReference: string
@@ -25,9 +26,7 @@ export const getPropertyData = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a tenure id with reference ${workOrderPropertyReference}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -62,9 +61,7 @@ export const getContactDetails = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a contact with reference ${tenureId}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }

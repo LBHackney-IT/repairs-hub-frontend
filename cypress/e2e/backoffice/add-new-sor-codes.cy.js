@@ -20,7 +20,7 @@ function contractsRequest() {
   cy.intercept(
     {
       method: 'GET',
-      path: '/api/backoffice/contracts?contractorReference=FPS',
+      path: '/api/backoffice/contracts?isActive=true&contractorReference=FPS',
     },
     { fixture: 'contractors/contracts.json' }
   ).as('contractsRequest')

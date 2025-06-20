@@ -8,6 +8,7 @@ import ErrorMessage from '../../Errors/ErrorMessage'
 import Spinner from '../../Spinner'
 import TenantContactsTable from './TenantsContactTable/TenantsContactTable'
 import usePageVisibility from './TenantsContactTable/hooks/usePageVisibility'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const warningText = (contacts) => {
   if (contacts.length < 1) {
@@ -39,11 +40,7 @@ const Contacts = (props) => {
       setContacts(contactDetails)
     } catch (e) {
       console.error('An error has occurred:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 

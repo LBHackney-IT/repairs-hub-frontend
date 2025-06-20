@@ -21,6 +21,7 @@ import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -121,11 +122,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       setLoadingStatus(null)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
     }
   }
@@ -164,11 +161,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
     setLoadingStatus(null)
@@ -198,6 +191,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       }
 
       followOnDataRequest = buildFollowOnRequestData(
+        followOnData.isEmergency,
         followOnData.isMultipleOperatives,
         requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
@@ -256,6 +250,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
+        isEmergency: formData.isEmergency === 'true',
         isMultipleOperatives: formData.isMultipleOperatives === 'true',
         requiredFollowOnTrades: requiredFollowOnTrades,
         followOnTypeDescription: formData.followOnTypeDescription,

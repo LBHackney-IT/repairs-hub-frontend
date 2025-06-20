@@ -11,6 +11,7 @@ import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListItems'
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
 import { Button } from '../../Form'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const SIXTY_SECONDS = 60 * 1000
 
@@ -63,13 +64,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       setSortedWorkOrders(null)
 
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(
-          e.response?.data?.message
-        )}: with code: ${e.code}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 
