@@ -1,6 +1,7 @@
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { Fragment } from 'react'
+import { FieldError } from 'react-hook-form'
 
 const defaultOptions = ['Yes', 'No']
 
@@ -20,7 +21,7 @@ interface Props {
         children?: JSX.Element
       }[]
   register?: any
-  error?: { message: string }
+  error?: FieldError | { message: string }
   children?: JSX.Element
   required?: boolean
   isRadiosInline?: boolean

@@ -45,6 +45,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
+  const [closeFormValues, setCloseFormValues] = useState(null)
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -149,16 +150,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     followOnFiles
   ) => {
     setLoadingStatus('Completing workorder')
-
     let followOnRequest = null
-
     if (data.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
-
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
         if (data[name]) requiredFollowOnTrades.push(value)
       })
-
       followOnRequest = buildFollowOnRequestData(
         data.isEmergency === 'true',
         data.isMultipleOperatives === 'true',
@@ -172,9 +169,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         data.otherTrade
       )
     }
-
     let notes = data.notes // notes written by user
-
     if (data.reason == 'No Access') {
       notes = [
         'Work order closed',
@@ -182,7 +177,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         workOrderNoteFragmentForPaymentType(paymentType),
       ].join(' - ')
     }
-
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       notes,
@@ -191,7 +185,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       paymentType,
       followOnRequest
     )
-
     try {
       if (workOrderFiles.length > 0 || followOnFiles.length > 0) {
         // initiate both uploads
@@ -214,6 +207,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
+            setCloseFormValues(data)
             return
           }
         }
@@ -230,6 +224,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
+            setCloseFormValues(data)
             return
           }
         }
@@ -266,6 +261,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       console.error(e)
       setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
+      setCloseFormValues(data)
     }
   }
 
@@ -299,6 +295,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         <MobileWorkingCloseWorkOrderForm
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
+          defaultValues={closeFormValues || {}}
         />
       )}
 
