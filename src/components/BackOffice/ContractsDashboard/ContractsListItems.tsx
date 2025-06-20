@@ -22,13 +22,15 @@ export const ContractsListItems = ({
 
   return (
     <div>
-      {filteredContracts.map((contract, index) => (
-        <ContractListItem
-          index={index}
-          contract={contract}
-          key={contract.contractReference}
-        />
-      ))}
+      <ol className="lbh-list mobile-working-work-order-list">
+        {filteredContracts.map((contract, index) => (
+          <ContractListItem
+            index={index}
+            contract={contract}
+            key={contract.contractReference}
+          />
+        ))}
+      </ol>
       <div className="page-navigation govuk-!-padding-bottom-5">
         {pageNumber > 1 && (
           <Button
