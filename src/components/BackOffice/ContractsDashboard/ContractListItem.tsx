@@ -14,49 +14,44 @@ const ContractListItem = ({ contract, index }: ContractListItemProps) => {
     <Link href={`/backoffice/contracts/${contract.contractReference}`}>
       <li
         data-id={index}
-        style={{ cursor: 'pointer' }}
+        style={{
+          cursor: 'pointer',
+          border: '5px solid #00664F',
+          borderRadius: '20px',
+          width: '85%',
+        }}
         className={cx('govuk-!-margin-top-3', 'operative-work-order-list-item')}
       >
-        <div className="appointment-details">
-          <div>
-            <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-0 govuk-!-margin-bottom-2">
-              Contract Reference: {`${contract.contractReference}`}
-            </h3>
-          </div>
-          <h4 className="lbh-heading-h4 govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize">
-            {`Contractor: ${contract.contractorName}`}
-          </h4>
-          <h4 className="lbh-heading-h4 govuk-!-margin-0 govuk-!-margin-bottom-2">
-            {`Contractor code: ${contract.contractorReference}`}
-          </h4>
-          <h4
-            className={cx(
-              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
-            )}
-          >
-            {`Contract start date: ${dateToStr(contract.effectiveDate)}`}
-          </h4>
-          <h4
-            className={cx(
-              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
-            )}
-          >
-            {`Contract expiry date: ${dateToStr(contract.terminationDate)}`}
-          </h4>
-          <h4
-            className={cx(
-              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
-            )}
-          >
-            {`Count of SORs: ${contract.sorCount}`}
-          </h4>
-          <h4
-            className={cx(
-              'lbh-body govuk-!-margin-0 govuk-!-margin-bottom-2 capitalize'
-            )}
-          >
-            {`Sum of SORs £${contract.sorCost}`}
-          </h4>
+        <div className="contract-details">
+          <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+            Reference:{' '}
+            <span style={{ fontWeight: 400 }}>
+              {contract.contractReference}
+            </span>
+          </h3>
+          <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
+            <strong>Contractor:</strong>{' '}
+            <span className="capitalize"> {contract.contractorName}</span>
+          </p>
+          <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
+            <strong>Contractor Code:</strong> {contract.contractorReference}
+          </p>
+          <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
+            <strong>Active:</strong> {dateToStr(contract.effectiveDate)} -{' '}
+            {dateToStr(contract.terminationDate)}
+          </p>
+          <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
+            <strong>Count of SORs:</strong> {contract.sorCount}
+          </p>
+          <p className="govuk-!-margin-0">
+            <strong>Sum of SORs:</strong>{' '}
+            {Intl.NumberFormat('en-UK', {
+              style: 'currency',
+              currency: 'GBP',
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            }).format(contract.sorCost)}
+          </p>
         </div>
         <div className="govuk-!-margin-0">
           <span className="arrow right"></span>
