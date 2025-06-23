@@ -13,25 +13,23 @@ export const fetchContracts = async (
   isActive?: boolean,
   contractorReference?: string
 ): Promise<Contract[] | null> => {
- 
-    const contracts = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/backoffice/contracts?isActive=${
-        isActive ? isActive : ''
-      }&contractorReference=${contractorReference ? contractorReference : ''}`,
-    })
+  const contracts = await frontEndApiRequest({
+    method: 'get',
+    path: `/api/backoffice/contracts?isActive=${
+      isActive ? isActive : ''
+    }&contractorReference=${contractorReference ? contractorReference : ''}`,
+  })
 
-    return contracts
+  return contracts
 }
 
 export const fetchContract = async (
   contractReference: string
 ): Promise<Contract | null> => {
-  
-    const contract = await frontEndApiRequest({
-      method: 'get',
-      path: `/api/backoffice/contract/${contractReference}`,
-    })
+  const contract = await frontEndApiRequest({
+    method: 'get',
+    path: `/api/backoffice/contract/${contractReference}`,
+  })
 
-   return contract
+  return contract
 }

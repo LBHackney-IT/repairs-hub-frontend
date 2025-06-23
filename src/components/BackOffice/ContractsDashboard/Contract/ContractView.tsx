@@ -13,8 +13,9 @@ interface ContractViewProps {
 }
 
 const ContractView = ({ contractReference }: ContractViewProps) => {
-  const { data, isLoading, error } = useQuery(['contract', contractReference], () =>
-    fetchContract(contractReference)
+  const { data, isLoading, error } = useQuery(
+    ['contract', contractReference],
+    () => fetchContract(contractReference)
   )
 
   const contract = data as Contract | null
@@ -24,7 +25,9 @@ const ContractView = ({ contractReference }: ContractViewProps) => {
       {isLoading ? (
         <Spinner />
       ) : error ? (
-        <ErrorMessage label={error instanceof Error ? error.message : String(error)} />
+        <ErrorMessage
+          label={error instanceof Error ? error.message : String(error)}
+        />
       ) : contract ? (
         <>
           <p>{`Contractor reference: ${contract.contractorReference}`}</p>
