@@ -15,8 +15,9 @@ const ContractsDashboard = () => {
   const router = useRouter()
   const pageFromQuery = parseInt(router.query.page as string) || 1
 
-  const { data, isLoading, error } = useQuery('contracts', () =>
-    fetchContracts(null, null)
+  const { data, isLoading, error } = useQuery(
+    ['contracts', { isActive: null, contractorReference: null }],
+    () => fetchContracts(null, null)
   )
 
   const contracts = data as Contract[] | null
@@ -24,8 +25,8 @@ const ContractsDashboard = () => {
   const [pageNumber, setPageNumber] = useState(pageFromQuery)
   const pageSize = 10
   const startIndex = (pageNumber - 1) * pageSize
+  const totalPages = Math.ceil((contracts?.length ?? 0) / pageSize)
   const endIndex = startIndex + pageSize
-  const totalPages = Math.ceil(contracts?.length / 10)
 
   useEffect(() => {
     if (pageNumber !== pageFromQuery) {
@@ -53,7 +54,15 @@ const ContractsDashboard = () => {
       {isLoading ? (
         <Spinner />
       ) : error ? (
-        <ErrorMessage label={error as string | null} />
+        <ErrorMessage
+          label={
+            error instanceof Error
+              ? error.message
+              : typeof error === 'string'
+              ? error
+              : 'An unexpected error occurred'
+          }
+        />
       ) : contracts?.length ? (
         <ol className="lbh-list">
           <ContractsListItems
