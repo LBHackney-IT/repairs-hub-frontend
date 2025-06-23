@@ -1,3 +1,9 @@
+jest.mock('react-query', () => ({
+  QueryClient: jest.fn(),
+  QueryClientProvider: ({ children }) => children,
+  useQuery: jest.fn(),
+}))
+
 import MyApp from '../src/pages/_app'
 import { AGENT_ROLE, CONTRACTOR_ROLE } from '../src/utils/user'
 
