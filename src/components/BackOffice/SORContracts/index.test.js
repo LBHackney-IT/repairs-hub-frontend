@@ -1,7 +1,11 @@
 jest.mock('react-query', () => ({
   QueryClient: jest.fn(),
   QueryClientProvider: ({ children }) => children,
-  useQuery: jest.fn(),
+  useQuery: () => ({
+    data: [],
+    isLoading: false,
+    error: null,
+  }),
 }))
 import { render } from '@testing-library/react'
 import SORContracts from './index'
