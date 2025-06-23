@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 import { fetchContractors, fetchContracts } from '../requests'
 
@@ -27,31 +28,28 @@ const useSelectContract = () => {
       })
   }, [])
 
-  const getContracts = async () => {
-    const contractsResponse = await fetchContracts(
-      true,
-      selectedContractor.contractorReference
-    )
-
-    const contractReferences = contractsResponse.response.map((contract) => {
-      return contract.contractReference
-    })
-    setContracts(contractReferences)
-  }
+  const { data: contractsData, isLoading: isLoadingContracts } = useQuery(
+    ['contracts', selectedContractor?.contractorReference],
+    () =>
+      selectedContractor
+        ? fetchContracts(true, selectedContractor.contractorReference)
+        : Promise.resolve([]),
+    {
+      enabled: !!selectedContractor, // Only run when a contractor is selected
+    }
+  )
 
   useEffect(() => {
-    if (selectedContractor === null) {
+    setLoadingContracts(isLoadingContracts)
+    if (contractsData) {
+      const contractReferences = contractsData.map(
+        (contract) => contract.contractReference
+      )
+      setContracts(contractReferences)
+    } else {
       setContracts(null)
-      setSelectedContract(null)
-      return
     }
-
-    getContracts()
-
-    setLoadingContracts(true)
-
-    setLoadingContracts(false)
-  }, [selectedContractor])
+  }, [contractsData, isLoadingContracts])
 
   const handleSelectContractor = (e) => {
     const contractorName = e.target.value
