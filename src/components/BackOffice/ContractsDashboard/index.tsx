@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useQuery } from 'react-query'
 
 import Layout from '../Layout'
 import Spinner from '../../Spinner'
@@ -14,11 +15,17 @@ const ContractsDashboard = () => {
   const router = useRouter()
   const pageFromQuery = parseInt(router.query.page as string) || 1
 
-  const [isLoading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>()
-  const [contracts, setContracts] = useState<null | Contract[]>(null)
+  const { data, isLoading, error } = useQuery('contracts', () =>
+    fetchContracts(null, null)
+  )
+
+  const contracts = data as Contract[] | null
+
   const [pageNumber, setPageNumber] = useState(pageFromQuery)
   const pageSize = 10
+  const startIndex = (pageNumber - 1) * pageSize
+  const endIndex = startIndex + pageSize
+  const totalPages = Math.ceil(contracts?.length / 10)
 
   useEffect(() => {
     if (pageNumber !== pageFromQuery) {
@@ -37,26 +44,6 @@ const ContractsDashboard = () => {
     )
   }
 
-  const startIndex = (pageNumber - 1) * pageSize
-  const endIndex = startIndex + pageSize
-  const totalPages = Math.ceil(contracts?.length / 10)
-
-  const getContracts = async () => {
-    const contractsReponse = await fetchContracts(null, null)
-
-    if (!contractsReponse.success) {
-      setError(contractsReponse.error?.message)
-      setLoading(false)
-      return
-    }
-    setContracts(contractsReponse.response)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getContracts()
-  }, [])
-
   const filteredContracts = () => {
     return contracts?.slice().reverse().slice(startIndex, endIndex)
   }
@@ -66,7 +53,7 @@ const ContractsDashboard = () => {
       {isLoading ? (
         <Spinner />
       ) : error ? (
-        <ErrorMessage label={error} />
+        <ErrorMessage label={error as string | null} />
       ) : contracts?.length ? (
         <ol className="lbh-list">
           <ContractsListItems
