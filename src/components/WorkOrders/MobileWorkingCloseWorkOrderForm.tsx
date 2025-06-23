@@ -290,9 +290,4 @@ const MobileWorkingCloseWorkOrderForm = ({
   )
 }
 
-MobileWorkingCloseWorkOrderForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-}
-
 export default MobileWorkingCloseWorkOrderForm
