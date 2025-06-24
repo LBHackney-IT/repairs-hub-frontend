@@ -7,8 +7,6 @@ const useSelectContract = () => {
   const [contractors, setContractors] = useState(null)
   const [selectedContractor, setSelectedContractor] = useState(null)
 
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
   const [selectedContract, setSelectedContract] = useState(null)
 
   const [loadingContractors, setLoadingContractors] = useState(false)
@@ -39,17 +37,9 @@ const useSelectContract = () => {
     }
   )
 
-  useEffect(() => {
-    setLoadingContracts(isLoadingContracts)
-    if (contractsData) {
-      const contractReferences = contractsData.map(
-        (contract) => contract.contractReference
-      )
-      setContracts(contractReferences)
-    } else {
-      setContracts(null)
-    }
-  }, [contractsData, isLoadingContracts])
+  const contractReferences = contractsData
+    ? contractsData.map((contract) => contract.contractReference)
+    : null
 
   const handleSelectContractor = (e) => {
     const contractorName = e.target.value
@@ -59,6 +49,12 @@ const useSelectContract = () => {
 
     setSelectedContractor(selectedContractor || null)
   }
+
+  useEffect(() => {
+    if (selectedContractor === null) {
+      setSelectedContract(null)
+    }
+  }, [selectedContractor])
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
@@ -73,9 +69,9 @@ const useSelectContract = () => {
     contractors,
     handleSelectContractor,
     selectedContractor,
-    contracts,
+    contracts: contractReferences,
     selectedContract,
-    loadingContracts,
+    loadingContracts: isLoadingContracts,
     loadingContractors,
     handleSelectContract,
     handleFormReset,
