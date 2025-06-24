@@ -17,19 +17,14 @@ const ContractListItems = ({ contracts }: ContractListItemsProps) => {
     today.getDate()
   )
 
-  const filterContracts = () => {
-    return contracts?.filter((contract) => {
-      return (
-        new Date(contract.terminationDate) > today &&
-        new Date(contract.terminationDate) < twoMonthsFromNow
-      )
-    })
-  }
-  useEffect(() => {
-    filterContracts()
-  }, [contracts])
+  const filterContracts = contracts?.filter((contract) => {
+    return (
+      new Date(contract.terminationDate) > today &&
+      new Date(contract.terminationDate) < twoMonthsFromNow
+    )
+  })
 
-  if (filterContracts() === null || filterContracts()?.length === 0) {
+  if (filterContracts === null || filterContracts?.length === 0) {
     return (
       <>
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
@@ -50,7 +45,7 @@ const ContractListItems = ({ contracts }: ContractListItemsProps) => {
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Contracts due to expire soon:
         </h3>
-        {filterContracts()?.map((contract, index) => (
+        {filterContracts?.map((contract, index) => (
           <>
             <li
               data-id={index}
