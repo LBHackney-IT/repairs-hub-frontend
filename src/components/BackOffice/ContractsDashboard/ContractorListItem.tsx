@@ -27,31 +27,21 @@ const ContractorListItem = ({
       <div className="contract-details">
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           Reference:{' '}
-          <span style={{ fontWeight: 400 }}>
-            contractorReference.contractReference
-          </span>
         </h3>
         <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
           <strong>Contractor:</strong>{' '}
-          <span className="capitalize">
-            {' '}
-            contractorReference.contractorName
-          </span>
         </p>
         <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Contractor Code:</strong>{' '}
-          contractorReference.contractorReference
+          <strong>Contractor Code:</strong>
         </p>
         <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Active:</strong> contractorReference.effectiveDate
+          <strong>Active:</strong>
         </p>
         <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Count of SORs:</strong> contractorReference.
+          <strong>Count of SORs:</strong>
         </p>
         <p className="govuk-!-margin-0">
-          <strong>Sum of SORs:</strong> Intl.NumberFormat('en-UK', style:
-          'currency', currency: 'GBP', minimumFractionDigits: 2,
-          maximumFractionDigits: 2, ).format(contract.sorCost)
+          <strong>Sum of SORs:</strong>
         </p>
       </div>
       <div className="govuk-!-margin-0">
