@@ -5,11 +5,13 @@ import { dateToStr } from '@/root/src/utils/date'
 import Contract from '@/root/src/models/contract'
 
 interface ContractorListItemProps {
-  contractorReference: Contract['contractorReference']
+  contractorName: string
+  sortedContracts?: Contract[][]
 }
 
 const ContractorListItem = ({
-  contractorReference,
+  contractorName,
+  sortedContracts,
 }: ContractorListItemProps) => {
   return (
     // <Link
@@ -26,23 +28,17 @@ const ContractorListItem = ({
     >
       <div className="contract-details">
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
-          Reference:{' '}
+          {`${contractorName}`}
         </h3>
-        <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Contractor:</strong>{' '}
-        </p>
-        <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Contractor Code:</strong>
-        </p>
-        <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Active:</strong>
-        </p>
-        <p className="govuk-!-margin-0 govuk-!-margin-bottom-1">
-          <strong>Count of SORs:</strong>
-        </p>
-        <p className="govuk-!-margin-0">
-          <strong>Sum of SORs:</strong>
-        </p>
+        {sortedContracts?.map((contract) =>
+          contract.map((c, index) => (
+            <p key={index}>
+              {`${c.contractReference} | ${c.contractorName} | ${dateToStr(
+                c.terminationDate
+              )}`}
+            </p>
+          ))
+        )}
       </div>
       <div className="govuk-!-margin-0">
         <span className="arrow right"></span>
