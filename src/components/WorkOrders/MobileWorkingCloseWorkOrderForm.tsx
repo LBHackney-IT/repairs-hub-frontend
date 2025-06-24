@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
@@ -100,7 +99,15 @@ const MobileWorkingCloseWorkOrderForm = ({
     setValue('isEmergency', defaultValues.isEmergency)
     setValue('isMultipleOperatives', defaultValues.isMultipleOperatives)
     setValue('otherTrade', defaultValues.otherTrade)
+    setValue('reason', defaultValues.reason)
+    setValue('followOnStatus', defaultValues.followOnStatus)
   }, [defaultValues, setValue])
+
+  useEffect(() => {
+    if (watch('reason') !== 'Work Order Completed') {
+      setValue('followOnStatus', null) // clear nested field
+    }
+  }, [watch('reason')])
 
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
@@ -143,17 +150,19 @@ const MobileWorkingCloseWorkOrderForm = ({
             followOnFiles,
             workOrderPhotoDescription: getValues('workOrderPhotoDescription'),
             finalReport: getValues('notes'),
-            // Follow-on fields
-            followOnTypeDescription: getValues('followOnTypeDescription'),
-            stockItemsRequired: getValues('stockItemsRequired'),
-            nonStockItemsRequired: getValues('nonStockItemsRequired'),
-            materialNotes: getValues('materialNotes'),
-            additionalNotes: getValues('additionalNotes'),
-            followOnPhotoDescription: getValues('followOnPhotoDescription'),
-            supervisorCalled: getValues('supervisorCalled'),
-            isEmergency: getValues('isEmergency'),
-            isMultipleOperatives: getValues('isMultipleOperatives'),
-            otherTrade: getValues('otherTrade'),
+            ...(data.followOnStatus === 'furtherWorkRequired' && {
+              // Follow-on fields
+              followOnTypeDescription: getValues('followOnTypeDescription'),
+              stockItemsRequired: getValues('stockItemsRequired'),
+              nonStockItemsRequired: getValues('nonStockItemsRequired'),
+              materialNotes: getValues('materialNotes'),
+              additionalNotes: getValues('additionalNotes'),
+              followOnPhotoDescription: getValues('followOnPhotoDescription'),
+              supervisorCalled: getValues('supervisorCalled'),
+              isEmergency: getValues('isEmergency'),
+              isMultipleOperatives: getValues('isMultipleOperatives'),
+              otherTrade: getValues('otherTrade'),
+            }),
           }
           onSubmit(allValues, workOrderFiles, followOnFiles)
         })}
@@ -170,6 +179,8 @@ const MobileWorkingCloseWorkOrderForm = ({
             errors={errors}
             watch={watch}
             canRaiseAFollowOn={true}
+            defaultValues={defaultValues}
+            setValue={setValue}
           />
 
           <div className="govuk-form-group lbh-form-group">
