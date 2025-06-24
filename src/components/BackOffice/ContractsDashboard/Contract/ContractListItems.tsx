@@ -37,6 +37,7 @@ const ContractListItems = ({ contracts }: ContractListItemsProps) => {
           <WarningInfoBox
             header="No contracts found!"
             text="No contracts expiring in the next two months."
+            name="no-contracts-found"
           />
         </div>
       </>
