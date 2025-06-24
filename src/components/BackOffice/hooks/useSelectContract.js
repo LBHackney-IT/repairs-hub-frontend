@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useQuery } from 'react-query'
 
 import { fetchContractors, fetchContracts } from '../requests'
 
@@ -6,8 +7,6 @@ const useSelectContract = () => {
   const [contractors, setContractors] = useState(null)
   const [selectedContractor, setSelectedContractor] = useState(null)
 
-  const [loadingContracts, setLoadingContracts] = useState(false)
-  const [contracts, setContracts] = useState(null)
   const [selectedContract, setSelectedContract] = useState(null)
 
   const [loadingContractors, setLoadingContractors] = useState(false)
@@ -27,31 +26,20 @@ const useSelectContract = () => {
       })
   }, [])
 
-  const getContracts = async () => {
-    const contractsResponse = await fetchContracts(
-      true,
-      selectedContractor.contractorReference
-    )
-
-    const contractReferences = contractsResponse.response.map((contract) => {
-      return contract.contractReference
-    })
-    setContracts(contractReferences)
-  }
-
-  useEffect(() => {
-    if (selectedContractor === null) {
-      setContracts(null)
-      setSelectedContract(null)
-      return
+  const { data: contractsData, isLoading: isLoadingContracts } = useQuery(
+    ['contracts', selectedContractor?.contractorReference],
+    () =>
+      selectedContractor
+        ? fetchContracts(true, selectedContractor.contractorReference)
+        : Promise.resolve([]),
+    {
+      enabled: !!selectedContractor, // Only run when a contractor is selected
     }
+  )
 
-    getContracts()
-
-    setLoadingContracts(true)
-
-    setLoadingContracts(false)
-  }, [selectedContractor])
+  const contractReferences = contractsData
+    ? contractsData.map((contract) => contract.contractReference)
+    : null
 
   const handleSelectContractor = (e) => {
     const contractorName = e.target.value
@@ -61,6 +49,12 @@ const useSelectContract = () => {
 
     setSelectedContractor(selectedContractor || null)
   }
+
+  useEffect(() => {
+    if (selectedContractor === null) {
+      setSelectedContract(null)
+    }
+  }, [selectedContractor])
 
   const handleSelectContract = (e) => {
     setSelectedContract(e.target.value)
@@ -75,9 +69,9 @@ const useSelectContract = () => {
     contractors,
     handleSelectContractor,
     selectedContractor,
-    contracts,
+    contracts: contractReferences,
     selectedContract,
-    loadingContracts,
+    loadingContracts: isLoadingContracts,
     loadingContractors,
     handleSelectContract,
     handleFormReset,

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 
 import Layout from '../../Layout'
 import Spinner from '../../../Spinner'
@@ -13,32 +13,21 @@ interface ContractViewProps {
 }
 
 const ContractView = ({ contractReference }: ContractViewProps) => {
-  const [contract, setContract] = useState<null | Contract>(null)
-  const [error, setError] = useState<string | null>()
-  const [isLoading, setLoading] = useState(true)
+  const { data, isLoading, error } = useQuery(
+    ['contract', contractReference],
+    () => fetchContract(contractReference)
+  )
 
-  const getContract = async () => {
-    const contractResponse = await fetchContract(contractReference)
-
-    if (!contractResponse.success) {
-      setError(contractResponse.error?.message)
-      setLoading(false)
-      return
-    }
-    setContract(contractResponse.response)
-    setLoading(false)
-  }
-
-  useEffect(() => {
-    getContract()
-  }, [])
+  const contract = data as Contract | null
 
   return (
     <Layout title={`Contract: ${contractReference}`}>
       {isLoading ? (
         <Spinner />
       ) : error ? (
-        <ErrorMessage label={error} />
+        <ErrorMessage
+          label={error instanceof Error ? error.message : String(error)}
+        />
       ) : contract ? (
         <>
           <p>{`Contractor reference: ${contract.contractorReference}`}</p>

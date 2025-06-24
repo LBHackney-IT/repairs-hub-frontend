@@ -4,6 +4,7 @@ import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
 import * as Sentry from '@sentry/nextjs'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import {
   isAuthorised,
@@ -26,6 +27,8 @@ if (typeof window !== 'undefined') {
     : 'js-enabled'
 }
 
+const queryClient = new QueryClient()
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, userDetails } = this.props
@@ -38,16 +41,18 @@ class MyApp extends App {
 
     return (
       <>
-        <UserContext.Provider value={{ user: this.props.userDetails }}>
-          <Layout serviceName="Repairs Hub">
-            <Meta />
+        <QueryClientProvider client={queryClient}>
+          <UserContext.Provider value={{ user: this.props.userDetails }}>
+            <Layout serviceName="Repairs Hub">
+              <Meta />
 
-            <ComponentToRender
-              {...pageProps}
-              userDetails={this.props.userDetails}
-            />
-          </Layout>
-        </UserContext.Provider>
+              <ComponentToRender
+                {...pageProps}
+                userDetails={this.props.userDetails}
+              />
+            </Layout>
+          </UserContext.Provider>
+        </QueryClientProvider>
       </>
     )
   }
