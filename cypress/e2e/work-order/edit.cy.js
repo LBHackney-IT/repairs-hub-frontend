@@ -144,7 +144,9 @@ describe('Editing a work order description', () => {
         cy.get('.lbh-body-m').should('contain', 'This is a test description.')
         cy.contains('Test Name')
         cy.contains('01234567890')
-        cy.get('#tab_notes-tab').click()
+
+        cy.contains('.tabs-button', 'Notes').click()
+
         cy.get('[data-note-id="0"] > span').should(
           'contain',
           'Description updated: This is a test description.'

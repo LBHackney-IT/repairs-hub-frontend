@@ -1,0 +1,49 @@
+.tabs {
+  &-list {
+    display: grid;
+    grid-auto-flow: row;
+    grid-row-gap: 2px;
+  }
+
+  &-list-item {
+    display: block;
+    margin-top: 0;
+  }
+
+  &-button {
+    background: hsl(210 3% 75% / 1);
+    color: #1e293b;
+    border: none;
+    padding: 10px 15px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100%;
+
+    &.active {
+      background: hsl(210 3% 90% / 1);
+    }
+  }
+
+  &-hr {
+    background-color: #b1b4b6;
+    border: none;
+    height: 1px;
+    margin-top: 10px;
+  }
+}
+
+@media (min-width: 641px) {
+  .tabs {
+    &-list {
+      grid-auto-flow: column;
+      grid-column-gap: 5px;
+      grid-template-columns: minmax(auto, 200px);
+    }
+
+    &-button {
+      font-size: 16px;
+      border-radius: 2px;
+      height: 100%;
+    }
+  }
+}
