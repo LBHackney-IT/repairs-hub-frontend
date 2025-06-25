@@ -4,6 +4,15 @@ describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
+
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        {
+          body: {
+            enableNewAppointmentEndpoint: true,
+          },
+        }
+      ).as('featureToggle')
     })
 
     describe('When tenure is null', () => {
@@ -78,11 +87,6 @@ describe('Editing a work order description', () => {
           },
           { fixture: 'properties/locationAlerts.json' }
         ).as('locationAlerts')
-
-        // cy.intercept(
-        //   { method: 'GET', path: '/api/simple-feature-toggle' },
-        //   { body: {} }
-        // ).as('featureToggle')
       })
 
       it('allows me to edit the work order and adds the updated description to the notes', () => {

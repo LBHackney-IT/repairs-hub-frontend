@@ -8,7 +8,7 @@ describe('Show work order page', () => {
       { method: 'GET', path: '/api/simple-feature-toggle' },
       {
         body: {
-          enableNewAppointmentEndpoint: false,
+          enableNewAppointmentEndpoint: true,
         },
       }
     ).as('featureToggle')

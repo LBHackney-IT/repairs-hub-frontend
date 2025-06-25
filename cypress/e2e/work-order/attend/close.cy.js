@@ -102,6 +102,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       {
         body: {
           enableFollowOnIsEmergencyField: true,
+          enableNewAppointmentEndpoint: true,
         },
       }
     ).as('feature-toggle')
