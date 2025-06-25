@@ -10,12 +10,12 @@ describe('Tabs component', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/new' },
+      { method: 'GET', path: '/api/workOrders/10005254/new' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      { method: 'GET', path: '/api/workOrders/appointments/10005254' },
       {
         fixture: 'workOrderAppointments/noAppointment.json',
       }
@@ -27,13 +27,13 @@ describe('Tabs component', () => {
     )
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { method: 'GET', path: '/api/workOrders/10005254/tasks' },
       { fixture: 'workOrders/tasksAndSors.json' }
     )
   })
 
   it('renders the tabs component', () => {
-    cy.visit('/work-orders/10000012')
+    cy.visit('/work-orders/10005254')
 
     cy.wait('@workOrderRequest')
 
