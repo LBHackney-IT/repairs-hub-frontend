@@ -76,7 +76,7 @@ const ContractsDashboard = () => {
         <>
           <ContractListItems contracts={contracts} />
           <ContractorsListItems
-            contracts={contracts.slice(startIndex, endIndex)}
+            contracts={contracts}
             pageNumber={pageNumber}
             setPageNumber={handleSetPageNumber}
             totalPages={totalPages}
