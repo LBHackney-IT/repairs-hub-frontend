@@ -1,86 +1,68 @@
-import ContractorListItem from './ContractorListItem'
-import { Button } from '../../Form'
-
 import Contract from '@/root/src/models/contract'
+import ContractorListItem from './ContractorListItem'
+import WarningInfoBox from '../../Template/WarningInfoBox'
 
 interface ContractorsListItemsProps {
   contracts: Contract[]
-  setPageNumber: (pageNumber: number) => void
-  isLoading?: boolean
-  pageNumber: number
-  totalPages: number
 }
 
-const ContractorsListItems = ({
-  contracts,
-  setPageNumber,
-  pageNumber,
-  totalPages,
-}: ContractorsListItemsProps) => {
-  const contractsThatExpireAfterOrInTwentyTwenty = contracts
-    ?.filter((c) => c.terminationDate > '2020')
-    .reduce((acc, contract) => {
-      const key = contract.contractorName
-      if (!acc[key]) {
-        acc[key] = []
-      }
-      acc[key].push(contract)
-      return acc
-    }, [])
+const ContractorsListItems = ({ contracts }: ContractorsListItemsProps) => {
+  const relevantContracts = contracts?.filter((c) => c.terminationDate > '2020')
+
+  const contractorNames = new Set<string>(
+    relevantContracts.map((contract) => contract.contractorName)
+  )
+  const contractorReferences = new Set<string>(
+    relevantContracts.map((contract) => contract.contractorReference)
+  )
+
+  const contractorNamesAndReferences = [...contractorNames].map(
+    (name, index) => ({
+      contractorName: name,
+      contractorReference: [...contractorReferences][index],
+    })
+  )
+
+  const contractorNamesAndReferencesSortedByContractorName = contractorNamesAndReferences.sort(
+    (a, b) => a.contractorName.localeCompare(b.contractorName)
+  )
 
   if (
-    !contractsThatExpireAfterOrInTwentyTwenty ||
-    Object.keys(contractsThatExpireAfterOrInTwentyTwenty).length === 0
+    !contractorNamesAndReferencesSortedByContractorName ||
+    Object.keys(contractorNamesAndReferencesSortedByContractorName).length === 0
   ) {
     return (
       <>
-        <h1>Contracts didn't load</h1>
+        <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+          Contractors:
+        </h3>
+        <div style={{ width: '85%' }}>
+          <WarningInfoBox
+            header="No contractors found!"
+            text="Problem loading contractors."
+            name="no-contractors-found"
+          />
+        </div>
       </>
     )
   }
 
-  const contractors = Object.keys(
-    contractsThatExpireAfterOrInTwentyTwenty
-  ).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
-
-  const sortedContracts = Object.values(
-    contractsThatExpireAfterOrInTwentyTwenty
-  ).sort((a, b) =>
-    a[0].contractorName.localeCompare(b[0].contractorName, undefined, {
-      sensitivity: 'base',
-    })
-  )
-
   return (
     <div>
+      <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
+        Contractors:
+      </h3>
       <ol className="lbh-list mobile-working-work-order-list">
-        {contractors.map((contractorName) => (
-          <ContractorListItem
-            contractorName={contractorName}
-            sortedContracts={sortedContracts.filter(
-              (contracts) => contracts[0].contractorName === contractorName
-            )}
-            // key={contract.contractReference}
-          />
-        ))}
+        {contractorNamesAndReferencesSortedByContractorName.map(
+          (obj, index) => (
+            <ContractorListItem
+              contractorReference={obj.contractorReference}
+              contractorName={obj.contractorName}
+              key={index}
+            />
+          )
+        )}
       </ol>
-      <div className="page-navigation govuk-!-padding-bottom-5">
-        {pageNumber > 1 && (
-          <Button
-            label="Previous page"
-            onClick={() => setPageNumber(pageNumber - 1)}
-            type="submit"
-          />
-        )}
-        {pageNumber < totalPages && (
-          <Button
-            label="Next page"
-            onClick={() => setPageNumber(pageNumber + 1)}
-            type="submit"
-            className="right-page-button"
-          />
-        )}
-      </div>
     </div>
   )
 }
