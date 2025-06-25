@@ -8,7 +8,6 @@ import {
 import { WorkOrder } from '@/models/workOrder'
 import { sortObjectsByDateKey } from '@/utils/date'
 import MobileWorkingWorkOrder from './MobileWorkingWorkOrder'
-import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import router from 'next/router'
 import {
   buildCloseWorkOrderData,
@@ -25,6 +24,8 @@ import fileUploadStatusLogger from './Photos/hooks/uploadFiles/fileUploadStatusL
 import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -104,11 +105,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }
@@ -142,11 +139,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 
@@ -162,16 +155,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     if (data.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
 
-      if (data.isDifferentTrades) {
-        FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
-          if (data[name]) requiredFollowOnTrades.push(value)
-        })
-      }
+      FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
+        if (data[name]) requiredFollowOnTrades.push(value)
+      })
 
       followOnRequest = buildFollowOnRequestData(
-        data.isSameTrade,
-        data.isDifferentTrades,
-        data.isMultipleOperatives,
+        data.isEmergency === 'true',
+        data.isMultipleOperatives === 'true',
         requiredFollowOnTrades,
         data.followOnTypeDescription,
         data.stockItemsRequired,
@@ -183,12 +173,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       )
     }
 
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
-
     let notes = data.notes // notes written by user
 
-    if (data.reason == 'No Access' || !followOnFunctionalityEnabled) {
+    if (data.reason == 'No Access') {
       notes = [
         'Work order closed',
         data.notes,
@@ -202,7 +189,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       workOrderReference,
       data.reason,
       paymentType,
-      followOnFunctionalityEnabled,
       followOnRequest
     )
 
@@ -278,11 +264,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       router.push('/')
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
     }
   }
@@ -317,9 +299,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         <MobileWorkingCloseWorkOrderForm
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
-          followOnFunctionalityEnabled={
-            featureToggles?.followOnFunctionalityEnabled ?? false
-          }
         />
       )}
 

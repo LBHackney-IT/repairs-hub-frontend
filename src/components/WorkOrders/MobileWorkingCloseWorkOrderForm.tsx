@@ -3,8 +3,6 @@ import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
-import Radios from '../Form/Radios'
-import Select from '../Form/Select'
 import { useState } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
@@ -12,6 +10,7 @@ import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -24,11 +23,19 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
+interface MobileWorkingCloseWorkOrderFormProps {
+  onSubmit: (
+    data: Record<string, any>,
+    workOrderFiles: File[],
+    followOnFiles: File[]
+  ) => void
+  isLoading: boolean
+}
+
 const MobileWorkingCloseWorkOrderForm = ({
   onSubmit,
   isLoading,
-  followOnFunctionalityEnabled,
-}) => {
+}: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
     register,
@@ -67,8 +74,6 @@ const MobileWorkingCloseWorkOrderForm = ({
   const [workOrderFiles, setWorkOrderFiles] = useState([])
   const [followOnFiles, setFollowOnFiles] = useState([])
 
-  // const [workOrderFiles, setFiles] = useState([])
-
   return (
     <div className="mobile-working-close-work-order-form">
       <BackButton
@@ -97,7 +102,7 @@ const MobileWorkingCloseWorkOrderForm = ({
             register={register}
             errors={errors}
             watch={watch}
-            followOnFunctionalityEnabled={followOnFunctionalityEnabled}
+            canRaiseAFollowOn={true}
           />
 
           <div className="govuk-form-group lbh-form-group">
@@ -166,7 +171,6 @@ const MobileWorkingCloseWorkOrderForm = ({
               clearErrors={clearErrors}
               watch={watch}
             />
-
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}
@@ -222,7 +226,6 @@ const MobileWorkingCloseWorkOrderForm = ({
 MobileWorkingCloseWorkOrderForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  followOnFunctionalityEnabled: PropTypes.bool.isRequired,
 }
 
 export default MobileWorkingCloseWorkOrderForm

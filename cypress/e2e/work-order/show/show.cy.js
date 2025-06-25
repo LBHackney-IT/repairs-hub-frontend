@@ -5,6 +5,15 @@ import 'cypress-audit/commands'
 describe('Show work order page', () => {
   beforeEach(() => {
     cy.intercept(
+      { method: 'GET', path: '/api/simple-feature-toggle' },
+      {
+        body: {
+          enableNewAppointmentEndpoint: false,
+        },
+      }
+    ).as('featureToggle')
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     ).as('property')
@@ -61,7 +70,10 @@ describe('Show work order page', () => {
         { method: 'GET', path: '/api/workOrders/10000012' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
-
+      cy.intercept(
+        { method: 'GET', path: '/api/properties/00014886' },
+        { fixture: 'properties/property.json' }
+      ).as('property')
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/notes' },
         { fixture: 'workOrders/notes.json' }
@@ -93,7 +105,13 @@ describe('Show work order page', () => {
         '@locationAlerts',
         // '@photos',
       ])
-
+      cy.intercept(
+        {
+          method: 'GET',
+          path: '/api/contact-details/4552c539-2e00-8533-078d-9cc59d9115da',
+        },
+        { fixture: 'contactDetails/contactDetails.json' }
+      ).as('contactDetails')
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
       cy.get('.lbh-body-m').contains('This is an urgent repair description')
 
@@ -134,7 +152,7 @@ describe('Show work order page', () => {
       cy.get('.work-order-info').contains('18 Jan 2021, 15:28')
       cy.get('.work-order-info').contains('Target: 23 Jan 2021, 18:30')
       cy.get('.work-order-info').contains('Caller: Jill Smith')
-      cy.get('.work-order-info').contains('07700 900999')
+      cy.get('.work-order-info').contains('12345678912')
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
 
@@ -573,6 +591,32 @@ describe('Show work order page', () => {
     context('When a contractor is logged in', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderRequest')
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00014886' },
+          { fixture: 'properties/property.json' }
+        ).as('property')
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/notes' },
+          { fixture: 'workOrders/notes.json' }
+        ).as('notesRequest')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+          { body: [] }
+        ).as('tasksRequest')
+
+        cy.intercept(
+          {
+            method: 'GET',
+            path:
+              '/api/workOrders?propertyReference=00012345&PageSize=50&PageNumber=1&sort=dateraised%3Adesc',
+          },
+          { body: [] }
+        ).as('workOrdersRequest')
       })
 
       it('contains a link to close the order', () => {
@@ -613,5 +657,37 @@ describe('Show work order page', () => {
           .should('have.attr', 'href', '/work-orders/10000012/update')
       })
     })
+  })
+
+  it('When tenure is null doesnt throw error', () => {
+    cy.loginWithContractorRole()
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012' },
+      { fixture: 'workOrders/workOrder.json' }
+    ).as('workOrderRequest-10000012')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/10000012/tasks' },
+      { body: [] }
+    ).as('tasksRequest')
+
+    cy.fixture('properties/property.json')
+      .then((property) => {
+        property.tenure = null
+
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/00012345' },
+          { body: property }
+        )
+      })
+      .as('property')
+
+    cy.visit('/work-orders/10000012')
+
+    cy.wait(['@workOrderRequest-10000012'])
+
+    cy.contains('Work order: 10000012')
+    cy.contains('This is an urgent repair description')
   })
 })

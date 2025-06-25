@@ -76,8 +76,6 @@ describe('SummaryCloseWorkOrder component', () => {
 
   it('includes follow-on request details', () => {
     const followOnData = {
-      isSameTrade: true,
-      isDifferentTrades: true,
       isMultipleOperatives: true,
       requiredFollowOnTrades: [
         {
@@ -115,8 +113,6 @@ describe('SummaryCloseWorkOrder component', () => {
 
   it('includes only includes materials required if selcted', () => {
     const followOnData = {
-      isSameTrade: true,
-      isDifferentTrades: true,
       isMultipleOperatives: true,
       requiredFollowOnTrades: [
         {

@@ -56,7 +56,6 @@ describe('CloseWorkOrderForm component', () => {
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={false}
-          followOnFunctionalityEnabled={false}
         />
       </UserContext.Provider>
     )
@@ -89,7 +88,6 @@ describe('CloseWorkOrderForm component', () => {
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={true}
-          followOnFunctionalityEnabled={false}
         />
       </UserContext.Provider>
     )
@@ -150,7 +148,6 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={false}
-          followOnFunctionalityEnabled={true}
         />
       </UserContext.Provider>
     )
@@ -183,7 +180,6 @@ describe('CloseWorkOrderForm component - when follow-on functionality is enabled
           jobIsSplitByOperative={false}
           paymentType={'Overtime'}
           existingStartTime={true}
-          followOnFunctionalityEnabled={true}
         />
       </UserContext.Provider>
     )

@@ -46,23 +46,18 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
                 className="lbh-list lbh-list--bullet lbh-body-s"
                 style={{ color: '#333' }}
               >
-                {workOrder.followOnRequest.isSameTrade && (
-                  <li style={{ marginTop: '5px' }}>Same trade</li>
-                )}
-                {workOrder.followOnRequest.isDifferentTrades && (
-                  <li style={{ marginTop: '5px' }}>
-                    Different trade(s):{' '}
-                    {workOrder.followOnRequest.requiredFollowOnTrades
-                      .map((trade) => {
-                        if (trade !== 'Other') {
-                          return trade
-                        } else {
-                          return `Other: ${workOrder.followOnRequest.otherTrade}`
-                        }
-                      })
-                      .join(', ')}
-                  </li>
-                )}
+                <li style={{ marginTop: '5px' }}>
+                  Trade(s):{' '}
+                  {workOrder.followOnRequest.requiredFollowOnTrades
+                    .map((trade) => {
+                      if (trade !== 'Other') {
+                        return trade
+                      } else {
+                        return `Other: ${workOrder.followOnRequest.otherTrade}`
+                      }
+                    })
+                    .join(', ')}
+                </li>
                 {workOrder.followOnRequest.isMultipleOperatives && (
                   <li style={{ marginTop: '5px' }}>Multiple operatives</li>
                 )}

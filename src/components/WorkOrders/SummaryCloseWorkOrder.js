@@ -98,20 +98,13 @@ const SummaryCloseWorkOrder = ({
                   value={
                     <>
                       <ul>
-                        {followOnData.isSameTrade && (
-                          <li style={{ marginTop: '5px' }}>Same trade</li>
-                        )}
-                        {followOnData.isDifferentTrades && (
-                          <li style={{ marginTop: '5px' }}>
-                            Different trade(s) (
-                            {followOnData.requiredFollowOnTrades
-                              .map((x) => x.value)
-                              .join(', ')}
-                            {followOnData.otherTrade &&
-                              `: ${followOnData.otherTrade}`}
-                            )
-                          </li>
-                        )}
+                        <li>
+                          {followOnData.requiredFollowOnTrades
+                            .map((x) => x.value)
+                            .join(', ')}
+                          {followOnData.otherTrade &&
+                            `: ${followOnData.otherTrade}`}
+                        </li>
                         {followOnData.isMultipleOperatives && (
                           <li style={{ marginTop: '5px' }}>
                             Multiple operatives

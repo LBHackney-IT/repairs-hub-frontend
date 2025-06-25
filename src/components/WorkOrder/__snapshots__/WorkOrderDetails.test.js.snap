@@ -294,7 +294,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-4-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -765,7 +765,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-5-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -1120,7 +1120,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-4-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2018,7 +2018,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2426,7 +2426,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2834,7 +2834,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -3263,7 +3263,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-3-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -3569,7 +3569,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>

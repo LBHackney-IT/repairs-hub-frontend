@@ -1,5 +1,6 @@
 export const AGENT_ROLE = 'agent'
 export const CONTRACTOR_ROLE = 'contractor'
+export const DLO_CONTRACTOR_ROLE = 'dlo_contractor'
 export const CONTRACT_MANAGER_ROLE = 'contract_manager'
 export const AUTHORISATION_MANAGER_ROLE = 'authorisation_manager'
 export const OPERATIVE_ROLE = 'operative'
@@ -16,6 +17,7 @@ export const ALL_ROLES = [
   BUDGET_CODE_OFFICER_ROLE,
   DATA_ADMIN_ROLE,
   FOLLOWON_ADMIN_ROLE,
+  DLO_CONTRACTOR_ROLE,
 ]
 
 export const buildUser = (
@@ -30,6 +32,7 @@ export const buildUser = (
     BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME,
     DATA_ADMIN_GOOGLE_GROUPNAME,
     FOLLOWON_ADMIN_GOOGLE_GROUPNAME,
+    DLO_CONTRACTOR_GOOGLE_GROUPNAME,
   } = process.env
 
   const CONTRACTORS_GOOGLE_GROUPNAME_REGEX =
@@ -41,35 +44,58 @@ export const buildUser = (
   const contractorGroupRegex = new RegExp(CONTRACTORS_GOOGLE_GROUPNAME_REGEX)
   const agentGroupRegex = new RegExp(AGENTS_GOOGLE_GROUPNAME_REGEX)
 
-  const rolesFromGroups = (groupNames) => {
-    return groupNames.map((groupName) => {
+  const rolesFromGroups = (groupNames: string[]) => {
+    const roles = new Set<string>()
+
+    groupNames.forEach((groupName) => {
       if (isAgentGroupName(groupName)) {
-        return AGENT_ROLE
-      } else if (isContractManagerGroupName(groupName)) {
-        return CONTRACT_MANAGER_ROLE
-      } else if (isAuthorisationManagerGroupName(groupName)) {
-        return AUTHORISATION_MANAGER_ROLE
-      } else if (isContractorGroupName(groupName)) {
-        return CONTRACTOR_ROLE
-      } else if (isOperativeGroupName(groupName)) {
-        return OPERATIVE_ROLE
-      } else if (isBudgetCodeOfficerGroupName(groupName)) {
-        return BUDGET_CODE_OFFICER_ROLE
-      } else if (isDataAdminGroupName(groupName)) {
-        return DATA_ADMIN_ROLE
-      } else if (isFollowOnAdminGroupName(groupName)) {
-        return FOLLOWON_ADMIN_ROLE
+        roles.add(AGENT_ROLE)
       }
 
-      console.warn(`User group name not recognised: ${groupName}`)
+      if (isContractManagerGroupName(groupName)) {
+        roles.add(CONTRACT_MANAGER_ROLE)
+      }
+
+      if (isAuthorisationManagerGroupName(groupName)) {
+        roles.add(AUTHORISATION_MANAGER_ROLE)
+      }
+
+      if (isDloContractorGroupName(groupName)) {
+        roles.add(DLO_CONTRACTOR_ROLE)
+      }
+
+      if (isContractorGroupName(groupName)) {
+        roles.add(CONTRACTOR_ROLE)
+      }
+
+      if (isOperativeGroupName(groupName)) {
+        roles.add(OPERATIVE_ROLE)
+      }
+
+      if (isBudgetCodeOfficerGroupName(groupName)) {
+        roles.add(BUDGET_CODE_OFFICER_ROLE)
+      }
+
+      if (isDataAdminGroupName(groupName)) {
+        roles.add(DATA_ADMIN_ROLE)
+      }
+
+      if (isFollowOnAdminGroupName(groupName)) {
+        roles.add(FOLLOWON_ADMIN_ROLE)
+      }
     })
+
+    return [...roles]
   }
 
   const isAgentGroupName = (groupName: string) =>
     !!agentGroupRegex.test(groupName)
 
-  const isContractorGroupName = (groupName: string) =>
-    !!contractorGroupRegex.test(groupName)
+  const isContractorGroupName = (groupName: string) => {
+    const result = contractorGroupRegex.test(groupName)
+
+    return !!result
+  }
 
   const isContractManagerGroupName = (groupName: string) =>
     groupName === CONTRACT_MANAGERS_GOOGLE_GROUPNAME
@@ -89,11 +115,15 @@ export const buildUser = (
   const isFollowOnAdminGroupName = (groupName: string) =>
     groupName === FOLLOWON_ADMIN_GOOGLE_GROUPNAME
 
+  const isDloContractorGroupName = (groupName: string) =>
+    groupName === DLO_CONTRACTOR_GOOGLE_GROUPNAME
+
   const groupNames = authServiceGroups.filter(
     (groupName) =>
       isContractManagerGroupName(groupName) ||
       isAuthorisationManagerGroupName(groupName) ||
       isAgentGroupName(groupName) ||
+      isDloContractorGroupName(groupName) ||
       isContractorGroupName(groupName) ||
       isOperativeGroupName(groupName) ||
       isBudgetCodeOfficerGroupName(groupName) ||
@@ -101,9 +131,18 @@ export const buildUser = (
       isFollowOnAdminGroupName(groupName)
   )
 
-  const roles = rolesFromGroups(groupNames)
+  const roles: string[] = rolesFromGroups(groupNames)
 
   const hasRole = (r: string) => roles.includes(r)
+
+  const hasExternalContractorPermissions = () => {
+    if (hasRole(DLO_CONTRACTOR_ROLE)) {
+      // internal contractor
+      return false
+    }
+
+    return hasRole(CONTRACTOR_ROLE)
+  }
 
   return {
     name: name,
@@ -112,6 +151,8 @@ export const buildUser = (
     hasRole: hasRole,
     hasAgentPermissions: hasRole(AGENT_ROLE),
     hasContractorPermissions: hasRole(CONTRACTOR_ROLE),
+    hasDLOContractorPermissions: hasRole(DLO_CONTRACTOR_ROLE),
+    hasExternalContractorPermissions: hasExternalContractorPermissions(),
     hasContractManagerPermissions: hasRole(CONTRACT_MANAGER_ROLE),
     hasAuthorisationManagerPermissions: hasRole(AUTHORISATION_MANAGER_ROLE),
     hasOperativePermissions: hasRole(OPERATIVE_ROLE),

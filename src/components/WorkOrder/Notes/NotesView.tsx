@@ -7,6 +7,7 @@ import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
 import { TabName } from '../../Tabs/tabNames'
 import { WorkOrder } from '@/root/src/models/workOrder'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 interface Props {
   workOrderReference: string
@@ -35,11 +36,7 @@ const NotesView = (props: Props) => {
       getNotesView(workOrderReference)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -64,11 +61,7 @@ const NotesView = (props: Props) => {
     } catch (e) {
       setNotes(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)

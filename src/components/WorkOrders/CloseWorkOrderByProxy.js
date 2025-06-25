@@ -8,10 +8,7 @@ import {
   buildCloseWorkOrderData,
   buildFollowOnRequestData,
 } from '@/utils/hact/workOrderComplete/closeWorkOrder'
-import {
-  fetchSimpleFeatureToggles,
-  frontEndApiRequest,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
 import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../SuccessPage/index'
@@ -24,6 +21,7 @@ import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -49,7 +47,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
   const [availableOperatives, setAvailableOperatives] = useState([])
   const [selectedOperatives, setSelectedOperatives] = useState([])
   const [workOrder, setWorkOrder] = useState()
-  const [featureToggles, setFeatureToggles] = useState({})
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -125,11 +122,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       setLoadingStatus(null)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
     }
   }
@@ -138,9 +131,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setError(null)
 
     try {
-      const featureToggleData = await fetchSimpleFeatureToggles()
-      setFeatureToggles(featureToggleData)
-
       const workOrderResponse = await getWorkOrder(reference)
 
       if (!workOrderResponse.success) {
@@ -171,11 +161,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
     setLoadingStatus(null)
@@ -198,15 +184,14 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     if (followOnData !== null) {
       const requiredFollowOnTrades = []
 
-      if (followOnData.isDifferentTrades) {
+      if (followOnData.requiredFollowOnTrades) {
         requiredFollowOnTrades.push(
           ...followOnData.requiredFollowOnTrades.map((x) => x.value)
         )
       }
 
       followOnDataRequest = buildFollowOnRequestData(
-        followOnData.isSameTrade,
-        followOnData.isDifferentTrades,
+        followOnData.isEmergency,
         followOnData.isMultipleOperatives,
         requiredFollowOnTrades,
         followOnData.followOnTypeDescription,
@@ -218,12 +203,10 @@ const CloseWorkOrderByProxy = ({ reference }) => {
         followOnData.otherTrade
       )
     }
-    const followOnFunctionalityEnabled =
-      featureToggles?.followOnFunctionalityEnabled ?? false
 
     let comments = notes // notes written by user
 
-    if (reason == 'No Access' || !followOnFunctionalityEnabled) {
+    if (reason == 'No Access') {
       comments = `Work order closed - ${buildWorkOrderCompleteNotes(
         notes,
         operativesWithPercentages,
@@ -237,7 +220,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       reference,
       reason,
       paymentType,
-      followOnFunctionalityEnabled,
       followOnDataRequest
     )
 
@@ -268,9 +250,8 @@ const CloseWorkOrderByProxy = ({ reference }) => {
       })
 
       const followOnData = {
-        isSameTrade: formData.isSameTrade,
-        isDifferentTrades: formData.isDifferentTrades,
-        isMultipleOperatives: formData.isMultipleOperatives,
+        isEmergency: formData.isEmergency === 'true',
+        isMultipleOperatives: formData.isMultipleOperatives === 'true',
         requiredFollowOnTrades: requiredFollowOnTrades,
         followOnTypeDescription: formData.followOnTypeDescription,
         stockItemsRequired: formData.stockItemsRequired,
@@ -371,9 +352,6 @@ const CloseWorkOrderByProxy = ({ reference }) => {
               existingStartTime={workOrder.startTime !== null}
               followOnData={followOnData}
               isLoading={loadingStatus !== null}
-              followOnFunctionalityEnabled={
-                featureToggles?.followOnFunctionalityEnabled ?? false
-              }
             />
           )}
 

@@ -99,9 +99,16 @@ describe('Show property', () => {
     context('when many repairs have been raised on the property', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrder')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
 
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/tasks' },

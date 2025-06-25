@@ -73,6 +73,6 @@ export const MULTITRADE_CONTRACTORS_WITHOUT_MULTITRADE_SORCODES = [
   },
   {
     contractorReference: 'SEN',
-    contractorName: 'Saltash Enterprise Ltd - SEN',
+    contractorName: 'Saltash Enterprise Ltd',
   },
 ]

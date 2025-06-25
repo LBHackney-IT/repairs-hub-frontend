@@ -1,9 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import {
-  frontEndApiRequest,
-  fetchSimpleFeatureToggles,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { beginningOfDay } from '@/utils/time'
 import { longMonthWeekday } from '@/utils/date'
 import Spinner from '../../Spinner'
@@ -14,6 +11,7 @@ import { WorkOrder } from '../../../models/workOrder'
 import { MobileWorkingWorkOrderListItems } from './MobileWorkingWorkOrderListItems'
 import TabsVersionTwo from '../../TabsVersionTwo/Index'
 import { Button } from '../../Form'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const SIXTY_SECONDS = 60 * 1000
 
@@ -22,7 +20,6 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const currentDate = beginningOfDay(new Date())
   const [visitedWorkOrders, setVisitedWorkOrders] = useState(null)
   const [sortedWorkOrders, setSortedWorkOrders] = useState(null)
-  const [featureToggleStatus, setFeatureToggleStatus] = useState(null)
 
   const [isLoading, setIsLoading] = useState(false)
 
@@ -39,7 +36,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   }, [router.pathname])
 
   const getOperativeWorkOrderView = async () => {
-    if (currentUser === null || featureToggleStatus === null) return
+    if (currentUser === null) return
 
     setError(null)
 
@@ -67,13 +64,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
       setSortedWorkOrders(null)
 
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(
-          e.response?.data?.message
-        )}: with code: ${e.code}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 
@@ -84,14 +75,8 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   const intervalRef = useRef(null)
 
   useEffect(() => {
-    fetchSimpleFeatureToggles().then((data) => {
-      setFeatureToggleStatus(data)
-    })
-  }, [])
-
-  useEffect(() => {
     // Fetch after user and feature toggles are loaded
-    if (currentUser === null || featureToggleStatus === null) return
+    if (currentUser === null) return
 
     // initial fetch (otherwise it wont fetch until interval)
     getOperativeWorkOrderView()
@@ -105,7 +90,7 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
     return () => {
       clearInterval(intervalRef.current)
     }
-  }, [currentUser?.operativePayrollNumber, featureToggleStatus])
+  }, [currentUser?.operativePayrollNumber])
 
   const sortWorkOrderItems = (currentUser, workOrders) => {
     const inProgressWorkOrders = workOrders.filter((wo) => !wo.hasBeenVisited())
@@ -133,15 +118,11 @@ const MobileWorkingWorkOrdersView = ({ currentUser }) => {
   return (
     <>
       <Meta title="Manage work orders" />
-      {featureToggleStatus?.pastWorkOrdersFunctionalityEnabled == true ? (
-        <TabsVersionTwo
-          titles={titles}
-          onTabChange={handleTabClick}
-          ariaSelected={ariaSelected}
-        />
-      ) : (
-        <></>
-      )}
+      <TabsVersionTwo
+        titles={titles}
+        onTabChange={handleTabClick}
+        ariaSelected={ariaSelected}
+      />
       <div className="mobile-work-order-container">
         <div
           style={{
