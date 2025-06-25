@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import cx from 'classnames'
-
 import { dateToStr } from '@/root/src/utils/date'
 import Contract from '@/root/src/models/contract'
 
@@ -47,5 +46,4 @@ const ContractorListItem = ({
     // </Link>
   )
 }
-
 export default ContractorListItem
