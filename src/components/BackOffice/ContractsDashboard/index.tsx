@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
 import { useQuery } from 'react-query'
 
 import Layout from '../Layout'
@@ -13,38 +11,12 @@ import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 import Contract from '@/root/src/models/contract'
 
 const ContractsDashboard = () => {
-  const router = useRouter()
-  const pageFromQuery = parseInt(router.query.page as string) || 1
-
   const { data, isLoading, error } = useQuery(
     ['contracts', { isActive: null, contractorReference: null }],
     () => fetchContracts(null, null)
   )
 
   const contracts = data as Contract[] | null
-
-  const [pageNumber, setPageNumber] = useState(pageFromQuery)
-  const pageSize = 10
-  const startIndex = (pageNumber - 1) * pageSize
-  const totalPages = Math.ceil((contracts?.length ?? 0) / pageSize)
-  const endIndex = startIndex + pageSize
-
-  useEffect(() => {
-    if (pageNumber !== pageFromQuery) {
-      setPageNumber(pageFromQuery)
-    }
-  }, [router.query.page])
-
-  const handleSetPageNumber = (newPage: number) => {
-    router.replace(
-      {
-        pathname: router.pathname,
-        query: { ...router.query, page: newPage },
-      },
-      undefined,
-      { shallow: true }
-    )
-  }
 
   if (isLoading) {
     return (
@@ -75,12 +47,7 @@ const ContractsDashboard = () => {
       {contracts?.length ? (
         <>
           <ContractListItems contracts={contracts} />
-          <ContractorsListItems
-            contracts={contracts}
-            pageNumber={pageNumber}
-            setPageNumber={handleSetPageNumber}
-            totalPages={totalPages}
-          />
+          <ContractorsListItems contracts={contracts} />
         </>
       ) : (
         <WarningInfoBox
