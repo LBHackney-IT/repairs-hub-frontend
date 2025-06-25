@@ -66,14 +66,14 @@ describe('Tabs component', () => {
   })
 
   it('Loads the correct active tab from currentTab query', () => {
-    cy.visit('/work-orders/10000012?currentTab=photos-tab')
+    cy.visit('/work-orders/10005254?currentTab=photos-tab')
 
     cy.contains('.tabs-button', 'Photos').should('have.class', 'active')
     cy.get('#photos-tab').should('exist')
   })
 
   it('Defaults to first tab when currentTab query is invalid', () => {
-    cy.visit('/work-orders/10000012?currentTab=fake-tab')
+    cy.visit('/work-orders/10005254?currentTab=fake-tab')
 
     cy.contains('.tabs-button', 'Tasks and SORs').should('have.class', 'active')
     cy.get('#tasks-and-sors-tab').should('exist')
