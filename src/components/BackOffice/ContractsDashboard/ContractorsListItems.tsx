@@ -2,7 +2,6 @@ import ContractorListItem from './ContractorListItem'
 import { Button } from '../../Form'
 
 import Contract from '@/root/src/models/contract'
-import { useEffect } from 'react'
 
 interface ContractorsListItemsProps {
   contracts: Contract[]
@@ -39,6 +38,7 @@ const ContractorsListItems = ({
       </>
     )
   }
+
   const contractors = Object.keys(
     contractsThatExpireAfterOrInTwentyTwenty
   ).sort((a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' }))
