@@ -6,6 +6,7 @@ import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
 export const getWorkOrderOld = async (
   workOrderReference: string
@@ -30,9 +31,7 @@ export const getWorkOrderOld = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -87,9 +86,7 @@ export const getWorkOrder = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -127,9 +124,7 @@ export const editWorkOrder = async (
       error: new APIResponseError(
         e.response?.status === 400
           ? 'Invalid request data'
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -159,9 +154,7 @@ export const postNote = async (
       error: new APIResponseError(
         e.response?.status === 400
           ? `Invalid request data`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }

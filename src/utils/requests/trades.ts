@@ -1,4 +1,5 @@
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 import { frontEndApiRequest } from '../frontEndApiClient/requests'
 
 export type Trades = {
@@ -25,9 +26,7 @@ export const getTrades = async (): Promise<ApiResponseType<Trades[]>> => {
       error: new APIResponseError(
         e.response?.status === 400
           ? `Invalid request data`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }

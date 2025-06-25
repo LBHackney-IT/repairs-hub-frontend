@@ -210,6 +210,8 @@ describe('longDateToStr', () => {
       'Wed Jan 20 2021 15:46:57 GMT+0000 (Greenwich Mean Time)'
     )
 
-    expect(longDateToStr(date)).toEqual('Wednesday 20 January 2021')
+    // Even with locale, the comma can be inconsistent
+    var options = ['Wednesday 20 January 2021', 'Wednesday, 20 January 2021']
+    expect(options).toContain(longDateToStr(date))
   })
 })

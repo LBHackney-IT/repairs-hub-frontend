@@ -6,6 +6,33 @@ describe('Editing a work order description', () => {
       cy.loginWithAuthorisationManagerRole()
     })
 
+    describe('When tenure is null', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderRequest')
+
+        cy.fixture('properties/property.json')
+          .then((property) => {
+            property.tenure = null
+
+            cy.intercept(
+              { method: 'GET', path: '/api/properties/00012345' },
+              { body: property }
+            )
+          })
+          .as('property')
+      })
+
+      it('doesnt throw error', () => {
+        cy.visit('/work-orders/10000012/edit')
+
+        cy.contains('Edit work order: 10000012')
+        cy.contains('Edit description')
+      })
+    })
+
     describe(`When I don't trigger any errors`, () => {
       beforeEach(() => {
         cy.intercept(
@@ -244,10 +271,12 @@ describe('Editing a work order description', () => {
         ).as('failedEditWorkOrder')
         cy.get('.govuk-form-group > .govuk-button').click()
         cy.wait('@failedEditWorkOrder')
-        cy.contains('Oops, an error occurred: 500')
+        // cy.contains('Oops, an error occurred: 500')
+        cy.contains('Oops an error occurred with error status: 500')
       })
     })
   })
+
   context('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
@@ -257,6 +286,7 @@ describe('Editing a work order description', () => {
       ).as('workOrder')
       cy.visit('/work-orders/10000012/edit')
     })
+
     it('I am restricted from accessing the correct page', () => {
       cy.contains(`Access denied`)
     })

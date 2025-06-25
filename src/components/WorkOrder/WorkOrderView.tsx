@@ -12,6 +12,7 @@ import { Tenure } from '../../models/tenure'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { Property } from '../../models/property'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -96,11 +97,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }

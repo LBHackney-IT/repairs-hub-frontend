@@ -14,7 +14,7 @@ interface Props {
     | string[]
     | {
         text: string
-        value: string
+        value: string | boolean
         defaultChecked?: boolean
         hint?: string
         children?: JSX.Element

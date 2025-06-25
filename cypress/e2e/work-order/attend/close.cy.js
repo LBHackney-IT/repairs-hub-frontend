@@ -94,6 +94,18 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       { body: [] }
     )
 
+    cy.intercept(
+      {
+        method: 'GET',
+        path: '/api/simple-feature-toggle',
+      },
+      {
+        body: {
+          enableFollowOnIsEmergencyField: true,
+        },
+      }
+    ).as('feature-toggle')
+
     cy.loginWithOperativeRole()
   })
 
@@ -432,6 +444,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       // populate follow-on fields
       cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="followonRequestUrgency"]').check('true')
       cy.get('input[data-testid="followon-trades-plumbing"]').check()
       cy.get('[data-testid="isMultipleOperatives"]').check('true')
       cy.get('textarea[data-testid="followOnTypeDescription"]').type(
@@ -681,6 +694,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       // select option
       cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="followonRequestUrgency"]').check('true')
       cy.contains(
         'Please confirm whether you have contacted your supervisor'
       ).should('not.exist')
@@ -761,6 +775,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       // populate follow-on fields
       cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+      cy.get('input[data-testid="followonRequestUrgency"]').check('true')
       cy.intercept(
         { method: 'GET', path: '/api/filter/WorkOrder' },
         { fixture: 'filter/trades.json' }
@@ -810,6 +825,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
               },
             ],
             followOnRequest: {
+              isEmergency: true,
               isMultipleOperatives: true,
               requiredFollowOnTrades: ['Plumbing', 'Other'],
               followOnTypeDescription: 'follow on description',
@@ -866,6 +882,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
     // populate follow-on fields
     cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.get('input[data-testid="followonRequestUrgency"]').check('true')
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       { fixture: 'filter/trades.json' }
@@ -915,6 +932,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
             },
           ],
           followOnRequest: {
+            isEmergency: true,
             isMultipleOperatives: false,
             requiredFollowOnTrades: ['Plumbing', 'Other'],
             followOnTypeDescription: 'follow on description',
@@ -970,6 +988,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
     // populate follow-on fields
     cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.get('input[data-testid="followonRequestUrgency"]').check('false')
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       { fixture: 'filter/trades.json' }
@@ -1019,6 +1038,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
             },
           ],
           followOnRequest: {
+            isEmergency: false,
             isMultipleOperatives: true,
             requiredFollowOnTrades: ['Plumbing', 'Other'],
             followOnTypeDescription: 'follow on description',
@@ -1074,6 +1094,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
     // populate follow-on fields
     cy.get('input[data-testid="supervisorCalled"]').check('Yes')
+    cy.get('input[data-testid="followonRequestUrgency"]').check('true')
     cy.intercept(
       { method: 'GET', path: '/api/filter/WorkOrder' },
       { fixture: 'filter/trades.json' }
