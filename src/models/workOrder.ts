@@ -8,6 +8,7 @@ import {
   CLOSED_STATUS_DESCRIPTIONS,
   CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES,
 } from '@/utils/statusCodes'
+import { FollowOnRequest } from './followOnRequest'
 import { Appointment } from './appointment'
 import { Operative } from './operativeModel'
 
@@ -21,13 +22,19 @@ export class WorkOrder {
   dateRaised: string
   tradeDescription: string
   isFollowOn: boolean
+  priorityCode: number
   contractorReference: string
   tradeCode: string
-  priorityCode
-  target
-  budgetCode
-  closedDated
+  target: string
+
+  closedDated: string
+  paymentType: string
   operatives: Operative[]
+  followOnRequest?: FollowOnRequest
+  uploadedFileCount?: {
+    totalFileCount: number
+  }
+  budgetCode
   owner
   priority: string
   raisedBy: string

@@ -1,6 +1,6 @@
 import { WorkOrder } from '@/root/src/models/workOrder'
 import Tabs from '..'
-import { TabName } from '../types'
+import { TabName } from '../tabNames'
 import { useContext } from 'react'
 import UserContext from '../../UserContext'
 import { canSeeRelatedWorkOrdersTab } from '@/root/src/utils/userPermissions'
