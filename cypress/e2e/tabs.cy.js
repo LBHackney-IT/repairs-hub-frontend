@@ -15,6 +15,13 @@ describe('Tabs component', () => {
     ).as('workOrderRequest')
 
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
+    cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
     )
