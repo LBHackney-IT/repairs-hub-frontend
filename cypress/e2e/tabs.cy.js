@@ -12,7 +12,7 @@ describe('Tabs component', () => {
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012' },
       { fixture: 'workOrders/workOrder.json' }
-    )
+    ).as('workOrderRequest')
 
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
@@ -27,6 +27,8 @@ describe('Tabs component', () => {
 
   it('renders the tabs component', () => {
     cy.visit('/work-orders/10000012')
+
+    cy.wait('@workOrderRequest')
 
     cy.contains('.tabs-button', 'Tasks and SORs')
     cy.contains('.tabs-button', 'Notes')
