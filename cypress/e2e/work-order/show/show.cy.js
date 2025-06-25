@@ -687,6 +687,13 @@ describe('Show work order page', () => {
     ).as('workOrderRequest-10000055')
 
     cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000055' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
+    cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000055/tasks' },
       { body: [] }
     ).as('tasksRequest')
