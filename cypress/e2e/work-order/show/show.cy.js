@@ -366,9 +366,8 @@ describe('Show work order page', () => {
           '@personAlerts',
         ])
 
-        cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
-
-        cy.get('a[id="tab_work-orders-history-tab"]').click()
+        cy.contains('.tabs-button', 'Tasks and SORs')
+        cy.contains('.tabs-button', 'Work orders history').click()
 
         cy.wait('@workOrdersHistoryRequest')
 
