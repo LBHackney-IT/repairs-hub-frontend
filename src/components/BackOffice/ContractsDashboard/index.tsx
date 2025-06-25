@@ -46,11 +46,17 @@ const ContractsDashboard = () => {
     )
   }
 
-  return (
-    <Layout title="Contracts Dashboard">
-      {isLoading ? (
+  if (isLoading) {
+    return (
+      <Layout title="Contracts Dashboard">
         <Spinner />
-      ) : error ? (
+      </Layout>
+    )
+  }
+
+  if (error) {
+    return (
+      <Layout title="Contracts Dashboard">
         <ErrorMessage
           label={
             error instanceof Error
@@ -60,7 +66,13 @@ const ContractsDashboard = () => {
               : 'An unexpected error occurred'
           }
         />
-      ) : contracts?.length ? (
+      </Layout>
+    )
+  }
+
+  return (
+    <Layout title="Contracts Dashboard">
+      {contracts?.length ? (
         <>
           <ContractListItems contracts={contracts} />
           <ContractorsListItems
