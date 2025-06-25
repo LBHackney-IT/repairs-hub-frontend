@@ -4,4 +4,7 @@ export default interface Contract {
   effectiveDate: string
   contractorReference: string
   isRaisable: boolean
+  contractorName: string
+  sorCost: number
+  sorCount: number
 }

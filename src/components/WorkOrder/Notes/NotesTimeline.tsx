@@ -1,10 +1,12 @@
+import { WorkOrder } from '@/root/src/models/workOrder'
 import NoteEntry from './NoteEntry'
-import { Note, WorkOrderRequest } from './types'
+import { Note } from './types'
+import { TabName } from '../../Tabs/tabNames'
 
 interface Props {
   notes: Note[]
-  workOrder: WorkOrderRequest
-  setActiveTab: (tab: string) => void
+  workOrder: WorkOrder
+  setActiveTab: (tabName: TabName) => void
 }
 
 const NotesTimeline = ({ notes, workOrder, setActiveTab }: Props) => {

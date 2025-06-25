@@ -50,6 +50,7 @@
     "react-hook-form-persist": "^3.0.0",
     "react-hotjar": "^5.0.0",
     "react-photo-view": "^1.2.6",
+    "react-query": "^3.39.3",
     "restana": "^4.8.0",
     "retry": "^0.13.1",
     "sass": "^1.29.0",

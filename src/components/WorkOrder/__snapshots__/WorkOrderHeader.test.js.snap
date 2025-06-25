@@ -294,6 +294,12 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
           </strong>
         </span>
       </div>
+      <div
+        class="lbh-body-xs govuk-!-margin-top-1"
+        style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+      >
+        Further work required
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -439,6 +445,12 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
             Completed: 22 Jan 2021, 18:15
           </strong>
         </span>
+      </div>
+      <div
+        class="lbh-body-xs govuk-!-margin-top-1"
+        style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+      >
+        Further work required
       </div>
     </div>
   </div>
@@ -586,6 +598,12 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
           </strong>
         </span>
       </div>
+      <div
+        class="lbh-body-xs govuk-!-margin-top-1"
+        style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+      >
+        Further work required
+      </div>
     </div>
   </div>
 </DocumentFragment>
@@ -731,6 +749,12 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
             Completed: 22 Jan 2021, 18:15
           </strong>
         </span>
+      </div>
+      <div
+        class="lbh-body-xs govuk-!-margin-top-1"
+        style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+      >
+        Further work required
       </div>
       <p
         class="lbh-body-xs"
