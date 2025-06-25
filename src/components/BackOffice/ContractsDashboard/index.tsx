@@ -25,7 +25,7 @@ const ContractsDashboard = () => {
       </Layout>
     )
   }
-
+  
   if (error) {
     return (
       <Layout title="Contracts Dashboard">
