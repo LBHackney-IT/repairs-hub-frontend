@@ -113,7 +113,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
                 validateAtLeastOneTradeSelected()
               },
             })}
-            checked={selectedTrades.has(name)}
+            checked={!!watch(name)}
             hasWhiteBackground={hasWhiteBackground}
           />
           {name === 'followon-trades-other' && isOtherTradeChecked && (

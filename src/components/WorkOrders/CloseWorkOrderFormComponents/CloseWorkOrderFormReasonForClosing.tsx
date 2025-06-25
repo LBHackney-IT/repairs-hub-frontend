@@ -9,14 +9,14 @@ interface Props {
   errors: FieldErrors<DefaultValues>
   watch: ReturnType<typeof import('react-hook-form')['useForm']>['watch']
   canRaiseAFollowOn: boolean
-  setValue: (name: string, value: unknown) => void
+  // setValue: (name: string, value: unknown) => void
 }
 
 const CloseWorkOrderFormReasonForClosing = (props: Props) => {
-  const { register, errors, watch, canRaiseAFollowOn } = props
+  const { register, errors, canRaiseAFollowOn } = props
 
-  const reasonWatchedValue = watch('reason')
-  const followOnStatusWatchedValue = watch('followOnStatus')
+  // const reasonWatchedValue = watch('reason')
+  // const followOnStatusWatchedValue = watch('followOnStatus')
 
   return (
     <Radios
@@ -30,9 +30,9 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
             children: (
               <FurtherWorkRadio
                 error={errors?.followOnStatus}
-                visible={reasonWatchedValue === 'Work Order Completed'}
-                checkedValue={followOnStatusWatchedValue}
-                setValue={props.setValue}
+                visible={true}
+                // visible={reasonWatchedValue === 'Work Order Completed'}
+                // checkedValue={followOnStatusWatchedValue}
               />
             ),
           }
@@ -43,8 +43,7 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
         required: 'Please select a reason for closing the work order',
       })}
       error={errors && errors.reason}
-      checkedValue={reasonWatchedValue}
-      onChange={(e) => props.setValue('reason', e.target.value)}
+      // checkedValue={reasonWatchedValue}
     />
   )
 }

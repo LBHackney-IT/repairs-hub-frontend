@@ -1,8 +1,13 @@
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form'
-import Radios from '../../Form/Radios'
+import {
+  DeepMap,
+  FieldError,
+  FieldValues,
+  UseFormMethods,
+} from 'react-hook-form'
+import Radio from '../../Form/Radios'
 
 interface Props {
-  register: any
+  register: UseFormMethods['register']
   errors:
     | DeepMap<FieldValues, FieldError>
     | { [key: string]: { message: string } }
@@ -30,7 +35,7 @@ const FollowOnRequestMaterialsSupervisorCalledForm = (props: Props) => {
   ]
 
   return (
-    <Radios
+    <Radio
       labelSize="s"
       label="Have you called your supervisor?"
       name="supervisorCalled"

@@ -256,6 +256,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
+      window.localStorage.removeItem('closeWorkOrderForm') // Clear cached form data
       router.push('/')
     } catch (e) {
       console.error(e)
@@ -293,6 +294,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
       {workOrderProgressedToClose && (
         <MobileWorkingCloseWorkOrderForm
+          workOrderReference={workOrderReference}
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
           defaultValues={closeFormValues || {}}

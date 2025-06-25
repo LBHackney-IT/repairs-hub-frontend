@@ -20,6 +20,7 @@ interface FollowOnRequestTypeOfWorkFormProps {
   setError: (name: string, error: FieldError) => void
   clearErrors: (name?: string | string[]) => void
   watch: CallableFunction
+  // setValue: (name: string, value: unknown) => void
   followOnData?: Partial<followOnDataRequest>
   hasWhiteBackground?: boolean
   isGrid?: boolean
@@ -35,6 +36,7 @@ const FollowOnRequestTypeOfWorkForm = (
     setError,
     clearErrors,
     watch,
+    // setValue,
     followOnData,
     hasWhiteBackground,
     isGrid,

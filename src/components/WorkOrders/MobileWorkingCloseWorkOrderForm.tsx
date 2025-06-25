@@ -9,6 +9,7 @@ import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import useFormPersist from 'react-hook-form-persist'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -44,6 +45,7 @@ export interface DefaultValues {
 }
 
 interface MobileWorkingCloseWorkOrderFormProps {
+  workOrderReference: string
   onSubmit: (
     data: Record<string, unknown>,
     workOrderFiles: File[],
@@ -54,6 +56,7 @@ interface MobileWorkingCloseWorkOrderFormProps {
 }
 
 const MobileWorkingCloseWorkOrderForm = ({
+  workOrderReference,
   onSubmit,
   isLoading,
   defaultValues = {},
@@ -72,6 +75,12 @@ const MobileWorkingCloseWorkOrderForm = ({
     shouldUnregister: false,
     defaultValues,
   })
+  console.log('Default values:', JSON.stringify(defaultValues))
+  useFormPersist(`closeWorkOrder_${workOrderReference}`, {
+    watch,
+    setValue,
+    storage: window.localStorage,
+  })
 
   // Restore fields from defaultValues if they exist
   const [workOrderFiles, setWorkOrderFiles] = useState<File[]>(
@@ -84,23 +93,23 @@ const MobileWorkingCloseWorkOrderForm = ({
   useEffect(() => {
     setWorkOrderFiles(defaultValues.workOrderFiles || [])
     setFollowOnFiles(defaultValues.followOnFiles || [])
-    setValue(
-      'workOrderPhotoDescription',
-      defaultValues.workOrderPhotoDescription
-    )
-    setValue('notes', defaultValues.finalReport || defaultValues.notes)
-    setValue('followOnTypeDescription', defaultValues.followOnTypeDescription)
-    setValue('stockItemsRequired', defaultValues.stockItemsRequired)
-    setValue('nonStockItemsRequired', defaultValues.nonStockItemsRequired)
-    setValue('materialNotes', defaultValues.materialNotes)
-    setValue('additionalNotes', defaultValues.additionalNotes)
-    setValue('followOnPhotoDescription', defaultValues.followOnPhotoDescription)
-    setValue('supervisorCalled', defaultValues.supervisorCalled)
-    setValue('isEmergency', defaultValues.isEmergency)
-    setValue('isMultipleOperatives', defaultValues.isMultipleOperatives)
-    setValue('otherTrade', defaultValues.otherTrade)
-    setValue('reason', defaultValues.reason)
-    setValue('followOnStatus', defaultValues.followOnStatus)
+    // setValue(
+    //   'workOrderPhotoDescription',
+    //   defaultValues.workOrderPhotoDescription
+    // )
+    // setValue('notes', defaultValues.finalReport || defaultValues.notes)
+    // setValue('followOnTypeDescription', defaultValues.followOnTypeDescription)
+    // setValue('stockItemsRequired', defaultValues.stockItemsRequired)
+    // setValue('nonStockItemsRequired', defaultValues.nonStockItemsRequired)
+    // setValue('materialNotes', defaultValues.materialNotes)
+    // setValue('additionalNotes', defaultValues.additionalNotes)
+    // setValue('followOnPhotoDescription', defaultValues.followOnPhotoDescription)
+    // setValue('supervisorCalled', defaultValues.supervisorCalled)
+    // setValue('isEmergency', defaultValues.isEmergency)
+    // setValue('isMultipleOperatives', defaultValues.isMultipleOperatives)
+    // setValue('otherTrade', defaultValues.otherTrade)
+    // setValue('reason', defaultValues.reason)
+    // setValue('followOnStatus', defaultValues.followOnStatus)
   }, [defaultValues, setValue])
 
   useEffect(() => {
@@ -179,8 +188,8 @@ const MobileWorkingCloseWorkOrderForm = ({
             errors={errors}
             watch={watch}
             canRaiseAFollowOn={true}
-            defaultValues={defaultValues}
-            setValue={setValue}
+            // defaultValues={defaultValues}
+            // setValue={setValue}
           />
 
           <div className="govuk-form-group lbh-form-group">
@@ -239,6 +248,8 @@ const MobileWorkingCloseWorkOrderForm = ({
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
+              // setValue={setValue}
+              // watch={watch}
             />
 
             <FollowOnRequestTypeOfWorkForm
@@ -248,6 +259,7 @@ const MobileWorkingCloseWorkOrderForm = ({
               setError={setError}
               clearErrors={clearErrors}
               watch={watch}
+              // setValue={setValue}
             />
             <FollowOnRequestMaterialsForm
               register={register}
