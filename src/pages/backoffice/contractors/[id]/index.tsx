@@ -1,5 +1,5 @@
 import Meta from '@/components/Meta'
-import ContractView from '@/root/src/components/BackOffice/ContractsDashboard/Contract/ContractView'
+import ContractorListItem from '@/root/src/components/BackOffice/ContractsDashboard/ContractorListItem'
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
 import {
   AGENT_ROLE,
@@ -11,8 +11,8 @@ import {
 const ContractPage = ({ query }) => {
   return (
     <>
-      <Meta title={`Contract ${query.id}`} />
-      <ContractView contractReference={query.id} />
+      <Meta title={`Contractor ${query.id}`} />
+      <ContractorListItem contractorReference={query.id} />
     </>
   )
 }

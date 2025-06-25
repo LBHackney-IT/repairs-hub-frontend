@@ -6,7 +6,8 @@ import Layout from '../Layout'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import WarningInfoBox from '../../Template/WarningInfoBox'
-import { ContractsListItems } from './ContractsListItems'
+import ContractorsListItems from './ContractorsListItems'
+import ContractListItems from './Contract/ContractListItems'
 import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 
 import Contract from '@/root/src/models/contract'
@@ -45,15 +46,17 @@ const ContractsDashboard = () => {
     )
   }
 
-  const filteredContracts = () => {
-    return contracts?.slice().reverse().slice(startIndex, endIndex)
+  if (isLoading) {
+    return (
+      <Layout title="Contracts Dashboard">
+        <Spinner />
+      </Layout>
+    )
   }
 
-  return (
-    <Layout title="Contracts Dashboard">
-      {isLoading ? (
-        <Spinner />
-      ) : error ? (
+  if (error) {
+    return (
+      <Layout title="Contracts Dashboard">
         <ErrorMessage
           label={
             error instanceof Error
@@ -63,15 +66,22 @@ const ContractsDashboard = () => {
               : 'An unexpected error occurred'
           }
         />
-      ) : contracts?.length ? (
-        <ol className="lbh-list">
-          <ContractsListItems
-            filteredContracts={filteredContracts()}
+      </Layout>
+    )
+  }
+
+  return (
+    <Layout title="Contracts Dashboard">
+      {contracts?.length ? (
+        <>
+          <ContractListItems contracts={contracts} />
+          <ContractorsListItems
+            filteredContracts={contracts.slice(startIndex, endIndex)}
             pageNumber={pageNumber}
             setPageNumber={handleSetPageNumber}
             totalPages={totalPages}
           />
-        </ol>
+        </>
       ) : (
         <WarningInfoBox
           header="No contracts found"

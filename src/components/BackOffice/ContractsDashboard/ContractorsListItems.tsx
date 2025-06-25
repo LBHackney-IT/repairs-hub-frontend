@@ -1,21 +1,21 @@
-import ContractListItem from './ContractListItem'
+import ContractorListItem from './ContractorListItem'
 import { Button } from '../../Form'
 
 import Contract from '@/root/src/models/contract'
 
-interface ContractListItemsProps {
+interface ContractorsListItemsProps {
   filteredContracts: Contract[]
   setPageNumber: (pageNumber: number) => void
   pageNumber: number
   totalPages: number
 }
 
-export const ContractsListItems = ({
+const ContractorsListItems = ({
   filteredContracts,
   setPageNumber,
   pageNumber,
   totalPages,
-}: ContractListItemsProps) => {
+}: ContractorsListItemsProps) => {
   if (filteredContracts === null || filteredContracts?.length === 0) {
     return <></>
   }
@@ -23,10 +23,9 @@ export const ContractsListItems = ({
   return (
     <div>
       <ol className="lbh-list mobile-working-work-order-list">
-        {filteredContracts.map((contract, index) => (
-          <ContractListItem
-            index={index}
-            contract={contract}
+        {filteredContracts.map((contract) => (
+          <ContractorListItem
+            contractorReference={contract.contractorReference}
             key={contract.contractReference}
           />
         ))}
@@ -51,3 +50,5 @@ export const ContractsListItems = ({
     </div>
   )
 }
+
+export default ContractorsListItems
