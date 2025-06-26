@@ -26,7 +26,6 @@ interface Props {
   required?: boolean
   isRadiosInline?: boolean
   isGrid?: boolean
-  checkedValue?: string | boolean
   [key: string]: any
 }
 
@@ -45,7 +44,6 @@ const Radio = (props: Props) => {
     isRadiosInline = false,
     isGrid,
     hasWhiteBackground,
-    checkedValue,
     ...otherProps
   } = props
 
@@ -104,18 +102,13 @@ const Radio = (props: Props) => {
                   name={name}
                   type="radio"
                   value={value}
-                  {...(register ? register : {})}
+                  ref={register}
                   data-testid={name}
                   aria-describedby={
                     hint &&
                     `${name}-${value.replace(/\s+/g, '-').toLowerCase()}-hint`
                   }
-                  checked={Boolean(String(checkedValue) === String(value))}
-                  onChange={(e) => {
-                    if (otherProps.onChange) {
-                      otherProps.onChange(e)
-                    }
-                  }}
+                  defaultChecked={defaultChecked}
                   {...otherProps}
                 />
 

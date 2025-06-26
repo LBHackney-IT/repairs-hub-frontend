@@ -5,10 +5,11 @@ import Radio from '../../Form/Radios'
 interface Props {
   error?: FieldError
   visible: boolean
+  register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
 }
 
 const FurtherWorkRadio = (props: Props) => {
-  const { error, visible } = props
+  const { error, visible, register } = props
 
   if (!visible) return null
 
@@ -17,6 +18,7 @@ const FurtherWorkRadio = (props: Props) => {
       name="followOnStatus"
       options={FOLLOW_ON_STATUS_OPTIONS}
       error={error}
+      register={register}
     />
   )
 }
