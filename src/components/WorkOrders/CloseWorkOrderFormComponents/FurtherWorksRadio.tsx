@@ -17,8 +17,10 @@ const FurtherWorkRadio = (props: Props) => {
     <Radio
       name="followOnStatus"
       options={FOLLOW_ON_STATUS_OPTIONS}
+      register={register({
+        required: 'Please confirm if further work is required',
+      })}
       error={error}
-      register={register}
     />
   )
 }

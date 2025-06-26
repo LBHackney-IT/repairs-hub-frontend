@@ -36,7 +36,6 @@ const FollowOnRequestTypeOfWorkForm = (
     setError,
     clearErrors,
     watch,
-    // setValue,
     followOnData,
     hasWhiteBackground,
     isGrid,

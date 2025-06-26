@@ -14,31 +14,31 @@ interface Props {
 const CloseWorkOrderFormReasonForClosing = (props: Props) => {
   const { register, errors, watch, canRaiseAFollowOn } = props
 
-  const reasonWatchedValue = watch('reason')
-
   return (
     <Radio
       labelSize="s"
       label="Reason for closing"
       name="reason"
       options={CLOSURE_STATUS_OPTIONS.map((r) => {
-        if (canRaiseAFollowOn && r.value === 'Work Order Completed') {
-          return {
-            ...r,
-            children: (
-              <FurtherWorkRadio
-                error={errors?.followOnStatus}
-                visible={reasonWatchedValue === 'Work Order Completed'}
-                register={register}
-              />
-            ),
-          }
+        return {
+          ...r,
+          children: (
+            <FurtherWorkRadio
+              error={errors?.followOnStatus}
+              register={register}
+              visible={
+                canRaiseAFollowOn &&
+                r.value === 'Work Order Completed' &&
+                watch('reason') === 'Work Order Completed'
+              }
+            />
+          ),
         }
-        return r
       })}
-      register={register}
+      register={register({
+        required: 'Please select a reason for closing the work order',
+      })}
       error={errors && errors.reason}
-      // checkedValue={reasonWatchedValue}
     />
   )
 }

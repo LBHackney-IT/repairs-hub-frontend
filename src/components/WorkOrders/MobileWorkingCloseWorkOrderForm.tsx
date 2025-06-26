@@ -231,8 +231,6 @@ const MobileWorkingCloseWorkOrderForm = ({
             <FollowOnRequestMaterialsSupervisorCalledForm
               register={register}
               errors={errors}
-              // setValue={setValue}
-              // watch={watch}
             />
 
             <FollowOnRequestTypeOfWorkForm
@@ -242,7 +240,6 @@ const MobileWorkingCloseWorkOrderForm = ({
               setError={setError}
               clearErrors={clearErrors}
               watch={watch}
-              // setValue={setValue}
             />
             <FollowOnRequestMaterialsForm
               register={register}

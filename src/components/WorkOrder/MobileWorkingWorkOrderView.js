@@ -150,12 +150,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     followOnFiles
   ) => {
     setLoadingStatus('Completing workorder')
+
     let followOnRequest = null
+
     if (data.followOnStatus === 'furtherWorkRequired') {
       const requiredFollowOnTrades = []
+
       FOLLOW_ON_REQUEST_AVAILABLE_TRADES.forEach(({ name, value }) => {
         if (data[name]) requiredFollowOnTrades.push(value)
       })
+
       followOnRequest = buildFollowOnRequestData(
         data.isEmergency === 'true',
         data.isMultipleOperatives === 'true',
@@ -168,8 +172,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         data.supervisorCalled === 'Yes',
         data.otherTrade
       )
+    } else {
+      // Do not upload follow on files if user removed follow-on request
+      followOnFiles = []
     }
+
     let notes = data.notes // notes written by user
+
     if (data.reason == 'No Access') {
       notes = [
         'Work order closed',
@@ -177,6 +186,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         workOrderNoteFragmentForPaymentType(paymentType),
       ].join(' - ')
     }
+
     const closeWorkOrderFormData = buildCloseWorkOrderData(
       new Date().toISOString(),
       notes,
@@ -185,13 +195,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       paymentType,
       followOnRequest
     )
-    try {
-      if (workOrderFiles.length > 0 || followOnFiles.length > 0) {
-        // initiate both uploads
-        var totalFilesToUpload = workOrderFiles.length + followOnFiles.length
 
+    try {
+      var filesToUpload = workOrderFiles.concat(followOnFiles)
+
+      if (filesToUpload.length > 0) {
         const fileUploadCompleteCallback = fileUploadStatusLogger(
-          totalFilesToUpload,
+          filesToUpload.length,
           setLoadingStatus
         )
 
@@ -256,7 +266,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
-      window.localStorage.removeItem('closeWorkOrderForm') // Clear cached form data
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (key && key.startsWith('closeWorkOrder')) {
+          localStorage.removeItem(key)
+        }
+      } // Clear cached form data
       router.push('/')
     } catch (e) {
       console.error(e)
