@@ -1,12 +1,8 @@
-import {
-  CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
-} from '@/root/src/utils/statusCodes'
+import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import { FieldErrors } from 'react-hook-form'
 import { DefaultValues } from '../MobileWorkingCloseWorkOrderForm'
 import FurtherWorkRadio from './FurtherWorksRadio'
 import Radio from '../../Form/Radios'
-import { useEffect } from 'react'
 
 interface Props {
   register: ReturnType<typeof import('react-hook-form')['useForm']>['register']

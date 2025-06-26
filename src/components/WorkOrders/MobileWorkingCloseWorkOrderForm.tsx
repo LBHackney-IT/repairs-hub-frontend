@@ -75,7 +75,7 @@ const MobileWorkingCloseWorkOrderForm = ({
     shouldUnregister: false,
     defaultValues,
   })
-  console.log('Default values:', JSON.stringify(defaultValues))
+
   useFormPersist(`closeWorkOrder_${workOrderReference}`, {
     watch,
     setValue,
@@ -93,23 +93,6 @@ const MobileWorkingCloseWorkOrderForm = ({
   useEffect(() => {
     setWorkOrderFiles(defaultValues.workOrderFiles || [])
     setFollowOnFiles(defaultValues.followOnFiles || [])
-    // setValue(
-    //   'workOrderPhotoDescription',
-    //   defaultValues.workOrderPhotoDescription
-    // )
-    // setValue('notes', defaultValues.finalReport || defaultValues.notes)
-    // setValue('followOnTypeDescription', defaultValues.followOnTypeDescription)
-    // setValue('stockItemsRequired', defaultValues.stockItemsRequired)
-    // setValue('nonStockItemsRequired', defaultValues.nonStockItemsRequired)
-    // setValue('materialNotes', defaultValues.materialNotes)
-    // setValue('additionalNotes', defaultValues.additionalNotes)
-    // setValue('followOnPhotoDescription', defaultValues.followOnPhotoDescription)
-    // setValue('supervisorCalled', defaultValues.supervisorCalled)
-    // setValue('isEmergency', defaultValues.isEmergency)
-    // setValue('isMultipleOperatives', defaultValues.isMultipleOperatives)
-    // setValue('otherTrade', defaultValues.otherTrade)
-    // setValue('reason', defaultValues.reason)
-    // setValue('followOnStatus', defaultValues.followOnStatus)
   }, [defaultValues, setValue])
 
   useEffect(() => {
@@ -292,7 +275,6 @@ const MobileWorkingCloseWorkOrderForm = ({
                 })}
                 testId="FollowOnPhotoUpload"
               />
-
               {followOnFiles.length > 0 && (
                 <TextArea
                   name="followOnPhotoDescription"
