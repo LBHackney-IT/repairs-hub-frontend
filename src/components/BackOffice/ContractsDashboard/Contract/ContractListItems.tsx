@@ -25,7 +25,7 @@ const ContractListItems = ({
         <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
           {heading}
         </h3>
-        <div style={{ width: '85%' }}>
+        <div style={{ width: '90%' }}>
           <WarningInfoBox
             header="No contracts found!"
             text={`${warningText}`}
@@ -55,19 +55,30 @@ const ContractListItems = ({
   }
 
   return (
-    <ol className="lbh-list mobile-working-work-order-list">
+    <>
       <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
         {heading}
       </h3>
-      {contracts?.map((contract, index) => (
-        <ContractListItem
-          key={contract.contractReference}
-          contract={contract}
-          index={index}
-          page={page}
-        />
-      ))}
-    </ol>
+      <ol
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fill, 10rem)',
+          gap: '1rem',
+          listStyle: 'none',
+          padding: 0,
+          margin: 0,
+        }}
+      >
+        {contracts?.map((contract, index) => (
+          <ContractListItem
+            key={contract.contractReference}
+            contract={contract}
+            index={index}
+            page={page}
+          />
+        ))}
+      </ol>
+    </>
   )
 }
 
