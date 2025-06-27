@@ -49,36 +49,32 @@ const ContractorView = ({
 
   return (
     <Layout title={`${contractorName}`}>
-      <ol className="lbh-list mobile-working-work-order-list">
-        {activeContractsLoading ? (
-          <Spinner />
-        ) : (
-          activeContracts && (
-            <ContractListItems
-              contracts={activeContracts}
-              heading="Active contracts:"
-              warningText={`No active contracts found for ${contractorName}.`}
-              error={activeContractsError}
-              page="contractor"
-            />
-          )
-        )}
-      </ol>
-      <ol className="lbh-list mobile-working-work-order-list">
-        {inactiveContractsLoading ? (
-          <Spinner />
-        ) : (
-          relativeInactiveContracts && (
-            <ContractListItems
-              contracts={relativeInactiveContracts}
-              heading="Inactive contracts:"
-              warningText={`No inactive contracts found for ${contractorName}.`}
-              error={inactiveContractsError}
-              page="contractor"
-            />
-          )
-        )}
-      </ol>
+      {activeContractsLoading ? (
+        <Spinner />
+      ) : (
+        activeContracts && (
+          <ContractListItems
+            contracts={activeContracts}
+            heading="Active contracts:"
+            warningText={`No active contracts found for ${contractorName}.`}
+            error={activeContractsError}
+            page="contractor"
+          />
+        )
+      )}
+      {inactiveContractsLoading ? (
+        <Spinner />
+      ) : (
+        relativeInactiveContracts && (
+          <ContractListItems
+            contracts={relativeInactiveContracts}
+            heading="Inactive contracts:"
+            warningText={`No inactive contracts found for ${contractorName}.`}
+            error={inactiveContractsError}
+            page="contractor"
+          />
+        )
+      )}
     </Layout>
   )
 }
