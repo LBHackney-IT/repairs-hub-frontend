@@ -1,5 +1,4 @@
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
-import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import Contract from '@/models/contract'
 
 export const fetchContractors = async () => {
