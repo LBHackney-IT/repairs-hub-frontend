@@ -62,6 +62,7 @@ const ContractsDashboard = () => {
             contracts={filteredContracts}
             heading="Contracts due to expire soon:"
             warningText="No contracts expiring in the next two months."
+            page="dashboard"
           />
         )}
         {contracts && <ContractorsListItems contracts={contracts} />}

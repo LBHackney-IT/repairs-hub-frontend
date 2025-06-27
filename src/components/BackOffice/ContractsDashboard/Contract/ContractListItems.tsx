@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 import Contract from '@/root/src/models/contract'
 
 import WarningInfoBox from '../../../Template/WarningInfoBox'
@@ -11,6 +9,7 @@ interface ContractListItemsProps {
   heading: string
   warningText: string
   error?: Error | string | null
+  page: string
 }
 
 const ContractListItems = ({
@@ -18,6 +17,7 @@ const ContractListItems = ({
   heading,
   warningText,
   error,
+  page,
 }: ContractListItemsProps) => {
   if (contracts === null || contracts?.length === 0) {
     return (
@@ -64,6 +64,7 @@ const ContractListItems = ({
           key={contract.contractReference}
           contract={contract}
           index={index}
+          page={page}
         />
       ))}
     </ol>
