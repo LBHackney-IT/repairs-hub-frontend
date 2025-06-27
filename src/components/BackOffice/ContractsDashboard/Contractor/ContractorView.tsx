@@ -2,6 +2,7 @@ import { useQuery } from 'react-query'
 import { fetchContracts } from '../../requests'
 
 import Layout from '../../Layout'
+import Spinner from '../../../Spinner'
 
 import ContractListItems from '../Contract/ContractListItems'
 
@@ -49,25 +50,31 @@ const ContractorView = ({
   return (
     <Layout title={`${contractorName}`}>
       <ol className="lbh-list mobile-working-work-order-list">
-        {activeContracts && (
-          <ContractListItems
-            contracts={activeContracts}
-            heading="Active contracts:"
-            warningText={`No active contracts found for ${contractorName}.`}
-            isLoading={activeContractsLoading}
-            error={activeContractsError}
-          />
+        {activeContractsLoading ? (
+          <Spinner />
+        ) : (
+          activeContracts && (
+            <ContractListItems
+              contracts={activeContracts}
+              heading="Active contracts:"
+              warningText={`No active contracts found for ${contractorName}.`}
+              error={activeContractsError}
+            />
+          )
         )}
       </ol>
       <ol className="lbh-list mobile-working-work-order-list">
-        {relativeInactiveContracts && (
-          <ContractListItems
-            contracts={relativeInactiveContracts}
-            heading="Inactive contracts:"
-            warningText={`No inactive contracts found for ${contractorName}.`}
-            isLoading={inactiveContractsLoading}
-            error={inactiveContractsError}
-          />
+        {inactiveContractsLoading ? (
+          <Spinner />
+        ) : (
+          relativeInactiveContracts && (
+            <ContractListItems
+              contracts={relativeInactiveContracts}
+              heading="Inactive contracts:"
+              warningText={`No inactive contracts found for ${contractorName}.`}
+              error={inactiveContractsError}
+            />
+          )
         )}
       </ol>
     </Layout>
