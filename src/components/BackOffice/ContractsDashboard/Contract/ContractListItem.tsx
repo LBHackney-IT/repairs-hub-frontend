@@ -15,7 +15,6 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
       <li
         data-id={index}
         style={{
-          cursor: 'pointer',
           border: '5px solid #00664F',
           borderRadius: '20px',
           width: '85%',
