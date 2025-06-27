@@ -1,7 +1,15 @@
 import cx from 'classnames'
+
+import Contract from '@/root/src/models/contract'
 import { dateToStr } from '@/root/src/utils/date'
 
-const ContractListItem = ({ contract, index }) => {
+interface ContractListItemProps {
+  contract: Contract
+  index: number
+  page: string
+}
+
+const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
   return (
     <>
       <li
@@ -15,11 +23,26 @@ const ContractListItem = ({ contract, index }) => {
         className={cx('govuk-!-margin-top-3', 'operative-work-order-list-item')}
       >
         <div className="contract-details">
-          <p key={index}>
-            {`${contract.contractReference} |  ${
-              contract.contractorName
-            } | ${dateToStr(contract.terminationDate)}`}
-          </p>
+          {page === 'contractor' && (
+            <p key={index}>
+              {contract.contractReference} |{' '}
+              <span style={{ fontWeight: '600' }}>Sum of SORs:</span>{' '}
+              {Intl.NumberFormat('en-UK', {
+                style: 'currency',
+                currency: 'GBP',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              }).format(contract.sorCost)}{' '}
+              | <span style={{ fontWeight: '600' }}>SOR Count:</span>{' '}
+              {contract.sorCount} | {dateToStr(contract.terminationDate)}
+            </p>
+          )}
+          {page === 'dashboard' && (
+            <p key={index}>
+              {contract.contractReference} | {contract.contractorName} |{' '}
+              Expires: {dateToStr(contract.terminationDate)}
+            </p>
+          )}
         </div>
       </li>
     </>
