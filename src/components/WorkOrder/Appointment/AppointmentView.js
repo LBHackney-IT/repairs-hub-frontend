@@ -11,7 +11,6 @@ import AppointmentCalendar from './AppointmentCalendar'
 import SuccessPage from '@/components/SuccessPage/index'
 import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
-import { WorkOrder } from '@/models/workOrder'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
@@ -38,7 +37,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
