@@ -19,7 +19,7 @@ const ContractsDashboard = () => {
   const contractError = error as Error | null
 
   const today = new Date()
-  const twoMonthsFromNow = new Date(
+  const contractExpiryCutOffDate = new Date(
     today.getFullYear(),
     today.getMonth() + 2,
     today.getDate()
@@ -27,7 +27,7 @@ const ContractsDashboard = () => {
   const filteredContracts = contracts?.filter((contract) => {
     return (
       new Date(contract.terminationDate) > today &&
-      new Date(contract.terminationDate) < twoMonthsFromNow
+      new Date(contract.terminationDate) < contractExpiryCutOffDate
     )
   })
 
