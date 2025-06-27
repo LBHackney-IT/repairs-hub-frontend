@@ -22,7 +22,7 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-export interface DefaultValues {
+export interface CloseWorkOrderValues {
   workOrderFileUpload?: FileList | null
   followOnFileUpload?: FileList | null
   workOrderFiles?: File[]
@@ -47,19 +47,19 @@ export interface DefaultValues {
 interface MobileWorkingCloseWorkOrderFormProps {
   workOrderReference: string
   onSubmit: (
-    data: Record<string, unknown>,
+    data: CloseWorkOrderValues,
     workOrderFiles: File[],
     followOnFiles: File[]
   ) => void
   isLoading: boolean
-  defaultValues?: DefaultValues
+  presetValues?: Partial<CloseWorkOrderValues>
 }
 
 const MobileWorkingCloseWorkOrderForm = ({
   workOrderReference,
   onSubmit,
   isLoading,
-  defaultValues = {},
+  presetValues = {},
 }: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
@@ -71,9 +71,9 @@ const MobileWorkingCloseWorkOrderForm = ({
     getValues,
     trigger,
     setValue,
-  } = useForm<DefaultValues>({
+  } = useForm<CloseWorkOrderValues>({
     shouldUnregister: false,
-    defaultValues,
+    defaultValues: presetValues,
   })
 
   useFormPersist(`closeWorkOrder_${workOrderReference}`, {
@@ -82,18 +82,19 @@ const MobileWorkingCloseWorkOrderForm = ({
     storage: window.localStorage,
   })
 
-  // Restore fields from defaultValues if they exist
+  // Restore fields from presetValues if they exist
   const [workOrderFiles, setWorkOrderFiles] = useState<File[]>(
-    defaultValues.workOrderFiles || []
+    presetValues.workOrderFiles || []
   )
   const [followOnFiles, setFollowOnFiles] = useState<File[]>(
-    defaultValues.followOnFiles || []
+    presetValues.followOnFiles || []
   )
 
   useEffect(() => {
-    setWorkOrderFiles(defaultValues.workOrderFiles || [])
-    setFollowOnFiles(defaultValues.followOnFiles || [])
-  }, [defaultValues, setValue])
+    // Persist here because files not supported in useFormPersist
+    setWorkOrderFiles(presetValues.workOrderFiles || [])
+    setFollowOnFiles(presetValues.followOnFiles || [])
+  }, [])
 
   useEffect(() => {
     if (watch('reason') !== 'Work Order Completed') {
@@ -136,27 +137,7 @@ const MobileWorkingCloseWorkOrderForm = ({
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
-          const allValues = {
-            ...data,
-            workOrderFiles,
-            followOnFiles,
-            workOrderPhotoDescription: getValues('workOrderPhotoDescription'),
-            finalReport: getValues('notes'),
-            ...(data.followOnStatus === 'furtherWorkRequired' && {
-              // Follow-on fields
-              followOnTypeDescription: getValues('followOnTypeDescription'),
-              stockItemsRequired: getValues('stockItemsRequired'),
-              nonStockItemsRequired: getValues('nonStockItemsRequired'),
-              materialNotes: getValues('materialNotes'),
-              additionalNotes: getValues('additionalNotes'),
-              followOnPhotoDescription: getValues('followOnPhotoDescription'),
-              supervisorCalled: getValues('supervisorCalled'),
-              isEmergency: getValues('isEmergency'),
-              isMultipleOperatives: getValues('isMultipleOperatives'),
-              otherTrade: getValues('otherTrade'),
-            }),
-          }
-          onSubmit(allValues, workOrderFiles, followOnFiles)
+          onSubmit(data, workOrderFiles, followOnFiles)
         })}
       >
         <div
@@ -171,8 +152,6 @@ const MobileWorkingCloseWorkOrderForm = ({
             errors={errors}
             watch={watch}
             canRaiseAFollowOn={true}
-            // defaultValues={defaultValues}
-            // setValue={setValue}
           />
 
           <div className="govuk-form-group lbh-form-group">

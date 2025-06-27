@@ -45,7 +45,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
-  const [closeFormValues, setCloseFormValues] = useState(null)
+  const [closeFormValues, setCloseFormValues] = useState({})
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
@@ -217,7 +217,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues(data)
+            setCloseFormValues({
+              workOrderFiles: workOrderFiles,
+              followOnFiles: followOnFiles,
+            })
             return
           }
         }
@@ -234,14 +237,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
-            setCloseFormValues(data)
+            setCloseFormValues({
+              workOrderFiles: workOrderFiles,
+              followOnFiles: followOnFiles,
+            })
             return
           }
         }
       }
 
       setLoadingStatus('Completing workorder')
-
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
@@ -277,7 +282,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       console.error(e)
       setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
-      setCloseFormValues(data)
+      setCloseFormValues({
+        workOrderFiles: workOrderFiles,
+        followOnFiles: followOnFiles,
+      })
     }
   }
 
@@ -312,7 +320,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           workOrderReference={workOrderReference}
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
-          defaultValues={closeFormValues || {}}
+          presetValues={closeFormValues}
         />
       )}
 

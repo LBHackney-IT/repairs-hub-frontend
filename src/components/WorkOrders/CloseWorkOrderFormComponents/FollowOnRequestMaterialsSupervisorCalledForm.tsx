@@ -4,7 +4,7 @@ import {
   FieldValues,
   UseFormMethods,
 } from 'react-hook-form'
-import Radio from '../../Form/Radios'
+import Radios from '../../Form/Radios'
 
 interface Props {
   register: UseFormMethods['register']
@@ -35,7 +35,7 @@ const FollowOnRequestMaterialsSupervisorCalledForm = (props: Props) => {
   ]
 
   return (
-    <Radio
+    <Radios
       labelSize="s"
       label="Have you called your supervisor?"
       name="supervisorCalled"
