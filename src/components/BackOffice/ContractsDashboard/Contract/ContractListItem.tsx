@@ -47,13 +47,19 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
                 <span style={{ fontWeight: '600' }}>SOR Count:</span>{' '}
                 {contract.sorCount}
               </p>
-              <p>{dateToStr(contract.terminationDate)}</p>
+              <p>
+                <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
+                {dateToStr(contract.terminationDate)}
+              </p>
             </>
           )}
           {page === 'dashboard' && (
             <>
               <p>{contract.contractorName}</p>
-              <p>Expires: {dateToStr(contract.terminationDate)}</p>
+              <p>
+                <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
+                {dateToStr(contract.terminationDate)}
+              </p>
             </>
           )}
         </div>
