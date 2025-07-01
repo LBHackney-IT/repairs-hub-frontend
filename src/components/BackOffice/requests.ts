@@ -17,7 +17,9 @@ export const fetchContracts = async (
     method: 'get',
     path: `/api/backoffice/contracts?isActive=${
       isActive ? isActive : ''
-    }&contractorReference=${contractorReference ? contractorReference : ''}&sorCode=${sorCode ? sorCode : ''}`,
+    }&contractorReference=${
+      contractorReference ? contractorReference : ''
+    }&sorCode=${sorCode ? sorCode : ''}`,
   })
 
   return contracts
