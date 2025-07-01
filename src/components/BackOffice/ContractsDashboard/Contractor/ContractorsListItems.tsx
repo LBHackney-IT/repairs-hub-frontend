@@ -1,6 +1,6 @@
 import Contract from '@/root/src/models/contract'
 import ContractorListItem from './ContractorListItem'
-import WarningInfoBox from '../../Template/WarningInfoBox'
+import WarningInfoBox from '../../../Template/WarningInfoBox'
 
 interface ContractorsListItemsProps {
   contracts: Contract[]

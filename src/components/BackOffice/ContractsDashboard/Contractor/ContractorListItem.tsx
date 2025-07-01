@@ -11,7 +11,12 @@ const ContractorListItem = ({
   contractorName,
 }: ContractorListItemProps) => {
   return (
-    <Link href={`/backoffice/contractor/${contractorReference}`}>
+    <Link
+      href={{
+        pathname: `/backoffice/contractors/${contractorReference}`,
+        query: { contractorName },
+      }}
+    >
       <li
         style={{
           cursor: 'pointer',

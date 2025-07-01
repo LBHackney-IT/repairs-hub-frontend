@@ -3,8 +3,7 @@ import { useQuery } from 'react-query'
 import Layout from '../Layout'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
-import WarningInfoBox from '../../Template/WarningInfoBox'
-import ContractorsListItems from './ContractorsListItems'
+import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractListItems from './Contract/ContractListItems'
 import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 
@@ -13,10 +12,24 @@ import Contract from '@/root/src/models/contract'
 const ContractsDashboard = () => {
   const { data, isLoading, error } = useQuery(
     ['contracts', { isActive: null, contractorReference: null }],
-    () => fetchContracts(null, null)
+    () => fetchContracts()
   )
 
   const contracts = data as Contract[] | null
+  const contractError = error as Error | null
+
+  const today = new Date()
+  const contractExpiryCutOffDate = new Date(
+    today.getFullYear(),
+    today.getMonth() + 2,
+    today.getDate()
+  )
+  const filteredContracts = contracts?.filter((contract) => {
+    return (
+      new Date(contract.terminationDate) > today &&
+      new Date(contract.terminationDate) < contractExpiryCutOffDate
+    )
+  })
 
   if (isLoading) {
     return (
@@ -25,7 +38,7 @@ const ContractsDashboard = () => {
       </Layout>
     )
   }
-  if (error) {
+  if (contractError) {
     return (
       <Layout title="Contracts Dashboard">
         <ErrorMessage
@@ -43,17 +56,17 @@ const ContractsDashboard = () => {
 
   return (
     <Layout title="Contracts Dashboard">
-      {contracts?.length ? (
-        <>
-          <ContractListItems contracts={contracts} />
-          <ContractorsListItems contracts={contracts} />
-        </>
-      ) : (
-        <WarningInfoBox
-          header="No contracts found"
-          name="No contracts warning"
-        />
-      )}
+      <>
+        {filteredContracts && (
+          <ContractListItems
+            contracts={filteredContracts}
+            heading="Contracts due to expire soon:"
+            warningText="No contracts expiring in the next two months."
+            page="dashboard"
+          />
+        )}
+        {contracts && <ContractorsListItems contracts={contracts} />}
+      </>
     </Layout>
   )
 }
