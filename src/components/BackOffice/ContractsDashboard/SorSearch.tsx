@@ -66,14 +66,14 @@ const SorSearch = ({
           <Spinner />
         ) : (
           <>
-            {contracts?.length > 0 && (
+            {contracts !== null && contracts?.length > 0 && (
               <ContractListItems
                 contracts={contracts}
                 heading={`${sorCode} found in the following ${contractorName} contracts`}
                 page="sorSearch"
               />
             )}
-            {contracts?.length === 0 && (
+            {contracts !== null && contracts?.length === 0 && (
               <p className="lbh-body">
                 No contracts with{' '}
                 <span style={{ fontWeight: 600 }}>{sorCode}</span> SOR code{' '}
