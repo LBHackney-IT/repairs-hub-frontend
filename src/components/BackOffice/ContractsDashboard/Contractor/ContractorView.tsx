@@ -57,7 +57,7 @@ const ContractorView = ({
   )
 
   const descendingDateContractsWithSorCode = useMemo(
-    () => (contractsWithSorCode ? [...contractsWithSorCode].reverse() : null),
+    () => contractsWithSorCode && [...contractsWithSorCode].reverse(),
     [contractsWithSorCode]
   )
 
