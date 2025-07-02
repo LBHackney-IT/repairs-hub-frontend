@@ -46,7 +46,11 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
                 {contract.sorCount}
               </p>
               <p>
-                <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
+                <span style={{ fontWeight: '600' }}>
+                  {contract.terminationDate < new Date().toISOString()
+                    ? `Expired: `
+                    : `Expires: `}
+                </span>
                 {dateToStr(contract.terminationDate)}
               </p>
             </>
@@ -58,6 +62,17 @@ const ContractListItem = ({ contract, index, page }: ContractListItemProps) => {
                 <span style={{ fontWeight: '600' }}>Expires:</span>{' '}
                 {dateToStr(contract.terminationDate)}
               </p>
+            </>
+          )}
+          {page === 'sorSearch' && (
+            <>
+              {contract.terminationDate < new Date().toISOString() ? (
+                <p style={{ color: 'red' }}>
+                  Expired: {dateToStr(contract.terminationDate)}
+                </p>
+              ) : (
+                <p style={{ color: 'green' }}>Active</p>
+              )}
             </>
           )}
         </div>

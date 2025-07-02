@@ -10,13 +10,16 @@ export const fetchContractors = async () => {
 
 export const fetchContracts = async (
   isActive?: boolean,
-  contractorReference?: string
+  contractorReference?: string,
+  sorCode?: string
 ): Promise<Contract[] | null> => {
   const contracts = await frontEndApiRequest({
     method: 'get',
     path: `/api/backoffice/contracts?isActive=${
       isActive ? isActive : ''
-    }&contractorReference=${contractorReference ? contractorReference : ''}`,
+    }&contractorReference=${
+      contractorReference ? contractorReference : ''
+    }&sorCode=${sorCode ? sorCode : ''}`,
   })
 
   return contracts

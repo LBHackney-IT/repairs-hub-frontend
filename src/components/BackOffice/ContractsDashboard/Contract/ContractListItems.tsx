@@ -7,7 +7,7 @@ import ErrorMessage from '../../../Errors/ErrorMessage'
 interface ContractListItemsProps {
   contracts: Contract[]
   heading: string
-  warningText: string
+  warningText?: string
   error?: Error | string | null
   page: string
 }

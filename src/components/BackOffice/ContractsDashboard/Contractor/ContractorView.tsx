@@ -1,8 +1,10 @@
 import { useQuery } from 'react-query'
+import { useMemo, useState } from 'react'
 import { fetchContracts } from '../../requests'
 
 import Layout from '../../Layout'
 import Spinner from '../../../Spinner'
+import SorSearch from '../SorSearch'
 
 import ContractListItems from '../Contract/ContractListItems'
 
@@ -15,6 +17,8 @@ const ContractorView = ({
   contractorReference,
   contractorName,
 }: ContractorViewProps) => {
+  const [sorCode, setSorCode] = useState<string>(null)
+
   const {
     data: activeContracts,
     isLoading: activeContractsLoading,
@@ -38,8 +42,28 @@ const ContractorView = ({
     ],
     () => fetchContracts(false, contractorReference)
   )
+  const {
+    data: contractsWithSorCode,
+    isLoading: sorContractsIsLoading,
+    refetch: refetchSorContracts,
+    error: sorContractsError,
+  } = useQuery(
+    ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
+    () =>
+      fetchContracts(null, contractorReference, sorCode?.toLocaleUpperCase()),
+    {
+      enabled: false,
+    }
+  )
+
+  const descendingDateContractsWithSorCode = useMemo(
+    () => contractsWithSorCode && [...contractsWithSorCode].reverse(),
+    [contractsWithSorCode]
+  )
+
   const activeContractsError = activeError as Error | null
   const inactiveContractsError = inactiveError as Error | null
+  const contractsWithSorCodeError = sorContractsError as Error | null
 
   const relativeInactiveContracts = inactiveContracts?.filter(
     (contract) =>
@@ -47,6 +71,10 @@ const ContractorView = ({
       contract.terminationDate < new Date().toISOString()
   )
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    refetchSorContracts()
+  }
   return (
     <Layout title={`${contractorName}`}>
       {activeContractsLoading ? (
@@ -68,13 +96,24 @@ const ContractorView = ({
         relativeInactiveContracts && (
           <ContractListItems
             contracts={relativeInactiveContracts}
-            heading="Inactive contracts:"
+            heading="Inactive contracts (from 2020):"
             warningText={`No inactive contracts found for ${contractorName}.`}
             error={inactiveContractsError}
             page="contractor"
           />
         )
       )}
+      <SorSearch
+        searchHeadingText={'Check an SOR code'}
+        searchLabelText={`Find out which ${contractorName} contracts an SOR code exists in`}
+        sorCode={sorCode}
+        setSorCode={setSorCode}
+        isLoading={sorContractsIsLoading}
+        error={contractsWithSorCodeError}
+        handleSubmit={(e: React.FormEvent) => handleSubmit(e)}
+        contracts={descendingDateContractsWithSorCode}
+        contractorName={contractorName}
+      />
     </Layout>
   )
 }
