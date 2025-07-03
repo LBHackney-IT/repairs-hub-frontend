@@ -68,6 +68,7 @@ const ContractListItems = ({
           padding: 0,
           margin: 0,
         }}
+        data-test-id="contract-list"
       >
         {contracts?.map((contract, index) => (
           <ContractListItem

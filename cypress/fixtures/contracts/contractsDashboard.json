@@ -1,0 +1,222 @@
+[
+  {
+    "contractReference": "111-111-1111",
+    "terminationDate": "2015-03-31T00:00:00Z",
+    "effectiveDate": "2012-04-01T00:00:00Z",
+    "contractorReference": "H16",
+    "contractorName": "HH Communal/Estate Inspes",
+    "isRaisable": true,
+    "sorCount": 1,
+    "sorCost": 0
+  },
+  {
+    "contractReference": "112-112-1122",
+    "terminationDate": "2019-03-31T00:00:00Z",
+    "effectiveDate": "2017-04-01T00:00:00Z",
+    "contractorReference": "H13",
+    "contractorName": "HH Sign Services",
+    "isRaisable": true,
+    "sorCount": 1,
+    "sorCost": 1
+  },
+  {
+    "contractReference": "113-113-1133",
+    "terminationDate": "2024-03-31T00:00:00Z",
+    "effectiveDate": "2023-04-01T00:00:00Z",
+    "contractorReference": "HHL",
+    "contractorName": "Herts Heritage Ltd",
+    "isRaisable": true,
+    "sorCount": 1608,
+    "sorCost": 216748.91
+  },
+  {
+    "contractReference": "114-114-1144",
+    "terminationDate": "2024-03-31T00:00:00Z",
+    "effectiveDate": "2023-04-01T00:00:00Z",
+    "contractorReference": "AEP",
+    "contractorName": "Axis Europe (X) PLC",
+    "isRaisable": true,
+    "sorCount": 87,
+    "sorCost": 25331.17
+  },
+  {
+    "contractReference": "115-115-1155",
+    "terminationDate": "2024-03-31T00:00:00Z",
+    "effectiveDate": "2023-04-01T00:00:00Z",
+    "contractorReference": "AEP",
+    "contractorName": "Axis Europe (X) PLC",
+    "isRaisable": true,
+    "sorCount": 950,
+    "sorCost": 49404.2
+  },
+  {
+    "contractReference": "116-116-1166",
+    "terminationDate": "2024-03-31T00:00:00Z",
+    "effectiveDate": "2023-04-01T00:00:00Z",
+    "contractorReference": "AEP",
+    "contractorName": "Axis Europe (X) PLC",
+    "isRaisable": true,
+    "sorCount": 233,
+    "sorCost": 411990.86
+  },
+  {
+    "contractReference": "117-117-1177",
+    "terminationDate": "2024-03-31T00:00:00Z",
+    "effectiveDate": "2023-04-01T00:00:00Z",
+    "contractorReference": "AEP",
+    "contractorName": "Axis Europe (X) PLC",
+    "isRaisable": true,
+    "sorCount": 292,
+    "sorCost": 75523.29
+  },
+  {
+    "contractReference": "118-118-1188",
+    "terminationDate": "2024-03-31T23:00:00Z",
+    "effectiveDate": "2023-03-01T23:00:00Z",
+    "contractorReference": "HHL",
+    "contractorName": "Herts Heritage Ltd",
+    "isRaisable": true,
+    "sorCount": 634,
+    "sorCost": 169344.46
+  },
+  {
+    "contractReference": "119-119-1199",
+    "terminationDate": "2024-09-01T00:00:00Z",
+    "effectiveDate": "2023-09-01T00:00:00Z",
+    "contractorReference": "AVP",
+    "contractorName": "Avonline Network (A) Ltd",
+    "isRaisable": true,
+    "sorCount": 107,
+    "sorCost": 10237.7
+  },
+  {
+    "contractReference": "120-120-1200",
+    "terminationDate": "2024-09-19T00:00:00Z",
+    "effectiveDate": "2023-09-20T00:00:00Z",
+    "contractorReference": "FPM",
+    "contractorName": "Foster Property Maintenance Ltd",
+    "isRaisable": true,
+    "sorCount": 2656,
+    "sorCost": 418873.31
+  },
+  {
+    "contractReference": "121-121-1211",
+    "terminationDate": "2024-09-19T00:00:00Z",
+    "effectiveDate": "2023-09-20T00:00:00Z",
+    "contractorReference": "FPM",
+    "contractorName": "Foster Property Maintenance Ltd",
+    "isRaisable": true,
+    "sorCount": 2657,
+    "sorCost": 439826.98
+  },
+  {
+    "contractReference": "122-122-1222",
+    "terminationDate": "2024-10-31T00:00:00Z",
+    "effectiveDate": "2024-05-09T00:00:00Z",
+    "contractorReference": "JBC",
+    "contractorName": "John Bold & Co LIMITED",
+    "isRaisable": true,
+    "sorCount": 55,
+    "sorCost": 4292.64
+  },
+  {
+    "contractReference": "123-123-1233",
+    "terminationDate": "2025-01-31T00:00:00Z",
+    "effectiveDate": "2024-05-27T00:00:00Z",
+    "contractorReference": "APL",
+    "contractorName": "Apex Lifts",
+    "isRaisable": true,
+    "sorCount": 105,
+    "sorCost": 92211.87
+  },
+  {
+    "contractReference": "124-124-1244",
+    "terminationDate": "2025-01-31T00:00:00Z",
+    "effectiveDate": "2024-05-28T00:00:00Z",
+    "contractorReference": "TSL",
+    "contractorName": "Top Services Ltd",
+    "isRaisable": true,
+    "sorCount": 71,
+    "sorCost": 13602
+  },
+  {
+    "contractReference": "125-125-1255",
+    "terminationDate": "2025-02-28T00:00:00Z",
+    "effectiveDate": "2024-05-08T00:00:00Z",
+    "contractorReference": "SFE",
+    "contractorName": "Sureserve Fire & Electrical",
+    "isRaisable": true,
+    "sorCount": 32,
+    "sorCost": 3321.79
+  },
+  {
+    "contractReference": "126-126-1266",
+    "terminationDate": "2025-05-28T00:00:00Z",
+    "effectiveDate": "2024-03-26T00:00:00Z",
+    "contractorReference": "AIM",
+    "contractorName": "Aim Windows",
+    "isRaisable": true,
+    "sorCount": 118,
+    "sorCost": 52080.57
+  },
+  {
+    "contractReference": "127-127-1277",
+    "terminationDate": "2025-09-15T23:00:00Z",
+    "effectiveDate": "2023-09-15T23:00:00Z",
+    "contractorReference": "SCC",
+    "contractorName": "Alphatrack (S) Systems Lt",
+    "isRaisable": true,
+    "sorCount": 0,
+    "sorCost": 0
+  },
+  {
+    "contractReference": "128-128-1288",
+    "terminationDate": "2026-03-31T00:00:00Z",
+    "effectiveDate": "2024-01-04T00:00:00Z",
+    "contractorReference": "SYC",
+    "contractorName": "Sycous Limited",
+    "isRaisable": true,
+    "sorCount": 34,
+    "sorCost": 5958.38
+  },
+  {
+    "contractReference": "129-129-1299",
+    "terminationDate": "2026-03-31T23:00:00Z",
+    "effectiveDate": "2024-08-01T00:00:00Z",
+    "contractorReference": "WIG",
+    "contractorName": "THE WIGGETT GROUP LTD",
+    "isRaisable": true,
+    "sorCount": 3441,
+    "sorCost": 544898.23
+  },
+  {
+    "contractReference": "130-130-1300",
+    "terminationDate": "2026-03-31T23:00:00Z",
+    "effectiveDate": "2024-08-01T00:00:00Z",
+    "contractorReference": "WIG",
+    "contractorName": "THE WIGGETT GROUP LTD",
+    "isRaisable": true,
+    "sorCount": 3443,
+    "sorCost": 573623.97
+  },
+  {
+    "contractReference": "131-131-1311",
+    "terminationDate": "2026-03-31T23:00:00Z",
+    "effectiveDate": "2022-09-18T23:00:00Z",
+    "contractorReference": "H01",
+    "contractorName": "HH General Building Repai",
+    "isRaisable": true,
+    "sorCount": 904,
+    "sorCost": 143393.57
+  },
+  {
+    "contractReference": "132-132-1322",
+    "terminationDate": "2026-03-31T23:00:00Z",
+    "effectiveDate": "2024-03-26T00:00:00Z",
+    "contractorReference": "CJL",
+    "contractorName": "Conrad Jacobs Ltd",
+    "isRaisable": true,
+    "sorCount": 2,
+    "sorCost": 56.74
+  }
+]
