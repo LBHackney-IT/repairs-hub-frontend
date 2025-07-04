@@ -10,7 +10,7 @@ interface ContractListItemsProps {
   warningText?: string
   error?: Error | string | null
   page: string
-  testId: string
+  testId?: string
 }
 
 const ContractListItems = ({
