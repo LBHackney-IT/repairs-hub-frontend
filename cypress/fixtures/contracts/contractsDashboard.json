@@ -20,6 +20,16 @@
     "sorCost": 1
   },
   {
+    "contractReference": "133-133-1388",
+    "terminationDate": "2021-03-31T00:00:00Z",
+    "effectiveDate": "2020-01-04T00:00:00Z",
+    "contractorReference": "SYC",
+    "contractorName": "Sycous Limited",
+    "isRaisable": true,
+    "sorCount": 20,
+    "sorCost": 5958.38
+  },
+  {
     "contractReference": "113-113-1133",
     "terminationDate": "2024-03-31T00:00:00Z",
     "effectiveDate": "2023-04-01T00:00:00Z",
@@ -169,6 +179,7 @@
     "sorCount": 0,
     "sorCost": 0
   },
+
   {
     "contractReference": "128-128-1288",
     "terminationDate": "2026-03-31T00:00:00Z",
