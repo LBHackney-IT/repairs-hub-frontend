@@ -14,16 +14,13 @@ const twoMonthsInTheFuture = new Date(
 )
 
 function contractsRequest() {
-  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
-      },
-      contracts
-    ).as('contractsRequest')
-  })
+  cy.intercept(
+    {
+      method: 'GET',
+      path: '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
+    },
+    { fixture: 'contracts/contractsDashboard.json' }
+  ).as('contractsRequest')
 }
 
 function modifiedContractsRequest() {
@@ -60,6 +57,16 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.wait('@contractsRequest')
       .its('request.method')
       .should('deep.equal', 'GET')
+  })
+
+  it('goes from backoffice to contracts dashboard then back to backoffice', () => {
+    cy.visit('/backoffice')
+    cy.contains('a', 'Contracts Dashboard').click()
+    cy.url().should('include', '/backoffice/contracts-dashboard')
+    contractsRequest()
+    cy.wait('@contractsRequest')
+    cy.get('.govuk-back-link').click()
+    cy.url().should('include', '/backoffice')
   })
 
   it('displays contracts that are expiring in the next two months', () => {
@@ -124,7 +131,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
           '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
       },
       { body: [] }
-    ).as('contractErrorRequest')
+    )
     cy.get('[data-testid="no-contractors-found"]')
       .should('be.visible')
       .should('contain', 'Problem loading contractors.')
