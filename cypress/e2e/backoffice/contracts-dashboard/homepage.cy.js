@@ -115,10 +115,10 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     })
   })
 
-  it('diplays no contracts warning box when no contracts expire in the next two months', () => {
+  it.only('diplays no contracts warning box when no contracts expire in the next two months', () => {
     contractsRequest()
     cy.wait('@contractsRequest')
-    cy.get('[data-testid="No contracts found"]')
+    cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
       .should('contain', 'No contracts expiring in the next two months.')
   })
