@@ -88,7 +88,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
             warningText={`No active contracts found for ${contractorName}.`}
             error={activeContractsError}
             page="contractor"
-            testId="active"
+            activeStatus="active"
           />
         )
       )}
@@ -102,7 +102,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
             warningText={`No inactive contracts found for ${contractorName}.`}
             error={inactiveContractsError}
             page="contractor"
-            testId="inactive"
+            activeStatus="inactive"
           />
         )
       )}

@@ -10,7 +10,7 @@ interface ContractListItemsProps {
   warningText?: string
   error?: Error | string | null
   page: string
-  testId?: string
+  activeStatus?: string
 }
 
 const ContractListItems = ({
@@ -19,7 +19,7 @@ const ContractListItems = ({
   warningText,
   error,
   page,
-  testId,
+  activeStatus,
 }: ContractListItemsProps) => {
   if (contracts === null || contracts?.length === 0) {
     return (
@@ -70,7 +70,9 @@ const ContractListItems = ({
           padding: 0,
           margin: 0,
         }}
-        data-test-id={testId ? `${testId}-contracts-list` : 'contract-list'}
+        data-test-id={
+          activeStatus ? `${activeStatus}-contracts-list` : 'contract-list'
+        }
       >
         {contracts?.map((contract, index) => (
           <ContractListItem
