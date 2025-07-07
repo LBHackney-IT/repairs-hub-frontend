@@ -1,0 +1,383 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Contracts dashboard component should render the component 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    Contracts Dashboard
+  </h1>
+  <h3
+    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+  >
+    Contracts due to expire soon:
+  </h3>
+  <ol
+    data-test-id="contract-list"
+    style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
+  >
+    <li
+      data-id="0"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          113-113-1133
+        </h5>
+        <p>
+          Herts Heritage Ltd
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           7 Aug 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="1"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          114-114-1144
+        </h5>
+        <p>
+          Axis Europe (X) PLC
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           7 Aug 2025
+        </p>
+      </div>
+    </li>
+  </ol>
+  <div>
+    <h3
+      class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+    >
+      Contractors:
+    </h3>
+    <ol
+      class="lbh-list mobile-working-work-order-list"
+      data-test-id="contractors-list"
+    >
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Aim Windows
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Alphatrack (S) Systems Lt
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Apex Lifts
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Avonline Network (A) Ltd
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Axis Europe (X) PLC
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Conrad Jacobs Ltd
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Foster Property Maintenance Ltd
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Herts Heritage Ltd
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            HH General Building Repai
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            John Bold & Co LIMITED
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Sureserve Fire & Electrical
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Sycous Limited
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            THE WIGGETT GROUP LTD
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+      <li
+        class="govuk-!-margin-top-3 operative-work-order-list-item"
+        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h3
+            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+          >
+            Top Services Ltd
+          </h3>
+        </div>
+        <div
+          class="govuk-!-margin-0"
+        >
+          <span
+            class="arrow right"
+          />
+        </div>
+      </li>
+    </ol>
+  </div>
+</DocumentFragment>
+`;
