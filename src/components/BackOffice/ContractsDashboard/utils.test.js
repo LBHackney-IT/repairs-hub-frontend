@@ -3,7 +3,7 @@ import {
   oneMonthInTheFuture,
   filterContractsByExpiryDate,
   twoMonthsago,
-  getRelativeInactiveContracts,
+  filterRelativeInactiveContracts,
 } from './utils'
 
 describe('filter contracts by expiry date', () => {
@@ -40,7 +40,7 @@ describe('filter contracts by expiry date', () => {
 describe('relativeInactiveContracts', () => {
   it('should return all inactive contracts that expire after 2020', () => {
     const inactiveContracts = mockInactiveContracts
-    const response = getRelativeInactiveContracts(inactiveContracts, '2020')
+    const response = filterRelativeInactiveContracts(inactiveContracts, '2020')
 
     expect(response).toStrictEqual([
       {

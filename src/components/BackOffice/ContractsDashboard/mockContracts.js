@@ -2,7 +2,7 @@ import {
   oneMonthInTheFuture,
   sixMonthsInTheFuture,
   twoMonthsago,
-} from '../utils'
+} from './utils'
 
 export const mockContracts = [
   {
