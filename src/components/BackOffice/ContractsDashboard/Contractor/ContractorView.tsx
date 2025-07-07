@@ -10,13 +10,9 @@ import ContractListItems from '../Contract/ContractListItems'
 
 interface ContractorViewProps {
   contractorReference: string
-  contractorName: string
 }
 
-const ContractorView = ({
-  contractorReference,
-  contractorName,
-}: ContractorViewProps) => {
+const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   const [sorCode, setSorCode] = useState<string>(null)
 
   const {
@@ -55,6 +51,10 @@ const ContractorView = ({
       enabled: false,
     }
   )
+
+  const contractorName =
+    activeContracts?.[0]?.contractorName ||
+    inactiveContracts?.[0]?.contractorName
 
   const descendingDateContractsWithSorCode = useMemo(
     () => (contractsWithSorCode ? [...contractsWithSorCode].reverse() : null),
