@@ -151,6 +151,10 @@ const MobileWorkingCloseWorkOrderForm = ({
             register={register}
             errors={errors}
             watch={watch}
+            reason={presetValues.reason}
+            followOnStatus={
+              presetValues.followOnStatus as 'active' | 'inactive'
+            }
             canRaiseAFollowOn={true}
           />
 
