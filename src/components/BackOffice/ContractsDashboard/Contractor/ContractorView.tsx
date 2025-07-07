@@ -8,6 +8,8 @@ import SorSearch from '../SorSearch'
 
 import ContractListItems from '../Contract/ContractListItems'
 
+import { filterRelativeInactiveContracts } from '../utils'
+
 interface ContractorViewProps {
   contractorReference: string
 }
@@ -65,10 +67,9 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   const inactiveContractsError = inactiveError as Error | null
   const contractsWithSorCodeError = sorContractsError as Error | null
 
-  const relativeInactiveContracts = inactiveContracts?.filter(
-    (contract) =>
-      contract.terminationDate > '2020' &&
-      contract.terminationDate < new Date().toISOString()
+  const relativeInactiveContracts = filterRelativeInactiveContracts(
+    inactiveContracts,
+    '2020'
   )
 
   const handleSubmit = (e: React.FormEvent) => {
