@@ -1,10 +1,9 @@
-import {
-  CLOSURE_STATUS_OPTIONS,
-  FOLLOW_ON_STATUS_OPTIONS,
-} from '@/root/src/utils/statusCodes'
-import { FieldErrors } from 'react-hook-form'
+import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
+import Radios from '../../Form/Radios'
+import { useEffect, useState } from 'react'
+import FurtherWorkRadio from './FurtherWorksRadio'
+import { FieldErrors } from 'react-hook-form/dist/types'
 import { CloseWorkOrderValues } from '../MobileWorkingCloseWorkOrderForm'
-import Radio from '../../Form/Radios'
 
 interface Props {
   register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
@@ -19,42 +18,47 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
   const {
     register,
     errors,
+    watch,
     reason,
     followOnStatus,
-    watch,
     canRaiseAFollowOn,
   } = props
 
-  const [visitCompleted, noAccess] = CLOSURE_STATUS_OPTIONS
+  const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
 
-  const showFurtherWorkRadio =
-    canRaiseAFollowOn && watch('reason') === 'Work Order Completed'
+  const reasonWatchedValue = watch('reason')
 
-  console.log('props:', props)
+  useEffect(() => {
+    // When navigating back from summary page, the watch hook isnt updating
+    // meaning the followOnStatus options arent visible
+    // this awful code fixes that
+
+    if (reasonWatchedValue === undefined) {
+      setShowFurtherWorkRadio(reason === 'Work Order Completed')
+    } else {
+      setShowFurtherWorkRadio(reasonWatchedValue === 'Work Order Completed')
+    }
+  }, [reasonWatchedValue])
 
   return (
-    <Radio
+    <Radios
       labelSize="s"
       label="Reason for closing"
       name="reason"
-      defaultValue={reason}
-      options={[
-        {
-          ...visitCompleted,
-          children: showFurtherWorkRadio && (
-            <Radio
-              name="followOnStatus"
-              options={FOLLOW_ON_STATUS_OPTIONS}
-              register={register({
-                required: 'Please confirm if further work is required',
-              })}
+      options={CLOSURE_STATUS_OPTIONS.map((r) => ({
+        ...r,
+        defaultChecked: r.value === reason,
+        children: canRaiseAFollowOn ? (
+          r.value === 'Work Order Completed' ? (
+            <FurtherWorkRadio
               error={errors?.followOnStatus}
-              defaultValue={followOnStatus}
+              register={register}
+              visible={showFurtherWorkRadio}
+              followOnStatus={followOnStatus}
             />
-          ),
-        },
-        { ...noAccess },
-      ]}
+          ) : null
+        ) : null,
+      }))}
       register={register({
         required: 'Please select a reason for closing the work order',
       })}

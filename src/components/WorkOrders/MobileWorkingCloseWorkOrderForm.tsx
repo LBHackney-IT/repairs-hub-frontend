@@ -4,7 +4,7 @@ import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
 import React, { useState, useEffect } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
-import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
+import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosingMobile'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
@@ -151,10 +151,6 @@ const MobileWorkingCloseWorkOrderForm = ({
             register={register}
             errors={errors}
             watch={watch}
-            reason={presetValues.reason}
-            followOnStatus={
-              presetValues.followOnStatus as 'active' | 'inactive'
-            }
             canRaiseAFollowOn={true}
           />
 

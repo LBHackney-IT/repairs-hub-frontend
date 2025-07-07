@@ -1,22 +1,28 @@
 import { FOLLOW_ON_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
+import Radios from '../../Form/Radios'
 import { FieldError } from 'react-hook-form'
-import Radio from '../../Form/Radios'
 
 interface Props {
-  error?: FieldError
+  error: FieldError | { message: string } | null
   visible: boolean
   register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
+  followOnStatus: string
 }
 
 const FurtherWorkRadio = (props: Props) => {
-  const { error, visible, register } = props
+  const { error, visible, register, followOnStatus } = props
 
   if (!visible) return null
 
   return (
-    <Radio
+    <Radios
       name="followOnStatus"
-      options={FOLLOW_ON_STATUS_OPTIONS}
+      options={FOLLOW_ON_STATUS_OPTIONS.map((x) => {
+        return {
+          ...x,
+          defaultChecked: x.value === followOnStatus,
+        }
+      })}
       register={register({
         required: 'Please confirm if further work is required',
       })}
