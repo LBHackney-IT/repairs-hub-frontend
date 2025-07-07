@@ -12,10 +12,7 @@ const ContractPage = ({ query }) => {
   return (
     <>
       <Meta title={`Contractor ${query.id}`} />
-      <ContractorView
-        contractorReference={query.id}
-        contractorName={query.contractorName}
-      />
+      <ContractorView contractorReference={query.id} />
     </>
   )
 }
