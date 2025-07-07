@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 
 import ContractsDashboard from './index'
-import { mockContracts } from './__mocks__/mockContracts'
+import { mockContracts } from '.mockContracts'
 
 jest.mock('react-query', () => ({
   useQuery: () => ({

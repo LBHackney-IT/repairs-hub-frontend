@@ -2,10 +2,7 @@ import { render } from '@testing-library/react'
 
 import ContractorView from './ContractorView'
 
-import {
-  mockActiveContracts,
-  mockInactiveContracts,
-} from '../__mocks__/mockContracts'
+import { mockActiveContracts, mockInactiveContracts } from './mockContracts'
 
 jest.mock('react-query', () => ({
   useQuery: () => ({
