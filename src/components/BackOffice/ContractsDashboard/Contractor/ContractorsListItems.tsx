@@ -52,7 +52,10 @@ const ContractorsListItems = ({ contracts }: ContractorsListItemsProps) => {
       <h3 className="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1">
         Contractors:
       </h3>
-      <ol className="lbh-list mobile-working-work-order-list">
+      <ol
+        className="lbh-list mobile-working-work-order-list"
+        data-test-id="contractors-list"
+      >
         {contractorNamesAndReferencesSortedByContractorName.map(
           (obj, index) => (
             <ContractorListItem

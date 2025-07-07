@@ -87,6 +87,7 @@ const ContractorView = ({
             warningText={`No active contracts found for ${contractorName}.`}
             error={activeContractsError}
             page="contractor"
+            activeStatus="active"
           />
         )
       )}
@@ -100,6 +101,7 @@ const ContractorView = ({
             warningText={`No inactive contracts found for ${contractorName}.`}
             error={inactiveContractsError}
             page="contractor"
+            activeStatus="inactive"
           />
         )
       )}

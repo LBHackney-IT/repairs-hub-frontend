@@ -10,6 +10,7 @@ interface ContractListItemsProps {
   warningText?: string
   error?: Error | string | null
   page: string
+  activeStatus?: string
 }
 
 const ContractListItems = ({
@@ -18,6 +19,7 @@ const ContractListItems = ({
   warningText,
   error,
   page,
+  activeStatus,
 }: ContractListItemsProps) => {
   if (contracts === null || contracts?.length === 0) {
     return (
@@ -29,7 +31,7 @@ const ContractListItems = ({
           <WarningInfoBox
             header="No contracts found!"
             text={`${warningText}`}
-            name="No contracts found"
+            name="no-contracts-found"
           />
         </div>
       </>
@@ -68,6 +70,9 @@ const ContractListItems = ({
           padding: 0,
           margin: 0,
         }}
+        data-test-id={
+          activeStatus ? `${activeStatus}-contracts-list` : 'contract-list'
+        }
       >
         {contracts?.map((contract, index) => (
           <ContractListItem
