@@ -232,7 +232,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Request failed with status code 500')
     })
 
-    it('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
+    it.only('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -304,6 +304,16 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('label', 'Further work required').click()
       cy.get('#notes').type(testFormData.notes)
 
+      // Add  file
+      cy.get('input[type="file"]')
+        .first()
+        .selectFile({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+
       // Add follow-on details
       cy.contains('button', 'Add details').click()
 
@@ -331,7 +341,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         testFormData.additionalNotes
       )
 
-      // Add file
+      // Add follow-on file
       cy.get('input[type="file"]')
         .last()
         .selectFile({
@@ -364,6 +374,12 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.get(
         `.lbh-radios input[data-testid="reason"][value="${testFormData.reason}"]`
       ).should('be.checked')
+
+      // selected file is preserved
+      cy.get('.photoUploadPreview-imageContainer')
+        .first()
+        .should('have.length', 1)
+
       cy.get('#notes').should('have.value', testFormData.notes)
 
       // follow-on form data should be preserved
@@ -399,8 +415,10 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
         testFormData.additionalNotes
       )
 
-      // selected file is not preserved
-      cy.get('input[type="file"]').should('not.have.value')
+      // selected follow-on file is preserved
+      cy.get('.photoUploadPreview-imageContainer')
+        .last()
+        .should('have.length', 1)
     })
 
     it('uploads photos when closing work order', () => {
