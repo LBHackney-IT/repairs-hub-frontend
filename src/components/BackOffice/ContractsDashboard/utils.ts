@@ -2,13 +2,13 @@ import Contract from '@/root/src/models/contract'
 
 export const today = new Date()
 
-export function monthsOffset(months: number) {  
-    return new Date(  
-        today.getFullYear(),  
-        today.getMonth() + months,  
-        today.getDate() 
-    )  
-}  
+export function monthsOffset(months: number) {
+  return new Date(
+    today.getFullYear(),
+    today.getMonth() + months,
+    today.getDate()
+  )
+}
 
 export const filterContractsByExpiryDate = (
   contracts: Contract[],
