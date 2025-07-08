@@ -1,4 +1,4 @@
-import { monthsOffset } from './utils'
+import { monthsOffset, filterRelevantContracts } from './utils'
 
 export const mockContracts = [
   {
