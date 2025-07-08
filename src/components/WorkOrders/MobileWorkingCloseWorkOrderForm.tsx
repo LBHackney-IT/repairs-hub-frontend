@@ -94,7 +94,7 @@ const MobileWorkingCloseWorkOrderForm = ({
     // Persist here because files not supported in useFormPersist
     setWorkOrderFiles(presetValues.workOrderFiles || [])
     setFollowOnFiles(presetValues.followOnFiles || [])
-  }, [presetValues])
+  }, [presetValues.workOrderFiles, presetValues.followOnFiles])
 
   useEffect(() => {
     if (watch('reason') !== 'Work Order Completed') {
