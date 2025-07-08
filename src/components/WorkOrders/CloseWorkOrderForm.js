@@ -102,8 +102,7 @@ const CloseWorkOrderForm = ({
           register={register}
           errors={errors}
           watch={watch}
-          reason={reason}
-          followOnStatus={followOnStatus}
+          defaultValues={{ reason, followOnStatus }}
           canRaiseAFollowOn={canRaiseAFollowOn(user)}
         />
 
