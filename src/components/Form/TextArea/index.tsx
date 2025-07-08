@@ -1,5 +1,6 @@
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { FieldError } from 'react-hook-form'
 
 interface Props {
   label: string
@@ -8,7 +9,7 @@ interface Props {
   value?: string
   rows?: number
   register?: any
-  error?: { message: string }
+  error?: FieldError | { message: string }
   required?: boolean
   showAsOptional?: boolean
   className?: string
