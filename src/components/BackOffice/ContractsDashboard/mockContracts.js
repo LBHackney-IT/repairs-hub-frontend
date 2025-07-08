@@ -1,8 +1,4 @@
-import {
-  oneMonthInTheFuture,
-  sixMonthsInTheFuture,
-  twoMonthsago,
-} from './utils'
+import { monthsOffset } from './utils'
 
 export const mockContracts = [
   {
@@ -167,7 +163,7 @@ export const mockContracts = [
   },
   {
     contractReference: '126-126-1266',
-    terminationDate: oneMonthInTheFuture.toISOString(),
+    terminationDate: monthsOffset(1).toISOString(),
     effectiveDate: '2024-03-26T00:00:00Z',
     contractorReference: 'AIM',
     contractorName: 'Aim Windows',
@@ -177,7 +173,7 @@ export const mockContracts = [
   },
   {
     contractReference: '127-127-1277',
-    terminationDate: oneMonthInTheFuture.toISOString(),
+    terminationDate: monthsOffset(1).toISOString(),
     effectiveDate: '2023-09-15T23:00:00Z',
     contractorReference: 'SCC',
     contractorName: 'Alphatrack (S) Systems Lt',
@@ -187,7 +183,7 @@ export const mockContracts = [
   },
   {
     contractReference: '128-128-1288',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -197,7 +193,7 @@ export const mockContracts = [
   },
   {
     contractReference: '129-129-1299',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'WIG',
     contractorName: 'THE WIGGETT GROUP LTD',
@@ -207,7 +203,7 @@ export const mockContracts = [
   },
   {
     contractReference: '130-130-1300',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'WIG',
     contractorName: 'THE WIGGETT GROUP LTD',
@@ -217,7 +213,7 @@ export const mockContracts = [
   },
   {
     contractReference: '131-131-1311',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2022-09-18T23:00:00Z',
     contractorReference: 'H01',
     contractorName: 'HH General Building Repai',
@@ -227,7 +223,7 @@ export const mockContracts = [
   },
   {
     contractReference: '132-132-1322',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-03-26T00:00:00Z',
     contractorReference: 'CJL',
     contractorName: 'Conrad Jacobs Ltd',
@@ -240,7 +236,7 @@ export const mockContracts = [
 export const mockActiveContracts = [
   {
     contractReference: '127-127-1277',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2023-09-15T23:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -251,7 +247,7 @@ export const mockActiveContracts = [
 
   {
     contractReference: '128-128-1288',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -261,7 +257,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '129-129-1299',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -271,7 +267,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '130-130-1300',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-08-01T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -281,7 +277,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '131-131-1311',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2022-09-18T23:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -291,7 +287,7 @@ export const mockActiveContracts = [
   },
   {
     contractReference: '132-132-1322',
-    terminationDate: sixMonthsInTheFuture.toISOString(),
+    terminationDate: monthsOffset(6).toISOString(),
     effectiveDate: '2024-03-26T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -324,7 +320,7 @@ export const mockInactiveContracts = [
   },
   {
     contractReference: '133-133-1388',
-    terminationDate: twoMonthsago.toISOString(),
+    terminationDate: monthsOffset(2).toISOString(),
     effectiveDate: '2020-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -334,7 +330,7 @@ export const mockInactiveContracts = [
   },
   {
     contractReference: '144-144-1444',
-    terminationDate: twoMonthsago.toISOString(),
+    terminationDate: monthsOffset(2).toISOString(),
     effectiveDate: '2020-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',
@@ -344,7 +340,7 @@ export const mockInactiveContracts = [
   },
   {
     contractReference: '155-155-1555',
-    terminationDate: twoMonthsago.toISOString(),
+    terminationDate: monthsOffset(2).toISOString(),
     effectiveDate: '2020-01-04T00:00:00Z',
     contractorReference: 'SYC',
     contractorName: 'Sycous Limited',

@@ -1,8 +1,7 @@
 import { mockContracts, mockInactiveContracts } from './mockContracts'
 import {
-  oneMonthInTheFuture,
+  monthsOffset,
   filterContractsByExpiryDate,
-  twoMonthsago,
   filterRelativeInactiveContracts,
 } from './utils'
 
@@ -15,7 +14,7 @@ describe('filter contracts by expiry date', () => {
     expect(response).toStrictEqual([
       {
         contractReference: '126-126-1266',
-        terminationDate: oneMonthInTheFuture.toISOString(),
+        terminationDate: monthsOffset(1).toISOString(),
         effectiveDate: '2024-03-26T00:00:00Z',
         contractorReference: 'AIM',
         contractorName: 'Aim Windows',
@@ -25,7 +24,7 @@ describe('filter contracts by expiry date', () => {
       },
       {
         contractReference: '127-127-1277',
-        terminationDate: oneMonthInTheFuture.toISOString(),
+        terminationDate: monthsOffset(1).toISOString(),
         effectiveDate: '2023-09-15T23:00:00Z',
         contractorReference: 'SCC',
         contractorName: 'Alphatrack (S) Systems Lt',
@@ -45,7 +44,7 @@ describe('relativeInactiveContracts', () => {
     expect(response).toStrictEqual([
       {
         contractReference: '133-133-1388',
-        terminationDate: twoMonthsago.toISOString(),
+        terminationDate: monthsOffset(2).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -55,7 +54,7 @@ describe('relativeInactiveContracts', () => {
       },
       {
         contractReference: '144-144-1444',
-        terminationDate: twoMonthsago.toISOString(),
+        terminationDate: monthsOffset(2).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -65,7 +64,7 @@ describe('relativeInactiveContracts', () => {
       },
       {
         contractReference: '155-155-1555',
-        terminationDate: twoMonthsago.toISOString(),
+        terminationDate: monthsOffset(2).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',

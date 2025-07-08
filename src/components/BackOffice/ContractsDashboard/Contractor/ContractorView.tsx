@@ -77,7 +77,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     refetchSorContracts()
   }
   return (
-    <Layout title={`${contractorName}`}>
+    <Layout title={`${contractorName} ${contractorReference}`}>
       {activeContractsLoading ? (
         <Spinner />
       ) : (
