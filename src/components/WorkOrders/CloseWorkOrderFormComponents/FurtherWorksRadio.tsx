@@ -1,11 +1,11 @@
 import { FOLLOW_ON_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
-import { FieldError } from 'react-hook-form'
+import { FieldError, UseFormMethods } from 'react-hook-form'
 
 interface Props {
   error: FieldError | { message: string } | null
   visible: boolean
-  register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
+  register: UseFormMethods['register']
   followOnStatus: string
 }
 

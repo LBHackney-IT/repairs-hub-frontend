@@ -2,13 +2,13 @@ import { CLOSURE_STATUS_OPTIONS } from '@/root/src/utils/statusCodes'
 import Radios from '../../Form/Radios'
 import { useEffect, useState } from 'react'
 import FurtherWorkRadio from './FurtherWorksRadio'
-import { FieldErrors } from 'react-hook-form/dist/types'
+import { FieldErrors, UseFormMethods } from 'react-hook-form/dist/types'
 import { CloseWorkOrderValues } from '../MobileWorkingCloseWorkOrderForm'
 
 interface Props {
-  register: ReturnType<typeof import('react-hook-form')['useForm']>['register']
+  register: UseFormMethods['register']
   errors: FieldErrors<CloseWorkOrderValues>
-  watch: ReturnType<typeof import('react-hook-form')['useForm']>['watch']
+  watch: UseFormMethods['watch']
   defaultValues?: {
     reason: string
     followOnStatus: 'active' | 'inactive'
