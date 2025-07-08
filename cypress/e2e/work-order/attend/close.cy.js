@@ -232,7 +232,7 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       cy.contains('Request failed with status code 500')
     })
 
-    it('shows error when upload to S3 fails (after four attempts)', () => {
+    it('shows error when upload to S3 fails (after four attempts) and preserves form data', () => {
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/images/upload*' },
         {
@@ -247,6 +247,22 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
           },
         }
       ).as('getLinksRequest')
+
+      const testFormData = {
+        reason: 'Work Order Completed',
+        furtherWorkRequired: true,
+        notes: 'Test notes',
+        supervisorCalled: 'Yes',
+        followonRequestUrgency: 'true',
+        followonTrades: ['plumbing', 'other'],
+        otherTrade: 'Concrete Work',
+        followOnTypeDescription: 'follow on description',
+        stockItemsRequired: true,
+        nonStockItemsRequired: false,
+        materialNotes: 'material notes',
+        additionalNotes: 'Additional notes desc',
+        isMultipleOperatives: true,
+      }
 
       const uploadToS3RequestResponses = [
         {
@@ -282,20 +298,62 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
       ])
 
       cy.contains('button', 'Confirm').click()
-      cy.get('.lbh-radios input[data-testid="reason"]').check('No Access')
+      cy.get('.lbh-radios input[data-testid="reason"]').check(
+        testFormData.reason
+      )
+      cy.contains('label', 'Further work required').click()
+      cy.get('#notes').type(testFormData.notes)
 
-      // 1. invalid file type
-      cy.get('input[type="file"]').selectFile({
-        contents: Cypress.Buffer.from('file contents'),
-        fileName: 'file.png',
-        mimeType: 'image/png',
-        lastModified: Date.now(),
-      })
+      // Add  file
+      cy.get('input[type="file"]')
+        .first()
+        .selectFile({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
+
+      // Add follow-on details
+      cy.contains('button', 'Add details').click()
+
+      // Populate follow-on fields
+      cy.get('input[data-testid="supervisorCalled"]').check(
+        testFormData.supervisorCalled
+      )
+      cy.get('input[data-testid="followonRequestUrgency"]').check(
+        testFormData.followonRequestUrgency
+      )
+      cy.get('input[data-testid="followon-trades-plumbing"]').check()
+      cy.get('input[data-testid="followon-trades-other"]').check()
+      cy.get('[data-testid="otherTrade"]').type(testFormData.otherTrade)
+      cy.get('[data-testid="isMultipleOperatives"]').check(
+        testFormData.isMultipleOperatives.toString()
+      )
+      cy.get('textarea[data-testid="followOnTypeDescription"]').type(
+        testFormData.followOnTypeDescription
+      )
+      cy.get('input[data-testid="stockItemsRequired"]').check()
+      cy.get('textarea[data-testid="materialNotes"]').type(
+        testFormData.materialNotes
+      )
+      cy.get('textarea[data-testid="additionalNotes"]').type(
+        testFormData.additionalNotes
+      )
+
+      // Add follow-on file
+      cy.get('input[type="file"]')
+        .last()
+        .selectFile({
+          contents: Cypress.Buffer.from('file contents'),
+          fileName: 'file.png',
+          mimeType: 'image/png',
+          lastModified: Date.now(),
+        })
 
       cy.get('.govuk-button').contains('Close work order').click()
 
       // handle multiple intercepts
-
       cy.wait(['@getLinksRequest'])
 
       cy.wait(
@@ -311,6 +369,56 @@ describe('Closing my own work order - When follow-ons are enabled', () => {
 
       // should contain error message
       cy.contains('Some photos failed to upload. Please try again')
+
+      // form data should be preserved
+      cy.get(
+        `.lbh-radios input[data-testid="reason"][value="${testFormData.reason}"]`
+      ).should('be.checked')
+
+      // selected file is preserved
+      cy.get('.photoUploadPreview-imageContainer')
+        .first()
+        .should('have.length', 1)
+
+      cy.get('#notes').should('have.value', testFormData.notes)
+
+      // follow-on form data should be preserved
+      cy.contains('button', 'Add details').click()
+      cy.get(
+        `input[data-testid="supervisorCalled"][value="${testFormData.supervisorCalled}"]`
+      ).should('be.checked')
+      cy.get(
+        `input[data-testid="followonRequestUrgency"][value="${testFormData.followonRequestUrgency}"]`
+      ).should('be.checked')
+      cy.get('input[data-testid="followon-trades-plumbing"]').should(
+        'be.checked'
+      )
+      cy.get('input[data-testid="followon-trades-other"]').should('be.checked')
+      cy.get('[data-testid="otherTrade"]').should(
+        'have.value',
+        testFormData.otherTrade
+      )
+      cy.get(
+        `[data-testid="isMultipleOperatives"][value="${testFormData.isMultipleOperatives}"]`
+      ).should('be.checked')
+      cy.get('textarea[data-testid="followOnTypeDescription"]').should(
+        'have.value',
+        testFormData.followOnTypeDescription
+      )
+      cy.get('input[data-testid="stockItemsRequired"]').should('be.checked')
+      cy.get('textarea[data-testid="materialNotes"]').should(
+        'have.value',
+        testFormData.materialNotes
+      )
+      cy.get('textarea[data-testid="additionalNotes"]').should(
+        'have.value',
+        testFormData.additionalNotes
+      )
+
+      // selected follow-on file is preserved
+      cy.get('.photoUploadPreview-imageContainer')
+        .last()
+        .should('have.length', 1)
     })
 
     it('uploads photos when closing work order', () => {
