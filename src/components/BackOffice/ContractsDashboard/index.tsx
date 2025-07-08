@@ -7,6 +7,8 @@ import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractListItems from './Contract/ContractListItems'
 import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 
+import { filterContractsByExpiryDate } from './utils'
+
 import Contract from '@/root/src/models/contract'
 
 const ContractsDashboard = () => {
@@ -18,18 +20,10 @@ const ContractsDashboard = () => {
   const contracts = data as Contract[] | null
   const contractError = error as Error | null
 
-  const today = new Date()
-  const contractExpiryCutOffDate = new Date(
-    today.getFullYear(),
-    today.getMonth() + 2,
-    today.getDate()
+  const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
+    contracts,
+    2
   )
-  const filteredContracts = contracts?.filter((contract) => {
-    return (
-      new Date(contract.terminationDate) > today &&
-      new Date(contract.terminationDate) < contractExpiryCutOffDate
-    )
-  })
 
   if (isLoading) {
     return (
@@ -57,9 +51,9 @@ const ContractsDashboard = () => {
   return (
     <Layout title="Contracts Dashboard">
       <>
-        {filteredContracts && (
+        {contractsThatExpireWithinTwoMonths && (
           <ContractListItems
-            contracts={filteredContracts}
+            contracts={contractsThatExpireWithinTwoMonths}
             heading="Contracts due to expire soon:"
             warningText="No contracts expiring in the next two months."
             page="dashboard"

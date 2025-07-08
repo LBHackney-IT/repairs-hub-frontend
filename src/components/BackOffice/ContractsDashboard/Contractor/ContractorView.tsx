@@ -8,15 +8,13 @@ import SorSearch from '../SorSearch'
 
 import ContractListItems from '../Contract/ContractListItems'
 
+import { filterRelativeInactiveContracts } from '../utils'
+
 interface ContractorViewProps {
   contractorReference: string
-  contractorName: string
 }
 
-const ContractorView = ({
-  contractorReference,
-  contractorName,
-}: ContractorViewProps) => {
+const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   const [sorCode, setSorCode] = useState<string>(null)
 
   const {
@@ -56,6 +54,10 @@ const ContractorView = ({
     }
   )
 
+  const contractorName =
+    activeContracts?.[0]?.contractorName ||
+    inactiveContracts?.[0]?.contractorName
+
   const descendingDateContractsWithSorCode = useMemo(
     () => (contractsWithSorCode ? [...contractsWithSorCode].reverse() : null),
     [contractsWithSorCode]
@@ -65,10 +67,9 @@ const ContractorView = ({
   const inactiveContractsError = inactiveError as Error | null
   const contractsWithSorCodeError = sorContractsError as Error | null
 
-  const relativeInactiveContracts = inactiveContracts?.filter(
-    (contract) =>
-      contract.terminationDate > '2020' &&
-      contract.terminationDate < new Date().toISOString()
+  const relativeInactiveContracts = filterRelativeInactiveContracts(
+    inactiveContracts,
+    '2020'
   )
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -76,7 +77,7 @@ const ContractorView = ({
     refetchSorContracts()
   }
   return (
-    <Layout title={`${contractorName}`}>
+    <Layout title={`${contractorName} ${contractorReference}`}>
       {activeContractsLoading ? (
         <Spinner />
       ) : (
