@@ -8,7 +8,7 @@ import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
-export const getWorkOrder = async (
+export const getWorkOrderOld = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
@@ -37,16 +37,16 @@ export const getWorkOrder = async (
   }
 }
 
-export const getWorkOrderNew = async (
+export const getWorkOrder = async (
   workOrderReference: string,
-  includeAppointmentData: boolean = false
+  includeAppointmentData: boolean
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
     const featureToggleData = await fetchSimpleFeatureToggles()
 
     if (!featureToggleData?.enableNewAppointmentEndpoint) {
       // default to old endpoint if FT disabled
-      return await getWorkOrder(workOrderReference)
+      return await getWorkOrderOld(workOrderReference)
     }
 
     const workOrderData = await frontEndApiRequest({
@@ -60,7 +60,7 @@ export const getWorkOrderNew = async (
       const appointmentOperativeData: WorkOrderAppointmentDetails = await frontEndApiRequest(
         {
           method: 'get',
-          path: `/api/workOrders/appointments/${workOrderReference}/`,
+          path: `/api/workOrders/appointments/${workOrderReference}`,
         }
       )
 

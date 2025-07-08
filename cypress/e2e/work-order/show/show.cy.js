@@ -8,7 +8,7 @@ describe('Show work order page', () => {
       { method: 'GET', path: '/api/simple-feature-toggle' },
       {
         body: {
-          enableNewAppointmentEndpoint: false,
+          enableNewAppointmentEndpoint: true,
         },
       }
     ).as('featureToggle')
@@ -67,13 +67,20 @@ describe('Show work order page', () => {
       cy.loginWithAgentRole()
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
       cy.intercept(
         { method: 'GET', path: '/api/properties/00014886' },
         { fixture: 'properties/property.json' }
       ).as('property')
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
+
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/notes' },
         { fixture: 'workOrders/notes.json' }
@@ -103,7 +110,6 @@ describe('Show work order page', () => {
         '@tasksRequest',
         '@personAlerts',
         '@locationAlerts',
-        // '@photos',
       ])
       cy.intercept(
         {
@@ -155,46 +161,45 @@ describe('Show work order page', () => {
       cy.get('.work-order-info').contains('12345678912')
 
       cy.contains('Assigned to: Alphatrack (S) Systems Lt')
-
-      //  cy.audit()
-    })
-
-    context('when the alerts API errors', () => {
-      it('displays an error instead of the component', () => {})
     })
 
     context('When the work order has been assigned operatives', () => {
       beforeEach(() => {
-        cy.fixture('workOrders/workOrder.json')
-          .then((workOrder) => {
-            workOrder.operatives = [
-              {
-                id: 0,
-                payrollNumber: '0',
-                name: 'Operative 1',
-                trades: ['DE'],
-              },
-              {
-                id: 1,
-                payrollNumber: '1',
-                name: 'Operative 2',
-                trades: ['DE'],
-              },
-            ]
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderWithOperativesRequest')
 
-            workOrder.appointment = {
-              date: '2021-03-19',
-              description: 'PM Slot',
-              end: '18:00',
-              start: '12:00',
-            }
+        cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+          x.operatives = [
+            {
+              id: 0,
+              payrollNumber: '0',
+              name: 'Operative 1',
+              trades: ['DE'],
+            },
+            {
+              id: 1,
+              payrollNumber: '1',
+              name: 'Operative 2',
+              trades: ['DE'],
+            },
+          ]
 
-            cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
-              { body: workOrder }
-            )
-          })
-          .as('workOrderWithOperativesRequest')
+          x.appointment = {
+            date: '2021-03-19',
+            description: 'PM Slot',
+            end: '18:00',
+            start: '12:00',
+          }
+          cy.intercept(
+            {
+              method: 'GET',
+              path: '/api/workOrders/appointments/10000012',
+            },
+            { body: x }
+          )
+        })
       })
 
       context('When the appointment is today', () => {
@@ -212,7 +217,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -236,7 +240,6 @@ describe('Show work order page', () => {
               '@tasksRequest',
               '@personAlerts',
               '@locationAlerts',
-              // '@photos',
             ])
 
             cy.get('.appointment-details').contains('Appointment details')
@@ -261,7 +264,6 @@ describe('Show work order page', () => {
             '@tasksRequest',
             '@personAlerts',
             '@locationAlerts',
-            // '@photos',
           ])
 
           cy.get('.appointment-details').contains('Appointment details')
@@ -286,7 +288,7 @@ describe('Show work order page', () => {
         ).as('workOrdersHistoryRequest')
 
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000040' },
+          { method: 'GET', path: '/api/workOrders/10000040/new' },
           { fixture: 'workOrders/priorityImmediate.json' }
         ).as('historicalWorkOrderRequest')
 
@@ -362,7 +364,6 @@ describe('Show work order page', () => {
           '@tasksRequest',
           '@locationAlerts',
           '@personAlerts',
-          // '@photos'
         ])
 
         cy.contains('.tabs-button', 'Tasks and SORs')
@@ -404,12 +405,19 @@ describe('Show work order page', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621',
+          path: '/api/workOrders/10000621/new',
         },
         {
           fixture: 'operatives/workOrder.json',
         }
       ).as('operativesWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         {
@@ -578,9 +586,16 @@ describe('Show work order page', () => {
   describe('Work order actions', () => {
     beforeEach(() => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('workOrderRequest')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         { method: 'GET', path: '/api/workOrders/10000012/tasks' },
@@ -591,14 +606,17 @@ describe('Show work order page', () => {
     context('When a contractor is logged in', () => {
       beforeEach(() => {
         cy.loginWithContractorRole()
+
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrderRequest')
+
         cy.intercept(
           { method: 'GET', path: '/api/properties/00014886' },
           { fixture: 'properties/property.json' }
         ).as('property')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/notes' },
           { fixture: 'workOrders/notes.json' }
@@ -663,9 +681,16 @@ describe('Show work order page', () => {
     cy.loginWithContractorRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/workOrder.json' }
     ).as('workOrderRequest-10000012')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       { method: 'GET', path: '/api/workOrders/10000012/tasks' },
