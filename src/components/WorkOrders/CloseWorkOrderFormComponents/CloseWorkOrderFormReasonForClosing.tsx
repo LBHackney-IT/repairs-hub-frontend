@@ -18,7 +18,6 @@ interface Props {
 
 const CloseWorkOrderFormReasonForClosing = (props: Props) => {
   const { register, errors, watch, defaultValues, canRaiseAFollowOn } = props
-  const { reason, followOnStatus } = defaultValues || {}
 
   const [showFurtherWorkRadio, setShowFurtherWorkRadio] = useState(false)
 
@@ -31,7 +30,7 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
     // ideally it should be managed by the form state
 
     if (reasonWatchedValue === undefined) {
-      setShowFurtherWorkRadio(reason === 'Work Order Completed')
+      setShowFurtherWorkRadio(defaultValues?.reason === 'Work Order Completed')
     } else {
       setShowFurtherWorkRadio(reasonWatchedValue === 'Work Order Completed')
     }
@@ -48,20 +47,20 @@ const CloseWorkOrderFormReasonForClosing = (props: Props) => {
         {
           text: visitCompleted.text,
           value: visitCompleted.value,
-          defaultChecked: visitCompleted.value === reason,
+          defaultChecked: visitCompleted.value === defaultValues?.reason,
           children: (
             <FurtherWorkRadio
               error={errors?.followOnStatus}
               visible={canRaiseAFollowOn && showFurtherWorkRadio}
               register={register}
-              followOnStatus={followOnStatus}
+              followOnStatus={defaultValues?.followOnStatus}
             />
           ),
         },
         {
           text: noAccess.text,
           value: noAccess.value,
-          defaultChecked: noAccess.value === reason,
+          defaultChecked: noAccess.value === defaultValues?.reason,
         },
       ]}
       register={register({
