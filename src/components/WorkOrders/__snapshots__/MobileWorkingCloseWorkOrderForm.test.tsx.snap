@@ -77,10 +77,6 @@ exports[`MobileWorkingCloseWorkOrderForm component should render properly 1`] = 
                 No access
               </label>
             </div>
-            <div
-              class="govuk-radios__conditional"
-              id="conditional-contact"
-            />
           </div>
         </div>
         <div
