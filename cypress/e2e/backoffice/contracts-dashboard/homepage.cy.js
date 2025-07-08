@@ -1,17 +1,14 @@
+import {
+  today,
+  monthsOffset,
+} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
+
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-const today = new Date()
-const aMonthInTheFuture = new Date(
-  today.getFullYear(),
-  today.getMonth() + 1,
-  today.getDate()
-)
-const twoMonthsInTheFuture = new Date(
-  today.getFullYear(),
-  today.getMonth() + 2,
-  today.getDate()
-)
+
+const aMonthInTheFuture = monthsOffset(1)
+const twoMonthsInTheFuture = monthsOffset(2)
 
 function contractsRequest() {
   cy.intercept(

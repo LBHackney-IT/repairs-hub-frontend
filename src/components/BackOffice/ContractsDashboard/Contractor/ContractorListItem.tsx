@@ -14,7 +14,6 @@ const ContractorListItem = ({
     <Link
       href={{
         pathname: `/backoffice/contractors/${contractorReference}`,
-        query: { contractorName },
       }}
     >
       <li
