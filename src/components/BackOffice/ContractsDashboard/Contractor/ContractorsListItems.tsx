@@ -2,12 +2,18 @@ import Contract from '@/root/src/models/contract'
 import ContractorListItem from './ContractorListItem'
 import WarningInfoBox from '../../../Template/WarningInfoBox'
 
+import {
+  filterRelevantContracts,
+  mapContractorNamesAndReferences,
+  sortContractorNamesAndReferencesByContractorName,
+} from '../utils'
+
 interface ContractorsListItemsProps {
   contracts: Contract[]
 }
 
 const ContractorsListItems = ({ contracts }: ContractorsListItemsProps) => {
-  const relevantContracts = contracts?.filter((c) => c.terminationDate > '2020')
+  const relevantContracts = filterRelevantContracts(contracts, '2020')
 
   const contractorNames = new Set<string>(
     relevantContracts.map((contract) => contract.contractorName)
@@ -16,15 +22,13 @@ const ContractorsListItems = ({ contracts }: ContractorsListItemsProps) => {
     relevantContracts.map((contract) => contract.contractorReference)
   )
 
-  const contractorNamesAndReferences = [...contractorNames].map(
-    (name, index) => ({
-      contractorName: name,
-      contractorReference: [...contractorReferences][index],
-    })
+  const contractorNamesAndReferences = mapContractorNamesAndReferences(
+    contractorNames,
+    contractorReferences
   )
 
-  const contractorNamesAndReferencesSortedByContractorName = contractorNamesAndReferences.sort(
-    (a, b) => a.contractorName.localeCompare(b.contractorName)
+  const contractorNamesAndReferencesSortedByContractorName = sortContractorNamesAndReferencesByContractorName(
+    contractorNamesAndReferences
   )
 
   if (

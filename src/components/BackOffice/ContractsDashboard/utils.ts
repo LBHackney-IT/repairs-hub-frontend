@@ -36,3 +36,30 @@ export const filterRelativeInactiveContracts = (
   )
   return relativeInactiveContracts
 }
+
+export const filterRelevantContracts = (contracts: Contract[], year: string) => {
+  
+  const relevantContracts = contracts?.filter((c) => c.terminationDate > year)
+
+  return relevantContracts
+}
+
+export const mapContractorNamesAndReferences = (contractorNames: Set<string>, contractorReferences: Set<string>) => {
+
+  const contractorNamesAndReferences = [...contractorNames].map(
+    (name, index) => ({
+      contractorName: name,
+      contractorReference: [...contractorReferences][index],
+    })
+  )
+
+return contractorNamesAndReferences
+}
+
+export const sortContractorNamesAndReferencesByContractorName = (contractorNamesAndReferences: {contractorName: string, contractorReference:string} []) => {
+  const sortedAlphabeticallyByContractorName = contractorNamesAndReferences.sort(
+    (a, b) => a.contractorName.localeCompare(b.contractorName)
+  )
+
+  return sortedAlphabeticallyByContractorName
+}
