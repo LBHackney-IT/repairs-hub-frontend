@@ -3,7 +3,7 @@ import cx from 'classnames'
 
 interface ContractorListItemProps {
   contractorReference: string
-  contractorName?: string
+  contractorName: string
 }
 
 const ContractorListItem = ({
