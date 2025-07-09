@@ -132,7 +132,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -170,7 +170,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -208,7 +208,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -256,7 +256,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -294,7 +294,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -332,7 +332,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          8 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -404,7 +404,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <p
             style="color: red;"
           >
-            Expired: 8 May 2025
+            Expired: 9 May 2025
           </p>
         </div>
       </li>
@@ -423,7 +423,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <p
             style="color: red;"
           >
-            Expired: 8 May 2025
+            Expired: 9 May 2025
           </p>
         </div>
       </li>
@@ -442,7 +442,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           <p
             style="color: red;"
           >
-            Expired: 8 May 2025
+            Expired: 9 May 2025
           </p>
         </div>
       </li>
