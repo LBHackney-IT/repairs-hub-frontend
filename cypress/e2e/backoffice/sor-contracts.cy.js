@@ -192,7 +192,7 @@ describe('SOR-Contracts - When Add selected', () => {
         query: {
           isActive: '*',
           contractorReference: '*',
-          sorCode: '*',
+          sorCode: '',
         },
       },
       {
@@ -244,7 +244,7 @@ describe('SOR-Contracts - When Add selected', () => {
         query: {
           isActive: '*',
           contractorReference: '*',
-          sorCode: '*',
+          sorCode: '',
         },
       },
       {
