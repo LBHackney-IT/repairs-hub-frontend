@@ -16,7 +16,7 @@ export const fetchContracts = async (
   const contracts = await frontEndApiRequest({
     method: 'get',
     path: `/api/backoffice/contracts?isActive=${
-     typeof isActive === 'boolean' ? isActive : ''
+      typeof isActive === 'boolean' ? isActive : ''
     }&contractorReference=${
       contractorReference ? contractorReference : ''
     }&sorCode=${sorCode ? sorCode : ''}`,
