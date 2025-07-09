@@ -48,7 +48,11 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   } = useQuery(
     ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
     () =>
-      fetchContracts(null, contractorReference, sorCode?.toLocaleUpperCase()),
+      fetchContracts(
+        undefined,
+        contractorReference,
+        sorCode?.toLocaleUpperCase()
+      ),
     {
       enabled: false,
     }
