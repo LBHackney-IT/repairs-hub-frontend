@@ -1,4 +1,8 @@
-import { mockContracts, mockInactiveContracts } from './mockContractsData'
+import {
+  ninthOfJulyTwentyTwentyFive,
+  mockContracts,
+  mockInactiveContracts,
+} from './mockContractsData'
 import {
   monthsOffset,
   filterContractsByExpiryDate,
@@ -12,12 +16,19 @@ describe('filter contracts by expiry date', () => {
   it('returns contracts that will expire in the next two months', () => {
     const contracts = mockContracts
 
-    const response = filterContractsByExpiryDate(contracts, 2)
+    const response = filterContractsByExpiryDate(
+      contracts,
+      2,
+      ninthOfJulyTwentyTwentyFive
+    )
 
     expect(response).toStrictEqual([
       {
         contractReference: '126-126-1266',
-        terminationDate: monthsOffset(1).toISOString(),
+        terminationDate: monthsOffset(
+          1,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-03-26T00:00:00Z',
         contractorReference: 'AIM',
         contractorName: 'Aim Windows',
@@ -27,7 +38,10 @@ describe('filter contracts by expiry date', () => {
       },
       {
         contractReference: '127-127-1277',
-        terminationDate: monthsOffset(1).toISOString(),
+        terminationDate: monthsOffset(
+          1,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2023-09-15T23:00:00Z',
         contractorReference: 'SCC',
         contractorName: 'Alphatrack (S) Systems Lt',
@@ -47,7 +61,10 @@ describe('relativeInactiveContracts', () => {
     expect(response).toStrictEqual([
       {
         contractReference: '133-133-1388',
-        terminationDate: monthsOffset(-2).toISOString(),
+        terminationDate: monthsOffset(
+          -2,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -57,7 +74,10 @@ describe('relativeInactiveContracts', () => {
       },
       {
         contractReference: '144-144-1444',
-        terminationDate: monthsOffset(-2).toISOString(),
+        terminationDate: monthsOffset(
+          -2,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -67,7 +87,10 @@ describe('relativeInactiveContracts', () => {
       },
       {
         contractReference: '155-155-1555',
-        terminationDate: monthsOffset(-2).toISOString(),
+        terminationDate: monthsOffset(
+          -2,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2020-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -228,7 +251,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '126-126-1266',
-        terminationDate: monthsOffset(1).toISOString(),
+        terminationDate: monthsOffset(
+          1,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-03-26T00:00:00Z',
         contractorReference: 'AIM',
         contractorName: 'Aim Windows',
@@ -238,7 +264,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '127-127-1277',
-        terminationDate: monthsOffset(1).toISOString(),
+        terminationDate: monthsOffset(
+          1,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2023-09-15T23:00:00Z',
         contractorReference: 'SCC',
         contractorName: 'Alphatrack (S) Systems Lt',
@@ -248,7 +277,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '128-128-1288',
-        terminationDate: monthsOffset(6).toISOString(),
+        terminationDate: monthsOffset(
+          6,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-01-04T00:00:00Z',
         contractorReference: 'SYC',
         contractorName: 'Sycous Limited',
@@ -258,7 +290,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '129-129-1299',
-        terminationDate: monthsOffset(6).toISOString(),
+        terminationDate: monthsOffset(
+          6,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-08-01T00:00:00Z',
         contractorReference: 'WIG',
         contractorName: 'THE WIGGETT GROUP LTD',
@@ -268,7 +303,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '130-130-1300',
-        terminationDate: monthsOffset(6).toISOString(),
+        terminationDate: monthsOffset(
+          6,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-08-01T00:00:00Z',
         contractorReference: 'WIG',
         contractorName: 'THE WIGGETT GROUP LTD',
@@ -278,7 +316,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '131-131-1311',
-        terminationDate: monthsOffset(6).toISOString(),
+        terminationDate: monthsOffset(
+          6,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2022-09-18T23:00:00Z',
         contractorReference: 'H01',
         contractorName: 'HH General Building Repai',
@@ -288,7 +329,10 @@ describe('filterRelevantContracts', () => {
       },
       {
         contractReference: '132-132-1322',
-        terminationDate: monthsOffset(6).toISOString(),
+        terminationDate: monthsOffset(
+          6,
+          ninthOfJulyTwentyTwentyFive
+        ).toISOString(),
         effectiveDate: '2024-03-26T00:00:00Z',
         contractorReference: 'CJL',
         contractorName: 'Conrad Jacobs Ltd',

@@ -43,7 +43,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expires:
           </span>
-           8 Aug 2025
+           9 Aug 2025
         </p>
       </div>
     </li>
@@ -68,7 +68,132 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expires:
           </span>
-           8 Aug 2025
+           9 Aug 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="2"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          128-128-1288
+        </h5>
+        <p>
+          Sycous Limited
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           9 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="3"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          129-129-1299
+        </h5>
+        <p>
+          THE WIGGETT GROUP LTD
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           9 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="4"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          130-130-1300
+        </h5>
+        <p>
+          THE WIGGETT GROUP LTD
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           9 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="5"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          131-131-1311
+        </h5>
+        <p>
+          HH General Building Repai
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           9 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="6"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          132-132-1322
+        </h5>
+        <p>
+          Conrad Jacobs Ltd
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires:
+          </span>
+           9 Jan 2026
         </p>
       </div>
     </li>
