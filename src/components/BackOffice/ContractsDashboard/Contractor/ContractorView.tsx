@@ -26,7 +26,12 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       'activeContracts',
       { isActive: true, contractorReference: contractorReference },
     ],
-    () => fetchContracts(true, contractorReference)
+    () =>
+      fetchContracts({
+        isActive: true,
+        contractorReference: contractorReference,
+        sorCode: undefined,
+      })
   )
 
   const {
@@ -38,7 +43,12 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       'inactiveContracts',
       { isActive: false, contractorReference: contractorReference },
     ],
-    () => fetchContracts(false, contractorReference)
+    () =>
+      fetchContracts({
+        isActive: false,
+        contractorReference: contractorReference,
+        sorCode: undefined,
+      })
   )
   const {
     data: contractsWithSorCode,
@@ -48,11 +58,11 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   } = useQuery(
     ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
     () =>
-      fetchContracts(
-        undefined,
-        contractorReference,
-        sorCode?.toLocaleUpperCase()
-      ),
+      fetchContracts({
+        isActive: undefined,
+        contractorReference: contractorReference,
+        sorCode: sorCode?.toLocaleUpperCase(),
+      }),
     {
       enabled: false,
     }

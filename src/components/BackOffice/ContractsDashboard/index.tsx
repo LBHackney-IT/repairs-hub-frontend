@@ -14,7 +14,12 @@ import Contract from '@/root/src/models/contract'
 const ContractsDashboard = () => {
   const { data, isLoading, error } = useQuery(
     ['contracts', { isActive: undefined, contractorReference: undefined }],
-    () => fetchContracts(undefined, undefined)
+    () =>
+      fetchContracts({
+        isActive: undefined,
+        contractorReference: undefined,
+        sorCode: undefined,
+      })
   )
 
   const contracts = data as Contract[] | null
