@@ -30,7 +30,11 @@ const useSelectContract = () => {
     ['contracts', selectedContractor?.contractorReference],
     () =>
       selectedContractor
-        ? fetchContracts(true, selectedContractor.contractorReference)
+        ? fetchContracts({
+            isActive: true,
+            contractorReference: selectedContractor.contractorReference,
+            sorCode: undefined,
+          })
         : Promise.resolve([]),
     {
       enabled: !!selectedContractor, // Only run when a contractor is selected
