@@ -15,7 +15,7 @@ interface ContractorViewProps {
 }
 
 const ContractorView = ({ contractorReference }: ContractorViewProps) => {
-  const [sorCode, setSorCode] = useState<string>(null)
+  const [sorCode, setSorCode] = useState<string>('')
 
   const {
     data: activeContracts,
