@@ -30,7 +30,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       fetchContracts({
         isActive: true,
         contractorReference: contractorReference,
-        sorCode: undefined,
+        sorCode: null,
       })
   )
 
@@ -47,7 +47,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       fetchContracts({
         isActive: false,
         contractorReference: contractorReference,
-        sorCode: undefined,
+        sorCode: null,
       })
   )
   const {
@@ -59,7 +59,7 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
     ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
     () =>
       fetchContracts({
-        isActive: undefined,
+        isActive: null,
         contractorReference: contractorReference,
         sorCode: sorCode?.toLocaleUpperCase(),
       }),

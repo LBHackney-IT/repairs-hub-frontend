@@ -33,7 +33,7 @@ const useSelectContract = () => {
         ? fetchContracts({
             isActive: true,
             contractorReference: selectedContractor.contractorReference,
-            sorCode: undefined,
+            sorCode: null,
           })
         : Promise.resolve([]),
     {
