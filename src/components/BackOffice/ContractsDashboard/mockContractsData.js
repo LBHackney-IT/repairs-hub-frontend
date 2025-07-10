@@ -1,4 +1,4 @@
-import { monthsOffset, filterRelevantContracts } from './utils'
+import { monthsOffset } from './utils'
 
 export const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
 
@@ -358,5 +358,28 @@ export const mockInactiveContracts = [
     isRaisable: true,
     sorCount: 20,
     sorCost: 5958.38,
+  },
+]
+
+export const mockSorCodeContracts = [
+  {
+    contractReference: '155-155-1555',
+    terminationDate: monthsOffset(-2).toISOString(),
+    effectiveDate: '2020-01-04T00:00:00Z',
+    contractorReference: 'SYC',
+    contractorName: 'Sycous Limited',
+    isRaisable: true,
+    sorCount: 20,
+    sorCost: 5958.38,
+  },
+  {
+    contractReference: '132-132-1322',
+    terminationDate: monthsOffset(6).toISOString(),
+    effectiveDate: '2024-03-26T00:00:00Z',
+    contractorReference: 'SYC',
+    contractorName: 'Sycous Limited',
+    isRaisable: true,
+    sorCount: 2,
+    sorCost: 56.74,
   },
 ]

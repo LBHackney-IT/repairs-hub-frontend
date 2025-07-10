@@ -15,7 +15,7 @@ interface ContractorViewProps {
 }
 
 const ContractorView = ({ contractorReference }: ContractorViewProps) => {
-  const [sorCode, setSorCode] = useState<string>(null)
+  const [sorCode, setSorCode] = useState<string>('')
 
   const {
     data: activeContracts,
@@ -26,7 +26,12 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       'activeContracts',
       { isActive: true, contractorReference: contractorReference },
     ],
-    () => fetchContracts(true, contractorReference)
+    () =>
+      fetchContracts({
+        isActive: true,
+        contractorReference: contractorReference,
+        sorCode: null,
+      })
   )
 
   const {
@@ -38,7 +43,12 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
       'inactiveContracts',
       { isActive: false, contractorReference: contractorReference },
     ],
-    () => fetchContracts(false, contractorReference)
+    () =>
+      fetchContracts({
+        isActive: false,
+        contractorReference: contractorReference,
+        sorCode: null,
+      })
   )
   const {
     data: contractsWithSorCode,
@@ -48,7 +58,11 @@ const ContractorView = ({ contractorReference }: ContractorViewProps) => {
   } = useQuery(
     ['sorContracts', contractorReference, sorCode?.toLocaleUpperCase()],
     () =>
-      fetchContracts(null, contractorReference, sorCode?.toLocaleUpperCase()),
+      fetchContracts({
+        isActive: null,
+        contractorReference: contractorReference,
+        sorCode: sorCode?.toLocaleUpperCase(),
+      }),
     {
       enabled: false,
     }

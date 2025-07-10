@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Contracts dashboard component should render the component 1`] = `
+exports[`Contracts dashboard component should render component with sor code contracts displayed 1`] = `
 <DocumentFragment>
   <a
     class="govuk-back-link lbh-back-link govuk-!-display-none-print"
@@ -32,7 +32,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
         <h5
           style="white-space: nowrap;"
         >
-          111-111-1111
+          127-127-1277
         </h5>
         <p>
           <span
@@ -40,7 +40,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Sum of SORs:
           </span>
-           £5,958.38
+           £0.00
         </p>
         <p>
           <span
@@ -48,15 +48,15 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             SOR Count:
           </span>
-           20
+           0
         </p>
         <p>
           <span
             style="font-weight: 600;"
           >
-            Expired: 
+            Expires: 
           </span>
-          31 Mar 2015
+          10 Jan 2026
         </p>
       </div>
     </li>
@@ -70,7 +70,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
         <h5
           style="white-space: nowrap;"
         >
-          122-122-1222
+          128-128-1288
         </h5>
         <p>
           <span
@@ -86,15 +86,15 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             SOR Count:
           </span>
-           20
+           34
         </p>
         <p>
           <span
             style="font-weight: 600;"
           >
-            Expired: 
+            Expires: 
           </span>
-          31 Mar 2015
+          10 Jan 2026
         </p>
       </div>
     </li>
@@ -108,7 +108,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
         <h5
           style="white-space: nowrap;"
         >
-          133-133-1388
+          129-129-1299
         </h5>
         <p>
           <span
@@ -116,7 +116,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Sum of SORs:
           </span>
-           £5,958.38
+           £544,898.23
         </p>
         <p>
           <span
@@ -124,15 +124,15 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             SOR Count:
           </span>
-           20
+           3441
         </p>
         <p>
           <span
             style="font-weight: 600;"
           >
-            Expired: 
+            Expires: 
           </span>
-          9 May 2025
+          10 Jan 2026
         </p>
       </div>
     </li>
@@ -146,7 +146,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
         <h5
           style="white-space: nowrap;"
         >
-          144-144-1444
+          130-130-1300
         </h5>
         <p>
           <span
@@ -154,7 +154,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Sum of SORs:
           </span>
-           £5,958.38
+           £573,623.97
         </p>
         <p>
           <span
@@ -162,15 +162,15 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             SOR Count:
           </span>
-           20
+           3443
         </p>
         <p>
           <span
             style="font-weight: 600;"
           >
-            Expired: 
+            Expires: 
           </span>
-          9 May 2025
+          10 Jan 2026
         </p>
       </div>
     </li>
@@ -184,7 +184,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
         <h5
           style="white-space: nowrap;"
         >
-          155-155-1555
+          131-131-1311
         </h5>
         <p>
           <span
@@ -192,7 +192,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Sum of SORs:
           </span>
-           £5,958.38
+           £143,393.57
         </p>
         <p>
           <span
@@ -200,15 +200,53 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             SOR Count:
           </span>
-           20
+           904
         </p>
         <p>
           <span
             style="font-weight: 600;"
           >
-            Expired: 
+            Expires: 
           </span>
-          9 May 2025
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="5"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          132-132-1322
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £56.74
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           2
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
         </p>
       </div>
     </li>
@@ -256,7 +294,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          9 May 2025
+          10 May 2025
         </p>
       </div>
     </li>
@@ -294,7 +332,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          9 May 2025
+          10 May 2025
         </p>
       </div>
     </li>
@@ -332,7 +370,477 @@ exports[`Contracts dashboard component should render the component 1`] = `
           >
             Expired: 
           </span>
-          9 May 2025
+          10 May 2025
+        </p>
+      </div>
+    </li>
+  </ol>
+  <div>
+    <section
+      class="section"
+    >
+      <h3
+        class="lbh-heading-h3"
+      >
+        Check an SOR code
+      </h3>
+      <div
+        class="govuk-form-group lbh-form-group"
+      >
+        <form>
+          <label
+            class="govuk-label lbh-label"
+            for="input-search"
+          >
+            Find out which Sycous Limited contracts an SOR code exists in
+          </label>
+          <input
+            class="govuk-input lbh-input govuk-input--width-10"
+            data-testid="input-search"
+            id="input-search"
+            name="search-name"
+            type="text"
+            value="ABC123"
+          />
+          <div
+            class="govuk-form-group lbh-form-group"
+          >
+            <button
+              class="govuk-button lbh-button"
+              data-module="govuk-button"
+              data-testid="submit-search"
+              id="submit-search"
+              type="submit"
+            >
+              Search
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <h3
+      class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+    >
+      ABC123 found in the following Sycous Limited contracts
+    </h3>
+    <ol
+      data-test-id="contract-list"
+      style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
+    >
+      <li
+        data-id="0"
+        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h5
+            style="white-space: nowrap;"
+          >
+            132-132-1322
+          </h5>
+          <p
+            style="color: green;"
+          >
+            Active
+          </p>
+        </div>
+      </li>
+      <li
+        data-id="1"
+        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+      >
+        <div
+          class="contract-details"
+        >
+          <h5
+            style="white-space: nowrap;"
+          >
+            155-155-1555
+          </h5>
+          <p
+            style="color: red;"
+          >
+            Expired: 10 May 2025
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Contracts dashboard component should render the component without displaying sor contracts 1`] = `
+<DocumentFragment>
+  <a
+    class="govuk-back-link lbh-back-link govuk-!-display-none-print"
+    role="button"
+  >
+    Back
+  </a>
+  <h1
+    class="lbh-heading-h1"
+  >
+    Sycous Limited SYC
+  </h1>
+  <h3
+    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+  >
+    Active contracts:
+  </h3>
+  <ol
+    data-test-id="active-contracts-list"
+    style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
+  >
+    <li
+      data-id="0"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          127-127-1277
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £0.00
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           0
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="1"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          128-128-1288
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           34
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="2"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          129-129-1299
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £544,898.23
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           3441
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="3"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          130-130-1300
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £573,623.97
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           3443
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="4"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          131-131-1311
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £143,393.57
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           904
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="5"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          132-132-1322
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £56.74
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           2
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expires: 
+          </span>
+          10 Jan 2026
+        </p>
+      </div>
+    </li>
+  </ol>
+  <h3
+    class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
+  >
+    Inactive contracts (from 2020):
+  </h3>
+  <ol
+    data-test-id="inactive-contracts-list"
+    style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
+  >
+    <li
+      data-id="0"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          133-133-1388
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           20
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          10 May 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="1"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          144-144-1444
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           20
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          10 May 2025
+        </p>
+      </div>
+    </li>
+    <li
+      data-id="2"
+      style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
+    >
+      <div
+        class="contract-details"
+      >
+        <h5
+          style="white-space: nowrap;"
+        >
+          155-155-1555
+        </h5>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Sum of SORs:
+          </span>
+           £5,958.38
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            SOR Count:
+          </span>
+           20
+        </p>
+        <p>
+          <span
+            style="font-weight: 600;"
+          >
+            Expired: 
+          </span>
+          10 May 2025
         </p>
       </div>
     </li>
@@ -370,6 +878,7 @@ exports[`Contracts dashboard component should render the component 1`] = `
             <button
               class="govuk-button lbh-button"
               data-module="govuk-button"
+              data-testid="submit-search"
               disabled=""
               id="submit-search"
               type="submit"
@@ -380,111 +889,6 @@ exports[`Contracts dashboard component should render the component 1`] = `
         </form>
       </div>
     </section>
-    <h3
-      class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-    >
-      null found in the following Sycous Limited contracts
-    </h3>
-    <ol
-      data-test-id="contract-list"
-      style="display: grid; grid-template-columns: repeat(auto-fill, 10rem); gap: 1rem; list-style: none; padding: 0px; margin: 0px;"
-    >
-      <li
-        data-id="0"
-        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h5
-            style="white-space: nowrap;"
-          >
-            155-155-1555
-          </h5>
-          <p
-            style="color: red;"
-          >
-            Expired: 9 May 2025
-          </p>
-        </div>
-      </li>
-      <li
-        data-id="1"
-        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h5
-            style="white-space: nowrap;"
-          >
-            144-144-1444
-          </h5>
-          <p
-            style="color: red;"
-          >
-            Expired: 9 May 2025
-          </p>
-        </div>
-      </li>
-      <li
-        data-id="2"
-        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h5
-            style="white-space: nowrap;"
-          >
-            133-133-1388
-          </h5>
-          <p
-            style="color: red;"
-          >
-            Expired: 9 May 2025
-          </p>
-        </div>
-      </li>
-      <li
-        data-id="3"
-        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h5
-            style="white-space: nowrap;"
-          >
-            122-122-1222
-          </h5>
-          <p
-            style="color: red;"
-          >
-            Expired: 31 Mar 2015
-          </p>
-        </div>
-      </li>
-      <li
-        data-id="4"
-        style="border: 5px solid #00664f; border-radius: 20px; box-sizing: border-box; padding: 1rem; display: flex; margin-top: 1rem; justify-content: center;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h5
-            style="white-space: nowrap;"
-          >
-            111-111-1111
-          </h5>
-          <p
-            style="color: red;"
-          >
-            Expired: 31 Mar 2015
-          </p>
-        </div>
-      </li>
-    </ol>
   </div>
 </DocumentFragment>
 `;
