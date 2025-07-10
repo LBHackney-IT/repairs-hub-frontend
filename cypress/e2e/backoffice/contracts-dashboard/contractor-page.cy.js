@@ -66,10 +66,10 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
     activeContractsRequest()
     inactiveContractsRequest()
-    cy.wait('@activeContractorContractsRequest')
+    cy.wait('@activeContractsRequest')
       .its('request.method')
       .should('deep.equal', 'GET')
-    cy.wait('@inactiveContractorContractsRequest')
+    cy.wait('@inactiveContractsRequest')
       .its('request.method')
       .should('deep.equal', 'GET')
   })
@@ -98,13 +98,13 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
     activeContractsRequest()
     inactiveContractsRequest()
-    cy.wait('@activeContractorContractsRequest').then((interception) => {
+    cy.wait('@activeContractsRequest').then((interception) => {
       const activeContractsLength = interception.response.body.length
       cy.get('[data-test-id="active-contracts-list"]')
         .children()
         .should('have.length', activeContractsLength)
     })
-    cy.wait('@inactiveContractorContractsRequest').then((interception) => {
+    cy.wait('@inactiveContractsRequest').then((interception) => {
       const inactiveContractsLength = interception.response.body.length
       cy.get('[data-test-id="active-contracts-list"]')
         .children()
@@ -123,7 +123,7 @@ describe('contractor page - when user has data admin permissions', () => {
       },
       { body: [] }
     )
-    cy.wait('@inactiveContractorContractsRequest')
+    cy.wait('@inactiveContractsRequest')
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
       .should('contain', 'No active contracts found for Sycous Limited.')
@@ -143,7 +143,7 @@ describe('contractor page - when user has data admin permissions', () => {
       },
       { body: [] }
     )
-    cy.wait('@activeContractorContractsRequest')
+    cy.wait('@activeContractsRequest')
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
       .should('contain', 'No inactive contracts found for Sycous Limited.')
