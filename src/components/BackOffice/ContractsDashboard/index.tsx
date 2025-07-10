@@ -27,7 +27,7 @@ const ContractsDashboard = () => {
 
   const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
     contracts,
-    10,
+    2,
     today
   )
 
