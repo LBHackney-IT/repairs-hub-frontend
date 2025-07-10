@@ -54,6 +54,7 @@ const SorSearch = ({
               />
               <PrimarySubmitButton
                 id="submit-search"
+                data-testid="submit-search"
                 label="Search"
                 disabled={!sorCode?.trim() || sorCode.trim().length < 0}
                 onClick={handleSubmit}
