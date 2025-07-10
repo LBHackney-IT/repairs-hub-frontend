@@ -14,7 +14,7 @@ function contractsRequest() {
   cy.intercept(
     {
       method: 'GET',
-      path: '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
+      path: '/api/backoffice/contracts?',
     },
     { fixture: 'contracts/contractsDashboard.json' }
   ).as('contractsRequest')
@@ -27,8 +27,7 @@ function modifiedContractsRequest() {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
+        path: '/api/backoffice/contracts?',
       },
       contracts
     ).as('modifiedContractsRequest')
@@ -112,7 +111,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     })
   })
 
-  it.only('diplays no contracts warning box when no contracts expire in the next two months', () => {
+  it('diplays no contracts warning box when no contracts expire in the next two months', () => {
     contractsRequest()
     cy.wait('@contractsRequest')
     cy.get('[data-testid="no-contracts-found"]')
@@ -124,8 +123,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
+        path: '/api/backoffice/contracts?',
       },
       { body: [] }
     )
