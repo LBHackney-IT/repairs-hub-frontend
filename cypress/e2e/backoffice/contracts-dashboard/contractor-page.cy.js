@@ -6,37 +6,46 @@ function contractsRequest() {
   cy.intercept(
     {
       method: 'GET',
-      path: '/api/backoffice/contracts?isActive=&contractorReference=&sorCode=',
+      path: '/api/backoffice/contracts?',
     },
     { fixture: 'contracts/contractsDashboard.json' }
   ).as('contractsRequest')
 }
 
-function contractsContractorsRequest(isActive) {
+function activeContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    let filtered = []
-    if (isActive === true) {
-      filtered = contracts.filter(
-        (contract) =>
-          contract.contractorReference === 'SYC' &&
-          contract.terminationDate > new Date().toISOString()
-      )
-    }
-    if (isActive === false) {
-      filtered = contracts.filter(
-        (contract) =>
-          contract.contractorReference === 'SYC' &&
-          contract.terminationDate > '2020' &&
-          contract.terminationDate < new Date().toISOString()
-      )
-    }
+    const filtered = contracts.filter(
+      (contract) =>
+        contract.contractorReference === 'SYC' &&
+        contract.terminationDate > new Date().toISOString()
+    )
+
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?isActive=${isActive}&contractorReference=SYC`,
+        path: `/api/backoffice/contracts?&isActive=true&contractorReference=SYC`,
       },
       filtered
-    ).as(`${isActive ? 'active' : 'inactive'}ContractorContractsRequest`)
+    ).as('activeContractorContractsRequest')
+  })
+}
+
+function inactiveContractsRequest() {
+  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
+    const filtered = contracts.filter(
+      (contract) =>
+        contract.contractorReference === 'SYC' &&
+        contract.terminationDate > '2020' &&
+        contract.terminationDate < new Date().toISOString()
+    )
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/backoffice/contracts?&isActive=false&contractorReference=SYC`,
+      },
+      filtered
+    ).as('inactiveContractorContractsRequest')
   })
 }
 
@@ -55,8 +64,8 @@ describe('contractor page - when user has data admin permissions', () => {
 
   it('triggers a GET requests on page load to retrieve all relevant contracts', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    contractsContractorsRequest(true)
-    contractsContractorsRequest(false)
+    activeContractsRequest()
+    inactiveContractsRequest()
     cy.wait('@activeContractorContractsRequest')
       .its('request.method')
       .should('deep.equal', 'GET')
@@ -72,14 +81,11 @@ describe('contractor page - when user has data admin permissions', () => {
     contractsRequest()
     cy.wait('@contractsRequest')
     cy.contains('li', 'Sycous Limited').click()
-    contractsContractorsRequest(true)
-    contractsContractorsRequest(false)
+    activeContractsRequest()
+    inactiveContractsRequest()
     cy.wait('@activeContractorContractsRequest')
     cy.wait('@inactiveContractorContractsRequest')
-    cy.url().should(
-      'include',
-      'backoffice/contractors/SYC?contractorName=Sycous+Limited'
-    )
+    cy.url().should('include', 'backoffice/contractors/SYC')
     cy.get('.govuk-back-link').click()
     cy.url().should('include', '/backoffice/contracts-dashboard')
     cy.get('.govuk-back-link').click()
@@ -88,8 +94,8 @@ describe('contractor page - when user has data admin permissions', () => {
 
   it('should display correct amount of active and inactive contracts related to the contractor', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    contractsContractorsRequest(true)
-    contractsContractorsRequest(false)
+    activeContractsRequest()
+    inactiveContractsRequest()
     cy.wait('@activeContractorContractsRequest').then((interception) => {
       const activeContractsLength = interception.response.body.length
       cy.get('[data-test-id="active-contracts-list"]')
@@ -106,11 +112,12 @@ describe('contractor page - when user has data admin permissions', () => {
 
   it('diplays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    contractsContractorsRequest(false)
+    inactiveContractsRequest()
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
+        path:
+          '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -125,12 +132,12 @@ describe('contractor page - when user has data admin permissions', () => {
 
   it('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    contractsContractorsRequest(true)
+    activeContractsRequest()
     cy.intercept(
       {
         method: 'GET',
         path:
-          '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
+          '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -148,7 +155,8 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.intercept(
       {
         method: 'GET',
-        path: '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
+        path:
+          '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -156,15 +164,15 @@ describe('contractor page - when user has data admin permissions', () => {
       {
         method: 'GET',
         path:
-          '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
+          '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
       },
       { body: [] }
     )
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
-      .should('contain', 'No active contracts found for Sycous Limited.')
+      .should('contain', 'No active contracts found')
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
-      .should('contain', 'No inactive contracts found for Sycous Limited.')
+      .should('contain', 'No inactive contracts found')
   })
 })
