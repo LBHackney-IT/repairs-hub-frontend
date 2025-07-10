@@ -2,12 +2,12 @@ import {
   today,
   monthsOffset,
 } from '@/root/src/components/BackOffice/ContractsDashboard/utils'
-import { ninthOfJulyTwentyTwentyFive } from '@/root/src/components/BackOffice/ContractsDashboard/mockContractsData'
 
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
 
+const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
 const aMonthInTheFuture = monthsOffset(1, ninthOfJulyTwentyTwentyFive)
 const twoMonthsInTheFuture = monthsOffset(2, ninthOfJulyTwentyTwentyFive)
 
