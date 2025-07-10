@@ -1,7 +1,4 @@
-import {
-  today,
-  monthsOffset,
-} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
+import { monthsOffset } from '@/root/src/components/BackOffice/ContractsDashboard/utils'
 
 /// <reference types="cypress" />
 
@@ -73,7 +70,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       const contracts = interception.response.body
       const contractsExpiringInTwoMonths = contracts.filter((contract) => {
         return (
-          new Date(contract.terminationDate) > today &&
+          new Date(contract.terminationDate) > ninthOfJulyTwentyTwentyFive &&
           new Date(contract.terminationDate) < twoMonthsInTheFuture
         )
       })
