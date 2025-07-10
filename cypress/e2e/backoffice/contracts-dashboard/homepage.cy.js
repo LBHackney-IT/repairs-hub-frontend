@@ -5,8 +5,14 @@ import { monthsOffset } from '@/root/src/components/BackOffice/ContractsDashboar
 import 'cypress-audit/commands'
 
 const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
-const aMonthInTheFuture = monthsOffset(1, ninthOfJulyTwentyTwentyFive)
-const twoMonthsInTheFuture = monthsOffset(2, ninthOfJulyTwentyTwentyFive)
+const ninthOfAugustTwentyTwentyFive = monthsOffset(
+  1,
+  ninthOfJulyTwentyTwentyFive
+)
+const ninthOfSeptemberTwentyTwentyFive = monthsOffset(
+  2,
+  ninthOfJulyTwentyTwentyFive
+)
 
 function contractsRequest() {
   cy.intercept(
@@ -20,8 +26,8 @@ function contractsRequest() {
 
 function modifiedContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    contracts[3].terminationDate = aMonthInTheFuture.toISOString()
-    contracts[4].terminationDate = aMonthInTheFuture.toISOString()
+    contracts[3].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
+    contracts[4].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
     cy.intercept(
       {
         method: 'GET',
@@ -71,7 +77,7 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       const contractsExpiringInTwoMonths = contracts.filter((contract) => {
         return (
           new Date(contract.terminationDate) > ninthOfJulyTwentyTwentyFive &&
-          new Date(contract.terminationDate) < twoMonthsInTheFuture
+          new Date(contract.terminationDate) < ninthOfSeptemberTwentyTwentyFive
         )
       })
       const contractsExpiringInTwoMonthsLength =
