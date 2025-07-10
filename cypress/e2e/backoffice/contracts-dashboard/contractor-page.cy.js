@@ -26,7 +26,7 @@ function activeContractsRequest() {
         path: `/api/backoffice/contracts?&isActive=true&contractorReference=SYC`,
       },
       filtered
-    ).as('activeContractorContractsRequest')
+    ).as('activeContractsRequest')
   })
 }
 
@@ -45,7 +45,7 @@ function inactiveContractsRequest() {
         path: `/api/backoffice/contracts?&isActive=false&contractorReference=SYC`,
       },
       filtered
-    ).as('inactiveContractorContractsRequest')
+    ).as('inactiveContractsRequest')
   })
 }
 
@@ -80,11 +80,13 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.url().should('include', '/backoffice/contracts-dashboard')
     contractsRequest()
     cy.wait('@contractsRequest')
-    cy.contains('li', 'Sycous Limited').click()
+    cy.get('[data-test-id="contractors-list"]')
+      .contains('li', 'Sycous Limited')
+      .click()
     activeContractsRequest()
     inactiveContractsRequest()
-    cy.wait('@activeContractorContractsRequest')
-    cy.wait('@inactiveContractorContractsRequest')
+    cy.wait('@activeContractsRequest')
+    cy.wait('@inactiveContractsRequest')
     cy.url().should('include', 'backoffice/contractors/SYC')
     cy.get('.govuk-back-link').click()
     cy.url().should('include', '/backoffice/contracts-dashboard')
