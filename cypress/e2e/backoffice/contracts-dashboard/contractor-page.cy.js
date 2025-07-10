@@ -33,7 +33,7 @@ function contractsContractorsRequest(isActive) {
     cy.intercept(
       {
         method: 'GET',
-        path: `/api/backoffice/contracts?isActive=${isActive}&contractorReference=SYC&sorCode=`,
+        path: `/api/backoffice/contracts?isActive=${isActive}&contractorReference=SYC`,
       },
       filtered
     ).as(`${isActive ? 'active' : 'inactive'}ContractorContractsRequest`)
@@ -110,8 +110,7 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/backoffice/contracts?isActive=true&contractorReference=SYC&sorCode=',
+        path: '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -124,14 +123,14 @@ describe('contractor page - when user has data admin permissions', () => {
     )
   })
 
-  it.only('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
+  it('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
     cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
     contractsContractorsRequest(true)
     cy.intercept(
       {
         method: 'GET',
         path:
-          '/api/backoffice/contracts?isActive=false&contractorReference=SYC&sorCode=',
+          '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -149,8 +148,7 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.intercept(
       {
         method: 'GET',
-        path:
-          '/api/backoffice/contracts?isActive=true&contractorReference=SYC&sorCode=',
+        path: '/api/backoffice/contracts?isActive=true&contractorReference=SYC',
       },
       { body: [] }
     )
@@ -158,7 +156,7 @@ describe('contractor page - when user has data admin permissions', () => {
       {
         method: 'GET',
         path:
-          '/api/backoffice/contracts?isActive=false&contractorReference=SYC&sorCode=',
+          '/api/backoffice/contracts?isActive=false&contractorReference=SYC',
       },
       { body: [] }
     )
