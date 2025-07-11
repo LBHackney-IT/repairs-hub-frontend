@@ -7,7 +7,7 @@ import ContractorsListItems from './Contractor/ContractorsListItems'
 import ContractListItems from './Contract/ContractListItems'
 import { fetchContracts } from '@/root/src/components/BackOffice/requests'
 
-import { filterContractsByExpiryDate } from './utils'
+import { filterContractsByExpiryDate, today } from './utils'
 
 import Contract from '@/root/src/models/contract'
 
@@ -27,7 +27,8 @@ const ContractsDashboard = () => {
 
   const contractsThatExpireWithinTwoMonths = filterContractsByExpiryDate(
     contracts,
-    2
+    2,
+    today
   )
 
   if (isLoading) {

@@ -56,7 +56,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -94,7 +94,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -132,7 +132,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -170,7 +170,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -208,7 +208,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -246,7 +246,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -294,7 +294,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -332,7 +332,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -370,7 +370,7 @@ exports[`Contracts dashboard component should render component with sor code con
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -461,7 +461,7 @@ exports[`Contracts dashboard component should render component with sor code con
           <p
             style="color: red;"
           >
-            Expired: 10 May 2025
+            Expired: 9 May 2025
           </p>
         </div>
       </li>
@@ -526,7 +526,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -564,7 +564,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -602,7 +602,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -640,7 +640,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -678,7 +678,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -716,7 +716,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expires: 
           </span>
-          10 Jan 2026
+          9 Jan 2026
         </p>
       </div>
     </li>
@@ -764,7 +764,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -802,7 +802,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
@@ -840,7 +840,7 @@ exports[`Contracts dashboard component should render the component without displ
           >
             Expired: 
           </span>
-          10 May 2025
+          9 May 2025
         </p>
       </div>
     </li>
