@@ -256,7 +256,7 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.contains('No contracts with ABC1240 SOR code')
     })
 
-    it.only('displays error when sor request does not contain sor code', () => {
+    it('displays error when sor request does not contain sor code', () => {
       cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
       activeContractsRequest()
       inactiveContractsRequest()
