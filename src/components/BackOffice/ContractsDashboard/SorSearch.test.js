@@ -47,4 +47,28 @@ describe('SorSearch component', () => {
     })
     expect(asFragment()).toMatchSnapshot()
   })
+
+  it('should render no contracts found', async () => {
+    const { asFragment } = render(
+      <SorSearch
+        contracts={[]}
+        searchHeadingText={'Check an SOR code'}
+        searchLabelText={`Find out which Sycous Limited contracts an SOR code exists in`}
+        sorCode={'12'}
+        setSorCode={jest.fn()}
+        isLoading={false}
+        error={null}
+        handleSubmit={jest.fn()}
+        contractorName={'Sycous Limited'}
+      />
+    )
+    await act(async () => {
+      fireEvent.change(screen.getByTestId('input-search'), {
+        target: { value: '12' },
+      })
+
+      fireEvent.click(screen.getByTestId('submit-search'))
+    })
+    expect(asFragment()).toMatchSnapshot()
+  })
 })
