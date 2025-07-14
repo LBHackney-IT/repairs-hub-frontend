@@ -265,13 +265,15 @@ describe('contractor page - when user has data admin permissions', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/backoffice/contracts?&contractorReference=SYC',
+          path:
+            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
         },
         {
-          body: [],
+          forceNetworkError: true,
         }
       ).as('sorContractsBadRequest')
-      cy.contains('Request failed with status code 403')
+      cy.wait('@sorContractsBadRequest')
+      cy.get('[data-testid="error-message"]').should('be.visible')
     })
   })
 })
