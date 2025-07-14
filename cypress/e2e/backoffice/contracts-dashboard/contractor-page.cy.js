@@ -94,87 +94,186 @@ describe('contractor page - when user has data admin permissions', () => {
     cy.url().should('include', '/backoffice')
   })
 
-  it('should display correct amount of active and inactive contracts related to the contractor', () => {
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    activeContractsRequest()
-    inactiveContractsRequest()
-    cy.wait('@activeContractsRequest').then((interception) => {
-      const activeContractsLength = interception.response.body.length
-      cy.get('[data-test-id="active-contracts-list"]')
-        .children()
-        .should('have.length', activeContractsLength)
+  describe('Active and inactive contracts', () => {
+    it('should display correct amount of active and inactive contracts related to the contractor', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      activeContractsRequest()
+      inactiveContractsRequest()
+      cy.wait('@activeContractsRequest').then((interception) => {
+        const activeContractsLength = interception.response.body.length
+        cy.get('[data-test-id="active-contracts-list"]')
+          .children()
+          .should('have.length', activeContractsLength)
+      })
+      cy.wait('@inactiveContractsRequest').then((interception) => {
+        const inactiveContractsLength = interception.response.body.length
+        cy.get('[data-test-id="active-contracts-list"]')
+          .children()
+          .should('have.length', inactiveContractsLength)
+      })
     })
-    cy.wait('@inactiveContractsRequest').then((interception) => {
-      const inactiveContractsLength = interception.response.body.length
-      cy.get('[data-test-id="active-contracts-list"]')
-        .children()
-        .should('have.length', inactiveContractsLength)
+
+    it('diplays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      inactiveContractsRequest()
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+        },
+        { body: [] }
+      )
+      cy.wait('@inactiveContractsRequest')
+      cy.get('[data-testid="no-contracts-found"]')
+        .should('be.visible')
+        .should('contain', 'No active contracts found for Sycous Limited.')
+      cy.contains('No inactive contracts found for Sycous Limited.').should(
+        'not.exist'
+      )
+    })
+
+    it('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      activeContractsRequest()
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+        },
+        { body: [] }
+      )
+      cy.wait('@activeContractsRequest')
+      cy.get('[data-testid="no-contracts-found"]')
+        .should('be.visible')
+        .should('contain', 'No inactive contracts found for Sycous Limited.')
+      cy.contains('No active contracts found for Sycous Limited.').should(
+        'not.exist'
+      )
+    })
+
+    it('diplays no active and inactive contracts warning boxes when no active and inactive contracts are found', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
+        },
+        { body: [] }
+      )
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
+        },
+        { body: [] }
+      )
+      cy.get('[data-testid="no-contracts-found"]')
+        .should('be.visible')
+        .should('contain', 'No active contracts found')
+      cy.get('[data-testid="no-contracts-found"]')
+        .should('be.visible')
+        .should('contain', 'No inactive contracts found')
     })
   })
 
-  it('diplays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    inactiveContractsRequest()
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
-      },
-      { body: [] }
-    )
-    cy.wait('@inactiveContractsRequest')
-    cy.get('[data-testid="no-contracts-found"]')
-      .should('be.visible')
-      .should('contain', 'No active contracts found for Sycous Limited.')
-    cy.contains('No inactive contracts found for Sycous Limited.').should(
-      'not.exist'
-    )
-  })
+  describe('sor code search', () => {
+    it('searches for an sor code and displays contracts that have it', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      activeContractsRequest()
+      inactiveContractsRequest()
+      cy.get('[data-testid="input-search"]').type('ABC1240')
+      cy.get('[data-testid="submit-search"]').click()
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+        },
+        {
+          body: [
+            {
+              contractReference: '127-127-1277',
+              terminationDate: '2025-06-15T23:00:00Z',
+              effectiveDate: '2023-09-15T23:00:00Z',
+              contractorReference: 'SCC',
+              contractorName: 'Alphatrack (S) Systems Lt',
+              isRaisable: true,
+              sorCount: 0,
+              sorCost: 0,
+            },
+            {
+              contractReference: '128-128-1288',
+              terminationDate: '2026-03-31T00:00:00Z',
+              effectiveDate: '2024-01-04T00:00:00Z',
+              contractorReference: 'SYC',
+              contractorName: 'Sycous Limited',
+              isRaisable: true,
+              sorCount: 34,
+              sorCost: 5958.38,
+            },
+            {
+              contractReference: '129-129-1299',
+              terminationDate: '2026-03-31T23:00:00Z',
+              effectiveDate: '2024-08-01T00:00:00Z',
+              contractorReference: 'WIG',
+              contractorName: 'THE WIGGETT GROUP LTD',
+              isRaisable: true,
+              sorCount: 3441,
+              sorCost: 544898.23,
+            },
+          ],
+        }
+      ).as('sorContracts')
+      cy.wait('@sorContracts').then((interception) => {
+        const sorContractsLength = interception.response.body.length
+        cy.get('[data-test-id="contract-list"]')
+          .children()
+          .should('have.length', sorContractsLength)
+      })
+    })
+    it('searches for an sor code and displays no contracts have that sor code message', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      activeContractsRequest()
+      inactiveContractsRequest()
+      cy.get('[data-testid="input-search"]').type('ABC1240')
+      cy.get('[data-testid="submit-search"]').click()
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+        },
+        {
+          body: [],
+        }
+      ).as('sorContracts')
+      cy.wait('@sorContracts')
+      cy.get('[data-test-id="contract-list"]').should('not.exist')
+      cy.contains('No contracts with ABC1240 SOR code')
+    })
 
-  it('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    activeContractsRequest()
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
-      },
-      { body: [] }
-    )
-    cy.wait('@activeContractsRequest')
-    cy.get('[data-testid="no-contracts-found"]')
-      .should('be.visible')
-      .should('contain', 'No inactive contracts found for Sycous Limited.')
-    cy.contains('No active contracts found for Sycous Limited.').should(
-      'not.exist'
-    )
-  })
-
-  it('diplays no active and inactive contracts warning boxes when no active and inactive contracts are found', () => {
-    cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/backoffice/contracts?&isActive=true&contractorReference=SYC',
-      },
-      { body: [] }
-    )
-    cy.intercept(
-      {
-        method: 'GET',
-        path:
-          '/api/backoffice/contracts?&isActive=false&contractorReference=SYC',
-      },
-      { body: [] }
-    )
-    cy.get('[data-testid="no-contracts-found"]')
-      .should('be.visible')
-      .should('contain', 'No active contracts found')
-    cy.get('[data-testid="no-contracts-found"]')
-      .should('be.visible')
-      .should('contain', 'No inactive contracts found')
+    it('displays error when sor request does not contain sor code', () => {
+      cy.visit('/backoffice/contractors/SYC?contractorName=Syc')
+      activeContractsRequest()
+      inactiveContractsRequest()
+      cy.get('[data-testid="input-search"]').type('ABC1240')
+      cy.get('[data-testid="submit-search"]').click()
+      cy.intercept(
+        {
+          method: 'GET',
+          path:
+            '/api/backoffice/contracts?&contractorReference=SYC&sorCode=ABC1240',
+        },
+        {
+          forceNetworkError: true,
+        }
+      ).as('sorContractsBadRequest')
+      cy.wait('@sorContractsBadRequest')
+      cy.get('[data-testid="error-message"]').should('be.visible')
+    })
   })
 })
