@@ -237,7 +237,9 @@ workflows:
             - e2e
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - proxy-main
       - build-deploy-staging:
           requires:
             - assume-role-staging
@@ -245,21 +247,27 @@ workflows:
             - "Serverless Framework"
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - proxy-main
       - permit-deploy-production:
           type: approval
           requires:
             - build-deploy-staging
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - proxy-main
       - assume-role-production:
           context: api-assume-role-housing-production-context
           requires:
             - permit-deploy-production
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - proxy-main
       - build-deploy-production:
           requires:
             - assume-role-production
@@ -267,4 +275,6 @@ workflows:
             - "Serverless Framework"
           filters:
             branches:
-              only: main
+              only:
+                - main
+                - proxy-main
