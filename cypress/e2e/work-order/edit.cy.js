@@ -4,26 +4,73 @@ describe('Editing a work order description', () => {
   context('As an authorisation manager', () => {
     beforeEach(() => {
       cy.loginWithAuthorisationManagerRole()
+
+      cy.intercept(
+        { method: 'GET', path: '/api/simple-feature-toggle' },
+        {
+          body: {
+            enableNewAppointmentEndpoint: true,
+          },
+        }
+      ).as('featureToggle')
+    })
+
+    describe('When tenure is null', () => {
+      beforeEach(() => {
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
+          { fixture: 'workOrders/workOrder.json' }
+        ).as('workOrderRequest')
+
+        cy.fixture('properties/property.json')
+          .then((property) => {
+            property.tenure = null
+
+            cy.intercept(
+              { method: 'GET', path: '/api/properties/00012345' },
+              { body: property }
+            )
+          })
+          .as('property')
+      })
+
+      it('doesnt throw error', () => {
+        cy.visit('/work-orders/10000012/edit')
+
+        cy.contains('Edit work order: 10000012')
+        cy.contains('Edit description')
+      })
     })
 
     describe(`When I don't trigger any errors`, () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
+
         cy.intercept(
           { method: 'GET', path: '/api/properties/00014886' },
           { fixture: 'properties/property.json' }
         ).as('property')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/tasks' },
           { fixture: 'workOrders/task.json' }
         ).as('tasks')
+
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/notes' },
           { fixture: 'workOrders/editedDescriptionNotes.json' }
         ).as('workOrderNotes')
+
         cy.intercept(
           {
             method: 'GET',
@@ -32,6 +79,7 @@ describe('Editing a work order description', () => {
           },
           { fixture: 'properties/personAlerts.json' }
         ).as('personAlerts')
+
         cy.intercept(
           {
             method: 'GET',
@@ -39,10 +87,6 @@ describe('Editing a work order description', () => {
           },
           { fixture: 'properties/locationAlerts.json' }
         ).as('locationAlerts')
-        cy.intercept(
-          { method: 'GET', path: '/api/simple-feature-toggle' },
-          { body: {} }
-        ).as('featureToggle')
       })
 
       it('allows me to edit the work order and adds the updated description to the notes', () => {
@@ -60,7 +104,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
@@ -104,7 +148,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -117,7 +161,9 @@ describe('Editing a work order description', () => {
         cy.get('.lbh-body-m').should('contain', 'This is a test description.')
         cy.contains('Test Name')
         cy.contains('01234567890')
-        cy.get('#tab_notes-tab').click()
+
+        cy.contains('.tabs-button', 'Notes').click()
+
         cy.get('[data-note-id="0"] > span').should(
           'contain',
           'Description updated: This is a test description.'
@@ -141,7 +187,7 @@ describe('Editing a work order description', () => {
         cy.intercept(
           {
             method: 'GET',
-            path: '/api/workOrders/10000012',
+            path: '/api/workOrders/10000012/new',
           },
           { fixture: 'workOrders/editedWorkOrder.json' }
         ).as('editedWorkOrder')
@@ -157,7 +203,7 @@ describe('Editing a work order description', () => {
     describe('When I trigger errors', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrderToEdit.json' }
         ).as('workOrder')
         cy.intercept(
@@ -231,19 +277,22 @@ describe('Editing a work order description', () => {
         ).as('failedEditWorkOrder')
         cy.get('.govuk-form-group > .govuk-button').click()
         cy.wait('@failedEditWorkOrder')
-        cy.contains('Oops, an error occurred: 500')
+        // cy.contains('Oops, an error occurred: 500')
+        cy.contains('Oops an error occurred with error status: 500')
       })
     })
   })
+
   context('As an operative', () => {
     beforeEach(() => {
       cy.loginWithOperativeRole()
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrderToEdit.json' }
       ).as('workOrder')
       cy.visit('/work-orders/10000012/edit')
     })
+
     it('I am restricted from accessing the correct page', () => {
       cy.contains(`Access denied`)
     })

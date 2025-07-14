@@ -25,6 +25,7 @@ import { emitTagManagerEvent } from '@/utils/tagManager'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
@@ -44,12 +45,13 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
     false
   )
+  const [closeFormValues, setCloseFormValues] = useState({})
 
   const getWorkOrderView = async (workOrderReference) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -104,11 +106,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }
@@ -142,11 +140,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     } catch (e) {
       console.error(e)
 
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
   }
 
@@ -167,6 +161,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       })
 
       followOnRequest = buildFollowOnRequestData(
+        data.isEmergency === 'true',
         data.isMultipleOperatives === 'true',
         requiredFollowOnTrades,
         data.followOnTypeDescription,
@@ -177,6 +172,9 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
         data.supervisorCalled === 'Yes',
         data.otherTrade
       )
+    } else {
+      // Do not upload follow on files if user removed follow-on request
+      followOnFiles = []
     }
 
     let notes = data.notes // notes written by user
@@ -199,12 +197,11 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
-      if (workOrderFiles.length > 0 || followOnFiles.length > 0) {
-        // initiate both uploads
-        var totalFilesToUpload = workOrderFiles.length + followOnFiles.length
+      var filesToUpload = workOrderFiles.concat(followOnFiles)
 
+      if (filesToUpload.length > 0) {
         const fileUploadCompleteCallback = fileUploadStatusLogger(
-          totalFilesToUpload,
+          filesToUpload.length,
           setLoadingStatus
         )
 
@@ -220,6 +217,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
+            setCloseFormValues({
+              workOrderFiles: workOrderFiles,
+              followOnFiles: followOnFiles,
+            })
             return
           }
         }
@@ -236,13 +237,16 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           if (!uploadResult.success) {
             setError(uploadResult.requestError)
             setLoadingStatus(null)
+            setCloseFormValues({
+              workOrderFiles: workOrderFiles,
+              followOnFiles: followOnFiles,
+            })
             return
           }
         }
       }
 
       setLoadingStatus('Completing workorder')
-
       await frontEndApiRequest({
         method: 'post',
         path: `/api/workOrderComplete`,
@@ -267,15 +271,21 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
           isNoAccess ? 'closed with no access' : 'closed'
         }`
       )
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        if (key && key.startsWith('closeWorkOrder')) {
+          localStorage.removeItem(key)
+        }
+      } // Clear cached form data
       router.push('/')
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoadingStatus(null)
+      setCloseFormValues({
+        workOrderFiles: workOrderFiles,
+        followOnFiles: followOnFiles,
+      })
     }
   }
 
@@ -307,8 +317,10 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
 
       {workOrderProgressedToClose && (
         <MobileWorkingCloseWorkOrderForm
+          workOrderReference={workOrderReference}
           onSubmit={onWorkOrderCompleteSubmit}
           isLoading={loadingStatus !== null}
+          presetValues={closeFormValues}
         />
       )}
 

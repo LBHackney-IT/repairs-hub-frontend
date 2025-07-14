@@ -44,12 +44,19 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621',
+          path: '/api/workOrders/10000621/new',
         },
         {
           fixture: 'operatives/workOrder.json',
         }
       ).as('operativesWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         {
@@ -358,12 +365,19 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621',
+          path: '/api/workOrders/10000621/new',
         },
         {
           fixture: 'operatives/workOrder.json',
         }
       ).as('operativesWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         {

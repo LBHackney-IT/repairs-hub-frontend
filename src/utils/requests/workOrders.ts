@@ -6,8 +6,9 @@ import { WorkOrder } from '@/models/workOrder'
 import { APIResponseError, ApiResponseType } from '../../types/requests/types'
 import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
+import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
-export const getWorkOrder = async (
+export const getWorkOrderOld = async (
   workOrderReference: string
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
@@ -30,24 +31,22 @@ export const getWorkOrder = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
 }
 
-export const getWorkOrderNew = async (
+export const getWorkOrder = async (
   workOrderReference: string,
-  includeAppointmentData: boolean = false
+  includeAppointmentData: boolean
 ): Promise<ApiResponseType<WorkOrder | null>> => {
   try {
     const featureToggleData = await fetchSimpleFeatureToggles()
 
     if (!featureToggleData?.enableNewAppointmentEndpoint) {
       // default to old endpoint if FT disabled
-      return await getWorkOrder(workOrderReference)
+      return await getWorkOrderOld(workOrderReference)
     }
 
     const workOrderData = await frontEndApiRequest({
@@ -61,7 +60,7 @@ export const getWorkOrderNew = async (
       const appointmentOperativeData: WorkOrderAppointmentDetails = await frontEndApiRequest(
         {
           method: 'get',
-          path: `/api/workOrders/appointments/${workOrderReference}/`,
+          path: `/api/workOrders/appointments/${workOrderReference}`,
         }
       )
 
@@ -87,9 +86,7 @@ export const getWorkOrderNew = async (
       error: new APIResponseError(
         e.response?.status === 404
           ? `Could not find a work order with reference ${workOrderReference}`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -127,9 +124,7 @@ export const editWorkOrder = async (
       error: new APIResponseError(
         e.response?.status === 400
           ? 'Invalid request data'
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }
@@ -159,9 +154,7 @@ export const postNote = async (
       error: new APIResponseError(
         e.response?.status === 400
           ? `Invalid request data`
-          : `Oops, an error occurred: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
+          : formatRequestErrorMessage(e)
       ),
     }
   }

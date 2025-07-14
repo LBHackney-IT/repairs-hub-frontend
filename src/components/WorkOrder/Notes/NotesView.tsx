@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect } from 'react'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
@@ -6,16 +5,23 @@ import NotesForm from './NotesForm'
 import NotesTimeline from './NotesTimeline'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { sortObjectsByDateKey } from '@/utils/date'
+import { TabName } from '../../Tabs/tabNames'
+import { WorkOrder } from '@/root/src/models/workOrder'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
-const NotesView = ({
-  workOrderReference,
-  tabName,
-  workOrder,
-  setActiveTab,
-}) => {
+interface Props {
+  workOrderReference: string
+  tabName: string
+  workOrder: WorkOrder
+  setActiveTab: (tabName: TabName) => void
+}
+
+const NotesView = (props: Props) => {
+  const { workOrderReference, tabName, workOrder, setActiveTab } = props
+
   const [notes, setNotes] = useState([])
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string | null>(null)
   const [displayForm, setDisplayForm] = useState(false)
 
   const onFormSubmit = async (formData) => {
@@ -30,11 +36,7 @@ const NotesView = ({
       getNotesView(workOrderReference)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -59,11 +61,7 @@ const NotesView = ({
     } catch (e) {
       setNotes(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -96,13 +94,6 @@ const NotesView = ({
       {error && <ErrorMessage label={error} />}
     </>
   )
-}
-
-NotesView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
-  tabName: PropTypes.string.isRequired,
-  workOrder: PropTypes.object.isRequired,
-  setActiveTab: PropTypes.func.isRequired,
 }
 
 export default NotesView

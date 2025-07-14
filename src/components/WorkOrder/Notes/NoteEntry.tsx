@@ -1,8 +1,10 @@
 import { formatDateTime } from '@/utils/time'
-import { Note, WorkOrderRequest } from './types'
+import { Note } from './types'
 import NormalNoteContent from './NoteContent/NormalNoteContent'
 import NoteWithImageContent from './NoteContent/NoteWithImageContent'
 import CompletedNoteContent from './NoteContent/CompletedNoteContent'
+import { WorkOrder } from '@/root/src/models/workOrder'
+import { TabName } from '../../Tabs/tabNames'
 
 const NoteInfo = ({ note }: { note: Note }) => {
   const { time, user, userEmail } = note
@@ -24,7 +26,7 @@ const DetectImageNote = (userNote: string) => {
 
 interface Props {
   note: Note
-  workOrder: WorkOrderRequest
+  workOrder: WorkOrder
   setActiveTab: (tab: string) => void
 }
 
@@ -50,8 +52,8 @@ const NoteContent = ({
   setActiveTab,
 }: {
   note: Note
-  workOrder: WorkOrderRequest
-  setActiveTab: (tab: string) => void
+  workOrder: WorkOrder
+  setActiveTab: (tabName: TabName) => void
 }) => {
   if (
     note.noteGeneratedOnFrontend &&

@@ -15,7 +15,6 @@ import {
   buildAuthorisationRejectedFormData,
 } from '@/utils/hact/jobStatusUpdate/authorisation'
 import { calculateTotal } from '@/utils/helpers/calculations'
-import { WorkOrder } from '@/models/workOrder'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import Panel from '@/components/Template/Panel'
 import {
@@ -24,6 +23,7 @@ import {
 } from '@/utils/successPageLinks'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -64,9 +64,7 @@ const AuthorisationView = ({ workOrderReference }) => {
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -82,7 +80,7 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -119,9 +117,7 @@ const AuthorisationView = ({ workOrderReference }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${e.response?.status}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
 

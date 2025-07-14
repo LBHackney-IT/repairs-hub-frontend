@@ -5,11 +5,11 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
-import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
 import { getWorkOrder } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
@@ -41,11 +41,7 @@ const OperativeFormView = ({ workOrderReference }) => {
       )
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoading(false)
     }
   }
@@ -61,7 +57,7 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       setCurrentUser(currentUser)
 
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -99,11 +95,7 @@ const OperativeFormView = ({ workOrderReference }) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }

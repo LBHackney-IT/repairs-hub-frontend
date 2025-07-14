@@ -1,10 +1,12 @@
-import { Note, WorkOrderRequest } from '../../types'
+import { WorkOrder } from '@/root/src/models/workOrder'
+import { Note } from '../../types'
 import generateMessage from './generateMessage'
+import { TabName } from '@/root/src/components/Tabs/tabNames'
 
 interface Props {
   note: Note
-  workOrder: WorkOrderRequest
-  setActiveTab: (tab: string) => void
+  workOrder: WorkOrder
+  setActiveTab: (tabName: TabName) => void
 }
 
 const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
@@ -145,7 +147,7 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
             <span>
               <a
                 className="lbh-link"
-                onClick={() => setActiveTab('photos-tab')}
+                onClick={() => setActiveTab(TabName.Photos)}
                 href="#photos-tab"
               >
                 View photos

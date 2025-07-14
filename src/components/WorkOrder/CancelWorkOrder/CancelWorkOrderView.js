@@ -4,11 +4,11 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import CancelWorkOrderForm from './CancelWorkOrderForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
-import { WorkOrder } from '@/models/workOrder'
 import SuccessPage from '../../SuccessPage/index'
 import { cancelWorkOrderLinks } from '@/utils/successPageLinks'
 import Panel from '@/components/Template/Panel'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const CancelWorkOrderView = ({ workOrderReference }) => {
   const [workOrder, setWorkOrder] = useState({})
@@ -28,11 +28,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -41,7 +37,7 @@ const CancelWorkOrderView = ({ workOrderReference }) => {
   const getCancelWorkOrderView = async () => {
     setError(null)
 
-    const workOrderResponse = await getWorkOrder(workOrderReference)
+    const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
     if (!workOrderResponse.success) {
       setWorkOrder(null)

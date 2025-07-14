@@ -68,17 +68,6 @@ describe('Rescheduling work order appointments', () => {
           }
         ).as('workOrder')
 
-        cy.fixture('workOrders/withAppointment.json')
-          .then((workOrder) => {
-            workOrder.status = STATUS_IN_PROGRESS.description
-
-            cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
-              { body: workOrder }
-            )
-          })
-          .as('workOrderOld')
-
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/appointments/10000012' },
           {
@@ -94,16 +83,22 @@ describe('Rescheduling work order appointments', () => {
 
         cy.get('.appointment-details').contains('19 Mar 2021, 12:00-18:00')
 
+        cy.fixture('workOrders/withAppointment.json')
+          .then((workOrder) => {
+            workOrder.status = STATUS_IN_PROGRESS.description
+
+            cy.intercept(
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
+              { body: workOrder }
+            )
+          })
+          .as('workOrder')
+
         cy.get('.appointment-details')
           .contains('Reschedule appointment')
           .click()
 
-        cy.wait([
-          '@availableAppointments',
-          '@tasks',
-          '@workOrderOld',
-          '@property',
-        ])
+        cy.wait(['@availableAppointments', '@tasks', '@workOrder', '@property'])
 
         //Appointment page with calendar
         cy.url().should('contains', 'work-orders/10000012/appointment/edit')
@@ -212,7 +207,7 @@ describe('Rescheduling work order appointments', () => {
             workOrder.status = STATUS_NO_ACCESS.description
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000012' },
+              { method: 'GET', path: '/api/workOrders/10000012/new' },
               { body: workOrder }
             )
           })

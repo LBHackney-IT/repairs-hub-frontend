@@ -24,6 +24,7 @@ import {
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 import { WorkOrder } from '@/root/src/models/workOrder'
 import { APIResponseError } from '@/root/src/types/requests/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const APPROVE_REQUEST = 'Approve request'
 const REJECT_REQUEST = 'Reject request'
@@ -58,7 +59,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -104,11 +105,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
             `Could not find a work order with reference ${workOrderReference}`
           )
         } else {
-          setError(
-            `Oops an error occurred with error status: ${
-              e.response?.status
-            } with message: ${JSON.stringify(e.response?.data?.message)}`
-          )
+          setError(formatRequestErrorMessage(e))
         }
       }
     }
@@ -129,11 +126,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
     } catch (e) {
       setOriginalSors(null)
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -167,9 +160,7 @@ const VariationAuthorisationView = ({ workOrderReference }: Props) => {
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
     setLoading(false)
   }

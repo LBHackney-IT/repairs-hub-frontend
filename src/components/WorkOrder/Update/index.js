@@ -18,6 +18,7 @@ import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import AddMultipleSORs from '@/components/Property/RaiseWorkOrder/AddMultipleSORs'
 import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const WorkOrderUpdateView = ({ reference }) => {
   const [loading, setLoading] = useState(false)
@@ -94,11 +95,7 @@ const WorkOrderUpdateView = ({ reference }) => {
           `Variation cost exceeds £${currentUser?.varyLimit}, please contact your contract manager to vary on your behalf`
         )
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
 
@@ -142,7 +139,7 @@ const WorkOrderUpdateView = ({ reference }) => {
         path: '/api/hub-user',
       })
 
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrder(reference, false)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
@@ -189,11 +186,7 @@ const WorkOrderUpdateView = ({ reference }) => {
       if (e instanceof APIResponseError) {
         setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       }
     }
 

@@ -1,15 +1,15 @@
-import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 import BackButton from '../Layout/BackButton'
 import TextArea from '../Form/TextArea'
 import { PrimarySubmitButton } from '../Form'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import FollowOnRequestTypeOfWorkForm from './CloseWorkOrderFormComponents/FollowOnRequestTypeOfWorkForm'
 import CloseWorkOrderFormReasonForClosing from './CloseWorkOrderFormComponents/CloseWorkOrderFormReasonForClosing'
 import validateFileUpload from '../WorkOrder/Photos/hooks/validateFileUpload'
 import ControlledFileInput from '../WorkOrder/Photos/ControlledFileInput'
 import FollowOnRequestMaterialsSupervisorCalledForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsSupervisorCalledForm'
 import FollowOnRequestMaterialsForm from './CloseWorkOrderFormComponents/FollowOnRequestMaterialsForm'
+import useFormPersist from 'react-hook-form-persist'
 
 const PAGES = {
   WORK_ORDER_STATUS: '1',
@@ -22,7 +22,45 @@ const FIELD_NAMES_ON_FIRST_PAGE = new Set<string>([
   'workOrderFileUpload',
 ])
 
-const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
+export interface CloseWorkOrderValues {
+  workOrderFileUpload?: FileList | null
+  followOnFileUpload?: FileList | null
+  workOrderFiles?: File[]
+  followOnFiles?: File[]
+  workOrderPhotoDescription?: string
+  finalReport?: string
+  notes?: string
+  followOnTypeDescription?: string
+  stockItemsRequired?: boolean
+  nonStockItemsRequired?: boolean
+  materialNotes?: string
+  additionalNotes?: string
+  followOnPhotoDescription?: string
+  supervisorCalled?: boolean
+  isEmergency?: boolean
+  isMultipleOperatives?: boolean
+  otherTrade?: string
+  reason?: string
+  followOnStatus?: string
+}
+
+interface MobileWorkingCloseWorkOrderFormProps {
+  workOrderReference: string
+  onSubmit: (
+    data: CloseWorkOrderValues,
+    workOrderFiles: File[],
+    followOnFiles: File[]
+  ) => void
+  isLoading: boolean
+  presetValues?: Partial<CloseWorkOrderValues>
+}
+
+const MobileWorkingCloseWorkOrderForm = ({
+  workOrderReference,
+  onSubmit,
+  isLoading,
+  presetValues = {},
+}: MobileWorkingCloseWorkOrderFormProps) => {
   const {
     handleSubmit,
     register,
@@ -32,9 +70,37 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
     watch,
     getValues,
     trigger,
-  } = useForm({
+    setValue,
+  } = useForm<CloseWorkOrderValues>({
     shouldUnregister: false,
+    defaultValues: presetValues,
   })
+
+  useFormPersist(`closeWorkOrder_${workOrderReference}`, {
+    watch,
+    setValue,
+    storage: window.localStorage,
+  })
+
+  // Restore fields from presetValues if they exist
+  const [workOrderFiles, setWorkOrderFiles] = useState<File[]>(
+    presetValues.workOrderFiles || []
+  )
+  const [followOnFiles, setFollowOnFiles] = useState<File[]>(
+    presetValues.followOnFiles || []
+  )
+
+  useEffect(() => {
+    // Persist here because files not supported in useFormPersist
+    setWorkOrderFiles(presetValues.workOrderFiles || [])
+    setFollowOnFiles(presetValues.followOnFiles || [])
+  }, [presetValues.workOrderFiles, presetValues.followOnFiles])
+
+  useEffect(() => {
+    if (watch('reason') !== 'Work Order Completed') {
+      setValue('followOnStatus', null) // clear nested field
+    }
+  }, [watch('reason')])
 
   const selectedFurtherWorkRequired =
     watch('followOnStatus') === 'furtherWorkRequired'
@@ -58,11 +124,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
     setCurrentPage(PAGES.WORK_ORDER_STATUS)
   }
 
-  const [workOrderFiles, setWorkOrderFiles] = useState([])
-  const [followOnFiles, setFollowOnFiles] = useState([])
-
-  // const [workOrderFiles, setFiles] = useState([])
-
   return (
     <div className="mobile-working-close-work-order-form">
       <BackButton
@@ -73,7 +134,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
             : null
         }
       />
-
       <form
         role="form"
         onSubmit={handleSubmit((data) => {
@@ -160,7 +220,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
               clearErrors={clearErrors}
               watch={watch}
             />
-
             <FollowOnRequestMaterialsForm
               register={register}
               getValues={getValues}
@@ -192,7 +251,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
                 })}
                 testId="FollowOnPhotoUpload"
               />
-
               {followOnFiles.length > 0 && (
                 <TextArea
                   name="followOnPhotoDescription"
@@ -211,11 +269,6 @@ const MobileWorkingCloseWorkOrderForm = ({ onSubmit, isLoading }) => {
       </form>
     </div>
   )
-}
-
-MobileWorkingCloseWorkOrderForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
 }
 
 export default MobileWorkingCloseWorkOrderForm

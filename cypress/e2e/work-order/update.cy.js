@@ -14,7 +14,7 @@ describe('Updating a work order', () => {
         .then((workOrder) => {
           workOrder.reference = 10000040
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000040' },
+            { method: 'GET', path: '/api/workOrders/10000040/new' },
             { body: workOrder }
           )
         })
@@ -490,7 +490,7 @@ describe('Updating a work order', () => {
             workOrder.reference = 10000040
 
             cy.intercept(
-              { method: 'GET', path: '/api/workOrders/10000040' },
+              { method: 'GET', path: '/api/workOrders/10000040/new' },
               { body: workOrder }
             )
           })
@@ -703,7 +703,15 @@ describe('Updating a work order', () => {
         workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
-        workOrder.operatives = [
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { body: workOrder }
+        ).as('workOrderRequest')
+      })
+
+      cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+        x.operatives = [
           {
             id: 1,
             payrollNumber: 'OP001',
@@ -713,9 +721,12 @@ describe('Updating a work order', () => {
           },
         ]
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621' },
-          { body: workOrder }
-        ).as('workOrderRequest')
+          {
+            method: 'GET',
+            path: '/api/workOrders/appointments/10000621',
+          },
+          { body: x }
+        )
       })
     })
 
@@ -1008,6 +1019,23 @@ describe('Updating a work order', () => {
         { fixture: 'operatives/operatives.json' }
       ).as('operatives')
 
+      cy.fixture('workOrders/workOrder.json').then((x) => {
+        x.operatives = [
+          {
+            id: 1,
+            payrollNumber: 'OP001',
+            name: 'Operative A',
+            trades: [],
+            jobPercentage: 0,
+          },
+        ]
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+          { body: x }
+        ).as('workOrderRequest')
+      })
+
       cy.visit('/operatives/1/work-orders/10000621')
 
       cy.wait(['@workOrderRequest', '@tasksRequest', '@propertyRequest'])
@@ -1106,7 +1134,15 @@ describe('Updating a work order', () => {
         workOrder.reference = 10000621
         workOrder.canAssignOperative = true
         workOrder.totalSMVs = 76
-        workOrder.operatives = [
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/10000621/new' },
+          { body: workOrder }
+        ).as('workOrderRequestMultipleOperatives')
+      })
+
+      cy.fixture('workOrderAppointments/noAppointment.json').then((x) => {
+        x.operatives = [
           {
             id: 2,
             payrollNumber: 'OP002',
@@ -1123,9 +1159,12 @@ describe('Updating a work order', () => {
           },
         ]
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000621' },
-          { body: workOrder }
-        ).as('workOrderRequestMultipleOperatives')
+          {
+            method: 'GET',
+            path: '/api/workOrders/appointments/10000621',
+          },
+          { body: x }
+        )
       })
 
       cy.intercept(

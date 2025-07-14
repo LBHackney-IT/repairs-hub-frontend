@@ -17,11 +17,6 @@ describe('Work order cancellations', () => {
       ).as('workOrder')
 
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
-        { fixture: 'workOrders/workOrder.json' }
-      ).as('workOrderOld')
-
-      cy.intercept(
         { method: 'GET', path: '/api/workOrders/appointments/10000012' },
         {
           fixture: 'workOrderAppointments/noAppointment.json',
@@ -63,7 +58,7 @@ describe('Work order cancellations', () => {
         .should('have.attr', 'href', '/work-orders/10000012/cancel')
         .click()
 
-      cy.wait('@workOrderOld')
+      cy.wait('@workOrder')
       cy.url().should('contains', '/work-orders/10000012/cancel')
       cy.get('.govuk-caption-l').contains('Cancel repair')
       cy.get('.lbh-heading-h1').contains('Work order: 10000012')
@@ -177,7 +172,7 @@ describe('Work order cancellations', () => {
           workOrder.priorityCode = 2
 
           cy.intercept(
-            { method: 'GET', path: '/api/workOrders/10000012' },
+            { method: 'GET', path: '/api/workOrders/10000012/new' },
             { body: workOrder }
           )
         })
