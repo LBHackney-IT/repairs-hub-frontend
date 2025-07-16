@@ -1,18 +1,11 @@
-import { monthsOffset } from '@/root/src/components/BackOffice/ContractsDashboard/utils'
+import {
+  monthsOffset,
+  today,
+} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
 
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
-
-const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
-const ninthOfAugustTwentyTwentyFive = monthsOffset(
-  1,
-  ninthOfJulyTwentyTwentyFive
-)
-const ninthOfSeptemberTwentyTwentyFive = monthsOffset(
-  2,
-  ninthOfJulyTwentyTwentyFive
-)
 
 function contractsRequest() {
   cy.intercept(
@@ -26,8 +19,8 @@ function contractsRequest() {
 
 function modifiedContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    contracts[3].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
-    contracts[4].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
+    contracts[3].terminationDate = monthsOffset(1, today).toISOString()
+    contracts[4].terminationDate = monthsOffset(2, today).toISOString()
     cy.intercept(
       {
         method: 'GET',
@@ -76,15 +69,13 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       const contracts = interception.response.body
       const contractsExpiringInTwoMonths = contracts.filter((contract) => {
         return (
-          new Date(contract.terminationDate) > ninthOfJulyTwentyTwentyFive &&
-          new Date(contract.terminationDate) < ninthOfSeptemberTwentyTwentyFive
+          new Date(contract.terminationDate) > today &&
+          new Date(contract.terminationDate) < monthsOffset(2, today)
         )
       })
-      const contractsExpiringInTwoMonthsLength =
-        contractsExpiringInTwoMonths.length
       cy.get('[data-test-id="contract-list"]')
         .children()
-        .should('have.length', contractsExpiringInTwoMonthsLength)
+        .should('have.length', contractsExpiringInTwoMonths.length)
     })
   })
 

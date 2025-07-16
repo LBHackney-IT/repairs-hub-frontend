@@ -3,12 +3,13 @@ import {
   serviceAPIRequest,
   authoriseServiceAPIRequest,
 } from '@/utils/serviceApiClient'
+import { PropertyResponse } from '@/root/src/models/propertyResponse'
 
 export default authoriseServiceAPIRequest(async (req, res, user) => {
   req.query = { path: ['properties', req.query.id] }
 
   try {
-    const data = await serviceAPIRequest(req, res)
+    const data: PropertyResponse = await serviceAPIRequest(req)
 
     // redact contact information for contractor responses
     if (
@@ -23,7 +24,7 @@ export default authoriseServiceAPIRequest(async (req, res, user) => {
   } catch (error) {
     const errorToThrow = new Error(error)
 
-    errorToThrow.response = error.response
+    errorToThrow.message = error.response
     throw errorToThrow
   }
 })
