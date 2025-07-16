@@ -522,8 +522,13 @@ describe('Show property', () => {
           { fixture: 'properties/propertyNoTenure.json' }
         ).as('propertyNoTenureType')
 
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          { body: { propertyIsInLegalDisrepair: false } }
+        ).as('propertyInLegalDisrepair')
+
         cy.visit('/properties/00012345')
-        cy.wait(['@propertyNoTenureType', '@locationAlerts'])
+        cy.wait(['@propertyNoTenureType', '@propertyInLegalDisrepair'])
       })
 
       it('does not show Tenure', () => {
