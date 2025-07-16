@@ -75,7 +75,8 @@ const PropertyView = ({ propertyReference }) => {
               <PropertyDetails
                 property={property}
                 tenure={tenure}
-                isInLegalDisrepair={isInLegalDisrepair}
+                showLegalDisrepairFlag={isInLegalDisrepair}
+                showUnderWarrantyFlag={property.isUnderWarranty}
               />
               <PropertyViewTabs propertyReference={propertyReference} />
             </>

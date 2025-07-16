@@ -152,14 +152,7 @@ const AppointmentView = ({ workOrderReference, successText }) => {
             workOrder &&
             !scheduleAppointmentSuccess && (
               <>
-                <PropertyDetails
-                  address={property.address}
-                  boilerHouseId={property.boilerHouseId}
-                  tenure={tenure}
-                  subTypeDescription={property.hierarchyType.subTypeDescription}
-                  canRaiseRepair={property.canRaiseRepair}
-                  propertyReference={property.propertyReference}
-                />
+                <PropertyDetails property={property} tenure={tenure} />
                 <WorkOrderTasks tasks={tasksAndSors} />
                 {!availableAppointments.length ? (
                   <NoAvailableAppointments

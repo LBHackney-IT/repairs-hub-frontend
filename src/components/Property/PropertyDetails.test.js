@@ -53,7 +53,7 @@ describe('PropertyDetails component', () => {
         <PropertyDetails
           property={props.property}
           tenure={props.tenure}
-          isInLegalDisrepair={false}
+          showLegalDisrepairFlag={false}
         />
       )
 
@@ -82,7 +82,7 @@ describe('PropertyDetails component', () => {
         <PropertyDetails
           property={props.property}
           tenure={props.tenure}
-          isInLegalDisrepair={false}
+          showLegalDisrepairFlag={false}
         />
       )
 

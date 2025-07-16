@@ -64,13 +64,7 @@ describe('PropertyDetails component', () => {
 
   it('should render properly', async () => {
     const { asFragment } = render(
-      <PropertyDetails
-        propertyReference={props.property.propertyReference}
-        address={props.property.address}
-        tenure={props.tenure}
-        subTypeDescription={props.property.hierarchyType.subTypeDescription}
-        canRaiseRepair={props.property.canRaiseRepair}
-      />
+      <PropertyDetails property={props.property} tenure={props.tenure} />
     )
 
     await act(async () => {

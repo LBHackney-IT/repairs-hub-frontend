@@ -10,13 +10,15 @@ import { Property } from '../../models/property'
 interface PropertyDetailsProps {
   property: Property
   tenure: Tenure
-  isInLegalDisrepair?: boolean
+  showLegalDisrepairFlag?: boolean
+  showUnderWarrantyFlag?: boolean
 }
 
 const PropertyDetails = ({
   tenure,
   property,
-  isInLegalDisrepair,
+  showLegalDisrepairFlag = false,
+  showUnderWarrantyFlag = false,
 }: PropertyDetailsProps) => {
   return (
     <div>
@@ -25,14 +27,14 @@ const PropertyDetails = ({
         {property.hierarchyType.subTypeDescription}:{' '}
         {property.address.addressLine}
       </h1>
-      {isInLegalDisrepair && (
+      {showLegalDisrepairFlag && (
         <WarningInfoBox
           header="This property is currently under legal disrepair"
           text="Before raising a work order you must call the Legal Disrepair Team"
           style={{ maxWidth: 600 }}
         />
       )}
-      {property.isUnderWarranty && (
+      {showUnderWarrantyFlag && (
         <WarningInfoBox
           header="This property is under warranty"
           text={
