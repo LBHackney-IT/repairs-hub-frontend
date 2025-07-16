@@ -197,7 +197,7 @@ describe('contractor page - when user has data admin permissions', () => {
           body: [
             {
               contractReference: '127-127-1277',
-              terminationDate: '2025-06-15T23:00:00Z',
+              terminationDate: '2025-06-17T23:00:00Z',
               effectiveDate: '2023-09-15T23:00:00Z',
               contractorReference: 'SCC',
               contractorName: 'Alphatrack (S) Systems Lt',
