@@ -12,8 +12,8 @@ import { Property } from '../../models/property'
 import { Tenure } from '../../models/tenure'
 
 const PropertyView = ({ propertyReference }) => {
-  const [property, setProperty] = useState<Property>(null)
-  const [tenure, setTenure] = useState<Tenure>(null)
+  const [property, setProperty] = useState<Property>({} as Property)
+  const [tenure, setTenure] = useState<Tenure>({} as Tenure)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState(null)
@@ -69,7 +69,7 @@ const PropertyView = ({ propertyReference }) => {
         <Spinner />
       ) : (
         <>
-          <Meta title={property?.address.addressLine} />
+          <Meta title={property?.address?.addressLine} />
           {property?.address && property?.hierarchyType && tenure && (
             <>
               <PropertyDetails
