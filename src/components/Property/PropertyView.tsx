@@ -5,33 +5,31 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Meta from '../Meta'
-import WarningInfoBox from '../Template/WarningInfoBox'
 import PropertyViewTabs from '../Tabs/Views/PropertyViewTabs'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { PropertyResponse } from '../../models/propertyResponse'
+import { Property } from '../../models/property'
+import { Tenure } from '../../models/tenure'
 
 const PropertyView = ({ propertyReference }) => {
-  const [property, setProperty] = useState({})
-  const [address, setAddress] = useState({})
-  const [tenure, setTenure] = useState({})
+  const [property, setProperty] = useState<Property>(null)
+  const [tenure, setTenure] = useState<Tenure>(null)
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState()
-  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
-  const [legalDisrepairError, setLegalDisRepairError] = useState()
+  const [error, setError] = useState(null)
+  const [isInLegalDisrepair, setIsInLegalDisrepair] = useState(null)
+  const [legalDisrepairError, setLegalDisRepairError] = useState(null)
 
   const getPropertyView = async (propertyReference) => {
     setError(null)
 
     try {
-      const data = await frontEndApiRequest({
+      const data: PropertyResponse = await frontEndApiRequest({
         method: 'get',
         path: `/api/properties/${propertyReference}`,
       })
 
-      const { property, tenure } = data
-
-      setProperty(property)
-      setAddress(property.address)
-      tenure && setTenure(tenure)
+      setProperty(data.property)
+      if (data.tenure) setTenure(data.tenure)
     } catch (e) {
       setProperty(null)
       console.error('An error has occured:', e.response)
@@ -65,45 +63,20 @@ const PropertyView = ({ propertyReference }) => {
     getPropertyInfoOnLegalDisrepair(propertyReference)
   }, [])
 
-  const renderLegalDisrepair = (isInLegalDisrepair) => {
-    return (
-      isInLegalDisrepair && (
-        <div
-          style={{
-            marginRight: '18px',
-            paddingRight: '400px',
-            paddingBottom: '33px',
-          }}
-        >
-          <WarningInfoBox
-            header="This property is currently under legal disrepair"
-            text="Before raising a work order you must call the Legal Disrepair Team"
-          />
-        </div>
-      )
-    )
-  }
-
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
         <>
-          <Meta title={address.addressLine} />
-          {property && address && property.hierarchyType && tenure && (
+          <Meta title={property?.address.addressLine} />
+          {property?.address && property?.hierarchyType && tenure && (
             <>
               <PropertyDetails
-                propertyReference={propertyReference}
-                boilerHouseId={property.boilerHouseId}
-                address={address}
-                hierarchyType={property.hierarchyType}
-                canRaiseRepair={property.canRaiseRepair}
+                property={property}
                 tenure={tenure}
-                tmoName={property.tmoName}
+                isInLegalDisrepair={isInLegalDisrepair}
               />
-              {renderLegalDisrepair(isInLegalDisrepair)}
-
               <PropertyViewTabs propertyReference={propertyReference} />
             </>
           )}

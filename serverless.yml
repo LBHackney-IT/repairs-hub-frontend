@@ -78,6 +78,7 @@ functions:
       NEW_APPOINTMENT_ENDPOINT_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-new-appointments-endpoint}
       FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
+      NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID: ${ssm:/repairs-hub/${self:provider.stage}/warranties-spreadsheet-id}
 
 resources:
   Resources:

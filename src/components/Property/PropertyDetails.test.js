@@ -51,11 +51,9 @@ describe('PropertyDetails component', () => {
     it('should render properly', async () => {
       const { asFragment } = render(
         <PropertyDetails
-          propertyReference={props.property.propertyReference}
-          address={props.property.address}
-          hierarchyType={props.property.hierarchyType}
-          canRaiseRepair={props.property.canRaiseRepair}
+          property={props.property}
           tenure={props.tenure}
+          isInLegalDisrepair={false}
         />
       )
 
@@ -82,11 +80,9 @@ describe('PropertyDetails component', () => {
     it('should render properly', async () => {
       const { asFragment } = render(
         <PropertyDetails
-          propertyReference={props.property.propertyReference}
-          address={props.property.address}
-          hierarchyType={props.property.hierarchyType}
-          canRaiseRepair={props.property.canRaiseRepair}
+          property={props.property}
           tenure={props.tenure}
+          isInLegalDisrepair={false}
         />
       )
 
