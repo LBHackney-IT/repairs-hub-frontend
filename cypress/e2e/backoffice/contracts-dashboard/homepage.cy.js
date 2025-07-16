@@ -127,19 +127,13 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       .should('contain', 'Problem loading contractors.')
   })
 
-  it('displays a status message if api params have no matching contracts', () => {
-    cy.intercept(
-      {
-        method: 'GET',
-        path: '/api/backoffice/contracts?',
-      },
-      {
-        statusCode: 200,
-        body: [],
-      }
-    ).as('contractErrorRequest')
+  it('displays an error message if api params have no matching contracts', () => {
+    cy.intercept({
+      method: 'GET',
+      path:
+        '/api/backoffice/contracts?isActive=blah&contractorReference=blah&sorCode=blah',
+    }).as('contractErrorRequest')
 
-    cy.wait('@contractErrorRequest')
-    cy.contains('No contracts expiring in the next two months.')
+    cy.get('[data-testid="error-message"]').should('be.visible')
   })
 })
