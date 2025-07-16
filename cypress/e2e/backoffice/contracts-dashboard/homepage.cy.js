@@ -7,12 +7,6 @@ import {
 
 import 'cypress-audit/commands'
 
-const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
-const ninthOfAugustTwentyTwentyFive = monthsOffset(
-  1,
-  ninthOfJulyTwentyTwentyFive
-)
-
 function contractsRequest() {
   cy.intercept(
     {
@@ -25,8 +19,8 @@ function contractsRequest() {
 
 function modifiedContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    contracts[3].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
-    contracts[4].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
+    contracts[3].terminationDate = monthsOffset(1, today).toISOString()
+    contracts[4].terminationDate = monthsOffset(2, today).toISOString()
     cy.intercept(
       {
         method: 'GET',
