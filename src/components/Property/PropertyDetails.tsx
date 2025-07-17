@@ -39,7 +39,7 @@ const PropertyDetails = ({
           header="This property is under warranty"
           text={
             <p>
-              Before raising a repair please check the{' '}
+              Before raising a work order please check the{' '}
               <a
                 href={`https://docs.google.com/spreadsheets/d/${process.env.NEXT_PUBLIC_WARRANTIES_SPREADSHEET_ID}?gid=0`}
                 target="_blank"
@@ -47,7 +47,9 @@ const PropertyDetails = ({
               >
                 New Property Warranties Spreadsheet
               </a>{' '}
-              to ensure the repair is eligible
+              and contact the{' '}
+              <strong>Regeneration Aftercare & Defects Manager</strong> to
+              ensure eligibility
             </p>
           }
           style={{ maxWidth: 600, backgroundColor: 'lavender' }}

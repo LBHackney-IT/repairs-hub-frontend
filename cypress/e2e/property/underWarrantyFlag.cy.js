@@ -26,9 +26,7 @@ describe('Property page - under warranty', () => {
 
       cy.get('.warning-info-box').within(() => {
         cy.contains('This property is under warranty')
-        cy.contains(
-          'Before raising a repair please check the New Property Warranties Spreadsheet to ensure the repair is eligible'
-        )
+        cy.contains('New Property Warranties Spreadsheet')
         cy.get('a')
           .should('have.attr', 'href')
           .and('match', /^https:\/\/docs\.google\.com\/spreadsheets\/d\//)
