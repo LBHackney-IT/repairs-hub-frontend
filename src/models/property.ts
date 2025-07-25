@@ -13,5 +13,6 @@ export interface Property {
   }
   tmoName: string
   canRaiseRepair: boolean
+  isUnderWarranty: boolean
   boilerHouseId: string
 }

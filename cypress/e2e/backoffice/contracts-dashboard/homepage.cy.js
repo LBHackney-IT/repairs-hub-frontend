@@ -1,33 +1,28 @@
-import { monthsOffset } from '@/root/src/components/BackOffice/ContractsDashboard/utils'
+import {
+  monthsOffset,
+  today,
+} from '@/root/src/components/BackOffice/ContractsDashboard/utils'
 
 /// <reference types="cypress" />
 
 import 'cypress-audit/commands'
 
-const ninthOfJulyTwentyTwentyFive = new Date('2025-07-09T15:38:48.061Z')
-const ninthOfAugustTwentyTwentyFive = monthsOffset(
-  1,
-  ninthOfJulyTwentyTwentyFive
-)
-const ninthOfSeptemberTwentyTwentyFive = monthsOffset(
-  2,
-  ninthOfJulyTwentyTwentyFive
-)
-
-function contractsRequest() {
-  cy.intercept(
-    {
-      method: 'GET',
-      path: '/api/backoffice/contracts?',
-    },
-    { fixture: 'contracts/contractsDashboard.json' }
-  ).as('contractsRequest')
+function contractsRequest(mapper = null) {
+  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/backoffice/contracts?`,
+      },
+      mapper ? mapper(contracts) : contracts
+    ).as('contractsRequest')
+  })
 }
 
 function modifiedContractsRequest() {
   cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
-    contracts[3].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
-    contracts[4].terminationDate = ninthOfAugustTwentyTwentyFive.toISOString()
+    contracts[3].terminationDate = monthsOffset(1, today).toISOString()
+    contracts[4].terminationDate = monthsOffset(2, today).toISOString()
     cy.intercept(
       {
         method: 'GET',
@@ -76,15 +71,13 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
       const contracts = interception.response.body
       const contractsExpiringInTwoMonths = contracts.filter((contract) => {
         return (
-          new Date(contract.terminationDate) > ninthOfJulyTwentyTwentyFive &&
-          new Date(contract.terminationDate) < ninthOfSeptemberTwentyTwentyFive
+          new Date(contract.terminationDate) > today &&
+          new Date(contract.terminationDate) < monthsOffset(2, today)
         )
       })
-      const contractsExpiringInTwoMonthsLength =
-        contractsExpiringInTwoMonths.length
       cy.get('[data-test-id="contract-list"]')
         .children()
-        .should('have.length', contractsExpiringInTwoMonthsLength)
+        .should('have.length', contractsExpiringInTwoMonths.length)
     })
   })
 
@@ -115,15 +108,25 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     })
   })
 
-  it('diplays no contracts warning box when no contracts expire in the next two months', () => {
-    contractsRequest()
+  it('displays no contracts warning box when no contracts expire in the next two months', () => {
+    const dateInOneYear = new Date(
+      new Date().setFullYear(new Date().getFullYear() + 1)
+    )
+
+    contractsRequest((x) => {
+      return x.map((c) => ({
+        ...c,
+        terminationDate: dateInOneYear,
+      }))
+    })
+
     cy.wait('@contractsRequest')
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
       .should('contain', 'No contracts expiring in the next two months.')
   })
 
-  it('diplays no contractors warning box when no contractors are found', () => {
+  it('displays no contractors warning box when no contractors are found', () => {
     cy.intercept(
       {
         method: 'GET',

@@ -317,7 +317,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -416,7 +416,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -788,7 +788,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -887,7 +887,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -1143,7 +1143,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -1242,7 +1242,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -1551,7 +1551,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -1650,7 +1650,7 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -1719,7 +1719,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -1818,7 +1818,7 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -2041,7 +2041,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -2140,7 +2140,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -2449,7 +2449,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -2548,7 +2548,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -2857,7 +2857,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -2956,7 +2956,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -3286,7 +3286,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -3385,7 +3385,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>
@@ -3592,7 +3592,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="property-details-main-section"
         >
           <span
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Dwelling
           </span>
@@ -3691,7 +3691,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           class="appointment-details"
         >
           <p
-            class="govuk-!-font-size-14"
+            class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
           >
             Appointment details
           </p>

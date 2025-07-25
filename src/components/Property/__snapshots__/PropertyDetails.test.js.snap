@@ -51,7 +51,7 @@ exports[`PropertyDetails component when the date is after out of hours should sh
             class="property-details-main-section"
           >
             <span
-              class="govuk-!-font-size-14"
+              class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
             >
               Property details
             </span>
@@ -128,7 +128,7 @@ exports[`PropertyDetails component when the date is before out of hours does not
             class="property-details-main-section"
           >
             <span
-              class="govuk-!-font-size-14"
+              class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
             >
               Property details
             </span>
