@@ -113,7 +113,7 @@ describe('contractor page - when user has data admin permissions', () => {
       })
     })
 
-    it('diplays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
+    it('displays inactive contracts and no active contracts warning boxes when no active contracts are found', () => {
       cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
       inactiveContractsRequest()
       cy.intercept(
@@ -133,7 +133,7 @@ describe('contractor page - when user has data admin permissions', () => {
       )
     })
 
-    it('diplays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
+    it('displays active contracts and no inactive contracts warning boxes when no active contracts are found', () => {
       cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
       activeContractsRequest()
       cy.intercept(
@@ -153,7 +153,7 @@ describe('contractor page - when user has data admin permissions', () => {
       )
     })
 
-    it('diplays no active and inactive contracts warning boxes when no active and inactive contracts are found', () => {
+    it('displays no active and inactive contracts warning boxes when no active and inactive contracts are found', () => {
       cy.visit('/backoffice/contractors/SYC?contractorName=Sycous+Limited')
       cy.intercept(
         {
