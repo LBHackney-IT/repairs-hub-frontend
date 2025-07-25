@@ -10,6 +10,7 @@ import { formatDateTime } from '../../utils/time'
 import AppointmentDetailsInfo from './AppointmentDetailsInfo'
 import ScheduleAppointment from './ScheduleAppointment/ScheduleAppointment'
 import ScheduleInternalAppointmentLink from './ScheduleInternalAppointmentLink'
+import { DrsBookingLifeCycleStatusBadge } from '../DrsBookingLifeCycleStatusBadge'
 
 interface Props {
   workOrder: WorkOrder
@@ -29,7 +30,18 @@ const AppointmentDetails = ({ workOrder }: Props) => {
       )}
       {(canScheduleAppointment(user) || canSeeAppointmentDetailsInfo(user)) && (
         <div className="appointment-details">
-          <p className="govuk-!-font-size-14">Appointment details</p>
+          <p className="govuk-!-font-size-16 govuk-!-margin-bottom-1">
+            Appointment details
+          </p>
+
+          {!!workOrder?.appointment?.bookingLifeCycleStatus && (
+            <DrsBookingLifeCycleStatusBadge
+              bookingLifeCycleStatus={
+                workOrder?.appointment?.bookingLifeCycleStatus
+              }
+            />
+          )}
+
           <div className="lbh-body-s govuk-!-margin-0">
             {user && (
               <>

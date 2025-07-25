@@ -25,7 +25,9 @@ const PropertyDetailsAddress = ({
 }) => {
   return (
     <div className="property-details-main-section">
-      <span className="govuk-!-font-size-14">{subTypeDescription}</span>
+      <span className="govuk-!-font-size-16 govuk-!-margin-bottom-1">
+        {subTypeDescription}
+      </span>
       <br></br>
       {hasLinkToProperty ? (
         <Link href={`/properties/${propertyReference}`}>
