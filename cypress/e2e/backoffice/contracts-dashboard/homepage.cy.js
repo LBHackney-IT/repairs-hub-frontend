@@ -7,14 +7,16 @@ import {
 
 import 'cypress-audit/commands'
 
-function contractsRequest() {
-  cy.intercept(
-    {
-      method: 'GET',
-      path: '/api/backoffice/contracts?',
-    },
-    { fixture: 'contracts/contractsDashboard.json' }
-  ).as('contractsRequest')
+function contractsRequest(mapper = null) {
+  cy.fixture('contracts/contractsDashboard.json').then((contracts) => {
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/backoffice/contracts?`,
+      },
+      mapper ? mapper(contracts) : contracts
+    ).as('contractsRequest')
+  })
 }
 
 function modifiedContractsRequest() {
@@ -106,15 +108,25 @@ describe('Contracts dashboard page - when user has data admin permissions', () =
     })
   })
 
-  it('diplays no contracts warning box when no contracts expire in the next two months', () => {
-    contractsRequest()
+  it('displays no contracts warning box when no contracts expire in the next two months', () => {
+    const dateInOneYear = new Date(
+      new Date().setFullYear(new Date().getFullYear() + 1)
+    )
+
+    contractsRequest((x) => {
+      return x.map((c) => ({
+        ...c,
+        terminationDate: dateInOneYear,
+      }))
+    })
+
     cy.wait('@contractsRequest')
     cy.get('[data-testid="no-contracts-found"]')
       .should('be.visible')
       .should('contain', 'No contracts expiring in the next two months.')
   })
 
-  it('diplays no contractors warning box when no contractors are found', () => {
+  it('displays no contractors warning box when no contractors are found', () => {
     cy.intercept(
       {
         method: 'GET',
