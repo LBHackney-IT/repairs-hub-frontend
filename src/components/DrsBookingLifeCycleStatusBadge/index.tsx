@@ -11,6 +11,7 @@ export const DrsBookingLifeCycleStatusBadge = ({
 
   return (
     <p
+      className="lbh-body-s"
       style={{
         color: '#f9fafb',
         background: '#4b5563',
