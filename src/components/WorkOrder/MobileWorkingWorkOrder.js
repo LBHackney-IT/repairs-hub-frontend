@@ -28,6 +28,10 @@ import { useState } from 'react'
 import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import PhotoViewList from './Photos/PhotoViewList'
+import WarningInfoBox from '../Template/WarningInfoBox'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+
+const VARIATION_PENDING_APPROVAL_STATUS = 'Variation Pending Approval'
 
 const MobileWorkingWorkOrder = ({
   workOrderReference,
@@ -66,11 +70,7 @@ const MobileWorkingWorkOrder = ({
       .catch((e) => {
         console.error(e)
 
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        setError(formatRequestErrorMessage(e))
       })
       .finally(() => {
         setLoading(false)
@@ -83,32 +83,8 @@ const MobileWorkingWorkOrder = ({
   )
   const { register, errors, handleSubmit } = useForm()
 
-  const renderOperativeManagementLink = (operativesCount) => {
-    let path, linkText
-
-    if (operativesCount <= 1) {
-      path = 'new'
-      linkText = 'Add operatives'
-    } else {
-      path = 'edit'
-      linkText = 'Update operatives'
-    }
-
-    return (
-      <div className="govuk-!-margin-top-0">
-        <Link href={`/work-orders/${workOrderReference}/operatives/${path}`}>
-          <a
-            role="button"
-            draggable="false"
-            className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-            data-module="govuk-button"
-          >
-            {linkText}
-          </a>
-        </Link>
-      </div>
-    )
-  }
+  const isVariationPendingApprovalStatus =
+    workOrder?.status === VARIATION_PENDING_APPROVAL_STATUS
 
   return (
     <>
@@ -116,7 +92,7 @@ const MobileWorkingWorkOrder = ({
         <Spinner />
       ) : (
         <>
-          <AppointmentHeader workOrder={workOrder} />
+          <AppointmentHeader appointment={workOrder?.appointment} />
           <div className="govuk-!-margin-top-4">
             <BackButton />
           </div>
@@ -204,16 +180,26 @@ const MobileWorkingWorkOrder = ({
                 )}
 
                 <div className="govuk-!-margin-top-0">
-                  <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
-                    <a
-                      role="button"
-                      draggable="false"
+                  {isVariationPendingApprovalStatus ? (
+                    <button
+                      disabled
+                      type="button"
                       className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
-                      data-module="govuk-button"
                     >
                       Add new SOR
-                    </a>
-                  </Link>
+                    </button>
+                  ) : (
+                    <Link href={`/work-orders/${workOrderReference}/tasks/new`}>
+                      <a
+                        role="button"
+                        draggable="false"
+                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                        data-module="govuk-button"
+                      >
+                        Add new SOR
+                      </a>
+                    </Link>
+                  )}
                 </div>
 
                 {operativesCount > 1 && (
@@ -225,12 +211,50 @@ const MobileWorkingWorkOrder = ({
                   />
                 )}
 
-                {renderOperativeManagementLink(operativesCount)}
+                <div className="govuk-!-margin-top-0">
+                  {isVariationPendingApprovalStatus ? (
+                    <button
+                      disabled
+                      type="button"
+                      className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                    >
+                      {operativesCount <= 1 ? 'Add' : 'Update'} operatives
+                    </button>
+                  ) : (
+                    <Link
+                      href={`/work-orders/${workOrderReference}/operatives/${
+                        operativesCount <= 1 ? 'new' : 'edit'
+                      }`}
+                    >
+                      <a
+                        role="button"
+                        draggable="false"
+                        className="govuk-button govuk-secondary lbh-button lbh-button--secondary"
+                        data-module="govuk-button"
+                      >
+                        {operativesCount <= 1 ? 'Add' : 'Update'} operatives
+                      </a>
+                    </Link>
+                  )}
+                </div>
+
+                {isVariationPendingApprovalStatus && (
+                  <>
+                    <br></br>
+                    <WarningInfoBox
+                      className="variant-warning"
+                      header="Work order cannot be closed"
+                      name="approvalWarning"
+                      text="Variation approval is pending. Please contact your manager to approve the variation to the work order."
+                    />
+                  </>
+                )}
 
                 {workOrder?.startTime ? (
                   <PrimarySubmitButton
                     id="submit-work-order-details-confirm"
                     label="Confirm"
+                    disabled={isVariationPendingApprovalStatus}
                   />
                 ) : (
                   <div className="govuk-form-group lbh-form-group">

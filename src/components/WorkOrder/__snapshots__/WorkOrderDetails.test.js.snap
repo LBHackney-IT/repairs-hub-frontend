@@ -294,7 +294,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-4-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -437,6 +437,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -759,7 +765,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-5-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -902,6 +908,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -1108,7 +1120,7 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-4-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -1251,6 +1263,12 @@ exports[`WorkOrderDetails component when logged in as a contract manager should 
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -1647,6 +1665,12 @@ exports[`WorkOrderDetails component when logged in as a contractor should render
             Assigned to: Alphatrack (S) Systems Lt
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -1825,6 +1849,12 @@ exports[`WorkOrderDetails component when logged in as an agent should not render
             </strong>
           </span>
         </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
+        </div>
       </div>
     </div>
   </div>
@@ -1988,7 +2018,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2131,6 +2161,12 @@ exports[`WorkOrderDetails component when logged in as an agent should render mig
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -2390,7 +2426,7 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2533,6 +2569,12 @@ exports[`WorkOrderDetails component when logged in as an agent should render pro
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -2792,7 +2834,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -2935,6 +2977,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -3215,7 +3263,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-3-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -3351,6 +3399,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>
@@ -3515,7 +3569,7 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
                   class="lbh-body-xs undefined"
                   id="workOrderMenu-2-hint"
                 >
-                  Edit Work Order description
+                  Edit Work Order
                 </p>
               </div>
             </fieldset>
@@ -3658,6 +3712,12 @@ exports[`WorkOrderDetails component when logged in as an authorisation manager s
           <span>
             Assigned to: Alphatrack (S) Systems Lt
           </span>
+        </div>
+        <div
+          class="lbh-body-xs govuk-!-margin-top-1"
+          style="background: rgb(247, 186, 135); padding: 2px 6px; border-radius: 6px; display: inline-block; color: rgb(72, 35, 5);"
+        >
+          Further work required
         </div>
       </div>
     </div>

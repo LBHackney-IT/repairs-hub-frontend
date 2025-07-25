@@ -12,8 +12,18 @@ describe('Photos', () => {
     )
 
     cy.intercept(
-      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}` },
+      { method: 'GET', path: `/api/workOrders/${WORK_ORDER_REFERENCE}/new` },
       { fixture: 'workOrders/workOrder.json' }
+    )
+
+    cy.intercept(
+      {
+        method: 'GET',
+        path: `/api/workOrders/appointments/${WORK_ORDER_REFERENCE}`,
+      },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
     )
 
     cy.intercept(
@@ -43,7 +53,7 @@ describe('Photos', () => {
   it('shows a list of photos', () => {
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     cy.get('li[data-testid="fileGroup-152"]').within(() => {
       cy.contains('Uploaded directly to work order')
@@ -75,7 +85,7 @@ describe('Photos', () => {
   it('can add or edit a description', () => {
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     // edit description
     cy.contains('Edit description').click()
@@ -101,7 +111,7 @@ describe('Photos', () => {
   it('shows validation errors when uploading files', () => {
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     // 1. invalid file type
 
@@ -115,7 +125,7 @@ describe('Photos', () => {
     cy.get('button').contains('Upload').click()
     // should contain error message
     cy.contains(`Unsupported file type "text/plain". Allowed types: PNG & JPG`)
-    cy.get('a[id="tab_photos-tab"]').then((x) =>
+    cy.contains('.tabs-button', 'Photos').then((x) =>
       x.hasClass('govuk-form-group--error')
     )
 
@@ -133,7 +143,7 @@ describe('Photos', () => {
 
     // should contain error message
     cy.contains(`You cannot attach more than 10 photos`)
-    cy.get('a[id="tab_photos-tab"]').then((x) =>
+    cy.contains('.tabs-button', 'Photos').then((x) =>
       x.hasClass('govuk-form-group--error')
     )
 
@@ -143,7 +153,7 @@ describe('Photos', () => {
     cy.get('button').contains('Upload').click()
 
     cy.contains(`You cannot attach more than 10 photos`).should('not.exist')
-    cy.get('a[id="tab_photos-tab"]').should(
+    cy.contains('.tabs-button', 'Photos').should(
       'not.have.class',
       'govuk-form-group--error'
     )
@@ -157,7 +167,7 @@ describe('Photos', () => {
 
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     cy.get('input[type="file"]').selectFile({
       contents: Cypress.Buffer.from('file contents'),
@@ -210,7 +220,7 @@ describe('Photos', () => {
 
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     // select and upload file
     cy.get('input[type="file"]').selectFile({
@@ -266,7 +276,7 @@ describe('Photos', () => {
 
     cy.visit(`/work-orders/${WORK_ORDER_REFERENCE}`)
 
-    cy.get('a[id="tab_photos-tab"]').click()
+    cy.contains('.tabs-button', 'Photos').click()
 
     // select and upload file
     cy.get('input[type="file"]').selectFile({

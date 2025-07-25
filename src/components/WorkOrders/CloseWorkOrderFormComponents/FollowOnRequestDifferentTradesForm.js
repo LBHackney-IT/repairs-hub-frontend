@@ -27,8 +27,11 @@ const FollowOnRequestDifferentTradesForm = (props) => {
     requiredFollowOnTrades,
     watch,
     errors,
+    setErrors,
+    clearErrors,
     hasWhiteBackground,
     isGrid,
+    getValues,
   } = props
 
   const [trades, setTrades] = useState([])
@@ -37,7 +40,33 @@ const FollowOnRequestDifferentTradesForm = (props) => {
 
   const selectedTrades = new Set(requiredFollowOnTrades.map((x) => x.name))
 
-  const isDifferentTradesChecked = watch('followon-trades-other')
+  const isOtherTradeChecked = watch('followon-trades-other')
+
+  const selectedFurtherWorkRequired =
+    watch('followOnStatus') === 'furtherWorkRequired'
+
+  const validateAtLeastOneTradeSelected = () => {
+    if (!selectedFurtherWorkRequired) {
+      clearErrors('typeOfWork')
+      return
+    }
+    const tradeNames = FOLLOW_ON_REQUEST_AVAILABLE_TRADES.map(
+      (trade) => trade.name
+    )
+    const currentSelectedTrades = tradeNames.filter((name) => getValues(name))
+    const isAnyChecked = currentSelectedTrades.some(
+      (name) => getValues(name) === true
+    )
+    if (!isAnyChecked) {
+      setErrors('typeOfWork', {
+        type: 'manual',
+        message: 'Please select at least one trade',
+      })
+      return
+    }
+
+    clearErrors('typeOfWork')
+  }
 
   useEffect(() => {
     fetchTrades()
@@ -46,7 +75,7 @@ const FollowOnRequestDifferentTradesForm = (props) => {
   const fetchTrades = async () => {
     const tradesResponse = await getTrades()
     if (!tradesResponse.success) {
-      setError(tradesResponse.error)
+      setError(tradesResponse.error.message)
       return
     }
     setTrades(tradesResponse.response)
@@ -79,11 +108,15 @@ const FollowOnRequestDifferentTradesForm = (props) => {
             key={name}
             name={name}
             label={label}
-            register={register}
+            register={register({
+              validate: () => {
+                validateAtLeastOneTradeSelected()
+              },
+            })}
             checked={selectedTrades.has(name)}
             hasWhiteBackground={hasWhiteBackground}
           />
-          {name === 'followon-trades-other' && isDifferentTradesChecked && (
+          {name === 'followon-trades-other' && isOtherTradeChecked && (
             <div
               style={
                 isGrid && {

@@ -44,7 +44,8 @@ export const canAccessWorkOrder = (user) => {
 }
 
 export const canRaiseAFollowOn = (user) => {
-  return !user.hasContractorPermissions
+  // everyone except external contractors
+  return !user.hasExternalContractorPermissions
 }
 
 export const canSeeWorkOrders = (user) => {
@@ -56,7 +57,8 @@ export const canSeeWorkOrders = (user) => {
 }
 
 export const canSeeRelatedWorkOrdersTab = (user) => {
-  return !user.hasContractorPermissions
+  // everyone except external contractors
+  return !user.hasExternalContractorPermissions
 }
 
 export const canSeeOperativeWorkOrders = (user) => {

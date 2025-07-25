@@ -1,15 +1,15 @@
 import { buildDataFromScheduleAppointment } from '@/utils/hact/jobStatusUpdate/notesForm'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
+import { getWorkOrder } from './requests/workOrders'
 
 const onWindowFocusCallback = async (workOrderReference) => {
   // fetch workOrder page to trigger manual sync
-  try {
-    await frontEndApiRequest({
-      method: 'get',
-      path: `/api/workOrders/${workOrderReference}`,
-    })
-  } catch (e) {
-    console.error(e)
+  // (calling this endpoint will fetch latest appointment from DRS)
+
+  const getWorkOrderResponse = await getWorkOrder(workOrderReference, true)
+
+  if (!getWorkOrderResponse.success) {
+    console.error(getWorkOrderResponse.error.message)
   }
 }
 

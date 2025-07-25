@@ -5,9 +5,11 @@ import Spinner from '../Spinner'
 import ErrorMessage from '../Errors/ErrorMessage'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import { buildOperativeAssignmentFormData } from '@/utils/hact/jobStatusUpdate/assignOperatives'
-import { WorkOrder } from '@/models/workOrder'
 import OperativeForm from './OperativeForm'
 import { sortOperativesWithPayrollFirst } from '@/utils/helpers/operatives'
+import { getWorkOrder } from '../../utils/requests/workOrders'
+import { APIResponseError } from '../../types/requests/types'
+import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
 const OperativeFormView = ({ workOrderReference }) => {
   const router = useRouter()
@@ -39,11 +41,7 @@ const OperativeFormView = ({ workOrderReference }) => {
       )
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${
-          e.response?.status
-        } with message: ${JSON.stringify(e.response?.data?.message)}`
-      )
+      setError(formatRequestErrorMessage(e))
       setLoading(false)
     }
   }
@@ -59,12 +57,15 @@ const OperativeFormView = ({ workOrderReference }) => {
 
       setCurrentUser(currentUser)
 
-      const workOrder = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
+      const workOrderResponse = await getWorkOrder(workOrderReference, true)
 
-      setWorkOrder(new WorkOrder(workOrder))
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
+
+      setWorkOrder(workOrder)
 
       const sortedOperatives = sortOperativesWithPayrollFirst(
         workOrder.operatives,
@@ -86,16 +87,16 @@ const OperativeFormView = ({ workOrderReference }) => {
       setAvailableOperatives([])
       console.error('An error has occured:', e.response)
 
-      if (e.response?.status === 404) {
-        setError(
-          `Could not find a work order with reference ${workOrderReference}`
-        )
+      if (e instanceof APIResponseError) {
+        setError(e.message)
       } else {
-        setError(
-          `Oops an error occurred with error status: ${
-            e.response?.status
-          } with message: ${JSON.stringify(e.response?.data?.message)}`
-        )
+        if (e.response?.status === 404) {
+          setError(
+            `Could not find a work order with reference ${workOrderReference}`
+          )
+        } else {
+          setError(formatRequestErrorMessage(e))
+        }
       }
     }
 

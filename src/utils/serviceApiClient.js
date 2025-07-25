@@ -117,10 +117,13 @@ export const serviceAPIRequest = async (request) => {
 
   // Log successful responses
   api.interceptors.response.use((response) => {
+    const target = `${response.request?.method} ${response.request?.path}`
+    const data = JSON.stringify(response.data)
+    const dataLength = Array.isArray(response.data)
+      ? `(${response.data.length} items)`
+      : ''
     logger.info(
-      `Service API response: ${response.status} ${
-        response.statusText
-      } ${JSON.stringify(response.data)}`
+      `Service API response for ${target}: ${response.status} ${dataLength} ${data}`
     )
 
     return response
@@ -214,19 +217,15 @@ export const authoriseServiceAPIRequest = (callBack) => {
       }
 
       // Configure cookie removal in Sentry scope
-      Sentry.configureScope((scope) => {
-        scope.addEventProcessor((event) => {
-          if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-            event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-          }
+      Sentry.getCurrentScope().addEventProcessor((event) => {
+        if (event.request?.cookies[GSSO_TOKEN_NAME])
+          event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
 
-          if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
-            event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
-              '[REMOVED]'
-          }
+        if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME])
+          event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] =
+            '[REMOVED]'
 
-          return event
-        })
+        return event
       })
 
       // Call the function defined in the API route
@@ -258,12 +257,11 @@ export const authoriseServiceAPIRequest = (callBack) => {
 
       const errorCategory = categorizeError(error)
 
-      Sentry.configureScope((scope) => {
+      Sentry.withScope((scope) => {
         // Add error metadata
         scope.setTag('error.category', errorCategory.category)
         scope.setTag('error.status_code', errorCategory.statusCode)
         scope.setTag('error.type', errorCategory.type)
-
         scope.setContext('request', {
           path: req.path,
           method: req.method,
@@ -290,8 +288,9 @@ export const authoriseServiceAPIRequest = (callBack) => {
       })
 
       if (errorResponse) {
+        const target = `${errorResponse.request?.method} ${errorResponse.request?.path}`
         logger.error(
-          'Service API response',
+          `Service API response for ${target} ERROR`,
           JSON.stringify({
             status: errorResponse?.status,
             data: errorResponse?.data,

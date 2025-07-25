@@ -1,10 +1,12 @@
-import { Note, WorkOrderRequest } from '../../types'
+import { WorkOrder } from '@/root/src/models/workOrder'
+import { Note } from '../../types'
 import generateMessage from './generateMessage'
+import { TabName } from '@/root/src/components/Tabs/tabNames'
 
 interface Props {
   note: Note
-  workOrder: WorkOrderRequest
-  setActiveTab: (tab: string) => void
+  workOrder: WorkOrder
+  setActiveTab: (tabName: TabName) => void
 }
 
 const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
@@ -44,23 +46,18 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
                 className="lbh-list lbh-list--bullet lbh-body-s"
                 style={{ color: '#333' }}
               >
-                {workOrder.followOnRequest.isSameTrade && (
-                  <li style={{ marginTop: '5px' }}>Same trade</li>
-                )}
-                {workOrder.followOnRequest.isDifferentTrades && (
-                  <li style={{ marginTop: '5px' }}>
-                    Different trade(s):{' '}
-                    {workOrder.followOnRequest.requiredFollowOnTrades
-                      .map((trade) => {
-                        if (trade !== 'Other') {
-                          return trade
-                        } else {
-                          return `Other: ${workOrder.followOnRequest.otherTrade}`
-                        }
-                      })
-                      .join(', ')}
-                  </li>
-                )}
+                <li style={{ marginTop: '5px' }}>
+                  Trade(s):{' '}
+                  {workOrder.followOnRequest.requiredFollowOnTrades
+                    .map((trade) => {
+                      if (trade !== 'Other') {
+                        return trade
+                      } else {
+                        return `Other: ${workOrder.followOnRequest.otherTrade}`
+                      }
+                    })
+                    .join(', ')}
+                </li>
                 {workOrder.followOnRequest.isMultipleOperatives && (
                   <li style={{ marginTop: '5px' }}>Multiple operatives</li>
                 )}
@@ -150,7 +147,7 @@ const CompletedNoteContent = ({ note, workOrder, setActiveTab }: Props) => {
             <span>
               <a
                 className="lbh-link"
-                onClick={() => setActiveTab('photos-tab')}
+                onClick={() => setActiveTab(TabName.Photos)}
                 href="#photos-tab"
               >
                 View photos

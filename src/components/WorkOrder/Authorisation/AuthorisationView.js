@@ -15,13 +15,15 @@ import {
   buildAuthorisationRejectedFormData,
 } from '@/utils/hact/jobStatusUpdate/authorisation'
 import { calculateTotal } from '@/utils/helpers/calculations'
-import { WorkOrder } from '@/models/workOrder'
 import PageAnnouncement from '@/components/Template/PageAnnouncement'
 import Panel from '@/components/Template/Panel'
 import {
   authorisationApprovedLinks,
   cancelWorkOrderLinks,
 } from '@/utils/successPageLinks'
+import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { APIResponseError } from '@/root/src/types/requests/types'
+import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
 const AuthorisationView = ({ workOrderReference }) => {
   const [error, setError] = useState()
@@ -62,9 +64,7 @@ const AuthorisationView = ({ workOrderReference }) => {
       setFormSuccess(true)
     } catch (e) {
       console.error(e)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+      setError(formatRequestErrorMessage(e))
     }
 
     setLoading(false)
@@ -80,11 +80,13 @@ const AuthorisationView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderData = await frontEndApiRequest({
-        method: 'get',
-        path: `/api/workOrders/${workOrderReference}`,
-      })
-      const workOrder = new WorkOrder(workOrderData)
+      const workOrderResponse = await getWorkOrder(workOrderReference, false)
+
+      if (!workOrderResponse.success) {
+        throw workOrderResponse.error
+      }
+
+      const workOrder = workOrderResponse.response
 
       const tasksAndSors = await frontEndApiRequest({
         method: 'get',
@@ -111,9 +113,12 @@ const AuthorisationView = ({ workOrderReference }) => {
       }
     } catch (e) {
       console.error('An error has occured:', e.response)
-      setError(
-        `Oops an error occurred with error status: ${e.response?.status}`
-      )
+
+      if (e instanceof APIResponseError) {
+        setError(e.message)
+      } else {
+        setError(formatRequestErrorMessage(e))
+      }
     }
 
     setLoading(false)

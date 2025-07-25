@@ -44,12 +44,19 @@ context('When an operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621',
+          path: '/api/workOrders/10000621/new',
         },
         {
           fixture: 'operatives/workOrder.json',
         }
       ).as('operativesWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000621' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         {
@@ -155,33 +162,7 @@ context('When an operative is logged in', () => {
       })
     })
   })
-  context('When past work orders is not enabled', () => {
-    it(`Doesn't display the tabs`, () => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/simple-feature-toggle',
-        },
-        {
-          body: {
-            pastWorkOrdersFunctionalityEnabled: false,
-            fetchAppointmentsFromDrs: false,
-          },
-        }
-      ).as('tab-toggle')
-      cy.intercept(
-        {
-          method: 'GET',
-          path: `/api/operatives/${operativeId}/appointments`,
-        },
-        {
-          fixture: 'workOrders/workOrders11thNov.json',
-        }
-      ).as('operativesWorkOrders')
-      cy.visit('/')
-      cy.get('.new-hackney-tabs-list').should('not.exist')
-    })
-  })
+
   context('When operative clicks a tab', () => {
     it('Goes to correct page', () => {
       cy.clock(new Date('November 13 2024 13:49:15Z'))
@@ -329,19 +310,8 @@ context('When an operative is logged in', () => {
     })
   })
 
-  context('When fetchAppointmentsFromDrs is enabled', () => {
+  context('When fetching appointments from drs', () => {
     it(`Calls the appointments endpoint`, () => {
-      cy.intercept(
-        {
-          method: 'GET',
-          path: '/api/simple-feature-toggle',
-        },
-        {
-          body: {
-            fetchAppointmentsFromDrs: true,
-          },
-        }
-      ).as('tab-toggle')
       cy.intercept(
         {
           method: 'GET',
@@ -395,12 +365,19 @@ context('When a one job at a time operative is logged in', () => {
       cy.intercept(
         {
           method: 'GET',
-          path: '/api/workOrders/10000621',
+          path: '/api/workOrders/10000621/new',
         },
         {
           fixture: 'operatives/workOrder.json',
         }
       ).as('operativesWorkOrder')
+
+      cy.intercept(
+        { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+        {
+          fixture: 'workOrderAppointments/noAppointment.json',
+        }
+      )
 
       cy.intercept(
         {

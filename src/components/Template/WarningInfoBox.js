@@ -1,9 +1,14 @@
 import PropTypes from 'prop-types'
+import cn from 'classnames'
 
-const WarningInfoBox = ({ header, text, name }) => {
+const WarningInfoBox = ({ header, text, name, className, style }) => {
   return (
     <div
-      className="warning-info-box govuk-inset-text lbh-inset-text"
+      className={cn(
+        'warning-info-box govuk-inset-text lbh-inset-text',
+        className
+      )}
+      style={style}
       data-testid={name}
     >
       <div className="lbh-warning-text govuk-warning-text">
@@ -24,8 +29,10 @@ const WarningInfoBox = ({ header, text, name }) => {
 
 WarningInfoBox.propTypes = {
   header: PropTypes.string.isRequired,
-  text: PropTypes.string,
+  text: PropTypes.string || PropTypes.node.isRequired,
+  className: PropTypes.string,
   name: PropTypes.string.isRequired,
+  style: PropTypes.object,
 }
 
 export default WarningInfoBox

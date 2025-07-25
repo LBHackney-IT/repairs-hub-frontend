@@ -56,6 +56,7 @@ functions:
       BUDGET_CODE_OFFICER_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/budget-code-officer-group}
       DATA_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/data-admin-group}
       FOLLOWON_ADMIN_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/followon-admin-group}
+      DLO_CONTRACTOR_GOOGLE_GROUPNAME: repairs-hub-contractors-dlo
       CONFIGURATION_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/configuration-api-url}
       CONTACT_DETAILS_API_URL: ${ssm:/repairs-hub/${self:provider.stage}/contact-details-api-url}
       CONTRACT_MANAGERS_GOOGLE_GROUPNAME: ${ssm:/repairs-hub/${self:provider.stage}/contract-managers-group}
@@ -74,9 +75,8 @@ functions:
       SENTRY_DSN: ${ssm:/repairs-hub/${self:provider.stage}/sentry-dsn}
       SENTRY_ENVIRONMENT: ${self:provider.stage}
       SENTRY_RELEASE: ${env:CIRCLE_SHA1}
-      FOLLOW_ON_FUNCTIONALITY_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-followon-functionality}
-      PAST_WORK_ORDERS_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/repairs-hub-enable-past-workorders-functionality}
-      FETCH_APPOINTMENTS_FROM_DRS: ${ssm:/repairs-hub/${self:provider.stage}/enable-fetch-appointments-from-drs}
+      NEW_APPOINTMENT_ENDPOINT_ENABLED: ${ssm:/repairs-hub/${self:provider.stage}/enable-new-appointments-endpoint}
+      FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED: ${self:custom.follow-on-is-emergency-field-enabled.${self:provider.stage}}
       TAG_MANAGER_ID: ${self:custom.tag-manager-id.${self:provider.stage}}
 
 resources:
@@ -161,3 +161,7 @@ custom:
     development: ""
     staging: ""
     production: GTM-MLCLBXH2
+  follow-on-is-emergency-field-enabled:
+    development: true
+    staging: false
+    production: false

@@ -1,0 +1,62 @@
+import { ComponentType } from 'react'
+import { TabName } from './tabNames'
+import { WorkOrder } from '../../models/workOrder'
+import WorkOrdersHistoryView from '../Property/WorkOrdersHistory/WorkOrdersHistoryView'
+import RelatedWorkOrdersView from '../WorkOrders/RelatedWorkOrdersView/RelatedWorkOrdersView'
+import TasksAndSorsView from '../WorkOrder/TasksAndSors/TasksAndSorsView'
+import NotesView from '../WorkOrder/Notes/NotesView'
+import VariationSummaryTab from './VariationSummaryTab'
+import PhotosTab from '../WorkOrder/Photos/PhotosTab'
+
+interface TabComponentProps {
+  propertyReference: string
+  workOrderReference: string
+  tasksAndSors: any
+  budgetCode: any
+  workOrder: WorkOrder
+  tabName: string
+  setActiveTab: (tab: string) => void
+}
+
+interface TabDefinition {
+  name: string
+  id: string
+  component: ComponentType<TabComponentProps> // Component to render
+}
+
+type TabRegistry = {
+  [key in TabName]: TabDefinition & { name: key }
+}
+
+export const TAB_REGISTRY: TabRegistry = {
+  [TabName.WorkOrderHistory]: {
+    name: TabName.WorkOrderHistory,
+    id: 'work-orders-history-tab',
+    component: WorkOrdersHistoryView,
+  },
+  [TabName.RelatedWorkOrders]: {
+    name: TabName.RelatedWorkOrders,
+    id: 'related-work-orders-tab',
+    component: RelatedWorkOrdersView,
+  },
+  [TabName.TasksAndSors]: {
+    name: TabName.TasksAndSors,
+    id: 'tasks-and-sors-tab',
+    component: TasksAndSorsView,
+  },
+  [TabName.Notes]: {
+    name: TabName.Notes,
+    id: 'notes-tab',
+    component: NotesView,
+  },
+  [TabName.PendingVariation]: {
+    name: TabName.PendingVariation,
+    id: 'pending-variation-tab',
+    component: VariationSummaryTab,
+  },
+  [TabName.Photos]: {
+    name: TabName.Photos,
+    id: 'photos-tab',
+    component: PhotosTab,
+  },
+}

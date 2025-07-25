@@ -3,7 +3,8 @@ import '@/styles/all.scss'
 import App from 'next/app'
 import Layout from '@/components/Layout'
 import AccessDenied from '@/components/AccessDenied'
-import { configureScope, setUser } from '@sentry/nextjs'
+import * as Sentry from '@sentry/nextjs'
+import { QueryClient, QueryClientProvider } from 'react-query'
 
 import {
   isAuthorised,
@@ -13,6 +14,8 @@ import {
 
 import UserContext from '@/components/UserContext'
 import Meta from '@/components/Meta'
+
+// Comment to trigger pipeline
 
 const GSSO_TOKEN_NAME = process.env.GSSO_TOKEN_NAME
 const NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME =
@@ -24,6 +27,8 @@ if (typeof window !== 'undefined') {
     : 'js-enabled'
 }
 
+const queryClient = new QueryClient()
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, userDetails } = this.props
@@ -31,21 +36,23 @@ class MyApp extends App {
     const ComponentToRender = this.props.accessDenied ? AccessDenied : Component
 
     if (userDetails) {
-      setUser({ name: userDetails.name, email: userDetails.email })
+      Sentry.setUser({ name: userDetails.name, email: userDetails.email })
     }
 
     return (
       <>
-        <UserContext.Provider value={{ user: this.props.userDetails }}>
-          <Layout serviceName="Repairs Hub">
-            <Meta />
+        <QueryClientProvider client={queryClient}>
+          <UserContext.Provider value={{ user: this.props.userDetails }}>
+            <Layout serviceName="Repairs Hub">
+              <Meta />
 
-            <ComponentToRender
-              {...pageProps}
-              userDetails={this.props.userDetails}
-            />
-          </Layout>
-        </UserContext.Provider>
+              <ComponentToRender
+                {...pageProps}
+                userDetails={this.props.userDetails}
+              />
+            </Layout>
+          </UserContext.Provider>
+        </QueryClientProvider>
       </>
     )
   }
@@ -67,18 +74,16 @@ MyApp.getInitialProps = async ({ ctx, Component: pageComponent }) => {
     return { accessDenied: true }
   }
 
-  configureScope((scope) => {
-    scope.addEventProcessor((event) => {
-      if (event.request?.cookies[GSSO_TOKEN_NAME]) {
-        event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
-      }
+  Sentry.getCurrentScope().addEventProcessor((event) => {
+    if (event.request?.cookies[GSSO_TOKEN_NAME]) {
+      event.request.cookies[GSSO_TOKEN_NAME] = '[REMOVED]'
+    }
 
-      if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
-        event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
-      }
+    if (event.request?.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME]) {
+      event.request.cookies[NEXT_PUBLIC_DRS_SESSION_COOKIE_NAME] = '[REMOVED]'
+    }
 
-      return event
-    })
+    return event
   })
 
   if (userAuthorisedForPage(pageComponent, userDetails)) {

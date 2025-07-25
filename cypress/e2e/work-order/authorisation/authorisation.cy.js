@@ -22,9 +22,16 @@ describe('Authorisation workflow for a work order', () => {
     ).as('propertyRequest')
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/statusAuthorisationPendingApproval.json' }
     ).as('workOrderRequest')
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
 
     cy.intercept(
       {
@@ -63,7 +70,7 @@ describe('Authorisation workflow for a work order', () => {
       cy.contains('This work order requires your authorisation')
       cy.url().should('contains', '/work-orders/10000012/authorisation')
 
-      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest', '@workOrderRequest'])
+      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest'])
 
       // Notes is a mandatory field for a rejection
       cy.get('Add notes').should('not.exist')
@@ -130,7 +137,7 @@ describe('Authorisation workflow for a work order', () => {
         .should('have.attr', 'href', '/work-orders/10000012/authorisation')
         .click()
 
-      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest', '@workOrderRequest'])
+      cy.wait(['@hubUserRequest', '@tasksAndSorsRequest'])
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')
@@ -177,7 +184,7 @@ describe('Authorisation workflow for a work order', () => {
 
     it('No link to authorise work order if status is not authorisation pending approval', () => {
       cy.intercept(
-        { method: 'GET', path: '/api/workOrders/10000012' },
+        { method: 'GET', path: '/api/workOrders/10000012/new' },
         { fixture: 'workOrders/workOrder.json' }
       ).as('nonPendingWorkOrderRequest')
 
@@ -202,7 +209,7 @@ describe('Authorisation workflow for a work order', () => {
 
       cy.visit('/work-orders/10000012/authorisation')
 
-      cy.wait(['@hubUserRequest', '@highCostTasks', '@workOrderRequest'])
+      cy.wait(['@hubUserRequest', '@highCostTasks'])
 
       cy.contains('Authorisation request: 10000012')
       cy.contains('This work order requires your authorisation')

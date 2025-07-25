@@ -83,16 +83,14 @@ describe('Show property', () => {
       cy.visit('/properties/00012345')
       cy.wait(['@property', '@workOrdersHistory'])
 
-      cy.get('.govuk-tabs__list-item--selected a').contains(
-        'Work orders history'
-      )
+      cy.contains('.tabs-button', 'Work orders history')
     })
 
     context('when no repairs have been raised on the property', () => {
       it('Displays no repairs text', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory'])
-        cy.get('.govuk-tabs__tab').contains('Work orders history').click()
+        cy.contains('.tabs-button', 'Work orders history').click()
         cy.get('.lbh-heading-h2').contains('Work orders history')
         cy.get('.lbh-heading-h4').contains('There are no historical repairs')
       })
@@ -101,9 +99,16 @@ describe('Show property', () => {
     context('when many repairs have been raised on the property', () => {
       beforeEach(() => {
         cy.intercept(
-          { method: 'GET', path: '/api/workOrders/10000012' },
+          { method: 'GET', path: '/api/workOrders/10000012/new' },
           { fixture: 'workOrders/workOrder.json' }
         ).as('workOrder')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+          {
+            fixture: 'workOrderAppointments/noAppointment.json',
+          }
+        )
 
         cy.intercept(
           { method: 'GET', path: '/api/workOrders/10000012/tasks' },
@@ -187,37 +192,37 @@ describe('Show property', () => {
       })
 
       it('Displays the first page of repairs', () => {
-        cy.get('.govuk-tabs').within(() => {
-          cy.get('.govuk-tabs__tab').contains('Work orders history')
-          cy.get('.lbh-heading-h2').contains('Work orders history')
+        // cy.get('.govuk-tabs').within(() => {
+        cy.contains('.tabs-button', 'Work orders history')
+        cy.get('.lbh-heading-h2').contains('Work orders history')
 
-          // Work orders history table headers
-          cy.get('.govuk-table').within(() => {
-            cy.contains('th', 'Reference')
-            cy.contains('th', 'Date raised')
-            cy.contains('th', 'Trade')
-            cy.contains('th', 'Status')
-            cy.contains('th', 'Description')
-          })
-          // Check the first row
-          cy.get('[data-ref=10000050]').within(() => {
-            cy.contains('10000050')
-            cy.contains('1 Feb 2021')
-            cy.contains('11:02')
-            cy.contains('Door Entry Engineer - DE')
-            cy.contains('In progress')
-            cy.contains('The latest repair')
-          })
-          // Check the last row
-          cy.get('[data-ref=10000001]').within(() => {
-            cy.contains('10000001')
-            cy.contains('1 Jan 2021')
-            cy.contains('11:02')
-            cy.contains('Door Entry Engineer - DE')
-            cy.contains('Work complete')
-            cy.contains('The earliest repair for page one')
-          })
+        // Work orders history table headers
+        cy.get('.govuk-table').within(() => {
+          cy.contains('th', 'Reference')
+          cy.contains('th', 'Date raised')
+          cy.contains('th', 'Trade')
+          cy.contains('th', 'Status')
+          cy.contains('th', 'Description')
         })
+        // Check the first row
+        cy.get('[data-ref=10000050]').within(() => {
+          cy.contains('10000050')
+          cy.contains('1 Feb 2021')
+          cy.contains('11:02')
+          cy.contains('Door Entry Engineer - DE')
+          cy.contains('In progress')
+          cy.contains('The latest repair')
+        })
+        // Check the last row
+        cy.get('[data-ref=10000001]').within(() => {
+          cy.contains('10000001')
+          cy.contains('1 Jan 2021')
+          cy.contains('11:02')
+          cy.contains('Door Entry Engineer - DE')
+          cy.contains('Work complete')
+          cy.contains('The earliest repair for page one')
+        })
+        // })
       })
 
       it('Clicks the first repair of work orders history', () => {
@@ -383,7 +388,7 @@ describe('Show property', () => {
       })
 
       it('Does not display a Load more button', () => {
-        cy.get('.govuk-tabs__tab').contains('Work orders history').click()
+        cy.contains('.tabs-button', 'Work orders history').click()
         cy.contains('button', 'Load more').should('not.exist')
       })
     })
@@ -398,9 +403,7 @@ describe('Show property', () => {
 
       it('Work order history is still visible', () => {
         cy.visit('/properties/00012345')
-        cy.get('.govuk-tabs__list-item--selected a').contains(
-          'Work orders history'
-        )
+        cy.contains('.tabs-button', 'Work orders history')
       })
     })
   })
@@ -519,8 +522,13 @@ describe('Show property', () => {
           { fixture: 'properties/propertyNoTenure.json' }
         ).as('propertyNoTenureType')
 
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          { body: { propertyIsInLegalDisrepair: false } }
+        ).as('propertyInLegalDisrepair')
+
         cy.visit('/properties/00012345')
-        cy.wait(['@propertyNoTenureType', '@locationAlerts'])
+        cy.wait(['@propertyNoTenureType', '@propertyInLegalDisrepair'])
       })
 
       it('does not show Tenure', () => {
@@ -536,11 +544,16 @@ describe('Show property', () => {
           { method: 'GET', path: '/api/properties/00012345' },
           { fixture: 'properties/propertyWithTmo.json' }
         ).as('propertyValidTMO')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          { body: { propertyIsInLegalDisrepair: false } }
+        ).as('propertyInLegalDisrepair')
       })
 
       it('shows TMO details', () => {
         cy.visit('/properties/00012345')
-        cy.wait(['@propertyValidTMO'])
+        cy.wait(['@propertyValidTMO', '@propertyInLegalDisrepair'])
 
         cy.get('.hackney-property-alerts').contains('TMO: Testing TMO')
       })

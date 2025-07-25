@@ -7,9 +7,17 @@ describe('Tasks and SORs', () => {
     cy.loginWithAgentRole()
 
     cy.intercept(
-      { method: 'GET', path: '/api/workOrders/10000012' },
+      { method: 'GET', path: '/api/workOrders/10000012/new' },
       { fixture: 'workOrders/workOrder.json' }
     )
+
+    cy.intercept(
+      { method: 'GET', path: '/api/workOrders/appointments/10000012' },
+      {
+        fixture: 'workOrderAppointments/noAppointment.json',
+      }
+    )
+
     cy.intercept(
       { method: 'GET', path: '/api/properties/00012345' },
       { fixture: 'properties/property.json' }
@@ -31,7 +39,8 @@ describe('Tasks and SORs', () => {
   it('Displays tasks, sors and budget code relating to a work order', () => {
     cy.visit('/work-orders/10000012')
 
-    cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+    cy.contains('.tabs-button', 'Tasks and SORs')
+
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
@@ -115,7 +124,7 @@ describe('Tasks and SORs', () => {
   it('Navigate directly to tasks and sors tab', () => {
     cy.visit('/work-orders/10000012#tasks-and-sors-tab')
     // Tasks and SORs tab should be active
-    cy.get('.govuk-tabs__list-item--selected a').contains('Tasks and SORs')
+    cy.contains('.tabs-button', 'Tasks and SORs')
     cy.get('#tasks-and-sors-tab').within(() => {
       cy.get('.lbh-heading-h2').contains('Tasks and SORs')
 
