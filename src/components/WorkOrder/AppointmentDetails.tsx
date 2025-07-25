@@ -1,6 +1,11 @@
 import { useContext } from 'react'
 import UserContext from '../UserContext'
-import { STATUS_CANCELLED } from '@/utils/statusCodes'
+import {
+  STATUS_AUTHORISATION_PENDING_APPROVAL,
+  STATUS_CANCELLED,
+  STATUS_COMPLETED,
+  STATUS_NO_ACCESS,
+} from '@/utils/statusCodes'
 import {
   canSeeAppointmentDetailsInfo,
   canScheduleAppointment,
@@ -16,8 +21,25 @@ interface Props {
   workOrder: WorkOrder
 }
 
+const INACTIVE_STATUS_CODES = new Set<string>([
+  STATUS_CANCELLED.description,
+  STATUS_AUTHORISATION_PENDING_APPROVAL.description,
+  STATUS_COMPLETED.description,
+  STATUS_NO_ACCESS.description,
+])
+
 const AppointmentDetails = ({ workOrder }: Props) => {
   const { user } = useContext(UserContext)
+
+  const showDrsLifeCycleStatus = () => {
+    if (!canSeeAppointmentDetailsInfo(user)) return false
+    if (!workOrder?.appointment?.bookingLifeCycleStatus) return false
+
+    // hide when workorder is inactive
+    if (INACTIVE_STATUS_CODES.has(workOrder.status)) return false
+
+    return true
+  }
 
   return (
     <>
@@ -34,14 +56,13 @@ const AppointmentDetails = ({ workOrder }: Props) => {
             Appointment details
           </p>
 
-          {canSeeAppointmentDetailsInfo(user) &&
-            !!workOrder?.appointment?.bookingLifeCycleStatus && (
-              <DrsBookingLifeCycleStatusBadge
-                bookingLifeCycleStatus={
-                  workOrder?.appointment?.bookingLifeCycleStatus
-                }
-              />
-            )}
+          {showDrsLifeCycleStatus() && (
+            <DrsBookingLifeCycleStatusBadge
+              bookingLifeCycleStatus={
+                workOrder?.appointment?.bookingLifeCycleStatus
+              }
+            />
+          )}
 
           <div className="lbh-body-s govuk-!-margin-0">
             {user && (
