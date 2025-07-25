@@ -1,6 +1,5 @@
+import { LOCKED_DRS_STATUS_CODES } from '../../utils/statusCodes'
 import WarningInfoBox from '../Template/WarningInfoBox'
-
-const DESPATCHED_BOOKING_STATUS = 'DESPATCHED'
 
 interface Props {
   bookingLifeCycleStatus: string
@@ -33,14 +32,24 @@ export const DrsBookingLifeCycleStatusBadge = ({
         {bookingLifeCycleStatus}
       </p>
 
-      {bookingLifeCycleStatus === DESPATCHED_BOOKING_STATUS && (
-        <WarningInfoBox
-          className="variant-warning govuk-!-margin-bottom-4"
-          header="Work order cannot be cancelled"
-          name="despatched-warning"
-          text="The work order is locked after being dispatched to the operative. If you need to cancel the job, please contact a planner to unlock the job in DRS."
-        />
-      )}
+      <CannotCancelJobWarningBox
+        bookingLifeCycleStatus={bookingLifeCycleStatus}
+      />
     </>
+  )
+}
+
+export const CannotCancelJobWarningBox = ({
+  bookingLifeCycleStatus,
+}: Props) => {
+  if (!LOCKED_DRS_STATUS_CODES.has(bookingLifeCycleStatus)) return null
+
+  return (
+    <WarningInfoBox
+      className="variant-warning govuk-!-margin-bottom-4"
+      header="Work order cannot be cancelled"
+      name="despatched-warning"
+      text="An operative has commenced work on this order. If you need to cancel the job, please contact a planner to unlock the job in DRS."
+    />
   )
 }
