@@ -6,7 +6,7 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -40,7 +40,7 @@ exports[`AppointmentDetails component DRS work order with an appointment when th
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -63,7 +63,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -92,7 +92,7 @@ exports[`AppointmentDetails component DRS work order with no appointment when th
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -115,7 +115,7 @@ exports[`AppointmentDetails component Work order (non DRS) with an appointment w
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -144,7 +144,7 @@ exports[`AppointmentDetails component Work order (non DRS) with an appointment w
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -167,7 +167,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>
@@ -191,7 +191,7 @@ exports[`AppointmentDetails component Work order (non DRS) with no appointment w
     class="appointment-details"
   >
     <p
-      class="govuk-!-font-size-14"
+      class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
     >
       Appointment details
     </p>

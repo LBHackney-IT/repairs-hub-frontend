@@ -12,7 +12,7 @@ exports[`WorkOrderHeader component when work order contains follow-on details sh
         class="property-details-main-section"
       >
         <span
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Dwelling
         </span>
@@ -111,7 +111,7 @@ exports[`WorkOrderHeader component when work order contains follow-on details sh
         class="appointment-details"
       >
         <p
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Appointment details
         </p>
@@ -164,7 +164,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         class="property-details-main-section"
       >
         <span
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Dwelling
         </span>
@@ -263,7 +263,7 @@ exports[`WorkOrderHeader component when workOrder is in Progress should not show
         class="appointment-details"
       >
         <p
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Appointment details
         </p>
@@ -317,7 +317,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="property-details-main-section"
       >
         <span
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Dwelling
         </span>
@@ -416,7 +416,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="appointment-details"
       >
         <p
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Appointment details
         </p>
@@ -469,7 +469,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="property-details-main-section"
       >
         <span
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Dwelling
         </span>
@@ -568,7 +568,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="appointment-details"
       >
         <p
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Appointment details
         </p>
@@ -621,7 +621,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="property-details-main-section"
       >
         <span
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Dwelling
         </span>
@@ -720,7 +720,7 @@ exports[`WorkOrderHeader component when workOrder status is Work Completed or No
         class="appointment-details"
       >
         <p
-          class="govuk-!-font-size-14"
+          class="govuk-!-font-size-16 govuk-!-margin-bottom-1"
         >
           Appointment details
         </p>
