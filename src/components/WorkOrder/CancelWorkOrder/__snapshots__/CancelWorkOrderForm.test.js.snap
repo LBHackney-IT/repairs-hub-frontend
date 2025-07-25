@@ -94,7 +94,6 @@ exports[`CancelWorkOrderForm component should render properly 1`] = `
         >
           <input
             id="workOrderReference"
-            label="workOrderReference"
             name="workOrderReference"
             type="hidden"
             value="10000012"
@@ -302,7 +301,6 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         >
           <input
             id="workOrderReference"
-            label="workOrderReference"
             name="workOrderReference"
             type="hidden"
             value="10000012"
@@ -510,7 +508,6 @@ exports[`CancelWorkOrderForm component when the work order is for the DLO when t
         >
           <input
             id="workOrderReference"
-            label="workOrderReference"
             name="workOrderReference"
             type="hidden"
             value="10000012"
