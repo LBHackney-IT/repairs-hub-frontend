@@ -34,13 +34,14 @@ const AppointmentDetails = ({ workOrder }: Props) => {
             Appointment details
           </p>
 
-          {!!workOrder?.appointment?.bookingLifeCycleStatus && (
-            <DrsBookingLifeCycleStatusBadge
-              bookingLifeCycleStatus={
-                workOrder?.appointment?.bookingLifeCycleStatus
-              }
-            />
-          )}
+          {canSeeAppointmentDetailsInfo(user) &&
+            !!workOrder?.appointment?.bookingLifeCycleStatus && (
+              <DrsBookingLifeCycleStatusBadge
+                bookingLifeCycleStatus={
+                  workOrder?.appointment?.bookingLifeCycleStatus
+                }
+              />
+            )}
 
           <div className="lbh-body-s govuk-!-margin-0">
             {user && (
