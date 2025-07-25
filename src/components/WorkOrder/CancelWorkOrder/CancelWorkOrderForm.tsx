@@ -11,6 +11,9 @@ import {
 } from '@/utils/helpers/priorities'
 import { isContractorScheduledInternally } from '@/utils/helpers/workOrders'
 import { useState } from 'react'
+import WarningInfoBox from '../../Template/WarningInfoBox'
+
+const DESPATCHED_BOOKING_STATUS = 'DESPATCHED'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -33,6 +36,16 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             Work order: {workOrder.reference}
           </h1>
+
+          {workOrder?.appointment?.bookingLifeCycleStatus ===
+            DESPATCHED_BOOKING_STATUS && (
+            <WarningInfoBox
+              className="variant-warning govuk-!-margin-bottom-4"
+              header="Work order cannot be cancelled"
+              name="despatched-warning"
+              text="The work order is locked after being dispatched to the operative. If you need to cancel the job, please contact a planner to unlock the job in DRS."
+            />
+          )}
 
           <WorkOrderInfoTable workOrder={workOrder} />
 
@@ -62,7 +75,6 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
             <input
               id="workOrderReference"
               name="workOrderReference"
-              label="workOrderReference"
               type="hidden"
               value={workOrder.reference}
               ref={register}
