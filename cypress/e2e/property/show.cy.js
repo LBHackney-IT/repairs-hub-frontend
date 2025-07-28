@@ -522,8 +522,13 @@ describe('Show property', () => {
           { fixture: 'properties/propertyNoTenure.json' }
         ).as('propertyNoTenureType')
 
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          { body: { propertyIsInLegalDisrepair: false } }
+        ).as('propertyInLegalDisrepair')
+
         cy.visit('/properties/00012345')
-        cy.wait(['@propertyNoTenureType', '@locationAlerts'])
+        cy.wait(['@propertyNoTenureType', '@propertyInLegalDisrepair'])
       })
 
       it('does not show Tenure', () => {
@@ -539,11 +544,16 @@ describe('Show property', () => {
           { method: 'GET', path: '/api/properties/00012345' },
           { fixture: 'properties/propertyWithTmo.json' }
         ).as('propertyValidTMO')
+
+        cy.intercept(
+          { method: 'GET', path: '/api/properties/legalDisrepair/00012345' },
+          { body: { propertyIsInLegalDisrepair: false } }
+        ).as('propertyInLegalDisrepair')
       })
 
       it('shows TMO details', () => {
         cy.visit('/properties/00012345')
-        cy.wait(['@propertyValidTMO'])
+        cy.wait(['@propertyValidTMO', '@propertyInLegalDisrepair'])
 
         cy.get('.hackney-property-alerts').contains('TMO: Testing TMO')
       })

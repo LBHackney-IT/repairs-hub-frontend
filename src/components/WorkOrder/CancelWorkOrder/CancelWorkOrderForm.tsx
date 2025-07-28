@@ -11,6 +11,7 @@ import {
 } from '@/utils/helpers/priorities'
 import { isContractorScheduledInternally } from '@/utils/helpers/workOrders'
 import { useState } from 'react'
+import { CannotCancelJobWarningBox } from '../../DrsBookingLifeCycleStatusBadge'
 
 const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
   const { register, handleSubmit, errors } = useForm()
@@ -33,6 +34,12 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
             Work order: {workOrder.reference}
           </h1>
+
+          <CannotCancelJobWarningBox
+            bookingLifeCycleStatus={
+              workOrder?.appointment?.bookingLifeCycleStatus
+            }
+          />
 
           <WorkOrderInfoTable workOrder={workOrder} />
 
@@ -62,7 +69,6 @@ const CancelWorkOrderForm = ({ workOrder, onFormSubmit }) => {
             <input
               id="workOrderReference"
               name="workOrderReference"
-              label="workOrderReference"
               type="hidden"
               value={workOrder.reference}
               ref={register}

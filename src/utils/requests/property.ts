@@ -7,7 +7,7 @@ export const getPropertyData = async (
   workOrderPropertyReference: string
 ): Promise<ApiResponseType<PropertyResponse>> => {
   try {
-    const propertyData = await frontEndApiRequest({
+    const propertyData: PropertyResponse = await frontEndApiRequest({
       method: 'get',
       path: `/api/properties/${workOrderPropertyReference}`,
     })

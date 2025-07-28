@@ -121,3 +121,8 @@ export const CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES = [
   STATUS_NO_ACCESS.description,
   'Work Completed', // can be deleted following backend release of PR #641
 ]
+
+export const LOCKED_DRS_STATUS_CODES = new Set<string>([
+  'DESPATCHED',
+  'STARTED',
+])
