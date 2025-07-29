@@ -163,5 +163,5 @@ custom:
     production: GTM-MLCLBXH2
   follow-on-is-emergency-field-enabled:
     development: true
-    staging: false
-    production: false
+    staging: true
+    production: true
