@@ -60,7 +60,10 @@ const uploadWrapper = async (
   try {
     fileToUpload = await imageCompression(file, compressionOptions)
   } catch (err) {
-    console.error('failed to compress file - using original', err)
+    console.error(
+      'failed to compress file - using original',
+      JSON.stringify(err)
+    )
   }
 
   const result = await faultTolerantRequest(
