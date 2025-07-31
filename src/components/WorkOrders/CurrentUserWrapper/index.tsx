@@ -4,7 +4,7 @@ import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
-interface CurrentUser {
+export interface CurrentUser {
   sub: string
   name: string
   email: string

@@ -1,7 +1,13 @@
 import PropTypes from 'prop-types'
 import { DataList } from '../Form'
 
-const TradeDataList = ({ trades, register, errors, onTradeSelect }) => {
+const TradeDataList = ({
+  disabled,
+  trades,
+  register,
+  errors,
+  onTradeSelect,
+}) => {
   const tradeList = trades
     .map((trade) => `${trade.name} - ${trade.code}`)
     .filter(Boolean)
@@ -20,6 +26,7 @@ const TradeDataList = ({ trades, register, errors, onTradeSelect }) => {
       })}
       error={errors && errors.trade}
       widthClass="govuk-!-width-one-half"
+      disabled={disabled}
     />
   )
 }
