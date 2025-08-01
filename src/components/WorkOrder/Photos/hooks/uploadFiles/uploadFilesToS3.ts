@@ -72,7 +72,11 @@ const uploadWrapper = async (
     )
   }
 
-  console.log('uploading file', file.name)
+  console.log('uploading file', {
+    name: file.name,
+    size: file.size,
+    type: file.type,
+  })
 
   const result = await faultTolerantRequest(
     async () =>
