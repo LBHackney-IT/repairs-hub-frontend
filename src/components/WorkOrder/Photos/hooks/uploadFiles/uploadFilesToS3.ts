@@ -45,7 +45,7 @@ const uploadWrapper = async (
   link: Link
 ): Promise<{
   success: boolean
-  error?: any
+  error?: unknown
 }> => {
   const compressionOptions = {
     maxSizeMB: 1,
@@ -54,9 +54,9 @@ const uploadWrapper = async (
     maxIteration: 1,
   }
 
-  let fileToUpload = file
+  let fileToUpload: File
   // Need to destructure because these are non-enumerable properties
-  const { name, size, type } = file
+  const { name, size, type, lastModified } = file
   const fileDetails = { name, size, type }
 
   console.log('preparing to upload file', JSON.stringify(fileDetails))
@@ -69,8 +69,10 @@ const uploadWrapper = async (
       'failed to compress file - using original',
       JSON.stringify(fileDetails),
       'with error',
-      JSON.stringify(err)
+      JSON.stringify({ name: err.name, message: err.message })
     )
+    // Need to re-create the File as it may be corrupted after failed compression
+    fileToUpload = new File([file], name, { type, lastModified })
   }
 
   const result = await faultTolerantRequest(
@@ -80,7 +82,7 @@ const uploadWrapper = async (
           'uploadFileToS3 failed for file',
           JSON.stringify(fileDetails),
           'with error',
-          JSON.stringify(err)
+          JSON.stringify({ name: err.name, message: err.message })
         )
         throw err
       })
