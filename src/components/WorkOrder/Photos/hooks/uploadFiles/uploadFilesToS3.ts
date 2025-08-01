@@ -62,12 +62,33 @@ const uploadWrapper = async (
   } catch (err) {
     console.error(
       'failed to compress file - using original',
+      {
+        name: file.name,
+        size: file.size,
+        type: file.type,
+      },
+      'with error',
       JSON.stringify(err)
     )
   }
 
+  console.log('uploading file', file.name)
+
   const result = await faultTolerantRequest(
-    async () => await uploadFileToS3(fileToUpload, link)
+    async () =>
+      await uploadFileToS3(fileToUpload, link).catch((err) => {
+        console.error(
+          'uploadFileToS3 failed for file',
+          {
+            name: file.name,
+            size: file.size,
+            type: file.type,
+          },
+          'with error',
+          JSON.stringify(err)
+        )
+        throw err
+      })
   )
 
   return result
