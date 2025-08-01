@@ -55,6 +55,11 @@ const uploadWrapper = async (
   }
 
   let fileToUpload = file
+  // Need to destructure because these are non-enumerable properties
+  const { name, size, type } = file
+  const fileDetails = { name, size, type }
+
+  console.log('preparing to upload file', JSON.stringify(fileDetails))
 
   // try to compress file. If fails, just use file
   try {
@@ -62,32 +67,18 @@ const uploadWrapper = async (
   } catch (err) {
     console.error(
       'failed to compress file - using original',
-      {
-        name: file.name,
-        size: file.size,
-        type: file.type,
-      },
+      JSON.stringify(fileDetails),
       'with error',
       JSON.stringify(err)
     )
   }
-
-  console.log('uploading file', {
-    name: file.name,
-    size: file.size,
-    type: file.type,
-  })
 
   const result = await faultTolerantRequest(
     async () =>
       await uploadFileToS3(fileToUpload, link).catch((err) => {
         console.error(
           'uploadFileToS3 failed for file',
-          {
-            name: file.name,
-            size: file.size,
-            type: file.type,
-          },
+          JSON.stringify(fileDetails),
           'with error',
           JSON.stringify(err)
         )
