@@ -69,7 +69,7 @@ const uploadWrapper = async (
       'failed to compress file - using original',
       JSON.stringify(fileDetails),
       'with error',
-      JSON.stringify({ name: err.name, message: err.message })
+      err
     )
     // Need to re-create the File as it may be corrupted after failed compression
     fileToUpload = new File([file], name, { type, lastModified })

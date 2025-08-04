@@ -6,12 +6,13 @@ const DEFAULT_NUMBER_OF_RETRIES = 3
  * Returns a promise that tries to successfully resolve
  * a specified amount of times with exponential backoff
  */
-const faultTolerantRequest = async (
-  request: () => Promise<void>,
+const faultTolerantRequest = async <T>(
+  request: () => Promise<T>,
   retries: number = DEFAULT_NUMBER_OF_RETRIES
 ): Promise<{
   success: boolean
-  error?: any
+  data?: T
+  error?: Error
 }> => {
   const operation = retry.operation({
     retries,
@@ -20,9 +21,10 @@ const faultTolerantRequest = async (
   return new Promise((resolve) => {
     operation.attempt(() => {
       request()
-        .then(() => {
+        .then((result) => {
           resolve({
             success: true,
+            data: result,
           })
         })
         .catch((err) => {
