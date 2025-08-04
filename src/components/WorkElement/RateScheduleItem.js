@@ -21,6 +21,9 @@ const RateScheduleItem = ({
   setSorCodes,
   sorSearchRequest,
 }) => {
+
+  console.log({ sorCodes })
+
   const router = useRouter()
   const onRaiseRepairPage = () =>
     router.pathname === '/properties/[id]/raise-repair/new'

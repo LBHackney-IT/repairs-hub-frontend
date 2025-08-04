@@ -21,6 +21,8 @@ import RaiseWorkOrderSuccessView from './RaiseWorkOrderSuccessView'
 import Announcement from './announcement'
 import { CurrentUser } from '../../WorkOrders/CurrentUserWrapper'
 import { Tenure } from '@/root/src/models/tenure'
+import { isOutOfHoursGas } from './helpers'
+import { Priority } from '@/root/src/models/priority'
 
 interface Props {
   propertyReference: string
@@ -40,9 +42,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [budgetCodeId, setBudgetCodeId] = useState('')
 
   const [sorCodeArrays, setSorCodeArrays] = useState([[]])
-  const [priorities, setPriorities] = useState([])
+  const [priorities, setPriorities] = useState<Priority[]>([])
 
   const [formState, setFormState] = useState({})
+
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
   const [
@@ -76,14 +79,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
     false
   )
-
-  const isOutOfHoursGas = (contractorReference, tradeCode) => {
-    const gasBreakdownContractorReference = 'H04'
-    const oohTradeCode = 'OO'
-
-    if (contractorReference != gasBreakdownContractorReference) return false // contractor must be "H04"
-    return tradeCode == oohTradeCode
-  }
 
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)

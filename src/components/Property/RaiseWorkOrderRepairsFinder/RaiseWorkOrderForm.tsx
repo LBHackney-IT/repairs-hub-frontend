@@ -25,6 +25,12 @@ import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import { Address, HierarchyType } from '@/root/src/models/property'
 import { Tenure } from '@/root/src/models/tenure'
+import { Priority } from '@/root/src/models/priority'
+import {
+  getPriorityObjectByCode,
+  getPriorityObjectByDescription,
+} from './helpers'
+import RepairsFinderInput from './RepairsFinderInput'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 
@@ -41,7 +47,7 @@ interface Props {
   setBudgetCodes: (...args: any[]) => void
   sorCodeArrays: object[]
   setSorCodeArrays: (...args: any[]) => void
-  priorities: object[]
+  priorities: Priority[]
   onFormSubmit: (...args: any[]) => void
   tradeCode: string
   setTradeCode: (...args: any[]) => void
@@ -102,15 +108,15 @@ const RaiseWorkOrderForm = (props: Props) => {
   const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(false)
-  const [legalDisrepairError, setLegalDisRepairError] = useState()
-  const [priorityCode, setPriorityCode] = useState()
+  const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
+  const [priorityCode, setPriorityCode] = useState<number>()
 
   const [totalCost, setTotalCost] = useState('')
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
   const overSpendLimit = totalCost > raiseLimit
 
   const onSubmit = async (formData) => {
-    const priority = getPriorityObjectByCode(formData.priorityCode)
+    const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
 
     const scheduleWorkOrderFormData = buildScheduleWorkOrderFormData({
       ...formData,
@@ -152,14 +158,6 @@ const RaiseWorkOrderForm = (props: Props) => {
       .finally(() => setLoading(false))
   }
 
-  const getPriorityObjectByDescription = (description) => {
-    return priorities.find((priority) => priority.description === description)
-  }
-
-  const getPriorityObjectByCode = (code) => {
-    return priorities.find((priority) => priority.priorityCode == code)
-  }
-
   const onPrioritySelect = (code) => {
     setPriorityCode(code)
   }
@@ -180,11 +178,13 @@ const RaiseWorkOrderForm = (props: Props) => {
     existingHigherPriorityCode
   ) => {
     if (existingHigherPriorityCode) {
-      description = getPriorityObjectByCode(existingHigherPriorityCode)
-        ?.description
+      description = getPriorityObjectByCode(
+        existingHigherPriorityCode,
+        priorities
+      )?.description
     }
 
-    if (getPriorityObjectByDescription(description)) {
+    if (getPriorityObjectByDescription(description, priorities)) {
       // Update priority when SOR code has priority attached if:
       // Priority description is blank, or there's only one sor code entry, or
       // when removing an SOR there's an existing entry with higher priority, or
@@ -201,12 +201,12 @@ const RaiseWorkOrderForm = (props: Props) => {
         }
 
         setPriorityCode(
-          getPriorityObjectByDescription(description)?.priorityCode
+          getPriorityObjectByDescription(description, priorities)?.priorityCode
         )
 
         setValue(
           'priorityCode',
-          getPriorityObjectByDescription(description)?.priorityCode
+          getPriorityObjectByDescription(description, priorities)?.priorityCode
         )
       }
     } else {
@@ -214,17 +214,6 @@ const RaiseWorkOrderForm = (props: Props) => {
         `Priority: "${description}" is not included in the available priorities list`
       )
     }
-  }
-
-  const renderLegalDisrepair = (isInLegalDisrepair) => {
-    return (
-      isInLegalDisrepair && (
-        <WarningInfoBox
-          header="This property is currently under legal disrepair"
-          text="Before raising a work order you must call the Legal Disrepair Team"
-        />
-      )
-    )
   }
 
   useEffect(() => {
@@ -245,7 +234,14 @@ const RaiseWorkOrderForm = (props: Props) => {
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
-          {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
+          {loading && <Spinner />}
+
+          {isInLegalDisrepair && !loading && (
+            <WarningInfoBox
+              header="This property is currently under legal disrepair"
+              text="Before raising a work order you must call the Legal Disrepair Team"
+            />
+          )}
 
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 
@@ -274,104 +270,72 @@ const RaiseWorkOrderForm = (props: Props) => {
                 />
               )}
 
-            <TradeContractorRateScheduleItemView
-              register={register}
-              errors={errors}
-              trades={trades}
-              tradeCode={tradeCode}
-              setTradeCode={setTradeCode}
-              contractors={contractors}
-              setContractors={setContractors}
-              contractorReference={contractorReference}
-              setContractorReference={setContractorReference}
-              budgetCodes={budgetCodes}
-              setBudgetCodes={setBudgetCodes}
-              budgetCodeId={budgetCodeId}
-              setBudgetCodeId={setBudgetCodeId}
-              sorCodeArrays={sorCodeArrays}
-              setSorCodeArrays={setSorCodeArrays}
-              propertyReference={propertyReference}
-              isContractorUpdatePage={false}
-              updatePriority={updatePriority}
-              getPriorityObjectByCode={getPriorityObjectByCode}
-              setTotalCost={setTotalCost}
-              setValue={setValue}
-              setPageToMultipleSORs={() => setPageToMultipleSORs(getValues())}
-              isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-              setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
-              filterPriorities={filterPriorities}
-              formState={formState}
+            <RepairsFinderInput register={register} 
+            
+            formState={formState}
             />
 
-            <SelectPriority
-              priorities={priorities}
-              onPrioritySelect={onPrioritySelect}
-              register={register}
-              errors={errors}
-              priorityCode={priorityCode}
-              priorityCodesWithoutDrs={PRIORITY_CODES_WITHOUT_DRS}
-            />
-
-            <CharacterCountLimitedTextArea
-              name="descriptionOfWork"
-              label="Repair description"
-              required={true}
-              maxLength={230}
-              requiredText="Please enter a repair description"
-              register={register}
-              error={errors && errors.descriptionOfWork}
-            />
-
-            <Contacts tenureId={tenure?.id} />
-
-            <h2 className=" lbh-heading-h2">
-              Contact details for repair
-              <span className="govuk-caption-m">
-                Who should we contact for this repair?
-              </span>
-            </h2>
-
-            <TextInput
-              name="callerName"
-              label="Caller name"
-              required={true}
-              register={register({
-                required: 'Please add caller name',
-                maxLength: {
-                  value: 50,
-                  message:
-                    'You have exceeded the maximum amount of 50 characters',
-                },
-              })}
-              error={errors && errors.callerName}
-            />
-
-            <TextInput
-              name="contactNumber"
-              label="Telephone number"
-              required={true}
-              register={register({
-                required: 'Please add telephone number',
-                validate: (value) => {
-                  if (isNaN(value)) {
-                    return 'Telephone number should be a number and with no empty spaces'
-                  }
-                },
-                maxLength: {
-                  value: 11,
-                  message:
-                    'Please enter a valid UK telephone number (11 digits)',
-                },
-              })}
-              error={errors && errors.contactNumber}
-            />
-
-            {overSpendLimit && (
-              <WarningText
-                name="over-spend-limit"
-                text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
-              />
-            )}
+              <CharacterCountLimitedTextArea
+                          name="descriptionOfWork"
+                          label="Repair description"
+                          required={true}
+                          maxLength={230}
+                          requiredText="Please enter a repair description"
+                          register={register}
+                          error={errors && errors.descriptionOfWork}
+                        />
+            
+                        <Contacts tenureId={tenure?.id} />
+            
+                        <h2 className=" lbh-heading-h2">
+                          Contact details for repair
+                          <span className="govuk-caption-m">
+                            Who should we contact for this repair?
+                          </span>
+                        </h2>
+            
+                        <TextInput
+                          name="callerName"
+                          label="Caller name"
+                          required={true}
+                          register={register({
+                            required: 'Please add caller name',
+                            maxLength: {
+                              value: 50,
+                              message:
+                                'You have exceeded the maximum amount of 50 characters',
+                            },
+                          })}
+                          error={errors && errors.callerName}
+                        />
+            
+                        <TextInput
+                          name="contactNumber"
+                          label="Telephone number"
+                          required={true}
+                          register={register({
+                            required: 'Please add telephone number',
+                            validate: (value) => {
+                              if (isNaN(value)) {
+                                return 'Telephone number should be a number and with no empty spaces'
+                              }
+                            },
+                            maxLength: {
+                              value: 11,
+                              message:
+                                'Please enter a valid UK telephone number (11 digits)',
+                            },
+                          })}
+                          error={errors && errors.contactNumber}
+                        />
+            
+                        {overSpendLimit && (
+                          <WarningText
+                            name="over-spend-limit"
+                            text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
+                          />
+                        )}
+            
 
             <PrimarySubmitButton
               id="submit-work-order-create"
