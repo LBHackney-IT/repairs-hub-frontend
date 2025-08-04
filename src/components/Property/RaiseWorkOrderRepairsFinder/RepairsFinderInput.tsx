@@ -1,38 +1,13 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { useEffect, useState } from 'react'
-import { parseString } from 'xml2js'
 import SpinnerWithLabel from '../../SpinnerWithLabel'
-import { DataList, TextArea } from '../../Form'
-import RateScheduleItemView from '../RaiseWorkOrder/RateScheduleItemView'
-import { Table, TBody, TH, THead, TR } from '../../Layout/Table'
+import { TextArea } from '../../Form'
+import { Table, TBody } from '../../Layout/Table'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import { extractXmlData, RepairsFinderExtractedData } from './helpers'
 
+// Placeholder for testing
 const DEFAULT_VALUE = `<?xml version="1.0" standalone="yes"?><RF_INFO><RESULT>SUCCESS</RESULT><PROPERTY></PROPERTY><WORK_PROGRAMME></WORK_PROGRAMME><CAUSED_BY></CAUSED_BY><NOTIFIED_DEFECT>Sink top is loose</NOTIFIED_DEFECT><DEFECT><DEFECT_CODE></DEFECT_CODE><DEFECT_LOC_CODE></DEFECT_LOC_CODE><DEFECT_COMMENTS></DEFECT_COMMENTS><DEFECT_PRIORITY></DEFECT_PRIORITY><DEFECT_QUANTITY></DEFECT_QUANTITY></DEFECT><SOR><SOR_CODE>20060020</SOR_CODE><PRIORITY>A3</PRIORITY><QUANTITY>1</QUANTITY><SOR_LOC_CODE>PRO</SOR_LOC_CODE><SOR_COMMENTS>Sink top is loose - sadfsdf</SOR_COMMENTS><SOR_CLASS></SOR_CLASS></SOR></RF_INFO>`
-
-interface RepairsFinderXmlContent {
-  RF_INFO: {
-    RESULT: string[]
-    PROPERTY: string[]
-    WORK_PROGRAMME: string[]
-    CAUSED_BY: string[]
-    NOTIFIED_DEFECT: string[]
-    DEFECT: Array<{
-      DEFECT_CODE: string[]
-      DEFECT_LOC_CODE: string[]
-      DEFECT_COMMENTS: string[]
-      DEFECT_PRIORITY: string[]
-      DEFECT_QUANTITY: string[]
-    }>
-    SOR: Array<{
-      SOR_CODE: string[]
-      PRIORITY: string[]
-      QUANTITY: string[]
-      SOR_LOC_CODE: string[]
-      SOR_COMMENTS: string[]
-      SOR_CLASS: string[]
-    }>
-  }
-}
 
 interface MatchingSorCode {
   sorCode: {
@@ -56,146 +31,84 @@ interface MatchingSorCode {
 }
 
 interface Props {
-  register: any
-  formState: any
+  propertyReference: string
 }
 
 const RepairsFinderInput = (props: Props) => {
-  const { register, formState } = props
+  const { propertyReference } = props
 
   const [matchingCode, setMatchingCode] = useState<MatchingSorCode | null>(null)
 
-  // const contractors = [
-  //   ...new Set(matchingCode.map((x) => x.contractorReference)),
-  // ]
-
-  // const [selectedContractor, setSelectedContractor] = useState<string>()
-  // const [selectedTrade, setSelectedTrade] = useState<string>()
-
-  // const tradesForSelectedContractor = [
-  //   ...new Set(
-  //     matchingCode
-  //       .filter((x) => x.contractorReference === selectedContractor)
-  //       .map((x) => x.tradeCode)
-  //   ),
-  // ]
-
   const [xmlContent, setXmlContent] = useState<string>(DEFAULT_VALUE)
-  const [xmlIsValid, setXmlIsValid] = useState<boolean | null>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [
+    extractedXmlData,
+    setExtractedXmlData,
+  ] = useState<RepairsFinderExtractedData | null>(null)
 
-  const [isFindingMatches, setIsFindingMatches] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     handleSearchCode()
   }, [xmlContent])
 
   const handleSearchCode = async () => {
-    console.log('validating')
+    setError(() => null)
 
-    console.log({ xmlContent })
+    const extractedData = await extractXmlData(xmlContent)
 
-    const result = await handleParseXML(xmlContent)
+    setExtractedXmlData(() => extractedData)
+    if (extractedData == null) return
 
-    if (!result.success) {
-      console.error(result.error)
-      setXmlIsValid(() => false)
-      return
-    }
-
-    setXmlIsValid(() => true)
-
-    // success, extract useful data
-
-    console.log({ result })
-
-    const sorCodes = result.result.RF_INFO.SOR
-
-    if (sorCodes.length !== 1) {
-      alert('Repairs hub can only accept a single task from Repairs FInder')
-      return
-    }
-
-    const {
-      PRIORITY: [priority],
-      QUANTITY: [quantity],
-      SOR_CODE: [sorCode],
-      SOR_COMMENTS: [comments],
-    } = sorCodes[0]
-
-    console.log({ priority, quantity, sorCode, comments })
-
-    setIsFindingMatches(() => true)
+    setIsLoading(() => true)
     setMatchingCode(() => null)
 
-    const response = await frontEndApiRequest({
-      method: 'get',
-      path: '/api/repairs-finder/matching-sor-codes',
-      params: {
-        sorCode: '20060020',
-        tradeCode: 'PL',
-        contractorReference: 'H01',
-        propertyReference: '00023400',
-      },
-    })
+    try {
+      const response = await frontEndApiRequest({
+        method: 'get',
+        path: '/api/repairs-finder/matching-sor-codes',
+        params: {
+          sorCode: extractedData.sorCode,
+          tradeCode: extractedData.tradeCode,
+          contractorReference: extractedData.contractorReference,
+          propertyReference: propertyReference,
+        },
+      })
 
-    setTimeout(() => {
-      setIsFindingMatches(() => false)
-
-      console.log({ response })
-
-      setMatchingCode(() => response)
-
-      if (response.length === 0) {
-        console.info('No matching results')
-      }
-    }, 2000)
+      setTimeout(() => {
+        setIsLoading(() => false)
+        setMatchingCode(() => response)
+      }, 2000)
+    } catch (e) {
+      console.error(e.message)
+      setIsLoading(() => false)
+      setError('Something went wrong validating sorCode. Please try again')
+      // setError(formatRequestErrorMessage(e.message))
+    }
   }
 
-  const handleParseXML = (xml: string) =>
-    new Promise<{
-      success: boolean
-      error: Error
-      result: RepairsFinderXmlContent
-    }>((resolve) => {
-      parseString(xml, (err, result) => {
-        if (err) {
-          resolve({ success: false, error: err, result: null })
-          return
-        }
+  const onSetXmlCode = (e) => {
+    e.preventDefault()
 
-        resolve({ success: true, error: null, result })
-
-        // console.log({ result, err }, typeof err)
-      })
-    })
+    setXmlContent(() => e.target.value)
+  }
 
   return (
     <>
-      {/* <h2 className="lbh-heading-h2 govuk-!-margin-top-6">
-           Repairs Finder stuff
-          </h2> */}
-
-      {/* <p>Repairs Finder stuffs</p> */}
-
       <TextArea
+        name="xmlContent"
         value={xmlContent}
         label="Repairs finder code"
         hint="Please paste the code from Repairs Finder"
         required
-        error={!xmlIsValid && { message: 'Invalid code format' }}
-        onInput={(x) => setXmlContent(x.target.value)}
+        error={!xmlContent && { message: 'Invalid code format' }}
+        onInput={onSetXmlCode}
         rows={6}
       />
 
-      <div>
-        {isFindingMatches && <SpinnerWithLabel label="Validating code.." />}
-      </div>
+      {error && <ErrorMessage label={error} />}
 
-      {/* {matchingCode === null && (
-        <p>Sorry, SOR code was not found in any contrract</p>
-      )} */}
-
-      {/* {} */}
+      <div>{isLoading && <SpinnerWithLabel label="Validating code.." />}</div>
 
       <Table className="original-tasks-table">
         <TBody>
@@ -224,13 +137,13 @@ const RepairsFinderInput = (props: Props) => {
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Quantity</td>
             <td className="govuk-table__cell">
-              {matchingCode === null ? '-' : `3`}
+              {matchingCode === null ? '-' : extractedXmlData.quantity}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Priority</td>
             <td className="govuk-table__cell">
-              {matchingCode === null ? '-' : `Normal`}
+              {matchingCode === null ? '-' : extractedXmlData.priority}
             </td>
           </tr>
         </TBody>

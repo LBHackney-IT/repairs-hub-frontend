@@ -270,72 +270,72 @@ const RaiseWorkOrderForm = (props: Props) => {
                 />
               )}
 
-            <RepairsFinderInput register={register} 
-            
-            formState={formState}
+            <RepairsFinderInput
+              register={register}
+              formState={formState}
+              propertyReference={propertyReference}
             />
 
-              <CharacterCountLimitedTextArea
-                          name="descriptionOfWork"
-                          label="Repair description"
-                          required={true}
-                          maxLength={230}
-                          requiredText="Please enter a repair description"
-                          register={register}
-                          error={errors && errors.descriptionOfWork}
-                        />
-            
-                        <Contacts tenureId={tenure?.id} />
-            
-                        <h2 className=" lbh-heading-h2">
-                          Contact details for repair
-                          <span className="govuk-caption-m">
-                            Who should we contact for this repair?
-                          </span>
-                        </h2>
-            
-                        <TextInput
-                          name="callerName"
-                          label="Caller name"
-                          required={true}
-                          register={register({
-                            required: 'Please add caller name',
-                            maxLength: {
-                              value: 50,
-                              message:
-                                'You have exceeded the maximum amount of 50 characters',
-                            },
-                          })}
-                          error={errors && errors.callerName}
-                        />
-            
-                        <TextInput
-                          name="contactNumber"
-                          label="Telephone number"
-                          required={true}
-                          register={register({
-                            required: 'Please add telephone number',
-                            validate: (value) => {
-                              if (isNaN(value)) {
-                                return 'Telephone number should be a number and with no empty spaces'
-                              }
-                            },
-                            maxLength: {
-                              value: 11,
-                              message:
-                                'Please enter a valid UK telephone number (11 digits)',
-                            },
-                          })}
-                          error={errors && errors.contactNumber}
-                        />
-            
-                        {overSpendLimit && (
-                          <WarningText
-                            name="over-spend-limit"
-                            text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
-                          />
-                        )}
-            
+            <CharacterCountLimitedTextArea
+              name="descriptionOfWork"
+              label="Repair description"
+              required={true}
+              maxLength={230}
+              requiredText="Please enter a repair description"
+              register={register}
+              error={errors && errors.descriptionOfWork}
+            />
+
+            <Contacts tenureId={tenure?.id} />
+
+            <h2 className=" lbh-heading-h2">
+              Contact details for repair
+              <span className="govuk-caption-m">
+                Who should we contact for this repair?
+              </span>
+            </h2>
+
+            <TextInput
+              name="callerName"
+              label="Caller name"
+              required={true}
+              register={register({
+                required: 'Please add caller name',
+                maxLength: {
+                  value: 50,
+                  message:
+                    'You have exceeded the maximum amount of 50 characters',
+                },
+              })}
+              error={errors && errors.callerName}
+            />
+
+            <TextInput
+              name="contactNumber"
+              label="Telephone number"
+              required={true}
+              register={register({
+                required: 'Please add telephone number',
+                validate: (value) => {
+                  if (isNaN(value)) {
+                    return 'Telephone number should be a number and with no empty spaces'
+                  }
+                },
+                maxLength: {
+                  value: 11,
+                  message:
+                    'Please enter a valid UK telephone number (11 digits)',
+                },
+              })}
+              error={errors && errors.contactNumber}
+            />
+
+            {overSpendLimit && (
+              <WarningText
+                name="over-spend-limit"
+                text="The work order cost exceeds the approved spending limit and will be sent to a manager for authorisation"
+              />
+            )}
 
             <PrimarySubmitButton
               id="submit-work-order-create"
