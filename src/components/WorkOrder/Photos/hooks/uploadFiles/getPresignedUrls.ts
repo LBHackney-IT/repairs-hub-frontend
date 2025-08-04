@@ -1,11 +1,12 @@
 import { frontEndApiRequest } from '@/root/src/utils/frontEndApiClient/requests'
 import { Link } from '../types'
+import faultTolerantRequest from './faultTolerantRequest'
 
 const getPresignedUrls = async (
   workOrderReference: string,
   numberOfFiles: number
 ) => {
-  try {
+  const requestOperation = async () => {
     const result: {
       links: Link[]
     } = await frontEndApiRequest({
@@ -16,19 +17,19 @@ const getPresignedUrls = async (
         numberOfFiles: numberOfFiles,
       },
     })
-
-    return { success: true, result }
-  } catch (error) {
-    let errorMessage = ''
-
-    if (typeof error == 'string') {
-      errorMessage = error
-    } else {
-      errorMessage = error.message
-    }
-
-    return { success: false, error: errorMessage }
+    return result
   }
+
+  const faultTolerantResult = await faultTolerantRequest(requestOperation)
+
+  if (!faultTolerantResult.success) {
+    return {
+      success: false,
+      error: faultTolerantResult.error?.message || 'Request failed',
+    }
+  }
+
+  return { success: true, result: faultTolerantResult.data }
 }
 
 export default getPresignedUrls
