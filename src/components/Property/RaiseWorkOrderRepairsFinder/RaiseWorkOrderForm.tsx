@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import PropertyFlags from '../PropertyFlags'
@@ -8,15 +7,12 @@ import {
   CharacterCountLimitedTextArea,
   TextInput,
 } from '../../Form'
-import TradeContractorRateScheduleItemView from '../RaiseWorkOrder/TradeContractorRateScheduleItemView'
 import Contacts from '../Contacts/Contacts'
 import WarningText from '../../Template/WarningText'
 import WarningInfoBox from '../../Template/WarningInfoBox'
 import { buildScheduleWorkOrderFormData } from '@/utils/hact/workOrderSchedule/raiseWorkOrderForm'
 import { IMMEDIATE_PRIORITY_CODE } from '@/utils/helpers/priorities'
 import { daysInHours } from '@/utils/time'
-import SelectPriority from '../RaiseWorkOrder/SelectPriority'
-import { PRIORITY_CODES_WITHOUT_DRS } from '@/utils/helpers/priorities'
 import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import Spinner from '@/components/Spinner'
 import ErrorMessage from '@/components/Errors/ErrorMessage'
@@ -31,6 +27,7 @@ import {
   getPriorityObjectByDescription,
 } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
+import PageAnnouncement from '../../Template/PageAnnouncement'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 
@@ -72,36 +69,12 @@ const RaiseWorkOrderForm = (props: Props) => {
     canRaiseRepair,
     tenure,
     priorities,
-    trades,
-    tradeCode,
-    setTradeCode,
-    contractors,
-    contractorReference,
-    setContractorReference,
-    setContractors,
-    budgetCodeId,
-    setBudgetCodeId,
-    budgetCodes,
-    setBudgetCodes,
-    sorCodeArrays,
-    setSorCodeArrays,
     onFormSubmit,
     raiseLimit,
-    setPageToMultipleSORs,
     formState,
-    isPriorityEnabled,
-    isIncrementalSearchEnabled,
-    setIsIncrementalSearchEnabled,
   } = props
 
-  const {
-    register,
-    handleSubmit,
-    errors,
-    setValue,
-    getValues,
-    watch,
-  } = useForm({
+  const { register, handleSubmit, errors, watch } = useForm({
     defaultValues: { ...formState },
   })
 
@@ -109,7 +82,6 @@ const RaiseWorkOrderForm = (props: Props) => {
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
-  const [priorityCode, setPriorityCode] = useState<number>()
 
   const [totalCost, setTotalCost] = useState('')
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
@@ -158,70 +130,10 @@ const RaiseWorkOrderForm = (props: Props) => {
       .finally(() => setLoading(false))
   }
 
-  const onPrioritySelect = (code) => {
-    setPriorityCode(code)
-  }
-
-  const filterPriorities = (filterText) => {
-    // setPriorities was never passed in, this code should be redundent
-    // setPriorities(
-    //   priorities.filter(function (pri) {
-    //     return pri.description.includes(filterText)
-    //   })
-    // )
-  }
-
-  const updatePriority = (
-    description,
-    code,
-    rateScheduleItemsLength,
-    existingHigherPriorityCode
-  ) => {
-    if (existingHigherPriorityCode) {
-      description = getPriorityObjectByCode(
-        existingHigherPriorityCode,
-        priorities
-      )?.description
-    }
-
-    if (getPriorityObjectByDescription(description, priorities)) {
-      // Update priority when SOR code has priority attached if:
-      // Priority description is blank, or there's only one sor code entry, or
-      // when removing an SOR there's an existing entry with higher priority, or
-      // the selected priority code is less than existing priority codes
-      // (Higher priority as code gets lower)
-      if (
-        !priorityCode ||
-        rateScheduleItemsLength <= 1 ||
-        existingHigherPriorityCode ||
-        code < priorityCode
-      ) {
-        if (errors?.priorityCode) {
-          delete errors.priorityCode
-        }
-
-        setPriorityCode(
-          getPriorityObjectByDescription(description, priorities)?.priorityCode
-        )
-
-        setValue(
-          'priorityCode',
-          getPriorityObjectByDescription(description, priorities)?.priorityCode
-        )
-      }
-    } else {
-      console.error(
-        `Priority: "${description}" is not included in the available priorities list`
-      )
-    }
-  }
-
   useEffect(() => {
     setLoading(true)
 
     getPropertyInfoOnLegalDisrepair(propertyReference)
-    isPriorityEnabled &&
-      (document.getElementById('priorityCode').disabled = false)
   }, [])
 
   return (
@@ -271,9 +183,9 @@ const RaiseWorkOrderForm = (props: Props) => {
               )}
 
             <RepairsFinderInput
-              register={register}
-              formState={formState}
               propertyReference={propertyReference}
+              register={register}
+              // setPriority={(x) => setPriority(x)}
             />
 
             <CharacterCountLimitedTextArea

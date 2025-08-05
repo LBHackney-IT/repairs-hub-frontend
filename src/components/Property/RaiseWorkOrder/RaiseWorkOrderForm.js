@@ -23,6 +23,7 @@ import ErrorMessage from '@/components/Errors/ErrorMessage'
 import RaiseWorkOrderFollowOn from './RaiseWorkOrderFollowOn/RaiseWorkOrderFollowOn'
 import UserContext from '../../UserContext'
 import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
+import Link from 'next/link'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 
@@ -211,7 +212,16 @@ const RaiseWorkOrderForm = ({
             {hierarchyType.subTypeDescription}: {address.addressLine}
           </h1>
 
+          <WarningInfoBox
+            className="variant-warning govuk-!-margin-bottom-4"
+            header="Looking to use Repairs Finder?"
+            name="despatched-warning"
+            text={<><Link href="/properties/00023400/raise-repair/repairs-finder">Use our new form</Link> that works with Repairs Finder.</>}
+          />
+
           {loading ? <Spinner /> : renderLegalDisrepair(isInLegalDisrepair)}
+
+
 
           {legalDisrepairError && <ErrorMessage label={legalDisrepairError} />}
 

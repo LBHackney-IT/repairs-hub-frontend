@@ -1,7 +1,16 @@
-import PropTypes from 'prop-types'
 import cn from 'classnames'
 
-const WarningInfoBox = ({ header, text, name, className, style }) => {
+interface Props {
+  header: string
+  text: string | JSX.Element
+  className: string
+  name: string
+  style: object
+}
+
+const WarningInfoBox = (props: Props) => {
+  const { header, text, name, className, style } = props
+
   return (
     <div
       className={cn(
@@ -27,12 +36,6 @@ const WarningInfoBox = ({ header, text, name, className, style }) => {
   )
 }
 
-WarningInfoBox.propTypes = {
-  header: PropTypes.string.isRequired,
-  text: PropTypes.string || PropTypes.node.isRequired,
-  className: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  style: PropTypes.object,
-}
+
 
 export default WarningInfoBox

@@ -32,12 +32,16 @@ interface MatchingSorCode {
 
 interface Props {
   propertyReference: string
+  register: any
 }
 
 const RepairsFinderInput = (props: Props) => {
-  const { propertyReference } = props
+  const { propertyReference, register } = props
 
-  const [matchingCode, setMatchingCode] = useState<MatchingSorCode | null>(null)
+  const [
+    repairsApiResponse,
+    setRepairsApiResponse,
+  ] = useState<MatchingSorCode | null>(null)
 
   const [xmlContent, setXmlContent] = useState<string>(DEFAULT_VALUE)
   const [error, setError] = useState<string | null>(null)
@@ -61,7 +65,7 @@ const RepairsFinderInput = (props: Props) => {
     if (extractedData == null) return
 
     setIsLoading(() => true)
-    setMatchingCode(() => null)
+    setRepairsApiResponse(() => null)
 
     try {
       const response = await frontEndApiRequest({
@@ -77,13 +81,12 @@ const RepairsFinderInput = (props: Props) => {
 
       setTimeout(() => {
         setIsLoading(() => false)
-        setMatchingCode(() => response)
+        setRepairsApiResponse(() => response)
       }, 2000)
     } catch (e) {
       console.error(e.message)
       setIsLoading(() => false)
       setError('Something went wrong validating sorCode. Please try again')
-      // setError(formatRequestErrorMessage(e.message))
     }
   }
 
@@ -115,39 +118,115 @@ const RepairsFinderInput = (props: Props) => {
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Trade</td>
             <td className="govuk-table__cell">
-              {matchingCode === null
+              {repairsApiResponse === null
                 ? '-'
-                : `${matchingCode?.trade} - ${matchingCode?.tradeCode}`}
+                : `${repairsApiResponse?.trade} - ${repairsApiResponse?.tradeCode}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Contractor</td>
             <td className="govuk-table__cell">
-              {matchingCode === null ? '-' : `${matchingCode?.contractor}`}
+              {repairsApiResponse === null
+                ? '-'
+                : `${repairsApiResponse?.contractor}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">SOR code</td>
             <td className="govuk-table__cell">
-              {matchingCode === null
+              {repairsApiResponse === null
                 ? '-'
-                : `${matchingCode?.sorCode?.cost} - ${matchingCode?.sorCode?.shortDescription}`}
+                : `${repairsApiResponse?.sorCode?.cost} - ${repairsApiResponse?.sorCode?.shortDescription}`}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Quantity</td>
             <td className="govuk-table__cell">
-              {matchingCode === null ? '-' : extractedXmlData.quantity}
+              {repairsApiResponse === null ? '-' : extractedXmlData?.quantity}
             </td>
           </tr>
           <tr className="govuk-table__row">
             <td className="govuk-table__cell">Priority</td>
             <td className="govuk-table__cell">
-              {matchingCode === null ? '-' : extractedXmlData.priority}
+              {repairsApiResponse === null ? '-' : extractedXmlData?.priority}
             </td>
           </tr>
         </TBody>
       </Table>
+
+      {/* Trade */}
+      <input
+        id="trade"
+        name="trade"
+        type="hidden"
+        ref={register}
+        value={repairsApiResponse?.trade}
+      />
+
+      <input
+        id="tradeCode"
+        name="tradeCode"
+        type="hidden"
+        ref={register}
+        value={repairsApiResponse?.tradeCode}
+      />
+
+      {/* Contractor */}
+      <input
+        id="contractor"
+        name="contractor"
+        type="hidden"
+        ref={register}
+        value={`${repairsApiResponse?.contractor} - ${repairsApiResponse?.contractorReference}`}
+      />
+
+      <input
+        id="contractorRef"
+        name="contractorRef"
+        type="hidden"
+        ref={register}
+        value={repairsApiResponse?.contractorReference}
+      />
+
+      {/* SOR code fields */}
+      <input
+        id={`rateScheduleItems[${0}][code]`}
+        name={`rateScheduleItems[${0}][code]`}
+        value={`${repairsApiResponse?.sorCode?.code} - ${repairsApiResponse?.sorCode?.shortDescription} - £${repairsApiResponse?.sorCode?.cost}`}
+        type="hidden"
+        ref={register}
+      />
+      <input
+        id={`rateScheduleItems[${0}][description]`}
+        name={`rateScheduleItems[${0}][description]`}
+        value={repairsApiResponse?.sorCode?.shortDescription}
+        type="hidden"
+        ref={register}
+      />
+      <input
+        id={`rateScheduleItems[${0}][cost]`}
+        name={`rateScheduleItems[${0}][cost]`}
+        value={repairsApiResponse?.sorCode?.cost}
+        type="hidden"
+        ref={register}
+      />
+
+      <input
+        id={`rateScheduleItems[${0}][quantity]`}
+        name={`rateScheduleItems[${0}][quantity]`}
+        value={extractedXmlData?.quantity}
+        type="hidden"
+        ref={register}
+      />
+
+      {/* Priority */}
+      <input
+        id={`priorityCode`}
+        name={`priorityCode`}
+        value={4}
+        type="hidden"
+        ref={register}
+      />
     </>
   )
 }
