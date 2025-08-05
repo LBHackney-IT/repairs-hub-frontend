@@ -20,7 +20,7 @@ export default authoriseServiceAPIRequest(async (req, res) => {
       process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED === 'true',
 
     enableRepairsFinderIntegration:
-      process.env.NEXT_PUBLIC_REPAIRS_FINDER_INTEGRATION_ENABLED === 'true',
+      process.env.REPAIRS_FINDER_INTEGRATION_ENABLED === 'true',
 
     useCompressorJS: process.env.USE_COMPRESSOR_JS === 'true',
   }
