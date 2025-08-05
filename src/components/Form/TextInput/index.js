@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 import ErrorMessage from '../../Errors/ErrorMessage'
+import PropertyRow from '../../Property/PropertyRow'
 
 const TextInput = (props) => {
   const {
@@ -73,6 +74,7 @@ TextInput.propTypes = {
   register: PropTypes.func,
   widthClass: PropTypes.string,
   defaultValue: PropTypes.string,
+  isLabelGreen: PropTypes.bool,
 }
 
 export default TextInput
