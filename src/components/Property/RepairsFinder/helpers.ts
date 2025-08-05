@@ -31,37 +31,44 @@ export interface RepairsFinderExtractedData {
 export const extractXmlData = async (
   xmlContent: string
 ): Promise<RepairsFinderExtractedData> => {
-  const result = await handleParseXML(xmlContent)
+  try {
+    const result = await handleParseXML(xmlContent)
 
-  if (!result.success) {
+    if (!result.success) {
+      return null
+    }
+
+    console.log({ result })
+
+    let {
+      PRIORITY: [priority],
+      QUANTITY: [quantity],
+      SOR_CODE: [sorCode],
+      SOR_COMMENTS: [comments],
+      SOR_CLASS: [tradeCode],
+    } = result.result.RF_INFO.SOR[0]
+
+    let contractorReference = result.result.RF_INFO.WORK_PROGRAMME[0]
+
+    // temp override
+    sorCode = '20060020'
+    priority = '4' // 'Normal'
+    quantity = '1'
+    tradeCode = 'PL'
+    comments = 'Sink top is loose - sadfsdf'
+    contractorReference = 'H01'
+
+    return {
+      sorCode,
+      priority,
+      quantity,
+      tradeCode,
+      comments,
+      contractorReference,
+    }
+  } catch (error) {
+    console.error(error)
     return null
-  }
-
-  let {
-    PRIORITY: [priority],
-    QUANTITY: [quantity],
-    SOR_CODE: [sorCode],
-    SOR_COMMENTS: [comments],
-    SOR_CLASS: [tradeCode],
-  } = result.result.RF_INFO.SOR[0]
-
-  let contractorReference = result.result.RF_INFO.WORK_PROGRAMME[0]
-
-  // temp override
-  sorCode = '20060020'
-  priority = '4' // 'Normal'
-  quantity = '1'
-  tradeCode = 'PL'
-  comments = 'Sink top is loose - sadfsdf'
-  contractorReference = 'H01'
-
-  return {
-    sorCode,
-    priority,
-    quantity,
-    tradeCode,
-    comments,
-    contractorReference,
   }
 }
 
