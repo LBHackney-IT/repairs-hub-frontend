@@ -2,7 +2,7 @@ import cn from 'classnames'
 
 interface Props {
   header: string
-  text: string | JSX.Element
+  text?: string | JSX.Element
   className?: string
   name?: string
   style?: object
