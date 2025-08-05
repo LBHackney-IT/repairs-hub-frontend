@@ -5,7 +5,7 @@ import {
 import SuccessPage from '../../SuccessPage'
 import Panel from '../../Template/Panel'
 import { Property } from '@/root/src/models/property'
-import { CurrentUser } from '../../WorkOrders/CurrentUserWrapper'
+import { CurrentUser } from '@/root/src/types/variations/types'
 
 interface Props {
   workOrderReference: string

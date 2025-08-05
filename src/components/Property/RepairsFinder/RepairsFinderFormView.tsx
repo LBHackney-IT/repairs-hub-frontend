@@ -13,11 +13,11 @@ import Meta from '../../Meta'
 import router from 'next/router'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property } from '@/root/src/models/property'
-import { CurrentUser } from '../../WorkOrders/CurrentUserWrapper'
 import { Tenure } from '@/root/src/models/tenure'
 import { isOutOfHoursGas } from './helpers'
 import { Priority } from '@/root/src/models/priority'
 import RaiseWorkOrderSuccessView from './RaiseWorkOrderSuccessView'
+import { CurrentUser } from '@/root/src/types/variations/types'
 
 interface Props {
   propertyReference: string

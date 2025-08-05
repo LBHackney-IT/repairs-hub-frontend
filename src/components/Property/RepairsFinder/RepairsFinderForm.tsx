@@ -166,6 +166,7 @@ const RepairsFinderForm = (props: Props) => {
               setTotalCost={setTotalCost}
               setContractorReference={setContractorReference}
               setTradeCode={setTradeCode}
+              setDescription={setDescription}
             />
 
             <CharacterCountLimitedTextArea

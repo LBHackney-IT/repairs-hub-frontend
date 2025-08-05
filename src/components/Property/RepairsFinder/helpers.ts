@@ -12,13 +12,6 @@ export const isOutOfHoursGas = (
   return tradeCode == oohTradeCode
 }
 
-export const getPriorityObjectByDescription = (
-  description: string,
-  priorities: Priority[]
-) => {
-  return priorities.find((priority) => priority.description === description)
-}
-
 export const getPriorityObjectByCode = (
   code: number,
   priorities: Priority[]
