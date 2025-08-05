@@ -22,12 +22,8 @@ import { canAssignFollowOnRelationship } from '@/root/src/utils/userPermissions'
 import { Address, HierarchyType } from '@/root/src/models/property'
 import { Tenure } from '@/root/src/models/tenure'
 import { Priority } from '@/root/src/models/priority'
-import {
-  getPriorityObjectByCode,
-  getPriorityObjectByDescription,
-} from './helpers'
+import { getPriorityObjectByCode } from './helpers'
 import RepairsFinderInput from './RepairsFinderInput'
-import PageAnnouncement from '../../Template/PageAnnouncement'
 
 const { NEXT_PUBLIC_RELATED_WORKORDRES_TAB_ENABLED } = process.env
 
@@ -37,31 +33,14 @@ interface Props {
   hierarchyType: HierarchyType
   canRaiseRepair: boolean
   tenure: Tenure
-  trades: object[]
-  contractors: object[]
-  setContractors: (...args: any[]) => void
-  budgetCodes: object[]
-  setBudgetCodes: (...args: any[]) => void
-  sorCodeArrays: object[]
-  setSorCodeArrays: (...args: any[]) => void
   priorities: Priority[]
   onFormSubmit: (...args: any[]) => void
-  tradeCode: string
-  setTradeCode: (...args: any[]) => void
-  contractorReference: string
-  setContractorReference: (...args: any[]) => void
-  budgetCodeId: string | number
-  setBudgetCodeId: (...args: any[]) => void
-  setPageToMultipleSORs: (...args: any[]) => void
   raiseLimit: string | null
-  formState: any
-
-  isPriorityEnabled: boolean
-  isIncrementalSearchEnabled: boolean
-  setIsIncrementalSearchEnabled: (...args: any[]) => void
+  setContractorReference: (reference: string) => void
+  setTradeCode: (tradeCode: string) => void
 }
 
-const RaiseWorkOrderForm = (props: Props) => {
+const RepairsFinderForm = (props: Props) => {
   const {
     propertyReference,
     address,
@@ -71,21 +50,20 @@ const RaiseWorkOrderForm = (props: Props) => {
     priorities,
     onFormSubmit,
     raiseLimit,
-    formState,
+    setContractorReference,
+    setTradeCode,
   } = props
 
-  const { register, handleSubmit, errors, watch } = useForm({
-    defaultValues: { ...formState },
-  })
+  const { register, handleSubmit, errors, watch } = useForm()
 
   const { user } = useContext(UserContext)
 
   const [loading, setLoading] = useState(false)
   const [legalDisrepairError, setLegalDisRepairError] = useState<string>()
 
-  const [totalCost, setTotalCost] = useState('')
+  const [totalCost, setTotalCost] = useState<number>()
   const [isInLegalDisrepair, setIsInLegalDisrepair] = useState()
-  const overSpendLimit = totalCost > raiseLimit
+  const overSpendLimit = totalCost > parseInt(raiseLimit)
 
   const onSubmit = async (formData) => {
     const priority = getPriorityObjectByCode(formData.priorityCode, priorities)
@@ -143,7 +121,7 @@ const RaiseWorkOrderForm = (props: Props) => {
         <div className="govuk-grid-column-two-thirds">
           <span className="govuk-caption-l lbh-caption">New repair</span>
           <h1 className="lbh-heading-h1 govuk-!-margin-bottom-2">
-            {hierarchyType.subTypeDescription}: {address.addressLine}
+            {hierarchyType?.subTypeDescription}: {address?.addressLine}
           </h1>
 
           {loading && <Spinner />}
@@ -185,7 +163,9 @@ const RaiseWorkOrderForm = (props: Props) => {
             <RepairsFinderInput
               propertyReference={propertyReference}
               register={register}
-              // setPriority={(x) => setPriority(x)}
+              setTotalCost={setTotalCost}
+              setContractorReference={setContractorReference}
+              setTradeCode={setTradeCode}
             />
 
             <CharacterCountLimitedTextArea
@@ -260,4 +240,4 @@ const RaiseWorkOrderForm = (props: Props) => {
   )
 }
 
-export default RaiseWorkOrderForm
+export default RepairsFinderForm

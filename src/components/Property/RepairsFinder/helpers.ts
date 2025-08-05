@@ -56,7 +56,7 @@ export const extractXmlData = async (
 
   // temp override
   sorCode = '20060020'
-  priority = 'Normal'
+  priority = '4' // 'Normal'
   quantity = '1'
   tradeCode = 'PL'
   comments = 'Sink top is loose - sadfsdf'

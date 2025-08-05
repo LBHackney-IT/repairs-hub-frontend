@@ -3,9 +3,9 @@ import cn from 'classnames'
 interface Props {
   header: string
   text: string | JSX.Element
-  className: string
-  name: string
-  style: object
+  className?: string
+  name?: string
+  style?: object
 }
 
 const WarningInfoBox = (props: Props) => {

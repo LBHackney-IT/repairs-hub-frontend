@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react'
-import RaiseWorkOrderForm from './RaiseWorkOrderForm'
+import RepairsFinderForm from './RepairsFinderForm'
 import Spinner from '../../Spinner'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import { getOrCreateSchedulerSessionId } from '@/utils/frontEndApiClient/users/schedulerSession'
-import {
-  frontEndApiRequest,
-  createSorExistenceValidator,
-} from '@/utils/frontEndApiClient/requests'
+import { frontEndApiRequest } from '@/utils/frontEndApiClient/requests'
 import {
   HIGH_PRIORITY_CODES,
   PRIORITY_CODES_REQUIRING_APPOINTMENTS,
@@ -14,38 +11,23 @@ import {
 import { STATUS_AUTHORISATION_PENDING_APPROVAL } from '@/utils/statusCodes'
 import Meta from '../../Meta'
 import router from 'next/router'
-import AddMultipleSORs from '../RaiseWorkOrder/AddMultipleSORs'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 import { Property } from '@/root/src/models/property'
-import RaiseWorkOrderSuccessView from './RaiseWorkOrderSuccessView'
-import Announcement from './announcement'
 import { CurrentUser } from '../../WorkOrders/CurrentUserWrapper'
 import { Tenure } from '@/root/src/models/tenure'
 import { isOutOfHoursGas } from './helpers'
 import { Priority } from '@/root/src/models/priority'
-import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
+import RaiseWorkOrderSuccessView from './RaiseWorkOrderSuccessView'
 
 interface Props {
   propertyReference: string
 }
 
-const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
+const RepairsFinderFormView = ({ propertyReference }: Props) => {
   const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
 
-  const [trades, setTrades] = useState([])
-  const [tradeCode, setTradeCode] = useState('')
-
-  const [contractors, setContractors] = useState([])
-  const [contractorReference, setContractorReference] = useState('')
-
-  const [budgetCodes, setBudgetCodes] = useState([])
-  const [budgetCodeId, setBudgetCodeId] = useState('')
-
-  const [sorCodeArrays, setSorCodeArrays] = useState([[]])
   const [priorities, setPriorities] = useState<Priority[]>([])
-
-  const [formState, setFormState] = useState({})
 
   const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
@@ -70,16 +52,12 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
   const [currentUser, setCurrentUser] = useState<CurrentUser>()
   const [immediateOrEmergencyDLO, setImmediateOrEmergencyDLO] = useState(false)
 
-  const [announcementMessage, setAnnouncementMessage] = useState('')
+  const [contractorReference, setContractorReference] = useState<string>()
+  const [tradeCode, setTradeCode] = useState<string>()
 
   const FORM_PAGE = 1
-  const ADDING_MULTIPLE_SOR_PAGE = 2
   const RAISE_SUCCESS_PAGE = 3
   const [currentPage, setCurrentPage] = useState(FORM_PAGE)
-  const [isPriorityEnabled, setIsPriorityEnabled] = useState(false)
-  const [isIncrementalSearchEnabled, setIsIncrementalSearchEnabled] = useState(
-    false
-  )
 
   const onFormSubmit = async (formData, parentWorkOrderId = null) => {
     setLoading(true)
@@ -149,7 +127,7 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
     setError(null)
 
     try {
-      const [propertyResponse, priorities, trades, user] = await Promise.all([
+      const [propertyResponse, priorities, user] = await Promise.all([
         frontEndApiRequest({
           method: 'get',
           path: `/api/properties/${propertyReference}`,
@@ -160,10 +138,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         }),
         frontEndApiRequest({
           method: 'get',
-          path: `/api/schedule-of-rates/trades?propRef=${propertyReference}`,
-        }),
-        frontEndApiRequest({
-          method: 'get',
           path: '/api/hub-user',
         }),
       ])
@@ -171,12 +145,10 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
       setTenure(propertyResponse.tenure)
       setProperty(propertyResponse.property)
       setPriorities(priorities)
-      setTrades(trades)
       setCurrentUser(user)
     } catch (e) {
       setProperty(null)
       setPriorities(null)
-      setTrades(null)
       console.error('An error has occurred:', e.response)
       setError(formatRequestErrorMessage(e))
     }
@@ -189,52 +161,6 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
 
     getRaiseWorkOrderFormView(propertyReference)
   }, [])
-
-  const setSorCodesFromBatchUpload = (sorCodes) => {
-    if (isIncrementalSearchEnabled) {
-      const sorCodesInIncremental = [
-        ...sorCodeArrays.filter(
-          (sca, index) => formState?.rateScheduleItems[index]?.code !== ''
-        ),
-        ...sorCodes.map((c) => [c]),
-      ]
-
-      setSorCodeArrays(() => sorCodesInIncremental)
-    } else {
-      const sorCodesInNonIncremental = [
-        ...sorCodeArrays,
-        ...sorCodes.map(() => sorCodeArrays),
-      ].filter((e) => e.length != 0)
-
-      setSorCodeArrays(() => sorCodesInNonIncremental)
-    }
-
-    setFormState((formState) => {
-      return {
-        ...formState,
-        rateScheduleItems: [
-          ...formState?.rateScheduleItems.filter((rsi) => rsi.code !== ''),
-          ...sorCodes.map((code) => ({
-            code: `${code.code} - ${
-              code.shortDescription
-            } - £${code.cost.toString()}`,
-            cost: code.cost.toString(),
-            description: code.shortDescription,
-          })),
-        ],
-      }
-    })
-  }
-
-  const getCurrentSORCodes = () => {
-    if (formState != null && formState.rateScheduleItems == null) {
-      formState.rateScheduleItems = []
-    }
-
-    return [
-      ...formState?.rateScheduleItems.map((rsi) => rsi.code.split(' - ')[0]),
-    ]
-  }
 
   const showSuccessPage =
     currentPage === RAISE_SUCCESS_PAGE && workOrderReference && property
@@ -265,68 +191,27 @@ const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
         />
       )}
 
-      <Announcement announcementMessage={announcementMessage} />
-
       {currentPage === FORM_PAGE &&
-        property &&
-        property.address &&
-        property.hierarchyType &&
-        property.canRaiseRepair &&
-        priorities &&
-        trades && (
-          <RaiseWorkOrderForm
+        property !== null &&
+        property?.canRaiseRepair &&
+        priorities !== null && (
+          <RepairsFinderForm
             propertyReference={propertyReference}
-            address={property.address}
-            hierarchyType={property.hierarchyType}
-            canRaiseRepair={property.canRaiseRepair}
+            address={property?.address}
+            hierarchyType={property?.hierarchyType}
+            canRaiseRepair={property?.canRaiseRepair}
             tenure={tenure}
             priorities={priorities}
-            trades={trades}
-            tradeCode={tradeCode}
-            setTradeCode={setTradeCode}
-            contractors={contractors}
-            contractorReference={contractorReference}
-            setContractorReference={setContractorReference}
-            setContractors={setContractors}
-            budgetCodeId={budgetCodeId}
-            setBudgetCodeId={setBudgetCodeId}
-            budgetCodes={budgetCodes}
-            setBudgetCodes={setBudgetCodes}
-            sorCodeArrays={sorCodeArrays}
-            setSorCodeArrays={setSorCodeArrays}
             onFormSubmit={onFormSubmit}
             raiseLimit={currentUser?.raiseLimit}
-            setPageToMultipleSORs={(formState) => {
-              setAnnouncementMessage('')
-              setFormState(formState)
-              setCurrentPage(ADDING_MULTIPLE_SOR_PAGE)
-            }}
-            formState={formState}
-            isPriorityEnabled={isPriorityEnabled}
-            isIncrementalSearchEnabled={isIncrementalSearchEnabled}
-            setIsIncrementalSearchEnabled={setIsIncrementalSearchEnabled}
+            setContractorReference={setContractorReference}
+            setTradeCode={setTradeCode}
           />
         )}
-
-      {currentPage === ADDING_MULTIPLE_SOR_PAGE && (
-        <AddMultipleSORs
-          currentSorCodes={getCurrentSORCodes()}
-          setPageBackToFormView={() => setCurrentPage(FORM_PAGE)}
-          sorExistenceValidationCallback={createSorExistenceValidator(
-            tradeCode,
-            propertyReference,
-            contractorReference,
-            true
-          )}
-          setSorCodesFromBatchUpload={setSorCodesFromBatchUpload}
-          setAnnouncementMessage={setAnnouncementMessage}
-          setIsPriorityEnabled={setIsPriorityEnabled}
-        />
-      )}
 
       {error && <ErrorMessage label={error} />}
     </>
   )
 }
 
-export default RaiseWorkOrderFormView
+export default RepairsFinderFormView

@@ -33,10 +33,19 @@ interface MatchingSorCode {
 interface Props {
   propertyReference: string
   register: any
+  setTotalCost: (cost: number) => void
+  setContractorReference: (reference: string) => void
+  setTradeCode: (tradeCode: string) => void
 }
 
 const RepairsFinderInput = (props: Props) => {
-  const { propertyReference, register } = props
+  const {
+    propertyReference,
+    register,
+    setTotalCost,
+    setContractorReference,
+    setTradeCode,
+  } = props
 
   const [
     repairsApiResponse,
@@ -71,7 +80,7 @@ const RepairsFinderInput = (props: Props) => {
     setRepairsApiResponse(() => null)
 
     try {
-      const response = await frontEndApiRequest({
+      const response: MatchingSorCode = await frontEndApiRequest({
         method: 'get',
         path: '/api/repairs-finder/matching-sor-codes',
         params: {
@@ -82,6 +91,14 @@ const RepairsFinderInput = (props: Props) => {
         },
       })
 
+      const totalCost =
+        response?.sorCode?.cost * parseInt(extractedData?.quantity)
+
+      setTotalCost(totalCost)
+      setContractorReference(extractedData.contractorReference)
+      setTradeCode(extractedData.tradeCode)
+
+      // timeout makes it look cooler
       setTimeout(() => {
         setIsLoading(() => false)
         setRepairsApiResponse(() => response)

@@ -1,5 +1,5 @@
 import { getQueryProps } from '@/utils/helpers/serverSideProps'
-import RaiseWorkOrderFormView from '@/components/Property/RaiseWorkOrderRepairsFinder/RaiseWorkOrderFormView'
+import RepairsFinderFormView from '@/root/src/components/Property/RepairsFinder/RepairsFinderFormView'
 
 import {
   AGENT_ROLE,
@@ -8,7 +8,7 @@ import {
 } from '@/utils/user'
 
 const RaiseRepairPage = ({ query }) => {
-  return <RaiseWorkOrderFormView propertyReference={query.id} />
+  return <RepairsFinderFormView propertyReference={query.id} />
 }
 
 export const getServerSideProps = getQueryProps

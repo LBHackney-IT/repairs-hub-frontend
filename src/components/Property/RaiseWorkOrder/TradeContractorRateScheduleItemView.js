@@ -37,7 +37,6 @@ const TradeContractorRateScheduleItemView = ({
   setPageToMultipleSORs,
   filterPriorities,
   formState,
-  disabled = false,
 }) => {
   const [getContractorsError, setGetContractorsError] = useState()
   const [getSorCodesError, setGetSorCodesError] = useState()
@@ -262,7 +261,6 @@ const TradeContractorRateScheduleItemView = ({
         onTradeSelect={onTradeSelect}
         register={register}
         errors={errors}
-        disabled={disabled}
       />
       <input
         id="tradeCode"
