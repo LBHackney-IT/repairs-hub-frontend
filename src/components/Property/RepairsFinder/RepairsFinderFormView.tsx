@@ -173,8 +173,8 @@ const RepairsFinderFormView = ({ propertyReference }: Props) => {
     <>
       <Meta
         {...(property &&
-          property.address && {
-            title: `New repair at ${property.address.addressLine}`,
+          property?.address && {
+            title: `New repair at ${property?.address?.addressLine}`,
           })}
       />
 
