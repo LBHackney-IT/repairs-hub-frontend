@@ -23,13 +23,14 @@ import { CurrentUser } from '../../WorkOrders/CurrentUserWrapper'
 import { Tenure } from '@/root/src/models/tenure'
 import { isOutOfHoursGas } from './helpers'
 import { Priority } from '@/root/src/models/priority'
+import { useFeatureToggles } from '@/root/src/utils/frontEndApiClient/hooks/useFeatureToggles'
 
 interface Props {
   propertyReference: string
 }
 
 const RaiseWorkOrderFormView = ({ propertyReference }: Props) => {
-  const [property, setProperty] = useState<Property>({})
+  const [property, setProperty] = useState<Property>()
   const [tenure, setTenure] = useState<Tenure>()
 
   const [trades, setTrades] = useState([])

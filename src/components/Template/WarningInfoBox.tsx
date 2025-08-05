@@ -36,6 +36,4 @@ const WarningInfoBox = (props: Props) => {
   )
 }
 
-
-
 export default WarningInfoBox

@@ -44,6 +44,7 @@ const RepairsFinderInput = (props: Props) => {
   ] = useState<MatchingSorCode | null>(null)
 
   const [xmlContent, setXmlContent] = useState<string>(DEFAULT_VALUE)
+
   const [error, setError] = useState<string | null>(null)
   const [
     extractedXmlData,
@@ -58,6 +59,8 @@ const RepairsFinderInput = (props: Props) => {
 
   const handleSearchCode = async () => {
     setError(() => null)
+    setExtractedXmlData(() => null)
+    setRepairsApiResponse(() => null)
 
     const extractedData = await extractXmlData(xmlContent)
 
@@ -104,7 +107,7 @@ const RepairsFinderInput = (props: Props) => {
         label="Repairs finder code"
         hint="Please paste the code from Repairs Finder"
         required
-        error={!xmlContent && { message: 'Invalid code format' }}
+        error={!extractedXmlData && { message: 'Invalid code format' }}
         onInput={onSetXmlCode}
         rows={6}
       />
