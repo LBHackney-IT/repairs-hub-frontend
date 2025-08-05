@@ -414,9 +414,11 @@ describe('Show property', () => {
         cy.visit('/properties/00012345')
         cy.wait(['@property', '@workOrdersHistory'])
 
-        cy.get('.lbh-heading-h2')
-          .contains('Raise a work order on this dwelling')
-          .should('have.attr', 'href', '/properties/00012345/raise-repair/new')
+        cy.contains('a', 'Raise a work order on this dwelling').should(
+          'have.attr',
+          'href',
+          '/properties/00012345/raise-repair/new'
+        )
       })
     })
 
