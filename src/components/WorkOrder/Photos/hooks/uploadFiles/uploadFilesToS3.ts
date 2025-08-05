@@ -1,5 +1,5 @@
 import { Link } from '../types'
-import imageCompression from 'browser-image-compression'
+import { compressFile } from './compressFile'
 import faultTolerantRequest from './faultTolerantRequest'
 import uploadFileToS3 from './uploadFileToS3'
 
@@ -47,37 +47,15 @@ const uploadWrapper = async (
   success: boolean
   error?: unknown
 }> => {
-  const compressionOptions = {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-    maxIteration: 1,
-  }
-
-  let fileToUpload: File
   // Need to destructure because these are non-enumerable properties
-  const { name, size, type, lastModified } = file
+  const { name, size, type } = file
   const fileDetails = { name, size, type }
 
   console.log('preparing to upload file', JSON.stringify(fileDetails))
-
-  // try to compress file. If fails, just use file
-  try {
-    fileToUpload = await imageCompression(file, compressionOptions)
-  } catch (err) {
-    console.error(
-      'failed to compress file - using original',
-      JSON.stringify(fileDetails),
-      'with error',
-      err
-    )
-    // Need to re-create the File as it may be corrupted after failed compression
-    fileToUpload = new File([file], name, { type, lastModified })
-  }
-
+  const compressResult = await compressFile(file)
   const result = await faultTolerantRequest(
     async () =>
-      await uploadFileToS3(fileToUpload, link).catch((err) => {
+      await uploadFileToS3(compressResult.file, link).catch((err) => {
         console.error(
           'uploadFileToS3 failed for file',
           JSON.stringify(fileDetails),
