@@ -18,8 +18,8 @@ interface Props {
   tmoName?: string
   propertyReference: string
   boilerHouseId?: string
-  setParentLocationAlerts: (alerts: CautionaryAlert[]) => void
-  setParentPersonAlerts: (alerts: CautionaryAlert[]) => void
+  setParentLocationAlerts?: (alerts: CautionaryAlert[]) => void
+  setParentPersonAlerts?: (alerts: CautionaryAlert[]) => void
 }
 
 //Properties with TMO names set to this value aren't actually TMOs
