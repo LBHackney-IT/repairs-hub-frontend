@@ -57,7 +57,13 @@ const uploadFiles = async (
         },
         extra: {
           workOrderReference,
-          files,
+          files: JSON.stringify(
+            files.map((file) => ({
+              name: file.name,
+              size: file.size,
+              type: file.type,
+            }))
+          ),
           message: error.message,
         },
       })
