@@ -10,8 +10,8 @@ export const mockContractors = [
     activeContractCount: 1,
   },
   {
-    contractorReference: 'SHE',
-    contractorName: 'She ltd',
+    contractorReference: 'RAT',
+    contractorName: 'Rat ltd',
     activeContractCount: 0,
   },
   {

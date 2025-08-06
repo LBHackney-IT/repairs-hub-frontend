@@ -75,7 +75,7 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            She ltd
+            Rat ltd
           </h3>
           <p>
             Active contracts: 
