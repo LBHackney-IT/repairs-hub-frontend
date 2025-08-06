@@ -17,13 +17,15 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            HH Communal/Estate Inspes
+            No ltd
           </h3>
           <p>
             Active contracts: 
             <span
               style="font-weight: 800;"
-            />
+            >
+              0
+            </span>
           </p>
         </div>
         <div
@@ -44,13 +46,15 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            HH Sign Services
+            Yes ltd
           </h3>
           <p>
             Active contracts: 
             <span
               style="font-weight: 800;"
-            />
+            >
+              1
+            </span>
           </p>
         </div>
         <div
@@ -71,13 +75,15 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            Sycous Limited
+            She ltd
           </h3>
           <p>
             Active contracts: 
             <span
               style="font-weight: 800;"
-            />
+            >
+              0
+            </span>
           </p>
         </div>
         <div
@@ -98,13 +104,15 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            Herts Heritage Ltd
+            Cat ltd
           </h3>
           <p>
             Active contracts: 
             <span
               style="font-weight: 800;"
-            />
+            >
+              0
+            </span>
           </p>
         </div>
         <div
@@ -125,499 +133,15 @@ exports[`Contractors list items component should render the component 1`] = `
           <h3
             class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
           >
-            Axis Europe (X) PLC
+            Dog ltd
           </h3>
           <p>
             Active contracts: 
             <span
               style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Axis Europe (X) PLC
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Axis Europe (X) PLC
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Axis Europe (X) PLC
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Herts Heritage Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Avonline Network (A) Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Foster Property Maintenance Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Foster Property Maintenance Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            John Bold & Co LIMITED
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Apex Lifts
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Top Services Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Sureserve Fire & Electrical
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Aim Windows
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Alphatrack (S) Systems Lt
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Sycous Limited
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            THE WIGGETT GROUP LTD
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            THE WIGGETT GROUP LTD
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            HH General Building Repai
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
-          </p>
-        </div>
-        <div
-          class="govuk-!-margin-0"
-        >
-          <span
-            class="arrow right"
-          />
-        </div>
-      </li>
-      <li
-        class="govuk-!-margin-top-3 operative-work-order-list-item"
-        style="cursor: pointer; border: 5px solid #00664f; border-radius: 20px; width: 85%;"
-      >
-        <div
-          class="contract-details"
-        >
-          <h3
-            class="lbh-heading-h3 lbh-!-font-weight-bold govuk-!-margin-bottom-1"
-          >
-            Conrad Jacobs Ltd
-          </h3>
-          <p>
-            Active contracts: 
-            <span
-              style="font-weight: 800;"
-            />
+            >
+              1
+            </span>
           </p>
         </div>
         <div
