@@ -9,10 +9,12 @@ import { CLOSED_STATUS_DESCRIPTIONS_FOR_OPERATIVES } from '@/utils/statusCodes'
 import FurtherWorkRequiredFlag from '../Flags/FurtherWorkRequiredFlag'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 interface Props {
   propertyReference: string
   workOrder: WorkOrder
+  appointmentDetails: WorkOrderAppointmentDetails
   address: object
   subTypeDescription: string
   tenure: Tenure
@@ -25,6 +27,7 @@ const WorkOrderHeader = (props: Props) => {
   const {
     propertyReference,
     workOrder,
+    appointmentDetails,
     address,
     subTypeDescription,
     tenure,
@@ -59,7 +62,10 @@ const WorkOrderHeader = (props: Props) => {
         <WorkOrderInfo workOrder={workOrder} />
       </div>
       <div className="govuk-grid-column-one-third">
-        <AppointmentDetails workOrder={workOrder} />
+        <AppointmentDetails
+          workOrder={workOrder}
+          appointmentDetails={appointmentDetails}
+        />
         <div className="lbh-body-xs govuk-!-margin-top-1">
           <span>Assigned to: {workOrder.owner}</span>
         </div>
@@ -77,9 +83,12 @@ const WorkOrderHeader = (props: Props) => {
         {'followOnRequest' in workOrder &&
           workOrder.followOnRequest !== null && <FurtherWorkRequiredFlag />}
 
-        {workOrder.operatives.length > 0 &&
-          ((workOrder.appointment && workOrder.appointmentISODatePassed()) ||
-            readOnly) && <Operatives operatives={workOrder.operatives} />}
+        {appointmentDetails.operatives.length > 0 &&
+          ((appointmentDetails.appointment &&
+            appointmentDetails.appointmentISODatePassed()) ||
+            readOnly) && (
+            <Operatives operatives={appointmentDetails.operatives} />
+          )}
       </div>
     </div>
   )

@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types'
 import { useState, useEffect, useContext } from 'react'
 import ErrorMessage from '../Errors/ErrorMessage'
 import {
@@ -25,21 +24,41 @@ import { emitTagManagerEvent } from '@/utils/tagManager'
 import { APIResponseError } from '../../types/requests/types'
 import { buildVariationFormData } from '../../utils/hact/jobStatusUpdate/variation'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
-import { getWorkOrderWithAppointments } from '../../utils/requests/workOrders'
+import {
+  getAppointmentDetails,
+  getWorkOrderDetails,
+} from '../../utils/requests/workOrders'
+import { CurrentUser } from '../../types/variations/types'
+import { Property } from '../../models/property'
+import { Tenure } from '../../models/tenure'
+import { SimpleFeatureToggleResponse } from '../../pages/api/simple-feature-toggle'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
-const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
+interface Props {
+  workOrderReference: string
+}
+
+const MobileWorkingWorkOrderView = ({ workOrderReference }: Props) => {
   const { setModalFlashMessage } = useContext(FlashMessageContext)
 
-  const [property, setProperty] = useState({})
-  const [currentUser, setCurrentUser] = useState({})
-  const [workOrder, setWorkOrder] = useState({})
+  const [property, setProperty] = useState<Property>()
+  const [currentUser, setCurrentUser] = useState<CurrentUser>()
+  const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [
+    appointmentDetails,
+    setAppointmentDetails,
+  ] = useState<WorkOrderAppointmentDetails>()
   const [tasksAndSors, setTasksAndSors] = useState([])
-  const [tenure, setTenure] = useState({})
+  const [tenure, setTenure] = useState<Tenure>()
   const [photos, setPhotos] = useState([])
-  const [featureToggles, setFeatureToggles] = useState({})
 
-  const [loadingStatus, setLoadingStatus] = useState(null)
-  const [error, setError] = useState()
+  const [
+    featureToggles,
+    setFeatureToggles,
+  ] = useState<SimpleFeatureToggleResponse>()
+
+  const [loadingStatus, setLoadingStatus] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>()
 
   const [paymentType, setPaymentType] = useState(BONUS_PAYMENT_TYPE)
   const [workOrderProgressedToClose, setWorkOrderProgressedToClose] = useState(
@@ -51,15 +70,18 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrderWithAppointments(
-        workOrderReference
-      )
-
-      if (!workOrderResponse.success) {
-        throw workOrderResponse.error
-      }
+      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+      if (!workOrderResponse.success) throw workOrderResponse.error
 
       const workOrder = workOrderResponse.response
+
+      const appointmentDetailsResponse = await getAppointmentDetails(
+        workOrderReference
+      )
+      if (!appointmentDetailsResponse.success)
+        throw appointmentDetailsResponse.error
+
+      const appointmentDetails = appointmentDetailsResponse.response
 
       const featureToggleData = await fetchSimpleFeatureToggles()
 
@@ -92,10 +114,12 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       )
 
       setWorkOrder(new WorkOrder(workOrder))
+      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
       setProperty(propertyObject.property)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
+      setAppointmentDetails(null)
       setProperty(null)
       setPhotos(null)
       console.error('An error has occured:', e.response)
@@ -190,7 +214,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     }
 
     const closeWorkOrderFormData = buildCloseWorkOrderData(
-      new Date().toISOString(),
+      new Date(),
       notes,
       workOrderReference,
       data.reason,
@@ -199,7 +223,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
     )
 
     try {
-      var filesToUpload = workOrderFiles.concat(followOnFiles)
+      const filesToUpload = workOrderFiles.concat(followOnFiles)
 
       if (filesToUpload.length > 0) {
         const fileUploadCompleteCallback = fileUploadStatusLogger(
@@ -307,6 +331,7 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
               property={property}
               tenure={tenure}
               workOrder={workOrder}
+              appointmentDetails={appointmentDetails}
               tasksAndSors={tasksAndSors}
               error={error}
               onFormSubmit={onWorkOrderProgressToCloseSubmit}
@@ -329,10 +354,6 @@ const MobileWorkingWorkOrderView = ({ workOrderReference }) => {
       {error && <ErrorMessage label={error} />}
     </>
   )
-}
-
-MobileWorkingWorkOrderView.propTypes = {
-  workOrderReference: PropTypes.string.isRequired,
 }
 
 export default MobileWorkingWorkOrderView

@@ -9,10 +9,14 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
-import { getWorkOrderWithAppointments } from '../../utils/requests/workOrders'
+import {
+  getAppointmentDetails,
+  getWorkOrderDetails,
+} from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { Property } from '../../models/property'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
+import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 const { NEXT_PUBLIC_STATIC_IMAGES_BUCKET_URL } = process.env
 
@@ -22,7 +26,13 @@ interface Props {
 
 const WorkOrderView = ({ workOrderReference }: Props) => {
   const [property, setProperty] = useState<Property>()
+
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
+  const [
+    appointmentDetails,
+    setAppointmentDetails,
+  ] = useState<WorkOrderAppointmentDetails>()
+
   const [tasksAndSors, setTasksAndSors] = useState([])
   const [locationAlerts, setLocationAlerts] = useState<CautionaryAlert[]>([])
   const [personAlerts, setPersonAlerts] = useState<CautionaryAlert[]>([])
@@ -52,7 +62,10 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     setIsLoading(true)
 
     try {
-      const workOrderPromise = getWorkOrderWithAppointments(workOrderReference)
+      const workOrderPromise = getWorkOrderDetails(workOrderReference)
+      const appointmentDetailsPromise = getAppointmentDetails(
+        workOrderReference
+      )
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',
@@ -66,6 +79,14 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       }
 
       const workOrder = workOrderResponse.response
+
+      const appointmetDetailsResponse = await appointmentDetailsPromise
+
+      if (!appointmetDetailsResponse.success) {
+        throw appointmetDetailsResponse.error
+      }
+
+      const appointmentDetails = appointmetDetailsResponse.response
 
       const propertyPromise = frontEndApiRequest({
         method: 'get',
@@ -82,10 +103,12 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       )
 
       setWorkOrder(new WorkOrder(workOrder))
+      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
       setProperty(propertyObject.property)
       if (propertyObject.tenure) setTenure(propertyObject.tenure)
     } catch (e) {
       setWorkOrder(null)
+      setAppointmentDetails(null)
       setProperty(null)
       console.error('An error has occured:', e.response)
 
@@ -122,6 +145,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       <WorkOrderDetails
         property={property}
         workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
         tenure={tenure}
         printClickHandler={printClickHandler}
         setLocationAlerts={setLocationAlerts}
@@ -139,6 +163,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
       {/* Only displayed for print media */}
       <PrintJobTicketDetails
         workOrder={workOrder}
+        appointmentDetails={appointmentDetails}
         property={property}
         tasksAndSors={tasksAndSors}
         locationAlerts={locationAlerts}

@@ -5,36 +5,22 @@ import { NoteDataType } from '../../types/requests/types'
 import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 import { formatRequestErrorMessage } from '../errorHandling/formatErrorMessage'
 
-export const getWorkOrderWithAppointments = async (
+export const getAppointmentDetails = async (
   workOrderReference: string
-): Promise<ApiResponseType<WorkOrder | null>> => {
+): Promise<ApiResponseType<WorkOrderAppointmentDetails | null>> => {
   try {
-    const workOrderResponse = await getWorkOrderDetails(workOrderReference)
+    const appointmentDetailsData = await frontEndApiRequest({
+      method: 'get',
+      path: `/api/workOrders/appointments/${workOrderReference}`,
+    })
 
-    if (!workOrderResponse.success) {
-      // Return error returned from getWorkOrder endpoint
-      return workOrderResponse
-    }
-
-    const workOrder = workOrderResponse.response
-
-    const appointmentOperativeData: WorkOrderAppointmentDetails = await frontEndApiRequest(
-      {
-        method: 'get',
-        path: `/api/workOrders/appointments/${workOrderReference}`,
-      }
+    const appointmentDetails = new WorkOrderAppointmentDetails(
+      appointmentDetailsData
     )
-
-    // map appointment/operative data from new endpoint
-    workOrder.appointment = appointmentOperativeData.appointment
-    workOrder.operatives = appointmentOperativeData.operatives
-    workOrder.externalAppointmentManagementUrl =
-      appointmentOperativeData.externalAppointmentManagementUrl
-    workOrder.plannerComments = appointmentOperativeData.plannerComments
 
     return {
       success: true,
-      response: workOrder,
+      response: appointmentDetails,
       error: null,
     }
   } catch (e) {
