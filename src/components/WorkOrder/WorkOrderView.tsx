@@ -9,7 +9,7 @@ import PrintJobTicketDetails from './PrintJobTicketDetails'
 import WorkOrderViewTabs from '../Tabs/Views/WorkOrderViewTabs'
 import { CautionaryAlert } from '../../models/cautionaryAlerts'
 import { Tenure } from '../../models/tenure'
-import { getWorkOrder } from '../../utils/requests/workOrders'
+import { getWorkOrderWithAppointments } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { Property } from '../../models/property'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
@@ -52,7 +52,7 @@ const WorkOrderView = ({ workOrderReference }: Props) => {
     setIsLoading(true)
 
     try {
-      const workOrderPromise = getWorkOrder(workOrderReference, true)
+      const workOrderPromise = getWorkOrderWithAppointments(workOrderReference)
 
       const tasksAndSorsPromise = frontEndApiRequest({
         method: 'get',

@@ -13,7 +13,7 @@ import Panel from '../../Template/Panel'
 import NoAvailableAppointments from './NoAvailableAppointments'
 import { toISODate } from '../../../utils/date'
 import { createWOLinks } from '@/utils/successPageLinks'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderWithAppointments } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
@@ -37,7 +37,9 @@ const AppointmentView = ({ workOrderReference, successText }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference, true)
+      const workOrderResponse = await getWorkOrderWithAppointments(
+        workOrderReference
+      )
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

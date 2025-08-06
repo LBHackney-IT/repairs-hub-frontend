@@ -19,7 +19,7 @@ import uploadFiles from '../WorkOrder/Photos/hooks/uploadFiles'
 import { buildWorkOrderCompleteNotes } from '../../utils/hact/workOrderComplete/closeWorkOrder'
 import SpinnerWithLabel from '../SpinnerWithLabel'
 import fileUploadStatusLogger from '../WorkOrder/Photos/hooks/uploadFiles/fileUploadStatusLogger'
-import { getWorkOrder } from '../../utils/requests/workOrders'
+import { getWorkOrderDetails } from '../../utils/requests/workOrders'
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 
@@ -131,7 +131,7 @@ const CloseWorkOrderByProxy = ({ reference }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(reference)
+      const workOrderResponse = await getWorkOrderDetails(reference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error

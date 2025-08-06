@@ -11,7 +11,7 @@ export interface SimpleFeatureToggleResponse {
 export default authoriseServiceAPIRequest(async (req, res) => {
   const data: SimpleFeatureToggleResponse = {
     googleTagManagerEnabled: !!process.env.TAG_MANAGER_ID,
-    
+
     enableFollowOnIsEmergencyField:
       process.env.FOLLOW_ON_IS_EMERGENCY_FIELD_ENABLED === 'true',
 

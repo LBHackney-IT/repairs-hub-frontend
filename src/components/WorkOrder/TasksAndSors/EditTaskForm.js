@@ -9,7 +9,7 @@ import { buildVariationFormData } from '@/utils/hact/jobStatusUpdate/variation'
 import { useRouter } from 'next/router'
 import ErrorMessage from '../../Errors/ErrorMessage'
 import AppointmentHeader from '../AppointmentHeader'
-import { getWorkOrder } from '@/root/src/utils/requests/workOrders'
+import { getWorkOrderDetails } from '@/root/src/utils/requests/workOrders'
 import { APIResponseError } from '@/root/src/types/requests/types'
 import { formatRequestErrorMessage } from '@/root/src/utils/errorHandling/formatErrorMessage'
 
@@ -62,7 +62,7 @@ const EditTaskForm = ({ workOrderReference, taskId }) => {
     setError(null)
 
     try {
-      const workOrderResponse = await getWorkOrder(workOrderReference, false)
+      const workOrderResponse = await getWorkOrderDetails(workOrderReference)
 
       if (!workOrderResponse.success) {
         throw workOrderResponse.error
