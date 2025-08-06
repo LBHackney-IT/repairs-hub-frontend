@@ -13,7 +13,9 @@ interface FetchContractorsArguments {
   contractsExpiryFilterDate: Date
 }
 
-export const backOfficeFetchContractors = async ({contractsExpiryFilterDate}: FetchContractorsArguments): Promise<Contractor[] | null> => {
+export const backOfficeFetchContractors = async ({
+  contractsExpiryFilterDate,
+}: FetchContractorsArguments): Promise<Contractor[] | null> => {
   const params = {}
   if (contractsExpiryFilterDate !== null)
     params['contractsExpiryFilterDate'] = contractsExpiryFilterDate
@@ -21,7 +23,7 @@ export const backOfficeFetchContractors = async ({contractsExpiryFilterDate}: Fe
   const contractors = await frontEndApiRequest({
     method: 'get',
     path: '/api/backoffice/contractors?',
-    params: params
+    params: params,
   })
 
   return contractors
