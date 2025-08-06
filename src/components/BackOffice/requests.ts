@@ -1,11 +1,30 @@
 import { frontEndApiRequest } from '../../utils/frontEndApiClient/requests'
 import Contract from '@/models/contract'
+import Contractor from '@/models/contractor'
 
 export const fetchContractors = async () => {
   return await frontEndApiRequest({
     method: 'get',
     path: '/api/contractors?getAllContractors=true',
   })
+}
+
+interface FetchContractorsArguments {
+  contractsExpiryFilterDate: Date
+}
+
+export const backOfficeFetchContractors = async ({contractsExpiryFilterDate}: FetchContractorsArguments): Promise<Contractor[] | null> => {
+  const params = {}
+  if (contractsExpiryFilterDate !== null)
+    params['contractsExpiryFilterDate'] = contractsExpiryFilterDate
+
+  const contractors = await frontEndApiRequest({
+    method: 'get',
+    path: '/api/backoffice/contractors?',
+    params: params
+  })
+
+  return contractors
 }
 
 interface FetchContractsArguments {
