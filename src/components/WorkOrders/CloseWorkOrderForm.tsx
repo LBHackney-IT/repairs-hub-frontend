@@ -29,9 +29,9 @@ interface Props {
   onSubmit: (formData: any, files: any) => void
   notes: string
   completionTime: string
-  completionDate: Date
+  completionDate: string
   startTime?: string
-  startDate: Date
+  startDate: string
   reason?: string
   dateRaised: string
   totalSMV: number
@@ -240,7 +240,9 @@ const CloseWorkOrderForm = (props: Props) => {
               })}
               error={errors && errors.startDate}
               defaultValue={
-                startDate ? startDate.toISOString().split('T')[0] : null
+                startDate
+                  ? new Date(startDate).toISOString().split('T')[0]
+                  : null
               }
             />
 
@@ -278,7 +280,9 @@ const CloseWorkOrderForm = (props: Props) => {
           })}
           error={errors && errors.completionDate}
           defaultValue={
-            completionDate ? completionDate.toISOString().split('T')[0] : null
+            completionDate
+              ? new Date(completionDate).toISOString().split('T')[0]
+              : null
           }
         />
 

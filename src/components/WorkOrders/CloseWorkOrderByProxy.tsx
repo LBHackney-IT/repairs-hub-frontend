@@ -25,7 +25,6 @@ import {
 import { APIResponseError } from '../../types/requests/types'
 import { formatRequestErrorMessage } from '../../utils/errorHandling/formatErrorMessage'
 import { Operative } from '../../models/operativeModel'
-import { WorkOrderAppointmentDetails } from '../../models/workOrderAppointmentDetails'
 
 // Named this way because this component exists to allow supervisors
 // to close work orders on behalf of (i.e. a proxy for) an operative.
@@ -57,10 +56,6 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
   )
   const [selectedOperatives, setSelectedOperatives] = useState<Operative[]>([])
   const [workOrder, setWorkOrder] = useState<WorkOrder>()
-  const [
-    appointmentDetails,
-    setAppointmentDetails,
-  ] = useState<WorkOrderAppointmentDetails>()
   const [operativesWithPercentages, setOperativesWithPercentages] = useState([])
   const [
     selectedPercentagesToShowOnEdit,
@@ -154,7 +149,7 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
       if (!appointmentDetailsResponse.success)
         throw appointmentDetailsResponse.error
       const appointmentDetails = appointmentDetailsResponse.response
-      setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
+      // setAppointmentDetails(new WorkOrderAppointmentDetails(appointmentDetails))
 
       if (workOrder.canAssignOperative) {
         workOrder.paymentType && setPaymentType(workOrder.paymentType)
@@ -169,7 +164,7 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
       }
     } catch (e) {
       setWorkOrder(null)
-      setAppointmentDetails(null)
+      // setAppointmentDetails(null)
       setAvailableOperatives([])
 
       console.error('An error has occured:', e.response)
@@ -349,9 +344,9 @@ const CloseWorkOrderByProxy = ({ reference }: Props) => {
               onSubmit={onGetToSummary}
               notes={notes}
               completionTime={completionTime}
-              completionDate={new Date(completionDate)}
+              completionDate={completionDate}
               startTime={startTime}
-              startDate={new Date(startDate)}
+              startDate={startDate}
               reason={reason}
               followOnStatus={followOnStatus}
               operativeAssignmentMandatory={workOrder.canAssignOperative}
